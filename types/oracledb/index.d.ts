@@ -6,7 +6,7 @@ declare namespace OracleDB {
     /** Deprecated */
     // const ARRAY: number;
     // const OBJECT: number;
-    
+
     type CSFRM_IMPLICIT = 1;
     type CSFRM_NCHAR = 2;
     /** Constant for the query result outFormat option. */
@@ -25,7 +25,7 @@ declare namespace OracleDB {
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
     const DATE: typeof DB_TYPE_TIMESTAMP;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const DEFAULT: number
+    const DEFAULT: number;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
     const NUMBER: typeof DB_TYPE_NUMBER;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
@@ -41,70 +41,234 @@ declare namespace OracleDB {
         _oraTypeNum: number;
         csfrm: number;
 
-        constructor(num: number, name: string, columnTypeName: string, options?: { bufferSizeFactor?: number, oraTypeNum?: number, csfrm?: number });
+        constructor(
+            num: number,
+            name: string,
+            columnTypeName: string,
+            options?: { bufferSizeFactor?: number; oraTypeNum?: number; csfrm?: number },
+        );
         toString: () => string;
     }
 
-
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BFILE: DbType & { num: 2020, name: "DB_TYPE_BFILE", columnTypeName: "BFILE", oraTypeNum: 114, bufferSizeFactor: 112 };
+    const DB_TYPE_BFILE: DbType & {
+        num: 2020;
+        name: "DB_TYPE_BFILE";
+        columnTypeName: "BFILE";
+        oraTypeNum: 114;
+        bufferSizeFactor: 112;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_DOUBLE: DbType & { num: 2008, name: "DB_TYPE_BINARY_DOUBLE", columnTypeName: "BINARY_DOUBLE", oraTypeNum: 101, bufferSizeFactor: 8 };
+    const DB_TYPE_BINARY_DOUBLE: DbType & {
+        num: 2008;
+        name: "DB_TYPE_BINARY_DOUBLE";
+        columnTypeName: "BINARY_DOUBLE";
+        oraTypeNum: 101;
+        bufferSizeFactor: 8;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_FLOAT: DbType & { num: 2007, name: "DB_TYPE_BINARY_FLOAT", columnTypeName: "BINARY_FLOAT", oraTypeNum: 100, bufferSizeFactor: 4 };
+    const DB_TYPE_BINARY_FLOAT: DbType & {
+        num: 2007;
+        name: "DB_TYPE_BINARY_FLOAT";
+        columnTypeName: "BINARY_FLOAT";
+        oraTypeNum: 100;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_INTEGER: DbType & { num: 2009, name: "DB_TYPE_BINARY_INTEGER", columnTypeName: "BINARY_INTEGER", oraTypeNum: 3, bufferSizeFactor: 22 };
+    const DB_TYPE_BINARY_INTEGER: DbType & {
+        num: 2009;
+        name: "DB_TYPE_BINARY_INTEGER";
+        columnTypeName: "BINARY_INTEGER";
+        oraTypeNum: 3;
+        bufferSizeFactor: 22;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BLOB: DbType & { num: 2019, name: "DB_TYPE_BLOB", columnTypeName: "BLOB", oraTypeNum: 113, bufferSizeFactor: 112 };
+    const DB_TYPE_BLOB: DbType & {
+        num: 2019;
+        name: "DB_TYPE_BLOB";
+        columnTypeName: "BLOB";
+        oraTypeNum: 113;
+        bufferSizeFactor: 112;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BOOLEAN: DbType & { num: 2022, name: "DB_TYPE_BOOLEAN", columnTypeName: "BOOLEAN", oraTypeNum: 252, bufferSizeFactor: 4 };
+    const DB_TYPE_BOOLEAN: DbType & {
+        num: 2022;
+        name: "DB_TYPE_BOOLEAN";
+        columnTypeName: "BOOLEAN";
+        oraTypeNum: 252;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CHAR: DbType & { num: 2003, name: "DB_TYPE_CHAR", columnTypeName: "CHAR", oraTypeNum: 96, bufferSizeFactor: 4, csfrm: CSFRM_IMPLICIT };
+    const DB_TYPE_CHAR: DbType & {
+        num: 2003;
+        name: "DB_TYPE_CHAR";
+        columnTypeName: "CHAR";
+        oraTypeNum: 96;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CLOB: DbType & { num: 2017, name: "DB_TYPE_CLOB", columnTypeName: "CLOB", oraTypeNum: 112, bufferSizeFactor: 112, csfrm: CSFRM_IMPLICIT };
+    const DB_TYPE_CLOB: DbType & {
+        num: 2017;
+        name: "DB_TYPE_CLOB";
+        columnTypeName: "CLOB";
+        oraTypeNum: 112;
+        bufferSizeFactor: 112;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CURSOR: DbType & { num: 2021, name: "DB_TYPE_CURSOR", columnTypeName: "CURSOR", oraTypeNum: 102, bufferSizeFactor: 4 };
+    const DB_TYPE_CURSOR: DbType & {
+        num: 2021;
+        name: "DB_TYPE_CURSOR";
+        columnTypeName: "CURSOR";
+        oraTypeNum: 102;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_DATE: DbType & { num: 2011, name: "DB_TYPE_DATE", columnTypeName: "DATE", oraTypeNum: 12, bufferSizeFactor: 7 };
+    const DB_TYPE_DATE: DbType & {
+        num: 2011;
+        name: "DB_TYPE_DATE";
+        columnTypeName: "DATE";
+        oraTypeNum: 12;
+        bufferSizeFactor: 7;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_INTERVAL_DS: DbType & { num: 2015, name: "DB_TYPE_INTERVAL_DS", columnTypeName: "INTERVAL DAY TO SECOND", oraTypeNum: 183, bufferSizeFactor: 11 };
+    const DB_TYPE_INTERVAL_DS: DbType & {
+        num: 2015;
+        name: "DB_TYPE_INTERVAL_DS";
+        columnTypeName: "INTERVAL DAY TO SECOND";
+        oraTypeNum: 183;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_INTERVAL_YM: DbType & { num: 2016, name: "DB_TYPE_INTERVAL_YM", columnTypeName: "INTERVAL YEAR TO MONTH", oraTypeNum: 182 };
+    const DB_TYPE_INTERVAL_YM: DbType & {
+        num: 2016;
+        name: "DB_TYPE_INTERVAL_YM";
+        columnTypeName: "INTERVAL YEAR TO MONTH";
+        oraTypeNum: 182;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_JSON: DbType & { num: 2027, name: "DB_TYPE_JSON", columnTypeName: "JSON", oraTypeNum: 119 };
+    const DB_TYPE_JSON: DbType & { num: 2027; name: "DB_TYPE_JSON"; columnTypeName: "JSON"; oraTypeNum: 119 };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_LONG: DbType & { num: 2024, name: "DB_TYPE_LONG", columnTypeName: "LONG", oraTypeNum: 8, csfrm: CSFRM_IMPLICIT };
+    const DB_TYPE_LONG: DbType & {
+        num: 2024;
+        name: "DB_TYPE_LONG";
+        columnTypeName: "LONG";
+        oraTypeNum: 8;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_LONG_NVARCHAR: DbType & { num: 2031, name: "DB_TYPE_LONG_NVARCHAR", columnTypeName: "LONG", oraTypeNum: 8, csfrm: CSFRM_NCHAR };
+    const DB_TYPE_LONG_NVARCHAR: DbType & {
+        num: 2031;
+        name: "DB_TYPE_LONG_NVARCHAR";
+        columnTypeName: "LONG";
+        oraTypeNum: 8;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_LONG_RAW: DbType & { num: 2025, name: "DB_TYPE_LONG_RAW", columnTypeName: "LONG RAW", oraTypeNum: 24 };
+    const DB_TYPE_LONG_RAW: DbType & {
+        num: 2025;
+        name: "DB_TYPE_LONG_RAW";
+        columnTypeName: "LONG RAW";
+        oraTypeNum: 24;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NCHAR: DbType & { num: 2004, name: "DB_TYPE_NCHAR", columnTypeName: "NCHAR", oraTypeNum: 96, bufferSizeFactor: 4, csfrm: CSFRM_NCHAR };
+    const DB_TYPE_NCHAR: DbType & {
+        num: 2004;
+        name: "DB_TYPE_NCHAR";
+        columnTypeName: "NCHAR";
+        oraTypeNum: 96;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NCLOB: DbType & { num: 2018, name: "DB_TYPE_NCLOB", columnTypeName: "NCLOB", oraTypeNum: 112, bufferSizeFactor: 112, csfrm: CSFRM_NCHAR };
+    const DB_TYPE_NCLOB: DbType & {
+        num: 2018;
+        name: "DB_TYPE_NCLOB";
+        columnTypeName: "NCLOB";
+        oraTypeNum: 112;
+        bufferSizeFactor: 112;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NUMBER: DbType & { num: 2010, name: "DB_TYPE_NUMBER", columnTypeName: "NUMBER", oraTypeNum: 2, bufferSizeFactor: 22 }
+    const DB_TYPE_NUMBER: DbType & {
+        num: 2010;
+        name: "DB_TYPE_NUMBER";
+        columnTypeName: "NUMBER";
+        oraTypeNum: 2;
+        bufferSizeFactor: 22;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NVARCHAR: DbType & { num: 2002, name: "DB_TYPE_NVARCHAR", columnTypeName: "NVARCHAR2", oraTypeNum: 1, bufferSizeFactor: 4, csfrm: CSFRM_NCHAR };
+    const DB_TYPE_NVARCHAR: DbType & {
+        num: 2002;
+        name: "DB_TYPE_NVARCHAR";
+        columnTypeName: "NVARCHAR2";
+        oraTypeNum: 1;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_OBJECT: DbType & { num: 2023, name: "DB_TYPE_OBJECT", columnTypeName: "OBJECT", oraTypeNum: 109 };
+    const DB_TYPE_OBJECT: DbType & { num: 2023; name: "DB_TYPE_OBJECT"; columnTypeName: "OBJECT"; oraTypeNum: 109 };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_RAW: DbType & { num: 2006, name: "DB_TYPE_RAW", columnTypeName: "RAW", oraTypeNum: 23, bufferSizeFactor: 1 };
+    const DB_TYPE_RAW: DbType & {
+        num: 2006;
+        name: "DB_TYPE_RAW";
+        columnTypeName: "RAW";
+        oraTypeNum: 23;
+        bufferSizeFactor: 1;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_ROWID: DbType & { num: 2005, name: "DB_TYPE_ROWID", columnTypeName: "ROWID", oraTypeNum: 11, bufferSizeFactor: 18 };
+    const DB_TYPE_ROWID: DbType & {
+        num: 2005;
+        name: "DB_TYPE_ROWID";
+        columnTypeName: "ROWID";
+        oraTypeNum: 11;
+        bufferSizeFactor: 18;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP: DbType & { num: 2012, name: "DB_TYPE_TIMESTAMP", columnTypeName: "TIMESTAMP", oraTypeNum: 180, bufferSizeFactor: 11 };
+    const DB_TYPE_TIMESTAMP: DbType & {
+        num: 2012;
+        name: "DB_TYPE_TIMESTAMP";
+        columnTypeName: "TIMESTAMP";
+        oraTypeNum: 180;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP_LTZ: DbType & { num: 2014, name: "DB_TYPE_TIMESTAMP_LTZ", columnTypeName: "TIMESTAMP WITH LOCAL TIME ZONE", oraTypeNum: 231, bufferSizeFactor: 11 };
+    const DB_TYPE_TIMESTAMP_LTZ: DbType & {
+        num: 2014;
+        name: "DB_TYPE_TIMESTAMP_LTZ";
+        columnTypeName: "TIMESTAMP WITH LOCAL TIME ZONE";
+        oraTypeNum: 231;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP_TZ: DbType & { num: 2013, name: "DB_TYPE_TIMESTAMP_TZ", columnTypeName: "TIMESTAMP WITH TIME ZONE", oraTypeNum: 181, bufferSizeFactor: 13 };
+    const DB_TYPE_TIMESTAMP_TZ: DbType & {
+        num: 2013;
+        name: "DB_TYPE_TIMESTAMP_TZ";
+        columnTypeName: "TIMESTAMP WITH TIME ZONE";
+        oraTypeNum: 181;
+        bufferSizeFactor: 13;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_UROWID: DbType & { num: 2030, name: "DB_TYPE_UROWID", columnTypeName: "UROWID", oraTypeNum: 208 };
+    const DB_TYPE_UROWID: DbType & { num: 2030; name: "DB_TYPE_UROWID"; columnTypeName: "UROWID"; oraTypeNum: 208 };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_VARCHAR: DbType & { num: 2001, name: "DB_TYPE_VARCHAR", columnTypeName: "VARCHAR2", oraTypeNum: 1, bufferSizeFactor: 4, csfrm: CSFRM_IMPLICIT };
+    const DB_TYPE_VARCHAR: DbType & {
+        num: 2001;
+        name: "DB_TYPE_VARCHAR";
+        columnTypeName: "VARCHAR2";
+        oraTypeNum: 1;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_XMLTYPE: DbType & { num: 2032, name:"DB_TYPE_XMLTYPE", columnTypeName: "XMLTYPE", oraTypeNum: 109, bufferSizeFactor: 2147483647, csfrm:CSFRM_IMPLICIT };
-
+    const DB_TYPE_XMLTYPE: DbType & {
+        num: 2032;
+        name: "DB_TYPE_XMLTYPE";
+        columnTypeName: "XMLTYPE";
+        oraTypeNum: 109;
+        bufferSizeFactor: 2147483647;
+        csfrm: CSFRM_IMPLICIT;
+    };
 
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
     const BIND_IN: number;
