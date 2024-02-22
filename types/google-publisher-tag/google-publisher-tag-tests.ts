@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20240212
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/50cd99457219d62a34352b28f7d9100e20be3b94
+// Tests for Google Publisher Tag 1.20240219
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/42bfb2b9b8d977aeafe03d51562dca96323f5f38
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -716,6 +716,7 @@ function test_googletag_config_interstitialConfig_triggers() {
     interstitialSlot.setConfig({
         interstitial: {
             triggers: {
+                navBar: enableTriggers,
                 unhideWindow: enableTriggers,
             },
         },
