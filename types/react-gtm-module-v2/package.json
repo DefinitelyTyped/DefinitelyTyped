@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-gtm-module-v2",
+    "version": "1.0.1",
+    "projects": [
+        "https://github.com/youennpj/react-gtm"
+    ],
+    "devDependencies": {
+        "@types/react-gtm-module-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Youenn Pierre-Justin",
+            "githubUsername": "youennpj"
+        }
+    ]
+}
