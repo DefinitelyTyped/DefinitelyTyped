@@ -26,4 +26,4 @@ console.log(nearest);
 console.log(OpenLocationCode.CODE_PRECISION_NORMAL);
 console.log(OpenLocationCode.CODE_PRECISION_EXTRA);
 
-OpenLocationCode.getAlphabe();
+OpenLocationCode.getAlphabet();
