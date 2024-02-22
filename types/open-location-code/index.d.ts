@@ -58,7 +58,7 @@ declare class OpenLocationCode {
     static readonly CODE_PRECISION_EXTRA: number;
 
     /**
-     *@returns Returns the OLC alphabet.
+     * @returns Returns the OLC alphabet.
      */
     static getAlphabet(): string;
 
