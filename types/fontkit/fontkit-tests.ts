@@ -1,5 +1,9 @@
 import * as fontkit from "fontkit";
 
+function isCollection(font: fontkit.Font | fontkit.FontCollection): font is fontkit.FontCollection {
+    return font.type === "TTC" || font.type === "DFont";
+}
+
 // -----------------
 // API: fontkit.open
 // -----------------
@@ -12,8 +16,10 @@ const openV2withPostscriptName = fontkit.open("fonts/a-font.ttf", "postscriptNam
 // API: Font['OS/2']
 // -----------------
 openV2.then(font => {
-    const { xAvgCharWidth, fsSelection } = font["OS/2"];
-    const isNegative = fsSelection.negative;
+    if (!isCollection(font)) {
+        const { xAvgCharWidth, fsSelection } = font["OS/2"];
+        const isNegative = fsSelection.negative;
+    }
 });
 
 // ---------------------
@@ -24,37 +30,50 @@ const f = fontkit.openSync("fonts/a-font.ttf");
 // ----------------
 // API: Font.layout
 // ----------------
-const { glyphs, positions } = f.layout("Hello World!");
+if (!isCollection(f)) {
+    const { glyphs, positions } = f.layout("Hello World!");
+    const res = [];
+    for (let i = 0; i < glyphs.length; i++) {
+        const glyph = glyphs[i];
+        const pos = positions[i];
+        let x = `${glyph.id}`;
+        if (pos.xOffset || pos.yOffset) {
+            x += `@${pos.xOffset},${pos.yOffset}`;
+        }
 
-const res = [];
-for (let i = 0; i < glyphs.length; i++) {
-    const glyph = glyphs[i];
-    const pos = positions[i];
-    let x = `${glyph.id}`;
-    if (pos.xOffset || pos.yOffset) {
-        x += `@${pos.xOffset},${pos.yOffset}`;
+        x += `+${pos.xAdvance}`;
+        res.push(x);
     }
 
-    x += `+${pos.xAdvance}`;
-    res.push(x);
-}
+    res.join("|");
 
-res.join("|");
-
-const dims = [];
-for (const glyph of glyphs) {
-    const bbox = glyph.bbox;
-    let dim = `${glyph.id}`;
-    dim += ` w:${bbox.width} h:${bbox.height}`;
-    dims.push(dim);
+    const dims = [];
+    for (const glyph of glyphs) {
+        const bbox = glyph.bbox;
+        let dim = `${glyph.id}`;
+        dim += ` w:${bbox.width} h:${bbox.height}`;
+        dims.push(dim);
+    }
+    dims.join("|");
 }
-dims.join("|");
 
 // -----------------
 // API: Font['hhea']
 // -----------------
 openV2.then(font => {
-    font["hhea"].version; // $ExpectType number
-    font.getGlyph; // $ExpectType (glyphId: number, codePoints?: number[] | undefined) => Glyph
-    font.getGlyph(0); // $ExpectType Glyph
+    if (!isCollection(font)) {
+        font["hhea"].version; // $ExpectType number
+        font.getGlyph; // $ExpectType (glyphId: number, codePoints?: number[] | undefined) => Glyph
+        font.getGlyph(0); // $ExpectType Glyph
+    }
 });
+
+// ------------------
+// API: FontCollection
+// -----------------
+openV2.then(font => {
+    if (isCollection(font)) {
+        font.fonts; // $ExpectType Font[]
+        font.getFont("hhe") // $ExpectType Font | null
+    }
+})
