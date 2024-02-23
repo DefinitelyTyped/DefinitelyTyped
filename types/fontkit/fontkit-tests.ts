@@ -74,6 +74,6 @@ openV2.then(font => {
 openV2.then(font => {
     if (isCollection(font)) {
         font.fonts; // $ExpectType Font[]
-        font.getFont("hhe") // $ExpectType Font | null
+        font.getFont("hhe"); // $ExpectType Font | null
     }
-})
+});
