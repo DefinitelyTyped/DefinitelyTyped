@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/qz-tray",
-    "version": "1.0.0",
+    "version": "2.2.9999",
     "projects": [
         "https://qz.io/"
     ],
