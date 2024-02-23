@@ -177,8 +177,6 @@ export interface VideoProperties extends ViewProps {
     useTextureView?: boolean | undefined;
     hideShutterView?: boolean | undefined;
     shutterColor?: string;
-    frameQuality?: number;
-    onFrameChange?: (base64ImageString: string) => void;
     allowsExternalPlayback?: boolean | undefined;
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
@@ -187,7 +185,7 @@ export interface VideoProperties extends ViewProps {
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
-    onBuffer?(data: OnBufferData): void;
+    onBuffer?(data: OnBufferData): void; 
     onError?(error: LoadError): void;
     onProgress?(data: OnProgressData): void;
     onBandwidthUpdate?(data: OnBandwidthUpdateData): void;
