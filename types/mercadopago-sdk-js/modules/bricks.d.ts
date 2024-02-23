@@ -540,7 +540,7 @@ declare namespace bricks {
             containerId: string,
             settings?: BrickType extends "brand" ? BrandBrickSettings
                 : BrickType extends "wallet" ? WalletBrickSettings
-                : BrickSettings<BrickType>
+                : BrickSettings<BrickType>,
         ): Promise<
             BrickType extends "cardPayment" ? CardPaymentController
                 : BrickType extends "payment" ? PaymentController
