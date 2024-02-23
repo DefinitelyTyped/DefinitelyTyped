@@ -37,4 +37,10 @@ lolcatjs.fromFile("4"); // $ExpectType Promise<void>
 lolcatjs.fromString(4);
 lolcatjs.fromString("Hello, World!"); // $ExpectType void
 
+// $ExpectType null
+lolcatjs.init();
+
+
+
+
 
