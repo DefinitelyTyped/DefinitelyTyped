@@ -533,7 +533,8 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
     defaultIsOpen?: boolean;
     enterDelay?: number;
     followCursor?: boolean;
-    hideArrow?: boolean;
+    // hideArrow?: boolean; // deprecated
+    arrow?: boolean;
     id?: string;
     initialFocusRef?: RefObject<HTMLElement>;
     isOpen?: boolean;
