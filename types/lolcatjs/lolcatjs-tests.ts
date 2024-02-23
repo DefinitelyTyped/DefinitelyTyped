@@ -21,6 +21,13 @@ lolcatjs.printlnAnimated(lolcatjs.colorize, "Hello, World!");
 lolcatjs.printlnAnimated(lolcatjs.colorize, ["Hello, World!"]); // $ExpectType void
 
 
+// @ts-expect-error
+lolcatjs.printIn("Hello, World!");
+lolcatjs.printIn(["Hello, World!"]); // $ExpectType void
+
+
+lolcatjs.fromPipe(); // $ExpectType Promise<void>
+
 lolcatjs.fromString("Hello, World!"); // $ExpectType void
 
 
