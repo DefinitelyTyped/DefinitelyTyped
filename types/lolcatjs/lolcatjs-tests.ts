@@ -39,8 +39,3 @@ lolcatjs.fromString("Hello, World!"); // $ExpectType void
 
 // $ExpectType null
 lolcatjs.init();
-
-
-
-
-
