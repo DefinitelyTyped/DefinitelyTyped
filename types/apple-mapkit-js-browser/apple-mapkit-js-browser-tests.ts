@@ -5,12 +5,11 @@ mapkit.init({
     },
 });
 
-
 const map: mapkit.Map = new mapkit.Map(document.querySelector<HTMLElement>(".test"), {
     isZoomEnabled: true,
     isRotationEnabled: false,
     tintColor: "green",
-    loadPriority: 'LandCover'
+    loadPriority: "LandCover",
 });
 
 const colors = mapkit.Map.ColorSchemes.Dark;
