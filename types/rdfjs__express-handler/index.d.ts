@@ -28,6 +28,7 @@ interface RdfHandlerOptions {
     formats?: Formats | undefined;
     defaultMediaType?: string | undefined;
     baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
+    sendTriples?: boolean | undefined;
 }
 
 interface RdfHandler {
