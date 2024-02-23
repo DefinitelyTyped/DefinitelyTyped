@@ -185,7 +185,7 @@ export interface VideoProperties extends ViewProps {
 
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
-    onBuffer?(data: OnBufferData): void; 
+    onBuffer?(data: OnBufferData): void;
     onError?(error: LoadError): void;
     onProgress?(data: OnProgressData): void;
     onBandwidthUpdate?(data: OnBandwidthUpdateData): void;
