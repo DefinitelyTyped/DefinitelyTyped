@@ -45,6 +45,7 @@ declare namespace bricks {
         neighborhood?: string;
         federalUnit?: string;
         city?: string;
+        additionalInformation?: string;
     }
 
     type EntityType = "individual" | "association";
@@ -233,6 +234,10 @@ declare namespace bricks {
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickType extends "brand" ? BrandBrickCustomization : BrickCustomization;
+    }
+
+    interface WalletBrickSettings extends BrickSettings<"wallet"> {
+        brand?: string;
     }
 
     interface BrandBrickSettings {
@@ -533,7 +538,9 @@ declare namespace bricks {
         create<BrickType extends BrickTypes>(
             brick: BrickType,
             containerId: string,
-            settings?: BrickType extends "brand" ? BrandBrickSettings : BrickSettings<BrickType>,
+            settings?: BrickType extends "brand" ? BrandBrickSettings
+                : BrickType extends "wallet" ? WalletBrickSettings
+                : BrickSettings<BrickType>,
         ): Promise<
             BrickType extends "cardPayment" ? CardPaymentController
                 : BrickType extends "payment" ? PaymentController

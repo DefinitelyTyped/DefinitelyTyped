@@ -17,6 +17,8 @@ const themeAuto: Turnstile.Theme = "auto";
 const themeLight: Turnstile.Theme = "light";
 const themeDark: Turnstile.Theme = "dark";
 
+// $ExpectType void
+turnstile.ready(() => {});
 // $ExpectType string | undefined
 turnstile.render("foo", renderParams);
 // $ExpectType string | undefined

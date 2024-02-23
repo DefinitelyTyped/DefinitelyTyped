@@ -24,7 +24,7 @@ declare module "node-dogstatsd" {
     export class StatsD implements StatsDClient {
         public socket: dgram.Socket;
 
-        constructor(host: string, port?: number, socket?: dgram.Socket, options?: StatsDOptions);
+        constructor(host?: string, port?: number, socket?: dgram.Socket, options?: StatsDOptions);
 
         timing(stat: string, time: number, sample_rate?: number, tags?: string[]): void;
 

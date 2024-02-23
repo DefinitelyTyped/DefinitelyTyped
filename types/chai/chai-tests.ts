@@ -2069,6 +2069,19 @@ suite("assert", () => {
         );
     });
 
+    test("changesBy", () => {
+        const obj = { value: 10 };
+        const fn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.changesBy(fn, obj, "value", 5);
+        assert.changesBy(fn, getterFn, 5);
+    });
+
     test("doesNotChange", () => {
         const obj = { z: 3 };
 
@@ -2105,6 +2118,19 @@ suite("assert", () => {
         );
     });
 
+    test("increasesBy", () => {
+        const obj = { value: 10 };
+        const incFn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.increasesBy(incFn, obj, "value", 5);
+        assert.increasesBy(incFn, getterFn, 5);
+    });
+
     test("doesNotIncrease", () => {
         const obj = { z: 3 };
 
@@ -2121,6 +2147,19 @@ suite("assert", () => {
             "z",
             "message",
         );
+    });
+
+    test("increasesButNotBy", () => {
+        const obj = { value: 10 };
+        const incFn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.increasesButNotBy(incFn, obj, "value", 1);
+        assert.increasesButNotBy(incFn, getterFn, 1);
     });
 
     test("decreases", () => {
@@ -2141,6 +2180,19 @@ suite("assert", () => {
         );
     });
 
+    test("decreasesBy", () => {
+        const obj = { value: 10 };
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.decreasesBy(decFn, obj, "value", 5);
+        assert.decreasesBy(decFn, getterFn, 5);
+    });
+
     test("doesNotDecrease", () => {
         const obj = { z: 3 };
 
@@ -2159,9 +2211,34 @@ suite("assert", () => {
         );
     });
 
+    test("doesNotDecreaseBy", () => {
+        const obj = { value: 10 };
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.doesNotDecreaseBy(decFn, obj, "val", 1);
+        assert.doesNotDecreaseBy(decFn, getterFn, 1);
+    });
+
+    test("decreasesButNotBy", () => {
+        const obj = { value: 10 };
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
+
+        assert.decreasesButNotBy(decFn, obj, "val", 1);
+        assert.decreasesButNotBy(decFn, getterFn, 1);
+    });
+
     test("ifError", () => {
         const obj = { z: 3 };
-
         assert.ifError(obj);
         assert.ifError(obj, "message");
     });

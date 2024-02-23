@@ -130,6 +130,7 @@ brickBuilder.isInitialized();
                 streetNumber: "222",
                 zipCode: "1122334455",
                 complement: "apartment 3",
+                additionalInformation: "el timbre no funciona",
             },
         },
     });
@@ -143,6 +144,7 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
 });
 
 brickBuilder.create("wallet", "containerWallet", {
+    brand: "mercado_pago",
     initialization: {
         paymentId: 123456789,
     },

@@ -119,6 +119,9 @@
     // $ExpectType Rectangle
     OO.ui.getViewportSpacing();
 
+    // $ExpectType HTMLElement
+    OO.ui.getTeleportTarget();
+
     // $ExpectType JQuery<HTMLDivElement>
     OO.ui.getDefaultOverlay();
 
@@ -580,7 +583,7 @@
     // $ExpectType LabelElement
     instance.setLabel("foo baz");
 
-    // $ExpectType void
+    // $ExpectType LabelElement
     instance.setLabelElement($("<span>"));
 
     // $ExpectType LabelElement
@@ -1000,6 +1003,7 @@
     const instance = new OO.ui.ButtonInputWidget({
         type: "submit",
         useInputTag: false,
+        formNoValidate: false,
     });
 
     instance.setLabel("123"); // $ExpectType ButtonInputWidget
@@ -3174,6 +3178,10 @@
     // $ExpectType InputWidget
     new OO.ui.SelectFileInputWidget.super();
 
+    const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+    });
+
     const instance = new OO.ui.SelectFileInputWidget({
         accept: ["text/html"],
         multiple: true,
@@ -3184,30 +3192,17 @@
         icon: "upload",
     });
 
-    instance.getFilename(); // $ExpectType string
-}
-// #endregion
-
-// #region OO.ui.SelectFileWidget
-{
-    // $ExpectType SelectFileInputWidget
-    new OO.ui.SelectFileWidget.super();
-
-    const file = new File(["foo"], "foo.txt", {
-        type: "text/plain",
-    });
-
-    const instance = new OO.ui.SelectFileWidget();
-
     instance.getValue(); // $ExpectType File | File[] | null
 
-    instance.setValue([file]); // $ExpectType void
+    instance.setValue([file]); // $ExpectType SelectFileInputWidget
 
-    instance.setValue(null); // $ExpectType void
+    instance.setValue(null); // $ExpectType SelectFileInputWidget
 
     instance.loadAndGetImageUrl(file).then(url => {
         url; // $ExpectType string
     });
+
+    instance.getFilename(); // $ExpectType string
 }
 // #endregion
 

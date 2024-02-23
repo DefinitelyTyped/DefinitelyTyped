@@ -72,7 +72,6 @@
 /// <reference path="SearchInputWidget.d.ts" />
 /// <reference path="SearchWidget.d.ts" />
 /// <reference path="SelectFileInputWidget.d.ts" />
-/// <reference path="SelectFileWidget.d.ts" />
 /// <reference path="SelectWidget.d.ts" />
 /// <reference path="StackLayout.d.ts" />
 /// <reference path="TabOptionWidget.d.ts" />

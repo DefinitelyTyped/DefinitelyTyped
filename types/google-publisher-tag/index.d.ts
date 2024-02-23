@@ -1775,6 +1775,11 @@ declare namespace googletag {
              * Settings to control ad expansion.
              */
             adExpansion?: AdExpansionConfig | null;
+
+            /**
+             * Settings to control publisher provided signals (PPS).
+             */
+            pps?: PublisherProvidedSignalsConfig | null;
         }
 
         /**
@@ -1797,6 +1802,56 @@ declare namespace googletag {
          * Supported publisher privacy treatments.
          */
         type PrivacyTreatment = "disablePersonalization";
+
+        /**
+         * Publisher provided signals (PPS) configuration object.
+         *
+         * @example
+         * googletag.setConfig({
+         *   pps: {
+         *     taxonomies: {
+         *       'IAB_AUDIENCE_1_1':
+         *           {values: ['6', '626']},
+         *           // '6' = 'Demographic | Age Range | 18-20'
+         *           // '626' = 'Interest | Sports | Darts'
+         *       'IAB_CONTENT_2_2':
+         *           {values: ['48', '127']},
+         *           // '48' = 'Books and Literature | Fiction'
+         *           // '127' = 'Careers | Job Search'
+         *     }
+         *   }
+         * });
+         *
+         * @see [About publisher provided signals (Beta)](https://support.google.com/admanager/answer/12451124)
+         * @see [IAB Audience Taxonomy 1.1](https://iabtechlab.com/standards/audience-taxonomy/)
+         * @see [IAB Content Taxonomy 2.2](https://iabtechlab.com/standards/content-taxonomy/)
+         */
+        interface PublisherProvidedSignalsConfig {
+            /**
+             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings.
+             */
+            taxonomies: Partial<Record<Taxonomy, TaxonomyData>>;
+        }
+
+        /**
+         * An object containing the values for a single
+         * {@link googletag.config.Taxonomy | Taxonomy}.
+         */
+        interface TaxonomyData {
+            /**
+             * A list of {@link googletag.config.Taxonomy | Taxonomy} values.
+             */
+            values: string[];
+        }
+
+        /**
+         * Supported taxonomies for
+         * {@link googletag.config.PublisherProvidedSignalsConfig | publisher provided signals (PPS)}.
+         *
+         * @see [IAB Audience Taxonomy 1.1](https://iabtechlab.com/standards/audience-taxonomy/)
+         * @see [IAB Content Taxonomy 2.2](https://iabtechlab.com/standards/content-taxonomy/)
+         */
+        type Taxonomy = "IAB_AUDIENCE_1_1" | "IAB_CONTENT_2_2";
 
         /**
          * Main configuration interface for slot-level settings.
@@ -1975,6 +2030,7 @@ declare namespace googletag {
              *  interstitialSlot.setConfig({
              *    interstitial: {
              *      triggers: {
+             *        navBar: enableTriggers,
              *        unhideWindow: enableTriggers
              *      }
              *    }
@@ -1988,7 +2044,7 @@ declare namespace googletag {
         /**
          * Supported interstitial ad triggers.
          */
-        type InterstitialTrigger = "unhideWindow";
+        type InterstitialTrigger = "unhideWindow" | "navBar";
     }
 
     /**

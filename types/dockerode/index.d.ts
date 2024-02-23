@@ -1118,6 +1118,7 @@ declare namespace Dockerode {
         Hostname?: string | undefined;
         Domainname?: string | undefined;
         User?: string | undefined;
+        ArgsEscaped?: boolean | undefined;
         AttachStdin?: boolean | undefined;
         AttachStdout?: boolean | undefined;
         AttachStderr?: boolean | undefined;
@@ -1138,6 +1139,8 @@ declare namespace Dockerode {
         StopTimeout?: number | undefined;
         Healthcheck?: HealthConfig | undefined;
         HostConfig?: HostConfig | undefined;
+        OnBuild?: string[] | undefined;
+        Shell?: string[] | undefined;
         NetworkingConfig?:
             | {
                 EndpointsConfig?: EndpointsConfig | undefined;

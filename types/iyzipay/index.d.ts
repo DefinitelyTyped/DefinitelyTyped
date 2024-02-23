@@ -1319,7 +1319,7 @@ interface Card {
 }
 
 interface CardList {
-    retreive(data: ListUserCardsRequestData, callback: (err: Error, result: ListUserCardsResult) => void): void;
+    retrieve(data: ListUserCardsRequestData, callback: (err: Error, result: ListUserCardsResult) => void): void;
 }
 
 interface CheckOutFormInitialize {

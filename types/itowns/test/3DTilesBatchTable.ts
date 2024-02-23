@@ -18,7 +18,7 @@ const view = new itowns.GlobeView(viewerDiv, placement);
 
 // Add Open Street Map orthographic layer
 itowns.Fetcher.json("./layers/JSONLayers/OPENSM.json")
-    .then(function _(json) {
+    .then(function _(json: any) {
         const config = {
             ...json as OpenSM,
             source: new itowns.TMSSource((json as OpenSM).source),

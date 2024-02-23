@@ -24,6 +24,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface StepEditor extends StepEditorProps {}
     class StepEditor extends Component {
         constructor(options: Partial<StepEditorProps>);

@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import Coordinates from "../Core/Geographic/Coordinates";
 
+// TODO: Document and type public API
+
 declare namespace _default {
     function getElevationValueAt(
         layer: /* TiledGeometryLayer */ any,

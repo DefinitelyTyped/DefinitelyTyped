@@ -38,6 +38,9 @@ const example2: WebAppManifest = {
     scope: "/racer/",
     start_url: "/racer/start.html",
     display: "fullscreen",
+    launch_handler: {
+        client_mode: "navigate-new",
+    },
     orientation: "landscape",
     theme_color: "aliceblue",
     background_color: "red",
@@ -60,6 +63,9 @@ const example8: WebAppManifest = {
     name: "Donate App",
     description: "This app helps you donate to worthy causes.",
     iarc_rating_id: "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+    launch_handler: {
+        client_mode: ["focus-existing", "auto"],
+    },
     icons: [
         {
             src: "images/icon.png",
