@@ -6,7 +6,8 @@
         "https://github.com/robertmarsal/lolcatjs#readme"
     ],
     "devDependencies": {
-        "@types/lolcatjs": "workspace:."
+        "@types/lolcatjs": "workspace:.",
+        "lolcatjs": "^2.4.3"
     },
     "owners": [
         {
