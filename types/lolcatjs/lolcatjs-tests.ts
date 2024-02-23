@@ -33,7 +33,8 @@ lolcatjs.fromFile(4);
 lolcatjs.fromFile("4"); // $ExpectType Promise<void>
 
 
-
+// @ts-expect-error
+lolcatjs.fromString(4);
 lolcatjs.fromString("Hello, World!"); // $ExpectType void
 
 
