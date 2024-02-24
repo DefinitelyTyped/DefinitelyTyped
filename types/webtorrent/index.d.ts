@@ -125,7 +125,10 @@ declare namespace WebTorrent {
 
         destroy(callback?: (err: Error | string) => void): void;
 
-        createServer(opts?: BrowserServerOptions | NodeServerOptions, force?: 'browser' | 'node'): NodeServer | BrowserServer;
+        createServer(
+            opts?: BrowserServerOptions | NodeServerOptions,
+            force?: "browser" | "node",
+        ): NodeServer | BrowserServer;
 
         readonly torrents: Torrent[];
 

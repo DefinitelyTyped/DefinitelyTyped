@@ -126,7 +126,7 @@ client.add(magnetURI, torrent => {
 const server = client.createServer();
 client.add(magnetURI, (torrent) => {
     const file = torrent.files[0];
-    console.log('Torrent file streamURL', file.streamURL);
+    console.log("Torrent file streamURL", file.streamURL);
 
     server.close();
     client.destroy();
