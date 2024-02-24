@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "module": "ES6",
-        "lib": ["ES6"],
+        "module": "CommonJS",
+        "lib": ["ES6", "DOM"],
         "target": "ES6",
         "types": [],
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "strictFunctionTypes": false,
+        "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "tabl-service-tests.ts"]

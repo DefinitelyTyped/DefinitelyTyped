@@ -3,6 +3,8 @@
     "name": "@types/tabl-service",
     "version": "1.0.9999",
     "type": "module",
+    "nonNpm": true,
+    "nonNpmDescription": "Types for TABL Portal and Order",
     "exports": {
         ".": {
             "import": "./index.d.ts"
