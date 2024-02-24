@@ -135,8 +135,8 @@ serverOnAddress.on("request", (request, response, rinfo) => {
 serverOnAddress.listen({
     udp: {
         port: 5355,
-        address: '0.0.0.0'
-    }
+        address: "0.0.0.0",
+    },
 });
 
 const udpServer = new DNS.UDPServer((request, send, rinfo) => {
