@@ -1,10 +1,8 @@
 {
     "private": true,
     "name": "@types/tabl-service",
-    "description": "Types for TABL projects (Portal and Order)",
-    "version": "1.0.0",
+    "version": "1.0.9999",
     "type": "module",
-    "types": "index.d.ts",
     "exports": {
         ".": {
             "import": "./index.d.ts"
