@@ -205,7 +205,7 @@ const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
-// https://node-postgres.com/api/pool
+// https://node-postgres.com/apis/pool
 
 // no params ctor
 const poolParameterlessCtor = new Pool();

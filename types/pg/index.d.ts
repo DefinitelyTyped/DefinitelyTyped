@@ -157,7 +157,7 @@ export class Connection extends events.EventEmitter {
 }
 
 /**
- * {@link https://node-postgres.com/api/pool}
+ * {@link https://node-postgres.com/apis/pool}
  */
 export class Pool extends events.EventEmitter {
     /**
