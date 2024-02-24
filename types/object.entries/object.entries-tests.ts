@@ -6,3 +6,11 @@ const obj = {
 };
 
 entries(obj); // $ExpectType ['foo' | 'bar', string | number][]
+
+const nullObj = {
+    __proto__: null,
+    foo: "a",
+    bar: true,
+};
+
+entries(nullObj); // $ExpectType ['foo' | 'bar', string | boolean][]
