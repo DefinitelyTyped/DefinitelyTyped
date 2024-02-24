@@ -380,7 +380,7 @@ declare namespace mapboxgl {
         getLayoutProperty(layer: string, name: string): any;
 
         getLayoutProperty(layer: string, name: AnyLayoutName): any;
-        
+
         /**
          * Returns the value of a configuration property in the imported style.
          *
