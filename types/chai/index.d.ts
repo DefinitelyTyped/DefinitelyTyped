@@ -1353,6 +1353,17 @@ declare namespace Chai {
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
 
         /**
+         * Asserts that `set1` and `set2` don't have the same members in any order.
+         * Uses a deep equality check.
+         *
+         *  T   Type of set values.
+         * @param set1
+         * @param set2
+         * @param message
+         */
+        notSameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
          * Asserts that set1 and set2 have the same members in the same order.
          * Uses a strict equality check (===).
          *
@@ -1494,6 +1505,24 @@ declare namespace Chai {
         changes<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function changes the value of a property by an amount (delta).
+         *
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+        changesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        changesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not change the value of a property.
          *
          * T   Type of object.
@@ -1516,6 +1545,25 @@ declare namespace Chai {
         increases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function increases a numeric object property or a function's return value by an amount (delta).
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+        increasesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        increasesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not increase an object property.
          *
          * T   Type of object.
@@ -1525,6 +1573,26 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         doesNotIncrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
+
+        /**
+         * Asserts that a function does not increase a numeric object property or function's return value by an amount (delta).
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        increasesButNotBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        increasesButNotBy<T>(modifier: Function, object: T, change: number, message?: string): void;
 
         /**
          * Asserts that a function decreases an object property.
@@ -1538,6 +1606,26 @@ declare namespace Chai {
         decreases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        decreasesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        decreasesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not decrease an object property.
          *
          * T   Type of object.
@@ -1547,6 +1635,46 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         doesNotDecrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
+
+        /**
+         * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        doesNotDecreaseBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        doesNotDecreaseBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
+         * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        decreasesButNotBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        decreasesButNotBy<T>(modifier: Function, object: T, change: number, message?: string): void;
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.

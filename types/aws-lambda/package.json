@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/aws-lambda",
     "version": "8.10.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "AWS Lambda",
     "projects": [
         "http://docs.aws.amazon.com/lambda"
     ],

@@ -57,6 +57,8 @@ declare class SemVer {
     compareBuild(other: string | SemVer): 1 | 0 | -1;
 
     inc(release: semver.ReleaseType, identifier?: string): SemVer;
+
+    toString(): string;
 }
 
 export = SemVer;
