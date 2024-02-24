@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/tabl-service",
+    "description": "Types for TABL projects (Portal and Order)",
+    "version": "1.0.0",
+    "type": "module",
+    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts"
+        }
+    },
+    "projects": [
+        "https://portal.tabl.page",
+        "https://order.tabl.page"
+    ],
+    "devDependencies": {
+        "@types/tabl-service": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shayne Stark",
+            "githubUsername": "shaynesstark"
+        },
+        {
+            "name": "TABL Service LLC",
+            "url": "https://tabl.page"
+        }
+    ]
+}
