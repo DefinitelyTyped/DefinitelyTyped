@@ -155,6 +155,7 @@ declare namespace TelegramBot {
     interface SendMessageOptions extends SendBasicOptions {
         parse_mode?: ParseMode | undefined;
         disable_web_page_preview?: boolean | undefined;
+        entities: MessageEntity[];
     }
 
     interface AnswerInlineQueryOptions {
