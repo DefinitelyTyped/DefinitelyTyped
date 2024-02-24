@@ -6343,6 +6343,10 @@
             "libraryName": "wallpaper",
             "asOfVersion": "4.3.0"
         },
+        "wanakana": {
+            "libraryName": "wanakana",
+            "asOfVersion": "5.3.0"
+        },
         "watson-developer-cloud": {
             "libraryName": "watson-developer-cloud",
             "asOfVersion": "3.0.1"
