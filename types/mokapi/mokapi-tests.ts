@@ -2,6 +2,10 @@ import { cron, date, env, every, HttpEventHandler, HttpRequest, HttpResponse, on
 import { KafkaRecord } from "mokapi/kafka";
 import { LdapSearchRequest, LdapSearchResponse } from "mokapi/ldap";
 
+const handler = () => {
+    return false;
+};
+
 // @ts-expect-error
 on("foo");
 // @ts-expect-error
@@ -37,15 +41,9 @@ on("ldap", (req: LdapSearchRequest, res: LdapSearchResponse): boolean => {
     return false;
 });
 // @ts-expect-error
-on("http", (): boolean => {
-    return false;
-}, "");
-on("http", (): boolean => {
-    return false;
-}, {});
-on("http", (): boolean => {
-    return false;
-}, { tags: { foo: "bar" } });
+on("http", handler, "");
+on("http", handler, {});
+on("http", handler, { tags: { foo: "bar" } });
 
 // @ts-expect-error
 every(12, () => {});
