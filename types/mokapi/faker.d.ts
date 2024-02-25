@@ -1,3 +1,5 @@
+import { JSONValue } from "."
+
 /**
  * Creates a fake based on the given schema
  * https://mokapi.io/docs/javascript-api/mokapi-faker/fake
@@ -10,7 +12,7 @@
  *   console.log(fake({type: 'string', pattern: '^\d{3}-\d{2}-\d{4}$'})) // 123-45-6789
  * }  
  */
-export function fake(schema: Schema): any
+export function fake(schema: Schema): JSONValue
 
 export interface Schema {
     /** Type of fake value */
@@ -29,7 +31,7 @@ export interface Schema {
     required?: string[]
 
     /** Specify possible value for this schema. */
-    enum?: any[]
+    enum?: JSONValue[]
 
     /** Specifies the minimum range of possible values. */
     minimum?: number

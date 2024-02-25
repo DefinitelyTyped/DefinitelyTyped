@@ -1,3 +1,5 @@
+import { JSONValue } from "."
+
 /**
  * Sends a single message to a Kafka topic.
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produce
@@ -38,13 +40,13 @@ export interface ProduceArgs {
     partition?: number
 
     /** Kafka message key. If not specified, a random key will be generated based on the topic configuration. */
-    key?: any
+    key?: JSONValue
 
     /** Kafka message value. If not specified, a random value will be generated based on the topic configuration. */
-    value?: any
+    value?: JSONValue
 
     /** Kafka message headers. */
-    headers?: {[name: string]: any; }
+    headers?: {[name: string]: JSONValue; }
 }
 
 /**

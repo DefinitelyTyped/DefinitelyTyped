@@ -1,3 +1,5 @@
+import { JSONValue } from ".";
+
 /**
  * Renders the given mustache template with the given data.
  * https://mokapi.io/docs/javascript-api/mokapi-mustache/render
@@ -18,4 +20,20 @@
  *   console.log(output)
  * }
  */
-export function render(template: string, data: any): string
+export function render(template: string, data: Scope): string
+
+export type Scope = null | ScopeArray | ScopeObject | JSONValue
+
+/**
+ * Array representable with JSON.
+ */
+export interface ScopeArray extends Array<Scope> {}
+
+/**
+ * Object representable with JSON.
+ */
+export interface ScopeObject {
+    [key: string]: Scope | ScopeFunction;
+}
+
+export type ScopeFunction = () => Scope

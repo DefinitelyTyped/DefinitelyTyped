@@ -1,3 +1,4 @@
+import { JSONValue } from ".";
 
 /**
  * Parses a YAML string, constructing the JavaScript value or object described by the string.
@@ -10,7 +11,7 @@
  *   console.log(outout[0].orderId)
  * } 
  */
-export function parse(text: string): any
+export function parse(text: string): JSONValue
 
 /**
  * Converts a JavaScript value to a YAML string.
@@ -34,4 +35,4 @@ export function parse(text: string): any
  *   })
  * }
  */
-export function stringify(value: any): string
+export function stringify(value: JSONValue): string

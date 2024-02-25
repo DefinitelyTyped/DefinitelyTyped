@@ -1,11 +1,10 @@
 import { parse, stringify } from "mokapi/yaml";
+import { JSONValue } from "..";
 
 // @ts-expect-error
 parse(1)
 parse("")
-const n: number = parse("")
-const s: string = parse("")
-const o: {} = parse("")
+const json: JSONValue = parse("")
 
 // @ts-expect-error
 const n1: number = stringify(1)

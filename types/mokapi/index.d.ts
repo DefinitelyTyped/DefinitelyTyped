@@ -141,19 +141,19 @@ export interface HttpRequest {
     readonly url: Url
 
     /** Body contains request body specified by OpenAPI request body. */
-    readonly body: any
+    readonly body: JSONValue
 
     /** Object contains path parameters specified by OpenAPI path parameters. */
-    readonly path: { [key: string]: any; }
+    readonly path: { [key: string]: JSONValue; }
 
     /** Object contains query parameters specified by OpenAPI query parameters. */
-    readonly query: { [key: string]: any; }
+    readonly query: { [key: string]: JSONValue; }
 
     /** Object contains header parameters specified by OpenAPI header parameters. */
-    readonly header: { [key: string]: any; }
+    readonly header: { [key: string]: JSONValue; }
 
     /** Object contains cookie parameters specified by OpenAPI cookie parameters. */
-    readonly cookie: { [key: string]: any; }
+    readonly cookie: { [key: string]: JSONValue; }
 
     /** Path value specified by the OpenAPI path */
     readonly key: string
@@ -177,7 +177,7 @@ export interface HttpResponse {
     body: string
 
     /** Data will be encoded with the OpenAPI response definition. */
-    data: any
+    data: JSONValue
 }
 
 /**
@@ -254,4 +254,21 @@ export interface ScheduledEventArgs {
      * Toggles behavior of first execution. Default is true
      */
     runFirstTimeImmediately?: boolean
+}
+
+/**
+ * JavaScript value representable with JSON.
+ */
+export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
+
+/**
+ * Array representable with JSON.
+ */
+export interface JSONArray extends Array<JSONValue> {}
+
+/**
+ * Object representable with JSON.
+ */
+export interface JSONObject {
+    [key: string]: JSONValue;
 }
