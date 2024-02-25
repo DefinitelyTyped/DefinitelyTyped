@@ -1,9 +1,9 @@
-import { produce, KafkaEventHandler, ProduceResult, KafkaRecord } from "mokapi/kafka";
+import { KafkaEventHandler, KafkaRecord, produce, ProduceResult } from "mokapi/kafka";
 
 // @ts-expect-error
 produce(1);
 // @ts-expect-error
-produce({ topic: 123});
+produce({ topic: 123 });
 const result: ProduceResult = produce({});
 // @ts-expect-error
 produce({ cluster: 123 });
@@ -22,45 +22,46 @@ produce({
     key: "foo",
     value: { name: "foo", value: 123 },
     headers: {
-        "Content-Type": "application/json"
-    }
-})
-const args: ProduceResult = produce({})
+        "Content-Type": "application/json",
+    },
+});
+const args: ProduceResult = produce({});
 // @ts-expect-error
-args.cluster = "foo"
+args.cluster = "foo";
 // @ts-expect-error
-args.topic = "foo"
+args.topic = "foo";
 // @ts-expect-error
-args.partition = 12
+args.partition = 12;
 // @ts-expect-error
-args.offset = 12
+args.offset = 12;
 // @ts-expect-error
-args.key = "foo"
+args.key = "foo";
 // @ts-expect-error
-args.value = "foo"
+args.value = "foo";
 // @ts-expect-error
-args.headers = "foo"
+args.headers = "foo";
 
-
 // @ts-expect-error
-let h: KafkaEventHandler = () => {}
+let h: KafkaEventHandler = () => {};
 // @ts-expect-error
-h = (r: KafkaRecord) => {}
-h = (r: KafkaRecord): boolean => { return false}
-h = (record: KafkaRecord): boolean => { 
+h = (r: KafkaRecord) => {};
+h = (r: KafkaRecord): boolean => {
+    return false;
+};
+h = (record: KafkaRecord): boolean => {
     // @ts-expect-error
-    record.offset = 12
+    record.offset = 12;
     // @ts-expect-error
-    record.key = 123
-    record.key = "key"
+    record.key = 123;
+    record.key = "key";
     // @ts-expect-error
-    record.value = 12
-    record.value = "value"
+    record.value = 12;
+    record.value = "value";
     // @ts-expect-error
-    record.headers = 123
-    record.headers = {}
-    record.headers = null
-    record.headers = { foo: "bar" }
+    record.headers = 123;
+    record.headers = {};
+    record.headers = null;
+    record.headers = { foo: "bar" };
 
-    return false
-}
+    return false;
+};

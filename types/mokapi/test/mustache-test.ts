@@ -1,25 +1,25 @@
-import { fake } from "mokapi/faker"
+import { fake } from "mokapi/faker";
 import { render } from "mokapi/mustache";
 
 // @ts-expect-error
-render(1)
+render(1);
 // @ts-expect-error
-render({})
+render({});
 // @ts-expect-error
-render("")
-render("", 1)
+render("");
+render("", 1);
 // @ts-expect-error
-const i: number = render("", {})
-const s: string = render("", {})
+const i: number = render("", {});
+const s: string = render("", {});
 
 export default function() {
     const scope = {
         firstname: fake({
             type: "string",
-            format: "{firstname}"
+            format: "{firstname}",
         }),
-        calc: () => ( 3 + 4 )
-    }
+        calc: () => (3 + 4),
+    };
 
-    return render("{{firstname}} has {{calc}} apples", scope)
+    return render("{{firstname}} has {{calc}} apples", scope);
 }

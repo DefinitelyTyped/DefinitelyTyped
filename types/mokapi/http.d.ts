@@ -9,7 +9,7 @@ import { JSONValue } from ".";
  * @example
  * get('https://mokapi.io')
  */
-export function get(url: string, args?: Args): Response
+export function get(url: string, args?: Args): Response;
 
 /**
  * Make POST request.
@@ -23,7 +23,7 @@ export function get(url: string, args?: Args): Response
  *   headers: { 'Content-Type': "application/json" }
  * })
  */
-export function post(url: string, body?: JSONValue, args?: Args): Response
+export function post(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
  * Make PUT request.
@@ -37,7 +37,7 @@ export function post(url: string, body?: JSONValue, args?: Args): Response
  *   headers: { 'Content-Type': "application/json" }
  * })
  */
-export function put(url: string, body?: JSONValue, args?: Args): Response
+export function put(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
  * Make HEAD request.
@@ -48,7 +48,7 @@ export function put(url: string, body?: JSONValue, args?: Args): Response
  * @example
  * head("https://foo.bar/foo")
  */
-export function head(url: string, args?: Args): Response
+export function head(url: string, args?: Args): Response;
 
 /**
  * Make PATCH request.
@@ -60,7 +60,7 @@ export function head(url: string, args?: Args): Response
  * @example
  * patch("https://foo.bar/foo")
  */
-export function patch(url: string, body?: JSONValue, args?: Args): Response
+export function patch(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
  * Make PATCH request.
@@ -72,7 +72,7 @@ export function patch(url: string, body?: JSONValue, args?: Args): Response
  * @example
  * del("https://foo.bar/foo")
  */
-export function del(url: string, body?: JSONValue, args?: Args): Response
+export function del(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
  * Make OPTIONS request.
@@ -84,7 +84,7 @@ export function del(url: string, body?: JSONValue, args?: Args): Response
  * @example
  * options("https://foo.bar/foo")
  */
-export function options(url: string, body?: JSONValue, args?: Args): Response
+export function options(url: string, body?: JSONValue, args?: Args): Response;
 
 /**
  * Request arguments.
@@ -101,13 +101,13 @@ export interface Args {
  */
 export interface Response {
     /** Response body */
-    body: string
+    body: string;
 
     /** HTTP status code */
-    statusCode: number
+    statusCode: number;
 
     /** Response headers */
-    headers: { [name: string]: string[] }
+    headers: { [name: string]: string[] };
 
     /**
      * Parse body as JSON
@@ -116,5 +116,5 @@ export interface Response {
      * const res = get(url)
      * res.json()
      */
-    json(): JSONValue
+    json(): JSONValue;
 }

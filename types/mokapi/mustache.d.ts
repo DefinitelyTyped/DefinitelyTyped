@@ -20,9 +20,9 @@ import { JSONValue } from ".";
  *   console.log(output)
  * }
  */
-export function render(template: string, data: Scope): string
+export function render(template: string, data: Scope): string;
 
-export type Scope = null | Scope[] | ScopeObject | JSONValue
+export type Scope = null | Scope[] | ScopeObject | JSONValue;
 
 /**
  * Object representable with JSON.
@@ -31,4 +31,4 @@ export interface ScopeObject {
     [key: string]: Scope | ScopeFunction;
 }
 
-export type ScopeFunction = () => Scope
+export type ScopeFunction = () => Scope;

@@ -9,9 +9,9 @@ import { JSONValue } from ".";
  * export default function() {
  *   const orders = parse(open('orders.yaml'))
  *   console.log(outout[0].orderId)
- * } 
+ * }
  */
-export function parse(text: string): JSONValue
+export function parse(text: string): JSONValue;
 
 /**
  * Converts a JavaScript value to a YAML string.
@@ -35,4 +35,4 @@ export function parse(text: string): JSONValue
  *   })
  * }
  */
-export function stringify(value: JSONValue): string
+export function stringify(value: JSONValue): string;

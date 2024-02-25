@@ -1,4 +1,4 @@
-export {}
+export {};
 
 declare global {
     /**
@@ -16,12 +16,12 @@ declare global {
      *   });
      * }
      */
-    function open(filePath: string, args?: Args): string
+    function open(filePath: string, args?: Args): string;
 
     interface Args {
-        /** 
+        /**
          * By default contents of the file are read as string, but with binary the file will be read as binary.
          */
-        as: "binary" | "string"
+        as: "binary" | "string";
     }
 }

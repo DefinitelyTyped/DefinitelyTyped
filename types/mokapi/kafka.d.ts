@@ -1,4 +1,4 @@
-import { JSONValue } from "."
+import { JSONValue } from ".";
 
 /**
  * Sends a single message to a Kafka topic.
@@ -11,11 +11,11 @@ import { JSONValue } from "."
  *     topic: 'foo',
  *     key: 'foo-1',
  *     value: { foo: "bar" }
- *   }); 
+ *   });
  *   console.log(`new kafka message written with offset: ${res.offset}`)
  * }
  */
-export function produce(args: ProduceArgs): ProduceResult
+export function produce(args: ProduceArgs): ProduceResult;
 
 /**
  * Contains produce-specific arguments.
@@ -26,27 +26,27 @@ export function produce(args: ProduceArgs): ProduceResult
  *     topic: 'foo',
  *     key: 'foo-1',
  *     value: { foo: "bar"}
- *   }); 
+ *   });
  * }
  */
 export interface ProduceArgs {
     /** Kafka cluster name. Used when topic name is not unique. */
-    cluster?: string
+    cluster?: string;
 
     /** Kafka topic name. If not specified, message will be written to a random topic. */
-    topic?: string
+    topic?: string;
 
     /** Kafka partition index. If not specified, the message will be written to any partition */
-    partition?: number
+    partition?: number;
 
     /** Kafka message key. If not specified, a random key will be generated based on the topic configuration. */
-    key?: JSONValue
+    key?: JSONValue;
 
     /** Kafka message value. If not specified, a random value will be generated based on the topic configuration. */
-    value?: JSONValue
+    value?: JSONValue;
 
     /** Kafka message headers. */
-    headers?: {[name: string]: JSONValue; }
+    headers?: { [name: string]: JSONValue };
 }
 
 /**
@@ -54,31 +54,31 @@ export interface ProduceArgs {
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produceresult
  * @example
  * export default function() {
- *   const res = produce({ topic: 'foo' }) 
+ *   const res = produce({ topic: 'foo' })
  *   console.log(`new kafka message written with offset: ${res.offset}`)
  * }
  */
 export interface ProduceResult {
     /** Name of the Kafka cluster where the message was written. */
-    readonly cluster: string
+    readonly cluster: string;
 
     /** Kafka topic name where the message was written. */
-    readonly topic: string
-    
+    readonly topic: string;
+
     /** Kafka partition where the message was written. */
-    readonly partition: number
+    readonly partition: number;
 
     /** The offset of the written message. */
-    readonly offset: number
+    readonly offset: number;
 
     /** The key of the written message, */
-    readonly key: string
+    readonly key: string;
 
     /** The value of the written message. */
-    readonly value: string
+    readonly value: string;
 
     /** The headers of the written message */
-    readonly headers: { [name: string]: string }
+    readonly headers: { [name: string]: string };
 }
 
 /**
@@ -92,7 +92,7 @@ export interface ProduceResult {
  *   })
  * }
  */
-export type KafkaEventHandler = (record: KafkaRecord) => boolean
+export type KafkaEventHandler = (record: KafkaRecord) => boolean;
 
 /**
  * KafkaRecord is an object used by KafkaEventHandler that contains Kafka-specific message data.
@@ -100,15 +100,14 @@ export type KafkaEventHandler = (record: KafkaRecord) => boolean
  */
 export interface KafkaRecord {
     /** Kafka partition where the message was written to (read-only). */
-    readonly offset: number
+    readonly offset: number;
 
     /** Kafka message key  */
-    key: string
+    key: string;
 
     /** Kafka message value */
-    value: string
+    value: string;
 
     /** Kafka message headers */
-    headers: { [name: string]: string } | null
+    headers: { [name: string]: string } | null;
 }
-
