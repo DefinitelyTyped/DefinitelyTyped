@@ -783,7 +783,7 @@ declare module "url" {
                 | string
                 | Record<string, string | number | ReadonlyArray<string | number>>
                 | Iterable<[string, string | number]>
-                | ReadonlyArray<[string, string | number]>
+                | ReadonlyArray<[string, string | number]>,
         );
         /**
          * Append a new name-value pair to the query string.

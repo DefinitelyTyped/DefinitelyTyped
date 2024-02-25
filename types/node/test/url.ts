@@ -183,12 +183,12 @@ import * as url from "node:url";
 }
 
 {
-    const searchParams = new url.URLSearchParams()
-    searchParams.append("string", "foo")
-    searchParams.set("number", 42)
-    assert.equal(searchParams.get("string"), "foo")
-    assert.equal(searchParams.get("number"), "42")
-    assert.ok(searchParams.has('number', 42))
+    const searchParams = new url.URLSearchParams();
+    searchParams.append("string", "foo");
+    searchParams.set("number", 42);
+    assert.equal(searchParams.get("string"), "foo");
+    assert.equal(searchParams.get("number"), "42");
+    assert.ok(searchParams.has("number", 42));
 }
 
 {
