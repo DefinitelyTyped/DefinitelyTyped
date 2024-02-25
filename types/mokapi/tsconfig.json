@@ -10,11 +10,17 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
     },
     "files": [
         "index.d.ts",
         "mokapi-tests.ts",
-        "test/http-test.ts"
+        "test/faker-test.ts",
+        "test/global-test.ts",
+        "test/http-test.ts",
+        "test/kafka-test.ts",
+        "test/ldap-test.ts",
+        "test/mustache-test.ts",
+        "test/yaml-test.ts"
     ]
 }
