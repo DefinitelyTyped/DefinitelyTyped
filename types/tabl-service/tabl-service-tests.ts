@@ -1,8 +1,8 @@
-import { Order, OrderMode, OrderStatus } from 'tabl-service';
+import { Order, OrderMode, OrderStatus } from "tabl-service";
 
 const cart: Order = {
-    customerEmail: 'test@tabl.page',
-    customerName: 'Johnny Tester',
+    customerEmail: "test@tabl.page",
+    customerName: "Johnny Tester",
     drinksComplete: true,
     fee: 0.75,
     foodComplete: true,
@@ -16,14 +16,14 @@ const cart: Order = {
     orderEndTime: 0,
     orderId: null,
     orderMode: OrderMode.DINEIN,
-    paymentIntent: '',
+    paymentIntent: "",
     restaurantId: 49,
-    restaurantName: 'Test Restaurant',
+    restaurantName: "Test Restaurant",
     status: OrderStatus.COMPLETE,
     subtotal: 0,
-    tableId: '14',
+    tableId: "14",
     tax: 0,
-    timezone: 'America/New_York',
+    timezone: "America/New_York",
     tip: 0,
     total: 0,
 };

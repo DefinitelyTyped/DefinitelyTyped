@@ -74,26 +74,26 @@ export interface RestaurantPreferences {
     restaurantMenuShouldShowFoodWhenInFrontOfHouseMode: boolean;
 }
 
-export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+export type Weekday = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
 
 export type RestaurantHours = {
     [key in Weekday]: {
         isOpen: boolean;
         openTime?: string;
         closeTime?: string;
-    }
-}
+    };
+};
 
 export enum RestaurantMode {
-    STANDARD = 'Standard',
-    FRONT = 'Front',
-    EMAIL = 'Email',
+    STANDARD = "Standard",
+    FRONT = "Front",
+    EMAIL = "Email",
 }
 
 export enum OrderMode {
-    DINEIN = 'DineIn',
-    PICKUP = 'Pickup',
-    DELIVERY = 'Delivery',
+    DINEIN = "DineIn",
+    PICKUP = "Pickup",
+    DELIVERY = "Delivery",
 }
 
 export interface RestaurantLocation {
@@ -154,10 +154,10 @@ export interface CartItem {
 }
 
 export enum OrderStatus {
-    PENDING = 'Pending',
-    PREPARING = 'Preparing',
-    READY = 'Ready',
-    COMPLETE = 'Complete',
+    PENDING = "Pending",
+    PREPARING = "Preparing",
+    READY = "Ready",
+    COMPLETE = "Complete",
 }
 
 export interface ServerCall {
@@ -206,12 +206,11 @@ export interface InjectedFunctions {
      * @param buttonText - The text label for the alert dialog's button, which the user can click to acknowledge and dismiss the alert.
      * @param type - A string that specifies the alert's type, with accepted values being 'error' or 'success'. This affects the visual styling of the alert to match the context of the message.
      */
-    showCustomAlert: (title: string, text: string, buttonText: string, type: 'error' | 'success') => void;
+    showCustomAlert: (title: string, text: string, buttonText: string, type: "error" | "success") => void;
 }
 
 export enum ToastType {
-    INFO = 'info',
-    ERROR = 'error',
-    SUCCESS = 'success',
+    INFO = "info",
+    ERROR = "error",
+    SUCCESS = "success",
 }
-
