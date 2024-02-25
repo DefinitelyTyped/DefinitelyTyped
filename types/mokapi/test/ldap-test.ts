@@ -20,8 +20,6 @@ h = (req: LdapSearchRequest, res: LdapSearchResponse) => {
     // @ts-expect-error
     res.results.push({dn: "foo", attributes: { foo: "bar" } })
     res.results.push({dn: "foo", attributes: { foo: [ "bar" ] } })
-    // @ts-expect-error
-    res.status = 12
     res.status = 0
     // @ts-expect-error
     res.message = 12

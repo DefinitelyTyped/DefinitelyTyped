@@ -1,5 +1,5 @@
 import { parse, stringify } from "mokapi/yaml";
-import { JSONValue } from "..";
+import { JSONValue } from "mokapi";
 
 // @ts-expect-error
 parse(1)

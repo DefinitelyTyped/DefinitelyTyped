@@ -18,7 +18,7 @@ declare global {
      */
     function open(filePath: string, args?: Args): string
 
-    export interface Args {
+    interface Args {
         /** 
          * By default contents of the file are read as string, but with binary the file will be read as binary.
          */

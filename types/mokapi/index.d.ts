@@ -6,10 +6,7 @@
 import "./faker";
 import "./global";
 import "./http";
-import "./kafka";
-import "./kafka";
 import { KafkaEventHandler } from "./kafka";
-import "./ldap";
 import { LdapEventHandler } from "./ldap";
 import "./mustache";
 import "./yaml";
@@ -106,10 +103,10 @@ export function sleep(time: number | string ): void
  */
 export type Interval = string
 
-export type EventHandler = {
+export interface EventHandler {
     http: HttpEventHandler
-    ldap: LdapEventHandler
     kafka: KafkaEventHandler
+    ldap: LdapEventHandler
 }
 
 /**
@@ -259,12 +256,7 @@ export interface ScheduledEventArgs {
 /**
  * JavaScript value representable with JSON.
  */
-export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
-
-/**
- * Array representable with JSON.
- */
-export interface JSONArray extends Array<JSONValue> {}
+export type JSONValue = null | boolean | number | string | JSONValue[] | JSONObject;
 
 /**
  * Object representable with JSON.

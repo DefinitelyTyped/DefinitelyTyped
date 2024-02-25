@@ -9,8 +9,8 @@ import {
     on,
     sleep
  } from "mokapi";
-import { KafkaRecord } from "./kafka";
-import { LdapSearchRequest, LdapSearchResponse } from "./ldap";
+import { KafkaRecord } from "mokapi/kafka";
+import { LdapSearchRequest, LdapSearchResponse } from "mokapi/ldap";
 
 // @ts-expect-error
 on("foo")

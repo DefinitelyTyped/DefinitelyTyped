@@ -22,12 +22,7 @@ import { JSONValue } from ".";
  */
 export function render(template: string, data: Scope): string
 
-export type Scope = null | ScopeArray | ScopeObject | JSONValue
-
-/**
- * Array representable with JSON.
- */
-export interface ScopeArray extends Array<Scope> {}
+export type Scope = null | Scope[] | ScopeObject | JSONValue
 
 /**
  * Object representable with JSON.
