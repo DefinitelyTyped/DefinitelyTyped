@@ -183,7 +183,7 @@ export type StreamHandler = (
   context: Context,
 ) => Promise<void>
 
-declare var awslambda: {
+export var awslambda: {
   streamifyResponse: (
     handler: StreamHandler,
   ) => StreamHandler
