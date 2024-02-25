@@ -932,6 +932,10 @@
             "libraryName": "compare-versions",
             "asOfVersion": "3.3.0"
         },
+        "complex.js": {
+            "libraryName": "complex.js",
+            "asOfVersion": "2.0.14"
+        },
         "composer-concerto": {
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
@@ -6338,6 +6342,10 @@
         "wallpaper": {
             "libraryName": "wallpaper",
             "asOfVersion": "4.3.0"
+        },
+        "wanakana": {
+            "libraryName": "wanakana",
+            "asOfVersion": "5.3.0"
         },
         "watson-developer-cloud": {
             "libraryName": "watson-developer-cloud",

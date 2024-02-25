@@ -19,6 +19,7 @@ import {
     Node,
 } from "estree-jsx";
 
+declare let expression: ESTree.Expression;
 declare let node: Node;
 declare let identifier: JSXIdentifier;
 declare let namespacedName: JSXNamespacedName;
@@ -128,3 +129,6 @@ switch (node.type) {
     default:
         estreeNode = node;
 }
+
+expression = element;
+expression = fragment;
