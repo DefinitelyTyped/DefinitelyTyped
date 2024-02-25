@@ -781,21 +781,21 @@ declare module "url" {
             init?:
                 | URLSearchParams
                 | string
-                | Record<string, string | readonly string[]>
-                | Iterable<[string, string]>
-                | ReadonlyArray<[string, string]>,
+                | Record<string, string | number | ReadonlyArray<string | number>>
+                | Iterable<[string, string | number]>
+                | ReadonlyArray<[string, string | number]>
         );
         /**
          * Append a new name-value pair to the query string.
          */
-        append(name: string, value: string): void;
+        append(name: string, value: string | number): void;
         /**
          * If `value` is provided, removes all name-value pairs
          * where name is `name` and value is `value`.
          *
          * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
-        delete(name: string, value?: string): void;
+        delete(name: string, value?: string | number): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array` is the `name`, the second item of the `Array` is the `value`.
@@ -842,7 +842,7 @@ declare module "url" {
          * If `value` is not provided, returns `true` if there is at least one name-value
          * pair whose name is `name`.
          */
-        has(name: string, value?: string): boolean;
+        has(name: string, value?: string | number): boolean;
         /**
          * Returns an ES6 `Iterator` over the names of each name-value pair.
          *
@@ -876,7 +876,7 @@ declare module "url" {
          * // Prints foo=def&#x26;abc=def&#x26;xyz=opq
          * ```
          */
-        set(name: string, value: string): void;
+        set(name: string, value: string | number): void;
         /**
          * The total number of parameter entries.
          * @since v19.8.0

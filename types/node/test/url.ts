@@ -163,21 +163,32 @@ import * as url from "node:url";
 {
     const searchParams = new url.URLSearchParams({
         user: "abc",
-        query: ["first", "second"] as readonly string[],
+        query: ["first", "second", 3, 4],
     });
 
-    assert.equal(searchParams.toString(), "user=abc&query=first%2Csecond");
-    assert.deepEqual(searchParams.getAll("query"), ["first,second"]);
+    assert.equal(searchParams.toString(), "user=abc&query=first%2Csecond%2C3%2C4");
+    assert.deepEqual(searchParams.getAll("query"), ["first,second,3,4"]);
 }
 
 {
     // Using an array
-    const params = new url.URLSearchParams([
+    const searchParams = new url.URLSearchParams([
         ["user", "abc"],
         ["query", "first"],
         ["query", "second"],
-    ] as ReadonlyArray<[string, string]>);
-    assert.equal(params.toString(), "user=abc&query=first&query=second");
+        ["query", "3"],
+        ["query", "4"],
+    ]);
+    assert.equal(searchParams.toString(), "user=abc&query=first&query=second&query=3&query=4");
+}
+
+{
+    const searchParams = new url.URLSearchParams()
+    searchParams.append("string", "foo")
+    searchParams.set("number", 42)
+    assert.equal(searchParams.get("string"), "foo")
+    assert.equal(searchParams.get("number"), "42")
+    assert.ok(searchParams.has('number', 42))
 }
 
 {
