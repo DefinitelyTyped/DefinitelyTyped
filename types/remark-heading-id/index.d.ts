@@ -7,5 +7,5 @@ declare namespace remarkHeadingId {
     }
 }
 
-declare function remarkHeadingId (options?: remarkHeadingId.RemarkHeadingIdOptions): Transformer;
+declare function remarkHeadingId(options?: remarkHeadingId.RemarkHeadingIdOptions): Transformer;
 export = remarkHeadingId;
