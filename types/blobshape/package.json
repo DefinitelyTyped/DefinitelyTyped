@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/blobshape": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "oyedejioyewole",
+            "githubUsername": "oyedejioyewole"
+        }
+    ]
 }
