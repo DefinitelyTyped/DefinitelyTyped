@@ -17729,7 +17729,4 @@ declare class GeotabApi<Opts extends Partial<Options> | undefined> {
 }
 
 export = GeotabApi;
-type Geotab = typeof GeotabApi;
-declare global {
-    var GeotabApi: Geotab;
-}
+export as namespace GeotabApi;
