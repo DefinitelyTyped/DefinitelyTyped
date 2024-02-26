@@ -11,6 +11,5 @@
         "forceConsistentCasingInFileNames": true,
         "traceResolution": true
     },
-    "files": ["index.d.ts", "magika-tests.ts"],
-    "exclude": ["node_modules"]
+    "files": ["index.d.ts", "magika-tests.ts"]
 }
