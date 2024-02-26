@@ -9,7 +9,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "traceResolution": true
     },
-    "files": ["index.d.ts", "magika-tests.ts"]
+    "files": ["index.d.ts", "magika-tests.ts"],
+    "exclude": ["node_modules"]
 }

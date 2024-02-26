@@ -10,7 +10,8 @@ interface Config {
 }
 */
 
-declare class Magika {
+export class Magika {
+    constructor();
     load(config: any): Promise<void>;
     identifyBytes(fileBytes: ArrayBuffer): Promise<any>;
     identifyBytesFull(fileBytes: ArrayBuffer): Promise<any>;
