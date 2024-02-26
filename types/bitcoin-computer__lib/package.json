@@ -13,6 +13,6 @@
     },
     "dependencies": {
         "@types/node": "^20.11.17",
-        "@bitcoin-computer/nakamotojs": "^0.17.1-beta.0"
+        "@bitcoin-computer/nakamotojs": "^0.17.2-beta.0"
     }
 }

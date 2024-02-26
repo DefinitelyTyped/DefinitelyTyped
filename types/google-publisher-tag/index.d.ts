@@ -2030,6 +2030,7 @@ declare namespace googletag {
              *  interstitialSlot.setConfig({
              *    interstitial: {
              *      triggers: {
+             *        navBar: enableTriggers,
              *        unhideWindow: enableTriggers
              *      }
              *    }
@@ -2043,7 +2044,7 @@ declare namespace googletag {
         /**
          * Supported interstitial ad triggers.
          */
-        type InterstitialTrigger = "unhideWindow";
+        type InterstitialTrigger = "unhideWindow" | "navBar";
     }
 
     /**

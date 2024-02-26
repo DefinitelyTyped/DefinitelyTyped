@@ -144,6 +144,7 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
 });
 
 brickBuilder.create("wallet", "containerWallet", {
+    brand: "mercado_pago",
     initialization: {
         paymentId: 123456789,
     },

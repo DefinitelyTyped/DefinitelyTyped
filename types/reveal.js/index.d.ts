@@ -793,7 +793,7 @@ declare namespace Reveal {
          *
          * @defaultValue `960`
          */
-        width?: number;
+        width?: number | string;
 
         /**
          * The "normal" size of the presentation, aspect ratio will be preserved
@@ -803,7 +803,7 @@ declare namespace Reveal {
          *
          * @defaultValue `700`
          */
-        height?: number;
+        height?: number | string;
 
         /**
          * Factor of the display size that should remain empty around the content
@@ -1308,6 +1308,37 @@ declare namespace Reveal {
          * @defaultValue `null`
          */
         parallaxBackgroundVertical?: number | null;
+
+        /**
+         * Use to initialize reveal.js with an alternate view
+         *
+         * @defaultValue `null`
+         */
+        view?: "print" | "scroll" | null;
+
+        /**  Height of each slide in the scroll view.
+         *
+         *  @defaultValue `full`
+         */
+        scrollLayout?: "full" | "compact";
+
+        /** Controls how scroll snapping works in the scroll view
+         *
+         * @defaultValue `mandatory`
+         */
+        scrollSnap?: false | "proximity" | "mandatory";
+
+        /** Enable and configure the scroll view progress bar.
+         *
+         * @defaultValue `auto`
+         */
+        scrollProgress?: "auto" | boolean;
+
+        /** Viewport width that automatically activates scroll view
+         *
+         * @defaultValue `435`
+         */
+        scrollActivationWidth?: number;
 
         /**
          * The maximum number of pages a single slide can expand onto when printing

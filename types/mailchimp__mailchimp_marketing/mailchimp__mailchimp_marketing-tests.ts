@@ -152,6 +152,9 @@ mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersO
 // $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember("test", "test", setListMemberBody);
 
+// $ExpectType Promise<ListMembersInfoSuccessResponse | ErrorResponse>
+mailchimp.lists.getListMembersInfo("test");
+
 // $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMember("test", "test");
 
