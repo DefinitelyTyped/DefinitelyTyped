@@ -236,7 +236,7 @@ const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(Rea
     React.createElement("div"),
     React.createElement("div"),
 ]);
-// $ExpectType CElement<{} | Readonly<{}>, ComponentWithCustomInstanceMethods>
+// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
 const myElement = React.createElement(
     class ComponentWithCustomInstanceMethods extends React.Component {
         customInstanceMethod = () => "Dave";
@@ -262,7 +262,7 @@ const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
-// $ExpectType CElement<{} | Readonly<{}>, ComponentWithCustomInstanceMethods>
+// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
 React.cloneElement(myElement);
 
 const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
