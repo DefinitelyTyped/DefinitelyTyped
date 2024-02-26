@@ -16,17 +16,17 @@ export interface JSXSource {
     /**
      * The source file where the element originates from.
      */
-    fileName?: string;
+    fileName?: string | undefined;
 
     /**
      * The line number where the element was created.
      */
-    lineNumber?: number;
+    lineNumber?: number | undefined;
 
     /**
      * The column number where the element was created.
      */
-    columnNumber?: number;
+    columnNumber?: number | undefined;
 }
 
 /**
