@@ -1475,13 +1475,13 @@ elementHandle.waitForElementState("visible", { timeout: 10000 });
 
 // @ts-expect-error
 elementHandle.waitForSelector();
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div");
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { timeout: 10000 });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { state: "attached" });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { strict: true });
 
 //
