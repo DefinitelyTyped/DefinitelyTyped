@@ -113,9 +113,8 @@ declare namespace React {
         | ((
             props: P,
         ) => ReactNode)
-        | (new(
-            props: P,
-        ) => Component<any, any>);
+        // constructor signature must match React.Component
+        | (new(props: P) => Component<any, any>);
 
     /**
      * A readonly ref container where {@link current} cannot be mutated.
@@ -178,6 +177,8 @@ declare namespace React {
      */
     type LegacyRef<T> = Ref<T>;
     /**
+     * @deprecated Use `ComponentRef<T>` instead
+     *
      * Retrieves the type of the 'ref' prop for a given component type or tag name.
      *
      * @template C The component type.
@@ -200,15 +201,7 @@ declare namespace React {
             | { new(props: any): Component<any> }
             | ((props: any) => ReactNode)
             | keyof JSX.IntrinsicElements,
-    > =
-        // need to check first if `ref` is a valid prop for ts@3.0
-        // otherwise it will infer `{}` instead of `never`
-        "ref" extends keyof ComponentPropsWithRef<C>
-            ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends RefAttributes<
-                infer Instance
-            >["ref"] ? Instance
-            : never
-            : never;
+    > = ComponentRef<C>;
 
     type ComponentState = any;
 
@@ -317,12 +310,27 @@ declare namespace React {
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
     > extends ReactElement<P, Exclude<T, number>> {}
 
+    /**
+     * @deprecated Use `ReactElement<P, React.FunctionComponent<P>>`
+     */
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
+        /**
+         * @deprecated Use `element.props.ref` instead.
+         */
         ref?: ("ref" extends keyof P ? P extends { ref?: infer R | undefined } ? R : never : never) | undefined;
     }
 
+    /**
+     * @deprecated Use `ReactElement<P, React.ComponentClass<P>>`
+     */
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
+    /**
+     * @deprecated Use `ReactElement<P, React.ComponentClass<P>>`
+     */
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, ComponentClass<P>> {
+        /**
+         * @deprecated Use `element.props.ref` instead.
+         */
         ref?: Ref<T> | undefined;
     }
 
@@ -332,9 +340,15 @@ declare namespace React {
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
+    /**
+     * @deprecated Use `ReactElement<P, string>`
+     */
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element>
         extends ReactElement<P, string>
     {
+        /**
+         * @deprecated Use `element.props.ref` instead.
+         */
         ref: Ref<T>;
     }
 
@@ -893,6 +907,7 @@ declare namespace React {
          */
         context: unknown;
 
+        // Keep in sync with constructor signature of JSXElementConstructor and ComponentClass.
         constructor(props: P);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
@@ -1076,6 +1091,7 @@ declare namespace React {
      * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
+        // constructor signature must match React.Component
         new(props: P): Component<P, S>;
         contextType?: Context<any> | undefined;
         defaultProps?: Partial<P> | undefined;
@@ -1335,13 +1351,13 @@ declare namespace React {
     /**
      * Omits the 'ref' attribute from the given props object.
      *
-     * @template P The props object type.
+     * @template Props The props object type.
      */
-    type PropsWithoutRef<P> =
+    type PropsWithoutRef<Props> =
         // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        P extends any ? ("ref" extends keyof P ? Omit<P, "ref"> : P) : P;
+        Props extends any ? ("ref" extends keyof Props ? Omit<Props, "ref"> : Props) : Props;
     /**
      * Ensures that the props do not include string ref, which cannot be forwarded
      * @deprecated Use `Props` directly. `PropsWithRef<Props>` is just an alias for `Props`
@@ -1378,7 +1394,7 @@ declare namespace React {
      * ```
      */
     type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> = T extends
-        JSXElementConstructor<infer P> ? P
+        JSXElementConstructor<infer Props> ? Props
         : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
 
@@ -1405,8 +1421,10 @@ declare namespace React {
      * type MyComponentPropsWithRef = React.ComponentPropsWithRef<typeof MyComponent>;
      * ```
      */
-    type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
-        ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
+    type ComponentPropsWithRef<T extends ElementType> = T extends JSXElementConstructor<infer Props>
+        // If it's a class i.e. newable we're dealing with a class component
+        ? T extends abstract new(args: any) => any ? PropsWithoutRef<Props> & RefAttributes<InstanceType<T>>
+        : Props
         : ComponentProps<T>;
     /**
      * Used to retrieve the props a custom component accepts with its ref.
@@ -1424,9 +1442,10 @@ declare namespace React {
      * type MyComponentPropsWithRef = React.CustomComponentPropsWithRef<typeof MyComponent>;
      * ```
      */
-    type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
-        ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
-        : T extends ((props: infer P) => ReactNode) ? P
+    type CustomComponentPropsWithRef<T extends ComponentType> = T extends JSXElementConstructor<infer Props>
+        // If it's a class i.e. newable we're dealing with a class component
+        ? T extends abstract new(args: any) => any ? PropsWithoutRef<Props> & RefAttributes<InstanceType<T>>
+        : Props
         : never;
 
     /**
@@ -1454,10 +1473,24 @@ declare namespace React {
      */
     type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
-    type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
-        ComponentPropsWithoutRef<T> & RefAttributes<infer Method>
-    > ? Method
-        : ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
+    /**
+     * Retrieves the type of the 'ref' prop for a given component type or tag name.
+     *
+     * @template C The component type.
+     *
+     * @example
+     *
+     * ```tsx
+     * type MyComponentRef = React.ElementRef<typeof MyComponent>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * type DivRef = React.ElementRef<'div'>;
+     * ```
+     */
+    type ComponentRef<T extends ElementType> = ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
         : never;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
