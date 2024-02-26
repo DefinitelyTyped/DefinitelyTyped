@@ -345,7 +345,7 @@ declare class Computer {
     sign(transaction: Transaction, opts?: SigOptions): Promise<void>;
     fund(tx: Transaction, opts?: Fee & FundOptions): Promise<void>;
     broadcast(tx: Transaction): Promise<string>;
-    sync(rev: string): Promise<any>;
+    sync(rev: string): Promise<unknown>;
     send(satoshis: number, address: string): Promise<string>;
     rpcCall(method: string, params: string): Promise<any>;
     txFromHex({ hex }: {
