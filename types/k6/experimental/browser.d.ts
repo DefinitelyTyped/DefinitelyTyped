@@ -3370,7 +3370,7 @@ export interface Page {
      * To wait for an element on the page, use locator.waitFor([options]).
      * @param selector A selector to query for.
      */
-    $(selector: string): ElementHandle;
+    $(selector: string): ElementHandle | null;
 
     /**
      * **NOTE** Use locator-based page.locator(selector[, options]) instead.

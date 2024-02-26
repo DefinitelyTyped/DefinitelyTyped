@@ -788,7 +788,7 @@ page.workers();
 
 // @ts-expect-error
 page.$();
-// $ExpectType ElementHandle
+// $ExpectType ElementHandle | null
 page.$(selector);
 
 // @ts-expect-error
@@ -1273,7 +1273,7 @@ response.then(r => r?.url());
 // ElementHandle
 //
 
-const elementHandle = page.$(selector);
+const elementHandle = page.waitForSelector(selector);
 
 // @ts-expect-error
 elementHandle.$();
