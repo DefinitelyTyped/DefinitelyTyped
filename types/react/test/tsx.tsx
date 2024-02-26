@@ -399,6 +399,8 @@ const divRef = React.createRef<HTMLDivElement>();
  */
 const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { current: undefined };
 
+// deprecated
+React.createElement(ForwardRef).ref;
 <ForwardRef ref={divFnRef} />;
 <ForwardRef ref={divRef} />;
 // @ts-expect-error string refs are no longer supported
@@ -444,6 +446,22 @@ const ForwardRef3 = React.forwardRef(
 
 <ForwardRef3 ref={divFnRef} />;
 <ForwardRef3 ref={divRef} />;
+
+function ModernForwardRef(props: { ref?: React.Ref<HTMLDivElement> }) {
+    return <div ref={props.ref} />;
+}
+const modernForwardRefElement = (
+    <ModernForwardRef
+        ref={current => {
+            // $ExpectType HTMLDivElement | null
+            current;
+        }}
+    />
+);
+// @ts-expect-error
+modernForwardRefElement.ref;
+// $ExpectType Ref<HTMLDivElement> | undefined
+type ModernForwardRefPropsRef = React.ComponentPropsWithRef<typeof ModernForwardRef>["ref"];
 
 const { Profiler } = React;
 
