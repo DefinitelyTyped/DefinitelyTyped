@@ -240,7 +240,7 @@ declare namespace React {
      * ```
      *
      * WARNING: The implementation of a component will never have access to these attributes.
-     * The following example would be incorrect usage because `Component` would never have access to `key`
+     * The following example would be incorrect usage because {@link Component} would never have access to `key`:
      * ```tsx
      * const Component = (props: React.Attributes) => props.key;
      * ```
@@ -256,18 +256,17 @@ declare namespace React {
      * <Component ref={(current) => console.log(current)} />
      * ```
      *
-     * You only need this type if you manually author props types that need to be compatible with legacy refs.
+     * You only need this type if you manually author the types of props that need to be compatible with legacy refs.
      * ```tsx
      * interface Props extends React.RefAttributes<HTMLDivElement> {}
      * declare const Component: React.FunctionComponent<Props>;
      * ```
      *
-     * Otherwise it's simpler to directly use `Ref` since you can safely use the
+     * Otherwise it's simpler to directly use {@link Ref} since you can safely use the
      * props type to describe to props that a consumer can pass to the component
      * as well as describing the props the implementation of a component "sees".
-     * `React.RefAttributes` is generally not safe to describe both consumer and seen props.
+     * {@link RefAttributes} is generally not safe to describe both consumer and seen props.
      *
-     * @example
      * ```tsx
      * interface Props extends {
      *   ref?: React.Ref<HTMLDivElement> | undefined;
@@ -276,7 +275,7 @@ declare namespace React {
      * ```
      *
      * WARNING: The implementation of a component will not have access to the same type in versions of React supporting string refs.
-     * The following example would be incorrect usage because `Component` would never have access to a `ref` with type `string`
+     * The following example would be incorrect usage because {@link Component} would never have access to a `ref` with type `string`
      * ```tsx
      * const Component = (props: React.RefAttributes) => props.ref;
      * ```
