@@ -10,5 +10,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "postcss-env-function-tests.ts"]
+    "files": ["index.d.ts", "index.d.mts", "postcss-env-function-tests.ts"]
 }
