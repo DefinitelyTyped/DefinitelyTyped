@@ -253,7 +253,7 @@ declare namespace React {
     }
     /**
      * The props any component accepting refs can receive.
-     * Class components, host components (e.g. `div`) and forwardRef components can receive refs and automatically accept these props.
+     * Class components, built-in browser components (e.g. `div`) and forwardRef components can receive refs and automatically accept these props.
      * ```tsx
      * const Component = forwardRef(() => <div />);
      * <Component ref={(current) => console.log(current)} />
