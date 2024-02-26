@@ -9,6 +9,7 @@ import PackageJson = require("@npmcli/package-json");
             b: "^1.2.3",
         },
         workspaces: ["./new-workspace"],
+        packageManager: "pnpm@8.6.1",
     });
 
     await pkgJson.save();

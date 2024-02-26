@@ -36,12 +36,12 @@ function onLayerReady() {
 
 itowns.View.prototype.addLayer.call(view, potreeLayer).then(onLayerReady);
 
-itowns.Fetcher.json("./layers/JSONLayers/IGN_MNT_HIGHRES.json").then(function _(config) {
+itowns.Fetcher.json("./layers/JSONLayers/IGN_MNT_HIGHRES.json").then(function _(config: any) {
     config.source = new itowns.WMTSSource(config.source);
     const layer = new itowns.ElevationLayer(config.id, config);
     view.addLayer(layer);
 });
-itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config) {
+itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(function _(config: any) {
     config.source = new itowns.WMTSSource(config.source);
     const layer = new itowns.ColorLayer(config.id, config);
     view.addLayer(layer);

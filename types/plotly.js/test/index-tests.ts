@@ -178,6 +178,14 @@ const graphDiv = "#test";
             marker: { line: { width: 2 } },
             offset: -0.25,
         },
+        {
+            type: "bar",
+            labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
+            parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
+            values: [65, 14, 12, 10, 2, 6, 6, 4, 4],
+            marker: { line: { width: 2 } },
+            offset: [-0.25, 0.25, -0.25, 0.25, -0.25, 0.25, -0.25, 0.25, -0.25],
+        },
     ];
 
     const layout = {
