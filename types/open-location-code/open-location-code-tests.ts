@@ -1,4 +1,4 @@
-import OpenLocationCode from "open-location-code";
+import OpenLocationCode = require("open-location-code");
 
 const a = "796RWF8Q+WF";
 const area = OpenLocationCode.decode(a);
