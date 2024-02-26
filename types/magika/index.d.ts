@@ -1,18 +1,16 @@
-/*
-interface Prediction {
+export interface Prediction {
     label: string;
     score: number;
     labels: { [name: string]: number };
 }
-interface Config {
+export interface Config {
     modelURL?: string;
     configURL?: string;
 }
-*/
 
 export class Magika {
     constructor();
-    load(config: any): Promise<void>;
-    identifyBytes(fileBytes: ArrayBuffer): Promise<any>;
-    identifyBytesFull(fileBytes: ArrayBuffer): Promise<any>;
+    load(config: any): Promise<Config>;
+    identifyBytes(fileBytes: ArrayBuffer): Promise<Prediction>;
+    identifyBytesFull(fileBytes: ArrayBuffer): Promise<Prediction>;
 }

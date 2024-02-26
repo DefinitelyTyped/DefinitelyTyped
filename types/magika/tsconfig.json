@@ -8,8 +8,7 @@
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "traceResolution": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "magika-tests.ts"]
 }
