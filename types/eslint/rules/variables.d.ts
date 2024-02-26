@@ -180,6 +180,10 @@ export interface Variables extends Linter.RulesRecord {
                  * @default true
                  */
                 variables: boolean;
+                /**
+                 * @default false
+                 */
+                allowNamedExports: boolean;
             }>
             | "nofunc",
         ]
