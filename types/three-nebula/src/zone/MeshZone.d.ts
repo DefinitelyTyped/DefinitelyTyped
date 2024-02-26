@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import type { Vector3D } from "../math";
 import type Zone from "./Zone";
 

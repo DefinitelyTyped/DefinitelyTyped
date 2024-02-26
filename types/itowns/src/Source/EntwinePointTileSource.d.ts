@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Extent from "../Core/Geographic/Extent";
 import Source, { SourceOptions } from "./Source";
 
