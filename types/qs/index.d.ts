@@ -16,7 +16,7 @@ declare namespace QueryString {
         filter?: Array<string | number> | ((prefix: string, value: any) => any) | undefined;
         arrayFormat?: "indices" | "brackets" | "repeat" | "comma" | undefined;
         indices?: boolean | undefined;
-        sort?: ((a: any, b: any) => number) | undefined;
+        sort?: ((a: string, b: string) => number) | undefined;
         serializeDate?: ((d: Date) => string) | undefined;
         format?: "RFC1738" | "RFC3986" | undefined;
         encodeValuesOnly?: boolean | undefined;
