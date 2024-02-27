@@ -4,12 +4,16 @@ import { Options } from "remark-link-card";
 
 unified().use(rlc); // $ExpectType Processor<undefined, Root, Root, undefined, undefined>
 
+unified().use(rlc, { cache: undefined }); // $ExpectType Processor<undefined, Root, Root, undefined, undefined>
+
 unified().use(rlc, { shortenUrl: true, cache: true }); // $ExpectType Processor<undefined, Root, Root, undefined, undefined>
 
 const options: Options = {
     shortenUrl: false,
     cache: true,
 };
+
+options.cache = undefined;
 
 rlc(options); // $ExpectType (tree: Root) => Promise<Root>
 

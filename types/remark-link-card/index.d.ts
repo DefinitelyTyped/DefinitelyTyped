@@ -7,16 +7,17 @@ declare namespace rlc {
          *
          * Automatically insert the path to images starting with `/remark-link-card/` in the src attribute of img tags.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * Display only hostname of target URL (`bool`, default: `false`)
          */
-        shortenUrl?: boolean;
+        shortenUrl?: boolean | undefined;
     }
 }
 
-declare function rlc(options?: rlc.Options): (tree: import("mdast").Root) => Promise<import("mdast").Root>;
+type rlc = (options?: rlc.Options) => (tree: import("mdast").Root) => Promise<import("mdast").Root>;
+declare const rlc: rlc;
 
 /**
  * Convert text links to link cards.
