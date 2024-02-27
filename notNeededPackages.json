@@ -5407,6 +5407,10 @@
             "libraryName": "rword",
             "asOfVersion": "3.0.0"
         },
+        "sade": {
+            "libraryName": "sade",
+            "asOfVersion": "1.8.0"
+        },
         "samchon": {
             "libraryName": "samchon",
             "asOfVersion": "2.0.22"
