@@ -1,8 +1,10 @@
 import React = require("react");
 import Elm = require("react-elm-components");
-import ElmTypes = require("./elm-types");
+import ElmTypes = require("react-elm-components/elm-types");
 
-type ElmProgram = { [x: string]: ElmTypes.Elm18Node | ElmTypes.Elm19Node };
+interface ElmProgram {
+    [x: string]: ElmTypes.Elm18Node | ElmTypes.Elm19Node;
+}
 
 // Mock the output of an Elm 0.19.x-compiled program, e.g. `elm make Main.elm --output=elm.js`
 const Elm19Mock: ElmProgram = { main: { init: ({ node, flags }) => {} } };
