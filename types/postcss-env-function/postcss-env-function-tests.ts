@@ -1,6 +1,9 @@
 import postcss = require("postcss");
 import postcssEnvFunction = require("postcss-env-function");
 
+// Test ESM import
+(async () => await import("postcss-env-function"))();
+
 // No arguments
 postcss([postcssEnvFunction]);
 postcss([postcssEnvFunction()]);
