@@ -7,4 +7,5 @@ interface ParsedSrcset {
 
 declare function parseSrcset(value: string): ParsedSrcset[];
 
+export as namespace parseSrcset;
 export = parseSrcset;
