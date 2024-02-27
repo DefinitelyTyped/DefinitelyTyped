@@ -3,7 +3,7 @@ import { FC, JSX, ReactNode } from "react";
 
 declare namespace InspectorControls {
     interface Props {
-        group: string;
+        group?: string;
         children: ReactNode;
     }
 }
