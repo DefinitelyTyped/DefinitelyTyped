@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object.is",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/m59peacemaker/js-object.is#readme"
+    ],
+    "devDependencies": {
+        "@types/object.is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}
