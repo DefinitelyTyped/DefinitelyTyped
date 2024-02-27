@@ -133,6 +133,7 @@ declare namespace GorillaEngine.UI {
         modulations: Modulation[];
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface SliceEditor extends SliceEditorProps {}
 
     class SliceEditor extends Component {

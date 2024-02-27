@@ -434,6 +434,12 @@ const provider = new Provider("https://op.example.com", {
                     scope: "api:read",
                 };
             },
+            async defaultResource(ctx, client, oneOf) {
+                if (oneOf) {
+                    return oneOf[0];
+                }
+                return "";
+            },
         },
         requestObjects: {
             request: false,

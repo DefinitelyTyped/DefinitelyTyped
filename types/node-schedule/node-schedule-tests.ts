@@ -65,7 +65,7 @@ function testNextInvocation() {
 
 function testPendingInvocations() {
     const job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    const pendingInvocations: nodeSchedule.Invocation[] = job.pendingInvocations();
+    const pendingInvocations: nodeSchedule.Invocation[] = job.pendingInvocations;
 }
 
 function testInvoke() {
@@ -129,7 +129,7 @@ function testInvocation() {
 }
 
 /**
- * Test for {@link scheduleJob} class.
+ * Test for {@link scheduleJob} function.
  */
 function testScheduleJob() {
     const callback: nodeSchedule.JobCallback = null;

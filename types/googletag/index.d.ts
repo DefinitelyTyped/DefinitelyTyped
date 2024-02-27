@@ -1530,6 +1530,11 @@ declare namespace googletag {
         type PrivacyTreatment = "disablePersonalization";
 
         /**
+         * Supported taxonomies for {@link PublisherProvidedSignalsConfig publisher provided signals (PPS)}.
+         */
+        type Taxonomy = "IAB_AUDIENCE_1_1" | "IAB_CONTENT_2_2";
+
+        /**
          * Settings to control ad expansion.
          */
         interface AdExpansionConfig {
@@ -1667,6 +1672,11 @@ declare namespace googletag {
             adExpansion?: AdExpansionConfig | null;
 
             /**
+             * Settings to control publisher provided signals (PPS).
+             */
+            pps?: PublisherProvidedSignalsConfig | null;
+
+            /**
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
@@ -1688,16 +1698,79 @@ declare namespace googletag {
             treatments: PrivacyTreatment[];
         }
 
+        /**
+         * Publisher provided signals (PPS) configuration object.
+         */
+        interface PublisherProvidedSignalsConfig {
+            /**
+             * An object containing {@link Taxonomy} mappings.
+             *
+             * @example
+             *   googletag.setConfig({
+             *     pps: {
+             *       taxonomies: {
+             *         IAB_AUDIENCE_1_1: { values: ["6", "626"] },
+             *         // '6' = 'Demographic | Age Range | 18-20'
+             *         // '626' = 'Interest | Sports | Darts'
+             *         IAB_CONTENT_2_2: { values: ["48", "127"] },
+             *         // '48' = 'Books and Literature | Fiction'
+             *         // '127' = 'Careers | Job Search'
+             *       },
+             *     },
+             *   });
+             *
+             * @see [About publisher provided signals (Beta)](https://support.google.com/admanager/answer/12451124)
+             * @see [IAB Audience Taxonomy 1.1](https://iabtechlab.com/standards/audience-taxonomy/)
+             * @see [IAB Content Taxonomy 2.2](https://iabtechlab.com/standards/content-taxonomy/)
+             */
+            taxonomies: Partial<Record<Taxonomy, TaxonomyData>>;
+        }
+
+        /**
+         * Main configuration interface for slot-level settings.
+         * Allows setting multiple features with a single API call for a single slot.
+         *
+         * Only features specified in the {@link Slot.setConfig()} call are modified.
+         *
+         * @example
+         *   const slot = googletag.defineSlot("/1234567/example", [160, 600])!;
+         *   // Configure all features.
+         *   slot.setConfig({
+         *     adExpansion: { enabled: true },
+         *     componentAuction: [{ configKey: "https://testSeller.com", auctionConfig: null }],
+         *     interstitial: { triggers: { unhideWindow: true } },
+         *   });
+         *   // Update feature componentAuction and clear feature interstitial, but feature adExpansion remains set.
+         *   slot.setConfig({
+         *     componentAuction: [{ configKey: "https://testSeller2.com", auctionConfig: null }],
+         *     interstitial: null,
+         *   });
+         */
         interface SlotSettingsConfig {
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
+
             /**
              * An array of component auctions to be included in an on-device ad auction.
              */
-            componentAuction?: ComponentAuctionConfig[];
+            componentAuction?: ComponentAuctionConfig[] | null;
 
             /**
              * Settings that control interstitial ad slot behavior.
              */
-            interstitial?: InterstitialConfig;
+            interstitial?: InterstitialConfig | null;
+        }
+
+        /**
+         * An object containing the values for a single {@link Taxonomy}.
+         */
+        interface TaxonomyData {
+            /**
+             *  A list of {@link Taxonomy} values.
+             */
+            values: string[];
         }
     }
 

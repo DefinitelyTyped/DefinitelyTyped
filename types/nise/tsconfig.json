@@ -5,7 +5,7 @@
         "strictNullChecks": true,
         "noImplicitThis": true,
         "noImplicitAny": true,
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
         "types": [],
         "lib": [

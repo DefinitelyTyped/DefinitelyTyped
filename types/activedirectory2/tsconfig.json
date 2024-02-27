@@ -4,7 +4,7 @@
         "activedirectory2-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "es2015.iterable"

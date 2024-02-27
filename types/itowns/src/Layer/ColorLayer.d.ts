@@ -6,6 +6,7 @@ import Layer, { LayerOptions } from "./Layer";
 
 type EffectType = 0 | 1 | 2 | 3; // TODO: enum
 
+// TODO: Define public API
 export interface ColorLayerOptions extends LayerOptions {
     style?: Style;
     visible?: boolean;

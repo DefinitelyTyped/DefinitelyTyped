@@ -1,6 +1,6 @@
 import mailchimp = require("@mailchimp/mailchimp_marketing");
 
-// void;
+// $ExpectType void;
 mailchimp.setConfig({
     apiKey: "test",
     accessToken: "test",
@@ -146,52 +146,82 @@ const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJour
     email_address: "test@email.com",
 };
 
-// Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<BatchListMembersResponse | ErrorResponse>
 mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersOpts);
 
-// Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.setListMember("test", "test", setListMemberBody);
 
-// Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<ListMembersInfoSuccessResponse | ErrorResponse>
+mailchimp.lists.getListMembersInfo("test");
+
+// $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMember("test", "test");
 
-// Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.addListMember("test", addListMemberBody);
 
-// Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.updateListMember("test", "test", updateListMemberBody);
 
-// Promise<{} | ErrorResponse>
+// $ExpectType Promise<{} | ErrorResponse>
 mailchimp.lists.deleteListMemberPermanent("test", "test");
 
-// Promise<{} | ErrorResponse>
+// $ExpectType Promise<{} | ErrorResponse>
 mailchimp.lists.deleteListMember("test", "test");
 
-// Promise<{} | ErrorResponse>
+// $ExpectType Promise<{} | ErrorResponse>
 mailchimp.lists.updateListMemberTags("test", "test", updateListMemberTagsBody);
 
-// Promise<ListMemberTagsResponse | ErrorResponse>
+// $ExpectType Promise<ListMemberTagsResponse | ErrorResponse>
 mailchimp.lists.getListMemberTags("test", "test", listMemberTagsOptions);
 
-// Promise<ListsSuccessResponse | ErrorResponse>
+// $ExpectType Promise<ListsSuccessResponse | ErrorResponse>
 mailchimp.lists.getAllLists(getAllListsBody);
 
-// Promise<MergeFieldSuccessResponse | ErrorResponse>
+// $ExpectType Promise<MergeFieldSuccessResponse | ErrorResponse>
 mailchimp.lists.getListMergeFields("test", getListMergeFieldsBody);
 
 mailchimp.lists.createListMemberEvent("test", "test", createListMemberBody);
 
-// Promise<GetListInterestCategoriesResponse | ErrorResponse>
+// $ExpectType Promise<GetListInterestCategoriesResponse | ErrorResponse>
 mailchimp.lists.getListInterestCategories("test");
 
-// Promise<ListInterestCategoryInterestsResponse | ErrorResponse>
+// $ExpectType Promise<ListInterestCategoryInterestsResponse | ErrorResponse>
 mailchimp.lists.listInterestCategoryInterests("test", "test");
 
-// Promise<CampaignsSuccessResponse | ErrorResponse>
+// $ExpectType Promise<CampaignsSuccessResponse | ErrorResponse>
 mailchimp.campaigns.list(listCampaignsOpts);
 
-// Promise<CampaignContentSuccessResponse | ErrorResponse>
+// $ExpectType Promise<CampaignContentSuccessResponse | ErrorResponse>
 mailchimp.campaigns.getContent("test", getContentOpts);
 
-// Promise<null | ErrorResponse>
+// $ExpectType Promise<null | ErrorResponse>
 mailchimp.customerJourneys.trigger(123, 123, triggerCustomerJourneyBody);
+
+// $ExpectType Promise<CampaignFoldersSuccessResponse | ErrorResponse>
+mailchimp.campaignFolders.list();
+
+// $ExpectType Promise<ErrorResponse | CampaignFolder>
+mailchimp.campaignFolders.create({ name: "test" });
+
+// $ExpectType Promise<ErrorResponse | CampaignFolder>
+mailchimp.campaignFolders.get("0");
+
+// $ExpectType Promise<ErrorResponse | CampaignFolder>
+mailchimp.campaignFolders.update("0", { name: "test" });
+
+// $ExpectType Promise<{} | ErrorResponse>
+mailchimp.campaignFolders.remove("0");
+
+// $ExpectType Promise<{} | ErrorResponse>
+mailchimp.campaigns.send("0");
+
+// $ExpectType Promise<SendChecklist | ErrorResponse>
+mailchimp.campaigns.getSendChecklist("0");
+
+// $ExpectType Promise<CampaignContentSuccessResponse | ErrorResponse>
+mailchimp.campaigns.setContent("0", { html: "test" });
+
+// $ExpectType Promise<Campaigns | ErrorResponse>
+mailchimp.campaigns.create({ type: "regular" });

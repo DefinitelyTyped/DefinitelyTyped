@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20240122
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/7c4703abbdfb54ccce8c8fd245b5e4f3ad68d0d8
+// Tests for Google Publisher Tag 1.20240219
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/42bfb2b9b8d977aeafe03d51562dca96323f5f38
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -645,6 +645,22 @@ function test_googletag_config_privacyTreatmentsConfig_treatments() {
     });
 }
 
+// Test for googletag.config.PublisherProvidedSignalsConfig
+function test_googletag_config_publisherProvidedSignalsConfig() {
+    googletag.setConfig({
+        pps: {
+            taxonomies: {
+                "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
+                // '6' = 'Demographic | Age Range | 18-20'
+                // '626' = 'Interest | Sports | Darts'
+                "IAB_CONTENT_2_2": { values: ["48", "127"] },
+                // '48' = 'Books and Literature | Fiction'
+                // '127' = 'Careers | Job Search'
+            },
+        },
+    });
+}
+
 // Test for googletag.config.ComponentAuctionConfig.auctionConfig
 function test_googletag_config_componentAuctionConfig_auctionConfig() {
     const componentAuctionConfig = {
@@ -700,6 +716,7 @@ function test_googletag_config_interstitialConfig_triggers() {
     interstitialSlot.setConfig({
         interstitial: {
             triggers: {
+                navBar: enableTriggers,
                 unhideWindow: enableTriggers,
             },
         },

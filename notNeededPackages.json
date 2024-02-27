@@ -904,6 +904,10 @@
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
         },
+        "cobe": {
+            "libraryName": "cobe",
+            "asOfVersion": "0.5.0"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
@@ -931,6 +935,10 @@
         "compare-versions": {
             "libraryName": "compare-versions",
             "asOfVersion": "3.3.0"
+        },
+        "complex.js": {
+            "libraryName": "complex.js",
+            "asOfVersion": "2.0.14"
         },
         "composer-concerto": {
             "libraryName": "composer-concerto",
@@ -3540,6 +3548,10 @@
         "mqtt": {
             "libraryName": "mqtt",
             "asOfVersion": "2.5.0"
+        },
+        "mri": {
+            "libraryName": "mri",
+            "asOfVersion": "1.2.0"
         },
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
@@ -6338,6 +6350,10 @@
         "wallpaper": {
             "libraryName": "wallpaper",
             "asOfVersion": "4.3.0"
+        },
+        "wanakana": {
+            "libraryName": "wanakana",
+            "asOfVersion": "5.3.0"
         },
         "watson-developer-cloud": {
             "libraryName": "watson-developer-cloud",

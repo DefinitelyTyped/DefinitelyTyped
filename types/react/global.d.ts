@@ -140,6 +140,7 @@ interface SVGPolygonElement extends SVGElement {}
 interface SVGPolylineElement extends SVGElement {}
 interface SVGRadialGradientElement extends SVGElement {}
 interface SVGRectElement extends SVGElement {}
+interface SVGSetElement extends SVGElement {}
 interface SVGStopElement extends SVGElement {}
 interface SVGSwitchElement extends SVGElement {}
 interface SVGSymbolElement extends SVGElement {}

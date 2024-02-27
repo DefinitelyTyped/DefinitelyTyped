@@ -8,6 +8,7 @@ export * from "estree";
 declare module "estree" {
     interface ExpressionMap {
         JSXElement: JSXElement;
+        JSXFragment: JSXFragment;
     }
 
     interface NodeMap {

@@ -159,7 +159,7 @@ export class PerspectiveCamera extends Camera {
      * Computes the width and height of the camera's viewable rectangle at a given distance along the viewing direction.
      * Copies the result into the target Vector2, where x is width and y is height.
      */
-    getViewSize(distance: number, minTarget: Vector2, maxTarget: Vector2): void;
+    getViewSize(distance: number, target: Vector2): Vector2;
 
     /**
      * Sets an offset in a larger frustum.

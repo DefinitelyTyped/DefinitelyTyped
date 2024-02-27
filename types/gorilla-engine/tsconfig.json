@@ -9,7 +9,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "module": "commonjs",
+        "module": "node16",
         "types": []
     },
     "files": [

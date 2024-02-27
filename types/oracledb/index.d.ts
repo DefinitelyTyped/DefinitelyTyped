@@ -7,82 +7,268 @@ declare namespace OracleDB {
     // const ARRAY: number;
     // const OBJECT: number;
 
+    type CSFRM_IMPLICIT = 1;
+    type CSFRM_NCHAR = 2;
     /** Constant for the query result outFormat option. */
     const OUT_FORMAT_ARRAY: number;
     /** Constant for the query result outFormat option. */
     const OUT_FORMAT_OBJECT: number;
 
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const BLOB: number;
+    const BLOB: typeof DB_TYPE_BLOB;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const BUFFER: number;
+    const BUFFER: typeof DB_TYPE_RAW;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const CLOB: number;
+    const CLOB: typeof DB_TYPE_CLOB;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const CURSOR: number;
+    const CURSOR: typeof DB_TYPE_CURSOR;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const DATE: number;
+    const DATE: typeof DB_TYPE_TIMESTAMP;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
     const DEFAULT: number;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const NUMBER: number;
+    const NUMBER: typeof DB_TYPE_NUMBER;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const NCLOB: number;
+    const NCLOB: typeof DB_TYPE_NCLOB;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
-    const STRING: number;
+    const STRING: typeof DB_TYPE_VARCHAR;
+
+    class DbType {
+        num: number;
+        name: string;
+        columnTypeName: string;
+        _bufferSizeFactor: number;
+        _oraTypeNum: number;
+        csfrm: number;
+
+        constructor(
+            num: number,
+            name: string,
+            columnTypeName: string,
+            options?: { bufferSizeFactor?: number; oraTypeNum?: number; csfrm?: number },
+        );
+        toString: () => string;
+    }
 
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BFILE: number;
+    const DB_TYPE_BFILE: DbType & {
+        num: 2020;
+        name: "DB_TYPE_BFILE";
+        columnTypeName: "BFILE";
+        oraTypeNum: 114;
+        bufferSizeFactor: 112;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_DOUBLE: number;
+    const DB_TYPE_BINARY_DOUBLE: DbType & {
+        num: 2008;
+        name: "DB_TYPE_BINARY_DOUBLE";
+        columnTypeName: "BINARY_DOUBLE";
+        oraTypeNum: 101;
+        bufferSizeFactor: 8;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_FLOAT: number;
+    const DB_TYPE_BINARY_FLOAT: DbType & {
+        num: 2007;
+        name: "DB_TYPE_BINARY_FLOAT";
+        columnTypeName: "BINARY_FLOAT";
+        oraTypeNum: 100;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BINARY_INTEGER: number;
+    const DB_TYPE_BINARY_INTEGER: DbType & {
+        num: 2009;
+        name: "DB_TYPE_BINARY_INTEGER";
+        columnTypeName: "BINARY_INTEGER";
+        oraTypeNum: 3;
+        bufferSizeFactor: 22;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BLOB: number;
+    const DB_TYPE_BLOB: DbType & {
+        num: 2019;
+        name: "DB_TYPE_BLOB";
+        columnTypeName: "BLOB";
+        oraTypeNum: 113;
+        bufferSizeFactor: 112;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_BOOLEAN: number;
+    const DB_TYPE_BOOLEAN: DbType & {
+        num: 2022;
+        name: "DB_TYPE_BOOLEAN";
+        columnTypeName: "BOOLEAN";
+        oraTypeNum: 252;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CHAR: number;
+    const DB_TYPE_CHAR: DbType & {
+        num: 2003;
+        name: "DB_TYPE_CHAR";
+        columnTypeName: "CHAR";
+        oraTypeNum: 96;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CLOB: number;
+    const DB_TYPE_CLOB: DbType & {
+        num: 2017;
+        name: "DB_TYPE_CLOB";
+        columnTypeName: "CLOB";
+        oraTypeNum: 112;
+        bufferSizeFactor: 112;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_CURSOR: number;
+    const DB_TYPE_CURSOR: DbType & {
+        num: 2021;
+        name: "DB_TYPE_CURSOR";
+        columnTypeName: "CURSOR";
+        oraTypeNum: 102;
+        bufferSizeFactor: 4;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_DATE: number;
+    const DB_TYPE_DATE: DbType & {
+        num: 2011;
+        name: "DB_TYPE_DATE";
+        columnTypeName: "DATE";
+        oraTypeNum: 12;
+        bufferSizeFactor: 7;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_INTERVAL_DS: number;
+    const DB_TYPE_INTERVAL_DS: DbType & {
+        num: 2015;
+        name: "DB_TYPE_INTERVAL_DS";
+        columnTypeName: "INTERVAL DAY TO SECOND";
+        oraTypeNum: 183;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_INTERVAL_YM: number;
+    const DB_TYPE_INTERVAL_YM: DbType & {
+        num: 2016;
+        name: "DB_TYPE_INTERVAL_YM";
+        columnTypeName: "INTERVAL YEAR TO MONTH";
+        oraTypeNum: 182;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_JSON: number;
+    const DB_TYPE_JSON: DbType & { num: 2027; name: "DB_TYPE_JSON"; columnTypeName: "JSON"; oraTypeNum: 119 };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_LONG: number;
+    const DB_TYPE_LONG: DbType & {
+        num: 2024;
+        name: "DB_TYPE_LONG";
+        columnTypeName: "LONG";
+        oraTypeNum: 8;
+        csfrm: CSFRM_IMPLICIT;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_LONG_RAW: number;
+    const DB_TYPE_LONG_NVARCHAR: DbType & {
+        num: 2031;
+        name: "DB_TYPE_LONG_NVARCHAR";
+        columnTypeName: "LONG";
+        oraTypeNum: 8;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NCHAR: number;
+    const DB_TYPE_LONG_RAW: DbType & {
+        num: 2025;
+        name: "DB_TYPE_LONG_RAW";
+        columnTypeName: "LONG RAW";
+        oraTypeNum: 24;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NCLOB: number;
+    const DB_TYPE_NCHAR: DbType & {
+        num: 2004;
+        name: "DB_TYPE_NCHAR";
+        columnTypeName: "NCHAR";
+        oraTypeNum: 96;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NUMBER: number;
+    const DB_TYPE_NCLOB: DbType & {
+        num: 2018;
+        name: "DB_TYPE_NCLOB";
+        columnTypeName: "NCLOB";
+        oraTypeNum: 112;
+        bufferSizeFactor: 112;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_NVARCHAR: number;
+    const DB_TYPE_NUMBER: DbType & {
+        num: 2010;
+        name: "DB_TYPE_NUMBER";
+        columnTypeName: "NUMBER";
+        oraTypeNum: 2;
+        bufferSizeFactor: 22;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_OBJECT: number;
+    const DB_TYPE_NVARCHAR: DbType & {
+        num: 2002;
+        name: "DB_TYPE_NVARCHAR";
+        columnTypeName: "NVARCHAR2";
+        oraTypeNum: 1;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_NCHAR;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_RAW: number;
+    const DB_TYPE_OBJECT: DbType & { num: 2023; name: "DB_TYPE_OBJECT"; columnTypeName: "OBJECT"; oraTypeNum: 109 };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_ROWID: number;
+    const DB_TYPE_RAW: DbType & {
+        num: 2006;
+        name: "DB_TYPE_RAW";
+        columnTypeName: "RAW";
+        oraTypeNum: 23;
+        bufferSizeFactor: 1;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP: number;
+    const DB_TYPE_ROWID: DbType & {
+        num: 2005;
+        name: "DB_TYPE_ROWID";
+        columnTypeName: "ROWID";
+        oraTypeNum: 11;
+        bufferSizeFactor: 18;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP_LTZ: number;
+    const DB_TYPE_TIMESTAMP: DbType & {
+        num: 2012;
+        name: "DB_TYPE_TIMESTAMP";
+        columnTypeName: "TIMESTAMP";
+        oraTypeNum: 180;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_TIMESTAMP_TZ: number;
+    const DB_TYPE_TIMESTAMP_LTZ: DbType & {
+        num: 2014;
+        name: "DB_TYPE_TIMESTAMP_LTZ";
+        columnTypeName: "TIMESTAMP WITH LOCAL TIME ZONE";
+        oraTypeNum: 231;
+        bufferSizeFactor: 11;
+    };
     /** Constant which represents the Oracle Database type. */
-    const DB_TYPE_VARCHAR: number;
+    const DB_TYPE_TIMESTAMP_TZ: DbType & {
+        num: 2013;
+        name: "DB_TYPE_TIMESTAMP_TZ";
+        columnTypeName: "TIMESTAMP WITH TIME ZONE";
+        oraTypeNum: 181;
+        bufferSizeFactor: 13;
+    };
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_UROWID: DbType & { num: 2030; name: "DB_TYPE_UROWID"; columnTypeName: "UROWID"; oraTypeNum: 208 };
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_VARCHAR: DbType & {
+        num: 2001;
+        name: "DB_TYPE_VARCHAR";
+        columnTypeName: "VARCHAR2";
+        oraTypeNum: 1;
+        bufferSizeFactor: 4;
+        csfrm: CSFRM_IMPLICIT;
+    };
+    /** Constant which represents the Oracle Database type. */
+    const DB_TYPE_XMLTYPE: DbType & {
+        num: 2032;
+        name: "DB_TYPE_XMLTYPE";
+        columnTypeName: "XMLTYPE";
+        oraTypeNum: 109;
+        bufferSizeFactor: 2147483647;
+        csfrm: CSFRM_IMPLICIT;
+    };
 
     /** Constant for the dir property of execute() bindParams, queryStream() and executeMany() bindDefs. */
     const BIND_IN: number;
@@ -651,7 +837,7 @@ declare namespace OracleDB {
          * With IN or IN OUT binds the type can be explicitly set with type or it will default to the type
          * of the input data value. With OUT binds, the type defaults to oracledb.STRING whenever type is not specified.
          */
-        type?: number | string | undefined;
+        type?: DbType | number | string | undefined;
         /**
          * The input value or variable to be used for an IN or IN OUT bind variable.
          */
@@ -748,6 +934,12 @@ declare namespace OracleDB {
          */
         dbOp?: string | undefined;
 
+        /**
+         * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
+         *
+         * @since 6.1
+         */
+        instanceName?: string | undefined;
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -868,8 +1060,8 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#lobhandling
          * @see https://oracle.github.io/node-oracledb/doc/api.html#lobbinds
          */
-        createLob(type: number): Promise<Lob>;
-        createLob(type: number, callback: (error: DBError, lob: Lob) => void): void;
+        createLob(type: DbType): Promise<Lob>;
+        createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
 
         /**
          * This call executes a single SQL or PL/SQL statement.
@@ -1415,6 +1607,16 @@ declare namespace OracleDB {
          * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
          */
         password?: string | undefined;
+        /**
+         * Enables the connection to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.
+         * If the value is True, then the sslServerDNMatch property uses a weaker DN matching behavior which only checks the server certificate (and not the listener certificate), and allows the service name to be used for partial DN matching. The DN matching for a partial match first matches the host name that the client connected to against the common name (CN) of the database server certificate DN or the Subject Alternate Names (SAN) of the database server certificate. If this fails, then the service name is matched against the CN of the database server certificate DN.
+         * If the value is False, then the sslServerDNMatch property uses a more secure DN matching behavior which checks both the listener and server certificates, and does not allow a service name check for partial DN matching. The DN matching for a partial match matches the host name that the client connected to against the CN of the certificate DN or the SAN of the certificate. The service name is not checked in this case.
+         * The default value is False.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.1
+         */
+        sslAllowWeakDNMatch?: boolean | undefined;
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
@@ -2144,6 +2346,15 @@ declare namespace OracleDB {
          */
         sslServerCertDN?: string | undefined;
         /**
+         * Enables the connection to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.
+         * If the value is True, then the sslServerDNMatch property uses a weaker DN matching behavior which only checks the server certificate (and not the listener certificate), and allows the service name to be used for partial DN matching. The DN matching for a partial match first matches the host name that the client connected to against the common name (CN) of the database server certificate DN or the Subject Alternate Names (SAN) of the database server certificate. If this fails, then the service name is matched against the CN of the database server certificate DN.
+         * If the value is False, then the sslServerDNMatch property uses a more secure DN matching behavior which checks both the listener and server certificates, and does not allow a service name check for partial DN matching. The DN matching for a partial match matches the host name that the client connected to against the CN of the certificate DN or the SAN of the certificate. The service name is not checked in this case.
+         * The default value is False.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * @since 6.1
+         */
+        sslAllowWeakDNMatch?: boolean | undefined;
+        /**
          * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
          * If the sslServerCertDN parameter is not provided, host name matching is performed instead.
          * The default value is True.
@@ -2345,7 +2556,7 @@ declare namespace OracleDB {
         deqOptions: DequeueOptions;
         /** Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.denqMany(). */
         enqOptions: EnqueueOptions;
-        /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT constants. */
+        /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT or DB_TYPE_JSON constants. */
         readonly payloadType: number;
         /**
          * The DBObject Class corresponding to the payload type specified when the queue was created
@@ -2380,18 +2591,27 @@ declare namespace OracleDB {
          * Ensure that enqMany() is not run in parallel, use standalone connections, or make multiple calls to enqOne().
          * The deqMany() method is not affected.
          *
+         * Previously, aqQueue.enqMany() did not return any value. Now, this method returns an array of AqMessage objects.
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: Array<EnqueueMessage<T>>): Promise<void>;
-        enqMany(messages: Array<EnqueueMessage<T>>, callback: (error: DBError) => void): void;
+        enqMany(messages: Array<EnqueueMessage<T>>): Promise<AdvancedQueueMessage<T>>;
+        enqMany(
+            messages: Array<EnqueueMessage<T>>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
 
         /**
          * Enqueues a single message.
          *
+         * Previously, aqQueue.enqOne() did not return any value. Now, this method returns an AqMessage object.
+         *
          * @param message
          */
-        enqOne(message: EnqueueMessage<T>): Promise<void>;
-        enqOne(message: EnqueueMessage<T>, callback: (error: DBError) => void): void;
+        enqOne(message: EnqueueMessage<T>): Promise<AdvancedQueueMessage<T>>;
+        enqOne(
+            message: EnqueueMessage<T>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
     }
 
     type EnqueueMessage<T> =
@@ -2477,6 +2697,10 @@ declare namespace OracleDB {
         readonly name: string;
         /** Schema owning the Oracle Database object or collection. */
         readonly schema: string;
+        /** This read-only property is a string which identifies the name of the package, if the type refers to a PL/SQL type. Otherwise, it returns undefined.
+         * @since 6.2
+         */
+        readonly packageName: string | undefined;
 
         /**
          * Add the given value to the end of the collection.
@@ -3139,6 +3363,14 @@ declare namespace OracleDB {
          */
         truncate(): Promise<void>;
         truncate(cb: (err: DBError) => void): void;
+
+        /**
+         * Retrieves all the indexes from a SODA collection. This method returns an array of objects that contains the index specifications.
+         * This method requires Oracle Client 21.3 or later (or Oracle Client 19 from 19.13).
+         * @since 6.2
+         */
+        listIndexes(): Promise<Array<BTreeIndex | SpatialIndex | SearchIndex>>;
+        listIndexes(cb: (err: DBError, listIndexes: Array<BTreeIndex | SpatialIndex | SearchIndex>) => void): void;
     }
 
     /**
@@ -3296,6 +3528,21 @@ declare namespace OracleDB {
          * @since 3.0
          */
         limit(limit: number): SodaOperation;
+        /**
+         * Locks the documents fetched from the collection.
+         *
+         * Using lock() allows for pessimistic locking, that is, only the current user that performed the lock can modify the documents in the collection. Other users can only perform operations on these documents once they are unlocked. The functionality of this method is equivalent to the SELECT FOR UPDATE clause.
+         *
+         * The documents can be unlocked with an explicit call to commit() or rollback() on the connection. Ensure that the oracledb.autoCommit is set to false for the connection. Otherwise, the documents will be unlocked immediately after the operation is complete.
+         *
+         * This method should only be used with read operations (other than count()), and should not be used in conjunction with non-terminal methods skip() and limit().
+         *
+         * If this method is specified in conjunction with a write operation, then this method is ignored.
+         *
+         * This method requires Oracle Client 21.3 or later (or Oracle Client 19 from 19.11).
+         * @since 6.2
+         */
+        lock(): SodaOperation;
         /**
          * Sets the number of documents that will be skipped before the terminal method is applied.
          * The value of n must be greater or equal to 0. The skip applies to documents that match the other
@@ -3834,6 +4081,12 @@ declare namespace OracleDB {
     function getPool(poolAlias?: string): Pool;
 
     interface InitialiseOptions {
+        /**
+         * This directory is added to the start of the default search path used by initOracleClient() to load the node-oracledb Thick mode binary module.
+         * The default search path includes node_modules/oracledb/build/Release and node_modules/oracledb/build/Debug.
+         * @since 6.2
+         */
+        binaryDir?: string | undefined;
         /**
          * This specifies the directory in which the Optional Oracle Net Configuration and Optional Oracle Client Configuration files reside. It is equivalent to setting the Oracle environment variable TNS_ADMIN to this value. Any value in that environment variable prior to the call to oracledb.initOracleClient() is ignored. If this attribute is not set, Oracle’s default configuration file search heuristics are used.
          */

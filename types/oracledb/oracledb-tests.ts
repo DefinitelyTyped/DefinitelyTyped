@@ -455,7 +455,7 @@ const version4Tests = async () => {
 
     const messages = await queue.deqMany(5);
 
-    const lob = await connection.createLob(2);
+    const lob = await connection.createLob(oracledb.CLOB);
 
     await lob.getData();
 

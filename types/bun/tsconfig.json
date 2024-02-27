@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
-        "lib": ["ESNext"],
+        "lib": [
+            "ESNext"
+        ],
         "strict": true,
         "target": "esnext",
         "module": "node16",

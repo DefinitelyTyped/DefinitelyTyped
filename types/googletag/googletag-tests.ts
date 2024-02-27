@@ -762,6 +762,42 @@ function test_googletag_config_PrivacyTreatmentsConfig_treatments() {
 }
 
 /**
+ * Test for {@link googletag.config.PublisherProvidedSignalsConfig.taxonomies}
+ */
+function test_googletag_config_PublisherProvidedSignalsConfig_taxonomies() {
+    googletag.setConfig({
+        pps: {
+            taxonomies: {
+                IAB_AUDIENCE_1_1: { values: ["6", "626"] },
+                // '6' = 'Demographic | Age Range | 18-20'
+                // '626' = 'Interest | Sports | Darts'
+                IAB_CONTENT_2_2: { values: ["48", "127"] },
+                // '48' = 'Books and Literature | Fiction'
+                // '127' = 'Careers | Job Search'
+            },
+        },
+    });
+}
+
+/**
+ * Test for {@link googletag.config.SlotSettingsConfig}
+ */
+function test_googletag_config_SlotSettingsConfig() {
+    const slot = googletag.defineSlot("/1234567/example", [160, 600])!;
+    // Configure all features.
+    slot.setConfig({
+        adExpansion: { enabled: true },
+        componentAuction: [{ configKey: "https://testSeller.com", auctionConfig: null }],
+        interstitial: { triggers: { unhideWindow: true } },
+    });
+    // Update feature componentAuction and clear feature interstitial, but feature adExpansion remains set.
+    slot.setConfig({
+        componentAuction: [{ configKey: "https://testSeller2.com", auctionConfig: null }],
+        interstitial: null,
+    });
+}
+
+/**
  * Test for {@link googletag.events.ImpressionViewableEvent}
  */
 function test_googletag_events_ImpressionViewableEvent() {

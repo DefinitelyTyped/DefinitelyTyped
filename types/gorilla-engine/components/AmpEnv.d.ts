@@ -22,6 +22,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface AmpEnv extends AmpEnvProps {}
     class AmpEnv extends Component {
         constructor(options: Partial<AmpEnvProps>);

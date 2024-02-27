@@ -724,13 +724,21 @@ declare namespace Memory {
     function dup(address: NativePointerValue, size: number | UInt64): NativePointer;
 
     /**
-     * Changes the page protection on a region of memory.
+     * Changes the page protection of a region of memory.
      *
      * @param address Starting address.
      * @param size Number of bytes. Must be a multiple of Process#pageSize.
      * @param protection Desired page protection.
      */
     function protect(address: NativePointerValue, size: number | UInt64, protection: PageProtection): boolean;
+
+    /**
+     * Determines the current protection of a page in memory.
+     *
+     * @param address Address inside page to determine the protection of.
+     * @returns The current page protection.
+     */
+    function queryProtection(address: NativePointerValue): PageProtection;
 
     /**
      * Safely modifies `size` bytes at `address`. The supplied function `apply` gets called with a writable pointer
@@ -922,6 +930,11 @@ interface ThreadDetails {
      * OS-specific ID.
      */
     id: ThreadId;
+
+    /**
+     * Name, if available.
+     */
+    name?: string;
 
     /**
      * Snapshot of state.
@@ -3033,6 +3046,10 @@ declare namespace Interceptor {
      *
      * May be implemented using e.g. `NativeCallback` or `CModule`.
      *
+     * You may call the original implementation by calling `target` from within
+     * your implementation. Interceptor uses thread-local state to determine
+     * that it should call the original in that case.
+     *
      * @param target Address of function to replace.
      * @param replacement Replacement implementation.
      * @param data User data exposed to native replacement through the
@@ -3040,6 +3057,22 @@ declare namespace Interceptor {
      *             `gum_interceptor_get_current_invocation()`.
      */
     function replace(target: NativePointerValue, replacement: NativePointerValue, data?: NativePointerValue): void;
+
+    /**
+     * Replaces function at `target` with implementation at `replacement`.
+     *
+     * May be implemented using e.g. `NativeCallback` or `CModule`.
+     *
+     * Target is modified to vector directly to your replacement, which means
+     * there is less overhead compared to `Interceptor.replace()`. This also
+     * means that you need to use the returned pointer if you want to call the
+     * original implementation.
+     *
+     * @param target Address of function to replace.
+     * @param replacement Replacement implementation.
+     * @returns Address of trampoline that lets you call the original function.
+     */
+    function replaceFast(target: NativePointerValue, replacement: NativePointerValue): NativePointer;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -4344,6 +4377,112 @@ declare namespace Kernel {
     function writeByteArray(address: UInt64, value: ArrayBuffer | number[]): void;
     function writeUtf8String(address: UInt64, value: string): void;
     function writeUtf16String(address: UInt64, value: string): void;
+}
+
+/**
+ * Keeps you from seeing yourself during process introspection.
+ *
+ * Introspection APIs such as `Process.enumerateThreads()` ensure that cloaked
+ * resources are skipped, and things appear as if you were not inside the
+ * process being instrumented.
+ *
+ * Any resources created by Frida's runtime will be cloaked automatically.
+ * This means you typically only need to manage cloaked resources if you use an
+ * OS-specific API to create a given resource.
+ */
+declare namespace Cloak {
+    /**
+     * Updates the registry of cloaked resources so the given thread `id`
+     * becomes invisible to cloak-aware APIs, such as
+     * `Process.enumerateThreads()`.
+     *
+     * @param id The thread ID to cloak.
+     */
+    function addThread(id: ThreadId): void;
+
+    /**
+     * Updates the registry of cloaked resources so the given thread `id`
+     * becomes visible to cloak-aware APIs, such as
+     * `Process.enumerateThreads()`.
+     *
+     * @param id The thread ID to uncloak.
+     */
+    function removeThread(id: ThreadId): void;
+
+    /**
+     * Checks whether the current thread is currently being cloaked.
+     *
+     * @returns Whether the current thread is cloaked.
+     */
+    function hasCurrentThread(): boolean;
+
+    /**
+     * Checks whether the given thread `id` is currently being cloaked.
+     *
+     * @param id The thread ID to check.
+     * @returns Whether the specified thread `id` is cloaked.
+     */
+    function hasThread(id: ThreadId): boolean;
+
+    /**
+     * Updates the registry of cloaked resources so the given memory `range`
+     * becomes invisible to cloak-aware APIs, such as
+     * `Process.enumerateRanges()`.
+     *
+     * @param range The range to cloak.
+     */
+    function addRange(range: MemoryRange): void;
+
+    /**
+     * Updates the registry of cloaked resources so the given memory `range`
+     * becomes visible to cloak-aware APIs, such as `Process.enumerateRanges()`.
+     *
+     * @param range The range to uncloak.
+     */
+    function removeRange(range: MemoryRange): void;
+
+    /**
+     * Determines whether a memory range containing `address` is currently
+     * cloaked.
+     *
+     * @param address The address to look for.
+     * @return Whether `address` is inside a cloaked range.
+     */
+    function hasRangeContaining(address: NativePointerValue): boolean;
+
+    /**
+     * Determines how much of the given memory `range` is currently visible.
+     * May return an empty array if the entire range is cloaked, or `null` if it
+     * is entirely visible.
+     *
+     * @param range The range to determine the visible parts of.
+     * @return Visible parts of `range`, or `null` if it is entirely visible.
+     */
+    function clipRange(range: MemoryRange): MemoryRange[] | null;
+
+    /**
+     * Updates the registry of cloaked resources so the given `fd` becomes
+     * invisible to cloak-aware APIs.
+     *
+     * @param fd The file descriptor to cloak.
+     */
+    function addFileDescriptor(fd: number): void;
+
+    /**
+     * Updates the registry of cloaked resources so the given `fd` becomes
+     * visible to cloak-aware APIs.
+     *
+     * @param fd The file descriptor to uncloak.
+     */
+    function removeFileDescriptor(fd: number): void;
+
+    /**
+     * Checks whether the given `fd` is currently being cloaked.
+     *
+     * @param fd The file descriptor to check.
+     * @returns Whether `fd` is cloaked.
+     */
+    function hasFileDescriptor(fd: number): boolean;
 }
 
 declare namespace ObjC {
