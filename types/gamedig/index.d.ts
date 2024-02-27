@@ -21,7 +21,7 @@ export interface games {
         extra?: {
             doc_notes?: string;
             old_id?: string;
-            alias?: string;
+            // alias?: string;
         };
     };
 }
@@ -54,7 +54,7 @@ export interface QueryOptions {
     stripColors?: boolean;
     noBreadthOrder?: boolean;
     checkOldIDs?: boolean;
-    checkAlias?: boolean;
+    // checkAlias?: boolean;
     // Valve
     requestRules?: boolean;
     requestRulesRequired?: boolean;

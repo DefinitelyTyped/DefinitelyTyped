@@ -3,7 +3,7 @@ import gamedig = require("gamedig");
 // direct usage from import
 gamedig.GameDig.query(
     {
-        type: "tf2",
+        type: "teamfortress2",
         host: "127.0.0.1",
         port: 27015,
         maxRetries: 1,
@@ -17,7 +17,7 @@ gamedig.GameDig.query(
         requestRulesRequired: true,
         requestPlayersRequired: true,
         checkOldIDs: true,
-        checkAlias: true,
+        // checkAlias: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
@@ -30,7 +30,7 @@ gamedig.GameDig.query(
 const gd = new gamedig.GameDig();
 gd.query(
     {
-        type: "tf2",
+        type: "teamfortress2",
         host: "127.0.0.1",
         port: 27015,
         maxRetries: 1,
@@ -44,7 +44,7 @@ gd.query(
         requestRulesRequired: true,
         requestPlayersRequired: true,
         checkOldIDs: true,
-        checkAlias: true,
+        // checkAlias: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
