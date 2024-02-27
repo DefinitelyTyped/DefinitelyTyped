@@ -1,5 +1,5 @@
-import objectIs = require("object.is");
-import x = require("object.is/auto");
+import objectIs = require("object-is");
+import x = require("object-is/auto");
 
 objectIs(NaN, NaN); // $ExpectType boolean
 Object.is(NaN, NaN); // $ExpectType boolean
