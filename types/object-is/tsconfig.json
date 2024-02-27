@@ -18,6 +18,6 @@
         "polyfill.d.ts",
         "implementation.d.ts",
         "shim.d.ts",
-        "object.is-tests.ts"
+        "object-is-tests.ts"
     ]
 }
