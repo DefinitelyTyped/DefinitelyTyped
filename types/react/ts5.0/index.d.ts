@@ -280,6 +280,9 @@ declare namespace React {
         key: string | null;
     }
 
+    /**
+     * @deprecated
+     */
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
