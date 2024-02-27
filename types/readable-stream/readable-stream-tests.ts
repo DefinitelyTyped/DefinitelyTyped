@@ -27,7 +27,7 @@ function test() {
     const RS_Transform = RStream.Transform;
     const RS_Duplex = RStream.Duplex;
 
-    const streamR = new RS_Readable({
+    let streamR = new RS_Readable({
         objectMode: true,
         read(size) {
             assertType<number>(size);
@@ -41,6 +41,14 @@ function test() {
     streamR.once("end", () => {
         process.nextTick(() => streamR.emit("close"));
     });
+
+    streamR = RStream.from([]);
+    streamR = RStream.Readable.from([]);
+    streamR = RStream.from("");
+    streamR = RStream.Readable.from("");
+    const iterable = {} as Iterable<Record<any, any>>;
+    streamR = RStream.from(iterable);
+    streamR = RStream.Readable.from(iterable);
 
     const row = null;
     const i = 0;
