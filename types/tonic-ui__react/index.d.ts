@@ -104,6 +104,7 @@ export function PopoverContent(props: PopoverContentProps): JSX.Element;
 export function PopoverFooter(props: TonicProps): JSX.Element;
 export function PopoverHeader(props: TonicProps): JSX.Element;
 export function PopoverTrigger(props: PopoverTriggerProps): JSX.Element;
+export function PopoverArrow(props: PopoverArrowProps): JSX.Element;
 export function Portal(props: PortalProps): JSX.Element;
 export function PortalManager(props: PropsWithChildren<{}>): JSX.Element;
 export function Radio(props: InputProps): JSX.Element;
@@ -154,6 +155,9 @@ export function ToastProvider(props: ToastProviderProps): JSX.Element;
 export function ToastTransition(props: ToastTransitionProps): JSX.Element;
 export function TonicProvider(props: PropsWithChildren<TonicProviderProps>): JSX.Element;
 export function Tooltip(props: TooltipProps): JSX.Element;
+export function TooltipArrow(props: TooltipArrowProps): JSX.Element;
+export function TooltipContent(props: TooltipContentProps): JSX.Element;
+export function TooltipTrigger(props: TooltipTriggerProps): JSX.Element;
 export function Tree(props: TreeProps): JSX.Element;
 export function TreeItem(props: TreeItemProps): JSX.Element;
 export function TreeItemContent(props: TonicProps): JSX.Element;
@@ -473,9 +477,9 @@ export interface OverflowTooltipProps extends Omit<TonicProps, "children"> {
     PopperComponent?: ComponentType;
     PopperProps?: Record<string, unknown>;
     TooltipArrowComponent?: ComponentType;
-    TooltipArrowProps?: Record<string, unknown>;
+    TooltipArrowProps?: Record<string, unknown> | TooltipArrowProps; // provides auto-completion for TooltipArrowProps when using default TooltipArrowComponent
     TransitionComponent?: ComponentType;
-    TransitionProps?: { appear: boolean };
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">; // provides auto-completion for TransitionProps when using default TransitionComponent
     arrow?: boolean;
     children: ReactNode | ((context: unknown) => ReactNode);
     closeOnClick?: boolean;
@@ -526,15 +530,16 @@ export interface PaginationItemProps extends TonicProps {
 }
 
 export interface PopoverProps extends Omit<TonicProps, "children"> {
-    arrowAt?: "left" | "right" | "top" | "bottom";
+    // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
+    arrow?: boolean;    
     children: ReactNode | ((context: unknown) => ReactNode);
     closeOnBlur?: boolean;
     closeOnEsc?: boolean;
     defaultIsOpen?: boolean;
+    disabled?: boolean;
     enterDelay?: number;
     followCursor?: boolean;
     // hideArrow?: boolean; // deprecated
-    arrow?: boolean;
     id?: string;
     initialFocusRef?: RefObject<HTMLElement>;
     isOpen?: boolean;
@@ -562,15 +567,22 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
 
 export interface PopoverContentProps extends TonicProps {
     PopperComponent?: ComponentType;
-    PopperProps?: object;
-    PopperArrowComponent?: ComponentType;
-    PopperArrowProps?: object;
+    PopperProps?: Record<string, unknown>;
+    // PopperArrowComponent?: ComponentType; // deprecated
+    // PopperArrowProps?: object; // deprecated
+    PopoverArrowComponent?: ComponentType;
+    PopoverArrowProps?: Record<string, unknown> | PopoverArrowProps; // provides auto-completion for PopoverArrowProps when using default PopoverArrowComponent
     TransitionComponent?: ComponentType;
-    TransitionProps?: object;
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">; // provides auto-completion for TransitionProps when using default TransitionComponent
 }
 
 export interface PopoverTriggerProps extends Omit<TonicProps, "children"> {
     children: ReactNode | ((args: { getPopoverTriggerProps: () => TonicProps }) => ReactNode);
+}
+
+export interface PopoverArrowProps extends TonicProps {
+    arrowHeight?: number | string;
+    arrowWidth?: number | string;
 }
 
 export interface PortalProps {
@@ -761,13 +773,13 @@ export type TonicProviderTheme = Record<string, unknown>;
 
 export interface TooltipProps extends Omit<TonicProps, "children"> {
     PopperComponent?: ComponentType;
-    PopperProps?: object;
-    PopperArrowComponent?: ComponentType;
-    PopperArrowProps?: object;
-    TransitionComponent?: ComponentType;
-    TransitionProps?: { appear?: boolean };
+    PopperProps?: Record<string, unknown>;
+    // PopperArrowComponent?: ComponentType; // deprecated
+    // PopperArrowProps?: Record<string, unknown>; // deprecated
     TooltipArrowComponent?: ComponentType;
-    TooltipArrowProps?: object;
+    TooltipArrowProps?: Record<string, unknown> | TooltipArrowProps; // provides auto-completion for TooltipArrowProps when using default TooltipArrowComponent
+    TransitionComponent?: ComponentType;
+    TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
     arrow?: boolean;
     // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
     children: ReactNode | ((context: unknown) => ReactNode);
@@ -802,6 +814,24 @@ export interface TooltipProps extends Omit<TonicProps, "children"> {
         | "left-start"
         | "left-end";
     shouldWrapChildren?: boolean;
+}
+
+export interface TooltipArrowProps extends TonicProps {
+    arrowHeight?: number | string;
+    arrowWidth?: number | string;
+}
+
+export interface TooltipContentProps extends TonicProps {
+    PopperComponent?: ComponentType;
+    PopperProps?: Record<string, unknown>;
+    TooltipArrowComponent?: ComponentType;
+    TooltipArrowProps?: Record<string, unknown> | TooltipArrowProps; // provides auto-completion for TooltipArrowProps when using default TooltipArrowComponent
+    TransitionComponent?: ComponentType;
+    TransitionProps: Record<string, unknown> | Omit<TransitionProps, "children">; // provides auto-completion for TransitionProps when using default TransitionComponent
+}
+
+export interface TooltipTriggerProps extends Omit<TonicProps, "children"> {
+    children: ReactNode | ((args: { getTooltipTriggerProps: () => TonicProps }) => ReactNode);
 }
 
 export interface TreeProps extends TonicProps {
