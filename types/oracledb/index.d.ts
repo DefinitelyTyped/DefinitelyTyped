@@ -538,7 +538,7 @@ declare namespace OracleDB {
      *
      * @since 1.13
      */
-    let fetchAsBuffer: number[];
+    let fetchAsBuffer: DbType[];
     /**
      * An array of node-oracledb types. The valid types are oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, and oracledb.CLOB.
      * When any column having one of the specified types is queried with execute() or queryStream(), the column data is returned as a string instead of the default representation.
@@ -555,7 +555,7 @@ declare namespace OracleDB {
      *
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
-    let fetchAsString: number[];
+    let fetchAsString: DbType[];
     /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
