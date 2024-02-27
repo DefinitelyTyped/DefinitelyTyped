@@ -49,6 +49,17 @@ function test() {
     const iterable = {} as Iterable<Record<any, any>>;
     streamR = RStream.from(iterable);
     streamR = RStream.Readable.from(iterable);
+    const asyncIterable = {} as AsyncIterable<Record<any, any>>;
+    streamR = RStream.from(asyncIterable);
+    streamR = RStream.Readable.from(asyncIterable);
+    streamR = RStream.from([], {
+        objectMode: true,
+        readableHighWaterMark: 1,
+    });
+    streamR = RStream.Readable.from([], {
+        objectMode: true,
+        readableHighWaterMark: 1,
+    });
 
     const row = null;
     const i = 0;
