@@ -4217,7 +4217,7 @@ export interface BankingScheduledPaymentToV2 {
         crn?: string | null;
         [k: string]: unknown;
     };
-    digitalWallet: {
+    digitalWallet?: {
         /**
          * The identifier of the digital wallet (dependent on type)
          */
@@ -4848,6 +4848,22 @@ export interface MetaPaginated {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
+export interface MetaPaginatedTransaction {
+    /**
+     * The total number of pages in the full set. See [pagination](#pagination).
+     */
+    totalPages: number;
+    /**
+     * The total number of records in the full set. See [pagination](#pagination).
+     */
+    totalRecords: number;
+    /**
+     * true if "text" query parameter is not supported
+     */
+    isQueryParamUnsupported?: boolean | null;
+    [k: string]: unknown;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 export interface RequestAccountIds {
     data: {
         accountIds: string[];
@@ -8200,6 +8216,10 @@ export interface ResponseBankingTransactionList {
          * The total number of records in the full set. See [pagination](#pagination).
          */
         totalRecords: number;
+        /**
+         * true if "text" query parameter is not supported
+         */
+        isQueryParamUnsupported?: boolean | null;
         [k: string]: unknown;
     };
     [k: string]: unknown;
