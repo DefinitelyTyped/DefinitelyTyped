@@ -461,6 +461,10 @@ export interface ECMAScript6 extends Linter.RulesRecord {
                  * @default ['none', 'all', 'multiple', 'single']
                  */
                 memberSyntaxSortOrder: Array<"none" | "all" | "multiple" | "single">;
+                /**
+                 * @default false
+                 */
+                allowSeparatedGroups: boolean;
             }>,
         ]
     >;
