@@ -1,4 +1,4 @@
-import {qz} from "qz-tray";
+import qz = require("qz-tray");
 
 const doSomething = () => null;
 
