@@ -153,11 +153,11 @@ declare const event5: "event5";
 
 {
     type Listener<K> = K extends keyof T ? (
-            T[K] extends unknown[] ? (...args: T[K]) => void : never
+            (...args: T[K]) => void
         )
         : never;
 
-    function on1<K>(event: K & keyof T, listener: Listener<K>): void {
+    function on1<K>(event: K, listener: Listener<K>): void {
         emitter.on(event, listener);
     }
 

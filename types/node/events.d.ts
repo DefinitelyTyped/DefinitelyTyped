@@ -95,24 +95,18 @@ declare module "events" {
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
     type DefaultEventMap = [never];
-    const s: unique symbol;
-    type Key<K, T> = T extends DefaultEventMap ? string | symbol : K & (keyof (T & { [s]: never }));
-    type Key2<K, T> = T extends DefaultEventMap ? string | symbol : K & (keyof T);
     type AnyRest = [...args: any[]];
     type Args<K, T> = T extends DefaultEventMap ? AnyRest : (
-        K extends keyof T ? (
-                T[K] extends unknown[] ? T[K] : never
-            )
-            : never
+        K extends keyof T ? T[K] : never
     );
-
+    type Key<K, T> = T extends DefaultEventMap ? string | symbol : K | keyof T;
+    type Key2<K, T> = T extends DefaultEventMap ? string | symbol : K & keyof T;
     type Listener<K, T, F> = T extends DefaultEventMap ? F : (
         K extends keyof T ? (
                 T[K] extends unknown[] ? (...args: T[K]) => void : never
             )
             : never
     );
-
     type Listener1<K, T> = Listener<K, T, (...args: any[]) => void>;
     type Listener2<K, T> = Listener<K, T, Function>;
 
