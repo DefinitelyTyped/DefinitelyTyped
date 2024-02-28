@@ -3,6 +3,6 @@
  * @param histories Input History Array
  * @param options kanaRegexp : Hiragana detection regular expression rule.
  */
-declare function historykana(histories: string[], options?: object): string;
+declare function historykana(histories: string[], options?: { kanaRegexp?: RegExp }): string;
 
 export = historykana;

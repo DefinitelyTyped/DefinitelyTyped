@@ -21,3 +21,6 @@ const inputHistory = [
 
 const result = historykana(inputHistory);
 // => やまだたろう
+
+historykana(inputHistory, {}); // $ExpectType string
+historykana(inputHistory, { kanaRegexp: /^[ 　ぁあ-んー]*$/ }); // $ExpectType string
