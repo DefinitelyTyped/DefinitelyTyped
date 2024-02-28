@@ -24,3 +24,4 @@ const result = historykana(inputHistory);
 
 historykana(inputHistory, {}); // $ExpectType string
 historykana(inputHistory, { kanaRegexp: /^[ 　ぁあ-んー]*$/ }); // $ExpectType string
+historykana(inputHistory, { kanaRegexp: "^[ 　ぁあ-んー]*$" }); // $ExpectType string
