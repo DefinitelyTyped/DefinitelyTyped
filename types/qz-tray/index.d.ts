@@ -537,3 +537,5 @@ export const serial: Serial;
 export const socket: Socket;
 export const usb: Usb;
 export const websocket: WebSocket;
+
+export as namespace qz
