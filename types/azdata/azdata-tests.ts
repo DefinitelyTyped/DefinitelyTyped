@@ -205,3 +205,13 @@ azdata.nb.showNotebookDocument(<any> {}, {
 const splitViewLayout: azdata.SplitViewLayout = {
     orientation: "vertical",
 };
+
+const credentialInfo: azdata.CredentialInfo = {
+    id: 0,
+    identity: 'CredIdentity',
+    name: 'CredName',
+    dateLastModified: '1/1/1900',
+    createDate: '1/1/1900',
+    providerName: 'CredProviderName',
+    secret: 'CredSecret'
+};
