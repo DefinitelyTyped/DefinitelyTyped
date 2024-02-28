@@ -1,6 +1,6 @@
-import addOnUISdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
 import { editor } from "express-document-sdk";
+import addOnUISdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
 // $ExpectType string
 addOnUISdk.apiVersion;
