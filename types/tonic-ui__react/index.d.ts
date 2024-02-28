@@ -531,7 +531,7 @@ export interface PaginationItemProps extends TonicProps {
 
 export interface PopoverProps extends Omit<TonicProps, "children"> {
     // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
-    arrow?: boolean;    
+    arrow?: boolean;
     children: ReactNode | ((context: unknown) => ReactNode);
     closeOnBlur?: boolean;
     closeOnEsc?: boolean;

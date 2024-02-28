@@ -277,7 +277,7 @@ const PopoverTest = () => {
             <PopoverTrigger>
                 <Button>Open Popover</Button>
             </PopoverTrigger>
-            <PopoverContent 
+            <PopoverContent
                 PopoverArrowComponent={PopoverArrow}
                 PopoverArrowProps={{ arrowWidth: 20, arrowHeight: 20, randomProp: 123 }}
                 TransitionComponent={Box}
@@ -286,5 +286,5 @@ const PopoverTest = () => {
                 <Box>Popover Content</Box>
             </PopoverContent>
         </Popover>
-    )
-}
+    );
+};
