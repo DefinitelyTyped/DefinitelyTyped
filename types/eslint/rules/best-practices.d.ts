@@ -21,7 +21,7 @@ export interface BestPractices extends Linter.RulesRecord {
                 /**
                  * @default true
                  */
-                enforceForClassMembers : boolean;
+                enforceForClassMembers: boolean;
             }>,
         ]
     >;
