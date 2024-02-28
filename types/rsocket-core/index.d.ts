@@ -7,6 +7,8 @@ import RSocketClient from "./RSocketClient";
 export { RSocketClient };
 import RSocketServer from "./RSocketServer";
 export { RSocketServer };
+import RSocketError from './RSocketError';
+export { RSocketError };
 import RSocketResumableTransport from "./RSocketResumableTransport";
 export { RSocketResumableTransport };
 import WellKnownMimeType from "./WellKnownMimeType";
