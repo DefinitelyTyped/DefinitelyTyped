@@ -6,7 +6,7 @@
         "https://github.com/evancz/react-elm"
     ],
     "dependencies": {
-        "@types/react": "^16"
+        "@types/react": "^18"
     },
     "devDependencies": {
         "@types/react-elm-components": "workspace:."
