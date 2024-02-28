@@ -444,7 +444,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 1.0.0-rc-2
      * @see https://eslint.org/docs/rules/no-invalid-this
      */
-    "no-invalid-this": Linter.RuleEntry<[]>;
+    "no-invalid-this": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                capIsConstructor: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow the use of the `__iterator__` property.
