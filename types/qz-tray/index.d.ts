@@ -1,4 +1,4 @@
-declare namespace qz {
+export namespace qz {
     type UnknownObject = { [key: string | number]: any } | Array<{ [key: string | number]: any }>;
     type Event = UnknownObject;
     type EventData = UnknownObject;
@@ -540,6 +540,3 @@ declare namespace qz {
     const websocket: WebSocket;
 
 }
-
-export = qz
-export as namespace qz
