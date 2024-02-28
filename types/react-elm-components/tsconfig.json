@@ -16,7 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "elm-types.d.ts",
         "react-elm-components-tests.tsx"
     ]
 }
