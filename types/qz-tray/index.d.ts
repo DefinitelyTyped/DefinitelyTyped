@@ -538,4 +538,4 @@ export const socket: Socket;
 export const usb: Usb;
 export const websocket: WebSocket;
 
-export as namespace qz
+export as namespace qz;
