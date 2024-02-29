@@ -1704,7 +1704,7 @@ declare namespace OracleDB {
          * The stack trace displays only the application backtrace and not the driver’s internal frames or functions.
          * See Increasing the Stack Trace Limit to understand how to increase the number of stack frames displayed in a trace.
          */
-        stack?: string | undefined;
+        stack?: string;
     }
 
     /**
