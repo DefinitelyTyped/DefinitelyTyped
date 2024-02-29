@@ -422,9 +422,10 @@ export class DateLocalizer {
     segmentOffset: number;
 }
 
-export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
+export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
+    extends React.RefAttributes<Calendar<TEvent, TResource>>
+{
     children?: React.ReactNode;
-    ref?: React.LegacyRef<Calendar<TEvent, TResource>> | undefined;
     localizer: DateLocalizer;
 
     date?: stringOrDate | undefined;
