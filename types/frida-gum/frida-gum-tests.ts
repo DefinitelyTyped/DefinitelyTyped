@@ -310,6 +310,18 @@ Stalker.follow(Process.getCurrentThreadId(), {
     },
     onEvent: cm.process,
     data: ptr(42),
+    transform(iterator) {
+       let instruction = iterator.next();
+
+       const startAddress = instruction.address;
+       do {
+
+         if (startAddress == 0) {
+            iterator.putChainingReturn();
+         }
+         iterator.keep();
+       } while ((instruction = iterator.next()) !== null);
+    },
 });
 
 const basicBlockStartAddress = ptr("0x400000");
