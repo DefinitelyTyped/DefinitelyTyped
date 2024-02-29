@@ -52,6 +52,8 @@ export interface QueryConfig {
     name?: string | undefined;
     text: string;
     values?: any[] | undefined;
+    rowMode?: string | undefined;
+    types?: typeof types | undefined;
 }
 
 export interface QueryResult {

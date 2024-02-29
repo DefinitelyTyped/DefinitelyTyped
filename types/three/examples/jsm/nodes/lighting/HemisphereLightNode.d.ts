@@ -1,4 +1,4 @@
-import { HemisphereLight } from "../../../../src/Three.js";
+import { HemisphereLight } from "three";
 import Object3DNode from "../accessors/Object3DNode.js";
 import Node from "../core/Node.js";
 import AnalyticLightNode from "./AnalyticLightNode.js";

@@ -9,7 +9,7 @@ import {
     Vector2,
     WebGLRenderer,
     WebGLRenderTarget,
-} from "../../../src/Three.js";
+} from "three";
 
 export interface ReflectorShader {
     name: string;

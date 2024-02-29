@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, Scene } from "../../../src/Three.js";
+import { Loader, LoadingManager, Scene } from "three";
 
 export class VRMLLoader extends Loader<Scene> {
     constructor(manager?: LoadingManager);

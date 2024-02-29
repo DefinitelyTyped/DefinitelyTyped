@@ -1,12 +1,5 @@
 import { Camera } from "../cameras/Camera.js";
-import {
-    ColorSpace,
-    CullFace,
-    ShadowMapType,
-    TextureEncoding,
-    ToneMapping,
-    WebGLCoordinateSystem,
-} from "../constants.js";
+import { ColorSpace, CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
@@ -28,7 +21,6 @@ import { WebGLProperties } from "./webgl/WebGLProperties.js";
 import { WebGLRenderLists } from "./webgl/WebGLRenderLists.js";
 import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
 import { WebGLState } from "./webgl/WebGLState.js";
-import { WebGLMultipleRenderTargets } from "./WebGLMultipleRenderTargets.js";
 import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
 import { WebXRManager } from "./webxr/WebXRManager.js";
 
@@ -193,13 +185,6 @@ export class WebGLRenderer implements Renderer {
     localClippingEnabled: boolean;
 
     extensions: WebGLExtensions;
-
-    /**
-     * Default is LinearEncoding.
-     * @default THREE.LinearEncoding
-     * @deprecated Use {@link WebGLRenderer.outputColorSpace .outputColorSpace} in three.js r152+.
-     */
-    outputEncoding: TextureEncoding;
 
     /**
      * Color space used for output to HTMLCanvasElement. Supported values are
@@ -425,13 +410,13 @@ export class WebGLRenderer implements Renderer {
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
     setRenderTarget(
-        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets | null,
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]> | null,
         activeCubeFace?: number,
         activeMipmapLevel?: number,
     ): void;
 
     readRenderTargetPixels(
-        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets,
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]>,
         x: number,
         y: number,
         width: number,

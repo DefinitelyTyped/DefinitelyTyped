@@ -50,9 +50,9 @@ declare namespace MapboxGeocoder {
          */
         flyTo?: boolean | mapboxgl.FlyToOptions | mapboxgl.FitBoundsOptions | undefined;
         /**
-         * a proximity argument: this is a geographical point given as an object with latitude and longitude properties. Search results closer to this point will be given higher priority.
+         *  * @param {Object|'ip'} [options.proximity] a geographical point given as an object with `latitude` and `longitude` properties, or the string 'ip' to use a user's IP address location. Search results closer to this point will be given higher priority.
          */
-        proximity?: LngLatLiteral | undefined;
+        proximity?: LngLatLiteral | "ip" | undefined;
         /**
          * If `true`, the geocoder proximity will automatically update based on the map view. (optional, default true)
          */
@@ -74,6 +74,10 @@ declare namespace MapboxGeocoder {
          * Search results will be limited to the bounding box.
          */
         bbox?: Bbox | undefined;
+        /**
+         * If `true`, search input coordinates for reverse geocoding is expected to be in the form `lon, lat` instead of the default `lat, lon`. (optional, default `false`)
+         */
+        flipCoordinates?: boolean | undefined;
         /**
          * a comma seperated list of types that filter results to match those specified. See https://www.mapbox.com/developers/api/geocoding/#filter-type for available types.
          */
@@ -121,6 +125,14 @@ declare namespace MapboxGeocoder {
          * Allow Mapbox to collect anonymous usage statistics from the plugin. (optional, default true)
          */
         enableEventLogging?: boolean | undefined;
+        /**
+         * @param [options.enableGeolocation=false] If `true` enable user geolocation feature.
+         */
+        enableGeolocation?: boolean | undefined;
+        /**
+         * @param [options.addressAccuracy="street"] The accuracy for the geolocation feature with which we define the address line to fill. The browser API returns the user's position with accuracy, and sometimes we can get the neighbor's address. To prevent receiving an incorrect address, you can reduce the accuracy of the definition.
+         */
+        addressAccuracy?: "address" | "street" | "place" | "country" | undefined;
         /**
          * If `true`, a [Marker](https://docs.mapbox.com/mapbox-gl-js/api/#marker) will be added to the map at the location of the user-selected result using a default set of Marker options.
          * If the value is an object, the marker will be constructed using these options. If `false`, no marker will be added to the map.
@@ -182,8 +194,17 @@ declare namespace MapboxGeocoder {
 }
 declare class MapboxGeocoder implements mapboxgl.IControl {
     constructor(options?: MapboxGeocoder.GeocoderOptions);
+    /**
+     * The input element created by the geocoder's internal operations.
+     */
+    _inputEl?: HTMLInputElement;
     addTo(container: string | HTMLElement | mapboxgl.Map): this;
     onAdd(map: mapboxgl.Map): HTMLElement;
+    /**
+     * Set the accessToken option used for the geocoding request endpoint.
+     * @param {String} accessToken value
+     */
+    setAccessToken(accessToken: string): MapboxGeocoder;
     createIcon(name: string, path: any): SVGSVGElement;
     onRemove(): this;
     /**
@@ -197,13 +218,15 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     query(searchInput: string): this;
     /**
      * Set input
-     * searchInput location name or other search input
+     * @param {string} searchInput location name or other search input
+     * @param {boolean} [showSuggestions=false] display suggestion on setInput call
      */
-    setInput(searchInput: string): this;
+    setInput(searchInput: string, showSuggestions?: boolean): this;
     /**
-     * Set proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties.
+     * @param {Object|'ip'} proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties or the string 'ip'.
+     * @param {Boolean} disableTrackProximity If true, sets `trackProximity` to false. True by default to prevent `trackProximity` from unintentionally overriding an explicitly set proximity value.
      */
-    setProximity(proximity: MapboxGeocoder.LngLatLiteral): this;
+    setProximity(proximity: MapboxGeocoder.LngLatLiteral | "ip", disableTrackProximity?: boolean): this;
     /**
      * Get the geocoder proximity
      */

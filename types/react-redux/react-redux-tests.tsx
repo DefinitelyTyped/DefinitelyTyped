@@ -1729,8 +1729,7 @@ function testRef() {
     // Should be able to pass modern refs to a ForwardRefExoticComponent
     const modernRef: React.Ref<string> | undefined = undefined;
     <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
-    // Should not be able to use legacy string refs
-    // @ts-expect-error
+    // Should be able to use legacy string refs
     <ConnectedForwardedFunctionalComponent ref={""}></ConnectedForwardedFunctionalComponent>;
     // ref type should agree with type of the forwarded ref
     // @ts-expect-error

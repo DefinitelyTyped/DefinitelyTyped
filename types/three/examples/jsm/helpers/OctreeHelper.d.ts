@@ -1,4 +1,4 @@
-import { ColorRepresentation, LineSegments } from "../../../src/Three.js";
+import { ColorRepresentation, LineSegments } from "three";
 import { Octree } from "../math/Octree.js";
 
 export class OctreeHelper extends LineSegments {
