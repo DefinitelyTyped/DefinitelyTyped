@@ -446,8 +446,11 @@ const ForwardingRefComponent2 = React.forwardRef<HTMLElement>((props, ref) => {
         ref(e: HTMLDivElement) {
             if (typeof ref === "function") {
                 ref(e);
-            } else if (ref) {
+            } else if (typeof ref === "object" && ref !== null) {
                 ref.current = e;
+            } else {
+                // $ExpectType null
+                ref;
             }
         },
     });

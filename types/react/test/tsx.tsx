@@ -454,11 +454,9 @@ const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { c
 
 <ForwardRef ref={divFnRef} />;
 <ForwardRef ref={divRef} />;
-// @ts-expect-error
 <ForwardRef ref="string" />;
 <ForwardRef2 ref={divFnRef} />;
 <ForwardRef2 ref={divRef} />;
-// @ts-expect-error
 <ForwardRef2 ref="string" />;
 // @ts-expect-error Undesired behavior
 <ForwardRef2 ref={badlyAuthoredRef} />;
@@ -482,7 +480,6 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
-// @ts-expect-error
 <ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
