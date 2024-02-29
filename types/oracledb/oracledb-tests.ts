@@ -51,7 +51,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
         setTimeout((): void => {
             console.log("Testing connection.execute()...");
 
-            connection.break().then((): void => {});
+            connection.break().then((): void => { });
         }, 1000);
     });
 
@@ -675,4 +675,9 @@ export const v5Tests = async (): Promise<void> => {
 export const v5point1Tests = (): void => {
     console.log(defaultOracledb.DB_TYPE_JSON);
     defaultOracledb.dbObjectAsPojo = true;
+};
+
+export const testFetchAsTypeTests = (): void => {
+    defaultOracledb.fetchAsBuffer = [oracledb.BLOB];
+    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
 };
