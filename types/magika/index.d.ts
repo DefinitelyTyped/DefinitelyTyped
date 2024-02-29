@@ -3,14 +3,14 @@ export interface Prediction {
     score: number;
     labels: { [name: string]: number };
 }
-export interface Config {
+export interface Option {
     modelURL?: string;
     configURL?: string;
 }
 
 export class Magika {
     constructor();
-    load(config: any): Promise<Config>;
+    load(config: Option): Promise<void>;
     identifyBytes(fileBytes: ArrayBuffer): Promise<Prediction>;
     identifyBytesFull(fileBytes: ArrayBuffer): Promise<Prediction>;
 }
