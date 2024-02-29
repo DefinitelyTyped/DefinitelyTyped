@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from "events";
 import * as WebSocket from "ws";
 import { READY_STATE, Wire } from "./wire";

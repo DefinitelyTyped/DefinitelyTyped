@@ -9,6 +9,7 @@
     ],
     "dependencies": {
         "@types/jquery": "*",
+        "@types/node": "*",
         "@types/resize-observer-browser": "*",
         "@types/ws": "*"
     },

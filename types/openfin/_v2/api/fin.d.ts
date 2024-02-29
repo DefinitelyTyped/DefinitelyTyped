@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from "events";
 import { Frame } from "../main";
 import Transport from "../transport/transport";

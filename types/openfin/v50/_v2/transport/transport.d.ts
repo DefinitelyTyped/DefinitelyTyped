@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from "events";
 import { RuntimeEvent } from "../api/events/base";
 import { EventAggregator } from "../api/events/eventAggregator";
