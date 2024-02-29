@@ -1,5 +1,7 @@
 // Usage: ts-node generate-modules.ts
 
+/// <reference types="node" />
+
 import * as cp from "child_process";
 import * as fs from "fs";
 import { STATUS_CODES } from "http";

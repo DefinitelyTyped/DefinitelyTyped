@@ -1,3 +1,7 @@
+// TypeScript Version: 2.8
+
+/// <reference types="node" />
+
 import { EventEmitter } from "events";
 
 declare const feathers: Feathers;

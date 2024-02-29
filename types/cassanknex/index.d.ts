@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { Client, ClientOptions, types, ValueCallback } from "cassandra-driver";
 import { EventEmitter } from "events";
 import Long = require("long");

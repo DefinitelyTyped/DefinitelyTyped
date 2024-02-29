@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export function getEnv(): string;
 
 export function isDevelopment(): boolean;

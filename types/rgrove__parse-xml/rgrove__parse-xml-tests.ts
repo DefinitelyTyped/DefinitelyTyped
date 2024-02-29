@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import assert = require("assert");
 import parseXml = require("@rgrove/parse-xml");
 

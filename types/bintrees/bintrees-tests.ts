@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import assert = require("assert");
 import { BinTree, RBTree } from "bintrees";
 

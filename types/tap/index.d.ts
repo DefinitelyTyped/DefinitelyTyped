@@ -1,5 +1,6 @@
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
 
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 /**

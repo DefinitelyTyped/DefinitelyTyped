@@ -1,4 +1,5 @@
 // Minimum TypeScript Version: 3.0
+/// <reference types="node" />
 
 import { EventEmitter } from "events";
 

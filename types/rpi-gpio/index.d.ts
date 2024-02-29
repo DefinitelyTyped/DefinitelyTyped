@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 type MODE = "mode_rpi" | "mode_bcm";
