@@ -311,20 +311,19 @@ Stalker.follow(Process.getCurrentThreadId(), {
     onEvent: cm.process,
     data: ptr(42),
     transform(iterator: StalkerX86Iterator) {
-       let instruction = iterator.next();
+        let instruction = iterator.next();
 
-       if (instruction == null) {
+        if (instruction == null) {
             return;
-       }
+        }
 
-       const startAddress =  instruction.address;
-       do {
-
-         if (startAddress == ptr(0)) {
-            iterator.putChainingReturn();
-         }
-         iterator.keep();
-       } while ((instruction = iterator.next()) !== null);
+        const startAddress = instruction.address;
+        do {
+            if (startAddress == ptr(0)) {
+                iterator.putChainingReturn();
+            }
+            iterator.keep();
+        } while ((instruction = iterator.next()) !== null);
     },
 });
 
