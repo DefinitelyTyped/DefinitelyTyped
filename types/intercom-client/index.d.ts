@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { Company, CompanyIdentifier, List as CompanyList } from "./Company";
 import { Event, List as EventList, ListParam as EventListParam } from "./Event";
 import { IntercomError } from "./IntercomError";

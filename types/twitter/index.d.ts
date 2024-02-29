@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import request = require("request");
 import { EventEmitter } from "events";
 

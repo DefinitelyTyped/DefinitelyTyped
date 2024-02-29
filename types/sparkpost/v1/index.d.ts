@@ -1,3 +1,5 @@
+/// <reference types="node"/>
+
 import * as Http from "http";
 import * as Request from "request";
 

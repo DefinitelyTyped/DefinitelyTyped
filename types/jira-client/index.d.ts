@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { ReadStream } from "fs";
 import { CoreOptions, RequestResponse } from "request";
 

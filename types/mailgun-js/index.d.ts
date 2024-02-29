@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as FormData from "form-data";
 
 declare const Mailgun: Mailgun.MailgunExport;

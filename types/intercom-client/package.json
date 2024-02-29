@@ -6,6 +6,7 @@
         "https://github.com/intercom/intercom-node"
     ],
     "dependencies": {
+        "@types/node": "*",
         "@types/request": "*"
     },
     "devDependencies": {

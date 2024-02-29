@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import FormData = require("form-data");
 import { RequestOptions } from "http";
 import { URL, URLSearchParams } from "url";

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { Url } from "url";
 import TransportStream = require("winston-transport");
 

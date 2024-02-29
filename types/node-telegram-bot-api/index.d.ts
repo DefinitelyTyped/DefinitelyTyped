@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { ServerOptions } from "https";
 import { Options } from "request";
 import { Readable, Stream } from "stream";
