@@ -43,7 +43,7 @@ export interface WitOption {
     accessToken: string;
     actions?: any;
     logger?: log.Logger | undefined;
-    apiVersion: number | undefined:
+    apiVersion?: number | undefined;
 }
 
 export interface MessageResponseEntity {
