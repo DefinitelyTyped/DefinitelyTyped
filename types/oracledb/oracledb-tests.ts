@@ -51,7 +51,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
         setTimeout((): void => {
             console.log("Testing connection.execute()...");
 
-            connection.break().then((): void => { });
+            connection.break().then((): void => {});
         }, 1000);
     });
 
