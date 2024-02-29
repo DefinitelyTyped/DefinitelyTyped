@@ -199,7 +199,10 @@ declare module "http" {
         agent?: Agent | boolean | undefined;
         auth?: string | null | undefined;
         createConnection?:
-            | ((options: ClientRequestArgs, oncreate: (err: Error | null, socket: stream.Duplex) => void) => stream.Duplex | null | undefined)
+            | ((
+                options: ClientRequestArgs,
+                oncreate: (err: Error | null, socket: stream.Duplex) => void,
+            ) => stream.Duplex | null | undefined)
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;

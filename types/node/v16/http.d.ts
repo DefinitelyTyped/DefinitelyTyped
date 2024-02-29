@@ -216,7 +216,10 @@ declare module "http" {
         timeout?: number | undefined;
         setHost?: boolean | undefined;
         createConnection?:
-            | ((options: ClientRequestArgs, oncreate: (err: Error | null, socket: stream.Duplex) => void) => stream.Duplex | null | undefined)
+            | ((
+                options: ClientRequestArgs,
+                oncreate: (err: Error | null, socket: stream.Duplex) => void,
+            ) => stream.Duplex | null | undefined)
             | undefined;
         lookup?: LookupFunction | undefined;
     }
