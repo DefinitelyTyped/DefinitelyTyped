@@ -310,13 +310,17 @@ Stalker.follow(Process.getCurrentThreadId(), {
     },
     onEvent: cm.process,
     data: ptr(42),
-    transform(iterator) {
+    transform(iterator: StalkerX86Iterator) {
        let instruction = iterator.next();
 
-       const startAddress = instruction.address;
+       if (instruction == null) {
+            return;
+       }
+
+       const startAddress =  instruction.address;
        do {
 
-         if (startAddress == 0) {
+         if (startAddress == ptr(0)) {
             iterator.putChainingReturn();
          }
          iterator.keep();
