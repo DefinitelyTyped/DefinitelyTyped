@@ -38,7 +38,6 @@ function init() {
     const texture = textureLoader.load("textures/disturb.jpg");
     texture.repeat.set(20, 10);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.encoding = THREE.sRGBEncoding;
 
     // MATERIALS
 
@@ -121,7 +120,6 @@ function init() {
     if (container) {
         container.appendChild(renderer.domElement);
     }
-    renderer.outputEncoding = THREE.sRGBEncoding;
 
     // CONTROLS
 

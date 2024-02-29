@@ -1,4 +1,4 @@
-import { CoordinateSystem } from "../../../../src/Three.js";
+import { CoordinateSystem } from "three";
 import Backend, { BackendParameters } from "../common/Backend.js";
 
 export default class WebGLBackend extends Backend {

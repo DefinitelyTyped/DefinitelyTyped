@@ -1,14 +1,6 @@
-import { Object3D } from "../../../../src/Three.js";
+import { Object3D } from "three";
 import Node from "../core/Node.js";
-
-export type Object3DNodeScope =
-    | typeof Object3DNode.VIEW_MATRIX
-    | typeof Object3DNode.NORMAL_MATRIX
-    | typeof Object3DNode.WORLD_MATRIX
-    | typeof Object3DNode.POSITION
-    | typeof Object3DNode.SCALE
-    | typeof Object3DNode.VIEW_POSITION
-    | typeof Object3DNode.DIRECTION;
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class Object3DNode extends Node {
     scope: string;
@@ -24,3 +16,11 @@ export default class Object3DNode extends Node {
     static VIEW_POSITION: "viewPosition";
     static DIRECTION: "direction";
 }
+
+export const objectDirection: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectViewMatrix: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectNormalMatrix: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectWorldMatrix: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectPosition: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectScale: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;
+export const objectViewPosition: (object3d: Object3D) => ShaderNodeObject<Object3DNode>;

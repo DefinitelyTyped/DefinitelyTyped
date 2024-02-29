@@ -1,13 +1,5 @@
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import Object3DNode, { Object3DNodeScope } from "./Object3DNode.js";
-
-export type CameraNodeScope =
-    | Object3DNodeScope
-    | typeof CameraNode.PROJECTION_MATRIX
-    | typeof CameraNode.PROJECTION_MATRIX_INVERSE
-    | typeof CameraNode.NEAR
-    | typeof CameraNode.FAR
-    | typeof CameraNode.LOG_DEPTH;
+import Object3DNode from "./Object3DNode.js";
 
 export default class CameraNode extends Object3DNode {
     constructor(scope?: string);

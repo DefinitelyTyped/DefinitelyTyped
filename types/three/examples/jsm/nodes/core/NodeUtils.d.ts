@@ -1,4 +1,4 @@
-import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from "../../../../src/Three.js";
+import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from "three";
 import Node from "./Node.js";
 
 export interface NodeChild {

@@ -17,7 +17,7 @@ import {
     SkinnedMesh,
     Texture,
     TextureLoader,
-} from "../../../src/Three.js";
+} from "three";
 
 import { DRACOLoader } from "./DRACOLoader.js";
 import { KTX2Loader } from "./KTX2Loader.js";
