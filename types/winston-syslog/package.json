@@ -8,7 +8,6 @@
     ],
     "dependencies": {
         "@types/glossy": "*",
-        "@types/node": "*",
         "winston": "^3.0.0",
         "winston-transport": "^4.3.0"
     },

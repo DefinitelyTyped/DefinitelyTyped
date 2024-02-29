@@ -6,7 +6,6 @@
         "https://github.com/andris9/Nodemailer"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/nodemailer-direct-transport": "*",
         "@types/nodemailer-ses-transport": "*",
         "@types/nodemailer-smtp-transport": "*"

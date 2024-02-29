@@ -6,8 +6,7 @@
         "https://github.com/vandium-io/aws-param-store#readme"
     ],
     "dependencies": {
-        "@types/aws-sdk2-types": "*",
-        "@types/node": "*"
+        "@types/aws-sdk2-types": "*"
     },
     "devDependencies": {
         "@types/aws-param-store": "workspace:."

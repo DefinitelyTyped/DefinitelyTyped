@@ -6,7 +6,6 @@
         "https://github.com/loggly/winston-loggly-bulk"
     ],
     "dependencies": {
-        "@types/node": "*",
         "winston": "^3.0.0",
         "winston-transport": "^4.3.0"
     },

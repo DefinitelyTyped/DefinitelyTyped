@@ -6,7 +6,6 @@
         "https://github.com/andris9/nodemailer-smtp-pool"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/nodemailer": "^3"
     },
     "devDependencies": {

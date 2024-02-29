@@ -6,7 +6,6 @@
         "https://github.com/Swatinem/rollup-plugin-url#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
         "rollup": "^0.63.4"
     },
     "devDependencies": {

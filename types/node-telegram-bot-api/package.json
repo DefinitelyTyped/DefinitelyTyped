@@ -6,7 +6,6 @@
         "https://github.com/yagop/node-telegram-bot-api"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/request": "*"
     },
     "devDependencies": {

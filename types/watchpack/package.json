@@ -6,8 +6,7 @@
         "https://github.com/webpack/watchpack"
     ],
     "dependencies": {
-        "@types/graceful-fs": "*",
-        "@types/node": "*"
+        "@types/graceful-fs": "*"
     },
     "devDependencies": {
         "@types/watchpack": "workspace:."

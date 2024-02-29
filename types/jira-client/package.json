@@ -6,7 +6,6 @@
         "https://github.com/jira-node/node-jira-client"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/request": "*"
     },
     "devDependencies": {

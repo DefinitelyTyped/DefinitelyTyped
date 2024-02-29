@@ -6,7 +6,6 @@
         "https://github.com/bojand/mailgun-js"
     ],
     "dependencies": {
-        "@types/node": "*",
         "form-data": "^2.5.0"
     },
     "devDependencies": {

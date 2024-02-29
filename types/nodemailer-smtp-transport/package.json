@@ -6,7 +6,6 @@
         "https://github.com/andris9/nodemailer-smtp-transport"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/nodemailer": "^3"
     },
     "devDependencies": {

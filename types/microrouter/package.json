@@ -7,7 +7,6 @@
     ],
     "dependencies": {
         "@types/micro": "^7.3.7",
-        "@types/node": "*",
         "url-pattern": "^1.0.3"
     },
     "devDependencies": {

@@ -6,8 +6,7 @@
         "https://github.com/nathanpeck/s3-upload-stream"
     ],
     "dependencies": {
-        "@types/aws-sdk2-types": "*",
-        "@types/node": "*"
+        "@types/aws-sdk2-types": "*"
     },
     "devDependencies": {
         "@types/s3-upload-stream": "workspace:."
