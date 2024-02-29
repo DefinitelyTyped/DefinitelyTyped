@@ -1,17 +1,18 @@
-import { BaseQuad, Quad, DataFactory, Stream } from 'rdf-js';
-import BaseClient = require('./BaseClient');
-import StreamQuery = require('./StreamQuery');
-import StreamStore = require('./StreamStore');
-import { Endpoint, EndpointOptions } from './Endpoint';
+import { BaseQuad, DataFactory, Quad, Stream } from "@rdfjs/types";
+import BaseClient = require("./BaseClient");
+import StreamQuery = require("./StreamQuery");
+import StreamStore = require("./StreamStore");
+import { Readable } from "stream";
+import { Endpoint, EndpointOptions } from "./Endpoint";
 
 interface Constructor<T, Q extends BaseQuad = Quad> {
-    new (options: { endpoint: Endpoint; factory: DataFactory<Q>; }): T;
+    new(options: { endpoint: Endpoint; factory: DataFactory<Q> }): T;
 }
 
 declare namespace StreamClient {
     interface QueryOptions {
-        headers?: HeadersInit;
-        operation?: 'get' | 'postUrlencoded' | 'postDirect';
+        headers?: HeadersInit | undefined;
+        operation?: "get" | "postUrlencoded" | "postDirect" | undefined;
     }
 
     interface QueryInit {
@@ -34,25 +35,30 @@ declare namespace StreamClient {
         update(query: string, options?: QueryOptions): Promise<TUpdate>;
     }
 
-    interface Query<TAsk = any, TConstruct = any, TSelect = any, TUpdate = any> extends AskQuery<TAsk>, SelectQuery<TSelect>, ConstructQuery<TConstruct>, UpdateQuery<TUpdate> {
+    interface Query<TAsk = any, TConstruct = any, TSelect = any, TUpdate = any>
+        extends AskQuery<TAsk>, SelectQuery<TSelect>, ConstructQuery<TConstruct>, UpdateQuery<TUpdate>
+    {
         endpoint: Endpoint;
     }
 
     interface Store<Q extends BaseQuad = Quad> {
         endpoint: Endpoint;
-        get(graph: Quad['graph']): Promise<Stream<Q>>;
+        get(graph: Quad["graph"]): Promise<Stream<Q> & Readable>;
         post(stream: Stream): Promise<void>;
         put(stream: Stream): Promise<void>;
     }
 
     interface ClientOptions<TQuery extends Query, Q extends BaseQuad = Quad, TStore extends Store<Q> = never> {
         endpoint: Endpoint;
-        factory?: DataFactory<Q>;
-        Query?: Constructor<TQuery, Q>;
-        Store?: Constructor<TStore, Q>;
+        factory?: DataFactory<Q> | undefined;
+        Query?: Constructor<TQuery, Q> | undefined;
+        Store?: Constructor<TStore, Q> | undefined;
+        maxQuadsPerRequest?: number | undefined;
     }
 
-    type StreamClientOptions<Q extends BaseQuad = Quad> = EndpointOptions & Pick<ClientOptions<StreamQuery, Q, StreamStore<Q>>, 'factory'>;
+    type StreamClientOptions<Q extends BaseQuad = Quad> =
+        & EndpointOptions
+        & Pick<ClientOptions<StreamQuery, Q, StreamStore<Q>>, "factory" | "maxQuadsPerRequest">;
 
     type StreamClient<Q extends BaseQuad = Quad> = Client<StreamQuery<Q>, Q, StreamStore<Q>>;
 
@@ -62,8 +68,10 @@ declare namespace StreamClient {
     }
 }
 
-declare class StreamClient<Q extends BaseQuad = Quad> extends BaseClient<StreamQuery<Q>, Q, StreamStore<Q>> implements StreamClient.StreamClient<Q> {
-    constructor(options: StreamClient.StreamClientOptions<Q>)
+declare class StreamClient<Q extends BaseQuad = Quad> extends BaseClient<StreamQuery<Q>, Q, StreamStore<Q>>
+    implements StreamClient.StreamClient<Q>
+{
+    constructor(options: StreamClient.StreamClientOptions<Q>);
 }
 
 export = StreamClient;

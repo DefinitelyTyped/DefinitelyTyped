@@ -1,4 +1,4 @@
-import buble = require('rollup-plugin-buble');
+import buble = require("rollup-plugin-buble");
 
 // No options (default)
 (() => {
@@ -18,26 +18,26 @@ import buble = require('rollup-plugin-buble');
         transforms: {
             arrow: true,
             classes: false,
-            collections: true,
             computedProperty: false,
             conciseMethodProperty: true,
-            constLoop: false,
             dangerousForOf: true,
             dangerousTaggedTemplateString: false,
             defaultParameter: true,
             destructuring: false,
+            exponentiation: true,
             forOf: true,
             generator: false,
             letConst: true,
             modules: false,
             numericLiteral: true,
+            objectRestSpread: true,
             parameterDestructuring: false,
             reservedProperties: true,
             spreadRest: false,
-            stickyRegExp: true,
             templateString: false,
+            trailingFunctionCommas: true,
             unicodeRegExp: true,
-        }
+        },
     });
 })();
 
@@ -45,13 +45,13 @@ import buble = require('rollup-plugin-buble');
 (() => {
     // $ExpectType Plugin
     buble({
-        include: '*.js',
-        exclude: '*.js',
+        include: "*.js",
+        exclude: "*.js",
     });
 
     // $ExpectType Plugin
     buble({
         include: /.js$/,
-        exclude: ['foo.js', 'bar.js'],
+        exclude: ["foo.js", "bar.js"],
     });
 })();

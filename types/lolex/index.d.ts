@@ -1,29 +1,20 @@
-// Type definitions for lolex 5.1
-// Project: https://github.com/sinonjs/lolex
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Rogier Schouten <https://github.com/rogierschouten>
-//                 Yishai Zehavi <https://github.com/zyishai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Names of clock methods that may be faked by install.
  */
 type FakeMethod =
-    | 'setTimeout'
-    | 'clearTimeout'
-    | 'setImmediate'
-    | 'clearImmediate'
-    | 'setInterval'
-    | 'clearInterval'
-    | 'Date'
-    | 'nextTick'
-    | 'hrtime'
-    | 'requestAnimationFrame'
-    | 'cancelAnimationFrame'
-    | 'requestIdleCallback'
-    | 'cancelIdleCallback';
+    | "setTimeout"
+    | "clearTimeout"
+    | "setImmediate"
+    | "clearImmediate"
+    | "setInterval"
+    | "clearInterval"
+    | "Date"
+    | "nextTick"
+    | "hrtime"
+    | "requestAnimationFrame"
+    | "cancelAnimationFrame"
+    | "requestIdleCallback"
+    | "cancelIdleCallback";
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
@@ -301,7 +292,7 @@ type InstalledMethods = {
 /**
  * Clock object created by calling `install();`.
  *
- * @type TClock   type of base clock (e.g BrowserClock).
+ * @typeparam {TClock}   type of base clock (e.g BrowserClock).
  */
 type InstalledClock<TClock extends Clock = Clock> = TClock & InstalledMethods;
 
@@ -312,7 +303,7 @@ type InstalledClock<TClock extends Clock = Clock> = TClock & InstalledMethods;
  * @param loopLimit    Maximum number of timers that will be run when calling runAll()
  *                     before assuming that we have an infinite loop and throwing an error
  *                     (by default, 1000).
- * @type TClock   Type of clock to create.
+ * @typeparam {TClock}   Type of clock to create.
  * @remarks The default epoch is 0.
  */
 export declare function createClock<TClock extends Clock = Clock>(now?: number | Date, loopLimit?: number): TClock;
@@ -326,30 +317,30 @@ export interface LolexInstallOpts {
     /**
      * Installs lolex with the specified unix epoch (default: 0)
      */
-    now?: number | Date;
+    now?: number | Date | undefined;
 
     /**
      * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick
      * e.g., lolex.install({ toFake: ["setTimeout", "nextTick"]}) will fake only setTimeout and nextTick
      */
-    toFake?: FakeMethod[];
+    toFake?: FakeMethod[] | undefined;
 
     /**
      * The maximum number of timers that will be run when calling runAll() (default: 1000)
      */
-    loopLimit?: number;
+    loopLimit?: number | undefined;
 
     /**
      * Tells lolex to increment mocked time automatically based on the real system time shift (e.g. the mocked time will be incremented by
      * 20ms for every 20ms change in the real system time) (default: false)
      */
-    shouldAdvanceTime?: boolean;
+    shouldAdvanceTime?: boolean | undefined;
 
     /**
      * Relevant only when using with shouldAdvanceTime: true. increment mocked time by advanceTimeDelta ms every advanceTimeDelta ms change
      * in the real system time (default: 20)
      */
-    advanceTimeDelta?: number;
+    advanceTimeDelta?: number | undefined;
 }
 
 /**
@@ -357,7 +348,7 @@ export interface LolexInstallOpts {
  *
  * @param now   Current time for the clock, as with lolex.createClock().
  * @param toFake   Names of methods that should be faked.
- * @type TClock   Type of clock to create.
+ * @typeparam {TClock}   Type of clock to create.
  */
 export declare function install<TClock extends Clock = Clock>(opts?: LolexInstallOpts): InstalledClock<TClock>;
 

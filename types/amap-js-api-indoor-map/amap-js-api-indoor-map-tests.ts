@@ -6,15 +6,15 @@ new AMap.IndoorMap({});
 const indoorMap = new AMap.IndoorMap({
     zIndex: 1,
     opacity: 0.5,
-    cursor: 'cursor',
+    cursor: "cursor",
     hideFloorBar: false,
-    alaysShow: true
+    alaysShow: true,
 });
 
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId');
+indoorMap.showIndoorMap("indoorMapId");
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', (error, result) => {
+indoorMap.showIndoorMap("indoorMapId", (error, result) => {
     // $ExpectType Error | null
     error;
     // $ExpectType SearchResult
@@ -52,17 +52,17 @@ indoorMap.showIndoorMap('indoorMapId', (error, result) => {
     }
 });
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1);
+indoorMap.showIndoorMap("indoorMapId", 1);
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, () => { });
+indoorMap.showIndoorMap("indoorMapId", 1, () => {});
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId');
+indoorMap.showIndoorMap("indoorMapId", 1, "shopId");
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', () => { });
+indoorMap.showIndoorMap("indoorMapId", 1, "shopId", () => {});
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', true);
+indoorMap.showIndoorMap("indoorMapId", 1, "shopId", true);
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', true, () => { });
+indoorMap.showIndoorMap("indoorMapId", 1, "shopId", true, () => {});
 
 let floor: undefined | false;
 floor = indoorMap.showFloor(1);
@@ -95,12 +95,12 @@ if (building) {
     building.name;
 }
 
-indoorMap.on('complete', (event: AMap.IndoorMap.EventMap['complete']) => {
+indoorMap.on("complete", (event: AMap.IndoorMap.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
 });
 
-indoorMap.on('click', (event: AMap.IndoorMap.EventMap['click']) => {
+indoorMap.on("click", (event: AMap.IndoorMap.EventMap["click"]) => {
     // $ExpectType string
     event.building_id;
     // $ExpectType number

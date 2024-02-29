@@ -1,37 +1,21 @@
-// Type definitions for conventional-recommended-bump 6.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-recommended-bump#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 import { Context as WriterContext } from "conventional-changelog-writer";
+import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 
 /**
  * @param options  `options` is an object with the following properties:
- *
  *                 * `ignoreReverted`
  *                 * `preset`
  *                 * `config`
  *                 * `whatBump`
- * @param callback
- */
-declare function conventionalRecommendedBump(options: Options, callback: Callback): void;
-
-/**
- *
- * @param options    `options` is an object with the following properties:
- *
- *                   * `ignoreReverted`
- *                   * `preset`
- *                   * `config`
- *                   * `whatBump`
- * @param parserOpts See the [conventional-commits-parser](https://github.com/conventional-changelog/conventional-commits-parser)
+ *                 * `tagPrefix`
+ *                 * `skipUnstable`
+ *                 * `lernaPackage`
+ *                 * `path`
+ * @param parserOpts See the [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser)
  *                   documentation for available options.
- * @param callback
  */
-declare function conventionalRecommendedBump(options: Options, parserOpts: ParserOptions, callback: Callback): void;
+declare function conventionalRecommendedBump(options: Options, parserOpts?: ParserOptions): Promise<Recommendation>;
 
 declare namespace conventionalRecommendedBump {
     /**
@@ -41,35 +25,17 @@ declare namespace conventionalRecommendedBump {
      * or `undefined` if `whatBump` does not return a valid `level` property, or
      * the `level` property is not set by `whatBump`.
      */
-    interface Callback {
+    interface Recommendation extends Options.WhatBump.Result {
         /**
-         * @param error
-         * @param recommendation `recommendation` is an `object` with a single property,
-         *                       `releaseType`.
-         */
-        (error: any, recommendation: Callback.Recommendation): void;
-    }
-
-    namespace Callback {
-        /**
-         * `recommendation` is an `object` with a single property, `releaseType`.
-         *
          * `releaseType` is a `string`: Possible values: `major`, `minor` and `patch`,
          * or `undefined` if `whatBump` does not return a valid `level` property, or
          * the `level` property is not set by `whatBump`.
          */
-        interface Recommendation extends Options.WhatBump.Result {
-            /**
-             * `releaseType` is a `string`: Possible values: `major`, `minor` and `patch`,
-             * or `undefined` if `whatBump` does not return a valid `level` property, or
-             * the `level` property is not set by `whatBump`.
-             */
-            releaseType?: Recommendation.ReleaseType;
-        }
+        releaseType?: Recommendation.ReleaseType | undefined;
+    }
 
-        namespace Recommendation {
-            type ReleaseType = "major" | "minor" | "patch";
-        }
+    namespace Recommendation {
+        type ReleaseType = "major" | "minor" | "patch";
     }
 
     /**
@@ -78,6 +44,10 @@ declare namespace conventionalRecommendedBump {
      * * `preset`
      * * `config`
      * * `whatBump`
+     * * `tagPrefix`
+     * * `skipUnstable`
+     * * `lernaPackage`
+     * * `path`
      */
     interface Options {
         /**
@@ -86,7 +56,7 @@ declare namespace conventionalRecommendedBump {
          * @default
          * true
          */
-        ignoreReverted?: boolean;
+        ignoreReverted?: boolean | undefined;
 
         /**
          * It's recommended to use a preset so you don't have to define everything
@@ -94,7 +64,7 @@ declare namespace conventionalRecommendedBump {
          *
          * The value is passed to [`conventional-changelog-preset-loader`](https://www.npmjs.com/package/conventional-changelog-preset-loader).
          */
-        preset?: string;
+        preset?: string | undefined;
 
         /**
          * This should serve as default values for other arguments of
@@ -105,7 +75,7 @@ declare namespace conventionalRecommendedBump {
          * `config` option will be overwritten by the value loaded by
          * `conventional-changelog-preset-loader` if the `preset` options is set.
          */
-        config?: CoreOptions.Config<Commit, WriterContext>;
+        config?: CoreOptions.Config<Commit, WriterContext> | undefined;
 
         /**
          * A function that takes parsed commits as an argument.
@@ -121,7 +91,7 @@ declare namespace conventionalRecommendedBump {
          * `level` is a `number` indicating what bump it should be and `reason` is the
          * reason of such release.
          */
-        whatBump?: Options.WhatBump;
+        whatBump?: Options.WhatBump | undefined;
 
         /**
          * Specify a prefix for the git tag that will be taken into account during the
@@ -131,7 +101,12 @@ declare namespace conventionalRecommendedBump {
          * would specifying `--tagPrefix=version/` using the CLI, or `version/` as the
          * value of the `tagPrefix` option.
          */
-        tagPrefix?: string;
+        tagPrefix?: string | undefined;
+
+        /**
+         * If given, unstable tags (e.g. `x.x.x-alpha.1`, `x.x.x-rc.2`) will be skipped.
+         */
+        skipUnstable?: boolean | undefined;
 
         /**
          * Specify the name of a package in a [Lerna](https://lernajs.io/)-managed
@@ -144,7 +119,14 @@ declare namespace conventionalRecommendedBump {
          * specifying `--lernaPackage=conventional-changelog` using the CLI, or
          * `conventional-changelog` as the value of the `lernaPackage` option.
          */
-        lernaPackage?: string;
+        lernaPackage?: string | undefined;
+
+        /**
+         * Specify the path to only calculate with git commits related to the path.
+         * If you want to calculate recommended bumps of packages in a Lerna-managed
+         * repository, path should be use along with lernaPackage for each of the package.
+         */
+        path?: string | undefined;
     }
 
     namespace Options {
@@ -152,14 +134,14 @@ declare namespace conventionalRecommendedBump {
 
         namespace WhatBump {
             interface Result {
-                level?: number;
-                reason?: string;
+                level?: number | undefined;
+                reason?: string | undefined;
             }
         }
     }
 }
 
-type Callback = conventionalRecommendedBump.Callback;
+type Recommendation = conventionalRecommendedBump.Recommendation;
 type Options = conventionalRecommendedBump.Options;
 
 export = conventionalRecommendedBump;

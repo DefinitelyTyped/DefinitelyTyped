@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
 declare namespace Panel {
     interface Props {
@@ -6,13 +6,13 @@ declare namespace Panel {
         /**
          * Title of the `Panel`. Text will be rendered inside an `<h2>` tag.
          */
-        header?: string;
+        header?: string | undefined;
         /**
          * The class that will be added with `components-panel`. If no
          * `className` is passed only `components-panel__body` and `is-opened`
          * is used.
          */
-        className?: string;
+        className?: string | undefined;
     }
 }
 declare const Panel: ComponentType<Panel.Props>;

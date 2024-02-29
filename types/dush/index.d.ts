@@ -1,7 +1,3 @@
-// Type definitions for dush 3.0
-// Project: https://github.com/tunnckocore/dush#readme
-// Definitions by: andrycodestuffs <https://github.com/andrycodestuffs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var dush: dush.DushStatic;
 
 declare namespace dush {

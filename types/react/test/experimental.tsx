@@ -1,47 +1,149 @@
 /// <reference types="../experimental"/>
 
-import React = require('react');
+import React = require("react");
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+// NOTE: forward declarations for tests
+declare var console: Console;
+interface Console {
+    log(...args: any[]): void;
+}
 
-    const [startTransition, done] = React.unstable_useTransition({ busyMinDurationMs: 100, busyDelayMs: 200, timeoutMs: 300 });
-    // $ExpectType boolean
-    done;
+function suspenseTest() {
+    function DisplayData() {
+        return null;
+    }
 
-    // $ExpectType boolean
-    const deferredToggle = React.unstable_useDeferredValue(toggle, { timeoutMs: 500 });
+    function FlameChart() {
+        return (
+            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+                <DisplayData />
+            </React.Suspense>
+        );
+    }
+}
 
-    const [func] = React.useState(() => () => 0);
+// Unsupported `revealOrder` triggers a runtime warning
+// @ts-expect-error
+<React.unstable_SuspenseList revealOrder="something">
+    <React.Suspense fallback="Loading">Content</React.Suspense>
+</React.unstable_SuspenseList>;
 
-    // $ExpectType () => number
-    func;
-    // $ExpectType () => number
-    const deferredFunc = React.unstable_useDeferredValue(func);
+<React.unstable_SuspenseList revealOrder="backwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
 
-    class Constructor {}
-    // $ExpectType typeof Constructor
-    const deferredConstructor = React.unstable_useDeferredValue(Constructor);
+<React.unstable_SuspenseList revealOrder="forwards">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
 
-    // $ExpectType () => string
-    const deferredConstructible = React.unstable_useDeferredValue(Constructible);
+<React.unstable_SuspenseList revealOrder="together">
+    <React.Suspense fallback="Loading">A</React.Suspense>
+    <React.Suspense fallback="Loading">B</React.Suspense>
+</React.unstable_SuspenseList>;
 
-    return () => {
-        startTransition(() => {
-            setToggle(toggle => !toggle);
-        });
+function useEvent() {
+    // Implicit any
+    // @ts-expect-error
+    const anyEvent = React.experimental_useEffectEvent(value => {
+        // $ExpectType any
+        return value;
+    });
+    // $ExpectType any
+    anyEvent({});
+    // $ExpectType (value: string) => number
+    const typedEvent = React.experimental_useEffectEvent((value: string) => {
+        return Number(value);
+    });
+    // $ExpectType number
+    typedEvent("1");
+    // Argument of type '{}' is not assignable to parameter of type 'string'.
+    // @ts-expect-error
+    typedEvent({});
 
-        // The function must be synchronous, even if it can start an asynchronous update
-        // it's no different from an useEffect callback in this respect
-        // $ExpectError
-        startTransition(async () => {});
+    function useContextuallyTypedEvent(fn: (event: Event) => string) {}
+    useContextuallyTypedEvent(
+        React.experimental_useEffectEvent(event => {
+            // $ExpectType Event
+            event;
+            return String(event);
+        }),
+    );
+}
 
-        // Unlike Effect callbacks, though, there is no possible destructor to return
-        // $ExpectError
-        startTransition(() => () => {});
+// ReactNode tests
+{
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement("div");
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = {};
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    const promise: React.ReactNode = Promise.resolve("React");
+    // @ts-expect-error plain objects are not allowed
+    <div>{{ dave: true }}</div>;
+    <div>{Promise.resolve("React")}</div>;
+}
+
+function elementTypeTests() {
+    const ReturnPromise = () => Promise.resolve("React");
+    const FCPromise: React.FC = ReturnPromise;
+    class RenderPromise extends React.Component {
+        render() {
+            return Promise.resolve("React");
+        }
+    }
+
+    <ReturnPromise />;
+    React.createElement(ReturnPromise);
+    <RenderPromise />;
+    React.createElement(RenderPromise);
+}
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
+        },
+    };
+    const user = {
+        name: "Sebbie",
     };
 
-    function Constructible() {
-        return '';
-    }
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
+    );
+
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
+    );
 }

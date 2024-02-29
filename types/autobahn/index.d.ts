@@ -1,14 +1,8 @@
-// Type definitions for AutobahnJS 18.10
-// Project: https://crossbar.io/autobahn/, https://github.com/crossbario/autobahn-js
-// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37>, Fran Rodriguez <https://github.com/spcfran>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="when" />
 
 export = autobahn;
 
 declare namespace autobahn {
-
     export class Session {
         id: number;
         realm: string;
@@ -21,21 +15,41 @@ declare namespace autobahn {
 
         constructor(transport: ITransport, defer: DeferFactory, challenge: OnChallengeHandler);
 
-        join(realm: string, authmethods: string[], authid: string): void;
+        join(realm: string, authmethods: string[], authid: string, authextra?: object): void;
 
         leave(reason: string, message: string): void;
 
-        call<TResult>(procedure: string, args?: any[] | any, kwargs?: any, options?: ICallOptions): When.Promise<TResult>;
+        call<TResult, TArgs = any[], TKWArgs = any, TName = string>(
+            procedure: TName,
+            args?: TArgs,
+            kwargs?: TKWArgs,
+            options?: ICallOptions,
+        ): When.Promise<TResult>;
 
-        publish(topic: string, args?: any[], kwargs?: any, options?: IPublishOptions): When.Promise<IPublication>;
+        publish<TArgs = any[], TKWArgs = any, TName = string>(
+            topic: TName,
+            args?: TArgs,
+            kwargs?: TKWArgs,
+            options?: IPublishOptions,
+        ): When.Promise<IPublication>;
 
-        subscribe(topic: string, handler: SubscribeHandler, options?: ISubscribeOptions): When.Promise<ISubscription>;
+        subscribe<TArgs = any[], TKWArgs = any, TName = string>(
+            topic: TName,
+            handler: SubscribeHandler<TArgs, TKWArgs, TName>,
+            options?: ISubscribeOptions,
+        ): When.Promise<ISubscription<TArgs, TKWArgs, TName>>;
 
-        register(procedure: string, endpoint: RegisterEndpoint, options?: IRegisterOptions): When.Promise<IRegistration>;
+        register<TResult = any, TArgs = any[], TKWArgs = any, TName = string>(
+            procedure: TName,
+            endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>,
+            options?: IRegisterOptions,
+        ): When.Promise<IRegistration<TResult, TArgs, TKWArgs, TName>>;
 
-        unsubscribe(subscription: ISubscription): When.Promise<any>;
+        unsubscribe<TArgs, TKWArgs>(subscription: ISubscription<TArgs, TKWArgs>): When.Promise<any>;
 
-        unregister(registration: IRegistration): When.Promise<any>;
+        unregister<TResult, TArgs, TKWArgs, TName>(
+            registration: IRegistration<TResult, TArgs, TKWArgs, TName>,
+        ): When.Promise<any>;
 
         prefix(prefix: string, uri: string): void;
 
@@ -46,8 +60,8 @@ declare namespace autobahn {
     }
 
     interface IInvocation {
-        caller?: number;
-        progress?: (args : any[], kwargs : any) => void;
+        caller?: number | undefined;
+        progress?: ((args: any[], kwargs: any) => void) | undefined;
         procedure: string;
     }
 
@@ -57,17 +71,17 @@ declare namespace autobahn {
         procedure: string;
     }
 
-    interface IEvent {
+    interface IEvent<TName = string> {
         publication: number;
-        publisher?: number;
-        topic: string;
+        publisher?: number | undefined;
+        topic: TName;
     }
 
-    class Event implements IEvent {
-        constructor(publication?: number, publisher?: string, topic?: string);
+    class Event<TName = string> implements IEvent<TName> {
+        constructor(publication?: number, publisher?: string, topic?: TName);
 
         publication: number;
-        topic: string;
+        topic: TName;
     }
 
     interface IResult {
@@ -96,11 +110,15 @@ declare namespace autobahn {
         kwargs: any;
     }
 
-    type SubscribeHandler = (args?: any[] | any, kwargs?: any, details?: IEvent) => void;
+    type SubscribeHandler<TArgs = any[], TKWArgs = any, TName = string> = (
+        args?: TArgs,
+        kwargs?: TKWArgs,
+        details?: IEvent<TName>,
+    ) => void;
 
-    interface ISubscription {
-        topic: string;
-        handler: SubscribeHandler;
+    interface ISubscription<TArgs = any[], TKWArgs = any, TName = string> {
+        topic: TName;
+        handler: SubscribeHandler<TArgs, TKWArgs>;
         options: ISubscribeOptions;
         session: Session;
         id: number;
@@ -108,25 +126,35 @@ declare namespace autobahn {
         unsubscribe(): When.Promise<any>;
     }
 
-    class Subscription implements ISubscription {
-        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
+    class Subscription<TArgs = any[], TKWArgs = any, TName = string> implements ISubscription<TArgs, TKWArgs, TName> {
+        constructor(
+            topic?: TName,
+            handler?: SubscribeHandler<TArgs, TKWArgs>,
+            options?: ISubscribeOptions,
+            session?: Session,
+            id?: number,
+        );
 
-        handler: SubscribeHandler;
+        handler: SubscribeHandler<TArgs, TKWArgs>;
 
         unsubscribe(): When.Promise<any>;
 
-        topic: string;
+        topic: TName;
         options: ISubscribeOptions;
         session: Session;
         id: number;
         active: boolean;
     }
 
-    type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
+    type RegisterEndpoint<TResult = any, TArgs = any[], TKWArgs = any> = (
+        args?: TArgs,
+        kwargs?: TKWArgs,
+        details?: IInvocation,
+    ) => TResult;
 
-    interface IRegistration {
-        procedure: string;
-        endpoint: RegisterEndpoint;
+    interface IRegistration<TResult = any, TArgs = any[], TKWArgs = any, TName = string> {
+        procedure: TName;
+        endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>;
         options: IRegisterOptions;
         session: Session;
         id: number;
@@ -134,14 +162,22 @@ declare namespace autobahn {
         unregister(): When.Promise<any>;
     }
 
-    class Registration implements IRegistration {
-        constructor(procedure?: string, endpoint?: RegisterEndpoint, options?: IRegisterOptions, session?: Session, id?: number);
+    class Registration<TResult = any, TArgs = any[], TKWArgs = any, TName = string>
+        implements IRegistration<TResult, TArgs, TKWArgs, TName>
+    {
+        constructor(
+            procedure?: TName,
+            endpoint?: RegisterEndpoint<TResult, TArgs, TKWArgs>,
+            options?: IRegisterOptions,
+            session?: Session,
+            id?: number,
+        );
 
-        endpoint: RegisterEndpoint;
+        endpoint: RegisterEndpoint<TResult, TArgs, TKWArgs>;
 
         unregister(): When.Promise<any>;
 
-        procedure: string;
+        procedure: TName;
         options: IRegisterOptions;
         session: Session;
         id: number;
@@ -159,32 +195,32 @@ declare namespace autobahn {
     }
 
     interface ICallOptions {
-        timeout?: number;
-        receive_progress?: boolean;
-        disclose_me?: boolean;
+        timeout?: number | undefined;
+        receive_progress?: boolean | undefined;
+        disclose_me?: boolean | undefined;
     }
 
     interface IPublishOptions {
-        acknowledge?: boolean;
-        exclude?: number[];
-        exclude_authid?: string[];
-        exclude_authrole?: string[];
-        eligible?: number[];
-        eligible_authid?: string[];
-        eligible_authrole?: string[];
-        retain?: boolean;
-        disclose_me?: boolean;
-        exclude_me?: boolean;
+        acknowledge?: boolean | undefined;
+        exclude?: number[] | undefined;
+        exclude_authid?: string[] | undefined;
+        exclude_authrole?: string[] | undefined;
+        eligible?: number[] | undefined;
+        eligible_authid?: string[] | undefined;
+        eligible_authrole?: string[] | undefined;
+        retain?: boolean | undefined;
+        disclose_me?: boolean | undefined;
+        exclude_me?: boolean | undefined;
     }
 
     interface ISubscribeOptions {
-        match?: string;
-        get_retained?: boolean;
+        match?: string | undefined;
+        get_retained?: boolean | undefined;
     }
 
     interface IRegisterOptions {
-        disclose_caller?: boolean;
-        invoke?: 'single' | 'roundrobin' | 'random' | 'first' | 'last';
+        disclose_caller?: boolean | undefined;
+        invoke?: "single" | "roundrobin" | "random" | "first" | "last" | undefined;
     }
 
     export class Connection {
@@ -194,8 +230,8 @@ declare namespace autobahn {
         readonly isOpen: boolean;
         readonly isRetrying: boolean;
         readonly transport: ITransport;
-        readonly session?: Session;
-        readonly defer?: DeferFactory;
+        readonly session?: Session | undefined;
+        readonly defer?: DeferFactory | undefined;
 
         open(): void;
 
@@ -206,32 +242,52 @@ declare namespace autobahn {
     }
 
     interface ITransportDefinition {
-        url?: string;
-        protocols?: string[];
+        url?: string | undefined;
+        protocols?: string[] | undefined;
         type: TransportType;
+    }
+
+    interface ITlsConfiguration {
+        ca: string;
+        cert: string;
+        key: string;
     }
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => string | When.Promise<string>;
+    type OnChallengeHandler = (
+        session: Session,
+        method: string,
+        extra: any,
+    ) => string | [string, any] | When.Promise<string | [string, any]>;
+    type OnInternalErrorHandler = (error: object | Error, error_message?: string) => void;
+    type OnUserErrorHandler = (error: object | Error, error_message?: string) => void;
 
     interface IConnectionOptions {
-        use_es6_promises?: boolean;
+        use_es6_promises?: boolean | undefined;
         // use explicit deferred factory, e.g. jQuery.Deferred or Q.defer
-        use_deferred?: DeferFactory;
-        transports?: ITransportDefinition[];
-        retry_if_unreachable?: boolean;
-        max_retries?: number;
-        initial_retry_delay?: number;
-        max_retry_delay?: number;
-        retry_delay_growth?: number;
-        retry_delay_jitter?: number;
-        url?: string;
-        protocols?: string[];
-        onchallenge?: OnChallengeHandler;
+        use_deferred?: DeferFactory | undefined;
+        transports?: ITransportDefinition[] | undefined;
+        retry_if_unreachable?: boolean | undefined;
+        max_retries?: number | undefined;
+        initial_retry_delay?: number | undefined;
+        max_retry_delay?: number | undefined;
+        retry_delay_growth?: number | undefined;
+        retry_delay_jitter?: number | undefined;
+        url?: string | undefined;
+        protocols?: string[] | undefined;
+        onchallenge?: OnChallengeHandler | undefined;
+        on_internal_error?: OnInternalErrorHandler | undefined;
+        on_user_error?: OnUserErrorHandler | undefined;
         realm: string;
-        authmethods?: string[];
-        authid?: string;
+        authmethods?: string[] | undefined;
+        authid?: string | undefined;
+        authextra?: object | undefined;
+        // Below options only work when the transport is websocket and the underlying platform is NodeJS/Electron.
+        autoping_interval?: number | undefined;
+        autoping_timeout?: number | undefined;
+        autoping_size?: number | undefined;
+        tlsConfiguration?: ITlsConfiguration | undefined;
     }
 
     interface ICloseEventDetails {
@@ -240,16 +296,16 @@ declare namespace autobahn {
         code: number;
     }
 
-    type DefaultTransportType = 'websocket' | 'longpoll' | 'rawsocket';
-    
-    // Workaround to get intellisense on type unions of 'literals' | string. 
+    type DefaultTransportType = "websocket" | "longpoll" | "rawsocket";
+
+    // Workaround to get intellisense on type unions of 'literals' | string.
     // See https://github.com/Microsoft/TypeScript/issues/29729
-    type CustomTransportType = string & { zz_IGNORE_ME?: never };
+    type CustomTransportType = string & { zz_IGNORE_ME?: never | undefined };
     type TransportType = DefaultTransportType | CustomTransportType;
 
     interface ITransportInfo {
-        url?: string;
-        protocol?: string;
+        url?: string | undefined;
+        protocol?: string | undefined;
         type: TransportType;
     }
 
@@ -267,9 +323,9 @@ declare namespace autobahn {
         type: TransportType;
         create(): ITransport;
     }
-    
+
     interface ITransportFactoryFactory {
-        new (options: any): ITransportFactory;
+        new(options: any): ITransportFactory;
     }
 
     interface ITransports {

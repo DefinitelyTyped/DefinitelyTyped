@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/salesman.js",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/lovasoa/salesman.js"
+    ],
+    "devDependencies": {
+        "@types/salesman.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Peaker",
+            "githubUsername": "JPeaker"
+        }
+    ]
+}

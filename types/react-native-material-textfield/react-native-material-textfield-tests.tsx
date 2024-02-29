@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
+import * as React from "react";
+import { View } from "react-native";
+import { TextField } from "react-native-material-textfield";
 
 export class Example extends React.Component {
     textFieldRef = React.createRef<TextField>();
@@ -26,6 +26,7 @@ export class Example extends React.Component {
                     placeholder="Text when field is empty"
                     value="Initial value"
                     style={{ fontSize: 10 }}
+                    labelOffset={{ x0: 1, y0: 1, x1: 1, y1: 1 }}
                 />
             </View>
         );

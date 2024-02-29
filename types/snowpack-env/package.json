@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/snowpack-env",
+    "version": "2.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "snowpack-env",
+    "projects": [
+        "https://github.com/pikapkg/snowpack#readme"
+    ],
+    "devDependencies": {
+        "@types/snowpack-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fred K. Schott",
+            "githubUsername": "FredKSchott"
+        },
+        {
+            "name": "Michael Stramel",
+            "githubUsername": "stramel"
+        },
+        {
+            "name": "Drew Powers",
+            "githubUsername": "drwpow"
+        },
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

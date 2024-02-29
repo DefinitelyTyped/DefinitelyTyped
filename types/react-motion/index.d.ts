@@ -1,13 +1,4 @@
-// Type definitions for react-motion
-// Project: https://github.com/chenglou/react-motion
-// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
-//                 Alexey Svetliakov <https://github.com/asvetliakov>
-//                 Dimitar Nestorov <https://github.com/dimitarnestorov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component, ReactElement } from 'react';
-
+import { Component, JSX, ReactElement } from "react";
 
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };
@@ -24,21 +15,20 @@ export type Velocity = { [key: string]: number };
 interface SpringHelperConfig {
     /**
      * Specified stiffness
-     * @defaults 170
+     * @default 170
      */
-    stiffness?: number;
+    stiffness?: number | undefined;
     /**
      * Specifies damping
-     * @defaults 26
+     * @default 26
      */
-    damping?: number;
+    damping?: number | undefined;
     /**
-        * Specifies both the rounding of the interpolated value and the speed (internal).
-         * @defaults 0.01
-        */
-    precision?: number;
+     * Specifies both the rounding of the interpolated value and the speed (internal).
+     * @default 0.01
+     */
+    precision?: number | undefined;
 }
-
 
 export interface OpaqueConfig {
     val: number;
@@ -55,7 +45,7 @@ interface MotionProps {
      * The default style. Being ignored on subsequent renders
      * @default Object with same keys as in style whose values are the initial numbers you're interpolating on
      */
-    defaultStyle?: PlainStyle;
+    defaultStyle?: PlainStyle | undefined;
     /**
      * Object that maps to either number or opaque config returned by spring().
      * Must keep same keys throughout component's existence
@@ -65,14 +55,14 @@ interface MotionProps {
      * Callback with your interpolated styles. Must return one react element to render
      * @param interpolatedStyle
      */
-    children?: (interpolatedStyle: PlainStyle) => JSX.Element;
+    children?: ((interpolatedStyle: PlainStyle) => JSX.Element) | undefined;
     /**
      * The callback that fires when the animation comes to a rest.
      */
-    onRest?: () => void;
+    onRest?: (() => void) | undefined;
 }
 
-export declare class Motion extends Component<MotionProps> { }
+export declare class Motion extends Component<MotionProps> {}
 
 // === TransitionMotion ===
 interface TransitionStyle {
@@ -99,7 +89,7 @@ interface TransitionPlainStyle {
     // same as TransitionStyle, passed as argument to style/children function
     style: PlainStyle;
 }
-type InterpolateFunction = (previousInterpolatedStyles?: Array<TransitionPlainStyle>) => Array<TransitionStyle>;
+type InterpolateFunction = (previousInterpolatedStyles?: TransitionPlainStyle[]) => TransitionStyle[];
 /**
  * Transition properties
  */
@@ -107,49 +97,49 @@ interface TransitionProps {
     /**
      * Default styles on first render
      */
-    defaultStyles?: Array<TransitionPlainStyle>;
+    defaultStyles?: TransitionPlainStyle[] | undefined;
     /**
      * Styles to interpolate. Accepts array of TransitionStyle objects or interpolated function similar as for
      * <StaggeredMotion/>
      */
-    styles: Array<TransitionStyle> | InterpolateFunction;
-    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => JSX.Element;
+    styles: TransitionStyle[] | InterpolateFunction;
+    children?: ((interpolatedStyles: TransitionPlainStyle[]) => JSX.Element) | undefined;
     /**
      * Triggers when a new element will appear
      * @param styleThatEntered
      */
-    willEnter?: (styleThatEntered: TransitionStyle) => PlainStyle;
+    willEnter?: ((styleThatEntered: TransitionStyle) => PlainStyle) | undefined;
     /**
      * Triggers when an element will disappear
      * @param styleThatLeft
      */
-    willLeave?: (styleThatLeft: TransitionStyle) => Style | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    willLeave?: ((styleThatLeft: TransitionStyle) => Style | void) | undefined;
     /**
      * Triggers when an element has disappeared
      * @param styleThatLeft
      */
-    didLeave?: (styleThatLeft: TransitionStyle) => void;
+    didLeave?: ((styleThatLeft: TransitionStyle) => void) | undefined;
 }
-export class TransitionMotion extends Component<TransitionProps> { }
-
+export class TransitionMotion extends Component<TransitionProps> {}
 
 interface StaggeredMotionProps {
+    children: (interpolatedStyles: any) => React.ReactElement;
     /**
      * Default styles
      */
-    defaultStyles?: Array<PlainStyle>;
+    defaultStyles?: PlainStyle[] | undefined;
     /**
      * Styles to interpolate
      * @param previousInterpolatedStyles The previously interpolating (array of) styles (undefined at first render, unless defaultStyles is provided).
      */
-    styles: (previousInterpolatedStyles?: Array<PlainStyle>) => Array<Style>;
+    styles: (previousInterpolatedStyles?: PlainStyle[]) => Style[];
 }
-export declare class StaggeredMotion extends Component<StaggeredMotionProps> { }
-
+export declare class StaggeredMotion extends Component<StaggeredMotionProps> {}
 
 /**
-* Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
-*/
+ * Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
+ */
 export declare function spring(val: number, config?: SpringHelperConfig): OpaqueConfig;
 
 export declare class Presets {

@@ -1,17 +1,11 @@
-// Type definitions for elasticlunr 0.9
-// Project: http://weixsong.github.io
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export = elasticlunr;
 
-declare function elasticlunr<T>(
+declare function elasticlunr<T extends {}>(
     config?: (this: elasticlunr.Index<T>, idx: elasticlunr.Index<T>) => void,
 ): elasticlunr.Index<T>;
 
 declare namespace elasticlunr {
-    class Configuration<T> {
+    class Configuration<T extends {}> {
         constructor(config: string, fields: Array<keyof T>);
 
         addAllFields2UserConfig(bool: Bool, expand: boolean, fields: Array<keyof T>): void;
@@ -51,7 +45,7 @@ declare namespace elasticlunr {
         static load<T>(serialisedData: SerialisedDocumentStore<T>): DocumentStore<T>;
     }
 
-    type EventType = 'add' | 'update' | 'remove';
+    type EventType = "add" | "update" | "remove";
     type EventHandler = (...args: any[]) => void;
 
     class EventEmitter {
@@ -85,18 +79,19 @@ declare namespace elasticlunr {
         [key: string]: T;
     }
 
-    type Bool = 'OR' | 'AND';
+    type Bool = "OR" | "AND";
 
     type FieldSearchConfig<T extends {}> = {
         [K in keyof T]?: {
-            bool?: Bool;
-            boost?: number;
-            expand?: boolean;
+            bool?: Bool | undefined;
+            boost?: number | undefined;
         };
     };
 
-    interface SearchConfig<T> {
-        fields?: FieldSearchConfig<T>;
+    interface SearchConfig<T extends {}> {
+        fields?: FieldSearchConfig<T> | undefined;
+        expand?: boolean | undefined;
+        bool?: Bool;
     }
 
     interface SerialisedInvertedIndex {
@@ -123,14 +118,14 @@ declare namespace elasticlunr {
         index: { [K in keyof T]?: InvertedIndexNode };
     }
 
-    class Index<T> {
+    class Index<T extends {}> {
         constructor();
 
         documentStore: DocumentStore<T>;
 
         eventEmitter: EventEmitter;
 
-        index: { [K in keyof T]?: InvertedIndexNode };
+        index: { [K in keyof T]?: InvertedIndex };
 
         pipeline: Pipeline;
 
@@ -148,7 +143,7 @@ declare namespace elasticlunr {
 
         idf(term: string, field: keyof T): number;
 
-        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: 'AND' | 'OR'): SearchScores;
+        mergeScores(accumScores: SearchScores | null, scores: SearchScores, op: "AND" | "OR"): SearchScores;
 
         off(name: EventType, fn: EventHandler): void;
 
@@ -172,7 +167,7 @@ declare namespace elasticlunr {
 
         use(plugin: (...args: any[]) => any, ...args: any[]): void;
 
-        static load<T>(serialisedData: SerialisedIndexData<T>): Index<T>;
+        static load<T extends {}>(serialisedData: SerialisedIndexData<T>): Index<T>;
     }
 
     interface TokenInfo {
@@ -181,37 +176,37 @@ declare namespace elasticlunr {
     }
 
     interface InvertedIndexCharNode {
-        a?: InvertedIndexNode;
-        b?: InvertedIndexNode;
-        c?: InvertedIndexNode;
-        d?: InvertedIndexNode;
-        e?: InvertedIndexNode;
-        f?: InvertedIndexNode;
-        g?: InvertedIndexNode;
-        h?: InvertedIndexNode;
-        i?: InvertedIndexNode;
-        j?: InvertedIndexNode;
-        k?: InvertedIndexNode;
-        l?: InvertedIndexNode;
-        m?: InvertedIndexNode;
-        n?: InvertedIndexNode;
-        o?: InvertedIndexNode;
-        p?: InvertedIndexNode;
-        q?: InvertedIndexNode;
-        r?: InvertedIndexNode;
-        s?: InvertedIndexNode;
-        t?: InvertedIndexNode;
-        u?: InvertedIndexNode;
-        v?: InvertedIndexNode;
-        w?: InvertedIndexNode;
-        x?: InvertedIndexNode;
-        y?: InvertedIndexNode;
-        z?: InvertedIndexNode;
+        a?: InvertedIndexNode | undefined;
+        b?: InvertedIndexNode | undefined;
+        c?: InvertedIndexNode | undefined;
+        d?: InvertedIndexNode | undefined;
+        e?: InvertedIndexNode | undefined;
+        f?: InvertedIndexNode | undefined;
+        g?: InvertedIndexNode | undefined;
+        h?: InvertedIndexNode | undefined;
+        i?: InvertedIndexNode | undefined;
+        j?: InvertedIndexNode | undefined;
+        k?: InvertedIndexNode | undefined;
+        l?: InvertedIndexNode | undefined;
+        m?: InvertedIndexNode | undefined;
+        n?: InvertedIndexNode | undefined;
+        o?: InvertedIndexNode | undefined;
+        p?: InvertedIndexNode | undefined;
+        q?: InvertedIndexNode | undefined;
+        r?: InvertedIndexNode | undefined;
+        s?: InvertedIndexNode | undefined;
+        t?: InvertedIndexNode | undefined;
+        u?: InvertedIndexNode | undefined;
+        v?: InvertedIndexNode | undefined;
+        w?: InvertedIndexNode | undefined;
+        x?: InvertedIndexNode | undefined;
+        y?: InvertedIndexNode | undefined;
+        z?: InvertedIndexNode | undefined;
     }
 
     interface InvertedIndexDocs {
         [key: string]: {
-            tf?: number;
+            tf?: number | undefined;
         };
     }
 
@@ -246,6 +241,7 @@ declare namespace elasticlunr {
 
     type SerialisedPipeline = string[];
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PipelineFunction = (token: string, i: number, tokens: string[]) => string | undefined | null | void;
 
     class Pipeline {

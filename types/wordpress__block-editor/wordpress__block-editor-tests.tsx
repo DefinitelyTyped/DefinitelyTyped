@@ -1,12 +1,14 @@
-import { BlockInstance } from '@wordpress/blocks';
-import * as be from '@wordpress/block-editor';
-import { dispatch, select } from '@wordpress/data';
+import * as be from "@wordpress/block-editor";
+import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
+import { BlockInstance } from "@wordpress/blocks";
+import { dispatch, select } from "@wordpress/data";
+import { useRef } from "react";
 
 declare const BLOCK_INSTANCE: BlockInstance;
 
-const COLORS = [{ name: 'Red', slug: 'red', color: '#ff0000' }, { name: 'Blue', slug: 'blue', color: '#0000ff' }];
-const FONT_SIZES = [{ name: 'Small', slug: 'small', size: 12 }, { name: 'Large', slug: 'large', size: 18 }];
-const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }', baseUrl: 'https://foo.bar' }];
+const COLORS = [{ name: "Red", slug: "red", color: "#ff0000" }, { name: "Blue", slug: "blue", color: "#0000ff" }];
+const FONT_SIZES = [{ name: "Small", slug: "small", size: 12 }, { name: "Large", slug: "large", size: 18 }];
+const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }", baseUrl: "https://foo.bar" }];
 
 //
 // Components
@@ -18,7 +20,7 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.AlignmentToolbar value={undefined} onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
 <be.AlignmentToolbar value="left" onChange={newValue => newValue && console.log(newValue.toUpperCase())} />;
 <be.AlignmentToolbar
-    alignmentControls={[{ align: 'center', icon: 'carrot', title: 'Center' }]}
+    alignmentControls={[{ align: "center", icon: "carrot", title: "Center" }]}
     value="left"
     onChange={newValue => newValue && console.log(newValue.toUpperCase())}
 />;
@@ -31,7 +33,7 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.BlockAlignmentToolbar
     isCollapsed
     value="left"
-    controls={['left', 'right']}
+    controls={["left", "right"]}
     onChange={newValue => newValue && console.log(newValue.toUpperCase())}
 />;
 
@@ -42,21 +44,21 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 <be.BlockControls
     controls={[
         {
-            icon: 'yes',
-            title: 'Yes',
+            icon: "yes",
+            title: "Yes",
             onClick() {},
             shortcut: {
-                display: 'Yes',
+                display: "Yes",
             },
             isDisabled: false,
         },
         {
-            icon: 'no',
-            title: 'No',
+            icon: "no",
+            title: "No",
             onClick() {},
-            subscript: 'no',
+            subscript: "no",
             isActive: false,
-            shortcut: 'No',
+            shortcut: "No",
         },
     ]}
 >
@@ -67,7 +69,7 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // BlockEditorProvider
 //
-<be.BlockEditorProvider value={[]} settings={{ templateLock: 'all' }}>
+<be.BlockEditorProvider value={[]} settings={{ templateLock: "all" }}>
     <div />
 </be.BlockEditorProvider>;
 
@@ -91,8 +93,8 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // block-mover
 //
-<be.BlockMover clientIds={['foo', 'bar']} />;
-<be.BlockMover clientIds={['foo', 'bar']} isDraggable onDragStart={() => console.log('dragging')} />;
+<be.BlockMover clientIds={["foo", "bar"]} />;
+<be.BlockMover clientIds={["foo", "bar"]} isDraggable onDragStart={() => console.log("dragging")} />;
 
 //
 // block-navigation/dropdown
@@ -118,8 +120,8 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 // button-block-appender
 //
-<be.ButtonBlockerAppender rootClientId="foo" />;
-<be.ButtonBlockerAppender rootClientId="foo" className="bar" />;
+<be.ButtonBlockAppender rootClientId="foo" />;
+<be.ButtonBlockAppender rootClientId="foo" className="bar" />;
 
 //
 // color-palette/with-color-context
@@ -132,9 +134,7 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
         <div>
             <h1>Color list</h1>
             <ul>
-                {colors.map((c, i) => (
-                    <li key={i}>{c.color}</li>
-                ))}
+                {colors.map((c, i) => <li key={i}>{c.color}</li>)}
             </ul>
             {foo}
         </div>
@@ -149,28 +149,28 @@ const STYLES = [{ css: '.foo { color: red; }' }, { css: '.bar { color: blue; }',
 //
 
 // $ExpectType ComponentType<any>
-be.createCustomColorsHOC(COLORS)('backgroundColor', 'borderColor')(() => <h1>Hello World</h1>);
+be.createCustomColorsHOC(COLORS)("backgroundColor", "borderColor")(() => <h1>Hello World</h1>);
 
 // $ExpectType string
-be.getColorClassName('foo', 'bar');
+be.getColorClassName("foo", "bar");
 
 // $ExpectType string | undefined
-be.getColorClassName(undefined, 'bar');
+be.getColorClassName(undefined, "bar");
 
 // $ExpectType EditorColor | Pick<EditorColor, "color">
-be.getColorObjectByAttributeValues(COLORS, 'red', '#ff0000');
+be.getColorObjectByAttributeValues(COLORS, "red", "#ff0000");
 
 // $ExpectType EditorColor | Pick<EditorColor, "color">
-be.getColorObjectByAttributeValues(COLORS, undefined, '#ff0000');
+be.getColorObjectByAttributeValues(COLORS, undefined, "#ff0000");
 
 // $ExpectType EditorColor | undefined
-be.getColorObjectByColorValue(COLORS, '#ff0000');
+be.getColorObjectByColorValue(COLORS, "#ff0000");
 
 // $ExpectType EditorColor | undefined
 be.getColorObjectByColorValue(COLORS, undefined);
 
 // $ExpectType ComponentType<any>
-be.withColors('backgroundColor', { textColor: 'color' })(() => <h1>Hello World</h1>);
+be.withColors("backgroundColor", { textColor: "color" })(() => <h1>Hello World</h1>);
 
 //
 // contrast-checker
@@ -184,22 +184,22 @@ be.withColors('backgroundColor', { textColor: 'color' })(() => <h1>Hello World</
 //
 
 // $ExpectType Partial<EditorFontSize> & Pick<EditorFontSize, "size">
-be.getFontSize(FONT_SIZES, 'small', 15);
+be.getFontSize(FONT_SIZES, "small", 15);
 
 // $ExpectType Partial<EditorFontSize> & Pick<EditorFontSize, "size">
 be.getFontSize(FONT_SIZES, undefined, 15);
 
 // $ExpectType string
-be.getFontSizeClass('foo');
+be.getFontSizeClass("foo");
 
 // $ExpectType ComponentType<any>
-be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
+be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 
 //
 // inner-blocks
 //
 <be.InnerBlocks />;
-<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockerAppender} />;
+<be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 
@@ -219,6 +219,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 // inspector-controls
 //
 <be.InspectorControls>Hello World</be.InspectorControls>;
+<be.InspectorControls group={"styles"}>Hello World</be.InspectorControls>;
 <be.InspectorControls.Slot />;
 
 //
@@ -226,14 +227,20 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 //
 <be.MediaPlaceholder
     onSelect={item => console.log(item.id)}
-    allowedTypes={['image']}
-    labels={{ title: 'The Image' }}
+    allowedTypes={["image"]}
+    labels={{ title: "The Image" }}
 />;
 <be.MediaPlaceholder
     multiple
     onSelect={items => console.log(items.map(i => i.id).join())}
-    allowedTypes={['image']}
-    labels={{ title: 'The Image' }}
+    allowedTypes={["image"]}
+    labels={{ title: "The Image" }}
+/>;
+<be.MediaPlaceholder
+    multiple={"add"}
+    onSelect={items => console.log(items.map((i: { id: string }) => i.id).join())}
+    allowedTypes={["image"]}
+    labels={{ title: "The Image" }}
 />;
 
 //
@@ -242,16 +249,16 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 //
 <be.MediaUploadCheck>
     <be.MediaUpload
-        onSelect={media => console.log('selected ' + media.id)}
-        allowedTypes={['audio']}
+        onSelect={media => console.log("selected " + media.id)}
+        allowedTypes={["audio"]}
         render={({ open }) => <button onClick={open}>Open Media Library</button>}
     />
 </be.MediaUploadCheck>;
 <be.MediaUploadCheck fallback={<div>Invalid permissions</div>}>
     <be.MediaUpload
         multiple
-        onSelect={media => console.log('selected ' + media.map(m => m.id).join())}
-        allowedTypes={['audio']}
+        onSelect={media => console.log("selected " + media.map(m => m.id).join())}
+        allowedTypes={["audio"]}
         render={({ open }) => <button onClick={open}>Open Media Library</button>}
     />
 </be.MediaUploadCheck>;
@@ -271,20 +278,20 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     initialOpen={false}
     colorSettings={[
         {
-            value: { name: 'Red', color: '#ff0000' },
+            value: "#ff0000",
             onChange(color) {
-                color && console.log(color.name);
+                color && console.log(color);
             },
-            label: 'Background Color',
+            label: "Background Color",
             disableCustomColors: true,
             colors: [
                 {
-                    color: '#ff0000',
-                    name: 'Red',
+                    color: "#ff0000",
+                    name: "Red",
                 },
                 {
-                    color: '#ffff00',
-                    name: 'Yellow',
+                    color: "#ffff00",
+                    name: "Yellow",
                 },
             ],
         },
@@ -293,16 +300,14 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 <be.PanelColorSettings
     colorSettings={[
         {
-            value: { name: 'Red', color: '#ff0000' },
+            value: "#ff0000",
             onChange(color) {
-                color && console.log(color.name);
+                color && console.log(color);
             },
-            label: 'Background Color',
+            label: "Background Color",
         },
     ]}
->
-    Hello World
-</be.PanelColorSettings>;
+/>;
 
 //
 // plain-text
@@ -316,15 +321,16 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     aria-label="Paragraph block"
     identifier="content"
     placeholder="Start writing or type / to choose a block"
-    style={{ color: 'red' }}
+    style={{ color: "red" }}
     tagName="p"
     value="Hello World"
     onChange={nextContent => console.log(nextContent.toUpperCase())}
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
+    allowedFormats={["core/bold", "core/italic"]}
 />;
 <be.RichText.Content value="foo" />;
-<be.RichText.Content tagName="p" style={{ color: 'blue' }} className="foo" value="Hello World" dir="rtl" />;
-<be.RichTextShortcut type="primary" character="b" onUse={() => console.log('Hello World')} />;
+<be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
+<be.RichTextShortcut type="primary" character="b" onUse={() => console.log("Hello World")} />;
 <be.RichTextToolbarButton
     isActive
     name="bold"
@@ -332,7 +338,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     title="foo"
     shortcutType="primary"
     shortcutCharacter="b"
-    onClick={() => console.log('Hello World')}
+    onClick={() => console.log("Hello World")}
 />;
 
 //
@@ -360,7 +366,7 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     animate
     noArrow
     additionalControls={<button>Foobar</button>}
-    onClose={() => console.log('closing popover')}
+    onClose={() => console.log("closing popover")}
     renderSettings={() => (
         <label>
             Open in New Tab
@@ -382,15 +388,15 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
     actions={[<button>foo</button>, false && <button>bar</button>]}
     secondaryActions={[
         {
-            title: 'foo',
+            title: "foo",
             onClick() {
-                console.log('foo');
+                console.log("foo");
             },
         },
         {
-            title: 'bar',
+            title: "bar",
             onClick() {
-                console.log('bar');
+                console.log("bar");
             },
         },
     ]}
@@ -406,116 +412,119 @@ be.withFontSizes('fontSize')(() => <h1>Hello World</h1>);
 be.transformStyles(STYLES);
 
 // $ExpectType string[]
-be.transformStyles(STYLES, '.foobar');
+be.transformStyles(STYLES, ".foobar");
 
 //
 // Store
 // ============================================================================
 
+// $ExpectType BlockEditorStoreDescriptor
+be.store;
+
 // $ExpectType void
-dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE);
-dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE, 4);
-dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE, 4, 'foo');
-dispatch('core/block-editor').insertBlock(BLOCK_INSTANCE, 4, 'foo', false);
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE);
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4);
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo");
+dispatch("core/block-editor").insertBlock(BLOCK_INSTANCE, 4, "foo", false);
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').insertBlocks([BLOCK_INSTANCE]);
-dispatch('core/block-editor').insertBlocks([BLOCK_INSTANCE], 5);
-dispatch('core/block-editor').insertBlocks([BLOCK_INSTANCE], 5, 'foo');
-dispatch('core/block-editor').insertBlocks([BLOCK_INSTANCE], 5, 'foo', false);
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE]);
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5);
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo");
+dispatch("core/block-editor").insertBlocks([BLOCK_INSTANCE], 5, "foo", false);
 
 // $ExpectType void
-dispatch('core/block-editor').insertDefaultBlock();
-dispatch('core/block-editor').insertDefaultBlock({ foo: 'bar' });
-dispatch('core/block-editor').insertDefaultBlock({ foo: 'bar' }, 'foo');
-dispatch('core/block-editor').insertDefaultBlock({ foo: 'bar' }, 'foo', 5);
+dispatch("core/block-editor").insertDefaultBlock();
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" });
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo");
+dispatch("core/block-editor").insertDefaultBlock({ foo: "bar" }, "foo", 5);
 
 // $ExpectType void
-dispatch('core/block-editor').mergeBlocks('foo', 'bar');
+dispatch("core/block-editor").mergeBlocks("foo", "bar");
 
 // $ExpectType void
-dispatch('core/block-editor').moveBlocksUp('foo', 'bar');
-dispatch('core/block-editor').moveBlocksUp(['foo', 'baz'], 'bar');
+dispatch("core/block-editor").moveBlocksUp("foo", "bar");
+dispatch("core/block-editor").moveBlocksUp(["foo", "baz"], "bar");
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').moveBlockToPosition('foo', 'bar', 'baz', 1);
-dispatch('core/block-editor').moveBlockToPosition(undefined, 'foo', undefined, 5);
-dispatch('core/block-editor').moveBlockToPosition(undefined, undefined, undefined, 5);
+dispatch("core/block-editor").moveBlockToPosition("foo", "bar", "baz", 1);
+dispatch("core/block-editor").moveBlockToPosition(undefined, "foo", undefined, 5);
+dispatch("core/block-editor").moveBlockToPosition(undefined, undefined, undefined, 5);
 
 // $ExpectType void
-dispatch('core/block-editor').multiSelect('foo', 'bar');
+dispatch("core/block-editor").multiSelect("foo", "bar");
 
 // $ExpectType void
-dispatch('core/block-editor').receiveBlocks([BLOCK_INSTANCE]);
+dispatch("core/block-editor").receiveBlocks([BLOCK_INSTANCE]);
 
 // $ExpectType void
-dispatch('core/block-editor').removeBlock('foo');
-dispatch('core/block-editor').removeBlock('foo', true);
+dispatch("core/block-editor").removeBlock("foo");
+dispatch("core/block-editor").removeBlock("foo", true);
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').removeBlocks('foo');
-dispatch('core/block-editor').removeBlocks('foo', false);
-dispatch('core/block-editor').removeBlocks(['foo']);
-dispatch('core/block-editor').removeBlocks(['foo'], false);
+dispatch("core/block-editor").removeBlocks("foo");
+dispatch("core/block-editor").removeBlocks("foo", false);
+dispatch("core/block-editor").removeBlocks(["foo"]);
+dispatch("core/block-editor").removeBlocks(["foo"], false);
 
 // $ExpectType void
-dispatch('core/block-editor').replaceBlock('foo', BLOCK_INSTANCE);
-dispatch('core/block-editor').replaceBlock('foo', [BLOCK_INSTANCE]);
-dispatch('core/block-editor').replaceBlock(['foo'], BLOCK_INSTANCE);
-dispatch('core/block-editor').replaceBlock(['foo'], [BLOCK_INSTANCE]);
+dispatch("core/block-editor").replaceBlock("foo", BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlock("foo", [BLOCK_INSTANCE]);
+dispatch("core/block-editor").replaceBlock(["foo"], BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlock(["foo"], [BLOCK_INSTANCE]);
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').replaceBlocks('foo', BLOCK_INSTANCE);
-dispatch('core/block-editor').replaceBlocks('foo', [BLOCK_INSTANCE], 3);
-dispatch('core/block-editor').replaceBlocks(['foo'], BLOCK_INSTANCE);
-dispatch('core/block-editor').replaceBlocks(['foo'], [BLOCK_INSTANCE], 0);
+dispatch("core/block-editor").replaceBlocks("foo", BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlocks("foo", [BLOCK_INSTANCE], 3);
+dispatch("core/block-editor").replaceBlocks(["foo"], BLOCK_INSTANCE);
+dispatch("core/block-editor").replaceBlocks(["foo"], [BLOCK_INSTANCE], 0);
 
 // $ExpectType void
-dispatch('core/block-editor').replaceInnerBlocks('foo', [BLOCK_INSTANCE]);
-dispatch('core/block-editor').replaceInnerBlocks('foo', [BLOCK_INSTANCE], true);
+dispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE]);
+dispatch("core/block-editor").replaceInnerBlocks("foo", [BLOCK_INSTANCE], true);
 
 // $ExpectType void
-dispatch('core/block-editor').resetBlocks([BLOCK_INSTANCE]);
+dispatch("core/block-editor").resetBlocks([BLOCK_INSTANCE]);
 
 // $ExpectType void
-dispatch('core/block-editor').selectBlock('foo');
-dispatch('core/block-editor').selectBlock('foo', 5);
+dispatch("core/block-editor").selectBlock("foo");
+dispatch("core/block-editor").selectBlock("foo", 5);
 
 // $ExpectType void
-dispatch('core/block-editor').selectionChange('foo', 'bar', 0, 5);
+dispatch("core/block-editor").selectionChange("foo", "bar", 0, 5);
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').selectNextBlock('foo');
+dispatch("core/block-editor").selectNextBlock("foo");
 
 // $ExpectType IterableIterator<void>
-dispatch('core/block-editor').selectPreviousBlock('foo');
+dispatch("core/block-editor").selectPreviousBlock("foo");
 
 // $ExpectType void
-dispatch('core/block-editor').setTemplateValidity(false);
+dispatch("core/block-editor").setTemplateValidity(false);
 
 // $ExpectType void
-dispatch('core/block-editor').showInsertionPoint();
-dispatch('core/block-editor').showInsertionPoint('foo');
-dispatch('core/block-editor').showInsertionPoint('foo', 5);
+dispatch("core/block-editor").showInsertionPoint();
+dispatch("core/block-editor").showInsertionPoint("foo");
+dispatch("core/block-editor").showInsertionPoint("foo", 5);
 
 // $ExpectType void
-dispatch('core/block-editor').toggleBlockMode('foo');
+dispatch("core/block-editor").toggleBlockMode("foo");
 
 // $ExpectType void
-dispatch('core/block-editor').toggleSelection();
-dispatch('core/block-editor').toggleSelection(true);
+dispatch("core/block-editor").toggleSelection();
+dispatch("core/block-editor").toggleSelection(true);
 
 // $ExpectType void
-dispatch('core/block-editor').updateBlock('foo', { attributes: { foo: 'bar' }, innerBlocks: [] });
+dispatch("core/block-editor").updateBlock("foo", { attributes: { foo: "bar" }, innerBlocks: [] });
 
 // $ExpectType void
-dispatch('core/block-editor').updateBlockAttributes('foo', { foo: 'bar' });
+dispatch("core/block-editor").updateBlockAttributes("foo", { foo: "bar" });
 
 // $ExpectType void
-dispatch('core/block-editor').updateBlockListSettings('foo', { allowedBlocks: ['core/paragraph'] });
+dispatch("core/block-editor").updateBlockListSettings("foo", { allowedBlocks: ["core/paragraph"] });
 
 // $ExpectType void
-dispatch('core/block-editor').updateSettings({
+dispatch("core/block-editor").updateSettings({
     focusMode: true,
     codeEditingEnabled: false,
     maxUploadFileSize: 500,
@@ -523,11 +532,73 @@ dispatch('core/block-editor').updateSettings({
 });
 
 // $ExpectType boolean
-select('core/block-editor').canInsertBlockType('core/paragraph');
-select('core/block-editor').canInsertBlockType('core/paragraph', 'foo');
+select("core/block-editor").canInsertBlockType("core/paragraph");
+select("core/block-editor").canInsertBlockType("core/paragraph", "foo");
 
 // $ExpectType string | null
-select('core/block-editor').getAdjacentBlockClientId();
-select('core/block-editor').getAdjacentBlockClientId('foo');
-select('core/block-editor').getAdjacentBlockClientId('foo', -1);
-select('core/block-editor').getAdjacentBlockClientId('foo', 1);
+select("core/block-editor").getAdjacentBlockClientId();
+select("core/block-editor").getAdjacentBlockClientId("foo");
+select("core/block-editor").getAdjacentBlockClientId("foo", -1);
+select("core/block-editor").getAdjacentBlockClientId("foo", 1);
+
+{
+    const blockProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useBlockProps();
+    blockProps;
+}
+
+{
+    const blockProps = be.useBlockProps({ foo: "bar" });
+    // $ExpectType string
+    blockProps.foo;
+}
+
+{
+    const blockProps = be.useBlockProps({ ref: useRef("test") });
+
+    blockProps.ref((current: unknown) => {});
+}
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save();
+
+// $ExpectType Record<string, unknown>
+be.useBlockProps.save({ foo: "bar" });
+
+{
+    const innerBlocksProps: UseBlockProps.Merged & UseBlockProps.Reserved = be.useInnerBlocksProps();
+    innerBlocksProps;
+}
+
+{
+    const innerBlocksProps = be.useInnerBlocksProps({ foo: "bar" });
+    // $ExpectType string
+    innerBlocksProps.foo;
+}
+
+{
+    const innerBlocksProps = be.useInnerBlocksProps({ ref: useRef("test") });
+
+    innerBlocksProps.ref((current: unknown) => {});
+}
+
+// $ExpectType Record<string, unknown>
+be.useInnerBlocksProps.save();
+
+// $ExpectType Record<string, unknown>
+be.useInnerBlocksProps.save({ foo: "bar" });
+
+// $ExpectType string
+be.getTypographyClassesAndStyles({}, false).className;
+be.getTypographyClassesAndStyles({}, {}).className;
+be.getTypographyClassesAndStyles({}, { minFontSize: "33" }).className;
+
+// $ExpectType Record<string, string>
+be.getTypographyClassesAndStyles({}, false).style;
+be.getTypographyClassesAndStyles({}, {}).style;
+be.getTypographyClassesAndStyles({}, { minFontSize: "33" }).style;
+
+// $ExpectType "HELLO"
+be.useCachedTruthy("HELLO");
+
+// $ExpectType 42
+be.useCachedTruthy(42);

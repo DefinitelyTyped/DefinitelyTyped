@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/terraformer__wkt",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/terraformer-js/terraformer/tree/main/packages/wkt"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/terraformer__wkt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Feng Wang",
+            "githubUsername": "fwang49asu"
+        }
+    ]
+}

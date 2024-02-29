@@ -1,14 +1,8 @@
-// Type definitions for fontfaceobserver
-// Project: https://github.com/bramstein/fontfaceobserver
-// Definitions by: Rand Scullard <https://github.com/RandScullard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace FontFaceObserver {
     interface FontVariant {
-        weight?: number | string;
-        style?: string;
-        stretch?: string;
+        weight?: number | string | undefined;
+        style?: string | undefined;
+        stretch?: string | undefined;
     }
 }
 

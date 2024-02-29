@@ -27,15 +27,15 @@ export class Mouse {
 }
 
 export interface NvKeyboardDefaults {
-    target?: Element;
-    focused?: boolean;
+    target?: Element | undefined;
+    focused?: boolean | undefined;
     onKeyPress?(keysym: string, code: number, down: boolean): void;
 }
 
 export interface NvMouseDefaults {
-    target?: Element;
-    focused?: boolean;
-    touchButton?: number;
+    target?: Element | undefined;
+    focused?: boolean | undefined;
+    touchButton?: number | undefined;
     onMouseButton?(x: number, y: number, down: boolean, bmask: number): void;
     onMouseMove?(x: number, y: number): void;
 }

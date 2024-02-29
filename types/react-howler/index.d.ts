@@ -1,37 +1,37 @@
-// Type definitions for react-howler 3.7
-// Project: https://github.com/thangngoc89/react-howler
-// Definitions by: Danijel Maksimovic <https://github.com/maksimovicdanijel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import * as React from 'react';
-import { Howl } from 'howler';
+import { Howl, HowlCallback, HowlErrorCallback, HowlOptions } from "howler";
+import * as React from "react";
 
 declare enum HOWLER_STATE {
-    UNLOADED = 'unloaded',
-    LOADING = 'loading',
-    LOADED = 'loaded',
+    UNLOADED = "unloaded",
+    LOADING = "loading",
+    LOADED = "loaded",
 }
 
-interface Props {
-    src: string | string[];
-    format?: string[];
-    playing?: boolean;
-    mute?: boolean;
-    loop?: boolean;
-    preload?: boolean;
-    volume?: number;
-    onEnd?: () => void;
-    onPause?: () => void;
-    onPlay?: (id: number) => void;
-    onVolume?: (id: number) => void;
-    onStop?: (id: number) => void;
-    onLoad?: () => void;
-    onLoadError?: (id: number) => void;
-    html5?: boolean;
+export { HowlCallback, HowlErrorCallback };
+
+export interface PropTypes {
+    src: HowlOptions["src"];
+    preload?: boolean | undefined;
+    playing?: boolean | undefined;
+    loop?: HowlOptions["loop"];
+    mute?: HowlOptions["mute"];
+    volume?: HowlOptions["volume"];
+    rate?: HowlOptions["rate"];
+    html5?: HowlOptions["html5"];
+    format?: HowlOptions["format"];
+    xhr?: HowlOptions["xhr"] | undefined;
+    onPlay?: HowlCallback | undefined;
+    onPause?: HowlCallback | undefined;
+    onVolume?: HowlCallback | undefined;
+    onStop?: HowlCallback | undefined;
+    onLoad?: HowlCallback | undefined;
+    onLoadError?: HowlErrorCallback | undefined;
+    onEnd?: HowlCallback | undefined;
+    onSeek?: HowlCallback | undefined;
+    onPlayError?: HowlErrorCallback | undefined;
 }
 
-declare class ReactHowler extends React.Component<Props> {
+declare class ReactHowler extends React.Component<PropTypes> {
     stop(id?: number): void;
 
     duration(id?: number): number;

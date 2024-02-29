@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/assertsharp",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/assertsharp"
+    ],
+    "devDependencies": {
+        "@types/assertsharp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bruno Leonardo Michels",
+            "githubUsername": "brunolm"
+        }
+    ]
+}

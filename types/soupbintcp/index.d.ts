@@ -1,18 +1,12 @@
-// Type definitions for soupbintcp 0.2
-// Project: https://github.com/jvirtanen/node-soupbintcp#readme
-// Definitions by: Vilim Stubičan <https://github.com/jewbre>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 export as namespace soupbintcp;
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 import { Socket } from "net";
 
 export class Client extends EventEmitter {
-    constructor(options: { port: number, host: string }, callback?: () => void);
+    constructor(options: { port: number; host: string }, callback?: () => void);
 
     login(payload: LoginRequestPayload, callback?: (data?: any) => void): void;
 
@@ -24,10 +18,10 @@ export class Client extends EventEmitter {
 }
 
 export interface ConnectionOptions {
-    rxTimeoutMillis?: number;
-    txIntervalMillis?: number;
+    rxTimeoutMillis?: number | undefined;
+    txIntervalMillis?: number | undefined;
     heartbeatPacketType: PacketType;
-    keepAliveMillis?: number;
+    keepAliveMillis?: number | undefined;
 }
 
 export class Connection extends EventEmitter {
@@ -50,7 +44,7 @@ export enum PacketType {
     LOGIN_REQUEST = 0x4c, // L
     UNSEQUENCED_DATA = 0x55, // U
     CLIENT_HEARTBEAT = 0x52, // R
-    LOGOUT_REQUEST = 0x4f // O
+    LOGOUT_REQUEST = 0x4f, // O
 }
 
 export interface LoginRequestPayload {
@@ -88,9 +82,9 @@ export class Parser {
 }
 
 export class Server extends EventEmitter {
-    constructor(options: { port: number, host: string }, callback?: (data?: any) => void);
+    constructor(options: { port: number; host: string }, callback?: (data?: any) => void);
 
-    address(): { port: number; family: string; address: string; };
+    address(): { port: number; family: string; address: string };
 
     close(callback: () => void): void;
 }

@@ -1,22 +1,22 @@
-import escapeRegExp = require('escape-regexp');
+import escapeRegExp = require("escape-regexp");
 
 // $ExpectType string
-escapeRegExp('aaa');
+escapeRegExp("aaa");
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp();
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp({});
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp(1);
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp([]);
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp(null);
 
-// $ExpectError
+// @ts-expect-error
 escapeRegExp(undefined);

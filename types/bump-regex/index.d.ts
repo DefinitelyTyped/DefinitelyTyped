@@ -1,23 +1,23 @@
-// Type definitions for bump-regex 2.9
-// Project: https://github.com/stevelacy/bump-regex
-// Definitions by: silkentrance <https://github.com/silkentrance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare function bump(opts: string | bump.Options, cb: bump.Callback): any;
 
-declare function BumpRegex(opts: string|BumpRegex.Options, cb: BumpRegex.Callback): any;
-
-declare namespace BumpRegex {
-    type Callback = (err: string|Error|null, opts?: Result) => void;
+declare namespace bump {
+    type Callback = (err: string | Error | null, opts?: Result) => void;
 
     interface Options {
-        key?: string;
-        type?: 'major' | 'minor' | 'patch' | 'prerelease';
-        case?: boolean;
-        keys?: string[];
-        global?: boolean;
-        version?: string;
-        preid?: string;
-        regex?: RegExp;
-        str?: string;
+        key?: string | undefined;
+        type?: "major" | "minor" | "patch" | "prerelease" | undefined;
+        case?: boolean | undefined;
+        keys?: string[] | undefined;
+        /**
+         * Keep the metadata of the old version after bumping
+         * @default false
+         */
+        keepmetadata?: boolean | undefined;
+        global?: boolean | undefined;
+        version?: string | undefined;
+        preid?: string | undefined;
+        regex?: RegExp | undefined;
+        str?: string | undefined;
     }
 
     interface Result extends Options {
@@ -26,4 +26,4 @@ declare namespace BumpRegex {
     }
 }
 
-export = BumpRegex;
+export = bump;

@@ -1,13 +1,6 @@
-// Type definitions for koa-bunyan-logger 2.1
-// Project: https://github.com/koajs/bunyan-logger
-// Definitions by: Steven McDowall <https://github.com/sjmcdowall>
-//                 Jan Karlo Dela Cruz <https://github.com/jankdc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import { Middleware, Request, Response } from "koa";
 
-import { Middleware, Request, Response } from 'koa';
-
-import Logger = require('bunyan');
+import Logger = require("bunyan");
 
 declare function koaBunyanLogger(logger?: Logger): Middleware;
 
@@ -22,26 +15,26 @@ declare namespace koaBunyanLogger {
     }
 
     interface RequestIdContextOptions {
-        header?: string;
-        prop?: string;
-        requestProp?: string;
-        field?: string;
+        header?: string | undefined;
+        prop?: string | undefined;
+        requestProp?: string | undefined;
+        field?: string | undefined;
     }
 
     interface RequestLoggerOptions {
-        durationField?: string;
-        levelFn?: (status: number, err: Error) => string;
-        updateLogFields?: (data: RequestData) => RequestData;
-        updateRequestLogFields?: (requestData: RequestData) => RequestData;
-        updateResponseLogFields?: (responseData: ResponseData) => ResponseData;
-        formatRequestMessage?: (requestData: RequestData) => string;
-        formatResponseMessage?: (responseData: ResponseData) => string;
-        ignorePath?: string[];
+        durationField?: string | undefined;
+        levelFn?: ((status: number, err: Error) => string) | undefined;
+        updateLogFields?: ((data: RequestData) => RequestData) | undefined;
+        updateRequestLogFields?: ((requestData: RequestData) => RequestData) | undefined;
+        updateResponseLogFields?: ((responseData: ResponseData) => ResponseData) | undefined;
+        formatRequestMessage?: ((requestData: RequestData) => string) | undefined;
+        formatResponseMessage?: ((responseData: ResponseData) => string) | undefined;
+        ignorePath?: string[] | undefined;
     }
 
     interface TimeContextOptions {
-        logLevel?: string;
-        updateLogFields?: (fields: any) => any;
+        logLevel?: string | undefined;
+        updateLogFields?: ((fields: any) => any) | undefined;
     }
 
     function requestLogger(opts?: RequestLoggerOptions): Middleware;
@@ -50,8 +43,7 @@ declare namespace koaBunyanLogger {
 }
 
 // Extend the Koa context to add the logger..
-declare module 'koa' {
-    // tslint:disable-next-line: interface-name
+declare module "koa" {
     interface BaseContext {
         log: Logger;
     }

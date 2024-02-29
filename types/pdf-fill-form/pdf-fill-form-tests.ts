@@ -1,24 +1,46 @@
-import { write, writeBuffer, read, readBuffer, writeAsync, ReadableFields } from 'pdf-fill-form';
-import { readFileSync } from 'fs';
+import { readFileSync } from "fs";
+import {
+    read,
+    ReadableFields,
+    readBuffer,
+    readBufferSync,
+    readSync,
+    write,
+    writeAsync,
+    writeBuffer,
+    writeSync,
+} from "pdf-fill-form";
 
-const buffer = readFileSync('test.pdf');
+const buffer = readFileSync("test.pdf");
 
 async function main() {
     // Workaround because TS 3.9 resolves to ReadableFields and TS 3.6 to the object
     // $ExpectType ReadableFields || { name: string; page: number; value: string; id: number; type: string; }[]
-    await read('./test.pdf');
+    await read("./test.pdf");
 
     // $ExpectType ReadableFields || { name: string; page: number; value: string; id: number; type: string; }[]
     await readBuffer(buffer);
 
-    // $ExpectType Buffer
-    await write('test.pdf', { field: 'test' }, { save: 'pdf' });
+    // $ExpectType ReadableFields || { name: string; page: number; value: string; id: number; type: string; }[]
+    readSync("./test.pdf");
+
+    // $ExpectType ReadableFields || { name: string; page: number; value: string; id: number; type: string; }[]
+    readBufferSync(buffer);
 
     // $ExpectType Buffer
-    await writeBuffer(buffer, { otherField: '123' }, { save: 'imgpdf', antialias: true });
+    await write("test.pdf", { field: "test" }, { save: "pdf" });
 
-    // $ExpectError
-    await writeBuffer(buffer, { field: 123 });
+    // $ExpectType Buffer
+    writeSync("test.pdf", { field: "test" }, { save: "pdf" });
+
+    // $ExpectType Buffer
+    await writeBuffer(buffer, { otherField: "123" }, { save: "imgpdf", antialias: true });
+
+    // $ExpectType Buffer
+    await writeBuffer(buffer, { field: 123, otherField: true });
+
+    // @ts-expect-error
+    await writeBuffer(buffer, { field: ["123", "test"] });
 }
 
 main();

@@ -1,34 +1,26 @@
-// Type definitions for node-slack
-// Project: https://github.com/xoxco/node-slack
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
-import request = require('request');
+import request = require("request");
 
 declare class Slack {
     constructor(hookUrl: string, option?: Slack.Option);
-    send(message: Slack.Message): any; //TODO: Here comes deferred's promise as a return type
+    send(message: Slack.Message): any; // TODO: Here comes deferred's promise as a return type
     send(message: Slack.Message, callback: Slack.SendCallback): request.Request;
     respond(query: Slack.Query): Slack.TextResponse;
     respond(query: Slack.Query, callback: Slack.ResponseCallback): Slack.TextResponse;
 }
 
 declare namespace Slack {
-
     interface Option {
         proxy: string;
     }
 
     interface Message {
         text: string;
-        channel?: string;
-        username?: string;
-        icon_emoji?: string;
-        attachments?: any[];
-        unfurl_links?: boolean;
-        link_names?: number;
+        channel?: string | undefined;
+        username?: string | undefined;
+        icon_emoji?: string | undefined;
+        attachments?: any[] | undefined;
+        unfurl_links?: boolean | undefined;
+        link_names?: number | undefined;
     }
 
     interface SendCallback {
@@ -36,13 +28,13 @@ declare namespace Slack {
     }
 
     interface Query {
-        token?: string;
-        team_id?: string;
-        channel_id?: string;
-        channel_name?: string;
-        timestamp?: number;
-        user_id?: string;
-        user_name?: string;
+        token?: string | undefined;
+        team_id?: string | undefined;
+        channel_id?: string | undefined;
+        channel_name?: string | undefined;
+        timestamp?: number | undefined;
+        user_id?: string | undefined;
+        user_name?: string | undefined;
         text: string;
     }
 

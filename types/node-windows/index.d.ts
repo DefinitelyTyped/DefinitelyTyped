@@ -1,17 +1,11 @@
-// Type definitions for node-windows 0.1
-// Project: https://github.com/coreybutler/node-windows
-// Definitions by: Ken Human <https://github.com/kenhuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
-import { ExecException } from 'child_process';
-import { EventEmitter } from 'events';
+import { ExecException } from "child_process";
+import { EventEmitter } from "events";
 
 /**
  * nodewindows
- * This is a standalone module, originally designed for internal use in [NGN](http://github.com/thinkfirst/NGN).
+ * This is a standalone module, originally designed for internal use in [NGN](https://github.com/thinkfirst/NGN).
  * However; it is capable of providing the same features for Node.JS scripts
  * independently of NGN.
  *
@@ -36,18 +30,18 @@ export interface User {
     account: string;
     domain: string;
     password: string;
-    mungeCredentialsAfterInstall?: boolean;
+    mungeCredentialsAfterInstall?: boolean | undefined;
 }
 
 export enum LogMode {
     rotate = "rotate",
     reset = "reset",
     roll = "roll",
-    append = "append"
+    append = "append",
 }
 
 export interface ServiceConfig {
-    name?: string;
+    name?: string | undefined;
     /**
      * @cfg {Array|Object} [env]
      * An optional array or object used to pass environment variables to the node.js script.
@@ -78,47 +72,48 @@ export interface ServiceConfig {
      *      }]
      *     });
      */
-    env?: EnvironmentPair | EnvironmentPair[];
+    env?: EnvironmentPair | EnvironmentPair[] | undefined;
     /**
      * @cfg {Number} [maxRetries=null]
      * The maximum number of restart attempts to make before the service is considered non-responsive/faulty.
      * Ignored by default.
      */
-    maxRetries?: number;
+    maxRetries?: number | undefined;
     /**
      * @cfg {Boolean} [stopparentfirst=false]
      * Allow the service to shutdown cleanly.
      */
-    stopparentfirst?: boolean;
+    stopparentfirst?: boolean | undefined;
     /**
      * @cfg {Number} [stoptimeout=30]
      * How long to wait in seconds before force killing the application.
      * This only takes effect when stopparentfirst is enabled.
      */
-    stoptimeout?: number;
+    stoptimeout?: number | undefined;
     /**
      * @cfg {string} [nodeOptions='--harmony']
      * Options to be passed to the node process.
+     * Array or space separated string of node options.
      */
-    nodeOptions?: string;
+    nodeOptions?: string | string[] | undefined;
     /**
      * @cfg {Number} [maxRestarts=3]
      * The maximum number of restarts within a 60 second period before haulting the process.
      * This cannot be _disabled_, but it can be rendered ineffective by setting a value of `0`.
      */
-    maxRestarts?: number;
+    maxRestarts?: number | undefined;
     /**
      * @cfg {Boolean} [abortOnError=false]
      * Setting this to `true` will force the process to exit if it encounters an error that stops the node.js script from running.
      * This does not mean the process will stop if the script throws an error. It will only abort if the
      * script throws an error causing the process to exit (i.e. `process.exit(1)`).
      */
-    abortOnError?: boolean;
+    abortOnError?: boolean | undefined;
     /**
      * @cfg {Number} [wait=1]
      * The initial number of seconds to wait before attempting a restart (after the script stops).
      */
-    wait?: number;
+    wait?: number | undefined;
     /**
      * @cfg {Number} [grow=.25]
      * A number between 0-1 representing the percentage growth rate for the #wait interval.
@@ -126,10 +121,10 @@ export interface ServiceConfig {
      * on every restart attempt. If a process dies fatally, this will prevent the server from
      * restarting the process too rapidly (and too strenuously).
      */
-    grow?: number;
-    logpath?: string;
-    logmode?: LogMode;
-    description?: string;
+    grow?: number | undefined;
+    logpath?: string | undefined;
+    logmode?: LogMode | undefined;
+    description?: string | undefined;
     /**
      * @cfg {String} script
      * The absolute path of the script to launch as a service.
@@ -141,7 +136,7 @@ export interface ServiceConfig {
      * The absolute path to the executable that will launch the script.
      * If omitted process.execPath is used.
      */
-    execPath?: string;
+    execPath?: string | undefined;
 }
 
 /**
@@ -338,8 +333,8 @@ export class Service extends EventEmitter {
 }
 
 export interface EventLogConfig {
-    source?: string;
-    eventLog?: string;
+    source?: string | undefined;
+    eventLog?: string | undefined;
 }
 
 /**
@@ -414,7 +409,7 @@ export class EventLogger {
     info(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -430,7 +425,7 @@ export class EventLogger {
     information(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -446,7 +441,7 @@ export class EventLogger {
     error(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -462,7 +457,7 @@ export class EventLogger {
     warn(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -478,7 +473,7 @@ export class EventLogger {
     warning(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -494,7 +489,7 @@ export class EventLogger {
     auditSuccess(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -510,7 +505,7 @@ export class EventLogger {
     auditFailure(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 }
 
@@ -600,8 +595,8 @@ export interface WinswConfig {
     id: string;
     name: string;
     script: string;
-    description?: string;
-    nodeOptions?: string | string[];
+    description?: string | undefined;
+    nodeOptions?: string | string[] | undefined;
     wrapperArgs: string;
     logmode: LogMode;
     logpath: string;

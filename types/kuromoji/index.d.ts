@@ -1,8 +1,3 @@
-// Type definitions for kuromoji.js 0.1
-// Project: https://github.com/takuyaa/kuromoji.js
-// Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>, kgtkr <https://github.com/kgtkr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="doublearray" />
 
 // dict/ConnectionCosts.js
@@ -89,8 +84,8 @@ export interface IpadicFeatures {
     conjugated_type: string;
     conjugated_form: string;
     basic_form: string;
-    reading?: string;
-    pronunciation?: string;
+    reading?: string | undefined;
+    pronunciation?: string | undefined;
 }
 
 // viterbi/ViterbiBuilder.js
@@ -148,7 +143,7 @@ export interface TokenizerBuilder<T> {
     build(callback: (err: Error, tokenizer: Tokenizer<T>) => void): void;
 }
 export interface TokenizerBuilderOption {
-    dicPath?: string;
+    dicPath?: string | undefined;
 }
 
 // kuromoji.js

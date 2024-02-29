@@ -1,28 +1,54 @@
-import express = require('express');
-import serveStatic = require('serve-static');
+import express = require("express");
+import serveStatic = require("serve-static");
+import http = require("http");
+import { HttpError } from "http-errors";
 var app = express();
 
-app.use(serveStatic('/1'));
-app.use(serveStatic('/2', { }));
-app.use(serveStatic('/3', {
-    dotfiles: 'ignore',
+app.use(serveStatic("/1"));
+app.use(serveStatic("/2", {}));
+app.use(serveStatic("/3", {
+    acceptRanges: true,
+    dotfiles: "ignore",
     etag: true,
-    extensions: ['html'],
+    extensions: ["html"],
     fallthrough: true,
     index: true,
     lastModified: true,
     maxAge: 0,
     redirect: true,
-    setHeaders: function(res: express.Response, path: string, stat: any) {
-        res.setHeader('Server', 'server-static middleware');
-    }
+    setHeaders: function(res, path: string, stat: any) {
+        // $ExpectType Response<any, Record<string, any>, number>
+        res;
+        res.setHeader("Server", "server-static middleware");
+    },
 }));
-app.use(serveStatic('/4', {
+app.use(serveStatic("/4", {
     extensions: false,
 }));
 
 serveStatic.mime.define({
-    'application/babylon': ['babylon'],
-    'application/babylonmeshdata': ['babylonmeshdata'],
-    'application/fx': ['fx']
+    "application/babylon": ["babylon"],
+    "application/babylonmeshdata": ["babylonmeshdata"],
+    "application/fx": ["fx"],
 });
+
+serveStatic("/does-not-assume-express", {
+    setHeaders: function(res) {
+        // ServerResponse
+        res;
+        // @ts-expect-error
+        res.set("foo", "bar");
+    },
+});
+
+http.createServer((req, res) => {
+    serveStatic("/works-with-node-server")(req, res, (err?: HttpError) => {});
+});
+
+app.use(serveStatic("/infers-express-response-when-passed-to-express-use", {
+    setHeaders: function(res) {
+        // $ExpectType Response<any, Record<string, any>, number>
+        res;
+        res.set("foo", "bar");
+    },
+}));

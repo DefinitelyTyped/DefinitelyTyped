@@ -1,18 +1,18 @@
-import { DegitErrorCode } from './index';
+import { DegitErrorCode } from "./index";
 
 export const degitConfigName: string;
 
 export class DegitError extends Error {
     code: DegitErrorCode;
-    original?: Error;
-    ref?: string;
-    url?: string;
+    original?: Error | undefined;
+    ref?: string | undefined;
+    url?: string | undefined;
 }
 
 export function tryRequire(
     file: string,
     opts?: {
-        clearCache?: true;
+        clearCache?: true | undefined;
     },
 ): unknown;
 

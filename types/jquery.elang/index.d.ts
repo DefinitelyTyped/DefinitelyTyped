@@ -1,54 +1,48 @@
-// Type definitions for eLang 0.5.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface IPageResource {
-    lang?: IPageLangItems;
-    selectedLang?: string;
+    lang?: IPageLangItems | undefined;
+    selectedLang?: string | undefined;
 }
 
 interface IPageLangItems {
-    en?: IPageLabels;
-    hu?: IPageLabels;
+    en?: IPageLabels | undefined;
+    hu?: IPageLabels | undefined;
 }
 
 interface IPageLabels {
-    lblTitle?: string;
-    lblPageHeader?: string;
-    lblSearchField?: string;
-    lblEditKeyField?: string;
-    lblEditValueField?: string;
-    lblFindedExpressionsHead?: string;
-    lblEditedExpressionsHead?: string;
-    lblFindHead?: string;
-    lblEditHead?: string;
-    lblFind?: string;
-    lblAdd?: string;
-    lblModify?: string;
-    lblRemove?: string;
-    lblSearchInExpressions?: string;
-    lblSearchInMeanings?: string;
-    lblSearchInExpressionsHlp?: string;
-    lblSearchInMeaningsHlp?: string;
-    lblTestHead?: string;
-    lblOrderedTest?: string;
-    lblRandomlyTest?: string;
-    lblTypedTest?: string;
-    lblSelectedTest?: string;
-    lblWrittedTest?: string;
-    lblVoicedTest?: string;
-    lblStartTest?: string;
-    lblStopTest?: string;
-    lblTypedTestHlp?: string;
-    lblSelectedTestHlp?: string;
-    lblOrderedTestHlp?: string;
-    lblRandomlyTestHlp?: string;
-    lblWrittedTestHlp?: string;
-    lblVoicedTestHlp?: string;
+    lblTitle?: string | undefined;
+    lblPageHeader?: string | undefined;
+    lblSearchField?: string | undefined;
+    lblEditKeyField?: string | undefined;
+    lblEditValueField?: string | undefined;
+    lblFindedExpressionsHead?: string | undefined;
+    lblEditedExpressionsHead?: string | undefined;
+    lblFindHead?: string | undefined;
+    lblEditHead?: string | undefined;
+    lblFind?: string | undefined;
+    lblAdd?: string | undefined;
+    lblModify?: string | undefined;
+    lblRemove?: string | undefined;
+    lblSearchInExpressions?: string | undefined;
+    lblSearchInMeanings?: string | undefined;
+    lblSearchInExpressionsHlp?: string | undefined;
+    lblSearchInMeaningsHlp?: string | undefined;
+    lblTestHead?: string | undefined;
+    lblOrderedTest?: string | undefined;
+    lblRandomlyTest?: string | undefined;
+    lblTypedTest?: string | undefined;
+    lblSelectedTest?: string | undefined;
+    lblWrittedTest?: string | undefined;
+    lblVoicedTest?: string | undefined;
+    lblStartTest?: string | undefined;
+    lblStopTest?: string | undefined;
+    lblTypedTestHlp?: string | undefined;
+    lblSelectedTestHlp?: string | undefined;
+    lblOrderedTestHlp?: string | undefined;
+    lblRandomlyTestHlp?: string | undefined;
+    lblWrittedTestHlp?: string | undefined;
+    lblVoicedTestHlp?: string | undefined;
 }
 
 interface ELangCommonStatic {
@@ -79,13 +73,13 @@ interface IELangDBEvents {
 
 interface IELangDB {
     cache?: any;
-    delegates?: IELangDBDelegates;
-    events?: IELangDBEvents;
-    isInitialized?: boolean;
-    options?: IELangDBOptions;
+    delegates?: IELangDBDelegates | undefined;
+    events?: IELangDBEvents | undefined;
+    isInitialized?: boolean | undefined;
+    options?: IELangDBOptions | undefined;
 
-    name?: string;
-    description?: string;
+    name?: string | undefined;
+    description?: string | undefined;
 
     initialize(options?: IELangDBOptions): void;
 
@@ -141,13 +135,15 @@ interface IELangBase {
 
     createContent(): void;
 
-    createRadioGroup(node: JQuery,
-                     isMethodAppend: boolean,
-                     buttonNumber: number,
-                     defaultButton: number,
-                     btnLabels: string[],
-                     clickHandler: Function,
-                     btnTooltips?: string[]): void;
+    createRadioGroup(
+        node: JQuery,
+        isMethodAppend: boolean,
+        buttonNumber: number,
+        defaultButton: number,
+        btnLabels: string[],
+        clickHandler: Function,
+        btnTooltips?: string[],
+    ): void;
     appendAsLastChild(node: JQuery, element: JQuery): JQuery;
     getLastChild(node: JQuery): JQuery;
     isRdoChecked(eSrc: HTMLElement, rdoId: string): boolean;
@@ -246,7 +242,6 @@ interface IELangEdit extends IELangBase {
     _onSelect(): void;
     _onSelectCallback(): void;
 
-
     _insert(): void;
     _modify(): void;
     _remove(): void;
@@ -301,15 +296,9 @@ interface IELangTest extends IELangBase {
 // interfaces for jQuery.fn.__plugin
 
 interface IFnNewInstance {
-    createInstance(el: HTMLElement,
-                   options: any,
-                   pluginName: string): JQuery;
+    createInstance(el: HTMLElement, options: any, pluginName: string): JQuery;
 }
 
 interface IFnJQuery {
-    fnPlugin(context: JQuery,
-             options: any,
-             command: string,
-             pluginName: string,
-             pluginDataAttribute: string): JQuery;
+    fnPlugin(context: JQuery, options: any, command: string, pluginName: string, pluginDataAttribute: string): JQuery;
 }

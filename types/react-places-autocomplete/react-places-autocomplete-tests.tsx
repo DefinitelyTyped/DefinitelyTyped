@@ -1,12 +1,10 @@
-import * as React from 'react';
-import PlacesAutocomplete, {
-    geocodeByAddress, geocodeByPlaceId, getLatLng
-} from 'react-places-autocomplete';
+import * as React from "react";
+import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from "react-places-autocomplete";
 
 class Test extends React.Component {
     state = {
-        address: 'San Francisco, CA',
-        placeId: '12345',
+        address: "San Francisco, CA",
+        placeId: "12345",
     };
 
     handleFormSubmit = (event: any) => {
@@ -16,25 +14,30 @@ class Test extends React.Component {
 
         geocodeByAddress(address)
             .then((results) => getLatLng(results[0]))
-            .then((latLng) => console.log('Success', latLng))
-            .catch((error) => console.error('Error', error));
+            .then((latLng) => console.log("Success", latLng))
+            .catch((error) => console.error("Error", error));
 
         geocodeByPlaceId(placeId)
             .then((results) => getLatLng(results[0]))
-            .then((latLng) => console.log('Success', latLng))
-            .catch((error) => console.error('Error', error));
-    }
+            .then((latLng) => console.log("Success", latLng))
+            .catch((error) => console.error("Error", error));
+    };
 
     onChange = (address: string) => this.setState({ address });
 
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
-                <PlacesAutocomplete value={this.state.address} onChange={this.onChange} googleCallbackName="google_callback_name">
-                    {({getInputProps, suggestions, getSuggestionItemProps, loading}) => {
+                <PlacesAutocomplete
+                    value={this.state.address}
+                    onChange={this.onChange}
+                    googleCallbackName="google_callback_name"
+                    searchOptions={{ componentRestrictions: { country: ["US"] } }}
+                >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
                         const inputProps = getInputProps({
                             required: true,
-                            className: loading ? 'is-pending' : ''
+                            className: loading ? "is-pending" : "",
                         });
                         return (
                             <>
@@ -42,7 +45,7 @@ class Test extends React.Component {
                                 <div>
                                     {suggestions.map(suggestion => {
                                         const divProps = getSuggestionItemProps(suggestion, {
-                                            className: suggestion.active ? 'active' : ''
+                                            className: suggestion.active ? "active" : "",
                                         });
                                         return (
                                             <div {...divProps}>
@@ -53,8 +56,7 @@ class Test extends React.Component {
                                 </div>
                             </>
                         );
-                    }
-                }
+                    }}
                 </PlacesAutocomplete>
             </form>
         );

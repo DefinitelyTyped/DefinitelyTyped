@@ -1,8 +1,3 @@
-// Type definitions for ascii2mathml 0.5
-// Project: https://github.com/runarberg/ascii2mathml
-// Definitions by: Muhammad Ragib Hasin <https://github.com/RagibHasin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = A2MML;
 
 declare var A2MML: ascii2mathml;
@@ -25,13 +20,13 @@ interface ascii2mathml {
 
 declare namespace A2MML {
     interface Options {
-        decimalMark?: string;
-        colSep?: string;
-        rowSep?: string;
-        display?: 'inline' | 'block';
-        dir?: 'ltr' | 'rtl';
-        bare?: boolean;
-        standalone?: boolean;
-        annotate?: boolean;
+        decimalMark?: string | undefined;
+        colSep?: string | undefined;
+        rowSep?: string | undefined;
+        display?: "inline" | "block" | undefined;
+        dir?: "ltr" | "rtl" | undefined;
+        bare?: boolean | undefined;
+        standalone?: boolean | undefined;
+        annotate?: boolean | undefined;
     }
 }

@@ -1,15 +1,5 @@
-// Type definitions for opossum 4.1
-// Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
-// Definitions by: Quinn Langille <https://github.com/quinnlangille>
-//                 Willy Zhang <https://github.com/merufm>
-//                 Lance Ball <https://github.com/lance>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Tom Jenkinson <https://github.com/tjenkinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node"/>
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
     static isOurError(error: any): boolean;
@@ -28,6 +18,16 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     readonly stats: CircuitBreaker.Stats;
     readonly warmUp: boolean;
     readonly volumeThreshold: number;
+
+    /**
+     * Execute the action for this circuit with a provided this argument
+     */
+    call(context: any, ...args: TI): Promise<TR>;
+
+    /**
+     * Returns the current state of the circuit
+     */
+    toJSON(): { state: CircuitBreaker.State; status: CircuitBreaker.Stats };
 
     /**
      * Clears the cache of this CircuitBreaker
@@ -95,20 +95,20 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     healthCheck(func: () => Promise<void>, interval?: number): void;
 
     /* tslint:disable:unified-signatures */
-    on(event: 'halfOpen', listener: (resetTimeout: number) => void): this;
-    on(event: 'close', listener: () => void): this;
-    on(event: 'open', listener: () => void): this;
-    on(event: 'shutdown', listener: () => void): this;
-    on(event: 'fire', listener: (args: TI) => void): this;
-    on(event: 'cacheHit', listener: () => void): this;
-    on(event: 'cacheMiss', listener: () => void): this;
-    on(event: 'reject', listener: (err: Error) => void): this;
-    on(event: 'timeout', listener: (err: Error) => void): this;
-    on(event: 'success', listener: (result: TR, latencyMs: number) => void): this;
-    on(event: 'semaphoreLocked', listener: (err: Error) => void): this;
-    on(event: 'healthCheckFailed', listener: (err: Error) => void): this;
-    on(event: 'fallback', listener: (result: unknown, err: Error) => void): this;
-    on(event: 'failure', listener: (err: Error, latencyMs: number, args: TI) => void): this;
+    on(event: "halfOpen", listener: (resetTimeout: number) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "open", listener: () => void): this;
+    on(event: "shutdown", listener: () => void): this;
+    on(event: "fire", listener: (args: TI) => void): this;
+    on(event: "cacheHit", listener: () => void): this;
+    on(event: "cacheMiss", listener: () => void): this;
+    on(event: "reject", listener: (err: Error) => void): this;
+    on(event: "timeout", listener: (err: Error) => void): this;
+    on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
+    on(event: "semaphoreLocked", listener: (err: Error) => void): this;
+    on(event: "healthCheckFailed", listener: (err: Error) => void): this;
+    on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
+    on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
     /* tslint:enable:unified-signatures */
 }
 
@@ -116,29 +116,30 @@ declare namespace CircuitBreaker {
     interface Options {
         /**
          * The time in milliseconds that action should be allowed to execute before timing out.
+         * Timeout can be disabled by setting this to `false`.
          * @default 10000 (10 seconds)
          */
-        timeout?: number;
+        timeout?: number | false | undefined;
 
         /**
          * The number of times the circuit can fail before opening.
          * @default 10
          * @deprecated see options.errorThresholdPercentage
          */
-        maxFailures?: number;
+        maxFailures?: number | undefined;
 
         /**
          * The time in milliseconds to wait before setting the breaker to `halfOpen` state, and trying the action again.
          * @default 30000 (30 seconds)
          */
-        resetTimeout?: number;
+        resetTimeout?: number | undefined;
 
         /**
          * Sets the duration of the statistical rolling window, in milliseconds.
          * This is how long Opossum keeps metrics for the circuit breaker to use and for publishing.
          * @default 10000
          */
-        rollingCountTimeout?: number;
+        rollingCountTimeout?: number | undefined;
 
         /**
          * Sets the number of buckets the rolling statistical window is divided into.
@@ -146,26 +147,26 @@ declare namespace CircuitBreaker {
          * statistical window will be 1,000 1 second snapshots in the statistical window.
          * @default 10
          */
-        rollingCountBuckets?: number;
+        rollingCountBuckets?: number | undefined;
 
         /**
          * The circuit name to use when reporting stats.
          * Defaults to the name of the function this circuit controls then falls back to a UUID
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * A grouping key for reporting.
          * Defaults to the computed value of `name`
          */
-        group?: string;
+        group?: string | undefined;
 
         /**
          * This property indicates whether execution latencies should be tracked and calculated as percentiles.
          * If they are disabled, all summary statistics (mean, percentiles) are returned as -1.
          * @default false
          */
-        rollingPercentilesEnabled?: boolean;
+        rollingPercentilesEnabled?: boolean | undefined;
 
         /**
          * The number of concurrent requests allowed.
@@ -173,27 +174,27 @@ declare namespace CircuitBreaker {
          * to `fire()` are rejected until at least one of the current requests completes.
          * @default MAX_SAFE_INTEGER
          */
-        capacity?: number;
+        capacity?: number | undefined;
 
         /**
          * The error percentage at which to open the circuit and start short-circuiting requests to fallback.
          * @default 50
          */
-        errorThresholdPercentage?: number;
+        errorThresholdPercentage?: number | undefined;
 
         /**
          * Whether this circuit is enabled upon construction.
          * @default true
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
 
         /**
-         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountDuration`)
+         * Determines whether to allow failures without opening the circuit during a brief warmup period (`rollingCountTimeout`)
          * This can help in situations where no matter what your `errorThresholdPercentage` is, if the
          * first execution times out or fails, the circuit immediately opens.
          * @default false
          */
-        allowWarmUp?: boolean;
+        allowWarmUp?: boolean | undefined;
 
         /**
          * The minimum number of requests within the rolling statistical window that must exist before
@@ -202,14 +203,14 @@ declare namespace CircuitBreaker {
          * this threshold, the circuit will remain closed.
          * @default 0
          */
-        volumeThreshold?: number;
+        volumeThreshold?: number | undefined;
 
         /**
          * An optional function that will be called when the circuit's function fails (returns a rejected Promise).
          * If this function returns truthy, the circuit's `failPure` statistics will not be incremented.
          * This is useful, for example, when you don't want HTTP 404 to trip the circuit, but still want to handle it as a failure case.
          */
-        errorFilter?: (err: any) => boolean;
+        errorFilter?: ((err: any) => boolean) | undefined;
 
         /**
          * Whether the return value of the first successful execution of the circuit's function will be cached.
@@ -217,14 +218,33 @@ declare namespace CircuitBreaker {
          * (The metrics cacheHit and cacheMiss reflect cache activity.)
          * @default false
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
+
+        /**
+         * The cache time to live (TTL) in milliseconds.
+         * The default value is 0, which means the cache will never be cleared.
+         * @default 0
+         */
+        cacheTTL?: number;
+
+        /**
+         * Whether to enable the periodic snapshots that are emitted by the Status class.
+         * Passing false will result in snapshots not being emitted
+         * @default true
+         */
+        enableSnapshots?: boolean | undefined;
+
+        /**
+         * Optional EventEmitter to be passed in to control the buckets instead of the bucket-interval timer
+         */
+        rotateBucketController?: EventEmitter | undefined;
     }
 
     interface Status extends EventEmitter {
         stats: Stats;
         window: Window;
 
-        on(event: 'snapshot', listener: (snapshot: Stats) => void): this;
+        on(event: "snapshot", listener: (snapshot: Stats) => void): this;
     }
 
     interface Bucket {
@@ -245,6 +265,17 @@ declare namespace CircuitBreaker {
 
     interface Stats extends Bucket {
         latencyMean: number;
+    }
+
+    interface State {
+        name: string;
+        enabled: boolean;
+        closed: boolean;
+        open: boolean;
+        halfOpen: boolean;
+        warmUp: boolean;
+        shutdown: boolean;
+        lastTimerAt: symbol;
     }
 }
 

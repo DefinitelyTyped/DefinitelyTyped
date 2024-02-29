@@ -1,10 +1,4 @@
-// Type definitions for NestDb 2.0
-// Project: https://github.com/louischatriot/nestdb
-// Definitions by: Alex Anderson <https://github.com/alexanderson1993>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = NestDb;
 export as namespace NestDb;
@@ -98,7 +92,7 @@ declare class NestDb<G = any> extends EventEmitter {
     /**
      * Find all documents matching the query
      * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-     * * @param {any} query MongoDB-style query
+     * * @param query MongoDB-style query
      */
     find<T extends G>(query: any, callback: (err: Error, documents: T[]) => void): void;
 
@@ -127,7 +121,12 @@ declare class NestDb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update(query: any, updateQuery: any, options?: NestDb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, upsert: boolean) => void): void;
+    update(
+        query: any,
+        updateQuery: any,
+        options?: NestDb.UpdateOptions,
+        cb?: (err: Error, numberOfUpdated: number, upsert: boolean) => void,
+    ): void;
 
     /**
      * Update all docs matching query v1.8 signature.
@@ -142,7 +141,12 @@ declare class NestDb<G = any> extends EventEmitter {
      *
      * @api private Use Datastore.update which has the same signature
      */
-    update<T extends G>(query: any, updateQuery: any, options?: NestDb.UpdateOptions, cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void): void;
+    update<T extends G>(
+        query: any,
+        updateQuery: any,
+        options?: NestDb.UpdateOptions,
+        cb?: (err: Error, numberOfUpdated: number, affectedDocuments: any, upsert: boolean) => void,
+    ): void;
 
     /**
      * Remove all docs matching the query
@@ -156,16 +160,16 @@ declare class NestDb<G = any> extends EventEmitter {
     remove(query: any, options: NestDb.RemoveOptions, cb?: (err: Error, n: number) => void): void;
     remove(query: any, cb?: (err: Error, n: number) => void): void;
 
-    addListener(event: 'compaction.done', listener: () => void): this;
-    on(event: 'compaction.done', listener: () => void): this;
-    once(event: 'compaction.done', listener: () => void): this;
-    prependListener(event: 'compaction.done', listener: () => void): this;
-    prependOnceListener(event: 'compaction.done', listener: () => void): this;
-    removeListener(event: 'compaction.done', listener: () => void): this;
-    off(event: 'compaction.done', listener: () => void): this;
-    listeners(event: 'compaction.done'): Array<() => void>;
-    rawListeners(event: 'compaction.done'): Array<() => void>;
-    listenerCount(type: 'compaction.done'): number;
+    addListener(event: "compaction.done", listener: () => void): this;
+    on(event: "compaction.done", listener: () => void): this;
+    once(event: "compaction.done", listener: () => void): this;
+    prependListener(event: "compaction.done", listener: () => void): this;
+    prependOnceListener(event: "compaction.done", listener: () => void): this;
+    removeListener(event: "compaction.done", listener: () => void): this;
+    off(event: "compaction.done", listener: () => void): this;
+    listeners(event: "compaction.done"): Array<() => void>;
+    rawListeners(event: "compaction.done"): Array<() => void>;
+    listenerCount(type: "compaction.done"): number;
 }
 
 declare namespace NestDb {
@@ -182,10 +186,10 @@ declare namespace NestDb {
     }
 
     interface DataStoreOptions {
-        filename?: string; // Optional, datastore will be in-memory only if not provided
-        inMemoryOnly?: boolean; // Optional, default to false
-        nodeWebkitAppName?: boolean; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
-        autoload?: boolean; // Optional, defaults to false
+        filename?: string | undefined; // Optional, datastore will be in-memory only if not provided
+        inMemoryOnly?: boolean | undefined; // Optional, default to false
+        nodeWebkitAppName?: boolean | undefined; // Optional, specify the name of your NW app if you want options.filename to be relative to the directory where
+        autoload?: boolean | undefined; // Optional, defaults to false
         // Optional, if autoload is used this will be called after the load database with the error object as parameter. If you don't pass it the error will be thrown
         onload?(error: Error): any;
         // (optional): hook you can use to transform data after it was serialized and before it is written to disk.
@@ -202,10 +206,10 @@ declare namespace NestDb {
         beforeDeserialization?(line: string): string;
         // (optional): between 0 and 1, defaults to 10%. NestDb will refuse to start if more than this percentage of the datafile is corrupt.
         // 0 means you don't tolerate any corruption, 1 means you don't care
-        corruptAlertThreshold?: number;
+        corruptAlertThreshold?: number | undefined;
         // (optional, defaults to false)
         // timestamp the insertion and last update of all documents, with the fields createdAt and updatedAt. User-specified values override automatic generation, usually useful for testing.
-        timestampData?: boolean;
+        timestampData?: boolean | undefined;
     }
 
     /**
@@ -213,23 +217,23 @@ declare namespace NestDb {
      * upsert (defaults to false) if you want to insert a new document corresponding to the update rules if your query doesn't match anything
      */
     interface UpdateOptions {
-        multi?: boolean;
-        upsert?: boolean;
-        returnUpdatedDocs?: boolean;
+        multi?: boolean | undefined;
+        upsert?: boolean | undefined;
+        returnUpdatedDocs?: boolean | undefined;
     }
 
     /**
      * options only one option for now: multi which allows the removal of multiple documents if set to true. Default is false
      */
     interface RemoveOptions {
-        multi?: boolean;
+        multi?: boolean | undefined;
     }
 
     interface EnsureIndexOptions {
         fieldName: string;
-        unique?: boolean;
-        sparse?: boolean;
-        expireAfterSeconds?: number;
+        unique?: boolean | undefined;
+        sparse?: boolean | undefined;
+        expireAfterSeconds?: number | undefined;
     }
 
     interface Persistence {

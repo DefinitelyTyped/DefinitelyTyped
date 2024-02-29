@@ -1,21 +1,32 @@
 import * as React from "react";
-import { ReactInputAttr, RequiresIdProps } from "../../../typings/shared";
+import { ForwardRefReturn, ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "id" | "onChange" | "type";
-interface InheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    RequiresIdProps
-{ }
+type ExcludedAttributes = "id" | "onChange" | "onClick" | "type";
 
-export interface CheckboxProps extends InheritedProps {
-    defaultChecked?: boolean,
-    hideLabel?: boolean,
-    indeterminate?: boolean,
-    labelText: NonNullable<React.ReactNode>,
-    onChange?(checked: boolean, id: string, event: React.ChangeEvent<HTMLInputElement>): void,
-    wrapperClassName?: string,
+// variant when "enable-2021-release" feature flag is enabled
+export type CheckboxOnChangeDataVariant = (
+    evt: React.ChangeEvent<HTMLInputElement>,
+    data: { checked: boolean; id: string },
+) => void;
+export type CheckboxOnChangeDefaultVariant = (
+    checked: boolean,
+    id: string,
+    event: React.ChangeEvent<HTMLInputElement>,
+) => void;
+
+export interface CheckboxProps extends Omit<ReactInputAttr, ExcludedAttributes> {
+    defaultChecked?: boolean | undefined;
+    hideLabel?: boolean | undefined;
+    id: string;
+    indeterminate?: boolean | undefined;
+    labelText: NonNullable<React.ReactNode>;
+    onChange?: CheckboxOnChangeDataVariant | CheckboxOnChangeDefaultVariant | undefined;
+    /**
+     * @deprecated
+     */
+    wrapperClassName?: string | undefined;
 }
 
-declare const Checkbox: React.RefForwardingComponent<HTMLInputElement, CheckboxProps>;
+declare const Checkbox: ForwardRefReturn<HTMLInputElement, CheckboxProps>;
 
 export default Checkbox;

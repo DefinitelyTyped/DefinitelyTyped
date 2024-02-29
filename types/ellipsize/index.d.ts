@@ -1,8 +1,3 @@
-// Type definitions for ellipsize 0.1
-// Project: https://github.com/mvhenten/ellipsize
-// Definitions by: Stefan Natter <https://github.com/natterstefan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Ellipsizes a string near a word boundary.
  *
@@ -44,15 +39,15 @@ declare function ellipsize(
          * after this char(s) the text can be ellipsized and the ellipse
          * rendered. (default: [' ', '-'])
          */
-        chars?: string[];
+        chars?: string[] | undefined;
         /**
          * ellipse element (default: '...')
          */
-        ellipse?: string;
+        ellipse?: string | undefined;
         /**
          * truncate the text or not (default: true)
          */
-        truncate?: boolean;
+        truncate?: boolean | undefined;
     },
 ): string;
 

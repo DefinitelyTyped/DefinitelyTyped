@@ -1,11 +1,5 @@
-// Type definitions for passport-facebook-token 0.4
-// Project: https://github.com/drudge/passport-facebook-token
-// Definitions by: Ray Martone <https://github.com/rmartone>, Michael Randolph <https://github.com/mrand01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as passport from 'passport';
-import * as express from 'express';
+import * as express from "express";
+import * as passport from "passport";
 
 declare namespace PassportFacebookToken {
     interface StrategyStatic {
@@ -41,21 +35,32 @@ declare namespace PassportFacebookToken {
     interface StrategyOptions {
         clientID: string;
         clientSecret: string;
-        authorizationURL?: string;
-        tokenURL?: string;
-        scopeSeparator?: string;
-        enableProof?: boolean;
-        profileFields?: string[];
-        fbGraphVersion?: string;
+        authorizationURL?: string | undefined;
+        tokenURL?: string | undefined;
+        scopeSeparator?: string | undefined;
+        enableProof?: boolean | undefined;
+        profileFields?: string[] | undefined;
+        fbGraphVersion?: string | undefined;
     }
 
     interface StrategyOptionsWithRequest extends StrategyOptions {
         passReqToCallback: true;
     }
 
-    type VerifyFunction = (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    type VerifyFunction = (
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 
-    type VerifyFunctionWithRequest = (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+    type VerifyFunctionWithRequest = (
+        req: express.Request,
+        accessToken: string,
+        refreshToken: string,
+        profile: Profile,
+        done: (error: any, user?: any, info?: any) => void,
+    ) => void;
 }
 
 declare const PassportFacebookToken: PassportFacebookToken.StrategyStatic;

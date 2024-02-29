@@ -1,5 +1,5 @@
-import { Sprite, Tile, AudioManager as AM, JSObject } from 'athenajs';
-import ShapeBehavior from './shape_behavior';
+import { AudioManager as AM, JSObject, Sprite, Tile } from "athenajs";
+import ShapeBehavior from "./shape_behavior";
 
 interface shapeDescription {
     name: string;
@@ -19,8 +19,8 @@ class Shape extends Sprite {
 
     constructor(name: string, options = {}) {
         super(name, {
-            imageId: 'tiles',
-            easing: 'linear',
+            imageId: "tiles",
+            easing: "linear",
             // behavior: ShapeBehavior,
             // ...options
         });
@@ -44,65 +44,93 @@ class Shape extends Sprite {
          */
         this.shapes = [
             {
-                name: 'I', width: 80, height: 80, color: 7, rotations: [
+                name: "I",
+                width: 80,
+                height: 80,
+                color: 7,
+                rotations: [
                     [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-                    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-                ]
+                    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+                ],
             },
             {
-                name: 'J', width: 60, height: 60, color: 6, rotations: [
+                name: "J",
+                width: 60,
+                height: 60,
+                color: 6,
+                rotations: [
                     [1, 0, 0, 1, 1, 1, 0, 0, 0],
                     [0, 1, 1, 0, 1, 0, 0, 1, 0],
                     [0, 0, 0, 1, 1, 1, 0, 0, 1],
-                    [0, 1, 0, 0, 1, 0, 1, 1, 0]
-                ]
+                    [0, 1, 0, 0, 1, 0, 1, 1, 0],
+                ],
             },
             {
-                name: 'L', width: 60, height: 60, color: 5, rotations: [
+                name: "L",
+                width: 60,
+                height: 60,
+                color: 5,
+                rotations: [
                     [0, 0, 1, 1, 1, 1, 0, 0, 0],
                     [0, 1, 0, 0, 1, 0, 0, 1, 1],
                     [0, 0, 0, 1, 1, 1, 1, 0, 0],
-                    [1, 1, 0, 0, 1, 0, 0, 1, 0]
-                ]
+                    [1, 1, 0, 0, 1, 0, 0, 1, 0],
+                ],
             },
             {
-                name: 'O', width: 80, height: 60, color: 4, rotations: [
+                name: "O",
+                width: 80,
+                height: 60,
+                color: 4,
+                rotations: [
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-                    [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0]
-                ]
+                    [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+                ],
             },
             {
-                name: 'S', width: 60, height: 60, color: 3, rotations: [
+                name: "S",
+                width: 60,
+                height: 60,
+                color: 3,
+                rotations: [
                     [0, 1, 1, 1, 1, 0, 0, 0, 0],
                     [0, 1, 0, 0, 1, 1, 0, 0, 1],
                     [0, 0, 0, 0, 1, 1, 1, 1, 0],
-                    [1, 0, 0, 1, 1, 0, 0, 1, 0]
-                ]
+                    [1, 0, 0, 1, 1, 0, 0, 1, 0],
+                ],
             },
             {
-                name: 'Z', width: 60, height: 60, color: 2, rotations: [
+                name: "Z",
+                width: 60,
+                height: 60,
+                color: 2,
+                rotations: [
                     [1, 1, 0, 0, 1, 1, 0, 0, 0],
                     [0, 0, 1, 0, 1, 1, 0, 1, 0],
                     [0, 0, 0, 1, 1, 0, 0, 1, 1],
-                    [0, 1, 0, 1, 1, 0, 1, 0, 0]
-                ]
+                    [0, 1, 0, 1, 1, 0, 1, 0, 0],
+                ],
             },
             {
-                name: 'T', width: 60, height: 60, color: 1, rotations: [
+                name: "T",
+                width: 60,
+                height: 60,
+                color: 1,
+                rotations: [
                     [0, 1, 0, 1, 1, 1, 0, 0, 0],
                     [0, 1, 0, 0, 1, 1, 0, 1, 0],
                     [0, 0, 0, 1, 1, 1, 0, 1, 0],
-                    [0, 1, 0, 1, 1, 0, 0, 1, 0]
-                ]
-            }
+                    [0, 1, 0, 1, 1, 0, 0, 1, 0],
+                ],
+            },
         ];
 
         this.addAnimations();
-        this.setShape('S', 0);
+        this.setShape("S", 0);
     }
 
     /**
@@ -119,7 +147,6 @@ class Shape extends Sprite {
 
     /**
      * Changes the sprite's shape and rotation
-     *
      */
     setShape(name: string, rotation: number): void {
         this.shapeName = name;
@@ -138,16 +165,16 @@ class Shape extends Sprite {
         console.log(`[Shape] setRandomShape() - ${shapeName}`);
 
         if (!this.movable) {
-            this.animate('Fade', {
+            this.animate("Fade", {
                 duration: 200,
                 startValue: 1,
-                endValue: 0
+                endValue: 0,
             }).then(() => {
                 this.setShape(shapeName, rotation);
-                this.animate('Fade', {
+                this.animate("Fade", {
                     duration: 200,
                     startValue: 0,
-                    endValue: 1
+                    endValue: 1,
                 });
             });
         } else {
@@ -157,7 +184,6 @@ class Shape extends Sprite {
 
     /**
      * Returns current matrix for the shape
-     *
      */
     getMatrix(rotation = -1): number[] {
         return this.shape.rotations[rotation === -1 ? this.rotation : rotation];
@@ -166,7 +192,6 @@ class Shape extends Sprite {
     /**
      * Move the shape on the map by a certain number of tiles, optionnaly sending an event
      * of a collision is detected
-     *
      */
     snapTile(horizontal = 0, vertical = 0, notify = true, noSound = false): boolean {
         const map = this.currentMap;
@@ -188,10 +213,10 @@ class Shape extends Sprite {
             if (vertical === 1) {
                 this.movable = false;
                 if (notify) {
-                    AM.play('ground');
-                    this.notify('ground', {
+                    AM.play("ground");
+                    this.notify("ground", {
                         startLine: tilePos.y,
-                        numRows: this.shape.height / map.tileHeight
+                        numRows: this.shape.height / map.tileHeight,
                     });
                 }
             }
@@ -220,9 +245,9 @@ class Shape extends Sprite {
         if (!map.checkMatrixForCollision(matrix, this.shape.width, tilePos.x, tilePos.y, Tile.TYPE.WALL)) {
             // change shape rotation if no collision detected
             this.setShape(this.shapeName, newRotation);
-            AM.play('rotate');
+            AM.play("rotate");
         } else {
-            console.log('rotation not possible');
+            console.log("rotation not possible");
         }
     }
 
@@ -243,8 +268,13 @@ class Shape extends Sprite {
         this.shapes.forEach((shape) => {
             let offsetX = 0;
             for (let i = 0; i < 4; ++i) {
-                this.addAnimation(`${shape.name}${i}`, 'tiles', {
-                    offsetY, offsetX, frameWidth: shape.width, frameHeight: shape.height, frameDuration: 1, numFrames: 1
+                this.addAnimation(`${shape.name}${i}`, "tiles", {
+                    offsetY,
+                    offsetX,
+                    frameWidth: shape.width,
+                    frameHeight: shape.height,
+                    frameDuration: 1,
+                    numFrames: 1,
                 });
                 offsetX += shape.width;
             }

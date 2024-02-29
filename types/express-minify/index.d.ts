@@ -1,9 +1,3 @@
-// Type definitions for express-minify v0.1.6
-// Project: https://github.com/SummerWish/express-minify
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express" />
 /// <reference types="node" />
 
@@ -16,57 +10,57 @@ declare namespace ExpressMinifyInterfaces {
         /**
          * The directory for cache storage (must be writeable). Pass false to cache in the memory (not recommended).
          */
-        cache?: string | boolean;
+        cache?: string | boolean | undefined;
 
         /**
          * Customize UglifyJS instance (require('uglify-js')).
          */
-        uglifyJS?: NodeRequire;
+        uglifyJS?: NodeRequire | undefined;
 
         /**
          * Customize cssmin instance (require('cssmin')).
          */
-        cssmin?: NodeRequire;
+        cssmin?: NodeRequire | undefined;
 
         /**
          * Handle compiling errors or minifying errors. You can determine what to respond when facing such errors.
          */
-        onerror?: Function;
+        onerror?: Function | undefined;
 
         /**
          * Matches JavaScript content-type.
          */
-        js_match?: RegExp;
+        js_match?: RegExp | undefined;
 
         /**
          * Matches CSS content-type.
          */
-        css_match?: RegExp;
+        css_match?: RegExp | undefined;
 
         /**
          * Matches SASS content-type.
          */
-        sass_match?: RegExp;
+        sass_match?: RegExp | undefined;
 
         /**
          * Matches LESS content-type.
          */
-        less_match?: RegExp;
+        less_match?: RegExp | undefined;
 
         /**
          * Matches Stylus content-type.
          */
-        stylus_match?: RegExp;
+        stylus_match?: RegExp | undefined;
 
         /**
          * Matches CoffeeScript content-type.
          */
-        coffee_match?: RegExp;
+        coffee_match?: RegExp | undefined;
 
         /**
          * Matches JSON content-type.
          */
-        json_match?: RegExp;
+        json_match?: RegExp | undefined;
     }
 
     interface ExpressMinifyResponse {
@@ -103,7 +97,7 @@ declare namespace ExpressMinifyInterfaces {
 }
 
 declare module "express-minify" {
-    import express = require('express');
+    import express = require("express");
 
     function minify(options?: ExpressMinifyInterfaces.ExpressMinifyOptions): express.RequestHandler;
     export = minify;

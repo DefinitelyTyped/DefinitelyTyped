@@ -1,15 +1,7 @@
-// Type definitions for Google Translate API
-// Project: https://developers.google.com/translate/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.language {
-
     export interface detections {
-
         /**
          * Detect the language of text.
          */
@@ -21,13 +13,11 @@ declare namespace gapi.client.language {
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
         }): HttpRequest<GoogleApiTranslateDetectionListResponse>;
     }
 
     export interface languages {
-
-
         /**
          * List the source/target languages supported by the API
          */
@@ -35,17 +25,15 @@ declare namespace gapi.client.language {
             /**
              * the language and collation in which the localized results should be returned
              */
-            target?: string;
+            target?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
-        }): HttpRequest<GoogleApiTranslateLanguageListResponse>
-
+            fields?: string | undefined;
+        }): HttpRequest<GoogleApiTranslateLanguageListResponse>;
     }
 
     export interface translations {
-
         /**
          * Returns text translations from one language to another.
          */
@@ -61,58 +49,52 @@ declare namespace gapi.client.language {
             /**
              * The customization id for translate
              */
-            cid?: string[];
+            cid?: string[] | undefined;
             /**
              * This optional parameter allows you to indicate that the text to be translated is either plain-text or HTML. A value of html indicates HTML and a value of text indicates plain-text
              */
-            format?: string;
+            format?: string | undefined;
             /**
              * The source language of the text
              */
-            source?: string;
+            source?: string | undefined;
             /**
              * Selector specifying which fields to include in a partial response.
              */
-            fields?: string;
+            fields?: string | undefined;
             /**
              * If prettyprint=true, the results returned by the server will be human readable (pretty printed).
              */
-            prettyprint?: string;
+            prettyprint?: string | undefined;
         }): HttpRequest<GoogleApiTranslateTranslationListResponse>;
-
     }
 }
 
-
 interface GoogleApiTranslateTranslationListResponse {
-
     data: {
-        translations: {
+        translations: Array<{
             translatedText: string;
             detectedSourceLanguage: string;
-        }[];
-    }
-
+        }>;
+    };
 }
 
 interface GoogleApiTranslateLanguageListResponse {
-
     data: {
-        languages: {
+        languages: Array<{
             language: string;
             name: string;
-        }[];
-    }
-
+        }>;
+    };
 }
 
 interface GoogleApiTranslateDetectionListResponse {
-
     data: {
-        detections: {
-            language: string;
-            confidence: number;
-        }[][];
-    }
-
+        detections: Array<
+            Array<{
+                language: string;
+                confidence: number;
+            }>
+        >;
+    };
 }

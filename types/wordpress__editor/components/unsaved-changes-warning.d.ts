@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace UnsavedChangesWarning {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const UnsavedChangesWarning: ComponentType<UnsavedChangesWarning.Props>;

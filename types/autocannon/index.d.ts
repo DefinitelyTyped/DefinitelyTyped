@@ -1,12 +1,6 @@
-// Type definitions for autocannon 4.1
-// Project: https://github.com/mcollina/autocannon#readme
-// Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
+import { IncomingHttpHeaders } from "http";
 
 declare namespace autocannon {
     interface Options {
@@ -65,7 +59,7 @@ declare namespace autocannon {
          * The http method to use.
          * @default 'GET'
          */
-        method?: Request['method'];
+        method?: Request["method"];
 
         /**
          * A `String` to be added to the results for identification.
@@ -82,13 +76,13 @@ declare namespace autocannon {
          *
          * Leave undefined for an empty body.
          */
-        body?: Request['body'];
+        body?: Request["body"];
 
         /**
          * An `Object` containing the headers of the request.
          * @default {}
          */
-        headers?: Request['headers'];
+        headers?: Request["headers"];
 
         /**
          * A `Function` which will be passed the Client object for each connection to be made.
@@ -164,47 +158,112 @@ declare namespace autocannon {
          * @default false
          */
         excludeErrorStats?: boolean;
+
+        /**
+         * The number of worker threads to use to fire requests.
+         */
+        workers?: number;
+
+        /**
+         * The number of milliseconds to elapse between taking samples. This controls the sample interval,
+         * & therefore the total number of samples, which affects statistical analyses.
+         * @default 1
+         */
+        sampleInt?: number;
+
+        /**
+         * A String or an Object containing the multipart/form-data options or a path to the JSON file containing them
+         */
+        form?: string | object;
+
+        /**
+         * An object that you'd like to initialize your context with.
+         */
+        initialContext?: object;
+
+        /**
+         * A Function which will be passed the response body for each completed request. Each request, whose verifyBody
+         * function does not return a truthy value, is counted in mismatches
+         */
+        verifyBody?: (body: Request["body"]) => boolean;
+
+        /**
+         * A Boolean which disables the correction of latencies to compensate for the coordinated omission issue.
+         * Does not make sense when no rate of requests has been specified (connectionRate or overallRate)
+         */
+        ignoreCoordinatedOmission?: boolean;
+
+        /**
+         * an Object of parsed HAR content. Autocannon will extra and use entries.request: requests, method, form
+         * and body options will be ignored.
+         * NOTE: you must ensure that entries are targeting the same domain as url option.
+         */
+        har?: object;
+
+        /**
+         * A String representing the expected response body. Each request whose response body is not equal to
+         * expectBody is counted in mismatches
+         */
+        expectBody?: string;
+
+        /**
+         * An Object that is passed into tls.connect call.
+         * Note: this only applies if your URL is secure.
+         */
+        tlsOptions?: object;
+
+        /**
+         * A Boolean which allows you to disable the aggregate result phase of an instance run.
+         */
+        skipAggregateResult?: boolean;
+
+        /**
+         * A Boolean which allows you to print connection errors to stderr.
+         * @default false
+         */
+        debug?: boolean;
     }
 
     interface Request {
-        body?: string | Buffer;
-        headers?: IncomingHttpHeaders;
+        body?: string | Buffer | undefined;
+        headers?: IncomingHttpHeaders | undefined;
         method?:
-            | 'ACL'
-            | 'BIND'
-            | 'CHECKOUT'
-            | 'CONNECT'
-            | 'COPY'
-            | 'DELETE'
-            | 'GET'
-            | 'HEAD'
-            | 'LINK'
-            | 'LOCK'
-            | 'M-SEARCH'
-            | 'MERGE'
-            | 'MKACTIVITY'
-            | 'MKCALENDAR'
-            | 'MKCOL'
-            | 'MOVE'
-            | 'NOTIFY'
-            | 'OPTIONS'
-            | 'PATCH'
-            | 'POST'
-            | 'PROPFIND'
-            | 'PROPPATCH'
-            | 'PURGE'
-            | 'PUT'
-            | 'REBIND'
-            | 'REPORT'
-            | 'SEARCH'
-            | 'SOURCE'
-            | 'SUBSCRIBE'
-            | 'TRACE'
-            | 'UNBIND'
-            | 'UNLINK'
-            | 'UNLOCK'
-            | 'UNSUBSCRIBE';
-        path?: string;
+            | "ACL"
+            | "BIND"
+            | "CHECKOUT"
+            | "CONNECT"
+            | "COPY"
+            | "DELETE"
+            | "GET"
+            | "HEAD"
+            | "LINK"
+            | "LOCK"
+            | "M-SEARCH"
+            | "MERGE"
+            | "MKACTIVITY"
+            | "MKCALENDAR"
+            | "MKCOL"
+            | "MOVE"
+            | "NOTIFY"
+            | "OPTIONS"
+            | "PATCH"
+            | "POST"
+            | "PROPFIND"
+            | "PROPPATCH"
+            | "PURGE"
+            | "PUT"
+            | "REBIND"
+            | "REPORT"
+            | "SEARCH"
+            | "SOURCE"
+            | "SUBSCRIBE"
+            | "TRACE"
+            | "UNBIND"
+            | "UNLINK"
+            | "UNLOCK"
+            | "UNSUBSCRIBE"
+            | undefined;
+        path?: string | undefined;
     }
 
     /**
@@ -215,36 +274,36 @@ declare namespace autocannon {
          * Emitted once everything has been setup in your autocannon instance and it has started.
          * Useful for if running the instance forever.
          */
-        on(event: 'start', listener: () => void): this;
+        on(event: "start", listener: () => void): this;
 
         /**
          * Emitted every second this autocannon is running a benchmark.
          * Useful for displaying stats, etc. Used by the `track` function.
          */
-        on(event: 'tick', listener: () => void): this; // tslint:disable-line:unified-signatures
+        on(event: "tick", listener: () => void): this; // tslint:disable-line:unified-signatures
 
         /**
          * Emitted when the autocannon finishes a benchmark.
          */
-        on(event: 'done', listener: (result: Result) => void): this;
+        on(event: "done", listener: (result: Result) => void): this;
 
         /**
          * Emitted when the autocannons http-client gets a http response from the server.
          */
         on(
-            event: 'response',
+            event: "response",
             listener: (client: Client, statusCode: number, resBytes: number, responseTime: number) => void,
         ): this;
 
         /**
          * Emitted in the case of a request error e.g. a timeout.
          */
-        on(event: 'reqError', listener: (err: any) => void): this;
+        on(event: "reqError", listener: (err: any) => void): this;
 
         /**
          * Emitted if there is an error during the setup phase of autocannon.
          */
-        on(event: 'error', listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "error", listener: (err: any) => void): this; // tslint:disable-line:unified-signatures
     }
 
     /**
@@ -290,17 +349,17 @@ declare namespace autocannon {
         /**
          * Emitted when a request sent from this client has received the headers of its reply.
          */
-        on(event: 'headers', listener: (headers: IncomingHttpHeaders) => void): this;
+        on(event: "headers", listener: (headers: IncomingHttpHeaders) => void): this;
 
         /**
          * Emitted when a request sent from this client has received the body of a reply.
          */
-        on(event: 'body', listener: (body: Buffer) => void): this;
+        on(event: "body", listener: (body: Buffer) => void): this;
 
         /**
          * Emitted when the client has received a completed response for a request it made.
          */
-        on(event: 'response', listener: (statusCode: number, resBytes: number, responseTime: number) => void): this;
+        on(event: "response", listener: (statusCode: number, resBytes: number, responseTime: number) => void): this;
     }
 
     /**
@@ -350,19 +409,28 @@ declare namespace autocannon {
         non2xx: number;
 
         /** The number of 1xx response status codes received. */
-        '1XX': number;
+        "1xx": number;
 
         /** The number of 2xx response status codes received. */
-        '2XX': number;
+        "2xx": number;
 
         /** The number of 3xx response status codes received. */
-        '3XX': number;
+        "3xx": number;
 
         /** The number of 4xx response status codes received. */
-        '4XX': number;
+        "4xx": number;
 
         /** The number of 5xx response status codes received. */
-        '5XX': number;
+        "5xx": number;
+
+        /** The number of requests with a mismatched body. */
+        mismatches: number;
+
+        /** How many times the requests pipeline was reset due to setupRequest returning a falsey value. */
+        resets: number;
+
+        /** Requests counter per status code */
+        statusCodeStats?: Record<`${number}`, { count?: number }>;
     }
 
     interface Histogram {
@@ -434,37 +502,60 @@ declare namespace autocannon {
          * The stream to output to.
          * @default process.stderr
          */
-        outputStream?: NodeJS.WritableStream;
+        outputStream?: NodeJS.WritableStream | undefined;
 
         /**
          * A truthy value to enable the rendering of the progress bar.
          * @default true
          */
-        renderProgressBar?: boolean;
+        renderProgressBar?: boolean | undefined;
 
         /**
          * A truthy value to enable the rendering of the results table.
          * @default true
          */
-        renderResultsTable?: boolean;
+        renderResultsTable?: boolean | undefined;
 
         /**
          * A truthy value to enable the rendering of the advanced latency table.
          * @default false
          */
-        renderLatencyTable?: boolean;
+        renderLatencyTable?: boolean | undefined;
 
         /**
          * A `String` defining the format of the progress display output. Must be valid input for the [progress bar module](https://www.npmjs.com/package/progress).
          * @default 'running [:bar] :percent'
          */
-        progressBarString?: string;
+        progressBarString?: string | undefined;
+    }
+    interface PrintResultOptions {
+        /**
+         * The stream to output to.
+         * @default process.stderr
+         */
+        outputStream?: NodeJS.WritableStream | undefined;
+
+        /**
+         * A truthy value to enable the rendering of the results table.
+         * @default true
+         */
+        renderResultsTable?: boolean | undefined;
+
+        /**
+         * A truthy value to enable the rendering of the advanced latency table.
+         * @default false
+         */
+        renderLatencyTable?: boolean | undefined;
     }
 
     /**
      * Track the progress of your autocannon.
      */
     function track(instance: Instance, options?: TrackingOptions): void;
+    /**
+     * Return string to print the result tables to the terminal, programmatically.
+     */
+    function printResult(result: Result, options?: PrintResultOptions): string;
 }
 
 /**

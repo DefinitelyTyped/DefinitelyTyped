@@ -1,11 +1,3 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.5
-// Project: https://github.com/w3c/webappsec-credential-management
-// Definitions by: Iain McGinniss <https://github.com/iainmcgin>
-//                 Joao Peixoto <https://github.com/Hartimer>
-//                 Michael J. Currie <https://github.com/Basaingeal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
 /* ************************* FETCH MODIFICATIONS *******************************
@@ -18,17 +10,14 @@
  * See: https://www.w3.org/TR/credential-management-1/#monkey-patching
  * ************************************************************************** */
 
-declare function fetch(
-    input: Request|string,
-    init?: RequestInit|CMRequestInit):
-    Promise<Response>;
+declare function fetch(input: Request | string, init?: RequestInit | CMRequestInit): Promise<Response>;
 
 interface GlobalFetch {
     // variant for navigator.credentials monkey patching
-    fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
+    fetch(url: Request | string, init?: CMRequestInit): Promise<Response>;
 }
 interface WindowOrWorkerGlobalScope {
-    fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
+    fetch(url: Request | string, init?: CMRequestInit): Promise<Response>;
 }
 
 /**
@@ -37,21 +26,21 @@ interface WindowOrWorkerGlobalScope {
  * All other properties are identical to {@link RequestInit}.
  */
 interface CMRequestInit {
-    method?: string;
+    method?: string | undefined;
     headers?: any;
     body?: any;
-    referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: PasswordCredential|FederatedCredential|string;
-    cache?: string;
-    redirect?: string;
-    integrity?: string;
-    keepalive?: boolean;
+    referrer?: string | undefined;
+    referrerPolicy?: string | undefined;
+    mode?: string | undefined;
+    credentials?: PasswordCredential | FederatedCredential | string | undefined;
+    cache?: string | undefined;
+    redirect?: string | undefined;
+    integrity?: string | undefined;
+    keepalive?: boolean | undefined;
     window?: any;
 }
 
-/* ***************** CREDENTIAL MANAGEMENT API DEFINITONS ******************* */
+/* ***************** CREDENTIAL MANAGEMENT API DEFINITIONS ******************* */
 
 /**
  * Declaration merge for 'navigator' which adds the credential management
@@ -74,7 +63,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions): Promise<CredentialType|null>;
+    get(options?: CredentialRequestOptions): Promise<CredentialType | null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -90,7 +79,7 @@ interface CredentialsContainer {
      *
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
      */
-    create(options: CredentialCreationOptions): Promise<CredentialType|null>;
+    create(options: CredentialCreationOptions): Promise<CredentialType | null>;
 
     /**
      * Ask the credential manager to require user mediation before returning
@@ -127,7 +116,7 @@ interface CredentialData {
     readonly id: string;
 }
 
-type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
+type CredentialType = PasswordCredential | FederatedCredential | PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -154,14 +143,14 @@ interface SiteBoundCredentialData extends CredentialData {
      * A name associated with the credential, intended as a human-understandable
      * public name.
      */
-    name?: string;
+    name?: string | undefined;
     /**
      * A URL pointing to an image for the credential. This URL MUST be an
      * {@link
      * https://w3c.github.io/webappsec-mixed-content/#a-priori-authenticated-url|
      * a priori authenticated URL}.
      */
-    iconURL?: string;
+    iconURL?: string | undefined;
 }
 
 /**
@@ -169,14 +158,14 @@ interface SiteBoundCredentialData extends CredentialData {
  * agent’s credential
  * store.
  */
-// tslint:disable-next-line no-empty-interface
-interface SiteBoundCredential extends Credential { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface SiteBoundCredential extends Credential {}
 declare abstract class SiteBoundCredential {
     /**
      * A name associated with the credential, intended as a human-understandable
      * public name.
      */
-    readonly name: string|null;
+    readonly name: string | null;
 
     /**
      * A URL pointing to an image for the credential. This URL MUST be an
@@ -184,7 +173,7 @@ declare abstract class SiteBoundCredential {
      * https://w3c.github.io/webappsec-mixed-content/#a-priori-authenticated-url|
      * a priori authenticated URL}.
      */
-    readonly iconURL: string|null;
+    readonly iconURL: string | null;
 }
 
 /**
@@ -200,7 +189,7 @@ interface PasswordCredentialData extends SiteBoundCredentialData {
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#typedefdef-credentialbodytype}
  */
-type CredentialBodyType = FormData|URLSearchParams;
+type CredentialBodyType = FormData | URLSearchParams;
 
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#passwordcredential}
@@ -212,7 +201,7 @@ declare class PasswordCredential extends SiteBoundCredential {
      */
     constructor(data: PasswordCredentialData | HTMLFormElement);
 
-    readonly type: 'password';
+    readonly type: "password";
 
     /**
      * Represents the name which will be used for the ID field when submitting
@@ -241,7 +230,7 @@ declare class PasswordCredential extends SiteBoundCredential {
      * mixed into the object to produce the body. The value is {@code null}
      * unless otherwise specified.
      */
-    additionalData: CredentialBodyType|null;
+    additionalData: CredentialBodyType | null;
 
     /**
      * The plain-text password. Returned for implementation of the 08/04/2017
@@ -249,7 +238,7 @@ declare class PasswordCredential extends SiteBoundCredential {
      *
      * @see {@link https://www.w3.org/TR/credential-management-1/#passwordcredential}
      */
-    readonly password?: string;
+    readonly password?: string | undefined;
 }
 
 /**
@@ -257,13 +246,13 @@ declare class PasswordCredential extends SiteBoundCredential {
  */
 interface FederatedCredentialData extends SiteBoundCredentialData {
     provider: string;
-    protocol?: string;
+    protocol?: string | undefined;
 }
 
 declare class FederatedCredential extends SiteBoundCredential {
     constructor(data: FederatedCredentialData);
 
-    readonly type: 'federated';
+    readonly type: "federated";
 
     /**
      * The credential’s federated identity provider. Must be a absolute,
@@ -278,7 +267,7 @@ declare class FederatedCredential extends SiteBoundCredential {
      * inferred from the provider.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredential-protocol}
      */
-    readonly protocol: string|null;
+    readonly protocol: string | null;
 }
 
 /**
@@ -289,13 +278,13 @@ interface CredentialRequestOptions {
      * If set, the user agent will request {@link PasswordCredential} objects.
      * Defaults to {@code false}.
      */
-    password?: boolean;
+    password?: boolean | undefined;
 
     /**
      * If set, the user agent will request {@link FederatedCredential} objects
      * for the providers and protocol types listed. Defaults to {@code null}.
      */
-    federated?: FederatedCredentialRequestOptions;
+    federated?: FederatedCredentialRequestOptions | undefined;
 
     /**
      * If {@code true}, the user agent will only attempt to provide a Credential
@@ -303,29 +292,29 @@ interface CredentialRequestOptions {
      *
      * @deprecated Use {@link mediation} instead.
      */
-    unmediated?: boolean;
+    unmediated?: boolean | undefined;
 
     /**
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: 'silent' | 'optional' | 'required';
+    mediation?: "silent" | "optional" | "required" | "conditional" | undefined;
 
     /**
      * This property specifies options for requesting a public-key signature.
      */
-    publicKey?: PublicKeyCredentialRequestOptions;
+    publicKey?: PublicKeyCredentialRequestOptions | undefined;
 
     /**
      * This property lets the developer abort an ongoing get() operation.
      */
-    signal?: AbortSignal;
+    signal?: AbortSignal | undefined;
 }
 
 /**
  * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#typedefdef-passwordcredentialinit}
  */
-type PasswordCredentialInit = PasswordCredentialData|HTMLFormElement;
+type PasswordCredentialInit = PasswordCredentialData | HTMLFormElement;
 
 /**
  * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
@@ -339,19 +328,19 @@ interface CredentialCreationOptions {
     /**
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
      */
-    password?: PasswordCredentialInit;
+    password?: PasswordCredentialInit | undefined;
     /**
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialcreationoptions-federated}
      */
-    federated?: FederatedCredentialInit;
+    federated?: FederatedCredentialInit | undefined;
     /**
      * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
      */
-    publicKey?: PublicKeyCredentialCreationOptions;
+    publicKey?: PublicKeyCredentialCreationOptions | undefined;
     /**
      * @see {@link https://w3c.github.io/webappsec-credential-management/#dom-credentialrequestoptions-signal}
      */
-    signal?: AbortSignal;
+    signal?: AbortSignal | undefined;
 }
 
 /**
@@ -362,13 +351,13 @@ interface FederatedCredentialRequestOptions {
      * An array of federation identifiers.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredentialrequestoptions-providers}
      */
-    providers?: string[];
+    providers?: string[] | undefined;
 
     /**
      * An array of protocol identifiers.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-federatedcredentialrequestoptions-protocols}
      */
-    protocols?: string[];
+    protocols?: string[] | undefined;
 }
 
 // Type definitions for webauthn
@@ -379,14 +368,14 @@ interface txAuthGenericArg {
 }
 
 interface AuthenticationExtensionsClientInputs {
-    appid?: string;
-    authnSel?: Array<ArrayBufferView | ArrayBuffer>;
-    exts?: boolean;
-    loc?: boolean;
-    txAuthGeneric?: txAuthGenericArg;
-    txAuthSimple?: string;
-    uvi?: boolean;
-    uvm?: boolean;
+    appid?: string | undefined;
+    authnSel?: Array<ArrayBufferView | ArrayBuffer> | undefined;
+    exts?: boolean | undefined;
+    loc?: boolean | undefined;
+    txAuthGeneric?: txAuthGenericArg | undefined;
+    txAuthSimple?: string | undefined;
+    uvi?: boolean | undefined;
+    uvm?: boolean | undefined;
 }
 
 /**
@@ -394,18 +383,18 @@ interface AuthenticationExtensionsClientInputs {
  */
 interface PublicKeyCredentialRequestOptions {
     challenge: BufferSource;
-    timeout?: number;
-    rpId?: string;
-    allowCredentials?: PublicKeyCredentialDescriptor[];
-    userVerification?: "required" | "preferred" | "discouraged";
-    extensions?: AuthenticationExtensionsClientInputs;
+    timeout?: number | undefined;
+    rpId?: string | undefined;
+    allowCredentials?: PublicKeyCredentialDescriptor[] | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
+    extensions?: AuthenticationExtensionsClientInputs | undefined;
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialentity}
  */
 interface PublicKeyCredentialEntity {
-    icon?: string;
+    icon?: string | undefined;
     name: string;
 }
 
@@ -413,7 +402,7 @@ interface PublicKeyCredentialEntity {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
 interface PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
-    id?: string;
+    id?: string | undefined;
 }
 
 /**
@@ -438,16 +427,16 @@ interface PublicKeyCredentialParameters {
 interface PublicKeyCredentialDescriptor {
     type: "public-key";
     id: BufferSource;
-    transports?: Array<"usb" | "nfc" | "ble" | "internal">;
+    transports?: AuthenticatorTransport[];
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
  */
 interface AuthenticatorSelectionCriteria {
-    authenticatorAttachment?: "platform" | "cross-platform";
-    requireResidentKey?: boolean;
-    userVerification?: "required" | "preferred" | "discouraged";
+    authenticatorAttachment?: "platform" | "cross-platform" | undefined;
+    requireResidentKey?: boolean | undefined;
+    userVerification?: "required" | "preferred" | "discouraged" | undefined;
 }
 
 /**
@@ -460,11 +449,11 @@ interface PublicKeyCredentialCreationOptions {
     challenge: BufferSource;
     pubKeyCredParams: PublicKeyCredentialParameters[];
 
-    timeout?: number;
-    excludeCredentials?: PublicKeyCredentialDescriptor[];
-    authenticatorSelection?: AuthenticatorSelectionCriteria;
-    attestation?: "none" | "indirect" | "direct";
-    extensions?: AuthenticationExtensionsClientInputs;
+    timeout?: number | undefined;
+    excludeCredentials?: PublicKeyCredentialDescriptor[] | undefined;
+    authenticatorSelection?: AuthenticatorSelectionCriteria | undefined;
+    attestation?: AttestationConveyancePreference | undefined;
+    extensions?: AuthenticationExtensionsClientInputs | undefined;
 }
 
 /**

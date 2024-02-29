@@ -1,12 +1,6 @@
-// Type definitions for website-scraper v1.2.x
-// Project: https://github.com/s0ph1e/node-website-scraper
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="request" />
 
-import * as request from 'request';
+import * as request from "request";
 
 declare namespace websiteScraper {
     interface Url {
@@ -21,7 +15,7 @@ declare namespace websiteScraper {
 
     interface Source {
         selector: string;
-        attr?: string;
+        attr?: string | undefined;
     }
 
     interface RequestOptions {
@@ -29,21 +23,21 @@ declare namespace websiteScraper {
     }
 
     interface Options {
-        urls: (string | Url)[];
+        urls: Array<string | Url>;
         directory: string;
-        urlFilter?: (url: string) => boolean;
-        filenameGenerator?: string;
-        defaultFilename?: string;
-        prettifyUrls?: boolean;
-        sources?: Source[];
-        subdirectories?: SubDirectory[] | null;
-        request?: RequestOptions;
-        recursive?: boolean;
-        maxDepth?: number;
-        ignoreErrors?: boolean;
-        maxRecursiveDepth?: number;
-        requestConcurrency?: number;
-        plugins?: object[];
+        urlFilter?: ((url: string) => boolean) | undefined;
+        filenameGenerator?: string | undefined;
+        defaultFilename?: string | undefined;
+        prettifyUrls?: boolean | undefined;
+        sources?: Source[] | undefined;
+        subdirectories?: SubDirectory[] | null | undefined;
+        request?: RequestOptions | undefined;
+        recursive?: boolean | undefined;
+        maxDepth?: number | undefined;
+        ignoreErrors?: boolean | undefined;
+        maxRecursiveDepth?: number | undefined;
+        requestConcurrency?: number | undefined;
+        plugins?: object[] | undefined;
     }
 
     interface Resource {

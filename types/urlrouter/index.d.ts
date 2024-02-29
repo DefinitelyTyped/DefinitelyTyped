@@ -1,24 +1,15 @@
-// Type definitions for urlrouter
-// Project: https://github.com/fengmk2/urlrouter
-// Definitions by: soywiz <https://github.com/soywiz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import http = require("http");
 
 declare function UrlRouterInternal(handler: (app: UrlRouterInternal.App) => void): UrlRouterInternal.HttpHandler;
 
 declare namespace UrlRouterInternal {
-
-
     interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 
     interface ServerResponse extends http.ServerResponse {
-
     }
 
     interface App {
@@ -53,9 +44,9 @@ declare namespace UrlRouterInternal {
     }
 
     interface Options {
-        paramsName?: string;
-        pageNotFound?: (req: ServerRequest, res: ServerResponse) => void;
-        errorHandler?: (err: Error, req: ServerRequest, res: ServerResponse) => void;
+        paramsName?: string | undefined;
+        pageNotFound?: ((req: ServerRequest, res: ServerResponse) => void) | undefined;
+        errorHandler?: ((err: Error, req: ServerRequest, res: ServerResponse) => void) | undefined;
     }
 
     function _UrlRouterfunc(handler: (app: App) => void, options?: any): void;

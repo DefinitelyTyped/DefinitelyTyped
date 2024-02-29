@@ -1,8 +1,3 @@
-// Type definitions for setimmediate 1.0
-// Project: https://github.com/yuzujs/setImmediate#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Schedules a macrotask to run after the current events have been processed.
  *
@@ -18,7 +13,7 @@
  * @return The ID of the macrotask, which can be used to abort
  *         the macrotask with `clearImmediate`.
  */
-declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): number;
+declare function setImmediate<T extends unknown[]>(callback: (...args: T) => void, ...args: T): number;
 
 /**
  * Aborts the specified macrotask before it's run.

@@ -1,12 +1,7 @@
-// Type definitions for rasha 1.2
-// Project: https://git.coolaj86.com/coolaj86/rasha.js
-// Definitions by: Justin Baroux <https://github.com/Just1B>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Rasha;
 
 export interface Jwk {
-    kty: string;
+    kty: "RSA";
     n: string;
     e: string;
     d: string;
@@ -19,9 +14,9 @@ export interface Jwk {
 
 export interface GenerateOptions {
     format: string;
-    encoding?: string;
-    modulusLength?: number;
-    publicExponent?: number;
+    encoding?: string | undefined;
+    modulusLength?: number | undefined;
+    publicExponent?: number | undefined;
 }
 
 export interface ImportOptions {

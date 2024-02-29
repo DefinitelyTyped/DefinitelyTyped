@@ -1,20 +1,13 @@
-// Type definitions for jQuery.timeago.js 1.0.2
-// Project: http://timeago.yarp.com/
-// Definitions by: François Guillot <http://fguillot.developpez.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery"/>
 
 interface TimeagoSetings {
-    refreshMillis?: number;
-    allowFuture?: boolean;
+    refreshMillis?: number | undefined;
+    allowFuture?: boolean | undefined;
     strings?: {
-        prefixAgo?: string;
-        prefixFromNow?: string;
-        suffixAgo?: string;
-        suffixFromNow?: string;
+        prefixAgo?: string | undefined;
+        prefixFromNow?: string | undefined;
+        suffixAgo?: string | undefined;
+        suffixFromNow?: string | undefined;
 
         // Those can be string or Function
         seconds?: any;
@@ -28,10 +21,10 @@ interface TimeagoSetings {
         months?: any;
         year?: any;
         years?: any;
-        
-        wordSeparator?: string;
-        numbers?: any[];
-    };
+
+        wordSeparator?: string | undefined;
+        numbers?: any[] | undefined;
+    } | undefined;
 }
 
 interface TimeagoStatic {

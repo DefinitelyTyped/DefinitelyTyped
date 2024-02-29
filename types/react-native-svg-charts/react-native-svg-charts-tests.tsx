@@ -1,9 +1,13 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Defs, LinearGradient, Stop } from 'react-native-svg';
-import { StackedAreaChart, StackedBarChart, XAxis, Grid, Decorators } from 'react-native-svg-charts';
-import { curveNatural } from 'd3-shape';
-import { scaleTime } from 'd3-scale';
+import { scaleTime } from "d3-scale";
+import { curveNatural } from "d3-shape";
+import * as React from "react";
+import { View } from "react-native";
+import { LinearGradientProps, Stop } from "react-native-svg";
+import { BarChart, Decorators, Grid, StackedAreaChart, StackedBarChart, XAxis } from "react-native-svg-charts";
+
+// Inlined https://github.com/react-native-svg/react-native-svg/pull/1652
+declare const Defs: React.ComponentClass<{ children?: React.ReactNode }>;
+declare const LinearGradient: React.ComponentClass<React.PropsWithChildren<LinearGradientProps>>;
 
 interface Data {
     time: number;
@@ -18,12 +22,12 @@ interface Props {
 }
 
 class Example extends React.Component<Props> {
-    renderStackedAreaChart = ({data, width}: Props) => (
+    renderStackedAreaChart = ({ data, width }: Props) => (
         <StackedAreaChart
             style={{ height: 200 }}
             data={data}
-            keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
-            colors={['url(#totalMemoryConsumption)', 'url(#privateMemoryConsumption)']}
+            keys={["totalMemoryConsumption", "privateMemoryConsumption"]}
+            colors={["url(#totalMemoryConsumption)", "url(#privateMemoryConsumption)"]}
             contentInset={{ top: 20 }}
             curve={curveNatural}
             showGrid={true}
@@ -49,8 +53,8 @@ class Example extends React.Component<Props> {
                 contentInset={{ left: 10, right: 10 }}
                 svg={{
                     fillOpacity: .2,
-                    fill: '#fff',
-                    fontFamily: 'Regular',
+                    fill: "#fff",
+                    fontFamily: "Regular",
                     fontSize: 10,
                 }}
                 xAccessor={({ item }) => item.time}
@@ -61,7 +65,7 @@ class Example extends React.Component<Props> {
                 x={x => x * width}
                 y={y => y * width}
                 svg={{
-                    stroke: '#fff',
+                    stroke: "#fff",
                     strokeOpacity: .2,
                 }}
                 belowChart={true}
@@ -69,20 +73,31 @@ class Example extends React.Component<Props> {
             <Decorators.Tooltip text="Test" />
             <Decorators.Point />
         </StackedAreaChart>
-    )
+    );
 
-    renderStackedBarChart = ({data, width}: Props) => (
+    renderStackedBarChart = ({ data, width }: Props) => (
         <StackedBarChart
-          animate={true}
-          animationDuration={250}
-          style={{ height: 100 }}
-          keys={['totalMemoryConsumption', 'privateMemoryConsumption']}
-          colors={['green', 'red']}
-          data={data}
-          horizontal={true}
-          contentInset={{ top: 10, bottom: 20 }}
+            animate={true}
+            animationDuration={250}
+            style={{ height: 100 }}
+            keys={["totalMemoryConsumption", "privateMemoryConsumption"]}
+            colors={["green", "red"]}
+            data={data}
+            horizontal={true}
+            contentInset={{ top: 10, bottom: 20 }}
         />
-    )
+    );
+
+    renderBarChart = ({ data, width }: Props) => (
+        <BarChart
+            animate={true}
+            animationDuration={250}
+            style={{ height: 100 }}
+            data={data}
+            horizontal={true}
+            contentInset={{ top: 10, bottom: 20 }}
+        />
+    );
 
     render() {
         const { data, width } = this.props;

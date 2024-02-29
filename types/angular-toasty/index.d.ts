@@ -1,13 +1,6 @@
-// Type definitions for Angular Toasty v1.0.2
-// Project: https://github.com/invertase/angular-toasty
-// Definitions by: Dominik Muench <https://github.com/muenchdo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare namespace toasty {
-
     interface IToastyService {
         /**
          * Create a toast with the given options and type.
@@ -20,7 +13,7 @@ declare namespace toasty {
          * Create a default "quick toast" with the given title.
          * @param title
          */
-        (title: string|number): void;
+        (title: string | number): void;
 
         /**
          * Create a default toast with the given options.
@@ -32,7 +25,7 @@ declare namespace toasty {
          * Create a default "quick toast" with the given title.
          * @param title
          */
-        default(title: string|number): void;
+        default(title: string | number): void;
 
         /**
          * Create an info toast with the given options.
@@ -44,7 +37,7 @@ declare namespace toasty {
          * Create an info "quick toast" with the given title.
          * @param title
          */
-        info(title: string|number): void;
+        info(title: string | number): void;
 
         /**
          * Create a wait toast with the given options.
@@ -56,7 +49,7 @@ declare namespace toasty {
          * Create a wait "quick toast" with the given title.
          * @param title
          */
-        wait(title: string|number): void;
+        wait(title: string | number): void;
 
         /**
          * Create a success toast with the given options.
@@ -68,7 +61,7 @@ declare namespace toasty {
          * Create a success "quick toast" with the given title.
          * @param title
          */
-        success(title: string|number): void;
+        success(title: string | number): void;
 
         /**
          * Create an error toast with the given options.
@@ -80,7 +73,7 @@ declare namespace toasty {
          * Create an error "quick toast" with the given title.
          * @param title
          */
-        error(title: string|number): void;
+        error(title: string | number): void;
 
         /**
          * Create a warning toast with the given options.
@@ -92,7 +85,7 @@ declare namespace toasty {
          * Create a warning "quick toast" with the given title.
          * @param title
          */
-        warning(title: string|number): void;
+        warning(title: string | number): void;
 
         /**
          * Clear toast(s).
@@ -104,7 +97,6 @@ declare namespace toasty {
          * Get the global config.
          */
         getGlobalConfig(): IGlobalConfig;
-
     }
 
     interface IToastyConfig {
@@ -116,37 +108,37 @@ declare namespace toasty {
         /**
          * The toast's message.
          */
-        msg?: string;
+        msg?: string | undefined;
 
         /**
          * Whether to show the 'X' icon to close the toast.
          */
-        showClose?: boolean;
+        showClose?: boolean | undefined;
 
         /**
          * Whether clicking the toast closes it.
          */
-        clickToClose?: boolean;
+        clickToClose?: boolean | undefined;
 
         /**
          * How long (in milliseconds) the toast shows before it's removed. Set to false to disable.
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * Whether to play a sound when a toast is added.
          */
-        sound?: boolean;
+        sound?: boolean | undefined;
 
         /**
          * Whether HTML is allowed in toasts.
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Whether to shake the toasts.
          */
-        shake?: boolean;
+        shake?: boolean | undefined;
 
         /**
          * What theme to use.
@@ -154,7 +146,7 @@ declare namespace toasty {
          * - 'material'
          * - 'bootstrap'
          */
-        theme?: string;
+        theme?: string | undefined;
 
         /**
          * The toast's type:
@@ -165,76 +157,74 @@ declare namespace toasty {
          * - 'error'
          * - 'warning'
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * Add event handler.
          */
-        onAdd?: Function;
+        onAdd?: Function | undefined;
 
         /**
          * Remove event handler.
          */
-        onRemove?: Function;
+        onRemove?: Function | undefined;
 
         /**
          * Click event handler.
          */
-        onClick?: Function;
+        onClick?: Function | undefined;
     }
 
     interface IGlobalConfig {
-
         /**
          * Maximum number of toasts to show at once.
          */
-        limit?: number;
+        limit?: number | undefined;
 
         /**
          * The toast's title.
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * The toast's message.
          */
-        msg?: string;
+        msg?: string | undefined;
 
         /**
          * Whether to show the 'X' icon to close the toast.
          */
-        showClose?: boolean;
+        showClose?: boolean | undefined;
 
         /**
          * Whether clicking the toast closes it.
          */
-        clickToClose?: boolean;
+        clickToClose?: boolean | undefined;
 
         /**
          * The window position where the toast pops up.
-         *
          */
-        position?: string;
+        position?: string | undefined;
 
         /**
          * How long (in miliseconds) the toast shows before it's removed. Set to false to disable.
          */
-        timeout?: number|boolean;
+        timeout?: number | boolean | undefined;
 
         /**
          * Whether to play a sound when a toast is added.
          */
-        sound?: boolean;
+        sound?: boolean | undefined;
 
         /**
          * Whether HTML is allowed in toast.
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Whether to shake the toast.
          */
-        shake?: boolean;
+        shake?: boolean | undefined;
 
         /**
          * What theme to use.
@@ -242,7 +232,7 @@ declare namespace toasty {
          * - 'material'
          * - 'bootstrap'
          */
-        theme?: string;
+        theme?: string | undefined;
     }
 
     interface IToastyConfigProvider {

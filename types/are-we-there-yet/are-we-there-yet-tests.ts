@@ -1,4 +1,4 @@
-import { Tracker, TrackerStream, TrackerGroup } from "are-we-there-yet";
+import { Tracker, TrackerGroup, TrackerStream } from "are-we-there-yet";
 
 const simple = new Tracker("simple");
 simple.addListener("change", (name, completed, tracker) => {

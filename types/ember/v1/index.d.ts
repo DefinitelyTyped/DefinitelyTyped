@@ -1,26 +1,19 @@
-// Type definitions for Ember.js 1.11.3
-// Project: http://emberjs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="handlebars"/>
 
 declare namespace EmberStates {
-
     interface Transition {
         targetName: string;
         urlMethod: string;
         intent: any;
-        params: {}|any;
+        params: {} | any;
         pivotHandler: any;
         resolveIndex: number;
         handlerInfos: any;
-        resolvedModels: {}|any;
+        resolvedModels: {} | any;
         isActive: boolean;
         state: any;
-        queryParams: {}|any;
+        queryParams: {} | any;
         queryParamsOnly: boolean;
 
         isTransition: boolean;
@@ -52,9 +45,9 @@ declare namespace EmberStates {
           use in situations where you want to pass around a thennable,
           but not the Transition itself.
 
-          @arg {Function} onFulfilled
-          @arg {Function} onRejected
-          @arg {String} label optional string for labeling the promise. Useful for tooling.
+          @param {Function} onFulfilled
+          @param {Function} onRejected
+          @param {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
         then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
@@ -65,8 +58,8 @@ declare namespace EmberStates {
           but not the Transition itself.
 
           @method catch
-          @arg {Function} onRejection
-          @arg {String} label optional string for labeling the promise.
+          @param {Function} onRejection
+          @param {String} label optional string for labeling the promise.
           Useful for tooling.
           @return {Promise}
          */
@@ -78,8 +71,8 @@ declare namespace EmberStates {
           but not the Transition itself.
 
           @method finally
-          @arg {Function} callback
-          @arg {String} label optional string for labeling the promise.
+          @param {Function} callback
+          @param {String} label optional string for labeling the promise.
           Useful for tooling.
           @return {Promise}
          */
@@ -109,7 +102,7 @@ declare namespace EmberStates {
           handleURL, since the URL has already changed before the
           transition took place).
 
-          @arg {String} method the type of URL-changing method to use
+          @param {String} method the type of URL-changing method to use
             at the end of a transition. Accepted values are 'replace',
             falsy values, or any other non-falsy value (which is
             interpreted as an updateURL transition).
@@ -125,10 +118,10 @@ declare namespace EmberStates {
 
           Note: This method is also aliased as `send`
 
-          @arg {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
-          @arg {String} name the name of the event to fire
+          @param {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
+          @param {String} name the name of the event to fire
          */
-        trigger(ignoreFailure:boolean, eventName: string): void;
+        trigger(ignoreFailure: boolean, eventName: string): void;
         /**
           Fires an event on the current list of resolved/resolving
           handlers within this transition. Useful for firing events
@@ -136,7 +129,7 @@ declare namespace EmberStates {
 
           Note: This method is also aliased as `send`
 
-          @arg {String} name the name of the event to fire
+          @param {String} name the name of the event to fire
          */
         trigger(eventName: string): void;
 
@@ -152,23 +145,18 @@ declare namespace EmberStates {
          */
         followRedirects(): Ember.RSVP.Promise;
     }
-
 }
 
 declare namespace EmberTesting {
-
     namespace Test {
-
         class Adapter {
             asyncEnd(): void;
             asyncStart(): void;
             exception(error: string): void;
         }
 
-        class QUnitAdapter extends Adapter { }
-
+        class QUnitAdapter extends Adapter {}
     }
-
 }
 
 interface Function {
@@ -221,7 +209,7 @@ interface Array<T> {
     filter(callback: Function, target?: any): any[];
     filterBy(key: string, value?: string): any[];
 
- /**
+    /**
     Returns the first item in the array for which the callback returns true.
     This method works similar to the `filter()` method defined in JavaScript 1.6
     except that it will stop working on the array once a match is found.
@@ -239,10 +227,10 @@ interface Array<T> {
     object that will be set as `this` on the context. This is a good way
     to give your iterator function access to the current object.
     @function find
-    @arg callback The callback to execute
-    @arg {Object} [target] The target object to use
+    @param callback The callback to execute
+    @param {Object} [target] The target object to use
     @return {Object} Found item or `undefined`.
-*/
+    */
     find(callback: Function, target?: any): any;
     findBy(key: string, value?: string): any;
     forEach(callback: Function, target?: any): any;
@@ -277,8 +265,8 @@ interface Array<T> {
     unshiftObject(object: any): any;
     unshiftObjects(objects: any[]): any[];
     without(value: any): any[];
-    '[]': any[];
-    '@each': Ember.EachProxy;
+    "[]": any[];
+    "@each": Ember.EachProxy;
     Boolean: boolean;
     firstObject: any;
     hasEnumerableObservers: boolean;
@@ -314,21 +302,21 @@ interface Array<T> {
 }
 
 interface ApplicationCreateArguments {
-    customEvents?: {};
-    rootElement?: string;
+    customEvents?: {} | undefined;
+    rootElement?: string | undefined;
     /**
     Basic logging of successful transitions.
     **/
-    LOG_TRANSITIONS?: boolean;
+    LOG_TRANSITIONS?: boolean | undefined;
     /**
     Detailed logging of all routing steps.
     **/
-    LOG_TRANSITIONS_INTERNAL?: boolean;
+    LOG_TRANSITIONS_INTERNAL?: boolean | undefined;
 }
 
 interface ApplicationInitializerArguments {
-    name?: string;
-    initialize?: ApplicationInitializerFunction;
+    name?: string | undefined;
+    initialize?: ApplicationInitializerFunction | undefined;
 }
 
 interface ApplicationInitializerFunction {
@@ -342,18 +330,18 @@ interface CoreObjectArguments {
     or Ember.ArrayController, be sure to call this._super() in your init declaration! If you don't, Ember
     may not have an opportunity to do important setup work, and you'll see strange behavior in your application.
     **/
-    init?: Function;
+    init?: Function | undefined;
     /**
     Override to implement teardown.
     **/
-    willDestroy?: Function;
+    willDestroy?: Function | undefined;
 
     [propName: string]: any;
 }
 
 interface EnumerableConfigurationOptions {
-    willChange?: boolean ;
-    didChange?: boolean ;
+    willChange?: boolean | undefined;
+    didChange?: boolean | undefined;
 }
 
 interface ItemIndexEnumerableCallbackTarget {
@@ -376,21 +364,21 @@ interface TransitionsHash {
 }
 
 interface ActionsHash {
-    willTransition?: Function;
-    error?: Function;
+    willTransition?: Function | undefined;
+    error?: Function | undefined;
 }
 
 interface DisconnectOutletOptions {
-    outlet?: string;
-    parentView?: string;
+    outlet?: string | undefined;
+    parentView?: string | undefined;
 }
 
 interface RenderOptions {
-    into?: string;
-    controller?: string;
+    into?: string | undefined;
+    controller?: string | undefined;
     model?: any;
-    outlet?: string;
-    view?: string;
+    outlet?: string | undefined;
+    view?: string | undefined;
 }
 
 interface ModifyObserver {
@@ -583,9 +571,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '@each': EachProxy;
+        "@each": EachProxy;
         Boolean: boolean;
-    '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -625,7 +613,6 @@ declare namespace Ember {
         queryParams: any;
         send(name: string, ...args: any[]): void;
         actions: {};
-
     }
     /**
     Array polyfills to support ES5 features in older browsers.
@@ -718,8 +705,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-    '[]': any[];
-    '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -917,7 +904,7 @@ declare namespace Ember {
         replaceRoute(name: string, ...args: any[]): void;
         transitionToRoute(name: string, ...args: any[]): void;
         controllers: {};
-        model : any;
+        model: any;
         needs: string[];
         queryParams: any;
         target: any;
@@ -942,8 +929,6 @@ declare namespace Ember {
 
         /**
         Defines the properties that will be concatenated from the superclass (instead of overridden).
-        @property concatenatedProperties
-        @type Array
         @default null
         **/
         concatenatedProperties: any[];
@@ -951,14 +936,12 @@ declare namespace Ember {
         /**
         Destroyed object property flag. If this property is true the observers and bindings were
         already removed by the effect of calling the destroy() method.
-        @property isDestroyed
         @default false
         **/
         isDestroyed: boolean;
         /**
         Destruction scheduled flag. The destroy() method has been called. The object stays intact
         until the end of the run loop at which point the isDestroyed flag is set.
-        @property isDestroying
         @default false
         **/
         isDestroying: boolean;
@@ -1014,7 +997,7 @@ declare namespace Ember {
         @param {Object} [args] - Object containing values to use within the new class
         Non-static method because Ember classes aren't currently 'real' TypeScript classes.
         **/
-        extend<T>(args ?: CoreObjectArguments): T;
+        extend<T>(args?: CoreObjectArguments): T;
         /**
         Creates a new subclass.
         @method extend
@@ -1022,7 +1005,7 @@ declare namespace Ember {
         @param {Object} [args] - Object containing values to use within the new class
         Non-static method because Ember classes aren't currently 'real' TypeScript classes.
         **/
-        extend<T>(mixins ? : Mixin, args ?: CoreObjectArguments): T;
+        extend<T>(mixins?: Mixin, args?: CoreObjectArguments): T;
 
         /**
         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
@@ -1137,7 +1120,7 @@ declare namespace Ember {
     The default implementation handles simple properties.
     You generally won't need to create or subclass this directly.
     **/
-    class Descriptor { }
+    class Descriptor {}
     var EMPTY_META: {}; // TODO: define interface
     var ENV: {};
     var EXTEND_PROTOTYPES: boolean;
@@ -1210,7 +1193,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1291,8 +1274,8 @@ declare namespace Ember {
         }
         function precompile(string: string): void;
         function registerBoundHelper(name: string, func: Function, dependentKeys?: string): void;
-        class Compiler { }
-        class JavaScriptCompiler { }
+        class Compiler {}
+        class JavaScriptCompiler {}
         function registerHelper(name: string, fn: Function, inverse?: boolean): void;
         function registerPartial(name: string, str: any): void;
         function K(): any;
@@ -1486,8 +1469,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1543,7 +1526,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1629,8 +1612,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1794,17 +1777,14 @@ declare namespace Ember {
         }
 
         class Promise {
-
             /**
               Promise objects represent the eventual result of an asynchronous operation. The
               primary way of interacting with a promise is through its `then` method, which
               registers callbacks to receive either a promise's eventual value or the reason
               why the promise cannot be fulfilled.
-              @class RSVP.Promise
               @param {function} resolver
               @param {String} label optional string for labeling the promise.
               Useful for tooling.
-              @constructor
             */
             constructor(resolver: PromiseResolverFunction, label?: string);
 
@@ -1871,7 +1851,6 @@ declare namespace Ember {
       the [routing guide](http://emberjs.com/guides/routing/) for documentation.
     */
     class Route extends Object implements ActionHandlerMixin, Evented {
-
         static isClass: boolean;
         static isMethod: boolean;
 
@@ -1936,8 +1915,6 @@ declare namespace Ember {
         /**
         The controller associated with this route.
 
-        @property controller
-        @type Ember.Controller
         @since 1.6.0
         */
         controller: Controller;
@@ -1963,8 +1940,6 @@ declare namespace Ember {
         * passed to the `setupController` method.
         * used as the controller for the view being rendered by the route.
         * returned from a call to `controllerFor` for the route.
-        @property controllerName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -1996,7 +1971,7 @@ declare namespace Ember {
         @method disconnectOutlet
         @param {Object|String} options the options hash or outlet name
         */
-        disconnectOutlet(options: DisconnectOutletOptions|string): void;
+        disconnectOutlet(options: DisconnectOutletOptions | string): void;
 
         /**
         @method findModel
@@ -2044,7 +2019,7 @@ declare namespace Ember {
             the promise resolves, and the resolved value of the promise
             will be used as the model for this route.
         */
-        model(params: {}, transition: EmberStates.Transition): any|RSVP.Promise;
+        model(params: {}, transition: EmberStates.Transition): any | RSVP.Promise;
 
         /**
         Returns the model of a parent (or any ancestor) route
@@ -2067,15 +2042,13 @@ declare namespace Ember {
         @method paramsFor
         @param {String} name
         */
-        paramsFor(name: string) : any;
+        paramsFor(name: string): any;
 
         /**
         Configuration hash for this route's queryParams.
-        @property queryParams
         @for Ember.Route
-        @type Hash
         */
-        queryParams: {};
+        queryParams: Record<string, any>;
 
         /**
         Refresh the model on this route and any child routes, firing the
@@ -2096,7 +2069,6 @@ declare namespace Ember {
         @since 1.4.0
         */
         redirect(): EmberStates.Transition;
-
 
         /**
         Refresh the model on this route and any child routes, firing the
@@ -2246,8 +2218,6 @@ declare namespace Ember {
         This is similar with `viewName`, but is useful when you just want a custom
         template without a view.
 
-        @property templateName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2275,8 +2245,6 @@ declare namespace Ember {
         define a specific view, set this property.
         This is useful when multiple routes would benefit from using the same view
         because it doesn't require a custom `renderTemplate` method.
-        @property viewName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2318,8 +2286,6 @@ declare namespace Ember {
         on the `actions` hash handles it. To continue bubbling the action,
         you must return `true` from the handler
 
-        @property actions
-        @type Hash
         @default null
         */
         actions: ActionsHash;
@@ -2378,7 +2344,7 @@ declare namespace Ember {
         @param {Function} method The function of the subscription
         @return this
         */
-        off(name: string, target:any , method: Function): Evented;
+        off(name: string, target: any, method: Function): Evented;
 
         /**
         Checks to see if object has any subscriptions for named event.
@@ -2501,7 +2467,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2566,7 +2532,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -3009,111 +2975,111 @@ declare namespace Em {
     **/
     var $: typeof Ember.$;
     var A: typeof Ember.A;
-    class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
-    class Application extends Ember.Application { }
-    class Array extends Ember.Array { }
-    class ArrayController extends Ember.ArrayController { }
+    class ActionHandlerMixin extends Ember.ActionHandlerMixin {}
+    class Application extends Ember.Application {}
+    class Array extends Ember.Array {}
+    class ArrayController extends Ember.ArrayController {}
     var ArrayPolyfills: typeof Ember.ArrayPolyfills;
-    class ArrayProxy extends Ember.ArrayProxy { }
+    class ArrayProxy extends Ember.ArrayProxy {}
     var BOOTED: typeof Ember.BOOTED;
-    class Binding extends Ember.Binding { }
-    class Button extends Ember.Button { }
-    class Checkbox extends Ember.Checkbox { }
-    class CollectionView extends Ember.CollectionView { }
-    class Comparable extends Ember.Comparable { }
-    class Component extends Ember.Component { }
-    class ComputedProperty extends Ember.ComputedProperty { }
-    class Container extends Ember.Container { }
-    class ContainerView extends Ember.ContainerView { }
-    class Controller extends Ember.Controller { }
-    class ControllerMixin extends Ember.ControllerMixin { }
-    class Copyable extends Ember.Copyable { }
-    class CoreObject extends Ember.CoreObject { }
-    class CoreView extends Ember.CoreView { }
-    class DAG extends Ember.DAG { }
+    class Binding extends Ember.Binding {}
+    class Button extends Ember.Button {}
+    class Checkbox extends Ember.Checkbox {}
+    class CollectionView extends Ember.CollectionView {}
+    class Comparable extends Ember.Comparable {}
+    class Component extends Ember.Component {}
+    class ComputedProperty extends Ember.ComputedProperty {}
+    class Container extends Ember.Container {}
+    class ContainerView extends Ember.ContainerView {}
+    class Controller extends Ember.Controller {}
+    class ControllerMixin extends Ember.ControllerMixin {}
+    class Copyable extends Ember.Copyable {}
+    class CoreObject extends Ember.CoreObject {}
+    class CoreView extends Ember.CoreView {}
+    class DAG extends Ember.DAG {}
     var DEFAULT_GETTER_FUNCTION: typeof Ember.DEFAULT_GETTER_FUNCTION;
-    class DefaultResolver extends Ember.DefaultResolver { }
-    class Deffered extends Ember.Deferred { }
-    class DeferredMixin extends Ember.DeferredMixin { }
-    class Descriptor extends Ember.Descriptor { }
+    class DefaultResolver extends Ember.DefaultResolver {}
+    class Deffered extends Ember.Deferred {}
+    class DeferredMixin extends Ember.DeferredMixin {}
+    class Descriptor extends Ember.Descriptor {}
     var EMPTY_META: typeof Ember.EMPTY_META;
     var ENV: typeof Ember.ENV;
     var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
-    class EachProxy extends Ember.EachProxy { }
-    class Enumerable extends Ember.Enumerable { }
+    class EachProxy extends Ember.EachProxy {}
+    class Enumerable extends Ember.Enumerable {}
     var EnumerableUtils: typeof Ember.EnumerableUtils;
     var Error: typeof Ember.Error;
-    class EventDispatcher extends Ember.EventDispatcher { }
-    class Evented extends Ember.Evented { }
+    class EventDispatcher extends Ember.EventDispatcher {}
+    class Evented extends Ember.Evented {}
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
-    class Freezable extends Ember.Freezable { }
+    class Freezable extends Ember.Freezable {}
     var GUID_KEY: typeof Ember.GUID_KEY;
     namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
         var get: typeof Ember.Handlebars.get;
         var helper: typeof Ember.Handlebars.helper;
-        class helpers extends Ember.Handlebars.helpers { }
+        class helpers extends Ember.Handlebars.helpers {}
         var precompile: typeof Ember.Handlebars.precompile;
         var registerBoundHelper: typeof Ember.Handlebars.registerBoundHelper;
-        class Compiler extends Ember.Handlebars.Compiler { }
-        class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler { }
+        class Compiler extends Ember.Handlebars.Compiler {}
+        class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler {}
         var registerHelper: typeof Ember.Handlebars.registerHelper;
         var registerPartial: typeof Ember.Handlebars.registerPartial;
         var K: typeof Ember.Handlebars.K;
         var createFrame: typeof Ember.Handlebars.createFrame;
         var Exception: typeof Ember.Handlebars.Exception;
-        class SafeString extends Ember.Handlebars.SafeString { }
+        class SafeString extends Ember.Handlebars.SafeString {}
         var parse: typeof Ember.Handlebars.parse;
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
         var log: typeof Ember.Handlebars.log;
     }
-    class HashLocation extends Ember.HashLocation { }
-    class HistoryLocation extends Ember.HistoryLocation { }
+    class HashLocation extends Ember.HashLocation {}
+    class HistoryLocation extends Ember.HistoryLocation {}
     var IS_BINDING: typeof Ember.IS_BINDING;
-    class Instrumentation extends Ember.Instrumentation { }
+    class Instrumentation extends Ember.Instrumentation {}
     var K: typeof Ember.K;
     var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
     var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
     var LOG_VERSION: typeof Ember.LOG_VERSION;
-    class LinkView extends Ember.LinkView { }
-    class Location extends Ember.Location { }
+    class LinkView extends Ember.LinkView {}
+    class Location extends Ember.Location {}
     var Logger: typeof Ember.Logger;
     var MANDATORY_SETTER_FUNCTION: typeof Ember.MANDATORY_SETTER_FUNCTION;
     var META_KEY: typeof Ember.META_KEY;
-    class Map extends Ember.Map { }
-    class MapWithDefault extends Ember.MapWithDefault { }
-    class Mixin extends Ember.Mixin { }
-    class MutableArray extends Ember.MutableArray { }
-    class MutableEnumerable extends Ember.MutableEnumerable { }
+    class Map extends Ember.Map {}
+    class MapWithDefault extends Ember.MapWithDefault {}
+    class Mixin extends Ember.Mixin {}
+    class MutableArray extends Ember.MutableArray {}
+    class MutableEnumerable extends Ember.MutableEnumerable {}
     var NAME_KEY: typeof Ember.NAME_KEY;
-    class Namespace extends Ember.Namespace { }
-    class NativeArray extends Ember.NativeArray { }
-    class NoneLocation extends Ember.NoneLocation { }
+    class Namespace extends Ember.Namespace {}
+    class NativeArray extends Ember.NativeArray {}
+    class NoneLocation extends Ember.NoneLocation {}
     var ORDER_DEFINITION: typeof Ember.ORDER_DEFINITION;
-    class Object extends Ember.Object { }
-    class ObjectController extends Ember.ObjectController { }
-    class ObjectProxy extends Ember.ObjectProxy { }
-    class Observable extends Ember.Observable { }
-    class OrderedSet extends Ember.OrderedSet { }
+    class Object extends Ember.Object {}
+    class ObjectController extends Ember.ObjectController {}
+    class ObjectProxy extends Ember.ObjectProxy {}
+    class Observable extends Ember.Observable {}
+    class OrderedSet extends Ember.OrderedSet {}
     namespace RSVP {
-        interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
-        interface PromiseReject extends Ember.RSVP.PromiseReject { }
-        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
-        class Promise extends Ember.RSVP.Promise { }
+        interface PromiseResolve extends Ember.RSVP.PromiseResolve {}
+        interface PromiseReject extends Ember.RSVP.PromiseReject {}
+        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction {}
+        class Promise extends Ember.RSVP.Promise {}
     }
-    class RenderBuffer extends Ember.RenderBuffer { }
-    class Route extends Ember.Route { }
-    class Router extends Ember.Router { }
-    class RouterDSL extends Ember.RouterDSL { }
+    class RenderBuffer extends Ember.RenderBuffer {}
+    class Route extends Ember.Route {}
+    class Router extends Ember.Router {}
+    class RouterDSL extends Ember.RouterDSL {}
     var SHIM_ES5: typeof Ember.SHIM_ES5;
     var STRINGS: typeof Ember.STRINGS;
-    class Select extends Ember.Select { }
-    class SelectOption extends Ember.SelectOption { }
-    class Set extends Ember.Set { }
-    class SortableMixin extends Ember.SortableMixin { }
-    class State extends Ember.State { }
-    class StateManager extends Ember.StateManager { }
+    class Select extends Ember.Select {}
+    class SelectOption extends Ember.SelectOption {}
+    class Set extends Ember.Set {}
+    class SortableMixin extends Ember.SortableMixin {}
+    class State extends Ember.State {}
+    class StateManager extends Ember.StateManager {}
     namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
@@ -3127,14 +3093,14 @@ declare namespace Em {
         var w: typeof Ember.String.w;
     }
     var TEMPLATES: typeof Ember.TEMPLATES;
-    class TargetActionSupport extends Ember.TargetActionSupport { }
-    class Test extends Ember.Test { }
-    class TextArea extends Ember.TextArea { }
-    class TextField extends Ember.TextField { }
-    class TextSupport extends Ember.TextSupport { }
+    class TargetActionSupport extends Ember.TargetActionSupport {}
+    class Test extends Ember.Test {}
+    class TextArea extends Ember.TextArea {}
+    class TextField extends Ember.TextField {}
+    class TextSupport extends Ember.TextSupport {}
     var VERSION: typeof Ember.VERSION;
-    class View extends Ember.View { }
-    class ViewTargetActionSupport extends Ember.ViewTargetActionSupport { }
+    class View extends Ember.View {}
+    class ViewTargetActionSupport extends Ember.ViewTargetActionSupport {}
     var ViewUtils: typeof Ember.ViewUtils;
     var addBeforeObserver: typeof Ember.addBeforeObserver;
     var addListener: typeof Ember.addListener;
@@ -3250,114 +3216,113 @@ declare namespace Em {
  */
 
 declare module "Ember" {
-
     var $: typeof Ember.$;
     var A: typeof Ember.A;
-    class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
-    class Application extends Ember.Application { }
-    class Array extends Ember.Array { }
-    class ArrayController extends Ember.ArrayController { }
+    class ActionHandlerMixin extends Ember.ActionHandlerMixin {}
+    class Application extends Ember.Application {}
+    class Array extends Ember.Array {}
+    class ArrayController extends Ember.ArrayController {}
     var ArrayPolyfills: typeof Ember.ArrayPolyfills;
-    class ArrayProxy extends Ember.ArrayProxy { }
+    class ArrayProxy extends Ember.ArrayProxy {}
     var BOOTED: typeof Ember.BOOTED;
-    class Binding extends Ember.Binding { }
-    class Button extends Ember.Button { }
-    class Checkbox extends Ember.Checkbox { }
-    class CollectionView extends Ember.CollectionView { }
-    class Comparable extends Ember.Comparable { }
-    class Component extends Ember.Component { }
-    class ComputedProperty extends Ember.ComputedProperty { }
-    class Container extends Ember.Container { }
-    class ContainerView extends Ember.ContainerView { }
-    class Controller extends Ember.Controller { }
-    class ControllerMixin extends Ember.ControllerMixin { }
-    class Copyable extends Ember.Copyable { }
-    class CoreObject extends Ember.CoreObject { }
-    class CoreView extends Ember.CoreView { }
-    class DAG extends Ember.DAG { }
+    class Binding extends Ember.Binding {}
+    class Button extends Ember.Button {}
+    class Checkbox extends Ember.Checkbox {}
+    class CollectionView extends Ember.CollectionView {}
+    class Comparable extends Ember.Comparable {}
+    class Component extends Ember.Component {}
+    class ComputedProperty extends Ember.ComputedProperty {}
+    class Container extends Ember.Container {}
+    class ContainerView extends Ember.ContainerView {}
+    class Controller extends Ember.Controller {}
+    class ControllerMixin extends Ember.ControllerMixin {}
+    class Copyable extends Ember.Copyable {}
+    class CoreObject extends Ember.CoreObject {}
+    class CoreView extends Ember.CoreView {}
+    class DAG extends Ember.DAG {}
     var DEFAULT_GETTER_FUNCTION: typeof Ember.DEFAULT_GETTER_FUNCTION;
-    class DefaultResolver extends Ember.DefaultResolver { }
-    class Deffered extends Ember.Deferred { }
-    class DeferredMixin extends Ember.DeferredMixin { }
-    class Descriptor extends Ember.Descriptor { }
+    class DefaultResolver extends Ember.DefaultResolver {}
+    class Deffered extends Ember.Deferred {}
+    class DeferredMixin extends Ember.DeferredMixin {}
+    class Descriptor extends Ember.Descriptor {}
     var EMPTY_META: typeof Ember.EMPTY_META;
     var ENV: typeof Ember.ENV;
     var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
-    class EachProxy extends Ember.EachProxy { }
-    class Enumerable extends Ember.Enumerable { }
+    class EachProxy extends Ember.EachProxy {}
+    class Enumerable extends Ember.Enumerable {}
     var EnumerableUtils: typeof Ember.EnumerableUtils;
     var Error: typeof Ember.Error;
-    class EventDispatcher extends Ember.EventDispatcher { }
-    class Evented extends Ember.Evented { }
+    class EventDispatcher extends Ember.EventDispatcher {}
+    class Evented extends Ember.Evented {}
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
-    class Freezable extends Ember.Freezable { }
+    class Freezable extends Ember.Freezable {}
     var GUID_KEY: typeof Ember.GUID_KEY;
     namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
         var get: typeof Ember.Handlebars.get;
         var helper: typeof Ember.Handlebars.helper;
-        class helpers extends Ember.Handlebars.helpers { }
+        class helpers extends Ember.Handlebars.helpers {}
         var precompile: typeof Ember.Handlebars.precompile;
         var registerBoundHelper: typeof Ember.Handlebars.registerBoundHelper;
-        class Compiler extends Ember.Handlebars.Compiler { }
-        class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler { }
+        class Compiler extends Ember.Handlebars.Compiler {}
+        class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler {}
         var registerHelper: typeof Ember.Handlebars.registerHelper;
         var registerPartial: typeof Ember.Handlebars.registerPartial;
         var K: typeof Ember.Handlebars.K;
         var createFrame: typeof Ember.Handlebars.createFrame;
         var Exception: typeof Ember.Handlebars.Exception;
-        class SafeString extends Ember.Handlebars.SafeString { }
+        class SafeString extends Ember.Handlebars.SafeString {}
         var parse: typeof Ember.Handlebars.parse;
         var print: typeof Ember.Handlebars.print;
         var logger: typeof Ember.Handlebars.logger;
         var log: typeof Ember.Handlebars.log;
     }
-    class HashLocation extends Ember.HashLocation { }
-    class HistoryLocation extends Ember.HistoryLocation { }
+    class HashLocation extends Ember.HashLocation {}
+    class HistoryLocation extends Ember.HistoryLocation {}
     var IS_BINDING: typeof Ember.IS_BINDING;
-    class Instrumentation extends Ember.Instrumentation { }
+    class Instrumentation extends Ember.Instrumentation {}
     var K: typeof Ember.K;
     var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
     var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
     var LOG_VERSION: typeof Ember.LOG_VERSION;
-    class LinkView extends Ember.LinkView { }
-    class Location extends Ember.Location { }
+    class LinkView extends Ember.LinkView {}
+    class Location extends Ember.Location {}
     var Logger: typeof Ember.Logger;
     var MANDATORY_SETTER_FUNCTION: typeof Ember.MANDATORY_SETTER_FUNCTION;
     var META_KEY: typeof Ember.META_KEY;
-    class Map extends Ember.Map { }
-    class MapWithDefault extends Ember.MapWithDefault { }
-    class Mixin extends Ember.Mixin { }
-    class MutableArray extends Ember.MutableArray { }
-    class MutableEnumerable extends Ember.MutableEnumerable { }
+    class Map extends Ember.Map {}
+    class MapWithDefault extends Ember.MapWithDefault {}
+    class Mixin extends Ember.Mixin {}
+    class MutableArray extends Ember.MutableArray {}
+    class MutableEnumerable extends Ember.MutableEnumerable {}
     var NAME_KEY: typeof Ember.NAME_KEY;
-    class Namespace extends Ember.Namespace { }
-    class NativeArray extends Ember.NativeArray { }
-    class NoneLocation extends Ember.NoneLocation { }
+    class Namespace extends Ember.Namespace {}
+    class NativeArray extends Ember.NativeArray {}
+    class NoneLocation extends Ember.NoneLocation {}
     var ORDER_DEFINITION: typeof Ember.ORDER_DEFINITION;
-    class Object extends Ember.Object { }
-    class ObjectController extends Ember.ObjectController { }
-    class ObjectProxy extends Ember.ObjectProxy { }
-    class Observable extends Ember.Observable { }
-    class OrderedSet extends Ember.OrderedSet { }
+    class Object extends Ember.Object {}
+    class ObjectController extends Ember.ObjectController {}
+    class ObjectProxy extends Ember.ObjectProxy {}
+    class Observable extends Ember.Observable {}
+    class OrderedSet extends Ember.OrderedSet {}
     namespace RSVP {
-        interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
-        interface PromiseReject extends Ember.RSVP.PromiseReject { }
-        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
-        class Promise extends Ember.RSVP.Promise { }
+        interface PromiseResolve extends Ember.RSVP.PromiseResolve {}
+        interface PromiseReject extends Ember.RSVP.PromiseReject {}
+        interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction {}
+        class Promise extends Ember.RSVP.Promise {}
     }
-    class RenderBuffer extends Ember.RenderBuffer { }
-    class Route extends Ember.Route { }
-    class Router extends Ember.Router { }
-    class RouterDSL extends Ember.RouterDSL { }
+    class RenderBuffer extends Ember.RenderBuffer {}
+    class Route extends Ember.Route {}
+    class Router extends Ember.Router {}
+    class RouterDSL extends Ember.RouterDSL {}
     var SHIM_ES5: typeof Ember.SHIM_ES5;
     var STRINGS: typeof Ember.STRINGS;
-    class Select extends Ember.Select { }
-    class SelectOption extends Ember.SelectOption { }
-    class Set extends Ember.Set { }
-    class SortableMixin extends Ember.SortableMixin { }
-    class State extends Ember.State { }
-    class StateManager extends Ember.StateManager { }
+    class Select extends Ember.Select {}
+    class SelectOption extends Ember.SelectOption {}
+    class Set extends Ember.Set {}
+    class SortableMixin extends Ember.SortableMixin {}
+    class State extends Ember.State {}
+    class StateManager extends Ember.StateManager {}
     namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
@@ -3371,14 +3336,14 @@ declare module "Ember" {
         var w: typeof Ember.String.w;
     }
     var TEMPLATES: typeof Ember.TEMPLATES;
-    class TargetActionSupport extends Ember.TargetActionSupport { }
-    class Test extends Ember.Test { }
-    class TextArea extends Ember.TextArea { }
-    class TextField extends Ember.TextField { }
-    class TextSupport extends Ember.TextSupport { }
+    class TargetActionSupport extends Ember.TargetActionSupport {}
+    class Test extends Ember.Test {}
+    class TextArea extends Ember.TextArea {}
+    class TextField extends Ember.TextField {}
+    class TextSupport extends Ember.TextSupport {}
     var VERSION: typeof Ember.VERSION;
-    class View extends Ember.View { }
-    class ViewTargetActionSupport extends Ember.ViewTargetActionSupport { }
+    class View extends Ember.View {}
+    class ViewTargetActionSupport extends Ember.ViewTargetActionSupport {}
     var ViewUtils: typeof Ember.ViewUtils;
     var addBeforeObserver: typeof Ember.addBeforeObserver;
     var addListener: typeof Ember.addListener;

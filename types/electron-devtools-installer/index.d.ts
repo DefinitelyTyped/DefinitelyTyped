@@ -1,17 +1,14 @@
-// Type definitions for electron-devtools-installer v2.2.4
-// Project: https://github.com/MarshallOfSound/electron-devtools-installer
-// Definitions by: Robin Van den Broeck <https://github.com/gamesmaxed>
-//                 M. Fatih Mar <https://github.com/mfatihmar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "electron-devtools-installer" {
     interface ExtensionReference {
-        id: string,
-        electron: string,
+        id: string;
+        electron: string;
     }
 
     // Default installation function
-    export default function (extensionReference: ExtensionReference | string | Array<ExtensionReference | string>, forceDownload?: boolean): Promise<string>;
+    export default function(
+        extensionReference: ExtensionReference | string | Array<ExtensionReference | string>,
+        forceDownload?: boolean,
+    ): Promise<string>;
 
     // Devtools themself
     export const EMBER_INSPECTOR: ExtensionReference;

@@ -1,71 +1,65 @@
-// Type definitions for gameQuery 0.7.0
-// Project: http://gamequeryjs.com/
-// Definitions by: David Laubreiter <https://github.com/Laubi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
-interface PlaygroundOptions{
-    height?: number;
-    width?: number;
-    refreshRate?: number;
-    keyTracker?: boolean;
-    mouseTracker?: boolean;
-    position?: string;
-    disableCollision?: boolean;
+interface PlaygroundOptions {
+    height?: number | undefined;
+    width?: number | undefined;
+    refreshRate?: number | undefined;
+    keyTracker?: boolean | undefined;
+    mouseTracker?: boolean | undefined;
+    position?: string | undefined;
+    disableCollision?: boolean | undefined;
 }
 
-interface Coordinate3D{
+interface Coordinate3D {
     x: number;
     y: number;
     z: number;
 }
 
-interface Size{
+interface Size {
     w: number;
     h: number;
 }
 
-interface SpriteOptions{
+interface SpriteOptions {
     animation?: any;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
-    callback?: () => any;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
+    callback?: (() => any) | undefined;
 }
 
-interface GroupOptions{
-    overflow?: string;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
+interface GroupOptions {
+    overflow?: string | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
 }
 
-interface TileMapOptions{
-    sizex?: number;
-    sizey?: number;
-    height?: number;
-    width?: number;
-    posx?: number;
-    posy?: number;
-    buffer?: number;
+interface TileMapOptions {
+    sizex?: number | undefined;
+    sizey?: number | undefined;
+    height?: number | undefined;
+    width?: number | undefined;
+    posx?: number | undefined;
+    posy?: number | undefined;
+    buffer?: number | undefined;
 }
 
-interface AnimationOptions{
+interface AnimationOptions {
     imageURL: string;
-    numberOfFrame?: number;
-    delta?: number;
-    rate?: number;
-    type?: number;
-    distance?: number;
-    offsetx?: number;
-    offsety?: number;
+    numberOfFrame?: number | undefined;
+    delta?: number | undefined;
+    rate?: number | undefined;
+    type?: number | undefined;
+    distance?: number | undefined;
+    offsetx?: number | undefined;
+    offsety?: number | undefined;
 }
 
-interface Animation{
+interface Animation {
     imageURL: string;
     numberOfFrame: number;
     delta: number;
@@ -75,7 +69,7 @@ interface Animation{
     offsetx: number;
     offsety: number;
 
-    new (options: AnimationOptions): Animation;
+    new(options: AnimationOptions): Animation;
 }
 
 interface GameQuery {
@@ -98,23 +92,23 @@ interface GameQuery {
     tileIdPrefix: string;
 }
 
-interface JQuery{
+interface JQuery {
     playground(options?: PlaygroundOptions): JQuery;
 
     collision(query?: any): JQuery;
 
     startGame(callback?: () => void): JQuery;
     pauseGame(): JQuery;
-    resumeGame(callback?: () => void ): JQuery;
-    
-    registerCallback(callback: () => void , rate: number): JQuery;
-    registerCallback(callback: () => number , rate: number): JQuery;
-    registerCallback(callback: () => boolean , rate: number): JQuery;
-    
+    resumeGame(callback?: () => void): JQuery;
+
+    registerCallback(callback: () => void, rate: number): JQuery;
+    registerCallback(callback: () => number, rate: number): JQuery;
+    registerCallback(callback: () => boolean, rate: number): JQuery;
+
     clearScenegraph(): JQuery;
     clearAll(clearCallbacks?: boolean): JQuery;
 
-    loadCallback(callback: (percent: number) => void ): JQuery;
+    loadCallback(callback: (percent: number) => void): JQuery;
 
     rotate(angle: number, relative?: boolean): JQuery;
     scale(ratio: number, relative?: boolean): JQuery;
@@ -147,15 +141,24 @@ interface JQuery{
 
     addSprite(name: string, options: SpriteOptions): JQuery;
     addGroup(name: string, options: GroupOptions): JQuery;
-    
-    addTilemap(name: string, tileDescription: number[][], animationList : Animation[], options: TileMapOptions) : JQuery;
-    addTilemap(name: string, tileDescription: number[][], animation : Animation, options: TileMapOptions) : JQuery;
-    addTilemap(name: string, tileDescription: (i: number, j: number) => number, animationList : Animation[], options: TileMapOptions) : JQuery;
-    addTilemap(name: string, tileDescription: (i: number, j: number) => number, animation : Animation, options: TileMapOptions) : JQuery;
 
+    addTilemap(name: string, tileDescription: number[][], animationList: Animation[], options: TileMapOptions): JQuery;
+    addTilemap(name: string, tileDescription: number[][], animation: Animation, options: TileMapOptions): JQuery;
+    addTilemap(
+        name: string,
+        tileDescription: (i: number, j: number) => number,
+        animationList: Animation[],
+        options: TileMapOptions,
+    ): JQuery;
+    addTilemap(
+        name: string,
+        tileDescription: (i: number, j: number) => number,
+        animation: Animation,
+        options: TileMapOptions,
+    ): JQuery;
 
     gQ: GameQuery;
-    
+
     setAnimation(animation: Animation, callback?: () => any): JQuery;
     setAnimation(animation: number, callback?: () => any): JQuery;
     setAnimation(): JQuery;
@@ -164,9 +167,9 @@ interface JQuery{
     resumeAnimation(): JQuery;
 }
 
-interface JQueryStatic{
+interface JQueryStatic {
     playground(): JQuery;
-    
+
     gQ: GameQuery;
     gameQuery: GameQuery;
 }

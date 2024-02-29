@@ -1,11 +1,6 @@
-// Type definitions for worker-threads-pool 2.0
-// Project: https://github.com/watson/worker-threads-pool#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Worker, WorkerOptions } from 'worker_threads';
+import { Worker, WorkerOptions } from "worker_threads";
 
 export = Pool;
 
@@ -26,7 +21,7 @@ declare class Pool {
     acquire(
         filename: string,
         options: WorkerOptions,
-        callback: (error: Error | null, worker: Worker) => void
+        callback: (error: Error | null, worker: Worker) => void,
     ): void;
 
     /**
@@ -37,17 +32,17 @@ declare class Pool {
 }
 
 declare namespace Pool {
-     interface Options {
+    interface Options {
         /**
          * Maximum number of workers allowed in the pool. Other workers will be queued
          * and started once there's room in the pool.
          * @default 1
          */
-        max?: number;
+        max?: number | undefined;
         /**
          * Maximum number of workers waiting to be started when the pool is full.
          * The callback to `pool.acquire` will be called with an error in case this limit is reached.
          */
-        maxWaiting?: number;
+        maxWaiting?: number | undefined;
     }
 }

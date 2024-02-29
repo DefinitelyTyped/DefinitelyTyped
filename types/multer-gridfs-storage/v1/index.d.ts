@@ -1,15 +1,9 @@
-// Type definitions for multer-gridfs-storage 1.1
-// Project: https://github.com/devconcept/multer-gridfs-storage
-// Definitions by: devconcept <https://github.com/devconcept>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Grid } from "gridfs-stream";
+import * as Multer from "multer";
 
-import { EventEmitter } from 'events';
-import { Express } from 'express';
-import * as Multer from 'multer';
-import { Grid } from 'gridfs-stream';
-
-type logConfig = 'file' | 'all';
+type logConfig = "file" | "all";
 
 interface StorageLog {
     message: string;
@@ -34,19 +28,23 @@ interface GridFile {
 }
 
 interface MulterGfsOptions {
-    filename?: ConfigFn<NodeCb<string>>;
-    identifier?: ConfigFn<NodeCb<any>>;
-    metadata?: ConfigFn<NodeCb<any>>;
-    chunkSize?: number | ConfigFn<NodeCb<number>>;
-    root?: string | ConfigFn<NodeCb<string>>;
-    log?: boolean | NodeCb<StorageLog>;
-    logLevel?: logConfig;
+    filename?: ConfigFn<NodeCb<string>> | undefined;
+    identifier?: ConfigFn<NodeCb<any>> | undefined;
+    metadata?: ConfigFn<NodeCb<any>> | undefined;
+    chunkSize?: number | ConfigFn<NodeCb<number>> | undefined;
+    root?: string | ConfigFn<NodeCb<string>> | undefined;
+    log?: boolean | NodeCb<StorageLog> | undefined;
+    logLevel?: logConfig | undefined;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
     constructor(settings: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.GfsStorageOptions);
 
-    _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+    _handleFile(
+        req: Express.Request,
+        file: Express.Multer.File,
+        callback: (error?: any, info?: Express.Multer.File) => void,
+    ): void;
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
 }

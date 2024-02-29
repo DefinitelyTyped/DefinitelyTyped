@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-loading-overlay",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/derrickpelletier/react-loading-overlay"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-loading-overlay": "workspace:."
+    },
+    "owners": []
+}

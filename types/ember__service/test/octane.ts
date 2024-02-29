@@ -1,5 +1,5 @@
-import Service, { inject } from "@ember/service";
 import EmberObject from "@ember/object";
+import Service, { inject, service } from "@ember/service";
 
 class FirstSvc extends Service {
     foo = "bar";
@@ -11,7 +11,7 @@ const SecondSvc = Service.extend({
     foo: "bar",
     second() {
         return "";
-    }
+    },
 });
 
 declare module "@ember/service" {
@@ -22,7 +22,19 @@ declare module "@ember/service" {
 }
 
 class Foo extends EmberObject {
-    @inject foo: FirstSvc;
-    @inject("first") baz: FirstSvc;
-    @inject() bar: FirstSvc;
+    @inject
+    declare foo: FirstSvc;
+    @inject("first")
+    declare baz: FirstSvc;
+    @inject()
+    declare bar: FirstSvc;
+}
+
+class FooService extends EmberObject {
+    @service
+    declare foo: FirstSvc;
+    @service("first")
+    declare baz: FirstSvc;
+    @service()
+    declare bar: FirstSvc;
 }

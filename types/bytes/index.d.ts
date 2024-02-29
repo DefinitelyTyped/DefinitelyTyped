@@ -1,10 +1,3 @@
-// Type definitions for bytes 3.1
-// Project: https://github.com/visionmedia/bytes.js
-// Definitions by: Zhiyuan Wang <https://github.com/danny8002>
-//                 Rickard Laurin <https://github.com/believer>
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert the given value in bytes into a string.
  */
@@ -16,14 +9,14 @@ declare function bytes(value: number, options?: bytes.BytesOptions): string;
 declare function bytes(value: string): number;
 
 declare namespace bytes {
-    type Unit = 'b' | 'gb' | 'kb' | 'mb' | 'pb' | 'tb' | 'B' | 'GB' | 'KB' | 'MB' | 'PB' | 'TB';
+    type Unit = "b" | "gb" | "kb" | "mb" | "pb" | "tb" | "B" | "GB" | "KB" | "MB" | "PB" | "TB";
 
     interface BytesOptions {
-        decimalPlaces?: number;
-        fixedDecimals?: boolean;
-        thousandsSeparator?: string;
-        unit?: Unit;
-        unitSeparator?: string;
+        decimalPlaces?: number | undefined;
+        fixedDecimals?: boolean | undefined;
+        thousandsSeparator?: string | undefined;
+        unit?: Unit | undefined;
+        unitSeparator?: string | undefined;
     }
 
     /**

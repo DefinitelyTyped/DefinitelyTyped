@@ -2,7 +2,7 @@ import Koa = require("koa");
 
 declare module "koa" {
     interface ExtendableContext {
-        errors?: Error[];
+        errors?: Error[] | undefined;
     }
 }
 
@@ -37,7 +37,7 @@ app.use<{}, UserContext>(async ctx => {
     ctx.user = {};
 });
 
-app.use((ctx, next) => {
+app.use((ctx: Koa.Context, next) => {
     const start: any = new Date();
     return next().then(() => {
         const end: any = new Date();
@@ -47,6 +47,26 @@ app.use((ctx, next) => {
     });
 });
 
+app.use(ctx => {
+    ctx.accepts(); // $ExpectType string[]
+    ctx.accepts(""); // $ExpectType string | false
+    ctx.accepts([""]); // $ExpectType string | false
+    ctx.acceptsEncodings(); // $ExpectType string[]
+    ctx.acceptsEncodings(""); // $ExpectType string | false
+    ctx.acceptsEncodings([""]); // $ExpectType string | false
+    ctx.acceptsCharsets(); // $ExpectType string[]
+    ctx.acceptsCharsets(""); // $ExpectType string | false
+    ctx.acceptsCharsets([""]); // $ExpectType string | false
+    ctx.acceptsLanguages(); // $ExpectType string[]
+    ctx.acceptsLanguages(""); // $ExpectType string | false
+    ctx.acceptsLanguages([""]); // $ExpectType string | false
+    ctx.is(""); // $ExpectType string | false | null
+    ctx.is([""]); // $ExpectType string | false | null
+
+    ctx.vary("Origin"); // $ExpectType void
+    ctx.vary(["Origin", "User-Agent"]); // $ExpectType void
+});
+
 // response
 app.use(ctx => {
     ctx.body = "Hello World";
@@ -54,5 +74,7 @@ app.use(ctx => {
 });
 
 app.listen(3000);
+
+const currentContext: DbBaseContext | undefined = app.currentContext;
 
 const server = app.listen();

@@ -1,21 +1,15 @@
-// Type definitions for leaflet-geocoder-mapzen 1.6
-// Project: https://github.com/mapzen/leaflet-geocoder
-// Definitions by: Leonard Lausen <https://github.com/leezu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Control {
         interface GeocoderStatic extends ClassStatic {
             /**
              * Creates a geocoder control.
              */
-            new (options?: GeocoderOptions): Geocoder;
+            new(options?: GeocoderOptions): Geocoder;
         }
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Geocoder extends Control {}
 
         interface GeocoderOptions {
@@ -24,7 +18,7 @@ declare module 'leaflet' {
              *
              * Default value: 'https://search.mapzen.com/v1'.
              */
-            url?: string;
+            url?: string | undefined;
 
             /**
              * If true, search is bounded by the current map view.
@@ -33,7 +27,7 @@ declare module 'leaflet' {
              *
              * Default value: false.
              */
-            bounds?: LatLngBounds | boolean;
+            bounds?: LatLngBounds | boolean | undefined;
 
             /**
              * If true, search and autocomplete prioritizes results near the center
@@ -43,7 +37,7 @@ declare module 'leaflet' {
              *
              * Default value: 'true'.
              */
-            focus?: LatLng | boolean;
+            focus?: LatLng | boolean | undefined;
 
             /**
              * Filters results by layers (documentation).
@@ -51,7 +45,7 @@ declare module 'leaflet' {
              *
              * Default value: null.
              */
-            layers?: string | any[] ;
+            layers?: string | any[] | undefined;
 
             /**
              * An object of key-value pairs which will be serialized
@@ -70,7 +64,7 @@ declare module 'leaflet' {
              *
              * Default value: null.
              */
-            params?: object;
+            params?: object | undefined;
 
             /**
              * The position of the control (one of the map corners).
@@ -78,7 +72,7 @@ declare module 'leaflet' {
              *
              * Default value: 'topleft'.
              */
-            position?: PositionString;
+            position?: PositionString | undefined;
 
             /**
              * Attribution text to include.
@@ -86,7 +80,7 @@ declare module 'leaflet' {
              *
              * Default value: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>'
              */
-            attribution?: string;
+            attribution?: string | undefined;
 
             /**
              * Placeholder text to display in the search input box.
@@ -94,21 +88,21 @@ declare module 'leaflet' {
              *
              * Default value: 'Search'
              */
-            placeholder?: string;
+            placeholder?: string | undefined;
 
             /**
              * Tooltip text to display on the search icon. Set to blank or null to disable.
              *
              * Default value: 'Search'
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * If true, highlighting a search result pans the map to that location.
              *
              * Default value: true
              */
-            panToPoint?: boolean;
+            panToPoint?: boolean | undefined;
 
             /**
              * If true, an icon is used to indicate a polygonal result,
@@ -118,7 +112,7 @@ declare module 'leaflet' {
              *
              * Default value: true
              */
-            polygonIcon?: boolean | string;
+            polygonIcon?: boolean | string | undefined;
 
             /**
              * If true, search results drops Leaflet's default blue markers onto the map.
@@ -127,7 +121,7 @@ declare module 'leaflet' {
              *
              * Default value: true
              */
-            markers?: MarkerOptions | boolean;
+            markers?: MarkerOptions | boolean | undefined;
 
             /**
              * If true, the input box will expand to take up the full width of the map container.
@@ -136,7 +130,7 @@ declare module 'leaflet' {
              *
              * Default value: 650
              */
-            fullWidth?: number | boolean;
+            fullWidth?: number | boolean | undefined;
 
             /**
              * If true, the search input is always expanded.
@@ -144,7 +138,7 @@ declare module 'leaflet' {
              *
              * Default value: false
              */
-            expanded?: boolean;
+            expanded?: boolean | undefined;
 
             /**
              * If true, suggested results are fetched on each keystroke.
@@ -153,7 +147,7 @@ declare module 'leaflet' {
              *
              * Default value: true
              */
-            autocomplete?: boolean;
+            autocomplete?: boolean | undefined;
 
             /**
              * If true, selected results will make a request to the service /place endpoint.
@@ -163,7 +157,7 @@ declare module 'leaflet' {
              *
              * Default value: false
              */
-            place?: boolean;
+            place?: boolean | undefined;
         }
     }
 

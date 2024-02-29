@@ -1,15 +1,7 @@
-// Type definitions for passport-twitter 1.0.4
-// Project: https://github.com/jaredhanson/passport-twitter
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="passport"/>
 
-
-
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 interface Profile extends passport.Profile {
     gender: string;
@@ -25,35 +17,50 @@ interface IStrategyOptionBase {
     consumerSecret: string;
     callbackURL: string;
 
-    includeEmail?: boolean;
-    includeStatus?: boolean;
-    includeEntities?: boolean;
+    includeEmail?: boolean | undefined;
+    includeStatus?: boolean | undefined;
+    includeEntities?: boolean | undefined;
 
-    requestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
+    requestTokenURL?: string | undefined;
+    accessTokenURL?: string | undefined;
+    userAuthorizationURL?: string | undefined;
+    sessionKey?: string | undefined;
 
-    forceLogin?: boolean;
-    screenName?: string;
+    forceLogin?: boolean | undefined;
+    screenName?: string | undefined;
 
-    userProfileURL?: string;
-    skipExtendedUserProfile?: boolean;
+    userProfileURL?: string | undefined;
+    skipExtendedUserProfile?: boolean | undefined;
 }
 
 interface IStrategyOption extends IStrategyOptionBase {
-    passReqToCallback?: false;
+    passReqToCallback?: false | undefined;
 }
 
-interface IStrategyOptionWithRequest  extends IStrategyOptionBase {
+interface IStrategyOptionWithRequest extends IStrategyOptionBase {
     passReqToCallback: true;
 }
 
 declare class Strategy extends passport.Strategy {
-    constructor(options: IStrategyOption,
-        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-    constructor(options: IStrategyOptionWithRequest,
-        verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(
+        options: IStrategyOption,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: Profile,
+            done: (error: any, user?: any) => void,
+        ) => void,
+    );
+    constructor(
+        options: IStrategyOptionWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: Profile,
+            done: (error: any, user?: any) => void,
+        ) => void,
+    );
 
     name: string;
     authenticate(req: express.Request, options?: Object): void;

@@ -1,9 +1,4 @@
-// Type definitions for d3JS d3-time-format module 2.1
-// Project: https://github.com/d3/d3-time-format/, https://d3js.org/d3-time-format
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Last module patch version validated against: 2.1.0
+// Last module patch version validated against: 4.0.0
 
 /**
  * Specification of time locale to use when creating a new TimeLocaleObject
@@ -58,6 +53,8 @@ export interface TimeLocaleObject {
      * - %d - zero-padded day of the month as a decimal number [01,31].
      * - %e - space-padded day of the month as a decimal number [ 1,31]; equivalent to %_d.
      * - %f - microseconds as a decimal number [000000, 999999].
+     * - %g - ISO 8601 week-based year without century as a decimal number [00,99].
+     * - %G - ISO 8601 week-based year with century as a decimal number.
      * - %H - hour (24-hour clock) as a decimal number [00,23].
      * - %I - hour (12-hour clock) as a decimal number [01,12].
      * - %j - day of the year as a decimal number [001,366].
@@ -65,6 +62,7 @@ export interface TimeLocaleObject {
      * - %M - minute as a decimal number [00,59].
      * - %L - milliseconds as a decimal number [000, 999].
      * - %p - either AM or PM.*
+     * - %q - quarter of the year as a decimal number [1,4].
      * - %Q - milliseconds since UNIX epoch.
      * - %s - seconds since UNIX epoch.
      * - %S - second as a decimal number [00,61].
@@ -87,11 +85,11 @@ export interface TimeLocaleObject {
      * Week numbers are computed using interval.count. For example, 2015-52 and 2016-00 represent Monday, December 28, 2015, while 2015-53 and 2016-01 represent Monday, January 4, 2016.
      * This differs from the ISO week date specification (%V), which uses a more complicated definition!
      *
-     * For %V, per the strftime man page:
+     * For %V,%g and %G, per the strftime man page:
      *
      * In this system, weeks start on a Monday, and are numbered from 01, for the first week, up to 52 or 53, for the last week.
      * Week 1 is the first week where four or more days fall within the new year (or, synonymously, week 01 is: the first week of the year that contains a Thursday;
-     * or, the week that has 4 January in it).
+     * or, the week that has 4 January in it). If the ISO week number belongs to the previous or next year, that year is used instead.
      *
      * The % sign indicating a directive may be immediately followed by a padding modifier:
      *
@@ -120,7 +118,7 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    parse(specifier: string): (dateString: string) => (Date | null);
+    parse(specifier: string): (dateString: string) => Date | null;
     /**
      * Equivalent to locale.format (TimeLocaleObject.format), except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
      *
@@ -132,25 +130,25 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    utcParse(specifier: string): (dateString: string) => (Date | null);
+    utcParse(specifier: string): (dateString: string) => Date | null;
 }
 
 /**
  * Create a new time-locale-based object which exposes time-formatting
  * methods for the specified locale definition.
  *
- * @param timeLocale A time locale definition.
+ * @param definition A time locale definition.
  */
-export function timeFormatLocale(timeLocale: TimeLocaleDefinition): TimeLocaleObject;
+export function timeFormatLocale(definition: TimeLocaleDefinition): TimeLocaleObject;
 
 /**
  * Create a new time-locale-based object which exposes time-formatting
  * methods for the specified locale definition. The new time locale definition
  * will be set as the new default time locale.
  *
- * @param timeLocale A time locale definition.
+ * @param definition A time locale definition.
  */
-export function timeFormatDefaultLocale(defaultTimeLocale: TimeLocaleDefinition): TimeLocaleObject;
+export function timeFormatDefaultLocale(definition: TimeLocaleDefinition): TimeLocaleObject;
 
 /**
  * Returns a new formatter for the given string specifier. The returned function formats a specified date, returning the corresponding string.
@@ -168,7 +166,7 @@ export function timeFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function timeParse(specifier: string): (dateString: string) => (Date | null);
+export function timeParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * Equivalent to timeFormat, except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
@@ -186,7 +184,7 @@ export function utcFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function utcParse(specifier: string): (dateString: string) => (Date | null);
+export function utcParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * The full ISO 8601 UTC time formatter. Where available, this method will use Date.toISOString to format.

@@ -1,2 +1,2 @@
-import { propEq } from '../index';
+import { propEq } from "../index.js";
 export default propEq;

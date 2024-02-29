@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -9,15 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@styled-system/css": ["styled-system__css"],
-            "@rebass/forms": ["rebass__forms"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,8 +1,3 @@
-// Type definitions for style-search 0.1
-// Project: https://github.com/davidtheclark/style-search#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function styleSearch(options: styleSearch.Options, callback: styleSearch.StyleSearchCallback): void;
 
 declare namespace styleSearch {
@@ -10,7 +5,7 @@ declare namespace styleSearch {
      * Syntax feature options.
      * An error will be thrown if you use `only` more than once
      */
-    type SyntaxFeatureOption = 'skip' | 'check' | 'only';
+    type SyntaxFeatureOption = "skip" | "check" | "only";
 
     /**
      * For every match found your callback is invoked with:
@@ -32,6 +27,8 @@ declare namespace styleSearch {
         readonly insideComment: boolean;
         /** whether the match is inside a string */
         readonly insideString: boolean;
+        /** whether the match is inside parenthesis */
+        readonly insideParens: boolean;
     }
     /**
      * Syntax feature options all accept three keywords:"skip", "check", "only".

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is-map",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-map#readme"
+    ],
+    "devDependencies": {
+        "@types/is-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ankan Bhattacharya",
+            "githubUsername": "Ankan002"
+        },
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

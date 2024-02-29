@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dropbox-chooser",
+    "version": "1.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Dropbox Chooser",
+    "projects": [
+        "https://www.dropbox.com/developers/chooser"
+    ],
+    "devDependencies": {
+        "@types/dropbox-chooser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Su",
+            "githubUsername": "quas94"
+        }
+    ]
+}

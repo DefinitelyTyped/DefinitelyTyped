@@ -1,22 +1,17 @@
-// Type definitions for cli-interact 0.1
-// Project: https://github.com/zhami/cli-interact
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { BasicOptions } from 'readline-sync';
+import { BasicOptions } from "readline-sync";
 
 export interface ChoiceOptions {
-    allowNoAnswer?: boolean;
-    returnNumeric?: boolean;
+    allowNoAnswer?: boolean | undefined;
+    returnNumeric?: boolean | undefined;
 }
 
 export interface NumberOptions {
-    allowNoAnswer?: boolean;
-    requireInteger?: boolean;
+    allowNoAnswer?: boolean | undefined;
+    requireInteger?: boolean | undefined;
 }
 
 export function getChar(promptText: string, allowedCharsAsString: string, flagAllowNoAnswer?: boolean): string;
-export function getChoice(title: string, choices: string[], opts: ChoiceOptions & {returnNumeric: true}): number;
+export function getChoice(title: string, choices: string[], opts: ChoiceOptions & { returnNumeric: true }): number;
 export function getChoice(title: string, choices: string[], opts?: ChoiceOptions): string;
 export function getChoiceByChar(title: string, choices: string[], flagAllowNoAnswer?: boolean): string;
 export function getInteger(promptText: string): number;

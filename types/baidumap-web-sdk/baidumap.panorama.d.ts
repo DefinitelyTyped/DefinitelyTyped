@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -59,11 +54,11 @@ declare namespace BMap {
     }
 
     interface PanoramaOptions {
-        navigationControl?: boolean;
-        linksControl?: boolean;
-        indoorSceneSwitchControl?: boolean;
-        albumsControl?: boolean;
-        albumsControlOptions?: AlbumsControlOptions;
+        navigationControl?: boolean | undefined;
+        linksControl?: boolean | undefined;
+        indoorSceneSwitchControl?: boolean | undefined;
+        albumsControl?: boolean | undefined;
+        albumsControlOptions?: AlbumsControlOptions | undefined;
     }
     interface PanoramaLink {
         description: string;
@@ -104,20 +99,20 @@ declare namespace BMap {
         getAltitude(): number;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        onmouseover: (event: { type: string, target: any }) => void;
-        onmouseout: (event: { type: string, target: any }) => void;
-        onremove: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        onmouseover: (event: { type: string; target: any }) => void;
+        onmouseout: (event: { type: string; target: any }) => void;
+        onremove: (event: { type: string; target: any }) => void;
     }
     interface PanoramaLabelOptions {
-        position?: Point;
-        altitude?: number;
+        position?: Point | undefined;
+        altitude?: number | undefined;
     }
     interface AlbumsControlOptions {
-        anchor?: ControlAnchor;
-        offset?: Size;
-        maxWidth?: number | string;
-        imageHeight?: number;
+        anchor?: ControlAnchor | undefined;
+        offset?: Size | undefined;
+        maxWidth?: number | string | undefined;
+        imageHeight?: number | undefined;
     }
     type PanoramaSceneType = string;
     type PanoramaPOIType = string;

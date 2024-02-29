@@ -1,12 +1,6 @@
-// Type definitions for leaflet.pm 0.13
-// Project: https://github.com/codeofsumit/leaflet.pm, https://leafletpm.now.sh
-// Definitions by: Thomas Kleinke <https://github.com/tkleinke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface Map {
         pm: PM.Map;
     }
@@ -45,24 +39,24 @@ declare module 'leaflet' {
         }
 
         interface ToolbarOptions {
-            position?: string; // topleft | topright | bottomleft | bottomright
-            drawMarker?: boolean;
-            drawPolygon?: boolean;
-            drawPolyline?: boolean;
-            editPolygon?: boolean;
-            deleteLayer?: boolean;
+            position?: string | undefined; // topleft | topright | bottomleft | bottomright
+            drawMarker?: boolean | undefined;
+            drawPolygon?: boolean | undefined;
+            drawPolyline?: boolean | undefined;
+            editPolygon?: boolean | undefined;
+            deleteLayer?: boolean | undefined;
         }
 
         interface DrawOptions {
-            templineStyle?: PathOptions;
-            hintlineStyle?: PathOptions;
-            pathOptions?: PathOptions;
+            templineStyle?: PathOptions | undefined;
+            hintlineStyle?: PathOptions | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         interface EditOptions {
-            draggable?: boolean;
-            snappable?: boolean;
-            snapDistance?: number;
+            draggable?: boolean | undefined;
+            snappable?: boolean | undefined;
+            snapDistance?: number | undefined;
         }
 
         namespace Edit {

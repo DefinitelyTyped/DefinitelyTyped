@@ -1,9 +1,7 @@
-import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
+import { ForwardRefReturn, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface HeaderPanelProps extends InheritedProps {
-    expanded?: boolean,
+export interface HeaderPanelProps extends ReactDivAttr {
+    expanded?: boolean | undefined;
 }
 
 declare const HeaderPanel: ForwardRefReturn<HTMLDivElement, HeaderPanelProps>;

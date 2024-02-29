@@ -1,12 +1,6 @@
-// Type definitions for timelinejs
-// Project: https://github.com/NUKnightLab/TimelineJS
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function createStoryJS(config:knightlab.ITimeLineConfiguration):void;
+declare function createStoryJS(config: knightlab.ITimeLineConfiguration): void;
 
 declare namespace knightlab {
-
     export interface ITimeLineConfiguration {
         width: string;
         height: string;
@@ -30,51 +24,51 @@ declare namespace knightlab {
          * matches on .jsonp, we will treat it as JSONP, otherwise, we will append ?callback=onJSONP_Data.
          */
         source: any;
-        type?: string;
+        type?: string | undefined;
         /*
          * Optional use a different div id for embed
          */
-        embed_id?: string;
+        embed_id?: string | undefined;
         /*
          * Optional start at latest date
          */
-        start_at_end?: boolean;
+        start_at_end?: boolean | undefined;
         /*
          * Optional start at specific slide
          */
-        start_at_slide?: string;
+        start_at_slide?: string | undefined;
         /*
          * Optional tweak the default zoom level
          */
-        start_zoom_adjust?: string;
+        start_zoom_adjust?: string | undefined;
         /*
          * Optional location bar hashes
          */
-        hash_bookmark?: boolean;
+        hash_bookmark?: boolean | undefined;
         /*
          * Optional font
          */
-        font?: string;
+        font?: string | undefined;
         /*
          * Optional debug to console
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /*
          * Optional language
          */
-        lang?: string;
+        lang?: string | undefined;
         /*
          * Optional path to css
          */
-        css?: string;
+        css?: string | undefined;
         /*
          * Optional path to js
          */
-        js?: string;
+        js?: string | undefined;
         /*
          * required in order to use maptype
          */
-        gmap_key?: string;
+        gmap_key?: string | undefined;
         /*
          * Stamen Maps:
          * toner
@@ -92,45 +86,45 @@ declare namespace knightlab {
          * OpenStreetMap:
          * osm
          */
-        maptype?: string;
+        maptype?: string | undefined;
     }
 
     export interface ITimelineModel {
-        timeline:ITimeLine;
+        timeline: ITimeLine;
     }
 
     export interface ITimeLine {
-        headline?:string;
-        type?:string;
-        text?:string;
-        asset?:ITimeLineAsset;
-        date?:ITimelineDate[];
-        era?:ITimelineEra[];
+        headline?: string | undefined;
+        type?: string | undefined;
+        text?: string | undefined;
+        asset?: ITimeLineAsset | undefined;
+        date?: ITimelineDate[] | undefined;
+        era?: ITimelineEra[] | undefined;
     }
 
     export interface ITimeLineAsset {
-        media:string;
-        thumbnail?:string;
-        credit:string;
-        caption:string;
+        media: string;
+        thumbnail?: string | undefined;
+        credit: string;
+        caption: string;
     }
 
     export interface ITimelineDate extends ITimelineEra {
-        classname?:string;
-        asset?:ITimeLineAsset;
+        classname?: string | undefined;
+        asset?: ITimeLineAsset | undefined;
     }
 
     export interface ITimelineEra {
         /*
          * format example: 2011,12,10
          */
-        startDate:string;
+        startDate: string;
         /*
          * format example: 2011,12,10
          */
-        endDate:string;
-        headline:string;
-        text:string;
-        tag?:string;
+        endDate: string;
+        headline: string;
+        text: string;
+        tag?: string | undefined;
     }
 }

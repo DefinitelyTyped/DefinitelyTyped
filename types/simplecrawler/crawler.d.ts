@@ -1,28 +1,28 @@
 /// <reference types="node" />
-import { EventEmitter } from 'events';
-import { Agent as HTTPAgent, IncomingMessage } from 'http';
-import { Agent as HTTPSAgent } from 'https';
+import { EventEmitter } from "events";
+import { Agent as HTTPAgent, IncomingMessage } from "http";
+import { Agent as HTTPSAgent } from "https";
 
-import Cache from './cache';
-import CookieJar from './cookies';
-import FetchQueue, { QueueItem } from './queue';
+import Cache from "./cache";
+import CookieJar from "./cookies";
+import FetchQueue, { QueueItem } from "./queue";
 
-type HTTPMethods = 'GET' | 'POST' | 'HEAD' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+type HTTPMethods = "GET" | "POST" | "HEAD" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH";
 
 interface RequestOptions {
     method: HTTPMethods;
     host: string;
-    port?: number;
+    port?: number | undefined;
     agent: HTTPAgent | HTTPSAgent;
     headers: {
         Accept: string;
-        'User-Agent': string;
+        "User-Agent": string;
         Host: string;
-        'Accept-Encoding'?: string;
-        Referer?: string;
-        cookie?: string;
-        Authorization?: string;
-        'Proxy-Authorization'?: string;
+        "Accept-Encoding"?: string | undefined;
+        Referer?: string | undefined;
+        cookie?: string | undefined;
+        Authorization?: string | undefined;
+        "Proxy-Authorization"?: string | undefined;
         [key: string]: any;
     };
 }
@@ -44,15 +44,15 @@ declare class Crawler extends EventEmitter {
     scanSubdomains: boolean;
     ignoreWWWDomain: boolean;
     stripWWWDomain: boolean;
-    cache?: Cache;
+    cache?: Cache | undefined;
     useProxy: boolean;
     proxyHostname: string;
     proxyPort: number;
-    proxyUser?: string;
-    proxyPass?: string;
+    proxyUser?: string | undefined;
+    proxyPass?: string | undefined;
     needsAuth: boolean;
-    authUser?: string;
-    authPass?: string;
+    authUser?: string | undefined;
+    authPass?: string | undefined;
     acceptCookies: boolean;
     cookies: CookieJar;
     customHeaders: object;
@@ -123,22 +123,37 @@ declare class Crawler extends EventEmitter {
 
     removeFetchCondition(id: number | (() => void)): boolean;
 
-    on(event: 'crawlstart' | 'complete', listener: () => void): this;
-    on(event: 'discoverycomplete', listener: (queueItem: QueueItem, resources: string[]) => void): this;
-    on(event: 'invaliddomain' | 'fetchdisallowed' | 'queueduplicate', listener: (queueItem: QueueItem) => void): this;
-    on(event: 'fetchconditionerror' | 'downloadconditionerror', listener: (queueItem: QueueItem, error: any) => void): this;
-    on(event: 'fetchprevented', listener: (queueItem: QueueItem, fetchCondition: () => boolean) => void): this;
-    on(event: 'queueerror', listener: (error?: QueueItem, queueItem?: QueueItem) => void): this;
-    on(event: 'queueadd', listener: (queueItem?: QueueItem, referrer?: QueueItem) => void): this;
-    on(event: 'fetchtimeout', listener: (queueItem: QueueItem, timeout: number) => void): this;
-    on(event: 'fetchclienterror', listener: (queueItem: QueueItem, error?: object) => void): this;
-    on(event: 'fetchstart', listener: (queueItem: QueueItem, requestOptions: RequestOptions) => void): this;
-    on(event: 'cookieerror', listener: (queueItem: QueueItem, error: Error, cookie: string) => void): this;
-    on(event: 'fetchheaders' | 'downloadprevented' | 'fetch404' | 'fetch410' | 'fetcherror' | 'fetchdataerror', listener: (queueItem: QueueItem, response: IncomingMessage) => void): this;
-    on(event: 'notmodified', listener: (queueItem: QueueItem, response: IncomingMessage, cacheObject: Cache) => void): this;
-    on(event: 'fetchredirect', listener: (queueItem: QueueItem, redirectQueueItem: QueueItem, response: IncomingMessage) => void): this;
-    on(event: 'fetchcomplete' | 'gziperror', listener: (queueItem: QueueItem, responseBody: string | Buffer, response: IncomingMessage) => void): this;
-    on(event: 'robotstxterror', listener: (error: Error) => void): this;
+    on(event: "crawlstart" | "complete", listener: () => void): this;
+    on(event: "discoverycomplete", listener: (queueItem: QueueItem, resources: string[]) => void): this;
+    on(event: "invaliddomain" | "fetchdisallowed" | "queueduplicate", listener: (queueItem: QueueItem) => void): this;
+    on(
+        event: "fetchconditionerror" | "downloadconditionerror",
+        listener: (queueItem: QueueItem, error: any) => void,
+    ): this;
+    on(event: "fetchprevented", listener: (queueItem: QueueItem, fetchCondition: () => boolean) => void): this;
+    on(event: "queueerror", listener: (error?: QueueItem, queueItem?: QueueItem) => void): this;
+    on(event: "queueadd", listener: (queueItem?: QueueItem, referrer?: QueueItem) => void): this;
+    on(event: "fetchtimeout", listener: (queueItem: QueueItem, timeout: number) => void): this;
+    on(event: "fetchclienterror", listener: (queueItem: QueueItem, error?: object) => void): this;
+    on(event: "fetchstart", listener: (queueItem: QueueItem, requestOptions: RequestOptions) => void): this;
+    on(event: "cookieerror", listener: (queueItem: QueueItem, error: Error, cookie: string) => void): this;
+    on(
+        event: "fetchheaders" | "downloadprevented" | "fetch404" | "fetch410" | "fetcherror" | "fetchdataerror",
+        listener: (queueItem: QueueItem, response: IncomingMessage) => void,
+    ): this;
+    on(
+        event: "notmodified",
+        listener: (queueItem: QueueItem, response: IncomingMessage, cacheObject: Cache) => void,
+    ): this;
+    on(
+        event: "fetchredirect",
+        listener: (queueItem: QueueItem, redirectQueueItem: QueueItem, response: IncomingMessage) => void,
+    ): this;
+    on(
+        event: "fetchcomplete" | "gziperror",
+        listener: (queueItem: QueueItem, responseBody: string | Buffer, response: IncomingMessage) => void,
+    ): this;
+    on(event: "robotstxterror", listener: (error: Error) => void): this;
 }
 
 export = Crawler;

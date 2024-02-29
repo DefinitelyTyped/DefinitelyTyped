@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wink-jaro-distance",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/winkjs/wink-jaro-distance"
+    ],
+    "devDependencies": {
+        "@types/wink-jaro-distance": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Warren Edwards",
+            "githubUsername": "Wazbat"
+        }
+    ]
+}

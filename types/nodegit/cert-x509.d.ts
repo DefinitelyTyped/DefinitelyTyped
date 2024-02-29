@@ -1,4 +1,4 @@
-import { Cert } from './cert';
+import { Cert } from "./cert";
 
 export class CertX509 {
     data: Buffer;

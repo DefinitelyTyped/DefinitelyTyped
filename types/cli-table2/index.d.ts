@@ -1,26 +1,20 @@
-// Type definitions for cli-table2 0.2
-// Project: https://github.com/jamestalmage/cli-table2
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace CliTable2 {
     type CharName =
-        "top" |
-        "top-mid" |
-        "top-left" |
-        "top-right" |
-        "bottom" |
-        "bottom-mid" |
-        "bottom-left" |
-        "bottom-right" |
-        "left" |
-        "left-mid" |
-        "mid" |
-        "mid-mid" |
-        "right" |
-        "right-mid" |
-        "middle";
+        | "top"
+        | "top-mid"
+        | "top-left"
+        | "top-right"
+        | "bottom"
+        | "bottom-mid"
+        | "bottom-left"
+        | "bottom-right"
+        | "left"
+        | "left-mid"
+        | "mid"
+        | "mid-mid"
+        | "right"
+        | "right-mid"
+        | "middle";
 
     type HorizontalAlignment = "left" | "center" | "right";
     type VerticalAlignment = "top" | "center" | "bottom";
@@ -47,26 +41,26 @@ declare namespace CliTable2 {
     }
 
     interface TableConstructorOptions extends Partial<TableOptions> {
-        chars?: Partial<Record<CharName, string>>;
-        style?: Partial<TableInstanceOptions["style"]>;
+        chars?: Partial<Record<CharName, string>> | undefined;
+        style?: Partial<TableInstanceOptions["style"]> | undefined;
     }
 
     type CellValue = boolean | number | string | null | undefined;
 
     interface CellOptions {
         content: CellValue;
-        chars?: Partial<Record<CharName, string>>;
-        truncate?: string;
-        colSpan?: number;
-        rowSpan?: number;
-        hAlign?: HorizontalAlignment;
-        vAlign?: VerticalAlignment;
+        chars?: Partial<Record<CharName, string>> | undefined;
+        truncate?: string | undefined;
+        colSpan?: number | undefined;
+        rowSpan?: number | undefined;
+        hAlign?: HorizontalAlignment | undefined;
+        vAlign?: VerticalAlignment | undefined;
         style?: {
-            "padding-left"?: number;
-            "padding-right"?: number;
-            head?: string[];
-            border?: string[];
-        };
+            "padding-left"?: number | undefined;
+            "padding-right"?: number | undefined;
+            head?: string[] | undefined;
+            border?: string[] | undefined;
+        } | undefined;
     }
 
     interface GenericTable<T> extends Array<T> {
@@ -92,7 +86,7 @@ declare namespace CliTable2 {
 }
 
 interface CliTable2 {
-    new (options?: CliTable2.TableConstructorOptions): CliTable2.Table;
+    new(options?: CliTable2.TableConstructorOptions): CliTable2.Table;
     readonly prototype: CliTable2.Table;
 }
 

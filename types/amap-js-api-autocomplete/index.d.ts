@@ -1,53 +1,47 @@
-// Type definitions for non-npm package amap-js-api-autocomplete 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.Autocomplete
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace Autocomplete {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
-            select: Event<'select', { tip: Tip }>;
-            choose: Event<'choose', { tip: Tip }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
+            select: Event<"select", { tip: Tip }>;
+            choose: Event<"choose", { tip: Tip }>;
         }
-        type DataType = 'all' | 'bus' | 'poi' | 'busline';
+        type DataType = "all" | "bus" | "poi" | "busline";
         interface Options {
             /**
              * 输入提示时限定POI类型，多个类型用“|”分隔
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * 输入提示时限定城市
              */
-            city?: string;
+            city?: string | undefined;
             /**
              * 返回的数据类型
              */
-            datatype?: DataType;
+            datatype?: DataType | undefined;
             /**
              * 是否强制限制在设置的城市内搜索
              */
-            citylimit?: boolean;
+            citylimit?: boolean | undefined;
             /**
              * 指定输入框
              */
-            input?: string | HTMLInputElement;
+            input?: string | HTMLInputElement | undefined;
             /**
              * 指定输出面板
              */
-            output?: string | HTMLDivElement;
+            output?: string | HTMLDivElement | undefined;
             /**
              * 是否在input位于页面较下方的时候自动将输入面板显示在input上方以避免被遮挡
              */
-            outPutDirAuto?: boolean;
+            outPutDirAuto?: boolean | undefined;
 
             // internal
-            closeResultOnScroll?: boolean;
-            lang?: Lang;
+            closeResultOnScroll?: boolean | undefined;
+            lang?: Lang | undefined;
         }
         interface Tip {
             /**
@@ -97,7 +91,7 @@ declare namespace AMap {
              */
             tips: Tip[];
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class Autocomplete extends EventEmitter {
         /**
@@ -112,7 +106,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void
+            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void,
         ): void;
         /**
          * 设置提示Poi类型，多个类型用“|”分隔

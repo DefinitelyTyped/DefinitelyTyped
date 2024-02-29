@@ -1,13 +1,6 @@
-// Type definitions for browser-bunyan 0.4
-// Project: https://github.com/philmander/browser-bunyan
-// Definitions by: Paul Lockwood <https://github.com/PaulLockwood>
-//                 Michael Strobel <https://github.com/kryops>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as bunyan from 'bunyan';
+import * as bunyan from "bunyan";
 
 declare namespace BrowserBunyan {
     interface ConsoleFormattedStreamLevelStyle {
@@ -27,8 +20,8 @@ declare namespace BrowserBunyan {
     }
 
     interface ConsoleFormattedStreamOptions {
-        logByLevel?: boolean;
-        css?: Partial<ConsoleFormattedStreamStyle>;
+        logByLevel?: boolean | undefined;
+        css?: Partial<ConsoleFormattedStreamStyle> | undefined;
     }
 
     type ConsoleFormattedStream = new(options?: ConsoleFormattedStreamOptions) => NodeJS.WritableStream;
@@ -37,8 +30,8 @@ declare namespace BrowserBunyan {
 }
 
 type BrowserBunyan = typeof bunyan & {
-    ConsoleFormattedStream: BrowserBunyan.ConsoleFormattedStream
-    ConsoleRawStream: BrowserBunyan.ConsoleRawStream
+    ConsoleFormattedStream: BrowserBunyan.ConsoleFormattedStream;
+    ConsoleRawStream: BrowserBunyan.ConsoleRawStream;
 };
 
 declare const browserBunyan: BrowserBunyan;

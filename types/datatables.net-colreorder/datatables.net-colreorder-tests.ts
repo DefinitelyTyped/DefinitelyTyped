@@ -7,6 +7,6 @@ $(document).ready(() => {
             order: [1, 2, 3],
             realtime: true,
             reorderCallback: () => {},
-        }
+        },
     };
 });

@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/shortcode 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/shortcode/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface ShortcodeAttrs {
     named: Record<string, string | undefined>;
     numeric: string[];
@@ -18,13 +12,13 @@ export interface ShortcodeMatch {
 export type Shortcode = {
     attrs: ShortcodeAttrs;
     tag: string;
-} & ({ type: 'closed'; content: string } | { type: 'self-closing' | 'single' });
+} & ({ type: "closed"; content: string } | { type: "self-closing" | "single" });
 
 export interface ShortcodeOptions {
     tag: string;
-    type?: 'closed' | 'self-closing' | 'single';
-    attrs?: Partial<ShortcodeAttrs> | string;
-    content?: string;
+    type?: "closed" | "self-closing" | "single" | undefined;
+    attrs?: Partial<ShortcodeAttrs> | string | undefined;
+    content?: string | undefined;
 }
 
 export const attrs: {
@@ -62,7 +56,7 @@ export const attrs: {
  * by `regexp()`. `match` can also be set to the `arguments` from a callback
  * passed to `regexp.replace()`.
  */
-export function fromMatch(match: RegExpMatchArray): Shortcode;
+export function fromMatch(match: RegExpExecArray): Shortcode;
 
 /**
  * Find the next matching shortcode.
@@ -129,9 +123,9 @@ export default class shortcode {
     static string: typeof string;
 
     attrs: ShortcodeAttrs;
-    content?: string;
-    tag?: string;
-    type?: 'closed' | 'self-closing' | 'single';
+    content?: string | undefined;
+    tag?: string | undefined;
+    type?: "closed" | "self-closing" | "single" | undefined;
 
     constructor(options?: Partial<ShortcodeOptions>);
 

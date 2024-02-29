@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-props-decorators",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/popkirby/react-props-decorators"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/prop-types": "*",
+        "@types/react-props-decorators": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        }
+    ]
+}

@@ -1,10 +1,4 @@
-// Type definitions for @absinthe/socket 0.2
-// Project: https://github.com/absinthe-graphql/absinthe-socket#readme
-// Definitions by: Maarten van Vliet <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
-import { Socket, Channel } from 'phoenix';
+import { Channel, Socket } from "phoenix";
 
 export interface AbsintheSocket<T = {}> {
     channel: Channel;
@@ -13,20 +7,20 @@ export interface AbsintheSocket<T = {}> {
     phoenixSocket: Socket;
 }
 
-export type GqlOperationType = 'mutation' | 'query' | 'subscription';
-export type RequestStatus = 'canceled' | 'canceling' | 'pending' | 'sent' | 'sending';
+export type GqlOperationType = "mutation" | "query" | "subscription";
+export type RequestStatus = "canceled" | "canceling" | "pending" | "sent" | "sending";
 
 export interface GqlRequest<Variables> {
     operation: string;
-    variables?: Variables;
+    variables?: Variables | undefined;
 }
 
 export interface Observer<Variables = {}, Result = {}> {
-    onAbort?: (error: Error) => any;
-    onCancel?: () => any;
-    onError?: (error: Error) => any;
-    onStart?: (notifier: Notifier<Variables>) => any;
-    onResult?: (result: Result) => any;
+    onAbort?: ((error: Error) => any) | undefined;
+    onCancel?: (() => any) | undefined;
+    onError?: ((error: Error) => any) | undefined;
+    onStart?: ((notifier: Notifier<Variables>) => any) | undefined;
+    onResult?: ((result: Result) => any) | undefined;
 }
 
 export interface Notifier<Variables = {}, Result = {}> {
@@ -36,7 +30,7 @@ export interface Notifier<Variables = {}, Result = {}> {
     operationType: GqlOperationType;
     request: GqlRequest<Variables>;
     requestStatus: RequestStatus;
-    subscriptionId?: string;
+    subscriptionId?: string | undefined;
 }
 /** Cancels a notifier sending a Cancel event to all its observers and unsubscribing in case it holds a subscription request */
 export function cancel(absintheSocket: AbsintheSocket, notifier: Notifier): AbsintheSocket;

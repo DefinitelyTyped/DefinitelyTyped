@@ -1,15 +1,9 @@
-// Type definitions for follow-redirects 1.13
-// Project: https://github.com/follow-redirects/follow-redirects
-// Definitions by: Emily Klassen <https://github.com/forivall>
-//                 Claas Ahlrichs <https://github.com/claasahl>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as coreHttp from 'http';
-import * as coreHttps from 'https';
-import { Writable } from 'stream';
+import * as coreHttp from "http";
+import * as coreHttps from "https";
+import { Writable } from "stream";
+import { URL } from "url";
 
 export interface WrappableRequest {
     getHeader?(...args: any[]): any;
@@ -23,9 +17,9 @@ export interface WrappableRequest {
     setTimeout?(...args: any[]): any;
 }
 export interface WrappableResponse {
-    statusCode?: number;
+    statusCode?: number | undefined;
     headers: {
-        location?: string
+        location?: string | undefined;
     };
     destroy(): any;
 }
@@ -35,14 +29,14 @@ export interface Scheme<Options, Request extends WrappableRequest, Response> {
 }
 
 export interface RedirectableRequest<Request extends WrappableRequest, Response> extends Writable {
-    setHeader: Request['setHeader'];
-    removeHeader: Request['removeHeader'];
-    abort: Request['abort'];
-    flushHeaders: Request['flushHeaders'];
-    getHeader: Request['getHeader'];
-    setNoDelay: Request['setNoDelay'];
-    setSocketKeepAlive: Request['setSocketKeepAlive'];
-    setTimeout: Request['setTimeout'];
+    setHeader: Request["setHeader"];
+    removeHeader: Request["removeHeader"];
+    abort: Request["abort"];
+    flushHeaders: Request["flushHeaders"];
+    getHeader: Request["getHeader"];
+    setNoDelay: Request["setNoDelay"];
+    setSocketKeepAlive: Request["setSocketKeepAlive"];
+    setTimeout: Request["setTimeout"];
 
     addListener(event: string, listener: (...args: any[]) => void): this;
     addListener(event: "response", listener: (response: Response) => void): this;
@@ -70,27 +64,47 @@ export interface RedirectableRequest<Request extends WrappableRequest, Response>
 }
 
 export interface RedirectScheme<Options, Request extends WrappableRequest, Response> {
+    /**
+     * This function has two overloads:
+     * ```typescript
+     * request(options: string | URL | Options, callback)
+     * request(url: string | URL, options: Options, callback)
+     * ```
+     */
     request(
-        options: string | Options & FollowOptions<Options>,
-        callback?: (res: Response & FollowResponse) => void
+        url: string | URL | (Options & FollowOptions<Options>),
+        options?: (Options & FollowOptions<Options>) | ((res: Response & FollowResponse) => void),
+        callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
+    /**
+     * This function has two overloads:
+     * ```typescript
+     * get(options: string | URL | Options, callback)
+     * get(url: string | URL, options: Options, callback)
+     * ```
+     */
     get(
-        options: string | Options & FollowOptions<Options>,
-        callback?: (res: Response & FollowResponse) => void
+        url: string | URL | (Options & FollowOptions<Options>),
+        options?: (Options & FollowOptions<Options>) | ((res: Response & FollowResponse) => void),
+        callback?: (res: Response & FollowResponse) => void,
     ): RedirectableRequest<Request, Response>;
 }
 
 export type Override<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 export interface FollowOptions<Options> {
-    followRedirects?: boolean;
-    maxRedirects?: number;
-    maxBodyLength?: number;
-    beforeRedirect?: (options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void;
-    agents?: {
-        http?: coreHttp.Agent;
-        https?: coreHttps.Agent;
-    };
-    trackRedirects?: boolean;
+    followRedirects?: boolean | undefined;
+    maxRedirects?: number | undefined;
+    maxBodyLength?: number | undefined;
+    beforeRedirect?:
+        | ((options: Options & FollowOptions<Options>, responseDetails: ResponseDetails) => void)
+        | undefined;
+    agents?:
+        | {
+            http?: coreHttp.Agent | undefined;
+            https?: coreHttps.Agent | undefined;
+        }
+        | undefined;
+    trackRedirects?: boolean | undefined;
 }
 
 export interface FollowResponse {
@@ -104,27 +118,30 @@ export interface Redirect {
     statusCode: number;
 }
 
-export interface  ResponseDetails {
+export interface ResponseDetails {
     headers: coreHttp.IncomingHttpHeaders;
 }
 
-export const http: Override<typeof coreHttp, RedirectScheme<
-    coreHttp.RequestOptions,
-    coreHttp.ClientRequest,
-    coreHttp.IncomingMessage
->>;
-export const https: Override<typeof coreHttps, RedirectScheme<
-    coreHttps.RequestOptions,
-    coreHttp.ClientRequest,
-    coreHttp.IncomingMessage
->>;
+export const http: Override<
+    typeof coreHttp,
+    RedirectScheme<coreHttp.RequestOptions, coreHttp.ClientRequest, coreHttp.IncomingMessage>
+>;
+export const https: Override<
+    typeof coreHttps,
+    RedirectScheme<coreHttps.RequestOptions, coreHttp.ClientRequest, coreHttp.IncomingMessage>
+>;
 
-export type WrappedScheme<T extends Scheme<any, any, any>> = Override<T, RedirectScheme<
-    T extends Scheme<infer Options, any, any> ? Options : never,
-    T extends Scheme<any, infer Request, any> ? Request : never,
-    T extends Scheme<any, any, infer Response> ? Response : never
->>;
+export type WrappedScheme<T extends Scheme<any, any, any>> = Override<
+    T,
+    RedirectScheme<
+        T extends Scheme<infer Options, any, any> ? Options : never,
+        T extends Scheme<any, infer Request, any> ? Request : never,
+        T extends Scheme<any, any, infer Response> ? Response : never
+    >
+>;
 
-export function wrap<T extends {[key: string]: Scheme<any, any, any>}>(protocols: T): {
-    [K in keyof T]: WrappedScheme<T[K]>
+export function wrap<T extends { [key: string]: Scheme<any, any, any> }>(
+    protocols: T,
+): {
+    [K in keyof T]: WrappedScheme<T[K]>;
 };

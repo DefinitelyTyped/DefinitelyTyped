@@ -5,11 +5,20 @@ declare class User {
     readonly displayname: string;
     readonly email: string;
     readonly username: string;
-    readonly password?: string;
+    readonly password?: string | undefined;
     readonly active: boolean;
-    readonly attributes: {[key: string]: any};
+    readonly attributes: { [key: string]: any };
 
-    constructor(firstname: string, lastname: string, displayname: string, email: string, username: string, password?: string, active?: boolean, attributes?: any);
+    constructor(
+        firstname: string,
+        lastname: string,
+        displayname: string,
+        email: string,
+        username: string,
+        password?: string,
+        active?: boolean,
+        attributes?: any,
+    );
     toCrowd(): UserObj;
     static fromCrowd(userObj: UserObj): User;
 }
@@ -21,5 +30,5 @@ interface UserObj {
     readonly "display-name": string;
     readonly "email": string;
     readonly "active": boolean;
-    readonly "password"?: { value: string };
+    readonly "password"?: { value: string } | undefined;
 }

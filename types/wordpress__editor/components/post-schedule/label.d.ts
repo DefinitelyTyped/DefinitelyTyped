@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PostScheduleLabel {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PostScheduleLabel: ComponentType<PostScheduleLabel.Props>;

@@ -1,13 +1,5 @@
-// Type definitions for react-dnd-multi-backend 6.0
-// Project: https://github.com/LouisBrunner/react-dnd-multi-backend, https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend
-// Definitions by: Janeene Beeforth <https://github.com/dawnmist>
-//                 Adam Haglund <https://github.com/beeequeue>
-//                 Rob Valentine <https://github.com/robcodemonkey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 import { BackendFactory } from "dnd-core";
+import { CSSProperties, FC, PureComponent, ReactNode } from "react";
 
 /**
  * Callback function type definition for checking whether an event represents a transition between
@@ -56,17 +48,17 @@ export interface BackendDeclaration {
     /**
      * Parameters to the backend
      */
-    options?: object;
+    options?: object | undefined;
     /**
      * Flag to indicate that this backend needs to have a custom preview generated. This is mainly
      * used for backends such as the react-dnd-touch-backend, where there is no default preview
      * available.
      */
-    preview?: boolean;
+    preview?: boolean | undefined;
     /**
      * The transition that this backend should be used for.
      */
-    transition?: Transition;
+    transition?: Transition | undefined;
 }
 
 /**
@@ -125,7 +117,7 @@ export class Preview extends PureComponent<PreviewProps> {}
 /**
  * Pre-existing/default react-dnd-multi-backend transition available to use.
  */
- export const MouseTransition: Transition;
+export const MouseTransition: Transition;
 /**
  * Pre-existing/default react-dnd-touch-backend transition available to use.
  * This transition has the setting for "enableMouseEvents" turned on.
@@ -141,8 +133,9 @@ export const HTML5DragTransition: Transition;
  */
 export const DndProvider: FC<{
     context?: any;
-    debugMode?: boolean;
+    debugMode?: boolean | undefined;
     options: Backends;
+    children?: ReactNode;
 }>;
 
 /**

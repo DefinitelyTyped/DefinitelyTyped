@@ -1,28 +1,22 @@
-// Type definitions for non-npm package amap-js-api-geolocation 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/location#m_AMap.Geolocation
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 /// <reference types="amap-js-api-geocoder" />
 
 declare namespace AMap {
     namespace Geolocation {
         interface EventMap {
-            complete: Event<'complete', GeolocationResult>;
-            error: Event<'error', ErrorStatus>;
+            complete: Event<"complete", GeolocationResult>;
+            error: Event<"error", ErrorStatus>;
         }
-        type ButtonPosition = 'LT' | 'LB' | 'RT' | 'RB';
+        type ButtonPosition = "LT" | "LB" | "RT" | "RB";
         interface Options {
             /**
              * 是否使用高精度
              */
-            enableHighAccuracy?: boolean;
+            enableHighAccuracy?: boolean | undefined;
             /**
              * 超时毫秒数
              */
-            timeout?: number;
+            timeout?: number | undefined;
             /**
              * 是否禁止使用IP定位，默认值为0
              * 0: 可以使用IP定位
@@ -30,7 +24,7 @@ declare namespace AMap {
              * 2: PC上禁止使用IP定位
              * 3: 所有终端禁止使用IP定位
              */
-            noIpLocate?: number;
+            noIpLocate?: number | undefined;
             /**
              * 是否禁止使用浏览器Geolocation定位，默认值为0
              * 0: 可以使用浏览器定位
@@ -38,27 +32,27 @@ declare namespace AMap {
              * 2: PC上禁止使用浏览器定位
              * 3: 所有终端禁止使用浏览器定位
              */
-            noGeoLocation?: number;
+            noGeoLocation?: number | undefined;
             /**
              * 是否PC端为优先使用浏览器定位
              */
-            GeoLocationFirst?: boolean;
+            GeoLocationFirst?: boolean | undefined;
             /**
              * 缓存毫秒数
              */
-            maximumAge?: number;
+            maximumAge?: number | undefined;
             /**
              * 是否转换成高德坐标
              */
-            convert?: boolean;
+            convert?: boolean | undefined;
             /**
              * 是否显示定位按钮
              */
-            showButton?: boolean;
+            showButton?: boolean | undefined;
             /**
              * 自定义定位按钮的内容
              */
-            buttonDom?: string | HTMLElement;
+            buttonDom?: string | HTMLElement | undefined;
             /**
              * 定位按钮可停靠的位置
              * “LT”：左上角
@@ -66,48 +60,48 @@ declare namespace AMap {
              * “RT”：右上角
              * “RB”：右下角
              */
-            buttonPosition?: ButtonPosition;
+            buttonPosition?: ButtonPosition | undefined;
             /**
              * 按钮距离停靠位置的偏移量
              */
-            buttonOffset?: Pixel;
+            buttonOffset?: Pixel | undefined;
             /**
              * 定位成功时是否在定位位置显示一个Marker
              */
-            showMarker?: boolean;
+            showMarker?: boolean | undefined;
             /**
              * 定位点Marker的配置
              */
-            markerOptions?: Marker.Options;
+            markerOptions?: Marker.Options | undefined;
             /**
              * 定位成功并且有精度信息时，是否用一个圆圈circle表示精度范围
              */
-            showCircle?: boolean;
+            showCircle?: boolean | undefined;
             /**
              * 定位点Circle的配置
              */
-            circleOptions?: Circle.Options;
+            circleOptions?: Circle.Options | undefined;
             /**
              * 定位成功后，是否把定位得到的坐标设置为地图中心点坐标
              */
-            panToLocation?: boolean;
+            panToLocation?: boolean | undefined;
             /**
              * 定位成功且显示精度范围时，是否把地图视野调整到正好显示精度范围
              */
-            zoomToAccuracy?: boolean;
+            zoomToAccuracy?: boolean | undefined;
             /**
              * 是否使用安卓定位sdk用来进行定位
              */
-            useNative?: boolean;
+            useNative?: boolean | undefined;
             /**
              * 是否返回详细信息
              */
-            extensions?: 'all' | 'base';
+            extensions?: "all" | "base" | undefined;
             // internal
-            convertUrl?: string;
-            stopWhenPermissionDenied?: boolean;
+            convertUrl?: string | undefined;
+            stopWhenPermissionDenied?: boolean | undefined;
         }
-        type LocationType = 'html5' | 'ip' | 'sdk';
+        type LocationType = "html5" | "ip" | "sdk";
         interface GeolocationResult extends Geocoder.ReGeocode {
             /**
              * 定位结果
@@ -198,7 +192,7 @@ declare namespace AMap {
              */
             status: 1;
         }
-        type SearchStatus = 'complete' | 'error';
+        type SearchStatus = "complete" | "error";
     }
 
     class Geolocation extends EventEmitter {
@@ -215,7 +209,12 @@ declare namespace AMap {
          * 获取用户当前的精确位置信息
          * @param callback 回调
          */
-        getCurrentPosition(callback: (status: Geolocation.SearchStatus, result: Geolocation.GeolocationResult | Geolocation.ErrorStatus) => void): void;
+        getCurrentPosition(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.GeolocationResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
         /**
          * 使用浏览器定位接口监控当前位置，移动端有效
          */
@@ -229,6 +228,11 @@ declare namespace AMap {
          * 进行IP城市查询
          * @param callback 回调
          */
-        getCityInfo(callback: (status: Geolocation.SearchStatus, result: Geolocation.CityResult | Geolocation.ErrorStatus) => void): void;
+        getCityInfo(
+            callback: (
+                status: Geolocation.SearchStatus,
+                result: Geolocation.CityResult | Geolocation.ErrorStatus,
+            ) => void,
+        ): void;
     }
 }

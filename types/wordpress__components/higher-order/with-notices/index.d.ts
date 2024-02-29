@@ -1,12 +1,12 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import NoticeList from '../../notice/list';
+import NoticeList from "../../notice/list";
 
 declare namespace withNotices {
     interface Props {
         noticeList: readonly NoticeList.Notice[];
         noticeOperations: {
-            createNotice(notice: Partial<NoticeList.Notice> & Pick<NoticeList.Notice, 'content'>): void;
+            createNotice(notice: Partial<NoticeList.Notice> & Pick<NoticeList.Notice, "content">): void;
             createErrorNotice(message: string): void;
             removeAllNotices(): void;
             removeNotice(noticeId: string): void;
@@ -16,8 +16,9 @@ declare namespace withNotices {
 }
 
 // prettier-ignore
-declare function withNotices<T extends ComponentType<any>>(wrapped: T):
-    T extends ComponentType<infer U> ? ComponentType<Omit<U, keyof withNotices.Props>> :
-    never;
+declare function withNotices<T extends ComponentType<any>>(
+    wrapped: T,
+): T extends ComponentType<infer U> ? ComponentType<Omit<U, keyof withNotices.Props>>
+    : never;
 
 export default withNotices;

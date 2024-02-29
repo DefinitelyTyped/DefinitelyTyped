@@ -1,8 +1,3 @@
-// Type definitions for Keypress 2.1
-// Project: https://github.com/dmauro/Keypress/
-// Definitions by: Roger Chen <https://github.com/rcchen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // A keyboard input capturing utility in which any key can be a modifier key.
 
 export as namespace keypress;
@@ -19,18 +14,18 @@ export interface ListenerDefaults {
 }
 
 export interface Combo {
-    keys?: string;
+    keys?: string | undefined;
     on_keydown?(event?: KeyboardEvent, count?: number): any;
     on_keyup?(event?: KeyboardEvent): any;
     on_release?(event?: KeyboardEvent): any;
-    this?: Element;
-    prevent_default?: boolean;
-    prevent_repeat?: boolean;
-    is_unordered?: boolean;
-    is_counting?: boolean;
-    is_exclusive?: boolean;
-    is_sequence?: boolean;
-    is_solitary?: boolean;
+    this?: Element | undefined;
+    prevent_default?: boolean | undefined;
+    prevent_repeat?: boolean | undefined;
+    is_unordered?: boolean | undefined;
+    is_counting?: boolean | undefined;
+    is_exclusive?: boolean | undefined;
+    is_sequence?: boolean | undefined;
+    is_solitary?: boolean | undefined;
 }
 
 export class Listener {

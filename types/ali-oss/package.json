@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ali-oss",
+    "version": "6.16.9999",
+    "projects": [
+        "https://github.com/aliyun/oss-nodejs-sdk"
+    ],
+    "devDependencies": {
+        "@types/ali-oss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ptrdu",
+            "githubUsername": "ptrdu"
+        }
+    ]
+}

@@ -1,19 +1,24 @@
 import * as ipcheck from "ipcheck";
 
-ipcheck.match(1, 1); // $ExpectError
-ipcheck.match("", 1); // $ExpectError
-ipcheck.match(1, ""); // $ExpectError
+// @ts-expect-error
+ipcheck.match(1, 1);
+// @ts-expect-error
+ipcheck.match("", 1);
+// @ts-expect-error
+ipcheck.match(1, "");
 
-new ipcheck(1); // $ExpectError
+// @ts-expect-error
+new ipcheck(1);
 
 const ip = new ipcheck("");
 
-// $ExpectError
+// @ts-expect-error
 if (ip.ipv === 1) {
 }
 
-// $ExpectError
+// @ts-expect-error
 if (ip.ipv === 1) {
 }
 
-ip.match(1); // $ExpectError
+// @ts-expect-error
+ip.match(1);

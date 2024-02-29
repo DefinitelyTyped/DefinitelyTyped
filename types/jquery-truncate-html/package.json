@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery-truncate-html",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-truncate-html",
+    "projects": [
+        "https://github.com/kbwood/timeentry"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-truncate-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Abraão Alves",
+            "githubUsername": "abraaoalves"
+        }
+    ]
+}

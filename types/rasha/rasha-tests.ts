@@ -1,6 +1,6 @@
-import * as rasha from 'rasha';
+import * as rasha from "rasha";
 
-const gOptions: Rasha.GenerateOptions = { format: 'jwk' };
+const gOptions: Rasha.GenerateOptions = { format: "jwk" };
 
 rasha.generate(gOptions).then((keypair: Rasha.RsaKeys) => {
     console.log(keypair.private);

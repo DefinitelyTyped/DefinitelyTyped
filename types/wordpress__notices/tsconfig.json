@@ -1,32 +1,21 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "dom",
             "es6"
         ],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@wordpress/data": [
-                "wordpress__data"
-            ],
-            "@wordpress/notices": [
-                "wordpress__notices"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "wordpress__notices-tests.ts"
+        "wordpress__notices-tests.tsx"
     ]
 }

@@ -5,6 +5,14 @@ login.ensureLoggedIn("/login");
 login.ensureLoggedIn({
     redirectTo: "/login",
 });
+login.ensureLoggedIn({
+    redirectTo: "/login",
+    setReturnTo: true,
+});
+login.ensureLoggedIn({
+    redirectTo: "/login",
+    setReturnTo: false,
+});
 
 login.ensureLoggedOut();
 login.ensureLoggedOut("/");

@@ -1,4 +1,4 @@
-import * as Prism from 'prismjs';
+import * as Prism from "prismjs";
 
 export interface RefractorSyntax {
     displayName: string;
@@ -22,18 +22,18 @@ export namespace AST {
     }
 
     interface Properties {
-        className?: string[];
+        className?: string[] | undefined;
         [key: string]: any;
     }
 
     interface Element extends Unist.Parent {
-        type: 'element';
+        type: "element";
         tagName: string;
         properties: Properties;
     }
 
     interface Text extends Unist.Text {
-        type: 'text';
+        type: "text";
     }
 }
 
@@ -143,3 +143,23 @@ export function registered(name: string): boolean;
  * ```
  */
 export function listLanguages(): string[];
+
+/**
+ * Register a new `alias` for the `name` language.
+ *
+ * ```ts
+ * import refractor from 'refractor/core'
+ * import markdown from 'refractor/lang/markdown'
+ *
+ * refractor.register(markdown)
+ *
+ * // refractor.highlight('*Emphasis*', 'mdown')
+ * // ^ would throw: Error: Unknown language: `mdown` is not registered
+ *
+ * refractor.alias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
+ * refractor.highlight('*Emphasis*', 'mdown')
+ * // ^ Works!
+ * ```
+ */
+export function alias(name: string, alias: string | string[]): void;
+export function alias(aliases: Record<string, string | string[]>): void;

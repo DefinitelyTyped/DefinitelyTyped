@@ -1,12 +1,21 @@
-import { DataProvider, SortCriterion, FetchByKeysParameters, ContainsKeysResults, FetchByKeysResults, FetchByOffsetParameters, FetchByOffsetResults, FetchListResult,
-   FetchListParameters } from '../ojdataprovider';
+import {
+    ContainsKeysResults,
+    DataProvider,
+    FetchByKeysParameters,
+    FetchByKeysResults,
+    FetchByOffsetParameters,
+    FetchByOffsetResults,
+    FetchListParameters,
+    FetchListResult,
+    SortCriterion,
+} from "../ojdataprovider";
 declare class ArrayDataProvider<K, D> implements DataProvider<K, D> {
     constructor(data: any[] | (() => any[]), options?: {
-        sortComparators?: ArrayDataProvider.SortComparators<D>;
-        implicitSort?: Array<SortCriterion<D>>;
-        keys?: any[] | (() => any[]);
-        idAttribute?: string | string[];
-        keyAttributes?: string | string[];
+        sortComparators?: ArrayDataProvider.SortComparators<D> | undefined;
+        implicitSort?: Array<SortCriterion<D>> | undefined;
+        keys?: any[] | (() => any[]) | undefined;
+        idAttribute?: string | string[] | undefined;
+        keyAttributes?: string | string[] | undefined;
     });
     addEventListener(eventType: string, listener: EventListener): void;
     containsKeys(params: FetchByKeysParameters<K>): Promise<ContainsKeysResults<K>>;
@@ -16,7 +25,7 @@ declare class ArrayDataProvider<K, D> implements DataProvider<K, D> {
     fetchFirst(params?: FetchListParameters<D>): AsyncIterable<FetchListResult<K, D>>;
     getCapability(capabilityName?: string): any;
     getTotalSize(): Promise<number>;
-    isEmpty(): 'yes' | 'no' | 'unknown';
+    isEmpty(): "yes" | "no" | "unknown";
     removeEventListener(eventType: string, listener: EventListener): void;
 }
 export = ArrayDataProvider;

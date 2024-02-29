@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-set",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-set#readme"
+    ],
+    "devDependencies": {
+        "@types/is-set": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

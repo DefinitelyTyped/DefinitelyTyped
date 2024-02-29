@@ -1,7 +1,7 @@
-import safe = require('postcss-safe-parser');
-import postcss = require('postcss');
+import safe = require("postcss-safe-parser");
+import postcss from "postcss";
 
-const badCss = 'a {';
+const badCss = "a {";
 
 postcss()
     .process(badCss, { parser: safe })
@@ -10,4 +10,4 @@ postcss()
         result.css; // $ExpectType string
     });
 
-safe; // $ExpectType Parser
+safe; // $ExpectType Parser<Root> || PostCssSafeParser

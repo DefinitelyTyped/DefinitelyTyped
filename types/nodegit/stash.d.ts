@@ -1,12 +1,12 @@
-import { Repository } from './repository';
-import { Signature } from './signature';
-import { Oid } from './oid';
-import { CheckoutOptions } from './checkout-options';
+import { CheckoutOptions } from "./checkout-options";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Signature } from "./signature";
 
 export namespace Stash {
     const enum APPLY_FLAGS {
         APPLY_DEFAULT = 0,
-        APPLY_REINSTATE_INDEX = 1
+        APPLY_REINSTATE_INDEX = 1,
     }
 
     const enum APPLY_PROGRESS {
@@ -17,22 +17,22 @@ export namespace Stash {
         ANALYZE_UNTRACKED = 4,
         CHECKOUT_UNTRACKED = 5,
         CHECKOUT_MODIFIED = 6,
-        DONE = 7
+        DONE = 7,
     }
 
     const enum FLAGS {
         DEFAULT = 0,
         KEEP_INDEX = 1,
         INCLUDE_UNTRACKED = 2,
-        INCLUDE_IGNORED = 4
+        INCLUDE_IGNORED = 4,
     }
 }
 
 export interface StashApplyOptions {
-    version?: number;
-    flags?: number;
-    checkoutOptions?: CheckoutOptions;
-    progressCb?: Function;
+    version?: number | undefined;
+    flags?: number | undefined;
+    checkoutOptions?: CheckoutOptions | undefined;
+    progressCb?: Function | undefined;
     progressPayload?: any;
 }
 

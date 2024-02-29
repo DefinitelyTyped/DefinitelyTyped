@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/imagemin-mozjpeg",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/imagemin/imagemin-mozjpeg#readme"
+    ],
+    "dependencies": {
+        "@types/imagemin": "*"
+    },
+    "devDependencies": {
+        "@types/imagemin-mozjpeg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Chan",
+            "githubUsername": "hkjeffchan"
+        }
+    ]
+}

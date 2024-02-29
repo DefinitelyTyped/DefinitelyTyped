@@ -1,15 +1,11 @@
-// Type definitions for non-npm package jquery.validation 1.16
-// Project: http://jqueryvalidation.org/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryValidation {
-    interface RulesDictionary { [name: string]: any; }
+    interface RulesDictionary {
+        [name: string]: any;
+    }
 
-    type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
+    type ValidatePredicate = (element: HTMLElement, event: JQueryEventObject) => void;
 
     type ShouldValidatePredicate = boolean | ValidatePredicate;
 
@@ -20,28 +16,28 @@ declare namespace JQueryValidation {
          *
          * default: false
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /**
          * Use this class to create error labels, to look for existing error labels and to add it to invalid elements.
          *
          * default: "error"
          */
-        errorClass?: string;
+        errorClass?: string | undefined;
         /**
          * Hide and show this container when validating.
          */
-        errorContainer?: string;
+        errorContainer?: string | undefined;
         /**
          * Use this element type to create error messages and to look for existing error messages. The default, "label",
          * has the advantage of creating a meaningful link between error message and invalid field using the for attribute (which is always used, regardless of element type).
          *
          * default: "label"
          */
-        errorElement?: string;
+        errorElement?: string | undefined;
         /**
          * Hide and show this container when validating. (eg "#messageBox")
          */
-        errorLabelContainer?: string;
+        errorLabelContainer?: string | undefined;
         /**
          * Customize placement of created error labels. First argument: The created error label as a jQuery object. Second argument: The invalid element as a jQuery object.
          *
@@ -54,7 +50,7 @@ declare namespace JQueryValidation {
          *
          * default: false
          */
-        focusCleanup?: boolean;
+        focusCleanup?: boolean | undefined;
         /**
          * Focus the last active or first invalid element on submit via validator.focusInvalid(). The last active element is the one
          * that had focus when the form was submitted, avoiding stealing its focus. If there was no element focused, the first one
@@ -62,12 +58,12 @@ declare namespace JQueryValidation {
          *
          * default: true
          */
-        focusInvalid?: boolean;
+        focusInvalid?: boolean | undefined;
         /**
          * Specify grouping of error messages. A group consists of an arbitrary group name as the key and a space separated list of
          * element names as the value. Use errorPlacement to control where the group message is placed.
          */
-        groups?: { [groupName: string]: string };
+        groups?: { [groupName: string]: string } | undefined;
         /**
          * How to highlight invalid fields. Override to decide which fields and how to highlight.
          *
@@ -78,14 +74,14 @@ declare namespace JQueryValidation {
          * Elements to ignore when validating, simply filtering them out. jQuery's not-method is used, therefore everything that is
          * accepted by not() can be passed as this option. Inputs of type submit and reset are always ignored, so are disabled elements.
          */
-        ignore?: string;
+        ignore?: string | undefined;
         /**
          * Set to skip reading messages from the title attribute, helps to avoid issues with Google Toolbar; default is false for compability,
          * the message-from-title is likely to be completely removed in a future release.
          *
          * default: false
          */
-        ignoreTitle?: boolean;
+        ignoreTitle?: boolean | undefined;
         /**
          * Callback for custom code when an invalid form is submitted. Called with an event object as the first argument, and the validator
          * as the second.
@@ -100,28 +96,28 @@ declare namespace JQueryValidation {
          *
          * default: the default message for the method used
          */
-        messages?: Object;
-        meta?: string;
+        messages?: Object | undefined;
+        meta?: string | undefined;
         /**
          * Boolean or Function. Validate checkboxes and radio buttons on click. Set to false to disable.
          *
          * Set to a Function to decide for yourself when to run validation.
          * A boolean true is not a valid value.
          */
-        onclick?: ShouldValidatePredicate;
+        onclick?: ShouldValidatePredicate | undefined;
         /**
          * Function. Validate elements when user focuses in. If omitted hides all other fields marked as invalid.
          *
          * Set to a custom Function to decide for yourself when to run validation.
          */
-        onfocusin?: ValidatePredicate;
+        onfocusin?: ValidatePredicate | undefined;
         /**
          * Boolean or Function. Validate elements (except checkboxes/radio buttons) on blur. If nothing is entered, all rules are skipped, except when the field was already marked as invalid.
          *
          * Set to a Function to decide for yourself when to run validation.
          * A boolean true is not a valid value.
          */
-        onfocusout?: ShouldValidatePredicate;
+        onfocusout?: ShouldValidatePredicate | undefined;
         /**
          * Boolean or Function. Validate elements on keyup. As long as the field is not marked as invalid, nothing happens.
          * Otherwise, all rules are checked on each key up event. Set to false to disable.
@@ -129,7 +125,7 @@ declare namespace JQueryValidation {
          * Set to a Function to decide for yourself when to run validation.
          * A boolean true is not a valid value.
          */
-        onkeyup?: ShouldValidatePredicate;
+        onkeyup?: ShouldValidatePredicate | undefined;
         /**
          * Validate the form on submit. Set to false to use only other events for validation.
          * Set to a Function to decide for yourself when to run validation.
@@ -137,14 +133,14 @@ declare namespace JQueryValidation {
          *
          * default: true
          */
-        onsubmit?: boolean;
+        onsubmit?: boolean | undefined;
         /**
          * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second,
          * called in the context of the validator object. The arguments contain only those elements currently validated,
          * which can be a single element when doing validation onblur/keyup. You can trigger (in addition to your own messages)
          * the default behaviour by calling this.defaultShowErrors().
          */
-        rules?: RulesDictionary;
+        rules?: RulesDictionary | undefined;
         /**
          * A custom message display handler. Gets the map of errors as the first argument and an array of errors as the second,
          * called in the context of the validator object. The arguments contain only those elements currently validated, which can
@@ -162,7 +158,7 @@ declare namespace JQueryValidation {
          * a class to the label. If a Function is given, it is called with the label (as a jQuery object) and the validated input (as a DOM element).
          * The label can be used to add a text like "ok!".
          */
-        success?: string | (($label: JQuery, validatedInput: HTMLElement) => void);
+        success?: string | (($label: JQuery, validatedInput: HTMLElement) => void) | undefined;
         /**
          * Called to revert changes made by option highlight, same arguments as highlight.
          *
@@ -174,13 +170,13 @@ declare namespace JQueryValidation {
          *
          * default: "valid"
          */
-        validClass?: string;
+        validClass?: string | undefined;
         /**
          * Wrap error labels with the specified element. Useful in combination with errorLabelContainer to create a list of error messages.
          *
          * default: window
          */
-        wrapper?: string;
+        wrapper?: string | undefined;
     }
 
     interface ErrorDictionary {
@@ -213,13 +209,17 @@ declare namespace JQueryValidation {
          * @param method The actual method implementation, returning true if an element is valid. First argument: Current value. Second argument: Validated element. Third argument: Parameters.
          * @param message a default string message or a Message generator. First argument: Parameters. Second argument: Validated element.
          */
-        addMethod(name: string, method: (value: any, element: HTMLElement, params: any) => boolean, message?: string | ((params: any, element: HTMLElement) => string)): void;
+        addMethod(
+            name: string,
+            method: (value: any, element: HTMLElement, params: any) => boolean,
+            message?: string | ((params: any, element: HTMLElement) => string),
+        ): void;
         /**
          * Replaces {n} placeholders with arguments.
          *
          * @param template The string to format.
          */
-        format(template: string): ((...args: any[]) => string);
+        format(template: string): (...args: any[]) => string;
         format(template: string, ...args: any[]): string;
         /**
          * Modify default settings for validation.

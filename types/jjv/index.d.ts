@@ -1,26 +1,20 @@
-// Type definitions for JJV v1.0.2
-// Project: https://github.com/acornejo/jjv
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare function jjv(): jjv.Env;
 
 declare namespace jjv {
     interface Errors {
         validation: {
             [property: string]: {
-                required?: boolean;
-                type?: string;
-            }
+                required?: boolean | undefined;
+                type?: string | undefined;
+            };
         };
     }
 
     interface Options {
-        checkRequired?: boolean;
-        useDefault?: boolean;
-        useCoerce?: boolean;
-        removeAdditional?: boolean;
+        checkRequired?: boolean | undefined;
+        useDefault?: boolean | undefined;
+        useCoerce?: boolean | undefined;
+        removeAdditional?: boolean | undefined;
     }
 
     interface Env {

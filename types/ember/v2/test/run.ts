@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import RSVP from 'rsvp';
-import { run } from '@ember/runloop';
+import { run } from "@ember/runloop";
+import Ember from "ember";
+import RSVP from "rsvp";
 import { assertType } from "./lib/assert";
 
 assertType<string[]>(Ember.run.queues);
@@ -13,7 +13,7 @@ function testRun() {
     assertType<number>(r);
 
     function destroyApp(application: Ember.Application) {
-        Ember.run(application, 'destroy');
+        Ember.run(application, "destroy");
         run(application, function() {
             this.destroy();
         });
@@ -30,8 +30,8 @@ function testBind() {
         editor: null as string | null,
 
         setupEditor(editor: string) {
-            this.set('editor', editor);
-        }
+            this.set("editor", editor);
+        },
     });
 }
 
@@ -44,13 +44,17 @@ function testCancel() {
 
     run.cancel(runNext);
 
-    let runLater = run.later(myContext, function() {
-        // will not be executed
-    }, 500);
+    let runLater = run.later(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        500,
+    );
 
     run.cancel(runLater);
 
-    let runScheduleOnce = run.scheduleOnce('afterRender', myContext, function() {
+    let runScheduleOnce = run.scheduleOnce("afterRender", myContext, function() {
         // will not be executed
     });
 
@@ -62,46 +66,59 @@ function testCancel() {
 
     run.cancel(runOnce);
 
-    let throttle = run.throttle(myContext, function() {
-        // will not be executed
-    }, 1, false);
+    let throttle = run.throttle(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        1,
+        false,
+    );
 
     run.cancel(throttle);
 
-    let debounce = run.debounce(myContext, function() {
-        // will not be executed
-    }, 1);
+    let debounce = run.debounce(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        1,
+    );
 
     run.cancel(debounce);
 
-    let debounceImmediate = run.debounce(myContext, function() {
-        // will be executed since we passed in true (immediate)
-    }, 100, true);
+    let debounceImmediate = run.debounce(
+        myContext,
+        function() {
+            // will be executed since we passed in true (immediate)
+        },
+        100,
+        true,
+    );
 
     // the 100ms delay until this method can be called again will be canceled
     run.cancel(debounceImmediate);
 }
 
 function testDebounce() {
-    function runIt() {
-    }
+    function runIt() {}
 
-    let myContext = { name: 'debounce' };
+    let myContext = { name: "debounce" };
 
     run.debounce(runIt, 150);
     run.debounce(myContext, runIt, 150);
     run.debounce(myContext, runIt, 150, true);
 
     Ember.Component.extend({
-        searchValue: 'test',
+        searchValue: "test",
         fetchResults(value: string) {},
 
         actions: {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
-                Ember.run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
-            }
-        }
+                Ember.run.debounce(this, this.get("fetchResults"), this.get("searchValue"), 250);
+            },
+        },
     });
 }
 
@@ -126,16 +143,20 @@ function testJoin() {
 
     new RSVP.Promise(function(resolve) {
         Ember.run.later(function() {
-            resolve({ msg: 'Hold Your Horses' });
+            resolve({ msg: "Hold Your Horses" });
         }, 3000);
     });
 }
 
 function testLater() {
     const myContext = {};
-    run.later(myContext, function() {
-        // code here will execute within a RunLoop in about 500ms with this == myContext
-    }, 500);
+    run.later(
+        myContext,
+        function() {
+            // code here will execute within a RunLoop in about 500ms with this == myContext
+        },
+        500,
+    );
 }
 
 function testNext() {
@@ -149,55 +170,53 @@ function testNext() {
 function testOnce() {
     Ember.Component.extend({
         init() {
-            Ember.run.once(this, 'processFullName');
+            Ember.run.once(this, "processFullName");
         },
 
-        processFullName() {
-        }
+        processFullName() {},
     });
 }
 
 function testSchedule() {
     Ember.Component.extend({
         init() {
-            run.schedule('sync', this, function() {
+            run.schedule("sync", this, function() {
                 // this will be executed in the first RunLoop queue, when bindings are synced
-                console.log('scheduled on sync queue');
+                console.log("scheduled on sync queue");
             });
 
-            run.schedule('actions', this, function() {
+            run.schedule("actions", this, function() {
                 // this will be executed in the 'actions' queue, after bindings have synced.
-                console.log('scheduled on actions queue');
+                console.log("scheduled on actions queue");
             });
-        }
+        },
     });
 
-    Ember.run.schedule('actions', () => {
+    Ember.run.schedule("actions", () => {
         // Do more things
     });
 }
 
 function testScheduleOnce() {
     function sayHi() {
-        console.log('hi');
+        console.log("hi");
     }
 
     const myContext = {};
     run(function() {
-        run.scheduleOnce('afterRender', myContext, sayHi);
-        run.scheduleOnce('afterRender', myContext, sayHi);
+        run.scheduleOnce("afterRender", myContext, sayHi);
+        run.scheduleOnce("afterRender", myContext, sayHi);
         // sayHi will only be executed once, in the afterRender queue of the RunLoop
     });
-    run.scheduleOnce('actions', myContext, function() {
-        console.log('Closure');
+    run.scheduleOnce("actions", myContext, function() {
+        console.log("Closure");
     });
 }
 
 function testThrottle() {
-    function runIt() {
-    }
+    function runIt() {}
 
-    let myContext = { name: 'throttle' };
+    let myContext = { name: "throttle" };
 
     run.throttle(runIt, 150);
     run.throttle(myContext, runIt, 150);

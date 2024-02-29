@@ -1,8 +1,3 @@
-// Type definitions for bgiframe 1.0
-// Project: https://github.com/sumegizoltan/BgiFrame
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*! The plugin based on:
  *
  *       bgiframe for IE6

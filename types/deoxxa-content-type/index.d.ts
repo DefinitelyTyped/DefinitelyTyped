@@ -1,23 +1,18 @@
-// Type definitions for content-type v0.0.1
-// Project: https://github.com/deoxxa/content-type
-// Definitions by: Pine Mizune <https://github.com/pine613>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ContentType {
     interface MediaType {
         type: string;
-        q?: number;
+        q?: number | undefined;
         params: any;
         toString(): string;
     }
 
     interface SelectOptions {
-        sortAvailable?: boolean;
-        sortAccepted?: boolean;
+        sortAvailable?: boolean | undefined;
+        sortAccepted?: boolean | undefined;
     }
 
     interface MediaTypeStatic {
-        new (s: string, p?: any): MediaType;
+        new(s: string, p?: any): MediaType;
         parseMedia(type: string): MediaType;
         splitQuotedString(str: string, delimiter?: string, quote?: string): string[];
         splitContentTypes(str: string): string[];

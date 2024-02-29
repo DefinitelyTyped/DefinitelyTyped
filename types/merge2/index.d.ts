@@ -1,12 +1,6 @@
-// Type definitions for merge2 1.3
-// Project: https://github.com/teambition/merge2
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Chigozirim C. <https://github.com/smac89>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 /**
  * @summary        This function takes an arbitrary number of streams and returns a
@@ -22,11 +16,19 @@ import { PassThrough } from 'stream';
  *
  * @return         A merged duplex stream
  */
+declare function merge2(options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, c: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, e: Streams, options?: merge2.Options): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    c: Streams,
+    d: Streams,
+    e: Streams,
+    options?: merge2.Options,
+): merge2.Merge2Stream;
 declare function merge2(...args: Streams[]): merge2.Merge2Stream;
 
 type Streams = merge2.StreamType | merge2.StreamType[];
@@ -35,8 +37,9 @@ declare namespace merge2 {
     type StreamType = NodeJS.ReadableStream | Merge2Stream;
 
     interface Options {
-        end?: boolean;
-        objectMode?: boolean;
+        end?: boolean | undefined;
+        pipeError?: boolean | undefined;
+        objectMode?: boolean | undefined;
     }
 
     interface Merge2Stream extends PassThrough {
@@ -58,10 +61,10 @@ declare namespace merge2 {
          *
          * @return     This stream
          */
-        on(event: 'queueDrain', listener: () => void): this;
+        on(event: "queueDrain", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
 
-        once(event: 'queueDrain', listener: () => void): this;
+        once(event: "queueDrain", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
     }
 }

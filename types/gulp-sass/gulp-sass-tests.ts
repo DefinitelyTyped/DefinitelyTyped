@@ -1,15 +1,17 @@
 import gulp = require("gulp");
-import sass = require("gulp-sass");
+import gulpSass = require("gulp-sass");
 
-gulp.task('sass', function () {
-    gulp.src('./scss/*.scss')
+const sass = gulpSass({}); // compiler
+
+gulp.task("sass", function() {
+    gulp.src("./scss/*.scss")
         .pipe(sass())
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest("./css"));
 });
 
-gulp.task('sass', function () {
-    gulp.src('./scss/*.scss')
-        .pipe(sass({errLogToConsole: true}))
+gulp.task("sass", function() {
+    gulp.src("./scss/*.scss")
+        .pipe(sass({ errLogToConsole: true }))
         .pipe(sass.sync())
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest("./css"));
 });

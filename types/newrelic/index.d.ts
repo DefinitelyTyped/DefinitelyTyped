@@ -1,14 +1,3 @@
-// Type definitions for newrelic 6.4
-// Project: http://github.com/newrelic/node-newrelic
-// Definitions by: Matt R. Wilson <https://github.com/mastermatt>
-//                 Brooks Patton <https://github.com/brookspatton>
-//                 Michael Bond <https://github.com/MichaelRBond>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Kenneth Aasan <https://github.com/kennethaasan>
-//                 Jon Flaishans <https://github.com/funkswing>
-//                 Dylan Smith <https://github.com/dylansmith>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
 
 /**
@@ -80,15 +69,28 @@ export function addCustomAttribute(key: string, value: string | number | boolean
 export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
- * Tell the tracer whether to ignore the current transaction.
+ * Add a custom attribute to the the currently executing span.
  *
- * The most common use for this will be to mark a transaction as ignored (maybe it's handling
- * a websocket polling channel, or maybe it's an external call you don't care
- * is slow), but it's also useful when you want a transaction that would
- * otherwise be ignored due to URL or transaction name normalization rules
- * to *not* be ignored.
+ * Some attributes are reserved (see CUSTOM_BLACKLIST in the docs for the current, very short list), and
+ * as with most API methods, this must be called in the context of an active segment/span.
+ *
+ * Most recently set value wins.
  */
-export function setIgnoreTransaction(ignored: boolean): void;
+export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+
+/**
+ * Adds all custom attributes in an object to the the currently executing span.
+ *
+ * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+ */
+export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+
+/**
+ * Send errors to New Relic that you've already handled yourself.
+ *
+ * NOTE: Errors that are recorded using this method do _not_ obey the `ignore_status_codes` configuration.
+ */
+export function noticeError(error: Error, expected?: boolean): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -97,7 +99,48 @@ export function setIgnoreTransaction(ignored: boolean): void;
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
+export function noticeError(
+    error: Error,
+    customAttributes?: { [key: string]: string | number | boolean },
+    expected?: boolean,
+): void;
+
+/**
+ * This method lets you define a custom callback to generate error group names, which will be used by
+ * errors inbox to group similar errors together via the error.group.name agent attribute.
+ *
+ * Calling this function multiple times will replace previously defined versions of this callback function.
+ */
+export function setErrorGroupCallback(
+    callback: (metadata: {
+        customAttributes: { [key: string]: string | number | boolean };
+        "request.uri": string;
+        "http.statusCode": string;
+        "http.method": string;
+        error?: Error;
+        "error.expected": boolean;
+    }) => string,
+): void;
+
+/**
+ * Sends an application log message to New Relic. The agent already
+ * automatically does this for some instrumented logging libraries,
+ * but in case you are using another logging method that is not
+ * already instrumented by the agent, you can use this function
+ * instead.
+ *
+ * If application log forwarding is disabled in the agent
+ * configuration, this function does nothing.
+ *
+ * An example of using this function is
+ *
+ *    newrelic.recordLogEvent({
+ *       message: 'cannot find file',
+ *       level: 'ERROR',
+ *       error: new SystemError('missing.txt')
+ *    })
+ */
+export function recordLogEvent(logEvent: LogEvent): void;
 
 /**
  * If the URL for a transaction matches the provided pattern, name the
@@ -150,7 +193,7 @@ export function addIgnoringRule(pattern: RegExp | string): void;
  *
  * Do *not* reuse the headers between users, or even between requests.
  */
-export function getBrowserTimingHeader(): string;
+export function getBrowserTimingHeader(options?: { nonce?: string; hasToRemoveScriptWrapper?: boolean }): string;
 
 /**
  * Instrument a particular method to improve visibility into a transaction,
@@ -166,7 +209,6 @@ export function getBrowserTimingHeader(): string;
  * The segment is ended when either the handler finishes executing, or callback is fired, if it is provided.
  * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
  */
-export function startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
 export function startSegment<T, C extends (...args: any[]) => any>(
     name: string,
     record: boolean,
@@ -331,6 +373,13 @@ export const instrumentWebframework: Instrument;
 export const instrumentMessages: Instrument;
 
 /**
+ * This method gives you a way to associate a unique identifier with a transaction event,
+ * transaction trace and errors within transaction. A new property, `enduser.id`, will be
+ * added to the error and reported to errors inbox.
+ */
+export function setUserID(userID: string): void;
+
+/**
  * Gracefully shuts down the agent.
  *
  * If `collectPendingData` is true, the agent will send any pending data to the collector
@@ -338,7 +387,11 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
+    options?: {
+        collectPendingData?: boolean | undefined;
+        timeout?: number | undefined;
+        waitForIdle?: boolean | undefined;
+    },
     cb?: (error?: Error) => void,
 ): void;
 
@@ -356,15 +409,20 @@ export function getLinkingMetadata(omitSupportability?: boolean): LinkingMetadat
 export function getTraceMetadata(): TraceMetadata;
 
 /**
- * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
+ * Wraps an AWS Lambda function with NewRelic instrumentation and returns the wrapped function.
  *
- * The handler is a callback function whose value is returned from setLambdaHandler
- * Returns the value returned by handler
+ * The handler should be an AWS Lambda handler function.
+ * Returns a function with identical signature to the provided handler function.
  */
-export function setLambdaHandler<T>(handler: (...args: any[]) => T): T;
+export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T): T;
+
+/**
+ * Obfuscates SQL for a given database engine.
+ */
+export function obfuscateSql(sql: string, dialect?: "mysql" | "postgres" | "cassandra" | "oracle"): string;
 
 export interface Instrument {
-    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -388,6 +446,8 @@ export interface DistributedTracePayload {
     httpSafe(): string;
 }
 
+export type DistributedTraceHeaders = Record<string, number | string | string[] | undefined>;
+
 export interface TransactionHandle {
     /**
      * End the transaction.
@@ -400,50 +460,56 @@ export interface TransactionHandle {
     ignore(): void;
 
     /**
-     * Creates a distributed trace payload.
+     * Modifies the headers map that is passed in by adding W3C Trace Context headers
+     * and New Relic Distributed Trace headers.
      */
-    createDistributedTracePayload(): DistributedTracePayload;
+    insertDistributedTraceHeaders(headers: DistributedTraceHeaders): void;
 
     /**
-     * Parses incoming distributed trace header payload.
+     * Used to instrument the called service for inclusion in a distributed trace.
+     *
+     * Links the spans in a trace by accepting a payload generated by `insertDistributedTraceHeaders`
+     * or generated by some other W3C Trace Context compliant tracer. This method accepts the headers
+     * of an incoming request, looks for W3C Trace Context headers, and if not found, falls back to
+     * New Relic distributed trace headers.
+     *
+     * Check the docs for valid transport types. If an invalid type is provided, it will fall back to "Unknown".
      */
-    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
+    acceptDistributedTraceHeaders(transportType: string, headers: DistributedTraceHeaders): void;
 
     /**
-     * Inserts distributed trace headers into the provided headers map.
+     * Return whether this Transaction is being sampled
      */
-    insertDistributedTraceHeaders(headers: {
-        [header: string]: number | string | string[] | undefined;
-    }): void;
+    isSampled(): boolean;
 }
 
 export interface LinkingMetadata {
     /**
      * The current trace ID
      */
-    'trace.id'?: string;
+    "trace.id"?: string | undefined;
 
     /**
      * The current span ID
      */
-    'span.id'?: string;
+    "span.id"?: string | undefined;
 
     /**
      * The application name specified in the connect request as
      * app_name. If multiple application names are specified this will only be
      * the first name
      */
-    'entity.name': string;
+    "entity.name": string;
 
     /**
      * The string "SERVICE"
      */
-    'entity.type': string;
+    "entity.type": string;
 
     /**
      * The entity ID returned in the connect reply as entity_guid
      */
-    'entity.guid'?: string;
+    "entity.guid"?: string | undefined;
 
     /**
      * The hostname as specified in the connect request as
@@ -453,14 +519,36 @@ export interface LinkingMetadata {
     hostname: string;
 }
 
+export interface LogEvent {
+    /**
+     * The log message
+     */
+    message: string;
+
+    /**
+     * The log level severity. If this key is missing, it will default to "UNKNOWN"
+     */
+    level?: string | undefined;
+
+    /**
+     * ECMAScript epoch number denoting the time that this log message was produced. If this key is missing, it will default to the output of `Date.now()`
+     */
+    timestamp?: number | undefined;
+
+    /**
+     * Error associated to this log event. Ignored if missing.
+     */
+    error?: Error | undefined;
+}
+
 export interface TraceMetadata {
     /**
      * The current trace ID
      */
-    traceId?: string;
+    traceId?: string | undefined;
 
     /**
      * The current span ID
      */
-    spanId?: string;
+    spanId?: string | undefined;
 }

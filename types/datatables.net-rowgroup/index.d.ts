@@ -1,9 +1,3 @@
-// Type definitions for datatables.net-rowgroup 1.0
-// Project: https://datatables.net/extensions/rowgroup/, https://datatables.net
-// Definitions by: Matthieu Tabuteau <https://github.com/maixiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
@@ -12,7 +6,7 @@ declare namespace DataTables {
         /**
          * RowGroup extension options
          */
-        rowGroup?: boolean | RowGroupSettings;
+        rowGroup?: boolean | RowGroupSettings | undefined;
     }
 
     interface StaticFunctions {
@@ -20,7 +14,7 @@ declare namespace DataTables {
     }
 
     interface RowGroupStaticFunctions {
-        new (dt: Api, settings: boolean | RowGroupSettings): undefined;
+        new(dt: Api, settings: boolean | RowGroupSettings): undefined;
         version: string;
         defaults: RowGroupSettings;
     }
@@ -33,12 +27,12 @@ declare namespace DataTables {
         /**
          * Get the data source for the row grouping
          */
-        dataSrc(): number|string;
+        dataSrc(): number | string;
 
         /**
          * Set the data source for the row grouping
          */
-        dataSrc(prop: number|string): Api;
+        dataSrc(prop: number | string): Api;
 
         /**
          * Disable RowGroup's interaction with the table
@@ -58,31 +52,41 @@ declare namespace DataTables {
         /**
          * Set the class name to be used for the grouping rows
          */
-        className?: string;
+        className?: string | undefined;
+
+        /**
+         * Text to show for rows which have null, undefined or empty string group data
+         */
+        emptyDataGroup?: string | undefined;
 
         /**
          * Set the data point to use as the grouping data source
          */
-        dataSrc?: number|string;
+        dataSrc?: number | string | string[] | undefined;
 
         /**
          * Provides the ability to disable row grouping at initialisation
          */
-        enable?: boolean;
+        enable?: boolean | undefined;
+
+        /**
+         * Set the class name to be used for the grouping start rows
+         */
+        startClassName?: string | undefined;
 
         /**
          * Set the class name to be used for the grouping end rows
          */
-        endClassName?: string;
+        endClassName?: string | undefined;
 
         /**
          * Provide a function that can be used to control the data shown in the end grouping row
          */
-        endRender?: (rows: Api, group: string) => string|HTMLElement|JQuery;
+        endRender?: ((rows: Api, group: string) => string | HTMLElement | JQuery) | undefined;
 
         /**
          * Provide a function that can be used to control the data shown in the start grouping row
          */
-        startRender?: (rows: Api, group: string) => string|HTMLElement|JQuery;
+        startRender?: ((rows: Api, group: string, level: number) => string | HTMLElement | JQuery) | undefined;
     }
 }

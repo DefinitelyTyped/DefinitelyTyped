@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
 /**
  * Breadcrumbs component.
  * http://foundation.zurb.com/sites/docs/breadcrumbs.html
@@ -8,7 +8,7 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Breadcrumbs: React.StatelessComponent<BreadcrumbsProps>;
+export declare const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps>;
 export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes<HTMLUListElement> {
 }
 /**
@@ -17,7 +17,7 @@ export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes
  * @param {Object} props
  * @returns {Object}
  */
-export declare const BreadcrumbItem: React.StatelessComponent<BreadcrumbItemProps>;
+export declare const BreadcrumbItem: React.FunctionComponent<BreadcrumbItemProps>;
 export interface BreadcrumbItemProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLLIElement> {
-    isDisabled?: boolean;
+    isDisabled?: boolean | undefined;
 }

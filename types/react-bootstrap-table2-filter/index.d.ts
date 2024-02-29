@@ -1,37 +1,32 @@
-// Type definitions for react-bootstrap-table2-filter 1.3
-// Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
-// Definitions by: Wlad Meixner <https://github.com/gosticks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { TableColumnFilterProps, ColumnDescription } from 'react-bootstrap-table-next';
-import { CSSProperties, SyntheticEvent } from 'react';
+import { CSSProperties, SyntheticEvent } from "react";
+import { ColumnDescription, TableColumnFilterProps } from "react-bootstrap-table-next";
 
 export enum FILTER_TYPES {
-    TEXT = 'TEXT',
-    SELECT = 'SELECT',
-    MULTISELECT = 'MULTISELECT',
-    NUMBER = 'NUMBER',
-    DATE = 'DATE',
+    TEXT = "TEXT",
+    SELECT = "SELECT",
+    MULTISELECT = "MULTISELECT",
+    NUMBER = "NUMBER",
+    DATE = "DATE",
 }
 
 /**
  * Filter comparators used for table filters
  */
 export enum Comparator {
-    LIKE = 'LIKE',
-    EQ = '=',
-    NE = '!=',
-    GT = '>',
-    GE = '>=',
-    LT = '<',
-    LE = '<=',
+    LIKE = "LIKE",
+    EQ = "=",
+    NE = "!=",
+    GT = ">",
+    GE = ">=",
+    LT = "<",
+    LE = "<=",
 }
 
-export type TextFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> &
-    Partial<{
+export type TextFilterProps<T extends object = any> =
+    & TableColumnFilterProps<string, T>
+    & Partial<{
         /**
          *  default is false, and true will only work when comparator is LIKE
          */
@@ -40,7 +35,7 @@ export type TextFilterProps<T extends object = any> = TableColumnFilterProps<Tab
         /**
          * on filter element click event
          */
-        onClick?: (e: SyntheticEvent) => void;
+        onClick?: ((e: SyntheticEvent) => void) | undefined;
     }>;
 /**
  * text column filter
@@ -55,11 +50,11 @@ export type SelectFilterOptions = { [index: string]: string } | Array<{ value: n
 
 export type SelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: SelectFilterOptions | ((column: ColumnDescription<T>) => SelectFilterOptions);
-    comparator?: Comparator;
+    comparator?: Comparator | undefined;
     /**
      * When the default unset selection is hidden from dropdown
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
 };
 
 /**
@@ -77,13 +72,13 @@ export interface MultiSelectFilterOptions {
 /**
  * Multi Select filter options
  */
-export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
+export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string[], T> & {
     options: MultiSelectFilterOptions | (() => MultiSelectFilterOptions);
-    comparator?: Comparator;
+    comparator?: Comparator | undefined;
     /**
      * When set the default selection is hidden from dropdown
      */
-    withoutEmptyOption?: boolean;
+    withoutEmptyOption?: boolean | undefined;
 };
 
 /**
@@ -95,48 +90,55 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
 /**
  * Number filter configuration options
  */
-export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
-    options?: number[];
-    comparators?: Comparator[];
-    /**
-     * When set to true comparator dropdown does not show a "no selection" option
-     */
-    withoutEmptyComparatorOption?: boolean;
-    withoutEmptyNumberOption?: boolean;
-    comparatorClassName?: string;
-    numberClassName?: string;
-    comparatorStyle?: CSSProperties;
-    numberStyle?: CSSProperties;
-    defaultValue?: { number: number; comparator: Comparator };
-};
+export type NumberFilterProps<T extends object = any> =
+    & TableColumnFilterProps<
+        { number: number | ""; comparator: Comparator },
+        T
+    >
+    & {
+        options?: number[] | undefined;
+        comparators?: Comparator[] | undefined;
+        /**
+         * When set to true comparator dropdown does not show a "no selection" option
+         */
+        withoutEmptyComparatorOption?: boolean | undefined;
+        withoutEmptyNumberOption?: boolean | undefined;
+        comparatorClassName?: string | undefined;
+        numberClassName?: string | undefined;
+        comparatorStyle?: CSSProperties | undefined;
+        numberStyle?: CSSProperties | undefined;
+        defaultValue?: { number: number; comparator: Comparator } | undefined;
+    };
 
 export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
 
 /**
  * Date filter options
  */
-export interface DateFilter<T extends object = any> extends TableColumnFilterProps<TableColumnFilterProps, T> {
-    withoutEmptyComparatorOption?: boolean;
-    defaultValue?: {
-        date: Date;
-        comparator: Comparator;
-    };
-    comparator?: Comparator[];
-    comparatorClassName?: string;
-    dateClassName?: string;
-    comparatorStyle?: CSSProperties;
-    dateStyle?: CSSProperties;
+export interface DateFilterProps<T extends object = any> extends TableColumnFilterProps<Date, T> {
+    withoutEmptyComparatorOption?: boolean | undefined;
+    defaultValue?:
+        | {
+            date: Date;
+            comparator: Comparator;
+        }
+        | undefined;
+    comparators?: Comparator[] | undefined;
+    comparatorClassName?: string | undefined;
+    dateClassName?: string | undefined;
+    comparatorStyle?: CSSProperties | undefined;
+    dateStyle?: CSSProperties | undefined;
 }
 
-export function dateFilter(props: DateFilter): TableColumnFilterProps;
+export function dateFilter(props: DateFilterProps): TableColumnFilterProps;
 
 /**
  * Custom filter
  */
 export interface CustomFilterProps {
-    type?: string | FILTER_TYPES;
-    comparator?: Comparator;
-    caseSensitive?: boolean;
+    type?: string | FILTER_TYPES | undefined;
+    comparator?: Comparator | undefined;
+    caseSensitive?: boolean | undefined;
 }
 
 export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
@@ -144,5 +146,10 @@ export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
 /**
  * declaration for table filter sub module
  */
-declare function filterFactory(): unknown;
+export interface FilterFactoryProps<T extends object = any> {
+    // TODO newFilters is not tested not its type is validated since the author of this commit has no experience with this field
+    afterFilter?: ((newResult: T[], newFilters?: unknown[]) => void) | undefined;
+}
+
+declare function filterFactory(props?: FilterFactoryProps): unknown;
 export default filterFactory;

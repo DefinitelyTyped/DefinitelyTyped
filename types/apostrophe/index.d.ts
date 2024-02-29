@@ -1,9 +1,3 @@
-// Type definitions for apostrophe 2.67
-// Project: https://github.com/apostrophecms/apostrophe#readme
-// Definitions by: Aaron Holderman <https://github.com/afholderman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = apostrophe;
 export as namespace apos;
 
@@ -21,14 +15,14 @@ declare namespace apostrophe {
     // Pass in custom modules as first argument
     // second argument is additional custom options e.g. restApi exposed by apostrophe-headless
     interface AposConstructor<M = {}, O = {}> {
-        afterInit?: () => void;
-        afterListen?: () => void;
-        initFailed?: (error: any) => void;
-        baseUrl?: string;
+        afterInit?: (() => void) | undefined;
+        afterListen?: (() => void) | undefined;
+        initFailed?: ((error: any) => void) | undefined;
+        baseUrl?: string | undefined;
         modules: { [K in AposCoreModules & M]?: AposModuleOptions | O };
-        prefix?: string;
-        root?: string;
-        rootDir?: string;
+        prefix?: string | undefined;
+        root?: string | undefined;
+        rootDir?: string | undefined;
         shortName: string;
     }
 
@@ -38,12 +32,12 @@ declare namespace apostrophe {
             sel: string,
             verb: string,
             object: object,
-            callback?: () => any
+            callback?: () => any,
         ) => any;
     };
 
     const pages: {
-        page: { _id: string; type: string; _url?: string };
+        page: { _id: string; type: string; _url?: string | undefined };
     };
 
     const adminBar: {
@@ -64,7 +58,7 @@ declare namespace apostrophe {
     function define(
         type: string | string[],
         definition: any,
-        extending?: any
+        extending?: any,
     ): any;
 
     const docs: {
@@ -102,7 +96,7 @@ declare namespace apostrophe {
             schema: Schema,
             data: any,
             options: any,
-            callback?: () => any
+            callback?: () => any,
         ) => any;
         newInstance: (schema: Schema) => any;
         populate: (
@@ -111,14 +105,14 @@ declare namespace apostrophe {
             $field: any,
             callback?: () => void,
             $el?: HTMLElement,
-            field?: any
+            field?: any,
         ) => any;
         returnToError: (
             $el: HTMLElement,
             schema: Schema,
             errorPath: any,
             error: any,
-            callback: () => any
+            callback: () => any,
         ) => void;
     };
 
@@ -141,13 +135,13 @@ declare namespace apostrophe {
         name: string;
         type: string;
         label: string;
-        help?: string;
-        required?: boolean;
-        options?: AposObject;
-        choices?: SelectChoice[];
-        widgetType?: string;
-        titleField?: string;
-        schema?: Field[];
+        help?: string | undefined;
+        required?: boolean | undefined;
+        options?: AposObject | undefined;
+        choices?: SelectChoice[] | undefined;
+        widgetType?: string | undefined;
+        titleField?: string | undefined;
+        schema?: Field[] | undefined;
     }
 
     interface SelectChoice {
@@ -166,7 +160,7 @@ declare namespace apostrophe {
                 name: string,
                 object: AposObject,
                 field: any,
-                callback: () => any
+                callback: () => any,
             ): void;
             form(
                 req: any,
@@ -174,7 +168,7 @@ declare namespace apostrophe {
                 name: string,
                 object: AposObject,
                 field: any,
-                callback: () => any
+                callback: () => any,
             ): void;
         };
         empty?(field: any, value: any): void;
@@ -200,7 +194,7 @@ declare namespace apostrophe {
             to: any,
             object: AposObject,
             output: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         isVisible(schema: Schema, object: AposObject, name: string): void;
         export(
@@ -209,7 +203,7 @@ declare namespace apostrophe {
             to: any,
             object: AposObject,
             output: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         joinDriver(
             req: any,
@@ -220,14 +214,14 @@ declare namespace apostrophe {
             relationshipsField: any,
             objectField: any,
             options: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         join(
             req: any,
             schema: Schema,
             objectOrArray: any,
             withJoins: any,
-            callback: () => any
+            callback: () => any,
         ): void;
         addFieldType(type: AposType): void;
         getFieldType(typeName: string): void;
@@ -305,24 +299,26 @@ declare namespace apostrophe {
     // Pass in custom modules to AposModuleOptions to allow them in extend
     interface AposModuleOptions<C = {}> {
         extend: AposCoreModules | C;
-        name?: string;
+        name?: string | undefined;
         label: string;
-        pluralLabel?: string;
-        playerData?: false | string[];
-        scene?: "user";
-        addFields?: Field[];
-        removeFields?: Field[];
-        arrangeFields?: {
-            name: string;
-            label: string;
-            fields: string[];
-        }[];
-        beforeConstruct?: (self: any, options: any) => any;
-        defer?: boolean;
+        pluralLabel?: string | undefined;
+        playerData?: false | string[] | undefined;
+        scene?: "user" | undefined;
+        addFields?: Field[] | undefined;
+        removeFields?: Field[] | undefined;
+        arrangeFields?:
+            | Array<{
+                name: string;
+                label: string;
+                fields: string[];
+            }>
+            | undefined;
+        beforeConstruct?: ((self: any, options: any) => any) | undefined;
+        defer?: boolean | undefined;
         filters?: {
             projection?: {
                 [key: string]: number;
-            };
-        };
+            } | undefined;
+        } | undefined;
     }
 }

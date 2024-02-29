@@ -1,16 +1,15 @@
-// Type definitions for filter-css 1.0
-// Project: https://github.com/bezoerb/filter-css#readme
-// Definitions by: cherryblossom <https://github.com/cherryblossom000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AtRule, Comment, Rule } from 'css';
+import { AtRule, Comment, Rule } from "css";
 
 export = api;
 
-declare function api(inputStylesheet: string, ignorePattern: api.Pattern | api.Pattern[], options?: api.Options): string;
+declare function api(
+    inputStylesheet: string,
+    ignorePattern: api.Pattern | api.Pattern[],
+    options?: api.Options,
+): string;
 
 declare namespace api {
-    type Context = 'type' | 'media' | 'selector' | 'declarationProperty' | 'declarationValue';
+    type Context = "type" | "media" | "selector" | "declarationProperty" | "declarationValue";
 
     /**
      * @param context The current matching context.
@@ -27,30 +26,30 @@ declare namespace api {
          * Whether to match CSS selectors.
          * @default true
          */
-        matchSelectors?: boolean;
+        matchSelectors?: boolean | undefined;
 
         /**
          * Whether to match [AST Node types]{@link https://github.com/reworkcss/css#types} like `font-face`.
          * @default true
          */
-        matchTypes?: boolean;
+        matchTypes?: boolean | undefined;
 
         /**
          * Whether to match CSS properties like `background-image`.
          * @default true
          */
-        matchDeclarationProperties?: boolean;
+        matchDeclarationProperties?: boolean | undefined;
 
         /**
          * Whether to match CSS values like `url(...)`.
          * @default true
          */
-        matchDeclarationValues?: boolean;
+        matchDeclarationValues?: boolean | undefined;
 
         /**
          * Whether to match media queries like `min-device-pixel-ratio: 2`.
          * @default true
          */
-        matchMedia?: boolean;
+        matchMedia?: boolean | undefined;
     }
 }

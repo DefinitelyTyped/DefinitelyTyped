@@ -1,9 +1,3 @@
-// Type definitions for heroku-logger 1.0
-// Project: https://github.com/ianstormtaylor/heroku-logger
-// Definitions by: Kyle Vogt <https://github.com/kylevogt>
-//                 Alejandro Moran <https://github.com/AlejandroMoran>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 /* =================== USAGE ===================
 
     import * as logger from 'heroku-logger';
@@ -21,10 +15,10 @@ export function error(message: string, data?: object): void;
 export function fatal(message: string, data?: object): void;
 
 export interface LoggerConfig {
-    level?: string;
-    color?: boolean;
-    readable?: boolean;
-    prefix?: string;
+    level?: string | undefined;
+    color?: boolean | undefined;
+    readable?: boolean | undefined;
+    prefix?: string | undefined;
 }
 
 export class Logger {

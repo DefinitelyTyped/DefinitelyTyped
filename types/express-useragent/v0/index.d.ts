@@ -1,14 +1,8 @@
-// Type definitions for express-useragent 0.2.4
-// Project: https://www.npmjs.org/package/express-useragent
-// Definitions by: Isman Usoh <https://github.com/isman-usoh/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express" />
 
 declare namespace Express {
     interface Request {
-        useragent?: ExpressUseragent.UserAgent;
+        useragent?: ExpressUseragent.UserAgent | undefined;
     }
 }
 
@@ -68,6 +62,7 @@ declare namespace ExpressUseragent {
     function express(): (req: express.Request, res: express.Response, next?: Function) => void;
 }
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "express-useragent" {
     export = ExpressUseragent;
 }

@@ -49,6 +49,6 @@ import Bluebird = require("bluebird");
 
 function testTheWalkaroundForCastingGlobalPromiseToBluebirdPromise() {
     const bluebirdString: Bluebird<string> = Bluebird.resolve(
-        new Promise<string>(() => 'Lorem ipsum')
+        new Promise<string>(() => "Lorem ipsum"),
     );
 }

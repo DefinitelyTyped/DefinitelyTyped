@@ -1,9 +1,3 @@
-// Type definitions for jquery-pjax
-// Project: https://github.com/defunkt/jquery-pjax
-// Definitions by: Junle Li <https://github.com/lijunle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 /**
@@ -13,7 +7,7 @@ interface PjaxPopStateEventObject extends JQuery.Event {
     /**
      * Navigation direction. Could be "back" or "forward".
      */
-    direction: string
+    direction: string;
 }
 
 interface PjaxSettings extends JQuery.AjaxSettings {
@@ -22,43 +16,43 @@ interface PjaxSettings extends JQuery.AjaxSettings {
      * If it is not defined, the `data-pjax` attribute of the link will be treated as container.
      * If such an attribute is not defined too, the context will be treated as container.
      */
-    container?: string;
+    container?: string | undefined;
 
     /**
      * Whether to pushState the URL. Defaults to true.
      */
-    push?: boolean;
+    push?: boolean | undefined;
 
     /**
      * Whether to replaceState the URL. Defaults to false.
      */
-    replace?: boolean;
+    replace?: boolean | undefined;
 
     /**
      * How many requests to cache. Defaults to 20.
      */
-    maxCacheLength?: number;
+    maxCacheLength?: number | undefined;
 
     /**
      * A string or function returning the current pjax version
      */
-    version?: string | (() => string);
+    version?: string | (() => string) | undefined;
 
     /**
      * Vertical position to scroll to after navigation.
      * To avoid changing scroll position, pass false.
      */
-    scrollTo?: number | boolean;
+    scrollTo?: number | boolean | undefined;
 
     /**
      * Eventually the relatedTarget value for pjax events.
      */
-    target?: EventTarget;
+    target?: EventTarget | undefined;
 
     /**
      * CSS selector for the fragment to extract from ajax response.
      */
-    fragment?: string;
+    fragment?: string | undefined;
 }
 
 interface JQuery {
@@ -91,7 +85,7 @@ interface JQuery {
      */
     pjax(delegationSelector: string, containerSelector?: string, options?: PjaxSettings): JQuery;
 
-    on(event: 'pjax:popstate', handler: (e: PjaxPopStateEventObject) => void): this;
+    on(event: "pjax:popstate", handler: (e: PjaxPopStateEventObject) => void): this;
 }
 
 interface JQueryStatic {

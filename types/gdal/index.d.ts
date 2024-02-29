@@ -1,15 +1,18 @@
-// Type definitions for gdal 0.9
-// Project: https://github.com/naturalatlas/node-gdal#readme
-// Definitions by: Andrei Digori <https://github.com/andreidigori>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export as namespace gdal;
 
 /* Internal interfaces */
 
-export type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
-export type Resampling = 'NEAREST' | 'GAUSS' | 'CUBIC' | 'AVERAGE' | 'MODE' | 'AVERAGE_MAGPHASE' | 'NONE';
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
+export type Resampling = "NEAREST" | "GAUSS" | "CUBIC" | "AVERAGE" | "MODE" | "AVERAGE_MAGPHASE" | "NONE";
 
 export interface XY {
     x: number;
@@ -40,45 +43,45 @@ export interface RasterBandStatistics {
 }
 
 export interface RasterBandPixelsWriteOptions {
-    buffer_width?: number;
-    buffer_height?: number;
-    pixel_space?: number;
-    line_space?: number;
+    buffer_width?: number | undefined;
+    buffer_height?: number | undefined;
+    pixel_space?: number | undefined;
+    line_space?: number | undefined;
 }
 
 export interface RasterBandPixelsReadOptions {
-    buffer_width?: number;
-    buffer_height?: number;
-    pixel_space?: number;
-    line_space?: number;
-    data_type?: string;
+    buffer_width?: number | undefined;
+    buffer_height?: number | undefined;
+    pixel_space?: number | undefined;
+    line_space?: number | undefined;
+    data_type?: string | undefined;
 }
 
 export interface ContourGenerateOptions {
     src: RasterBand;
     dst: Layer;
-    offset?: number;
-    interval?: number;
-    fixedLevels?: number[];
-    nodata?: number;
-    idField?: number;
-    elevField?: number;
+    offset?: number | undefined;
+    interval?: number | undefined;
+    fixedLevels?: number[] | undefined;
+    nodata?: number | undefined;
+    idField?: number | undefined;
+    elevField?: number | undefined;
 }
 
 export interface FillNoDataOptions {
     src: RasterBand;
-    mask?: RasterBand;
+    mask?: RasterBand | undefined;
     searchDist: number;
-    smoothingIterations?: number;
+    smoothingIterations?: number | undefined;
 }
 
 export interface PolygonizeOptions {
     src: RasterBand;
     dst: Layer;
-    mask?: RasterBand;
+    mask?: RasterBand | undefined;
     pixValField: number;
-    connectedness?: number;
-    useFloats?: boolean;
+    connectedness?: number | undefined;
+    useFloats?: boolean | undefined;
 }
 
 export interface ReprojectImageOptions {
@@ -86,33 +89,33 @@ export interface ReprojectImageOptions {
     dst: Dataset;
     s_srs: SpatialReference;
     t_srs: SpatialReference;
-    resampling?: string;
-    cutline?: Geometry;
-    srcBands?: number[];
-    dstBands?: number[];
-    srcAlphaBand?: number;
-    dstAlphaBand?: number;
-    srcNodata?: number;
-    dstNodata?: number;
-    memoryLimit?: number;
-    maxError?: number;
-    multi?: boolean;
-    options?: string[] | object;
+    resampling?: string | undefined;
+    cutline?: Geometry | undefined;
+    srcBands?: number[] | undefined;
+    dstBands?: number[] | undefined;
+    srcAlphaBand?: number | undefined;
+    dstAlphaBand?: number | undefined;
+    srcNodata?: number | undefined;
+    dstNodata?: number | undefined;
+    memoryLimit?: number | undefined;
+    maxError?: number | undefined;
+    multi?: boolean | undefined;
+    options?: string[] | object | undefined;
 }
 
 export interface SieveFilterOptions {
     src: RasterBand;
     dst: RasterBand;
-    mask?: RasterBand;
+    mask?: RasterBand | undefined;
     threshold: number;
-    connectedness?: number;
+    connectedness?: number | undefined;
 }
 
 export interface SuggestedWarpOutputOptions {
     src: Dataset;
     s_srs: SpatialReference;
     t_srs: SpatialReference;
-    maxError?: number;
+    maxError?: number | undefined;
 }
 
 /* From API: https://naturalatlas.github.io/node-gdal/ */
@@ -309,7 +312,12 @@ export interface DatasetBands {
 export interface DatasetLayers {
     copy(src_lyr_name: string, dst_lyr_name: string, options?: object | string[]): Layer;
     count(): number;
-    create(name: string, srs: SpatialReference, geomType: number | Geometry, creation_options: string[] | object): Layer;
+    create(
+        name: string,
+        srs: SpatialReference,
+        geomType: number | Geometry,
+        creation_options: string[] | object,
+    ): Layer;
     forEach(callback: (layer: Layer, i: number) => void): void;
     get(key: string | number): Layer;
     map<T>(callback: (layer: Layer, i: number) => T): T[];
@@ -320,11 +328,18 @@ export interface DatasetLayers {
 
 export interface Driver {
     copyFiles(name_old: string, name_new: string): void;
-    create(filename: string, x_size?: number, y_size?: number, band_count?: number, data_type?: number, creation_options?: string[] | object): Dataset;
+    create(
+        filename: string,
+        x_size?: number,
+        y_size?: number,
+        band_count?: number,
+        data_type?: number,
+        creation_options?: string[] | object,
+    ): Dataset;
     createCopy(filename: string, src: Dataset, strict?: boolean, options?: string[] | object): Dataset;
     deleteDataset(filename: string): void;
     getMetadata(domain?: string): object;
-    open(path: string, mode?: 'r' | 'r+'): Dataset;
+    open(path: string, mode?: "r" | "r+"): Dataset;
     rename(new_name: string, old_name: string): void;
 
     readonly description: string;
@@ -421,6 +436,7 @@ export interface GDALDrivers {
 
 export abstract class Geometry {
     static create(type: number): Geometry;
+    static fromGeoJson(geojson: object, srs?: SpatialReference): Geometry;
     static fromWKB(wkb: number, srs?: SpatialReference): Geometry;
     static fromWKT(wkt: string, srs?: SpatialReference): Geometry;
     static getConstructor(type: number): Geometry;
@@ -634,10 +650,24 @@ export interface RasterBandOverviews {
 
 export interface RasterBandPixels {
     get(x: number, y: number): number;
-    read(x: number, y: number, width: number, height: number, data?: TypedArray, options?: RasterBandPixelsReadOptions): TypedArray;
+    read(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        data?: TypedArray,
+        options?: RasterBandPixelsReadOptions,
+    ): TypedArray;
     readBlock(x: number, y: number, data?: TypedArray): TypedArray;
     set(x: number, y: number, value: number): void;
-    write(x: number, y: number, width: number, height: number, data: TypedArray, options?: RasterBandPixelsWriteOptions): void;
+    write(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        data: TypedArray,
+        options?: RasterBandPixelsWriteOptions,
+    ): void;
     writeBlock(x: number, y: number, data: TypedArray): void;
 }
 
@@ -648,11 +678,11 @@ export class SpatialReference {
     cloneGeogCS(): SpatialReference;
     EPSGTreatsAsLatLong(): boolean;
     EPSGTreatsAsNorthingEasting(): boolean;
-    getAngularUnits(): { value: any, unit: any };
+    getAngularUnits(): { value: any; unit: any };
     getAttrValue(node_name: string, attr_index?: number): string;
     getAuthorityCode(target_key: string): string;
     getAuthorityName(target_key: string): string;
-    getLinearUnits(): { value: any, unit: any };
+    getLinearUnits(): { value: any; unit: any };
     isCompound(): boolean;
     isGeocentric(): boolean;
     isGeographic(): boolean;
@@ -671,7 +701,7 @@ export class SpatialReference {
     toXML(): string;
     validate(): string;
     static fromCRSURL(input: string): SpatialReference;
-    static fromEPSG(input: string): SpatialReference;
+    static fromEPSG(input: number): SpatialReference;
     static fromEPSGA(input: number): SpatialReference;
     static fromESRI(input: string[]): SpatialReference;
     static fromMICoordSys(input: string): SpatialReference;
@@ -690,18 +720,27 @@ export namespace config {
 }
 
 export const drivers: GDALDrivers;
-export const lastError: { number: any, message: any, type: any };
+export const lastError: { number: any; message: any; type: any };
 export const version: string;
 
 export function checksumImage(src: RasterBand, x?: number, y?: number, w?: number, h?: number): number;
 export function contourGenerate(options: ContourGenerateOptions): void;
-export function decToDMS(angle: number, axis: 'lat' | 'long', precision?: number): string;
+export function decToDMS(angle: number, axis: "lat" | "long", precision?: number): string;
 export function fillNodata(options: FillNoDataOptions): void;
-export function open(path: string, mode?: 'r' | 'r+' | 'w', drivers?: string | string[]): Dataset;
-export function open(path: string, mode?: 'w', drivers?: string | string[], x_size?: number, y_size?: number, band_count?: number, data_type?: number, creation_options?: string[] | object): Dataset;
+export function open(path: string, mode?: "r" | "r+" | "w", drivers?: string | string[]): Dataset;
+export function open(
+    path: string,
+    mode?: "w",
+    drivers?: string | string[],
+    x_size?: number,
+    y_size?: number,
+    band_count?: number,
+    data_type?: number,
+    creation_options?: string[] | object,
+): Dataset;
 export function polygonize(options: PolygonizeOptions): void;
 export function quiet(): void;
 export function reprojectImage(options: ReprojectImageOptions): void;
 export function sieveFilter(options: SieveFilterOptions): void;
-export function suggestedWarpOutput(options: SuggestedWarpOutputOptions): { rasterSize: any, geoTransform: any };
+export function suggestedWarpOutput(options: SuggestedWarpOutputOptions): { rasterSize: any; geoTransform: any };
 export function verbose(): void;

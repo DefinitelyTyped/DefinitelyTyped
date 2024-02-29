@@ -1,12 +1,10 @@
-// Type definitions for emoji-js 3.4
-// Project: https://github.com/iamcal/js-emoji
-// Definitions by: Jason Di Benedetto <https://github.com/jasondibenedetto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace EmojiConvertor;
 
-export class EmojiConvertor {
+declare namespace Emoji {
+    const EmojiConvertor: typeof Emoji;
+}
+
+declare class Emoji {
     addAliases: (aliases: { [key: string]: string }) => void;
 
     allow_caps: boolean;
@@ -45,3 +43,5 @@ export class EmojiConvertor {
 
     use_sheet: boolean;
 }
+
+export = Emoji;

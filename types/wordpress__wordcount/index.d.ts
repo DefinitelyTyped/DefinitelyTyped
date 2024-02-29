@@ -1,10 +1,4 @@
-// Type definitions for @wordpress/wordcount 2.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/wordcount/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-export type CountType = 'words' | 'characters_excluding_spaces' | 'characters_including_spaces';
+export type CountType = "words" | "characters_excluding_spaces" | "characters_including_spaces";
 
 export interface Settings {
     HTMLEntityRegExp: RegExp;
@@ -15,9 +9,9 @@ export interface Settings {
     characters_including_spacesRegExp: RegExp;
     connectorRegExp: RegExp;
     l10n: {
-        type?: CountType;
+        type?: CountType | undefined;
         /** Array of known shortcode names */
-        shortcodes?: string[];
+        shortcodes?: string[] | undefined;
     };
     /** Characters to be removed from input text. */
     removeRegExp: RegExp;

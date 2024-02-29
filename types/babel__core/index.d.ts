@@ -1,54 +1,67 @@
-// Type definitions for @babel/core 7.1
-// Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
+import { GeneratorOptions } from "@babel/generator";
+import { ParserOptions } from "@babel/parser";
+import template from "@babel/template";
+import traverse, { Hub, NodePath, Scope, Visitor } from "@babel/traverse";
+import * as t from "@babel/types";
 
-import { GeneratorOptions } from '@babel/generator';
-import traverse, { Visitor, NodePath, Hub, Scope } from '@babel/traverse';
-import template from '@babel/template';
-import * as t from '@babel/types';
-import { ParserOptions } from '@babel/parser';
-
-export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
+export { GeneratorOptions, NodePath, ParserOptions, t as types, template, traverse, Visitor };
 
 export type Node = t.Node;
-export type ParseResult = t.File | t.Program;
+export type ParseResult = ReturnType<typeof import("@babel/parser").parse>;
 export const version: string;
-export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
+export const DEFAULT_EXTENSIONS: [".js", ".jsx", ".es6", ".es", ".mjs"];
+
+/**
+ * Source map standard format as to revision 3
+ * @see {@link https://sourcemaps.info/spec.html}
+ * @see {@link https://github.com/mozilla/source-map/blob/HEAD/source-map.d.ts}
+ */
+interface InputSourceMap {
+    version: number;
+    sources: string[];
+    names: string[];
+    sourceRoot?: string | undefined;
+    sourcesContent?: string[] | undefined;
+    mappings: string;
+    file: string;
+}
 
 export interface TransformOptions {
+    /**
+     * Specify which assumptions it can make about your code, to better optimize the compilation result. **NOTE**: This replaces the various `loose` options in plugins in favor of
+     * top-level options that can apply to multiple plugins
+     *
+     * @see https://babeljs.io/docs/en/assumptions
+     */
+    assumptions?: { [name: string]: boolean } | null | undefined;
+
     /**
      * Include the AST in the returned object
      *
      * Default: `false`
      */
-    ast?: boolean | null;
+    ast?: boolean | null | undefined;
 
     /**
      * Attach a comment after all non-user injected code
      *
      * Default: `null`
      */
-    auxiliaryCommentAfter?: string | null;
+    auxiliaryCommentAfter?: string | null | undefined;
 
     /**
      * Attach a comment before all non-user injected code
      *
      * Default: `null`
      */
-    auxiliaryCommentBefore?: string | null;
+    auxiliaryCommentBefore?: string | null | undefined;
 
     /**
      * Specify the "root" folder that defines the location to search for "babel.config.js", and the default folder to allow `.babelrc` files inside of.
      *
      * Default: `"."`
      */
-    root?: string | null;
+    root?: string | null | undefined;
 
     /**
      * This option, combined with the "root" value, defines how Babel chooses its project root.
@@ -57,14 +70,14 @@ export interface TransformOptions {
      *
      * @see https://babeljs.io/docs/en/next/options#rootmode
      */
-    rootMode?: 'root' | 'upward' | 'upward-optional';
+    rootMode?: "root" | "upward" | "upward-optional" | undefined;
 
     /**
      * The config file to load Babel's config from. Defaults to searching for "babel.config.js" inside the "root" folder. `false` will disable searching for config files.
      *
      * Default: `undefined`
      */
-    configFile?: string | boolean | null;
+    configFile?: string | boolean | null | undefined;
 
     /**
      * Specify whether or not to use .babelrc and
@@ -72,7 +85,7 @@ export interface TransformOptions {
      *
      * Default: `true`
      */
-    babelrc?: boolean | null;
+    babelrc?: boolean | null | undefined;
 
     /**
      * Specify which packages should be search for .babelrc files when they are being compiled. `true` to always search, or a path string or an array of paths to packages to search
@@ -80,47 +93,73 @@ export interface TransformOptions {
      *
      * Default: `(root)`
      */
-    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null;
+    babelrcRoots?: boolean | MatchPattern | MatchPattern[] | null | undefined;
+
+    /**
+     * Toggles whether or not browserslist config sources are used, which includes searching for any browserslist files or referencing the browserslist key inside package.json.
+     * This is useful for projects that use a browserslist config for files that won't be compiled with Babel.
+     *
+     * If a string is specified, it must represent the path of a browserslist configuration file. Relative paths are resolved relative to the configuration file which specifies
+     * this option, or to `cwd` when it's passed as part of the programmatic options.
+     *
+     * Default: `true`
+     */
+    browserslistConfigFile?: boolean | null | undefined;
+
+    /**
+     * The Browserslist environment to use.
+     *
+     * Default: `undefined`
+     */
+    browserslistEnv?: string | null | undefined;
+
+    /**
+     * By default `babel.transformFromAst` will clone the input AST to avoid mutations.
+     * Specifying `cloneInputAst: false` can improve parsing performance if the input AST is not used elsewhere.
+     *
+     * Default: `true`
+     */
+    cloneInputAst?: boolean | null | undefined;
 
     /**
      * Defaults to environment variable `BABEL_ENV` if set, or else `NODE_ENV` if set, or else it defaults to `"development"`
      *
      * Default: env vars
      */
-    envName?: string;
+    envName?: string | undefined;
 
     /**
      * If any of patterns match, the current configuration object is considered inactive and is ignored during config processing.
      */
-    exclude?: MatchPattern | MatchPattern[];
+    exclude?: MatchPattern | MatchPattern[] | undefined;
 
     /**
      * Enable code generation
      *
      * Default: `true`
      */
-    code?: boolean | null;
+    code?: boolean | null | undefined;
 
     /**
      * Output comments in generated output
      *
      * Default: `true`
      */
-    comments?: boolean | null;
+    comments?: boolean | null | undefined;
 
     /**
      * Do not include superfluous whitespace characters and line terminators. When set to `"auto"` compact is set to `true` on input sizes of >500KB
      *
      * Default: `"auto"`
      */
-    compact?: boolean | 'auto' | null;
+    compact?: boolean | "auto" | null | undefined;
 
     /**
      * The working directory that Babel's programmatic options are loaded relative to.
      *
      * Default: `"."`
      */
-    cwd?: string | null;
+    cwd?: string | null | undefined;
 
     /**
      * Utilities may pass a caller object to identify themselves to Babel and
@@ -128,7 +167,7 @@ export interface TransformOptions {
      *
      * @see https://babeljs.io/docs/en/next/options#caller
      */
-    caller?: TransformCaller;
+    caller?: TransformCaller | undefined;
 
     /**
      * This is an object of keys that represent different environments. For example, you may have: `{ env: { production: { \/* specific options *\/ } } }`
@@ -136,96 +175,96 @@ export interface TransformOptions {
      *
      * Default: `{}`
      */
-    env?: { [index: string]: TransformOptions | null | undefined } | null;
+    env?: { [index: string]: TransformOptions | null | undefined } | null | undefined;
 
     /**
      * A path to a `.babelrc` file to extend
      *
      * Default: `null`
      */
-    extends?: string | null;
+    extends?: string | null | undefined;
 
     /**
      * Filename for use in errors etc
      *
      * Default: `"unknown"`
      */
-    filename?: string | null;
+    filename?: string | null | undefined;
 
     /**
      * Filename relative to `sourceRoot`
      *
      * Default: `(filename)`
      */
-    filenameRelative?: string | null;
+    filenameRelative?: string | null | undefined;
 
     /**
      * An object containing the options to be passed down to the babel code generator, @babel/generator
      *
      * Default: `{}`
      */
-    generatorOpts?: GeneratorOptions | null;
+    generatorOpts?: GeneratorOptions | null | undefined;
 
     /**
      * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`. If falsy value is returned then the generated module id is used
      *
      * Default: `null`
      */
-    getModuleId?: ((moduleName: string) => string | null | undefined) | null;
+    getModuleId?: ((moduleName: string) => string | null | undefined) | null | undefined;
 
     /**
      * ANSI highlight syntax error code frames
      *
      * Default: `true`
      */
-    highlightCode?: boolean | null;
+    highlightCode?: boolean | null | undefined;
 
     /**
      * Opposite to the `only` option. `ignore` is disregarded if `only` is specified
      *
      * Default: `null`
      */
-    ignore?: MatchPattern[] | null;
+    ignore?: MatchPattern[] | null | undefined;
 
     /**
      * This option is a synonym for "test"
      */
-    include?: MatchPattern | MatchPattern[];
+    include?: MatchPattern | MatchPattern[] | undefined;
 
     /**
      * A source map object that the output source map will be based on
      *
      * Default: `null`
      */
-    inputSourceMap?: object | null;
+    inputSourceMap?: InputSourceMap | null | undefined;
 
     /**
      * Should the output be minified (not printing last semicolons in blocks, printing literal string values instead of escaped ones, stripping `()` from `new` when safe)
      *
      * Default: `false`
      */
-    minified?: boolean | null;
+    minified?: boolean | null | undefined;
 
     /**
      * Specify a custom name for module ids
      *
      * Default: `null`
      */
-    moduleId?: string | null;
+    moduleId?: string | null | undefined;
 
     /**
      * If truthy, insert an explicit id for modules. By default, all modules are anonymous. (Not available for `common` modules)
      *
      * Default: `false`
      */
-    moduleIds?: boolean | null;
+    moduleIds?: boolean | null | undefined;
 
     /**
      * Optional prefix for the AMD module formatter that will be prepend to the filename on module definitions
      *
      * Default: `(sourceRoot)`
      */
-    moduleRoot?: string | null;
+    moduleRoot?: string | null | undefined;
 
     /**
      * A glob, regex, or mixed array of both, matching paths to **only** compile. Can also be an array of arrays containing paths to explicitly match. When attempting to compile
@@ -233,55 +272,55 @@ export interface TransformOptions {
      *
      * Default: `null`
      */
-    only?: MatchPattern[] | null;
+    only?: MatchPattern[] | null | undefined;
 
     /**
      * Allows users to provide an array of options that will be merged into the current configuration one at a time.
      * This feature is best used alongside the "test"/"include"/"exclude" options to provide conditions for which an override should apply
      */
-    overrides?: TransformOptions[];
+    overrides?: TransformOptions[] | undefined;
 
     /**
      * An object containing the options to be passed down to the babel parser, @babel/parser
      *
      * Default: `{}`
      */
-    parserOpts?: ParserOptions | null;
+    parserOpts?: ParserOptions | null | undefined;
 
     /**
      * List of plugins to load and use
      *
      * Default: `[]`
      */
-    plugins?: PluginItem[] | null;
+    plugins?: PluginItem[] | null | undefined;
 
     /**
      * List of presets (a set of plugins) to load and use
      *
      * Default: `[]`
      */
-    presets?: PluginItem[] | null;
+    presets?: PluginItem[] | null | undefined;
 
     /**
      * Retain line numbers. This will lead to wacky code but is handy for scenarios where you can't use source maps. (**NOTE**: This will not retain the columns)
      *
      * Default: `false`
      */
-    retainLines?: boolean | null;
+    retainLines?: boolean | null | undefined;
 
     /**
      * An optional callback that controls whether a comment should be output or not. Called as `shouldPrintComment(commentContents)`. **NOTE**: This overrides the `comment` option when used
      *
      * Default: `null`
      */
-    shouldPrintComment?: ((commentContents: string) => boolean) | null;
+    shouldPrintComment?: ((commentContents: string) => boolean) | null | undefined;
 
     /**
      * Set `sources[0]` on returned source map
      *
      * Default: `(filenameRelative)`
      */
-    sourceFileName?: string | null;
+    sourceFileName?: string | null | undefined;
 
     /**
      * If truthy, adds a `map` property to returned output. If set to `"inline"`, a comment with a sourceMappingURL directive is added to the bottom of the returned code. If set to `"both"`
@@ -289,14 +328,14 @@ export interface TransformOptions {
      *
      * Default: `false`
      */
-    sourceMaps?: boolean | 'inline' | 'both' | null;
+    sourceMaps?: boolean | "inline" | "both" | null | undefined;
 
     /**
      * The root from which all sources are relative
      *
      * Default: `(moduleRoot)`
      */
-    sourceRoot?: string | null;
+    sourceRoot?: string | null | undefined;
 
     /**
      * Indicate the mode the code should be parsed in. Can be one of "script", "module", or "unambiguous". `"unambiguous"` will make Babel attempt to guess, based on the presence of ES6
@@ -304,12 +343,39 @@ export interface TransformOptions {
      *
      * Default: `("module")`
      */
-    sourceType?: 'script' | 'module' | 'unambiguous' | null;
+    sourceType?: "script" | "module" | "unambiguous" | null | undefined;
 
     /**
      * If all patterns fail to match, the current configuration object is considered inactive and is ignored during config processing.
      */
-    test?: MatchPattern | MatchPattern[];
+    test?: MatchPattern | MatchPattern[] | undefined;
+
+    /**
+     * Describes the environments you support/target for your project.
+     * This can either be a [browserslist-compatible](https://github.com/ai/browserslist) query (with [caveats](https://babeljs.io/docs/en/babel-preset-env#ineffective-browserslist-queries))
+     *
+     * Default: `{}`
+     */
+    targets?:
+        | string
+        | string[]
+        | {
+            esmodules?: boolean;
+            node?: Omit<string, "current"> | "current" | true;
+            safari?: Omit<string, "tp"> | "tp";
+            browsers?: string | string[];
+            android?: string;
+            chrome?: string;
+            deno?: string;
+            edge?: string;
+            electron?: string;
+            firefox?: string;
+            ie?: string;
+            ios?: string;
+            opera?: string;
+            rhino?: string;
+            samsung?: string;
+        };
 
     /**
      * An optional callback that can be used to wrap visitor methods. **NOTE**: This is useful for things like introspection, and not really needed for implementing anything. Called as
@@ -317,19 +383,22 @@ export interface TransformOptions {
      */
     wrapPluginVisitorMethod?:
         | ((
-              pluginAlias: string,
-              visitorType: 'enter' | 'exit',
-              callback: (path: NodePath, state: any) => void,
-          ) => (path: NodePath, state: any) => void)
-        | null;
+            pluginAlias: string,
+            visitorType: "enter" | "exit",
+            callback: (path: NodePath, state: any) => void,
+        ) => (path: NodePath, state: any) => void)
+        | null
+        | undefined;
 }
 
 export interface TransformCaller {
     // the only required property
     name: string;
     // e.g. set to true by `babel-loader` and false by `babel-jest`
-    supportsStaticESM?: boolean;
-    supportsDynamicImport?: boolean;
+    supportsStaticESM?: boolean | undefined;
+    supportsDynamicImport?: boolean | undefined;
+    supportsExportNamespaceFrom?: boolean | undefined;
+    supportsTopLevelAwait?: boolean | undefined;
     // augment this with a "declare module '@babel/core' { ... }" if you need more keys
 }
 
@@ -421,11 +490,11 @@ export function transformFromAstAsync(
 // The list of allowed plugin keys is here:
 // https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
 export interface PluginObj<S = PluginPass> {
-    name?: string;
+    name?: string | undefined;
     manipulateOptions?(opts: any, parserOpts: any): void;
-    pre?(this: S, state: S): void;
+    pre?(this: S, file: BabelFile): void;
     visitor: Visitor<S>;
-    post?(this: S, state: S): void;
+    post?(this: S, file: BabelFile): void;
     inherits?: any;
 }
 
@@ -434,7 +503,7 @@ export interface BabelFile {
     opts: TransformOptions;
     hub: Hub;
     metadata: object;
-    path: NodePath;
+    path: NodePath<t.Program>;
     scope: Scope;
     inputMap: object | null;
     code: string;
@@ -443,26 +512,31 @@ export interface BabelFile {
 export interface PluginPass {
     file: BabelFile;
     key: string;
-    opts: PluginOptions;
+    opts: object;
     cwd: string;
-    filename: string;
+    filename: string | undefined;
+    get(key: unknown): any;
+    set(key: unknown, value: unknown): void;
     [key: string]: unknown;
 }
 
 export interface BabelFileResult {
-    ast?: t.File | null;
-    code?: string | null;
-    ignored?: boolean;
-    map?: {
-        version: number;
-        sources: string[];
-        names: string[];
-        sourceRoot?: string;
-        sourcesContent?: string[];
-        mappings: string;
-        file: string;
-    } | null;
-    metadata?: BabelFileMetadata;
+    ast?: t.File | null | undefined;
+    code?: string | null | undefined;
+    ignored?: boolean | undefined;
+    map?:
+        | {
+            version: number;
+            sources: string[];
+            names: string[];
+            sourceRoot?: string | undefined;
+            sourcesContent?: string[] | undefined;
+            mappings: string;
+            file: string;
+        }
+        | null
+        | undefined;
+    metadata?: BabelFileMetadata | undefined;
 }
 
 export interface BabelFileMetadata {
@@ -549,12 +623,13 @@ export function loadOptions(options?: TransformOptions): object | null;
  * information about `ConfigItem` fields.
  */
 export function loadPartialConfig(options?: TransformOptions): Readonly<PartialConfig> | null;
+export function loadPartialConfigAsync(options?: TransformOptions): Promise<Readonly<PartialConfig> | null>;
 
 export interface PartialConfig {
     options: TransformOptions;
-    babelrc?: string;
-    babelignore?: string;
-    config?: string;
+    babelrc?: string | undefined;
+    babelignore?: string | undefined;
+    config?: string | undefined;
     hasFilesystemConfig: () => boolean;
 }
 
@@ -562,7 +637,7 @@ export interface ConfigItem {
     /**
      * The name that the user gave the plugin instance, e.g. `plugins: [ ['env', {}, 'my-env'] ]`
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * The resolved value of the plugin.
@@ -572,7 +647,7 @@ export interface ConfigItem {
     /**
      * The options object passed to the plugin.
      */
-    options?: object | false;
+    options?: object | false | undefined;
 
     /**
      * The path that the options are relative to.
@@ -583,17 +658,20 @@ export interface ConfigItem {
      * Information about the plugin's file, if Babel knows it.
      *  *
      */
-    file?: {
-        /**
-         * The file that the user requested, e.g. `"@babel/env"`
-         */
-        request: string;
+    file?:
+        | {
+            /**
+             * The file that the user requested, e.g. `"@babel/env"`
+             */
+            request: string;
 
-        /**
-         * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
-         */
-        resolved: string;
-    } | null;
+            /**
+             * The full path of the resolved file, e.g. `"/tmp/node_modules/@babel/preset-env/lib/index.js"`
+             */
+            resolved: string;
+        }
+        | null
+        | undefined;
 }
 
 export type PluginOptions = object | undefined | false;
@@ -611,8 +689,8 @@ export function resolvePlugin(name: string, dirname: string): string | null;
 export function resolvePreset(name: string, dirname: string): string | null;
 
 export interface CreateConfigItemOptions {
-    dirname?: string;
-    type?: 'preset' | 'plugin';
+    dirname?: string | undefined;
+    type?: "preset" | "plugin" | undefined;
 }
 
 /**
@@ -663,7 +741,7 @@ export interface ConfigAPI {
      *
      * @see https://babeljs.io/docs/en/next/config-files#apicallercb
      */
-    caller<T extends SimpleCacheKey>(callerCallback: (caller: TransformOptions['caller']) => T): T;
+    caller<T extends SimpleCacheKey>(callerCallback: (caller: TransformOptions["caller"]) => T): T;
     /**
      * While `api.version` can be useful in general, it's sometimes nice to just declare your version.
      * This API exposes a simple way to do that with:
@@ -741,11 +819,11 @@ export interface EnvFunction {
     /**
      * @returns `true` if the `envName` is `===` any of the given strings
      */
-    (envName: string | ReadonlyArray<string>): boolean;
+    (envName: string | readonly string[]): boolean;
     // the official documentation is misleading for this one...
     // this just passes the callback to `cache.using` but with an additional argument.
     // it returns its result instead of necessarily returning a boolean.
-    <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions['envName']>) => T): T;
+    <T extends SimpleCacheKey>(envCallback: (envName: NonNullable<TransformOptions["envName"]>) => T): T;
 }
 
 export type ConfigFunction = (api: ConfigAPI) => TransformOptions;

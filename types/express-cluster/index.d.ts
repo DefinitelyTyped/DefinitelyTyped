@@ -1,18 +1,13 @@
-// Type definitions for express-cluster 0.0
-// Project: https://github.com/Flipboard/express-cluster
-// Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import cluster = require('cluster');
+import cluster = require("cluster");
 
 interface Config {
-    count?: number;
-    respawn?: boolean;
-    verbose?: boolean;
+    count?: number | undefined;
+    respawn?: boolean | undefined;
+    verbose?: boolean | undefined;
     workerListener?(): void;
-    outputStream?: NodeJS.WritableStream;
+    outputStream?: NodeJS.WritableStream | undefined;
 }
 
 type WorkerFunction = (worker: cluster.Worker) => void;

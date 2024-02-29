@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-recaptcha",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/appleboy/react-recaptcha"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-recaptcha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        },
+        {
+            "name": "Zach",
+            "githubUsername": "zzanol"
+        }
+    ]
+}

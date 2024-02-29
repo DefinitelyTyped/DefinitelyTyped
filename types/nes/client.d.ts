@@ -1,9 +1,3 @@
-// Type definitions for nes 7.0.0
-// Project: https://github.com/hapijs/nes
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Client {
     constructor(url: string, options?: Client.ClientOptions);
     onError: (err: any) => void;
@@ -13,7 +7,7 @@ declare class Client {
     connect(options: Client.ClientConnectOptions): Promise<any>;
     connect(): Promise<any>;
     disconnect(): Promise<any>;
-    id: any;  // can be `null | number` but also the "socket" value from websocket message data.
+    id: any; // can be `null | number` but also the "socket" value from websocket message data.
     request(options: string | Client.ClientRequestOptions): Promise<any>;
     message(message: any): Promise<any>;
     subscribe(path: string, handler: Client.Handler): Promise<any>;
@@ -29,26 +23,26 @@ declare namespace Client {
 
     interface ClientOptions {
         ws?: any;
-        timeout?: number | boolean;
+        timeout?: number | boolean | undefined;
     }
 
     interface ClientConnectOptions {
         auth?: any;
-        delay?: number;
-        maxDelay?: number;
-        retries?: number;
-        timeout?: number;
+        delay?: number | undefined;
+        maxDelay?: number | undefined;
+        retries?: number | undefined;
+        timeout?: number | undefined;
     }
 
     interface ClientRequestOptions {
         path: string;
-        method?: string;
-        headers?: Object;
+        method?: string | undefined;
+        headers?: Object | undefined;
         payload?: any;
     }
 
     interface ClientSubscribeFlags {
-        revoked?: boolean;
+        revoked?: boolean | undefined;
     }
 }
 

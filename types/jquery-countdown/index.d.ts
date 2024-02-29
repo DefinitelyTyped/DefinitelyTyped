@@ -1,9 +1,3 @@
-// Type definitions for jQuery Countdown 2.2
-// Project: https://github.com/hilios/jQuery.countdown, http://hilios.github.io/jquery.countdown
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace jQueryCountdown {
@@ -11,17 +5,17 @@ declare namespace jQueryCountdown {
         /**
          * Allow to continue after finishes
          */
-        elapse?: boolean;
+        elapse?: boolean | undefined;
 
         /**
          * The update rate in milliseconds
          */
-        precision?: number;
+        precision?: number | undefined;
 
         /**
          * Deferred initialization mode
          */
-        defer?: boolean;
+        defer?: boolean | undefined;
     }
 
     interface Event extends JQuery.Event {
@@ -33,7 +27,7 @@ declare namespace jQueryCountdown {
         /**
          * The formatter function
          */
-        strftime: ((format: string) => string);
+        strftime: (format: string) => string;
 
         /**
          * The parsed final date native object
@@ -120,20 +114,24 @@ declare namespace jQueryCountdown {
         totalSeconds: number;
     }
 
-    type Methods = 'update.countdown' | 'finish.countdown' | 'stop.countdown';
+    type Methods = "update.countdown" | "finish.countdown" | "stop.countdown";
 
-    type Controls = 'start' | 'stop' | 'pause' | 'resume';
+    type Controls = "start" | "stop" | "pause" | "resume";
 }
 interface JQuery {
     /**
      * Initialize the countdown
      */
-    countdown(finalDate: string, callback?: ((event: jQueryCountdown.Event) => void)): JQuery;
+    countdown(finalDate: string, callback?: (event: jQueryCountdown.Event) => void): JQuery;
 
     /**
      * Initialize the countdown with options
      */
-    countdown(finalDate: string, options: jQueryCountdown.Options, callback?: ((event: jQueryCountdown.Event) => void)): JQuery;
+    countdown(
+        finalDate: string,
+        options: jQueryCountdown.Options,
+        callback?: (event: jQueryCountdown.Event) => void,
+    ): JQuery;
 
     /**
      * Methods to control the execution flow of countdown
@@ -143,5 +141,5 @@ interface JQuery {
     /**
      * Trigger an event whenever some state change
      */
-    on(method: jQueryCountdown.Methods, callback: ((event: jQueryCountdown.Event) => void)): JQuery;
+    on(method: jQueryCountdown.Methods, callback: (event: jQueryCountdown.Event) => void): JQuery;
 }

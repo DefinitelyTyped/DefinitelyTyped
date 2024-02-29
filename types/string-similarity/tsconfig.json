@@ -8,16 +8,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "string-similarity-tests.ts"
+        "test/string-similarity.global.ts",
+        "test/string-similarity.module.ts"
     ]
 }

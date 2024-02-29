@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/swagger-ui",
+    "version": "3.52.9999",
+    "projects": [
+        "https://github.com/swagger-api/swagger-ui"
+    ],
+    "devDependencies": {
+        "@types/swagger-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julian Pfeil",
+            "githubUsername": "juarrow"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

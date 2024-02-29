@@ -1,4 +1,4 @@
-import * as ifvisible from 'ifvisible';
+import * as ifvisible from "ifvisible";
 
 ifvisible.blur();
 ifvisible.now();

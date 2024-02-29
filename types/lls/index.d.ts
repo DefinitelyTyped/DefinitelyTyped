@@ -1,8 +1,3 @@
-// Type definitions for LargeLocalStorage v0.1.3
-// Project: https://github.com/tantaman/LargeLocalStorage
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace LargeLocalStorageInterfaces {
     interface LargeLocalStorageService {
         new(options: Options): LargeLocalStorageService;
@@ -99,12 +94,12 @@ declare namespace LargeLocalStorageInterfaces {
         /**
          * Optional name for your LLS database. Defaults to lls. This is the name given to the underlying IndexedDB or WebSQL DB or FSAPI Folder. LLS's with different names are independent.
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Force LLS to use a specific storage implementation: 'IndexedDB' or 'WebSQL' or 'FilesystemAPI'.
          */
-        forceProvider?: string;
+        forceProvider?: string | undefined;
     }
 
     interface Entry {

@@ -1,9 +1,3 @@
-// Type definitions for react-custom-scrollbars 3.0
-// Project: https://github.com/malte-wessel/react-custom-scrollbars
-// Definitions by: David-LeBlanc-git <https://github.com/David-LeBlanc-git>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace ReactCustomScrollbars;
@@ -20,27 +14,27 @@ export interface positionValues {
 }
 
 export interface ScrollbarProps extends React.HTMLProps<Scrollbars> {
-    onScroll?: React.UIEventHandler<any>;
-    onScrollFrame?: (values: positionValues) => void;
-    onScrollStart?: () => void;
-    onScrollStop?: () => void;
-    onUpdate?: (values: positionValues) => void;
+    onScroll?: React.UIEventHandler<any> | undefined;
+    onScrollFrame?: ((values: positionValues) => void) | undefined;
+    onScrollStart?: (() => void) | undefined;
+    onScrollStop?: (() => void) | undefined;
+    onUpdate?: ((values: positionValues) => void) | undefined;
 
-    renderView?: React.StatelessComponent<any>;
-    renderTrackHorizontal?: React.StatelessComponent<any>;
-    renderTrackVertical?: React.StatelessComponent<any>;
-    renderThumbHorizontal?: React.StatelessComponent<any>;
-    renderThumbVertical?: React.StatelessComponent<any>;
+    renderView?: React.FunctionComponent<any> | undefined;
+    renderTrackHorizontal?: React.FunctionComponent<any> | undefined;
+    renderTrackVertical?: React.FunctionComponent<any> | undefined;
+    renderThumbHorizontal?: React.FunctionComponent<any> | undefined;
+    renderThumbVertical?: React.FunctionComponent<any> | undefined;
 
-    autoHide?: boolean;
-    autoHideTimeout?: number;
-    autoHideDuration?: number;
+    autoHide?: boolean | undefined;
+    autoHideTimeout?: number | undefined;
+    autoHideDuration?: number | undefined;
 
-    thumbSize?: number;
-    thumbMinSize?: number;
-    universal?: boolean;
+    thumbSize?: number | undefined;
+    thumbMinSize?: number | undefined;
+    universal?: boolean | undefined;
 
-    style?: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 }
 
 export class Scrollbars extends React.Component<ScrollbarProps> {

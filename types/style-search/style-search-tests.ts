@@ -1,18 +1,19 @@
-import styleSearch = require('style-search');
+import styleSearch = require("style-search");
 
 const options: styleSearch.Options = {
-    source: 'abc "var(--cba)"',
-    target: ['a'],
-    comments: 'check',
-    functionArguments: 'check',
-    functionNames: 'check',
+    source: "abc \"var(--cba)\"",
+    target: ["a"],
+    comments: "check",
+    functionArguments: "check",
+    functionNames: "check",
     once: false,
-    parentheticals: 'check',
-    strings: 'check',
+    parentheticals: "check",
+    strings: "check",
 };
 
 styleSearch(options, (match, count) => {
     const {
+        insideParens, // $ExpectType boolean
         endIndex, // $ExpectType number
         insideComment, // $ExpectType boolean
         insideFunctionArguments, // $ExpectType boolean

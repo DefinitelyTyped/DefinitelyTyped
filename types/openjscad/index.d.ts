@@ -1,9 +1,3 @@
-// Type definitions for OpenJsCad.js
-// Project: https://github.com/joostn/OpenJsCad
-// Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 /// <reference types="three" />
 
 declare module "three" {
@@ -20,8 +14,8 @@ declare module "three" {
     function SpriteCanvasMaterial(parameters?: any): void;
     */
     interface ICanvasRendererOptions {
-        canvas?: HTMLCanvasElement;
-        alpha?: boolean;
+        canvas?: HTMLCanvasElement | undefined;
+        alpha?: boolean | undefined;
     }
     /*
     class CanvasRenderer implements Renderer {
@@ -153,21 +147,21 @@ declare module "three" {
 declare namespace OpenJsCad {
     interface ILog {
         (x: string): void;
-        prevLogTime?: number;
+        prevLogTime?: number | undefined;
     }
     var log: ILog;
     interface IViewerOptions {
-        drawLines?: boolean;
-        drawFaces?: boolean;
-        color?: number[];
-        bgColor?: number;
-        noWebGL?: boolean;
+        drawLines?: boolean | undefined;
+        drawFaces?: boolean | undefined;
+        color?: number[] | undefined;
+        bgColor?: number | undefined;
+        noWebGL?: boolean | undefined;
     }
     interface ProcessorOptions extends IViewerOptions {
-        verbose?: boolean;
-        viewerwidth?: number;
-        viewerheight?: number;
-        viewerheightratio?: number;
+        verbose?: boolean | undefined;
+        viewerwidth?: number | undefined;
+        viewerheight?: number | undefined;
+        viewerheightratio?: number | undefined;
     }
     class Viewer {
         private perspective;
@@ -315,7 +309,7 @@ declare namespace OpenJsCad {
 }
 interface Window {
     Worker: Worker;
-//    URL: URL;
+    //    URL: URL;
     webkitURL: URL;
     requestFileSystem: any;
     webkitRequestFileSystem: any;
@@ -529,21 +523,20 @@ declare namespace CSG {
         toString(): string;
         projectToOrthoNormalBasis(orthobasis: OrthoNormalBasis): CAG;
         /**
-            * Creates solid from slices (CSG.Polygon) by generating walls
-            * @param {Object} options Solid generating options
-            *  - numslices {Number} Number of slices to be generated
-            *  - callback(t, slice) {Function} Callback function generating slices.
-            *          arguments: t = [0..1], slice = [0..numslices - 1]
-            *          return: CSG.Polygon or null to skip
-            *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
-            */
+         * Creates solid from slices (CSG.Polygon) by generating walls
+         * @param {Object} options Solid generating options
+         *  - numslices {Number} Number of slices to be generated
+         *  - callback(t, slice) {Function} Callback function generating slices.
+         *          arguments: t = [0..1], slice = [0..numslices - 1]
+         *          return: CSG.Polygon or null to skip
+         *  - loop {Boolean} no flats, only walls, it's used to generate solids like a tor
+         */
         solidFromSlices(options: any): CSG;
         /**
-            *
-            * @param walls Array of wall polygons
-            * @param bottom Bottom polygon
-            * @param top Top polygon
-            */
+         * @param walls Array of wall polygons
+         * @param bottom Bottom polygon
+         * @param top Top polygon
+         */
         private _addWalls(walls, bottom, top, bFlipped);
         static verticesConvex(vertices: Vertex[], planenormal: any): boolean;
         static createFromPoints(points: number[][], shared?: CSG.Polygon.Shared, plane?: Plane): Polygon;
@@ -577,8 +570,20 @@ declare namespace CSG {
         invert(): void;
         getPolygon(): Polygon;
         getPolygons(result: Polygon[]): void;
-        splitByPlane(plane: any, coplanarfrontnodes: any, coplanarbacknodes: any, frontnodes: any, backnodes: any): void;
-        _splitByPlane(plane: any, coplanarfrontnodes: any, coplanarbacknodes: any, frontnodes: any, backnodes: any): void;
+        splitByPlane(
+            plane: any,
+            coplanarfrontnodes: any,
+            coplanarbacknodes: any,
+            frontnodes: any,
+            backnodes: any,
+        ): void;
+        _splitByPlane(
+            plane: any,
+            coplanarfrontnodes: any,
+            coplanarbacknodes: any,
+            frontnodes: any,
+            backnodes: any,
+        ): void;
         addChild(polygon: Polygon): PolygonTreeNode;
         invertSub(): void;
         recursivelyInvalidatePolygon(): void;
@@ -779,33 +784,33 @@ declare namespace CSG {
         verify(): void;
     }
     interface IRadiusOptions {
-        radius?: number;
-        resolution?: number;
+        radius?: number | undefined;
+        resolution?: number | undefined;
     }
     interface ICircleOptions extends IRadiusOptions {
-        center?: Vector2D | number[];
+        center?: Vector2D | number[] | undefined;
     }
     interface IArcOptions extends ICircleOptions {
-        startangle?: number;
-        endangle?: number;
-        maketangent?: boolean;
+        startangle?: number | undefined;
+        endangle?: number | undefined;
+        maketangent?: boolean | undefined;
     }
     interface IEllpiticalArcOptions extends IRadiusOptions {
-        clockwise?: boolean;
-        large?: boolean;
-        xaxisrotation?: number;
-        xradius?: number;
-        yradius?: number;
+        clockwise?: boolean | undefined;
+        large?: boolean | undefined;
+        xaxisrotation?: number | undefined;
+        xradius?: number | undefined;
+        yradius?: number | undefined;
     }
     interface IRectangleOptions {
-        center?: Vector2D;
-        corner1?: Vector2D;
-        corner2?: Vector2D;
-        radius?: Vector2D;
+        center?: Vector2D | undefined;
+        corner1?: Vector2D | undefined;
+        corner2?: Vector2D | undefined;
+        radius?: Vector2D | undefined;
     }
     interface IRoundRectangleOptions {
         roundradius: number;
-        resolution?: number;
+        resolution?: number | undefined;
     }
     class Path2D extends CxG {
         closed: boolean;
@@ -834,7 +839,12 @@ declare class CAG extends CxG implements ICenter {
     static fromPoints(points: CSG.Vector2D[]): CAG;
     static fromPointsNoCheck(points: CSG.Vector2D[]): CAG;
     static fromFakeCSG(csg: CSG): CAG;
-    static linesIntersect(p0start: CSG.Vector2D, p0end: CSG.Vector2D, p1start: CSG.Vector2D, p1end: CSG.Vector2D): boolean;
+    static linesIntersect(
+        p0start: CSG.Vector2D,
+        p0end: CSG.Vector2D,
+        p1start: CSG.Vector2D,
+        p1end: CSG.Vector2D,
+    ): boolean;
     static circle(options: CSG.ICircleOptions): CAG;
     static rectangle(options: CSG.IRectangleOptions): CAG;
     static roundedRectangle(options: any): CAG;
@@ -865,7 +875,7 @@ declare class CAG extends CxG implements ICenter {
     check(): void;
     canonicalized(): CAG;
     toCompactBinary(): {
-        'class': string;
+        "class": string;
         sideVertexIndices: Uint32Array;
         vertexData: Float64Array;
     };
@@ -907,9 +917,9 @@ declare namespace CAG {
     }
 }
 interface CAG_extrude_options {
-    offset?: number[];
-    twistangle?: number;
-    twiststeps?: number;
+    offset?: number[] | undefined;
+    twistangle?: number | undefined;
+    twiststeps?: number | undefined;
 }
 declare namespace CSG {
     class Polygon2D extends CAG {

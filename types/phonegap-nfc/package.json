@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/phonegap-nfc",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/chariotsolutions/phonegap-nfc"
+    ],
+    "devDependencies": {
+        "@types/phonegap-nfc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Desigaud",
+            "githubUsername": "michaeldesigaud"
+        }
+    ]
+}

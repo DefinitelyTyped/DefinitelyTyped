@@ -1,14 +1,9 @@
-// Type definitions for user-agents 1.0
-// Project: https://github.com/intoli/user-agents#readme
-// Definitions by: Nick Chursin <https://github.com/unickq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class UserAgent {
     /**
      * The representation of a user-agents object.
-     * @param object <Array, Function, Object, RegExp, or String> - A set of filters to apply to the generated user agents
+     * @param filters <Array, Function, Object, RegExp, or String> - A set of filters to apply to the generated user agents
      */
-    constructor(object?: any);
+    constructor(filters?: Filter | Filter[]);
 
     /**
      * Casts the UserAgent instance to a string which corresponds to the user agent header. Equivalent to accessing the userAgent.userAgent property.
@@ -30,6 +25,8 @@ declare class UserAgent {
     appName: string;
 }
 
+type Filter = Partial<Data> | RegExp | ((data: Data) => boolean) | string;
+
 interface Data {
     /**
      *  The value of navigator.appName
@@ -38,19 +35,19 @@ interface Data {
     /**
      *  The value of navigator.connection
      */
-    connection?: Connection;
+    connection?: Connection | undefined;
     /**
      *  The value of navigator.cpuClass
      */
-    cpuClass?: string;
+    cpuClass?: string | undefined;
     /**
      * One of desktop, mobile, or tablet depending on the type of device
      */
-    deviceCategory?: string;
+    deviceCategory?: string | undefined;
     /**
      *  The value of navigator.oscpu
      */
-    oscpu?: string;
+    oscpu?: string | undefined;
     /**
      * The value of navigator.platform
      */
@@ -86,11 +83,11 @@ interface Data {
 }
 
 interface Connection {
-    downlink?: number;
+    downlink?: number | undefined;
     downlinkMax?: any;
-    effectiveType?: string;
-    rtt?: number;
-    type?: string;
+    effectiveType?: string | undefined;
+    rtt?: number | undefined;
+    type?: string | undefined;
 }
 
 export = UserAgent;

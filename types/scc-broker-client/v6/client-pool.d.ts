@@ -1,34 +1,34 @@
-import { EventEmitter } from 'events';
-import { SCClientSocket } from 'socketcluster-client';
-import Hasher = require('./hasher');
-import { Secret } from 'jsonwebtoken';
+import { EventEmitter } from "events";
+import { SCClientSocket } from "socketcluster-client";
+import Hasher = require("./hasher");
+import { Secret } from "jsonwebtoken";
 
 interface ClientPoolOptions {
-    clientCount?: number;
+    clientCount?: number | undefined;
     targetURI: string;
-    authKey?: Secret;
+    authKey?: Secret | undefined;
 }
 
 interface BrokenDownURI {
     hostname: string;
-    port?: string;
-    secure?: true;
+    port?: string | undefined;
+    secure?: true | undefined;
 }
 
 declare class ClientPool extends EventEmitter {
     hasher: Hasher;
     clientCount: number;
     targetURI: string;
-    authKey?: Secret;
+    authKey?: Secret | undefined;
     areClientListenersBound: boolean;
     clients: SCClientSocket[];
 
     constructor(options?: ClientPoolOptions);
 
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'subscribe', listener: (data: ClientPool.SubscribeData) => void): this;
-    on(event: 'subscribeFail', listener: (data: ClientPool.SubscribeFailData) => void): this;
-    on(event: 'publish' | 'publishFail', listener: (data: ClientPool.PublishData) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "subscribe", listener: (data: ClientPool.SubscribeData) => void): this;
+    on(event: "subscribeFail", listener: (data: ClientPool.SubscribeFailData) => void): this;
+    on(event: "publish" | "publishFail", listener: (data: ClientPool.PublishData) => void): this;
 
     bindClientListeners(): void;
     unbindClientListeners(): void;

@@ -1,17 +1,12 @@
-// Type definitions for random-normal 1.0
-// Project: https://github.com/mock-end/random-normal
-// Definitions by: Darius I. Karel <https://github.com/dikarel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Normal distribution options
  */
 interface Options {
     /** The mean of the normal distribution. Defaults to 0 */
-    mean?: number;
+    mean?: number | undefined;
 
     /** The standard deviation of the normal distribution. Defaults to 1 */
-    dev?: number;
+    dev?: number | undefined;
 }
 
 /**

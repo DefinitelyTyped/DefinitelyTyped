@@ -1,17 +1,14 @@
-// Type definitions for ejs 3.0
-// Project: http://ejs.co/, https://github.com/mde/ejs
-// Definitions by: Ben Liddicott <https://github.com/benliddicott>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export as namespace ejs;
+
+/**
+ * Version of EJS.
+ */
+export const VERSION: string;
 
 /**
  * Name for detection of EJS.
  */
-export const name: 'ejs';
+export const name: "ejs";
 
 /**
  * Get the path to the included file from the parent file path and the
@@ -26,10 +23,16 @@ export function resolveInclude(name: string, filename: string, isDir?: boolean):
 /**
  * Compile the given `str` of ejs into a template function.
  */
-export function compile(template: string, opts: Options & { async: true; client?: false }): AsyncTemplateFunction;
+export function compile(
+    template: string,
+    opts: Options & { async: true; client?: false | undefined },
+): AsyncTemplateFunction;
 export function compile(template: string, opts: Options & { async: true; client: true }): AsyncClientFunction;
-export function compile(template: string, opts?: Options & { async?: false; client?: false }): TemplateFunction;
-export function compile(template: string, opts?: Options & { async?: false; client: true }): ClientFunction;
+export function compile(
+    template: string,
+    opts?: Options & { async?: false | undefined; client?: false | undefined },
+): TemplateFunction;
+export function compile(template: string, opts?: Options & { async?: false | undefined; client: true }): ClientFunction;
 export function compile(template: string, opts?: Options): TemplateFunction | AsyncTemplateFunction;
 
 /**
@@ -40,7 +43,7 @@ export function compile(template: string, opts?: Options): TemplateFunction | As
  */
 export function render(template: string, data?: Data, opts?: Options & { async: false }): string;
 export function render(template: string, data: Data | undefined, opts: Options & { async: true }): Promise<string>;
-export function render(template: string, data: Data | undefined, opts: Options & { async?: never }): string;
+export function render(template: string, data: Data | undefined, opts: Options & { async?: never | undefined }): string;
 export function render(template: string, data?: Data, opts?: Options): string | Promise<string>;
 
 /**
@@ -160,11 +163,11 @@ export class Template {
 
 export namespace Template {
     enum modes {
-        EVAL = 'eval',
-        ESCAPED = 'escaped',
-        RAW = 'raw',
-        COMMENT = 'comment',
-        LITERAL = 'literal'
+        EVAL = "eval",
+        ESCAPED = "escaped",
+        RAW = "raw",
+        COMMENT = "comment",
+        LITERAL = "literal",
     }
 }
 
@@ -194,7 +197,6 @@ export type AsyncTemplateFunction = (data?: Data) => Promise<string>;
  * This type of function is returned from `compile`, when
  * `Options.client` is true.
  *
- *
  * This is also used internally to generate a `TemplateFunction`.
  *
  * @param locals an object of data to be passed into the template.
@@ -216,7 +218,6 @@ export type ClientFunction = (
 /**
  * This type of function is returned from `compile`, when
  * `Options.client` is true.
- *
  *
  * This is also used internally to generate a `TemplateFunction`.
  *
@@ -274,13 +275,26 @@ export type RethrowCallback = (
  */
 export type IncludeCallback = (path: string, data?: Data) => string;
 
+/**
+ * An object where {@link filename} is the final parsed path or {@link template} is the content of the included template
+ */
+export type IncluderResult = { filename: string; template?: never } | { template: string; filename?: never };
+
+/**
+ * @param originalPath the path as it appears in the include statement
+ * @param parsedPath the previously resolved path
+ *
+ * @return An {@link IncluderResult} object containing the filename or template data.
+ */
+export type IncluderCallback = (originalPath: string, parsedPath: string) => IncluderResult;
+
 export interface Options {
     /**
      * Log the generated JavaScript source for the EJS template to the console.
      *
      * @default false
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /**
      * Include additional runtime debugging information in generated template
@@ -288,7 +302,7 @@ export interface Options {
      *
      * @default true
      */
-    compileDebug?: boolean;
+    compileDebug?: boolean | undefined;
 
     /**
      * Whether or not to use `with () {}` construct in the generated template
@@ -297,7 +311,7 @@ export interface Options {
      *
      * @default true
      */
-    _with?: boolean;
+    _with?: boolean | undefined;
 
     /**
      * Whether to run in strict mode or not.
@@ -305,7 +319,7 @@ export interface Options {
      *
      * @default false
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * An array of local variables that are always destructured from `localsName`,
@@ -313,7 +327,7 @@ export interface Options {
      *
      * @default []
      */
-    destructuredLocals?: string[];
+    destructuredLocals?: string[] | undefined;
 
     /**
      * Remove all safe-to-remove whitespace, including leading and trailing
@@ -323,7 +337,7 @@ export interface Options {
      *
      * @default false
      */
-    rmWhitespace?: boolean;
+    rmWhitespace?: boolean | undefined;
 
     /**
      * Whether or not to compile a `ClientFunction` that can be rendered
@@ -332,7 +346,7 @@ export interface Options {
      *
      * @default false
      */
-    client?: boolean;
+    client?: boolean | undefined;
 
     /**
      * The escaping function used with `<%=` construct. It is used in rendering
@@ -340,7 +354,7 @@ export interface Options {
      *
      * @default ejs.escapeXML
      */
-    escape?: EscapeCallback;
+    escape?: EscapeCallback | undefined;
 
     /**
      * The filename of the template. Required for inclusion and caching unless
@@ -348,15 +362,15 @@ export interface Options {
      *
      * @default undefined
      */
-    filename?: string;
+    filename?: string | undefined;
 
     /**
-     * The path to the project root. When this is set, absolute paths for includes
-     * (/filename.ejs) will be relative to the project root.
+     * The path to templates root(s). When this is set, absolute paths for includes
+     * (/filename.ejs) will be relative to the templates root(s).
      *
      * @default undefined
      */
-    root?: string;
+    root?: string[] | string | undefined;
 
     /**
      * The opening delimiter for all statements. This allows you to clearly delinate
@@ -365,7 +379,7 @@ export interface Options {
      *
      * @default ejs.openDelimiter
      */
-    openDelimiter?: string;
+    openDelimiter?: string | undefined;
 
     /**
      * The closing delimiter for all statements. This allows to to clearly delinate
@@ -374,13 +388,13 @@ export interface Options {
      *
      * @default ejs.closeDelimiter
      */
-    closeDelimiter?: string;
+    closeDelimiter?: string | undefined;
 
     /**
      * Character to use with angle brackets for open/close
      * @default '%'
      */
-    delimiter?: string;
+    delimiter?: string | undefined;
 
     /**
      * Whether or not to enable caching of template functions. Beware that
@@ -392,7 +406,7 @@ export interface Options {
      *
      * @default false
      */
-    cache?: boolean;
+    cache?: boolean | undefined;
 
     /**
      * The Object to which `this` is set during rendering.
@@ -407,24 +421,34 @@ export interface Options {
      *
      * @default false
      */
-    async?: boolean;
+    async?: boolean | undefined;
 
     /**
      * Make sure to set this to 'false' in order to skip UglifyJS parsing,
      * when using ES6 features (`const`, etc) as UglifyJS doesn't understand them.
      * @default true
      */
-    beautify?: boolean;
+    beautify?: boolean | undefined;
 
     /**
      * Name to use for the object storing local variables when not using `with` or destructuring.
      *
      * @default ejs.localsName
      */
-    localsName?: string;
+    localsName?: string | undefined;
 
     /** Set to a string (e.g., 'echo' or 'print') for a function to print output inside scriptlet tags. */
-    outputFunctionName?: string;
+    outputFunctionName?: string | undefined;
+
+    /**
+     * An array of paths to use when resolving includes with relative paths
+     */
+    views?: string[] | undefined;
+
+    /**
+     * Custom function to handle EJS includes
+     */
+    includer?: IncluderCallback;
 }
 
 export interface Cache {

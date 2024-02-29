@@ -1,39 +1,69 @@
-import { Environment, ButtonStyle } from './configuration';
+import { ButtonStyle, Environment } from "./configuration";
 
-import { AuthorizationData, AuthorizationTokenizePayload, CancellationData } from './callback-data';
+import { AuthorizationData, AuthorizationResponse, CancellationData } from "./callback-data";
 
-export interface Button {
+export enum FundingOption {
+    CREDIT,
+    CARD,
+    VENMO,
+    ELV,
+    PAYPAL,
+}
+
+export interface ButtonRenderer {
     render(
         options: {
-            env?: Environment;
-            style?: ButtonStyle;
-            locale?: string;
+            env?: Environment | undefined;
+            style?: ButtonStyle | undefined;
+            locale?: string | undefined;
 
-            payment?: () => Promise<string>;
-            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationTokenizePayload>;
-            onCancel?: (data: CancellationData, actions: object) => void;
-            onError?: (error: string) => void;
-            onShippingChange?: () => void;
-            onAuth?: (data: string | object) => object;
-            accessToken?: () => void;
-            onClose?: () => void;
+            payment?: (() => Promise<string>) | undefined;
+            onAuthorize: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
+            onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
+            onError?: ((error: string) => void) | undefined;
+            onShippingChange?: (() => void) | undefined;
+            onAuth?: ((data: string | object) => object) | undefined;
+            accessToken?: (() => void) | undefined;
+            onClose?: (() => void) | undefined;
 
-            sessionID?: string;
-            buttonSessionID?: string;
-            meta?: object;
-            stage?: string;
-            stageUrl?: string;
-            authCode?: string;
-            localhostUrl?: string;
-            checkoutUri?: string;
-            client?: object;
-            commit?: boolean;
-            experience?: object;
-            fundingSource?: string;
-            fundingOffered?: object;
-            logLevel?: string;
-            test?: object;
+            funding?:
+                | {
+                    allowed?: FundingOption[] | undefined;
+                    disallowed?: FundingOption[] | undefined;
+                }
+                | undefined;
+
+            sessionID?: string | undefined;
+            buttonSessionID?: string | undefined;
+            meta?: object | undefined;
+            stage?: string | undefined;
+            stageUrl?: string | undefined;
+            authCode?: string | undefined;
+            localhostUrl?: string | undefined;
+            checkoutUri?: string | undefined;
+            client?: object | undefined;
+            commit?: boolean | undefined;
+            experience?: object | undefined;
+            fundingSource?: string | undefined;
+            fundingOffered?: object | undefined;
+            logLevel?: string | undefined;
+            test?: object | undefined;
         },
         selector: string,
     ): void;
+}
+
+export interface ButtonsRenderer {
+    (options: {
+        style?: ButtonStyle | undefined;
+        fundingSource?: string | undefined;
+        createOrder?: (() => Promise<string>) | undefined;
+        createBillingAgreement?: (() => Promise<string>) | undefined;
+        onApprove: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
+        onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
+        onError?: ((error: string) => void) | undefined;
+        onInit?: (data: AuthorizationData, actions: object) => void;
+        onClick?: () => void;
+    }): ButtonsRenderer;
+    render(selector: string): void;
 }

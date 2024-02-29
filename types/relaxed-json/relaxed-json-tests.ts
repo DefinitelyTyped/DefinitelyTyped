@@ -1,4 +1,4 @@
-import * as RJSON from 'relaxed-json';
+import * as RJSON from "relaxed-json";
 
 const relaxedString = `
     {                               // comment
@@ -12,9 +12,9 @@ const relaxedString = `
 RJSON.transform(relaxedString);
 
 function revive(key: string, value: any): any {
-    return typeof value === 'number'
-        ? value * 2  // return value * 2 for numbers
-        : value;     // return everything else unchanged
+    return typeof value === "number"
+        ? value * 2 // return value * 2 for numbers
+        : value; // return everything else unchanged
 }
 
 RJSON.parse(relaxedString, revive);
@@ -42,8 +42,8 @@ const parsed = RJSON.parse(relaxedString);
 RJSON.stringify(parsed);
 
 RJSON.stringify({
-    foo: 'bar',
+    foo: "bar",
 });
 RJSON.stringify([1, 2, 3]);
 RJSON.stringify(3);
-RJSON.stringify('a');
+RJSON.stringify("a");

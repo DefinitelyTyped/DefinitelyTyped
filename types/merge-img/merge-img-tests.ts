@@ -1,10 +1,10 @@
-import mergeImg from 'merge-img';
-import { resolve } from 'path';
-const fixturePath = resolve(__dirname, 'fixtures');
+import mergeImg from "merge-img";
+import { resolve } from "path";
+const fixturePath = resolve(__dirname, "fixtures");
 
-mergeImg(['image-1.png', 'image-2.jpg']).then(img => {
+mergeImg(["image-1.png", "image-2.jpg"]).then(img => {
     // Save image as file
-    img.write('out.png', () => console.log('done'));
+    img.write("out.png", () => console.log("done"));
 });
 
 mergeImg([
@@ -21,7 +21,7 @@ mergeImg([
 mergeImg([`${fixturePath}/example.png`, `${fixturePath}/example.png`], {
     direction: true,
     color: 0xffffffff,
-    align: 'center',
+    align: "center",
     offset: 10,
 });
 mergeImg([

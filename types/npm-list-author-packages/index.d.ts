@@ -1,16 +1,11 @@
-// Type definitions for npm-list-author-packages 2.0
-// Project: https://github.com/kgryte/npm-list-author-packages#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace list {
     interface Options {
         /** registry port. Default: 443 (HTTPS) or 80 (HTTP). */
-        port?: 443 | 80;
+        port?: 443 | 80 | undefined;
         /** registry protocol. Default: 'https'. */
-        protocol?: 'http' | 'https';
+        protocol?: "http" | "https" | undefined;
         /** registry. Default: 'registry.npmjs.org'. */
-        registry?: string;
+        registry?: string | undefined;
         /** author username (required). */
         username: string;
     }

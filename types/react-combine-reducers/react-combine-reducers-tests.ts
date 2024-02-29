@@ -1,4 +1,4 @@
-import combineReducers from 'react-combine-reducers';
+import combineReducers from "react-combine-reducers";
 
 interface SimpleAction {
     type: string;
@@ -6,23 +6,23 @@ interface SimpleAction {
 }
 
 interface GreeniesState {
-    fruit: 'apple' | 'pear' | 'kiwi';
-    vegetable: 'carrot' | 'eggplant';
+    fruit: "apple" | "pear" | "kiwi";
+    vegetable: "carrot" | "eggplant";
 }
 
 interface ProteinsState {
-    similiCarne: 'tofu' | 'seitan';
-    vegetable: 'bean' | 'artichoke';
+    similiCarne: "tofu" | "seitan";
+    vegetable: "bean" | "artichoke";
 }
 
 interface DrinkState {
-    beverage: 'water' | 'juice';
+    beverage: "water" | "juice";
     numberOfGlasses: number;
 }
 
 interface DessertState {
-    cake: 'chocolate' | 'cherry';
-    drink: 'tea' | 'coffee';
+    cake: "chocolate" | "cherry";
+    drink: "tea" | "coffee";
 }
 
 interface FullMealState {
@@ -62,42 +62,42 @@ const greeniesReducer = (greeniesState: GreeniesState, action: SimpleAction) => 
     }
 };
 
-// $ExpectError
-combineReducers('');
+// @ts-expect-error
+combineReducers("");
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>({});
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>();
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
-    books: ['The Book Thief'],
+    // @ts-expect-error
+    books: ["The Book Thief"],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [100],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [3, proteinsReducer],
 });
 
 combineReducers<FullMealReducer>({
-    // $ExpectError
+    // @ts-expect-error
     proteins: [proteinsReducer, 3],
 });
 
-// $ExpectError
+// @ts-expect-error
 combineReducers<FullMealReducer>({
     proteins: [
         proteinsReducer,
         {
-            similiCarne: 'tofu',
-            vegetable: 'artichoke',
+            similiCarne: "tofu",
+            vegetable: "artichoke",
         },
     ],
 });
@@ -106,32 +106,32 @@ combineReducers<FullMealReducer>({
     proteins: [
         proteinsReducer,
         {
-            similiCarne: 'tofu',
-            vegetable: 'artichoke',
+            similiCarne: "tofu",
+            vegetable: "artichoke",
         },
     ],
     greenies: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
-            fruit: 'kiwi',
-            vegetable: 'eggplant',
+            fruit: "kiwi",
+            vegetable: "eggplant",
         },
     ],
     drink: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
-            beverage: 'juice',
+            beverage: "juice",
             numberOfGlasses: 2,
         },
     ],
     dessert: [
-        // $ExpectError
+        // @ts-expect-error
         proteinsReducer,
         {
-            cake: 'chocolate',
-            drink: 'tea',
+            cake: "chocolate",
+            drink: "tea",
         },
     ],
 });
@@ -140,29 +140,29 @@ const [fullMealReducer, initialMeal] = combineReducers<FullMealReducer>({
     proteins: [
         proteinsReducer,
         {
-            similiCarne: 'tofu',
-            vegetable: 'artichoke',
+            similiCarne: "tofu",
+            vegetable: "artichoke",
         },
     ],
     greenies: [
         greeniesReducer,
         {
-            fruit: 'kiwi',
-            vegetable: 'eggplant',
+            fruit: "kiwi",
+            vegetable: "eggplant",
         },
     ],
     drink: [
         drinkReducer,
         {
-            beverage: 'juice',
+            beverage: "juice",
             numberOfGlasses: 2,
         },
     ],
     dessert: [
         dessertReducer,
         {
-            cake: 'chocolate',
-            drink: 'tea',
+            cake: "chocolate",
+            drink: "tea",
         },
     ],
 });
@@ -172,60 +172,60 @@ initialMeal.drink;
 initialMeal.proteins;
 initialMeal.greenies;
 
-// $ExpectError
+// @ts-expect-error
 initialMeal.lamps;
 
-// $ExpectError
+// @ts-expect-error
 fullMealReducer(3, {});
 
-// $ExpectError
+// @ts-expect-error
 fullMealReducer({}, {});
 
 fullMealReducer(
     {
         proteins: {
-            similiCarne: 'tofu',
-            vegetable: 'artichoke',
+            similiCarne: "tofu",
+            vegetable: "artichoke",
         },
         greenies: {
-            fruit: 'kiwi',
-            vegetable: 'eggplant',
+            fruit: "kiwi",
+            vegetable: "eggplant",
         },
         drink: {
-            beverage: 'juice',
+            beverage: "juice",
             numberOfGlasses: 2,
         },
         dessert: {
-            cake: 'chocolate',
-            drink: 'tea',
+            cake: "chocolate",
+            drink: "tea",
         },
     },
-    // $ExpectError
+    // @ts-expect-error
     67,
 );
 
 fullMealReducer(
     {
         proteins: {
-            similiCarne: 'tofu',
-            vegetable: 'artichoke',
+            similiCarne: "tofu",
+            vegetable: "artichoke",
         },
         greenies: {
-            fruit: 'kiwi',
-            vegetable: 'eggplant',
+            fruit: "kiwi",
+            vegetable: "eggplant",
         },
         drink: {
-            beverage: 'juice',
+            beverage: "juice",
             numberOfGlasses: 2,
         },
         dessert: {
-            cake: 'chocolate',
-            drink: 'tea',
+            cake: "chocolate",
+            drink: "tea",
         },
     },
     {
-        type: 'eat',
-        payload: 'everything',
+        type: "eat",
+        payload: "everything",
     },
 );
 

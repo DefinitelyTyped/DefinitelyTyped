@@ -1,4 +1,4 @@
-import slowDown = require('express-slow-down');
+import slowDown = require("express-slow-down");
 
 const slowerAllDefaults = slowDown({});
 
@@ -9,10 +9,11 @@ const slowerWithOptions = slowDown({
     maxDelayMs: 20000,
     skipFailedRequests: false,
     skipSuccessfulRequests: true,
+    headers: true,
 });
 
 const slowerWithCallbacks = slowDown({
-    keyGenerator: (req, res) => req.ip,
+    keyGenerator: (req, res) => req.ip ?? "0.0.0.0",
     skip: (req, res) => false,
     onLimitReached: (req, res, opts) => {
         console.log(req.slowDown.current);

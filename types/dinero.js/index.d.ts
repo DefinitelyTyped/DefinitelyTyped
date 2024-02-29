@@ -1,10 +1,3 @@
-// Type definitions for dinero.js 1.6
-// Project: https://sarahdayan.github.io/dinero.js
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 David Acosta <https://github.com/juandaco>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export as namespace Dinero;
 
 export = DineroFactory;
@@ -20,14 +13,14 @@ declare namespace DineroFactory {
     let globalRoundingMode: RoundingMode;
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
-    function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
-    function minimum(objects: ReadonlyArray<Dinero>): Dinero;
-    function maximum(objects: ReadonlyArray<Dinero>): Dinero;
+    function normalizePrecision(objects: readonly Dinero[]): Dinero[];
+    function minimum(objects: readonly Dinero[]): Dinero;
+    function maximum(objects: readonly Dinero[]): Dinero;
 
     interface Options {
-        amount?: number;
-        currency?: Currency;
-        precision?: number;
+        amount?: number | undefined;
+        currency?: Currency | undefined;
+        precision?: number | undefined;
     }
 
     interface Dinero {
@@ -41,8 +34,8 @@ declare namespace DineroFactory {
         subtract(subtrahend: Dinero): Dinero;
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
-        percentage(percentage: number): Dinero;
-        allocate(ratios: ReadonlyArray<number>): Dinero[];
+        percentage(percentage: number, roundingMode?: RoundingMode): Dinero;
+        allocate(ratios: readonly number[]): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;
         lessThan(comparator: Dinero): boolean;
@@ -67,18 +60,19 @@ declare namespace DineroFactory {
     }
 
     type RoundingMode =
-        | 'HALF_ODD'
-        | 'HALF_EVEN'
-        | 'HALF_UP'
-        | 'HALF_DOWN'
-        | 'HALF_TOWARDS_ZERO'
-        | 'HALF_AWAY_FROM_ZERO';
+        | "HALF_ODD"
+        | "HALF_EVEN"
+        | "HALF_UP"
+        | "HALF_DOWN"
+        | "HALF_TOWARDS_ZERO"
+        | "HALF_AWAY_FROM_ZERO"
+        | "DOWN";
 
     interface ExchangeRatesApiOptions {
-        endpoint: string | Promise<{[key: string]: any}>;
-        propertyPath?: string;
-        headers?: { [header: string]: string };
-        roundingMode?: RoundingMode;
+        endpoint: string | Promise<{ [key: string]: any }>;
+        propertyPath?: string | undefined;
+        headers?: { [header: string]: string } | undefined;
+        roundingMode?: RoundingMode | undefined;
     }
 
     interface DineroObject {
@@ -93,183 +87,183 @@ declare namespace DineroFactory {
      * sorted and parsed
      */
     type Currency =
-        | 'AED'
-        | 'AFN'
-        | 'ALL'
-        | 'AMD'
-        | 'ANG'
-        | 'AOA'
-        | 'ARS'
-        | 'AUD'
-        | 'AWG'
-        | 'AZN'
-        | 'BAM'
-        | 'BBD'
-        | 'BDT'
-        | 'BGN'
-        | 'BHD'
-        | 'BIF'
-        | 'BMD'
-        | 'BND'
-        | 'BOB'
-        | 'BOV'
-        | 'BRL'
-        | 'BSD'
-        | 'BTN'
-        | 'BWP'
-        | 'BYN'
-        | 'BZD'
-        | 'CAD'
-        | 'CDF'
-        | 'CHE'
-        | 'CHF'
-        | 'CHW'
-        | 'CLF'
-        | 'CLP'
-        | 'CNY'
-        | 'COP'
-        | 'COU'
-        | 'CRC'
-        | 'CUC'
-        | 'CUP'
-        | 'CVE'
-        | 'CZK'
-        | 'DJF'
-        | 'DKK'
-        | 'DOP'
-        | 'DZD'
-        | 'EGP'
-        | 'ERN'
-        | 'ETB'
-        | 'EUR'
-        | 'FJD'
-        | 'FKP'
-        | 'GBP'
-        | 'GEL'
-        | 'GHS'
-        | 'GIP'
-        | 'GMD'
-        | 'GNF'
-        | 'GTQ'
-        | 'GYD'
-        | 'HKD'
-        | 'HNL'
-        | 'HRK'
-        | 'HTG'
-        | 'HUF'
-        | 'IDR'
-        | 'ILS'
-        | 'INR'
-        | 'IQD'
-        | 'IRR'
-        | 'ISK'
-        | 'JMD'
-        | 'JOD'
-        | 'JPY'
-        | 'KES'
-        | 'KGS'
-        | 'KHR'
-        | 'KMF'
-        | 'KPW'
-        | 'KRW'
-        | 'KWD'
-        | 'KYD'
-        | 'KZT'
-        | 'LAK'
-        | 'LBP'
-        | 'LKR'
-        | 'LRD'
-        | 'LSL'
-        | 'LYD'
-        | 'MAD'
-        | 'MDL'
-        | 'MGA'
-        | 'MKD'
-        | 'MMK'
-        | 'MNT'
-        | 'MOP'
-        | 'MRU'
-        | 'MUR'
-        | 'MVR'
-        | 'MWK'
-        | 'MXN'
-        | 'MXV'
-        | 'MYR'
-        | 'MZN'
-        | 'NAD'
-        | 'NGN'
-        | 'NIO'
-        | 'NOK'
-        | 'NPR'
-        | 'NZD'
-        | 'OMR'
-        | 'PAB'
-        | 'PEN'
-        | 'PGK'
-        | 'PHP'
-        | 'PKR'
-        | 'PLN'
-        | 'PYG'
-        | 'QAR'
-        | 'RON'
-        | 'RSD'
-        | 'RUB'
-        | 'RWF'
-        | 'SAR'
-        | 'SBD'
-        | 'SCR'
-        | 'SDG'
-        | 'SEK'
-        | 'SGD'
-        | 'SHP'
-        | 'SLL'
-        | 'SOS'
-        | 'SRD'
-        | 'SSP'
-        | 'STN'
-        | 'SVC'
-        | 'SYP'
-        | 'SZL'
-        | 'THB'
-        | 'TJS'
-        | 'TMT'
-        | 'TND'
-        | 'TOP'
-        | 'TRY'
-        | 'TTD'
-        | 'TWD'
-        | 'TZS'
-        | 'UAH'
-        | 'UGX'
-        | 'USD'
-        | 'USN'
-        | 'UYI'
-        | 'UYU'
-        | 'UYW'
-        | 'UZS'
-        | 'VES'
-        | 'VND'
-        | 'VUV'
-        | 'WST'
-        | 'XAF'
-        | 'XAG'
-        | 'XAU'
-        | 'XBA'
-        | 'XBB'
-        | 'XBC'
-        | 'XBD'
-        | 'XCD'
-        | 'XDR'
-        | 'XOF'
-        | 'XPD'
-        | 'XPF'
-        | 'XPT'
-        | 'XSU'
-        | 'XTS'
-        | 'XUA'
-        | 'XXX'
-        | 'YER'
-        | 'ZAR'
-        | 'ZMW'
-        | 'ZWL';
+        | "AED"
+        | "AFN"
+        | "ALL"
+        | "AMD"
+        | "ANG"
+        | "AOA"
+        | "ARS"
+        | "AUD"
+        | "AWG"
+        | "AZN"
+        | "BAM"
+        | "BBD"
+        | "BDT"
+        | "BGN"
+        | "BHD"
+        | "BIF"
+        | "BMD"
+        | "BND"
+        | "BOB"
+        | "BOV"
+        | "BRL"
+        | "BSD"
+        | "BTN"
+        | "BWP"
+        | "BYN"
+        | "BZD"
+        | "CAD"
+        | "CDF"
+        | "CHE"
+        | "CHF"
+        | "CHW"
+        | "CLF"
+        | "CLP"
+        | "CNY"
+        | "COP"
+        | "COU"
+        | "CRC"
+        | "CUC"
+        | "CUP"
+        | "CVE"
+        | "CZK"
+        | "DJF"
+        | "DKK"
+        | "DOP"
+        | "DZD"
+        | "EGP"
+        | "ERN"
+        | "ETB"
+        | "EUR"
+        | "FJD"
+        | "FKP"
+        | "GBP"
+        | "GEL"
+        | "GHS"
+        | "GIP"
+        | "GMD"
+        | "GNF"
+        | "GTQ"
+        | "GYD"
+        | "HKD"
+        | "HNL"
+        | "HRK"
+        | "HTG"
+        | "HUF"
+        | "IDR"
+        | "ILS"
+        | "INR"
+        | "IQD"
+        | "IRR"
+        | "ISK"
+        | "JMD"
+        | "JOD"
+        | "JPY"
+        | "KES"
+        | "KGS"
+        | "KHR"
+        | "KMF"
+        | "KPW"
+        | "KRW"
+        | "KWD"
+        | "KYD"
+        | "KZT"
+        | "LAK"
+        | "LBP"
+        | "LKR"
+        | "LRD"
+        | "LSL"
+        | "LYD"
+        | "MAD"
+        | "MDL"
+        | "MGA"
+        | "MKD"
+        | "MMK"
+        | "MNT"
+        | "MOP"
+        | "MRU"
+        | "MUR"
+        | "MVR"
+        | "MWK"
+        | "MXN"
+        | "MXV"
+        | "MYR"
+        | "MZN"
+        | "NAD"
+        | "NGN"
+        | "NIO"
+        | "NOK"
+        | "NPR"
+        | "NZD"
+        | "OMR"
+        | "PAB"
+        | "PEN"
+        | "PGK"
+        | "PHP"
+        | "PKR"
+        | "PLN"
+        | "PYG"
+        | "QAR"
+        | "RON"
+        | "RSD"
+        | "RUB"
+        | "RWF"
+        | "SAR"
+        | "SBD"
+        | "SCR"
+        | "SDG"
+        | "SEK"
+        | "SGD"
+        | "SHP"
+        | "SLL"
+        | "SOS"
+        | "SRD"
+        | "SSP"
+        | "STN"
+        | "SVC"
+        | "SYP"
+        | "SZL"
+        | "THB"
+        | "TJS"
+        | "TMT"
+        | "TND"
+        | "TOP"
+        | "TRY"
+        | "TTD"
+        | "TWD"
+        | "TZS"
+        | "UAH"
+        | "UGX"
+        | "USD"
+        | "USN"
+        | "UYI"
+        | "UYU"
+        | "UYW"
+        | "UZS"
+        | "VES"
+        | "VND"
+        | "VUV"
+        | "WST"
+        | "XAF"
+        | "XAG"
+        | "XAU"
+        | "XBA"
+        | "XBB"
+        | "XBC"
+        | "XBD"
+        | "XCD"
+        | "XDR"
+        | "XOF"
+        | "XPD"
+        | "XPF"
+        | "XPT"
+        | "XSU"
+        | "XTS"
+        | "XUA"
+        | "XXX"
+        | "YER"
+        | "ZAR"
+        | "ZMW"
+        | "ZWL";
 }

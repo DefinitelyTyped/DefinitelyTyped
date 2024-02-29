@@ -1,41 +1,35 @@
-// Type definitions for bootstrap.timepicker
-// Project: https://github.com/jdewit/bootstrap-timepicker
-// Definitions by: derikwhittaker <https://github.com/derikwhittaker>, Heather Booker <https://github.com/heatherbooker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface TimepickerOptions {
-    defaultTime?: string|boolean|Date;
-    disableFocus?: boolean;
-    disableMousewheel?: boolean;
-    explicitMode?: boolean;
-    icons?: TimepickerIconOptions;
-    isOpen?: boolean;
-    minuteStep?: number;
-    modalBackdrop?: boolean;
-    secondStep?: number;
-    showSeconds?: boolean;
-    showInputs?: boolean;
-    showMeridian?: boolean;
-    template?: string|boolean;
-    appendWidgetTo?: string;
-    maxHours?: number;
-    snapToStep?: boolean;
+    defaultTime?: string | boolean | Date | undefined;
+    disableFocus?: boolean | undefined;
+    disableMousewheel?: boolean | undefined;
+    explicitMode?: boolean | undefined;
+    icons?: TimepickerIconOptions | undefined;
+    isOpen?: boolean | undefined;
+    minuteStep?: number | undefined;
+    modalBackdrop?: boolean | undefined;
+    secondStep?: number | undefined;
+    showSeconds?: boolean | undefined;
+    showInputs?: boolean | undefined;
+    showMeridian?: boolean | undefined;
+    template?: string | boolean | undefined;
+    appendWidgetTo?: string | undefined;
+    maxHours?: number | undefined;
+    snapToStep?: boolean | undefined;
 }
 
 interface TimepickerIconOptions {
-    up?: string;
-    down?: string;
+    up?: string | undefined;
+    down?: string | undefined;
 }
 
 interface TimepickerTime {
-    value?: string;
-    hours?: number;
-    minutes?: number;
-    seconds?: number;
-    meridian?: string;
+    value?: string | undefined;
+    hours?: number | undefined;
+    minutes?: number | undefined;
+    seconds?: number | undefined;
+    meridian?: string | undefined;
 }
 
 interface JQuery {
@@ -46,5 +40,5 @@ interface JQuery {
 }
 
 interface JQueryEventObject {
-    time?: TimepickerTime;
+    time?: TimepickerTime | undefined;
 }

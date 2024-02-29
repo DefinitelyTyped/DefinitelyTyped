@@ -1,9 +1,3 @@
-// Type definitions for gridfs-stream 0.5.0
-// Project: https://github.com/aheckmann/gridfs-stream
-// Definitions by: Lior Mualem <https://github.com/liorm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 declare namespace GridFSStream {
@@ -13,16 +7,16 @@ declare namespace GridFSStream {
     }
 
     export interface Options {
-        _id?: string;
-        filename?: string;
-        mode?: string;
+        _id?: string | undefined;
+        filename?: string | undefined;
+        mode?: string | undefined;
 
-        range?: Range;
+        range?: Range | undefined;
 
         // any other options from the GridStore may be passed too, e.g.
-        chunkSize?: number;
-        content_type?: string;
-        root?: string;
+        chunkSize?: number | undefined;
+        content_type?: string | undefined;
+        root?: string | undefined;
         metadata?: any;
     }
 
@@ -40,16 +34,13 @@ declare namespace GridFSStream {
     }
 }
 
-
-import mongo = require('mongodb');
+import mongo = require("mongodb");
 
 // Merged declaration, g is both a callable function and a namespace
 declare function g(db: any, mongo: any): g.Grid;
 
 declare namespace g {
-
     export class Grid {
-
         files: mongo.Collection;
         collection(name?: string): mongo.Collection;
         curCol: string;
@@ -61,7 +52,7 @@ declare namespace g {
 
         remove(options: GridFSStream.Options, callback: (err: Error) => void): void;
         exist(options: GridFSStream.Options, callback: (err: Error, found: boolean) => void): void;
-        findOne(options: GridFSStream.Options, callback: (err: Error, record: any)=>void):void;
+        findOne(options: GridFSStream.Options, callback: (err: Error, record: any) => void): void;
     }
 }
 

@@ -1,4 +1,4 @@
-import { PathDrawingOptions, AnimationSupport } from './';
+import { AnimationSupport, PathDrawingOptions } from "./";
 
 declare class Shape {
     /**
@@ -7,7 +7,7 @@ declare class Shape {
      * @param [opts] - Options for path drawing.
      * @see {@link https://progressbarjs.readthedocs.io/en/latest/api/shape/#new-shapecontainer-options}
      */
-    constructor(container: SVGPathElement | string | null, opts?: PathDrawingOptions);
+    constructor(container: HTMLElement | string | null, opts?: PathDrawingOptions);
     /**
      * Reference to SVG element where progress bar is drawn.
      */
@@ -29,7 +29,7 @@ declare class Shape {
     destroy(): void;
     setText(newText: string): void;
 }
-// tslint:disable-next-line no-empty-interface adds members from animation contract
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- adds members from animation contract
 interface Shape extends AnimationSupport {}
 
 export = Shape;

@@ -1,22 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare class Card extends React.Component<Card.CardProps> {}
 
 export default Card;
 
 declare namespace Card {
-    type Position = 'top' | 'right' | 'bottom' | 'left';
-    type Arrow = null | 'center' | 'top' | 'right' | 'bottom' | 'left';
-    type Align = null | 'center' | 'right' | 'left';
+    type Position = "top" | "right" | "bottom" | "left";
+    type Arrow = null | "center" | "top" | "right" | "bottom" | "left";
+    type Align = null | "center" | "right" | "left";
 
     interface CardProps {
-        position?: Position;
-        arrow?: Arrow;
-        align?: Align;
-        useHover?: boolean;
+        children?: React.ReactNode;
+        position?: Position | undefined;
+        arrow?: Arrow | undefined;
+        align?: Align | undefined;
+        useHover?: boolean | undefined;
         style?: {
-            style?: React.CSSProperties;
-            arrowStyle?: React.CSSProperties;
-        };
+            style?: React.CSSProperties | undefined;
+            arrowStyle?: React.CSSProperties | undefined;
+        } | undefined;
     }
 }

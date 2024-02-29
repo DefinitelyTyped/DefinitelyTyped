@@ -1,24 +1,17 @@
-// Type definitions for sandboxed-module v2.0.3
-// Project: https://github.com/felixge/node-sandboxed-module
-// Definitions by: Sven Reglitzki <https://github.com/svi3c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 interface SandboxOptions {
     /**
      * An object containing moduleIds and the values to inject for them when required by the sandboxed module.
      * This does not affect children of the sandboxed module.
      */
-    requires?: Object;
+    requires?: Object | undefined;
     /**
      * An object of global variables to inject into the sandboxed module.
      */
-    globals?: Object;
+    globals?: Object | undefined;
     /**
      * An object of local variables to inject into the sandboxed module.
      */
-    locals?: Object;
+    locals?: Object | undefined;
     /**
      * An object of named functions which will transform the source code required with SandboxedModule.require.
      * For example, CoffeeScript & istanbul support is implemented with built-in sourceTransformer functions
@@ -37,18 +30,18 @@ interface SandboxOptions {
      *   }
      * })
      */
-    sourceTransformers?: Object;
+    sourceTransformers?: Object | undefined;
     /**
      * If false, modules that are required by the sandboxed module will not be sandboxed. By default all modules
      * required by the sandboxedModule will be sandboxed using the same options that were used for the original
      * sandboxed module.
      */
-    singleOnly?: boolean;
+    singleOnly?: boolean | undefined;
     /**
      * If false, the source transformers will not be run against modules required by the sandboxed module.
      * By default it will take the same value as {@link SandboxOptions.singleOnly}.
      */
-    sourceTransformersSingleOnly?: boolean;
+    sourceTransformersSingleOnly?: boolean | undefined;
 }
 
 declare class SandboxedModule {
@@ -88,7 +81,7 @@ declare class SandboxedModule {
      * @param moduleId the ID of the module to load
      * @param options the loading options
      */
-    static load(moduleId: string, options?: SandboxOptions): SandboxedModule
+    static load(moduleId: string, options?: SandboxOptions): SandboxedModule;
 
     /**
      * Identical to {@link SandboxedModule.load()}, but returns sandboxedModule.exports directly.
@@ -96,14 +89,14 @@ declare class SandboxedModule {
      * @param moduleId the ID of the module to require
      * @param options the requiring options
      */
-    static require(moduleId: string, options?: SandboxOptions): any
+    static require(moduleId: string, options?: SandboxOptions): any;
     /**
      * Sets options globally across all uses of {@link SandboxedModule.load()} and {@link SandboxedModule.require()}.
      * This way, a commonly needed require, global, local, or sourceTransformer can be specified once across all
      * sandboxed modules.
      * @param options the loading and requiring default options
      */
-    static configure(options: SandboxOptions): void
+    static configure(options: SandboxOptions): void;
     /**
      * Enables a built-in source transformer by name. Currently, SandboxedModule ships with two built in source
      * transformers:
@@ -114,7 +107,7 @@ declare class SandboxedModule {
      *    SandboxedModule.registerBuiltInSourceTransformer('istanbul').
      * @param name The name of the built-in source transformer
      */
-    static registerBuiltInSourceTransformer(name: String): void
+    static registerBuiltInSourceTransformer(name: String): void;
 }
 
 export = SandboxedModule;

@@ -1,9 +1,3 @@
-// Type definitions for @jsspec/jsspec 0.0
-// Project: https://github.com/JSSpec/jsspec
-// Definitions by: HookyQR <https://github.com/HookyQR>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Declare a lazy evaluated variable
  */
@@ -105,20 +99,20 @@ declare namespace JSSpec {
         /**
          * fail the test after _timeout_ milliseconds
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     interface ContextOptions {
         /**
          * fail the test after _timeout_ milliseconds
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Run the contained Examples/Contexts in random order?
          * - Run in random order if `true`
          * - Run in definition order if `false`
          */
-        random?: boolean;
+        random?: boolean | undefined;
     }
 
     interface Context {

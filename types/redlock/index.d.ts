@@ -1,13 +1,5 @@
-// Type definitions for redlock 4.0
-// Project: https://github.com/mike-marcacci/node-redlock
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Doug Ayers <https://github.com/douglascayers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import * as Promise from 'bluebird';
-import { EventEmitter } from 'events';
+import * as Promise from "bluebird";
+import { EventEmitter } from "events";
 
 export = Redlock;
 
@@ -61,20 +53,20 @@ declare namespace Redlock {
          *
          * Default is 0.01
          */
-        driftFactor?: number;
+        driftFactor?: number | undefined;
         /**
          * The max number of times Redlock will attempt
          * to lock a resource before erroring.
          *
          * Default is 10
          */
-        retryCount?: number;
+        retryCount?: number | undefined;
         /**
          * The time in milliseconds between attempts.
          *
          * Default is 200
          */
-        retryDelay?: number;
+        retryDelay?: number | undefined;
         /**
          * The max time in ms randomly added to retries
          * to improve performance under high contention
@@ -82,7 +74,7 @@ declare namespace Redlock {
          *
          * Default is 100
          */
-        retryJitter?: number;
+        retryJitter?: number | undefined;
         /**
          * LUA script to run on the Redis server to lock a resource.
          * https://redis.io/commands/eval
@@ -90,7 +82,7 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        lockScript?: LockScriptFunction | string;
+        lockScript?: LockScriptFunction | string | undefined;
         /**
          * LUA script to run on the Redis server to unlock a resource.
          * https://redis.io/commands/eval
@@ -98,7 +90,7 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        unlockScript?: UnlockScriptFunction | string;
+        unlockScript?: UnlockScriptFunction | string | undefined;
         /**
          * LUA script to run on the Redis server to extend a lock's ttl.
          * https://redis.io/commands/eval
@@ -106,14 +98,14 @@ declare namespace Redlock {
          * Redlock has a default script.
          * Only override if you know it's necessary to do so.
          */
-        extendScript?: ExtendScriptFunction | string;
+        extendScript?: ExtendScriptFunction | string | undefined;
     }
 
     /**
      * This error is returned when there is an error locking a resource.
      */
     class LockError extends Error {
-        readonly name: 'LockError';
+        readonly name: "LockError";
         attempts: number;
         constructor(message?: string);
     }
@@ -256,22 +248,22 @@ declare class Redlock extends EventEmitter {
      * Subscribe to `clientError` events.
      * Alias for `on(event, listener)` function.
      */
-    addListener(event: 'clientError', listener: (err: any) => void): this;
+    addListener(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Subscribe to `clientError` events.
      * Your callback is invoked every time this event is emitted.
      */
-    on(event: 'clientError', listener: (err: any) => void): this;
+    on(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Subscribe to `clientError` events.
      * Your callback is invoked only once for this event.
      */
-    once(event: 'clientError', listener: (err: any) => void): this;
+    once(event: "clientError", listener: (err: any) => void): this;
 
     /**
      * Unsubscribe from the `clientError` event.
      */
-    removeListener(event: 'clientError', listener: (err: any) => void): this;
+    removeListener(event: "clientError", listener: (err: any) => void): this;
 }

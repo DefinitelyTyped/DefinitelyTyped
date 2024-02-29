@@ -1,17 +1,11 @@
-// Type definitions for redux-cablecar 3.0
-// Project: https://github.com/ndhays/redux-cablecar#readme
-// Definitions by: Christoph Flick <https://github.com/ChFlick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { Action, Middleware, Store } from 'redux';
+import { Action, Middleware, Store } from "redux";
 
 export interface Options {
-    connected?: () => void;
-    disconnected?: () => void;
-    params?: object;
-    prefix?: string;
-    optimisticOnFail?: boolean;
+    connected?: (() => void) | undefined;
+    disconnected?: (() => void) | undefined;
+    params?: object | undefined;
+    prefix?: string | undefined;
+    optimisticOnFail?: boolean | undefined;
 }
 
 export interface CableCar {

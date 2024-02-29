@@ -1,18 +1,10 @@
-// Type definitions for leaflet-polylinedecorator 1.6
-// Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
-// Definitions by: Viktor Soucek <https://github.com/soucekv>
-//                 Michael Faisst <https://github.com/michaelfaisst>
-//                 BePo65 <https://github.com/BePo65>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Symbol {
         interface DashOptions {
-            pixelSize?: number;
-            pathOptions?: PathOptions;
+            pixelSize?: number | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         class Dash {
@@ -24,10 +16,10 @@ declare module 'leaflet' {
         function dash(options?: DashOptions): Dash;
 
         interface ArrowHeadOptions {
-            polygon?: boolean;
-            pixelSize?: number;
-            headAngle?: number;
-            pathOptions?: PathOptions;
+            polygon?: boolean | undefined;
+            pixelSize?: number | undefined;
+            headAngle?: number | undefined;
+            pathOptions?: PathOptions | undefined;
         }
 
         class ArrowHead {
@@ -39,8 +31,8 @@ declare module 'leaflet' {
         function arrowHead(options?: ArrowHeadOptions): ArrowHead;
 
         interface MarkerOptions {
-            rotate?: boolean;
-            markerOptions?: L.MarkerOptions;
+            rotate?: boolean | undefined;
+            markerOptions?: L.MarkerOptions | undefined;
         }
 
         class Marker {
@@ -56,8 +48,8 @@ declare module 'leaflet' {
     function isCoordArray(c: any): boolean;
 
     interface Pattern {
-        offset?: number | string;
-        endOffset?: number | string;
+        offset?: number | string | undefined;
+        endOffset?: number | string | undefined;
         repeat: number | string;
         symbol: Symbol.Dash | Symbol.ArrowHead | Symbol.Marker;
     }
@@ -67,8 +59,14 @@ declare module 'leaflet' {
     }
 
     class PolylineDecorator extends FeatureGroup {
-        constructor(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions);
-        initialize(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions): void;
+        constructor(
+            paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][],
+            options?: PolylineDecoratorOptions,
+        );
+        initialize(
+            paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][],
+            options?: PolylineDecoratorOptions,
+        ): void;
         setPatterns(patterns: Pattern[]): void;
         setPaths(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][]): void;
         onAdd(map: Map): this;

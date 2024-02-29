@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/supertest",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/visionmedia/supertest"
+    ],
+    "dependencies": {
+        "@types/methods": "^1.1.4",
+        "@types/superagent": "^8.1.0"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/supertest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Varju",
+            "githubUsername": "varju"
+        },
+        {
+            "name": "Petteri Parkkila",
+            "githubUsername": "pietu"
+        },
+        {
+            "name": "David Tanner",
+            "githubUsername": "DavidTanner"
+        }
+    ]
+}

@@ -1,34 +1,28 @@
-// Type definitions for non-npm package amap-js-api-station-search 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.StationSearch
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace StationSearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
              * 页码
              * 默认值：1, 取值范围：1-100
              */
-            pageIndex?: number;
+            pageIndex?: number | undefined;
             /**
              * 单页显示结果条数
              * 默认值：20, 取值范围：1-100
              */
-            pageSize?: number;
+            pageSize?: number | undefined;
             /**
              * 公交站点所在城市
              * 可选值：cityname（中文或中文全拼）、citycode、adcode
              * 默认值：“全国”
              */
-            city?: string;
+            city?: string | undefined;
         }
         interface Busline {
             /**
@@ -108,13 +102,13 @@ declare namespace AMap {
             /**
              * 查无此公交站时，返回的建议关键字列表，可根据建议关键字查询
              */
-            keywordList?: string[];
+            keywordList?: string[] | undefined;
             /**
              * 查该城市无此公交站时，返回的建议城市列表
              */
-            cityList?: CityInfo[];
+            cityList?: CityInfo[] | undefined;
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     /**
      * 公交站点查询服务
@@ -128,7 +122,7 @@ declare namespace AMap {
          */
         searchById(
             id: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 根据给定公交站点名称进行公交站点详情查询
@@ -137,7 +131,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置查询结果页码

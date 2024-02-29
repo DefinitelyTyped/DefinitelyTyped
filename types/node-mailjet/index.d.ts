@@ -1,27 +1,21 @@
-// Type definitions for node-mailjet 3.3
-// Project: https://github.com/mailjet/mailjet-apiv3-nodejs
-// Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
 export function connect(apiToken: string, options?: ConnectOptions): SMS.Client;
 
 export interface ConnectOptions {
-    readonly proxyUrl?: string;
-    readonly timeout?: number;
-    readonly url?: string;
-    readonly version?: string;
-    readonly perform_api_call?: boolean;
+    readonly proxyUrl?: string | undefined;
+    readonly timeout?: number | undefined;
+    readonly url?: string | undefined;
+    readonly version?: string | undefined;
+    readonly perform_api_call?: boolean | undefined;
 }
 
 export interface ConfigOptions {
-    readonly url?: string;
-    readonly version?: string;
-    readonly output?: string;
-    readonly perform_api_call?: boolean;
-    readonly secured?: boolean;
+    readonly url?: string | undefined;
+    readonly version?: string | undefined;
+    readonly output?: string | undefined;
+    readonly perform_api_call?: boolean | undefined;
+    readonly secured?: boolean | undefined;
 }
 
 // *** Email API interfaces *** //
@@ -32,11 +26,13 @@ export namespace Email {
         put(action: string, options?: ConfigOptions): PutResource;
 
         post(action: string, options?: ConfigOptions): PostResource;
+
+        delete(action: string, option?: ConfigOptions): DeleteResource;
     }
 
     // resources
     interface PostResource {
-        id(value: string): PostResource;
+        id(value: string | number): PostResource;
 
         action(action: string): PostResource;
 
@@ -46,7 +42,7 @@ export namespace Email {
     }
 
     interface GetResource {
-        id(value: string): GetResource;
+        id(value: string | number): GetResource;
 
         action(action: string): GetResource;
 
@@ -54,9 +50,15 @@ export namespace Email {
     }
 
     interface PutResource {
-        id(value: string): PutResource;
+        id(value: string | number): PutResource;
 
         request(params: object, callback?: (error: Error, res: PutResponse) => void): Promise<PutResponse>;
+    }
+
+    interface DeleteResource {
+        id(value: string): DeleteResource;
+
+        request(params?: object, callback?: (error: Error, res: DeleteResponse) => void): Promise<DeleteResponse>;
     }
 
     // responses
@@ -76,16 +78,20 @@ export namespace Email {
         readonly body: PutResponseData;
     }
 
+    interface DeleteResponse {
+        readonly body: {};
+    }
+
     // request params
     interface SendParams {
         Messages: SendParamsMessage[];
-        SandboxMode?: boolean;
+        SandboxMode?: boolean | undefined;
     }
 
     // other types
     interface SendParamsRecipient {
         Email: string;
-        Name?: string;
+        Name?: string | undefined;
     }
 
     interface Attachment {
@@ -101,39 +107,39 @@ export namespace Email {
     interface SendParamsMessage {
         From: {
             Email: string;
-            Name?: string;
+            Name?: string | undefined;
         };
         Sender?: {
             Email: string;
-            Name?: string;
-        };
+            Name?: string | undefined;
+        } | undefined;
         To: SendParamsRecipient[];
-        Cc?: SendParamsRecipient[];
-        Bcc?: SendParamsRecipient[];
-        ReplyTo?: SendParamsRecipient;
-        Variables?: object;
-        TemplateID?: number;
-        TemplateLanguage?: boolean;
-        Subject: string;
-        TextPart?: string;
-        HTMLPart?: string;
-        MonitoringCategory?: string;
-        URLTags?: string;
-        CustomCampaign?: string;
-        DeduplicateCampaign?: boolean;
-        EventPayload?: string;
-        CustomID?: string;
-        Headers?: object;
-        Attachments?: Attachment[];
-        InlinedAttachments?: InlinedAttachment[];
+        Cc?: SendParamsRecipient[] | undefined;
+        Bcc?: SendParamsRecipient[] | undefined;
+        ReplyTo?: SendParamsRecipient | undefined;
+        Variables?: object | undefined;
+        TemplateID?: number | undefined;
+        TemplateLanguage?: boolean | undefined;
+        Subject?: string | undefined;
+        TextPart?: string | undefined;
+        HTMLPart?: string | undefined;
+        MonitoringCategory?: string | undefined;
+        URLTags?: string | undefined;
+        CustomCampaign?: string | undefined;
+        DeduplicateCampaign?: boolean | undefined;
+        EventPayload?: string | undefined;
+        CustomID?: string | undefined;
+        Headers?: object | undefined;
+        Attachments?: Attachment[] | undefined;
+        InlinedAttachments?: InlinedAttachment[] | undefined;
     }
 
     interface PostResponseDataMessage {
         readonly Status: string;
         readonly CustomID: string;
-        readonly To: ReadonlyArray<PostResponseDataTo>;
-        readonly Cc: ReadonlyArray<PostResponseDataTo>;
-        readonly Bcc: ReadonlyArray<PostResponseDataTo>;
+        readonly To: readonly PostResponseDataTo[];
+        readonly Cc: readonly PostResponseDataTo[];
+        readonly Bcc: readonly PostResponseDataTo[];
     }
 
     interface PostResponseDataTo {
@@ -145,17 +151,17 @@ export namespace Email {
 
     interface GetResponseData {
         readonly Count: number;
-        readonly Data: ReadonlyArray<object>;
+        readonly Data: readonly object[];
         readonly Total: number;
     }
 
     interface PostResponseData {
-        readonly Messages: ReadonlyArray<PostResponseDataMessage>;
+        readonly Messages: readonly PostResponseDataMessage[];
     }
 
     interface PutResponseData {
         readonly Count: number;
-        readonly Data: ReadonlyArray<object>;
+        readonly Data: readonly object[];
         readonly Total: number;
     }
 }
@@ -163,14 +169,14 @@ export namespace Email {
 // *** SMS API interfaces *** ///
 export namespace SMS {
     interface Client {
-        get(action: string): GetResource;
+        get(action: string, options?: ConfigOptions): GetResource;
 
-        post(action: string): PostResource;
+        post(action: string, options?: ConfigOptions): PostResource;
     }
 
     // resources
     interface GetResource {
-        id(value: string): GetResource;
+        id(value: string | number): GetResource;
 
         action(action: string): GetResourceAction;
 
@@ -186,7 +192,7 @@ export namespace SMS {
     }
 
     interface GetResourceAction {
-        id(value: string): GetResourceActionId;
+        id(value: string | number): GetResourceActionId;
 
         request(params?: GetParams): Promise<GetResponseAction>;
     }
@@ -215,12 +221,12 @@ export namespace SMS {
 
     // request params
     interface GetParams {
-        FromTS?: number;
-        ToTS?: number;
-        To?: string;
-        StatusCode?: number[];
-        Limit?: number;
-        Offset?: number;
+        FromTS?: number | undefined;
+        ToTS?: number | undefined;
+        To?: string | undefined;
+        StatusCode?: number[] | undefined;
+        Limit?: number | undefined;
+        Offset?: number | undefined;
     }
 
     interface SendParams {
@@ -258,7 +264,7 @@ export namespace SMS {
     }
 
     interface GetResponseData {
-        readonly Data: ReadonlyArray<GetResponseDataData>;
+        readonly Data: readonly GetResponseDataData[];
     }
 
     interface PostResponseData {
@@ -275,12 +281,12 @@ export namespace SMS {
 
     interface ExportResponseData {
         readonly ID: number;
-        readonly CreationTS?: number;
-        readonly ExpirationTS?: number;
+        readonly CreationTS?: number | undefined;
+        readonly ExpirationTS?: number | undefined;
         readonly Status: ResponseStatus;
-        readonly URL?: string;
-        readonly FromTs?: number;
-        readonly ToTs?: number;
+        readonly URL?: string | undefined;
+        readonly FromTs?: number | undefined;
+        readonly ToTs?: number | undefined;
     }
 
     interface GetResponseActionData {

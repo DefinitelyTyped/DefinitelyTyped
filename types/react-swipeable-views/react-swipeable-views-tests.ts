@@ -1,12 +1,12 @@
-import * as React from 'react';
-import SwipeableViews,
-{
+import * as React from "react";
+import SwipeableViews, {
+    ActionCallback,
     OnChangeIndexCallback,
     OnSwitchingCallback,
     OnSwitchingCallbackTypeDescriptor,
     OnTransitionEndCallback,
-    SpringConfig
-} from 'react-swipeable-views';
+    SpringConfig,
+} from "react-swipeable-views";
 
 const onChangeIndex: OnChangeIndexCallback = (indexNew: number, indexLatest: number) => {
     console.log(`New index: ${indexNew}, latest index ${indexLatest}`);
@@ -21,13 +21,17 @@ const onTransitionEnd: OnTransitionEndCallback = () => {
 };
 
 const style: React.CSSProperties = {
-    height: 300
+    height: 300,
 };
 
 const springConfig: SpringConfig = {
     duration: "0.5s",
     easeFunction: "cubic-bezier(0.1, 0.35, 0.2, 1)",
     delay: "0.5s",
+};
+
+const action: ActionCallback = actions => {
+    console.log("Receiving actions: ", Object.keys(actions).join(", "));
 };
 
 React.createElement(SwipeableViews, {
@@ -45,7 +49,8 @@ React.createElement(SwipeableViews, {
     onTransitionEnd,
     axis: "x-reverse",
     springConfig,
-    disableLazyLoading: false
+    disableLazyLoading: false,
+    action,
 });
 
 React.createElement(SwipeableViews, {});

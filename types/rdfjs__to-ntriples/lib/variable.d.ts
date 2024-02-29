@@ -1,4 +1,4 @@
-import { Variable } from 'rdf-js';
+import { Variable } from "@rdfjs/types";
 
 declare function variable(variable: Variable): string;
 

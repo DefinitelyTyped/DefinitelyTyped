@@ -1,10 +1,5 @@
-// Type definitions for thepiratebay 1.4
-// Project: http://github.com/t3chnoboy/thepiratebay
-// Definitions by: Jack Sorrell <https://github.com/jsorrell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function search(query?: string, options?: SearchOptions): Promise<TorrentSearchResult[]>;
-export function getTorrent(id: string | number | { link: string; [propName: string]: any; }): Promise<TorrentDetails>;
+export function getTorrent(id: string | number | { link: string; [propName: string]: any }): Promise<TorrentDetails>;
 export function getComments(id: string | number): Promise<Comment[]>;
 export function topTorrents(category?: number): Promise<TorrentSearchResult[]>;
 export function recentTorrents(): Promise<TorrentSearchResult[]>;
@@ -13,11 +8,11 @@ export function getTvShow(id: string | number): Promise<TVSeason[]>;
 export function getCategories(): Promise<CategoryGroup[]>;
 
 export interface SearchOptions {
-    category?: string | number;
-    filter?: { verified?: boolean };
-    page?: number;
-    orderBy?: string;
-    sortBy?: string;
+    category?: string | number | undefined;
+    filter?: { verified?: boolean | undefined } | undefined;
+    page?: number | undefined;
+    orderBy?: string | undefined;
+    sortBy?: string | undefined;
 }
 
 export interface Category {

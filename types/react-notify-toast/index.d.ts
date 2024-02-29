@@ -1,10 +1,4 @@
-// Type definitions for react-notify-toast 0.5
-// Project: https://github.com/jesusoterogomez/react-notify-toast
-// Definitions by: Klaas Cuvelier <https://github.com/klaascuvelier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface reactNotifyToastColor {
     background: string;
@@ -14,9 +8,9 @@ interface reactNotifyToastColor {
 declare class reactNotifyToast {
     show(
         text: string,
-        type?: 'success' | 'error' | 'warning' | 'custom',
+        type?: "success" | "error" | "warning" | "custom",
         timeout?: number,
-        color?: reactNotifyToastColor
+        color?: reactNotifyToastColor,
     ): void;
 
     hide(): void;
@@ -24,16 +18,16 @@ declare class reactNotifyToast {
 }
 
 interface Options {
-    wrapperId?: string;
-    animationDuration?: number;
-    timeout?: number;
-    zIndex?: number;
-    top?: number | string;
+    wrapperId?: string | undefined;
+    animationDuration?: number | undefined;
+    timeout?: number | undefined;
+    zIndex?: number | undefined;
+    top?: number | string | undefined;
     colors?: any;
 }
 
 interface NotificationProps {
-    options?: Options;
+    options?: Options | undefined;
 }
 
 export class Notification extends React.Component<NotificationProps, any> {}

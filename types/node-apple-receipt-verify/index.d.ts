@@ -1,8 +1,3 @@
-// Type definitions for node-apple-receipt-verify 1.7
-// Project: https://github.com/ladeiko/node-apple-receipt-verify
-// Definitions by: serinuntius <https://github.com/serinuntius>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum ERROR_CODES {
     /** The receipt validated successfully. */
     SUCCESS = 0,
@@ -38,24 +33,24 @@ export enum ERROR_CODES {
     PROD_RECEIPT = 21008,
 
     /** This receipt could not be authorized. Treat this the same as if a purchase was never made. */
-    COULD_NOT_AUTHORIZE = 21010
+    COULD_NOT_AUTHORIZE = 21010,
 }
 
 export interface ConfigOptions {
     secret: string;
-    verbose?: boolean;
-    environment?: string[];
-    ignoreExpiredError?: boolean;
-    ignoreExpired?: boolean;
-    extended?: boolean;
-    excludeOldTransactions?: boolean;
+    verbose?: boolean | undefined;
+    environment?: string[] | undefined;
+    ignoreExpiredError?: boolean | undefined;
+    ignoreExpired?: boolean | undefined;
+    extended?: boolean | undefined;
+    excludeOldTransactions?: boolean | undefined;
 }
 
 export function config(options: ConfigOptions): ConfigOptions;
 
 export interface ValidateOptions {
     receipt: string;
-    device?: string;
+    device?: string | undefined;
 }
 
 export interface PurchasedProducts {
@@ -64,13 +59,13 @@ export interface PurchasedProducts {
     productId: string;
     purchaseDate: number;
     quantity: number;
-    expirationDate?: number;
-    isTrialPeriod?: boolean; // only for subscriptions and if extended = true
-    isInIntroOfferPeriod?: boolean; // only for subscriptions and if extended = true; since v1.5.1
-    environment?: string; // only if extended = true
-    originalPurchaseDate?: number; // only if extended = true
-    applicationVersion?: string; // only if extended = true
-    originalApplicationVersion?: string; // only if extended = true
+    expirationDate?: number | undefined;
+    isTrialPeriod?: boolean | undefined; // only for subscriptions and if extended = true
+    isInIntroOfferPeriod?: boolean | undefined; // only for subscriptions and if extended = true; since v1.5.1
+    environment?: string | undefined; // only if extended = true
+    originalPurchaseDate?: number | undefined; // only if extended = true
+    applicationVersion?: string | undefined; // only if extended = true
+    originalApplicationVersion?: string | undefined; // only if extended = true
 }
 
 export interface ValidationError extends Error {

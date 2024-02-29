@@ -28,14 +28,46 @@ export default class Display {
     pending(): boolean;
     flush(): void;
     fillRect(x: number, y: number, width: number, height: number, color: NvColor, from_queue?: boolean): void;
-    copyImage(old_x: number, old_y: number, new_x: number, new_y: number, width: number, height: number, from_queue?: boolean): void;
+    copyImage(
+        old_x: number,
+        old_y: number,
+        new_x: number,
+        new_y: number,
+        width: number,
+        height: number,
+        from_queue?: boolean,
+    ): void;
     imageRect(x: number, y: number, mime: string, arr: number[]): void;
     startTile(x: number, y: number, width: number, height: number, color: NvColor): void;
     subTile(x: number, y: number, width: number, height: number, color: NvColor): void;
     finishTile(): void;
-    blitImage(x: number, y: number, width: number, height: number, arr: number[], offset: number, from_queue?: boolean): void;
-    blitRgbImage(x: number, y: number, width: number, height: number, arr: number[], offset: number, from_queue?: boolean): void;
-    blitRgbxImage(x: number, y: number, width: number, height: number, arr: number[], offset: number, from_queue?: boolean): void;
+    blitImage(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        arr: number[],
+        offset: number,
+        from_queue?: boolean,
+    ): void;
+    blitRgbImage(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        arr: number[],
+        offset: number,
+        from_queue?: boolean,
+    ): void;
+    blitRgbxImage(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        arr: number[],
+        offset: number,
+        from_queue?: boolean,
+    ): void;
     drawImage(img: HTMLImageElement, x: number, y: number): void;
     changeCursor(pixels: number[], mask: number[], hotx: number, hoty: number, width: number, height: number): void;
     defaultCursor(): void;
@@ -45,15 +77,15 @@ export default class Display {
 }
 
 export interface NvDisplayDefaults {
-    target?: HTMLCanvasElement;
-    context?: CanvasRenderingContext2D;
-    logo?: NvLogo;
-    scale?: number;
-    viewport?: boolean;
-    width?: number;
-    height?: number;
-    render_mode?: string;
-    prefer_js?: string;
+    target?: HTMLCanvasElement | undefined;
+    context?: CanvasRenderingContext2D | undefined;
+    logo?: NvLogo | undefined;
+    scale?: number | undefined;
+    viewport?: boolean | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    render_mode?: string | undefined;
+    prefer_js?: string | undefined;
     cursor_uri?: any;
     onFlush?(): void;
 }

@@ -1,5 +1,3 @@
-import StateCore = require('./rules_core/state_core');
-
 declare namespace Ruler {
     interface RuleOptions {
         /**

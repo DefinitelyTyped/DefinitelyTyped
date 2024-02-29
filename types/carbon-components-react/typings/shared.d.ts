@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface ReactAttr<T = HTMLElement> extends React.HTMLAttributes<T> {}
 export interface ReactAnchorAttr<T = HTMLAnchorElement> extends React.AnchorHTMLAttributes<T> {}
@@ -7,19 +7,18 @@ export interface ReactDivAttr extends ReactAttr<HTMLDivElement> {}
 export interface ReactInputAttr<T = HTMLInputElement> extends React.InputHTMLAttributes<T> {}
 export interface ReactLabelAttr<T = HTMLLabelElement> extends React.LabelHTMLAttributes<T> {}
 export interface ReactLIAttr<T = HTMLLIElement> extends React.LiHTMLAttributes<T> {}
-export type ReactCreateElementParam = Parameters<typeof React.createElement>[0];
 
 export type ShapeOf<B extends object, E extends object = { [key: string]: any }> = (E extends never ? {} : E) & B;
 export type Overwrite<T, U> = [T] extends [never] ? U : Omit<T, keyof U> & U;
 
-export type VerticalDirection = 'bottom' | 'top';
-export type HorizontalDirection = 'left' | 'right';
+export type VerticalDirection = "bottom" | "top";
+export type HorizontalDirection = "left" | "right";
 export type Direction = HorizontalDirection | VerticalDirection;
 export type ListBoxBaseItemType = object | string;
-export type TooltipAlignment = 'center' | 'end' | 'start';
+export type TooltipAlignment = "center" | "end" | "start";
 export type TooltipPosition = Direction;
-export type CarbonSize = 'lg' | 'sm' | 'xs';
-export type CarbonInputSize = 'sm' | 'lg' | 'xl';
+export type CarbonSize = "lg" | "sm" | "xs";
+export type CarbonInputSize = "sm" | "lg" | "xl";
 
 //
 // In retrospect, it may not always be a good idea to lump shared props into a common reused interface.
@@ -31,59 +30,37 @@ export interface DownshiftTypedProps<ItemType> {
     itemToString?(item: ItemType): string;
 }
 
-export interface EmbeddedIconProps {
-    iconDescription?: string;
-}
-
-export interface EmbeddedTooltipProps {
-    tooltipAlignment?: TooltipAlignment;
-    tooltipPosition?: TooltipPosition;
-}
-
-export interface InternationalProps<MID = string> {
-    translateWithId?(messageId: MID): string;
+export interface InternationalProps<MID = string, ARGS = Record<string, unknown>> {
+    translateWithId?(messageId: MID, args?: ARGS): string;
 }
 
 export interface MenuOffsetData {
-    left?: number;
-    top?: number;
+    left?: number | undefined;
+    top?: number | undefined;
 }
 
 export interface RenderIconProps<P = any> {
-    renderIcon?: React.ComponentType<P>;
+    renderIcon?: React.ComponentType<P> | undefined;
 }
 
 export interface RequiresChildrenProps<T = React.ReactNode> {
     children: NonNullable<T>;
 }
 
-export interface RequiresIdProps<T = ReactAttr['id']> {
+export interface RequiresIdProps<T = ReactAttr["id"]> {
     id: NonNullable<T>;
 }
 
 export interface SizingProps {
-    small?: boolean;
-}
-
-export interface ThemeProps {
-    light?: boolean;
-}
-
-export interface ValidityProps {
-    invalid?: boolean;
-    invalidText?: string;
+    small?: boolean | undefined;
 }
 
 export interface SideNavSharedProps {
-    isSideNavExpanded?: boolean;
+    isSideNavExpanded?: boolean | undefined;
 }
 
 export interface SideNavSizingProps {
-    large?: boolean;
-}
-
-export interface RefForwardingProps<T = HTMLElement> {
-    ref?: React.RefObject<T>;
+    large?: boolean | undefined;
 }
 
 //
@@ -94,7 +71,7 @@ export interface RefForwardingProps<T = HTMLElement> {
 //  function component with no generics: export declare const Comp: React.FC<PropsInterface>;
 //  function component with generics: export declare function Comp<T extends SomeType>(props: FCProps<PropsInterface<T>>): FCReturn;
 //  forwardRef component with no generics: export declare const Comp: ForwardRefReturn<HTMLElement, PropsInterface>;
-//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<PropsInterface<T>>): FCReturn;
+//  forwardRef component with generics: export declare function Comp<T extends SomeType>(props: ForwardRefProps<HTMLElement, PropsInterface<T>>): FCReturn;
 //
 export type FCProps<P = {}> = Parameters<React.FC<P>>[0];
 export type FCReturn = ReturnType<React.FC>;
@@ -102,6 +79,9 @@ export type ForwardRefProps<T, P = {}> = React.PropsWithoutRef<React.PropsWithCh
 export type ForwardRefReturn<T, P = {}> = React.ForwardRefExoticComponent<ForwardRefProps<T, P>>;
 
 export type JSXIntrinsicElementProps<
-    K extends keyof JSX.IntrinsicElements,
-    REF extends boolean = false
-> = REF extends true ? JSX.IntrinsicElements[K] : Omit<JSX.IntrinsicElements[K], 'ref'>;
+    K extends keyof React.JSX.IntrinsicElements,
+    REF extends boolean = false,
+> = REF extends true ? React.JSX.IntrinsicElements[K] : Omit<React.JSX.IntrinsicElements[K], "ref">;
+
+// for "as" props
+export type ReactComponentConstructor<P> = ((props: P) => FCReturn) | (new(props: P) => React.Component<unknown, any>);

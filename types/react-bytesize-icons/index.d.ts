@@ -1,25 +1,20 @@
-// Type definitions for react-bytesize-icons 0.12.2
-// Project: https://github.com/Kilian/react-bytesize-icons
-// Definitions by: rhysd <https://rhysd.github.io>
-//                 Vladimir Liutov <https://github.com/vslutov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as React from "react";
 
-import * as React from 'react';
-
-export type StrokeLinejoin = 'round' | 'bevel' | 'miter' | 'inherit';
-export type StrokeLinecap = 'round' | 'butt' | 'square' | 'inherit';
-interface BytesizeBaseIconsProps extends React.Props<any> {
-    width?: number;
-    height?: number;
-    color?: string;
-    className?: string;
-    id?: string;
+export type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
+export type StrokeLinecap = "round" | "butt" | "square" | "inherit";
+interface BytesizeBaseIconsProps {
+    children?: React.ReactNode;
+    ref?: React.LegacyRef<any> | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    color?: string | undefined;
+    className?: string | undefined;
+    id?: string | undefined;
 }
 interface BytesizeIconsProps extends BytesizeBaseIconsProps {
-    strokeWidth?: string;
-    strokeLinejoin?: StrokeLinejoin;
-    strokeLinecap?: StrokeLinecap;
+    strokeWidth?: string | undefined;
+    strokeLinejoin?: StrokeLinejoin | undefined;
+    strokeLinecap?: StrokeLinecap | undefined;
 }
 export class BytesizeBaseIconComponent extends React.Component<BytesizeBaseIconsProps> {}
 export class BytesizeIconComponent extends React.Component<BytesizeIconsProps> {}

@@ -1,41 +1,25 @@
-// Type definitions for react-stripe-elements 6.0
-// Project: https://github.com/stripe/react-stripe-elements#readme
-// Definitions by: dan-j <https://github.com/dan-j>
-//                 Santiago Doldan <https://github.com/santiagodoldan>
-//                 sonnysangha <https://github.com/sonnysangha>
-//                 Andrew Goh Yisheng <https://github.com/9y5>
-//                 Thomas Chia <https://github.com/thchia>
-//                 Piotr Dabrowski <https://github.com/yhnavein>
-//                 Victor Irzak <https://github.com/virzak>
-//                 Alex Price <https://github.com/remotealex>
-//                 Maciej Dabek <https://github.com/bombek92>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-//                 Austin Turner <https://github.com/paustint>
-//                 Benedikt Bauer <https://github.com/mastacheata>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="stripe-v3" />
-import * as React from 'react';
+import * as React from "react";
 
 export namespace ReactStripeElements {
     import BankAccountTokenOptions = stripe.BankAccountTokenOptions;
     type ElementChangeResponse = stripe.elements.ElementChangeResponse;
     type ElementsOptions = stripe.elements.ElementsOptions;
     // From https://stripe.com/docs/stripe-js/reference#element-types
-    type TokenType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'paymentRequestButton' | 'iban' | 'idealBank';
-    type TokenOptions = stripe.TokenOptions & { type?: TokenType };
+    type TokenType = "card" | "cardNumber" | "cardExpiry" | "cardCvc" | "paymentRequestButton" | "iban" | "idealBank";
+    type TokenOptions = stripe.TokenOptions & { type?: TokenType | undefined };
     type TokenResponse = stripe.TokenResponse;
     type SourceResponse = stripe.SourceResponse;
     type SourceOptions = stripe.SourceOptions;
     type HTMLStripeElement = stripe.elements.Element;
 
     interface StripeProviderOptions {
-        stripeAccount?: string;
+        stripeAccount?: string | undefined;
     }
     type StripeProviderProps =
-        | { apiKey: string; stripe?: never } & StripeProviderOptions
-        | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
+        | { children?: React.ReactNode; apiKey: string; stripe?: never | undefined } & StripeProviderOptions
+        | { children?: React.ReactNode; apiKey?: never | undefined; stripe: stripe.Stripe | null }
+            & StripeProviderOptions;
 
     interface StripeOverrideProps {
         /*
@@ -69,7 +53,7 @@ export namespace ReactStripeElements {
     }
 
     interface InjectOptions {
-        withRef?: boolean;
+        withRef?: boolean | undefined;
     }
 
     interface InjectedStripeProps {
@@ -78,9 +62,9 @@ export namespace ReactStripeElements {
     }
 
     interface ElementProps extends ElementsOptions {
-        id?: string;
+        id?: string | undefined;
 
-        className?: string;
+        className?: string | undefined;
 
         elementRef?(ref: any): void;
 
@@ -100,7 +84,7 @@ export namespace ReactStripeElements {
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}
 
-export class Elements extends React.Component<stripe.elements.ElementsCreateOptions> {}
+export class Elements extends React.Component<stripe.elements.ElementsCreateOptions & { children?: React.ReactNode }> {}
 
 export function injectStripe<P extends object>(
     WrappedComponent: React.ComponentType<P & ReactStripeElements.InjectedStripeProps>,
@@ -120,7 +104,9 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
+export class PaymentRequestButtonElement
+    extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps>
+{}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 

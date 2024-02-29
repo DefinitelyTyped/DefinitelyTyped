@@ -1,25 +1,20 @@
-// Type definitions for loggly 1.1
-// Project: https://github.com/winstonjs/node-loggly
-// Definitions by: Ray Martone <https://github.com/rmartone>, Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export declare interface LogglyOptions {
     token: string;
     subdomain: string;
-    tags?: string[];
-    json?: boolean;
-    host?: string;
+    tags?: string[] | undefined;
+    json?: boolean | undefined;
+    host?: string | undefined;
     auth?: {
         username: string;
         password: string;
-    }
+    } | undefined;
 }
 
 declare interface SharedSearchOptions {
-    from?: string;
-    until?: string;
-    size?: number;
-    rows?: number;
+    from?: string | undefined;
+    until?: string | undefined;
+    size?: number | undefined;
+    rows?: number | undefined;
 }
 export declare interface SearchOptionsWithQ extends SharedSearchOptions {
     q: string;

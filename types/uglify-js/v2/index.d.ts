@@ -1,12 +1,6 @@
-// Type definitions for UglifyJS 2 v2.6.1
-// Project: https://github.com/mishoo/UglifyJS2
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="source-map" />
 
-
-import * as MOZ_SourceMap from 'source-map';
+import * as MOZ_SourceMap from "source-map";
 
 declare namespace UglifyJS {
     interface Tokenizer {
@@ -83,15 +77,15 @@ declare namespace UglifyJS {
     }
 
     interface MinifyOptions {
-        spidermonkey?: boolean;
-        outSourceMap?: string;
-        sourceRoot?: string;
-        inSourceMap?: string;
-        fromString?: boolean;
-        warnings?: boolean;
-        mangle?: Object;
-        output?: MinifyOutput,
-        compress?: Object;
+        spidermonkey?: boolean | undefined;
+        outSourceMap?: string | undefined;
+        sourceRoot?: string | undefined;
+        inSourceMap?: string | undefined;
+        fromString?: boolean | undefined;
+        warnings?: boolean | undefined;
+        mangle?: Object | undefined;
+        output?: MinifyOutput | undefined;
+        compress?: Object | undefined;
     }
 
     interface MinifyOutput {
@@ -99,18 +93,17 @@ declare namespace UglifyJS {
         map: string;
     }
 
-    function minify(files: string | Array<string>, options?: MinifyOptions): MinifyOutput;
-
+    function minify(files: string | string[], options?: MinifyOptions): MinifyOutput;
 
     interface ParseOptions {
         // Default is false
-        strict?: boolean;
+        strict?: boolean | undefined;
 
         // Input file name, default is null
-        filename?: string;
+        filename?: string | undefined;
 
         // Default is null
-        toplevel?: AST_Toplevel;
+        toplevel?: AST_Toplevel | undefined;
     }
 
     /**
@@ -119,77 +112,76 @@ declare namespace UglifyJS {
      */
     function parse(code: string, options?: ParseOptions): AST_Toplevel;
 
-
     interface BeautifierOptions {
         /**
          * Start indentation on every line (only when `beautify`)
          */
-        indent_start?: number;
+        indent_start?: number | undefined;
 
         /**
          * Indentation level (only when `beautify`)
          */
-        indent_level?: number;
+        indent_level?: number | undefined;
 
         /**
          * Quote all keys in object literals?
          */
-        quote_keys?: boolean;
+        quote_keys?: boolean | undefined;
 
         /**
          * Add a space after colon signs?
          */
-        space_colon?: boolean;
+        space_colon?: boolean | undefined;
 
         /**
          * Output ASCII-safe? (encodes Unicode characters as ASCII)
          */
-        ascii_only?: boolean;
+        ascii_only?: boolean | undefined;
 
         /**
          * Escape "</script"?
          */
-        inline_script?: boolean;
+        inline_script?: boolean | undefined;
 
         /**
          * Informative maximum line width (for beautified output)
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Maximum line length (for non-beautified output)
          */
-        max_line_len?: boolean | number;
+        max_line_len?: boolean | number | undefined;
 
         /**
          * Output IE-safe code?
          */
-        ie_proof?: boolean;
+        ie_proof?: boolean | undefined;
 
         /**
          * Beautify output?
          */
-        beautify?: boolean;
+        beautify?: boolean | undefined;
 
         /**
          * Output a source map
          */
-        source_map?: SourceMap;
+        source_map?: SourceMap | undefined;
 
         /**
          * Use brackets every time?
          */
-        bracketize?: boolean;
+        bracketize?: boolean | undefined;
 
         /**
          * Output comments?
          */
-        comments?: boolean;
+        comments?: boolean | undefined;
 
         /**
          * Use semicolons to separate statements? (otherwise, newlines)
          */
-        semicolons?: boolean;
+        semicolons?: boolean | undefined;
     }
 
     interface OutputStream {
@@ -206,7 +198,7 @@ declare namespace UglifyJS {
         indentation(): number;
 
         // return the width of the current line text minus indentation.
-        current_width(): number
+        current_width(): number;
 
         // Return true if current_width() is bigger than options.width (assuming options.width is non-null, non-zero).
         should_break(): boolean;
@@ -302,17 +294,16 @@ declare namespace UglifyJS {
      */
     function OutputStream(options?: BeautifierOptions): OutputStream;
 
-
     interface SourceMapOptions {
         /**
          * The compressed file name
          */
-        file?: string;
+        file?: string | undefined;
 
         /**
          * The root URL to the original sources
          */
-        root?: string;
+        root?: string | undefined;
 
         /**
          * The input source map.
@@ -320,11 +311,18 @@ declare namespace UglifyJS {
          * If you have an input source map, pass it in this argument and UglifyJS will generate a mapping that maps back
          * to the original source (as opposed to the compiled code that you are compressing).
          */
-        orig?: Object | JSON;
+        orig?: Object | JSON | undefined;
     }
 
     interface SourceMap {
-        add(source: string, gen_line: number, gen_col: number, orig_line: number, orig_col: number, name?: string): void;
+        add(
+            source: string,
+            gen_line: number,
+            gen_col: number,
+            orig_line: number,
+            orig_col: number,
+            name?: string,
+        ): void;
         get(): MOZ_SourceMap.SourceMapGenerator;
         toString(): string;
     }
@@ -336,71 +334,69 @@ declare namespace UglifyJS {
      */
     function SourceMap(options?: SourceMapOptions): SourceMap;
 
-
     interface CompressorOptions {
         // Join consecutive statemets with the “comma operator”
-        sequences?: boolean;
+        sequences?: boolean | undefined;
 
         // Optimize property access: a["foo"] → a.foo
-        properties?: boolean;
+        properties?: boolean | undefined;
 
         // Discard unreachable code
-        dead_code?: boolean;
+        dead_code?: boolean | undefined;
 
         // Discard “debugger” statements
-        drop_debugger?: boolean;
+        drop_debugger?: boolean | undefined;
 
         // Some unsafe optimizations (see below)
-        unsafe?: boolean;
+        unsafe?: boolean | undefined;
 
         // Optimize if-s and conditional expressions
-        conditionals?: boolean;
+        conditionals?: boolean | undefined;
 
         // Optimize comparisons
-        comparisons?: boolean;
+        comparisons?: boolean | undefined;
 
         // Evaluate constant expressions
-        evaluate?: boolean;
+        evaluate?: boolean | undefined;
 
         // Optimize boolean expressions
-        booleans?: boolean;
+        booleans?: boolean | undefined;
 
         // Optimize loops
-        loops?: boolean;
+        loops?: boolean | undefined;
 
         // Drop unused variables/functions
-        unused?: boolean;
+        unused?: boolean | undefined;
 
         // Hoist function declarations
-        hoist_funs?: boolean;
+        hoist_funs?: boolean | undefined;
 
         // Hoist variable declarations
-        hoist_vars?: boolean;
+        hoist_vars?: boolean | undefined;
 
         // Optimize if-s followed by return/continue
-        if_return?: boolean;
+        if_return?: boolean | undefined;
 
         // Join var declarations
-        join_vars?: boolean;
+        join_vars?: boolean | undefined;
 
         // Try to cascade `right` into `left` in sequences
-        cascade?: boolean;
+        cascade?: boolean | undefined;
 
         // Drop side-effect-free statements
-        side_effects?: boolean;
+        side_effects?: boolean | undefined;
 
         // Warn about potentially dangerous optimizations/code
-        warnings?: boolean;
+        warnings?: boolean | undefined;
 
         // Global definitions
-        global_defs?: Object;
+        global_defs?: Object | undefined;
     }
 
     /**
      * The compressor is a tree transformer which reduces the code size by applying various optimizations on the AST
      */
     function Compressor(options?: CompressorOptions): AST_Toplevel;
-
 
     // TODO
     interface TreeWalker {
@@ -413,7 +409,6 @@ declare namespace UglifyJS {
      * Your visitor can return a non-falsy value in order to prevent descending the current node.
      */
     function TreeWalker(visitor: visitor): TreeWalker;
-
 
     // TODO
     interface TreeTransformer extends TreeWalker {

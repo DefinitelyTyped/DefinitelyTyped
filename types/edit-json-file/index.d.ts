@@ -1,19 +1,16 @@
-// Type definitions for edit-json-file 1.4
-// Project: https://github.com/IonicaBizau/edit-json-file#readme
-// Definitions by: Twixes <https://github.com/Twixes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types= "node" />
 
-import { NoParamCallback } from 'fs';
+import { NoParamCallback } from "fs";
+import * as set from "set-value";
 
 declare namespace editJsonFile {
     /** JSON file editor options. */
     interface Options {
-        stringify_width?: number;
-        stringify_fn?: (data: object) => string;
-        stringify_eol?: boolean;
-        autosave?: boolean;
+        stringify_width?: number | undefined;
+        stringify_fn?: ((data: object) => string) | undefined;
+        stringify_eol?: boolean | undefined;
+        autosave?: boolean | undefined;
+        ignore_dots?: boolean | undefined;
     }
 
     /** JSON file editor. */
@@ -21,7 +18,11 @@ declare namespace editJsonFile {
         /** Get value at path. */
         get(path?: string): any;
         /** Set value at path. */
-        set(path: string, value: any): JsonEditor;
+        set(path: string, value: any, options?: set.Options): JsonEditor;
+        /** Appends a value/object to a specific path. */
+        append(path: string, value: any): JsonEditor;
+        /** Pop an array from a specific path. */
+        pop(path: string): JsonEditor;
         /** Unset value at path. */
         unset(path: string): JsonEditor;
         /** Read the JSON file. */

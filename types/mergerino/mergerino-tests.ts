@@ -1,9 +1,9 @@
-import merge from 'mergerino';
+import merge from "mergerino";
 
 function deletingWorks() {
     interface State {
         deep: {
-            prop?: string;
+            prop?: string | undefined;
         };
         fake?: any;
         other: boolean | null;
@@ -13,7 +13,7 @@ function deletingWorks() {
     const state: State = {
         prop: true,
         other: true,
-        deep: { prop: 'foo' },
+        deep: { prop: "foo" },
     };
 
     const newState = merge(state, {
@@ -29,15 +29,15 @@ function functionSubWorks() {
         age: number;
         name: string;
         obj: {
-            prop?: boolean;
-            replaced?: boolean;
+            prop?: boolean | undefined;
+            replaced?: boolean | undefined;
         };
     }
 
     const state: State = {
         age: 10,
-        name: 'bob',
-        obj: { prop: true }
+        name: "bob",
+        obj: { prop: true },
     };
 
     const newState = merge(state, {
@@ -55,12 +55,12 @@ function deepFunctionSubToUncreatedObjectPath() {
             stats: {
                 count: number;
             };
-        };
+        } | undefined;
         orig: boolean;
     }
 
     const state: State = {
-        orig: true
+        orig: true,
     };
 
     const newState = merge(
@@ -68,10 +68,10 @@ function deepFunctionSubToUncreatedObjectPath() {
         {
             add: {
                 stats: {
-                    count: x => x + 1
+                    count: x => x + 1,
                 },
-            }
-        }
+            },
+        },
     );
 }
 
@@ -80,7 +80,7 @@ function addNestedObject() {
         age: number;
         add?: {
             sub: boolean;
-        };
+        } | undefined;
     }
     const state: State = { age: 10 };
     const add = { sub: true };
@@ -93,13 +93,14 @@ function deepMergeObjects() {
         sub: {
             sub: {
                 prop: boolean;
-                newProp?: boolean;
+                newProp?: boolean | undefined;
             };
         };
     }
 
     const state: State = {
-        age: 10, sub: {
+        age: 10,
+        sub: {
             sub: { prop: true },
         },
     };
@@ -108,10 +109,9 @@ function deepMergeObjects() {
         state,
         {
             sub: {
-                sub:
-                {
+                sub: {
                     newProp: true,
-                }
+                },
             },
         },
     );
@@ -121,9 +121,9 @@ function functionPatch() {
     interface State {
         age: number;
         foo: string;
-        prop?: boolean;
+        prop?: boolean | undefined;
     }
-    const state: State = { age: 10, foo: 'bar' };
+    const state: State = { age: 10, foo: "bar" };
     const newState = merge(state, (s, m) => {
         return merge(s, { prop: true });
     });
@@ -131,21 +131,21 @@ function functionPatch() {
 
 function multiArrayFalsyPatches() {
     interface State {
-        age?: number;
+        age?: number | undefined;
         foo: string;
-        baz?: number;
-        hello?: boolean;
-        arr?: number[];
-        prop?: boolean;
+        baz?: number | undefined;
+        hello?: boolean | undefined;
+        arr?: number[] | undefined;
+        prop?: boolean | undefined;
     }
-    const state: State = { foo: 'bar' };
+    const state: State = { foo: "bar" };
     const newState = merge(
         state,
         { baz: 5 },
         { hello: false },
         [{ arr: [1, 2, 3] }, [[{ prop: true }]], false, null],
         undefined,
-        '',
+        "",
         0,
         null,
         (s, m) => m(s, { age: 10 }),
@@ -166,7 +166,7 @@ function deepMergeWithArr() {
             prop: boolean;
         };
     }
-    const state: State = { foo: 'bar', deep: { arr: [1, 2, 3], prop: false } };
+    const state: State = { foo: "bar", deep: { arr: [1, 2, 3], prop: false } };
     const newState = merge(state, { deep: { arr: { 1: 20 } } });
 }
 
@@ -178,7 +178,7 @@ function deepMergeWithArr() {
 //         }>;
 //     }
 //     const state: State = { arr: [{ prop: true }] };
-//     const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });  // $ExpectError
+//     const newState = merge(state, { arr: { 0: { prop: false, nonExists: 42 } } });  // @ts-expect-error
 // }
 
 function topLevelFunctionPatch() {
@@ -188,7 +188,7 @@ function topLevelFunctionPatch() {
             foo: string;
         }
         | { replaced: boolean };
-    const state = { age: 20, foo: 'bar' };
+    const state = { age: 20, foo: "bar" };
     const replacement = { replaced: true };
     const newState = merge<State>(state, () => replacement);
 }
@@ -201,15 +201,15 @@ function reuseObjectIfSameRefWhenPatching() {
 function replacePrimitiveWithObjectAndViceVersa() {
     interface State {
         count:
-        | number
-        | {
-            prop: boolean;
-        };
+            | number
+            | {
+                prop: boolean;
+            };
         foo:
-        | number
-        | {
-            prop: boolean;
-        };
+            | number
+            | {
+                prop: boolean;
+            };
     }
     const state: State = { count: 10, foo: { prop: true } };
     const newState = merge(state, { count: { prop: true }, foo: 10 });

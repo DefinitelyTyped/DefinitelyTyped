@@ -1,16 +1,16 @@
-import { Component } from 'react';
+import { Component } from "react";
 import { TransitionProps } from "./Transition";
 
 export interface CSSTransitionClassNames {
-    appear?: string;
-    appearActive?: string;
-    appearDone?: string;
-    enter?: string;
-    enterActive?: string;
-    enterDone?: string;
-    exit?: string;
-    exitActive?: string;
-    exitDone?: string;
+    appear?: string | undefined;
+    appearActive?: string | undefined;
+    appearDone?: string | undefined;
+    enter?: string | undefined;
+    enterActive?: string | undefined;
+    enterDone?: string | undefined;
+    exit?: string | undefined;
+    exitActive?: string | undefined;
+    exitDone?: string | undefined;
 }
 
 export type CSSTransitionProps<Ref extends undefined | HTMLElement = undefined> = TransitionProps<Ref> & {
@@ -37,7 +37,7 @@ export type CSSTransitionProps<Ref extends undefined | HTMLElement = undefined> 
      * }}
      * ```
      */
-    classNames?: string | CSSTransitionClassNames;
+    classNames?: string | CSSTransitionClassNames | undefined;
 };
 
 declare class CSSTransition<Ref extends undefined | HTMLElement> extends Component<CSSTransitionProps<Ref>> {}

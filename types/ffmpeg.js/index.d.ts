@@ -1,20 +1,13 @@
-// Type definitions for package ffmpeg.js 3.1
-// Project: https://github.com/Kagami/ffmpeg.js
-// Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
-//                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace ffmpeg {
     interface Options {
         arguments: string[];
-        MEMFS?: Video[];
+        MEMFS?: Video[] | undefined;
         print?(data: any): void;
         printErr?(data: any): void;
         onExit?(code: unknown): void;
         stdin?(data: any): void;
-        mounts?: Mount[];
-        TOTAL_MEMORY?: number;
+        mounts?: Mount[] | undefined;
+        TOTAL_MEMORY?: number | undefined;
     }
 
     interface Opts {

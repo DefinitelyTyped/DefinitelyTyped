@@ -1,45 +1,35 @@
-// Type definitions for jQuery mmenu v5.5.3
-// Project: http://mmenu.frebsite.nl/
-// Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryMmenu {
-
     interface NavbarOptions {
-
         /**
          * Whether or not to add a navbar above the panels.
          * Default: true
          */
-        add?: boolean;
+        add?: boolean | undefined;
 
         /**
          * The title above the main panel.
          * Default: "Menu"
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * The type of link to set for the title.
          * Possible values: "parent", "anchor" or "none".
          * Default: "parent"
          */
-        titleLink?: string;
-
+        titleLink?: string | undefined;
     }
 
     interface OnclickOptions {
-
         /**
          * Whether or not the menu should close after clicking a link inside it.
          * The default value varies per link: true if the default behavior for
          * the clicked link is prevented, false otherwise.
          * Default: null
          */
-        close?: boolean | any;
+        close?: boolean | any | undefined;
 
         /**
          * Whether or not to prevent the default behavior for the clicked link.
@@ -47,34 +37,32 @@ declare namespace JQueryMmenu {
          * or starts with a hash (#), false otherwise.
          * Default: null
          */
-        preventDefault?: boolean | any;
+        preventDefault?: boolean | any | undefined;
 
         /**
          * Whether or not the clicked link should be visibly "selected".
          * Default: true
          */
-        setSelected?: boolean | any;
-
+        setSelected?: boolean | any | undefined;
     }
 
     interface Options {
-
         /**
          * A collection of extension names to enable for the menu.
          * You'll need this option when using the extensions.
          * Default: []
          */
-        extensions?: Array<Object>;
+        extensions?: Object[] | undefined;
 
         /**
          * navbar options
          */
-        navbar?: NavbarOptions;
+        navbar?: NavbarOptions | undefined;
 
         /**
          * onClick options
          */
-        onClick?: OnclickOptions;
+        onClick?: OnclickOptions | undefined;
 
         /**
          * Whether or not submenus should come sliding in from the right.
@@ -82,82 +70,76 @@ declare namespace JQueryMmenu {
          * To expand a single submenu below its parent item, add the class "Vertical" to it.
          * Default: true
          */
-        slidingSubmenus?: boolean;
-
+        slidingSubmenus?: boolean | undefined;
     }
 
     interface ClassnamesConfigurations {
-
         /**
          * The classname on a LI that should be displayed as a divider.
          * Default: "Divider"
          */
-        divider?: string;
+        divider?: string | undefined;
 
         /**
          * The classname on a submenu (a nested UL) that should be displayed as a default list.
          * Default: "Inset"
          */
-        inset?: string;
+        inset?: string | undefined;
 
         /**
          * The classname on an element (for example a DIV) that should be considered to be a panel.
          * Only applies if the "isMenu" option is set to false.
          * Default: "Panel"
          */
-        panel?: string;
+        panel?: string | undefined;
 
         /**
          * The classname on the LI that should be displayed as selected.
          * Default: "Selected"
          */
-        selected?: string;
+        selected?: string | undefined;
 
         /**
          * The classname on a submenu (a nested UL) that should expand below
          * their parent instead of slide in from the right.
          * Default: "vertical"
          */
-        vertical?: string;
-
+        vertical?: string | undefined;
     }
 
     interface Configurations {
-
         /**
          * the CSS class names object
          */
-        classNames?: ClassnamesConfigurations;
+        classNames?: ClassnamesConfigurations | undefined;
 
         /**
          * Whether or not the menu should be cloned (and the original menu kept intact).
          * Default: false
          */
-        clone?: boolean;
+        clone?: boolean | undefined;
 
         /**
          * The number of milliseconds between opening/closing the menu and panels,
          * needed to force CSS transitions.
          * Default: 25
          */
-        openingInterval?: number;
+        openingInterval?: number | undefined;
 
         /**
          * jQuery selector containing the node-type of panels.
          * Default: "div, ul, ol"
          */
-        panelNodetype?: string;
+        panelNodetype?: string | undefined;
 
         /**
          * The number of milliseconds used in the CSS transitions.
          * Default: 400 (The value should match the associated CSS value.)
          */
-        transitionDuration?: number;
-
+        transitionDuration?: number | undefined;
     }
 
     interface API {
-
         /**
          * Trigger non-specialized signature method
          * @param methodName
@@ -219,14 +201,10 @@ declare namespace JQueryMmenu {
         update(): void;
         /** @see update() */
         bind(methodName: "update", callback: () => void): void;
-
     }
-
 }
 
-
 interface JQuery {
-
     /**
      * Create mmenu component
      */
@@ -239,5 +217,4 @@ interface JQuery {
      * @param element
      */
     data(element: "mmenu"): JQueryMmenu.API;
-
 }

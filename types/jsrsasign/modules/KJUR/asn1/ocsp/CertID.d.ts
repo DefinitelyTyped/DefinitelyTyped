@@ -1,6 +1,6 @@
 declare namespace jsrsasign.KJUR.asn1.ocsp {
     interface CertificateRequest {
-        alg?: string;
+        alg?: string | undefined;
         issuerCert: string;
         subjectCert: string;
     }
@@ -37,11 +37,11 @@ declare namespace jsrsasign.KJUR.asn1.ocsp {
             params?:
                 | CertificateRequest
                 | {
-                      namehash: string;
-                      keyhash: string;
-                      serial: string;
-                      alg: string;
-                  },
+                    namehash: string;
+                    keyhash: string;
+                    serial: string;
+                    alg: string;
+                },
         );
 
         /**

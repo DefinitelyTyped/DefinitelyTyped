@@ -1,13 +1,8 @@
-// Type definitions for Microsoft Live Connect v5.0
-// Project: http://msdn.microsoft.com/en-us/library/live/hh243643.aspx
-// Definitions by: John Vilk <https://github.com/jvilk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="winjs" />
 /// <reference types="winrt" />
 
 declare namespace Microsoft.Live {
-    //#region REST Object Information
+    // #region REST Object Information
 
     /**
      * Sub object of REST objects that contains information about a user.
@@ -148,7 +143,7 @@ declare namespace Microsoft.Live {
         /**
          * A description of the album.
          */
-        description?: string;
+        description?: string | undefined;
     }
 
     /**
@@ -270,27 +265,27 @@ declare namespace Microsoft.Live {
         /**
          * A description of the audio.
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * The audio's title.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * The audio's artist name.
          */
-        artist?: string;
+        artist?: string | undefined;
         /**
          * The audio's album name.
          */
-        album?: string;
+        album?: string | undefined;
         /**
          * The artist name of the audio's album.
          */
-        album_artist?: string;
+        album_artist?: string | undefined;
         /**
          * The audio's genre.
          */
-        genre?: string;
+        genre?: string | undefined;
     }
 
     /**
@@ -362,7 +357,7 @@ declare namespace Microsoft.Live {
         /**
          * Description of the calendar.
          */
-        description?: string;
+        description?: string | undefined;
     }
 
     /**
@@ -485,19 +480,21 @@ declare namespace Microsoft.Live {
         /**
          * The contact's first name.
          */
-        first_name?: string;
+        first_name?: string | undefined;
         /**
          * The contact's last name.
          */
-        last_name?: string;
+        last_name?: string | undefined;
         /**
          * An array that contains the contact's work info.
          */
-        work?: {
-            employer: {
-                name: string;
-            }
-        }[];
+        work?:
+            | Array<{
+                employer: {
+                    name: string;
+                };
+            }>
+            | undefined;
         /**
          * The contact's email addresses.
          */
@@ -505,20 +502,20 @@ declare namespace Microsoft.Live {
             /**
              * The contact's preferred email address.
              */
-            preferred?: string;
+            preferred?: string | undefined;
             /**
              * The contact's personal email address.
              */
-            personal?: string;
+            personal?: string | undefined;
             /**
              * The contact's business email address.
              */
-            business?: string;
+            business?: string | undefined;
             /**
              * The contact's "alternate" email address.
              */
-            other?: string;
-        };
+            other?: string | undefined;
+        } | undefined;
     }
 
     /**
@@ -673,17 +670,17 @@ declare namespace Microsoft.Live {
          * The name of the location at which the event will take place. The
          * maximum length is 1,000 characters.
          */
-        location?: string;
+        location?: string | undefined;
         /**
          * A value that specifies whether the event is an all-day event. If the
          * event is an all-day event, this value is true; otherwise, it is
          * false. If this structure is missing, the default value is false.
          */
-        is_all_day_event?: boolean;
+        is_all_day_event?: boolean | undefined;
         /**
          * The time, in minutes, before the event for the reminder alarm.
          */
-        reminder_time?: number;
+        reminder_time?: number | undefined;
         /**
          * The user's availability status for the event. Valid values are:
          * - free
@@ -692,7 +689,7 @@ declare namespace Microsoft.Live {
          * - out_of_office
          * @default "free"
          */
-        availability?: string;
+        availability?: string | undefined;
         /**
          * A value that specifies whether the event is publicly visible. Valid
          * values are:
@@ -700,7 +697,7 @@ declare namespace Microsoft.Live {
          * - private the event is visible only to the event owner.
          * @default "public"
          */
-        visibility?: string;
+        visibility?: string | undefined;
     }
 
     /**
@@ -990,12 +987,12 @@ declare namespace Microsoft.Live {
         /**
          * A description of the folder.
          */
-        description?: string;
+        description?: string | undefined;
         /**
          * Sorts the items to specify the following criteria: updated, name,
          * size, or default.
          */
-        sort_by?: string;
+        sort_by?: string | undefined;
     }
 
     /**
@@ -1233,12 +1230,12 @@ declare namespace Microsoft.Live {
             /**
              * Path string for the next set of results.
              */
-            next?: string;
+            next?: string | undefined;
             /**
              * Path string for the previous set of results.
              */
-            previous?: string;
-        };
+            previous?: string | undefined;
+        } | undefined;
     }
 
     /**
@@ -1562,9 +1559,9 @@ declare namespace Microsoft.Live {
         updated_time: string;
     }
 
-    //#endregion REST Object Information
+    // #endregion REST Object Information
 
-    //#region API Properties Interfaces
+    // #region API Properties Interfaces
 
     /**
      * 'Properties' object passed into the WL.api method.
@@ -1582,7 +1579,7 @@ declare namespace Microsoft.Live {
          * "PUT", "POST", and "DELETE".
          * @default "GET"
          */
-        method?: string;
+        method?: string | undefined;
         /**
          * A JSON object that specifies the REST API request body. The body
          * property is used only for "POST" and "PUT" requests.
@@ -1603,7 +1600,7 @@ declare namespace Microsoft.Live {
         /**
          * The file output object to which the downloaded file data is written.
          */
-        file_output?: Windows.Storage.StorageFile;
+        file_output?: Windows.Storage.StorageFile | undefined;
     }
 
     /**
@@ -1617,7 +1614,7 @@ declare namespace Microsoft.Live {
         /**
          * The name of the file to upload.
          */
-        file_name?: string;
+        file_name?: string | undefined;
         /**
          * The file input object to read the file from. Can be a
          * Windows.Storage.StorageFile or an IFile.
@@ -1626,7 +1623,7 @@ declare namespace Microsoft.Live {
         /**
          * The file input stream to read the file from.
          */
-        stream_input?: Windows.Storage.Streams.IInputStream;
+        stream_input?: Windows.Storage.Streams.IInputStream | undefined;
         /**
          * Indicates whether the uploaded file should overwrite an existing
          * copy. Specify "true" to overwrite, "false" to not overwrite and for
@@ -1635,7 +1632,7 @@ declare namespace Microsoft.Live {
          * file.
          * @default "false".
          */
-        overwrite?: string;
+        overwrite?: string | undefined;
     }
 
     /**
@@ -1666,13 +1663,13 @@ declare namespace Microsoft.Live {
          * single file. Specify "multi" for multiple files.
          * @default "single"
          */
-        select?: string;
+        select?: string | undefined;
         /**
          * The color pallette to use for the file picker. Specify "white",
          * "grey", or "transparent".
          * @default "white"
          */
-        lightbox?: string;
+        lightbox?: string | undefined;
     }
 
     /**
@@ -1685,7 +1682,7 @@ declare namespace Microsoft.Live {
          *
          * Windows Store apps using JavaScript: not needed.
          */
-        client_id?: string;
+        client_id?: string | undefined;
         /**
          * Contains the default redirect URI to be used for OAuth
          * authentication. For web apps, the OAuth server redirects to this URI
@@ -1694,7 +1691,7 @@ declare namespace Microsoft.Live {
          * For Windows Store apps using JavaScript, specifying this value will
          * enable the library to return the authentication token.
          */
-        redirect_uri?: string;
+        redirect_uri?: string | undefined;
         /**
          * The scope values used to determine which portions of user data the
          * app has access to, if the user consents.
@@ -1708,7 +1705,7 @@ declare namespace Microsoft.Live {
          * console and notifies your app by means of the wl.log event.
          * @default true
          */
-        logging?: boolean;
+        logging?: boolean | undefined;
         /**
          * Web apps: optional.
          * Windows Store apps using JavaScript: not applicable.
@@ -1716,7 +1713,7 @@ declare namespace Microsoft.Live {
          * status from Live Connect.
          * @default true
          */
-        status?: boolean;
+        status?: boolean | undefined;
         /**
          * Web apps: optional.
          * Windows Store apps using JavaScript: not applicable.
@@ -1729,7 +1726,7 @@ declare namespace Microsoft.Live {
          * You can only set response_type to "code" for web apps.
          * @default "token"
          */
-        response_type?: string;
+        response_type?: string | undefined;
         /**
          * Web apps: optional.
          * Windows Store apps using JavaScript: not applicable.
@@ -1737,7 +1734,7 @@ declare namespace Microsoft.Live {
          * writing a cookie on an HTTPS page.
          * @default "false"
          */
-        secure_cookie?: string;
+        secure_cookie?: string | undefined;
     }
 
     /**
@@ -1750,7 +1747,7 @@ declare namespace Microsoft.Live {
          * value overrides the default redirect URI that is provided in the call
          * to WL.init.
          */
-        redirect_uri?: string;
+        redirect_uri?: string | undefined;
         /**
          * Specifies the scopes to which the user who is signing in consents.
          *
@@ -1777,7 +1774,7 @@ declare namespace Microsoft.Live {
          * authorization code" section.
          * http://msdn.microsoft.com/en-us/library/live/hh243649.aspx
          */
-        state?: string;
+        state?: string | undefined;
     }
 
     /**
@@ -1806,7 +1803,7 @@ declare namespace Microsoft.Live {
          * section.
          * http://msdn.microsoft.com/en-us/library/live/hh243649.aspx
          */
-        state?: string;
+        state?: string | undefined;
     }
 
     /**
@@ -1826,31 +1823,31 @@ declare namespace Microsoft.Live {
          * file. Specify "multi" for multiple files.
          * @default "single"
          */
-        select?: string;
+        select?: string | undefined;
         /**
          * Defines the color pallette used for the file picker button. Valid
          * values are "white" and "blue".
          * @default "white"
          */
-        theme?: string;
+        theme?: string | undefined;
         /**
          * Defines the color pallette used for the file picker dialog box. Valid
          * values are "white", "gray", and "transparent".
          * @default "white"
          */
-        lightbox?: string;
+        lightbox?: string | undefined;
         /**
          * If the mode property is set to "save", specifies the function to call
          * after the user clicks either Save or Cancel in the file picker. If
          * the mode property is set to "open", specifies the function to call
          * after the user clicks either Open or Cancel in the file picker.
          */
-        onselected?: Function;
+        onselected?: Function | undefined;
         /**
          * Specifies the function to call if the selected files cannot be
          * successfully uploaded or downloaded.
          */
-        onerror?: Function;
+        onerror?: Function | undefined;
     }
 
     /**
@@ -1863,43 +1860,43 @@ declare namespace Microsoft.Live {
          * sign-in button.
          * @default "windows"
          */
-        brand?: string;
+        brand?: string | undefined;
         /**
          * Defines the color pallette used for the sign-in button. For Windows
          * Store apps using JavaScript, valid values are "dark" and "light".
          * For web apps, valid values are "blue" and "white".
          */
-        theme?: string;
+        theme?: string | undefined;
         /**
          * Defines the type of button.
          * @default "signin"
          */
-        type?: string;
+        type?: string | undefined;
         /**
          * If the value of the type property is set to "custom", this value
          * specifies the sign-in text to be displayed in the button.
          */
-        sign_in_text?: string;
+        sign_in_text?: string | undefined;
         /**
          * If the value of the type property is "custom", this value specifies
          * the sign-out text to be displayed in the button.
          */
-        sign_out_text?: string;
+        sign_out_text?: string | undefined;
         /**
          * Specifies the function to call after the user completes the sign-in
          * process.
          */
-        onloggedin?: Function;
+        onloggedin?: Function | undefined;
         /**
          * Specifies the function to call after the user completes the sign-out
          * process.
          */
-        onloggedout?: Function;
+        onloggedout?: Function | undefined;
         /**
          * Specifies the function to call whenever there is any error while the
          * sign-in control is initializing or while the user is signing in.
          */
-        onerror?: Function;
+        onerror?: Function | undefined;
     }
 
     /**
@@ -1923,10 +1920,10 @@ declare namespace Microsoft.Live {
          * uploaded file.
          * @default "false"
          */
-        overwrite?: string;
+        overwrite?: string | undefined;
     }
 
-    //#endregion API Properties Interfaces
+    // #endregion API Properties Interfaces
 
     /**
      * Represents the user's session.
@@ -1947,7 +1944,7 @@ declare namespace Microsoft.Live {
          * Note: This property is not available for Windows Store apps using
          * JavaScript.
          */
-        scope?: string[];
+        scope?: string[] | undefined;
         /**
          * The amount of time remaining, in seconds, until the user's access
          * token expires.
@@ -1955,7 +1952,7 @@ declare namespace Microsoft.Live {
          * Note: This property is not available for Windows Store apps using
          * JavaScript.
          */
-        expires_in?: number;
+        expires_in?: number | undefined;
         /**
          * The exact time when the session will expire. This time is expressed
          * in the number of seconds since 1 January, 1970.
@@ -1963,7 +1960,7 @@ declare namespace Microsoft.Live {
          * Note: This property is not available for Windows Store apps using
          * JavaScript.
          */
-        expires?: number;
+        expires?: number | undefined;
     }
 
     /**
@@ -2021,12 +2018,12 @@ declare namespace Microsoft.Live {
             /**
              * Information on files choden in the picker.
              */
-            files?: IFile[];
+            files?: IFile[] | undefined;
             /**
              * Information on folders chosen in the picker.
              */
-            folders?: IFolder[];
-        }
+            folders?: IFolder[] | undefined;
+        };
     }
 
     /**
@@ -2041,9 +2038,11 @@ declare namespace Microsoft.Live {
          * @param onProgress Called to indicate that the promised event is
          *   making progress toward completion.
          */
-        then(onSuccess: (response: T) => void,
+        then(
+            onSuccess: (response: T) => void,
             onError?: (error: any) => void,
-            onProgress?: (progress: any) => void): IPromise<T>;
+            onProgress?: (progress: any) => void,
+        ): IPromise<T>;
         /**
          * Cancels the pending request represented by the Promise, and triggers
          * the error callback if the promised event has not yet occurred.
@@ -2091,8 +2090,7 @@ declare namespace Microsoft.Live {
          *   code to handle a successful, failed, and in-progress call to the
          *   corresponding WL.api method, respectively.
          */
-        api<T>(properties: IAPIProperties,
-              callback?: (response: any) => void): IPromise<T>;
+        api<T>(properties: IAPIProperties, callback?: (response: any) => void): IPromise<T>;
         /**
          * Makes a call to download a file from Microsoft SkyDrive.
          *
@@ -2114,8 +2112,10 @@ declare namespace Microsoft.Live {
          *   content_type and stream properties, representing the downloaded
          *   file's content type and file stream, respectively.
          */
-        backgroundDownload<T>(properties: IBackgroundDownloadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        backgroundDownload<T>(
+            properties: IBackgroundDownloadProperties,
+            callback?: (response: any) => void,
+        ): IPromise<T>;
         /**
          * Makes a call to upload a file to Microsoft SkyDrive.
          *
@@ -2135,8 +2135,7 @@ declare namespace Microsoft.Live {
          *   handle a successful, failed, and in-progress call to the
          *   corresponding WL.backgroudUpload method, respectively.
          */
-        backgroundUpload<T>(properties: IBackgroundUploadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        backgroundUpload<T>(properties: IBackgroundUploadProperties, callback?: (response: any) => void): IPromise<T>;
         /**
          * Specifies whether the current user can be signed out of their
          * Microsoft account.
@@ -2170,8 +2169,7 @@ declare namespace Microsoft.Live {
          *   the onError parameter to enable your code to handle a failed call
          *   to the corresponding WL.download method.
          */
-        download(properties: IDownloadProperties,
-            callback?: (response: any) => void): IPromise<void>;
+        download(properties: IDownloadProperties, callback?: (response: any) => void): IPromise<void>;
         Event: IEventAPI;
         /**
          * Displays the Microsoft SkyDrive file picker, which enables
@@ -2187,8 +2185,7 @@ declare namespace Microsoft.Live {
          *   a successful and failed call to the corresponding WL.fileDialog
          *   method, respectively.
          */
-        fileDialog(properties: IFileDialogProperties,
-            callback?: (response: any) => void): IPromise<IFilePickerResult>;
+        fileDialog(properties: IFileDialogProperties, callback?: (response: any) => void): IPromise<IFilePickerResult>;
         /**
          * Returns the sign-in status of the current user. If the user is signed
          * in and connected to your app, this function returns the session
@@ -2213,8 +2210,7 @@ declare namespace Microsoft.Live {
          *   In the body of the onSuccess function, a status object is returned,
          *   which contains the user's sign-in status and the session object.
          */
-        getLoginStatus(callback?: (status: ILoginStatus) => void,
-            force?: boolean): IPromise<ILoginStatus>;
+        getLoginStatus(callback?: (status: ILoginStatus) => void, force?: boolean): IPromise<ILoginStatus>;
         /**
          * Retrieves the current session object synchronously, if a session
          * object exists. For situations in which performance is critical, such
@@ -2268,8 +2264,7 @@ declare namespace Microsoft.Live {
          *   code to handle a successful, failed, and in-progress call to the
          *   corresponding WL.login method, respectively.
          */
-        login(properties: ILoginProperties,
-            callback?: (status: any) => void): IPromise<ILoginStatus>;
+        login(properties: ILoginProperties, callback?: (status: any) => void): IPromise<ILoginStatus>;
         /**
          * Signs the user out of Live Connect and clears any user state that is
          * maintained by the JavaScript library, such as cookies. If the user
@@ -2326,8 +2321,7 @@ declare namespace Microsoft.Live {
          *   onProgress parameter applies to newer web browsers such as Internet
          *   Explorer 10 only.
          */
-        upload<T>(properties: IUploadProperties,
-            callback?: (response: any) => void): IPromise<T>;
+        upload<T>(properties: IUploadProperties, callback?: (response: any) => void): IPromise<T>;
     }
 }
 

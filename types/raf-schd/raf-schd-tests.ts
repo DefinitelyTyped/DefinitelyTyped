@@ -1,8 +1,10 @@
-import rafSchd = require('raf-schd');
+import rafSchd = require("raf-schd");
 
-const expensiveSideEffect = (a: number, b: number): void => {};
+function expensiveSideEffect(a: number, b: number): void;
+function expensiveSideEffect(a: string, b: string): void;
+function expensiveSideEffect(a: number | string, b: number | string): void {}
 
-// $ExpectType Schedule<(a: number, b: number) => void>
+// $ExpectType ScheduledFn<{ (a: number, b: number): void; (a: string, b: string): void; }>
 const scheduledFunction = rafSchd(expensiveSideEffect);
 
 // $ExpectType void

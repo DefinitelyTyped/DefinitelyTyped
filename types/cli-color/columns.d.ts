@@ -3,18 +3,18 @@ declare namespace columns {
         /**
          * align: Possible options: `'left'`, `'right'` (defaults to `'left'`)
          */
-        align?: 'left' | 'right';
+        align?: "left" | "right" | undefined;
     }
 
     export interface ColumnsOptions {
         /**
          *  Custom colums separator (defaults to `|`)
          */
-        sep?: string;
+        sep?: string | undefined;
         /**
          * columns: Per column customizations, as e.g. `[{ align: 'right' }, null, { align: 'left' }]`
          */
-        columns?: Array<ColumnOptions | null>;
+        columns?: Array<ColumnOptions | null> | undefined;
     }
 
     export type Row = Iterable<any> | ArrayLike<any>;
@@ -24,6 +24,6 @@ declare namespace columns {
 /**
  * Outputs aligned table of columns.
  */
-declare function columns(data: ReadonlyArray<ReadonlyArray<any>>, options?: columns.ColumnsOptions): string;
+declare function columns(data: ReadonlyArray<readonly any[]>, options?: columns.ColumnsOptions): string;
 declare function columns(data: columns.Data, options?: columns.ColumnsOptions): string;
 export = columns;

@@ -1,12 +1,6 @@
-// Type definitions for vision 4.1
-// Project: https://github.com/hapijs/vision
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+import * as Hapi from "hapi";
 
-import * as Hapi from 'hapi';
-
-declare module 'hapi' {
+declare module "hapi" {
     interface Server {
         /**
          * Initializes the server views manager
@@ -39,13 +33,13 @@ declare module 'hapi' {
             /** the template filename and path, relative to the templates path configured via the server views manager. */
             template: string;
             /** optional object used by the template to render context-specific result. Defaults to no context {}. */
-            context?: Object;
+            context?: Object | undefined;
             /**
              * optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.
              * TODO check if it can have `defaultExtension`.
              */
-            options?: ViewHandlerOrReplyOptions;
-        }
+            options?: ViewHandlerOrReplyOptions | undefined;
+        } | undefined;
     }
 
     interface Base_Reply {
@@ -68,9 +62,9 @@ declare module 'hapi' {
  */
 export interface ServerViewsConfiguration extends ServerViewsAdditionalOptions {
     /** required object where each key is a file extension (e.g. 'html', 'hbr'), mapped to the npm module used for rendering the templates. Alternatively, the extension can be mapped to an object */
-    engines: {[fileExtension: string]: NpmModule} | ServerViewsEnginesOptions;
+    engines: { [fileExtension: string]: NpmModule } | ServerViewsEnginesOptions;
     /** defines the default filename extension to append to template names when multiple engines are configured and no explicit extension is provided for a given template. No default value. */
-    defaultExtension?: string;
+    defaultExtension?: string | undefined;
 }
 
 /**
@@ -81,51 +75,50 @@ export interface ServerViewsEnginesOptions extends ServerViewsAdditionalOptions 
      * The npm module used for rendering the templates. The module object must contain the compile() function
      * @see {@link https://github.com/hapijs/vision/blob/master/API.md#serverviewsoptions} > options > engines > module
      */
-    module: NpmModule
+    module: NpmModule;
 }
 export interface ServerViewsAdditionalOptions extends ViewHandlerOrReplyOptions {
     /** the root file path, or array of file paths, where partials are located. Partials are small segments of template code that can be nested and reused throughout other templates. Defaults to no partials support (empty path). */
-    partialsPath?: string | string[];
+    partialsPath?: string | string[] | undefined;
     /** the directory path, or array of directory paths, where helpers are located. Helpers are functions used within templates to perform transformations and other data manipulations using the template context or other inputs. Each '.js' file in the helpers directory is loaded and the file name is used as the helper name. The files must export a single method with the signature function(context) and return a string. Sub-folders are not supported and are ignored. Defaults to no helpers support (empty path). Note that jade does not support loading helpers this way. */
-    helpersPath?: string | string[];
+    helpersPath?: string | string[] | undefined;
     /** if set to false, templates will not be cached (thus will be read from file on every use). Defaults to true. */
-    isCached?: boolean;
+    isCached?: boolean | undefined;
 }
 
 /**
- *
  * @see {@link https://github.com/hapijs/vision/blob/master/API.md#the-view-handler} > options for the list of attributes it can not have (isCached, partialsPath, helpersPath)
  */
 export interface ViewHandlerOrReplyOptions {
     /** the root file path, or array of file paths, used to resolve and load the templates identified when calling reply.view(). Defaults to current working directory. */
-    path?: string | string[];
+    path?: string | string[] | undefined;
     /**
      * a base path used as prefix for path and partialsPath. No default.
      * TODO update if PR for updating docs is accepted.
      */
-    relativeTo?: string;
+    relativeTo?: string | undefined;
     /** if set to true or a layout filename, layout support is enabled. A layout is a single template file used as the parent template for other view templates in the same engine. If true, the layout template name must be 'layout.ext' where 'ext' is the engine's extension. Otherwise, the provided filename is suffixed with the engine's extension and loaded. Disable layout when using Jade as it will handle including any layout files independently. Defaults to false. */
-    layout?: boolean;
+    layout?: boolean | undefined;
     /** the root file path, or array of file paths, where layout templates are located (using the relativeTo prefix if present). Defaults to path. */
-    layoutPath?: string | string[];
+    layoutPath?: string | string[] | undefined;
     /** the key used by the template engine to denote where primary template content should go. Defaults to 'content'. */
-    layoutKeyword?: string;
+    layoutKeyword?: string | undefined;
     /** the text encoding used by the templates when reading the files and outputting the result. Defaults to 'utf8'. */
-    encoding?: string;
+    encoding?: string | undefined;
     /** if set to true, allows absolute template paths passed to reply.view(). Defaults to false. */
-    allowAbsolutePaths?: boolean;
+    allowAbsolutePaths?: boolean | undefined;
     /** if set to true, allows template paths passed to reply.view() to contain '../'. Defaults to false. */
-    allowInsecureAccess?: boolean;
+    allowInsecureAccess?: boolean | undefined;
     /** options object passed to the engine's compile function. Defaults to empty options {}. */
-    compileOptions?: CompileOptions;
+    compileOptions?: CompileOptions | undefined;
     /** options object passed to the returned function from the compile operation. Defaults to empty options {}. */
-    runtimeOptions?: RuntimeOptions;
+    runtimeOptions?: RuntimeOptions | undefined;
     /** the content type of the engine results. Defaults to 'text/html'. */
-    contentType?: string;
+    contentType?: string | undefined;
     /** specify whether the engine compile() method is 'sync' or 'async'. Defaults to 'sync'. */
-    compileMode?: 'sync' | 'async';
+    compileMode?: "sync" | "async" | undefined;
     /** a global context used with all templates. The global context option can be either an object or a function that takes the request as its only argument and returns a context object. The request object is only provided when using the view handler or reply.view(). When using server.render() or request.render(), the request argument will be null. When rendering views, the global context will be merged with any context object specified on the handler or using reply.view(). When multiple context objects are used, values from the global context always have lowest precedence. */
-    context?: Object | ((request: Hapi.Request) => Object);
+    context?: Object | ((request: Hapi.Request) => Object) | undefined;
 }
 
 /**
@@ -147,7 +140,18 @@ export interface RuntimeOptions {}
  */
 export interface ServerViewCompile {
     (template: string, options: any): (context: any, options: any) => void;
-    (template: string, options: any, next: (err: Error | null, compiled: (context: any, options: any, callback: (err: null | Error, rendered: string | null) => void) => void) => void): void;
+    (
+        template: string,
+        options: any,
+        next: (
+            err: Error | null,
+            compiled: (
+                context: any,
+                options: any,
+                callback: (err: null | Error, rendered: string | null) => void,
+            ) => void,
+        ) => void,
+    ): void;
 }
 
 /**
@@ -156,7 +160,7 @@ export interface ServerViewCompile {
  */
 interface NpmModule {
     /** the rendering function. The required function signature depends on the compileMode settings */
-    compile: ServerViewCompile
+    compile: ServerViewCompile;
     /** initializes additional engine state. The config object is the engine configuration object allowing updates to be made. This is useful for engines like Nunjucks that rely on additional state for rendering. next has the signature function(err). */
     prepare(config: EngineConfigurationObject, next: (err?: Error) => void): void;
     /** registers a partial for use during template rendering. The name is the partial path that templates should use to reference the partial and src is the uncompiled template string for the partial. */

@@ -1,12 +1,3 @@
-// Type definitions for JQuery DataTables 1.10
-// Project: https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
-//                 Omid Rad <https://github.com/omidkrad>
-//                 Armin Sander <https://github.com/pragmatrix>
-//                 Craig Boland <https://github.com/CNBoland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // missing:
 // - Some return types are not fully working
 
@@ -49,7 +40,7 @@ declare namespace DataTables {
          */
         order: OrderMethods;
 
-        //#region "Cell/Cells"
+        // #region "Cell/Cells"
 
         /**
          * Select the cell found by a cell selector
@@ -91,9 +82,9 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          */
         cells(rowSelector: any, cellSelector: any, modifier?: ObjectSelectorModifier): CellsMethods;
-        //#endregion "Cell/Cells"
+        // #endregion "Cell/Cells"
 
-        //#region "Column/Columns"
+        // #region "Column/Columns"
 
         /**
          * Column Methods / object
@@ -105,9 +96,9 @@ declare namespace DataTables {
          */
         columns: ColumnsMethodsModel;
 
-        //#endregion "Column/Columns"
+        // #endregion "Column/Columns"
 
-        //#region "Row/Rows"
+        // #region "Row/Rows"
 
         /**
          * Row Methode / object
@@ -119,9 +110,9 @@ declare namespace DataTables {
          */
         rows: RowsMethodsModel;
 
-        //#endregion "Row/Rows"
+        // #endregion "Row/Rows"
 
-        //#region "Table/Tables"
+        // #region "Table/Tables"
 
         /**
          * Select a table based on a selector from the API's context
@@ -137,7 +128,7 @@ declare namespace DataTables {
          */
         tables(tableSelector?: any): TablesMethods;
 
-        //#endregion "Table/Tables"
+        // #endregion "Table/Tables"
     }
 
     interface DataTables extends CoreMethods {
@@ -149,29 +140,29 @@ declare namespace DataTables {
          * The order modifier provides the ability to control which order the rows are processed in.
          * Values: 'current', 'applied', 'index',  'original'
          */
-        order?: string;
+        order?: string | undefined;
 
         /**
          * The search modifier provides the ability to govern which rows are used by the selector using the search options that are applied to the table.
          * Values: 'none', 'applied', 'removed'
          */
-        search?: string;
+        search?: string | undefined;
 
         /**
          * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
          */
-        searchPlaceholder?: string;
+        searchPlaceholder?: string | undefined;
 
         /**
          * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
          * Values: 'all', 'current'
          */
-        page?: string;
+        page?: string | undefined;
     }
 
-    //#region "Namespaces"
+    // #region "Namespaces"
 
-    //#region "core-methods"
+    // #region "core-methods"
 
     interface CoreMethods extends UtilityMethods {
         /**
@@ -225,7 +216,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
+        off(event: string, callback?: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Table events listener.
@@ -233,7 +224,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        on(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -241,7 +232,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        one(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Page Methods / object
@@ -274,7 +265,7 @@ declare namespace DataTables {
         state: StateMethods;
     }
 
-    //#region "ajax-methods"
+    // #region "ajax-methods"
 
     interface AjaxMethods extends Api {
         /**
@@ -283,7 +274,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        load(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        load(callback?: (json: any) => void, resetPaging?: boolean): Api;
     }
 
     interface AjaxMethodModel {
@@ -303,7 +294,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        reload(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        reload(callback?: (json: any) => void, resetPaging?: boolean): Api;
 
         /**
          * Reload the table data from the Ajax data source
@@ -318,9 +309,9 @@ declare namespace DataTables {
         url(url: string): AjaxMethods;
     }
 
-    //#endregion "ajax-methods"
+    // #endregion "ajax-methods"
 
-    //#region "order-methods"
+    // #region "order-methods"
 
     interface OrderMethods {
         /**
@@ -353,11 +344,11 @@ declare namespace DataTables {
          * @param column Column index
          * @param callback Callback function
          */
-        listener(node: string | Node | JQuery, column: number, callback: (() => void)): Api;
+        listener(node: string | Node | JQuery, column: number, callback: () => void): Api;
     }
-    //#endregion "order-methods"
+    // #endregion "order-methods"
 
-    //#region "page-methods"
+    // #region "page-methods"
 
     interface PageMethods {
         /**
@@ -401,9 +392,9 @@ declare namespace DataTables {
         serverSide: boolean;
     }
 
-    //#endregion "page-methods"
+    // #endregion "page-methods"
 
-    //#region "state-methods"
+    // #region "state-methods"
 
     interface StateMethods {
         /**
@@ -441,11 +432,11 @@ declare namespace DataTables {
         visible: boolean;
     }
 
-    //#endregion "state-methods"
+    // #endregion "state-methods"
 
-    //#endregion "core-methods"
+    // #endregion "core-methods"
 
-    //#region "util-methods"
+    // #region "util-methods"
 
     interface UtilityMethods {
         /*
@@ -471,7 +462,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters
          */
-        each(fn: ((value: any, index: number, dt: Api) => void)): Api;
+        each(fn: (value: any, index?: number, dt?: Api) => void): Api;
 
         /**
          * Reduce an Api instance to a single context and result set.
@@ -485,7 +476,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        filter(fn: ((value: any, index: number, dt: Api) => boolean)): Api;
+        filter(fn: (value: any, index: number, dt: Api) => boolean): Api;
 
         /**
          * Flatten a 2D array structured API instance to a 1D array structure.
@@ -523,7 +514,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        map(fn: ((value: any, index: number, dt: Api) => any)): Api;
+        map(fn: (value: any, index: number, dt: Api) => any): Api;
 
         /**
          * Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.
@@ -550,7 +541,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduce(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduce(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Apply a callback function against and accumulator and each element in the Api's result set (right-to-left).
@@ -558,7 +549,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduceRight(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduceRight(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Reverse the result set of the API instance and return the original array.
@@ -575,7 +566,7 @@ declare namespace DataTables {
          *
          * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
          */
-        sort(fn?: ((value1: any, value2: any) => number)): Api;
+        sort(fn?: (value1: any, value2: any) => number): Api;
 
         /**
          * Modify the contents of an Api instance's result set, adding or removing items from it as required.
@@ -614,7 +605,7 @@ declare namespace DataTables {
         unshift(value_1: any, ...value_2: any[]): number;
     }
 
-    //#endregion "util-methods"
+    // #endregion "util-methods"
 
     interface CommonSubMethods {
         /**
@@ -625,7 +616,7 @@ declare namespace DataTables {
         cache(t: string): Api;
     }
 
-    //#region "cell-methods"
+    // #region "cell-methods"
 
     interface CommonCellMethods extends CommonSubMethods {
         /**
@@ -684,7 +675,15 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
+        every(
+            fn: (
+                this: CellMethods,
+                cellRowIdx: number,
+                cellColIdx: number,
+                tableLoop: number,
+                cellLoop: number,
+            ) => void,
+        ): Api;
 
         /**
          * Get index information about the selected cells
@@ -696,9 +695,9 @@ declare namespace DataTables {
          */
         nodes(): Api;
     }
-    //#endregion "cell-methods"
+    // #endregion "cell-methods"
 
-    //#region "column-methods"
+    // #region "column-methods"
 
     interface CommonColumnMethod extends CommonSubMethods {
         /**
@@ -826,9 +825,9 @@ declare namespace DataTables {
          */
         nodes(): Api[][];
     }
-    //#endregion "column-methods"
+    // #endregion "column-methods"
 
-    //#region "row-methods"
+    // #region "row-methods"
 
     interface CommonRowMethod extends CommonSubMethods {
         /**
@@ -902,10 +901,10 @@ declare namespace DataTables {
         /**
          * Select a row found by a row selector
          *
-         * @param rowSelector Row selector.
+         * @param rowSelector Row selector. If undefined returns the first row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowMethods;
 
         /**
          * Add a new row to the table using the given data
@@ -955,7 +954,17 @@ declare namespace DataTables {
         /**
          * Delete the selected row from the DataTable.
          */
-        remove(): Node;
+        remove(): Api;
+
+        /**
+         * Selects this row.
+         */
+        select(): Api;
+
+        /**
+         * Deselects this row.
+         */
+        deselect(): Api;
     }
 
     interface RowsMethodsModel {
@@ -969,10 +978,10 @@ declare namespace DataTables {
         /**
          * Select rows found by a row selector
          *
-         * @param cellSelector Row selector.
+         * @param cellSelector Row selector. If undefined returns every row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowsMethods;
 
         /**
          * Add new rows to the table using the data given
@@ -1020,10 +1029,20 @@ declare namespace DataTables {
          * Delete the selected rows from the DataTable.
          */
         remove(): Api;
-    }
-    //#endregion "row-methods"
 
-    //#region "table-methods"
+        /**
+         * Selects the given rows.
+         */
+        select(): Api;
+
+        /**
+         * Deselects the given rows.
+         */
+        deselect(): Api;
+    }
+    // #endregion "row-methods"
+
+    // #region "table-methods"
 
     interface TableMethods extends CoreMethods {
         /**
@@ -1078,11 +1097,11 @@ declare namespace DataTables {
          */
         nodes(): Api;
     }
-    //#endregion "table-methods"
+    // #endregion "table-methods"
 
-    //#endregion "Namespaces"
+    // #endregion "Namespaces"
 
-    //#region "Static-Methods"
+    // #region "Static-Methods"
 
     interface StaticFunctions {
         /**
@@ -1137,7 +1156,7 @@ declare namespace DataTables {
          *
          * @param table Selector string for table
          */
-        Api: new (selector: string | Node | Node[] | JQuery | SettingsLegacy) => Api;
+        Api: new(selector: string | Node | Node[] | JQuery | SettingsLegacy) => Api;
 
         /**
          * Default Settings
@@ -1156,13 +1175,13 @@ declare namespace DataTables {
          * 0: Column index to order upon.
          * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
          */
-        pre?: any[];
+        pre?: any[] | undefined;
         /**
          * Two-element array:
          * 0: Column index to order upon.
          * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
          */
-        post?: any[];
+        post?: any[] | undefined;
     }
 
     interface StaticRenderFunctions {
@@ -1175,7 +1194,13 @@ declare namespace DataTables {
          * @param prefix Prefix (optional).
          * @param postfix Postfix (/suffix) (optional).
          */
-        number(thousands: string, decimal: string, precision: number, prefix?: string, postfix?: string): ObjectColumnRender;
+        number(
+            thousands: string,
+            decimal: string,
+            precision: number,
+            prefix?: string,
+            postfix?: string,
+        ): ObjectColumnRender;
         /**
          * Escape HTML to help prevent XSS attacks. It has no optional parameters.
          */
@@ -1196,7 +1221,7 @@ declare namespace DataTables {
          * @param fn Function
          * @param period ms
          */
-        throttle(fn: FunctionThrottle, period?: number): (() => void);
+        throttle(fn: FunctionThrottle, period?: number): () => void;
     }
 
     type FunctionThrottle = (data: any) => void;
@@ -1213,310 +1238,310 @@ declare namespace DataTables {
         api: boolean;
     }
 
-    //#endregion "Static-Methods"
+    // #endregion "Static-Methods"
 
-    //#region "Settings"
+    // #region "Settings"
 
     interface Settings {
-        //#region "Features"
+        // #region "Features"
 
         /**
          * Feature control DataTables' smart column width handling. Since: 1.10
          */
-        autoWidth?: boolean;
+        autoWidth?: boolean | undefined;
 
         /**
          * Feature control deferred rendering for additional speed of initialisation. Since: 1.10
          */
-        deferRender?: boolean;
+        deferRender?: boolean | undefined;
 
         /**
          * Feature control table information display field. Since: 1.10
          */
-        info?: boolean;
+        info?: boolean | undefined;
 
         /**
          * Use markup and classes for the table to be themed by jQuery UI ThemeRoller. Since: 1.10
          */
-        jQueryUI?: boolean;
+        jQueryUI?: boolean | undefined;
 
         /**
          * Feature control the end user's ability to change the paging display length of the table. Since: 1.10
          */
-        lengthChange?: boolean;
+        lengthChange?: boolean | undefined;
 
         /**
          * Feature control ordering (sorting) abilities in DataTables. Since: 1.10
          */
-        ordering?: boolean;
+        ordering?: boolean | undefined;
 
         /**
          * Enable or disable table pagination. Since: 1.10
          */
-        paging?: boolean;
+        paging?: boolean | undefined;
 
         /**
          * Feature control the processing indicator. Since: 1.10
          */
-        processing?: boolean;
+        processing?: boolean | undefined;
 
         /**
          * Horizontal scrolling. Since: 1.10
          */
-        scrollX?: boolean;
+        scrollX?: boolean | undefined;
 
         /**
          * Vertical scrolling. Since: 1.10 Exp: "200px"
          */
-        scrollY?: string;
+        scrollY?: number | string | undefined;
 
         /**
          * Feature control search (filtering) abilities Since: 1.10
          */
-        searching?: boolean;
+        searching?: boolean | undefined;
 
         /**
          * Feature control DataTables' server-side processing mode. Since: 1.10
          */
-        serverSide?: boolean;
+        serverSide?: boolean | undefined;
 
         /**
          * State saving - restore table state on page reload. Since: 1.10
          */
-        stateSave?: boolean;
+        stateSave?: boolean | undefined;
 
-        //#endregion "Features"
+        // #endregion "Features"
 
-        //#region "Data"
+        // #region "Data"
 
         /**
          * Load data for the table's content from an Ajax source. Since: 1.10
          */
-        ajax?: string | AjaxSettings | FunctionAjax;
+        ajax?: string | AjaxSettings | FunctionAjax | undefined;
 
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        data?: any[];
+        data?: any[] | undefined;
 
-        //#endregion "Data"
+        // #endregion "Data"
 
-        //#region "Options"
+        // #region "Options"
 
         /**
          * Data to use as the display data for the table. Since: 1.10
          */
-        columns?: ColumnSettings[];
+        columns?: ColumnSettings[] | undefined;
 
         /**
          * Assign a column definition to one or more columns.. Since: 1.10
          */
-        columnDefs?: ColumnDefsSettings[];
+        columnDefs?: ColumnDefsSettings[] | undefined;
 
         /**
          * Delay the loading of server-side data until second draw
          */
-        deferLoading?: number | number[];
+        deferLoading?: number | number[] | undefined;
 
         /**
          * Destroy any existing table matching the selector and replace with the new options. Since: 1.10
          */
-        destroy?: boolean;
+        destroy?: boolean | undefined;
 
         /**
          * Initial paging start point. Since: 1.10
          */
-        displayStart?: number;
+        displayStart?: number | undefined;
 
         /**
          * Define the table control elements to appear on the page and in what order. Since: 1.10
          */
-        dom?: string;
+        dom?: string | undefined;
 
         /**
          * Change the options in the page length select list. Since: 1.10
          */
-        lengthMenu?: Array<(number | string)> | Array<Array<(number | string)>>;
+        lengthMenu?: Array<(number | string)> | Array<Array<(number | string)>> | undefined;
 
         /**
          * Control which cell the order event handler will be applied to in a column. Since: 1.10
          */
-        orderCellsTop?: boolean;
+        orderCellsTop?: boolean | undefined;
 
         /**
          * Highlight the columns being ordered in the table's body. Since: 1.10
          */
-        orderClasses?: boolean;
+        orderClasses?: boolean | undefined;
 
         /**
          * Initial order (sort) to apply to the table. Since: 1.10
          */
-        order?: Array<(number | string)> | Array<Array<(number | string)>>;
+        order?: Array<(number | string)> | Array<Array<(number | string)>> | undefined;
 
         /**
          * Ordering to always be applied to the table. Since: 1.10
          */
-        orderFixed?: Array<(number | string)> | Array<Array<(number | string)>> | object;
+        orderFixed?: Array<(number | string)> | Array<Array<(number | string)>> | object | undefined;
 
         /**
          * Multiple column ordering ability control. Since: 1.10
          */
-        orderMulti?: boolean;
+        orderMulti?: boolean | undefined;
 
         /**
          * Change the initial page length (number of rows per page). Since: 1.10
          */
-        pageLength?: number;
+        pageLength?: number | undefined;
 
         /**
          * Pagination button display options. Basic Types: numbers (1.10.8) simple, simple_numbers, full, full_numbers
          */
-        pagingType?: string;
+        pagingType?: string | undefined;
 
         /**
          * Retrieve an existing DataTables instance. Since: 1.10
          */
-        retrieve?: boolean;
+        retrieve?: boolean | undefined;
 
         /**
          * Display component renderer types. Since: 1.10
          */
-        renderer?: string | RendererSettings;
+        renderer?: string | RendererSettings | undefined;
 
         /**
          * Data property name that DataTables will use to set <tr> element DOM IDs. Since: 1.10.8
          */
-        rowId?: string;
+        rowId?: string | ((data: any) => string) | undefined;
 
         /**
          * Allow the table to reduce in height when a limited number of rows are shown. Since: 1.10
          */
-        scrollCollapse?: boolean;
+        scrollCollapse?: boolean | undefined;
 
         /**
          * Set an initial filter in DataTables and / or filtering options. Since: 1.10
          */
-        search?: SearchSettings | boolean;
+        search?: SearchSettings | boolean | undefined;
 
         /**
          * Set placeholder attribute for input type="text" tag elements. Since: 1.10
          */
-        searchPlaceholder?: SearchSettings;
+        searchPlaceholder?: SearchSettings | undefined;
 
         /**
          * Define an initial search for individual columns. Since: 1.10
          */
-        searchCols?: SearchSettings[];
+        searchCols?: SearchSettings[] | undefined;
 
         /**
          * Set a throttle frequency for searching. Since: 1.10
          */
-        searchDelay?: number;
+        searchDelay?: number | undefined;
 
         /**
          * Saved state validity duration. Since: 1.10
          */
-        stateDuration?: number;
+        stateDuration?: number | undefined;
 
         /**
          * Set the zebra stripe class names for the rows in the table. Since: 1.10
          */
-        stripeClasses?: string[];
+        stripeClasses?: string[] | undefined;
 
         /**
          * Tab index control for keyboard navigation. Since: 1.10
          */
-        tabIndex?: number;
+        tabIndex?: number | undefined;
 
         /**
          * Enable or disable datatables responsive. Since: 1.10
          */
-        responsive?: boolean | object;
+        responsive?: boolean | object | undefined;
 
-        //#endregion "Options"
+        // #endregion "Options"
 
-        //#region "Callbacks"
+        // #region "Callbacks"
 
         /**
          * Callback for whenever a TR element is created for the table's body. Since: 1.10
          */
-        createdRow?: FunctionCreateRow;
+        createdRow?: FunctionCreateRow | undefined;
 
         /**
          * Function that is called every time DataTables performs a draw. Since: 1.10
          */
-        drawCallback?: FunctionDrawCallback;
+        drawCallback?: FunctionDrawCallback | undefined;
 
         /**
          * Footer display callback function. Since: 1.10
          */
-        footerCallback?: FunctionFooterCallback;
+        footerCallback?: FunctionFooterCallback | undefined;
 
         /**
          * Number formatting callback function. Since: 1.10
          */
-        formatNumber?: FunctionFormatNumber;
+        formatNumber?: FunctionFormatNumber | undefined;
 
         /**
          * Header display callback function. Since: 1.10
          */
-        headerCallback?: FunctionHeaderCallback;
+        headerCallback?: FunctionHeaderCallback | undefined;
 
         /**
          * Table summary information display callback. Since: 1.10
          */
-        infoCallback?: FunctionInfoCallback;
+        infoCallback?: FunctionInfoCallback | undefined;
 
         /**
          * Initialisation complete callback. Since: 1.10
          */
-        initComplete?: FunctionInitComplete;
+        initComplete?: FunctionInitComplete | undefined;
 
         /**
          * Pre-draw callback. Since: 1.10
          */
-        preDrawCallback?: FunctionPreDrawCallback;
+        preDrawCallback?: FunctionPreDrawCallback | undefined;
 
         /**
          * Row draw callback.. Since: 1.10
          */
-        rowCallback?: FunctionRowCallback;
+        rowCallback?: FunctionRowCallback | undefined;
 
         /**
          * Callback that defines where and how a saved state should be loaded. Since: 1.10
          */
-        stateLoadCallback?: FunctionStateLoadCallback;
+        stateLoadCallback?: FunctionStateLoadCallback | undefined;
 
         /**
          * State loaded callback. Since: 1.10
          */
-        stateLoaded?: FunctionStateLoaded;
+        stateLoaded?: FunctionStateLoaded | undefined;
 
         /**
          * State loaded - data manipulation callback. Since: 1.10
          */
-        stateLoadParams?: FunctionStateLoadParams;
+        stateLoadParams?: FunctionStateLoadParams | undefined;
 
         /**
          * Callback that defines how the table state is stored and where. Since: 1.10
          */
-        stateSaveCallback?: FunctionStateSaveCallback;
+        stateSaveCallback?: FunctionStateSaveCallback | undefined;
 
         /**
          * State save - data manipulation callback. Since: 1.10
          */
-        stateSaveParams?: FunctionStateSaveParams;
+        stateSaveParams?: FunctionStateSaveParams | undefined;
 
-        //#endregion "Callbacks"
+        // #endregion "Callbacks"
 
-        //#region "Language"
+        // #region "Language"
 
-        language?: LanguageSettings;
+        language?: LanguageSettings | undefined;
 
-        //#endregion "Language"
+        // #endregion "Language"
     }
 
-    //#region "ajax-settings"
+    // #region "ajax-settings"
 
     interface AjaxDataRequest {
         draw: number;
@@ -1547,83 +1572,83 @@ declare namespace DataTables {
     }
 
     interface AjaxData {
-        draw?: number;
-        recordsTotal?: number;
-        recordsFiltered?: number;
+        draw?: number | undefined;
+        recordsTotal?: number | undefined;
+        recordsFiltered?: number | undefined;
         data: any;
-        error?: string;
+        error?: string | undefined;
     }
 
     interface AjaxSettings extends JQueryAjaxSettings {
         /**
          * Add or modify data submitted to the server upon an Ajax request. Since: 1.10
          */
-        data?: object | FunctionAjaxData;
+        data?: object | FunctionAjaxData | undefined;
 
         /**
          * Data property or manipulation method for table data. Since: 1.10
          */
-        dataSrc?: string | ((data: any) => any[]);
+        dataSrc?: string | ((data: any) => any[]) | undefined;
     }
 
-    type FunctionAjax = (data: object, callback: ((data: any) => void), settings: SettingsLegacy) => void;
+    type FunctionAjax = (data: object, callback: (data: any) => void, settings: SettingsLegacy) => void;
 
     type FunctionAjaxData = (data: object, settings: Settings) => string | object;
 
-    //#endregion "ajax-settings"
+    // #endregion "ajax-settings"
 
-    //#region "colunm-settings"
+    // #region "colunm-settings"
 
     interface ColumnSettings {
         /**
          * Cell type to be created for a column. th/td Since: 1.10
          */
-        cellType?: string;
+        cellType?: string | undefined;
 
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Add padding to the text content used when calculating the optimal with for a table. Since: 1.10
          */
-        contentPadding?: string;
+        contentPadding?: string | undefined;
 
         /**
          * Cell created callback to allow DOM manipulation. Since: 1.10
          */
-        createdCell?: FunctionColumnCreatedCell;
+        createdCell?: FunctionColumnCreatedCell | undefined;
 
         /**
          * Class to assign to each cell in the column. Since: 1.10
          */
-        data?: number | string | ObjectColumnData | FunctionColumnData | null;
+        data?: number | string | ObjectColumnData | FunctionColumnData | null | undefined;
 
         /**
          * Set default, static, content for a column. Since: 1.10
          */
-        defaultContent?: string;
+        defaultContent?: string | undefined;
 
         /**
          * Set a descriptive name for a column. Since: 1.10
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Enable or disable ordering on this column. Since: 1.10
          */
-        orderable?: boolean;
+        orderable?: boolean | undefined;
 
         /**
          * Define multiple column ordering as the default order for a column. Since: 1.10
          */
-        orderData?: number | number[];
+        orderData?: number | number[] | undefined;
 
         /**
          * Live DOM sorting type assignment. Since: 1.10
          */
-        orderDataType?: string;
+        orderDataType?: string | undefined;
 
         /**
          * Ordering to always be applied to the table. Since 1.10
@@ -1632,42 +1657,42 @@ declare namespace DataTables {
          * 0: Column index to order upon.
          * 1: Direction so order to apply ("asc" for ascending order or "desc" for descending order).
          */
-        orderFixed?: any[] | ObjectOrderFixed;
+        orderFixed?: any[] | ObjectOrderFixed | undefined;
 
         /**
          * Order direction application sequence. Since: 1.10
          */
-        orderSequence?: string[];
+        orderSequence?: string[] | undefined;
 
         /**
          * Render (process) the data for use in the table. Since: 1.10
          */
-        render?: number | string | ObjectColumnData | FunctionColumnRender | ObjectColumnRender;
+        render?: number | string | ObjectColumnData | FunctionColumnRender | ObjectColumnRender | undefined;
 
         /**
          * Enable or disable filtering on the data in this column. Since: 1.10
          */
-        searchable?: boolean;
+        searchable?: boolean | undefined;
 
         /**
          * Set the column title. Since: 1.10
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * Set the column type - used for filtering and sorting string processing. Since: 1.10
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * Enable or disable the display of this column. Since: 1.10
          */
-        visible?: boolean;
+        visible?: boolean | undefined;
 
         /**
          * Column width assignment. Since: 1.10
          */
-        width?: string;
+        width?: string | undefined;
     }
 
     interface ColumnDefsSettings extends ColumnSettings {
@@ -1677,26 +1702,26 @@ declare namespace DataTables {
     type FunctionColumnCreatedCell = (cell: Node, cellData: any, rowData: any, row: number, col: number) => void;
 
     interface FunctionColumnData {
-        (row: any, t: 'set', s: any, meta: CellMetaSettings): void;
-        (row: any, t: 'display' | 'sort' | 'filter' | 'type', s: undefined, meta: CellMetaSettings): any;
+        (row: any, t: "set", s: any, meta: CellMetaSettings): void;
+        (row: any, t: "display" | "sort" | "filter" | "type", s: undefined, meta: CellMetaSettings): any;
     }
 
     interface ObjectColumnData {
         _: string | number | FunctionColumnData;
-        filter?: string | number | FunctionColumnData;
-        display?: string | number | FunctionColumnData;
-        type?: string | number | FunctionColumnData;
-        sort?: string | number | FunctionColumnData;
+        filter?: string | number | FunctionColumnData | undefined;
+        display?: string | number | FunctionColumnData | undefined;
+        type?: string | number | FunctionColumnData | undefined;
+        sort?: string | number | FunctionColumnData | undefined;
     }
 
     type FunctionColumnRender = (data: any, type: any, row: any, meta: CellMetaSettings) => any;
 
     interface ObjectColumnRender {
-        _?: string | number | FunctionColumnRender;
-        filter?: string | number | FunctionColumnRender;
-        display?: string | number | FunctionColumnRender;
-        type?: string | number | FunctionColumnRender;
-        sort?: string | number | FunctionColumnRender;
+        _?: string | number | FunctionColumnRender | undefined;
+        filter?: string | number | FunctionColumnRender | undefined;
+        display?: string | number | FunctionColumnRender | undefined;
+        type?: string | number | FunctionColumnRender | undefined;
+        sort?: string | number | FunctionColumnRender | undefined;
     }
 
     interface CellMetaSettings {
@@ -1705,47 +1730,47 @@ declare namespace DataTables {
         settings: Settings;
     }
 
-    //#endregion "colunm-settings"
+    // #endregion "colunm-settings"
 
-    //#region "other-settings"
+    // #region "other-settings"
 
     interface RendererSettings {
-        header?: string;
-        pageButton?: string;
+        header?: string | undefined;
+        pageButton?: string | undefined;
     }
 
     interface SearchSettings {
         /**
          * Control case-sensitive filtering option. Since: 1.10
          */
-        caseInsensitive?: boolean;
+        caseInsensitive?: boolean | undefined;
 
         /**
          * Enable / disable escaping of regular expression characters in the search term. Since: 1.10
          */
-        regex?: boolean;
+        regex?: boolean | undefined;
 
         /**
          * Enable / disable DataTables' smart filtering. Since: 1.10
          */
-        smart?: boolean;
+        smart?: boolean | undefined;
 
         /**
          * Set an initial filtering condition on the table. Since: 1.10
          */
-        search?: string;
+        search?: string | undefined;
 
         /**
          * Set a placeholder attribute for input type="text" tag elements. Since: 1.10.1
          */
-        searchPlaceholder?: string;
+        searchPlaceholder?: string | undefined;
     }
 
-    //#endregion "other-settings"
+    // #endregion "other-settings"
 
-    //#region "callback-functions"
+    // #region "callback-functions"
 
-    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number) => void;
+    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number, cells: Node[]) => void;
 
     type FunctionDrawCallback = (settings: SettingsLegacy) => void;
 
@@ -1755,7 +1780,14 @@ declare namespace DataTables {
 
     type FunctionHeaderCallback = (thead: Node, data: any[], start: number, end: number, display: any[]) => void;
 
-    type FunctionInfoCallback = (settings: SettingsLegacy, start: number, end: number, mnax: number, total: number, pre: string) => void;
+    type FunctionInfoCallback = (
+        settings: SettingsLegacy,
+        start: number,
+        end: number,
+        mnax: number,
+        total: number,
+        pre: string,
+    ) => void;
 
     type FunctionInitComplete = (settings: SettingsLegacy, json: object) => void;
 
@@ -1773,28 +1805,28 @@ declare namespace DataTables {
 
     type FunctionStateSaveParams = (settings: SettingsLegacy, data: object) => void;
 
-    //#endregion "callback-functions"
+    // #endregion "callback-functions"
 
-    //#region "language-settings"
+    // #region "language-settings"
 
     // these are all optional
     interface LanguageSettings {
-        emptyTable?: string;
-        info?: string;
-        infoEmpty?: string;
-        infoFiltered?: string;
-        infoPostFix?: string;
-        decimal?: string;
-        thousands?: string;
-        lengthMenu?: string;
-        loadingRecords?: string;
-        processing?: string;
-        search?: string;
-        searchPlaceholder?: string;
-        zeroRecords?: string;
-        paginate?: LanguagePaginateSettings;
-        aria?: LanguageAriaSettings;
-        url?: string;
+        emptyTable?: string | undefined;
+        info?: string | undefined;
+        infoEmpty?: string | undefined;
+        infoFiltered?: string | undefined;
+        infoPostFix?: string | undefined;
+        decimal?: string | undefined;
+        thousands?: string | undefined;
+        lengthMenu?: string | undefined;
+        loadingRecords?: string | undefined;
+        processing?: string | undefined;
+        search?: string | undefined;
+        searchPlaceholder?: string | undefined;
+        zeroRecords?: string | undefined;
+        paginate?: LanguagePaginateSettings | undefined;
+        aria?: LanguageAriaSettings | undefined;
+        url?: string | undefined;
     }
 
     interface LanguagePaginateSettings {
@@ -1807,14 +1839,14 @@ declare namespace DataTables {
     interface LanguageAriaSettings {
         sortAscending: string;
         sortDescending: string;
-        paginate?: LanguagePaginateSettings;
+        paginate?: LanguagePaginateSettings | undefined;
     }
 
-    //#endregion "language-settings"
+    // #endregion "language-settings"
 
-    //#endregion "Settings"
+    // #endregion "Settings"
 
-    //#region "SettingsLegacy"
+    // #region "SettingsLegacy"
 
     interface ArrayStringNode {
         [index: string]: Node;
@@ -1902,7 +1934,7 @@ declare namespace DataTables {
         iTabIndex: number;
         nScrollHead: Node;
         nScrollFoot: Node;
-        rowIdFn(mSource: string | number | (() => void)): (() => void);
+        rowIdFn(mSource: string | number | (() => void)): () => void;
     }
 
     interface BrowserLegacy {
@@ -1975,36 +2007,36 @@ declare namespace DataTables {
     type CookieCallbackLegacy = (name: string, data: any, expires: string, path: string, cookie: string) => void;
 
     interface LanguageLegacy {
-        oAria?: LanguageAriaLegacy;
-        oPaginate?: LanguagePaginateLegacy;
-        sEmptyTable?: string;
-        sInfo?: string;
-        sInfoEmpty?: string;
-        sInfoFiltered?: string;
-        sInfoPostFix?: string;
-        sInfoThousands?: string;
-        sLengthMenu?: string;
-        sLoadingRecords?: string;
-        sProcessing?: string;
-        sSearch?: string;
-        sUrl?: string;
-        sZeroRecords?: string;
+        oAria?: LanguageAriaLegacy | undefined;
+        oPaginate?: LanguagePaginateLegacy | undefined;
+        sEmptyTable?: string | undefined;
+        sInfo?: string | undefined;
+        sInfoEmpty?: string | undefined;
+        sInfoFiltered?: string | undefined;
+        sInfoPostFix?: string | undefined;
+        sInfoThousands?: string | undefined;
+        sLengthMenu?: string | undefined;
+        sLoadingRecords?: string | undefined;
+        sProcessing?: string | undefined;
+        sSearch?: string | undefined;
+        sUrl?: string | undefined;
+        sZeroRecords?: string | undefined;
     }
 
     interface LanguageAriaLegacy {
-        sSortAscending?: string;
-        sSortDescending?: string;
+        sSortAscending?: string | undefined;
+        sSortDescending?: string | undefined;
     }
 
     interface LanguagePaginateLegacy {
-        sFirst?: string;
-        sLast?: string;
-        sNext?: string;
-        sPrevious?: string;
+        sFirst?: string | undefined;
+        sLast?: string | undefined;
+        sNext?: string | undefined;
+        sPrevious?: string | undefined;
     }
-    //#endregion "SettingsLegacy"
+    // #endregion "SettingsLegacy"
 
-    //#region "ext internal"
+    // #region "ext internal"
 
     interface ExtSettings {
         aTypes: any[];
@@ -2042,180 +2074,180 @@ declare namespace DataTables {
          * Default Value:
          * dataTable
          */
-        sTable?: string;
+        sTable?: string | undefined;
 
         /**
          * Default Value:
          * no-footer
          */
-        sNoFooter?: string;
+        sNoFooter?: string | undefined;
 
         /**
          * Default Value:
          * paginate_button
          */
-        sPageButton?: string;
+        sPageButton?: string | undefined;
 
         /**
          * Default Value:
          * current
          */
-        sPageButtonActive?: string;
+        sPageButtonActive?: string | undefined;
 
         /**
          * Default Value:
          * disabled
          */
-        sPageButtonDisabled?: string;
+        sPageButtonDisabled?: string | undefined;
 
         /**
          * Default Value:
          * odd
          */
-        sStripeOdd?: string;
+        sStripeOdd?: string | undefined;
 
         /**
          * Default Value:
          * even
          */
-        sStripeEven?: string;
+        sStripeEven?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_empty
          */
-        sRowEmpty?: string;
+        sRowEmpty?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_wrapper
          */
-        sWrapper?: string;
+        sWrapper?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_filter
          */
-        sFilter?: string;
+        sFilter?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_info
          */
-        sInfo?: string;
+        sInfo?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_paginate paging_
          */
-        sPaging?: string;
+        sPaging?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_length
          */
-        sLength?: string;
+        sLength?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_processing
          */
-        sProcessing?: string;
+        sProcessing?: string | undefined;
 
         /**
          * Default Value:
          * sorting_asc
          */
-        sSortAsc?: string;
+        sSortAsc?: string | undefined;
 
         /**
          * Default Value:
          * sorting_desc
          */
-        sSortDesc?: string;
+        sSortDesc?: string | undefined;
 
         /**
          * Default Value:
          * sorting
          */
-        sSortable?: string;
+        sSortable?: string | undefined;
 
         /**
          * Default Value:
          * sorting_asc_disabled
          */
-        sSortableAsc?: string;
+        sSortableAsc?: string | undefined;
 
         /**
          * Default Value:
          * sorting_desc_disabled
          */
-        sSortableDesc?: string;
+        sSortableDesc?: string | undefined;
 
         /**
          * Default Value:
          * sorting_disabled
          */
-        sSortableNone?: string;
+        sSortableNone?: string | undefined;
 
         /**
          * Default Value:
          * sorting_
          */
-        sSortColumn?: string;
+        sSortColumn?: string | undefined;
 
-        sFilterInput?: string;
-        sLengthSelect?: string;
+        sFilterInput?: string | undefined;
+        sLengthSelect?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scroll
          */
-        sScrollWrapper?: string;
+        sScrollWrapper?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scrollHead
          */
-        sScrollHead?: string;
+        sScrollHead?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scrollHeadInner
          */
-        sScrollHeadInner?: string;
+        sScrollHeadInner?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scrollBody
          */
-        sScrollBody?: string;
+        sScrollBody?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scrollFoot
          */
-        sScrollFoot?: string;
+        sScrollFoot?: string | undefined;
 
         /**
          * Default Value:
          * dataTables_scrollFootInner
          */
-        sScrollFootInner?: string;
+        sScrollFootInner?: string | undefined;
 
-        sHeaderTH?: string;
-        sFooterTH?: string;
-        sSortJUIAsc?: string;
-        sSortJUIDesc?: string;
-        sSortJUI?: string;
-        sSortJUIAscAllowed?: string;
-        sSortJUIDescAllowed?: string;
-        sSortJUIWrapper?: string;
-        sSortIcon?: string;
-        sJUIHeader?: string;
-        sJUIFooter?: string;
+        sHeaderTH?: string | undefined;
+        sFooterTH?: string | undefined;
+        sSortJUIAsc?: string | undefined;
+        sSortJUIDesc?: string | undefined;
+        sSortJUI?: string | undefined;
+        sSortJUIAscAllowed?: string | undefined;
+        sSortJUIDescAllowed?: string | undefined;
+        sSortJUIWrapper?: string | undefined;
+        sSortIcon?: string | undefined;
+        sJUIHeader?: string | undefined;
+        sJUIFooter?: string | undefined;
     }
-    //#endregion "ext internal"
+    // #endregion "ext internal"
 
     interface ExtTypeSettings {
         /**
@@ -2247,5 +2279,5 @@ declare namespace DataTables {
      * @param data Data from the column cell to be analysed.
      * @param DataTables settings object.
      */
-    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => string | null;
 }

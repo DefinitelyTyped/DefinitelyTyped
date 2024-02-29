@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -9,17 +9,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "crypto-js-tests.ts",
+        "test/crypto-js-global.tests.ts",
+        "test/crypto-js-module.tests.ts",
         "test/submodule-tests.ts"
     ]
 }

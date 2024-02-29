@@ -1,9 +1,21 @@
-import * as rtlcss from "rtlcss";
-import { Transformer } from 'postcss';
+import rtlcss = require("rtlcss");
 
-rtlcss.process("body { direction:ltr; }");
+const css = "body { direction:ltr; }";
 
-const config = {
+// $ExpectType string
+rtlcss.process(css);
+rtlcss.process(css, {}, [], {
+    pre: (root, postcss) => {
+        root; // $ExpectType Root_
+        postcss; // $ExpectType typeof postcss
+    },
+    post: (root, postcss) => {
+        root; // $ExpectType Root_
+        postcss; // $ExpectType typeof postcss
+    },
+});
+
+const options = {
     autoRename: false,
     autoRenameStrict: false,
     blacklist: {},
@@ -12,19 +24,27 @@ const config = {
     processUrls: false,
     stringMap: [
         {
-            name    : 'left-right',
+            name: "left-right",
             priority: 100,
-            search  : ['left', 'Left', 'LEFT'],
-            replace : ['right', 'Right', 'RIGHT'],
-            options : {
-                scope : '*',
-                ignoreCase : false
-            }
-        }
+            search: ["left", "Left", "LEFT"],
+            replace: ["right", "Right", "RIGHT"],
+            options: {
+                scope: "*",
+                ignoreCase: false,
+            },
+        },
     ],
-    useCalc: false
+    useCalc: false,
+    processEnv: true,
 };
 
+const config = {
+    options,
+    plugins: [],
+};
+
+// $ExpectType Processor
 rtlcss.configure(config);
 
-const transformer: Transformer = rtlcss(config);
+// $ExpectType Processor_ | Plugin
+rtlcss(options);

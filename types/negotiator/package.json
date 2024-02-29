@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/negotiator",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/jshttp/negotiator#readme"
+    ],
+    "devDependencies": {
+        "@types/negotiator": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,29 +1,29 @@
 declare namespace AMap {
     namespace Circle {
         interface EventMap<I = Circle> extends ShapeOverlay.EventMap<I> {
-            setCenter: Event<'setCenter'>;
-            setRadius: Event<'setRadius'>;
+            setCenter: Event<"setCenter">;
+            setRadius: Event<"setRadius">;
         }
 
         interface Options<ExtraData = any> {
-            map?: Map;
-            zIndex?: number;
-            center?: LocationValue;
-            bubble?: boolean;
-            cursor?: string;
-            radius?: number;
-            strokeColor?: string;
-            strokeOpacity?: number;
-            strokeWeight?: number;
-            fillColor?: string;
-            fillOpacity?: number;
-            strokeStyle?: StrokeStyle;
-            extData?: ExtraData;
-            strokeDasharray?: number[];
+            map?: Map | undefined;
+            zIndex?: number | undefined;
+            center?: LocationValue | undefined;
+            bubble?: boolean | undefined;
+            cursor?: string | undefined;
+            radius?: number | undefined;
+            strokeColor?: string | undefined;
+            strokeOpacity?: number | undefined;
+            strokeWeight?: number | undefined;
+            fillColor?: string | undefined;
+            fillOpacity?: number | undefined;
+            strokeStyle?: StrokeStyle | undefined;
+            extData?: ExtraData | undefined;
+            strokeDasharray?: number[] | undefined;
 
             // internal
-            visible?: boolean;
-            unit?: 'meter' | 'px'; // 'might be typo'
+            visible?: boolean | undefined;
+            unit?: "meter" | "px" | undefined; // 'might be typo'
         }
 
         type GetOptionsResult<ExtraData = any> = Merge<Polygon.GetOptionsResult<ExtraData>, {

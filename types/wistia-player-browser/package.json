@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wistia-player-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "wistia-player-browser",
+    "projects": [
+        "https://wistia.com/support/developers/player-api"
+    ],
+    "devDependencies": {
+        "@types/wistia-player-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kelly Littlepage",
+            "githubUsername": "klittlepage"
+        }
+    ]
+}

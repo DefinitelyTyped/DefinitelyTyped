@@ -1,18 +1,13 @@
-// Type definitions for tls-keygen 3.7
-// Project: https://gitlab.com/sebdeckers/tls-keygen
-// Definitions by: Yi Hong <https://github.com/hongyiweiwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export function keygen(options: KeyGenOptions): Promise<KeyGenResult>;
 
 interface KeyGenOptions {
-    key?: string;
-    cert?: string;
-    commonName?: string;
-    subjectAltName?: string[];
-    entrust?: boolean;
+    key?: string | undefined;
+    cert?: string | undefined;
+    commonName?: string | undefined;
+    subjectAltName?: string[] | undefined;
+    entrust?: boolean | undefined;
 }
 
 interface KeyGenResult {

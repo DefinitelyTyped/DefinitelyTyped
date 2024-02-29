@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/metascraper-video",
+    "version": "5.14.9999",
+    "projects": [
+        "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-video"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
+    },
+    "devDependencies": {
+        "@types/metascraper-video": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

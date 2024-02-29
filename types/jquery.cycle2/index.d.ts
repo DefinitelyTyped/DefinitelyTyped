@@ -1,96 +1,158 @@
-// Type definitions for jQuery Cycle2 version 2.1
-// Project: http://jquery.malsup.com/cycle2/
-//          https://github.com/malsup/cycle2
-// Definitions by: Donny Nadolny <https://github.com/dnadolny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery"/>
 
 interface JQuery {
     cycle: JQueryCycle2.Cycle2;
 
-    on(methodName: 'cycle-after', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState, outgoingSlideEl: Element, incomingSlideEl: Element, forwardFlag: boolean) => void): JQuery;
-    on(methodName: 'cycle-before', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState, outgoingSlideEl: Element, incomingSlideEl: Element, forwardFlag: boolean) => void): JQuery;
-    on(methodName: 'cycle-bootstrap', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState, API: JQueryCycle2.API) => void): JQuery;
-    on(methodName: 'cycle-destroyed', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-finished', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-initialized', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-next', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-pager-activated', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-paused', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-post-initialize', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-pre-initialize', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-prev', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-resumed', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-slide-added', callback: (event: JQueryEventObject, jQueryWrappedSlideEl: JQuery) => void): JQuery;
-    on(methodName: 'cycle-slide-removed', callback: (event: JQueryEventObject, indexOfSlideRemoved: number, removedSlideEl: Element) => void): JQuery;
-    on(methodName: 'cycle-stopped', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-transition-stopped', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void): JQuery;
-    on(methodName: 'cycle-update-view', callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState, slideOptionsHash: JQueryCycle2.OptionsWithState, currentSlideEl: Element) => void): JQuery;
+    on(
+        methodName: "cycle-after",
+        callback: (
+            event: JQueryEventObject,
+            optionHash: JQueryCycle2.OptionsWithState,
+            outgoingSlideEl: Element,
+            incomingSlideEl: Element,
+            forwardFlag: boolean,
+        ) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-before",
+        callback: (
+            event: JQueryEventObject,
+            optionHash: JQueryCycle2.OptionsWithState,
+            outgoingSlideEl: Element,
+            incomingSlideEl: Element,
+            forwardFlag: boolean,
+        ) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-bootstrap",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState, API: JQueryCycle2.API) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-destroyed",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-finished",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-initialized",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-next",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-pager-activated",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-paused",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-post-initialize",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-pre-initialize",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-prev",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-resumed",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-slide-added",
+        callback: (event: JQueryEventObject, jQueryWrappedSlideEl: JQuery) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-slide-removed",
+        callback: (event: JQueryEventObject, indexOfSlideRemoved: number, removedSlideEl: Element) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-stopped",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-transition-stopped",
+        callback: (event: JQueryEventObject, optionHash: JQueryCycle2.OptionsWithState) => void,
+    ): JQuery;
+    on(
+        methodName: "cycle-update-view",
+        callback: (
+            event: JQueryEventObject,
+            optionHash: JQueryCycle2.OptionsWithState,
+            slideOptionsHash: JQueryCycle2.OptionsWithState,
+            currentSlideEl: Element,
+        ) => void,
+    ): JQuery;
 }
-
 
 declare namespace JQueryCycle2 {
     interface Cycle2 {
         (options?: Options): JQuery;
-        (methodName: 'add', newSlide: any): JQuery; // string or JQuery
-        (methodName: 'destroy'): JQuery;
-        (methodName: 'goto', index: number): JQuery;
-        (methodName: 'next'): JQuery;
-        (methodName: 'pause'): JQuery;
-        (methodName: 'prev'): JQuery;
-        (methodName: 'reinit'): JQuery;
-        (methodName: 'remove', index: number): JQuery;
-        (methodName: 'resume'): JQuery;
-        (methodName: 'stop'): JQuery;
+        (methodName: "add", newSlide: any): JQuery; // string or JQuery
+        (methodName: "destroy"): JQuery;
+        (methodName: "goto", index: number): JQuery;
+        (methodName: "next"): JQuery;
+        (methodName: "pause"): JQuery;
+        (methodName: "prev"): JQuery;
+        (methodName: "reinit"): JQuery;
+        (methodName: "remove", index: number): JQuery;
+        (methodName: "resume"): JQuery;
+        (methodName: "stop"): JQuery;
         (methodNameDontCallMe: string, arg1DontCallMe: any, arg2DontCallMe: any): JQuery; // catch-all, shouldn't ever be called though
     }
 
     interface Options {
-        allowWrap?: boolean;
+        allowWrap?: boolean | undefined;
         autoHeight?: any; // number or string
-        autoSelector?: string;
-        caption?: string;
-        captionTemplate?: string;
-        continueAuto?: boolean;
-        delay?: number;
-        disabledClass?: string;
-        easing?: string;
-        fx?: string;
-        hideNonActive?: boolean;
+        autoSelector?: string | undefined;
+        caption?: string | undefined;
+        captionTemplate?: string | undefined;
+        continueAuto?: boolean | undefined;
+        delay?: number | undefined;
+        disabledClass?: string | undefined;
+        easing?: string | undefined;
+        fx?: string | undefined;
+        hideNonActive?: boolean | undefined;
         loader?: any; // boolean or 'wait'
-        log?: boolean;
-        loop?: number;
-        manualSpeed?: number;
-        manualTrump?: boolean;
-        next?: string;
-        nextEvent?: string;
-        overlay?: string;
-        overlayTemplate?: string;
-        pager?: string;
-        pagerActivateClass?: string;
-        pagerEvent?: string;
-        pagerTemplate?: string;
+        log?: boolean | undefined;
+        loop?: number | undefined;
+        manualSpeed?: number | undefined;
+        manualTrump?: boolean | undefined;
+        next?: string | undefined;
+        nextEvent?: string | undefined;
+        overlay?: string | undefined;
+        overlayTemplate?: string | undefined;
+        pager?: string | undefined;
+        pagerActivateClass?: string | undefined;
+        pagerEvent?: string | undefined;
+        pagerTemplate?: string | undefined;
         pauseOnHover?: any; // boolean or string
-        paused?: boolean;
-        prev?: string;
-        prevEvent?: string;
-        progressive?: string;
-        random?: boolean;
-        reverse?: boolean;
-        slideActiveClass?: string;
+        paused?: boolean | undefined;
+        prev?: string | undefined;
+        prevEvent?: string | undefined;
+        progressive?: string | undefined;
+        random?: boolean | undefined;
+        reverse?: boolean | undefined;
+        slideActiveClass?: string | undefined;
         slideCss?: any;
-        slideClass?: string;
-        slides?: string;
-        speed?: number;
-        startingSlide?: number;
-        swipe?: boolean;
-        sync?: boolean;
-        timeout?: number;
-        tmplRegex?: string;
-        updateView?: number;
+        slideClass?: string | undefined;
+        slides?: string | undefined;
+        speed?: number | undefined;
+        startingSlide?: number | undefined;
+        swipe?: boolean | undefined;
+        sync?: boolean | undefined;
+        timeout?: number | undefined;
+        tmplRegex?: string | undefined;
+        updateView?: number | undefined;
     }
 
     interface OptionsWithState extends Options {
@@ -112,12 +174,18 @@ declare namespace JQueryCycle2 {
         calcNextSlide(): void;
         calcTx(slideOptions: Options, manual: boolean): Transition;
         destroy(): void;
-        doTransition(slideOptions: Options, currEl: Element, nextEl: Element, fwdFlag: boolean, callback: Function): void;
+        doTransition(
+            slideOptions: Options,
+            currEl: Element,
+            nextEl: Element,
+            fwdFlag: boolean,
+            callback: Function,
+        ): void;
         getComponent(nameOfComponent: string): JQuery;
         getSlideIndex(slideElement: Element): number;
         getSlideOpts(slideIndex: number): Options;
         goto(index: number): void;
-        initSlide(slideOptions: Options, slide: any /*not sure*/, suggestedZindex: number): void;
+        initSlide(slideOptions: Options, slide: any, /*not sure*/ suggestedZindex: number): void;
         initSlideshow(): void;
         log(...args: any[]): void;
         next(): void;

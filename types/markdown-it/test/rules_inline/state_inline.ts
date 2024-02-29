@@ -1,15 +1,15 @@
-import MarkdownIt = require('markdown-it');
-import Token = require('markdown-it/lib/token');
+import MarkdownIt = require("markdown-it");
+import Token = require("markdown-it/lib/token");
 
-import StateInline = require('markdown-it/lib/rules_inline/state_inline');
+import StateInline = require("markdown-it/lib/rules_inline/state_inline");
 
 const md = new MarkdownIt();
 const tokens: Token[] = [];
 
-const state = new StateInline('__foobar__', md, {}, tokens);
+const state = new StateInline("__foobar__", md, {}, tokens);
 
 {
-    state.src = '__foobar__';
+    state.src = "__foobar__";
     state.env = {};
     state.md = md;
     state.tokens = tokens;
@@ -17,7 +17,7 @@ const state = new StateInline('__foobar__', md, {}, tokens);
     state.pos = 0;
     state.posMax = state.src.length;
     state.level = 0;
-    state.pending = '';
+    state.pending = "";
     state.pendingLevel = 0;
     state.cache = {};
     state.delimiters = [] as StateInline.Delimiter[];
@@ -28,12 +28,12 @@ const state = new StateInline('__foobar__', md, {}, tokens);
     if (state.pending) {
         token = state.pushPending();
     }
-    token = state.push('image', 'img', 0);
-    token = new state.Token('image', 'img', 0);
+    token = state.push("image", "img", 0);
+    token = new state.Token("image", "img", 0);
 }
 
 {
-    const marker = '*'.charCodeAt(0);
+    const marker = "*".charCodeAt(0);
     let scanned: StateInline.Scanned = {
         can_open: true,
         can_close: true,

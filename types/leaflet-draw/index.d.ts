@@ -1,19 +1,10 @@
-// Type definitions for leaflet-draw 1.0
-// Project: https://github.com/Leaflet/Leaflet.draw
-// Definitions by: Matt Guest <https://github.com/matt-guest>
-//                 Ryan Blace <https://github.com/reblace>
-//                 Yun Shi <https://github.com/YunS-Stacy>
-//                 Kevin Richter <https://github.com/beschoenen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MapOptions {
-        drawControl?: boolean;
-        drawControlTooltips?: boolean;
-        touchExtend?: boolean;
+        drawControl?: boolean | undefined;
+        drawControlTooltips?: boolean | undefined;
+        touchExtend?: boolean | undefined;
     }
 
     class DrawMap extends Map {
@@ -35,28 +26,29 @@ declare module 'leaflet' {
     }
 
     interface ToolbarOptions {
-        polyline?: DrawOptions.PolylineOptions;
-        polygon?: DrawOptions.PolygonOptions;
-        rectangle?: DrawOptions.RectangleOptions;
-        circle?: DrawOptions.CircleOptions;
-        marker?: DrawOptions.MarkerOptions;
-        circlemarker?: DrawOptions.CircleOptions;
+        polyline?: DrawOptions.PolylineOptions | undefined;
+        polygon?: DrawOptions.PolygonOptions | undefined;
+        rectangle?: DrawOptions.RectangleOptions | undefined;
+        circle?: DrawOptions.CircleOptions | undefined;
+        marker?: DrawOptions.MarkerOptions | undefined;
+        circlemarker?: DrawOptions.CircleOptions | undefined;
     }
 
     interface PrecisionOptions {
-        km?: number;
-        ha?: number;
-        m?: number;
-        mi?: number;
-        ac?: number;
-        yd?: number;
-        ft?: number;
-        nm?: number;
+        km?: number | undefined;
+        ha?: number | undefined;
+        m?: number | undefined;
+        mi?: number | undefined;
+        ac?: number | undefined;
+        yd?: number | undefined;
+        ft?: number | undefined;
+        nm?: number | undefined;
     }
 
     class Toolbar extends Class {
         constructor(options?: ToolbarOptions);
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         addToolbar(map: DrawMap): HTMLElement | void;
 
         removeToolbar(): void;
@@ -85,21 +77,21 @@ declare module 'leaflet' {
              *
              * @default 'topleft'
              */
-            position?: ControlPosition;
+            position?: ControlPosition | undefined;
 
             /**
              * The options used to configure the draw toolbar.
              *
              * @default {}
              */
-            draw?: DrawOptions;
+            draw?: DrawOptions | undefined;
 
             /**
              * The options used to configure the edit toolbar.
              *
              * @default false
              */
-            edit?: EditOptions;
+            edit?: EditOptions | undefined;
         }
 
         interface DrawOptions {
@@ -108,42 +100,42 @@ declare module 'leaflet' {
              *
              * @default {}
              */
-            polyline?: DrawOptions.PolylineOptions | false;
+            polyline?: DrawOptions.PolylineOptions | false | undefined;
 
             /**
              * Polygon draw handler options. Set to false to disable handler.
              *
              * @default {}
              */
-            polygon?: DrawOptions.PolygonOptions | false;
+            polygon?: DrawOptions.PolygonOptions | false | undefined;
 
             /**
              * Rectangle draw handler options. Set to false to disable handler.
              *
              * @default {}
              */
-            rectangle?: DrawOptions.RectangleOptions | false;
+            rectangle?: DrawOptions.RectangleOptions | false | undefined;
 
             /**
              * Circle draw handler options. Set to false to disable handler.
              *
              * @default {}
              */
-            circle?: DrawOptions.CircleOptions | false;
+            circle?: DrawOptions.CircleOptions | false | undefined;
 
             /**
              * Circle marker draw handler options. Set to false to disable handler.
              *
              * @default {}
              */
-            circlemarker?: DrawOptions.CircleMarkerOptions | false;
+            circlemarker?: DrawOptions.CircleMarkerOptions | false | undefined;
 
             /**
              * Marker draw handler options. Set to false to disable handler.
              *
              * @default {}
              */
-            marker?: DrawOptions.MarkerOptions | false;
+            marker?: DrawOptions.MarkerOptions | false | undefined;
         }
 
         interface EditOptions {
@@ -160,14 +152,14 @@ declare module 'leaflet' {
              *
              * @default null
              */
-            edit?: DrawOptions.EditHandlerOptions | false;
+            edit?: Omit<EditToolbar.EditHandlerOptions, "featureGroup"> | false | undefined;
 
             /**
              * Delete handler options. Set to false to disable handler.
              *
              * Default value: null
              */
-            remove?: null | false;
+            remove?: boolean | null | undefined;
         }
 
         class Draw extends Control {
@@ -185,7 +177,7 @@ declare module 'leaflet' {
              *
              * @default false
              */
-            repeatMode?: boolean;
+            repeatMode?: boolean | undefined;
         }
 
         interface PolylineOptions extends SimpleShapeOptions {
@@ -194,90 +186,92 @@ declare module 'leaflet' {
              *
              * @default true
              */
-            allowIntersection?: boolean;
+            allowIntersection?: boolean | undefined;
 
             /**
              * Configuration options for the error that displays if an intersection is detected.
              *
              * @default { color: '#b00b00', timeout: 2500 }
              */
-            drawError?: DrawErrorOptions;
+            drawError?: DrawErrorOptions | undefined;
 
             /**
              * Distance in pixels between each guide dash.
              *
              * @default 20
              */
-            guidelineDistance?: number;
+            guidelineDistance?: number | undefined;
 
             /**
              * The options used when drawing the polyline/polygon on the map.
              *
              * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: false, clickable: true }
              */
-            shapeOptions?: L.PolylineOptions & {
-                clickable?: boolean;
-            };
+            shapeOptions?:
+                | L.PolylineOptions & {
+                    clickable?: boolean | undefined;
+                }
+                | undefined;
 
             /**
              * Whether to display distance in the tooltip
              *
              * @default true
              */
-            showLength?: boolean;
+            showLength?: boolean | undefined;
 
             /**
              * Determines which measurement system (metric or imperial) is used.
              *
              * @default true
              */
-            metric?: boolean;
+            metric?: boolean | undefined;
 
             /**
              * When not metric, to use feet instead of yards for display.
              *
              * @default true
              */
-            feet?: boolean;
+            feet?: boolean | undefined;
 
             /**
              * When not metric, not feet use nautic mile for display
              *
              * @default false
              */
-            nautic?: boolean;
+            nautic?: boolean | undefined;
 
             /**
              * This should be a high number to ensure that you can draw over all other layers on the map.
              *
              * @default 2000
              */
-            zIndexOffset?: number;
+            zIndexOffset?: number | undefined;
 
-            icon?: Icon | DivIcon;
+            icon?: Icon | DivIcon | undefined;
 
-            touchIcon?: Icon | DivIcon;
+            touchIcon?: Icon | DivIcon | undefined;
 
             /**
              * The maximum length of the guide line
              *
              * @default 4000
              */
-            maxGuideLineLength?: number;
+            maxGuideLineLength?: number | undefined;
 
             /**
              * To change distance calculation
              *
              * @default 1
              */
-            factor?: number;
+            factor?: number | undefined;
 
             /**
              * Once this number of points are placed, finish shape
              *
              * @default 0
              */
-            maxPoints?: number;
+            maxPoints?: number | undefined;
         }
 
         interface PolygonOptions extends PolylineOptions {
@@ -287,7 +281,7 @@ declare module 'leaflet' {
              *
              * @default false
              */
-            showArea?: boolean;
+            showArea?: boolean | undefined;
 
             /**
              * Show the length of the drawn line.
@@ -295,14 +289,14 @@ declare module 'leaflet' {
              *
              * @default false
              */
-            showLength?: boolean;
+            showLength?: boolean | undefined;
 
             /**
              * Defines the precision for each type of unit (e.g. {km: 2, ft: 0}
              *
              * @default {}
              */
-            precision?: PrecisionOptions;
+            precision?: PrecisionOptions | undefined;
         }
 
         interface RectangleOptions extends SimpleShapeOptions {
@@ -311,14 +305,14 @@ declare module 'leaflet' {
              *
              * @default {stroke: true, weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, showArea: true, clickable: true }
              */
-            shapeOptions?: PathOptions;
+            shapeOptions?: PathOptions | undefined;
 
             /**
              * Whether to use the metric measurement system or imperial
              *
              * @default true
              */
-            metric?: boolean;
+            metric?: boolean | undefined;
         }
 
         interface CircleOptions extends SimpleShapeOptions {
@@ -327,100 +321,100 @@ declare module 'leaflet' {
              *
              * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: true, fillColor: null, fillOpacity: 0.2, clickable: true }
              */
-            shapeOptions?: PathOptions;
+            shapeOptions?: PathOptions | undefined;
 
             /**
              * Whether to show the radius in the tooltip
              *
              * @default true
              */
-            showRadius?: boolean;
+            showRadius?: boolean | undefined;
 
             /**
              * Whether to use the metric measurement system or imperial
              *
              * @default true
              */
-            metric?: boolean;
+            metric?: boolean | undefined;
 
             /**
              * When not metric, use feet instead of yards for display
              *
              * @default true
              */
-            feet?: boolean;
+            feet?: boolean | undefined;
 
             /**
              * When not metric, not feet use nautic mile for display
              *
              * @default false
              */
-            nautic?: boolean;
+            nautic?: boolean | undefined;
         }
 
-        interface CircleMarkerOptions {
+        interface CircleMarkerOptions extends MarkerOptions {
             /**
              * Whether to draw stroke around the circle marker.
              *
              * @default true
              */
-            stroke?: boolean;
+            stroke?: boolean | undefined;
 
             /**
              * The stroke color of the circle marker.
              *
              * @default '#3388ff'
              */
-            color?: string;
+            color?: string | undefined;
 
             /**
              * The stroke width in pixels of the circle marker.
              *
              * @default 4
              */
-            weight?: number;
+            weight?: number | undefined;
 
             /**
              * The stroke opacity of the circle marker.
              *
              * @default 0.5
              */
-            opacity?: number;
+            opacity?: number | undefined;
 
             /**
              * Whether to fill the circle marker with color.
              *
              * @default true
              */
-            fill?: boolean;
+            fill?: boolean | undefined;
 
             /**
              * The fill color of the circle marker. Defaults to the value of the color option.
              *
              * @default null
              */
-            fillColor?: string;
+            fillColor?: string | undefined;
 
             /**
              * The opacity of the circle marker.
              *
              * @default 0.2
              */
-            fillOpacity?: number;
+            fillOpacity?: number | undefined;
 
             /**
              * Whether you can click the circle marker.
              *
              * @default true
              */
-            clickable?: boolean;
+            clickable?: boolean | undefined;
 
             /**
              * This should be a high number to ensure that you can draw over all other layers on the map.
              *
              * @default 2000
              */
-            zIndexOffset?: number;
+            zIndexOffset?: number | undefined;
         }
 
         interface MarkerOptions {
@@ -429,88 +423,48 @@ declare module 'leaflet' {
              *
              * @default L.Icon.Default()
              */
-            icon?: Icon | DivIcon;
+            icon?: Icon | DivIcon | undefined;
 
             /**
              * This should be a high number to ensure that you can draw over all other layers on the map.
              *
              * @default 2000
              */
-            zIndexOffset?: number;
+            zIndexOffset?: number | undefined;
 
             /**
              * Determines if the draw tool remains enabled after drawing a shape.
              *
              * @default false
              */
-            repeatMode?: boolean;
-        }
-
-        interface EditPolyOptions {
-            /**
-             * This is the FeatureGroup that stores all editable shapes
-             * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
-             */
-            featureGroup: FeatureGroup;
-
-            /**
-             * Edit handler options. Set to false to disable handler.
-             */
-            edit: EditHandlerOptions;
-
-            /**
-             * Delete handler options. Set to false to disable handler.
-             */
-            remove: any;
-
-            /**
-             * Set polygon editing options
-             */
-            poly: EditPolyOptions;
-
-            /**
-             * Determines if line segments can cross
-             *
-             * @default true
-             */
-            allowIntersection: boolean;
-        }
-
-        interface EditHandlerOptions {
-            /**
-             * The path options for how the layers will look while in edit mode.
-             * If this is set to null the editable path options will not be set.
-             *
-             * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
-             */
-            selectedPathOptions?: PathOptions;
+            repeatMode?: boolean | undefined;
         }
 
         interface DrawErrorOptions {
-            color?: string;
-            timeout?: number;
-            message?: string;
+            color?: string | undefined;
+            timeout?: number | undefined;
+            message?: string | undefined;
         }
     }
 
     namespace Draw {
         namespace Event {
-            const CREATED: 'draw:created';
-            const DELETED: 'draw:deleted';
-            const DELETESTART: 'draw:deletestart';
-            const DELETESTOP: 'draw:deletestop';
-            const DRAWSTART: 'draw:drawstart';
-            const DRAWSTOP: 'draw:drawstop';
-            const DRAWVERTEX: 'draw:drawvertex';
-            const EDITED: 'draw:edited';
-            const EDITMOVE: 'draw:editmove';
-            const EDITRESIZE: 'draw:editresize';
-            const EDITSTART: 'draw:editstart';
-            const EDITSTOP: 'draw:editstop';
-            const EDITVERTEX: 'draw:editvertex';
-            const MARKERCONTEXT: 'draw:markercontext';
-            const TOOLBARCLOSED: 'draw:toolbarclosed';
-            const TOOLBAROPENED: 'draw:toolbaropened';
+            const CREATED: "draw:created";
+            const DELETED: "draw:deleted";
+            const DELETESTART: "draw:deletestart";
+            const DELETESTOP: "draw:deletestop";
+            const DRAWSTART: "draw:drawstart";
+            const DRAWSTOP: "draw:drawstop";
+            const DRAWVERTEX: "draw:drawvertex";
+            const EDITED: "draw:edited";
+            const EDITMOVE: "draw:editmove";
+            const EDITRESIZE: "draw:editresize";
+            const EDITSTART: "draw:editstart";
+            const EDITSTOP: "draw:editstop";
+            const EDITVERTEX: "draw:editvertex";
+            const MARKERCONTEXT: "draw:markercontext";
+            const TOOLBARCLOSED: "draw:toolbarclosed";
+            const TOOLBAROPENED: "draw:toolbaropened";
         }
 
         /**
@@ -520,77 +474,79 @@ declare module 'leaflet' {
          * for (const key in eventHandlers) { map.off(eventHandlers[key], LeafletFn); }
          */
         interface EventHandlers {
-          onCreated: typeof Event.CREATED;
-          onDeleted: typeof Event.DELETED;
-          onDeleteStart: typeof Event.DELETESTART;
-          onDeleteStop: typeof Event.DELETESTOP;
-          onDrawStart: typeof Event.DRAWSTART;
-          onDrawStop: typeof Event.DRAWSTOP;
-          onDrawVertex: typeof Event.DRAWVERTEX;
-          onEdited: typeof Event.EDITED;
-          onEditMove: typeof Event.EDITMOVE;
-          onEditResize: typeof Event.EDITRESIZE;
-          onEditStart: typeof Event.EDITSTART;
-          onEditStop: typeof Event.EDITSTOP;
-          onEditVertex: typeof Event.EDITVERTEX;
-          onMarkerContext: typeof Event.MARKERCONTEXT;
-          onToolbarClosed: typeof Event.TOOLBARCLOSED;
-          onToolbarOpened: typeof Event.TOOLBAROPENED;
+            onCreated: typeof Event.CREATED;
+            onDeleted: typeof Event.DELETED;
+            onDeleteStart: typeof Event.DELETESTART;
+            onDeleteStop: typeof Event.DELETESTOP;
+            onDrawStart: typeof Event.DRAWSTART;
+            onDrawStop: typeof Event.DRAWSTOP;
+            onDrawVertex: typeof Event.DRAWVERTEX;
+            onEdited: typeof Event.EDITED;
+            onEditMove: typeof Event.EDITMOVE;
+            onEditResize: typeof Event.EDITRESIZE;
+            onEditStart: typeof Event.EDITSTART;
+            onEditStop: typeof Event.EDITSTOP;
+            onEditVertex: typeof Event.EDITVERTEX;
+            onMarkerContext: typeof Event.MARKERCONTEXT;
+            onToolbarClosed: typeof Event.TOOLBARCLOSED;
+            onToolbarOpened: typeof Event.TOOLBAROPENED;
 
-          // Requires an index signature of type string to be properly useful
-          [key: string]: string;
+            // Requires an index signature of type string to be properly useful
+            [key: string]: string;
         }
 
         class Feature extends Handler {
             initialize(
                 map: DrawMap,
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions,
             ): void;
 
             setOptions(
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions,
             ): void;
         }
 
         class SimpleShape extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.SimpleShapeOptions
-            )
+                options?: DrawOptions.SimpleShapeOptions,
+            );
         }
 
         class Marker extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+                options?: DrawOptions.MarkerOptions,
+            );
         }
 
         class CircleMarker extends Marker {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+                options?: DrawOptions.MarkerOptions,
+            );
         }
 
         class Circle extends SimpleShape {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.CircleOptions
-            )
+                options?: DrawOptions.CircleOptions,
+            );
         }
 
         class Polyline extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.PolylineOptions
-            )
+                options?: DrawOptions.PolylineOptions,
+            );
 
             deleteLastVertex(): void;
 
@@ -602,15 +558,15 @@ declare module 'leaflet' {
         class Rectangle extends SimpleShape {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.RectangleOptions
-            )
+                options?: DrawOptions.RectangleOptions,
+            );
         }
 
         class Polygon extends Polyline {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.PolygonOptions
-            )
+                options?: DrawOptions.PolygonOptions,
+            );
         }
 
         class Tooltip extends Class {
@@ -618,7 +574,7 @@ declare module 'leaflet' {
 
             dispose(): void;
 
-            updateContent(labelText?: { text: string, subtext?: string }): Tooltip;
+            updateContent(labelText?: { text: string; subtext?: string | undefined }): Tooltip;
 
             updatePosition(latlng: LatLng): Tooltip;
 
@@ -761,8 +717,11 @@ declare module 'leaflet' {
          * The value will be rounded as defined by the precision option object.
          */
         function readableDistance(
-            distance: number, isMetric?: boolean, isFeet?: boolean,
-            isNauticalMile?: boolean, precision?: PrecisionOptions
+            distance: number,
+            isMetric?: boolean,
+            isFeet?: boolean,
+            isNauticalMile?: boolean,
+            precision?: PrecisionOptions,
         ): string;
 
         /**
@@ -800,16 +759,48 @@ declare module 'leaflet' {
     }
 
     namespace EditToolbar {
-        class Edit extends Toolbar {
-            constructor(map: DrawMap, options?: ToolbarOptions);
+        interface EditPolyOptions extends EditOptions.EditPolyVerticesEditOptions {
+            /**
+             * Determines if line segments can cross
+             *
+             * @default true
+             */
+            allowIntersection?: boolean;
+        }
+        interface EditHandlerOptions {
+            /**
+             * This is the FeatureGroup that stores all editable shapes.
+             * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
+             *
+             * @default null
+             */
+            featureGroup: FeatureGroup;
+
+            /**
+             * The options for the polygon layer in editing mode
+             *
+             * @default null
+             */
+            poly?: EditPolyOptions;
+
+            /**
+             * The path options for how the layers will look while in edit mode.
+             * If this is set to null the editable path options will not be set.
+             *
+             * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
+             */
+            selectedPathOptions?: PathOptions | undefined;
+        }
+        class Edit extends Handler {
+            constructor(map: DrawMap, options?: EditHandlerOptions);
 
             revertLayers(): void;
 
             save(): void;
         }
 
-        class Delete extends Toolbar {
-            constructor(map: DrawMap, options?: ToolbarOptions);
+        class Delete extends Handler {
+            constructor(map: DrawMap, options?: { featureGroup: FeatureGroup });
 
             revertLayers(): void;
 
@@ -821,16 +812,16 @@ declare module 'leaflet' {
 
     namespace EditOptions {
         interface EditPolyVerticesEditOptions {
-            icon?: Icon | DivIcon;
-            touchIcon?: Icon | DivIcon;
-            drawError?: DrawOptions.DrawErrorOptions;
+            icon?: Icon | DivIcon | undefined;
+            touchIcon?: Icon | DivIcon | undefined;
+            drawError?: DrawOptions.DrawErrorOptions | undefined;
         }
 
         interface EditSimpleShapeOptions {
-            moveIcon?: Icon | DivIcon;
-            resizeIcon?: Icon | DivIcon;
-            touchMoveIcon?: Icon | DivIcon;
-            touchResizeIcon?: Icon | DivIcon;
+            moveIcon?: Icon | DivIcon | undefined;
+            resizeIcon?: Icon | DivIcon | undefined;
+            touchMoveIcon?: Icon | DivIcon | undefined;
+            touchResizeIcon?: Icon | DivIcon | undefined;
         }
     }
 
@@ -906,9 +897,9 @@ declare module 'leaflet' {
         }
 
         interface Tooltip {
-            start?: string;
-            cont?: string;
-            end?: string;
+            start?: string | undefined;
+            cont?: string | undefined;
+            end?: string | undefined;
         }
 
         interface DrawHandlers {

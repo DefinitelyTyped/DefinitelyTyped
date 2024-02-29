@@ -1,15 +1,8 @@
-// Type definitions for primus 7.3
-// Project: https://github.com/primus/primus#readme
-// Definitions by: Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Alaa Zorkane <https://github.com/alaazorkane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="node" />
-import * as http from 'http';
-import { EventEmitter } from 'events';
-import { ParsedUrlQuery } from 'querystring';
-import { Stream } from 'stream';
+import { EventEmitter } from "events";
+import * as http from "http";
+import { ParsedUrlQuery } from "querystring";
+import { Stream } from "stream";
 
 export = Primus;
 
@@ -45,14 +38,20 @@ interface Parser {
 
 type AuthorizationHandler = (
     req: http.IncomingMessage,
-    done: (err?: string | Error | { statusCode?: number; authenticate?: string; message?: string }) => void,
+    done: (
+        err?: string | Error | {
+            statusCode?: number | undefined;
+            authenticate?: string | undefined;
+            message?: string | undefined;
+        },
+    ) => void,
 ) => void;
 
 type Middleware = (req: http.IncomingMessage, res: http.ServerResponse) => void;
 
 declare class Primus extends EventEmitter {
-    on(event: 'plugin' | 'plugout', cb: (name: string, energon: unknown) => void): this;
-    on(event: 'connection' | 'disconnection', cb: (spark: Primus.Spark) => void): this;
+    on(event: "plugin" | "plugout", cb: (name: string, energon: unknown) => void): this;
+    on(event: "connection" | "disconnection", cb: (spark: Primus.Spark) => void): this;
 
     constructor(server: http.Server, options?: PrimusOptions);
 
@@ -64,9 +63,12 @@ declare class Primus extends EventEmitter {
         done: (err: Error | null) => void,
     ): this;
 
+    connections: { [id: string]: Primus.Spark };
+    connected: number;
+
     write(data: any): void;
 
-    transform(type: 'incoming' | 'outgoing', fn: (packet: PrimusPacket) => void): this;
+    transform(type: "incoming" | "outgoing", fn: (packet: PrimusPacket) => void): this;
 
     // This is marked as private in the source code, but documented in the readme
     spark(id: string): Primus.Spark;
@@ -88,8 +90,8 @@ declare class Primus extends EventEmitter {
     enable(name: string): this;
     disable(name: string): this;
 
-    destroy(options: { close?: boolean; reconnect: boolean; timeout: number }, fn: () => void): this;
-    end(data?: any, options?: { reconnect?: boolean }): void;
+    destroy(options: { close?: boolean | undefined; reconnect: boolean; timeout: number }, fn: () => void): this;
+    end(data?: any, options?: { reconnect?: boolean | undefined }): void;
 
     reserved(name: string): boolean;
 
@@ -99,29 +101,29 @@ declare class Primus extends EventEmitter {
 }
 
 interface PrimusOptions {
-    authorization?: AuthorizationHandler;
-    pathname?: string;
-    parser?: string | Parser;
-    transformer?: 'websockets' | 'engine.io' | 'browserchannel' | 'sockjs' | 'faye' | 'uws';
-    plugin?: string | object;
-    pingInterval?: number;
-    global?: string;
-    compression?: boolean;
-    maxLength?: number;
-    transport?: object;
+    authorization?: AuthorizationHandler | undefined;
+    pathname?: string | undefined;
+    parser?: string | Parser | undefined;
+    transformer?: "websockets" | "engine.io" | "browserchannel" | "sockjs" | "faye" | "uws" | undefined;
+    plugin?: string | object | undefined;
+    pingInterval?: number | undefined;
+    global?: string | undefined;
+    compression?: boolean | undefined;
+    maxLength?: number | undefined;
+    transport?: object | undefined;
     idGenerator?(): string;
 
     // Cors
-    origins?: string;
-    methods?: string;
-    credentials?: boolean;
-    maxAge?: string;
-    headers?: boolean;
-    exposed?: boolean;
+    origins?: string | undefined;
+    methods?: string | undefined;
+    credentials?: boolean | undefined;
+    maxAge?: string | undefined;
+    headers?: boolean | undefined;
+    exposed?: boolean | undefined;
 }
 
 declare namespace Primus {
-    function createSocket(options?: PrimusOptions): typeof Socket;
+    function createSocket(options?: SocketOptions): typeof Socket;
 
     function createServer(options?: PrimusOptions): Primus;
     function createServer(fn: (spark: Spark) => void, options?: PrimusOptions): Primus;
@@ -139,19 +141,19 @@ declare namespace Primus {
         request: http.IncomingMessage;
 
         write(data: any): void;
-        end(data?: any, options?: { reconnect?: boolean }): void;
+        end(data?: any, options?: { reconnect?: boolean | undefined }): void;
         emits: emits.emits;
 
-        on(event: 'data', handler: (message: any) => void): this;
-        on(event: 'end', handler: () => void): this;
+        on(event: "data", handler: (message: any) => void): this;
+        on(event: "end", handler: () => void): this;
     }
 
     interface ReconnectOpts {
-        max?: number;
-        min?: number;
-        retries?: number | null;
-        'reconnect timeout'?: number;
-        factor?: number;
+        max?: number | undefined;
+        min?: number | undefined;
+        retries?: number | null | undefined;
+        "reconnect timeout"?: number | undefined;
+        factor?: number | undefined;
     }
     interface ReconnectEventOpts extends Required<ReconnectOpts> {
         start: number;
@@ -163,20 +165,24 @@ declare namespace Primus {
     interface SocketOptions {
         // https://github.com/unshiftio/recovery
         reconnect?: {
-            max?: number;
-            min?: number;
-            retries?: number;
-            'reconnect timeout'?: number;
-            factor?: number;
-        };
-        timeout?: number;
-        pingTimeout?: number;
-        strategy?: string | Array<'disconnect' | 'online' | 'timeout'>;
-        manual?: boolean;
-        websockets?: boolean;
-        network?: boolean;
-        transport?: object;
-        queueSize?: number;
+            max?: number | undefined;
+            min?: number | undefined;
+            retries?: number | undefined;
+            "reconnect timeout"?: number | undefined;
+            factor?: number | undefined;
+        } | undefined;
+        timeout?: number | undefined;
+        pingTimeout?: number | undefined;
+        strategy?: string | Array<"disconnect" | "online" | "timeout"> | undefined;
+        manual?: boolean | undefined;
+        websockets?: boolean | undefined;
+        network?: boolean | undefined;
+        transport?: object | undefined;
+        queueSize?: number | undefined;
+        // https://www.npmjs.com/package/primus#connecting-from-the-server
+        transformer?: PrimusOptions["transformer"] | undefined;
+        parser?: PrimusOptions["parser"] | undefined;
+        plugin?: PrimusOptions["plugin"] | undefined;
     }
     class Socket extends Stream {
         constructor(options?: SocketOptions);
@@ -188,11 +194,17 @@ declare namespace Primus {
         emits: emits.emits;
         id(fn: (id: string) => void): this;
 
-        on(event: 'open' | 'end', handler: () => void): this;
-        on(event: 'reconnect' | 'reconnect scheduled' | 'reconnected', handler: (opts: ReconnectEventOpts) => void): this;
-        on(event: 'reconnect timeout' | 'reconnect failed', handler: (err: Error, opts: ReconnectEventOpts) => void): this;
-        on(event: 'data', handler: (message: any) => void): this;
-        on(event: 'error', handler: (err: Error) => void): this;
+        on(event: "open" | "end", handler: () => void): this;
+        on(
+            event: "reconnect" | "reconnect scheduled" | "reconnected",
+            handler: (opts: ReconnectEventOpts) => void,
+        ): this;
+        on(
+            event: "reconnect timeout" | "reconnect failed",
+            handler: (err: Error, opts: ReconnectEventOpts) => void,
+        ): this;
+        on(event: "data", handler: (message: any) => void): this;
+        on(event: "error", handler: (err: Error) => void): this;
         open(): this;
     }
 }

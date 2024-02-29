@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import Notice from './';
+import Notice from "./";
 
 declare namespace NoticeList {
     interface Props {
@@ -12,9 +12,9 @@ declare namespace NoticeList {
          * Function called when a notice should be removed / dismissed.
          */
         onRemove?(noticeId: string): void;
-        className?: string;
+        className?: string | undefined;
     }
-    interface Notice extends Omit<Notice.Props, 'children' | 'onRemove'> {
+    interface Notice extends Omit<Notice.Props, "children" | "onRemove"> {
         id: string;
         content: ReactNode;
     }

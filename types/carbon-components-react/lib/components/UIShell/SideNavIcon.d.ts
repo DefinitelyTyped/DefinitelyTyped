@@ -1,14 +1,10 @@
 import * as React from "react";
-import { ReactAttr, RequiresChildrenProps, SizingProps } from "../../../typings/shared";
+import { RequiresChildrenProps } from "../../../typings/shared";
 
-interface InheritedProps extends
-    RequiresChildrenProps,
-    SizingProps
-{
-    className?: ReactAttr["className"],
+export interface SideNavIconProps extends RequiresChildrenProps {
+    className?: string | undefined;
+    small?: boolean | undefined;
 }
-
-export interface SideNavIconProps extends InheritedProps { }
 
 declare const SideNavIcon: React.FC<SideNavIconProps>;
 

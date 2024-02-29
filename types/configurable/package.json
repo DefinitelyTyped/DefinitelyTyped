@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/configurable",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/configurable"
+    ],
+    "devDependencies": {
+        "@types/configurable": "workspace:."
+    },
+    "owners": []
+}

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package amap-js-api-driving 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/route-search#m_AMap.Driving
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 /// <reference types="amap-js-api-place-search" />
 
@@ -30,74 +24,74 @@ declare namespace AMap {
         HIGHWAY = 6,
         FEE_HIGHWAY = 7,
         FEE_TRAFFIC = 8,
-        TRAFFIC_HIGHWAY = 9
+        TRAFFIC_HIGHWAY = 9,
     }
     namespace Driving {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
              * 驾车路线规划策略
              */
-            policy?: DrivingPolicy;
+            policy?: DrivingPolicy | undefined;
             /**
              * 返回信息种类
              * 默认值：base，返回基本地址信息
              * 当取值为：all，返回DriveStep基本信息+DriveStep详细信息
              */
-            extensions?: 'base' | 'all';
+            extensions?: "base" | "all" | undefined;
             /**
              * 默认为0，表示可以使用轮渡，为1的时候表示不可以使用轮渡
              */
-            ferry?: boolean;
+            ferry?: boolean | undefined;
             /**
              * AMap.Map对象
              * 展现结果的地图实例。当指定此参数后，搜索结果的标注、线路等均会自动添加到此地图上。
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 结果列表的HTML容器id或容器元素，提供此参数后，结果列表将在此容器中进行展示。
              */
-            panel?: string | HTMLElement;
+            panel?: string | HTMLElement | undefined;
             /**
              * 设置隐藏路径规划的起始点图标
              */
-            hideMarkers?: boolean;
+            hideMarkers?: boolean | undefined;
             /**
              * 设置是否显示实时路况信息，默认设置为true。
              * 显示绿色代表畅通，黄色代表轻微拥堵，红色代表比较拥堵，灰色表示无路况信息。
              */
-            showTraffic?: boolean;
+            showTraffic?: boolean | undefined;
             /**
              * 车牌省份的汉字缩写，用于判断是否限行，与number属性组合使用。
              */
-            province?: string;
+            province?: string | undefined;
             /**
              * 除省份之外车牌的字母和数字，用于判断限行相关，与province属性组合使用。
              */
-            number?: string;
+            number?: string | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边。缺省为true
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路的描边颜色。缺省为'white'
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 于控制在路径规划结束后，是否自动调整地图视野使绘制的路线处于视口的可见范围
              */
-            autoFitView?: boolean;
+            autoFitView?: boolean | undefined;
             // internal
-            showDir?: boolean;
+            showDir?: boolean | undefined;
         }
         interface SearchOptions {
             /**
              * 途经点
              */
-            waypoints?: LocationValue[];
+            waypoints?: LocationValue[] | undefined;
         }
         interface SearchPoint {
             /**
@@ -107,7 +101,7 @@ declare namespace AMap {
             /**
              * 城市
              */
-            city?: string;
+            city?: string | undefined;
         }
         interface TMCsPath {
             path: LngLat[];
@@ -169,12 +163,12 @@ declare namespace AMap {
             /**
              * 途径城市列表
              */
-            cities?: ViaCity[];
+            cities?: ViaCity[] | undefined;
             /**
              * 实时交通信息列表
              */
-            tmcs?: TMC[];
-            tmcsPaths?: TMCsPath[];
+            tmcs?: TMC[] | undefined;
+            tmcsPaths?: TMCsPath[] | undefined;
         }
         interface District {
             /**
@@ -257,7 +251,7 @@ declare namespace AMap {
         interface Poi {
             location: LngLat;
             name: string;
-            type: 'start' | 'end' | 'waypoint';
+            type: "start" | "end" | "waypoint";
         }
         interface SearchResultCommon {
             /**
@@ -280,7 +274,7 @@ declare namespace AMap {
              * 打车费用，仅extensions为“all”时返回
              * 单位：元
              */
-            taxi_cost?: number;
+            taxi_cost?: number | undefined;
         }
         interface SearchResultBase extends SearchResultCommon {
             /**
@@ -319,7 +313,7 @@ declare namespace AMap {
             waypoints: Array<PlaceSearch.PoiExt & { isWaypoint: boolean }>;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'error' | 'no_data' | 'complete';
+        type SearchStatus = "error" | "no_data" | "complete";
     }
     class Driving extends EventEmitter {
         /**
@@ -334,7 +328,7 @@ declare namespace AMap {
          */
         search(
             points: Driving.SearchPoint[],
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultExt) => void,
         ): void;
         /**
          * 根据起点、终点坐标查询驾车路线规划
@@ -345,7 +339,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void,
         ): void;
         /**
          * 根据起点、终点坐标和途径点查询驾车路线规划
@@ -358,7 +352,7 @@ declare namespace AMap {
             origin: LocationValue,
             destination: LocationValue,
             opts?: Driving.SearchOptions,
-            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void
+            callback?: (status: Driving.SearchStatus, result: string | Driving.SearchResultBase) => void,
         ): void;
         /**
          * 设置驾车路线规划策略
@@ -399,7 +393,14 @@ declare namespace AMap {
          * 唤起高德地图客户端驾车路径规划
          * @param obj 唤起参数
          */
-        searchOnAMAP(obj: { origin: LocationValue, originName?: string, destination: LocationValue, destinationName?: string }): void;
+        searchOnAMAP(
+            obj: {
+                origin: LocationValue;
+                originName?: string | undefined;
+                destination: LocationValue;
+                destinationName?: string | undefined;
+            },
+        ): void;
         /**
          * 设置车牌的汉字首字符和首字后的号码，
          * 设置后路线规划的结果将考虑该车牌在当前时间的限行路段

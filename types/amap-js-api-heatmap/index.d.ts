@@ -1,9 +1,3 @@
-// Type definitions for non-npm package amap-js-api-heatmap 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/layer#m_AMap.Heatmap
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 declare namespace AMap {
     namespace Heatmap {
@@ -11,34 +5,34 @@ declare namespace AMap {
             /**
              * 热力图中单个点的半径，默认：30，单位：pixel
              */
-            radius?: number;
+            radius?: number | undefined;
             /**
              * 热力图的渐变区间
              */
-            gradient?: { [key: string]: string };
+            gradient?: { [key: string]: string } | undefined;
             /**
              * 热力图透明度数组，取值范围[0,1]，0表示完全透明，1表示不透明
              * 默认：[0,1]
              */
-            opacity?: [number, number];
+            opacity?: [number, number] | undefined;
             /**
              * 支持的缩放级别范围，取值范围[3-18]
              * 默认：[3,18]
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
 
-            rejectMapMask?: boolean;
-            visible?: boolean;
-            radiusUnit?: string;
-            blur?: number;
-            zIndex?: number;
-            renderOnZooming?: boolean;
-            ['3d']?: {
-                heightScale?: number;
-                heightBezier?: number[];
-                gridSize?: number;
-                drawGridLine?: boolean;
-            };
+            rejectMapMask?: boolean | undefined;
+            visible?: boolean | undefined;
+            radiusUnit?: string | undefined;
+            blur?: number | undefined;
+            zIndex?: number | undefined;
+            renderOnZooming?: boolean | undefined;
+            ["3d"]?: {
+                heightScale?: number | undefined;
+                heightBezier?: number[] | undefined;
+                gridSize?: number | undefined;
+                drawGridLine?: boolean | undefined;
+            } | undefined;
         }
         interface Data {
             /**
@@ -58,7 +52,7 @@ declare namespace AMap {
             /**
              * 权重的最大值
              */
-            max?: number;
+            max?: number | undefined;
             /**
              * 坐标数据集
              */
@@ -88,10 +82,12 @@ declare namespace AMap {
          * https://lbs.amap.com/api/javascript-api/reference/layer#m_AMap.Heatmap
          * @param dataset 数据集
          */
-        setDataSet(dataset: Heatmap.DataSet | {
-            data: string;
-            dataParser?(data: any): Heatmap.DataSet;
-        }): void;
+        setDataSet(
+            dataset: Heatmap.DataSet | {
+                data: string;
+                dataParser?(data: any): Heatmap.DataSet;
+            },
+        ): void;
         /**
          * 向热力图数据集中添加坐标点，count不填写时默认：1
          * @param lng 经度

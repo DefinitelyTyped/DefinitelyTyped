@@ -1,9 +1,3 @@
-// Type definitions for paho-mqtt 1.0
-// Project: https://github.com/eclipse/paho.mqtt.javascript#readme
-// Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export = Paho.MQTT;
 
 declare global {
@@ -65,8 +59,7 @@ declare global {
              */
             invocationContext: any;
         }
-        interface ErrorWithInvocationContext extends MQTTError, WithInvocationContext {
-        }
+        interface ErrorWithInvocationContext extends MQTTError, WithInvocationContext {}
         interface OnSubscribeSuccessParams extends WithInvocationContext {
             grantedQos: Qos;
         }
@@ -120,31 +113,31 @@ declare global {
              * If the connect has not succeeded within this number of seconds, it is deemed to have failed.
              * @default The default is 30 seconds.
              */
-            timeout?: number;
+            timeout?: number | undefined;
             /** Authentication username for this connection. */
-            userName?: string;
+            userName?: string | undefined;
             /** Authentication password for this connection. */
-            password?: string;
+            password?: string | undefined;
             /** Sent by the server when the client disconnects abnormally. */
-            willMessage?: Message;
+            willMessage?: Message | undefined;
             /**
              * The server disconnects this client if there is no activity for this number of seconds.
              * @default The default value of 60 seconds is assumed if not set.
              */
-            keepAliveInterval?: number;
+            keepAliveInterval?: number | undefined;
             /**
              * If true(default) the client and server persistent state is deleted on successful connect.
              * @default true
              */
-            cleanSession?: boolean;
+            cleanSession?: boolean | undefined;
             /** If present and true, use an SSL Websocket connection. */
-            useSSL?: boolean;
+            useSSL?: boolean | undefined;
             /** Passed to the onSuccess callback or onFailure callback. */
             invocationContext?: any;
             /**
              * Called when the connect acknowledgement has been received from the server.
              */
-            onSuccess?: OnSuccessCallback;
+            onSuccess?: OnSuccessCallback | undefined;
             /**
              * Specifies the mqtt version to use when connecting
              * <dl>
@@ -153,21 +146,40 @@ declare global {
              * </dl>
              * @default 4
              */
-            mqttVersion?: 3 | 4;
+            mqttVersion?: 3 | 4 | undefined;
+            /**
+             * If set to true, will force the connection to use the selected MQTT Version or will fail to connect.
+             */
+            mqttVersionExplicit?: boolean | undefined;
             /**
              * Called when the connect request has failed or timed out.
              */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * If present this contains either a set of hostnames or fully qualified
              * WebSocket URIs (ws://example.com:1883/mqtt), that are tried in order in place of the host and port
              * paramater on the construtor. The hosts are tried one at at time in order until one of then succeeds.
              */
-            hosts?: string[];
+            hosts?: string[] | undefined;
             /**
              * If present the set of ports matching the hosts. If hosts contains URIs, this property is not used.
              */
-            ports?: number[];
+            ports?: number[] | undefined;
+            /**
+             * Sets whether the client will automatically attempt to reconnect
+             * to the server if the connection is lost.
+             */
+            reconnect?: boolean | undefined;
+            /**
+             * If present, should contain a list of fully qualified WebSocket
+             * uris (e.g. ws://mqtt.eclipseprojects.io:80/mqtt), that are tried
+             * in order in place of the host and port parameter of the
+             * construtor. The uris are tried one at a time in order until one
+             * of them succeeds. Do not use this in conjunction with hosts as
+             * the hosts array will be converted to uris and will overwrite this
+             * property.
+             */
+            uris?: string[] | undefined;
         }
 
         /**
@@ -175,34 +187,34 @@ declare global {
          */
         interface SubscribeOptions {
             /** the maximum qos of any publications sent as a result of making this subscription. */
-            qos?: Qos;
+            qos?: Qos | undefined;
             /** passed to the onSuccess callback or onFailure callback. */
             invocationContext?: any;
             /** called when the subscribe acknowledgement has been received from the server. */
-            onSuccess?: OnSubscribeSuccessCallback;
+            onSuccess?: OnSubscribeSuccessCallback | undefined;
             /** called when the subscribe request has failed or timed out. */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * timeout which, if present, determines the number of seconds after which the onFailure calback is called.
              * The presence of a timeout does not prevent the onSuccess callback from being called when the subscribe
              * completes.
              */
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         interface UnsubscribeOptions {
             /** passed to the onSuccess callback or onFailure callback.  */
             invocationContext?: any;
             /** called when the unsubscribe acknowledgement has been received from the server. */
-            onSuccess?: OnSuccessCallback;
+            onSuccess?: OnSuccessCallback | undefined;
             /** called when the unsubscribe request has failed or timed out. */
-            onFailure?: OnFailureCallback;
+            onFailure?: OnFailureCallback | undefined;
             /**
              * timeout which, if present, determines the number of seconds after which the onFailure calback is called.
              * The presence of a timeout does not prevent the onSuccess callback from being called when the unsubscribe
              * completes.
              */
-            timeout?: number;
+            timeout?: number | undefined;
         }
 
         interface TraceElement {
@@ -230,7 +242,6 @@ declare global {
          * that are defined on the {@link Paho.MQTT.Client} object.
          * These may get called multiple times, and aren't directly related to specific method invocations made by the
          * client.
-         *
          */
         class Client {
             /** used when connecting to the server. */
@@ -246,7 +257,7 @@ declare global {
             readonly port: number;
 
             /** function called with trace information, if set */
-            trace?: TraceFunction;
+            trace?: TraceFunction | undefined;
 
             /**
              * called when a connection has been lost. after a connect() method has succeeded.
@@ -420,7 +431,7 @@ declare global {
 
             /**
              *  The payload as a string if the payload consists of valid UTF-8 characters.
-             *  @throw {Error} if the payload is not valid UTF-8
+             *  @throws {Error} if the payload is not valid UTF-8
              */
             readonly payloadString: string;
 

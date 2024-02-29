@@ -1,30 +1,24 @@
-// Type definitions for ldapjs-client 0.1
-// Project: https://github.com/zont/ldapjs-client#readme
-// Definitions by: Valerio Coltrè <https://github.com/colthreepv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace LdapClient {
     interface Change {
-        operation: 'add' | 'delete' | 'replace';
+        operation: "add" | "delete" | "replace";
         modification: {
             [key: string]: any;
         };
     }
 
     interface SearchOptions {
-        scope?: string;
-        filter?: string;
-        attributes?: string[];
-        sizeLimit?: number;
-        timeLimit?: number;
-        typesOnly?: boolean;
+        scope?: string | undefined;
+        filter?: string | undefined;
+        attributes?: string[] | undefined;
+        sizeLimit?: number | undefined;
+        timeLimit?: number | undefined;
+        typesOnly?: boolean | undefined;
     }
 
     interface ClientOptions {
         url: string;
-        tlsOptions?: object;
-        timeout?: number;
+        tlsOptions?: object | undefined;
+        timeout?: number | undefined;
     }
 }
 
@@ -75,12 +69,10 @@ declare class LdapClient {
      *
      * Note that the defaults for options are a 'base' search.
      */
-    // tslint:disable-next-line: no-unnecessary-generics
     search(base: string, options: LdapClient.SearchOptions): Promise<unknown[]>;
 
     /**
      * Unbinds this client from the LDAP server.
-     *
      */
     unbind(): Promise<any>;
 }

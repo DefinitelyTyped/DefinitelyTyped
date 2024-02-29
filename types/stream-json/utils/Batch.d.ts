@@ -1,5 +1,5 @@
-import Chain = require('stream-chain');
-import { Transform, TransformOptions } from 'stream';
+import Chain = require("stream-chain");
+import { Transform, TransformOptions } from "stream";
 
 export = Batch;
 
@@ -13,7 +13,7 @@ declare namespace Batch {
          * The size of each batch. Defaults to 1000. Ignored
          * if not a positive number.
          */
-        batchSize?: number;
+        batchSize?: number | undefined;
     }
 
     function make(options?: BatchOptions): Batch;

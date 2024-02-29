@@ -1,26 +1,25 @@
-// Type definitions for musicmetadata 2.0.4
-// Project: https://www.npmjs.com/package/musicmetadata
-// Definitions by: Xavier Stouder <https://github.com/Xstoudi>
-// Definitions: https://github.com/DefinitelyTyped/
-
 /// <reference types="node" />
 
 declare module "musicmetadata" {
     import { Readable } from "stream";
-    import {EventEmitter} from "events";
+    import { EventEmitter } from "events";
 
     function mm(readStream: Readable, callback: (err: Error, metadata: MM.Metadata) => void): EventEmitter;
-    function mm(readStream: Readable, options: MM.Options, callback: (err: Error, metadata: MM.Metadata) => void): EventEmitter;
+    function mm(
+        readStream: Readable,
+        options: MM.Options,
+        callback: (err: Error, metadata: MM.Metadata) => void,
+    ): EventEmitter;
 
-    namespace mm { }
+    namespace mm {}
 
     export = mm;
 }
 
 declare namespace MM {
     export interface Options {
-        duration?: boolean;
-        fileSize?: number;
+        duration?: boolean | undefined;
+        fileSize?: number | undefined;
     }
 
     export interface Metadata {

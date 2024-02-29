@@ -1,8 +1,3 @@
-// Type definitions for xml 1.0
-// Project: http://github.com/dylang/node-xml
-// Definitions by: Jianrong Yu <https://github.com/YuJianrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace xml {
@@ -10,20 +5,21 @@ declare namespace xml {
         /**
          * String used for tab, defaults to no tabs (compressed)
          */
-        indent?: string;
+        indent?: string | undefined;
         /**
          * Return the result as a `stream` (default false)
          */
-        stream?: boolean;
+        stream?: boolean | undefined;
         /**
          * Add default xml declaration (default false)
          */
         declaration?:
             | boolean
             | {
-                  encoding?: string;
-                  standalone?: string;
-              };
+                encoding?: string | undefined;
+                standalone?: string | undefined;
+            }
+            | undefined;
     }
 
     interface XmlAttrs {
@@ -53,7 +49,7 @@ declare namespace xml {
 
 declare function xml(
     xmlObject: xml.XmlObject | xml.XmlObject[],
-    options: { stream: true; indent?: string },
+    options: { stream: true } & xml.Option,
 ): NodeJS.ReadableStream;
 declare function xml(xmlObject?: xml.XmlObject | xml.XmlObject[], options?: boolean | string | xml.Option): string;
 

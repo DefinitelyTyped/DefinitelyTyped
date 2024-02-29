@@ -1,2 +1,2 @@
-import { mapObjIndexed } from '../index';
+import { mapObjIndexed } from "../index.js";
 export default mapObjIndexed;

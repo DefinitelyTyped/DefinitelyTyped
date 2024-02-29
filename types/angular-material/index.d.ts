@@ -1,20 +1,9 @@
-// Type definitions for angular-material 1.1
-// Project: https://github.com/angular/material, https://material.angularjs.org
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>
-//                 Peter Hajdu <https://github.com/PeterHajdu>
-//                 Davide Donadello <https://github.com/Dona278>
-//                 Geert Jansen <https://github.com/geertjansen>
-//                 Edward Knowles <https://github.com/eknowles>
-//                 Chives <https://github.com/chivesrs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace material {
         interface IAriaProvider {
             disableWarnings(): void;
@@ -25,20 +14,20 @@ declare module 'angular' {
         }
 
         interface IBottomSheetOptions {
-            templateUrl?: string;
-            template?: string;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            clickOutsideToClose?: boolean;
-            bindToController?: boolean; // default: false
-            disableBackdrop?: boolean;
-            escapeToClose?: boolean;
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
-            disableParentScroll?: boolean; // default: true
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            clickOutsideToClose?: boolean | undefined;
+            bindToController?: boolean | undefined; // default: false
+            disableBackdrop?: boolean | undefined;
+            escapeToClose?: boolean | undefined;
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: ((scope: IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery | undefined; // default: root node
+            disableParentScroll?: boolean | undefined; // default: true
         }
 
         interface IBottomSheetService {
@@ -70,12 +59,11 @@ declare module 'angular' {
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             ariaLabel(ariaLabel: string): T;
-            openFrom(from: string | Element | Event | { top: number, left: number }): T;
-            closeTo(to: string | Element | { top: number, left: number }): T;
+            openFrom(from: string | Element | Event | { top: number; left: number }): T;
+            closeTo(to: string | Element | { top: number; left: number }): T;
             multiple(multiple: boolean): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface IAlertDialog extends IPresetDialog<IAlertDialog> {
         }
 
@@ -102,39 +90,39 @@ declare module 'angular' {
         }
 
         interface IDialogOptions {
-            templateUrl?: string;
-            template?: string;
-            contentElement?: string | Element;
-            autoWrap?: boolean; // default: true
-            targetEvent?: MouseEvent;
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            contentElement?: string | Element | undefined;
+            autoWrap?: boolean | undefined; // default: true
+            targetEvent?: MouseEvent | undefined;
             openFrom?: any;
             closeTo?: any;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            disableParentScroll?: boolean; // default: true
-            hasBackdrop?: boolean; // default: true
-            clickOutsideToClose?: boolean; // default: false
-            escapeToClose?: boolean; // default: true
-            focusOnOpen?: boolean; // default: true
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            bindToController?: boolean; // default: false
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: string | Element | JQuery; // default: root node
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            disableParentScroll?: boolean | undefined; // default: true
+            hasBackdrop?: boolean | undefined; // default: true
+            clickOutsideToClose?: boolean | undefined; // default: false
+            escapeToClose?: boolean | undefined; // default: true
+            focusOnOpen?: boolean | undefined; // default: true
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            bindToController?: boolean | undefined; // default: false
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: string | Element | JQuery | undefined; // default: root node
             onShowing?(scope: IScope, element: JQuery): void;
             onComplete?(scope: IScope, element: JQuery): void;
             onRemoving?(element: JQuery, removePromise: IPromise<any>): void;
-            skipHide?: boolean;
-            multiple?: boolean;
-            fullscreen?: boolean; // default: false
-            title?: string;
+            skipHide?: boolean | undefined;
+            multiple?: boolean | undefined;
+            fullscreen?: boolean | undefined; // default: false
+            title?: string | undefined;
         }
 
         interface IDialogService {
             // indexer used to call preset dialog created with $mdDialogProvider
             // see: https://material.angularjs.org/latest/api/service/$mdDialog#custom-presets
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             [presetName: string]: Function;
 
             show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
@@ -146,7 +134,10 @@ declare module 'angular' {
         }
 
         interface IDialogProvider {
-            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
+            addPreset(
+                presetName: string,
+                presetOptions: { methods?: readonly string[] | undefined; options: () => IDialogOptions },
+            ): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
@@ -192,25 +183,24 @@ declare module 'angular' {
             toastClass(toastClass: string): T;
         }
 
-        // tslint:disable-next-line no-empty-interface
         interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
         }
 
         interface IToastOptions {
-            templateUrl?: string;
-            template?: string;
-            autoWrap?: boolean;
-            scope?: IScope; // default: new child scope
-            preserveScope?: boolean; // default: false
-            hideDelay?: number | false; // default (ms): 3000
-            position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
-            toastClass?: string;
-            controller?: string | Injectable<IControllerConstructor>;
-            locals?: { [index: string]: any };
-            bindToController?: boolean; // default: false
-            resolve?: ResolveObject;
-            controllerAs?: string;
-            parent?: string | Element | JQuery; // default: root node
+            templateUrl?: string | undefined;
+            template?: string | undefined;
+            autoWrap?: boolean | undefined;
+            scope?: IScope | undefined; // default: new child scope
+            preserveScope?: boolean | undefined; // default: false
+            hideDelay?: number | false | undefined; // default (ms): 3000
+            position?: string | undefined; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+            toastClass?: string | undefined;
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            locals?: { [index: string]: any } | undefined;
+            bindToController?: boolean | undefined; // default: false
+            resolve?: ResolveObject | undefined;
+            controllerAs?: string | undefined;
+            parent?: string | Element | JQuery | undefined; // default: root node
         }
 
         interface IToastService {
@@ -225,32 +215,32 @@ declare module 'angular' {
         }
 
         interface IPalette {
-            0?: string;
-            50?: string;
-            100?: string;
-            200?: string;
-            300?: string;
-            400?: string;
-            500?: string;
-            600?: string;
-            700?: string;
-            800?: string;
-            900?: string;
-            A100?: string;
-            A200?: string;
-            A400?: string;
-            A700?: string;
-            contrastDefaultColor?: string;
-            contrastDarkColors?: string | string[];
-            contrastLightColors?: string | string[];
-            contrastStrongLightColors?: string | string[];
+            0?: string | undefined;
+            50?: string | undefined;
+            100?: string | undefined;
+            200?: string | undefined;
+            300?: string | undefined;
+            400?: string | undefined;
+            500?: string | undefined;
+            600?: string | undefined;
+            700?: string | undefined;
+            800?: string | undefined;
+            900?: string | undefined;
+            A100?: string | undefined;
+            A200?: string | undefined;
+            A400?: string | undefined;
+            A700?: string | undefined;
+            contrastDefaultColor?: string | undefined;
+            contrastDarkColors?: string | string[] | undefined;
+            contrastLightColors?: string | string[] | undefined;
+            contrastStrongLightColors?: string | string[] | undefined;
         }
 
         interface IThemeHues {
-            default?: string;
-            'hue-1'?: string;
-            'hue-2'?: string;
-            'hue-3'?: string;
+            default?: string | undefined;
+            "hue-1"?: string | undefined;
+            "hue-2"?: string | undefined;
+            "hue-3"?: string | undefined;
         }
 
         interface IThemePalette {
@@ -316,11 +306,11 @@ declare module 'angular' {
         }
 
         interface IDefineThemeOptions {
-            primary?: string;
-            accent?: string;
-            warn?: string;
-            background?: string;
-            dark?: boolean;
+            primary?: string | undefined;
+            accent?: string | undefined;
+            warn?: string | undefined;
+            background?: string | undefined;
+            dark?: boolean | undefined;
         }
 
         interface IThemingService {
@@ -358,22 +348,22 @@ declare module 'angular' {
         interface IColorPalette {
             red: IPalette;
             pink: IPalette;
-            'deep-purple': IPalette;
+            "deep-purple": IPalette;
             indigo: IPalette;
             blue: IPalette;
-            'light-blue': IPalette;
+            "light-blue": IPalette;
             cyan: IPalette;
             teal: IPalette;
             green: IPalette;
-            'light-green': IPalette;
+            "light-green": IPalette;
             lime: IPalette;
             yellow: IPalette;
             amber: IPalette;
             orange: IPalette;
-            'deep-orange': IPalette;
+            "deep-orange": IPalette;
             brown: IPalette;
             grey: IPalette;
-            'blue-grey': IPalette;
+            "blue-grey": IPalette;
         }
 
         interface IConfiguredColorPalette extends IColorPalette {
@@ -389,33 +379,33 @@ declare module 'angular' {
         }
 
         interface IPanelConfig {
-            id?: string;
-            template?: string;
-            templateUrl?: string;
-            controller?: string | Injectable<IControllerConstructor>;
-            controllerAs?: string;
-            bindToController?: boolean; // default: true
-            locals?: { [index: string]: any };
-            resolve?: ResolveObject;
-            attachTo?: string | JQuery | Element;
-            propagateContainerEvents?: boolean;
-            panelClass?: string;
-            zIndex?: number; // default: 80
-            position?: IPanelPosition;
-            clickOutsideToClose?: boolean; // default: false
-            escapeToClose?: boolean; // default: false
-            trapFocus?: boolean; // default: false
-            focusOnOpen?: boolean; // default: true
-            fullscreen?: boolean; // default: false
-            animation?: IPanelAnimation;
-            hasBackdrop?: boolean; // default: false
-            disableParentScroll?: boolean; // default: false
+            id?: string | undefined;
+            template?: string | undefined;
+            templateUrl?: string | undefined;
+            controller?: string | Injectable<IControllerConstructor> | undefined;
+            controllerAs?: string | undefined;
+            bindToController?: boolean | undefined; // default: true
+            locals?: { [index: string]: any } | undefined;
+            resolve?: ResolveObject | undefined;
+            attachTo?: string | JQuery | Element | undefined;
+            propagateContainerEvents?: boolean | undefined;
+            panelClass?: string | undefined;
+            zIndex?: number | undefined; // default: 80
+            position?: IPanelPosition | undefined;
+            clickOutsideToClose?: boolean | undefined; // default: false
+            escapeToClose?: boolean | undefined; // default: false
+            trapFocus?: boolean | undefined; // default: false
+            focusOnOpen?: boolean | undefined; // default: true
+            fullscreen?: boolean | undefined; // default: false
+            animation?: IPanelAnimation | undefined;
+            hasBackdrop?: boolean | undefined; // default: false
+            disableParentScroll?: boolean | undefined; // default: false
             onDomAdded?(...args: any[]): PromiseLike<void> | void;
             onOpenComplete?(...args: any[]): PromiseLike<void> | void;
             onRemoving?(...args: any[]): PromiseLike<void> | void;
             onDomRemoved?(...args: any[]): PromiseLike<void> | void;
-            origin?: string | JQuery | Element;
-            onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
+            origin?: string | JQuery | Element | undefined;
+            onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any) | undefined;
         }
 
         interface IPanelRef {
@@ -459,10 +449,10 @@ declare module 'angular' {
         }
 
         interface IPanelAnimation {
-            openFrom(from: string | Element | Event | { top: number, left: number }): IPanelAnimation;
-            closeTo(to: string | Element | { top: number, left: number }): IPanelAnimation;
-            withAnimation(cssClass: string | { open: string, close: string }): IPanelAnimation;
-            duration(duration: number | { open: number, close: number }): IPanelAnimation;
+            openFrom(from: string | Element | Event | { top: number; left: number }): IPanelAnimation;
+            closeTo(to: string | Element | { top: number; left: number }): IPanelAnimation;
+            withAnimation(cssClass: string | { open: string; close: string }): IPanelAnimation;
+            duration(duration: number | { open: number; close: number }): IPanelAnimation;
         }
 
         interface IPanelService {
@@ -471,47 +461,47 @@ declare module 'angular' {
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
             xPosition: {
-                CENTER: string,
-                ALIGN_START: string,
-                ALIGN_END: string,
-                OFFSET_START: string,
-                OFFSET_END: string,
+                CENTER: string;
+                ALIGN_START: string;
+                ALIGN_END: string;
+                OFFSET_START: string;
+                OFFSET_END: string;
             };
             yPosition: {
-                CENTER: string,
-                ALIGN_TOPS: string,
-                ALIGN_BOTTOMS: string,
-                ABOVE: string,
-                BELOW: string,
+                CENTER: string;
+                ALIGN_TOPS: string;
+                ALIGN_BOTTOMS: string;
+                ABOVE: string;
+                BELOW: string;
             };
             animation: {
-                SLIDE: string,
-                SCALE: string,
-                FADE: string,
+                SLIDE: string;
+                SCALE: string;
+                FADE: string;
             };
             interceptorTypes: {
-                CLOSE: string,
+                CLOSE: string;
             };
             closeReasons: {
-                CLICK_OUTSIDE: string,
-                ESCAPE: string,
+                CLICK_OUTSIDE: string;
+                ESCAPE: string;
             };
             absPosition: {
-                TOP: string,
-                RIGHT: string,
-                BOTTOM: string,
-                LEFT: string,
+                TOP: string;
+                RIGHT: string;
+                BOTTOM: string;
+                LEFT: string;
             };
         }
 
         interface IProgressCircularConfig {
-            progressSize?: number;
-            strokeWidth?: number;
-            duration?: number;
+            progressSize?: number | undefined;
+            strokeWidth?: number | undefined;
+            duration?: number | undefined;
             easeFn?(t: number, b: number, c: number, d: number): number;
-            durationIndeterminate?: number;
-            startIndeterminate?: number;
-            endIndeterminate?: number;
+            durationIndeterminate?: number | undefined;
+            startIndeterminate?: number | undefined;
+            endIndeterminate?: number | undefined;
             easeFnIndeterminate?(t: number, b: number, c: number, d: number): number;
         }
 
@@ -522,12 +512,12 @@ declare module 'angular' {
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
 
         interface IInteractionService {
-            getLastInteractionType(): string|null;
+            getLastInteractionType(): string | null;
             isUserInvoked(checkDelay?: number): boolean;
         }
 
         interface IUtilService {
-            // tslint:disable-next-line:ban-types debounce takes in a user provided function
+            // eslint-disable-next-line @typescript-eslint/ban-types -- debounce takes in a user provided function
             debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
             enableScrolling(): void;
         }

@@ -1,12 +1,3 @@
-// Type definitions for binary-parser 1.5
-// Project: https://github.com/keichi/binary-parser
-// Definitions by: Benjamin Riggs <https://github.com/riggs>,
-//                 Dolan Miu <https://github.com/dolanmiu>,
-//                 Yu Shimura <https://github.com/yuhr>,
-//                 John Mark Gabriel Caguicla <https://github.com/caguiclajmg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 export interface Parser<O extends object | undefined = undefined> {
@@ -83,35 +74,40 @@ export interface Parser<O extends object | undefined = undefined> {
 
     buffer<N extends string>(name: N, options: Parser.BufferOptions): Parser.Next<O, N, Buffer>;
 
-    array<N extends string, Q extends Parser.ArrayOptions>(name: N, options: Q): Parser.Next<O, N,
-        Q extends { type: infer T }
-            ? T extends Parser<infer O>
-                ? O extends undefined ? Array<{}> : O[]
-                : T extends string
-                    ? number[]
-                    : never
+    array<N extends string, Q extends Parser.ArrayOptions>(
+        name: N,
+        options: Q,
+    ): Parser.Next<
+        O,
+        N,
+        Q extends { type: infer T } ? T extends Parser<infer O> ? O extends undefined ? Array<{}> : O[]
+            : T extends string ? number[]
+            : never
             : never
     >;
 
-    choice<N extends string, Q extends Parser.ChoiceOptions>(name: N, options: Q): Parser.Next<O, N,
+    choice<N extends string, Q extends Parser.ChoiceOptions>(name: N, options: Q): Parser.Next<
+        O,
+        N,
         Q extends {
-            choices: infer C
-        }
-            ? C extends {
-                [key in keyof C]: infer T
-            }
-                ? T extends Parser<infer O>
-                    ? O extends undefined ? {} : O
-                    : T extends string ? any : never
+            choices: infer C;
+        } ? C extends {
+                [key in keyof C]: infer T;
+            } ? T extends Parser<infer O> ? O extends undefined ? {} : O
+                : T extends string ? any
                 : never
+            : never
             : never
     >;
 
-    nest<N extends string, Q extends Parser.NestOptions>(name: N, options: Q): Parser.Next<O, N,
-        Q extends { type: infer T }
-            ? T extends Parser<infer O>
-                ? O extends undefined ? {} : O
-                : never
+    nest<N extends string, Q extends Parser.NestOptions>(
+        name: N,
+        options: Q,
+    ): Parser.Next<
+        O,
+        N,
+        Q extends { type: infer T } ? T extends Parser<infer O> ? O extends undefined ? {} : O
+            : never
             : never
     >;
 
@@ -119,7 +115,7 @@ export interface Parser<O extends object | undefined = undefined> {
 
     seek(length: number): Parser<O>;
 
-    endianess(endianess: Parser.Endianness): Parser<O>;   /* [sic] */
+    endianess(endianess: Parser.Endianness): Parser<O>; /* [sic] */
 
     namely(alias: string): Parser<O>;
 
@@ -139,35 +135,35 @@ export namespace Parser {
     type Parsed<O extends object | undefined> = O extends undefined ? {} : O;
 
     interface Options {
-        formatter?: ((value: Data) => any);
-        assert?: string | number | ((value: Data) => boolean);
+        formatter?: ((value: Data) => any) | undefined;
+        assert?: string | number | ((value: Data) => boolean) | undefined;
     }
 
     interface StringOptions extends Options {
-        encoding?: string;
-        length?: number | string | ((this: Parser<any>) => number);
-        zeroTerminated?: boolean;
-        greedy?: boolean;
-        stripNull?: boolean;
+        encoding?: string | undefined;
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        zeroTerminated?: boolean | undefined;
+        greedy?: boolean | undefined;
+        stripNull?: boolean | undefined;
     }
 
     interface BufferOptions extends Options {
-        clone?: boolean;
-        length?: number | string | ((this: Parser<any>) => number);
-        readUntil?: string | ((item: number, buffer: Buffer) => boolean);
+        clone?: boolean | undefined;
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        readUntil?: string | ((item: number, buffer: Buffer) => boolean) | undefined;
     }
 
     interface ArrayOptions extends Options {
         type: string | Parser<any>;
-        length?: number | string | ((this: Parser<any>) => number);
-        lengthInBytes?: number | string | ((this: Parser<any>) => number);
-        readUntil?: string | ((item: number, buffer: Buffer) => boolean);
+        length?: number | string | ((this: Parser<any>) => number) | undefined;
+        lengthInBytes?: number | string | ((this: Parser<any>) => number) | undefined;
+        readUntil?: string | ((item: number, buffer: Buffer) => boolean) | undefined;
     }
 
     interface ChoiceOptions extends Options {
         tag: string | ((this: Parser<any>) => number);
         choices: { [item: number]: Parser<any> | string };
-        defaultChoice?: Parser<any> | string;
+        defaultChoice?: Parser<any> | string | undefined;
     }
 
     interface NestOptions extends Options {
@@ -175,12 +171,10 @@ export namespace Parser {
     }
 
     type Endianness =
-        'little' |
-        'big';
+        | "little"
+        | "big";
 
-    type Valid<O extends object | undefined, P extends object> =
-        O extends undefined ? P : O & P;
+    type Valid<O extends object | undefined, P extends object> = O extends undefined ? P : O & P;
 
-    type Next<O extends object | undefined, N extends string, T extends any> =
-        Parser<Valid<O, { [name in N]: T }>>;
+    type Next<O extends object | undefined, N extends string, T extends any> = Parser<Valid<O, { [name in N]: T }>>;
 }

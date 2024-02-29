@@ -7,32 +7,43 @@ declare module "../globalize" {
          * Skeleton provides a more flexible formatting mechanism than the predefined list full, long, medium, or short represented by date, time, or datetime.
          * Instead, they are an open-ended list of patterns containing only date field information, and in a canonical order.
          */
-        skeleton?: string;
+        skeleton?: string | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { date: "full" }.
          */
-        date?: "full" | "long" | "medium" | "short";
+        date?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { time: "full" }.
          */
-        time?: "full" | "long" | "medium" | "short";
+        time?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * One of the following String values: full, long, medium, or short, eg. { datetime: "full" }
          */
-        datetime?: "full" | "long" | "medium" | "short";
+        datetime?: "full" | "long" | "medium" | "short" | undefined;
         /**
          * String value indicating a machine raw pattern (anything in the "Sym." column) eg. { raw: "dd/mm" }.
          * Note this is NOT recommended for i18n in general. Use skeleton instead.
          */
-        raw?: string;
+        raw?: string | undefined;
 
         /**
          * String based on the time zone names of the IANA time zone database,
          * such as "Asia/Shanghai", "Asia/Kolkata", "America/New_York".
          */
-        timeZone?: string;
+        timeZone?: string | undefined;
     }
-    type DateFormatPartTypes = "day" | "dayperiod" | "era" | "hour" | "literal" | "minute" | "month" | "second" | "zone" | "weekday" | "year";
+    type DateFormatPartTypes =
+        | "day"
+        | "dayperiod"
+        | "era"
+        | "hour"
+        | "literal"
+        | "minute"
+        | "month"
+        | "second"
+        | "zone"
+        | "weekday"
+        | "year";
     interface DateFormatPart {
         type: DateFormatPartTypes;
         value: string;
@@ -61,13 +72,13 @@ declare module "../globalize" {
          */
         dateToPartsFormatter(options?: DateFormatterOptions): (value: Date) => DateFormatPart[];
 
-        //Return a function that parses a string representing a date into a JavaScript Date object according to the given options. The default parsing assumes numeric year, month, and day (i.e., { skeleton: "yMd" }).
+        // Return a function that parses a string representing a date into a JavaScript Date object according to the given options. The default parsing assumes numeric year, month, and day (i.e., { skeleton: "yMd" }).
         dateParser(options?: DateFormatterOptions): (value: string) => Date;
 
-        //Alias for .dateFormatter( [options] )( value ).
+        // Alias for .dateFormatter( [options] )( value ).
         formatDate(value: Date, options?: DateFormatterOptions): string;
 
-        //Alias for .dateToPartsFormatter( [options] )( value ).
+        // Alias for .dateToPartsFormatter( [options] )( value ).
         formatDateToParts(value: Date, options?: DateFormatterOptions): DateFormatPart[];
 
         /**

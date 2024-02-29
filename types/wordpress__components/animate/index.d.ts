@@ -1,26 +1,30 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
 declare namespace Animate {
     interface BaseProps {
-        type: 'appear' | 'slide-in';
+        type: "appear" | "slide-in" | "loading";
         children(props: { className: string }): ReactNode;
     }
 
     interface AppearProps extends BaseProps {
-        type: 'appear';
+        type: "appear";
         options?: {
-            origin?: 'top' | 'top left' | 'top right' | 'bottom' | 'bottom left' | 'bottom right';
-        };
+            origin?: "top" | "top left" | "top right" | "bottom" | "bottom left" | "bottom right" | undefined;
+        } | undefined;
     }
 
     interface SlideInProps extends BaseProps {
-        type: 'slide-in';
+        type: "slide-in";
         options?: {
-            origin?: 'left';
-        };
+            origin?: "left" | undefined;
+        } | undefined;
     }
 
-    type Props = AppearProps | SlideInProps;
+    interface LoadingProps extends BaseProps {
+        type: "loading";
+    }
+
+    type Props = AppearProps | SlideInProps | LoadingProps;
 }
 declare const Animate: ComponentType<Animate.Props>;
 

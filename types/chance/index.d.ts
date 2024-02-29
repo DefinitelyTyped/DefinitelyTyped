@@ -1,14 +1,3 @@
-// Type definitions for Chance 1.1
-// Project: http://chancejs.com
-// Definitions by: Chris Bowdon <https://github.com/cbowdon>
-//                 Brice BERNARD <https://github.com/brikou>
-//                 Carlos Sanchez <https://github.com/cafesanu>
-//                 Colby M. White <https://github.com/colbywhite>
-//                 Zachary Dow <https://github.com/NewDark90>
-//                 Jacob Easley <https://github.com/jacobez>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Chance {
     type Seed = number | string;
 
@@ -18,22 +7,22 @@ declare namespace Chance {
 
     interface ChanceStatic {
         (): Chance;
-        (seed: Seed): Chance;
+        (...seed: Seed[]): Chance;
         (generator: () => any): Chance;
 
-        new (): Chance;
-        new (seed: Seed): Chance;
-        new (generator: () => any): Chance;
+        new(): Chance;
+        new(...seed: Seed[]): Chance;
+        new(generator: () => any): Chance;
     }
 
-    type FalsyType = false | null | undefined | 0 | typeof NaN | '';
+    type FalsyType = false | null | undefined | 0 | typeof NaN | "";
     interface FalsyOptions {
         pool: FalsyType[];
     }
 
     interface Chance extends Seeded {
         // Basics
-        bool(opts?: {likelihood: number}): boolean;
+        bool(opts?: { likelihood: number }): boolean;
         character(opts?: Partial<CharacterOptions>): string;
         /** https://chancejs.com/basics/falsy.html */
         falsy(ops?: FalsyOptions): FalsyType;
@@ -92,6 +81,7 @@ declare namespace Chance {
         tld(): string;
         twitter(): string;
         url(opts?: Partial<UrlOptions>): string;
+        mac_address(opts?: Partial<MacOptions>): string;
 
         // Location
         address(opts?: Options): string;
@@ -103,8 +93,8 @@ declare namespace Chance {
         depth(opts?: Options): number;
         geohash(opts?: Options): string;
         latitude(opts?: Options): number;
-        locale(opts?: {region: true}): string;
-        locales(opts?: {region: true}): string[];
+        locale(opts?: { region: true }): string;
+        locales(opts?: { region: true }): string[];
         longitude(opts?: Options): number;
         phone(opts?: Options): string;
         postcode(): string;
@@ -127,7 +117,7 @@ declare namespace Chance {
         second(): number;
         timestamp(): number;
         timezone(): Timezone;
-        weekday(opts: Options): 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+        weekday(opts: Options): "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
         year(opts?: Options): string;
 
         // Finance
@@ -207,14 +197,14 @@ declare namespace Chance {
     }
 
     interface CharacterOptions {
-        casing: 'upper' | 'lower';
+        casing: "upper" | "lower";
         pool: string;
         alpha: boolean;
         numeric: boolean;
         symbols: boolean;
     }
 
-    type StringOptions = CharacterOptions & { length: number } ;
+    type StringOptions = CharacterOptions & { length: number };
 
     interface UrlOptions {
         protocol: string;
@@ -224,13 +214,18 @@ declare namespace Chance {
         extensions: string[];
     }
 
+    interface MacOptions {
+        separator: string;
+        networkVersion: boolean;
+    }
+
     interface IntegerOptions {
         min: number;
         max: number;
     }
 
-    type FirstNameNationalities = 'en' | 'it';
-    type LastNameNationalities = FirstNameNationalities | 'nl' | 'uk' | 'de' | 'jp' | 'es' | 'fr' | '*';
+    type FirstNameNationalities = "en" | "it";
+    type LastNameNationalities = FirstNameNationalities | "nl" | "uk" | "de" | "jp" | "es" | "fr" | "*";
 
     interface FullNameOptions {
         middle: boolean;
@@ -240,7 +235,7 @@ declare namespace Chance {
     }
 
     interface FirstNameOptions {
-        gender: 'male' | 'female';
+        gender: "male" | "female";
         nationality: FirstNameNationalities;
     }
 
@@ -252,7 +247,7 @@ declare namespace Chance {
         full: boolean;
     }
 
-    type PrefixOptions = { gender: 'male' | 'female' | 'all' } & SuffixOptions;
+    type PrefixOptions = { gender: "male" | "female" | "all" } & SuffixOptions;
 
     type NameOptions = FullNameOptions & FirstNameOptions & LastNameOptions & PrefixOptions;
 
@@ -263,20 +258,20 @@ declare namespace Chance {
 
     interface SentenceOptions {
         words: number;
-        punctuation: '.' | '?' | ';' | '!' | ':' | boolean;
+        punctuation: "." | "?" | ";" | "!" | ":" | boolean;
     }
 
     interface DateOptions {
-        string?: boolean;
-        american?: boolean;
-        year?: number;
-        month?: number;
-        day?: number;
-        min?: Date;
-        max?: Date;
+        string?: boolean | undefined;
+        american?: boolean | undefined;
+        year?: number | undefined;
+        month?: number | undefined;
+        day?: number | undefined;
+        min?: Date | undefined;
+        max?: Date | undefined;
     }
 
-    type UniqueOptions<T> = { comparator?: (array: T[], value: T) => boolean } & Options;
+    type UniqueOptions<T> = { comparator?: ((array: T[], value: T) => boolean) | undefined } & Options;
 
     interface Month {
         name: string;

@@ -29,8 +29,8 @@ export interface S3EventRecord {
         sourceIPAddress: string;
     };
     responseElements: {
-        'x-amz-request-id': string;
-        'x-amz-id-2': string;
+        "x-amz-request-id": string;
+        "x-amz-id-2": string;
     };
     s3: {
         s3SchemaVersion: string;
@@ -46,11 +46,11 @@ export interface S3EventRecord {
             key: string;
             size: number;
             eTag: string;
-            versionId?: string;
+            versionId?: string | undefined;
             sequencer: string;
         };
     };
-    glacierEventData?: S3EventRecordGlacierEventData;
+    glacierEventData?: S3EventRecordGlacierEventData | undefined;
 }
 
 export interface S3Event {

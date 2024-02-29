@@ -1,13 +1,13 @@
 export interface RenderOptions {
-    into?: string;
-    controller?: string;
-    model?: any;
-    outlet?: string;
-    view?: string;
+    into?: string | undefined;
+    controller?: string | undefined;
+    model?: unknown;
+    outlet?: string | undefined;
+    view?: string | undefined;
 }
 
 export interface RouteQueryParam {
-    refreshModel?: boolean;
-    replace?: boolean;
-    as?: string;
+    refreshModel?: boolean | undefined;
+    replace?: boolean | undefined;
+    as?: string | undefined;
 }

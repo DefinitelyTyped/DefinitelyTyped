@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-github-repo-url",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/repo-utils/parse-github-repo-url"
+    ],
+    "devDependencies": {
+        "@types/parse-github-repo-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christoph Thiede",
+            "githubUsername": "LinqLover"
+        }
+    ]
+}

@@ -1,18 +1,12 @@
-// Type definitions for cassandra-store 5.0
-// Project: https://github.com/webcc/cassandra-store
-// Definitions by: Ngo Quang Duong <https://github.com/QuangDuong120198>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="express" />
 
-import { Store } from 'express-session';
-import { ClientOptions, Client, EmptyCallback } from 'cassandra-driver';
+import { Client, ClientOptions, EmptyCallback } from "cassandra-driver";
+import { SessionData, Store } from "express-session";
 
 interface CassandraStoreOptions {
     table: string;
     clientOptions: ClientOptions;
-    client?: Client | null;
+    client?: Client | null | undefined;
 }
 
 export = CassandraStore;
@@ -34,4 +28,13 @@ declare class CassandraStore extends Store {
     get table(): string;
 
     set table(value: string);
+
+    get(sid: string, callback: (err: any, session?: SessionData | null) => void): void;
+    set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
+    destroy(sid: string, callback?: (err?: any) => void): void;
+
+    all(callback: (err: any, obj?: SessionData[] | { [sid: string]: SessionData } | null) => void): void;
+    length(callback: (err: any, length: number) => void): void;
+    clear(callback?: (err?: any) => void): void;
+    touch(sid: string, session: SessionData, callback?: () => void): void;
 }

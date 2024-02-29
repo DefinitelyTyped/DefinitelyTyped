@@ -1,4 +1,9 @@
-import { PaymentMethodRequestablePayload, PaymentOptionSelectedPayload } from "braintree-web-drop-in";
+import {
+    ChangeActiveViewPayload,
+    PaymentMethodRequestablePayload,
+    PaymentOptionSelectedPayload,
+} from "braintree-web-drop-in";
+import { HostedFieldsEvent } from "braintree-web/hosted-fields";
 
 braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
     if (error) {
@@ -18,50 +23,61 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
         paymentOptionPriority: ["card", "paypal", "paypalCredit", "venmo", "applePay"],
         card: {
             cardholderName: {
-                required: false
+                required: false,
             },
             overrides: {
                 fields: {},
-                styles: {}
+                styles: {},
             },
             clearFieldsAfterTokenization: false,
             vault: {
                 allowVaultCardOverride: false,
-                vaultCard: false
-            }
+                vaultCard: false,
+            },
         },
         paypal: {
             flow: "checkout",
             amount: 1,
             currency: "USD",
-            buttonStyle: "red",
-            commit: false
+            buttonStyle: {},
+            commit: false,
         },
         paypalCredit: undefined,
         venmo: {
-            allowNewBrowserTab: false
+            allowNewBrowserTab: false,
         },
         applePay: {
-            buttonStyle: "red",
+            buttonStyle: "white-outline",
             displayName: "name",
             applePaySessionVersion: 1,
-            paymentRequest: {}
+            paymentRequest: {
+                countryCode: "US",
+                currencyCode: "USD",
+                supportedNetworks: ["visa", "masterCard"],
+                merchantCapabilities: ["supports3DS"],
+                total: { label: "Your Label", amount: "10.00" },
+            },
         },
         googlePay: {
             merchantId: "",
-            googlePayVersion: "",
-            transactionInfo: {},
-            button: {}
+            googlePayVersion: 1,
+            transactionInfo: {
+                currencyCode: "USD",
+                totalPriceStatus: "FINAL",
+                totalPrice: "100.00",
+            },
+            button: {
+                onClick: event => {},
+            },
         },
         dataCollector: {
             kount: false,
-            paypal: false
         },
         threeDSecure: {
-            amount: "1"
+            amount: "1",
         },
         vaultManager: false,
-        preselectVaultedPaymentMethod: false
+        preselectVaultedPaymentMethod: false,
     });
 
     myDropin.clearSelectedPaymentMethod();
@@ -78,13 +94,67 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
         const myPaymentOption: "card" | "paypal" | "paypalCredit" = paymentOption;
     }
 
+    function onChangeActiveView({ previousViewId, newViewId }: ChangeActiveViewPayload) {
+        const myPreviousView:
+            | "card"
+            | "paypal"
+            | "paypalCredit"
+            | "venmo"
+            | "googlePay"
+            | "applePay"
+            | "methods"
+            | "options"
+            | "delete-confirmation" = previousViewId;
+        const myNewView:
+            | "card"
+            | "paypal"
+            | "paypalCredit"
+            | "venmo"
+            | "googlePay"
+            | "applePay"
+            | "methods"
+            | "options"
+            | "delete-confirmation" = newViewId;
+    }
+
+    function onCardViewEvent(event: HostedFieldsEvent) {
+        const emittedBy:
+            | "number"
+            | "cvv"
+            | "expirationDate"
+            | "expirationMonth"
+            | "expirationYear"
+            | "postalCode"
+            | "cardholderName" = event.emittedBy;
+    }
+
     myDropin.on("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
-    myDropin.on('paymentMethodRequestable', onPaymentMethodRequestable);
+    myDropin.on("paymentMethodRequestable", onPaymentMethodRequestable);
     myDropin.on("paymentOptionSelected", onPaymentOptionSelected);
+    myDropin.on("changeActiveView", onChangeActiveView);
+
+    myDropin.on("card:binAvailable", onCardViewEvent);
+    myDropin.on("card:blur", onCardViewEvent);
+    myDropin.on("card:cardTypeChange", onCardViewEvent);
+    myDropin.on("card:empty", onCardViewEvent);
+    myDropin.on("card:focus", onCardViewEvent);
+    myDropin.on("card:inputSubmitRequest", onCardViewEvent);
+    myDropin.on("card:notEmpty", onCardViewEvent);
+    myDropin.on("card:validityChange", onCardViewEvent);
 
     myDropin.off("noPaymentMethodRequestable", onNoPaymentMethodRequestable);
     myDropin.off("paymentMethodRequestable", onPaymentMethodRequestable);
     myDropin.off("paymentOptionSelected", onPaymentOptionSelected);
+    myDropin.off("changeActiveView", onChangeActiveView);
+
+    myDropin.off("card:binAvailable", onCardViewEvent);
+    myDropin.off("card:blur", onCardViewEvent);
+    myDropin.off("card:cardTypeChange", onCardViewEvent);
+    myDropin.off("card:empty", onCardViewEvent);
+    myDropin.off("card:focus", onCardViewEvent);
+    myDropin.off("card:inputSubmitRequest", onCardViewEvent);
+    myDropin.off("card:notEmpty", onCardViewEvent);
+    myDropin.off("card:validityChange", onCardViewEvent);
 
     myDropin.requestPaymentMethod((error, payload) => {
         if (error) {
@@ -93,11 +163,16 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
     });
 
     const myPayload = await myDropin.requestPaymentMethod();
+    const type: "AndroidPayCard" | "ApplePayCard" | "CreditCard" | "PayPalAccount" | "VenmoAccount" = myPayload.type;
+    switch (myPayload.type) {
+        case "AndroidPayCard":
+        case "ApplePayCard":
+        case "CreditCard":
+            const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
+    }
     const details: object = myPayload.details;
-    const deviceData: string | null = myPayload.deviceData;
+    const deviceData: string | undefined = myPayload.deviceData;
     const nonce: string = myPayload.nonce;
-    const type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard" = myPayload.type;
-    const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
 
     myDropin.teardown(error => {
         if (error) {
@@ -105,4 +180,10 @@ braintree.dropin.create({ authorization: "", container: "my-div" }, (error, myDr
         }
     });
     await myDropin.teardown();
+
+    myDropin.updateConfiguration("paypal", "amount", "10.00");
+    myDropin.updateConfiguration("paypalCredit", "amount", "10.00");
+    myDropin.updateConfiguration("applePay", "paymentRequest", { total: { amount: "10.00" } });
+    myDropin.updateConfiguration("googlePay", "transactionInfo", { totalPrice: "10.00" });
+    myDropin.updateConfiguration("threeDSecure", "amount", "10.00");
 })();

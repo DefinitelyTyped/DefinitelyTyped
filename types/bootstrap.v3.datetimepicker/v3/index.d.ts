@@ -1,9 +1,3 @@
-// Type definitions for Bootstrap datetimepicker v3 3.x
-// Project: http://eonasdan.github.io/bootstrap-datetimepicker
-// Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * bootstrap-datetimepicker.js 3.0.0 Copyright (c) 2014 Jonathan Peterson
  * Available via the MIT license.
@@ -12,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 export as namespace BootstrapV3DatetimePicker;
 
@@ -25,41 +19,41 @@ export interface DatetimepickerEventObject extends JQueryEventObject {
 }
 
 export interface DatetimepickerIcons {
-    time?: string;
-    date?: string;
-    up?: string;
-    down?: string;
+    time?: string | undefined;
+    date?: string | undefined;
+    up?: string | undefined;
+    down?: string | undefined;
 }
 
 export interface DatetimepickerOptions {
-    pickDate?: boolean;
-    pickTime?: boolean;
-    useMinutes?: boolean;
-    useSeconds?: boolean;
-    useCurrent?: boolean;
-    minuteStepping?: number;
-    minDate?: moment.Moment | Date | string;
-    maxDate?: moment.Moment | Date | string;
-    showToday?: boolean;
-    collapse?: boolean;
-    language?: string;
-    defaultDate?: moment.Moment | Date | string;
-    disabledDates?: Array<moment.Moment | Date | string>;
-    enabledDates?: Array<moment.Moment | Date | string>;
-    icons?: DatetimepickerIcons;
-    useStrict?: boolean;
-    direction?: string;
-    sideBySide?: boolean;
-    daysOfWeekDisabled?: Array<number>;
-    calendarWeeks?: boolean;
-    format?: string | boolean;
-    locale?: string;
-    showTodayButton?: boolean;
-    viewMode?: string;
-    inline?: boolean;
-    toolbarPlacement?: string;
-    showClear?: boolean;
-    ignoreReadonly?: boolean;
+    pickDate?: boolean | undefined;
+    pickTime?: boolean | undefined;
+    useMinutes?: boolean | undefined;
+    useSeconds?: boolean | undefined;
+    useCurrent?: boolean | undefined;
+    minuteStepping?: number | undefined;
+    minDate?: moment.Moment | Date | string | undefined;
+    maxDate?: moment.Moment | Date | string | undefined;
+    showToday?: boolean | undefined;
+    collapse?: boolean | undefined;
+    language?: string | undefined;
+    defaultDate?: moment.Moment | Date | string | undefined;
+    disabledDates?: Array<moment.Moment | Date | string> | undefined;
+    enabledDates?: Array<moment.Moment | Date | string> | undefined;
+    icons?: DatetimepickerIcons | undefined;
+    useStrict?: boolean | undefined;
+    direction?: string | undefined;
+    sideBySide?: boolean | undefined;
+    daysOfWeekDisabled?: number[] | undefined;
+    calendarWeeks?: boolean | undefined;
+    format?: string | boolean | undefined;
+    locale?: string | undefined;
+    showTodayButton?: boolean | undefined;
+    viewMode?: string | undefined;
+    inline?: boolean | undefined;
+    toolbarPlacement?: string | undefined;
+    showClear?: boolean | undefined;
+    ignoreReadonly?: boolean | undefined;
 }
 
 export interface Datetimepicker {
@@ -81,34 +75,62 @@ declare global {
         datetimepicker(): JQuery;
         datetimepicker(options: DatetimepickerOptions): JQuery;
 
-        off(events: "dp.change", selector?: string, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+        off(
+            events: "dp.change",
+            selector?: string,
+            handler?: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
         off(events: "dp.change", handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
 
-        on(events: "dp.change", selector: string, data: any, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        on(events: "dp.change", selector: string, handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        on(events: 'dp.change', handler: (eventObject: DatetimepickerChangeEventObject) => any): JQuery;
+        on(
+            events: "dp.change",
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
+        on(
+            events: "dp.change",
+            selector: string,
+            handler: (eventobject: DatetimepickerChangeEventObject) => any,
+        ): JQuery;
+        on(events: "dp.change", handler: (eventObject: DatetimepickerChangeEventObject) => any): JQuery;
 
         off(events: "dp.show", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
         off(events: "dp.show", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.show", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: "dp.show",
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
         on(events: "dp.show", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.show', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+        on(events: "dp.show", handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
         off(events: "dp.hide", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
         off(events: "dp.hide", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: "dp.hide",
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
         on(events: "dp.hide", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.hide', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+        on(events: "dp.hide", handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
         off(events: "dp.error", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
         off(events: "dp.error", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
 
-        on(events: "dp.error", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+        on(
+            events: "dp.error",
+            selector: string,
+            data: any,
+            handler?: (eventobject: DatetimepickerEventObject) => any,
+        ): JQuery;
         on(events: "dp.error", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.error', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+        on(events: "dp.error", handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
 
-        data(key: 'DateTimePicker'): Datetimepicker;
+        data(key: "DateTimePicker"): Datetimepicker;
     }
 }

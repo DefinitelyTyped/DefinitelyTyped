@@ -1,43 +1,30 @@
-import { bytes } from 'k6';
+import { bytes } from "k6";
 
 // open
-open(); // $ExpectError
-open(5); // $ExpectError
-const text: string = open('file.txt');
-open(5, 'b'); // $ExpectError
-open('file.bin', 5); // $ExpectError
-open('file.bin', 'notamode'); // $ExpectError
-const binary: bytes = open('file.bin', 'b');
-open('file.bin', 'b', 5); // $ExpectError
-
-// console
-console.debug(); // $ExpectError
-console.debug(7);
-console.debug('nutmeg');
-console.debug('nutmeg', {}, true);
-console.error(); // $ExpectError
-console.error(7);
-console.error('clove');
-console.error('clove', {}, false);
-console.info(); // $ExpectError
-console.info(7);
-console.info('ginger');
-console.info('ginger', {}, true);
-console.log(); // $ExpectError
-console.log(7);
-console.log('cinnamon');
-console.log('cinnamon', {}, false);
-console.warn(); // $ExpectError
-console.warn(7);
-console.warn('peppermint');
-console.warn('peppermint', {}, true);
+// @ts-expect-error
+open();
+// @ts-expect-error
+open(5);
+const text: string = open("file.txt");
+// @ts-expect-error
+open(5, "b");
+// @ts-expect-error
+open("file.bin", 5);
+// @ts-expect-error
+open("file.bin", "notamode");
+const arrayBuffer: ArrayBuffer = open("file.bin", "b");
+// @ts-expect-error
+open("file.bin", "b", 5);
 
 // state
-__VU = 9; // $ExpectError
+// @ts-expect-error
+__VU = 9;
 __VU; // $ExpectType number
-__ITER = 9; // $ExpectError
+// @ts-expect-error
+__ITER = 9;
 __ITER; // $ExpectType number
 
 // environment
-__ENV = 5; // $ExpectError
+// @ts-expect-error
+__ENV = 5;
 __ENV; // $ExpectType { [name: string]: string; }

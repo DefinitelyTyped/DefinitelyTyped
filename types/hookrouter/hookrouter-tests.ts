@@ -1,40 +1,40 @@
 import {
     A,
-    setLinkProps,
-    useControlledInterceptor,
-    interceptRoute,
     get,
-    remove,
-    navigate,
-    setPath,
+    getBasepath,
     getPath,
     getTitle,
+    getWorkingPath,
+    interceptRoute,
+    navigate,
+    prepareRoute,
+    remove,
+    resolvePath,
+    setLinkProps,
+    setPath,
+    useControlledInterceptor,
+    usePath,
+    useQueryParams,
     useRedirect,
     useRoutes,
-    usePath,
-    getWorkingPath,
-    getBasepath,
-    resolvePath,
-    prepareRoute,
-    useQueryParams
-} from 'hookrouter';
+} from "hookrouter";
 
 // $ExpectType AProps
-setLinkProps({ href: '/route' });
+setLinkProps({ href: "/route" });
 
-// $ExpectError
+// @ts-expect-error
 setLinkProps({ onClick: () => null });
 
 // $ExpectType ReactHTMLElement<HTMLAnchorElement>
-A({ href: '/route' });
+A({ href: "/route" });
 
 // $ExpectType [InterceptedPath, () => void, () => void, () => void]
 useControlledInterceptor();
 
 // $ExpectType string[]
-interceptRoute('/route1', '/route2');
+interceptRoute("/route1", "/route2");
 
-// $ExpectType RouteObject | null
+// $ExpectType RouteObject<any> | null
 get(2);
 
 // $ExpectType void
@@ -44,25 +44,25 @@ remove(2);
 useQueryParams();
 
 // $ExpectType void
-useRedirect('/route1', '/route2');
+useRedirect("/route1", "/route2");
 
-// $ExpectError
+// @ts-expect-error
 navigate();
 
-// $ExpectError
+// @ts-expect-error
 navigate(1);
 
 // $ExpectType string
 getBasepath();
 
 // $ExpectType string
-resolvePath('path');
+resolvePath("path");
 
 // $ExpectType [RegExp, string[]]
-prepareRoute('/route');
+prepareRoute("/route");
 
 // $ExpectType void
-setPath('/route');
+setPath("/route");
 
 // $ExpectType string
 usePath();
@@ -71,7 +71,20 @@ usePath();
 usePath(true, true);
 
 // $ExpectType string
-getWorkingPath('id');
+getWorkingPath("id");
 
 // $ExpectType string
 getTitle();
+
+// $ExpectType number | null
+useRoutes({
+    "/": () => 42,
+});
+
+// $ExpectType (() => number) | null
+useRoutes({
+    "/": () => () => 1 + 1,
+});
+
+// $ExpectType any
+useRoutes({} as any);

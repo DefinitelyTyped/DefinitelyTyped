@@ -1,10 +1,3 @@
-// Type definitions for xml-parser 1.2.1
-// Project: https://github.com/segmentio/xml-parser
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 declare function parse(xml: string): parse.Document;
 
 declare namespace parse {
@@ -21,7 +14,7 @@ declare namespace parse {
         name: string;
         attributes: Attributes;
         children: Node[];
-        content?: string;
+        content?: string | undefined;
     }
 
     export interface Attributes {

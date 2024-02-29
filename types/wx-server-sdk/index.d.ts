@@ -1,20 +1,16 @@
-// Type definitions for wx-server-sdk 0.8
-// Project: https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-server-api/
-// Definitions by: WangWei <https://github.com/vonweb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="node" />
 import * as fs from "fs";
 
 declare function init(options?: InitOptions): void;
 declare function updateConfig(options: InitOptions): void;
 interface InitOptions {
-    env: string
+    env:
+        | string
         | {
-                database: string;
-                storage: string;
-                functions: string;
-            };
+            database: string;
+            storage: string;
+            functions: string;
+        };
 }
 
 declare function getWXContext(): {
@@ -79,7 +75,7 @@ interface CallFunctionSuccess {
 
 // 云函数
 declare function getVoIPSign(
-    options: GetVoIPSignOptions
+    options: GetVoIPSignOptions,
 ): Promise<GetVoIPSignSuccess>;
 interface GetVoIPSignOptions {
     groupId: string;
@@ -93,7 +89,7 @@ interface GetVoIPSignSuccess {
 // 数据库 API
 declare function database(options?: DatabaseOptions): Database;
 interface DatabaseOptions {
-    env?: string;
+    env?: string | undefined;
 }
 interface Database {
     command: Command;
@@ -154,7 +150,7 @@ interface Document {
     get(): Promise<{ data: any }>;
     update(options: CommonOption): Promise<{ stats: { updated: 0 | 1 } }>;
     set(
-        options: CommonOption
+        options: CommonOption,
     ): Promise<{
         _id: string | number;
         stats: { updated: 0 | 1; created: 0 | 1 };
@@ -196,8 +192,8 @@ interface CrosFieldCommand {
 }
 interface GeoNearOptions {
     geometry: Point; // 点的地理位置
-    maxDistance?: number; // 选填，最大距离，单位为米
-    minDistance?: number; // 选填，最小距离，单位为米
+    maxDistance?: number | undefined; // 选填，最大距离，单位为米
+    minDistance?: number | undefined; // 选填，最小距离，单位为米
 }
 interface GeoWithinOptions {
     geometry: Polygon | MultiPolygon;
@@ -277,26 +273,26 @@ interface Aggregate {
         groupBy: any;
         boundaries: any[];
         default?: any;
-        output?: object;
+        output?: object | undefined;
     }): Aggregate;
     bucketAuto(bucketObj: {
         groupBy: any;
         buckets: number;
         granularity?: any;
-        output?: object;
+        output?: object | undefined;
     }): Aggregate;
     count(expr: string): any;
     geoNear(geoNearObj: {
         near: Point;
         spherical: true;
-        limit?: number;
-        maxDistance?: number;
-        minDistance?: number;
-        query?: object;
-        distanceMultiplier?: number;
+        limit?: number | undefined;
+        maxDistance?: number | undefined;
+        minDistance?: number | undefined;
+        query?: object | undefined;
+        distanceMultiplier?: number | undefined;
         distanceField: string;
-        includeLocs?: string;
-        key?: string;
+        includeLocs?: string | undefined;
+        key?: string | undefined;
     }): Aggregate;
     group(groupObj: { _id: any; [fieldName: string]: any }): Aggregate;
     limit(limitRecords: number): any;
@@ -309,8 +305,8 @@ interface Aggregate {
     sortByCount(fieldName: string): Aggregate;
     unwind(unwindObj: {
         path: string;
-        includeArrayIndex?: string;
-        preserveNullAndEmptyArrays?: boolean;
+        includeArrayIndex?: string | undefined;
+        preserveNullAndEmptyArrays?: boolean | undefined;
     }): Aggregate;
     end(): void;
 }
@@ -332,16 +328,16 @@ interface AggregationOperators {
 }
 
 export {
-    init,
-    updateConfig,
-    getWXContext,
-    uploadFile,
+    callFunction,
+    database,
+    deleteFile,
     downloadFile,
     getTempFileURL,
-    deleteFile,
-    callFunction,
     getVoIPSign,
-    database,
+    getWXContext,
+    init,
+    updateConfig,
+    uploadFile,
 };
 // export = cloud;
 // export as namespace cloud;

@@ -1,4 +1,4 @@
-import { RecurlyError } from 'recurly__recurly-js';
+import { RecurlyError } from '@recurly/recurly-js';
 
 const recurlyError: RecurlyError = {
   code: 'code',
@@ -8,3 +8,5 @@ const recurlyError: RecurlyError = {
 };
 
 recurlyError.help = 'help';
+recurlyError.fields = ['field'];
+recurlyError.details =  [{ field: 'field', messages: ['errors'] }];

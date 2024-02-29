@@ -1,59 +1,51 @@
-// Type definitions for angular-loading-bar
-// Project: https://github.com/chieffancypants/angular-loading-bar
-// Definitions by:  Stephen Lautier <https://github.com/stephenlautier>
-//                  Tyrone Dougherty <https://github.com/tyronedougherty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace loadingBar {
-
         interface ILoadingBarProvider {
             /**
              * Turn the spinner on or off
              */
-            includeSpinner?: boolean;
+            includeSpinner?: boolean | undefined;
 
             /**
              * Turn the loading bar on or off
              */
-            includeBar?: boolean;
+            includeBar?: boolean | undefined;
 
             /**
              * HTML template
              */
-            spinnerTemplate?: string;
+            spinnerTemplate?: string | undefined;
 
             /**
              * Loading bar template
              */
-            loadingBarTemplate?: string;
+            loadingBarTemplate?: string | undefined;
 
             /**
              * Latency Threshold
              */
-            latencyThreshold?: number;
+            latencyThreshold?: number | undefined;
             /**
              * HTML element selector of parent
              */
-            parentSelector?: string;
+            parentSelector?: string | undefined;
 
             /**
              * Starting size
              */
-            startSize?: number;
+            startSize?: number | undefined;
 
             /**
              * Give illusion that there's always progress
              */
-            autoIncrement?: boolean;
+            autoIncrement?: boolean | undefined;
 
             /**
              * Broadcast the start event
@@ -88,7 +80,6 @@ declare module 'angular' {
         /**
          * Indicates that the loading bar should be hidden.
          */
-        ignoreLoadingBar?: boolean;
+        ignoreLoadingBar?: boolean | undefined;
     }
-
 }

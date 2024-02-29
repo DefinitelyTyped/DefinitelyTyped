@@ -1,29 +1,14 @@
-// Type definitions for request 2.48
-// Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>,
-//                 bonnici <https://github.com/bonnici>,
-//                 Bart van der Schoor <https://github.com/Bartvds>,
-//                 Joe Skeen <https://github.com/joeskeen>,
-//                 Christopher Currens <https://github.com/ccurrens>,
-//                 Jon Stevens <https://github.com/lookfirst>,
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Jose Colella <https://github.com/josecolella>
-//                 Marek Urbanowicz <https://github.com/murbanowicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
-import caseless = require('caseless');
-import stream = require('stream');
-import http = require('http');
-import https = require('https');
-import fs = require('fs');
-import FormData = require('form-data');
-import net = require('net');
-import tough = require('tough-cookie');
-import { Url } from 'url';
-import { SecureContextOptions } from 'tls';
+import caseless = require("caseless");
+import stream = require("stream");
+import http = require("http");
+import https = require("https");
+import fs = require("fs");
+import FormData = require("form-data");
+import net = require("net");
+import tough = require("tough-cookie");
+import { Url } from "url";
 
 declare namespace request {
     interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
@@ -63,7 +48,10 @@ declare namespace request {
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
-        initParams(uriOrOpts: string | RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(
+            uriOrOpts: string | RequiredUriUrl & TOptions,
+            callback?: RequestCallback,
+        ): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
@@ -72,9 +60,9 @@ declare namespace request {
         debug: boolean;
     }
 
-    interface DefaultUriUrlRequestApi<TRequest extends Request,
-            TOptions extends CoreOptions,
-            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+    interface DefaultUriUrlRequestApi<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions>
+        extends RequestAPI<TRequest, TOptions, TUriUrlOptions>
+    {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 
@@ -115,56 +103,56 @@ declare namespace request {
     }
 
     interface CoreOptions {
-        baseUrl?: string;
-        callback?: RequestCallback;
-        jar?: CookieJar | boolean;
-        formData?: { [key: string]: any };
-        form?: { [key: string]: any } | string;
-        auth?: AuthOptions;
-        oauth?: OAuthOptions;
-        aws?: AWSOptions;
-        hawk?: HawkOptions;
+        baseUrl?: string | undefined;
+        callback?: RequestCallback | undefined;
+        jar?: CookieJar | boolean | undefined;
+        formData?: { [key: string]: any } | undefined;
+        form?: { [key: string]: any } | string | undefined;
+        auth?: AuthOptions | undefined;
+        oauth?: OAuthOptions | undefined;
+        aws?: AWSOptions | undefined;
+        hawk?: HawkOptions | undefined;
         qs?: any;
         qsStringifyOptions?: any;
         qsParseOptions?: any;
         json?: any;
-        jsonReviver?: (key: string, value: any) => any;
-        jsonReplacer?: (key: string, value: any) => any;
-        multipart?: RequestPart[] | Multipart;
-        agent?: http.Agent | https.Agent;
-        agentOptions?: http.AgentOptions | https.AgentOptions;
+        jsonReviver?: ((key: string, value: any) => any) | undefined;
+        jsonReplacer?: ((key: string, value: any) => any) | undefined;
+        multipart?: RequestPart[] | Multipart | undefined;
+        agent?: http.Agent | https.Agent | undefined;
+        agentOptions?: http.AgentOptions | https.AgentOptions | undefined;
         agentClass?: any;
         forever?: any;
-        host?: string;
-        port?: number;
-        method?: string;
-        headers?: Headers;
+        host?: string | undefined;
+        port?: number | undefined;
+        method?: string | undefined;
+        headers?: Headers | undefined;
         body?: any;
-        family?: 4 | 6;
-        followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
-        followAllRedirects?: boolean;
-        followOriginalHttpMethod?: boolean;
-        maxRedirects?: number;
-        removeRefererHeader?: boolean;
-        encoding?: string | null;
-        pool?: PoolOptions;
-        timeout?: number;
-        localAddress?: string;
+        family?: 4 | 6 | undefined;
+        followRedirect?: boolean | ((response: http.IncomingMessage) => boolean) | undefined;
+        followAllRedirects?: boolean | undefined;
+        followOriginalHttpMethod?: boolean | undefined;
+        maxRedirects?: number | undefined;
+        removeRefererHeader?: boolean | undefined;
+        encoding?: string | null | undefined;
+        pool?: PoolOptions | undefined;
+        timeout?: number | undefined;
+        localAddress?: string | undefined;
         proxy?: any;
-        tunnel?: boolean;
-        strictSSL?: boolean;
-        rejectUnauthorized?: boolean;
-        time?: boolean;
-        gzip?: boolean;
-        preambleCRLF?: boolean;
-        postambleCRLF?: boolean;
-        withCredentials?: boolean;
-        key?: Buffer;
-        cert?: Buffer;
-        passphrase?: string;
-        ca?: string | Buffer | string[] | Buffer[];
-        har?: HttpArchiveRequest;
-        useQuerystring?: boolean;
+        tunnel?: boolean | undefined;
+        strictSSL?: boolean | undefined;
+        rejectUnauthorized?: boolean | undefined;
+        time?: boolean | undefined;
+        gzip?: boolean | undefined;
+        preambleCRLF?: boolean | undefined;
+        postambleCRLF?: boolean | undefined;
+        withCredentials?: boolean | undefined;
+        key?: Buffer | undefined;
+        cert?: Buffer | undefined;
+        passphrase?: string | undefined;
+        ca?: string | Buffer | string[] | Buffer[] | undefined;
+        har?: HttpArchiveRequest | undefined;
+        useQuerystring?: boolean | undefined;
     }
 
     interface UriOptions {
@@ -186,17 +174,17 @@ declare namespace request {
     type RequestCallback = (error: any, response: Response, body: any) => void;
 
     interface HttpArchiveRequest {
-        url?: string;
-        method?: string;
-        headers?: NameValuePair[];
+        url?: string | undefined;
+        method?: string | undefined;
+        headers?: NameValuePair[] | undefined;
         postData?: {
-            mimeType?: string;
-            params?: NameValuePair[];
-        };
+            mimeType?: string | undefined;
+            params?: NameValuePair[] | undefined;
+        } | undefined;
     }
 
     interface ExtraPoolOptions {
-        maxSockets?: number;
+        maxSockets?: number | undefined;
     }
 
     type PoolOptions = false | { [key: string]: http.Agent | https.Agent } & ExtraPoolOptions | ExtraPoolOptions;
@@ -207,22 +195,24 @@ declare namespace request {
     }
 
     interface Multipart {
-        chunked?: boolean;
-        data?: Array<{
-            'content-type'?: string,
-            body: MultipartBody
-        }>;
+        chunked?: boolean | undefined;
+        data?:
+            | Array<{
+                "content-type"?: string | undefined;
+                body: MultipartBody;
+            }>
+            | undefined;
     }
 
     interface RequestPart {
-        headers?: Headers;
+        headers?: Headers | undefined;
         body: any;
     }
 
     interface Request extends caseless.Httpified, stream.Stream {
         readable: boolean;
         writable: boolean;
-        explicitMethod?: true;
+        explicitMethod?: true | undefined;
 
         debug(...args: any[]): void;
         pipeDest(dest: any): void;
@@ -238,19 +228,19 @@ declare namespace request {
         jar(jar: CookieJar): Request;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'request', listener: (req: http.ClientRequest) => void): this;
-        on(event: 'response', listener: (resp: Response) => void): this;
-        on(event: 'data', listener: (data: Buffer | string) => void): this;
-        on(event: 'error', listener: (e: Error) => void): this;
-        on(event: 'complete', listener: (resp: Response, body?: string | Buffer) => void): this;
-        on(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        on(event: 'socket', listener: (src: net.Socket) => void): this;
+        on(event: "request", listener: (req: http.ClientRequest) => void): this;
+        on(event: "response", listener: (resp: Response) => void): this;
+        on(event: "data", listener: (data: Buffer | string) => void): this;
+        on(event: "error", listener: (e: Error) => void): this;
+        on(event: "complete", listener: (resp: Response, body?: string | Buffer) => void): this;
+        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: "socket", listener: (src: net.Socket) => void): this;
 
         write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
-        end(cb?: () => void): void;
-        end(chunk: string | Buffer, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): any;
+        end(chunk: string | Buffer, cb?: () => void): any;
+        end(str: string, encoding?: string, cb?: () => void): any;
 
         pause(): void;
         resume(): void;
@@ -259,59 +249,59 @@ declare namespace request {
         toJSON(): RequestAsJSON;
 
         // several of the CoreOptions are copied onto the request instance
-        host?: string;
-        port?: number;
-        followAllRedirects?: boolean;
-        followOriginalHttpMethod?: boolean;
-        maxRedirects?: number;
-        removeRefererHeader?: boolean;
-        encoding?: string | null;
-        timeout?: number;
-        localAddress?: string;
-        strictSSL?: boolean;
-        rejectUnauthorized?: boolean;
-        time?: boolean;
-        gzip?: boolean;
-        preambleCRLF?: boolean;
-        postambleCRLF?: boolean;
-        withCredentials?: boolean;
-        key?: Buffer;
-        cert?: Buffer;
-        passphrase?: string;
-        ca?: string | Buffer | string[] | Buffer[];
-        har?: HttpArchiveRequest;
+        host?: string | undefined;
+        port?: number | undefined;
+        followAllRedirects?: boolean | undefined;
+        followOriginalHttpMethod?: boolean | undefined;
+        maxRedirects?: number | undefined;
+        removeRefererHeader?: boolean | undefined;
+        encoding?: string | null | undefined;
+        timeout?: number | undefined;
+        localAddress?: string | undefined;
+        strictSSL?: boolean | undefined;
+        rejectUnauthorized?: boolean | undefined;
+        time?: boolean | undefined;
+        gzip?: boolean | undefined;
+        preambleCRLF?: boolean | undefined;
+        postambleCRLF?: boolean | undefined;
+        withCredentials?: boolean | undefined;
+        key?: Buffer | undefined;
+        cert?: Buffer | undefined;
+        passphrase?: string | undefined;
+        ca?: string | Buffer | string[] | Buffer[] | undefined;
+        har?: HttpArchiveRequest | undefined;
 
         // set in `Request.prototype.init`
         headers: Headers;
         method: string;
         pool: PoolOptions;
         dests: stream.Readable[];
-        callback?: RequestCallback;
-        uri: Url & { href: string, pathname: string };
+        callback?: RequestCallback | undefined;
+        uri: Url & { href: string; pathname: string };
         proxy: null | string | Url;
         tunnel: boolean;
         setHost: boolean;
         path: string;
         agent: false | http.Agent | https.Agent;
         body: Buffer | Buffer[] | string | string[] | stream.Readable;
-        timing?: boolean;
-        src?: stream.Readable;
+        timing?: boolean | undefined;
+        src?: stream.Readable | undefined;
 
         // set in `Request.prototype.start`
         href: string;
-        startTime?: number;
-        startTimeNow?: number;
+        startTime?: number | undefined;
+        startTimeNow?: number | undefined;
         timings?: {
             socket: number;
             lookup: number;
             connect: number;
             response: number;
             end: number;
-        };
+        } | undefined;
 
         // set in `Request.prototype.onRequestResponse`
-        elapsedTime?: number;
-        response?: Response;
+        elapsedTime?: number | undefined;
+        response?: Response | undefined;
     }
 
     interface Response extends http.IncomingMessage {
@@ -322,15 +312,15 @@ declare namespace request {
         caseless: caseless.Caseless; // case-insensitive access to headers
         toJSON(): ResponseAsJSON;
 
-        timingStart?: number;
-        elapsedTime?: number;
+        timingStart?: number | undefined;
+        elapsedTime?: number | undefined;
         timings?: {
             socket: number;
             lookup: number;
             connect: number;
             response: number;
             end: number;
-        };
+        } | undefined;
         timingPhases?: {
             wait: number;
             dns: number;
@@ -338,7 +328,7 @@ declare namespace request {
             firstByte: number;
             download: number;
             total: number;
-        };
+        } | undefined;
     }
 
     // aliases for backwards compatibility
@@ -350,23 +340,23 @@ declare namespace request {
     }
 
     interface AuthOptions {
-        user?: string;
-        username?: string;
-        pass?: string;
-        password?: string;
-        sendImmediately?: boolean;
-        bearer?: string | (() => string);
+        user?: string | undefined;
+        username?: string | undefined;
+        pass?: string | undefined;
+        password?: string | undefined;
+        sendImmediately?: boolean | undefined;
+        bearer?: string | (() => string) | undefined;
     }
 
     interface OAuthOptions {
-        callback?: string;
-        consumer_key?: string;
-        consumer_secret?: string;
-        token?: string;
-        token_secret?: string;
-        transport_method?: 'body' | 'header' | 'query';
-        verifier?: string;
-        body_hash?: true | string;
+        callback?: string | undefined;
+        consumer_key?: string | undefined;
+        consumer_secret?: string | undefined;
+        token?: string | undefined;
+        token_secret?: string | undefined;
+        transport_method?: "body" | "header" | "query" | undefined;
+        verifier?: string | undefined;
+        body_hash?: true | string | undefined;
     }
 
     interface HawkOptions {
@@ -375,7 +365,7 @@ declare namespace request {
 
     interface AWSOptions {
         secret: string;
-        bucket?: string;
+        bucket?: string | undefined;
     }
 
     interface RequestAsJSON {

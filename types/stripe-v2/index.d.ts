@@ -1,13 +1,3 @@
-// Type definitions for stripe-v2 2.x
-// Project: https://stripe.com/
-// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
-//                 Eric J. Smith <https://github.com/ejsmith>
-//                 Amrit Kahlon <https://github.com/amritk>
-//                 Adam Cmiel <https://github.com/adamcmiel>
-//                 Justin Leider <https://github.com/jleider>
-//                 Kamil Gałuszka <https://github.com/galuszkak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Stripe: stripe.StripeStatic;
 
 declare namespace stripe {
@@ -20,23 +10,26 @@ declare namespace stripe {
         cardType(cardNumber: string): StripeCardDataBrand;
         getToken(token: string, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
         card: StripeCard;
-        createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
+        createToken(
+            data: StripeCardTokenData,
+            responseHandler: (status: number, response: StripeCardTokenResponse) => void,
+        ): void;
         bankAccount: StripeBankAccount;
     }
 
     interface StripeCardTokenData {
         number: string;
-        exp_month?: number;
-        exp_year?: number;
-        exp?: string;
-        cvc?: string;
-        name?: string;
-        address_line1?: string;
-        address_line2?: string;
-        address_city?: string;
-        address_state?: string;
-        address_zip?: string;
-        address_country?: string;
+        exp_month?: number | undefined;
+        exp_year?: number | undefined;
+        exp?: string | undefined;
+        cvc?: string | undefined;
+        name?: string | undefined;
+        address_line1?: string | undefined;
+        address_line2?: string | undefined;
+        address_city?: string | undefined;
+        address_state?: string | undefined;
+        address_zip?: string | undefined;
+        address_country?: string | undefined;
     }
 
     interface StripeTokenResponse {
@@ -47,7 +40,7 @@ declare namespace stripe {
         object: string;
         type: string;
         used: boolean;
-        error?: StripeError;
+        error?: StripeError | undefined;
     }
 
     interface StripeCardTokenResponse extends StripeTokenResponse {
@@ -58,36 +51,49 @@ declare namespace stripe {
         type: string;
         code: string;
         message: string;
-        param?: string;
+        param?: string | undefined;
     }
 
-    type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover' | 'JCB' | 'Diners Club' | 'Unknown';
+    type StripeCardDataBrand =
+        | "Visa"
+        | "American Express"
+        | "MasterCard"
+        | "Discover"
+        | "JCB"
+        | "Diners Club"
+        | "Unknown";
 
-    type StripeCardDataFunding = 'credit' | 'debit' | 'prepaid' | 'unknown';
+    type StripeCardDataFunding = "credit" | "debit" | "prepaid" | "unknown";
 
     interface StripeCard {
         object: string;
         last4: string;
         exp_month: number;
         exp_year: number;
-        country?: string;
-        name?: string;
-        address_line1?: string;
-        address_line2?: string;
-        address_city?: string;
-        address_state?: string;
-        address_zip?: string;
-        address_country?: string;
-        brand?: StripeCardDataBrand;
-        funding?: StripeCardDataFunding;
-        createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
+        country?: string | undefined;
+        name?: string | undefined;
+        address_line1?: string | undefined;
+        address_line2?: string | undefined;
+        address_city?: string | undefined;
+        address_state?: string | undefined;
+        address_zip?: string | undefined;
+        address_country?: string | undefined;
+        brand?: StripeCardDataBrand | undefined;
+        funding?: StripeCardDataFunding | undefined;
+        createToken(
+            data: StripeCardTokenData,
+            responseHandler: (status: number, response: StripeCardTokenResponse) => void,
+        ): void;
         validateCardNumber(cardNumber: string): boolean;
         validateExpiry(month: string, year: string): boolean;
         validateCVC(cardCVC: string): boolean;
     }
 
     interface StripeBankAccount {
-        createToken(params: StripeBankTokenParams, stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void): void;
+        createToken(
+            params: StripeBankTokenParams,
+            stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void,
+        ): void;
         validateRoutingNumber(routingNumber: number | string, countryCode: string): boolean;
         validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
     }
@@ -96,7 +102,7 @@ declare namespace stripe {
         country: string;
         currency: string;
         account_number: number | string;
-        routing_number?: number | string;
+        routing_number?: number | string | undefined;
         account_holder_name: string;
         account_holder_type: string;
     }
@@ -113,39 +119,41 @@ declare namespace stripe {
 
     interface StripeApplePay {
         checkAvailability(resopnseHandler: (result: boolean) => void): void;
-        buildSession(data: StripeApplePayPaymentRequest,
-                     onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
-                     onErrorHanlder: (error: { message: string }) => void): any;
+        buildSession(
+            data: StripeApplePayPaymentRequest,
+            onSuccessHandler: (result: StripeApplePaySessionResult, completion: (value: any) => void) => void,
+            onErrorHanlder: (error: { message: string }) => void,
+        ): any;
     }
 
-    type StripeApplePayBillingContactField = 'postalAddress' | 'name';
-    type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
-    type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+    type StripeApplePayBillingContactField = "postalAddress" | "name";
+    type StripeApplePayShippingContactField = StripeApplePayBillingContactField | "phone" | "email";
+    type StripeApplePayShipping = "shipping" | "delivery" | "storePickup" | "servicePickup";
 
     interface StripeApplePayPaymentRequest {
         billingContact: StripeApplePayPaymentContact;
         countryCode: string;
         currencyCode: string;
         total: StripeApplePayLineItem;
-        lineItems?: StripeApplePayLineItem[];
-        requiredBillingContactFields?: StripeApplePayBillingContactField[];
-        requiredShippingContactFields?: StripeApplePayShippingContactField[];
-        shippingContact?: StripeApplePayPaymentContact;
-        shippingMethods?: StripeApplePayShippingMethod[];
-        shippingType?: StripeApplePayShipping[];
+        lineItems?: StripeApplePayLineItem[] | undefined;
+        requiredBillingContactFields?: StripeApplePayBillingContactField[] | undefined;
+        requiredShippingContactFields?: StripeApplePayShippingContactField[] | undefined;
+        shippingContact?: StripeApplePayPaymentContact | undefined;
+        shippingMethods?: StripeApplePayShippingMethod[] | undefined;
+        shippingType?: StripeApplePayShipping[] | undefined;
     }
 
     // https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
     interface StripeApplePayLineItem {
-        type: 'pending' | 'final';
+        type: "pending" | "final";
         label: string;
         amount: number;
     }
 
     interface StripeApplePaySessionResult {
         token: StripeCardTokenResponse;
-        shippingContact?: StripeApplePayPaymentContact;
-        shippingMethod?: StripeApplePayShippingMethod;
+        shippingContact?: StripeApplePayPaymentContact | undefined;
+        shippingMethod?: StripeApplePayShippingMethod | undefined;
     }
 
     interface StripeApplePayShippingMethod {

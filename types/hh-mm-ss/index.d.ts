@@ -1,8 +1,3 @@
-// Type definitions for hh-mm-ss 1.2
-// Project: https://github.com/Goldob/hh-mm-ss#readme
-// Definitions by: Thomas Cazade <https://github.com/TotomInc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert given `hh:mm:ss` formatted string to miliseconds
  *
@@ -11,7 +6,7 @@
  *  ambiguities during interpretation. If not specified, `mm:ss` is implied.
  *  [See section below for supported format list](https://github.com/Goldob/hh-mm-ss#supported-time-formats)
  */
-export function toMs(time: string, format?: string): string;
+export function toMs(time: string, format?: string): number;
 
 /**
  * Convert given `hh:mm:ss` formatted string to seconds
@@ -21,7 +16,7 @@ export function toMs(time: string, format?: string): string;
  *  amiguities during interpretation. If not specified, `mm:ss` is implied.
  *  [See section below for supported format list](https://github.com/Goldob/hh-mm-ss#supported-time-formats)
  */
-export function toS(time: string, format?: string): string;
+export function toS(time: string, format?: string): number;
 
 /**
  * Generate formatted string from time in miliseconds

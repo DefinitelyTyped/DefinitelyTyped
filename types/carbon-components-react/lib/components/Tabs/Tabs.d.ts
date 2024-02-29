@@ -1,19 +1,21 @@
 import * as React from "react";
-import { EmbeddedIconProps, ReactAttr, ReactDivAttr } from "../../../typings/shared";
+import { ReactButtonAttr, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr, EmbeddedIconProps {
-    ariaLabel?: React.AriaAttributes["aria-label"],
+export interface TabsProps extends Omit<ReactDivAttr, "onScroll"> {
+    ariaLabel?: string | undefined;
+    iconDescription?: string | undefined;
+    leftOverflowButtonProps?: ReactButtonAttr | undefined;
+    light?: boolean | undefined;
+    onSelectionChange?(index: number): void;
+    rightOverflowButtonProps?: ReactButtonAttr | undefined;
+    scrollDebounceWait?: number | undefined;
+    scrollIntoView?: boolean | undefined;
+    selected?: number | undefined;
+    selectionMode?: "automatic" | "manual" | undefined;
+    tabContentClassName?: string | undefined;
+    type?: "container" | "default" | undefined;
 }
 
-export interface TabsProps extends InheritedProps {
-    onSelectionChange?(index: number): void,
-    selected?: number,
-    selectionMode?: "automatic" | "manual",
-    tabContentClassName?: ReactAttr["className"],
-    triggerHref?: string, // required but has default value "#"
-    type?: "container" | "default";
-}
-
-declare class Tabs extends React.Component<TabsProps> { }
+declare class Tabs extends React.Component<TabsProps> {}
 
 export default Tabs;

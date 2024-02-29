@@ -14,18 +14,18 @@ export class Interface extends readline.Interface {
 export type ReadLine = Interface;
 
 export type AsyncCompleter =
-    ((line: string, callback: (err?: null | Error, result?: readline.CompleterResult) => void) => void) |
-    ((line: string) => Promise<readline.CompleterResult>);
+    | ((line: string, callback: (err?: null | Error, result?: readline.CompleterResult) => void) => void)
+    | ((line: string) => Promise<readline.CompleterResult>);
 export type Completer = AsyncCompleter | readline.Completer;
 
 export interface ReadLineOptions extends readline.ReadLineOptions {
-    completer?: Completer;
+    completer?: Completer | undefined;
 }
 
 export function createInterface(
     input: NodeJS.ReadableStream,
     output?: NodeJS.WritableStream,
     completer?: Completer,
-    terminal?: boolean
+    terminal?: boolean,
 ): Interface;
 export function createInterface(options: ReadLineOptions): Interface;

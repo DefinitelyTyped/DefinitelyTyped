@@ -1,17 +1,11 @@
-// Type definitions for karma-json-preprocessor 0.3
-// Project: https://github.com/mjeanroy/karma-json-preprocessor#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * see {@link https://github.com/mjeanroy/karma-json-preprocessor#configuration-1}
          */
-        jsonPreprocessor?: JsonPreprocessorOptions;
+        jsonPreprocessor?: JsonPreprocessorOptions | undefined;
     }
 
     /**
@@ -22,10 +16,10 @@ declare module 'karma' {
         /**
          * @default '__json__'
          */
-        varName?: string;
+        varName?: string | undefined;
         /**
          * @default ''
          */
-        stripPrefix?: string;
+        stripPrefix?: string | undefined;
     }
 }

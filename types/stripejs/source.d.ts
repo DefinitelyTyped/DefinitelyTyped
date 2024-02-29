@@ -1,5 +1,5 @@
-import { StripeError } from "./index";
 import { Customer } from "./customer";
+import { StripeError } from "./index";
 import { Token } from "./token";
 
 /**
@@ -11,7 +11,7 @@ export interface Source {
      */
     id: string;
 
-    object: 'source';
+    object: "source";
 
     /**
      * A positive integer in the smallest currency unit (that is, 100 cents for $1.00,
@@ -30,7 +30,7 @@ export interface Source {
      * Information related to the code verification flow
      * Present if the source is authenticated by a verification code
      */
-    code_verification?: CodeVerification;
+    code_verification?: CodeVerification | undefined;
 
     /**
      * Time at which the object was created.
@@ -47,7 +47,7 @@ export interface Source {
     /**
      * The authentication flow of the source
      */
-    flow: 'redirect' | 'receiver' | 'code_verification' | 'none';
+    flow: "redirect" | "receiver" | "code_verification" | "none";
 
     /**
      * LIVE MODE = true
@@ -70,13 +70,13 @@ export interface Source {
      * Information related to the receiver flow.
      * Present if the source is a receiver
      */
-    receiver?: Receiver;
+    receiver?: Receiver | undefined;
 
     /**
      * Information related to the redirect flow.
      * Present if the source is authenticated by a redirect
      */
-    redirect?: Redirect;
+    redirect?: Redirect | undefined;
 
     /**
      * Extra information about a source
@@ -88,7 +88,7 @@ export interface Source {
      * The status of the source
      * NOTE: Only `chargeable` sources can be used to create a charge
      */
-    status: 'pending' | 'canceled' | 'failed' | 'consumed' | 'chargeable';
+    status: "pending" | "canceled" | "failed" | "consumed" | "chargeable";
 
     /**
      * The type of the source.
@@ -105,26 +105,26 @@ export interface Source {
     /**
      * Whether this source should be reusable or not
      */
-    usage: 'reusable' | 'reusable';
+    usage: "reusable" | "reusable";
 }
 
 export type paymentOptions =
-    'ach_credit_transfer' |
-    'ach_debit' |
-    'alipay' |
-    'bancontact' |
-    'card' |
-    'card_present' |
-    'eps' |
-    'giropay' |
-    'ideal' |
-    'multibanco' |
-    'p24' |
-    'paper_check' |
-    'sepa_credit_transfer' |
-    'sepa_debit' |
-    'sofort' |
-    'three_d_secure';
+    | "ach_credit_transfer"
+    | "ach_debit"
+    | "alipay"
+    | "bancontact"
+    | "card"
+    | "card_present"
+    | "eps"
+    | "giropay"
+    | "ideal"
+    | "multibanco"
+    | "p24"
+    | "paper_check"
+    | "sepa_credit_transfer"
+    | "sepa_debit"
+    | "sofort"
+    | "three_d_secure";
 
 // --- CODE VERIFICATION --- //
 export interface CodeVerification {
@@ -137,7 +137,7 @@ export interface CodeVerification {
     /**
      * The status of the code verification
      */
-    status: 'pending' | 'attempts_remaining' | 'succeeded' | 'failed' | 'attempts_remaining';
+    status: "pending" | "attempts_remaining" | "succeeded" | "failed" | "attempts_remaining";
 }
 
 // --- REDIRECT INFORMATION --- //
@@ -146,7 +146,7 @@ export interface Redirect {
      * The failure reason for the redirect
      * Present only if the redirect status is `'failed'`
      */
-    failure_reason?: 'user_abort' | 'declined' | 'processing_error';
+    failure_reason?: "user_abort" | "declined" | "processing_error" | undefined;
 
     /**
      * The URL you provide to redirect the customer to after they authenticated their payment
@@ -160,7 +160,7 @@ export interface Redirect {
      * - not_required: redirect should not be used
      * - failed: failed authentication, cannot be reused
      */
-    status: 'pending' | 'succeeded' | 'not_required' | 'failed';
+    status: "pending" | "succeeded" | "not_required" | "failed";
 
     /**
      * The URL provided to you to redirect a customer to as part of a redirect
@@ -218,57 +218,57 @@ export interface SourceData {
     /**
      * The authentication flow of the source
      */
-    flow: 'redirect' | 'receiver' | 'code_verification' | 'none';
+    flow: "redirect" | "receiver" | "code_verification" | "none";
 
     /**
      * Whether this source should be reusable or not
      */
-    usage: 'reusable' | 'single_use';
+    usage: "reusable" | "single_use";
 
     /**
      * Information about a mandate possiblity attached to a source object
      * (generally for bank debits) as well as its acceptance status
      */
-    mandate?: Mandate;
+    mandate?: Mandate | undefined;
 
     /**
      * Extra data you want to add to the source object
      */
-    metadata?: { [key: string]: string };
+    metadata?: { [key: string]: string } | undefined;
 
     /**
      * Information about the owner of the payment instrument that may be used or
      * required by particular source types.
      */
-    owner?: Customer;
+    owner?: Customer | undefined;
 
     /**
      * Can be set only if the source is a receiver
      */
-    receiver?: Receiver;
+    receiver?: Receiver | undefined;
 
     /**
      * Required if the source is authenticated by a redirect
      */
-    redirect?: Redirect;
+    redirect?: Redirect | undefined;
 
     /**
      * An arbitrary string to be displayed on your customer’s statement
      * @example if your website is RunClub and the item you’re charging for is a race ticket,
      * you may want to specify a statement_descriptor of RunClub 5K race ticket.
      */
-    statement_descriptor?: string;
+    statement_descriptor?: string | undefined;
 
     three_d_secure_2_eap?: any;
 
     /**
      * When passed, token properties will override source parameters
      */
-    token?: Token;
+    token?: Token | undefined;
 }
 
 export interface Mandate {
-    acceptance?: Acceptance;
+    acceptance?: Acceptance | undefined;
 
     /**
      * The method Stripe should use to notify the customer
@@ -276,7 +276,7 @@ export interface Mandate {
      * - manual: a source.mandate_notification event is sent to your webhooks endpoint and you should handle the notification
      * - none: the underlying debit network does not require any notification
      */
-    notification_method?: 'email' | 'manual' | 'none';
+    notification_method?: "email" | "manual" | "none" | undefined;
 }
 
 export interface Acceptance {
@@ -293,7 +293,7 @@ export interface Acceptance {
     /**
      * The status of the mandate acceptance
      */
-    status: 'accepted' | 'refused';
+    status: "accepted" | "refused";
 
     /**
      * The user agent of the browser from which the mandate was accepted or refused by the customer
@@ -312,5 +312,5 @@ export interface SourceResult {
     /**
      * There was an error. This includes client-side validation errors.
      */
-    error?: StripeError;
+    error?: StripeError | undefined;
 }

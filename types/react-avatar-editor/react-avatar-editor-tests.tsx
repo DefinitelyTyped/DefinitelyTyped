@@ -1,22 +1,18 @@
 import * as React from "react";
-import AvatarEditor, {
-    ImageState,
-    CroppedRect,
-    Position
-} from "react-avatar-editor";
+import AvatarEditor, { CroppedRect, ImageState, Position } from "react-avatar-editor";
 
 const file: File = new File(["str"], "image.jpg");
 const image: ImageData = new ImageData(1, 2);
 const position: Position = {
     x: 1,
-    y: 1
+    y: 1,
 };
 const imageState: ImageState = {
     height: 1,
     width: 1,
     x: 1,
     y: 1,
-    resource: image
+    resource: image,
 };
 
 class AvatarEditorTest extends React.Component {
@@ -36,6 +32,7 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" className="helloworld" />
                 <AvatarEditor image="" width={1} />
                 <AvatarEditor image="" height={1} />
+                <AvatarEditor image="" backgroundColor="green" />
                 <AvatarEditor image="" border={1} />
                 <AvatarEditor image="" border={[1, 2]} />
                 <AvatarEditor image="" borderRadius={1} />
@@ -46,8 +43,8 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" rotate={1} />
                 <AvatarEditor image="" crossOrigin="" />
                 <AvatarEditor image="" disableBoundaryChecks={true} />
-                <AvatarEditor image="" disableDrop={true} />
-                <AvatarEditor image="" onDropFile={event => {}} />
+                <AvatarEditor image="" disableHiDPIScaling={true} />
+                <AvatarEditor image="" disableCanvasRotation={true} />
                 <AvatarEditor image="" onLoadFailure={event => {}} />
                 <AvatarEditor image="" onLoadSuccess={imageState => {}} />
                 <AvatarEditor image="" onImageReady={event => {}} />

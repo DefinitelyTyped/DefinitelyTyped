@@ -1,10 +1,3 @@
-// Type definitions for checksum 0.1.1
-// Project: https://github.com/dshaw/checksum
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 declare namespace checksum {
     /**
      * Options object for all functions
@@ -15,6 +8,11 @@ declare namespace checksum {
          * Can be 'sha1' or 'md5'  (see module 'crypto').
          */
         algorithm?: string;
+        /**
+         * Encoding to use, default 'hex'
+         * Can be 'base64' (see NodeJS encoding support)
+         */
+        encoding?: string;
     }
 
     /**

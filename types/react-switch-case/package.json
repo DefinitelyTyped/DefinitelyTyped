@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-switch-case",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/AlexSergey/react-switch-case"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-switch-case": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fernando Falci",
+            "githubUsername": "Falci"
+        }
+    ]
+}

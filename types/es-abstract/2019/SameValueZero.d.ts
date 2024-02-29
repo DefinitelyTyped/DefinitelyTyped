@@ -1,2 +1,2 @@
-import SameValueZero = require('../2018/SameValueZero');
+import SameValueZero = require("../2018/SameValueZero");
 export = SameValueZero;

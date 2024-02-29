@@ -1,8 +1,3 @@
-// Type definitions for seen 0.2
-// Project: https://github.com/themadcreator/seen
-// Definitions by: Adam Vernon <https://github.com/admvx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.1
 
 /**
@@ -72,7 +67,7 @@ export class Camera extends Transformable {
 }
 
 export class CanvasCirclePainter extends CanvasStyler {
-    circle(center: { x: number, y: number }, radius: number): CanvasCirclePainter;
+    circle(center: { x: number; y: number }, radius: number): CanvasCirclePainter;
 }
 
 export class CanvasLayerRenderContext extends RenderLayerContext {
@@ -101,13 +96,25 @@ export class CanvasRenderContext extends RenderContext {
 
 export class CanvasStyler {
     constructor(ctx: CanvasRenderingContext2D);
-    draw(style?: { stroke?: string, 'stroke-width'?: number, 'text-anchor'?: string }): this;
-    fill(style?: { fill?: string, 'fill-opacity'?: number, 'text-anchor'?: string }): this;
+    draw(
+        style?: {
+            stroke?: string | undefined;
+            "stroke-width"?: number | undefined;
+            "text-anchor"?: string | undefined;
+        },
+    ): this;
+    fill(
+        style?: { fill?: string | undefined; "fill-opacity"?: number | undefined; "text-anchor"?: string | undefined },
+    ): this;
 }
 
 export class CanvasTextPainter {
     constructor(ctx: CanvasRenderingContext2D);
-    fillText(m: Matrix, text: string, style?: { font: string, fill?: string, 'text-anchor'?: string }): this;
+    fillText(
+        m: Matrix,
+        text: string,
+        style?: { font: string; fill?: string | undefined; "text-anchor"?: string | undefined },
+    ): this;
 }
 
 /**
@@ -138,8 +145,8 @@ export class Drag {
     inertia: boolean;
     dispatch: Events.Dispatcher;
     defaults: { inertia: boolean };
-    constructor(elementOrId: string | HTMLElement, options?: { inertia?: boolean });
-    on(type: string, listener: (e: { offset: number[], offsetRelative: number[] }) => void): Events.Dispatcher;
+    constructor(elementOrId: string | HTMLElement, options?: { inertia?: boolean | undefined });
+    on(type: string, listener: (e: { offset: number[]; offsetRelative: number[] }) => void): Events.Dispatcher;
 }
 
 export class FillLayer extends RenderLayer {
@@ -171,11 +178,11 @@ export class InertialMouse {
 }
 
 export interface LightOptions {
-    point?: Point;
-    color?: Color;
-    intensity?: number;
-    normal?: Point;
-    enabled?: boolean;
+    point?: Point | undefined;
+    color?: Color | undefined;
+    intensity?: number | undefined;
+    normal?: Point | undefined;
+    enabled?: boolean | undefined;
 }
 
 /**
@@ -190,7 +197,7 @@ export class Light extends Transformable {
     enabled: boolean;
     id: string;
     defaults: LightOptions;
-    constructor(type: 'point' | 'directional' | 'ambient', options?: LightOptions);
+    constructor(type: "point" | "directional" | "ambient", options?: LightOptions);
     render(): void;
 }
 
@@ -208,11 +215,11 @@ export class LightRenderModel {
 }
 
 export interface MaterialOptions {
-    color?: Color;
-    metallic?: boolean;
-    specularColor?: Color;
-    specularExponent?: number;
-    shader?: Shader;
+    color?: Color | undefined;
+    metallic?: boolean | undefined;
+    specularColor?: Color | undefined;
+    specularExponent?: number | undefined;
+    shader?: Shader | undefined;
 }
 
 /**
@@ -281,19 +288,22 @@ export class Model extends Transformable {
     constructor();
     add(...args: Array<Shape | Model | Light>): this;
     append(): this;
-    eachRenderable(lightFn: (light: Light, matrix?: Matrix) => Model, shapeFn: (item: Shape | Model, lightModels?: Model[], matrix?: Matrix) => any): void;
+    eachRenderable(
+        lightFn: (light: Light, matrix?: Matrix) => Model,
+        shapeFn: (item: Shape | Model, lightModels?: Model[], matrix?: Matrix) => any,
+    ): void;
     eachShape(f: (shape: Shape) => any): void;
     remove(...args: Array<Shape | Model | Light>): void;
 }
 
 export interface MouseEventOptions {
-    dragStart?: EventListener;
-    drag?: EventListener;
-    dragEnd?: EventListener;
-    mouseMove?: EventListener;
-    mouseDown?: EventListener;
-    mouseUp?: EventListener;
-    mouseWheel?: EventListener;
+    dragStart?: EventListener | undefined;
+    drag?: EventListener | undefined;
+    dragEnd?: EventListener | undefined;
+    mouseMove?: EventListener | undefined;
+    mouseDown?: EventListener | undefined;
+    mouseUp?: EventListener | undefined;
+    mouseWheel?: EventListener | undefined;
 }
 
 /**
@@ -315,7 +325,7 @@ export class MouseEvents {
 export class ObjParser {
     vertices: number[][];
     faces: number[][];
-    commands: { v: (v: any) => any, f: (f: any) => any };
+    commands: { v: (v: any) => any; f: (f: any) => any };
     constructor();
     mapFacePoints(faceMap: (points: Point[]) => any): void;
     parse(contents: string): void;
@@ -329,7 +339,7 @@ export class Painter {
     paint(renderModel: RenderModel, context: RenderLayerContext): void;
 }
 
-export class PathPainter extends Painter { }
+export class PathPainter extends Painter {}
 
 /**
  * The Point object contains x,y,z, and w coordinates. Points support various arithmetic operations with other Points, scalars, or Matrices.
@@ -373,7 +383,7 @@ export class Quaternion {
     static xyToTransform(x: number, y: number): Matrix;
 }
 
-export class RenderAnimator extends Animator { }
+export class RenderAnimator extends Animator {}
 
 /**
  * The RenderContext uses RenderModels produced by the scene’s render method to paint the shapes into an HTML element. Since we support both SVG and Canvas painters, the RenderContext and
@@ -431,13 +441,13 @@ export class Scene {
 }
 
 export interface SceneOptions {
-    model?: Model;
-    camera?: Camera;
-    viewport?: Viewport;
-    shader?: Shader;
-    cullBackfaces?: boolean;
-    fractionalPoints?: boolean;
-    cache?: boolean;
+    model?: Model | undefined;
+    camera?: Camera | undefined;
+    viewport?: Viewport | undefined;
+    shader?: Shader | undefined;
+    cullBackfaces?: boolean | undefined;
+    fractionalPoints?: boolean | undefined;
+    cache?: boolean | undefined;
 }
 
 export class SceneLayer extends RenderLayer {
@@ -465,22 +475,22 @@ export class Shader {
  *
  * See https://en.wikipedia.org/wiki/Phong_reflection_model for more information
  */
-export class Phong extends Shader { }
+export class Phong extends Shader {}
 
 /**
  * The DiffusePhong shader implements the Phong shading model with a diffuse and ambient term (no specular).
  */
-export class DiffusePhong extends Shader { }
+export class DiffusePhong extends Shader {}
 
 /**
  * The Ambient shader colors surfaces from ambient light only.
  */
-export class Ambient extends Shader { }
+export class Ambient extends Shader {}
 
 /**
  * The Flat shader colors surfaces with the material color, disregarding all light sources.
  */
-export class Flat extends Shader { }
+export class Flat extends Shader {}
 
 /**
  * A Shape contains a collection of surface. They may create a closed 3D shape, but not necessarily. For example, a cube is a closed shape, but a patch is not.
@@ -556,7 +566,7 @@ export class SvgTextPainter {
     fillText(m: number[], text: string, style?: Partial<CSSStyleDeclaration>): void;
 }
 
-export class TextPainter extends Painter { }
+export class TextPainter extends Painter {}
 
 /**
  * Transformable base class extended by Shape and Model.
@@ -588,7 +598,7 @@ export class Transformable {
 export class Transition {
     duration: number;
     defaults: { duration: number };
-    constructor(options?: { duration?: number });
+    constructor(options?: { duration?: number | undefined });
     firstFrame(): void;
     frame(): void;
     lastFrame(): void;
@@ -617,12 +627,12 @@ export class Zoom {
     speed: number;
     dispatch: Events.Dispatcher;
     defaults: { smooth: boolean };
-    constructor(elementOrId: string | HTMLElement, options?: { smooth?: boolean });
+    constructor(elementOrId: string | HTMLElement, options?: { smooth?: boolean | undefined });
 }
 
 export const Painters: {
-    path: PathPainter,
-    text: TextPainter
+    path: PathPainter;
+    text: TextPainter;
 };
 export function C(r?: number, g?: number, b?: number, a?: number): Color;
 export function CanvasContext(elementOrId: string | HTMLElement, scene?: Scene): CanvasRenderContext;
@@ -646,135 +656,141 @@ export function SvgContext(elementOrId: string | HTMLElement, scene?: Scene): Sv
  * This fake projection will produce unrealistic results with large strings of text that are not broken into their own shapes.
  */
 export const Affine: {
-    INITIAL_STATE_MATRIX: number[][],
-    ORTHONORMAL_BASIS(): Point[],
-    solveForAffineTransform(points: Point[]): number[]
+    INITIAL_STATE_MATRIX: number[][];
+    ORTHONORMAL_BASIS(): Point[];
+    solveForAffineTransform(points: Point[]): number[];
 };
 
 export const BvhParser: {
-    SyntaxError(message: string, expected: string, found: string, location: any): void,
-    parse(input: string): any
+    SyntaxError(message: string, expected: string, found: string, location: any): void;
+    parse(input: string): any;
 };
 
 export const Colors: {
-    CSS_RGBA_STRING_REGEX: RegExp,
-    black(): Color,
-    gray(): Color,
-    hex(hex: string): Color,
-    hsl(h: number, s: number, l: number, a?: number): Color,
-    parse(str: string): Color,
-    randomShape(shape: Shape, sat?: number, lit?: number): void,
-    randomSurfaces(shape: Shape, sat?: number, lit?: number): void,
-    randomSurfaces2(shape: Shape, drift?: number, sat?: number, lit?: number): void,
-    rgb(r: number, g: number, b: number, a?: number): Color,
-    white(): Color
+    CSS_RGBA_STRING_REGEX: RegExp;
+    black(): Color;
+    gray(): Color;
+    hex(hex: string): Color;
+    hsl(h: number, s: number, l: number, a?: number): Color;
+    parse(str: string): Color;
+    randomShape(shape: Shape, sat?: number, lit?: number): void;
+    randomSurfaces(shape: Shape, sat?: number, lit?: number): void;
+    randomSurfaces2(shape: Shape, drift?: number, sat?: number, lit?: number): void;
+    rgb(r: number, g: number, b: number, a?: number): Color;
+    white(): Color;
 };
 
 export namespace Events {
-/**
- * The Dispatcher class. These objects have methods that can be invoked like dispatch.eventName(). Listeners can be registered with dispatch.on('eventName.uniqueId', callback). Listeners can be
- * removed with dispatch.on('eventName.uniqueId', null). Listeners can also be registered and removed with dispatch.eventName.on('name', callback).
- *
- * Note that only one listener with the name event name and id can be registered at once. If you to generate unique ids, you can use the seen.Util.uniqueId() method.
- */
+    /**
+     * The Dispatcher class. These objects have methods that can be invoked like dispatch.eventName(). Listeners can be registered with dispatch.on('eventName.uniqueId', callback). Listeners can be
+     * removed with dispatch.on('eventName.uniqueId', null). Listeners can also be registered and removed with dispatch.eventName.on('name', callback).
+     *
+     * Note that only one listener with the name event name and id can be registered at once. If you to generate unique ids, you can use the seen.Util.uniqueId() method.
+     */
     class Dispatcher {
         constructor();
         on(type: string, listener: EventListener): Dispatcher;
     }
 
-/**
- * Return a new dispatcher that creates event types using the supplied string argument list. The returned Dispatcher will have methods with the names of the event types.
- */
+    /**
+     * Return a new dispatcher that creates event types using the supplied string argument list. The returned Dispatcher will have methods with the names of the event types.
+     */
     function dispatch(): Dispatcher;
 
     function Event(): void;
 }
 
 export const Lights: {
-    ambient(opts?: LightOptions): Light,
-    directional(opts?: LightOptions): Light,
-    point(opts?: LightOptions): Light
+    ambient(opts?: LightOptions): Light;
+    directional(opts?: LightOptions): Light;
+    point(opts?: LightOptions): Light;
 };
 
 /**
  * A few useful Matrix objects.
  */
 export const Matrices: {
-    flipX(): Matrix,
-    flipY(): Matrix,
-    flipZ(): Matrix,
-    identity(): Matrix
+    flipX(): Matrix;
+    flipY(): Matrix;
+    flipZ(): Matrix;
+    identity(): Matrix;
 };
 
 export const Models: {
-    default(): Model
+    default(): Model;
 };
 
 /**
  * A few useful Point objects. Be sure that you don’t invoke destructive methods on these objects.
  */
 export const Points: {
-    X(): Point,
-    Y(): Point,
-    Z(): Point,
-    ZERO(): Point
+    X(): Point;
+    Y(): Point;
+    Z(): Point;
+    ZERO(): Point;
 };
 
 /**
  * These projection methods return a 3D to 2D Matrix transformation. Each projection assumes the camera is located at (0,0,0).
  */
 export const Projections: {
-    ortho(left?: number, right?: number, bottom?: number, top?: number, near?: number, far?: number): Matrix,
-    perspective(left?: number, right?: number, bottom?: number, top?: number, near?: number, far?: number): Matrix,
-    perspectiveFov(fovyInDegrees?: number, front?: number): Matrix
+    ortho(left?: number, right?: number, bottom?: number, top?: number, near?: number, far?: number): Matrix;
+    perspective(left?: number, right?: number, bottom?: number, top?: number, near?: number, far?: number): Matrix;
+    perspectiveFov(fovyInDegrees?: number, front?: number): Matrix;
 };
 
 /**
  * These shading functions compute the shading for a surface. To reduce code duplication, we aggregate them in a utils object.
  */
 export const ShaderUtils: {
-    applyAmbient(c: Color, light: Light): void,
-    applyDiffuse(c: Color, light: Light, lightNormal: Point, surfaceNormal: Point, material?: Material): void,
-    applyDiffuseAndSpecular(c: Color, light: Light, lightNormal: Point, surfaceNormal: Point, material: Material): void
+    applyAmbient(c: Color, light: Light): void;
+    applyDiffuse(c: Color, light: Light, lightNormal: Point, surfaceNormal: Point, material?: Material): void;
+    applyDiffuseAndSpecular(c: Color, light: Light, lightNormal: Point, surfaceNormal: Point, material: Material): void;
 };
 
 export const Shaders: {
-    ambient(): Ambient,
-    diffuse(): DiffusePhong,
-    flat(): Flat,
-    phong(): Phong
+    ambient(): Ambient;
+    diffuse(): DiffusePhong;
+    flat(): Flat;
+    phong(): Phong;
 };
 
 /**
  * Shape primitives and shape-making methods
  */
 export const Shapes: {
-    arrow(thickness?: number, tailLength?: number, tailWidth?: number, headLength?: number, headPointiness?: number): Shape,
-    cube(): Shape,
-    custom(s: Shape): Shape,
-    extrude(points: Point[], offset: Point): Shape,
-    icosahedron(): Shape,
-    mapPointsToSurfaces(points: Point[], coordinateMap: number[][]): Surface[],
-    obj(objContents: string, cullBackfaces?: boolean): Shape,
-    patch(nx?: number, ny?: number): Shape,
-    path(points: Point[]): Shape,
-    pipe(point1: Point, point2: Point, radius?: number, segments?: number): Shape,
-    pyramid(): Shape,
-    rectangle(point1: Point, point2: Point): Shape,
-    sphere(subdivisions?: number): Shape,
-    tetrahedron(): Shape,
-    text(text: string, surfaceOptions?: Partial<Surface>): Shape,
-    unitcube(): Shape
+    arrow(
+        thickness?: number,
+        tailLength?: number,
+        tailWidth?: number,
+        headLength?: number,
+        headPointiness?: number,
+    ): Shape;
+    cube(): Shape;
+    custom(s: Shape): Shape;
+    extrude(points: Point[], offset: Point): Shape;
+    icosahedron(): Shape;
+    mapPointsToSurfaces(points: Point[], coordinateMap: number[][]): Surface[];
+    obj(objContents: string, cullBackfaces?: boolean): Shape;
+    patch(nx?: number, ny?: number): Shape;
+    path(points: Point[]): Shape;
+    pipe(point1: Point, point2: Point, radius?: number, segments?: number): Shape;
+    pyramid(): Shape;
+    rectangle(point1: Point, point2: Point): Shape;
+    sphere(subdivisions?: number): Shape;
+    tetrahedron(): Shape;
+    text(text: string, surfaceOptions?: Partial<Surface>): Shape;
+    unitcube(): Shape;
 };
 
 /**
  * Utility methods
  */
 export const Util: {
-    arraysEqual<T>(a: T[], b: T[]): boolean,
-    defaults<T>(obj: T, opts: Partial<T>, defaults: Partial<T>): void,
-    element(elementOrId: string | HTMLElement): HTMLElement,
-    uniqueId(prefix?: string): string
+    arraysEqual<T>(a: T[], b: T[]): boolean;
+    defaults<T>(obj: T, opts: Partial<T>, defaults: Partial<T>): void;
+    element(elementOrId: string | HTMLElement): HTMLElement;
+    uniqueId(prefix?: string): string;
 };
 
 export interface Viewport {
@@ -783,8 +799,8 @@ export interface Viewport {
 }
 
 export const Viewports: {
-    center(width?: number, height?: number, x?: number, y?: number): Viewport,
-    origin(width?: number, height?: number, x?: number, y?: number): Viewport
+    center(width?: number, height?: number, x?: number, y?: number): Viewport;
+    origin(width?: number, height?: number, x?: number, y?: number): Viewport;
 };
 
 /**

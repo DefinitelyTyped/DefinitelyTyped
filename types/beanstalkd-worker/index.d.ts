@@ -1,17 +1,11 @@
-// Type definitions for beanstalkd-worker 1.2
-// Project: https://github.com/burstable/node-beanstalkd-worker
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import BeanstalkdClient, { BeanstalkdJobState, BeanstalkdJobStats } from "beanstalkd";
 
 export = BeanstalkdWorker;
 
 declare class BeanstalkdWorker {
-    host?: string;
-    port?: number;
-    options?: {};
+    host?: string | undefined;
+    port?: number | undefined;
+    options?: {} | undefined;
     running: boolean;
 
     constructor(host?: string, port?: number, options?: {});
@@ -37,7 +31,11 @@ declare class BeanstalkdWorker {
      * @param payload The message payload.
      * @param options The options for the new job.
      */
-    spawn(tube: string, payload: object, options?: BeanstalkdWorker.BeanstalkdSpawnOptions): Promise<BeanstalkdWorker.Job>;
+    spawn(
+        tube: string,
+        payload: object,
+        options?: BeanstalkdWorker.BeanstalkdSpawnOptions,
+    ): Promise<BeanstalkdWorker.Job>;
 
     /**
      * Handle jobs from given Tube.
@@ -46,7 +44,11 @@ declare class BeanstalkdWorker {
      * @param handler The callback for handling jobs.
      * @param options The options for the handler.
      */
-    handle(tube: string, handler: BeanstalkdWorker.TubeHandler, options?: BeanstalkdWorker.BeanstalkdHandleOptions): void;
+    handle(
+        tube: string,
+        handler: BeanstalkdWorker.TubeHandler,
+        options?: BeanstalkdWorker.BeanstalkdHandleOptions,
+    ): void;
 
     /**
      * Creates a new Job representation.
@@ -227,26 +229,26 @@ declare namespace BeanstalkdWorker {
 
     interface BeanstalkdSpawnOptions {
         /** The priority for the new Job. */
-        priority?: number;
+        priority?: number | undefined;
         /** The timeout for the new Job (in milliseconds). */
-        timeout?: number;
+        timeout?: number | undefined;
         /** The delay before making the new Job visible (in milliseconds). */
-        delay?: number;
+        delay?: number | undefined;
     }
 
     interface BeanstalkdHandleOptions {
         /** Total number of watcher handling this Tube simultaneously. */
-        width?: number;
+        width?: number | undefined;
         /** Total amount of tries including the first one. */
-        tries?: number;
+        tries?: number | undefined;
         /** Backoff handling options */
-        backoff?: BeanstalkdHandleBackoff;
+        backoff?: BeanstalkdHandleBackoff | undefined;
     }
 
     interface BeanstalkdHandleBackoff {
         /** Initial time to wait (in milliseconds). */
-        initial?: number;
+        initial?: number | undefined;
         /** Multiple backoff by N each try. */
-        exponential?: number;
+        exponential?: number | undefined;
     }
 }

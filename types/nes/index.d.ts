@@ -1,10 +1,3 @@
-// Type definitions for nes 7.0.0
-// Project: https://github.com/hapijs/nes
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
  +                                                                           +
@@ -23,10 +16,10 @@
  *      failing test demonstrating use if so.
  */
 
-import { Plugin } from 'hapi';
-import NesClient = require('nes/client');
+import { Plugin } from "hapi";
+import NesClient = require("nes/client");
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Server {
         broadcast(message: any, options?: nes.ServerBroadcastOptions): void;
         subscription(path: string, options?: nes.ServerSubscriptionOptions): void;
@@ -35,13 +28,13 @@ declare module 'hapi' {
     }
 }
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Request {
         socket: nes.Socket;
     }
 }
 
-declare module nes {
+declare namespace nes {
     interface SocketAuthObject {
         isAuthenticated: boolean;
         credentials: any;
@@ -49,7 +42,7 @@ declare module nes {
     }
 
     interface ServerBroadcastOptions {
-        user: any
+        user: any;
     }
 
     interface ServerSubscriptionOptionsFilterOptions {
@@ -59,10 +52,10 @@ declare module nes {
     }
 
     interface ServerSubscriptionOptionsAuthOptions {
-        mode?: 'required' | 'optional';
-        scope?: string | string[];
-        entity?: 'user' | 'app' | 'any';
-        index?: boolean;
+        mode?: "required" | "optional" | undefined;
+        scope?: string | string[] | undefined;
+        entity?: "user" | "app" | "any" | undefined;
+        index?: boolean | undefined;
     }
 
     export type ServerOnSubscribeWithParams = (socket: Socket, path: string, params: any) => Promise<any>;
@@ -74,10 +67,17 @@ declare module nes {
     export type ServerOnUnSubscribe = ServerOnUnSubscribeWithParams | ServerOnUnSubscribeWithoutParams;
 
     interface ServerSubscriptionOptions {
-        filter?: (path: string, message: any, options: ServerSubscriptionOptionsFilterOptions, next: (isMatch: boolean, override?: any) => void) => void;
-        auth?: boolean | ServerSubscriptionOptionsAuthOptions;
-        onSubscribe?: ServerOnSubscribe;
-        onUnsubscribe?: ServerOnUnSubscribe;
+        filter?:
+            | ((
+                path: string,
+                message: any,
+                options: ServerSubscriptionOptionsFilterOptions,
+                next: (isMatch: boolean, override?: any) => void,
+            ) => void)
+            | undefined;
+        auth?: boolean | ServerSubscriptionOptionsAuthOptions | undefined;
+        onSubscribe?: ServerOnSubscribe | undefined;
+        onUnsubscribe?: ServerOnUnSubscribe | undefined;
     }
 
     interface ServerPublishOptions {
@@ -86,7 +86,7 @@ declare module nes {
     }
 
     interface ServerEachSocketOptions {
-        subscription?: string;
+        subscription?: string | undefined;
         user?: any;
     }
 

@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off"
+    }
+}

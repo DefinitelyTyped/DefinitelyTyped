@@ -1,16 +1,19 @@
-// Type definitions for npm-packlist 1.1
-// Project: https://github.com/npm/npm-packlist, https://www.npmjs.com/package/npm-packlist
-// Definitions by: Klaus Meinhardt <https://github.com/ajafff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+import type { Node } from "@npmcli/arborist";
+import type { Walker, WalkerOptions, WalkerSync } from "ignore-walk";
 
-declare function packlist(options?: packlist.Options): Promise<string[]>;
-declare function packlist<T>(options: packlist.Options | undefined, callback: (result: string[]) => T): Promise<T>;
+declare function packlist(tree: Node, options?: packlist.Options): Promise<string[]>;
+declare function packlist<T>(
+    tree: Node,
+    options: packlist.Options | undefined,
+    callback: (result: string[]) => T,
+): Promise<T>;
+
 declare namespace packlist {
-    interface Options {
+    interface Options extends WalkerOptions {
+        parent?: Walker | WalkerSync | null | undefined;
         /** Directory to walk recusively. Defaults to `process.cwd()`. */
-        path?: string;
+        path?: string | undefined;
     }
-    function sync(options?: Options): string[];
 }
+
 export = packlist;

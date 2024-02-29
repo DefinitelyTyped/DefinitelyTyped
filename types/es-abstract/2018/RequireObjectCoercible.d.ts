@@ -1,2 +1,2 @@
-import RequireObjectCoercible = require('../2017/RequireObjectCoercible');
+import RequireObjectCoercible = require("../2017/RequireObjectCoercible");
 export = RequireObjectCoercible;

@@ -7,7 +7,7 @@ import { EmberClassConstructor } from "@ember/object/-private/types";
 export default class Registry {
     register(
         fullName: string,
-        factory: EmberClassConstructor<any>,
-        options?: { singleton?: boolean }
+        factory: EmberClassConstructor<unknown>,
+        options?: { singleton?: boolean | undefined },
     ): void;
 }

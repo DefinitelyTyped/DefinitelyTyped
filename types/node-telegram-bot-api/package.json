@@ -1,0 +1,53 @@
+{
+    "private": true,
+    "name": "@types/node-telegram-bot-api",
+    "version": "0.64.9999",
+    "projects": [
+        "https://github.com/yagop/node-telegram-bot-api"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/node-telegram-bot-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Muench",
+            "githubUsername": "ammuench"
+        },
+        {
+            "name": "Agadar",
+            "githubUsername": "agadar"
+        },
+        {
+            "name": "Giorgio Garasto",
+            "githubUsername": "Dabolus"
+        },
+        {
+            "name": "XC-Zhang",
+            "githubUsername": "XC-Zhang"
+        },
+        {
+            "name": "AdityaThebe",
+            "githubUsername": "adityathebe"
+        },
+        {
+            "name": "Michael Orlov",
+            "githubUsername": "MiklerGM"
+        },
+        {
+            "name": "XieJiSS",
+            "githubUsername": "XieJiSS"
+        },
+        {
+            "name": "Toniop",
+            "githubUsername": "toniop99"
+        },
+        {
+            "name": "Konstantin24121",
+            "githubUsername": "konstantin24121"
+        }
+    ]
+}

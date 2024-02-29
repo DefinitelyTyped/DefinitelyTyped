@@ -1,9 +1,3 @@
-// Type definitions for Drop v1.4
-// Project: https://github.hubspot.com/drop/
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import Tether = require("tether");
 
 export = Drop;
@@ -35,26 +29,26 @@ declare class Drop {
 
 declare namespace Drop {
     interface IDropContextOptions {
-        classPrefix?: string;
-        defaults?: IDropOptions;
+        classPrefix?: string | undefined;
+        defaults?: IDropOptions | undefined;
     }
 
     interface IDropOptions {
-        target?: Element;
-        content?: Element | string | ((drop?: Drop) => string) | ((drop?: Drop) => Element);
-        position?: string;
-        openOn?: string;
-        classes?: string;
-        constrainToWindow?: boolean;
-        constrainToScrollParent?: boolean;
-        remove?: boolean;
-        beforeClose?: (event: Event, drop: Drop) => boolean;
-        openDelay?: number;
-        closeDelay?: number;
-        focusDelay?: number;
-        blurDelay?: number;
-        hoverOpenDelay?: number;
-        hoverCloseDelay?: number;
-        tetherOptions?: Tether.ITetherOptions;
+        target?: Element | undefined;
+        content?: Element | string | ((drop?: Drop) => string) | ((drop?: Drop) => Element) | undefined;
+        position?: string | undefined;
+        openOn?: string | undefined;
+        classes?: string | undefined;
+        constrainToWindow?: boolean | undefined;
+        constrainToScrollParent?: boolean | undefined;
+        remove?: boolean | undefined;
+        beforeClose?: ((event: Event, drop: Drop) => boolean) | undefined;
+        openDelay?: number | undefined;
+        closeDelay?: number | undefined;
+        focusDelay?: number | undefined;
+        blurDelay?: number | undefined;
+        hoverOpenDelay?: number | undefined;
+        hoverCloseDelay?: number | undefined;
+        tetherOptions?: Tether.ITetherOptions | undefined;
     }
 }

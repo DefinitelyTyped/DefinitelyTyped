@@ -10,6 +10,13 @@ export const iMatrix: number[];
 export let textureSize: number;
 export let copiedText: string;
 export let copiedTextStyle: any[];
+export let charWidthsCache: {
+    [key: string]: { // example: montserrat
+        [key: string]: { // example: normal_normal
+            [key: string]: number; // example: A: 286
+        };
+    };
+};
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
@@ -46,13 +53,12 @@ export function loadSVGFromString(
  * @param {Function} [reviver] Method for further parsing of SVG elements, called after each fabric object created.
  * @param {Object} [options] options for crossOrigin
  * @param {String} [options.crossOrigin] crossOrigin settings
- *
  */
 export function loadSVGFromURL(
     url: string,
     callback: (results: Object[], options: any) => void,
     reviver?: Function,
-    options?: { crossOrigin?: string }
+    options?: { crossOrigin?: string | undefined },
 ): void;
 /**
  * Returns CSS rules for a given SVG document
@@ -133,45 +139,50 @@ interface IDataURLOptions {
     /**
      * The format of the output image. Either "jpeg" or "png"
      */
-    format?: string;
+    format?: string | undefined;
     /**
      * Quality level (0..1). Only used for jpeg
      */
-    quality?: number;
+    quality?: number | undefined;
     /**
      * Multiplier to scale by
      */
-    multiplier?: number;
+    multiplier?: number | undefined;
     /**
      * Cropping left offset. Introduced in v1.2.14
      */
-    left?: number;
+    left?: number | undefined;
     /**
      * Cropping top offset. Introduced in v1.2.14
      */
-    top?: number;
+    top?: number | undefined;
     /**
      * Cropping width. Introduced in v1.2.14
      */
-    width?: number;
+    width?: number | undefined;
     /**
      * Cropping height. Introduced in v1.2.14
      */
-    height?: number;
-    enableRetinaScaling?: boolean;
-    withoutTransform?: boolean;
-    withoutShadow?: boolean;
+    height?: number | undefined;
+    enableRetinaScaling?: boolean | undefined;
+    withoutTransform?: boolean | undefined;
+    withoutShadow?: boolean | undefined;
 }
 
-interface IEvent {
-    e: Event;
-    target?: Object;
-    subTargets?: Object[];
-    button?: number;
-    isClick?: boolean;
-    pointer?: Point;
-    absolutePointer?: Point;
-    transform?: { corner: string; original: Object; originX: string; originY: string; width: number };
+interface IEvent<E extends Event = Event> {
+    e: E;
+    target?: Object | undefined;
+    subTargets?: Object[] | undefined;
+    selected?: Object[] | undefined;
+    deselected?: Object[] | undefined;
+    action?: string | undefined;
+    button?: number | undefined;
+    isClick?: boolean | undefined;
+    pointer?: Point | undefined;
+    absolutePointer?: Point | undefined;
+    transform?: Transform | undefined;
+    currentTarget?: Object | undefined;
+    currentSubTargets?: Object[] | undefined;
 }
 
 interface IFillOptions {
@@ -182,38 +193,38 @@ interface IFillOptions {
     /**
      * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat)
      */
-    repeat?: string;
+    repeat?: string | undefined;
     /**
      * Pattern horizontal offset from object's left/top corner
      */
-    offsetX?: number;
+    offsetX?: number | undefined;
     /**
      * Pattern vertical offset from object's left/top corner
      */
-    offsetY?: number;
+    offsetY?: number | undefined;
 }
 
 interface IToSVGOptions {
     /**
      * If true xml tag is not included
      */
-    suppressPreamble?: boolean;
+    suppressPreamble?: boolean | undefined;
     /**
      * SVG viewbox object
      */
-    viewBox?: IViewBox;
+    viewBox?: IViewBox | undefined;
     /**
      * Encoding of SVG output
      */
-    encoding?: string;
+    encoding?: string | undefined;
     /**
      * desired width of svg with or without units
      */
-    width?: number | string;
+    width?: number | string | undefined;
     /**
      * desired height of svg with or without units
      */
-    height?: number | string;
+    height?: number | string | undefined;
 }
 
 interface IViewBox {
@@ -313,25 +324,73 @@ interface ICollection<T> {
     complexity(): number;
 }
 
+type EventName =
+    | "object:modified"
+    | "object:moving"
+    | "object:scaling"
+    | "object:rotating"
+    | "object:skewing"
+    | "object:resizing"
+    | "object:selected"
+    | "object:added"
+    | "object:removed"
+    | "group:selected"
+    | "before:transform"
+    | "before:selection:cleared"
+    | "selection:cleared"
+    | "selection:created"
+    | "selection:updated"
+    | "mouse:up"
+    | "mouse:down"
+    | "mouse:move"
+    | "mouse:up:before"
+    | "mouse:down:before"
+    | "mouse:move:before"
+    | "mouse:dblclick"
+    | "mouse:wheel"
+    | "mouse:over"
+    | "mouse:out"
+    | "drop:before"
+    | "drop"
+    | "dragover"
+    | "dragenter"
+    | "dragleave"
+    | "before:render"
+    | "after:render"
+    | "before:path:created"
+    | "path:created"
+    | "canvas:cleared"
+    | "moving"
+    | "scaling"
+    | "rotating"
+    | "skewing"
+    | "resizing"
+    | "mouseup"
+    | "mousedown"
+    | "mousemove"
+    | "mouseup:before"
+    | "mousedown:before"
+    | "mousemove:before"
+    | "mousedblclick"
+    | "mousewheel"
+    | "mouseover"
+    | "mouseout"
+    | "drop:before"
+    | "drop"
+    | "dragover"
+    | "dragenter"
+    | "dragleave";
+
 interface IObservable<T> {
     /**
      * Observes specified event
      * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
+    on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
+    on(eventName: "mouse:wheel", handler: (e: IEvent<WheelEvent>) => void): T;
     on(eventName: string, handler: (e: IEvent) => void): T;
 
-    /**
-     * Observes specified event
-     * @param eventName Object with key/value pairs (eg. {'after:render': handler, 'selection:cleared': handler})
-     */
-    on(events: { [eventName: string]: (e: IEvent) => void }): T;
-    /**
-     * Fires event with an optional options object
-     * @param eventName Event name to fire
-     * @param [options] Options object
-     */
-    trigger(eventName: string, options?: any): T;
     /**
      * Stops event observing for a particular event handler. Calling this method
      * without arguments removes all handlers for all events
@@ -339,13 +398,22 @@ interface IObservable<T> {
      * @param handler Function to be deleted from EventListeners
      */
     off(eventName?: string | any, handler?: (e: IEvent) => void): T;
+
+    /**
+     * Fires event with an optional options object
+     * @param {String} eventName Event name to fire
+     * @param {Object} [options] Options object
+     * @return {Self} thisArg
+     * @chainable
+     */
+    fire(eventName: string, options?: any): T;
 }
 
 interface Callbacks {
     /** Invoked on completion */
-    onComplete?: Function;
+    onComplete?: Function | undefined;
     /** Invoked on every step of animation */
-    onChange?: Function;
+    onChange?: Function | undefined;
 }
 
 // animation mixin
@@ -400,28 +468,28 @@ interface IAnimationOptions {
     /**
      * Allows to specify starting value of animatable property (if we don't want current value to be used).
      */
-    from?: string | number;
+    from?: string | number | undefined;
     /**
      * Defaults to 500 (ms). Can be used to change duration of an animation.
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * Callback; invoked on every value change
      */
-    onChange?: Function;
+    onChange?: Function | undefined;
     /**
      * Callback; invoked when value change is completed
      */
-    onComplete?: Function;
+    onComplete?: Function | undefined;
 
     /**
      * Easing function. Default: fabric.util.ease.easeInSine
      */
-    easing?: Function;
+    easing?: Function | undefined;
     /**
      *  Value to modify the property by, default: end - start
      */
-    by?: number;
+    by?: number | undefined;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -550,70 +618,65 @@ export class Color {
      * Regex matching color in HEX format (ex: #FF5544CC, #FF5555, 010155, aff)
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHex: RegExp;
     /**
      * Regex matching color in HSL or HSLA formats (ex: hsl(200, 80%, 10%), hsla(300, 50%, 80%, 0.5), hsla( 300 , 50% , 80% , 0.5 ))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reHSLa: RegExp;
     /**
      * Regex matching color in RGB or RGBA formats (ex: rgb(0, 0, 0), rgba(255, 100, 10, 0.5), rgba( 255 , 100 , 10 , 0.5 ), rgb(1,1,1), rgba(100%, 60%, 10%, 0.5))
      * @static
      * @field
-     * @memberOf fabric.Color
      */
     static reRGBa: RegExp;
 }
 
 interface IGradientOptionsCoords {
-    x1?: number;
-    y1?: number;
-    x2?: number;
-    y2?: number;
-    r1?: number;
-    r2?: number;
+    x1?: number | undefined;
+    y1?: number | undefined;
+    x2?: number | undefined;
+    y2?: number | undefined;
+    r1?: number | undefined;
+    r2?: number | undefined;
 }
 
 type IGradientOptionsColorStops = Array<{
-    offset: string;
+    offset: number;
     color: string;
 }>;
 
 interface IGradientOptions {
     /**
      * Horizontal offset for aligning gradients coming from SVG when outside pathgroups
-     * @type Number
      */
-    offsetX?: number;
+    offsetX?: number | undefined;
     /**
      * Vertical offset for aligning gradients coming from SVG when outside pathgroups
-     * @type Number
      */
-    offsetY?: number;
-    type?: string;
-    coords?: IGradientOptionsCoords;
+    offsetY?: number | undefined;
+    type?: string | undefined;
+    coords?: IGradientOptionsCoords | undefined;
     /**
      * Color stops object eg. {0:string; 1:string;
      */
-    colorStops?: IGradientOptionsColorStops;
+    colorStops?: IGradientOptionsColorStops | undefined;
     gradientTransform?: any;
 }
 
 interface OGradientOptions {
-    type?: string;
-    x1?: number;
-    y1?: number;
-    x2?: number;
-    y2?: number;
-    r1?: number;
-    r2?: number;
+    type?: string | undefined;
+    x1?: number | undefined;
+    y1?: number | undefined;
+    x2?: number | undefined;
+    y2?: number | undefined;
+    r1?: number | undefined;
+    r2?: number | undefined;
     colorStops?: {
         [key: string]: string;
-    };
+    } | undefined;
     gradientTransform?: any;
 }
 
@@ -637,12 +700,12 @@ export class Gradient {
      * @return {fabric.Gradient} thisArg
      */
     constructor(options: {
-        type?: string;
+        type?: string | undefined;
         gradientUnits?: any;
         offsetX?: any;
         offsetY?: any;
-        colorStops?: IGradientOptionsColorStops;
-        coords?: IGradientOptionsCoords;
+        colorStops?: IGradientOptionsColorStops | undefined;
+        coords?: IGradientOptionsCoords | undefined;
     });
     /**
      * Adds another colorStop
@@ -667,7 +730,6 @@ export class Gradient {
     /**
      * Returns {@link fabric.Gradient} instance from an SVG element
      * @static
-     * @memberOf fabric.Gradient
      * @param {SVGGradientElement} el SVG gradient element
      * @param {fabric.Object} instance
      * @return {fabric.Gradient} Gradient instance
@@ -675,16 +737,13 @@ export class Gradient {
      * @see http://www.w3.org/TR/SVG/pservers.html#RadialGradientElement
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
-    /**
-     * Returns {@link fabric.Gradient} instance from its object representation
-     * @static
-     * @memberOf fabric.Gradient
-     * @param {Object} obj
-     * @param {Object} [options] Options object
-     */
-    static forObject(obj: any, options?: IGradientOptions): Gradient;
 }
+
 export class Intersection {
+    status?: string | undefined;
+
+    points?: Point[] | undefined;
+
     constructor(status?: string);
     /**
      * Appends a point to intersection
@@ -709,34 +768,33 @@ export class Intersection {
     /**
      * Checks if polygon intersects rectangle
      */
-    static intersectPolygonRectangle(points: Point[], r1: number, r2: number): Intersection;
+    static intersectPolygonRectangle(points: Point[], r1: Point, r2: Point): Intersection;
 }
 
 interface IPatternOptions {
     /**
      * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat)
      */
-    repeat?: string;
+    repeat?: string | undefined;
 
     /**
      * Pattern horizontal offset from object's left/top corner
      */
-    offsetX?: number;
+    offsetX?: number | undefined;
 
     /**
      * Pattern vertical offset from object's left/top corner
      */
-    offsetY?: number;
+    offsetY?: number | undefined;
     /**
      * crossOrigin value (one of "", "anonymous", "use-credentials")
      * @see https://developer.mozilla.org/en-US/docs/HTML/CORS_settings_attributes
-     * @type String
      */
-    crossOrigin?: '' | 'anonymous' | 'use-credentials';
+    crossOrigin?: "" | "anonymous" | "use-credentials" | undefined;
     /**
      * Transform matrix to change the pattern, imported from svgs
      */
-    patternTransform?: number[];
+    patternTransform?: number[] | undefined;
     /**
      * The source for the pattern
      */
@@ -770,7 +828,11 @@ export class Pattern {
      */
     toLive(ctx: CanvasRenderingContext2D): CanvasPattern;
 }
-export class Point {
+interface IPoint {
+    x: number;
+    y: number;
+}
+export class Point implements IPoint {
     x: number;
     y: number;
     type: string;
@@ -780,14 +842,14 @@ export class Point {
      * @param {fabric.Point} that
      * @return {fabric.Point} new Point instance with added values
      */
-    add(that: Point): Point;
+    add(that: IPoint): Point;
     /**
      * Adds another point to this one
      * @param {fabric.Point} that
      * @return {fabric.Point} thisArg
      * @chainable
      */
-    addEquals(that: Point): Point;
+    addEquals(that: IPoint): Point;
     /**
      * Adds value to this point and returns a new one
      * @param {Number} scalar
@@ -806,14 +868,14 @@ export class Point {
      * @param {fabric.Point} that
      * @return {fabric.Point} new Point object with subtracted values
      */
-    subtract(that: Point): Point;
+    subtract(that: IPoint): Point;
     /**
      * Subtracts another point from this point
      * @param {fabric.Point} that
      * @return {fabric.Point} thisArg
      * @chainable
      */
-    subtractEquals(that: Point): Point;
+    subtractEquals(that: IPoint): Point;
     /**
      * Subtracts value from this point and returns a new one
      * @param {Number} scalar
@@ -858,62 +920,62 @@ export class Point {
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    eq(that: Point): Point;
+    eq(that: IPoint): Point;
     /**
      * Returns true if this point is less than another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    lt(that: Point): Point;
+    lt(that: IPoint): Point;
     /**
      * Returns true if this point is less than or equal to another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    lte(that: Point): Point;
+    lte(that: IPoint): Point;
     /**
      * Returns true if this point is greater another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    gt(that: Point): Point;
+    gt(that: IPoint): Point;
     /**
      * Returns true if this point is greater than or equal to another one
      * @param {fabric.Point} that
      * @return {Boolean}
      */
-    gte(that: Point): Point;
+    gte(that: IPoint): Point;
     /**
      * Returns new point which is the result of linear interpolation with this one and another one
      * @param {fabric.Point} that
      * @param {Number} t , position of interpolation, between 0 and 1 default 0.5
      * @return {fabric.Point}
      */
-    lerp(that: Point, t: number): Point;
+    lerp(that: IPoint, t: number): Point;
     /**
      * Returns distance from this point and another one
      * @param {fabric.Point} that
      * @return {Number}
      */
-    distanceFrom(that: Point): number;
+    distanceFrom(that: IPoint): number;
     /**
      * Returns the point between this point and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    midPointFrom(that: Point): Point;
+    midPointFrom(that: IPoint): Point;
     /**
      * Returns a new point which is the min of this and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    min(that: Point): Point;
+    min(that: IPoint): Point;
     /**
      * Returns a new point which is the max of this and another one
      * @param {fabric.Point} that
      * @return {fabric.Point}
      */
-    max(that: Point): Point;
+    max(that: IPoint): Point;
     /**
      * Returns string representation of this point
      * @return {String}
@@ -943,12 +1005,12 @@ export class Point {
      * @param {fabric.Point} that
      * @chainable
      */
-    setFromPoint(that: Point): Point;
+    setFromPoint(that: IPoint): Point;
     /**
      * Swaps x/y of this point and another point
      * @param {fabric.Point} that
      */
-    swap(that: Point): Point;
+    swap(that: IPoint): Point;
     /**
      * return a cloned instance of the point
      * @return {fabric.Point}
@@ -959,35 +1021,34 @@ interface IShadowOptions {
     /**
      * Shadow color
      */
-    color?: string;
+    color?: string | undefined;
     /**
      * Shadow blur
      */
-    blur?: number;
+    blur?: number | undefined;
     /**
      * Shadow horizontal offset
      */
-    offsetX?: number;
+    offsetX?: number | undefined;
     /**
      * Shadow vertical offset
      */
-    offsetY?: number;
+    offsetY?: number | undefined;
     /**
      * Whether the shadow should affect stroke operations
      */
-    affectStroke?: boolean;
+    affectStroke?: boolean | undefined;
     /**
      * Indicates whether toObject should include default values
      */
-    includeDefaultValues?: boolean;
+    includeDefaultValues?: boolean | undefined;
     /**
      * When `false`, the shadow will scale with the object.
      * When `true`, the shadow's offsetX, offsetY, and blur will not be affected by the object's scale.
      * default to false
-     * @type Boolean
      * @default
      */
-    nonScaling?: boolean;
+    nonScaling?: boolean | undefined;
 }
 export interface Shadow extends IShadowOptions {}
 export class Shadow {
@@ -1014,7 +1075,6 @@ export class Shadow {
      * Regex matching shadow offsetX, offsetY and blur (ex: "2px 2px 10px rgba(0,0,0,0.2)", "rgb(0,255,0) 2px 2px")
      * @static
      * @field
-     * @memberOf fabric.Shadow
      */
     static reOffsetsAndBlur: RegExp;
 }
@@ -1036,20 +1096,19 @@ interface ICanvasDimensionsOptions {
     /**
      * Set the given dimensions only as canvas backstore dimensions
      */
-    backstoreOnly?: boolean;
+    backstoreOnly?: boolean | undefined;
     /**
      * Set the given dimensions only as css dimensions
      */
-    cssOnly?: boolean;
+    cssOnly?: boolean | undefined;
 }
 
 interface IStaticCanvasOptions {
     /**
      * Background color of canvas instance.
      * Should be set via {@link fabric.StaticCanvas#setBackgroundColor}.
-     * @type {(String|fabric.Pattern)}
      */
-    backgroundColor?: string | Pattern;
+    backgroundColor?: string | Pattern | undefined;
     /**
      * Background image of canvas instance.
      * Should be set via {@link fabric.StaticCanvas#setBackgroundImage}.
@@ -1059,16 +1118,14 @@ interface IStaticCanvasOptions {
      * since 2.4.0 image caching is active, please when putting an image as background, add to the
      * canvas property a reference to the canvas it is on. Otherwise the image cannot detect the zoom
      * vale. As an alternative you can disable image objectCaching
-     * @type fabric.Image
      */
-    backgroundImage?: Image | string;
+    backgroundImage?: Image | string | undefined;
     /**
      * Overlay color of canvas instance.
      * Should be set via {@link fabric.StaticCanvas#setOverlayColor}
      * @since 1.3.9
-     * @type {(String|fabric.Pattern)}
      */
-    overlayColor?: string | Pattern;
+    overlayColor?: string | Pattern | undefined;
     /**
      * Overlay image of canvas instance.
      * Should be set via {@link fabric.StaticCanvas#setOverlayImage}.
@@ -1078,20 +1135,17 @@ interface IStaticCanvasOptions {
      * since 2.4.0 image caching is active, please when putting an image as overlay, add to the
      * canvas property a reference to the canvas it is on. Otherwise the image cannot detect the zoom
      * vale. As an alternative you can disable image objectCaching
-     * @type fabric.Image
      */
-    overlayImage?: Image;
+    overlayImage?: Image | undefined;
     /**
      * Indicates whether toObject/toDatalessObject should include default values
      * if set to false, takes precedence over the object value.
-     * @type Boolean
      */
-    includeDefaultValues?: boolean;
+    includeDefaultValues?: boolean | undefined;
     /**
      * Indicates whether objects' state should be saved
-     * @type Boolean
      */
-    stateful?: boolean;
+    stateful?: boolean | undefined;
     /**
      * Indicates whether {@link fabric.Collection.add}, {@link fabric.Collection.insertAt} and {@link fabric.Collection.remove},
      * {@link fabric.StaticCanvas.moveTo}, {@link fabric.StaticCanvas.clear} and many more, should also re-render canvas.
@@ -1099,54 +1153,38 @@ interface IStaticCanvasOptions {
      * since the renders are quequed and executed one per frame.
      * Disabling is suggested anyway and managing the renders of the app manually is not a big effort ( canvas.requestRenderAll() )
      * Left default to true to do not break documentation and old app, fiddles.
-     * @type Boolean
      */
-    renderOnAddRemove?: boolean;
-    /**
-     * Function that determines clipping of entire canvas area
-     * Being passed context as first argument.
-     * If you are using code minification, ctx argument can be minified/manglied you should use
-     * as a workaround `var ctx = arguments[0];` in the function;
-     * See clipping canvas area in {@link https://github.com/kangax/fabric.js/wiki/FAQ}
-     * @deprecated since 2.0.0
-     * @type Function
-     */
-    clipTo?(context: CanvasRenderingContext2D): void;
+    renderOnAddRemove?: boolean | undefined;
     /**
      * Indicates whether object controls (borders/controls) are rendered above overlay image
-     * @type Boolean
      */
-    controlsAboveOverlay?: boolean;
+    controlsAboveOverlay?: boolean | undefined;
     /**
      * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
-     * @type Boolean
      */
-    allowTouchScrolling?: boolean;
+    allowTouchScrolling?: boolean | undefined;
     /**
      * Indicates whether this canvas will use image smoothing, this is on by default in browsers
      */
-    imageSmoothingEnabled?: boolean;
+    imageSmoothingEnabled?: boolean | undefined;
     /**
      * The transformation (in the format of Canvas transform) which focuses the viewport
      */
-    viewportTransform?: number[];
+    viewportTransform?: number[] | undefined;
     /**
      * if set to false background image is not affected by viewport transform
      * @since 1.6.3
-     * @type Boolean
      */
-    backgroundVpt?: boolean;
+    backgroundVpt?: boolean | undefined;
     /**
      * if set to false overlay image is not affected by viewport transform
      * @since 1.6.3
-     * @type Boolean
      */
-    overlayVpt?: boolean;
+    overlayVpt?: boolean | undefined;
     /**
      * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
-     * @type Boolean
      */
-    enableRetinaScaling?: boolean;
+    enableRetinaScaling?: boolean | undefined;
     /**
      * Describe canvas element extension over design
      * properties are tl,tr,bl,br.
@@ -1154,57 +1192,43 @@ interface IStaticCanvasOptions {
      * if canvas is viewportTransformed you those points indicate the extension
      * of canvas element in plain untrasformed coordinates
      * The coordinates get updated with @method calcViewportBoundaries.
-     * @memberOf fabric.StaticCanvas.prototype
      */
     vptCoords?: {
         tl: { x: number; y: number };
         tr: { x: number; y: number };
         bl: { x: number; y: number };
         br: { x: number; y: number };
-    };
+    } | undefined;
     /**
      * Based on vptCoords and object.aCoords, skip rendering of objects that
      * are not included in current viewport.
      * May greatly help in applications with crowded canvas and use of zoom/pan
      * If One of the corner of the bounding box of the object is on the canvas
      * the objects get rendered.
-     * @memberOf fabric.StaticCanvas.prototype
-     * @type Boolean
      */
-    skipOffscreen?: boolean;
+    skipOffscreen?: boolean | undefined;
     /**
      * a fabricObject that, without stroke define a clipping area with their shape. filled in black
      * the clipPath object gets used when the canvas has rendered, and the context is placed in the
      * top left corner of the canvas.
      * clipPath will clip away controls, if you do not want this to happen use controlsAboveOverlay = true
-     * @type fabric.Object
      */
-    clipPath?: Object;
+    clipPath?: Object | undefined;
     /**
      * When true, getSvgTransform() will apply the StaticCanvas.viewportTransform to the SVG transformation. When true,
      * a zoomed canvas will then produce zoomed SVG output.
-     * @type Boolean
      */
-    svgViewportTransformation?: boolean;
-}
-
-export interface FreeDrawingBrush {
-    /**
-     * Can be any regular color value.
-     */
-    color: string;
-
-    /**
-     * Brush width measured in pixels.
-     */
-    width: number;
+    svgViewportTransformation?: boolean | undefined;
 }
 
 export interface StaticCanvas
-    extends IObservable<StaticCanvas>,
-        IStaticCanvasOptions,
-        ICollection<StaticCanvas>,
-        ICanvasAnimation<StaticCanvas> {}
+    extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas>
+{
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toObject(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+    toDatalessObject(propertiesToInclude?: string[]): { version: string; objects: Object[] };
+}
 export class StaticCanvas {
     /**
      * Constructor
@@ -1214,9 +1238,9 @@ export class StaticCanvas {
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
 
-    _activeObject?: Object | Group;
+    _activeObject?: Object | Group | undefined;
 
-    freeDrawingBrush: FreeDrawingBrush;
+    freeDrawingBrush: BaseBrush;
 
     /**
      * Calculates canvas element offset relative to the document
@@ -1323,7 +1347,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable true
      */
-    zoomToPoint(point: Point, value: number): Canvas;
+    zoomToPoint(point: IPoint, value: number): Canvas;
 
     /**
      * Sets zoom level of this canvas instance
@@ -1339,7 +1363,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable
      */
-    absolutePan(point: Point): Canvas;
+    absolutePan(point: IPoint): Canvas;
 
     /**
      * Pans viewpoint relatively
@@ -1347,7 +1371,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      * @chainable
      */
-    relativePan(point: Point): Canvas;
+    relativePan(point: IPoint): Canvas;
 
     /**
      * Returns <canvas> element corresponding to this instance
@@ -1388,7 +1412,6 @@ export class StaticCanvas {
      * Let the fabricJS call it. If you call it manually you could have more
      * animationFrame stacking on to of each other
      * for an imperative rendering, use canvas.renderAll
-     * @private
      * @return {fabric.Canvas} instance
      * @chainable
      */
@@ -1492,14 +1515,14 @@ export class StaticCanvas {
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} json string
      */
-    toDatalessJSON(propertiesToInclude?: string[]): string;
+    toDatalessJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Returns JSON representation of canvas
      * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {String} JSON string
      */
-    toJSON(propertiesToInclude?: string[]): string;
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Returns object representation of canvas
@@ -1590,7 +1613,6 @@ export class StaticCanvas {
 
     /**
      * @static
-     * @type String
      * @default
      */
     static EMPTY_JSON: string;
@@ -1604,7 +1626,7 @@ export class StaticCanvas {
      * @return {Boolean | null} `true` if method is supported (or at least exists),
      *                          `null` if canvas element or context can not be initialized
      */
-    static supports(methodName: 'getImageData' | 'toDataURL' | 'toDataURLWithQuality' | 'setLineDash'): boolean;
+    static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
 
     /**
      * Exports canvas element to a dataurl image. Note that when multiplier is used, cropping is scaled appropriately
@@ -1616,7 +1638,7 @@ export class StaticCanvas {
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Clones canvas instance
@@ -1634,19 +1656,28 @@ export class StaticCanvas {
     cloneWithoutData(callback?: any): void;
 
     /**
-     * Populates canvas with data from the specified dataless JSON.
-     * JSON format must conform to the one of {@link fabric.Canvas#toDatalessJSON}
-     * @deprecated since 1.2.2
-     * @param {String|Object} json JSON string or object
-     * @param {Function} callback Callback, invoked when json is parsed
-     *                            and corresponding objects (e.g: {@link fabric.Image})
-     *                            are initialized
-     * @param {Function} [reviver] Method for further parsing of JSON elements, called after each fabric object created.
-     * @return {fabric.Canvas} instance
-     * @chainable
-     * @tutorial {@link http://fabricjs.com/fabric-intro-part-3#deserialization}
+     * Create a new HTMLCanvas element painted with the current canvas content.
+     * No need to resize the actual one or repaint it.
+     * Will transfer object ownership to a new canvas, paint it, and set everything back.
+     * This is an intermediary step used to get to a dataUrl but also it is useful to
+     * create quick image copies of a canvas without passing for the dataUrl string
+     * @param {Number} [multiplier] a zoom factor.
+     * @param {Object} [cropping] Cropping informations
+     * @param {Number} [cropping.left] Cropping left offset.
+     * @param {Number} [cropping.top] Cropping top offset.
+     * @param {Number} [cropping.width] Cropping width.
+     * @param {Number} [cropping.height] Cropping height.
      */
-    loadFromDatalessJSON(json: any, callback: Function, reviver?: Function): Canvas;
+    toCanvasElement(
+        multiplier?: number,
+        cropping?: Readonly<{
+            left?: number;
+            top?: number;
+            width?: number;
+            height?: number;
+        }>,
+    ): HTMLCanvasElement;
+
     /**
      * Populates canvas with data from the specified JSON.
      * JSON format must conform to the one of {@link fabric.Canvas#toJSON}
@@ -1658,6 +1689,7 @@ export class StaticCanvas {
      * @return {fabric.Canvas} instance
      */
     loadFromJSON(json: any, callback: Function, reviver?: Function): Canvas;
+
     /**
      * Creates markup containing SVG font faces,
      * font URLs for font faces must be collected by developers
@@ -1665,11 +1697,13 @@ export class StaticCanvas {
      * @param {Array} objects Array of fabric objects
      * @return {String}
      */
+
     createSVGFontFacesMarkup(objects: any[]): string;
     /**
      * Creates markup containing SVG referenced elements like patterns, gradients etc.
      * @return {String}
      */
+
     createSVGRefElementsMarkup(): string;
     /**
      * Straightens object, then rerenders canvas
@@ -1677,15 +1711,18 @@ export class StaticCanvas {
      * @return {fabric.Canvas} thisArg
      * @chainable
      */
+
     straightenObject(object: Object): Canvas;
 }
 
 interface ICanvasOptions extends IStaticCanvasOptions {
     /**
      * When true, objects can be transformed by one side (unproportionally)
-     * @type Boolean
+     * when dragged on the corners that normally would not do that.
+     * @default
+     * @since fabric 4.0 // changed name and default value
      */
-    uniScaleTransform?: boolean;
+    uniformScaling?: boolean | undefined;
 
     /**
      * Indicates which key enable unproportional scaling
@@ -1693,26 +1730,25 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * If `null` or 'none' or any other string that is not a modifier key
      * feature is disabled feature disabled.
      * @since 1.6.2
-     * @type String
      */
-    uniScaleKey?: string;
+    uniScaleKey?: string | undefined;
 
     /**
      * When true, objects use center point as the origin of scale transformation.
      * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
      */
-    centeredScaling?: boolean;
+    centeredScaling?: boolean | undefined;
 
     /**
      * When true, objects use center point as the origin of rotate transformation.
      * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
      */
-    centeredRotation?: boolean;
+    centeredRotation?: boolean | undefined;
 
     /**
      * Color of object's fill
      */
-    fill?: string | Pattern | Gradient;
+    fill?: string | Pattern | Gradient | undefined;
 
     /**
      * Indicates which key enable centered Transform
@@ -1720,10 +1756,9 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * If `null` or 'none' or any other string that is not a modifier key
      * feature is disabled feature disabled.
      * @since 1.6.2
-     * @type String
      * @default
      */
-    centeredKey?: string;
+    centeredKey?: string | undefined;
 
     /**
      * Indicates which key enable alternate action on corner
@@ -1731,20 +1766,19 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * If `null` or 'none' or any other string that is not a modifier key
      * feature is disabled feature disabled.
      * @since 1.6.2
-     * @type String
      * @default
      */
-    altActionKey?: string;
+    altActionKey?: string | undefined;
 
     /**
      * Indicates that canvas is interactive. This property should not be changed.
      */
-    interactive?: boolean;
+    interactive?: boolean | undefined;
 
     /**
      * Indicates whether group selection should be enabled
      */
-    selection?: boolean;
+    selection?: boolean | undefined;
 
     /**
      * Indicates which key or keys enable multiple click selection
@@ -1753,10 +1787,9 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * If `null` or empty or containing any other string that is not a modifier key
      * feature is disabled.
      * @since 1.6.2
-     * @type String|Array
      * @default
      */
-    selectionKey?: string | string[];
+    selectionKey?: string | string[] | undefined;
 
     /**
      * Indicates which key enable alternative selection
@@ -1767,167 +1800,155 @@ interface ICanvasOptions extends IStaticCanvasOptions {
      * If `null` or 'none' or any other string that is not a modifier key
      * feature is disabled.
      * @since 1.6.5
-     * @type null|String
      * @default
      */
-    altSelectionKey?: string | null;
+    altSelectionKey?: string | null | undefined;
 
     /**
      * Color of selection
      */
-    selectionColor?: string;
+    selectionColor?: string | undefined;
 
     /**
      * Default dash array pattern
      * If not empty the selection border is dashed
      */
-    selectionDashArray?: number[];
+    selectionDashArray?: number[] | undefined;
 
     /**
      * Color of the border of selection (usually slightly darker than color of selection itself)
      */
-    selectionBorderColor?: string;
+    selectionBorderColor?: string | undefined;
 
     /**
      * Width of a line used in object/group selection
      */
-    selectionLineWidth?: number;
+    selectionLineWidth?: number | undefined;
 
     /**
      * Select only shapes that are fully contained in the dragged selection rectangle.
-     * @type Boolean
      * @default
      */
-    selectionFullyContained?: boolean;
+    selectionFullyContained?: boolean | undefined;
 
     /**
      * Default cursor value used when hovering over an object on canvas
      */
-    hoverCursor?: string;
+    hoverCursor?: string | undefined;
 
     /**
      * Default cursor value used when moving an object on canvas
      */
-    moveCursor?: string;
+    moveCursor?: string | undefined;
 
     /**
      * Default cursor value used for the entire canvas
      */
-    defaultCursor?: string;
+    defaultCursor?: string | undefined;
 
     /**
      * Cursor value used during free drawing
      */
-    freeDrawingCursor?: string;
+    freeDrawingCursor?: string | undefined;
 
     /**
      * Cursor value used for rotation point
      */
-    rotationCursor?: string;
+    rotationCursor?: string | undefined;
 
     /**
      * Cursor value used for disabled elements ( corners with disabled action )
-     * @type String
      * @since 2.0.0
      * @default
      */
-    notAllowedCursor?: string;
+    notAllowedCursor?: string | undefined;
 
     /**
      * Default element class that's given to wrapper (div) element of canvas
      */
-    containerClass?: string;
+    containerClass?: string | undefined;
 
     /**
      * When true, object detection happens on per-pixel basis rather than on per-bounding-box
      */
-    perPixelTargetFind?: boolean;
+    perPixelTargetFind?: boolean | undefined;
 
     /**
      * Number of pixels around target pixel to tolerate (consider active) during object detection
      */
-    targetFindTolerance?: number;
+    targetFindTolerance?: number | undefined;
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.
      */
-    skipTargetFind?: boolean;
+    skipTargetFind?: boolean | undefined;
 
     /**
      * When true, mouse events on canvas (mousedown/mousemove/mouseup) result in free drawing.
      * After mousedown, mousemove creates a shape,
      * and then mouseup finalizes it and adds an instance of `fabric.Path` onto canvas.
      */
-    isDrawingMode?: boolean;
+    isDrawingMode?: boolean | undefined;
 
     /**
      * Indicates whether objects should remain in current stack position when selected.
      * When false objects are brought to top and rendered as part of the selection group
-     * @type Boolean
      */
-    preserveObjectStacking?: boolean;
+    preserveObjectStacking?: boolean | undefined;
 
     /**
      * Indicates the angle that an object will lock to while rotating.
-     * @type Number
      * @since 1.6.7
      */
-    snapAngle?: number;
+    snapAngle?: number | undefined;
 
     /**
      * Indicates the distance from the snapAngle the rotation will lock to the snapAngle.
      * When `null`, the snapThreshold will default to the snapAngle.
-     * @type null|Number
      * @since 1.6.7
      * @default
      */
-    snapThreshold?: null | number;
+    snapThreshold?: null | number | undefined;
 
     /**
      * Indicates if the right click on canvas can output the context menu or not
-     * @type Boolean
      * @since 1.6.5
      * @default
      */
-    stopContextMenu?: boolean;
+    stopContextMenu?: boolean | undefined;
 
     /**
      * Indicates if the canvas can fire right click events
-     * @type Boolean
      * @since 1.6.5
      * @default
      */
-    fireRightClick?: boolean;
+    fireRightClick?: boolean | undefined;
 
     /**
      * Indicates if the canvas can fire middle click events
-     * @type Boolean
      * @since 1.7.8
      * @default
      */
-    fireMiddleClick?: boolean;
+    fireMiddleClick?: boolean | undefined;
 
     /**
      * Keep track of the subTargets for Mouse Events
-     * @type {Array.<fabric.Object>}
      * @since 3.6.0
      * @default
      */
-    targets?: Object[];
+    targets?: Object[] | undefined;
 
     /**
      * Canvas width
-     * @type number
      * @default
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Canvas height
-     * @type number
      * @default
      */
-    height?: number;
+    height?: number | undefined;
 }
 export interface Canvas extends StaticCanvas {}
 export interface Canvas extends ICanvasOptions {}
@@ -1938,10 +1959,16 @@ export class Canvas {
      * @param [options] Options object
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
+    /**
+     * Constructor
+     * @param {HTMLCanvasElement | String} element <canvas> element to initialize instance on
+     * @param {Object} [options] Options object
+     * @return {Object} thisArg
+     */
+    initialize(element: HTMLCanvasElement | string | null, options?: ICanvasOptions): Canvas;
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.
-     * @type Boolean
      * @default
      */
     skipTargetFind: boolean;
@@ -1957,12 +1984,10 @@ export class Canvas {
      * If `null` or 'none' or any other string that is not a modifier key
      * feature is disabled.
      * @since 1.6.5
-     * @type null|String
      * @default
      */
-    altSelectionKey?: string;
+    altSelectionKey?: string | undefined;
 
-    fire(eventName: string, options: any): void;
     /**
      * Renders both the top canvas and the secondary container canvas.
      * @return {fabric.Canvas} instance
@@ -2013,7 +2038,7 @@ export class Canvas {
      * @param {Object} pointer with "x" and "y" number values
      * @return {Object} object with "x" and "y" number values
      */
-    restorePointerVpt(pointer: Point): any;
+    restorePointerVpt(pointer: IPoint): any;
     /**
      * Returns pointer coordinates relative to canvas.
      * Can return coordinates with or without viewportTransform.
@@ -2047,7 +2072,7 @@ export class Canvas {
      * Returns currently active object
      * @return {fabric.Object} active object
      */
-    getActiveObject(): Object;
+    getActiveObject(): Object | null;
     /**
      * Returns an array with the current selected objects
      * @return {fabric.Object} active object
@@ -2089,7 +2114,6 @@ export class Canvas {
      */
     drawControls(ctx: CanvasRenderingContext2D): void;
     /**
-     * @private
      * @return {Boolean} true if the scaling occurred
      */
     _setObjectScale(
@@ -2097,43 +2121,37 @@ export class Canvas {
         transform: any,
         lockScalingX: boolean,
         lockScalingY: boolean,
-        by: 'x' | 'y' | 'equally' | undefined,
+        by: "x" | "y" | "equally" | undefined,
         lockScalingFlip: boolean,
         _dim: Point,
     ): boolean;
     /**
      * Scales object by invoking its scaleX/scaleY methods
-     * @private
      * @param {Number} x pointer's x coordinate
      * @param {Number} y pointer's y coordinate
      * @param {String} by Either 'x' or 'y' - specifies dimension constraint by which to scale an object.
      *                    When not provided, an object is scaled by both dimensions equally
      * @return {Boolean} true if the scaling occurred
      */
-    _scaleObject(x: number, y: number, by?: 'x' | 'y' | 'equally'): boolean;
+    _scaleObject(x: number, y: number, by?: "x" | "y" | "equally"): boolean;
     /**
-     * @private
      * @param {fabric.Object} obj Object that was removed
      */
     _onObjectRemoved(obj: Object): void;
     /**
-     * @private
      * @param {fabric.Object} obj Object that was added
      */
     _onObjectAdded(obj: Object): void;
     /**
      * Resets the current transform to its original values and chooses the type of resizing based on the event
-     * @private
      */
     _resetCurrentTransform(): void;
     /**
-     * @private
      * Compares the old activeObject with the current one and fires correct events
      * @param {fabric.Object} obj old activeObject
      */
     _fireSelectionEvents(oldObjects: Object[], e?: Event): void;
     /**
-     * @private
      * @param {Object} object to set as active
      * @param {Event} [e] Event (passed along when firing "object:selected")
      * @return {Boolean} true if the selection happened
@@ -2163,7 +2181,6 @@ export class Canvas {
      * @param {Array} [objects] objects array to look into
      * @param {Object} [pointer] x,y object of point coordinates we want to check.
      * @return {fabric.Object} object that contains pointer
-     * @private
      */
     _searchPossibleTargets(objects: Object[], pointer: { x: number; y: number }): Object;
 
@@ -2173,12 +2190,12 @@ export class Canvas {
      * (either those of HTMLCanvasElement itself, or rendering context)
      * @param methodName Method to check support for; Could be one of "getImageData", "toDataURL", "toDataURLWithQuality" or "setLineDash"
      */
-    static supports(methodName: 'getImageData' | 'toDataURL' | 'toDataURLWithQuality' | 'setLineDash'): boolean;
+    static supports(methodName: "getImageData" | "toDataURL" | "toDataURLWithQuality" | "setLineDash"): boolean;
     /**
      * Returns JSON representation of canvas
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    static toJSON(propertiesToInclude?: string[]): string;
+    static toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
     /**
      * Removes all event listeners
      */
@@ -2193,15 +2210,15 @@ interface ICircleOptions extends IObjectOptions {
     /**
      * Radius of this circle
      */
-    radius?: number;
+    radius?: number | undefined;
     /**
      * Start angle of the circle, moving clockwise
      */
-    startAngle?: number;
+    startAngle?: number | undefined;
     /**
      * End angle of the circle
      */
-    endAngle?: number;
+    endAngle?: number | undefined;
 }
 export interface Circle extends Object, ICircleOptions {}
 export class Circle {
@@ -2245,11 +2262,11 @@ interface IEllipseOptions extends IObjectOptions {
     /**
      * Horizontal radius
      */
-    rx?: number;
+    rx?: number | undefined;
     /**
      * Vertical radius
      */
-    ry?: number;
+    ry?: number | undefined;
 }
 export interface Ellipse extends Object, IEllipseOptions {}
 export class Ellipse {
@@ -2287,17 +2304,15 @@ export class Ellipse {
 interface IGroupOptions extends IObjectOptions {
     /**
      * Indicates if click, mouseover, mouseout events & hoverCursor should also check for subtargets
-     * @type Boolean
      */
-    subTargetCheck?: boolean;
+    subTargetCheck?: boolean | undefined;
     /**
      * setOnGroup is a method used for TextBox that is no more used since 2.0.0 The behavior is still
      * available setting this boolean to true.
-     * @type Boolean
      * @since 2.0.0
      * @default
      */
-    useSetOnGroup?: boolean;
+    useSetOnGroup?: boolean | undefined;
 }
 export interface Group extends Object, ICollection<Group>, IGroupOptions {}
 export class Group {
@@ -2408,30 +2423,23 @@ export class Group {
     addWithUpdate(object: Object): Group;
     /**
      * Retores original state of each of group objects (original state is that which was before group was created).
-     * @private
      * @return {fabric.Group} thisArg
      * @chainable
      */
     _restoreObjectsState(): Group;
-    /**
-     * @private
-     */
+    /** */
     _calcBounds(onlyWidthHeight?: boolean): void;
     /**
-     * @private
      * @param {Boolean} [skipCoordsChange] if true, coordinates of objects enclosed in a group do not change
      */
     _updateObjectsCoords(center?: Point): void;
     /**
      * Retores original state of each of group objects (original state is that which was before group was created).
-     * @private
      * @return {fabric.Group} thisArg
      * @chainable
      */
     _restoreObjectsState(): Group;
-    /**
-     * @private
-     */
+    /** */
     _onObjectRemoved(object: Object): void;
     /**
      * Returns {@link fabric.Group} instance from an object representation
@@ -2467,7 +2475,6 @@ export class ActiveSelection {
     toGroup(): Group;
     /**
      * Returns {@link fabric.ActiveSelection} instance from an object representation
-     * @memberOf fabric.ActiveSelection
      * @param object Object to create a group from
      * @param [callback] Callback to invoke when an ActiveSelection instance is created
      */
@@ -2478,52 +2485,47 @@ interface IImageOptions extends IObjectOptions {
     /**
      * crossOrigin value (one of "", "anonymous", "allow-credentials")
      */
-    crossOrigin?: string;
+    crossOrigin?: string | undefined;
     /**
      * When calling {@link fabric.Image.getSrc}, return value from element src with `element.getAttribute('src')`.
      * This allows for relative urls as image src.
      * @since 2.7.0
-     * @type Boolean
      */
-    srcFromAttribute?: boolean;
+    srcFromAttribute?: boolean | undefined;
     /**
      * minimum scale factor under which any resizeFilter is triggered to resize the image
      * 0 will disable the automatic resize. 1 will trigger automatically always.
      * number bigger than 1 are not implemented yet.
-     * @type Number
      */
-    minimumScaleTrigger?: number;
+    minimumScaleTrigger?: number | undefined;
     /**
      * key used to retrieve the texture representing this image
      * @since 2.0.0
-     * @type String
      */
-    cacheKey?: string;
+    cacheKey?: string | undefined;
     /**
      * Image crop in pixels from original image size.
      * @since 2.0.0
-     * @type Number
      */
-    cropX?: number;
+    cropX?: number | undefined;
     /**
      * Image crop in pixels from original image size.
      * @since 2.0.0
-     * @type Number
      */
-    cropY?: number;
+    cropY?: number | undefined;
     /**
      * Image filter array
      */
-    filters?: IBaseFilter[];
+    filters?: IBaseFilter[] | undefined;
 }
 interface Image extends Object, IImageOptions {}
 export class Image {
     /**
      * Constructor
-     * @param element Image or Video element
+     * @param element Image element
      * @param [options] Options object
      */
-    constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
+    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions);
     /**
      * Returns image or video element which this instance is based on
      * @return Image or Video element
@@ -2545,10 +2547,6 @@ export class Image {
      * Delete textures, reference to elements and eventually JSDOM cleanup
      */
     dispose(): void;
-    /**
-     * Sets crossOrigin value (on an instance and corresponding image element)
-     */
-    setCrossOrigin(value: string): Image;
     /**
      * Returns original size of an image
      * @return Object with "width" and "height" properties
@@ -2590,7 +2588,6 @@ export class Image {
     /**
      * Calculate offset for center and scale factor for the image in order to respect
      * the preserveAspectRatio attribute
-     * @private
      * @return {Object}
      */
     parsePreserveAspectRatioAttribute(): any;
@@ -2620,19 +2617,19 @@ interface ILineOptions extends IObjectOptions {
     /**
      * x value or first line edge
      */
-    x1?: number;
+    x1?: number | undefined;
     /**
      * x value or second line edge
      */
-    x2?: number;
+    x2?: number | undefined;
     /**
      * y value or first line edge
      */
-    y1?: number;
+    y1?: number | undefined;
     /**
      * y value or second line edge
      */
-    y2?: number;
+    y2?: number | undefined;
 }
 export interface Line extends Object, ILineOptions {}
 export class Line {
@@ -2651,7 +2648,6 @@ export class Line {
     /**
      * Returns fabric.Line instance from an SVG element
      * @static
-     * @memberOf fabric.Line
      * @param {SVGElement} element Element to parse
      * @param {Object} [options] Options object
      * @param {Function} [callback] callback function invoked after parsing
@@ -2672,7 +2668,6 @@ export class Line {
     ): Function;
     /**
      * Recalculates line points given width and height
-     * @private
      */
     calcLinePoints(): { x1: number; x2: number; y1: number; y2: number };
 }
@@ -2683,349 +2678,333 @@ interface IObjectOptions {
      * Note that this property is meant to be read-only and not meant to be modified.
      * If you modify, certain parts of Fabric (such as JSON loading) won't work correctly.
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * Horizontal origin of transformation of an object (one of "left", "right", "center")
      */
-    originX?: string;
+    originX?: string | undefined;
 
     /**
      * Vertical origin of transformation of an object (one of "top", "bottom", "center")
      */
-    originY?: string;
+    originY?: string | undefined;
 
     /**
      * Top position of an object. Note that by default it's relative to object center. You can change this by setting originY={top/center/bottom}
      */
-    top?: number;
+    top?: number | undefined;
 
     /**
      * Left position of an object. Note that by default it's relative to object center. You can change this by setting originX={left/center/right}
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Object width
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Object height
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * Object scale factor (horizontal)
      */
-    scaleX?: number;
+    scaleX?: number | undefined;
 
     /**
      * Object scale factor (vertical)
      */
-    scaleY?: number;
+    scaleY?: number | undefined;
 
     /**
      * When true, an object is rendered as flipped horizontally
      */
-    flipX?: boolean;
+    flipX?: boolean | undefined;
 
     /**
      * When true, an object is rendered as flipped vertically
      */
-    flipY?: boolean;
+    flipY?: boolean | undefined;
 
     /**
      * Opacity of an object
      */
-    opacity?: number;
+    opacity?: number | undefined;
 
     /**
      * Angle of rotation of an object (in degrees)
      */
-    angle?: number;
+    angle?: number | undefined;
 
     /**
      * Object skew factor (horizontal)
      */
-    skewX?: number;
+    skewX?: number | undefined;
 
     /**
      * Object skew factor (vertical)
      */
-    skewY?: number;
+    skewY?: number | undefined;
 
     /**
      * Size of object's controlling corners (in pixels)
      */
-    cornerSize?: number;
+    cornerSize?: number | undefined;
 
     /**
      * When true, object's controlling corners are rendered as transparent inside (i.e. stroke instead of fill)
      */
-    transparentCorners?: boolean;
+    transparentCorners?: boolean | undefined;
 
     /**
      * Default cursor value used when hovering over this object on canvas
      */
-    hoverCursor?: string;
+    hoverCursor?: string | undefined;
 
     /**
      * Default cursor value used when moving an object on canvas
      */
-    moveCursor?: string;
+    moveCursor?: string | undefined;
 
     /**
      * Padding between object and its controlling borders (in pixels)
      */
-    padding?: number;
+    padding?: number | undefined;
 
     /**
      * Color of controlling borders of an object (when it's active)
      */
-    borderColor?: string;
+    borderColor?: string | undefined;
 
     /**
      * Array specifying dash pattern of an object's border (hasBorder must be true)
      */
-    borderDashArray?: number[];
+    borderDashArray?: number[] | undefined;
 
     /**
      * Color of controlling corners of an object (when it's active)
      */
-    cornerColor?: string;
+    cornerColor?: string | undefined;
 
     /**
      * Color of controlling corners of an object (when it's active and transparentCorners false)
      */
-    cornerStrokeColor?: string;
+    cornerStrokeColor?: string | undefined;
 
     /**
      * Specify style of control, 'rect' or 'circle'
      */
-    cornerStyle?: 'rect' | 'circle';
+    cornerStyle?: "rect" | "circle" | undefined;
 
     /**
      * Array specifying dash pattern of an object's control (hasBorder must be true)
      */
-    cornerDashArray?: number[];
+    cornerDashArray?: number[] | undefined;
 
     /**
      * When true, this object will use center point as the origin of transformation
      * when being scaled via the controls.
      * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
      */
-    centeredScaling?: boolean;
+    centeredScaling?: boolean | undefined;
 
     /**
      * When true, this object will use center point as the origin of transformation
      * when being rotated via the controls.
      * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
      */
-    centeredRotation?: boolean;
+    centeredRotation?: boolean | undefined;
 
     /**
      * Color of object's fill
      */
-    fill?: string | Pattern | Gradient;
+    fill?: string | Pattern | Gradient | undefined;
 
     /**
      * Fill rule used to fill an object
      * accepted values are nonzero, evenodd
      * Backwards incompatibility note: This property was used for setting globalCompositeOperation until v1.4.12, use `globalCompositeOperation` instead
      */
-    fillRule?: string;
+    fillRule?: string | undefined;
 
     /**
      * Composite rule used for canvas globalCompositeOperation
      */
-    globalCompositeOperation?: string;
+    globalCompositeOperation?: string | undefined;
 
     /**
      * Background color of an object. Only works with text objects at the moment.
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Selection Background color of an object. colored layer behind the object when it is active.
      * does not mix good with globalCompositeOperation methods.
-     * @type String
      */
-    selectionBackgroundColor?: string;
+    selectionBackgroundColor?: string | undefined;
 
     /**
      * When defined, an object is rendered via stroke and this property specifies its color
      */
-    stroke?: string;
+    stroke?: string | undefined;
 
     /**
      * Width of a stroke used to render this object
      */
-    strokeWidth?: number;
+    strokeWidth?: number | undefined;
 
     /**
      * Array specifying dash pattern of an object's stroke (stroke must be defined)
      */
-    strokeDashArray?: number[];
+    strokeDashArray?: number[] | undefined;
 
     /**
      * Line offset of an object's stroke
-     * @type Number
      * @default
      */
-    strokeDashOffset?: number;
+    strokeDashOffset?: number | undefined;
 
     /**
      * Line endings style of an object's stroke (one of "butt", "round", "square")
      */
-    strokeLineCap?: string;
+    strokeLineCap?: string | undefined;
 
     /**
      * Corner style of an object's stroke (one of "bevil", "round", "miter")
      */
-    strokeLineJoin?: string;
+    strokeLineJoin?: string | undefined;
 
     /**
      * Maximum miter length (used for strokeLineJoin = "miter") of an object's stroke
      */
-    strokeMiterLimit?: number;
+    strokeMiterLimit?: number | undefined;
 
     /**
      * Shadow object representing shadow of this shape
      */
-    shadow?: Shadow | string;
+    shadow?: Shadow | string | undefined;
 
     /**
      * Opacity of object's controlling borders when object is active and moving
      */
-    borderOpacityWhenMoving?: number;
+    borderOpacityWhenMoving?: number | undefined;
 
     /**
      * Scale factor of object's controlling borders
      */
-    borderScaleFactor?: number;
-
-    /**
-     * Transform matrix (similar to SVG's transform matrix)
-     */
-    transformMatrix?: any[];
+    borderScaleFactor?: number | undefined;
 
     /**
      * Minimum allowed scale value of an object
      */
-    minScaleLimit?: number;
+    minScaleLimit?: number | undefined;
 
     /**
      * When set to `false`, an object can not be selected for modification (using either point-click-based or group-based selection).
      * But events still fire on it.
      */
-    selectable?: boolean;
+    selectable?: boolean | undefined;
 
     /**
      * When set to `false`, an object can not be a target of events. All events propagate through it. Introduced in v1.3.4
      */
-    evented?: boolean;
+    evented?: boolean | undefined;
 
     /**
      * When set to `false`, an object is not rendered on canvas
      */
-    visible?: boolean;
+    visible?: boolean | undefined;
 
     /**
      * When set to `false`, object's controls are not displayed and can not be used to manipulate object
      */
-    hasControls?: boolean;
+    hasControls?: boolean | undefined;
 
     /**
      * When set to `false`, object's controlling borders are not rendered
      */
-    hasBorders?: boolean;
+    hasBorders?: boolean | undefined;
 
     /**
      * When set to `false`, object's controlling rotating point will not be visible or selectable
      */
-    hasRotatingPoint?: boolean;
+    hasRotatingPoint?: boolean | undefined;
 
     /**
      * Offset for object's controlling rotating point (when enabled via `hasRotatingPoint`)
      */
-    rotatingPointOffset?: number;
+    rotatingPointOffset?: number | undefined;
 
     /**
      * When set to `true`, objects are "found" on canvas on per-pixel basis rather than according to bounding box
      */
-    perPixelTargetFind?: boolean;
+    perPixelTargetFind?: boolean | undefined;
 
     /**
      * When `false`, default object's values are not included in its serialization
      */
-    includeDefaultValues?: boolean;
-
-    /**
-     * Function that determines clipping of an object (context is passed as a first argument)
-     * Note that context origin is at the object's center point (not left/top corner)
-     */
-    clipTo?: Function;
+    includeDefaultValues?: boolean | undefined;
 
     /**
      * When `true`, object horizontal movement is locked
      */
-    lockMovementX?: boolean;
+    lockMovementX?: boolean | undefined;
 
     /**
      * When `true`, object vertical movement is locked
      */
-    lockMovementY?: boolean;
+    lockMovementY?: boolean | undefined;
 
     /**
      * When `true`, object rotation is locked
      */
-    lockRotation?: boolean;
+    lockRotation?: boolean | undefined;
 
     /**
      * When `true`, object horizontal scaling is locked
      */
-    lockScalingX?: boolean;
+    lockScalingX?: boolean | undefined;
 
     /**
      * When `true`, object vertical scaling is locked
      */
-    lockScalingY?: boolean;
+    lockScalingY?: boolean | undefined;
 
     /**
      * When `true`, object non-uniform scaling is locked
      */
-    lockUniScaling?: boolean;
+    lockUniScaling?: boolean | undefined;
 
     /**
      * When `true`, object horizontal skewing is locked
-     * @type Boolean
      */
-    lockSkewingX?: boolean;
+    lockSkewingX?: boolean | undefined;
 
     /**
      * When `true`, object vertical skewing is locked
-     * @type Boolean
      */
-    lockSkewingY?: boolean;
+    lockSkewingY?: boolean | undefined;
 
     /**
      * When `true`, object cannot be flipped by scaling into negative values
      */
-    lockScalingFlip?: boolean;
+    lockScalingFlip?: boolean | undefined;
 
     /**
      * When `true`, object is not exported in OBJECT/JSON
      * since 1.6.3
-     * @type Boolean
      * @default
      */
-    excludeFromExport?: boolean;
+    excludeFromExport?: boolean | undefined;
 
     /**
      * When `true`, object is cached on an additional canvas.
      */
-    objectCaching?: boolean;
+    objectCaching?: boolean | undefined;
 
     /**
      * When `true`, object properties are checked for cache invalidation. In some particular
@@ -3034,10 +3013,9 @@ interface IObjectOptions {
      * to disable it for groups.
      * default to false
      * since 1.7.0
-     * @type Boolean
      * @default false
      */
-    statefullCache?: boolean;
+    statefullCache?: boolean | undefined;
 
     /**
      * When `true`, cache does not get updated during scaling. The picture will get blocky if scaled
@@ -3045,48 +3023,42 @@ interface IObjectOptions {
      * this setting is performance and application dependant.
      * default to true
      * since 1.7.0
-     * @type Boolean
      */
-    noScaleCache?: boolean;
+    noScaleCache?: boolean | undefined;
 
     /**
      * When `false`, the stoke width will scale with the object.
      * When `true`, the stroke will always match the exact pixel size entered for stroke width.
      * default to false
      * @since 2.6.0
-     * @type Boolean
      * @default false
-     * @type Boolean
      */
-    strokeUniform?: boolean;
+    strokeUniform?: boolean | undefined;
 
     /**
      * When set to `true`, object's cache will be rerendered next render call.
      */
-    dirty?: boolean;
+    dirty?: boolean | undefined;
 
     /**
      * Determines if the fill or the stroke is drawn first (one of "fill" or "stroke")
-     * @type String
      */
-    paintFirst?: string;
+    paintFirst?: string | undefined;
 
     /**
      * List of properties to consider when checking if state
      * of an object is changed (fabric.Object#hasStateChanged)
      * as well as for history (undo/redo) purposes
-     * @type Array
      */
-    stateProperties?: string[];
+    stateProperties?: string[] | undefined;
 
     /**
      * List of properties to consider when checking if cache needs refresh
      * Those properties are checked by statefullCache ON ( or lazy mode if we want ) or from single
      * calls to Object.set(key, value). If the key is in this list, the object is marked as dirty
      * and refreshed at the next render
-     * @type Array
      */
-    cacheProperties?: string[];
+    cacheProperties?: string[] | undefined;
 
     /**
      * A fabricObject that, without stroke define a clipping area with their shape. filled in black
@@ -3094,16 +3066,15 @@ interface IObjectOptions {
      * of the object cacheCanvas.
      * If you want 0,0 of a clipPath to align with an object center, use clipPath.originX/Y to 'center'
      */
-    clipPath?: Object;
+    clipPath?: Object | undefined;
 
     /**
      * Meaningful ONLY when the object is used as clipPath.
      * if true, the clipPath will make the object clip to the outside of the clipPath
      * since 2.4.0
-     * @type boolean
      * @default false
      */
-    inverted?: boolean;
+    inverted?: boolean | undefined;
 
     /**
      * Meaningful ONLY when the object is used as clipPath.
@@ -3112,15 +3083,14 @@ interface IObjectOptions {
      * to the canvas, but clipping just a particular object.
      * WARNING this is beta, this feature may change or be renamed.
      * since 2.4.0
-     * @type boolean
      * @default false
      */
-    absolutePositioned?: boolean;
+    absolutePositioned?: boolean | undefined;
 
     /**
      * Not used by fabric, just for convenience
      */
-    name?: string;
+    name?: string | undefined;
 
     /**
      * Not used by fabric, just for convenience
@@ -3136,9 +3106,10 @@ interface IObjectOptions {
      * skewX, skewY, angle, strokeWidth, viewportTransform, top, left, padding.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords;
-     * @memberOf fabric.Object.prototype
      */
-    oCoords?: { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point };
+    oCoords?:
+        | { tl: Point; mt: Point; tr: Point; ml: Point; mr: Point; bl: Point; mb: Point; br: Point; mtr: Point }
+        | undefined;
     /**
      * Describe object's corner position in canvas object absolute coordinates
      * properties are tl,tr,bl,br and describe the four main corner.
@@ -3149,9 +3120,8 @@ interface IObjectOptions {
      * with oCoords but they do not need to be updated when zoom or panning change.
      * The coordinates get updated with @method setCoords.
      * You can calculate them without updating with @method calcCoords(true);
-     * @memberOf fabric.Object.prototype
      */
-    aCoords?: { bl: Point; br: Point; tl: Point; tr: Point };
+    aCoords?: { bl: Point; br: Point; tl: Point; tr: Point } | undefined;
     /**
      * storage for object full transform matrix
      */
@@ -3164,33 +3134,35 @@ interface IObjectOptions {
     /**
      * Indicates the angle that an object will lock to while rotating. Can get from canvas.
      */
-    snapAngle?: number;
+    snapAngle?: number | undefined;
     /**
      * Indicates the distance from the snapAngle the rotation will lock to the snapAngle. Can get from canvas.
      */
-    snapThreshold?: null | number;
+    snapThreshold?: null | number | undefined;
     /**
      * The group the object is part of
      */
-    group?: Group;
+    group?: Group | undefined;
     /**
      * The canvas the object belongs to
      */
-    canvas?: Canvas;
+    canvas?: Canvas | undefined;
 }
 export interface Object extends IObservable<Object>, IObjectOptions, IObjectAnimation<Object> {}
 export class Object {
     _controlsVisibility: {
-        bl?: boolean;
-        br?: boolean;
-        mb?: boolean;
-        ml?: boolean;
-        mr?: boolean;
-        mt?: boolean;
-        tl?: boolean;
-        tr?: boolean;
-        mtr?: boolean;
+        bl?: boolean | undefined;
+        br?: boolean | undefined;
+        mb?: boolean | undefined;
+        ml?: boolean | undefined;
+        mr?: boolean | undefined;
+        mt?: boolean | undefined;
+        tl?: boolean | undefined;
+        tr?: boolean | undefined;
+        mtr?: boolean | undefined;
     };
+
+    controls: { [key: string]: Control };
 
     constructor(options?: IObjectOptions);
     initialize(options?: IObjectOptions): Object;
@@ -3336,9 +3308,9 @@ export class Object {
      * @param {Boolean} [options.enableRetinaScaling] Enable retina scaling for clone image. Introduce in 1.6.4
      * @param {Boolean} [options.withoutTransform] Remove current object transform ( no scale , no angle, no flip, no skew ). Introduced in 2.3.4
      * @param {Boolean} [options.withoutShadow] Remove current object shadow. Introduced in 2.4.2
-     * @return {String} Returns a data: URL containing a representation of the object in the format specified by options.format
+     * @return {HTMLCanvasElement} Returns a new HTMLCanvasElement painted with the current canvas object
      */
-    toCanvasElement(options?: IDataURLOptions): string;
+    toCanvasElement(options?: IDataURLOptions): HTMLCanvasElement;
 
     /**
      * Converts an object into a data-url-like string
@@ -3361,33 +3333,7 @@ export class Object {
      * Returns a JSON representation of an instance
      * @param [propertiesToInclude] Any properties that you might want to additionally include in the output
      */
-    toJSON(propertiesToInclude?: string[]): any;
-
-    /**
-     * Sets gradient (fill or stroke) of an object
-     * **Backwards incompatibility note:** This method was named "setGradientFill" until v1.1.0
-     * @param property Property name 'stroke' or 'fill'
-     * @param [options] Options object
-     */
-    setGradient(property: 'stroke' | 'fill', options?: OGradientOptions): Object;
-
-    /**
-     * Sets pattern fill of an object
-     * @param options Options object
-     */
-    setPatternFill(options: IFillOptions, callback: Function): Object;
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options?: string | Shadow): Object;
-
-    /**
-     * Sets "color" of an instance (alias of `set('fill', …)`)
-     * @param color Color value
-     */
-    setColor(color: string): Object;
+    toJSON(propertiesToInclude?: string[]): { version: string; objects: Object[] };
 
     /**
      * Sets "angle" of an instance
@@ -3442,7 +3388,7 @@ export class Object {
      * @param e Event to operate upon
      * @param [pointer] Pointer to operate upon (instead of event)
      */
-    getLocalPointer(e: Event, pointer?: { x: number; y: number }): { x: number; y: number };
+    getLocalPointer(e: Event | undefined, pointer?: { x: number; y: number }): { x: number; y: number };
 
     /**
      * Basic getter
@@ -3527,7 +3473,7 @@ export class Object {
      * @param [options] Object with additional `stateProperties` array to include when saving state
      * @return thisArg
      */
-    saveState(options?: { stateProperties?: any[]; propertySet?: string }): Object;
+    saveState(options?: { stateProperties?: any[] | undefined; propertySet?: string | undefined }): Object;
     /**
      * Setups state of an object
      * @param {Object} [options] Object with additional `stateProperties` array to include when saving state
@@ -3694,28 +3640,30 @@ export class Object {
      * @param [options] Options object
      */
     setControlsVisibility(options?: {
-        bl?: boolean;
-        br?: boolean;
-        mb?: boolean;
-        ml?: boolean;
-        mr?: boolean;
-        mt?: boolean;
-        tl?: boolean;
-        tr?: boolean;
-        mtr?: boolean;
+        bl?: boolean | undefined;
+        br?: boolean | undefined;
+        mb?: boolean | undefined;
+        ml?: boolean | undefined;
+        mr?: boolean | undefined;
+        mt?: boolean | undefined;
+        tl?: boolean | undefined;
+        tr?: boolean | undefined;
+        mtr?: boolean | undefined;
     }): this;
 
     // functions from geometry mixin
     // -------------------------------------------------------------------------------------------------------------------------------
     /**
      * Sets corner position coordinates based on current angle, width and height.
+     * oCoords are used to find the corners
+     * aCoords are used to quickly find an object on the canvas
+     * lineCoords are used to quickly find object during pointer events.
      * See {@link https://github.com/kangax/fabric.js/wiki/When-to-call-setCoords|When-to-call-setCoords}
-     * @param {Boolean} [ignoreZoom] set oCoords with or without the viewport transform.
-     * @param {Boolean} [skipAbsolute] skip calculation of aCoords, usefull in setViewportTransform
+     * @param {Boolean} [skipCorners] skip calculation of oCoords.
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(ignoreZoom?: boolean, skipAbsolute?: boolean): Object;
+    setCoords(skipCorners?: boolean): this;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3760,12 +3708,12 @@ export class Object {
      * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
      * @param value New height value
      */
-    scaleToHeight(value: number, absolute?: boolean): Object;
+    scaleToHeight(value: number, absolute?: boolean): this;
     /**
      * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
      * @param value New width value
      */
-    scaleToWidth(value: number, absolute?: boolean): Object;
+    scaleToWidth(value: number, absolute?: boolean): this;
     /**
      * Checks if object intersects with another object
      * @param {Object} other Object to test
@@ -3783,8 +3731,6 @@ export class Object {
      * @return {Boolean} true if object intersects with an area formed by 2 points
      */
     intersectsWithRect(pointTL: any, pointBR: any, absolute?: boolean, calculate?: boolean): boolean;
-
-    fire(eventName: string, options?: any): void;
 
     /**
      * Animates object's properties
@@ -3823,7 +3769,7 @@ export class Object {
     /**
      * return correct set of coordinates for intersection
      */
-    getCoords(absolute?: boolean, calculate?: boolean): any;
+    getCoords(absolute?: boolean, calculate?: boolean): [fabric.Point, fabric.Point, fabric.Point, fabric.Point];
     /**
      * Returns height of an object bounding box counting transformations
      * before 2.0 it was named getHeight();
@@ -3877,19 +3823,19 @@ export class Object {
      * try to to deselect this object. If the function returns true, the process is cancelled
      * @return {Boolean} true to cancel selection
      */
-    onDeselect(options: { e?: Event; object?: Object }): boolean;
+    onDeselect(options: { e?: Event | undefined; object?: Object | undefined }): boolean;
     /**
      * This callback function is called every time _discardActiveObject or _setActiveObject
      * try to to deselect this object. If the function returns true, the process is cancelled
      * @param {Object} [options] options sent from the upper functions
      * @param {Event} [options.e] event if the process is generated by an event
      */
-    onDeselect(options: { e?: Event; object?: fabric.Object }): boolean;
+    onDeselect(options: { e?: Event | undefined; object?: fabric.Object | undefined }): boolean;
     /**
      * This callback function is called every time _discardActiveObject or _setActiveObject
      * try to to select this object. If the function returns true, the process is cancelled
      */
-    onSelect(options: { e?: Event }): boolean;
+    onSelect(options: { e?: Event | undefined }): boolean;
     /**
      * Returns svg clipPath representation of an instance
      * @param {Function} [reviver] Method for further parsing of svg representation.
@@ -3927,7 +3873,6 @@ export class Object {
     _getNonTransformedDimensions(): { x: number; y: number };
     /**
      * Returns the top, left coordinates
-     * @private
      * @return {fabric.Point}
      */
     _getLeftTopCoords(): Point;
@@ -3940,22 +3885,18 @@ export class Object {
     _getTransformedDimensions(skewX?: number, skewY?: number): { x: number; y: number };
 
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _renderFill(ctx: CanvasRenderingContext2D): void;
     /**
      * @param ctx
-     * @private
      */
     _renderStroke(ctx: CanvasRenderingContext2D): void;
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _removeShadow(ctx: CanvasRenderingContext2D): void;
     /**
-     * @private
      * Sets line dash
      * @param {CanvasRenderingContext2D} ctx Context to set the dash line on
      * @param {Array} dashArray array representing dashes
@@ -3967,7 +3908,6 @@ export class Object {
         alternative?: (ctx: CanvasRenderingContext2D) => void,
     ): void;
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Object} filler fabric.Pattern or fabric.Gradient
      * @return {Object} offset.offsetX offset for text rendering
@@ -3975,18 +3915,15 @@ export class Object {
      */
     _applyPatternGradientTransform(ctx: CanvasRenderingContext2D, filler: string | Pattern | Gradient): void;
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _render(ctx: CanvasRenderingContext2D): void;
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _renderPaintInOrder(ctx: CanvasRenderingContext2D): void;
     /**
      * Returns the instance of the control visibility set for this object.
-     * @private
      * @returns {Object}
      */
     _getControlsVisibility(): {
@@ -4002,16 +3939,14 @@ export class Object {
     };
     /**
      * Determines which corner has been clicked
-     * @private
      * @param {Object} pointer The pointer indicating the mouse position
      * @return {String|Boolean} corner code (tl, tr, bl, br, etc.), or false if nothing is found
      */
     _findTargetCorner(pointer: {
         x: number;
         y: number;
-    }): boolean | 'bl' | 'br' | 'mb' | 'ml' | 'mr' | 'mt' | 'tl' | 'tr' | 'mtr';
+    }): boolean | "bl" | "br" | "mb" | "ml" | "mr" | "mt" | "tl" | "tr" | "mtr";
     /**
-     * @private
      * @param {String} key
      * @param {*} value
      */
@@ -4022,21 +3957,20 @@ export class Object {
      * @param {fabric.Object} Original object
      * @param {Function} Callback when complete
      * @param {Object} Extra parameters for fabric.Object
-     * @private
      * @return {fabric.Object}
      */
     static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
     /**
      * Defines the number of fraction digits to use when serializing object values.
      */
-    static NUM_FRACTION_DIGITS?: number;
+    static NUM_FRACTION_DIGITS?: number | undefined;
 }
 
 interface IPathOptions extends IObjectOptions {
     /**
      * Array of path points
      */
-    path?: Point[];
+    path?: Point[] | undefined;
 }
 export interface Path extends Object, IPathOptions {}
 export class Path {
@@ -4103,7 +4037,7 @@ interface IPolylineOptions extends IObjectOptions {
     /**
      * Points array
      */
-    points?: Point[];
+    points?: Point[] | undefined;
 }
 export interface Polyline extends IPolylineOptions {}
 export class Polyline extends Object {
@@ -4120,7 +4054,6 @@ export class Polyline extends Object {
     /**
      * Calculate the polygon min and max point from points array,
      * returning an object with left, top, width, height to measure the polygon size
-     * @private
      * @return {Object} object.left X coordinate of the polygon leftmost point
      * @return {Object} object.top Y coordinate of the polygon topmost point
      * @return {Object} object.width distance between X coordinates of the polygon leftmost and rightmost point
@@ -4148,12 +4081,12 @@ interface IRectOptions extends IObjectOptions {
     /**
      * Horizontal border radius
      */
-    rx?: number;
+    rx?: number | undefined;
 
     /**
      * Vertical border radius
      */
-    ry?: number;
+    ry?: number | undefined;
 }
 
 export interface Rect extends IRectOptions {}
@@ -4181,109 +4114,95 @@ export class Rect extends Object {
 }
 
 interface TextOptions extends IObjectOptions {
-    type?: string;
+    type?: string | undefined;
     /**
      * Font size (in pixels)
-     * @type Number
      */
-    fontSize?: number;
+    fontSize?: number | undefined;
     /**
      * Font weight (e.g. bold, normal, 400, 600, 800)
-     * @type {(Number|String)}
      */
-    fontWeight?: string | number;
+    fontWeight?: string | number | undefined;
     /**
      * Font family
-     * @type String
      */
-    fontFamily?: string;
+    fontFamily?: string | undefined;
     /**
      * Text decoration underline.
-     * @type Boolean
      */
-    underline?: boolean;
+    underline?: boolean | undefined;
     /**
      * Text decoration overline.
-     * @type Boolean
      */
-    overline?: boolean;
+    overline?: boolean | undefined;
     /**
      * Text decoration linethrough.
-     * @type Boolean
      */
-    linethrough?: boolean;
+    linethrough?: boolean | undefined;
     /**
      * Text alignment. Possible values: "left", "center", "right", "justify",
      * "justify-left", "justify-center" or "justify-right".
-     * @type String
      */
-    textAlign?: string;
+    textAlign?: string | undefined;
     /**
      * Font style . Possible values: "", "normal", "italic" or "oblique".
-     * @type String
      */
-    fontStyle?: '' | 'normal' | 'italic' | 'oblique';
+    fontStyle?: "" | "normal" | "italic" | "oblique" | undefined;
     /**
      * Line height
-     * @type Number
      */
-    lineHeight?: number;
+    lineHeight?: number | undefined;
     /**
      * Superscript schema object (minimum overlap)
-     * @type {Object}
      */
-    superscript?: { size: number; baseline: number };
+    superscript?: { size: number; baseline: number } | undefined;
     /**
      * Subscript schema object (minimum overlap)
-     * @type {Object}
      */
-    subscript?: { size: number; baseline: number };
+    subscript?: { size: number; baseline: number } | undefined;
     /**
      * Background color of text lines
-     * @type String
      */
-    textBackgroundColor?: string;
+    textBackgroundColor?: string | undefined;
     /**
      * When defined, an object is rendered via stroke and this property specifies its color.
      * <b>Backwards incompatibility note:</b> This property was named "strokeStyle" until v1.1.6
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property was named "textShadow" (String) until v1.2.11
-     * @type fabric.Shadow
      */
-    shadow?: Shadow | string;
+    shadow?: Shadow | string | undefined;
     /**
      * additional space between characters
      * expressed in thousands of em unit
-     * @type Number
      */
-    charSpacing?: number;
+    charSpacing?: number | undefined;
     /**
      * Object containing character styles - top-level properties -> line numbers,
      * 2nd-level properties - charater numbers
-     * @type Object
      */
     styles?: any;
     /**
      * Baseline shift, stlyes only, keep at 0 for the main text object
-     * @type {Number}
      */
-    deltaY?: number;
-    text?: string;
+    deltaY?: number | undefined;
+    /**
+     * Text input direction. supporting RTL languages.
+     */
+    direction?: "ltr" | "rtl" | undefined;
+    text?: string | undefined;
     /**
      * List of properties to consider when checking if cache needs refresh
-     * @type Array
      */
-    cacheProperties?: string[];
+    cacheProperties?: string[] | undefined;
     /**
      * List of properties to consider when checking if
      * state of an object is changed ({@link fabric.Object#hasStateChanged})
      * as well as for history (undo/redo) purposes
-     * @type Array
      */
-    stateProperties?: string[];
+    stateProperties?: string[] | undefined;
 }
 export interface Text extends TextOptions {}
 export class Text extends Object {
@@ -4291,83 +4210,66 @@ export class Text extends Object {
     cursorOffsetCache: { top: number; left: number };
     /**
      * Properties which when set cause object to change dimensions
-     * @type Object
-     * @private
      */
     _dimensionAffectingProps: string[];
     /**
      * List of lines in text object
-     * @type Array<string>
      */
     textLines: string[];
     /**
      * List of grapheme lines in text object
-     * @private
-     * @type Array<string>
      */
     _textLines: string[][];
     /**
      * List of unwrapped grapheme lines in text object
-     * @private
-     * @type Array<string>
      */
     _unwrappedTextLines: string[][];
     /**
      * Use this regular expression to filter for whitespaces that is not a new line.
      * Mostly used when text is 'justify' aligned.
-     * @private
-     * @type RegExp
      */
     _reSpacesAndTabs: RegExp;
     /**
      * Use this regular expression to filter for whitespace that is not a new line.
      * Mostly used when text is 'justify' aligned.
-     * @private
-     * @type RegExp
      */
     _reSpaceAndTab: RegExp;
     /**
      * List of line widths
-     * @private
-     * @type Array<Number>
      */
     __lineWidths: number[];
     /**
      * List of line heights
-     * @private
-     * @type Array<Number>
      */
     __lineHeights: number[];
     /**
      * Contains characters bounding boxes for each line and char
-     * @private
-     * @type Array of char grapheme bounding boxes
+     * Array of char grapheme bounding boxes
      */
-    __charBounds?: Array<
-        Array<{ width: number; left: number; height?: number; kernedWidth?: number; deltaY?: number }>
-    >;
+    __charBounds?:
+        | Array<
+            Array<
+                {
+                    width: number;
+                    left: number;
+                    height?: number | undefined;
+                    kernedWidth?: number | undefined;
+                    deltaY?: number | undefined;
+                }
+            >
+        >
+        | undefined;
     /**
      * Text Line proportion to font Size (in pixels)
-     * @private
-     * @type Number
      */
     _fontSizeMult: number;
-    /**
-     * @private
-     * @type Number
-     */
+    /** */
     _fontSizeFraction: number;
-    /**
-     * @private
-     * @type boolean
-     */
+    /** */
     __skipDimension: boolean;
     /**
      * use this size when measuring text. To avoid IE11 rounding errors
-     * @type {Number}
      * @default
-     * @readonly
-     * @private
      */
     CACHE_FONT_SIZE: number;
 
@@ -4469,7 +4371,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an SVG element (<b>not yet implemented</b>)
      * @static
-     * @memberOf fabric.Text
      * @param {SVGElement} element Element to parse
      * @param {Function} callback callback function invoked after parsing
      * @param {Object} [options] Options object
@@ -4479,7 +4380,6 @@ export class Text extends Object {
     /**
      * Returns fabric.Text instance from an object representation
      * @static
-     * @memberOf fabric.Text
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Text instance is created
      */
@@ -4566,14 +4466,12 @@ export class Text extends Object {
     /**
      * Measure a single line given its index. Used to calculate the initial
      * text bounding box. The values are calculated and stored in __lineWidths cache.
-     * @private
      * @param {Number} lineIndex line number
      * @return {Number} Line width
      */
     getLineWidth(lineIndex: number): number;
 
     /**
-     * @private
      * @param {Number} lineIndex index text line
      * @return {Number} Line left offset
      */
@@ -4581,7 +4479,6 @@ export class Text extends Object {
 
     /**
      * apply all the character style to canvas for rendering
-     * @private
      * @param {String} _char
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Number} lineIndex
@@ -4609,7 +4506,6 @@ export class Text extends Object {
      * broken up by visual lines (new lines and automatic wrapping).
      * The original text styles object is broken up by actual lines (new lines only),
      * which is only sufficient for Text / IText
-     * @private
      */
     _generateStyleMap(textInfo: {
         _unwrappedLines: string[];
@@ -4619,7 +4515,6 @@ export class Text extends Object {
     }): { [s: number]: { line: number; offset: number } };
 
     /**
-     * @private
      * Gets the width of character spacing
      */
     _getWidthOfCharSpacing(): number;
@@ -4628,7 +4523,6 @@ export class Text extends Object {
      * measure and return the width of a single character.
      * possibly overridden to accommodate different measure logic or
      * to hook some external lib for character measurement
-     * @private
      * @param {String} char to be measured
      * @param {Object} charStyle style of char to be measured
      * @param {String} [previousChar] previous char
@@ -4643,7 +4537,6 @@ export class Text extends Object {
     ): { width: number; kernedWidth: number };
 
     /**
-     * @private
      * @param {String} method
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {String} line Content of the line
@@ -4662,7 +4555,6 @@ export class Text extends Object {
     ): void;
 
     /**
-     * @private
      * @param {String} method
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Number} lineIndex
@@ -4683,7 +4575,6 @@ export class Text extends Object {
     ): void;
 
     /**
-     * @private
      * @param {String} method Method name ("fillText" or "strokeText")
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Array} line Text to render
@@ -4701,25 +4592,20 @@ export class Text extends Object {
     ): void;
 
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _renderText(ctx: CanvasRenderingContext2D): void;
 
-    /**
-     * @private
-     */
+    /** */
     _clearCache(): void;
 
     /**
      * Divides text into lines of text and lines of graphemes.
-     * @private
      * @returns {Object} Lines and text in the text
      */
     _splitText(): { _unwrappedLines: string[]; lines: string[]; graphemeText: string[]; graphemeLines: string[] };
 
     /**
-     * @private
      * @param {Object} prevStyle
      * @param {Object} thisStyle
      */
@@ -4727,7 +4613,6 @@ export class Text extends Object {
 
     /**
      * Set the font parameter of the context with the object properties or with charStyle
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {Object} [charStyle] object with font style properties
      * @param {String} [charStyle.fontFamily] Font Family
@@ -4742,7 +4627,6 @@ export class Text extends Object {
     ): void;
 
     /**
-     * @private
      * @param {String} method Method name ("fillText" or "strokeText")
      * @param {CanvasRenderingContext2D} ctx Context to render on
      * @param {String} line Text to render
@@ -4759,79 +4643,65 @@ export class Text extends Object {
         lineIndex: number,
     ): void;
 
-    /**
-     * @private
-     */
+    /** */
     _shouldClearDimensionCache(): boolean;
 }
 interface ITextOptions extends TextOptions {
     /**
      * Index where text selection starts (or where cursor is when there is no selection)
-     * @type Number
      */
-    selectionStart?: number;
+    selectionStart?: number | undefined;
     /**
      * Index where text selection ends
-     * @type Number
      */
-    selectionEnd?: number;
+    selectionEnd?: number | undefined;
     /**
      * Color of text selection
-     * @type String
      */
-    selectionColor?: string;
+    selectionColor?: string | undefined;
     /**
      * Indicates whether text is selected
-     * @type Boolean
      */
-    selected?: boolean;
+    selected?: boolean | undefined;
     /**
      * Indicates whether text is in editing mode
-     * @type Boolean
      */
-    isEditing?: boolean;
+    isEditing?: boolean | undefined;
     /**
      * Indicates whether a text can be edited
-     * @type Boolean
      */
-    editable?: boolean;
+    editable?: boolean | undefined;
     /**
      * Border color of text object while it's in editing mode
-     * @type String
      */
-    editingBorderColor?: string;
+    editingBorderColor?: string | undefined;
     /**
      * Width of cursor (in px)
-     * @type Number
      */
-    cursorWidth?: number;
+    cursorWidth?: number | undefined;
     /**
      * Color of default cursor (when not overwritten by character style)
-     * @type String
      */
-    cursorColor?: string;
+    cursorColor?: string | undefined;
     /**
      * Delay between cursor blink (in ms)
-     * @type Number
      */
-    cursorDelay?: number;
+    cursorDelay?: number | undefined;
     /**
      * Duration of cursor fadein (in ms)
-     * @type Number
      */
-    cursorDuration?: number;
+    cursorDuration?: number | undefined;
     /**
      * Indicates whether internal text char widths can be cached
-     * @type Boolean
      */
-    caching?: boolean;
+    caching?: boolean | undefined;
     /**
      * Helps determining when the text is in composition, so that the cursor
      * rendering is altered.
      */
-    inCompositionMode?: boolean;
-    path?: string;
-    useNative?: boolean;
+    inCompositionMode?: boolean | undefined;
+    path?: string | undefined;
+    useNative?: boolean | undefined;
     /**
      * For functionalities on keyDown + ctrl || cmd
      */
@@ -4855,18 +4725,14 @@ interface ITextOptions extends TextOptions {
     /**
      * Exposes underlying hidden text area
      */
-    hiddenTextarea?: HTMLTextAreaElement;
+    hiddenTextarea?: HTMLTextAreaElement | undefined;
 }
 export interface IText extends ITextOptions {}
 export class IText extends Text {
     fromPaste: boolean;
-    /**
-     * @private
-     */
+    /** */
     _currentCursorOpacity: number;
-    /**
-     * @private
-     */
+    /** */
     _reSpace: RegExp;
     /**
      * Constructor
@@ -4921,7 +4787,6 @@ export class IText extends Text {
     /**
      * Returns fabric.IText instance from an object representation
      * @static
-     * @memberOf fabric.IText
      * @param {Object} object Object to create an instance from
      * @param {function} [callback] invoked with new instance as argument
      */
@@ -5220,9 +5085,7 @@ export class IText extends Text {
      * @param {Event} e Event object
      */
     setCursorByClick(e: Event): void;
-    /**
-     * @private
-     */
+    /** */
     _getNewSelectionStartFromOffset(
         mouseOffset: { x: number; y: number },
         prevWidth: number,
@@ -5231,29 +5094,22 @@ export class IText extends Text {
         jlen: number,
     ): number;
     /**
-     * @private
      * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _render(ctx: CanvasRenderingContext2D): void;
-    /**
-     * @private
-     */
+    /** */
     _updateTextarea(): void;
-    /**
-     * @private
-     */
+    /** */
     updateFromTextArea(): void;
     /**
      * Default event handler for the basic functionalities needed on _mouseDown
      * can be overridden to do something different.
      * Scope of this implementation is: find the click position, set selectionStart
      * find selectionEnd, initialize the drawing of either cursor or selection area
-     * @private
      * @param {Object} Options (seems to have an event `e` parameter
      */
     _mouseDownHandler(options: any): void;
     /**
-     * @private
      * @return {Object} style contains style for hiddenTextarea
      */
     _calcTextareaPosition(): { left: string; top: string; fontSize: string; charHeight: number };
@@ -5261,37 +5117,33 @@ export class IText extends Text {
 interface ITextboxOptions extends ITextOptions {
     /**
      * Minimum width of textbox, in pixels.
-     * @type Number
      */
-    minWidth?: number;
+    minWidth?: number | undefined;
     /**
      * Minimum calculated width of a textbox, in pixels.
      * fixed to 2 so that an empty textbox cannot go to 0
      * and is still selectable without text.
-     * @type Number
      */
-    dynamicMinWidth?: number;
+    dynamicMinWidth?: number | undefined;
     /**
      * Override standard Object class values
      */
-    lockScalingFlip?: boolean;
+    lockScalingFlip?: boolean | undefined;
     /**
      * Override standard Object class values
      * Textbox needs this on false
      */
-    noScaleCache?: boolean;
+    noScaleCache?: boolean | undefined;
     /**
      * Use this boolean property in order to split strings that have no white space concept.
      * this is a cheap way to help with chinese/japaense
-     * @type Boolean
      * @since 2.6.0
      */
-    splitByGrapheme?: boolean;
+    splitByGrapheme?: boolean | undefined;
     /**
      * Is the text wrapping
-     * @type Boolean
      */
-    isWrapping?: boolean;
+    isWrapping?: boolean | undefined;
 }
 export interface Textbox extends ITextboxOptions {}
 export class Textbox extends IText {
@@ -5327,14 +5179,11 @@ export class Textbox extends IText {
     getMinWidth(): number;
     /**
      * Use this regular expression to split strings in breakable lines
-     * @private
-     * @type RegExp
      */
     _wordJoiners: RegExp;
     /**
      * Helper function to measure a string of text, given its lineIndex and charIndex offset
      * it gets called when charBounds are not available yet.
-     * @private
      * @param {Array} text characters
      * @param {number} lineIndex
      * @param {number} charOffset
@@ -5357,14 +5206,12 @@ export class Textbox extends IText {
      * broken up by visual lines (new lines and automatic wrapping).
      * The original text styles object is broken up by actual lines (new lines only),
      * which is only sufficient for Text / IText
-     * @private
-     * @type {Array} Line style { line: number, offset: number }
+     * Line style { line: number, offset: number }
      */
-    _styleMap?: { [s: number]: { line: number; offset: number } };
+    _styleMap?: { [s: number]: { line: number; offset: number } } | undefined;
     /**
      * Returns fabric.Textbox instance from an object representation
      * @static
-     * @memberOf fabric.Textbox
      * @param {Object} object Object to create an instance from
      * @param {Function} [callback] Callback to invoke when an fabric.Textbox instance is created
      */
@@ -5399,14 +5246,16 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: any): IBaseFilter;
+        new(options?: any): IBaseFilter;
     };
     BlendColor: {
         /**
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { color?: string; mode?: string; alpha?: number }): IBlendColorFilter;
+        new(
+            options?: { color?: string | undefined; mode?: string | undefined; alpha?: number | undefined },
+        ): IBlendColorFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5418,15 +5267,25 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { image?: Image; mode?: string; alpha?: number }): IBlendImageFilter;
+        new(
+            options?: { image?: Image | undefined; mode?: string | undefined; alpha?: number | undefined },
+        ): IBlendImageFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
          */
         fromObject(object: any): IBlendImageFilter;
     };
+    Blur: {
+        new(options?: { blur?: number | undefined }): IBlurFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IBlurFilter;
+    };
     Brightness: {
-        new (options?: {
+        new(options?: {
             /**
              * Value to brighten the image up (0..255)
              * @default 0
@@ -5440,9 +5299,9 @@ interface IAllFilters {
         fromObject(object: any): IBrightnessFilter;
     };
     ColorMatrix: {
-        new (options?: {
+        new(options?: {
             /** Filter matrix */
-            matrix?: number[];
+            matrix?: number[] | undefined;
         }): IColorMatrix;
         /**
          * Returns filter instance from an object representation
@@ -5455,7 +5314,7 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { contrast?: number }): IContrastFilter;
+        new(options?: { contrast?: number | undefined }): IContrastFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5463,10 +5322,10 @@ interface IAllFilters {
         fromObject(object: any): IContrastFilter;
     };
     Convolute: {
-        new (options?: {
-            opaque?: boolean;
+        new(options?: {
+            opaque?: boolean | undefined;
             /** Filter matrix */
-            matrix?: number[];
+            matrix?: number[] | undefined;
         }): IConvoluteFilter;
         /**
          * Returns filter instance from an object representation
@@ -5474,10 +5333,22 @@ interface IAllFilters {
          */
         fromObject(object: any): IConvoluteFilter;
     };
+    Gamma: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { gamma?: [number, number, number] | undefined }): IGammaFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IGammaFilter;
+    };
     GradientTransparency: {
-        new (options?: {
+        new(options?: {
             /** @default 100 */
-            threshold?: number;
+            threshold?: number | undefined;
         }): IGradientTransparencyFilter;
         /**
          * Returns filter instance from an object representation
@@ -5486,19 +5357,27 @@ interface IAllFilters {
         fromObject(object: any): IGradientTransparencyFilter;
     };
     Grayscale: {
-        new (options?: any): IGrayscaleFilter;
+        new(options?: any): IGrayscaleFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
          */
         fromObject(object: any): IGrayscaleFilter;
     };
+    HueRotation: {
+        new(options?: { rotation?: number | undefined }): IHueRotationFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IHueRotationFilter;
+    };
     Invert: {
         /**
          * Constructor
          * @param [options] Options object
          */
-        new (options?: any): IInvertFilter;
+        new(options?: any): IInvertFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5506,9 +5385,9 @@ interface IAllFilters {
         fromObject(object: any): IInvertFilter;
     };
     Mask: {
-        new (options?: {
+        new(options?: {
             /** Mask image object */
-            mask?: Image;
+            mask?: Image | undefined;
             /**
              * Rgb channel (0, 1, 2 or 3)
              * @default 0
@@ -5522,7 +5401,7 @@ interface IAllFilters {
         fromObject(object: any): IMaskFilter;
     };
     Multiply: {
-        new (options?: {
+        new(options?: {
             /**
              * Color to multiply the image pixels with
              * @default #000000
@@ -5536,7 +5415,7 @@ interface IAllFilters {
         fromObject(object: any): IMultiplyFilter;
     };
     Noise: {
-        new (options?: {
+        new(options?: {
             /** @default 0 */
             noise: number;
         }): INoiseFilter;
@@ -5547,12 +5426,12 @@ interface IAllFilters {
         fromObject(object: any): INoiseFilter;
     };
     Pixelate: {
-        new (options?: {
+        new(options?: {
             /**
              * Blocksize for pixelate
              * @default 4
              */
-            blocksize?: number;
+            blocksize?: number | undefined;
         }): IPixelateFilter;
         /**
          * Returns filter instance from an object representation
@@ -5561,11 +5440,11 @@ interface IAllFilters {
         fromObject(object: any): IPixelateFilter;
     };
     RemoveWhite: {
-        new (options?: {
+        new(options?: {
             /** @default 30 */
-            threshold?: number;
+            threshold?: number | undefined;
             /** @default 20 */
-            distance?: number;
+            distance?: number | undefined;
         }): IRemoveWhiteFilter;
         /**
          * Returns filter instance from an object representation
@@ -5574,7 +5453,7 @@ interface IAllFilters {
         fromObject(object: any): IRemoveWhiteFilter;
     };
     Resize: {
-        new (options?: any): IResizeFilter;
+        new(options?: any): IResizeFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5586,7 +5465,7 @@ interface IAllFilters {
          * Constructor
          * @param [options] Options object
          */
-        new (options?: { saturation?: number }): ISaturationFilter;
+        new(options?: { saturation?: number | undefined }): ISaturationFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5594,7 +5473,7 @@ interface IAllFilters {
         fromObject(object: any): ISaturationFilter;
     };
     Sepia2: {
-        new (options?: any): ISepia2Filter;
+        new(options?: any): ISepia2Filter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5602,7 +5481,7 @@ interface IAllFilters {
         fromObject(object: any): ISepia2Filter;
     };
     Sepia: {
-        new (options?: any): ISepiaFilter;
+        new(options?: any): ISepiaFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
@@ -5610,20 +5489,32 @@ interface IAllFilters {
         fromObject(object: any): ISepiaFilter;
     };
     Tint: {
-        new (options?: {
+        new(options?: {
             /**
              * Color to tint the image with
              * @default #000000
              */
-            color?: string;
+            color?: string | undefined;
             /** Opacity value that controls the tint effect's transparency (0..1) */
-            opacity?: number;
+            opacity?: number | undefined;
         }): ITintFilter;
         /**
          * Returns filter instance from an object representation
          * @param object Object to create an instance from
          */
         fromObject(object: any): ITintFilter;
+    };
+    Vibrance: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { vibrance?: number | undefined }): IVibranceFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IVibranceFilter;
     };
 }
 interface IBaseFilter {
@@ -5639,7 +5530,7 @@ interface IBaseFilter {
     /**
      * Returns a JSON representation of an instance
      */
-    toJSON(): string;
+    toJSON(): { version: string; objects: Object[] };
     /**
      * Apply the operation to a Uint8Array representing the pixels of an image.
      *
@@ -5649,9 +5540,9 @@ interface IBaseFilter {
     applyTo2d(options: any): void;
 }
 interface IBlendColorFilter extends IBaseFilter {
-    color?: string;
-    mode?: string;
-    alpha?: number;
+    color?: string | undefined;
+    mode?: string | undefined;
+    alpha?: number | undefined;
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5659,6 +5550,13 @@ interface IBlendColorFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IBlendImageFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IBlurFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5673,7 +5571,7 @@ interface IBrightnessFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IColorMatrix extends IBaseFilter {
-    matrix?: number[];
+    matrix?: number[] | undefined;
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5694,6 +5592,18 @@ interface IConvoluteFilter extends IBaseFilter {
      */
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
+interface IGammaFilter extends IBaseFilter {
+    /**
+     * Gamma array value
+     */
+    gamma: [number, number, number];
+
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
 interface IGradientTransparencyFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
@@ -5702,6 +5612,13 @@ interface IGradientTransparencyFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IGrayscaleFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IHueRotationFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5804,6 +5721,13 @@ interface ITintFilter extends IBaseFilter {
      */
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
+interface IVibranceFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
 
 ////////////////////////////////////////////////////////////
 // Brushes
@@ -5819,6 +5743,10 @@ export class BaseBrush {
      */
     width: number;
 
+    /**
+     * Discard points that are less than `decimate` pixel distant from each other
+     */
+    decimate: number;
     /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),
@@ -5839,12 +5767,6 @@ export class BaseBrush {
      * Stroke Dash Array.
      */
     strokeDashArray: any[];
-
-    /**
-     * Sets shadow of an object
-     * @param [options] Options object or string (e.g. "2px 2px 10px rgba(0,0,0,0.2)")
-     */
-    setShadow(options: string | any): BaseBrush;
 }
 
 export class CircleBrush extends BaseBrush {
@@ -5909,6 +5831,18 @@ export class PatternBrush extends PencilBrush {
 }
 export class PencilBrush extends BaseBrush {
     /**
+     * Constructor
+     * @param {Canvas} canvas
+     */
+    constructor(canvas: Canvas);
+    /**
+     * Constructor
+     * @param {Canvas} canvas
+     * @return {PencilBrush} Instance of a pencil brush
+     */
+    initialize(canvas: Canvas): PencilBrush;
+
+    /**
      * Converts points to SVG path
      * @param points Array of points
      */
@@ -5928,31 +5862,31 @@ interface IUtilAnimationOptions {
     /**
      * Starting value
      */
-    startValue?: number;
+    startValue?: number | undefined;
     /**
      * Ending value
      */
-    endValue?: number;
+    endValue?: number | undefined;
     /**
      * Value to modify the property by
      */
-    byValue?: number;
+    byValue?: number | undefined;
     /**
      * Duration of change (in ms)
      */
-    duration?: number;
+    duration?: number | undefined;
     /**
      * Callback; invoked on every value change
      */
-    onChange?: (value: number) => void;
+    onChange?: ((value: number) => void) | undefined;
     /**
      * Callback; invoked when value change is completed
      */
-    onComplete?: Function;
+    onComplete?: Function | undefined;
     /**
      * Easing function
      */
-    easing?: Function;
+    easing?: Function | undefined;
 }
 interface IUtilAnimation {
     /**
@@ -5965,7 +5899,9 @@ interface IUtilAnimation {
      * In order to get a precise start time, `requestAnimFrame` should be called as an entry into the method
      * @param callback Callback to invoke
      */
-    requestAnimFrame(callback: Function): void;
+    requestAnimFrame(callback: Function): number;
+
+    cancelAnimFrame(id: number): void;
 }
 
 type IUtilAminEaseFunction = (t: number, b: number, c: number, d: number) => number;
@@ -6001,6 +5937,10 @@ interface IUtilAnimEase {
     easeOutQuart: IUtilAminEaseFunction;
     easeOutQuint: IUtilAminEaseFunction;
     easeOutSine: IUtilAminEaseFunction;
+}
+
+interface IUtilImage {
+    setImageSmoothing(ctx: CanvasRenderingContext2D, value: any): void;
 }
 
 interface IUtilArc {
@@ -6139,7 +6079,7 @@ interface IUtilDomRequest {
         url: string,
         options?: {
             /** @default "GET" */
-            method?: string;
+            method?: string | undefined;
             /** Callback to invoke when request is completed */
             onComplete: Function;
         },
@@ -6354,7 +6294,6 @@ interface IUtilMisc {
      * measurement and so wrong bounding boxes.
      * After the font cache is cleared, either change the textObject text content or call
      * initDimensions() to trigger a recalculation
-     * @memberOf fabric.util
      * @param {String} [fontFamily] font family to clear
      */
     clearFabricFontCache(fontFamily?: string): void;
@@ -6446,9 +6385,33 @@ interface IUtilMisc {
     };
 
     /**
-     * Creates a transform matrix with the specified scale and skew
+     * Returns a transform matrix starting from an object of the same kind of
+     * the one returned from qrDecompose, useful also if you want to calculate some
+     * transformations from an object that is not enlived yet
+     * @static
+     * @param  {Object} options
+     * @param  {Number} [options.angle]
+     * @param  {Number} [options.scaleX]
+     * @param  {Number} [options.scaleY]
+     * @param  {Boolean} [options.flipX]
+     * @param  {Boolean} [options.flipY]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.skewX]
+     * @param  {Number} [options.translateX]
+     * @param  {Number} [options.translateY]
+     * @return {Number[]} transform matrix
      */
-    customTransformMatrix(scaleX: number, scaleY: number, skewX: number): number[];
+    composeMatrix(options: {
+        angle: number;
+        scaleX: number;
+        scaleY: number;
+        flipX: boolean;
+        flipY: boolean;
+        skewX: number;
+        skewY: number;
+        translateX: number;
+        translateY: number;
+    }): number[];
 
     /**
      * Returns string representation of function body
@@ -6469,7 +6432,6 @@ interface IUtilMisc {
     /**
      * reset an object transform state to neutral. Top and left are not accounted for
      * @static
-     * @memberOf fabric.util
      * @param  {fabric.Object} target object to transform
      */
     resetObjectTransform(target: Object): void;
@@ -6477,7 +6439,9 @@ interface IUtilMisc {
 
 export const util: IUtil;
 interface IUtil
-    extends IUtilAnimation,
+    extends
+        IUtilImage,
+        IUtilAnimation,
         IUtilArc,
         IObservable<IUtil>,
         IUtilDomEvent,
@@ -6485,7 +6449,8 @@ interface IUtil
         IUtilDomRequest,
         IUtilDomStyle,
         IUtilClass,
-        IUtilMisc {
+        IUtilMisc
+{
     ease: IUtilAnimEase;
     array: IUtilArray;
     object: IUtilObject;
@@ -6561,4 +6526,234 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 
 export class WebglFilterBackend {
     constructor(options?: WebglFilterBackendOptions);
+}
+
+export class Control {
+    constructor(options?: Partial<Control>);
+
+    /**
+     * keep track of control visibility.
+     * mainly for backward compatibility.
+     * if you do not want to see a control, you can remove it
+     * from the controlset.
+     * @default true
+     */
+    visible: boolean;
+
+    /**
+     * Name of the action that the control will likely execute.
+     * This is optional. FabricJS uses to identify what the user is doing for some
+     * extra optimizations. If you are writing a custom control and you want to know
+     * somewhere else in the code what is going on, you can use this string here.
+     * you can also provide a custom getActionName if your control run multiple actions
+     * depending on some external state.
+     * default to scale since is the most common, used on 4 corners by default
+     * @default 'scale'
+     */
+    actionName: string;
+
+    /**
+     * Drawing angle of the control.
+     * NOT used for now, but name marked as needed for internal logic
+     * example: to reuse the same drawing function for different rotated controls
+     * @default 0
+     */
+    angle: number;
+
+    /**
+     * Relative position of the control. X
+     * 0,0 is the center of the Object, while -0.5 (left) or 0.5 (right) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    x: number;
+
+    /**
+     * Relative position of the control. Y
+     * 0,0 is the center of the Object, while -0.5 (top) or 0.5 (bottom) are the extremities
+     * of the bounding box.
+     * @default 0
+     */
+    y: number;
+
+    /**
+     * Horizontal offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the right, negative to the left.
+     * It used when you want to have position of control that does not scale with
+     * the bounding box. Example: rotation control is placed at x:0, y: 0.5 on
+     * the boundindbox, with an offset of 30 pixels vertically. Those 30 pixels will
+     * stay 30 pixels no matter how the object is big. Another example is having 2
+     * controls in the corner, that stay in the same position when the object scale.
+     * of the bounding box.
+     * @default 0
+     */
+    offsetX: number;
+
+    /**
+     * Vertical offset of the control from the defined position. In pixels
+     * Positive offset moves the control to the bottom, negative to the top.
+     * @default 0
+     */
+    offsetY: number;
+
+    /**
+     * Sets the length of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     */
+    sizeX?: number | undefined;
+
+    /**
+     * Sets the height of the control. If null, defaults to object's cornerSize.
+     * Expects both sizeX and sizeY to be set when set.
+     */
+    sizeY?: number | undefined;
+
+    /**
+     * Sets the length of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @default null
+     */
+    touchSizeX?: number | undefined;
+
+    /**
+     * Sets the height of the touch area of the control. If null, defaults to object's touchCornerSize.
+     * Expects both touchSizeX and touchSizeY to be set when set.
+     * @default null
+     */
+    touchSizeY?: number | undefined;
+
+    /**
+     * Css cursor style to display when the control is hovered.
+     * if the method `cursorStyleHandler` is provided, this property is ignored.
+     * @default 'crosshair'
+     */
+    cursorStyle: string;
+
+    /**
+     * If controls has an offsetY or offsetX, draw a line that connects
+     * the control to the bounding box
+     * @default false
+     */
+    withConnection: boolean;
+
+    /**
+     * The control actionHandler, provide one to handle action ( control being moved )
+     * @return {Boolean} true if the action/event modified the object
+     */
+    actionHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control handler for mouse down, provide one to handle mouse down on control
+     */
+    mouseDownHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * The control mouseUpHandler, provide one to handle an effect on mouse up.
+     */
+    mouseUpHandler(eventData: MouseEvent, transformData: Transform, x: number, y: number): boolean;
+
+    /**
+     * Returns control actionHandler
+     */
+    getActionHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseDown handler
+     */
+    getMouseDownHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control mouseUp handler
+     */
+    getMouseUpHandler(eventData: MouseEvent, fabricObject: Object, control: Control): ControlMouseEventHandler;
+
+    /**
+     * Returns control cursorStyle for css using cursorStyle. If you need a more elaborate
+     * function you can pass one in the constructor
+     * the cursorStyle property
+     */
+    cursorStyleHandler(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns the action name. The basic implementation just return the actionName property.
+     */
+    getActionName(eventData: MouseEvent, control: Control, fabricObject: Object): string;
+
+    /**
+     * Returns controls visibility
+     */
+    getVisibility(fabricObject: Object, controlKey: string): boolean;
+
+    /**
+     * Sets controls visibility
+     */
+    setVisibility(visibility: boolean): void;
+
+    positionHandler(
+        dim: { x: number; y: number },
+        finalMatrix: any,
+        fabricObject: Object,
+        currentControl: Control,
+    ): Point;
+
+    /**
+     * Returns the coords for this control based on object values.
+     */
+    calcCornerCoords(
+        objectAngle: number,
+        objectCornerSize: number,
+        centerX: number,
+        centerY: number,
+        isTouch: boolean,
+    ): void;
+
+    /**
+     * Render function for the control.
+     * When this function runs the context is unscaled. unrotate. Just retina scaled.
+     * all the functions will have to translate to the point left,top before starting Drawing
+     * if they want to draw a control where the position is detected.
+     * left and top are the result of the positionHandler function
+     */
+    render(ctx: CanvasRenderingContext2D, left: number, top: number, styleOverride: any, fabricObject: Object): void;
+}
+
+type ControlMouseEventHandler = (eventData: MouseEvent, transformData: Transform, x: number, y: number) => boolean;
+
+export interface Transform {
+    target: Object;
+    action: string;
+    actionHandler: ControlMouseEventHandler;
+    altKey: boolean;
+    corner: string;
+    ex: number;
+    ey: number;
+    lastX: number;
+    lastY: number;
+    offsetX: number;
+    offsetY: number;
+    originX: "left" | "right";
+    originY: "top" | "bottom";
+    original: {
+        angle: number;
+        fill: string;
+        flipX: boolean;
+        flipY: boolean;
+        height: number;
+        left: number;
+        originX: "left" | "right";
+        originY: "top" | "bottom";
+        scaleX: number;
+        scaleY: number;
+        skewX: number;
+        skewY: number;
+        top: number;
+        width: number;
+    };
+    scaleX: number;
+    scaleY: number;
+    shiftKey: boolean;
+    skewX: number;
+    skewY: number;
+    theta: number;
+    width: number;
 }

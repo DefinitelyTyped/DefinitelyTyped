@@ -1,25 +1,19 @@
-// Type definitions for pixl-xml 1.0
-// Project: https://github.com/jhuckaby/pixl-xml
-// Definitions by: Evan Shortiss <https://github.com/evanshortiss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Options that can be passed to parse function
  */
 export interface PixlParseOptions {
-    preserveAttributes?: boolean;
-    lowerCase?: boolean;
-    preserveDocumentNode?: boolean;
-    preserveWhitespace?: boolean;
-    forceArrays?: boolean;
+    preserveAttributes?: boolean | undefined;
+    lowerCase?: boolean | undefined;
+    preserveDocumentNode?: boolean | undefined;
+    preserveWhitespace?: boolean | undefined;
+    forceArrays?: boolean | undefined;
 }
 
 /**
  * Parser class can be used for a more object oriented style API
  */
-export class Parser <OutputJsonInterface> {
-    constructor(xml: string, options?: PixlParseOptions)
+export class Parser<OutputJsonInterface> {
+    constructor(xml: string, options?: PixlParseOptions);
 
     attribsKey: string;
     dataKey: string;
@@ -81,7 +75,7 @@ export function decodeEntities(xml: string): string;
  * simply returned verbatim.
  * @param input
  */
-export function alwaysArray<T>(input: T|T[]): T[];
+export function alwaysArray<T>(input: T | T[]): T[];
 
 /**
  * This function returns all the hash keys as an array. Useful for sorting and
@@ -141,4 +135,11 @@ export function parse(xml: string, options?: PixlParseOptions): {};
  * @param eolCharacter
  * @param preserveOrder
  */
-export function stringify(doc: object, outerElName?: string, indentSize?: number, indentCharacter?: string, eolCharacter?: string, preserveOrder?: boolean): string;
+export function stringify(
+    doc: object,
+    outerElName?: string,
+    indentSize?: number,
+    indentCharacter?: string,
+    eolCharacter?: string,
+    preserveOrder?: boolean,
+): string;

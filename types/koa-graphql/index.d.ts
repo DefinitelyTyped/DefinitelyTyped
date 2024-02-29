@@ -1,13 +1,8 @@
-// Type definitions for koa-graphql 0.8
-// Project: https://github.com/chentsulin/koa-graphql
-// Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { Context, Request, Response, Middleware } from 'koa';
-import { GraphQLError, GraphQLSchema, GraphQLFieldResolver, ValidationContext, ASTVisitor } from 'graphql';
-import { RequestInfo } from 'express-graphql';
+import { RequestInfo } from "express-graphql";
+import { ASTVisitor, GraphQLError, GraphQLFieldResolver, GraphQLSchema, ValidationContext } from "graphql";
+import { Context, Middleware, Request, Response } from "koa";
 
 export = graphqlHTTP;
 
@@ -37,20 +32,20 @@ declare namespace graphqlHTTP {
         /**
          * A boolean to configure whether the output should be pretty-printed.
          */
-        pretty?: boolean;
+        pretty?: boolean | undefined;
 
         /**
          * An optional function which will be used to format any errors produced by
          * fulfilling a GraphQL operation. If no function is provided, GraphQL's
          * default spec-compliant `formatError` function will be used.
          */
-        formatError?: (error: GraphQLError, context?: any) => any;
+        formatError?: ((error: GraphQLError, context?: any) => any) | undefined;
 
         /**
          * An optional array of validation rules that will be applied on the document
          * in addition to those defined by the GraphQL spec.
          */
-        validationRules?: Array<(arg0: ValidationContext) => ASTVisitor>;
+        validationRules?: Array<(arg0: ValidationContext) => ASTVisitor> | undefined;
 
         /**
          * An optional function for adding additional metadata to the GraphQL response
@@ -62,18 +57,18 @@ declare namespace graphqlHTTP {
          *
          * This function may be async.
          */
-        extensions?: (info: RequestInfo) => { [key: string]: any };
+        extensions?: ((info: RequestInfo) => { [key: string]: any }) | undefined;
 
         /**
          * A boolean to optionally enable GraphiQL mode.
          */
-        graphiql?: boolean;
+        graphiql?: boolean | undefined;
 
         /**
          * A resolver function to use when one is not provided by the schema.
          * If not provided, the default field resolver is used (which looks for a
          * value or method on the source value with the field's name).
          */
-        fieldResolver?: GraphQLFieldResolver<any, any>;
+        fieldResolver?: GraphQLFieldResolver<any, any> | undefined;
     }
 }

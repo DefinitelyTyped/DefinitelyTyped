@@ -1,18 +1,17 @@
-import { Callback, Connection } from '../connection';
-import { EventEmitter } from 'events';
-import { Stream } from 'stream';
-import { Buffer } from 'buffer';
+import { EventEmitter } from "events";
+import { Stream } from "stream";
+import { Callback, Connection } from "../connection";
 
 interface DeployResult {
     id: string;
     checkOnly: boolean;
     completedDate: string;
     createdDate: string;
-    details?: object[];
+    details?: object[] | undefined;
     done: boolean;
-    errorMessage?: string;
-    errorStatusCode?: string;
-    ignoreWarnings?: boolean;
+    errorMessage?: string | undefined;
+    errorStatusCode?: string | undefined;
+    ignoreWarnings?: boolean | undefined;
     lastModifiedDate: string;
     numberComponentErrors: number;
     numberComponentsDeployed: number;
@@ -20,18 +19,18 @@ interface DeployResult {
     numberTestErrors: number;
     numberTestsCompleted: number;
     numberTestsTotal: number;
-    rollbackOnError?: boolean;
+    rollbackOnError?: boolean | undefined;
     startDate: string;
     status: string;
     success: boolean;
 }
 
 interface MetadataObject {
-    childXmlNames?: string[];
-    directoryName?: string;
-    inFolder?: boolean;
-    metaFile?: boolean;
-    suffix?: string;
+    childXmlNames?: string[] | undefined;
+    directoryName?: string | undefined;
+    inFolder?: boolean | undefined;
+    metaFile?: boolean | undefined;
+    suffix?: string | undefined;
     xmlName: string;
 }
 
@@ -53,13 +52,13 @@ interface FileProperties {
     lastModifiedById: string;
     lastModifiedByName: string;
     lastModifiedDate: string;
-    manageableState?: string;
-    namespacePrefix?: string;
+    manageableState?: string | undefined;
+    namespacePrefix?: string | undefined;
 }
 
 interface ListMetadataQuery {
     type: string;
-    folder?: string;
+    folder?: string | undefined;
 }
 
 interface MetadataInfo {
@@ -67,15 +66,15 @@ interface MetadataInfo {
 }
 
 interface Package {
-    apiAccessLevel?: "Unrestricted" | "Restricted";
-    description?: string;
-    fullName?: string;
-    namespacePrefix?: string;
-    objectPermissions?: ProfileObjectPermissions[];
-    postInstallClass?: string;
-    setupWeblink?: string;
+    apiAccessLevel?: "Unrestricted" | "Restricted" | undefined;
+    description?: string | undefined;
+    fullName?: string | undefined;
+    namespacePrefix?: string | undefined;
+    objectPermissions?: ProfileObjectPermissions[] | undefined;
+    postInstallClass?: string | undefined;
+    setupWeblink?: string | undefined;
     types: PackageTypeMembers[];
-    uninstallClass?: string;
+    uninstallClass?: string | undefined;
     version: string;
 }
 
@@ -85,21 +84,21 @@ interface PackageTypeMembers {
 }
 
 interface ProfileObjectPermissions {
-    allowCreate?: boolean;
-    allowDelete?: boolean;
-    allowEdit?: boolean;
-    allowRead?: boolean;
-    modifyAllRecords?: boolean;
+    allowCreate?: boolean | undefined;
+    allowDelete?: boolean | undefined;
+    allowEdit?: boolean | undefined;
+    allowRead?: boolean | undefined;
+    modifyAllRecords?: boolean | undefined;
     object: string;
-    viewAllRecords?: boolean;
+    viewAllRecords?: boolean | undefined;
 }
 
 interface RetrieveRequest {
-    apiVersion?: string;
-    packageNames?: string[];
-    singlePackage?: boolean;
-    specificFiles?: string[];
-    unpackaged?: Package;
+    apiVersion?: string | undefined;
+    packageNames?: string[] | undefined;
+    singlePackage?: boolean | undefined;
+    specificFiles?: string[] | undefined;
+    unpackaged?: Package | undefined;
 }
 
 interface RetrieveMessage {
@@ -111,12 +110,19 @@ interface RetrieveResult {
     fileProperties: FileProperties[];
     id: string;
     messages: RetrieveMessage[];
-    zipFile: string
+    zipFile: string;
 }
 
 interface SaveResult {
     success: boolean;
     fullName: string;
+    errors?: SaveError | SaveError[] | undefined;
+}
+
+interface SaveError {
+    fields: string | string[];
+    message: string;
+    statusCode: string;
 }
 
 interface UpdateMetadataInfo {
@@ -134,32 +140,34 @@ interface AsyncResult {
     done: boolean;
     id: string;
     state: string;
-    statusCode?: string;
-    message?: string;
+    statusCode?: string | undefined;
+    message?: string | undefined;
 }
 
 interface DeployOptions {
-    allowMissingFiles?:    boolean;
-    autoUpdatePackage?: boolean;
-    checkOnly?:    boolean;
-    ignoreWarnings?: boolean;
-    performRetrieve?: boolean;
-    purgeOnDelete?: boolean;
-    rollbackOnError?: boolean;
-    runAllTests?: boolean;
-    runTests?: string[];
-    singlePackage?:    boolean;
+    allowMissingFiles?: boolean | undefined;
+    autoUpdatePackage?: boolean | undefined;
+    checkOnly?: boolean | undefined;
+    ignoreWarnings?: boolean | undefined;
+    performRetrieve?: boolean | undefined;
+    purgeOnDelete?: boolean | undefined;
+    rollbackOnError?: boolean | undefined;
+    runAllTests?: boolean | undefined;
+    runTests?: string[] | undefined;
+    singlePackage?: boolean | undefined;
 }
 
 export class AsyncResultLocator<T> extends EventEmitter implements PromiseLike<T> {
-    check(callback?: Callback<T>): Promise<T>
+    check(callback?: Callback<T>): Promise<T>;
 
-    complete(callback?: Callback<T>): Promise<T>
+    complete(callback?: Callback<T>): Promise<T>;
 
     poll(interval: number, timeout: number): void;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null | undefined,
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null | undefined): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(
+        onfulfilled?: ((value: T) => PromiseLike<TResult1> | TResult1) | null,
+        onrejected?: ((reason: any) => PromiseLike<TResult2> | TResult2) | null,
+    ): Promise<TResult1 | TResult2>;
 
     finally(onfinally?: () => void): Promise<T>;
 }
@@ -173,111 +181,107 @@ export class Metadata {
 
     constructor(conn: Connection);
 
-    checkDeployStatus(
-        id: string,
-        includeDetails?: boolean,
-        callback?: Callback<DeployResult>
-    ): Promise<DeployResult>;
+    checkDeployStatus(id: string, includeDetails?: boolean, callback?: Callback<DeployResult>): Promise<DeployResult>;
 
     checkRetrieveStatus(id: string, callback?: Callback<RetrieveResult>): Promise<RetrieveResult>;
 
     checkStatus(
         ids: string | string[],
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     create(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createAsync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     createSync(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     delete(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deleteAsync(
         type: string,
-        metadata: string | string[] | MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        metadata: string | string[] | MetadataInfo | MetadataInfo[],
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     deleteSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     deploy(
         zipInput: Stream | Buffer | string,
         options: DeployOptions,
-        callback?: Callback<AsyncResult>
+        callback?: Callback<AsyncResult>,
     ): DeployResultLocator<AsyncResult>;
 
     describe(version?: string, callback?: Callback<DescribeMetadataResult>): Promise<DescribeMetadataResult>;
 
     list(
-        queries: ListMetadataQuery | Array<ListMetadataQuery>,
+        queries: ListMetadataQuery | ListMetadataQuery[],
         version?: string,
-        callback?: Callback<Array<FileProperties>>
-    ): Promise<Array<FileProperties>>;
+        callback?: Callback<FileProperties[]>,
+    ): Promise<FileProperties[]>;
 
     read(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     readSync(
         type: string,
         fullNames: string | string[],
-        callback?: Callback<MetadataInfo | Array<MetadataInfo>>
-    ): Promise<MetadataInfo | Array<MetadataInfo>>;
+        callback?: Callback<MetadataInfo | MetadataInfo[]>,
+    ): Promise<MetadataInfo | MetadataInfo[]>;
 
     rename(
         type: string,
         oldFullName: string,
         newFullName: string,
-        callback?: Callback<SaveResult>
+        callback?: Callback<SaveResult>,
     ): Promise<SaveResult>;
 
     retrieve(request: RetrieveRequest, callback?: Callback<AsyncResult>): RetrieveResultLocator<AsyncResult>;
 
     update(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     updateAsync(
         type: string,
         updateMetadata: MetadataInfo,
-        callback?: Callback<AsyncResult | Array<AsyncResult>>
-    ): AsyncResultLocator<AsyncResult | Array<AsyncResult>>;
+        callback?: Callback<AsyncResult | AsyncResult[]>,
+    ): AsyncResultLocator<AsyncResult | AsyncResult[]>;
 
     updateSync(
         type: string,
-        updateMetadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<SaveResult | Array<SaveResult>>
-    ): Promise<SaveResult | Array<SaveResult>>;
+        updateMetadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<SaveResult | SaveResult[]>,
+    ): Promise<SaveResult | SaveResult[]>;
 
     upsert(
         type: string,
-        metadata: MetadataInfo | Array<MetadataInfo>,
-        callback?: Callback<UpsertResult | Array<UpsertResult>>
-    ): Promise<UpsertResult | Array<UpsertResult>>;
+        metadata: MetadataInfo | MetadataInfo[],
+        callback?: Callback<UpsertResult | UpsertResult[]>,
+    ): Promise<UpsertResult | UpsertResult[]>;
 }

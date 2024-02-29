@@ -1,44 +1,39 @@
-// Type definitions for xmlrpc 1.3.2
-// Project: https://github.com/baalexander/node-xmlrpc
-// Definitions by: Andrew Short <http://ajshort.me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare module 'xmlrpc' {
-    import { EventEmitter } from 'events';
-    import { Server as HttpServer } from 'http';
-    import { Server as HttpsServer } from 'https';
-    import { TlsOptions } from 'tls';
+declare module "xmlrpc" {
+    import { EventEmitter } from "events";
+    import { Server as HttpServer } from "http";
+    import { Server as HttpsServer } from "https";
+    import { TlsOptions } from "tls";
 
     interface ClientOptions {
-        host?: string;
-        path?: string;
-        port?: number;
-        url?: string;
-        cookies?: boolean;
-        headers?: { [header: string]: string };
-        basic_auth?: { user: string, pass: string };
-        method?: string;
+        host?: string | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
+        url?: string | undefined;
+        cookies?: boolean | undefined;
+        headers?: { [header: string]: string } | undefined;
+        basic_auth?: { user: string; pass: string } | undefined;
+        method?: string | undefined;
     }
 
     interface ServerOptions {
-        host?: string;
-        path?: string;
-        port?: number;
+        host?: string | undefined;
+        path?: string | undefined;
+        port?: number | undefined;
     }
 
     interface DateFormatterOptions {
-        colons?: boolean;
-        hyphens?: boolean;
-        local?: boolean;
-        ms?: boolean;
-        offset?: boolean;
+        colons?: boolean | undefined;
+        hyphens?: boolean | undefined;
+        local?: boolean | undefined;
+        ms?: boolean | undefined;
+        offset?: boolean | undefined;
     }
 
     class Cookies {
         get(name: string): string;
-        set(name: string, value: string, options?: { secure: boolean, expires: Date }): void;
+        set(name: string, value: string, options?: { secure: boolean; expires: Date }): void;
         toString(): string;
     }
 
@@ -53,7 +48,7 @@ declare module 'xmlrpc' {
             options: ClientOptions;
             isSecure: boolean;
             headersProcessors: { processors: HeadersProcessor[] };
-            cookies?: Cookies;
+            cookies?: Cookies | undefined;
 
             methodCall(method: string, params: any[], callback: (error: Object, value: any) => void): void;
 
@@ -67,7 +62,7 @@ declare module 'xmlrpc' {
         interface Server extends EventEmitter {
             httpServer: HttpServer | HttpsServer;
 
-            on(eventName: 'NotFound', callback: ServerNotFoundFunction): this;
+            on(eventName: "NotFound", callback: ServerNotFoundFunction): this;
             on(eventName: string, callback: ServerFunction): this;
         }
 
@@ -83,7 +78,7 @@ declare module 'xmlrpc' {
 
             decodeIso8601(time: string): Date;
             encodeIso8601(date: Date): string;
-        }
+        };
 
         export class CustomType {
             tagName: string;

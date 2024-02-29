@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactAttr<HTMLUListElement> { }
-
-export interface UnorderedListProps extends InheritedProps {
-    nested?: boolean,
+export interface UnorderedListProps extends ReactAttr<HTMLUListElement> {
+    isExpressive?: boolean | undefined;
+    nested?: boolean | undefined;
 }
 
 declare const UnorderedList: React.FC<UnorderedListProps>;

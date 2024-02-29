@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StatelessComponent } from "react";
+import { FunctionComponent } from "react";
 import { UserAuthWrapper } from "redux-auth-wrapper";
 
 const Auth = UserAuthWrapper<any, any, any>({
@@ -10,19 +10,19 @@ const Auth = UserAuthWrapper<any, any, any>({
     authSelector(state: any) {
         return state.auth;
     },
-    FailureComponent: () => (<div />),
+    FailureComponent: () => <div />,
     failureRedirectPath: "/401",
-    LoadingComponent: () => (<div />),
-    redirectAction: () => ({ type : "redirect" }),
+    LoadingComponent: () => <div />,
+    redirectAction: () => ({ type: "redirect" }),
     redirectQueryParamName: "next",
     predicate(authData: any) {
         return authData.authorized;
     },
-    wrapperDisplayName: "TestAuth"
+    wrapperDisplayName: "TestAuth",
 });
 
-export const TestAuthComponent: StatelessComponent = () => {
-    return (<div />);
+export const TestAuthComponent: FunctionComponent = () => {
+    return <div />;
 };
 
 const TestAuth = Auth(TestAuthComponent);

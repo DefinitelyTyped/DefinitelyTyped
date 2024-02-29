@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Modal, { ModalProvider, BaseModalBackground as BackgroundComponent } from 'styled-react-modal';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
+import Modal, { BaseModalBackground as BackgroundComponent, ModalProvider } from "styled-react-modal";
 
 const background = styled.div`
     background: rgba(0,0,0,.3);
@@ -11,12 +11,12 @@ const test1 = (
     <ModalProvider backgroundComponent={background}>
         <Modal
             isOpen={true}
-            onBackgroundClick={() => console.log('Background click!')}
-            onEscapeKeydown={() => console.log('Background click!')}
-            afterOpen={() => console.log('After Open!')}
-            afterClose={() => console.log('After Close!')}
-            beforeOpen={() => console.log('Before Open!')}
-            beforeClose={() => console.log('Before Close!')}
+            onBackgroundClick={() => console.log("Background click!")}
+            onEscapeKeydown={() => console.log("Background click!")}
+            afterOpen={() => console.log("After Open!")}
+            afterClose={() => console.log("After Close!")}
+            beforeOpen={() => console.log("Before Open!")}
+            beforeClose={() => console.log("Before Close!")}
             allowScroll={true}
         >
             Modal Content!
@@ -29,13 +29,13 @@ const test2 = (
     <ModalProvider backgroundComponent={BackgroundComponent}>
         <Modal
             isOpen={true}
-            backgroundProps={{style: {padding: "20px"}}}
-            onBackgroundClick={() => console.log('Background click!')}
-            onEscapeKeydown={() => console.log('Background click!')}
-            afterOpen={() => console.log('After Open!')}
-            afterClose={() => console.log('After Close!')}
-            beforeOpen={() => console.log('Before Open!')}
-            beforeClose={() => console.log('Before Close!')}
+            backgroundProps={{ style: { padding: "20px" } }}
+            onBackgroundClick={() => console.log("Background click!")}
+            onEscapeKeydown={() => console.log("Background click!")}
+            afterOpen={() => console.log("After Open!")}
+            afterClose={() => console.log("After Close!")}
+            beforeOpen={() => console.log("Before Open!")}
+            beforeClose={() => console.log("Before Close!")}
             allowScroll={true}
         >
             Modal Content!
@@ -58,7 +58,7 @@ const StyledModal = Modal.styled`
 
 const test4 = (
     <ModalProvider>
-        <StyledModal isOpen={true} onBackgroundClick={() => console.log('Background click!')}>
+        <StyledModal isOpen={true} onBackgroundClick={() => console.log("Background click!")}>
             Modal Content!
         </StyledModal>
     </ModalProvider>

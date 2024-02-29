@@ -1,10 +1,3 @@
-// Type definitions for swagger-express-middleware 1.x
-// Project: https://github.com/BigstickCarpet/swagger-express-middleware
-// Definitions by: Alexandre Roba <https://github.com/alexandreroba>
-//                 Tromgy <https://github.com/tromgy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 import * as express from "express";
 import * as SwaggerExpressMiddleware from "swagger-express-middleware";
@@ -31,14 +24,18 @@ app.listen(8000, function () {
 /// <reference types="express" />
 
 declare module "swagger-express-middleware" {
-    import { Application, Router, RequestHandler, Request, Response } from "express";
+    import { Application, Request, RequestHandler, Response, Router } from "express";
     import SwaggerParser = require("swagger-parser");
 
     let s: s.SwaggerMiddlewareConstructor;
 
     namespace s {
         interface SwaggerMiddlewareConstructor {
-            (apiDefinitionPathOrObject: string | SwaggerObject, appOrRouter: Application | Router, cb: SwaggerMiddlewareConstructorCallback): SwaggerMiddleware;
+            (
+                apiDefinitionPathOrObject: string | SwaggerObject,
+                appOrRouter: Application | Router,
+                cb: SwaggerMiddlewareConstructorCallback,
+            ): SwaggerMiddleware;
         }
         interface SwaggerMiddlewareConstructorCallback {
             (err: any, middleware: SwaggerMiddleware, api: SwaggerObject, parser: SwaggerParser): void;
@@ -46,9 +43,9 @@ declare module "swagger-express-middleware" {
 
         export interface SwaggerMiddleware {
             /**
-            * Annotates the HTTP request (the `req` object) with Swagger metadata.
-            * This middleware populates Request.swagger
-            */
+             * Annotates the HTTP request (the `req` object) with Swagger metadata.
+             * This middleware populates Request.swagger
+             */
             metadata: MetadataSignature;
             /**
              * Handles CORS preflight requests and sets CORS headers for all requests according the Swagger API definition.
@@ -81,18 +78,19 @@ declare module "swagger-express-middleware" {
                  */
                 router?: Application | Router,
                 /**
-                * The data store that will be used to persist REST resources.
-                * If `router` is an Express Application, then you can set/get the data store
-                * using `router.get("mock data store")
-                */
-                datastore?: any): RequestHandler
+                 * The data store that will be used to persist REST resources.
+                 * If `router` is an Express Application, then you can set/get the data store
+                 * using `router.get("mock data store")
+                 */
+                datastore?: any,
+            ): RequestHandler;
         }
         interface MetadataSignature {
-            (router?: Application | Router): RequestHandler
+            (router?: Application | Router): RequestHandler;
         }
 
         interface CORSSignature {
-            (): RequestHandler
+            (): RequestHandler;
         }
 
         interface FilesSignature {
@@ -100,7 +98,8 @@ declare module "swagger-express-middleware" {
                 /**
                  * Options for how the files are served
                  */
-                options?: FilesOptions): RequestHandler
+                options?: FilesOptions,
+            ): RequestHandler;
             (
                 /**
                  * If an Express Application or Router is passed, then its routing settings will be used.
@@ -109,7 +108,8 @@ declare module "swagger-express-middleware" {
                 /**
                  * Options for how the files are served
                  */
-                options?: FilesOptions): RequestHandler
+                options?: FilesOptions,
+            ): RequestHandler;
         }
 
         interface ParseRequestSignature {
@@ -117,7 +117,8 @@ declare module "swagger-express-middleware" {
                 /**
                  * Options for each of the request-parsing middleware
                  */
-                options?: ParseRequestOptions): RequestHandler
+                options?: ParseRequestOptions,
+            ): RequestHandler;
             (
                 /**
                  * An Express Application or Router.
@@ -127,67 +128,69 @@ declare module "swagger-express-middleware" {
                 /**
                  * Options for each of the request-parsing middleware
                  */
-                options?: ParseRequestOptions): RequestHandler
+                options?: ParseRequestOptions,
+            ): RequestHandler;
         }
 
         export interface FilesOptions {
-            useBasePath?: boolean
-            apiPath?: string
-            rawFilesPath?: string
+            useBasePath?: boolean | undefined;
+            apiPath?: string | undefined;
+            rawFilesPath?: string | undefined;
         }
 
         export interface ParseRequestOptions {
             /**
              * Cookie parser options
              */
-            cookie?: CookieParserOptionItem
+            cookie?: CookieParserOptionItem | undefined;
             /**
              * JSON body parser options
              */
-            json?: JsonParseOptionItem
+            json?: JsonParseOptionItem | undefined;
             /**
              * Plain-text body parser options
              */
-            text?: TextParserOptionItem
+            text?: TextParserOptionItem | undefined;
             /**
              * URL-encoded body parser options
              */
-            urlencoded?: UrlEncodedOptionItem
+            urlencoded?: UrlEncodedOptionItem | undefined;
             /**
              * Raw body parser options
              */
-            raw?: RawParserOptionItem
+            raw?: RawParserOptionItem | undefined;
             /**
              * Multipart form data parser options
              */
-            multipart?: MulterOptions
+            multipart?: MulterOptions | undefined;
         }
 
-        interface MulterOptions{
+        interface MulterOptions {
             /** The destination directory for the uploaded files. */
-            dest?: string;
+            dest?: string | undefined;
             /** The storage engine to use for uploaded files. */
-            storage?: StorageEngine;
+            storage?: StorageEngine | undefined;
             /** An object specifying the size limits of the following optional properties. This object is passed to busboy directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods */
             limits?: {
                 /** Max field name size (Default: 100 bytes) */
-                fieldNameSize?: number;
+                fieldNameSize?: number | undefined;
                 /** Max field value size (Default: 1MB) */
-                fieldSize?: number;
+                fieldSize?: number | undefined;
                 /** Max number of non- file fields (Default: Infinity) */
-                fields?: number;
+                fields?: number | undefined;
                 /** For multipart forms, the max file size (in bytes)(Default: Infinity) */
-                fileSize?: number;
+                fileSize?: number | undefined;
                 /** For multipart forms, the max number of file fields (Default: Infinity) */
-                files?: number;
+                files?: number | undefined;
                 /** For multipart forms, the max number of parts (fields + files)(Default: Infinity) */
-                parts?: number;
+                parts?: number | undefined;
                 /** For multipart forms, the max number of header key=> value pairs to parse Default: 2000(same as node's http). */
-                headerPairs?: number;
-            };
+                headerPairs?: number | undefined;
+            } | undefined;
             /** A function to control which files to upload and which to skip. */
-            fileFilter?: (req: Request, file: File, callback: (error: Error, acceptFile: boolean) => void) => void;
-
+            fileFilter?:
+                | ((req: Request, file: File, callback: (error: Error, acceptFile: boolean) => void) => void)
+                | undefined;
         }
 
         interface StorageEngine {
@@ -220,12 +223,12 @@ declare module "swagger-express-middleware" {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
-            inflate?: boolean;
+            inflate?: boolean | undefined;
             /**
              * Controls the maximum request body size. If this is a number, then the value specifies the number of bytes;
              * if it is a string, the value is passed to the bytes library for parsing. Defaults to '100kb'.
              */
-            limit?: string | number;
+            limit?: string | number | undefined;
             /**
              * The type option is used to determine what media type the middleware will parse.
              * This option can be a function or a string.
@@ -233,12 +236,11 @@ declare module "swagger-express-middleware" {
              * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value.
              * Defaults to application/octet-stream.
              */
-            type?: ((req: Request) => string) | string
+            type?: ((req: Request) => string) | string | undefined;
             /**
              * function to verify body content, the parsing can be aborted by throwing an error.
              */
-            verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
-
+            verify?: ((req: Request, res: Response, buf: Buffer, encoding: string) => void) | undefined;
         }
 
         interface CookieParserOptionItem {
@@ -248,86 +250,86 @@ declare module "swagger-express-middleware" {
              * If a string is provided, this is used as the secret.
              * If an array is provided, an attempt will be made to unsign the cookie with each secret in order.
              */
-            secret?: string | Array<string>
+            secret?: string | string[] | undefined;
             /**
              *  an object that is passed to cookie.parse as the second option
              */
-            options?: any
+            options?: any;
         }
 
         interface JsonParseOptionItem {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
-            inflate?: boolean;
+            inflate?: boolean | undefined;
             /**
              * Controls the maximum request body size.
              * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'
              */
-            limit?: string | number;
+            limit?: string | number | undefined;
             /**
              * The type option is used to determine what media type the middleware will parse.
              * This option can be a function or a string.
              * If a string, type option is passed directly to the type-is library and this can be an extension name (like json), a mime type (like application/json), or a mime * type with a wildcard (like * /* or * /json).
              * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. Defaults to application/json
              */
-            type?: ((req: Request) => string) | string
+            type?: ((req: Request) => string) | string | undefined;
             /**
              * The verify option, if supplied, is called as verify(req, res, buf, encoding), where buf is a Buffer of the raw request body and encoding is the encoding of the request.
              * The parsing can be aborted by throwing an error.
              */
-            verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
+            verify?: ((req: Request, res: Response, buf: Buffer, encoding: string) => void) | undefined;
             /**
              * only parse objects and arrays. (default: true)
              */
-            strict?: boolean;
+            strict?: boolean | undefined;
             /**
              * passed to JSON.parse().
              */
-            receiver?: (key: string, value: any) => any;
+            receiver?: ((key: string, value: any) => any) | undefined;
         }
 
         interface TextParserOptionItem {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
-            inflate?: boolean;
+            inflate?: boolean | undefined;
             /**
              * Controls the maximum request body size.
              * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'
              */
-            limit?: string | number;
+            limit?: string | number | undefined;
             /**
              * The type option is used to determine what media type the middleware will parse.
              * This option can be a function or a string.
              * If a string, type option is passed directly to the type-is library and this can be an extension name (like txt), a mime type (like text/plain), or a mime type * with a wildcard (like * /* or text/*).
              * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. Defaults to text/plain.
              */
-            type?: ((req: Request) => string) | string
+            type?: ((req: Request) => string) | string | undefined;
             /**
              * function to verify body content, the parsing can be aborted by throwing an error.
              */
-            verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
+            verify?: ((req: Request, res: Response, buf: Buffer, encoding: string) => void) | undefined;
             /**
              * the default charset to parse as, if not specified in content-type. (default: 'utf-8')
              */
-            defaultCharset?: string;
+            defaultCharset?: string | undefined;
         }
 
         interface UrlEncodedOptionItem {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
-            inflate?: boolean;
+            inflate?: boolean | undefined;
             /**
              * Controls the maximum request body size.
              * If this is a number, then the value specifies the number of bytes;
              * if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'.
              */
-            limit?: string | number;
+            limit?: string | number | undefined;
             /**
              * The type option is used to determine what media type the middleware will parse.
              * This option can be a function or a string.
@@ -335,260 +337,260 @@ declare module "swagger-express-middleware" {
              * or a mime type with a wildcard (like * /x-www-form-urlencoded). If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value.
              * Defaults to application/x-www-form-urlencoded.
              */
-            type?: ((req: Request) => string) | string
+            type?: ((req: Request) => string) | string | undefined;
             /**
              * function to verify body content, the parsing can be aborted by throwing an error.
              */
-            verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
+            verify?: ((req: Request, res: Response, buf: Buffer, encoding: string) => void) | undefined;
             /**
              * parse extended syntax with the qs module.
              */
-            extended?: boolean;
+            extended?: boolean | undefined;
         }
 
         export interface SwaggerObject {
-            swagger: string
-            info: InfoObject
-            host?: string
-            basePath?: string
-            schemes?: string[]
-            consumes?: MimeTypes
-            produces?: MimeTypes
-            paths: PathsObject
-            definitions?: DefinitionsObject
-            parameters?: ParametersDefinitionsObject
-            responses?: ResponsesDefinitionsObject
-            securityDefinitions?: SecurityDefinitionsObject
-            security?: SecurityRequirementObject[]
-            tags?: TagObject[]
-            externalDocs?: ExternalDocumentationObject
+            swagger: string;
+            info: InfoObject;
+            host?: string | undefined;
+            basePath?: string | undefined;
+            schemes?: string[] | undefined;
+            consumes?: MimeTypes | undefined;
+            produces?: MimeTypes | undefined;
+            paths: PathsObject;
+            definitions?: DefinitionsObject | undefined;
+            parameters?: ParametersDefinitionsObject | undefined;
+            responses?: ResponsesDefinitionsObject | undefined;
+            securityDefinitions?: SecurityDefinitionsObject | undefined;
+            security?: SecurityRequirementObject[] | undefined;
+            tags?: TagObject[] | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
         }
 
-        type MimeTypes = string[]
+        type MimeTypes = string[];
 
         export interface InfoObject {
-            title: string
-            description?: string
-            termsOfService?: string
-            contact?: ContactObject
-            license?: LicenseObject
-            version: string
+            title: string;
+            description?: string | undefined;
+            termsOfService?: string | undefined;
+            contact?: ContactObject | undefined;
+            license?: LicenseObject | undefined;
+            version: string;
         }
 
         export interface ContactObject {
-            name?: string
-            url?: string
-            email?: string
+            name?: string | undefined;
+            url?: string | undefined;
+            email?: string | undefined;
         }
 
         export interface LicenseObject {
-            name: string
-            url?: string
+            name: string;
+            url?: string | undefined;
         }
 
         export interface PathsObject {
-            [index: string]: PathItemObject | any
+            [index: string]: PathItemObject | any;
         }
 
         export interface PathItemObject {
-            $ref?: string
-            get?: OperationObject
-            put?: OperationObject
-            post?: OperationObject
-            'delete'?: OperationObject
-            options?: OperationObject
-            head?: OperationObject
-            patch?: OperationObject
-            parameters?: Parameters
+            $ref?: string | undefined;
+            get?: OperationObject | undefined;
+            put?: OperationObject | undefined;
+            post?: OperationObject | undefined;
+            "delete"?: OperationObject | undefined;
+            options?: OperationObject | undefined;
+            head?: OperationObject | undefined;
+            patch?: OperationObject | undefined;
+            parameters?: Parameters | undefined;
         }
 
         export interface OperationObject {
-            tags?: string[]
-            summary?: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
-            operationId?: string
-            consumes?: MimeTypes
-            produces?: MimeTypes
-            parameters?: Parameters
-            responses: ResponsesObject
-            schemes?: string[]
-            deprecated?: boolean
-            security?: SecurityRequirementObject[]
+            tags?: string[] | undefined;
+            summary?: string | undefined;
+            description?: string | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
+            operationId?: string | undefined;
+            consumes?: MimeTypes | undefined;
+            produces?: MimeTypes | undefined;
+            parameters?: Parameters | undefined;
+            responses: ResponsesObject;
+            schemes?: string[] | undefined;
+            deprecated?: boolean | undefined;
+            security?: SecurityRequirementObject[] | undefined;
         }
 
         export interface DefinitionsObject {
-            [index: string]: SchemaObject
+            [index: string]: SchemaObject;
         }
 
         export interface ResponsesObject {
-            [index: string]: Response | any
-            'default': Response
+            [index: string]: Response | any;
+            "default": Response;
         }
 
-        type Response = ResponseObject | ReferenceObject
+        type Response = ResponseObject | ReferenceObject;
 
         export interface ResponsesDefinitionsObject {
-            [index: string]: ResponseObject
+            [index: string]: ResponseObject;
         }
 
         export interface ResponseObject {
-            description: string
-            schema?: SchemaObject
-            headers?: HeadersObject
-            examples?: ExampleObject
+            description: string;
+            schema?: SchemaObject | undefined;
+            headers?: HeadersObject | undefined;
+            examples?: ExampleObject | undefined;
         }
 
         export interface HeadersObject {
-            [index: string]: HeaderObject
+            [index: string]: HeaderObject;
         }
 
         export interface HeaderObject extends ItemsObject {
         }
 
         export interface ExampleObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityDefinitionsObject {
-            [index: string]: SecuritySchemeObject
+            [index: string]: SecuritySchemeObject;
         }
 
         export interface SecuritySchemeObject {
-            type: string
-            description?: string
-            name: string
-            'in': string
-            flow: string
-            authorizationUrl: string
-            tokenUrl: string
-            scopes: ScopesObject
+            type: string;
+            description?: string | undefined;
+            name: string;
+            "in": string;
+            flow: string;
+            authorizationUrl: string;
+            tokenUrl: string;
+            scopes: ScopesObject;
         }
         export interface ScopesObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityRequirementObject {
-            [index: string]: string[]
+            [index: string]: string[];
         }
 
         export interface TagObject {
-            name: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
+            name: string;
+            description?: string | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
         }
 
         export interface ItemsObject {
-            type: string
-            format?: string
-            items?: ItemsObject
-            collectionFormat?: string
-            'default'?: any
-            maximum?: number
-            exclusiveMaximum: boolean
-            minimum?: number
-            exclusiveMinimum?: boolean
-            maxLength?: number
-            minLength?: number
-            pattern?: string
-            maxItems?: number
-            minItems?: number
-            uniqueItems?: boolean
-            'enum'?: any[]
-            multipleOf?: number
+            type: string;
+            format?: string | undefined;
+            items?: ItemsObject | undefined;
+            collectionFormat?: string | undefined;
+            "default"?: any;
+            maximum?: number | undefined;
+            exclusiveMaximum: boolean;
+            minimum?: number | undefined;
+            exclusiveMinimum?: boolean | undefined;
+            maxLength?: number | undefined;
+            minLength?: number | undefined;
+            pattern?: string | undefined;
+            maxItems?: number | undefined;
+            minItems?: number | undefined;
+            uniqueItems?: boolean | undefined;
+            "enum"?: any[] | undefined;
+            multipleOf?: number | undefined;
         }
 
         export interface ParametersDefinitionsObject {
-            [index: string]: ParameterObject
+            [index: string]: ParameterObject;
         }
 
-        type Parameters = (ParameterObject | ReferenceObject)[]
+        type Parameters = Array<ParameterObject | ReferenceObject>;
 
         export interface ParameterObject {
-            name: string
-            'in': string
-            description?: string
-            required?: boolean
+            name: string;
+            "in": string;
+            description?: string | undefined;
+            required?: boolean | undefined;
         }
 
         export interface InBodyParameterObject extends ParameterObject {
-            schema: SchemaObject
+            schema: SchemaObject;
         }
 
         export interface GeneralParameterObject extends ParameterObject, ItemsObject {
-            allowEmptyValue?: boolean
+            allowEmptyValue?: boolean | undefined;
         }
 
         export interface ReferenceObject {
-            $ref: string
+            $ref: string;
         }
 
         export interface ExternalDocumentationObject {
-            [index: string]: any
-            description?: string
-            url: string
+            [index: string]: any;
+            description?: string | undefined;
+            url: string;
         }
 
         export interface SchemaObject extends IJsonSchema {
-            [index: string]: any
-            discriminator?: string
-            readOnly?: boolean
-            xml?: XMLObject
-            externalDocs?: ExternalDocumentationObject
-            example?: any
+            [index: string]: any;
+            discriminator?: string | undefined;
+            readOnly?: boolean | undefined;
+            xml?: XMLObject | undefined;
+            externalDocs?: ExternalDocumentationObject | undefined;
+            example?: any;
         }
 
         interface IJsonSchema {
-            id?: string
-            $schema?: string
-            title?: string
-            description?: string
-            multipleOf?: number
-            maximum?: number
-            exclusiveMaximum?: boolean
-            minimum?: number
-            exclusiveMinimum?: boolean
-            maxLength?: number
-            minLength?: number
-            pattern?: string
-            additionalItems?: boolean | IJsonSchema
-            items?: IJsonSchema | IJsonSchema[]
-            maxItems?: number
-            minItems?: number
-            uniqueItems?: boolean
-            maxProperties?: number
-            minProperties?: number
-            required?: string[]
-            additionalProperties?: boolean | IJsonSchema
+            id?: string | undefined;
+            $schema?: string | undefined;
+            title?: string | undefined;
+            description?: string | undefined;
+            multipleOf?: number | undefined;
+            maximum?: number | undefined;
+            exclusiveMaximum?: boolean | undefined;
+            minimum?: number | undefined;
+            exclusiveMinimum?: boolean | undefined;
+            maxLength?: number | undefined;
+            minLength?: number | undefined;
+            pattern?: string | undefined;
+            additionalItems?: boolean | IJsonSchema | undefined;
+            items?: IJsonSchema | IJsonSchema[] | undefined;
+            maxItems?: number | undefined;
+            minItems?: number | undefined;
+            uniqueItems?: boolean | undefined;
+            maxProperties?: number | undefined;
+            minProperties?: number | undefined;
+            required?: string[] | undefined;
+            additionalProperties?: boolean | IJsonSchema | undefined;
             definitions?: {
-                [name: string]: IJsonSchema
-            }
+                [name: string]: IJsonSchema;
+            } | undefined;
             properties?: {
-                [name: string]: IJsonSchema
-            }
+                [name: string]: IJsonSchema;
+            } | undefined;
             patternProperties?: {
-                [name: string]: IJsonSchema
-            }
+                [name: string]: IJsonSchema;
+            } | undefined;
             dependencies?: {
-                [name: string]: IJsonSchema | string[]
-            }
-            'enum'?: any[]
-            type?: string | string[]
-            allOf?: IJsonSchema[]
-            anyOf?: IJsonSchema[]
-            oneOf?: IJsonSchema[]
-            not?: IJsonSchema
-            $ref?: string
-            format?: string
+                [name: string]: IJsonSchema | string[];
+            } | undefined;
+            "enum"?: any[] | undefined;
+            type?: string | string[] | undefined;
+            allOf?: IJsonSchema[] | undefined;
+            anyOf?: IJsonSchema[] | undefined;
+            oneOf?: IJsonSchema[] | undefined;
+            not?: IJsonSchema | undefined;
+            $ref?: string | undefined;
+            format?: string | undefined;
         }
 
         export interface XMLObject {
-            [index: string]: any
-            name?: string
-            namespace?: string
-            prefix?: string
-            attribute?: boolean
-            wrapped?: boolean
+            [index: string]: any;
+            name?: string | undefined;
+            namespace?: string | undefined;
+            prefix?: string | undefined;
+            attribute?: boolean | undefined;
+            wrapped?: boolean | undefined;
         }
     }
 

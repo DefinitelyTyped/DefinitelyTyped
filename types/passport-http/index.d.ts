@@ -1,26 +1,17 @@
-// Type definitions for passport-http 0.3
-// Project: https://github.com/jaredhanson/passport-http
-// Definitions by: Christophe Vidal <https://github.com/krizalys>
-//                 Tomek Łaziuk <https://github.com/tlaziuk>
-//                 Chris Barth <https://github.com/cjbarth>
-//                 James Adarich <https://github.com/jamesadarich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import passport = require("passport");
 import express = require("express");
 
 export interface BasicStrategyOptions<req extends boolean = boolean> {
-    realm?: string;
-    passReqToCallback?: req;
+    realm?: string | undefined;
+    passReqToCallback?: req | undefined;
 }
 
 export interface DigestStrategyOptions {
-    realm?: string;
-    domain?: string | string[];
-    opaque?: string;
-    algorithm?: string;
-    qop?: string | string[];
+    realm?: string | undefined;
+    domain?: string | string[] | undefined;
+    opaque?: string | undefined;
+    algorithm?: string | undefined;
+    qop?: string | string[] | undefined;
 }
 
 export interface DigestValidateOptions {

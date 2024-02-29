@@ -1,8 +1,3 @@
-// Type definitions for human-date 1.4
-// Project: https://github.com/montanaflynn/human-date
-// Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PrettyPrintOptions {
     showTime?: boolean;
 }
@@ -25,23 +20,23 @@ export interface RelativeTimeReturns {
 
 // prettyPrint
 export function prettyPrint(
-    arg: string | Date | number,
-    options?: PrettyPrintOptions
+    arg?: string | Date | number,
+    options?: PrettyPrintOptions,
 ): string;
 
 // relativeTime
 export function relativeTime(
     arg: string | Date | number,
-    options?: RelativeTimeOptions & { returnObject?: false }
+    options?: RelativeTimeOptions & { returnObject?: false },
 ): string;
 
 export function relativeTime(
     arg: string | Date | number,
-    options: RelativeTimeOptions & { returnObject: true }
+    options: RelativeTimeOptions & { returnObject: true },
 ): RelativeTimeReturns;
 
 // monthName
 export function monthName(arg: string | Date | number): string;
 
 // toUTC
-export function toUTC(arg: string | Date | number): Date;
+export function toUTC(arg?: string | Date | number): Date;

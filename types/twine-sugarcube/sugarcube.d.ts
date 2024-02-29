@@ -21,8 +21,8 @@ export interface SugarCubeObject {
             readonly Opera: boolean;
             readonly Windows: boolean;
             any: () => boolean;
-        },
-        readonly  isGecko: boolean;
+        };
+        readonly isGecko: boolean;
         readonly isIE: boolean;
         readonly ieVersion: number | null;
         readonly isOpera: boolean;
@@ -56,7 +56,7 @@ export interface SugarCubeObject {
      * Player settings object, set up by the author/developer. See Setting API for more information.
      * @since 2.0.0
      */
-    readonly  settings: SugarCubeSettingVariables;
+    readonly settings: SugarCubeSettingVariables;
     /**
      * Object that authors/developers may use to set up various bits of static data.
      *

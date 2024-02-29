@@ -1,27 +1,27 @@
-import { decode, encode, Stream } from 'amp';
+import { decode, encode, Stream } from "amp";
 
 // $ExpectType Buffer[]
-decode(new Buffer('something'));
+decode(new Buffer("something"));
 
 // $ExpectType Buffer
-encode([new Buffer('something'), new Buffer('something')]);
+encode([new Buffer("something"), new Buffer("something")]);
 
-// $ExpectError
-decode('');
+// @ts-expect-error
+decode("");
 
-// $ExpectError
+// @ts-expect-error
 decode(1);
 
-// $ExpectError
+// @ts-expect-error
 decode();
 
-// $ExpectError
-encode('');
+// @ts-expect-error
+encode("");
 
-// $ExpectError
+// @ts-expect-error
 encode(1);
 
-// $ExpectError
+// @ts-expect-error
 encode();
 
 // $ExpectType Stream
@@ -33,12 +33,12 @@ new Stream({
     decodeStrings: true,
     objectMode: true,
     destroy: (error: Error | null) => {
-        return 'handle error';
+        return "handle error";
     },
     final: (callback: (error?: Error) => void) => {
         // do nothing
-    }
+    },
 });
 
-// $ExpectError
-new Stream({somethingNoneExisting: true});
+// @ts-expect-error
+new Stream({ somethingNoneExisting: true });

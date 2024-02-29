@@ -3,9 +3,9 @@ import * as Globalize from "../globalize";
 declare module "../globalize" {
     interface CurrencyFormatterOptions extends CommonNumberFormatterOptions {
         /**
-        * symbol (default), accounting, code or name.
-        */
-        style?: "symbol" | "accounting" | "code" | "name";
+         * symbol (default), accounting, code or name.
+         */
+        style?: "symbol" | "accounting" | "code" | "name" | undefined;
     }
 
     interface Shared {

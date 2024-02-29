@@ -2,11 +2,11 @@
 
 type ms = number;
 
-import _Cookies = require('./cookies');
+import _Cookies = require("./cookies");
 
-import * as http from 'http';
-import { Writable } from 'stream';
-import * as tls from 'tls';
+import * as http from "http";
+import { Writable } from "stream";
+import * as tls from "tls";
 
 declare namespace fetch {
     type Cookies = _Cookies;
@@ -17,19 +17,19 @@ declare namespace fetch {
     }
 
     interface Options {
-        fetchRes?: Writable;
-        cookies?: Cookies;
-        cookie?: string;
-        redirects?: number;
-        maxRedirects?: number;
-        method?: string;
-        headers?: { [key: string]: string };
-        userAgent?: string;
-        body?: Buffer | string | { [key: string]: string };
-        contentType?: string | false;
-        tls?: tls.TlsOptions;
-        timeout?: ms;
-        allowErrorResponse?: boolean;
+        fetchRes?: Writable | undefined;
+        cookies?: Cookies | undefined;
+        cookie?: string | undefined;
+        redirects?: number | undefined;
+        maxRedirects?: number | undefined;
+        method?: string | undefined;
+        headers?: { [key: string]: string } | undefined;
+        userAgent?: string | undefined;
+        body?: Buffer | string | { [key: string]: string } | undefined;
+        contentType?: string | false | undefined;
+        tls?: tls.TlsOptions | undefined;
+        timeout?: ms | undefined;
+        allowErrorResponse?: boolean | undefined;
     }
 }
 

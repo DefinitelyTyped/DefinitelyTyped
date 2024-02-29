@@ -1,13 +1,7 @@
-// Type definitions for cote 0.19
-// Project: https://github.com/dashersw/cote#readme
-// Definitions by: makepost <https://github.com/makepost>
-//                 Labat Robin <https://github.com/roblabat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter2 } from "eventemitter2";
+import { Server } from "http";
 import * as SocketIO from "socket.io";
 import { Stream } from "stream";
-import { Server } from "http";
 
 export abstract class Component extends EventEmitter2 {
     constructor(
@@ -15,11 +9,10 @@ export abstract class Component extends EventEmitter2 {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: Advertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -34,11 +27,10 @@ export class Requester extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: RequesterAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -66,7 +58,7 @@ export interface RequesterAdvertisement extends Advertisement {
     /**
      * Request types that a Requester can send.
      */
-    requests?: string[];
+    requests?: string[] | undefined;
 }
 
 export class Responder extends Component {
@@ -75,11 +67,10 @@ export class Responder extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: ResponderAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -88,8 +79,8 @@ export class Responder extends Component {
      * @param listener Callback.
      */
     on(
-        type: 'cote:added' | 'cote:removed',
-        listener: (event: Status) => void
+        type: "cote:added" | "cote:removed",
+        listener: (event: Status) => void,
     ): this;
 
     /**
@@ -100,10 +91,9 @@ export class Responder extends Component {
      */
     on<T extends Event>(
         type: string | string[],
-        listener: (
-            ((event: T, callback: (error: any, result: any) => void) => void) |
-            ((event: T) => Promise<any>)
-        )
+        listener:
+            | ((event: T, callback: (error: any, result: any) => void) => void)
+            | ((event: T) => Promise<any>),
     ): this;
 }
 
@@ -114,12 +104,12 @@ export interface ResponderAdvertisement extends Advertisement {
     /**
      * Request types that a Responder can listen to.
      */
-    respondsTo?: string[];
+    respondsTo?: string[] | undefined;
 
     /**
      * Advertisement attribute that lets you target a subgroup of responders using the __subset property of a request.
      */
-    subset?: string;
+    subset?: string | undefined;
 }
 
 export class Publisher extends Component {
@@ -128,11 +118,10 @@ export class Publisher extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: PublisherAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -144,7 +133,7 @@ export class Publisher extends Component {
      */
     publish<T extends Event>(
         type: string,
-        event: T
+        event: T,
     ): void;
 }
 
@@ -155,7 +144,7 @@ export interface PublisherAdvertisement extends Advertisement {
     /**
      * Event types that a Publisher can publish.
      */
-    broadcasts?: string[];
+    broadcasts?: string[] | undefined;
 }
 
 export class Subscriber extends Component {
@@ -164,11 +153,10 @@ export class Subscriber extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: SubscriberAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -179,7 +167,7 @@ export class Subscriber extends Component {
      */
     on<T extends Event>(
         type: string | string[],
-        listener: (event: T) => void
+        listener: (event: T) => void,
     ): this;
 }
 
@@ -190,7 +178,7 @@ export interface SubscriberAdvertisement extends Advertisement {
     /**
      * Event types that a Subscriber can listen to.
      */
-    subscribesTo?: string[];
+    subscribesTo?: string[] | undefined;
 }
 
 export class Sockend extends Component {
@@ -199,23 +187,21 @@ export class Sockend extends Component {
      */
     constructor(
         io: SocketIO.Server,
-
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: SockendAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 }
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.
  */
-export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement { }
+export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement {}
 
 export class Monitor extends Component {
     constructor(
@@ -223,14 +209,12 @@ export class Monitor extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: MonitorAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
         discoveryOptions?: DiscoveryOptions,
-
-        stream?: Stream
-    )
+        stream?: Stream,
+    );
 }
 
 /**
@@ -240,7 +224,7 @@ export interface MonitorAdvertisement extends Advertisement {
     /**
      * Port for Monitor to listen on. By default will start searching from 8000.
      */
-    port?: number | string;
+    port?: number | string | undefined;
 }
 
 /**
@@ -249,8 +233,8 @@ export interface MonitorAdvertisement extends Advertisement {
  * @param port Open in browser to see network graph in action.
  */
 export function MonitoringTool(port: number): {
-    monitor: Monitor,
-    server: Server
+    monitor: Monitor;
+    server: Server;
 };
 
 /**
@@ -281,7 +265,7 @@ export class TimeBalancedRequester extends Requester {
  * Keeps track of open, pending requests for each known Responder. Each new
  * request goes to the Responder with the minimum open requests.
  */
-export class PendingBalancedRequester extends Requester { }
+export class PendingBalancedRequester extends Requester {}
 
 /**
  * Event is nothing but object with `type`.
@@ -300,11 +284,9 @@ export interface Status extends Event {
 /**
  * Advertisement in internal `cote:added` and `cote:removed` events.
  */
-export interface StatusAdvertisement extends
-    RequesterAdvertisement,
-    ResponderAdvertisement,
-    PublisherAdvertisement,
-    SubscriberAdvertisement { }
+export interface StatusAdvertisement
+    extends RequesterAdvertisement, ResponderAdvertisement, PublisherAdvertisement, SubscriberAdvertisement
+{}
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.
@@ -317,14 +299,14 @@ export interface Advertisement {
      * system. Components with different namespaces won't recognize each other
      * and try to communicate.
      */
-    namespace?: string;
+    namespace?: string | undefined;
 
     /**
      * Tunes the performance by grouping certain components. Two components
      * with exact same `environment`s with different `key`s wouldn't be able
      * to communicate. Think of it as `${environment}_${key}`.
      */
-    key?: string;
+    key?: string | undefined;
 }
 
 /**
@@ -334,72 +316,72 @@ export interface DiscoveryOptions {
     /**
      * Multicast address if using multicast.
      */
-    multicast?: string;
+    multicast?: string | undefined;
 
     /**
      * Broadcast address if using broadcast.
      */
-    broadcast?: string;
+    broadcast?: string | undefined;
 
     /**
      * Address to bind to.
      */
-    address?: string;
+    address?: string | undefined;
 
     /**
      * How often to broadcast a hello packet in milliseconds.
      */
-    helloInterval?: number;
+    helloInterval?: number | undefined;
 
     /**
      * How often to to check for missing nodes in milliseconds.
      */
-    checkInterval?: number;
+    checkInterval?: number | undefined;
 
     /**
      * Consider a node dead if not seen in this many milliseconds.
      */
-    nodeTimeout?: number;
+    nodeTimeout?: number | undefined;
 
     /**
      * Consider a master node dead if not seen in this many milliseconds.
      */
-    masterTimeout?: number;
+    masterTimeout?: number | undefined;
 
     /**
      * Skips key equality checks when logging.
      */
-    monitor?: boolean;
+    monitor?: boolean | undefined;
 
     /**
      * If false, disables `helloLogsEnabled` and `statusLogsEnabled` no matter
      * what value they have, and also own hello log.
      */
-    log?: boolean;
+    log?: boolean | undefined;
 
     /**
      * Notifies when another service goes online.
      */
-    helloLogsEnabled?: boolean;
+    helloLogsEnabled?: boolean | undefined;
 
     /**
      * Notifies when another service goes online or offline. If false, disables
      * `helloLogsEnabled` as well.
      */
-    statusLogsEnabled?: boolean;
+    statusLogsEnabled?: boolean | undefined;
 
     /**
      * Ignores messages from other services within the same process.
      */
-    ignoreProcess?: boolean;
+    ignoreProcess?: boolean | undefined;
 
     /**
      * Prevents Monitor from drawing.
      */
-    disableScreen?: boolean;
+    disableScreen?: boolean | undefined;
 
     /**
      * Milliseconds between emissions of own status for monitoring.
      */
-    statusInterval?: number;
+    statusInterval?: number | undefined;
 }

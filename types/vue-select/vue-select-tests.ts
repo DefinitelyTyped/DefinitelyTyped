@@ -1,30 +1,40 @@
-import Vue from 'vue';
-import VueSelect from 'vue-select';
+import Vue from "vue";
+import VueSelect, { VueSelectInstance, VueSelectProps } from "vue-select";
 
 const options = [
     {
-        name: 'SomeName'
+        name: "SomeName",
     },
     {
-        name: 'SomeName2'
-    }
+        name: "SomeName2",
+    },
 ];
 
+const calculatePosition: VueSelectProps["calculatePosition"] = (dropdownList, component, { top, left, width }) => {
+    dropdownList.style.top = top;
+    dropdownList.style.left = left;
+    dropdownList.style.width = width;
+};
+
+const components: VueSelectProps["components"] = {
+    Deselect: undefined,
+};
+
 new Vue({
-    el: '#app',
+    el: "#app",
     data: {
         options,
         value: null,
     },
     components: {
-        'vue-select': VueSelect
+        "vue-select": VueSelect,
     },
     methods: {
         getOptionLabel(option: any) {
             if (option && option.name) {
                 return option.name;
             }
-            return '';
+            return "";
         },
         optionConsumer(option: any) {
         },
@@ -43,41 +53,41 @@ new Vue({
         },
         optionsFilter(options: any[], search: string) {
             return true;
-        }
+        },
+        calculatePosition,
     },
     template: `
     <vue-select :filterable="false"
                 :value="value"
                 :options="options"
-                disable="false"
-                clearable="true"
-                maxHeight="200"
-                searchable="true"
-                multiple="false"
+                :disabled="false"
+                :clearable="true"
+                :searchable="true"
+                :multiple="false"
                 placeholder="Placeholder"
                 transition="SomeTransition"
-                clearSearchOnSelect="false"
+                :clearSearchOnSelect="false"
                 :closeOnSelect="false"
                 label="name"
                 autocomplete="off"
                 :index="null"
                 :getOptionLabel="getOptionLabel"
-                :onChange="onValChange"
-                :onInput="onValChange"
                 :onTab="onVoidTab"
                 :taggable="true"
                 :tabindex="null"
-                pushTags="false"
+                :pushTags="false"
                 :filterBy="optionFilterBy"
                 :filter="optionsFilter"
                 :createOption="optionToOption"
-                resetOnOptionsChange="false"
-                noDrop="true"
+                :resetOnOptionsChange="false"
+                :noDrop="true"
                 :inputId="null"
-                dir="someDir"
-                selectOnTab="false"
+                dir="rtl"
+                :selectOnTab="false"
+                :appendToBody="true"
+                :calculatePosition="calculatePosition"
                 @search="onSearch"
                 @input="optionConsumer">
     </vue-select>
-`
+`,
 });

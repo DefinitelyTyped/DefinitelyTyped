@@ -1,13 +1,5 @@
-// Type definitions for httperr v1.0.0
-// Project: https://github.com/pluma/httperr
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 /** Overall module shape, expressed as an interface. */
 interface HttpErr {
-
     /** The base type for all httperr error types. You probably don't want to use this directly. */
     HttpError: HttpErrorStatic;
 
@@ -206,13 +198,11 @@ interface HttpErr {
 
 /** Constructor function for the HttpError class. */
 interface HttpErrorStatic {
-    new (config?: string | Error | Config, extra?: {}): HttpError;
+    new(config?: string | Error | Config, extra?: {}): HttpError;
 }
-
 
 /** An instance of the HttpError class. */
 interface HttpError extends Error {
-
     /** A human-readable title for the HTTP error. */
     title: string;
 
@@ -221,28 +211,26 @@ interface HttpError extends Error {
     /** The HTTP response status code for the HTTP error. */
     statusCode: number;
 
-    toObject(...skip: (string | RegExp)[]): any;
+    toObject(...skip: Array<string | RegExp>): any;
 }
-
 
 /** Configuration object for constructing HttpErrors. */
 interface Config {
-
     /** A descriptive human-readable title describing the error's cause. */
-    message?: string;
+    message?: string | undefined;
 
     /** The underlying exception that caused the HTTP error. */
-    cause?: Error;
+    cause?: Error | undefined;
 
     /** A detailed human-readable description of the error's cause and possible solutions. */
-    details?: string;
+    details?: string | undefined;
 
     /**
      *  The methods allowed for this URL.
      *  This property is only available for 405 Method Not Allowed errors
      *  and can be used to populate the Allow header.
      */
-    allowed?: string[];
+    allowed?: string[] | undefined;
 
     /**
      *  The minimum delay before the request should be attempted again.
@@ -266,10 +254,8 @@ interface Config {
     location?: any;
 }
 
-
 /** Factory function for creating an Error object. */
 interface ErrorBuilder {
-
     /**
      *  Creates an Error object. The new keyword is optional.
      * @param {string | Error | Config} config - If config is a string, it will be treated as config.message.
@@ -282,9 +268,8 @@ interface ErrorBuilder {
      * @param {string | Error | Config} config - If config is a string, it will be treated as config.message.
      *                                           If config is an Error object, it will be treated as config.cause.
      */
-    new (config?: string | Error | Config): HttpError;
+    new(config?: string | Error | Config): HttpError;
 }
-
 
 // The module value satisfies the HttpErr interface.
 declare var _: HttpErr;

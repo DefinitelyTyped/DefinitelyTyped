@@ -1,38 +1,66 @@
 import * as React from "react";
-import {
-    EmbeddedIconProps,
-    InternationalProps,
-    ReactInputAttr,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps,
-    RefForwardingProps,
-    CarbonInputSize
-} from "../../../typings/shared";
+import { ForwardRefReturn, InternationalProps, ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-label" | "id" | "ref" | "size";
 export type NumberInputTranslationKey = "decrement.number" | "increment.number";
-interface InheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    EmbeddedIconProps,
-    InternationalProps<NumberInputTranslationKey>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps,
-    RefForwardingProps<HTMLInputElement>
+
+type ExcludedInputPropKeys = "aria-label" | "id" | "onChange" | "onClick" | "ref" | "size";
+
+type NumberInputArrowDirection = "up" | "down";
+export type NumberInputOnChangeDataVariant = (
+    evt: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>,
+    data: { direction: NumberInputArrowDirection; value: number | string },
+) => void;
+export type NumberInputOnChangeDefaultVariant = (
+    evt: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>,
+    direction: NumberInputArrowDirection,
+    value: number | string,
+) => void;
+
+export type NumberInputOnClickDataVariant = (
+    evt: React.MouseEvent<HTMLButtonElement>,
+    data: { direction: NumberInputArrowDirection; value: string | number },
+) => void;
+export type NumberInputOnClickDefaultVariant = (
+    evt: React.MouseEvent<HTMLButtonElement>,
+    direction: NumberInputArrowDirection,
+    value: number | string,
+) => void;
+export type NumberInputOnClickInputVariant = (
+    evt: React.MouseEvent<HTMLInputElement>,
+) => void;
+
+export interface NumberInputProps
+    extends Omit<ReactInputAttr, ExcludedInputPropKeys>, InternationalProps<NumberInputTranslationKey>
 {
-    value: number,
+    allowEmpty?: boolean | undefined;
+    ariaLabel?: string | undefined;
+    helperText?: React.ReactNode | undefined;
+    hideLabel?: boolean | undefined;
+    hideSteppers?: boolean | undefined;
+    iconDescription?: string | undefined;
+    id: string;
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
+    /**
+     * @deprecated
+     */
+    isMobile?: boolean | undefined;
+    label?: React.ReactNode | undefined;
+    light?: boolean | undefined;
+    onChange?: NumberInputOnChangeDataVariant | NumberInputOnChangeDefaultVariant | undefined;
+    onClick?:
+        | NumberInputOnClickDataVariant
+        | NumberInputOnClickDefaultVariant
+        | NumberInputOnClickInputVariant
+        | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
+    value: number | "";
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined;
 }
 
-export interface NumberInputProps extends InheritedProps {
-    allowEmpty?: boolean,
-    helperText?: React.ReactNode,
-    hideLabel?: boolean,
-    label?: React.ReactNode,
-    isMobile?: boolean,
-    size?: Extract<CarbonInputSize, "sm" | "xl">,
-}
+declare class NumberInputComponent extends React.Component<NumberInputProps> {}
+export { NumberInputComponent as NumberInput };
 
-declare class NumberInput extends React.Component<NumberInputProps> { }
-
+declare const NumberInput: ForwardRefReturn<HTMLInputElement, NumberInputProps>;
 export default NumberInput;

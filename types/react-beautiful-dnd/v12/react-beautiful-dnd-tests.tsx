@@ -1,6 +1,18 @@
-import * as React from 'react';
-import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import {
+    DragDropContext,
+    Draggable,
+    DraggableProvided,
+    DraggableRubric,
+    DraggableStateSnapshot,
+    DragStart,
+    DragUpdate,
+    Droppable,
+    DroppableStateSnapshot,
+    DropResult,
+    resetServerContext,
+    ResponderProvided,
+} from "react-beautiful-dnd";
 
 interface Item {
     id: string;
@@ -22,14 +34,8 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
     return result;
 };
 
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-    userSelect: 'none',
-    background: isDragging ? 'lightgreen' : 'grey',
-    ...draggableStyle,
-});
-
 const getListStyle = (snapshot: DroppableStateSnapshot) => ({
-    background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: snapshot.draggingFromThisWith ? "lightpink" : snapshot.isDraggingOver ? "lightblue" : "lightgrey",
     width: 250,
 });
 
@@ -44,6 +50,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props);
         this.onDragEnd = this.onDragEnd.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
     onBeforeDragStart(dragStart: DragStart) {
@@ -76,6 +83,28 @@ class App extends React.Component<{}, AppState> {
         this.setState({ items });
     }
 
+    renderItem(provided: DraggableProvided, snapshot: DraggableStateSnapshot, rubric: DraggableRubric) {
+        const { innerRef, draggableProps, dragHandleProps } = provided;
+        const item = this.state.items[rubric.source.index];
+        return (
+            <div>
+                <div
+                    ref={innerRef}
+                    {...draggableProps}
+                    {...dragHandleProps}
+                    style={{
+                        ...draggableProps.style,
+                        userSelect: "none",
+                        background: snapshot.isDragging ? "lightgreen" : "grey",
+                        boxShadow: snapshot.isClone ? "inset 0px 0px 0px 2px blue" : "none",
+                    }}
+                >
+                    {item.content}
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <DragDropContext
@@ -83,24 +112,20 @@ class App extends React.Component<{}, AppState> {
                 onDragStart={this.onDragStart}
                 onDragUpdate={this.onDragUpdate}
                 onDragEnd={this.onDragEnd}
+                liftInstruction="Some instruction"
             >
-                <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
+                <Droppable
+                    droppableId="droppable"
+                    ignoreContainerClipping={false}
+                    isCombineEnabled={true}
+                    renderClone={this.renderItem}
+                    getContainerForClone={() => document.body}
+                >
                     {(provided, snapshot) => (
                         <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
                             {this.state.items.map((item, index) => (
                                 <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
-                                    {(provided, snapshot) => (
-                                        <div>
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                                            >
-                                                {item.content}
-                                            </div>
-                                        </div>
-                                    )}
+                                    {this.renderItem}
                                 </Draggable>
                             ))}
                             {provided.placeholder}
@@ -112,6 +137,6 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+<App />;
 
 resetServerContext();

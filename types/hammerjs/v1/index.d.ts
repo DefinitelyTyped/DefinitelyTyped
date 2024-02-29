@@ -1,10 +1,3 @@
-// Type definitions for Hammer.js 1.1.3
-// Project: http://eightmedia.github.com/hammer.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery"/>
 
 declare var Hammer: HammerStatic;
@@ -48,44 +41,44 @@ declare class HammerInstance {
 // Gesture Options : https://github.com/EightMedia/hammer.js/wiki/Getting-Started#gesture-options
 interface HammerOptions {
     behavior?: {
-        contentZooming?: string;
-        tapHighlightColor?: string;
-        touchAction?: string;
-        touchCallout?: string;
-        userDrag?: string;
-        userSelect?: string;
-    };
-    doubleTapDistance?: number;
-    doubleTapInterval?: number;
-    drag?: boolean;
-    dragBlockHorizontal?: boolean;
-    dragBlockVertical?: boolean;
-    dragDistanceCorrection?: boolean;
-    dragLockMinDistance?: number;
-    dragLockToAxis?: boolean;
-    dragMaxTouches?: number;
-    dragMinDistance?: number;
-    gesture?: boolean;
-    hold?: boolean;
-    holdThreshold?: number;
-    holdTimeout?: number;
-    preventDefault?: boolean;
-    preventMouse?: boolean;
-    release?: boolean;
-    showTouches?: boolean;
-    swipe?: boolean;
-    swipeMaxTouches?: number;
-    swipeMinTouches?: number;
-    swipeVelocityX?: number;
-    swipeVelocityY?: number;
-    tap?: boolean;
-    tapAlways?: boolean;
-    tapMaxDistance?: number;
-    tapMaxTime?: number;
-    touch?: boolean;
-    transform?: boolean;
-    transformMinRotation?: number;
-    transformMinScale?: number;
+        contentZooming?: string | undefined;
+        tapHighlightColor?: string | undefined;
+        touchAction?: string | undefined;
+        touchCallout?: string | undefined;
+        userDrag?: string | undefined;
+        userSelect?: string | undefined;
+    } | undefined;
+    doubleTapDistance?: number | undefined;
+    doubleTapInterval?: number | undefined;
+    drag?: boolean | undefined;
+    dragBlockHorizontal?: boolean | undefined;
+    dragBlockVertical?: boolean | undefined;
+    dragDistanceCorrection?: boolean | undefined;
+    dragLockMinDistance?: number | undefined;
+    dragLockToAxis?: boolean | undefined;
+    dragMaxTouches?: number | undefined;
+    dragMinDistance?: number | undefined;
+    gesture?: boolean | undefined;
+    hold?: boolean | undefined;
+    holdThreshold?: number | undefined;
+    holdTimeout?: number | undefined;
+    preventDefault?: boolean | undefined;
+    preventMouse?: boolean | undefined;
+    release?: boolean | undefined;
+    showTouches?: boolean | undefined;
+    swipe?: boolean | undefined;
+    swipeMaxTouches?: number | undefined;
+    swipeMinTouches?: number | undefined;
+    swipeVelocityX?: number | undefined;
+    swipeVelocityY?: number | undefined;
+    tap?: boolean | undefined;
+    tapAlways?: boolean | undefined;
+    tapMaxDistance?: number | undefined;
+    tapMaxTime?: number | undefined;
+    touch?: boolean | undefined;
+    transform?: boolean | undefined;
+    transformMinRotation?: number | undefined;
+    transformMinScale?: number | undefined;
 }
 
 interface HammerGestureEventData {
@@ -128,7 +121,6 @@ interface HammerEvent {
 
     stopPropagation(): void;
     preventDefault(): void;
-
 }
 
 declare enum HammerPointerType {

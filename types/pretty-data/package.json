@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pretty-data",
+    "version": "0.40.9999",
+    "projects": [
+        "https://github.com/vkiryukhin/pretty-data#readme"
+    ],
+    "devDependencies": {
+        "@types/pretty-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zeeshan Ahmad",
+            "githubUsername": "ziishaned"
+        }
+    ]
+}

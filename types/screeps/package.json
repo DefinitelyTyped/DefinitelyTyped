@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/screeps",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/screeps/screeps"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "devDependencies": {
+        "@types/screeps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nhan Ho",
+            "githubUsername": "NhanHo"
+        },
+        {
+            "name": "Bryan",
+            "githubUsername": "bryanbecker"
+        },
+        {
+            "name": "Resi Respati",
+            "githubUsername": "resir014"
+        },
+        {
+            "name": "Adam Laycock",
+            "githubUsername": "Arcath"
+        },
+        {
+            "name": "Dominic Marcuse",
+            "githubUsername": "dmarcuse"
+        },
+        {
+            "name": "Skyler Kehren",
+            "githubUsername": "pyrodogg"
+        },
+        {
+            "name": "Kieran Carnegie",
+            "githubUsername": "kotarou"
+        },
+        {
+            "name": "Mofeng",
+            "githubUsername": "DiamondMofeng"
+        }
+    ]
+}

@@ -1,14 +1,14 @@
-import detect = require('franc');
+import detect = require("franc");
 
-const testText = 'This is an example sentence';
+const testText = "This is an example sentence";
 const testOptions = {
     minLength: 3,
-    whitelist: ['eng'],
+    whitelist: ["eng"],
     blacklist: [],
 };
 
-detect(testText);
-detect(testText, testOptions);
+detect(testText); // $ExpectType string
+detect(testText, testOptions); // $ExpectType string
 
-detect.all(testText);
-detect.all(testText, testOptions)[0];
+detect.all(testText); // $ExpectType [string, number][]
+detect.all(testText, testOptions)[0]; // $ExpectType [string, number]

@@ -1,27 +1,22 @@
-// Type definitions for purifycss-webpack 0.7
-// Project: https://github.com/webpack-contrib/purifycss-webpack
-// Definitions by: Geoff Garbers <https://github.com/garbetjie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as webpack from 'webpack';
+import * as webpack from "webpack";
 
 declare class PurifyPlugin extends webpack.Plugin {
     constructor(options?: PurifyOptions);
 }
 
 interface PurifyOptions {
-    styleExtensions?: string[];
-    moduleExtensions?: string[];
-    minimize?: boolean;
-    paths?: object | string[];
+    styleExtensions?: string[] | undefined;
+    moduleExtensions?: string[] | undefined;
+    minimize?: boolean | undefined;
+    paths?: object | string[] | undefined;
     purifyOptions?: {
-        minify?: boolean,
-        output?: string | boolean,
-        info?: boolean,
-        rejected?: boolean,
-        whitelist?: string[]
-    };
-    verbose?: boolean;
+        minify?: boolean | undefined;
+        output?: string | boolean | undefined;
+        info?: boolean | undefined;
+        rejected?: boolean | undefined;
+        whitelist?: string[] | undefined;
+    } | undefined;
+    verbose?: boolean | undefined;
 }
 
 export = PurifyPlugin;

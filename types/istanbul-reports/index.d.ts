@@ -1,13 +1,6 @@
-// Type definitions for istanbul-reports 3.0
-// Project: https://github.com/istanbuljs/istanbuljs, https://istanbul.js.org
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Elena Shcherbakova <https://github.com/not-a-doctor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+import { Node, ReportBase } from "istanbul-lib-report";
 
-import { Node, Visitor } from 'istanbul-lib-report';
-
-export function create<T extends keyof ReportOptions>(name: T, options?: Partial<ReportOptions[T]>): Visitor;
+export function create<T extends keyof ReportOptions>(name: T, options?: Partial<ReportOptions[T]>): ReportBase;
 
 export interface FileOptions {
     file: string;
@@ -20,17 +13,17 @@ export interface ProjectOptions {
 export interface ReportOptions {
     clover: CloverOptions;
     cobertura: CoberturaOptions;
-    'html-spa': HtmlSpaOptions;
+    "html-spa": HtmlSpaOptions;
     html: HtmlOptions;
     json: JsonOptions;
-    'json-summary': JsonSummaryOptions;
+    "json-summary": JsonSummaryOptions;
     lcov: LcovOptions;
     lcovonly: LcovOnlyOptions;
     none: never;
     teamcity: TeamcityOptions;
     text: TextOptions;
-    'text-lcov': TextLcovOptions;
-    'text-summary': TextSummaryOptions;
+    "text-lcov": TextLcovOptions;
+    "text-summary": TextSummaryOptions;
 }
 
 export type ReportType = keyof ReportOptions;
@@ -40,7 +33,7 @@ export interface CloverOptions extends FileOptions, ProjectOptions {}
 export interface CoberturaOptions extends FileOptions, ProjectOptions {}
 
 export interface HtmlSpaOptions extends HtmlOptions {
-    metricsToShow: Array<'lines' | 'branches' | 'functions' | 'statements'>;
+    metricsToShow: Array<"lines" | "branches" | "functions" | "statements">;
 }
 export interface HtmlOptions {
     verbose: boolean;

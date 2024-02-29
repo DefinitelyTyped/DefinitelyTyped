@@ -1,10 +1,3 @@
-// Type definitions for npm-package-arg 6.1
-// Project: https://github.com/npm/npm-package-arg
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Jason <https://github.com/OiYouYeahYou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Throws if the package name is invalid, a dist-tag is invalid or a URL's protocol is not supported.
  * @param arg a string that you might pass to npm install, like:
@@ -23,11 +16,11 @@ declare namespace npa {
      * @param where Optionally the path to resolve file paths relative to. Defaults to process.cwd()
      */
     function resolve(name: string, spec: string, where?: string):
-        FileResult |
-        HostedGitResult |
-        URLResult |
-        AliasResult |
-        RegistryResult;
+        | FileResult
+        | HostedGitResult
+        | URLResult
+        | AliasResult
+        | RegistryResult;
 
     class Result {
         /**
@@ -72,13 +65,13 @@ declare namespace npa {
         fetchSpec: string | null;
 
         /** If set, this is a semver specifier to match against git tags with */
-        gitRange?: string;
+        gitRange?: string | undefined;
 
         /** If set, this is the specific committish to use with a git dependency. */
-        gitCommittish?: string;
+        gitCommittish?: string | undefined;
 
         /** If from === 'hosted' then this will be a hosted-git-info object. This property is not included when serializing the object as JSON. */
-        hosted?: HostedGit;
+        hosted?: HostedGit | undefined;
 
         /** The original un-modified string that was provided. If called as npa.resolve(name, spec) then this will be name + '@' + spec. */
         raw: string;

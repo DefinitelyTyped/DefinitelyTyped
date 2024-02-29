@@ -1,9 +1,3 @@
-// Type definitions for non-npm package jquery-toastmessage-plugin 0.2
-// Project: https://github.com/akquinet/jquery-toastmessage-plugin
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQuery {
@@ -16,43 +10,43 @@ declare namespace JQueryToastmessage {
         /* shows a toast message of the specified type */
         (command: ShowToastCommand, message: string): JQuery;
         /** shows a custom toast */
-        (command: 'showToast', toastOpts: ToastOptions): JQuery;
+        (command: "showToast", toastOpts: ToastOptions): JQuery;
         /** removes the specified toast and returns it */
-        (command: 'removeToast', toast: JQuery, closeOpts?: ToastOptions): void;
+        (command: "removeToast", toast: JQuery, closeOpts?: ToastOptions): void;
         /** configures the default toast options */
         (toastOpts: ToastOptions): void;
     }
 
-    type ShowToastCommand = 'showNoticeToast' | 'showSuccessToast' | 'showWarningToast' | 'showErrorToast';
-    type ToastType = 'notice' | 'warning' | 'error' | 'success';
-    type ToastPosition = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'middle-center' | 'middle-right';
+    type ShowToastCommand = "showNoticeToast" | "showSuccessToast" | "showWarningToast" | "showErrorToast";
+    type ToastType = "notice" | "warning" | "error" | "success";
+    type ToastPosition = "top-left" | "top-center" | "top-right" | "middle-left" | "middle-center" | "middle-right";
 
     interface ToastOptions {
         /** in effect duration in miliseconds @default 600 */
-        inEffectDuration?: number;
+        inEffectDuration?: number | undefined;
         /**
          * time in miliseconds before the item has to disappear @default 3000
          */
-        stayTime?: number;
+        stayTime?: number | undefined;
         /** content of the item @default '' */
-        text?: string;
+        text?: string | undefined;
         /** should the toast item sticky or not? @default false */
-        sticky?: boolean;
+        sticky?: boolean | undefined;
         /** the type of toast @default 'notice' */
-        type?: ToastType;
+        type?: ToastType | undefined;
         /**
          * Position of the toast container holding different toast.
          * Position can be set only once at the very first call,
          * changing the position after the first call does nothing
          * @default 'top-right'
          */
-        position?: ToastPosition;
+        position?: ToastPosition | undefined;
         /**
          * text which will be shown as close button,
          * set to '' when you want to introduce an image via css
          * @default ''
          */
-        closeText?: string;
+        closeText?: string | undefined;
         /** callback function when the toastmessage is closed @default null */
         close?(): void;
     }

@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/spritezero 6.3
-// Project: https://github.com/mapbox/spritezero#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Small opinionated sprites.
  */
@@ -42,9 +37,9 @@ export function generateImage(layout: ImgLayout, callback: GenerateImageCallback
 
 export interface ImageObject {
     /** A string of the SVG. */
-    svg?: Buffer | string;
+    svg?: Buffer | string | undefined;
     /** Ratio of a 72dpi screen pixel to the destination pixel density */
-    pixelRatio?: number;
+    pixelRatio?: number | undefined;
 }
 
 export interface ExtractCallback {
@@ -69,9 +64,9 @@ export interface GenerateLayoutOptions {
     /** If true, generate DataLayout ; if false, generate ImgLayout */
     format: boolean;
     /** overrides the max_size in mapnik */
-    maxIconSize?: number;
+    maxIconSize?: number | undefined;
     /** filters out icons that mapnik says are too big */
-    removeOversizedIcons?: boolean;
+    removeOversizedIcons?: boolean | undefined;
 }
 
 export interface GenerateLayoutCallback {

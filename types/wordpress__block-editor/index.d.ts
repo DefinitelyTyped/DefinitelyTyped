@@ -1,25 +1,26 @@
-// Type definitions for @wordpress/block-editor 2.2
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-import { BlockIconNormalized } from '@wordpress/blocks';
-import { dispatch, select } from '@wordpress/data';
+import { BlockIconNormalized } from "@wordpress/blocks";
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 
-export * from './components';
-export * from './utils';
-export { storeConfig } from './store';
-export { SETTINGS_DEFAULTS } from './store/defaults';
+export * from "./components";
+export * from "./hooks";
+export { storeConfig } from "./store";
+export { SETTINGS_DEFAULTS } from "./store/defaults";
+export * from "./utils";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/block-editor'): typeof import('./store/actions');
-    function select(key: 'core/block-editor'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/block-editor"): typeof import("./store/actions");
+    function select(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
-export type EditorBlockMode = 'html' | 'visual';
-export type EditorMode = 'text' | 'visual';
-export type EditorTemplateLock = 'all' | 'insert' | false;
+export interface BlockEditorStoreDescriptor extends StoreDescriptor {
+    name: "core/block-editor";
+}
+
+export const store: BlockEditorStoreDescriptor;
+
+export type EditorBlockMode = "html" | "visual";
+export type EditorMode = "text" | "visual";
+export type EditorTemplateLock = "all" | "insert" | false;
 
 export interface EditorBaseSetting {
     name: string;
@@ -27,8 +28,8 @@ export interface EditorBaseSetting {
 }
 
 export interface EditorBlockListSettings {
-    allowedBlocks?: string[];
-    templateLock?: EditorTemplateLock;
+    allowedBlocks?: string[] | undefined;
+    templateLock?: EditorTemplateLock | undefined;
 }
 
 export interface EditorColor extends EditorBaseSetting {
@@ -89,20 +90,20 @@ export interface EditorSelection {
     /**
      * The selected block client ID.
      */
-    clientId?: string;
+    clientId?: string | undefined;
     /**
      * The selected block attribute key.
      */
-    attributeKey?: string;
+    attributeKey?: string | undefined;
     /**
      * The selected block attribute offset.
      */
-    offset?: number;
+    offset?: number | undefined;
 }
 
 export interface EditorStyle {
     css: string;
-    baseURL?: string;
+    baseURL?: string | undefined;
 }
 
 export interface EditorSettings {

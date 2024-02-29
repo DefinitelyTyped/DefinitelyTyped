@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chartjs-plugin-colorschemes",
+    "version": "0.4.9999",
+    "projects": [
+        "https://nagix.github.io/chartjs-plugin-colorschemes"
+    ],
+    "dependencies": {
+        "@types/chart.js": "*"
+    },
+    "devDependencies": {
+        "@types/chartjs-plugin-colorschemes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        }
+    ]
+}

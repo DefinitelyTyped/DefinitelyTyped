@@ -1,21 +1,15 @@
-// Type definitions for apimocker 1.1
-// Project: https://www.npmjs.com/package/apimocker
-// Definitions by: Uchenna <https://github.com/uchilaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { RequestHandler, Application } from 'express';
+import { Application, RequestHandler } from "express";
 
 export interface ConfigOptions {
-    port?: string;
-    mockDirectory?: string;
-    allowedDomains?: string[];
-    allowedHeaders?: string[];
-    logRequestHeaders?: boolean;
-    allowAvoidPreFlight?: boolean;
-    useUploadFieldname?: boolean;
+    port?: string | undefined;
+    mockDirectory?: string | undefined;
+    allowedDomains?: string[] | undefined;
+    allowedHeaders?: string[] | undefined;
+    logRequestHeaders?: boolean | undefined;
+    allowAvoidPreFlight?: boolean | undefined;
+    useUploadFieldname?: boolean | undefined;
     webServices?: any;
-    quiet?: boolean;
+    quiet?: boolean | undefined;
 }
 
 export interface ApiMocker {

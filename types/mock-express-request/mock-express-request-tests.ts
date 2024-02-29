@@ -1,5 +1,5 @@
-import { Request } from 'express';
-import MockExpressRequest from 'mock-express-request';
+import { Request } from "express";
+import MockExpressRequest from "mock-express-request";
 
 function doSomethingWithRequest(req: Request): void {
     console.log(req.headers);
@@ -11,7 +11,7 @@ function testMockExpressRequest() {
     doSomethingWithRequest(
         MockExpressRequest({
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
         }),
     );

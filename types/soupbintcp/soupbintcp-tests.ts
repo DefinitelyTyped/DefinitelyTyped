@@ -1,77 +1,77 @@
-import { Client, Server } from 'soupbintcp';
+import { Client, Server } from "soupbintcp";
 
 // Arrange
-const client = new Client({port: 8000, host: ''});
-const server = new Server({port: 8000, host: ''});
+const client = new Client({ port: 8000, host: "" });
+const server = new Server({ port: 8000, host: "" });
 
 // Act & Assert
 // $ExpectType Client
-new Client({port: 8000, host: ''});
+new Client({ port: 8000, host: "" });
 
 // $ExpectType Server
-new Server({port: 8000, host: ''});
+new Server({ port: 8000, host: "" });
 
 // Invalid type
-// $ExpectError
-new Client({host: ''});
+// @ts-expect-error
+new Client({ host: "" });
 // Invalid type
 
-// $ExpectError
-new Client({host: 8000});
+// @ts-expect-error
+new Client({ host: 8000 });
 
-// $ExpectError
-new Client({port: ''});
+// @ts-expect-error
+new Client({ port: "" });
 
-// $ExpectError
-new Client({port: 8000});
+// @ts-expect-error
+new Client({ port: 8000 });
 
-// $ExpectError
+// @ts-expect-error
 new Client();
 
 // Invalid type
-// $ExpectError
-new Server({host: ''});
+// @ts-expect-error
+new Server({ host: "" });
 // Invalid type
 
-// $ExpectError
-new Server({host: 8000});
+// @ts-expect-error
+new Server({ host: 8000 });
 
-// $ExpectError
-new Server({port: ''});
+// @ts-expect-error
+new Server({ port: "" });
 
-// $ExpectError
-new Server({port: 8000});
+// @ts-expect-error
+new Server({ port: 8000 });
 
-// $ExpectError
+// @ts-expect-error
 new Server();
 
-// $ExpectError
+// @ts-expect-error
 client.login({
-    password: '',
-    requestedSession: '',
-    requestedSequenceNumber: 8000
+    password: "",
+    requestedSession: "",
+    requestedSequenceNumber: 8000,
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
-    username: '',
-    requestedSession: '',
-    requestedSequenceNumber: 8000
+    username: "",
+    requestedSession: "",
+    requestedSequenceNumber: 8000,
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
-    username: '',
-    password: '',
-    requestedSequenceNumber: 8000
+    username: "",
+    password: "",
+    requestedSequenceNumber: 8000,
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login({
-    username: '',
-    password: '',
-    requestedSession: '',
+    username: "",
+    password: "",
+    requestedSession: "",
 });
 
-// $ExpectError
+// @ts-expect-error
 client.login();

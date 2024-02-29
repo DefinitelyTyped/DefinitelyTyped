@@ -1,25 +1,18 @@
-// Type definitions for node-hid 1.2
-// Project: https://github.com/node-hid/node-hid#readme
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
-//                 Robert Kiss <https://github.com/ert78gb>
-//                 Rob Moran <https://github.com/thegecko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface Device {
     vendorId: number;
     productId: number;
-    path?: string;
-    serialNumber?: string;
-    manufacturer?: string;
-    product?: string;
+    path?: string | undefined;
+    serialNumber?: string | undefined;
+    manufacturer?: string | undefined;
+    product?: string | undefined;
     release: number;
     interface: number;
-    usagePage?: number;
-    usage?: number;
+    usagePage?: number | undefined;
+    usage?: number | undefined;
 }
 
 export class HID extends EventEmitter {
@@ -36,5 +29,6 @@ export class HID extends EventEmitter {
     write(values: number[] | Buffer): number;
     setNonBlocking(no_block: boolean): void;
 }
+export function devices(vid: number, pid: number): Device[];
 export function devices(): Device[];
-export function setDriverType(type: 'hidraw' | 'libusb'): void;
+export function setDriverType(type: "hidraw" | "libusb"): void;

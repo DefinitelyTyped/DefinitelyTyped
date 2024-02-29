@@ -1,2 +1,2 @@
-import { find } from '../index';
+import { find } from "../index.js";
 export default find;

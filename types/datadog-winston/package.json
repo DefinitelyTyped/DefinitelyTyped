@@ -1,7 +1,22 @@
 {
     "private": true,
+    "name": "@types/datadog-winston",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/itsfadnis/datadog-winston"
+    ],
     "dependencies": {
-        "winston-transport": "^4.3.0",
-        "logform": "^1.4.0"
-    }
+        "@types/node": "*",
+        "logform": "^1.4.0",
+        "winston-transport": "^4.3.0"
+    },
+    "devDependencies": {
+        "@types/datadog-winston": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Hintzke",
+            "githubUsername": "mhintzke"
+        }
+    ]
 }

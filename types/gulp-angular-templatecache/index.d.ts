@@ -1,8 +1,3 @@
-// Type definitions for gulp-angular-templatecache v2.0.0
-// Project: https://github.com/miickel/gulp-angular-templatecache
-// Definitions by: Aman Mahajan <https://github.com/amanmahajan7>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare module "gulp-angular-templatecache" {
@@ -16,52 +11,52 @@ declare module "gulp-angular-templatecache" {
             /**
              * Name to use when concatenating.
              */
-            filename?: string;
+            filename?: string | undefined;
 
             /**
              * Prefix for template URLs.
              */
-            root?: string;
+            root?: string | undefined;
 
             /**
              * Name of AngularJS module.
              */
-            module?: string;
+            module?: string | undefined;
 
             /**
              * Create a new AngularJS module, instead of using an existing.
              */
-            standalone?: boolean;
+            standalone?: boolean | undefined;
 
             /**
              * Override file base path.
              */
-            base?: string | Function;
+            base?: string | Function | undefined;
 
             /**
              * Wrap the templateCache in a module system. Currently supported systems: RequireJS, Browserify, ES6 and IIFE (Immediately-Invoked Function Expression).
              */
-            moduleSystem?: string;
+            moduleSystem?: string | undefined;
 
             /**
              * Transform the generated URL before it's put into $templateCache.
              */
-            transformUrl?: Function;
+            transformUrl?: Function | undefined;
 
             /**
              * Override template header.
              */
-            templateHeader?: string;
+            templateHeader?: string | undefined;
 
             /**
              * Override template body.
              */
-            templateBody?: string;
+            templateBody?: string | undefined;
 
             /**
              * Override template footer.
              */
-            templateFooter?: string;
+            templateFooter?: string | undefined;
         }
     }
 

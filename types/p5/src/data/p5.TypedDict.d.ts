@@ -5,6 +5,14 @@ import * as p5 from '../../index';
 declare module '../../index' {
     class TypedDict {
         /**
+         *   Base class for all p5.Dictionary types.
+         *   Specifically typed Dictionary classes inherit from
+         *   this class.
+         *
+         */
+        constructor();
+
+        /**
          *   Returns the number of key-value pairs currently
          *   stored in the Dictionary.
          *   @return the number of key-value pairs in the
@@ -77,6 +85,12 @@ declare module '../../index' {
         saveJSON(): void;
     }
     class NumberDict extends TypedDict {
+        /**
+         *   A simple Dictionary class for Numbers.
+         *
+         */
+        constructor();
+
         /**
          *   Add the given number to the value currently stored
          *   at the given key. The sum then replaces the value

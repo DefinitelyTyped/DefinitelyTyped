@@ -1,14 +1,6 @@
-// Type definitions for angular-block-ui 0.2
-// Project: https://github.com/McNull/angular-block-ui
-// Definitions by: Lasse Nørregaard <https://github.com/lassebn>
-//                 Stephan Classen <https://github.com/sclassen>
-//                 Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace blockUI {
         interface BlockUIConfig {
             /**
@@ -17,7 +9,7 @@ declare module 'angular' {
              *
              * Default value is 'Loading ...'.
              */
-            message?: string;
+            message?: string | undefined;
 
             /**
              * Specifies the amount in milliseconds before the block
@@ -26,12 +18,12 @@ declare module 'angular' {
              *
              * The default value is 250.
              */
-            delay?: number;
+            delay?: number | undefined;
 
             /**
              * Specifies a custom template to use as the overlay.
              */
-            template?: string;
+            template?: string | undefined;
 
             /**
              * Specifies a url to retrieve the template from.
@@ -42,7 +34,7 @@ declare module 'angular' {
              * If you're using the grunt with html2js or angular-templates,
              * which I highly recommend, you're already set.
              */
-            templateUrl?: string;
+            templateUrl?: string | undefined;
 
             /**
              * By default the BlockUI module will start a block whenever
@@ -53,7 +45,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            autoBlock?: boolean;
+            autoBlock?: boolean | undefined;
 
             /**
              * By default the BlockUI module will reset the block count and
@@ -63,7 +55,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            resetOnException?: boolean;
+            resetOnException?: boolean | undefined;
 
             /**
              * Allows you to specify a filter function to exclude certain ajax
@@ -74,9 +66,8 @@ declare module 'angular' {
              * argument to the start method of the service.
              *
              * @param config the Angular request config object.
-             *
              */
-            requestFilter?(config: IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): string | boolean;
 
             /**
              * When the module is started it will inject the main block element
@@ -90,7 +81,7 @@ declare module 'angular' {
              *
              * The default value is 'true'
              */
-            autoInjectBodyBlock?: boolean;
+            autoInjectBodyBlock?: boolean | undefined;
 
             /**
              * A string containing the default css classes (separated by spaces)
@@ -98,7 +89,7 @@ declare module 'angular' {
              *
              * The default value is "block-ui block-ui-anim-fade"
              */
-            cssClass?: string;
+            cssClass?: string | undefined;
 
             /**
              * While a user interface block is active the user can still navigate
@@ -117,7 +108,7 @@ declare module 'angular' {
              *
              * The default value is 'false'
              */
-            blockBrowserNavigation?: boolean;
+            blockBrowserNavigation?: boolean | undefined;
         }
 
         interface BlockUIService {
@@ -145,7 +136,7 @@ declare module 'angular' {
              *     If no argument is specified the default text message
              *     from the configuration is used.
              */
-            start(messageOrOptions?: (string | BlockUIConfig)): void;
+            start(messageOrOptions?: string | BlockUIConfig): void;
 
             /**
              * This will decrease the block count.

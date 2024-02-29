@@ -1,9 +1,3 @@
-// Type definitions for react-native-easy-upgrade 0.0
-// Project: https://github.com/react-native-org/react-native-easy-upgrade#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 interface Options {
     iOSAppId: string;
     iOSAppLookupUrl: string;
@@ -38,14 +32,14 @@ declare class AppUpgrade {
      */
     downloadFile(fileUrl: string, downloadConf?: {
         tempDownloadPath: string;
-        downloadTitle?: string;
-        downloadDescription?: string;
-        saveAsName?: string;
-        allowedInRoaming?: boolean;
-        allowedInMetered?: boolean;
-        showInDownloads?: boolean;
-        external?: boolean;
-        path?: string;
+        downloadTitle?: string | undefined;
+        downloadDescription?: string | undefined;
+        saveAsName?: string | undefined;
+        allowedInRoaming?: boolean | undefined;
+        allowedInMetered?: boolean | undefined;
+        showInDownloads?: boolean | undefined;
+        external?: boolean | undefined;
+        path?: string | undefined;
     }): void;
 
     /**
@@ -68,7 +62,7 @@ declare class AppUpgrade {
             version: string;
             trackViewUrl: string;
             [key: string]: any;
-        }
+        };
     }>;
 
     /**

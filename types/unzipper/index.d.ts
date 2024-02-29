@@ -1,15 +1,7 @@
-// Type definitions for unzipper 0.10
-// Project: https://github.com/ZJONSSON/node-unzipper#readme
-// Definitions by: s73obrien <https://github.com/s73obrien>
-//                 Nate <https://github.com/natemara>
-//                 Bart <https://github.com/bartje321>
-//                 Ken Human <https://github.com/kenhuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
+import { Duplex, PassThrough, Readable, Stream, Transform } from "stream";
 
 export interface PullStream extends Duplex {
     stream(eof: number | string, includeEof: boolean): PassThrough;
@@ -29,7 +21,7 @@ export interface Entry extends PassThrough {
 
     type: string;
     vars: {
-        signature?: number;
+        signature?: number | undefined;
         versionsNeededToExtract: number;
         flags: number;
         compressionMethod: number;
@@ -56,7 +48,7 @@ export function unzip(
         size: () => Promise<number>;
     },
     offset: number,
-    _password: string
+    _password: string,
 ): Entry;
 
 export namespace Open {
@@ -64,7 +56,7 @@ export namespace Open {
     function file(filename: string): Promise<CentralDirectory>;
     function url(
         request: ClientRequest,
-        opt: string | RequestOptions
+        opt: string | RequestOptions,
     ): Promise<CentralDirectory>;
     function s3(client: any, params: any): Promise<CentralDirectory>;
 }
@@ -92,6 +84,7 @@ export interface File {
     compressionMethod: number;
     lastModifiedTime: number;
     lastModifiedDate: number;
+    lastModifiedDateTime: Date;
     crc32: number;
     compressedSize: number;
     uncompressedSize: number;
@@ -106,17 +99,17 @@ export interface File {
     path: string;
     isUnicode: number;
     extra: any;
-    type: 'Directory' | 'File';
+    type: "Directory" | "File";
     comment: string;
     stream: (password?: string) => Entry;
     buffer: (password?: string) => Promise<Buffer>;
 }
 
 export interface ParseOptions {
-    verbose?: boolean;
-    path?: string;
-    concurrency?: number;
-    forceStream?: boolean;
+    verbose?: boolean | undefined;
+    path?: string | undefined;
+    concurrency?: number | undefined;
+    forceStream?: boolean | undefined;
 }
 
 export type ParseStream = PullStream & {

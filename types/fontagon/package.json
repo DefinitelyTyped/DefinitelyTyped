@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/fontagon",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/kdydesign/fontagon"
+    ],
+    "dependencies": {
+        "@types/svg2ttf": "*",
+        "@types/svgicons2svgfont": "*",
+        "@types/ttf2woff": "*"
+    },
+    "devDependencies": {
+        "@types/fontagon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

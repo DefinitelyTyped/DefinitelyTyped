@@ -6,6 +6,6 @@ const server = new Server({
 });
 server.start();
 
-server.method('add', (a, b) => (a + b));
-const result = server.methods.add(1, 2);    // 3
+server.method("add", (a, b) => (a + b));
+const result = server.methods.add(1, 2); // 3
 console.log(result);

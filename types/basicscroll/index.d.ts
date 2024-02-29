@@ -1,8 +1,3 @@
-// Type definitions for basicscroll 3.0
-// Project: https://github.com/electerious/basicScroll
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Creates a new basicScroll instance.
  */
@@ -51,7 +46,7 @@ export interface Data {
      * DOM element/node.
      * @default null
      */
-    elem?: Element | null;
+    elem?: Element | null | undefined;
     /**
      * Start position.
      * @default null
@@ -66,21 +61,21 @@ export interface Data {
      * Direct mode.
      * @default false
      */
-    direct?: boolean | Element;
+    direct?: boolean | Element | undefined;
     /**
      * Track window size changes.
      * @default true
      */
-    track?: boolean;
+    track?: boolean | undefined;
     /**
      * Executes when the user scrolls and the viewport is within the given start and stop position
      */
-    inside?: CallbackFunction;
+    inside?: CallbackFunction | undefined;
     /**
      * Executes when the user scrolls and the viewport is outside the given start and stop position
      */
-    outside?: CallbackFunction;
-    props?: Props;
+    outside?: CallbackFunction | undefined;
+    props?: Props | undefined;
 }
 
 export interface Props {
@@ -89,17 +84,17 @@ export interface Props {
          * Start and end values.
          * @default null
          */
-        from?: AnimatedType;
+        from?: AnimatedType | undefined;
         /**
          * Start and end values.
          * @default null
          */
-        to?: AnimatedType;
+        to?: AnimatedType | undefined;
         /**
          * Animation timing.
          * @default 'linear'
          */
-        timing?: KnownTimings | TimingFunction;
+        timing?: KnownTimings | TimingFunction | undefined;
     };
 }
 
@@ -107,37 +102,37 @@ export type AnimatedType = number | string | null;
 
 export type CallbackFunction = (instance: BasicScroll, percentage: number, props: Props) => void;
 export type KnownTimings =
-    | 'backInOut'
-    | 'backIn'
-    | 'backOut'
-    | 'bounceInOut'
-    | 'bounceIn'
-    | 'bounceOut'
-    | 'circInOut'
-    | 'circIn'
-    | 'circOut'
-    | 'cubicInOut'
-    | 'cubicIn'
-    | 'cubicOut'
-    | 'elasticInOut'
-    | 'elasticIn'
-    | 'elasticOut'
-    | 'expoInOut'
-    | 'expoIn'
-    | 'expoOut'
-    | 'linear'
-    | 'quadInOut'
-    | 'quadIn'
-    | 'quadOut'
-    | 'quartInOut'
-    | 'quartIn'
-    | 'quartOut'
-    | 'quintInOut'
-    | 'quintIn'
-    | 'quintOut'
-    | 'sineInOut'
-    | 'sineIn'
-    | 'sineOut';
+    | "backInOut"
+    | "backIn"
+    | "backOut"
+    | "bounceInOut"
+    | "bounceIn"
+    | "bounceOut"
+    | "circInOut"
+    | "circIn"
+    | "circOut"
+    | "cubicInOut"
+    | "cubicIn"
+    | "cubicOut"
+    | "elasticInOut"
+    | "elasticIn"
+    | "elasticOut"
+    | "expoInOut"
+    | "expoIn"
+    | "expoOut"
+    | "linear"
+    | "quadInOut"
+    | "quadIn"
+    | "quadOut"
+    | "quartInOut"
+    | "quartIn"
+    | "quartOut"
+    | "quintInOut"
+    | "quintIn"
+    | "quintOut"
+    | "sineInOut"
+    | "sineIn"
+    | "sineOut";
 
 export type TimingFunction = (t: number) => number;
 

@@ -1,4 +1,5 @@
-import { NamedFormatConfiguration } from '@wordpress/rich-text';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { NamedFormatConfiguration } from "@wordpress/rich-text";
 
 /**
  * Returns all the available format types.
@@ -15,7 +16,7 @@ export function getFormatType(name: string): NamedFormatConfiguration | undefine
  * data-format-type attribute), given the tag name of this element.
  */
 export function getFormatTypeForBareElement(
-    bareElementTagName: keyof HTMLElementTagNameMap
+    bareElementTagName: keyof HTMLElementTagNameMap,
 ): NamedFormatConfiguration | undefined;
 
 /**

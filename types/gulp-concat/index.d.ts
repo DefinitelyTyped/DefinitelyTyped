@@ -1,38 +1,31 @@
-// Type definitions for gulp-concat
-// Project: https://github.com/wearefractal/gulp-concat
-// Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 interface IOptions {
     newLine: string;
 }
 
 interface IFsStats {
-    dev?: number;
-    ino?: number;
-    mode?: number;
-    nlink?: number;
-    uid?: number;
-    gid?: number;
-    rdev?: number;
-    size?: number;
-    blksize?: number;
-    blocks?: number;
-    atime?: Date;
-    mtime?: Date;
-    ctime?: Date;
+    dev?: number | undefined;
+    ino?: number | undefined;
+    mode?: number | undefined;
+    nlink?: number | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    rdev?: number | undefined;
+    size?: number | undefined;
+    blksize?: number | undefined;
+    blocks?: number | undefined;
+    atime?: Date | undefined;
+    mtime?: Date | undefined;
+    ctime?: Date | undefined;
 }
 
 interface IVinylOptions {
-    cwd?: string;
-    base?: string;
-    path?: string;
-    stat?: IFsStats;
-    contents?: NodeJS.ReadableStream | Buffer;
+    cwd?: string | undefined;
+    base?: string | undefined;
+    path?: string | undefined;
+    stat?: IFsStats | undefined;
+    contents?: NodeJS.ReadableStream | Buffer | undefined;
 }
 
 interface IConcat {

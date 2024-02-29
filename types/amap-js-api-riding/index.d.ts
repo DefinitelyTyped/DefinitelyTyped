@@ -1,9 +1,3 @@
-// Type definitions for non-npm package amap-js-api-riding 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/route-search#AMap.Riding
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 /// <reference types="amap-js-api-place-search" />
 
@@ -11,46 +5,46 @@ declare namespace AMap {
     enum RidingPolicy {
         DEFAULT = 0, // 推荐路线及最快路线综合
         RECOMMENDED = 1, // 推荐路线
-        FASTEST = 2 // 最快路线
+        FASTEST = 2, // 最快路线
     }
     namespace Riding {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string; }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
              * AMap.Map对象, 展现结果的地图实例。
              * 当指定此参数后，搜索结果的标注、线路等均会自动添加到此地图上
              */
-            map?: Map;
+            map?: Map | undefined;
             /**
              * 骑行路线规划策略
              */
-            policy?: RidingPolicy;
+            policy?: RidingPolicy | undefined;
             /**
              * 结果列表的HTML容器id或容器元素，提供此参数后，结果列表将在此容器中进行展示
              */
-            panel?: string | HTMLElement;
+            panel?: string | HTMLElement | undefined;
             /**
              * 设置隐藏路径规划的起始点图标，设置为true：隐藏图标；设置false：显示图标 默认值为：false
              */
-            hideMarkers?: boolean;
+            hideMarkers?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边，默认为true
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 使用map属性时，绘制的规划线路是否显示描边，默认为"white"
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 用于控制在路径规划结束后，是否自动调整地图视野使绘制的路线处于视口的可见范围
              */
-            autoFitView?: boolean;
+            autoFitView?: boolean | undefined;
             // internal
 
-            showDir?: boolean;
+            showDir?: boolean | undefined;
         }
         interface SearchPoint {
             // 地点名称
@@ -98,7 +92,7 @@ declare namespace AMap {
              * 本骑行子路段完成后辅助动作，一般为到达某个目的地时返回
              * 文档中有此字段但是实际代码中并没有返回
              */
-            assist_action?: string;
+            assist_action?: string | undefined;
         }
         interface RideRoute {
             /**
@@ -148,17 +142,17 @@ declare namespace AMap {
             /**
              * 类型
              */
-            type: 'start' | 'end';
+            type: "start" | "end";
         }
         interface SearchResultBase extends SearchResultCommon {
             /**
              * 骑行导航起点
              */
-            start?: Poi;
+            start?: Poi | undefined;
             /**
              * 骑行导航终点
              */
-            end?: Poi;
+            end?: Poi | undefined;
         }
         interface SearchResultExt extends SearchResultCommon {
             /**
@@ -179,7 +173,7 @@ declare namespace AMap {
             destinationName: string;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
 
     class Riding extends EventEmitter {
@@ -193,7 +187,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultBase | string) => void
+            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultBase | string) => void,
         ): void;
         /**
          * 根据起点终点名称查询路径规划
@@ -202,7 +196,7 @@ declare namespace AMap {
          */
         search(
             point: Riding.SearchPoint[],
-            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultExt | string) => void
+            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultExt | string) => void,
         ): void;
         /**
          * 清除搜索的结果

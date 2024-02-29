@@ -1,17 +1,11 @@
-// Type definitions for express-redis-cache 1.1
-// Project: https://github.com/rv-kip/express-redis-cache
-// Definitions by: AJ Livingston <https://github.com/ajliv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import events = require("events");
+import express = require("express");
+import redis = require("redis");
 
-import events = require('events');
-import express = require('express');
-import redis = require('redis');
-
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Response {
-        express_redis_cache_name?: string;
-        use_express_redis_cache?: boolean;
+        express_redis_cache_name?: string | undefined;
+        use_express_redis_cache?: boolean | undefined;
     }
 }
 
@@ -40,8 +34,8 @@ declare namespace expressRedisCache {
     }
 
     interface AddOptions {
-        type?: string;
-        expire?: number;
+        type?: string | undefined;
+        expire?: number | undefined;
     }
 
     interface Entry {
@@ -59,18 +53,18 @@ declare namespace expressRedisCache {
     type ExpirationPolicy = (req: express.Request, res: express.Response) => number;
 
     interface Options {
-        auth_pass?: string;
-        client?: redis.RedisClient;
-        expire?: number;
-        host?: string;
-        port?: string | number;
-        prefix?: string;
+        auth_pass?: string | undefined;
+        client?: redis.RedisClient | undefined;
+        expire?: number | undefined;
+        host?: string | undefined;
+        port?: string | number | undefined;
+        prefix?: string | undefined;
     }
 
     interface RouteOptions {
-        name?: string;
-        expire?: ExpireOption | ExpirationPolicy;
-        binary?: boolean;
+        name?: string | undefined;
+        expire?: ExpireOption | ExpirationPolicy | undefined;
+        binary?: boolean | undefined;
     }
 }
 

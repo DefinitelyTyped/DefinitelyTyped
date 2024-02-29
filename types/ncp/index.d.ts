@@ -1,12 +1,5 @@
-// Type definitions for ncp 2.0
-// Project: https://github.com/AvianFlu/ncp
-// Definitions by: Bart van der Schoor <https://github.com/bartvds>
-//                 Benoit Lemaire <https://github.com/belemaire>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import * as fs from 'fs';
+import * as fs from "fs";
 
 declare namespace ncp {
     interface File {
@@ -21,13 +14,13 @@ declare namespace ncp {
     }
 
     interface Options {
-        filter?: RegExp | ((filename: string) => boolean);
-        transform?: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: File) => void;
-        clobber?: boolean;
-        dereference?: boolean;
-        stopOnErr?: boolean;
-        errs?: fs.PathLike;
-        limit?: number;
+        filter?: RegExp | ((filename: string) => boolean) | undefined;
+        transform?: ((read: NodeJS.ReadableStream, write: NodeJS.WritableStream, file: File) => void) | undefined;
+        clobber?: boolean | undefined;
+        dereference?: boolean | undefined;
+        stopOnErr?: boolean | undefined;
+        errs?: fs.PathLike | undefined;
+        limit?: number | undefined;
     }
 }
 

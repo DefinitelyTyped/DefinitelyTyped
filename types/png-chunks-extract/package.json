@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/png-chunks-extract",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hughsk/png-chunks-extract"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/png-chunks-extract": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita",
+            "githubUsername": "phaux"
+        }
+    ]
+}

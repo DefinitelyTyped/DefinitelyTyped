@@ -1,10 +1,4 @@
-// Type definitions for contract-proxy-kit 1.0
-// Project: https://github.com/gnosis/contract-proxy-kit#readme
-// Definitions by: Alan Lu <https://github.com/cag>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 
 export = CPK;
 
@@ -19,12 +13,12 @@ declare namespace CPK {
     interface CommonConfig {
         networks?: {
             [id: string]: NetworkConfigEntry;
-        };
+        } | undefined;
     }
 
     interface Web3SpecificConfig extends CommonConfig {
         web3: object;
-        ownerAccount?: string;
+        ownerAccount?: string | undefined;
     }
 
     interface EthersSpecificConfig extends CommonConfig {
@@ -45,8 +39,8 @@ declare namespace CPK {
 
     interface TransactionResult {
         hash: string;
-        promiEvent?: object;
-        transactionResponse?: ethers.providers.TransactionResponse;
+        promiEvent?: object | undefined;
+        transactionResponse?: ethers.providers.TransactionResponse | undefined;
     }
 }
 
@@ -59,7 +53,7 @@ declare class CPK {
     getOwnerAccount(): Promise<string>;
     get address(): string;
     execTransactions(
-        transactions: ReadonlyArray<CPK.Transaction>,
+        transactions: readonly CPK.Transaction[],
         options?: CPK.TransactionOptions,
     ): Promise<CPK.TransactionResult>;
 }

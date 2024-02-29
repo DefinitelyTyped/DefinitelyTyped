@@ -1,12 +1,11 @@
-// Type definitions for redux-state-sync 3.1
-// Project: https://github.com/AOHUA/redux-state-sync#readme
-// Definitions by: MU AOHUA <https://github.com/AOHUA>
-//                 AntonioMendez <https://github.com/AntonioMendez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import { Store, Reducer, Middleware, AnyAction } from "redux";
 import BroadcastChannel, { BroadcastChannelOptions } from "broadcast-channel";
+import { AnyAction, Middleware, Reducer, Store } from "redux";
+
+export const GET_INIT_STATE = "&_GET_INIT_STATE";
+export const SEND_INIT_STATE = "&_SEND_INIT_STATE";
+export const RECEIVE_INIT_STATE = "&_RECEIVE_INIT_STATE";
+export const INIT_MESSAGE_LISTENER = "&_INIT_MESSAGE_LISTENER";
+export const WINDOW_STATE_SYNC_ID: string;
 
 export interface Stamp {
     $uuid: string;
@@ -16,12 +15,13 @@ export interface Stamp {
 export type StampedAction = Stamp & AnyAction;
 
 export interface Config {
-    channel?: string;
-    predicate?: (action: AnyAction) => boolean | null;
-    blacklist?: string[];
-    whitelist?: string[];
-    broadcastChannelOption?: BroadcastChannelOptions;
-    prepareState?: (state: any) => any;
+    channel?: string | undefined;
+    predicate?: ((action: AnyAction) => boolean | null) | undefined;
+    blacklist?: string[] | undefined;
+    whitelist?: string[] | undefined;
+    broadcastChannelOption?: BroadcastChannelOptions | undefined;
+    prepareState?: ((state: any) => any) | undefined;
+    receiveState?: ((prevState: any, nextState: any) => any) | undefined;
 }
 
 export interface MessageListenerConfig {
@@ -34,10 +34,13 @@ export function generateUuidForAction(action: AnyAction): StampedAction;
 export function isActionAllowed(config: Config): (type: string) => boolean;
 export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
-export function withReduxStateSync(
-    appReducer: Reducer,
-    prepareInitialStateForStore?: (state: any) => any,
-): (state: any, action: AnyAction) => Reducer;
+export function withReduxStateSync<T extends Reducer>(
+    appReducer: T,
+    prepareInitialStateForStore?: Config["receiveState"],
+): T;
 export function initStateWithPrevTab(store: Store): Store;
 export function initMessageListener(store: Store): Store;
 export function isActionSynced(action: AnyAction): boolean;
+
+/** @deprecated Undocumented alias to withReduxStateSync */
+export const createReduxStateSync: typeof withReduxStateSync;

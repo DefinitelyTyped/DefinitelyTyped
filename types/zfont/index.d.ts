@@ -1,32 +1,26 @@
-// Type definitions for zfont 1.2
-// Project: https://github.com/jaames/zfont
-// Definitions by: Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-import * as zdog from 'zdog';
+import * as zdog from "zdog";
 
 export as namespace Zfont;
 
 export function init(x: typeof zdog): typeof zdog;
 
-declare module 'zdog' {
+declare module "zdog" {
     /** @see {@link https://github.com/jaames/zfont#multiline-text Zfont API} */
-    type MultilineText = string | ReadonlyArray<string>;
+    type MultilineText = string | readonly string[];
 
     /**
      * Horizontal text alignment (equivalent to the CSS `text-align` property).
      * @see {@link https://github.com/jaames/zfont#textalign Zfont API} (Text)
      * @see {@link https://github.com/jaames/zfont#textalign-1 Zfont API} (TextGroup)
      */
-    type TextAlign = 'left' | 'center' | 'right';
+    type TextAlign = "left" | "center" | "right";
 
     /**
      * Vertical text alignment, equivalent to the HTML5 canvas' {@link CanvasRenderingContext2D.textBaseline textBaseline} property.
      * @see {@link https://github.com/jaames/zfont#textbaseline Zfont API} (Text)
      * @see {@link https://github.com/jaames/zfont#textbaseline-1 Zfont API} (TextGroup)
      */
-    type TextBaseline = 'top' | 'middle' | 'bottom';
+    type TextBaseline = "top" | "middle" | "bottom";
 
     /**
      * @see {@link Font}
@@ -63,26 +57,26 @@ declare module 'zdog' {
          * @default ''
          * @see {@link Text#value}
          */
-        readonly value?: T;
+        readonly value?: T | undefined;
 
         /**
          * Measured in pixels.
          * @default 64
          * @see {@link Text#fontSize}
          */
-        readonly fontSize?: number;
+        readonly fontSize?: number | undefined;
 
         /**
          * @default 'left'
          * @see {@link Text#textAlign}
          */
-        readonly textAlign?: TextAlign;
+        readonly textAlign?: TextAlign | undefined;
 
         /**
          * @default 'bottom'
          * @see {@link Text#textBaseline}
          */
-        readonly textBaseline?: TextBaseline;
+        readonly textBaseline?: TextBaseline | undefined;
     }
 
     /**
@@ -120,44 +114,44 @@ declare module 'zdog' {
          * @default ''
          * @see {@link TextGroup#value}
          */
-        readonly value?: T;
+        readonly value?: T | undefined;
 
         /**
          * Measured in pixels.
          * @default 64
          * @see {@link TextGroup#fontSize}
          */
-        readonly fontSize?: number;
+        readonly fontSize?: number | undefined;
 
         /**
          * @default 'left'
          * @see {@link TextGroup#textAlign}
          */
-        readonly textAlign?: TextAlign;
+        readonly textAlign?: TextAlign | undefined;
 
         /**
          * @default 'bottom'
          * @see {@link TextGroup#textBaseline}
          */
-        readonly textBaseline?: TextBaseline;
+        readonly textBaseline?: TextBaseline | undefined;
 
         /**
          * @default '#333'
          * @see {@link TextGroup#color}
          */
-        readonly color?: string;
+        readonly color?: string | undefined;
 
         /**
          * @default false
          * @see {@link TextGroup#fill}
          */
-        readonly fill?: boolean;
+        readonly fill?: boolean | undefined;
 
         /**
          * @default 1
          * @see {@link TextGroup#stroke}
          */
-        readonly stroke?: number | false;
+        readonly stroke?: number | false | undefined;
     }
 
     /**

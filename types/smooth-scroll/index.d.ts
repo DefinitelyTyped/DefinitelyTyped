@@ -1,10 +1,3 @@
-// Type definitions for smooth-scroll 16.1
-// Project: https://github.com/cferdinandi/smooth-scroll
-// Definitions by: Andrei Horodinca <https://github.com/andreiho>
-//                 grgr-dkrk <https://github.com/grgr-dkrk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export as namespace SmoothScroll;
 
 export = SmoothScroll;
@@ -27,31 +20,32 @@ declare namespace SmoothScroll {
 
     interface Options {
         // Selectors
-        ignore?: string;
-        header?: string;
-        topOnEmptyHash?: boolean;
+        ignore?: string | undefined;
+        header?: string | undefined;
+        topOnEmptyHash?: boolean | undefined;
 
         // Speed & Easing
-        speed?: number;
-        speedAsDuration?: boolean;
-        durationMax?: number | null;
-        durationMin?: number | null;
-        clip?: boolean;
+        speed?: number | undefined;
+        speedAsDuration?: boolean | undefined;
+        durationMax?: number | null | undefined;
+        durationMin?: number | null | undefined;
+        clip?: boolean | undefined;
         offset?:
             | number
             | ((
-                  anchor?: Element | number | null,
-                  toggle?: Element | null
-              ) => number);
-        easing?: Easing;
-        customEasing?: (time: number) => number;
+                anchor?: Element | number | null,
+                toggle?: Element | null,
+            ) => number)
+            | undefined;
+        easing?: Easing | undefined;
+        customEasing?: ((time: number) => number) | undefined;
 
         // History
-        updateURL?: boolean;
-        popstate?: boolean;
+        updateURL?: boolean | undefined;
+        popstate?: boolean | undefined;
 
         // Custom Events
-        emitEvents?: boolean;
+        emitEvents?: boolean | undefined;
     }
 }
 
@@ -65,7 +59,7 @@ declare class SmoothScroll {
     animateScroll(
         anchor: Element | number | null,
         toggle?: Element | null,
-        options?: SmoothScroll.Options
+        options?: SmoothScroll.Options,
     ): void;
 
     cancelScroll(noEvent?: boolean): void;

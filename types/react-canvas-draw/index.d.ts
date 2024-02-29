@@ -1,29 +1,33 @@
-// Type definitions for react-canvas-draw 1.1
-// Project: https://embiem.github.io/react-canvas-draw/
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface CanvasDrawProps {
-    onChange?: ((canvas: CanvasDraw) => void) | null;
-    loadTimeOffset?: number;
-    lazyRadius?: number;
-    brushRadius?: number;
-    brushColor?: string;
-    catenaryColor?: string;
-    gridColor?: string;
-    backgroundColor?: string;
-    hideGrid?: boolean;
-    canvasWidth?: number | string;
-    canvasHeight?: number | string;
-    disabled?: boolean;
-    imgSrc?: string;
-    saveData?: string;
-    immediateLoading?: boolean;
-    hideInterface?: boolean;
-    className?: string;
-    style?: React.CSSProperties;
+    onChange?: ((canvas: CanvasDraw) => void) | null | undefined;
+    loadTimeOffset?: number | undefined;
+    lazyRadius?: number | undefined;
+    brushRadius?: number | undefined;
+    brushColor?: string | undefined;
+    catenaryColor?: string | undefined;
+    gridColor?: string | undefined;
+    backgroundColor?: string | undefined;
+    hideGrid?: boolean | undefined;
+    canvasWidth?: number | string | undefined;
+    canvasHeight?: number | string | undefined;
+    disabled?: boolean | undefined;
+    imgSrc?: string | undefined;
+    saveData?: string | undefined;
+    immediateLoading?: boolean | undefined;
+    hideInterface?: boolean | undefined;
+    gridSizeX?: number | undefined;
+    gridSizeY?: number | undefined;
+    gridLineWidth?: number | undefined;
+    hideGridX?: boolean | undefined;
+    hideGridY?: boolean | undefined;
+    enablePanAndZoom?: boolean | undefined;
+    mouseZoomFactor?: number | undefined;
+    zoomExtents?: { min: number; max: number } | undefined;
+    clampLinesToDocument?: boolean | undefined;
+    className?: string | undefined;
+    style?: React.CSSProperties | undefined;
 }
 
 export default class CanvasDraw extends React.Component<CanvasDrawProps> {

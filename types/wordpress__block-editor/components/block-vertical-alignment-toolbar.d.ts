@@ -1,9 +1,9 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace BlockVerticalAlignmentToolbar {
-    type Value = 'bottom' | 'center' | 'top' | undefined;
+    type Value = "bottom" | "center" | "top" | undefined;
     interface Props {
-        children?: never;
+        children?: never | undefined;
         value: Value;
         onChange(newValue: Value): void;
     }

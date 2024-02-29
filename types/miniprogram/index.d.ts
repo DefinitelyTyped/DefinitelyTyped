@@ -1,56 +1,58 @@
-// Type definitions for non-npm package miniprogram 1.0
-// Project: https://miniprogram.alipay.com/docs/miniprogram/mpdev/quick-start_overview
-// Definitions by: RockSandy <https://github.com/rockSandy>
-//                 LynneXu <https://github.com/LynneXu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+type Common = Record<string, string | number | boolean>;
 
 interface AsyncCallbackFailObject {
-    errCode: string;
-    errorMessage: string;
-    [key: string]: string;
+    error: number;
+    errorMessage?: string | undefined;
+    [key: string]: any;
 }
 
-interface AsyncCallback<T> {
-    success?: (res: T) => void;
-    fail?: (err: AsyncCallbackFailObject) => void;
+interface AsyncCallback<T = any> {
+    success?: ((res: T) => void) | undefined;
+    fail?: ((err: AsyncCallbackFailObject) => void) | undefined;
+    complete?: (() => void) | undefined;
+}
+
+interface AsyncVoidCallback {
+    success?: () => void;
+    fail?: ((err: AsyncCallbackFailObject) => void) | undefined;
     complete?: () => void;
 }
 
-interface SetNavigationBarArgs extends AsyncCallback<void> {
+interface SetNavigationBarArgs extends AsyncVoidCallback {
     /**
      * Navigation bar title.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Picture link address, must be https. Use 3x high-definition pictures. If the image is set, the title parameter is inactive.
      */
-    image?: string;
+    image?: string | undefined;
 
     /**
      * Navigation bar background color, supporting hex color value.
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Navigation bar bottom border color, supporting hex color value If the backgroundColor is set, the borderBottomColor does not take effect. The backgroundColor is used by default.
      */
-    borderBottomColor?: string;
+    borderBottomColor?: string | undefined;
 
     /**
      * If the navigation bar is reset to the default color scheme of Alipay, false by default.
      */
-    reset?: boolean;
+    reset?: boolean | undefined;
 }
 
-interface HideTabBarArgs extends AsyncCallback<void> {
+interface HideTabBarArgs extends AsyncVoidCallback {
     /**
      * Need animation effect or not, none by default.
      */
-    animation?: boolean;
+    animation?: boolean | undefined;
 }
 
-interface SwitchTabArgs extends AsyncCallback<void> {
+interface SwitchTabArgs extends AsyncVoidCallback {
     /**
      * Path of the jumping tabBar page (page to be defined in the
      * tabBar field in the app.json). Note: The path cannot be
@@ -59,7 +61,7 @@ interface SwitchTabArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface NavigateToArgs extends AsyncCallback<void> {
+interface NavigateToArgs extends AsyncVoidCallback {
     /**
      * The application for thejumping does not include the destination
      * page path of the tabBar. The path can be followed by parameters.
@@ -71,15 +73,15 @@ interface NavigateToArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface NavigateBackArgs extends AsyncCallback<void> {
+interface NavigateBackArgs {
     /**
      * Number of pages to return. If delta is greater than the number
      * of open pages, it returns to the home page. Default value is 1
      */
-    delta?: number;
+    delta?: number | undefined;
 }
 
-interface RedirectToArgs extends AsyncCallback<void> {
+interface RedirectToArgs extends AsyncVoidCallback {
     /**
      * The application for the jumping does not include the destination
      * page path of the tabBar. The path can be followed by parameters.
@@ -91,7 +93,7 @@ interface RedirectToArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface ReLaunchArgs extends AsyncCallback<void> {
+interface ReLaunchArgs extends AsyncVoidCallback {
     /**
      * Page path If the page is not a tabbar page, the path can be
      * followed by parameters. Rules for the parameters: The path and
@@ -102,47 +104,64 @@ interface ReLaunchArgs extends AsyncCallback<void> {
     url: string;
 }
 
-interface AlertArgs extends AsyncCallback<void> {
+interface AlertArgs extends AsyncVoidCallback {
     /**
      * Title of the alert box.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Contents of the alert box.
      */
-    content?: string;
+    content?: string | undefined;
 
     /**
      * Button text, which is OK by default.
      */
-    buttonText?: string;
+    buttonText?: string | undefined;
 }
 
-interface ConfirmArgs extends AsyncCallback<void> {
+interface ConfirmCallbackValue {
+    /**
+     * Click Confirm to return true; click Cancel to return false.
+     */
+    confirm: boolean;
+}
+interface ConfirmArgs extends AsyncCallback<ConfirmCallbackValue> {
     /**
      * Title of the confirm box.
      */
-    title?: string;
+    title?: string | undefined;
     /**
      * Content of the confirm box.
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * OK button text, which is “OK” by default.
      */
-    confirmButtonText?: string;
+    confirmButtonText?: string | undefined;
     /**
      * OK button text, which is “Cancel” by default.
      */
-    cancelButtonText?: string;
+    cancelButtonText?: string | undefined;
 }
 
-interface PromptArgs extends AsyncCallback<void> {
+interface PromptCallbackValue {
+    /**
+     * Click OK to return true; click Cancel to return false.
+     */
+    ok: boolean;
+    /**
+     * When OK is true, return the user's entry.
+     */
+    inputValue: string;
+}
+
+interface PromptArgs extends AsyncCallback<PromptCallbackValue> {
     /**
      * Title of prompt box.
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      * Text of prompt box, which is “Enter contents here” by default.
@@ -152,35 +171,35 @@ interface PromptArgs extends AsyncCallback<void> {
     /**
      * Prompt text for the entry box.
      */
-    placeholder?: string;
+    placeholder?: string | undefined;
 
     /**
      * Message alignment, supporting enumeration left/center/right, iOS center, android left.
      */
-    align?: string;
+    align?: string | undefined;
 
     /**
      * OK button text, which is “OK” by default.
      */
-    okButtonText?: string;
+    okButtonText?: string | undefined;
 
     /**
      * OK button text, which is “Cancel” by default.
      */
-    cancelButtonText?: string;
+    cancelButtonText?: string | undefined;
 }
 
 interface ShowLoadingArgs extends AsyncCallback<void> {
     /**
      * Text contents of loading.
      */
-    content?: string;
+    content?: string | undefined;
 
     /**
      * Displaying delay, in ms, 0 by default If my.hideLoading was
      * called before this time, it is not displayed.
      */
-    delay?: number;
+    delay?: number | undefined;
 }
 
 interface HideLoadingArgs {
@@ -195,46 +214,53 @@ interface ShowToastArgs extends AsyncCallback<void> {
     /**
      * Text content.
      */
-    content?: string;
+    content?: string | undefined;
     /**
      * toast type, showing the related icon, none by default,
      * supporting success/fail/exception/none Here. If it is exception, content is mandatory.
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * Displaying duration, in ms, 2000 by default.
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
-type ChoosePhoneContactArgs = AsyncCallback<{
+interface ChoosePhoneContactCallbackValue {
+    /**
+     * Selected contact name.
+     */
     name: string;
+    /**
+     * Selected contact phone.
+     */
     mobile: string;
-}>;
+}
 
+type ChoosePhoneContactArgs = AsyncCallback<ChoosePhoneContactCallbackValue>;
 interface CreateAnimationArgs {
     /**
      * Animation duration, in ms, 400 by default.
      */
-    duration?: number;
+    duration?: number | undefined;
 
     /**
      * Define animation effect, linear by default, effective
      *  values including linear, ease, ease-in, ease-in-out,
      * ease-out, step-start and step-end .
      */
-    timeFunction?: string;
+    timeFunction?: string | undefined;
 
     /**
      * Animation delay, in ms, 0 by default.
      */
-    delay?: number;
+    delay?: number | undefined;
 
     /**
      * Set transform-origin, 50% 50% 0 by default.
      */
-    transformOrigin?: string;
+    transformOrigin?: string | undefined;
 }
 
 interface Animation {
@@ -524,16 +550,18 @@ interface CanvasContext {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_canvas_canvas-context_canvascontext-getimagedata)
      */
     getImageData: (
-        args: {
-            x: number;
-            y: number;
-            width: number;
-            height: number;
-        } & AsyncCallback<{
-            width: number;
-            height: number;
-            data?: Uint8ClampedArray;
-        }>,
+        args:
+            & {
+                x: number;
+                y: number;
+                width: number;
+                height: number;
+            }
+            & AsyncCallback<{
+                width: number;
+                height: number;
+                data?: Uint8ClampedArray | undefined;
+            }>,
     ) => void;
 
     /**
@@ -745,14 +773,14 @@ interface CanvasContext {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_canvas_canvas-context_canvascontext-todataurl)
      */
     toDataURL: (args?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        destWidth?: number;
-        destHeight?: number;
-        fileType?: string;
-        quality?: number;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        destWidth?: number | undefined;
+        destHeight?: number | undefined;
+        fileType?: string | undefined;
+        quality?: number | undefined;
     }) => Promise<string>;
 
     /**
@@ -761,18 +789,20 @@ interface CanvasContext {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_canvas_canvas-context_canvascontext-totempfilepath)
      */
     toTempFilePath: (
-        args: {
-            x?: number;
-            y?: number;
-            width?: number;
-            height?: number;
-            destWidth?: number;
-            destHeight?: number;
-            fileType?: string;
-            quality?: number;
-        } & AsyncCallback<{
-            filePath: string;
-        }>,
+        args:
+            & {
+                x?: number | undefined;
+                y?: number | undefined;
+                width?: number | undefined;
+                height?: number | undefined;
+                destWidth?: number | undefined;
+                destHeight?: number | undefined;
+                fileType?: string | undefined;
+                quality?: number | undefined;
+            }
+            & AsyncCallback<{
+                filePath: string;
+            }>,
     ) => void;
 
     /**
@@ -800,10 +830,10 @@ interface CanvasContext {
     translate: (x: number, y: number) => void;
 }
 
-interface PageScrollToArgs extends AsyncCallback<void> {
-    scrollTo?: number;
-    duration?: number;
-    selector?: string;
+interface PageScrollToArgs extends AsyncVoidCallback {
+    scrollTo?: number | undefined;
+    duration?: number | undefined;
+    selector?: string | undefined;
 }
 
 interface SelectorQueryExecCallback {
@@ -862,18 +892,19 @@ interface SelectorQuery {
     selectViewport: () => SelectorQuery;
 }
 
-interface MultiLevelSelectArgs
-    extends AsyncCallback<{
+interface MultiLevelSelectArgs extends
+    AsyncCallback<{
         success: boolean;
         result: any[];
-    }> {
-    title?: string;
+    }>
+{
+    title?: string | undefined;
     list: any[];
     name: string;
-    subList?: any[];
+    subList?: any[] | undefined;
 }
 
-interface SetBackgroundColorArgs extends AsyncCallback<void> {
+interface SetBackgroundColorArgs extends AsyncVoidCallback {
     /**
      * Window background color.
      */
@@ -890,33 +921,34 @@ interface SetBackgroundColorArgs extends AsyncCallback<void> {
     backgroundColorBottom: string;
 }
 
-interface ChooseImageArgs
-    extends AsyncCallback<{
+interface ChooseImageArgs extends
+    AsyncCallback<{
         apFilePaths: string[];
-    }> {
-    count?: number;
-    sizeType?: string[];
-    sourceType?: string[];
+    }>
+{
+    count?: number | undefined;
+    sizeType?: string[] | undefined;
+    sourceType?: string[] | undefined;
 }
 
-interface PreviewImageArgs extends AsyncCallback<void> {
+interface PreviewImageArgs extends AsyncVoidCallback {
     urls: string[];
-    current?: number;
+    current?: number | undefined;
 }
 
-interface SaveImageArgs extends AsyncCallback<void> {
+interface SaveImageArgs extends AsyncVoidCallback {
     url: string;
-    showActionSheet?: boolean;
+    showActionSheet?: boolean | undefined;
 }
 
-interface GetImageInfo
-    extends AsyncCallback<{
-        width: number;
-        height: number;
-        path: string;
-        orientation: string;
-        type: string;
-    }> {
+interface GetImageInfoCallbackValue {
+    width: number;
+    height: number;
+    path: string;
+    orientation: string;
+    type: string;
+}
+interface GetImageInfo extends AsyncCallback<GetImageInfoCallbackValue> {
     src: string;
 }
 
@@ -924,12 +956,12 @@ interface GetStorage extends AsyncCallback<{ data: any }> {
     key: string;
 }
 
-interface SetStorage extends AsyncCallback<void> {
+interface SetStorage extends AsyncVoidCallback {
     key: string;
     data: any;
 }
 
-interface RemoveStorageArgs extends AsyncCallback<void> {
+interface RemoveStorageArgs extends AsyncVoidCallback {
     key: string;
 }
 
@@ -942,7 +974,7 @@ interface GetFileArgs extends AsyncCallback<{ size: number; digest: string }> {
     /**
      * Digest algorithm, supporting md5 and sha1, md5 by default.
      */
-    digestAlgorithm?: string;
+    digestAlgorithm?: string | undefined;
 }
 
 interface GetSavedFileInfo extends AsyncCallback<{ size: number; createTime: number }> {
@@ -961,54 +993,59 @@ interface RemoveSavedFileArgs extends AsyncCallback<void> {
     apFilePath: string;
 }
 
-interface GetLocationArgs
-    extends AsyncCallback<{
-        longitude: string;
-        latitude: string;
-        /**
-         * Accuracy, in m.
-         */
-        accuracy: string;
-    }> {
+interface GetLocationCallbackValue {
+    longitude: string;
+    latitude: string;
+    /**
+     * Accuracy, in m.
+     */
+    accuracy: string;
+}
+
+interface GetLocationArgs extends AsyncCallback<GetLocationCallbackValue> {
     /**
      * longitude and latitude location cache expiry time in seconds.
      * Default is 30s. Use of cache can speed up location process. Re-location is done upon cache expiry.
      */
-    catchTimeout?: number;
+    cacheTimeout?: number | undefined;
     /**
      * 0: default, get the longitude and latitude.
      */
-    type?: number;
+    type?: number | undefined;
 }
 
-interface RequestArgs
-    extends AsyncCallback<{
-        data: any;
-        status: number;
-        headers: any;
-    }> {
+interface RequestCallbackValue {
+    data: any;
+    status: number;
+    headers: any;
+}
+
+interface RequestArgs extends AsyncCallback<RequestCallbackValue> {
     url: string;
     /**
      * Set the request HTTP header, default {'content-type': 'application/json'}.
      */
-    headers?: {
-        [key: string]: string;
-    };
-    method?: 'GET' | 'POST';
+    headers?:
+        | {
+            [key: string]: string;
+        }
+        | undefined;
+    method?: "GET" | "POST" | undefined;
     data?: any;
-    timeout?: number;
+    timeout?: number | undefined;
     /**
      * Expected return data format, default json, supporting json, text and base64.
      */
-    dataType?: string;
+    dataType?: string | undefined;
 }
 
-interface UploadFileArgs
-    extends AsyncCallback<{
-        data: string;
-        statusCode: string;
-        header: any;
-    }> {
+interface UploadFileCallbackValue {
+    data: string;
+    statusCode: string;
+    header: any;
+}
+
+interface UploadFileArgs extends AsyncCallback<UploadFileCallbackValue> {
     url: string;
     filePath: string;
     fileName: string;
@@ -1022,7 +1059,7 @@ interface DownloadFileArgs extends AsyncCallback<{ apFilePath: string }> {
     header?: any;
 }
 
-type GetSystemInfoArgs = AsyncCallback<{
+interface GetSystemInfoCallbackValue {
     /**
      * Cellphone model.
      */
@@ -1068,27 +1105,31 @@ type GetSystemInfoArgs = AsyncCallback<{
      * Current running client. The app value can refer to the following table.
      */
     app: string;
-}>;
+}
 
-type GetNetworkTypeArgs = AsyncCallback<{
+type GetSystemInfoArgs = AsyncCallback<GetSystemInfoCallbackValue>;
+
+interface GetNetworkTypeCallbackValue {
     networkAvailable: boolean;
     /**
      * Network type, UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN.
      */
     networkType: string;
-}>;
+}
+
+type GetNetworkTypeArgs = AsyncCallback<GetNetworkTypeCallbackValue>;
 
 type GetClipboardArgs = AsyncCallback<{ text: string }>;
 
-interface SetClipboardArgs extends AsyncCallback<void> {
+interface SetClipboardArgs extends AsyncVoidCallback {
     text: string;
 }
 
-interface SetKeepScreenOnArgs extends AsyncCallback<void> {
+interface SetKeepScreenOnArgs extends AsyncVoidCallback {
     keepScreenOn: boolean;
 }
 
-interface SetScreenBrightnessArgs extends AsyncCallback<void> {
+interface SetScreenBrightnessArgs extends AsyncVoidCallback {
     /**
      * Screen brightness for the setting, range 0-1.
      */
@@ -1129,15 +1170,16 @@ interface AddPhoneContactArgs extends AsyncCallback<{ success: true }> {
     homeAddressPostalCode: string;
 }
 
-interface ShowAuthGuideArgs
-    extends AsyncCallback<{
+interface ShowAuthGuideArgs extends
+    AsyncCallback<{
         /**
          * When shown is true, it indicates the permission guide
          * pop-up will be shown; when it is false, it indicates
          * the user has allowed the permission.
          */
         shown: boolean;
-    }> {
+    }>
+{
     /**
      * Identifier of the permission under guide, used to identify
      * the type of the permission (such as LBS).
@@ -1145,25 +1187,26 @@ interface ShowAuthGuideArgs
     authType: string;
 }
 
-interface ScanArgs
-    extends AsyncCallback<{
-        code: string;
-        qrCode?: string;
-        barCode?: string;
-    }> {
+interface ScanCallbackValue {
+    code: string;
+    qrCode?: string | undefined;
+    barCode?: string | undefined;
+}
+
+interface ScanArgs extends AsyncCallback<ScanCallbackValue> {
     /**
      * Type for scanning (qr by default):
      * 1. qr: two-dimensional QR scanning frame.
      * 2. bar: Linear barcode scanning frame.
      */
-    type?: 'qr' | 'bar';
+    type?: "qr" | "bar" | undefined;
 
     /**
      * Hide album entry or not. If it is false, there will be an entry
      * for user to select a picture from the album as the scanned picture.
      * Otherwise, user will use camera to scan the content directly. By default, its value is false.
      */
-    hideAlbum?: boolean;
+    hideAlbum?: boolean | undefined;
 }
 
 interface WebViewContext {
@@ -1174,9 +1217,9 @@ interface WebViewContext {
     postMessage: (msg: any) => void;
 }
 
-interface NavigateToMiniProgramArgs extends AsyncCallback<void> {
+interface NavigateToMiniProgramArgs extends AsyncVoidCallback {
     appId: string;
-    path?: string;
+    path?: string | undefined;
     /**
      * The extra data that needs to be passed to the target Mini Program,
      * and the target Mini Program can get it in `App.onLaunch()` or `App.onShow()`.
@@ -1184,7 +1227,7 @@ interface NavigateToMiniProgramArgs extends AsyncCallback<void> {
     extraData?: any;
 }
 
-interface NavigateBackMiniProgramArgs extends AsyncCallback<void> {
+interface NavigateBackMiniProgramArgs extends AsyncVoidCallback {
     /**
      * The extra data that needs to be returned to the target Mini Program,
      *  and the target Mini Program can get it in `App.onLaunch()` or `App.onShow()`.
@@ -1192,12 +1235,12 @@ interface NavigateBackMiniProgramArgs extends AsyncCallback<void> {
     extraData: any;
 }
 
-interface GetAuthCodeArgs
-    extends AsyncCallback<{
-        authCode: string;
-        authErrorScopes: any;
-        authSuccessScopes: string[];
-    }> {
+interface GetAuthCodeCallbackValue {
+    authCode: string;
+    authErrorScopes: any;
+    authSuccessScopes: string[];
+}
+interface GetAuthCodeArgs extends AsyncCallback<GetAuthCodeCallbackValue> {
     /**
      * The scope of auth, there are 12 types:
      * `USER_ID`,
@@ -1218,18 +1261,101 @@ type GetOpenUserInfoArgs = AsyncCallback<{
     response: string;
 }>;
 
-interface TradePayArgs extends AsyncCallback<string> {
-    tradeNO?: string;
-    orderStr?: string;
-    paymentUrl?: string;
+interface TradePayArgs extends AsyncCallback<{ resultCode: string }> {
+    tradeNO?: string | undefined;
+    orderStr?: string | undefined;
+    paymentUrl?: string | undefined;
 }
 
-interface SignContract
-    extends AsyncCallback<{
+interface SignContractArgs extends
+    AsyncCallback<{
         authState: string;
         authCode: string;
-    }> {
+    }>
+{
     signStr: string;
+}
+
+interface Badge {
+    index: number;
+    type: string;
+    text: string;
+}
+
+interface ShowActionSheetArgs extends AsyncCallback {
+    title?: string;
+    items: string[];
+    cancelButtonText?: string;
+    destructiveBtnIndex?: number;
+    badges?: Badge[];
+}
+
+interface SetTabBarStyleArgs extends AsyncCallback {
+    color: string;
+    selectedColor: string;
+    backgroundColor: string;
+    borderStyle: string;
+}
+
+interface DatePickerArgs extends AsyncCallback {
+    format?: string;
+    currentDate?: string;
+    startDate?: string;
+    endDate?: string;
+}
+
+interface ConnectSocketArgs extends AsyncCallback {
+    url: string;
+    data: Common;
+    header: Common;
+}
+
+interface SendSocketMessageArgs extends AsyncCallback {
+    data: string;
+    isBuffer?: boolean;
+}
+
+interface BluetoothDevices {
+    name: string;
+    deviceName: string;
+    localName: string;
+    deviceId: string;
+    RSSI: number;
+    advertisData: string;
+    manufacturerData: string;
+}
+
+interface StartBluetoothDevicesDiscoveryArgs extends AsyncCallback {
+    services?: string[];
+    allowDuplicatesKey?: boolean;
+    interval?: number;
+}
+
+interface ReadBLECharacteristicValueArgs
+    extends AsyncCallback<{ characteristic: { characteristicId: string; serviceId: string; value: string } }>
+{
+    deviceId: string;
+    serviceId: string;
+    characteristicId: string;
+}
+
+interface WriteBLECharacteristicValueArgs extends AsyncCallback {
+    deviceId: string;
+    serviceId: string;
+    characteristicId: string;
+    value: string;
+}
+
+interface OpenLocationArgs extends AsyncCallback {
+    longitude: string;
+    latitude: string;
+    name: string;
+    address: string;
+    scale?: number;
+}
+
+interface GetSiteInfoCallbackValue {
+    siteName: string;
 }
 
 interface MiniprogramApi {
@@ -1347,7 +1473,7 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_feedback_hidetoast)
      */
-    hideToast: () => void;
+    hideToast: (args?: AsyncCallback) => void;
 
     /**
      * Start the pull-to-refresh function. The pull-to-refresh animation
@@ -1355,14 +1481,14 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_pulldown_startpulldownrefresh)
      */
-    startPullDownRefresh: () => void;
+    startPullDownRefresh: (args?: AsyncCallback) => void;
 
     /**
      * Stop the pull-to-refresh for the current page.
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_pulldown_stoppulldownrefresh)
      */
-    stopPullDownRefresh: () => void;
+    stopPullDownRefresh: (args?: AsyncCallback) => void;
 
     /**
      * Select the phone number of a contact in the local system directory.
@@ -1470,7 +1596,6 @@ interface MiniprogramApi {
      * cache. Getting the cache of the specified key of embedded webview
      * ill not return the cached data of the same key of the Mini Program.
      *
-     *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_storage_getstorage)
      */
     getStorage: (args: GetStorage) => void;
@@ -1535,7 +1660,7 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_storage_clearstorage)
      */
-    clearStorage: () => void;
+    clearStorage: (args?: AsyncCallback) => void;
 
     /**
      * Clear local data cache synchronously.
@@ -1632,6 +1757,7 @@ interface MiniprogramApi {
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_system_getsysteminfo)
      */
     getSystemInfo: (args: GetSystemInfoArgs) => void;
+    getSystemInfoSync: () => GetSystemInfoCallbackValue;
 
     /**
      * Get the current network status.
@@ -1769,7 +1895,7 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_alipay-connect_getsiteinfo)
      */
-    getSiteInfo: (args: AsyncCallback<{ siteName: string }>) => void;
+    getSiteInfo: (args: AsyncCallback<GetSiteInfoCallbackValue>) => void;
 
     /**
      * Jump to another Mini Program.
@@ -1819,7 +1945,427 @@ interface MiniprogramApi {
      *
      * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_openapi_signcontract)
      */
-    signContract: (args: SignContract) => void;
+    signContract: (args: SignContractArgs) => void;
+
+    /**
+     * Use this API to hide the home button in the top navigation bar, and the return-home option in the tab bar in the upper right corner.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_navigationbar_hidebackhome)
+     */
+    hideBackHome: () => void;
+
+    /**
+     * Use this API to display the operation menu.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_feedback_showactionsheet)
+     */
+    showActionSheet: (args: ShowActionSheetArgs) => void;
+
+    /**
+     * Use this API to listen to the insufficient memory alarm event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_memory-warning_onmemorywarning)
+     */
+    onMemoryWarning: (arg: (arg: { level: number }) => void) => void;
+
+    /**
+     * Use this API to unlisten to the insufficient memory alarm event. Ensure that the parameter (callback) is the same object as the one in onMemoryWarning.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_memory-warning_offmemorywarning)
+     */
+    offMemoryWarning: (arg?: (arg: { level: number }) => void) => void;
+
+    /**
+     * Use this API to obtain the Mini Program App ID synchronously.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_basic_getappidsync)
+     */
+    getAppIdSync: () => { appId: string };
+
+    /**
+     * Use this API to set the overall style of the tab bar, such as the text color, background color and border style.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_tabbar_settabbarstyle)
+     */
+    setTabBarStyle: (args: SetTabBarStyleArgs) => void;
+
+    /**
+     * Use this API to obtain the user's current settings. Only the permissions that have been requested by the Mini Program from the user are returned.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_setting_getsetting)
+     */
+    getSetting: (
+        args?: AsyncCallback<{
+            authSetting: {
+                camera: boolean;
+                location: boolean;
+                album: boolean;
+                userInfo: boolean;
+                phoneNumber: boolean;
+            };
+        }>,
+    ) => void;
+
+    /**
+     * Use this API to open the date selection list.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_ui_choose-date_datepicker)
+     */
+    datePicker: (args?: DatePickerArgs) => void;
+
+    /**
+     * The watchshake function. Every time this API is called, a callback is triggered after the mobile phone is shaken. You must call this API again to continue to listen to this event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_watch-shake_watchshake)
+     */
+    watchShake: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to create a WebSocket connection. An Mini Program can only have one WebSocket connection at a time.
+     * If a WebSocket connection already exists when a new one is created, the existing one will be automatically disabled.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_connectsocket)
+     */
+    connectSocket: (args?: ConnectSocketArgs) => void;
+
+    /**
+     * Use this API to listen to the event of enabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketopen)
+     */
+    onSocketOpen: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of enabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketopen)
+     */
+    offSocketOpen: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to WebSocket error events.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketerror)
+     */
+    onSocketError: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to WebSocket error events.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketerror)
+     */
+    offSocketError: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to send data over WebSocket connection. Call my.connectSocket first and send data after the my.onSocketOpen callback.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_sendsocketmessage)
+     */
+    sendSocketMessage: (args?: SendSocketMessageArgs) => void;
+
+    /**
+     * Use this API to listen to the event of receiving server messages by WebSocket.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketmessage)
+     */
+    onSocketMessage: (args: (arg: { data: string; isBuffer?: boolean }) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of receiving server messages by WebSocket.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketmessage)
+     */
+    offSocketMessage: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to disable the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_closesocket)
+     */
+    closeSocket: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to listen to the event of disabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_onsocketclose)
+     */
+    onSocketClose: (args: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the event of disabling the WebSocket connection.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_network_offsocketclose)
+     */
+    offSocketClose: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the acceleration data event. The callback interval is 500ms. After the interface is called, the listening is automatically started.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_accelerometer_onaccelerometerchange)
+     */
+    onAccelerometerChange: (args: (arg: { x: number; y: number; z: number }) => void) => void;
+
+    /**
+     * Use this API to stop listening to acceleration data event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_accelerometer_offaccelerometerchange)
+     */
+    offAccelerometerChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the compass data change event. After the interface call, listening is automatically started. The callback interval is 500ms.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_compass_oncompasschange)
+     */
+    onCompassChange: (args?: (arg: { direction: number }) => void) => void;
+
+    /**
+     * Use this API to unlisten to the compass data.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_compass_offcompasschange)
+     */
+    offCompassChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to asynchronously obtain the battery level and the charging state of the current device. No parameters are required.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_battery_getbatteryinfo)
+     */
+    getBatteryInfo: (args?: AsyncCallback<{ level: number; isCharging: boolean }>) => void;
+
+    /**
+     * Use this API to synchronously obtain the battery level and the charging state of the current device. No parameters are required.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_battery_getbatteryinfosync)
+     */
+    getBatteryInfoSync: () => { level: number; isCharging: boolean };
+
+    /**
+     * Use this API to open the Mini Program settings page and returns permission setting results.
+     * Only the permissions that have been requested by the Mini Program from the user are displayed on the settings page.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_setting_opensetting)
+     */
+    openSetting: (
+        args?: AsyncCallback<{
+            authSetting: { camera: any; location: any; album: any; userInfo: any; phoneNumber: any };
+        }>,
+    ) => void;
+
+    /**
+     * Use this API to initialize the Bluetooth module in the mini program.
+     * You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called.
+     * The effective period is ended when the API my.closeBluetoothAdapter is called.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_openbluetoothadapter)
+     */
+    openBluetoothAdapter: (args: AsyncCallback) => void;
+
+    /**
+     * Use this API to close the Bluetooth module in the mini program.
+     * You can call the following mini program API and receive event callbacks that are related to the Bluetooth module in the effective period when you the API my.openBluetoothAdapter is called.
+     * The effective period is ended when the API my.closeBluetoothAdapter is called.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_closebluetoothadapter#Parameters)
+     */
+    closeBluetoothAdapter: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to check the Bluetooth adapter status in the Mini Program.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getbluetoothadapterstate#9097f31e)
+     */
+    getBluetoothAdapterState: (args: AsyncCallback<{ discovering: boolean; available: boolean }>) => void;
+
+    /**
+     * Use this API to get all the bluetooth devices that are discovered, including those that are connected to the current device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getbluetoothdevices)
+     */
+    getBluetoothDevices: (args: AsyncCallback<{ devices: BluetoothDevices[] }>) => void;
+
+    /**
+     * Use this API to get the bluetooth devices that are connected.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_getconnectedbluetoothdevices)
+     */
+    getConnectedBluetoothDevices: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to remove the bluetooth adapter with a state change.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    offBluetoothAdapterStateChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API when a new Bluetooth device is found.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    onBluetoothDeviceFound: (args: AsyncCallback<{ devices: BluetoothDevices[] }>) => void;
+
+    /**
+     * Use this API to remove the bluetooth devices that are found.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_offbluetoothadapterstatechange)
+     */
+    offBluetoothDeviceFound: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to monitor the bluetooth adapter state changes.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_onbluetoothadapterstatechange#9097f31e)
+     */
+    onBluetoothAdapterStateChange: (args?: AsyncCallback<{ discovering: boolean; available: boolean }>) => void;
+
+    /**
+     * Use this API to start discovering bluetooth devices. You can find the results in the API my.onBluetoothDeviceFound.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_startbluetoothdevicesdiscovery)
+     */
+    startBluetoothDevicesDiscovery: (args?: StartBluetoothDevicesDiscoveryArgs) => void;
+
+    /**
+     * Use this API to stop discovering bluetooth devices.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_bluetooth_stopbluetoothdevicesdiscovery)
+     */
+    stopBluetoothDevicesDiscovery: (args?: AsyncCallback) => void;
+
+    /**
+     * Use this API to connect to a Bluetooth Low Energy (BLE) device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_connectbledevice)
+     */
+    connectBLEDevice: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to disconnect from a Bluetooth Low Energy (BLE) device.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_disconnectbledevice)
+     */
+    disconnectBLEDevice: (args: { deviceId: string } & AsyncCallback) => void;
+
+    /**
+     * Use this API to obtain all characteristics in a Bluetooth device that is connected to the native.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_getbledevicecharacteristics)
+     */
+    getBLEDeviceCharacteristics: (
+        args:
+            & { deviceId: string; serviceId: string }
+            & AsyncCallback<{
+                characteristic: Array<{
+                    characteristicId: string;
+                    serviceId: string;
+                    value: string;
+                    properties: {
+                        read: boolean;
+                        write: boolean;
+                        notify: boolean;
+                        indicate: boolean;
+                    };
+                }>;
+            }>,
+    ) => void;
+
+    /**
+     * Use this API to obtain all services of Bluetooth devices that are connected to the native.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_getbledeviceservices)
+     */
+    getBLEDeviceServices: (
+        args: { deviceId: string } & AsyncCallback<{ services: Array<{ isPrimary: boolean; serviceId: string }> }>,
+    ) => void;
+
+    /**
+     * Use this API enable notification on change of Bluetooth Low Energy (BLE) device characteristics.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_notifyblecharacteristicvaluechange#Parameters)
+     */
+    notifyBLECharacteristicValueChange: (
+        args: {
+            deviceId: string;
+            serviceId: string;
+            characteristicId: string;
+            descriptorId?: string;
+            state?: boolean;
+        } & AsyncCallback,
+    ) => void;
+
+    /**
+     * Use this API to unlisten to the BLE device characteristic change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_offblecharacteristicvaluechange)
+     */
+    offBLECharacteristicValueChange: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to unlisten to the Bluetooth Low Energy (BLE) connection status change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_offbleconnectionstatechanged#a4bc819d)
+     */
+    offBLEConnectionStateChanged: (args?: (arg: any) => void) => void;
+
+    /**
+     * Use this API to listen to the Bluetooth Low Energy (BLE) device characteristic change event.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_onblecharacteristicvaluechange)
+     */
+    onBLECharacteristicValueChange: (args: (arg: { deviceId: string; connected: boolean }) => void) => void;
+
+    /**
+     * Use this API to listen to the Bluetooth Low Energy (BLE) connection error event, including device loss and unusual disconnections.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_onbleconnectionstatechanged)
+     */
+    onBLEConnectionStateChanged: (args: (arg: { deviceId: string; connected: boolean }) => void) => void;
+
+    /**
+     * Use this API to read the data of Bluetooth Low Energy (BLE) device characteristics.
+     * The returned information must be obtained by using the callback in the my.onBLECharacteristicValueChange.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_readblecharacteristicvalue)
+     */
+    readBLECharacteristicValue: (args: ReadBLECharacteristicValueArgs) => void;
+
+    /**
+     * Use this API to write data to Bluetooth Low Energy (BLE) device characteristics.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_device_bluetooth_ble_writeblecharacteristicvalue)
+     */
+    writeBLECharacteristicValue: (args: WriteBLECharacteristicValueArgs) => void;
+
+    /**
+     * The my.openDocument API enables users to preview a PDF file within the mini program.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_file_myopendocument)
+     */
+    openDocument: (args: { filePath: string; fileType: string } & AsyncCallback) => void;
+
+    /**
+     * View the location on the built-in map.
+     *
+     * [Docs Link](https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_location_openlocation)
+     */
+    openLocation: (args: OpenLocationArgs) => void;
+
+    /**
+     * Open the built-in map to choose a location.
+     *
+     * https://miniprogram.alipay.com/docs/miniprogram/mpdev/api_location_chooselocation#ZxibZ
+     */
+    chooseLocation: (
+        args: AsyncCallback<{
+            name: string;
+            address: string;
+            longitude: number;
+            latitude: number;
+            provinceName: string;
+            cityName: string;
+        }>,
+    ) => void;
 }
 
 declare const my: MiniprogramApi;
@@ -1830,33 +2376,35 @@ interface LaunchQuery {
      */
     query: any;
     path: string;
-    referrerInfo?: {
-        appId: string;
-        sourceServiceId: string;
-        extraData: any;
-    };
+    referrerInfo?:
+        | {
+            appId: string;
+            sourceServiceId: string;
+            extraData: any;
+        }
+        | undefined;
 }
 
 declare function App(obj: {
     /**
      * On completion of Mini Program initialization, invoked only once
      */
-    onLaunch?: (options?: LaunchQuery) => void;
+    onLaunch?: ((options?: LaunchQuery) => void) | undefined;
 
     /**
      * On startup of Mini Program or swithing to foreground from background
      */
-    onShow?: (options?: LaunchQuery) => void;
+    onShow?: ((options?: LaunchQuery) => void) | undefined;
 
     /**
      * On switching Mini Program from foreground to background
      */
-    onHide?: () => void;
+    onHide?: (() => void) | undefined;
 
     /**
      * On js error of the Mini Program
      */
-    onError?: (error: string) => void;
+    onError?: ((error: string) => void) | undefined;
 
     /**
      * Global data can be configured in `App()`. Other pages can get and modify the global data directly.
@@ -1872,7 +2420,7 @@ interface EmptyFn {
     (): void;
 }
 interface OnPullDownRefresh {
-    (opts: { form: 'manual' | 'code' }): void;
+    (opts: { form: "manual" | "code" }): void;
 }
 
 interface OnTabItemTap {
@@ -1880,57 +2428,63 @@ interface OnTabItemTap {
 }
 
 declare function Page(
-    obj: {
-        data?: any;
+    obj:
+        & {
+            data?: any;
 
-        /**
-         * Page loading
-         */
-        onLoad?: (query?: any) => void;
-        onShow?: EmptyFn;
-        /**
-         * Page loading complete
-         */
-        onReady?: EmptyFn;
-        onHide?: EmptyFn;
-        onUnload?: EmptyFn;
-        onTitleClick?: EmptyFn;
-        onPullDownRefresh?: OnPullDownRefresh;
-        onPullIntercept?: EmptyFn;
-        onReachBottom?: EmptyFn;
-        onShareAppMessage?: (opts: any) => void;
-        onOptionMenuClick?: EmptyFn;
-        onPopMenuClick?: EmptyFn;
-        onTabItemTap?: OnTabItemTap;
-        onPageScroll?: (opts: { scrollTop: number }) => void;
-        events?: {
-            onBack?: EmptyFn;
-            onKeyboardHeight?: EmptyFn;
-            onOptionMenuClick?: EmptyFn;
-            onPopMenuClick?: EmptyFn;
-            onPullIntercept?: EmptyFn;
-            onPullDownRefresh?: OnPullDownRefresh;
-            onTitleClick?: EmptyFn;
-            onTabItemTap?: OnTabItemTap;
-            beforeTabItemTap?: EmptyFn;
-            onResize?: (opts: {
-                size: {
-                    windowWidth: number;
-                    windowHeight: number;
-                };
-            }) => void;
-        };
+            /**
+             * Page loading
+             */
+            onLoad?: ((query?: any) => void) | undefined;
+            onShow?: EmptyFn | undefined;
+            /**
+             * Page loading complete
+             */
+            onReady?: EmptyFn | undefined;
+            onHide?: EmptyFn | undefined;
+            onUnload?: EmptyFn | undefined;
+            onTitleClick?: EmptyFn | undefined;
+            onPullDownRefresh?: OnPullDownRefresh | undefined;
+            onPullIntercept?: EmptyFn | undefined;
+            onReachBottom?: EmptyFn | undefined;
+            onShareAppMessage?: ((opts: any) => void) | undefined;
+            onOptionMenuClick?: EmptyFn | undefined;
+            onPopMenuClick?: EmptyFn | undefined;
+            onTabItemTap?: OnTabItemTap | undefined;
+            onPageScroll?: ((opts: { scrollTop: number }) => void) | undefined;
+            events?:
+                | {
+                    onBack?: EmptyFn | undefined;
+                    onKeyboardHeight?: EmptyFn | undefined;
+                    onOptionMenuClick?: EmptyFn | undefined;
+                    onPopMenuClick?: EmptyFn | undefined;
+                    onPullIntercept?: EmptyFn | undefined;
+                    onPullDownRefresh?: OnPullDownRefresh | undefined;
+                    onTitleClick?: EmptyFn | undefined;
+                    onTabItemTap?: OnTabItemTap | undefined;
+                    beforeTabItemTap?: EmptyFn | undefined;
+                    onResize?:
+                        | ((opts: {
+                            size: {
+                                windowWidth: number;
+                                windowHeight: number;
+                            };
+                        }) => void)
+                        | undefined;
+                }
+                | undefined;
 
-        [key: string]: any;
-    } & ThisType<{
-        readonly data: any;
-        readonly route: string;
-        setData: (data: any, cb?: EmptyFn) => void;
-        $spliceData: (data: any, cb?: EmptyFn) => void;
-        $batchedUpdates: (cb: EmptyFn) => void;
+            [key: string]: any;
+        }
+        & ThisType<{
+            readonly data: any;
+            readonly route: string;
+            setData: (data: any, cb?: EmptyFn) => void;
+            $spliceData: (data: any, cb?: EmptyFn) => void;
+            $batchedUpdates: (cb: EmptyFn) => void;
 
-        [key: string]: any;
-    }>,
+            [key: string]: any;
+        }>,
 ): void;
 
 declare function getCurrentPages(): any[];

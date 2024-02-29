@@ -1,9 +1,9 @@
-import { Component, ClassAttributes } from "react";
+import { ClassAttributes, Component } from "react";
 
 export interface CheckboardProps extends ClassAttributes<Checkboard> {
-    grey?: string;
-    size?: number;
-    white?: string;
+    grey?: string | undefined;
+    size?: number | undefined;
+    white?: string | undefined;
 }
 
 export default class Checkboard extends Component<CheckboardProps> {}

@@ -30,7 +30,7 @@ declare namespace jsrsasign.KJUR.asn1.x509 {
     class SubjectAltName extends Extension {
         constructor(
             params?: ArrayParam<UriParam> & {
-                critical?: boolean;
+                critical?: boolean | undefined;
             },
         );
 

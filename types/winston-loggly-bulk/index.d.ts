@@ -1,10 +1,5 @@
-// Type definitions for winston-loggly-bulk 3.0
-// Project: https://github.com/loggly/winston-loggly-bulk
-// Definitions by: Simcha Wood <https://github.com/SimchaWood>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Url } from 'url';
-import TransportStream = require('winston-transport');
+import { Url } from "url";
+import TransportStream = require("winston-transport");
 
 export interface BufferOptions {
     size: number;
@@ -12,19 +7,22 @@ export interface BufferOptions {
 }
 
 export interface LogglyOptions extends TransportStream.TransportStreamOptions {
-    auth?: {
-        username: string;
-        password: string;
-    } | null;
-    bufferOptions?: BufferOptions;
-    isBulk?: boolean;
-    json?: boolean;
-    networkErrorOnConsole?: boolean;
-    proxy?: null | string | Url;
-    stripColors?: boolean;
+    auth?:
+        | {
+            username: string;
+            password: string;
+        }
+        | null
+        | undefined;
+    bufferOptions?: BufferOptions | undefined;
+    isBulk?: boolean | undefined;
+    json?: boolean | undefined;
+    networkErrorsOnConsole?: boolean | undefined;
+    proxy?: null | string | Url | undefined;
+    stripColors?: boolean | undefined;
     subdomain: string;
-    tags?: string[];
-    timestamp?: boolean;
+    tags?: string[] | undefined;
+    timestamp?: boolean | undefined;
     token: string;
 }
 

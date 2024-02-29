@@ -1,10 +1,3 @@
-// Type definitions for workbox-sw 4.3
-// Project: https://github.com/GoogleChrome/workbox
-// Definitions by: Frederik Wessberg <https://github.com/wessberg>
-//                   Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 import * as WorkboxBackgroundSync from "workbox-background-sync";
 import * as WorkboxBroadcastUpdate from "workbox-broadcast-update";
 import * as WorkboxCacheableResponse from "workbox-cacheable-response";
@@ -38,9 +31,9 @@ declare global {
         function setConfig(options?: WorkboxOptions): void;
 
         interface WorkboxOptions {
-            debug?: boolean;
-            modulePathCb?: ModulePathCallback;
-            modulePathPrefix?: string;
+            debug?: boolean | undefined;
+            modulePathCb?: ModulePathCallback | undefined;
+            modulePathPrefix?: string | undefined;
         }
 
         type ModulePathCallback = (moduleName: string, debug: boolean) => string;

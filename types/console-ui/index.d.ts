@@ -1,12 +1,6 @@
-// Type definitions for console-ui 2.2
-// Project: https://github.com/ember-cli/console-ui#readme
-// Definitions by: Dan Freeman <https://github.com/dfreeman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+import { Answers, QuestionCollection } from "inquirer";
 
-import { QuestionCollection } from 'inquirer';
-
-type WriteLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
+type WriteLevel = "DEBUG" | "INFO" | "WARNING" | "ERROR";
 
 export = UI;
 
@@ -17,11 +11,11 @@ export = UI;
  */
 declare class UI {
     constructor(options?: {
-        inputStream?: NodeJS.ReadableStream;
-        outputStream?: NodeJS.WritableStream;
-        errorStream?: NodeJS.WritableStream;
-        writeLevel?: WriteLevel;
-        ci?: boolean;
+        inputStream?: NodeJS.ReadableStream | undefined;
+        outputStream?: NodeJS.WritableStream | undefined;
+        errorStream?: NodeJS.WritableStream | undefined;
+        writeLevel?: WriteLevel | undefined;
+        ci?: boolean | undefined;
     });
 
     /**
@@ -88,5 +82,5 @@ declare class UI {
      * Launch the prompt interface (inquiry session) with (Array of Questions || Question)
      * See [Inquirer.js#question](https://github.com/SBoudrias/Inquirer.js#question) for Question properties
      */
-    prompt<T>(questions: QuestionCollection<T>, callback?: (answers: T) => void): Promise<T>;
+    prompt<T extends Answers>(questions: QuestionCollection<T>, callback?: (answers: T) => void): Promise<T>;
 }

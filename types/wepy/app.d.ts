@@ -1,13 +1,13 @@
 import { PageConfig } from "./page";
 
 export interface AppConfig {
-    appEvents?: string[];
-    pageEvents?: string[];
-    noPromiseAPI?: string[] | { [name: string]: boolean };
+    appEvents?: string[] | undefined;
+    pageEvents?: string[] | undefined;
+    noPromiseAPI?: string[] | { [name: string]: boolean } | undefined;
 }
 
 export interface AppConstructor {
-    new (): app;
+    new(): app;
 }
 
 /* the supported add-ons */
@@ -22,6 +22,6 @@ export default class app {
     use(addonName: AddOn, ...args: any[]): void;
     $initAPI(
         wepy: any,
-        noPromiseAPI: string[] | { [name: string]: boolean }
+        noPromiseAPI: string[] | { [name: string]: boolean },
     ): void;
 }

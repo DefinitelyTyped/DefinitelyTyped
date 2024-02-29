@@ -1,56 +1,49 @@
-// Type definitions for sw-precache 5.2
-// Project: https://github.com/googlechrome/sw-precache
-// Definitions by: JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import {
-    Handler as SwToolboxHanlder,
-    Options as SwToolboxOptions,
-} from 'sw-toolbox';
+import { Handler as SwToolboxHanlder, Options as SwToolboxOptions } from "sw-toolbox";
 
 export type Handler =
-    | 'networkFirst'
-    | 'cacheFirst'
-    | 'fastest'
-    | 'cacheOnly'
-    | 'networkOnly'
+    | "networkFirst"
+    | "cacheFirst"
+    | "fastest"
+    | "cacheOnly"
+    | "networkOnly"
     | SwToolboxHanlder;
 
-export type Method = 'get' | 'post' | 'put' | 'delete' | 'head';
+export type Method = "get" | "post" | "put" | "delete" | "head";
 
 export interface Options {
-    cacheId?: string;
-    clientsClaim?: boolean;
-    directoryIndex?: string;
-    dontCacheBustUrlsMatching?: RegExp;
+    cacheId?: string | undefined;
+    clientsClaim?: boolean | undefined;
+    directoryIndex?: string | undefined;
+    dontCacheBustUrlsMatching?: RegExp | undefined;
     dynamicUrlToDependencies?: {
         [url: string]: string | Buffer | string[];
-    };
-    handleFetch?: boolean;
-    ignoreUrlParametersMatching?: RegExp[];
-    importScripts?: string[];
-    logger?: Console['log'];
-    maximumFileSizeToCacheInBytes?: number;
-    navigateFallback?: string;
-    navigateFallbackWhitelist?: RegExp[];
-    replacePrefix?: string;
-    runtimeCaching?: Array<{
-        urlPattern: RegExp | string;
-        handler: Handler;
-        method?: Method;
-        options?: SwToolboxOptions;
-    }>;
-    skipWaiting?: boolean;
-    staticFileGlobs?: string[];
-    stripPrefix?: string;
+    } | undefined;
+    handleFetch?: boolean | undefined;
+    ignoreUrlParametersMatching?: RegExp[] | undefined;
+    importScripts?: string[] | undefined;
+    logger?: Console["log"] | undefined;
+    maximumFileSizeToCacheInBytes?: number | undefined;
+    navigateFallback?: string | undefined;
+    navigateFallbackWhitelist?: RegExp[] | undefined;
+    replacePrefix?: string | undefined;
+    runtimeCaching?:
+        | Array<{
+            urlPattern: RegExp | string;
+            handler: Handler;
+            method?: Method | undefined;
+            options?: SwToolboxOptions | undefined;
+        }>
+        | undefined;
+    skipWaiting?: boolean | undefined;
+    staticFileGlobs?: string[] | undefined;
+    stripPrefix?: string | undefined;
     stripPrefixMulti?: {
         [path: string]: string;
-    };
-    templateFilePath?: string;
-    verbose?: boolean;
+    } | undefined;
+    templateFilePath?: string | undefined;
+    verbose?: boolean | undefined;
 }
 
 export type Generate = (

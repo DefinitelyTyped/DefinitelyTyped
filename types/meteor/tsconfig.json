@@ -5,14 +5,11 @@
             "es6",
             "dom"
         ],
+        "target": "es2015",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -24,6 +21,8 @@
         "test/globals/meteor-tests.ts",
         "test/meteor-tests-module-only.ts",
         "test/server-render.tsx",
-        "test/react-meteor-data-tests.tsx"
+        "test/react-meteor-data-tests.tsx",
+        "test/react-meteor-accounts-tests.tsx",
+        "test/meteor-mongo-tests.ts"
     ]
 }

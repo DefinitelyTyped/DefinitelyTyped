@@ -1,9 +1,3 @@
-// Type definitions for node-easy-cert 1.3
-// Project: https://github.com/ottomao/node-easy-cert
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 export = CertManager;
 
 declare function CertManager(options: CertManager.CertManagerOptions): CertManager;
@@ -58,10 +52,10 @@ declare namespace CertManager {
          * Path where certificates should be stored.
          * @default "/{USER_HOME}/{.node_easy_certs}/"
          */
-        rootDirPath?: string;
+        rootDirPath?: string | undefined;
 
         /** The default attributes of a generated cert, you can change it here */
-        defaultCertAttrs?: CertificateAttribute[];
+        defaultCertAttrs?: CertificateAttribute[] | undefined;
     }
 
     interface GenerateConfig {
@@ -72,7 +66,7 @@ declare namespace CertManager {
          * Should overwrite any existing file.
          * @default false
          */
-        overwrite?: boolean;
+        overwrite?: boolean | undefined;
     }
 
     type GenerateCallback = (err: Error | CertErrors | null, keyPath: string, certPath: string) => any;
@@ -81,13 +75,9 @@ declare namespace CertManager {
 
     type CertErrors =
         /** Error thrown when Root CA has not been generated yet. */
-        "ROOT_CA_NOT_EXISTS" |
-
-        /** Error thrown when Root CA was existed, beware that it will be overwrited. */
-        "ROOT_CA_EXISTED" |
-
-        /** Error thrown when no commonName options is specified when generating Root CA. */
-        "ROOT_CA_COMMON_NAME_UNSPECIFIED";
+        | "ROOT_CA_NOT_EXISTS"
+        | /** Error thrown when Root CA was existed, beware that it will be overwrited. */ "ROOT_CA_EXISTED"
+        | /** Error thrown when no commonName options is specified when generating Root CA. */ "ROOT_CA_COMMON_NAME_UNSPECIFIED";
 
     type CertificateAttribute = CertificateAttributeName | CertificateAttributeShortName;
 

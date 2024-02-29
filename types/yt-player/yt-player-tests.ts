@@ -3,15 +3,35 @@ import YoutubePlayer = require("yt-player");
 new YoutubePlayer("#player", {});
 
 new YoutubePlayer("#player", {
-    width: 640, height: 480, autoplay: true, fullscreen: true
+    width: 640,
+    height: 480,
+    autoplay: true,
+    fullscreen: true,
 });
 
 new YoutubePlayer("#player", {
-    captions: "en_US"
+    captions: "en_US",
 });
 
 new YoutubePlayer("#player", {
-    captions: false
+    captions: false,
+});
+
+new YoutubePlayer("#player", {
+    host: "https://www.youtube-nocookie.com",
+    modestBranding: true,
+    related: false,
+    width: 800,
+    height: 600,
+    autoplay: true,
+    captions: "fr",
+    controls: false,
+    keyboard: false,
+    fullscreen: false,
+    annotations: false,
+    timeupdateFrequency: 2000,
+    playsInline: false,
+    start: 10,
 });
 
 const player = new YoutubePlayer("#player");
@@ -51,7 +71,7 @@ player.videoId;
 
 player.on("timeupdate", (sec: number) => {});
 player.on("playbackRateChange", (rate: number) => {});
-player.on("playbackQualityChange", (quality) => {});
+player.on("playbackQualityChange", quality => {});
 
 player.on("buffering", () => {});
 player.on("unstarted", () => {});

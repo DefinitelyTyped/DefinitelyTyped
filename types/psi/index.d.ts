@@ -1,8 +1,3 @@
-// Type definitions for psi 4.0
-// Project: https://github.com/GoogleChromeLabs/psi#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * PageSpeed Insights with reporting
  */
@@ -19,23 +14,29 @@ declare namespace psi {
          * When using this module for a production-level build process,
          * registering for an API key from the Google Developer Console is recommended.
          */
-        key?: string;
-        nokey?: string;
+        key?: string | undefined;
+        nokey?: string | undefined;
         /**
          * Strategy to use when analyzing the page.
          * @default 'mobile'
          */
-        strategy?: 'mobile' | 'desktop';
+        strategy?: "mobile" | "desktop" | undefined;
         /**
          * Locale results should be generated in.
          * @default 'en_US'
          */
-        locale?: string;
+        locale?: string | undefined;
         /**
          * Threshold score to pass the PageSpeed test. Useful for setting a performance budget.
          * @default 70
          */
-        treshold?: number;
+        threshold?: number | undefined;
+        /**
+         * If passed adds links with more info about opportunities.
+         * Useful for checking documentation about opportunities.
+         * @default false
+         */
+        links?: boolean | undefined;
     }
 
     interface Experience {
@@ -130,7 +131,7 @@ declare namespace psi {
         labDataTitle: string;
     }
 
-    // tslint:disable-next-line:interface-name I18N is established convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- I18N is established convention
     interface I18N {
         rendererFormattedStrings: RendererFormattedStrings;
     }

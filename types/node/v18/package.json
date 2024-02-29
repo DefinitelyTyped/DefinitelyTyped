@@ -1,0 +1,190 @@
+{
+    "private": true,
+    "name": "@types/node",
+    "version": "18.19.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Node.js",
+    "projects": [
+        "https://nodejs.org/"
+    ],
+    "types": "index",
+    "typesVersions": {
+        "<=4.8": {
+            "*": [
+                "ts4.8/*"
+            ]
+        }
+    },
+    "dependencies": {
+        "undici-types": "~5.26.4"
+    },
+    "devDependencies": {
+        "@types/node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Microsoft TypeScript",
+            "githubUsername": "Microsoft"
+        },
+        {
+            "name": "Alberto Schiabel",
+            "githubUsername": "jkomyno"
+        },
+        {
+            "name": "Alvis HT Tang",
+            "githubUsername": "alvis"
+        },
+        {
+            "name": "Andrew Makarov",
+            "githubUsername": "r3nya"
+        },
+        {
+            "name": "Benjamin Toueg",
+            "githubUsername": "btoueg"
+        },
+        {
+            "name": "Chigozirim C.",
+            "githubUsername": "smac89"
+        },
+        {
+            "name": "David Junger",
+            "githubUsername": "touffy"
+        },
+        {
+            "name": "Deividas Bakanas",
+            "githubUsername": "DeividasBakanas"
+        },
+        {
+            "name": "Eugene Y. Q. Shen",
+            "githubUsername": "eyqs"
+        },
+        {
+            "name": "Hannes Magnusson",
+            "githubUsername": "Hannes-Magnusson-CK"
+        },
+        {
+            "name": "Huw",
+            "githubUsername": "hoo29"
+        },
+        {
+            "name": "Kelvin Jin",
+            "githubUsername": "kjin"
+        },
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        },
+        {
+            "name": "Lishude",
+            "githubUsername": "islishude"
+        },
+        {
+            "name": "Mariusz Wiktorczyk",
+            "githubUsername": "mwiktorczyk"
+        },
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1"
+        },
+        {
+            "name": "Nicolas Even",
+            "githubUsername": "n-e"
+        },
+        {
+            "name": "Nikita Galkin",
+            "githubUsername": "galkin"
+        },
+        {
+            "name": "Parambir Singh",
+            "githubUsername": "parambirs"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        },
+        {
+            "name": "Thomas den Hollander",
+            "githubUsername": "ThomasdenH"
+        },
+        {
+            "name": "Wilco Bakker",
+            "githubUsername": "WilcoBakker"
+        },
+        {
+            "name": "wwwy3y3",
+            "githubUsername": "wwwy3y3"
+        },
+        {
+            "name": "Samuel Ainsworth",
+            "githubUsername": "samuela"
+        },
+        {
+            "name": "Kyle Uehlein",
+            "githubUsername": "kuehlein"
+        },
+        {
+            "name": "Thanik Bhongbhibhat",
+            "githubUsername": "bhongy"
+        },
+        {
+            "name": "Marcin Kopacz",
+            "githubUsername": "chyzwar"
+        },
+        {
+            "name": "Trivikram Kamat",
+            "githubUsername": "trivikr"
+        },
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        },
+        {
+            "name": "Ilia Baryshnikov",
+            "githubUsername": "qwelias"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Anna Henningsen",
+            "githubUsername": "addaleax"
+        },
+        {
+            "name": "Victor Perin",
+            "githubUsername": "victorperin"
+        },
+        {
+            "name": "Yongsheng Zhang",
+            "githubUsername": "ZYSzys"
+        },
+        {
+            "name": "NodeJS Contributors",
+            "githubUsername": "NodeJS"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "wafuwafu13",
+            "githubUsername": "wafuwafu13"
+        },
+        {
+            "name": "Matteo Collina",
+            "githubUsername": "mcollina"
+        },
+        {
+            "name": "Dmitry Semigradsky",
+            "githubUsername": "Semigradsky"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for vigour-ua 4.0
-// Project: https://github.com/vigour-io/ua#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace ua {
     interface UserAgent {
         [value: string]: string | number;

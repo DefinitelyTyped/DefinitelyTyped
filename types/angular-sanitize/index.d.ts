@@ -1,16 +1,9 @@
-// Type definitions for Angular JS (ngSanitize module) 1.7
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>
-//                 Michał Lipiński <https://github.com/falsyvalues>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngSanitize module (angular-sanitize.js)
     // see https://code.angularjs.org/1.7.0/docs/api/ngSanitize
@@ -20,10 +13,12 @@ declare module 'angular' {
          * Sanitizes an html string by stripping all potentially dangerous tokens.
          *
          * The input is sanitized by parsing the HTML into tokens.
-         * All safe tokens (from a whitelist) are then serialized back to a properly escaped HTML string.
+         * All safe tokens (from a trusted list) are then serialized back to a properly
+         * escaped HTML string.
          * This means that no unsafe input can make it into the returned string.
          *
-         * The whitelist for URL sanitization of attribute values is configured using the functions aHrefSanitizationWhitelist and imgSrcSanitizationWhitelist of $compileProvider.
+         * URLs allowed in attribute values are configured using the methods aHrefSanitizationTrustedUrlList
+         * and imgSrcSanitizationTrustedUrlList of $compileProvider.
          * The input may also contain SVG markup if this is enabled via $sanitizeProvider.
          *
          * @param html HTML input.
@@ -57,12 +52,20 @@ declare module 'angular' {
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidElements
              * @param elements A list of valid HTML elements or an object with one or more of the following properties: htmlElements, htmlVoidElements, svgElements
              */
-            addValidElements(elements: string[] | { htmlElements?: string[]; htmlVoidElements?: string[]; svgElements?: string[] }): ISanitizeProvider;
+            addValidElements(
+                elements: string[] | {
+                    htmlElements?: string[] | undefined;
+                    htmlVoidElements?: string[] | undefined;
+                    svgElements?: string[] | undefined;
+                },
+            ): ISanitizeProvider;
 
             /**
              * Extends the built-in list of valid attributes, i.e. attributes that are considered safe and are not stripped off during sanitization.
              *
-             * Note: The new attributes will not be treated as URI attributes, which means their values will not be sanitized as URIs using $compileProvider's aHrefSanitizationWhitelist and imgSrcSanitizationWhitelist.
+             * Note: The new attributes will not be treated as URI attributes, which means their
+             * values will not be sanitized as URIs using $compileProvider's
+             * aHrefSanitizationTrustedUrlList and imgSrcSanitizationTrustedUrlList.
              * @see https://code.angularjs.org/1.7.0/docs/api/ngSanitize/provider/$sanitizeProvider#addValidAttrs
              * @param attrs A list of valid attributes.
              */
@@ -83,7 +86,11 @@ declare module 'angular' {
              * @return Html-linkified and sanitized text.
              */
             interface ILinky {
-                (text: string, target?: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
+                (
+                    text: string,
+                    target?: string,
+                    attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string }),
+                ): string;
             }
         }
 
@@ -91,7 +98,7 @@ declare module 'angular' {
         // Extend angular $filter declarations to include filters from angular.sanitize module
         ///////////////////////////////////////////////////////////////////////////////
         interface IFilterService {
-            (name: 'linky'): angular.sanitize.filter.ILinky;
+            (name: "linky"): angular.sanitize.filter.ILinky;
         }
     }
 }

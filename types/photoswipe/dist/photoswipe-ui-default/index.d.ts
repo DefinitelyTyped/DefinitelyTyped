@@ -1,4 +1,4 @@
-import * as PhotoSwipe from '../../index';
+import * as PhotoSwipe from "../../index";
 
 /**
  * Default UI class for PhotoSwipe. This class is largely undocumented and doesn't seem to have a public facing API.
@@ -25,28 +25,28 @@ declare namespace PhotoSwipeUI_Default {
          *
          * Default {top: 44, bottom: "auto"}.
          */
-        barsSize?: { top: number; bottom: number | string };
+        barsSize?: { top: number; bottom: number | string } | undefined;
 
         /**
          * Adds class pswp__ui--idle to pswp__ui element when mouse isn't moving for timeToIdle milliseconds.
          *
          * Default 4000.
          */
-        timeToIdle?: number;
+        timeToIdle?: number | undefined;
 
         /**
          * Adds class pswp__ui--idle to pswp__ui element when mouse leaves the window for timeToIdleOutside milliseconds.
          *
          * Default 1000.
          */
-        timeToIdleOutside?: number;
+        timeToIdleOutside?: number | undefined;
 
         /**
          * Delay in milliseconds until loading indicator is displayed.
          *
          * Default 1000.
          */
-        loadingIndicatorDelay?: number;
+        loadingIndicatorDelay?: number | undefined;
 
         /**
          * Function to build caption markup. The function takes three parameters:
@@ -68,86 +68,85 @@ declare namespace PhotoSwipeUI_Default {
          *     captionEl.children[0].innerHTML = item.title;
          *     return true;
          * }
-         *
          */
-        addCaptionHTMLFn?: (item: Item, captionEl: HTMLElement, isFake: boolean) => boolean;
+        addCaptionHTMLFn?: ((item: Item, captionEl: HTMLElement, isFake: boolean) => boolean) | undefined;
 
         /**
          * Whether to show the close button.
          *
          * Default true.
          */
-        closeEl?: boolean;
+        closeEl?: boolean | undefined;
 
         /**
          * Whether to show the caption.
          *
          * Default true.
          */
-        captionEl?: boolean;
+        captionEl?: boolean | undefined;
 
         /**
          * Whether to show the fullscreen button.
          *
          * Default true.
          */
-        fullscreenEl?: boolean;
+        fullscreenEl?: boolean | undefined;
 
         /**
          * Whether to show the zoom button.
          *
          * Default true.
          */
-        zoomEl?: boolean;
+        zoomEl?: boolean | undefined;
 
         /**
          * Whether to show the share button.
          *
          * Default true.
          */
-        shareEl?: boolean;
+        shareEl?: boolean | undefined;
 
         /**
          * Whether to show the current image's index in the gallery (located in top-left corner by default).
          *
          * Default true.
          */
-        counterEl?: boolean;
+        counterEl?: boolean | undefined;
 
         /**
          * Whether to show the left/right directional arrows.
          *
          * Default true.
          */
-        arrowEl?: boolean;
+        arrowEl?: boolean | undefined;
 
         /**
          * Whether to show the preloader element.
          *
          * Default true.
          */
-        preloaderEl?: boolean;
+        preloaderEl?: boolean | undefined;
 
         /**
          * Tap on sliding area should close gallery.
          *
          * Default false.
          */
-        tapToClose?: boolean;
+        tapToClose?: boolean | undefined;
 
         /**
          * Tap should toggle visibility of controls.
          *
          * Default true.
          */
-        tapToToggleControls?: boolean;
+        tapToToggleControls?: boolean | undefined;
 
         /**
          * Mouse click on image should close the gallery, only when image is smaller than size of the viewport.
          *
          * Default true.
          */
-        clickToCloseNonZoomable?: boolean;
+        clickToCloseNonZoomable?: boolean | undefined;
 
         /**
          * Element classes that should close PhotoSwipe when clicked on.
@@ -158,14 +157,14 @@ declare namespace PhotoSwipeUI_Default {
          *
          * Default ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'].
          */
-        closeElClasses?: string[];
+        closeElClasses?: string[] | undefined;
 
         /**
          * Separator for "1 of X" counter.
          *
          * Default ' / '.
          */
-        indexIndicatorSep?: string;
+        indexIndicatorSep?: string | undefined;
 
         /**
          * The entries that show up when you click the Share button.
@@ -178,9 +177,8 @@ declare namespace PhotoSwipeUI_Default {
          *     {id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/?url=&media=&description='},
          *     {id:'download', label:'Download image', url:'', download:true}
          * ]
-         *
          */
-        shareButtons?: ShareButtonData[];
+        shareButtons?: ShareButtonData[] | undefined;
 
         /**
          * A callback that should return the URL for the currently selected image. The callback is passed
@@ -196,9 +194,8 @@ declare namespace PhotoSwipeUI_Default {
          *     //
          *     return pswp.currItem.src || '';
          * }
-         *
          */
-        getImageURLForShare?: (shareButtonData: ShareButtonData) => string;
+        getImageURLForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
         /**
          * A callback that should return the "Page" associated with the selected image. (e.g. on Facebook, the shared
@@ -210,9 +207,8 @@ declare namespace PhotoSwipeUI_Default {
          * function( shareButtonData ) {
          *     return window.location.href;
          * }
-         *
          */
-        getPageURLForShare?: (shareButtonData: ShareButtonData) => string;
+        getPageURLForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
         /**
          * A callback that should return the Text associated with the selected image. The callback is passed
@@ -223,9 +219,8 @@ declare namespace PhotoSwipeUI_Default {
          * function( shareButtonData ) {
          *     return pswp.currItem.title || '';
          * }
-         *
          */
-        getTextForShare?: (shareButtonData: ShareButtonData) => string;
+        getTextForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
         /**
          * A final output callback that you can use to further modify the share button's HTML. The callback is passed
@@ -236,9 +231,8 @@ declare namespace PhotoSwipeUI_Default {
          * function(shareButtonData, shareButtonOut) {
          *     return shareButtonOut;
          * }
-         *
          */
-        parseShareButtonOut?: (shareButtonData: ShareButtonData, shareButtonOut: string) => string;
+        parseShareButtonOut?: ((shareButtonData: ShareButtonData, shareButtonOut: string) => string) | undefined;
     }
 
     export interface ShareButtonData {
@@ -270,7 +264,7 @@ declare namespace PhotoSwipeUI_Default {
          *
          * Default false.
          */
-        download?: boolean;
+        download?: boolean | undefined;
     }
 
     /**
@@ -280,7 +274,7 @@ declare namespace PhotoSwipeUI_Default {
         /**
          * The caption for this item.
          */
-        title?: string;
+        title?: string | undefined;
     }
 }
 

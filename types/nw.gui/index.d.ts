@@ -1,10 +1,3 @@
-// Type definitions for node-webkit
-// Project: https://github.com/rogerwang/node-webkit
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 interface IEventEmitter {
     addListener(event: string, listener: Function): EventEmitter;
     on(event: string, listener: Function): EventEmitter;
@@ -28,7 +21,7 @@ declare class EventEmitter implements IEventEmitter {
 }
 
 export interface MenuConfig {
-    type?: string;
+    type?: string | undefined;
 }
 
 export interface HideMenusOptions {
@@ -37,16 +30,16 @@ export interface HideMenusOptions {
 }
 
 export interface MenuItemConfig {
-    label?: string;
-    click?: Function;
-    type?: string;
-    submenu?: Menu;
-    icon?: string;
-    tooltip?: string;
-    checked?: boolean;
-    enabled?: boolean;
-    key?: string;
-    modifiers?: string;
+    label?: string | undefined;
+    click?: Function | undefined;
+    type?: string | undefined;
+    submenu?: Menu | undefined;
+    icon?: string | undefined;
+    tooltip?: string | undefined;
+    checked?: boolean | undefined;
+    enabled?: boolean | undefined;
+    key?: string | undefined;
+    modifiers?: string | undefined;
 }
 
 export declare class MenuItem extends EventEmitter implements MenuItemConfig {
@@ -73,7 +66,6 @@ export declare class Menu {
     popup(x: number, y: number): void;
     // since v0.10.0-rc1
     createMacBuiltin(appname: string, options?: HideMenusOptions): void;
-
 }
 
 export interface ShortcutOption {
@@ -90,18 +82,17 @@ export declare class Shortcut extends EventEmitter {
 }
 
 export interface WindowManifestOptions {
-
-    title?: string;
-    icon?: string;
-    toolbar?: boolean;
-    frame?: boolean;
-    width?: number;
-    height?: number;
-    position?: string;
-    min_width?: number;
-    min_height?: number;
-    max_width?: number;
-    max_height?: number;
+    title?: string | undefined;
+    icon?: string | undefined;
+    toolbar?: boolean | undefined;
+    frame?: boolean | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    position?: string | undefined;
+    min_width?: number | undefined;
+    min_height?: number | undefined;
+    max_width?: number | undefined;
+    max_height?: number | undefined;
 }
 
 export declare class Window extends EventEmitter {
@@ -169,16 +160,16 @@ export interface App extends EventEmitter {
     quit(): void;
     setCrashDumpDir(dir: string): void;
     addOriginAccessWhitelistEntry(
-        sourceOrigin: string
-        , destinationProtocol: string
-        , destinationHost: string
-        , allowDestinationSubdomains: boolean
+        sourceOrigin: string,
+        destinationProtocol: string,
+        destinationHost: string,
+        allowDestinationSubdomains: boolean,
     ): void;
     removeOriginAccessWhitelistEntry(
-        sourceOrigin: string
-        , destinationProtocol: string
-        , destinationHost: string
-        , allowDestinationSubdomains: boolean
+        sourceOrigin: string,
+        destinationProtocol: string,
+        destinationHost: string,
+        allowDestinationSubdomains: boolean,
     ): void;
     registerGlobalHotKey(shortcut: Shortcut): void;
     unregisterGlobalHotKey(shortcut: Shortcut): void;
@@ -192,11 +183,11 @@ export declare class Clipboard {
 }
 
 export interface TrayOption {
-    title?: string;
-    tooltip?: string;
-    icon?: string;
-    alticon?: string;
-    menu?: Menu;
+    title?: string | undefined;
+    tooltip?: string | undefined;
+    icon?: string | undefined;
+    alticon?: string | undefined;
+    menu?: Menu | undefined;
 }
 
 export class Tray extends EventEmitter implements TrayOption {

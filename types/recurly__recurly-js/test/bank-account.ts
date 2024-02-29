@@ -1,9 +1,7 @@
-export default function bankAccount() {
-  const formEl = document.querySelector('form');
+import { TokenHandler, BacsBillingInfo, BecsBillingInfo } from '@recurly/recurly-js';
 
-  if (!formEl) return;
-
-  window.recurly.bankAccount.token(formEl, (err, token) => {
+export default function bankAccount () {
+  const handleToken: TokenHandler = (err, token) => {
     if (err) {
       err.message;
       err.code;
@@ -11,7 +9,13 @@ export default function bankAccount() {
       token.id;
       token.type;
     }
-  });
+  };
+
+  const formEl = document.querySelector('form');
+
+  if (formEl) {
+    window.recurly.bankAccount.token(formEl, handleToken);
+  }
 
   const billingInfo = {
     routing_number: '123456780',
@@ -29,71 +33,79 @@ export default function bankAccount() {
     vat_number: 'SE0000',
   };
 
-  window.recurly.bankAccount.token(billingInfo, (err, token) => {
-    if (err) {
-      err.message;
-      err.code;
-    } else {
-      token.id;
-      token.type;
-    }
-  });
+  window.recurly.bankAccount.token(billingInfo, handleToken);
 
-  // $ExpectError
-  window.recurly.bankAccount.token(document.querySelector('div'), (err, token) => {
-    if (err) {
-      err.message;
-      err.code;
-    } else {
-      token.id;
-      token.type;
-    }
-  });
+  const div = document.querySelector('div');
 
-  // $ExpectError
-  window.recurly.bankAccount.token('selector', (err, token) => {
-    if (err) {
-      err.message;
-      err.code;
-    } else {
-      token.id;
-      token.type;
-    }
-  });
+  if (div) {
+    // @ts-expect-error
+    window.recurly.bankAccount.token(document.querySelector('div'), handleToken);
+  }
 
-  const minimalBacsBillingInfo = {
+  // @ts-expect-error
+  window.recurly.bankAccount.token('selector', handleToken);
+
+  const minimalBacsBillingInfo: BacsBillingInfo = {
     type: 'bacs',
-    account_number: "1234",
-    account_number_confirmation: "1234",
-    sort_code: "1234",
-    name_on_account: "1234"
+    account_number: '1234',
+    account_number_confirmation: '1234',
+    sort_code: '1234',
+    name_on_account: '1234'
   };
 
-  window.recurly.bankAccount.token(minimalBacsBillingInfo, (err, token) => {
-    if (err) {
-      err.message;
-      err.code;
-    } else {
-      token.id;
-      token.type;
-    }
-  });
+  window.recurly.bankAccount.token(minimalBacsBillingInfo, handleToken);
 
-  const missingNameOnAccountBacsBillingInfo = {
-    type: 'bacs',
-    account_number: "1234",
-    account_number_confirmation: "1234",
-    sort_code: "1234",
+  const minimalBecsBillingInfo: BecsBillingInfo = {
+    type: 'becs',
+    account_number: '1234',
+    account_number_confirmation: '1234',
+    branch_code: '1234',
+    name_on_account: '1234',
   };
 
-  // $ExpectError
-  window.recurly.bankAccount.token(missingNameOnAccountBacsBillingInfo, (err, token) => {
-    if (err) {
-      err.message;
-      err.code;
-    } else {
-      token.id;
-      token.type;
-    }
-  });
+  window.recurly.bankAccount.token(minimalBecsBillingInfo, handleToken);
+
+  // @ts-expect-error
+  const missingNameOnAccountBacsBillingInfo: BacsBillingInfo = {
+    type: 'bacs',
+    account_number: '1234',
+    account_number_confirmation: '1234',
+    sort_code: '1234',
+  };
+
+  missingNameOnAccountBacsBillingInfo.sort_code;
+
+  const wrongTypeOnAccountBacsBillingInfo: BacsBillingInfo = {
+    // @ts-expect-error
+    type: 'becs',
+    account_number: '1234',
+    account_number_confirmation: '1234',
+    sort_code: '1234',
+  };
+
+  wrongTypeOnAccountBacsBillingInfo.sort_code;
+
+  const addressBecsBillingInfo: BecsBillingInfo = {
+    type: 'becs',
+    name_on_account: '1234',
+    account_number: '1234',
+    account_number_confirmation: '1234',
+    branch_code: '1234',
+    address1: 'asdf',
+    address2: 'asdf',
+    city: 'asdf',
+    state: 'asdf',
+    postal_code: 'asdf',
+    country: 'asdf',
+    vat_number: 'asdf'
+  };
+
+  window.recurly.bankAccount.token(addressBecsBillingInfo, handleToken);
+
+  const sepaBillingInfo = {
+    iban: 'my-iban-number',
+    name_on_account: 'name'
+  };
+
+  window.recurly.bankAccount.token(sepaBillingInfo, handleToken);
 }

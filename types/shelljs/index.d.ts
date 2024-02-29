@@ -1,14 +1,3 @@
-// Type definitions for ShellJS 0.8
-// Project: http://shelljs.org, http://github.com/shelljs/shelljs
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Vojtech Jasny <https://github.com/voy>
-//                 George Kalpakas <https://github.com/gkalpak>
-//                 Paul Huynh <https://github.com/pheromonez>
-//                 Alexander Futász <https://github.com/aldafu>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Mirco Sanguineti <https://github.com/msanguineti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import child = require("child_process");
@@ -292,18 +281,8 @@ export interface SedFunction {
      * @param files       The files to process.
      * @return            The new string after replacement.
      */
-    (
-        options: string,
-        searchRegex: string | RegExp,
-        replacement: string,
-        files: string[]
-    ): ShellString;
-    (
-        options: string,
-        searchRegex: string | RegExp,
-        replacement: string,
-        ...files: string[]
-    ): ShellString;
+    (options: string, searchRegex: string | RegExp, replacement: string, files: string[]): ShellString;
+    (options: string, searchRegex: string | RegExp, replacement: string, ...files: string[]): ShellString;
 
     /**
      * Reads an input string from file and performs a JavaScript `replace()`
@@ -314,16 +293,8 @@ export interface SedFunction {
      * @param files       The files to process.
      * @return            The new string after replacement.
      */
-    (
-        searchRegex: string | RegExp,
-        replacement: string,
-        files: string[]
-    ): ShellString;
-    (
-        searchRegex: string | RegExp,
-        replacement: string,
-        ...files: string[]
-    ): ShellString;
+    (searchRegex: string | RegExp, replacement: string, files: string[]): ShellString;
+    (searchRegex: string | RegExp, replacement: string, ...files: string[]): ShellString;
 }
 
 /**
@@ -352,16 +323,8 @@ export interface GrepFunction {
      * @param files The files to process.
      * @return Returns a string containing all lines of the file that match the given regex_filter.
      */
-    (
-        options: string,
-        regex_filter: string | RegExp,
-        files: string[]
-    ): ShellString;
-    (
-        options: string,
-        regex_filter: string | RegExp,
-        ...files: string[]
-    ): ShellString;
+    (options: string, regex_filter: string | RegExp, files: string[]): ShellString;
+    (options: string, regex_filter: string | RegExp, ...files: string[]): ShellString;
 
     /**
      * Reads input string from given files and returns a string containing all lines
@@ -393,9 +356,9 @@ export const grep: GrepFunction;
  * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
  *
  * @param command The command to search for.
- * @return        Returns string containing the absolute path to the command.
+ * @return        Returns string containing the absolute path to the command or `null` if it couldn't be found.
  */
-export function which(command: string): ShellString;
+export function which(command: string): ShellString | null;
 
 export interface EchoFunction {
     /**
@@ -758,7 +721,7 @@ export interface ExecFunction {
      * @return        Returns an object containing the return code and output as string,
      *                or if `{async: true}` was passed, a `ChildProcess`.
      */
-    (command: string, options: ExecOptions & { async?: false }): ShellString;
+    (command: string, options: ExecOptions & { async?: false | undefined }): ShellString;
 
     /**
      * Executes the given command asynchronously.
@@ -768,10 +731,7 @@ export interface ExecFunction {
      * @return        Returns an object containing the return code and output as string,
      *                or if `{async: true}` was passed, a `ChildProcess`.
      */
-    (
-        command: string,
-        options: ExecOptions & { async: true }
-    ): child.ChildProcess;
+    (command: string, options: ExecOptions & { async: true }): child.ChildProcess;
 
     /**
      * Executes the given command.
@@ -790,11 +750,7 @@ export interface ExecFunction {
      * @param options Silence and synchronous options.
      * @param callback Receives code and output asynchronously.
      */
-    (
-        command: string,
-        options: ExecOptions,
-        callback: ExecCallback
-    ): child.ChildProcess;
+    (command: string, options: ExecOptions, callback: ExecCallback): child.ChildProcess;
 
     /**
      * Executes the given command synchronously.
@@ -819,12 +775,10 @@ export const exec: ExecFunction;
 export type ExecCallback = (
     /** The process exit code. */
     code: number,
-
     /** The process standard output. */
     stdout: string,
-
     /** The process standard error output. */
-    stderr: string
+    stderr: string,
 ) => any;
 
 export interface ExecOptions extends child.ExecOptions {
@@ -833,14 +787,14 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default false
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * Exit when command return code is non-zero.
      *
      * @default false
      */
-    fatal?: boolean;
+    fatal?: boolean | undefined;
 
     /**
      * Asynchronous execution.
@@ -849,7 +803,7 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default false
      */
-    async?: boolean;
+    async?: boolean | undefined;
 
     /**
      * Character encoding to use.
@@ -859,7 +813,7 @@ export interface ExecOptions extends child.ExecOptions {
      *
      * @default "utf8"
      */
-    encoding?: string;
+    encoding?: string | undefined;
 }
 
 export interface ExecOutputReturnValue {
@@ -1096,19 +1050,13 @@ export function error(): ShellString;
 export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 
 export interface TouchOptionsArray {
-    "-d"?: string;
-    "-r"?: string;
+    "-d"?: string | undefined;
+    "-r"?: string | undefined;
 }
 
 export interface TouchFunction {
-    (
-        options: TouchOptionsLiteral | TouchOptionsArray,
-        files: string[]
-    ): ShellString;
-    (
-        options: TouchOptionsLiteral | TouchOptionsArray,
-        ...files: string[]
-    ): ShellString;
+    (options: TouchOptionsLiteral | TouchOptionsArray, files: string[]): ShellString;
+    (options: TouchOptionsLiteral | TouchOptionsArray, ...files: string[]): ShellString;
 
     (files: string[]): ShellString;
     (...files: string[]): ShellString;

@@ -1,17 +1,7 @@
-// Type definitions for passport-oauth2 1.4
-// Project: https://github.com/jaredhanson/passport-oauth2#readme
-// Definitions by: Pasi Eronen <https://github.com/pasieronen>
-//                 Wang Zishi <https://github.com/WangZishi>
-//                 Eduardo AC <https://github.com/EduardoAC>
-//                 Ivan Fernandes <https://github.com/ivan94>
-//                 Daphne Smit <https://github.com/daphnesmit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Request } from 'express';
-import { Strategy } from 'passport';
-import { OAuth2 } from 'oauth';
-import { OutgoingHttpHeaders } from 'http';
+import { Request } from "express";
+import { OutgoingHttpHeaders } from "http";
+import { OAuth2 } from "oauth";
+import { Strategy } from "passport";
 
 declare class OAuth2Strategy extends Strategy {
     name: string;
@@ -52,33 +42,52 @@ declare namespace OAuth2Strategy {
         verify(req: Request, state: string, meta: Metadata, callback: StateStoreVerifyCallback): void;
     }
 
-    type VerifyCallback = (err?: Error | null, user?: object, info?: object) => void;
+    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
 
-    type VerifyFunction =
-        ((accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
-    type VerifyFunctionWithRequest =
-        ((req: Request, accessToken: string, refreshToken: string, profile: any, verified: VerifyCallback) => void) |
-        ((req: Request, accessToken: string, refreshToken: string, results: any, profile: any, verified: VerifyCallback) => void);
+    type VerifyFunction<TProfile = any, TResults = any> =
+        | ((accessToken: string, refreshToken: string, profile: TProfile, verified: VerifyCallback) => void)
+        | ((
+            accessToken: string,
+            refreshToken: string,
+            results: TResults,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void);
+    type VerifyFunctionWithRequest<TProfile = any, TResults = any> =
+        | ((
+            req: Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void)
+        | ((
+            req: Request,
+            accessToken: string,
+            refreshToken: string,
+            results: TResults,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void);
 
     interface _StrategyOptionsBase {
         authorizationURL: string;
         tokenURL: string;
         clientID: string;
         clientSecret: string;
-        callbackURL?: string;
-        customHeaders?: OutgoingHttpHeaders;
-        scope?: string | string[];
-        scopeSeparator?: string;
-        sessionKey?: string;
-        store?: StateStore;
+        callbackURL?: string | undefined;
+        customHeaders?: OutgoingHttpHeaders | undefined;
+        scope?: string | string[] | undefined;
+        scopeSeparator?: string | undefined;
+        sessionKey?: string | undefined;
+        store?: StateStore | undefined;
         state?: any;
         skipUserProfile?: any;
-        pkce?: boolean;
+        pkce?: boolean | undefined;
         proxy?: any;
     }
     interface StrategyOptions extends _StrategyOptionsBase {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
     interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
         passReqToCallback: true;
@@ -90,14 +99,14 @@ declare namespace OAuth2Strategy {
     class TokenError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 
     class AuthorizationError extends Error {
         constructor(message: string | undefined, code: string, uri?: string, status?: number);
         code: string;
-        uri?: string;
+        uri?: string | undefined;
         status: number;
     }
 

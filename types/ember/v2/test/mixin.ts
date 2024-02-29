@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 import { assertType } from "./lib/assert";
 
 interface EditableMixin {
@@ -8,11 +8,11 @@ interface EditableMixin {
 
 const EditableMixin = Ember.Mixin.create<EditableMixin, Ember.Route>({
     edit() {
-        this.get('controller');
-        console.log('starting to edit');
-        this.set('isEditing', true);
+        this.get("controller");
+        console.log("starting to edit");
+        this.set("isEditing", true);
     },
-    isEditing: false
+    isEditing: false,
 });
 
 const EditableComment = Ember.Route.extend(EditableMixin, {
@@ -26,11 +26,11 @@ const EditableComment = Ember.Route.extend(EditableMixin, {
         if (this.canEdit()) {
             this.edit();
         }
-    }
+    },
 });
 
 const comment = EditableComment.create({
-    postId: 42
+    postId: 42,
 });
 
 comment.edit();

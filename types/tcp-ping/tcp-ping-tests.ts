@@ -1,4 +1,4 @@
-import * as tp from 'tcp-ping';
+import * as tp from "tcp-ping";
 
 // $ExpectType void
 tp.ping({}, (err, result) => {
@@ -6,12 +6,18 @@ tp.ping({}, (err, result) => {
     result;
     // $ExpectType Results[]
     result.results;
+    // $ExpectType number
+    result.results[0].seq;
+    // $ExpectType number | undefined
+    result.results[0].time;
+    // $ExpectType Error | undefined
+    result.results[0].err;
 });
 
-// $ExpectError
+// @ts-expect-error
 tp.ping();
 
-// $ExpectError
+// @ts-expect-error
 tp.ping({});
 
 // $ExpectType void
@@ -20,11 +26,11 @@ tp.probe("localhost", 8080, (err, result) => {
     result;
 });
 
-// $ExpectError
+// @ts-expect-error
 tp.probe("localhost", 8080);
 
-// $ExpectError
+// @ts-expect-error
 tp.probe("localhost");
 
-// $ExpectError
+// @ts-expect-error
 tp.probe();

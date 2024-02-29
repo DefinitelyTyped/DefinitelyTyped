@@ -1,9 +1,3 @@
-// Type definitions for sylvester-es6 0.0
-// Project: https://github.com/pithumke/sylvester
-// Definitions by: briwa <https://github.com/briwa>
-//                 Stephane Alie <https://github.com/StephaneAlie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // === Sylvester ===
 // Vector and Matrix mathematics modules for JavaScript
 // Copyright (c) 2007 James Coglan
@@ -13,7 +7,7 @@ export class Vector {
     /**
      * Constructor function.
      */
-    constructor(elements: Vector|number[]);
+    constructor(elements: Vector | number[]);
 
     static i: Vector;
     static j: Vector;
@@ -52,7 +46,7 @@ export class Vector {
     /**
      * Returns true if the vector is equal to the argument.
      */
-    eql(vector: Vector|number[]): boolean;
+    eql(vector: Vector | number[]): boolean;
 
     /**
      * Returns a copy of the vector.
@@ -97,12 +91,12 @@ export class Vector {
     /**
      * Returns the result of adding the argument to the vector.
      */
-    add(vector: Vector|number[]): Vector;
+    add(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of subtracting the argument from the vector.
      */
-    subtract(vector: Vector|number[]): Vector;
+    subtract(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of multiplying the elements of the vector by the argument.
@@ -117,14 +111,14 @@ export class Vector {
     /**
      * Returns the scalar product of the vector with the argument. Both vectors must have equal dimensionality.
      *
-     * @param: {Vector|number[]} vector The other vector.
+     * @param vector The other vector.
      */
-    dot(vector: Vector|number[]): number;
+    dot(vector: Vector | number[]): number;
 
     /**
      * Returns the vector product of the vector with the argument. Both vectors must have dimensionality 3.
      */
-    cross(vector: Vector|number[]): Vector;
+    cross(vector: Vector | number[]): Vector;
 
     /**
      * Returns the (absolute) largest element of the vector.
@@ -155,7 +149,7 @@ export class Vector {
     /**
      * Returns the vector's distance from the argument, when considered as a point in space.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the vector is point on the given line.
@@ -171,12 +165,12 @@ export class Vector {
      * Rotates the vector about the given object. The object should be a point if the vector is 2D,
      * and a line if it is 3D. Be careful with line directions!
      */
-    rotate(t: number|Matrix, obj: Vector|Line): Vector;
+    rotate(t: number | Matrix, obj: Vector | Line): Vector;
 
     /**
      * Returns the result of reflecting the point in the given point, line or plane.
      */
-    reflectionIn(obj: Vector|Line|Plane): Vector;
+    reflectionIn(obj: Vector | Line | Plane): Vector;
 
     /**
      * Utility to make sure vectors are 3D. If they are 2D, a zero z-component is added.
@@ -191,19 +185,19 @@ export class Vector {
     /**
      * Set vector's elements from an array.
      */
-    setElements(els: Vector|number[]): Vector;
+    setElements(els: Vector | number[]): Vector;
 }
 
 export class Vertex extends Vector {
     /**
      * The constructor function.
      */
-    constructor(point: Vector|number[]);
+    constructor(point: Vector | number[]);
 
     /**
      * Convert points into an array of Vertex.
      */
-    static convert(points: Vector[]|number[][]): Vertex[];
+    static convert(points: Vector[] | number[][]): Vertex[];
 
     /**
      * Returns true iff the vertex's internal angle is 0 <= x < 180
@@ -220,14 +214,14 @@ export class Vertex extends Vector {
     /**
      * Returns the type of the vertex.
      */
-    type(polygon: Polygon): 'convex' | 'reflex' | null;
+    type(polygon: Polygon): "convex" | "reflex" | null;
 }
 
 export class Matrix {
     /**
      * Constructor function.
      */
-    constructor(elements: number[]|number[][]|Vector|Matrix);
+    constructor(elements: number[] | number[][] | Vector | Matrix);
 
     /**
      * Identity matrix of size n.
@@ -237,7 +231,7 @@ export class Matrix {
     /**
      * Diagonal matrix - all off-diagonal elements are zero
      */
-    static Diagonal(elements: number[]|number[][]|Vector | Matrix): Matrix;
+    static Diagonal(elements: number[] | number[][] | Vector | Matrix): Matrix;
 
     /**
      * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
@@ -297,7 +291,7 @@ export class Matrix {
      * Returns true if the matrix is equal to the argument. You can supply a vector as the argument,
      * in which case the receiver must be a one-column matrix equal to the vector.
      */
-    eql(matrix: Vector|Matrix|number[]|number[][]): boolean;
+    eql(matrix: Vector | Matrix | number[] | number[][]): boolean;
 
     /**
      * Returns a copy of the matrix.
@@ -339,7 +333,7 @@ export class Matrix {
      * then just multiply all the elements. If the argument is a vector, a vector is returned, which saves you
      * having to remember calling col(1) on the result.
      */
-    multiply(matrix: number|Matrix): Matrix;
+    multiply(matrix: number | Matrix): Matrix;
 
     /**
      * Returns the result of multiplying the matrix from the right by the argument. If the argument is a scalar
@@ -348,7 +342,7 @@ export class Matrix {
      */
     multiply(vector: Vector): Vector;
 
-    x(matrix: number|Matrix): Matrix;
+    x(matrix: number | Matrix): Matrix;
 
     x(vector: Vector): Vector;
 
@@ -417,7 +411,7 @@ export class Matrix {
     /**
      * Returns the result of attaching the given argument to the right-hand side of the matrix.
      */
-    augment(matrix: Vector|Matrix|number[]|number[][]): Matrix;
+    augment(matrix: Vector | Matrix | number[] | number[][]): Matrix;
 
     /**
      * Returns the inverse (if one exists) using Gauss-Jordan.
@@ -445,14 +439,14 @@ export class Matrix {
      * Set the matrix's elements from an array. If the argument passed is a vector, the resulting matrix
      * will be a single column.
      */
-    setElements(matrix: number[]|number[][]|Vector|Matrix): Matrix;
+    setElements(matrix: number[] | number[][] | Vector | Matrix): Matrix;
 }
 
 export class Line {
     /**
      * Constructor function.
      */
-    constructor(anchor: number[]|Vector, direction: number[]|Vector);
+    constructor(anchor: number[] | Vector, direction: number[] | Vector);
 
     static X: Line;
     static Y: Line;
@@ -481,19 +475,19 @@ export class Line {
     /**
      * Returns the result of translating the line by the given vector/array.
      */
-    translate(vector: Vector|number[]): Line;
+    translate(vector: Vector | number[]): Line;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
      * direction is either parallel or antiparallel to the line's own direction. A line is parallel to a
      * plane if the two do not have a unique intersection.
      */
-    isParallelTo(obj: Line|Plane): boolean;
+    isParallelTo(obj: Line | Plane): boolean;
 
     /**
      * Returns the line's perpendicular distance from the argument, which can be a point, a line or a plane.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the argument is a point on the line.
@@ -508,17 +502,17 @@ export class Line {
     /**
      * Returns true if the line has a unique point of intersection with the argument.
      */
-    intersects(obj: Line|Plane): boolean;
+    intersects(obj: Line | Plane): boolean;
 
     /**
      * Returns the unique intersection point with the argument, if one exists.
      */
-    intersectionWith(obj: Line|Plane): Vector;
+    intersectionWith(obj: Line | Plane): Vector;
 
     /**
      * Returns the point on the line that is closest to the given point or line.
      */
-    pointClosestTo(obj: Vector|Line|number[]): Vector;
+    pointClosestTo(obj: Vector | Line | number[]): Vector;
 
     /**
      * Returns a copy of the line rotated by t radians about the given line. Works by finding the argument's
@@ -526,24 +520,24 @@ export class Line {
      * the line's direction about the argument's. Be careful with this - the rotation axis' direction
      * affects the outcome!
      */
-    rotate(t: number, axis: Vector|Line): Line;
+    rotate(t: number, axis: Vector | Line): Line;
 
     /**
      * Returns the line's reflection in the given point or line.
      */
-    reflectionIn(obj: Vector|Line|Plane): Line;
+    reflectionIn(obj: Vector | Line | Plane): Line;
 
     /**
      * Set the line's anchor point and direction.
      */
-    setVectors(anchor: number[]|Vector, direction: number[]|Vector): Line;
+    setVectors(anchor: number[] | Vector, direction: number[] | Vector): Line;
 }
 
 export class LineSegment {
     /**
      * Constructor function.
      */
-    constructor(v1: Vector|number[], v2: Vector|number[]);
+    constructor(v1: Vector | number[], v2: Vector | number[]);
 
     /**
      * Whether a segment is equal to this segment.
@@ -578,51 +572,51 @@ export class LineSegment {
     /**
      * Translates this segment given a vector.
      */
-    translate(vector: Vector|number[]): LineSegment;
+    translate(vector: Vector | number[]): LineSegment;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
      * direction is either parallel or antiparallel to the line's own direction. A line is parallel to a
      * plane if the two do not have a unique intersection.
      */
-    isParallelTo(obj: Line|Plane): boolean;
+    isParallelTo(obj: Line | Plane): boolean;
 
     /**
      * Returns the vector's distance from the argument, when considered as a point in space.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the argument is a point on the line.
      */
-    contains(point: Vector|Line|Plane): boolean;
+    contains(point: Vector | Line | Plane): boolean;
 
     /**
      * Returns true if the line has a unique point of intersection with the argument.
      */
-    intersects(obj: Line|Plane): boolean;
+    intersects(obj: Line | Plane): boolean;
 
     /**
      * Returns the unique intersection point with the argument, if one exists.
      */
-    intersectionWith(obj: Line|Plane): Vector;
+    intersectionWith(obj: Line | Plane): Vector;
 
     /**
      * Returns the point on the line that is closest to the given point or line.
      */
-    pointClosestTo(obj: Vector|Line|number[]): Vector;
+    pointClosestTo(obj: Vector | Line | number[]): Vector;
 
     /**
      * Sets the initial point of the line segments
      */
-    setPoints(startPoint: Vector|number[], endPoint: Vector|number[]): LineSegment | null;
+    setPoints(startPoint: Vector | number[], endPoint: Vector | number[]): LineSegment | null;
 }
 
 export class Plane {
     /**
      * Constructor function.
      */
-    constructor(anchor: number[]|Vector, v1: number[]|Vector, v2?: number[]|Vector);
+    constructor(anchor: number[] | Vector, v1: number[] | Vector, v2?: number[] | Vector);
 
     static XY: Plane;
     static YZ: Plane;
@@ -632,7 +626,7 @@ export class Plane {
     /**
      * Constructs a plane from a list of points.
      */
-    static fromPoints(points: number[][]|Vector[]): Plane;
+    static fromPoints(points: number[][] | Vector[]): Plane;
 
     /**
      * Gets the 3D vector corresponding to a point in the plane.
@@ -657,13 +651,13 @@ export class Plane {
     /**
      * Returns the result of translating the plane by the given vector.
      */
-    translate(vector: number[]|Vector): Plane;
+    translate(vector: number[] | Vector): Plane;
 
     /**
      * Returns true if the plane is parallel to the argument. Will return true if the planes are equal,
      * or if you give a line and it lies in the plane.
      */
-    isParallelTo(obj: Line|Plane): boolean;
+    isParallelTo(obj: Line | Plane): boolean;
 
     /**
      * Returns true if the receiver is perpendicular to the argument.
@@ -673,19 +667,19 @@ export class Plane {
     /**
      * Returns the plane's distance from the given object (point, line or plane).
      *
-     * @parm {Vector|Line|Plane} obj The object.
+     * @param obj The object.
      */
-    distanceFrom(obj: Vector|Line|Plane): number;
+    distanceFrom(obj: Vector | Line | Plane): number;
 
     /**
      * Returns true if the plane contains the given point or line.
      */
-    contains(obj: Vector|Line): boolean;
+    contains(obj: Vector | Line): boolean;
 
     /**
      * Returns true if the plane has a unique point/line of intersection with the argument.
      */
-    intersects(obj: Line|Plane): boolean;
+    intersects(obj: Line | Plane): boolean;
 
     /**
      * Returns the unique intersection with the argument, if one exists.
@@ -700,7 +694,7 @@ export class Plane {
     /**
      * Returns the point in the plane closest to the given point.
      */
-    pointClosestTo(point: Vector|number[]): Vector;
+    pointClosestTo(point: Vector | number[]): Vector;
 
     /**
      * Returns a copy of the plane, rotated by t radians about the given line. See notes on Line#rotate.
@@ -710,13 +704,13 @@ export class Plane {
     /**
      * Returns the reflection of the plane in the given point, line or plane.
      */
-    reflectionIn(obj: Vector|Line|Plane): Plane;
+    reflectionIn(obj: Vector | Line | Plane): Plane;
 
     /**
      * Sets the anchor point and normal to the plane. The normal is calculated by assuming the three points
      * should lie in the same plane. Normal vector is normalised before storage.
      */
-    setVectors(anchor: number[]|Vector, v1: number[]|Vector, v2?: number[]|Vector): Plane;
+    setVectors(anchor: number[] | Vector, v1: number[] | Vector, v2?: number[] | Vector): Plane;
 }
 
 export class LinkedListNode {
@@ -835,7 +829,7 @@ export class Polygon {
     /**
      * Constructor function.
      */
-    constructor(points: Vector[]|number[][], plane: Plane);
+    constructor(points: Vector[] | number[][], plane: Plane);
 
     /**
      * The vertices of the polygon.
@@ -860,7 +854,7 @@ export class Polygon {
     /**
      * Translate the polygon given a vector.
      */
-    translate(vector: Vector|number[]): Polygon;
+    translate(vector: Vector | number[]): Polygon;
 
     /**
      * Rotates the polygon.
@@ -911,17 +905,17 @@ export class Polygon {
     /**
      * Whether the polygon contains a point.
      */
-    contains(point: Vector|number[]): boolean;
+    contains(point: Vector | number[]): boolean;
 
     /**
      * Whether the polygon contains a point.
      */
-    containsByWindingNumber(point: Vector|number[]): boolean;
+    containsByWindingNumber(point: Vector | number[]): boolean;
 
     /**
      * Whether the point is an edge in the polygon.
      */
-    hasEdgeContaining(point: Vector|number[]): boolean;
+    hasEdgeContaining(point: Vector | number[]): boolean;
 
     /**
      * Converts the polygon into triangles.
@@ -940,7 +934,7 @@ export class Polygon {
     /**
      * Set the vertices of the polygon.
      */
-    setVertices(points: Vector[]|number[][], plane: Plane): Polygon;
+    setVertices(points: Vector[] | number[][], plane: Plane): Polygon;
 
     /**
      * Populates the vertex type lists.
@@ -982,29 +976,47 @@ export function mht(m: Matrix): string;
  * Creates a look-at matrix given the parameters.
  */
 export function makeLookAt(
-    ex: number, ey: number, ez: number,
-    cx: number, cy: number, cz: number,
-    ux: number, uy: number, uz: number): Matrix;
+    ex: number,
+    ey: number,
+    ez: number,
+    cx: number,
+    cy: number,
+    cz: number,
+    ux: number,
+    uy: number,
+    uz: number,
+): Matrix;
 
 /**
  * Creates an ortho-matrix given the parameters.
  */
 export function makeOrtho(
-    left: number, right: number,
-    bottom: number, top: number,
-    znear: number, zfar: number): Matrix;
+    left: number,
+    right: number,
+    bottom: number,
+    top: number,
+    znear: number,
+    zfar: number,
+): Matrix;
 
 /**
  * Creates a perspective matrix given the parameters.
  */
 export function makePerspective(
-    fovy: number, aspect: number,
-    znear: number, zfar: number): Matrix;
+    fovy: number,
+    aspect: number,
+    znear: number,
+    zfar: number,
+): Matrix;
 
 /**
  * Creates a frustum-matrix given the parameters.
  */
 export function makeFrustum(
-    left: number, right: number,
-    bottom: number, top: number,
-    znear: number, zfar: number): Matrix;
+    left: number,
+    right: number,
+    bottom: number,
+    top: number,
+    znear: number,
+    zfar: number,
+): Matrix;

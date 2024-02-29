@@ -1,11 +1,5 @@
-// Type definitions for novnc-core 0.1
-// Project: https://github.com/larryprice/novnc-core
-// Definitions by: Ken Smith <https://github.com/smithkl42>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Display from './lib/display';
-import { Keyboard, Mouse } from './lib/input/devices';
+import Display from "./lib/display";
+import { Keyboard, Mouse } from "./lib/input/devices";
 
 export default class RFB {
     constructor(defaults?: NvRFBDefaults);
@@ -33,8 +27,15 @@ export default class RFB {
     set_viewportDrag(viewportDrag: boolean): void;
     get_onUpdateState(): (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void;
     set_onUpdateState(handler: (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void): void;
-    get_onNotification(): (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void;
-    set_onNotification(handler: (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void): void;
+    get_onNotification(): (
+        rfb: this,
+        msg: string,
+        level: "normal" | "warn" | "error",
+        options?: { [key: string]: any },
+    ) => void;
+    set_onNotification(
+        handler: (rfb: this, msg: string, level: "normal" | "warn" | "error", options?: { [key: string]: any }) => void,
+    ): void;
     get_onDisconnected(): (rfb: this, reason?: string) => void;
     set_onDisconnected(handler: (rfb: this, reason?: string) => void): void;
     get_onPasswordRequired(): (rfb: this, msg?: string) => void;
@@ -70,19 +71,19 @@ export default class RFB {
 }
 
 export interface NvRFBDefaults {
-    target?: HTMLCanvasElement;
-    focusContainer?: HTMLElement;
-    encrypt?: boolean;
-    local_cursor?: boolean;
-    shared?: boolean;
-    view_only?: boolean;
-    xvp_password_sep?: string;
-    disconnectTimeout?: number;
-    wsProtocols?: string[];
-    repeaterID?: string;
-    viewportDrag?: boolean;
+    target?: HTMLCanvasElement | undefined;
+    focusContainer?: HTMLElement | undefined;
+    encrypt?: boolean | undefined;
+    local_cursor?: boolean | undefined;
+    shared?: boolean | undefined;
+    view_only?: boolean | undefined;
+    xvp_password_sep?: string | undefined;
+    disconnectTimeout?: number | undefined;
+    wsProtocols?: string[] | undefined;
+    repeaterID?: string | undefined;
+    viewportDrag?: boolean | undefined;
     onUpdateState?(rfb: RFB, state: NvConnectionState, oldstate: NvConnectionState): void;
-    onNotification?(rfb: RFB, msg: string, level: 'normal' | 'warn' | 'error', options?: {[key: string]: any}): void;
+    onNotification?(rfb: RFB, msg: string, level: "normal" | "warn" | "error", options?: { [key: string]: any }): void;
     onDisconnected?(rfb: RFB, reason?: string): void;
     onPasswordRequired?(rfb: RFB, msg?: string): void;
     onClipboard?(rfb: RFB, text: string): void;
@@ -103,7 +104,7 @@ export interface NvFBU {
     encodingName: string;
 }
 
-export type NvConnectionState = 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
+export type NvConnectionState = "connecting" | "connected" | "disconnecting" | "disconnected";
 
 export const enum NvXvpOperation {
     shutdown = 2,

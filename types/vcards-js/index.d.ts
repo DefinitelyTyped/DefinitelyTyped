@@ -1,8 +1,3 @@
-// Type definitions for vcards-js 2.10
-// Project: https://github.com/enesser/vCards-JS
-// Definitions by: Ben Allfree <https://github.com/benallfree>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface vCard {
     /**
      * Specifies a value that represents a persistent, globally unique identifier associated with the vCard
@@ -22,22 +17,24 @@ interface vCard {
     /**
      * Cell phone number
      */
-    cellPhone: string;
+    cellPhone: string | string[];
 
     /**
      * Other cell phone number or pager
      */
-    pagerPhone: string;
+    pagerPhone: string | string[];
 
     /**
      * The address for private electronic mail communication
      */
-    email: string;
+    email: string | string[];
 
     /**
      * The address for work-related electronic mail communication
      */
-    workEmail: string;
+    workEmail: string | string[];
+
+    otherEmail: string | string[];
 
     /**
      * First name
@@ -52,7 +49,7 @@ interface vCard {
     /**
      * Gender.
      */
-    gender: 'M' | 'F';
+    gender: "M" | "F";
 
     /**
      * Home mailing address
@@ -62,12 +59,12 @@ interface vCard {
     /**
      * Home phone
      */
-    homePhone: string;
+    homePhone: string | string[];
 
     /**
      * Home facsimile
      */
-    homeFax: string;
+    homeFax: string | string[];
 
     /**
      * Last name
@@ -157,12 +154,14 @@ interface vCard {
     /**
      * Work phone
      */
-    workPhone: string;
+    workPhone: string | string[];
 
     /**
      * Work facsimile
      */
-    workFax: string;
+    workFax: string | string[];
+
+    otherPhone: string | string[];
 
     /**
      * vCard version
@@ -192,6 +191,8 @@ interface SocialUrls {
     linkedIn: string;
     twitter: string;
     flickr: string;
+
+    [custom: string]: string;
 }
 
 interface Photo {

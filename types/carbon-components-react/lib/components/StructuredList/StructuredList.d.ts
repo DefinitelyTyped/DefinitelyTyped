@@ -3,73 +3,90 @@ import { ReactAttr, ReactDivAttr, ReactInputAttr, ReactLabelAttr } from "../../.
 
 // StructuredListWrapper
 
-interface StructureListWrapperInheritedProps extends Omit<ReactAttr, "aria-label"> {
-    ariaLabel?: React.AriaAttributes["aria-label"],
-}
-
-export interface StructuredListProps extends StructureListWrapperInheritedProps {
+export interface StructuredListWrapperProps extends ReactDivAttr {
+    ariaLabel?: string | undefined;
     /**
      * @deprecated
      */
-    border?: boolean,
-    selection?: boolean,
+    border?: boolean | undefined;
+    isCondensed?: boolean | undefined;
+    isFlush?: boolean | undefined;
+    selection?: boolean | undefined;
 }
 
-export declare class StructuredListWrapper extends React.Component<StructuredListProps> { }
+export declare const StructuredListWrapper: React.FC<StructuredListWrapperProps>;
 
 // StructuredListHead
 
-interface StructuredListHeadInheritedProps extends ReactDivAttr { }
+export interface StructuredListHeadProps extends ReactDivAttr {}
 
-export interface StructuredListHeadProps extends StructuredListHeadInheritedProps { }
-
-export declare class StructuredListHead extends React.Component<StructuredListHeadProps> { }
+export declare const StructuredListHead: React.FC<StructuredListHeadProps>;
 
 // StructuredListInput
 
-interface StructuredListInputInheritedProps extends Omit<ReactInputAttr, "value"> {
-    value: string | number,
+type ExcludedListInputPropKeys = "onChange" | "tabIndex" | "type" | "value";
+
+/**
+ * Prop "checked" is not overrideable with the 2021 release flag enabled.
+ */
+export interface StructuredListInputProps extends Omit<ReactInputAttr, ExcludedListInputPropKeys> {
+    /**
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
+    defaultChecked?: boolean | undefined;
+    /**
+     * @param event
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
+    onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+    /**
+     * @deprecated This is not used with the 2021 release flag enabled.
+     */
+    value: string | number;
 }
 
-export interface StructuredListInputProps extends StructuredListInputInheritedProps {
-    defaultChecked?: boolean,
-}
-
-export declare class StructuredListInput extends React.Component<StructuredListInputProps> { }
+export declare const StructuredListInput: React.FC<StructuredListInputProps>;
 
 // StructuredListRow
 
-interface StructuredListRowSharedProps {
-    head?: boolean,
+export interface StructuredListDivRowProps extends Omit<ReactDivAttr, "onKeyDown" | "tabIndex"> {
+    head?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    label?: false | undefined;
 }
-interface StructuredListLabelRowInheritedProps extends Omit<ReactLabelAttr, "presentation">, StructuredListRowSharedProps { }
-interface StructuredListDivRowInheritedProps extends ReactDivAttr, StructuredListRowSharedProps { }
 
-export interface StructuredListDivRowProps extends StructuredListDivRowInheritedProps {
-    label?: Exclude<boolean, true>,
-}
-export interface StructuredListLabelRowProps extends StructuredListLabelRowInheritedProps {
-    label: true,
+/**
+ * @deprecated This variant is not supported in the "next" version of StructuredList and is not available with the
+ * 2021 release feature flag enabled.
+ */
+export interface StructuredListLabelRowProps extends ReactLabelAttr {
+    head?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    label: true;
 }
 
 export type AllStructuredListRowProps = StructuredListLabelRowProps | StructuredListDivRowProps;
-export declare class StructuredListRow extends React.Component<AllStructuredListRowProps> { }
+export declare const StructuredListRow: React.FC<AllStructuredListRowProps>;
 
 // StructuredListBody
 
-interface StructuredListBodyInheritedProps extends ReactDivAttr { }
+export interface StructuredListBodyProps extends ReactDivAttr {}
 
-export interface StructuredListBodyProps extends StructuredListBodyInheritedProps { }
-
-export declare class StructuredListBody extends React.Component<StructuredListBodyProps> { }
+export declare const StructuredListBody: React.FC<StructuredListBodyProps>;
 
 // StructuredListCell
 
-interface StructuredListCellInheritedProps extends ReactDivAttr { }
-
-export interface StructuredListCellProps extends StructuredListCellInheritedProps {
-    head?: boolean,
-    noWrap?: boolean,
+/*
+ * TODO: make the distinction between span/div when next becomes the stable version. For now this will cover both
+ *  next and stable signatures without overcomplicating the types.
+ */
+export interface StructuredListCellProps extends ReactAttr {
+    head?: boolean | undefined;
+    noWrap?: boolean | undefined;
 }
 
-export declare class StructuredListCell extends React.Component<StructuredListCellProps> { }
+export declare const StructuredListCell: React.FC<StructuredListCellProps>;

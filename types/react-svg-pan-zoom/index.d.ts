@@ -1,33 +1,27 @@
-// Type definitions for react-svg-pan-zoom 3.3
-// Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 // String constants:
-export const MODE_IDLE = 'idle';
-export const MODE_PANNING = 'panning';
-export const MODE_ZOOMING = 'zooming';
+export const MODE_IDLE = "idle";
+export const MODE_PANNING = "panning";
+export const MODE_ZOOMING = "zooming";
 
-export const TOOL_AUTO = 'auto';
-export const TOOL_NONE = 'none';
-export const TOOL_PAN = 'pan';
-export const TOOL_ZOOM_IN = 'zoom-in';
-export const TOOL_ZOOM_OUT = 'zoom-out';
+export const TOOL_AUTO = "auto";
+export const TOOL_NONE = "none";
+export const TOOL_PAN = "pan";
+export const TOOL_ZOOM_IN = "zoom-in";
+export const TOOL_ZOOM_OUT = "zoom-out";
 
-export const POSITION_NONE = 'none';
-export const POSITION_TOP = 'top';
-export const POSITION_RIGHT = 'right';
-export const POSITION_BOTTOM = 'bottom';
-export const POSITION_LEFT = 'left';
+export const POSITION_NONE = "none";
+export const POSITION_TOP = "top";
+export const POSITION_RIGHT = "right";
+export const POSITION_BOTTOM = "bottom";
+export const POSITION_LEFT = "left";
 
-export const ALIGN_CENTER = 'center';
-export const ALIGN_LEFT = 'left';
-export const ALIGN_RIGHT = 'right';
-export const ALIGN_TOP = 'top';
-export const ALIGN_BOTTOM = 'bottom';
+export const ALIGN_CENTER = "center";
+export const ALIGN_LEFT = "left";
+export const ALIGN_RIGHT = "right";
+export const ALIGN_TOP = "top";
+export const ALIGN_BOTTOM = "bottom";
 
 export type Mode = typeof MODE_IDLE | typeof MODE_PANNING | typeof MODE_ZOOMING;
 
@@ -45,19 +39,25 @@ export interface Value {
     viewerHeight: number;
     SVGWidth: number;
     SVGHeight: number;
-    startX?: number | null;
-    startY?: number | null;
-    endX?: number | null;
-    endY?: number | null;
+    startX?: number | null | undefined;
+    startY?: number | null | undefined;
+    endX?: number | null | undefined;
+    endY?: number | null | undefined;
     miniatureOpen: boolean;
 }
 
-export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN |
-                                        typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
-export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeof POSITION_RIGHT |
-                                        typeof POSITION_BOTTOM | typeof POSITION_LEFT;
+export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN | typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
+export type ToolbarPosition =
+    | typeof POSITION_NONE
+    | typeof POSITION_TOP
+    | typeof POSITION_RIGHT
+    | typeof POSITION_BOTTOM
+    | typeof POSITION_LEFT;
 
 export interface OptionalProps {
+    // default tool
+    defaultTool: Exclude<Tool, typeof TOOL_AUTO>;
+
     // background of the viewer
     background: string;
 
@@ -79,9 +79,9 @@ export interface OptionalProps {
     detectPinchGesture: boolean;
 
     toolbarProps: {
-        position?: ToolbarPosition;
-        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT;
-        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM;
+        position?: ToolbarPosition | undefined;
+        SVGAlignX?: typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT | undefined;
+        SVGAlignY?: typeof ALIGN_CENTER | typeof ALIGN_TOP | typeof ALIGN_BOTTOM | undefined;
     };
 
     customMiniature: React.ReactElement | React.ComponentType;
@@ -124,9 +124,9 @@ export interface OptionalProps {
     scaleFactorOnWheel: number;
 
     // maximum amount of scale a user can zoom in to
-  scaleFactorMax: number;
+    scaleFactorMax: number;
 
-  // minimum amount of a scale a user can zoom out of
+    // minimum amount of a scale a user can zoom out of
     scaleFactorMin: number;
 
     // modifier keys //https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
@@ -137,12 +137,13 @@ export interface OptionalProps {
 
     // override default toolbar component
     // TODO: specify function type more clearly
-    customToolbar: React.Component<any> | React.StatelessComponent<any>;
+    customToolbar: React.Component<any> | React.FunctionComponent<any>;
 
     // How about touch events? They are in README but not in `propTypes`.
 }
 
 export interface RequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -174,6 +175,7 @@ export interface UncontrolledExtraOptionalProps {
 }
 
 export interface UncontrolledRequiredProps {
+    children: React.ReactElement;
     // width of the viewer displayed on screen
     width: number;
     // height of the viewer displayed on screen
@@ -185,7 +187,12 @@ export type Props = RequiredProps & Partial<OptionalProps>;
 export class ReactSVGPanZoom extends React.Component<Props> {
     pan(SVGDeltaX: number, SVGDeltaY: number): void;
     zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
-    fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
+    fitSelection(
+        selectionSVGPointX: number,
+        selectionSVGPointY: number,
+        selectionWidth: number,
+        selectionHeight: number,
+    ): void;
     fitToViewer(): void;
     setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
     reset(): void;
@@ -196,12 +203,20 @@ export class ReactSVGPanZoom extends React.Component<Props> {
     setTool(tool: Tool): void;
 }
 
-export type UncontrolledProps = UncontrolledRequiredProps & Partial<OptionalProps> & Partial<UncontrolledExtraOptionalProps>;
+export type UncontrolledProps =
+    & UncontrolledRequiredProps
+    & Partial<OptionalProps>
+    & Partial<UncontrolledExtraOptionalProps>;
 
 export class UncontrolledReactSVGPanZoom extends React.Component<UncontrolledProps> {
     pan(SVGDeltaX: number, SVGDeltaY: number): void;
     zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
-    fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
+    fitSelection(
+        selectionSVGPointX: number,
+        selectionSVGPointY: number,
+        selectionWidth: number,
+        selectionHeight: number,
+    ): void;
     fitToViewer(): void;
     setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
     reset(): void;
@@ -248,7 +263,12 @@ export function pan(value: Value, SVGDeltaX: number, SVGDeltaY: number, panLimit
 export function zoom(value: Value, SVGPointX: number, SVGPointY: number, scaleFactor: number): Value;
 
 export function fitSelection(
-    value: Value, selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): Value;
+    value: Value,
+    selectionSVGPointX: number,
+    selectionSVGPointY: number,
+    selectionWidth: number,
+    selectionHeight: number,
+): Value;
 
 export function fitToViewer(value: Value): Value;
 

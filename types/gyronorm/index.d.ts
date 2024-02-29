@@ -1,28 +1,23 @@
-// Type definitions for gyronorm 2.0
-// Project: https://github.com/dorukeker/gyronorm.js
-// Definitions by: Evan Shortiss <https://github.com/evanshortiss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface MotionAndOrientationPayload {
     do: {
-    alpha: number;
-    beta: number;
-    gamma: number;
-    absolute: number;
+        alpha: number;
+        beta: number;
+        gamma: number;
+        absolute: number;
     };
 
     dm: {
-    x: number;
-    y: number;
-    z: number;
+        x: number;
+        y: number;
+        z: number;
 
-    gx: number;
-    gy: number;
-    gz: number;
+        gx: number;
+        gy: number;
+        gz: number;
 
-    alpha: number;
-    beta: number;
-    gamma: number;
+        alpha: number;
+        beta: number;
+        gamma: number;
     };
 }
 
@@ -30,12 +25,12 @@ export interface Options {
     /**
      * How often GyroNorm returns data (in milliseconds)
      */
-    frequency?: number;
+    frequency?: number | undefined;
 
     /**
      * If the gravity related values to be normalized
      */
-    gravityNormalized?: boolean;
+    gravityNormalized?: boolean | undefined;
 
     /**
      * Can be GyroNorm.GAME or GyroNorm.WORLD. gn.GAME returns
@@ -43,22 +38,22 @@ export interface Options {
      * gn.WORLD returns the orientation values with respect to the actual
      * north direction of the world.
      */
-    orientationBase?: string;
+    orientationBase?: string | undefined;
 
     /**
      * How many digits after the decimal point will there be in the return values
      */
-    decimalCount?: number;
+    decimalCount?: number | undefined;
 
     /**
      * Function to be called to log messages from gyronorm.js
      */
-    logger?: LogListener;
+    logger?: LogListener | undefined;
 
     /**
      * If set to true it will return screen adjusted values
      */
-    screenAdjusted?: boolean;
+    screenAdjusted?: boolean | undefined;
 }
 
 export interface LoggerData {
@@ -69,7 +64,7 @@ export interface LoggerData {
 export type LogListener = (data: LoggerData) => void;
 
 export class GyroNorm {
-    constructor()
+    constructor();
 
     static GAME: string;
     static WORLD: string;

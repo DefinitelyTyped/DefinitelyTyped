@@ -1,10 +1,4 @@
-// Type definitions for jsonrpc-serializer 0.2
-// Project: https://github.com/soggie/jsonrpc-serializer
-// Definitions by: Akim95 <https://github.com/Akim95>, many20 <https://github.com/many20>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
-
-export type PayloadType = 'request' | 'notification' | 'success' | 'error';
+export type PayloadType = "request" | "notification" | "success" | "error";
 // export const PayloadType = {
 //    request: 'request' as PayloadType,
 //    notification: 'notification' as PayloadType,
@@ -18,11 +12,11 @@ export interface DeserializeObject {
 }
 
 export interface PayloadObject {
-    id?: string | number;
-    method?: string;
+    id?: string | number | undefined;
+    method?: string | undefined;
     params?: any;
     result?: any;
-    error?: SerializerError;
+    error?: SerializerError | undefined;
 }
 
 export interface RequestPayloadObject extends PayloadObject {
@@ -50,7 +44,7 @@ export interface SerializerError extends Error {
     name: string;
     code: number;
     message: string;
-    data?: any[];
+    data?: any[] | undefined;
 }
 
 export function request(id: string | number, method: string, params?: any): string;
@@ -67,7 +61,12 @@ export function deserializeObject(msg: PayloadObject): DeserializeObject;
 export type errorHandler = (errors: string[] | null) => void;
 
 export namespace err {
-    type ErrorName = 'JsonRpcError' | 'ParseError' | 'InvalidRequestError' | 'MethodNotFoundError' | 'InvalidParamsError';
+    type ErrorName =
+        | "JsonRpcError"
+        | "ParseError"
+        | "InvalidRequestError"
+        | "MethodNotFoundError"
+        | "InvalidParamsError";
     // const ErrorName = {
     //    JsonRpcError: 'JsonRpcError' as ErrorName,
     //    ParseError: 'ParseError' as ErrorName,
@@ -89,7 +88,7 @@ export namespace err {
         name: string | ErrorName;
         code: number | ErrorCode;
         message: string;
-        data?: any[];
+        data?: any[] | undefined;
 
         constructor(msg: string, ...args: any[]);
         serialize(): string;

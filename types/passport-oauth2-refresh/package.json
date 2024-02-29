@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/passport-oauth2-refresh",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/fiznool/passport-oauth2-refresh#readme"
+    ],
+    "dependencies": {
+        "@types/oauth": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-oauth2-refresh": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daphne Smit",
+            "githubUsername": "daphnesmit"
+        },
+        {
+            "name": "Brian Torres-Gil",
+            "githubUsername": "btorresgil"
+        }
+    ]
+}

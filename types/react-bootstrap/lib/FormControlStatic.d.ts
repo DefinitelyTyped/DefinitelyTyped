@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace FormControlStatic {
     export interface FormControlStaticProps extends React.HTMLProps<FormControlStatic> {
-        bsClass?: string;
-        componentClass?: React.ReactType;
+        bsClass?: string | undefined;
+        componentClass?: React.ElementType | undefined;
     }
 }
-declare class FormControlStatic extends React.Component<FormControlStatic.FormControlStaticProps> { }
-export = FormControlStatic
+declare class FormControlStatic extends React.Component<FormControlStatic.FormControlStaticProps> {}
+export = FormControlStatic;

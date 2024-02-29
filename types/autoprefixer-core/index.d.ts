@@ -1,23 +1,17 @@
-// Type definitions for Autoprefixer Core 5.1.11
-// Project: https://github.com/postcss/autoprefixer-core
-// Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 interface Config {
-    browsers?: string[];
-    cascade?: boolean;
-    remove?: boolean;
+    browsers?: string[] | undefined;
+    cascade?: boolean | undefined;
+    remove?: boolean | undefined;
 }
 
 interface Options {
-    from?: string;
-    to?: string;
-    safe?: boolean;
+    from?: string | undefined;
+    to?: string | undefined;
+    safe?: boolean | undefined;
     map?: {
-        inline?: boolean;
-        prev?: string | Object;
-    }
+        inline?: boolean | undefined;
+        prev?: string | Object | undefined;
+    } | undefined;
 }
 
 interface Result {

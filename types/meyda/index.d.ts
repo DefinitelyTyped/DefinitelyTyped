@@ -1,49 +1,43 @@
-// Type definitions for meyda 4.3
-// Project: https://github.com/meyda/meyda
-// Definitions by: Damien Erambert <https://github.com/eramdam>
-//                 Hugh Rawlinson <https://github.com/hughrawlinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Meyda;
 
-export type MeydaWindowingFunction = 'blackman' | 'sine' | 'hanning' | 'hamming';
+export type MeydaWindowingFunction = "blackman" | "sine" | "hanning" | "hamming";
 
 export type MeydaAudioFeature =
-    | 'amplitudeSpectrum'
-    | 'chroma'
-    | 'complexSpectrum'
-    | 'energy'
-    | 'loudness'
-    | 'mfcc'
-    | 'perceptualSharpness'
-    | 'perceptualSpread'
-    | 'powerSpectrum'
-    | 'rms'
-    | 'spectralCentroid'
-    | 'spectralFlatness'
-    | 'spectralFlux'
-    | 'spectralKurtosis'
-    | 'spectralRolloff'
-    | 'spectralSkewness'
-    | 'spectralSlope'
-    | 'spectralSpread'
-    | 'zcr'
-    | 'buffer';
+    | "amplitudeSpectrum"
+    | "chroma"
+    | "complexSpectrum"
+    | "energy"
+    | "loudness"
+    | "mfcc"
+    | "perceptualSharpness"
+    | "perceptualSpread"
+    | "powerSpectrum"
+    | "rms"
+    | "spectralCentroid"
+    | "spectralFlatness"
+    | "spectralFlux"
+    | "spectralKurtosis"
+    | "spectralRolloff"
+    | "spectralSkewness"
+    | "spectralSlope"
+    | "spectralSpread"
+    | "zcr"
+    | "buffer";
 
 export interface MeydaAnalyzerOptions {
     audioContext: AudioContext;
     source: AudioNode;
     bufferSize: number;
-    hopSize?: number;
-    sampleRate?: number;
-    startImmediately?: boolean;
-    channel?: number;
-    windowingFunction?: MeydaWindowingFunction;
-    featureExtractors?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>;
-    inputs?: number;
-    outputs?: number;
-    numberOfMFCCCoefficients?: number;
-    callback?: (features: Partial<MeydaFeaturesObject>) => void;
+    hopSize?: number | undefined;
+    sampleRate?: number | undefined;
+    startImmediately?: boolean | undefined;
+    channel?: number | undefined;
+    windowingFunction?: MeydaWindowingFunction | undefined;
+    featureExtractors?: MeydaAudioFeature | readonly MeydaAudioFeature[] | undefined;
+    inputs?: number | undefined;
+    outputs?: number | undefined;
+    numberOfMFCCCoefficients?: number | undefined;
+    callback?: ((features: Partial<MeydaFeaturesObject>) => void) | undefined;
 }
 
 export type MeydaSignal = SliceableArrayLike<number>;
@@ -81,13 +75,13 @@ export interface MeydaFeaturesObject {
 }
 
 export class MeydaAnalyzer {
-    start(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): void;
+    start(features?: MeydaAudioFeature | readonly MeydaAudioFeature[]): void;
 
     stop(): void;
 
     setSource(source: AudioNode): void;
 
-    get(features?: MeydaAudioFeature | ReadonlyArray<MeydaAudioFeature>): Partial<MeydaFeaturesObject> | null;
+    get(features?: MeydaAudioFeature | readonly MeydaAudioFeature[]): Partial<MeydaFeaturesObject> | null;
 }
 
 export const audioContext: AudioContext | null;
@@ -96,7 +90,8 @@ export const bufferSize: number;
 export const sampleRate: number;
 export const melBands: number;
 export const chromaBands: number;
-export const callback: ((features: Partial<MeydaFeaturesObject>) => void | null);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export function callback(features: Partial<MeydaFeaturesObject>): void | null;
 export const windowingFunction: MeydaWindowingFunction;
 export const featureExtractors: any;
 export const EXTRACTION_STARTED: boolean;

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/terra-theme-context",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/cerner/terra-framework/blob/main/pacakges/terra-theme-context#readme"
+    ],
+    "dependencies": {
+        "@types/prop-types": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/terra-theme-context": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Juzer Zarif",
+            "githubUsername": "juzerzarif"
+        },
+        {
+            "name": "Kyle Berkley",
+            "githubUsername": "Berkyle"
+        }
+    ]
+}

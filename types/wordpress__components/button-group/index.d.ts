@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from 'react';
+import { ComponentType, HTMLProps, ReactNode } from "react";
 
 declare namespace ButtonGroup {
     interface Props extends HTMLProps<HTMLDivElement> {

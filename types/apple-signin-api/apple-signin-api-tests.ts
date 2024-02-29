@@ -1,29 +1,29 @@
 const ClientConfig: AppleSignInAPI.ClientConfigI = {
-    clientId: '',
-    redirectURI: '',
-    scope: '',
-    state: '',
-    nonce: '',
+    clientId: "",
+    redirectURI: "",
+    scope: "",
+    state: "",
+    nonce: "",
     usePopup: false,
 };
 
 const signInResponse: AppleSignInAPI.SignInResponseI = {
     authorization: {
-        state: '[STATE]',
-        code: '[CODE]',
-        id_token: '[ID_TOKEN]',
+        state: "[STATE]",
+        code: "[CODE]",
+        id_token: "[ID_TOKEN]",
     },
     user: {
-        email: '[EMAIL]',
+        email: "[EMAIL]",
         name: {
-            firstName: '[FIRST_NAME]',
-            lastName: '[LAST_NAME]',
+            firstName: "[FIRST_NAME]",
+            lastName: "[LAST_NAME]",
         },
     },
 };
 
 const signInError: AppleSignInAPI.SignInErrorI = {
-    error: '[ERROR]',
+    error: "[ERROR]",
 };
 
 const AuthGood: AppleSignInAPI.AppleID = {
@@ -43,5 +43,5 @@ const AuthBad: AppleSignInAPI.AppleID = {
 };
 
 AppleID.auth.init({
-    clientId: '',
+    clientId: "",
 });

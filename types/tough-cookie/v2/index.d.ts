@@ -1,11 +1,3 @@
-// Type definitions for tough-cookie 2.3
-// Project: https://github.com/salesforce/tough-cookie
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 LiJinyao <https://github.com/LiJinyao>
-//                 Michael Wei <https://github.com/no2chem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Parse a cookie date string into a Date.
  * Parses according to RFC6265 Section 5.1.1, not Date.parse().
@@ -75,8 +67,8 @@ export class Cookie {
 
     key: string;
     value: string;
-    expires: Date | 'Infinity';
-    maxAge: number | 'Infinity' | '-Infinity';
+    expires: Date | "Infinity";
+    maxAge: number | "Infinity" | "-Infinity";
     domain: string | null;
     path: string | null;
     secure: boolean;
@@ -107,7 +99,7 @@ export class Cookie {
 
     cdomain(): string;
 
-    toJSON(): { [key: string]: any; };
+    toJSON(): { [key: string]: any };
 
     clone(): Cookie;
 
@@ -116,25 +108,25 @@ export class Cookie {
 
 export namespace Cookie {
     interface ParseOptions {
-        loose?: boolean;
+        loose?: boolean | undefined;
     }
 
     interface Properties {
-        key?: string;
-        value?: string;
-        expires?: Date;
-        maxAge?: number | 'Infinity' | '-Infinity';
-        domain?: string;
-        path?: string;
-        secure?: boolean;
-        httpOnly?: boolean;
-        extensions?: string[];
-        creation?: Date;
-        creationIndex?: number;
+        key?: string | undefined;
+        value?: string | undefined;
+        expires?: Date | undefined;
+        maxAge?: number | "Infinity" | "-Infinity" | undefined;
+        domain?: string | undefined;
+        path?: string | undefined;
+        secure?: boolean | undefined;
+        httpOnly?: boolean | undefined;
+        extensions?: string[] | undefined;
+        creation?: Date | undefined;
+        creationIndex?: number | undefined;
 
-        hostOnly?: boolean;
-        pathIsDefault?: boolean;
-        lastAccessed?: Date;
+        hostOnly?: boolean | undefined;
+        pathIsDefault?: boolean | undefined;
+        lastAccessed?: Date | undefined;
     }
 
     interface Serialized {
@@ -147,8 +139,15 @@ export namespace Cookie {
 // region CookieJar
 
 export class CookieJar {
-    static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
-    static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
+    static deserialize(
+        serialized: CookieJar.Serialized | string,
+        store: Store,
+        cb: (err: Error | null, object: CookieJar) => void,
+    ): void;
+    static deserialize(
+        serialized: CookieJar.Serialized | string,
+        cb: (err: Error | null, object: CookieJar) => void,
+    ): void;
 
     static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
@@ -156,22 +155,39 @@ export class CookieJar {
 
     constructor(store?: Store, options?: CookieJar.Options);
 
-    setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
+    setCookie(
+        cookieOrString: Cookie | string,
+        currentUrl: string,
+        options: CookieJar.SetCookieOptions,
+        cb: (err: Error | null, cookie: Cookie) => void,
+    ): void;
     setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error, cookie: Cookie) => void): void;
 
     setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): void;
 
-    getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: Cookie[]) => void): void;
+    getCookies(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: Cookie[]) => void,
+    ): void;
     getCookies(currentUrl: string, cb: (err: Error | null, cookies: Cookie[]) => void): void;
 
     getCookiesSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): Cookie[];
 
-    getCookieString(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
+    getCookieString(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: string) => void,
+    ): void;
     getCookieString(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
 
     getCookieStringSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
 
-    getSetCookieStrings(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: string) => void): void;
+    getSetCookieStrings(
+        currentUrl: string,
+        options: CookieJar.GetCookiesOptions,
+        cb: (err: Error | null, cookies: string) => void,
+    ): void;
     getSetCookieStrings(currentUrl: string, cb: (err: Error | null, cookies: string) => void): void;
 
     getSetCookieStringsSync(currentUrl: string, options?: CookieJar.GetCookiesOptions): string;
@@ -190,23 +206,23 @@ export class CookieJar {
 
 export namespace CookieJar {
     interface Options {
-        rejectPublicSuffixes?: boolean;
-        looseMode?: boolean;
+        rejectPublicSuffixes?: boolean | undefined;
+        looseMode?: boolean | undefined;
     }
 
     interface SetCookieOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        ignoreError?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        ignoreError?: boolean | undefined;
     }
 
     interface GetCookiesOptions {
-        http?: boolean;
-        secure?: boolean;
-        now?: Date;
-        expire?: boolean;
-        allPaths?: boolean;
+        http?: boolean | undefined;
+        secure?: boolean | undefined;
+        now?: Date | undefined;
+        expire?: boolean | undefined;
+        allPaths?: boolean | undefined;
     }
 
     interface Serialized {
@@ -237,6 +253,6 @@ export abstract class Store {
     getAllCookies(cb: (err: Error | null, cookie: Cookie[]) => void): void;
 }
 
-export class MemoryCookieStore extends Store { }
+export class MemoryCookieStore extends Store {}
 
 // endregion

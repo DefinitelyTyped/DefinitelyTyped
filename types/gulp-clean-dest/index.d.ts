@@ -1,8 +1,3 @@
-// Type definitions for gulp-clean-dest 0.2
-// Project: https://github.com/clark800/gulp-clean-dest
-// Definitions by: Andrey Lalev <https://github.com/andypyrope>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace gulpCleanDest {
@@ -10,12 +5,12 @@ declare namespace gulpCleanDest {
         /**
          * The working directory the folder is relative to.
          */
-        cwd?: string;
+        cwd?: string | undefined;
 
         /**
          * Extension of the destination files. Useful if it differs from the original.
          */
-        extension?: string;
+        extension?: string | undefined;
     }
 }
 

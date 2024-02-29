@@ -1,8 +1,3 @@
-// Type definitions for compress.js 1.1
-// Project: - (link to the repo is missing)
-// Definitions by: Yuri Drabik <https://github.com/yurist38>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Compress;
 
 declare class Compress {
@@ -23,11 +18,11 @@ declare class Compress {
 }
 
 interface CompressOptions {
-    quality?: number;
-    size?: number;
-    maxWidth?: number;
-    maxHeight?: number;
-    resize?: boolean;
+    quality?: number | undefined;
+    size?: number | undefined;
+    maxWidth?: number | undefined;
+    maxHeight?: number | undefined;
+    resize?: boolean | undefined;
 }
 
 interface CompressResult {

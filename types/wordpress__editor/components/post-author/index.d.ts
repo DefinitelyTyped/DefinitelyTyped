@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PostAuthor {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PostAuthor: ComponentType<PostAuthor.Props>;

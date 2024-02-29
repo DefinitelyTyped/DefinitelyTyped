@@ -1,5 +1,5 @@
-import { Options as WebIDLConversionOptions } from 'webidl-conversions';
-import { implementation as URLImpl } from './URL-impl';
+import { URL } from "../index";
+import { implementation as URLImpl } from "./URL-impl";
 
 /**
  * Checks whether `obj` is a `URL` object with an implementation
@@ -18,7 +18,7 @@ export function isImpl(obj: unknown): obj is URLImpl;
  *
  * @throws {TypeError} If `obj` is not a `URL` wrapper instance provided by this package.
  */
-export function convert(obj: unknown, options?: WebIDLConversionOptions): URLImpl;
+export function convert(globalObject: object, obj: unknown, { context }?: { context: string }): URLImpl;
 
 /**
  * Creates a new `URL` instance.
@@ -27,11 +27,7 @@ export function convert(obj: unknown, options?: WebIDLConversionOptions): URLImp
  *         registry or a `URL` constructor provided by this package
  *         in the WebIDL2JS constructor registry.
  */
-export function create(
-    globalObject: object,
-    [url, base]?: [string, string?],
-    privateData?: {},
-): URL;
+export function create(globalObject: object, constructorArgs: readonly [url: string, base?: string]): URL;
 
 /**
  * Calls `create()` and returns the internal `URLImpl`.
@@ -40,11 +36,7 @@ export function create(
  *         registry or a `URL` constructor provided by this package
  *         in the WebIDL2JS constructor registry.
  */
-export function createImpl(
-    globalObject: object,
-    [url, base]?: [string, string?],
-    privateData?: {},
-): URLImpl;
+export function createImpl(globalObject: object, constructorArgs: readonly [url: string, base?: string]): URLImpl;
 
 /**
  * Initializes the `URL` instance, called by `create()`.
@@ -54,13 +46,21 @@ export function createImpl(
 export function setup<T extends URL>(
     obj: T,
     globalObject: object,
-    [url, base]?: [string, string?],
-    privateData?: {},
+    constructorArgs: readonly [url: string, base?: string],
 ): T;
+
+/**
+ * Creates a new `URL` object without runing the constructor steps.
+ *
+ * Useful when implementing specifications that initialize objects
+ * in different ways than their constructors do.
+ */
+declare function _new(globalObject: object, newTarget?: new(url: string, base?: string) => URL): URLImpl;
+export { _new as new };
 
 /**
  * Installs the `URL` constructor onto the `globalObject`.
  *
  * @throws {Error} If the target `globalObject` doesn't have an `Error` constructor.
  */
-export function install(globalObject: object): void;
+export function install(globalObject: object, globalNames: readonly string[]): void;

@@ -1,14 +1,11 @@
-// Type definitions for mem-cache 1.0
-// Project: https://github.com/silviom/node-mem-cache
-// Definitions by: Pedro Mutter <https://github.com/MutterPedro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 interface CacheOptions {
-    timeout?: number;
-    doesNotRenewTimeout?: boolean;
-    timeoutDisabled?: boolean;
+    timeout?: number | undefined;
+    doesNotRenewTimeout?: boolean | undefined;
+    timeoutDisabled?: boolean | undefined;
 }
 
 declare class Cache extends EventEmitter {

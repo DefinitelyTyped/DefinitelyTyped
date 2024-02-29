@@ -1,5 +1,5 @@
-import * as React from 'react';
-import CustomScroll from 'react-custom-scroll';
+import * as React from "react";
+import CustomScroll from "react-custom-scroll";
 
 const onScrollStub = () => 1;
 export const _ = () => (
@@ -12,14 +12,16 @@ export const _ = () => (
         <CustomScroll
             heightRelativeToParent="50%"
             allowOuterScroll={false}
-            flex={2}
-            onScoll={onScrollStub}
+            flex="2"
+            onScroll={onScrollStub}
             addScrolledClass={true}
             freezePosition={false}
             minScrollHandleHeight={50}
             rtl={false}
             scrollTo={20}
             keepAtBottom={false}
+            handleClass="my-handle-class"
+            className="my-class"
         >
             <div>Test content</div>
             <div>Test content</div>

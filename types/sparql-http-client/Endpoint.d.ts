@@ -1,8 +1,8 @@
 interface CommonEndpointOptions {
-    fetch?: typeof fetch;
-    headers?: HeadersInit;
-    password?: string;
-    user?: string;
+    fetch?: typeof fetch | undefined;
+    headers?: HeadersInit | undefined;
+    password?: string | undefined;
+    user?: string | undefined;
 }
 
 interface QueryEndpoint {
@@ -21,18 +21,18 @@ declare namespace Endpoint {
     type EndpointOptions = CommonEndpointOptions & (QueryEndpoint | UpdateEndpoint | StoreEndpoint);
 
     interface RequestOptions {
-        headers?: HeadersInit;
-        update?: boolean;
+        headers?: HeadersInit | undefined;
+        update?: boolean | undefined;
     }
 
     interface Endpoint {
         endpointUrl: string;
         fetch: typeof fetch;
         headers: HeadersInit;
-        password?: string;
-        storeUrl?: string;
-        updateUrl?: string;
-        user?: string;
+        password?: string | undefined;
+        storeUrl?: string | undefined;
+        updateUrl?: string | undefined;
+        user?: string | undefined;
 
         get(query: string, options?: RequestOptions): Promise<Response>;
         postDirect(query: string, options?: RequestOptions): Promise<Response>;
@@ -41,7 +41,7 @@ declare namespace Endpoint {
     }
 }
 
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Endpoint extends Endpoint.Endpoint {}
 
 // tslint:disable-next-line no-unnecessary-class

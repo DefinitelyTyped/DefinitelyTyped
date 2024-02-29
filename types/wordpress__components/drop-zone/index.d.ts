@@ -1,16 +1,16 @@
-import { ComponentType, DragEvent } from 'react';
+import { ComponentType, DragEvent } from "react";
 
 declare namespace DropZone {
     interface Props {
         /**
          * A CSS class to be appended after the default components-drop-zone class.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * A string to be shown within the drop zone area.
          * @defaultValue "Drop files to upload"
          */
-        label?: string;
+        label?: string | undefined;
         /**
          * The function is called when dropping a file into the DropZone.
          *
@@ -38,8 +38,8 @@ declare namespace DropZone {
         onDrop?(event: DragEvent<HTMLDivElement>, position: HoverPosition): void;
     }
     type HoverPosition = {
-        x: 'left' | 'right';
-        y: 'top' | 'bottom';
+        x: "left" | "right";
+        y: "top" | "bottom";
     } | null;
 }
 declare const DropZone: ComponentType<DropZone.Props>;

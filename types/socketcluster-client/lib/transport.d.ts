@@ -1,13 +1,13 @@
-import AGServer = require('socketcluster-server/server');
-import WebSocket = require('ws');
+import AGServer = require("socketcluster-server/server");
+import WebSocket = require("ws");
 
-import AuthEngine = require('./auth');
-import { CallIdGenerator, ClientOptions, ProtocolVersions, States } from './clientsocket';
+import AuthEngine = require("./auth");
+import { CallIdGenerator, ClientOptions, ProtocolVersions, States } from "./clientsocket";
 
 declare class AGTransport {
-    readonly CONNECTING: 'connecting';
-    readonly OPEN: 'open';
-    readonly CLOSED: 'closed';
+    readonly CONNECTING: "connecting";
+    readonly OPEN: "open";
+    readonly CLOSED: "closed";
 
     state: States;
 
@@ -15,7 +15,7 @@ declare class AGTransport {
     codec: AGServer.CodecEngine;
 
     options: ClientOptions;
-    wsOptions?: WebSocket.ClientOptions;
+    wsOptions?: WebSocket.ClientOptions | undefined;
 
     protocolVersion: ProtocolVersions;
 
@@ -40,6 +40,7 @@ declare class AGTransport {
         handlers?: AGTransport.TransportHandlers,
     );
 
+    computeURI(options?: ClientOptions): string;
     uri(): string;
 
     clearAllListeners(): void;
@@ -123,19 +124,19 @@ declare namespace AGTransport {
     interface EventObject {
         event: string;
         data: any;
-        callback?: EventObjectCallback;
-        cid?: number;
-        timeout?: NodeJS.Timer;
+        callback?: EventObjectCallback | undefined;
+        cid?: number | undefined;
+        timeout?: NodeJS.Timer | undefined;
     }
 
     interface TransmitOptions {
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     interface InvokeOptions {
-        force?: boolean;
-        noTimeout?: boolean;
-        ackTimeout?: number;
+        force?: boolean | undefined;
+        noTimeout?: boolean | undefined;
+        ackTimeout?: number | undefined;
     }
 
     type EventObjectCallback = (error: Error, eventObject: EventObject) => void;

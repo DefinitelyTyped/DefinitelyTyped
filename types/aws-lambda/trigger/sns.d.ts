@@ -23,7 +23,8 @@ export interface SNSMessage {
     Type: string;
     UnsubscribeUrl: string;
     TopicArn: string;
-    Subject: string;
+    Subject?: string;
+    Token?: string;
 }
 
 export interface SNSEventRecord {

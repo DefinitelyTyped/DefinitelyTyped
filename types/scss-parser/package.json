@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scss-parser",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/salesforce-ux/scss-parser"
+    ],
+    "devDependencies": {
+        "@types/scss-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wessel van der Linden",
+            "githubUsername": "wesselvanderlinden"
+        }
+    ]
+}

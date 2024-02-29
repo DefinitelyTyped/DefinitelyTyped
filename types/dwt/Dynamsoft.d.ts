@@ -1,7 +1,7 @@
-import { DynamsoftEnums } from "./Dynamsoft.Enum";
-import { WebTwain } from "./WebTwain";
 import { Settings } from "./Addon.OCRPro";
+import { DynamsoftEnums } from "./Dynamsoft.Enum";
 import { FileUploader } from "./Dynamsoft.FileUploader";
+import { WebTwain } from "./WebTwain";
 
 export namespace DynamsoftStatic {
     let Lib: DynamsoftLib;
@@ -19,9 +19,9 @@ export namespace DynamsoftStatic {
 }
 export interface DWTInitialConfig {
     WebTwainId: string;
-    Host?: string;
-    Port?: string;
-    SSLPort?: string;
+    Host?: string | undefined;
+    Port?: string | undefined;
+    SSLPort?: string | undefined;
 }
 export interface DynamsoftLib {
     /**
@@ -252,7 +252,8 @@ export interface WebTwainEnv {
         port: string | number,
         portSSL: string | number,
         successCallBack: (DWObject: WebTwain) => void,
-        failureCallBack: (errorString: string) => void): void;
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Create a WebTwain instance with UI.
      * @param ContainerId Specify the HTML element (typically of the type HTMLDivElement) to hold the UI.
@@ -262,14 +263,22 @@ export interface WebTwainEnv {
      * @param successCallback A callback function that is executed if the request succeeds.
      * @param failureCallback A callback function that is executed if the request fails.
      */
-    CreateDWTObject(ContainerId: string, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
+    CreateDWTObject(
+        ContainerId: string,
+        successCallBack: (DWObject: WebTwain) => void,
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Create a WebTwain instance without UI.
      * @param WebTwainId Specify the Id of the instance.
      * @param successCallback A callback function that is executed if the request succeeds.
      * @param failureCallback A callback function that is executed if the request fails.
      */
-    CreateDWTObjectEx(dwtInitialConfig: DWTInitialConfig, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
+    CreateDWTObjectEx(
+        dwtInitialConfig: DWTInitialConfig,
+        successCallBack: (DWObject: WebTwain) => void,
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Define the display info.
      */
@@ -385,6 +394,10 @@ export interface WebTwainEnv {
      */
     Unload(): void;
     /**
+     * Whether to download the wasm for Camera Addon to use on initialization.
+     */
+    UseCameraAddonWasm: boolean;
+    /**
      * Whether to use the library in Local-Service mode or WASM mode.
      */
     UseLocalService: boolean;
@@ -455,11 +468,11 @@ export interface ManagerEnv {
  */
 export interface Container {
     WebTwainId: string;
-    ContainerId?: string;
-    Width?: string | number;
-    Height?: string | number;
-    bNoUI?: boolean;
-    bLocalService?: boolean;
+    ContainerId?: string | undefined;
+    Width?: string | number | undefined;
+    Height?: string | number | undefined;
+    bNoUI?: boolean | undefined;
+    bLocalService?: boolean | undefined;
 }
 export interface Product {
     bActiveXEdition: boolean;
@@ -469,5 +482,5 @@ export interface Product {
     host: string;
     name: string;
 }
-declare const Dynamsoft: (typeof DynamsoftEnums & typeof DynamsoftStatic);
+declare const Dynamsoft: typeof DynamsoftEnums & typeof DynamsoftStatic;
 export default Dynamsoft;

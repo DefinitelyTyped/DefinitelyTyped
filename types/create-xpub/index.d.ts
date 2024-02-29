@@ -1,8 +1,3 @@
-// Type definitions for create-xpub 2.1
-// Project: https://github.com/lukechilds/create-xpub#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = createXpub;
 
 /**
@@ -31,7 +26,7 @@ declare namespace createXpub {
          * Network version bytes.
          * @default 0x0488B21E
          */
-        networkVersion?: number;
+        networkVersion?: number | undefined;
         /**
          * The depth of the derived key.
          */

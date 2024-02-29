@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/josa",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/kimdhoe/josa"
+    ],
+    "devDependencies": {
+        "@types/josa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vichyssoise",
+            "githubUsername": "vichyssoise"
+        }
+    ]
+}

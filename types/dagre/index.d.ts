@@ -1,22 +1,14 @@
-// Type definitions for dagre 0.7
-// Project: https://github.com/dagrejs/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-//                 Lisa Vallfors <https://github.com/Frankrike>
-//                 Pete Vilter <https://github.com/vilterp>
-//                 David Newell <https://github.com/rustedgrail>
-//                 Graham Lea <https://github.com/GrahamLea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace dagre;
 
 export namespace graphlib {
     class Graph<T = {}> {
-        constructor(opt?: { directed?: boolean; multigraph?: boolean; compound?: boolean });
+        constructor(
+            opt?: { directed?: boolean | undefined; multigraph?: boolean | undefined; compound?: boolean | undefined },
+        );
 
         graph(): GraphLabel;
         isDirected(): boolean;
-        isMultiGraph(): boolean;
+        isMultigraph(): boolean;
         setGraph(label: GraphLabel): Graph<T>;
 
         edge(edgeObj: Edge): GraphEdge;
@@ -27,7 +19,7 @@ export namespace graphlib {
         hasEdge(outNodeName: string, inNodeName: string, name?: string): boolean;
         inEdges(inNodeName: string, outNodeName?: string): Edge[] | undefined;
         outEdges(outNodeName: string, inNodeName?: string): Edge[] | undefined;
-        removeEdge(outNodeName: string, inNodeName: string): Graph<T>;
+        removeEdge(outNodeName: string, inNodeName: string, name?: string): Graph<T>;
         setDefaultEdgeLabel(callback: string | ((v: string, w: string, name?: string) => string | Label)): Graph<T>;
         setEdge(params: Edge, value?: string | { [key: string]: any }): Graph<T>;
         setEdge(sourceId: string, targetId: string, value?: string | Label, name?: string): Graph<T>;
@@ -41,6 +33,7 @@ export namespace graphlib {
         parent(childName: string): string | undefined;
         predecessors(name: string): Array<Node<T>> | undefined;
         removeNode(name: string): Graph<T>;
+        filterNodes(callback: (nodeId: string) => boolean): Graph<T>;
         setDefaultNodeLabel(callback: string | ((nodeId: string) => string | Label)): Graph<T>;
         setNode(name: string, label: string | Label): Graph<T>;
         setParent(childName: string, parentName: string): void;
@@ -76,32 +69,32 @@ export type WeightFn = (edge: Edge) => number;
 export type EdgeFn = (outNodeName: string) => GraphEdge[];
 
 export interface GraphLabel {
-    width?: number;
-    height?: number;
-    compound?: boolean;
-    rankdir?: string;
-    align?: string;
-    nodesep?: number;
-    edgesep?: number;
-    ranksep?: number;
-    marginx?: number;
-    marginy?: number;
-    acyclicer?: string;
-    ranker?: string;
+    width?: number | undefined;
+    height?: number | undefined;
+    compound?: boolean | undefined;
+    rankdir?: string | undefined;
+    align?: string | undefined;
+    nodesep?: number | undefined;
+    edgesep?: number | undefined;
+    ranksep?: number | undefined;
+    marginx?: number | undefined;
+    marginy?: number | undefined;
+    acyclicer?: string | undefined;
+    ranker?: string | undefined;
 }
 
 export interface NodeConfig {
-    width?: number;
-    height?: number;
+    width?: number | undefined;
+    height?: number | undefined;
 }
 
 export interface EdgeConfig {
-    minlen?: number;
-    weight?: number;
-    width?: number;
-    height?: number;
-    lablepos?: 'l' | 'c' | 'r';
-    labeloffest?: number;
+    minlen?: number | undefined;
+    weight?: number | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    lablepos?: "l" | "c" | "r" | undefined;
+    labeloffest?: number | undefined;
 }
 
 export function layout(graph: graphlib.Graph, layout?: GraphLabel & NodeConfig & EdgeConfig): void;
@@ -109,7 +102,7 @@ export function layout(graph: graphlib.Graph, layout?: GraphLabel & NodeConfig &
 export interface Edge {
     v: string;
     w: string;
-    name?: string;
+    name?: string | undefined;
 }
 
 export interface GraphEdge {
@@ -122,12 +115,12 @@ export type Node<T = {}> = T & {
     y: number;
     width: number;
     height: number;
-    class?: string;
-    label?: string;
-    padding?: number;
-    paddingX?: number;
-    paddingY?: number;
-    rx?: number;
-    ry?: number;
-    shape?: string;
+    class?: string | undefined;
+    label?: string | undefined;
+    padding?: number | undefined;
+    paddingX?: number | undefined;
+    paddingY?: number | undefined;
+    rx?: number | undefined;
+    ry?: number | undefined;
+    shape?: string | undefined;
 };

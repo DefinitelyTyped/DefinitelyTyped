@@ -1,13 +1,7 @@
-// Type definitions for async-writer 1.4.1
-// Project: https://github.com/marko-js/async-writer
-// Definitions by: Yuce Tekol <http://yuce.me/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-
-import stream = require('stream');
-import events = require('events');
+import stream = require("stream");
+import events = require("events");
 
 declare namespace async_writer {
     interface EventFunction {
@@ -32,9 +26,9 @@ declare namespace async_writer {
     }
 
     interface BeginAsyncOptions {
-        last?: boolean;
-        timeout?: number;
-        name?: string;
+        last?: boolean | undefined;
+        timeout?: number | undefined;
+        name?: string | undefined;
     }
 
     class AsyncWriter {
@@ -66,8 +60,8 @@ declare namespace async_writer {
     }
 
     interface AsyncWriterOptions {
-        global?: { [s: string]: any };
-        buffer?: boolean;
+        global?: { [s: string]: any } | undefined;
+        buffer?: boolean | undefined;
     }
 
     function create(writer?: any, options?: AsyncWriterOptions): AsyncWriter;

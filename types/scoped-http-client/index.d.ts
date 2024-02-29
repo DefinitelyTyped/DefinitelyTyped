@@ -1,25 +1,19 @@
-// Type definitions for scoped-http-client 0.11
-// Project: https://github.com/technoweenie/node-scoped-http-client
-// Definitions by: Matt Perry <https://github.com/mattvperry>
-//                 Ryan Adolf <https://github.com/rianadon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import { Agent, RequestOptions, IncomingMessage, ClientRequest } from "http";
+import { Agent, ClientRequest, IncomingMessage, RequestOptions } from "http";
 
 export type ScopeCallback = (scoped: ScopedClient) => void;
 export type RequestCallback = (err: any, request: ClientRequest) => void;
 export type ResponseCallback = (cb?: (err: any, response: IncomingMessage, body: string) => void) => ScopedClient;
 
 export interface Options extends RequestOptions {
-    encoding?: string;
-    httpAgent?: Agent|boolean;
-    httpsAgent?: Agent|boolean;
+    encoding?: string | undefined;
+    httpAgent?: Agent | boolean | undefined;
+    httpsAgent?: Agent | boolean | undefined;
     query?: any;
-    pathname?: string;
+    pathname?: string | undefined;
     slashes?: any;
-    hash?: string;
+    hash?: string | undefined;
 }
 
 export class ScopedClient {
@@ -33,7 +27,7 @@ export class ScopedClient {
     path(p: string): ScopedClient;
     query(key: any, value?: any): ScopedClient;
     host(h: string): ScopedClient;
-    port(p: string|number): ScopedClient;
+    port(p: string | number): ScopedClient;
     protocol(p: string): ScopedClient;
     encoding(e?: string): ScopedClient;
     timeout(time: any): ScopedClient;

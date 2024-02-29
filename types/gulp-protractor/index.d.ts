@@ -1,21 +1,18 @@
-// Type definitions for gulp-protractor v1.0.0
-// Project: https://github.com/mllrsohn/gulp-protractor
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import gulp = require('gulp');
+import gulp = require("gulp");
 
 interface IOptions {
-    configFile?: string;
-    args?: Array<string>;
-    debug?: boolean;
+    configFile?: string | undefined;
+    args?: string[] | undefined;
+    debug?: boolean | undefined;
 }
 
 interface IGulpProtractor {
     getProtractorDir(): string;
+    getProtractorCli(): string;
     protractor(options?: IOptions): NodeJS.ReadWriteStream;
+    webdriver_update_specific: gulp.TaskCallback;
     webdriver_standalone: gulp.TaskCallback;
     webdriver_update: gulp.TaskCallback;
 }

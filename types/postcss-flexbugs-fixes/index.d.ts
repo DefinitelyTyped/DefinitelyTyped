@@ -1,26 +1,21 @@
-// Type definitions for postcss-flexbugs-fixes 4.2
-// Project: https://github.com/luisrudge/postcss-flexbugs-fixes#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Plugin } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace postcssFlexbugsFixes {
-    type PostcssFlexbugsFixesPlugin = Plugin<Options>;
+    type PostcssFlexbugsFixesPlugin = PluginCreator<Options>;
 
     interface Options {
         /**
          * @default true
          */
-        bug4?: boolean;
+        bug4?: boolean | undefined;
         /**
          * @default true
          */
-        bug6?: boolean;
+        bug6?: boolean | undefined;
         /**
          * @default true
          */
-        bug81a?: boolean;
+        bug81a?: boolean | undefined;
     }
 }
 

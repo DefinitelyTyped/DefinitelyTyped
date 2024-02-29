@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/milliseconds",
+    "version": "0.0.9999",
+    "projects": [
+        "http://npmjs.com/milliseconds"
+    ],
+    "devDependencies": {
+        "@types/milliseconds": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elmar Burke",
+            "url": "github.com/elmarburke"
+        }
+    ]
+}

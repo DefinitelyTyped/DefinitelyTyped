@@ -1,47 +1,97 @@
-// Type definitions for encoding-japanese v1.0.24
-// Project: https://github.com/polygonplanet/encoding.js
-// Definitions by: rhysd <https://rhysd.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
-
+export as namespace Encoding;
 
 export type Encoding =
-    "UTF32" | "UTF16" | "UTF16BE" |
-    "UTF16LE" | "BINARY" | "ASCII" |
-    "JIS" | "UTF8" | "EUCJP" |
-    "SJIS" | "UNICODE" | "AUTO";
-type RawType = string | Uint8Array | number[] | Buffer;
+    | "UTF32"
+    | "UTF16"
+    | "UTF16BE"
+    | "UTF16LE"
+    | "BINARY"
+    | "ASCII"
+    | "JIS"
+    | "UTF8"
+    | "EUCJP"
+    | "SJIS"
+    | "UNICODE"
+    | "AUTO";
+type IntArrayType =
+    | readonly number[]
+    | Uint8Array
+    | Uint16Array
+    | Uint32Array
+    | Int8Array
+    | Int16Array
+    | Int32Array;
+type EncodingDetection = Encoding | false;
 
-interface ConvertOptions {
+export type ConvertOptions =
+    | ConvertStringOptions
+    | ConvertArrayBufferOptions
+    | ConvertArrayOptions
+    | ConvertUnknownOptions;
+
+export interface ConvertStringOptions {
     to: Encoding;
-    from?: Encoding;
-    type?: "string" | "arraybuffer" | "array";
-    bom?: boolean | string;
+    from?: Encoding | undefined;
+    type: "string";
+    fallback?: "html-entity" | "html-entity-hex";
+    bom?: boolean | string | undefined;
 }
 
-export declare function detect(data: RawType, encodings?: Encoding | Encoding[]): Encoding;
-export declare function convert(data: RawType, to: Encoding, from?: Encoding): number[];
-export declare function convert(data: RawType, options: ConvertOptions): string | ArrayBuffer | number[];
-export declare function urlEncode(data: number[] | Uint8Array): string;
-export declare function urlDecode(data: string): number[];
-export declare function base64Encode(data: number[] | Uint8Array): string;
-export declare function base64Decode(data: string): number[];
-export declare function codeToString(data: number[] | Uint8Array): string;
-export declare function stringToCode(data: string): number[];
-export declare function toHankakuCase(data: number[]): number[];
-export declare function toHankakuCase(data: string): string;
-export declare function toZenkakuCase(data: number[]): number[];
-export declare function toZenkakuCase(data: string): string;
-export declare function toHiraganaCase(data: number[]): number[];
-export declare function toHiraganaCase(data: string): string;
-export declare function toKatakanaCase(data: number[]): number[];
-export declare function toKatakanaCase(data: string): string;
-export declare function toHankanaCase(data: number[]): number[];
-export declare function toHankanaCase(data: string): string;
-export declare function toZenkanaCase(data: number[]): number[];
-export declare function toZenkanaCase(data: string): string;
-export declare function toHankakuSpace(data: number[]): number[];
-export declare function toHankakuSpace(data: string): string;
-export declare function toZenkakuSpace(data: number[]): number[];
-export declare function toZenkakuSpace(data: string): string;
+export interface ConvertArrayBufferOptions {
+    to: Encoding;
+    from?: Encoding | undefined;
+    type: "arraybuffer";
+    fallback?: "html-entity" | "html-entity-hex";
+    bom?: boolean | string | undefined;
+}
+
+export interface ConvertArrayOptions {
+    to: Encoding;
+    from?: Encoding | undefined;
+    type: "array";
+    fallback?: "html-entity" | "html-entity-hex";
+    bom?: boolean | string | undefined;
+}
+
+export interface ConvertUnknownOptions {
+    to: Encoding;
+    from?: Encoding | undefined;
+    fallback?: "html-entity" | "html-entity-hex";
+    bom?: boolean | string | undefined;
+}
+
+export function detect(data: IntArrayType | string, encodings?: Encoding | Encoding[]): EncodingDetection;
+export function convert(data: IntArrayType, to: Encoding, from?: Encoding): number[];
+export function convert(data: string, to: Encoding, from?: Encoding): string;
+export function convert(data: IntArrayType | string, options: ConvertStringOptions): string;
+export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
+export function convert(data: IntArrayType | string, options: ConvertArrayOptions): number[];
+export function convert(data: string, options: ConvertUnknownOptions): string;
+export function convert(data: IntArrayType, options: ConvertUnknownOptions): number[];
+export function urlEncode(data: IntArrayType): string;
+export function urlDecode(data: string): number[];
+export function base64Encode(data: IntArrayType): string;
+export function base64Decode(data: string): number[];
+export function codeToString(data: IntArrayType): string;
+export function stringToCode(data: string): number[];
+export function toHankakuCase(data: readonly number[]): number[];
+export function toHankakuCase(data: string): string;
+export function toZenkakuCase(data: readonly number[]): number[];
+export function toZenkakuCase(data: string): string;
+export function toHiraganaCase(data: readonly number[]): number[];
+export function toHiraganaCase(data: string): string;
+export function toKatakanaCase(data: readonly number[]): number[];
+export function toKatakanaCase(data: string): string;
+export function toHankanaCase(data: readonly number[]): number[];
+export function toHankanaCase(data: string): string;
+export function toZenkanaCase(data: readonly number[]): number[];
+export function toZenkanaCase(data: string): string;
+export function toHankakuSpace(data: readonly number[]): number[];
+export function toHankakuSpace(data: string): string;
+export function toZenkakuSpace(data: readonly number[]): number[];
+export function toZenkakuSpace(data: string): string;
+
+export const version: string;
+export const orders: string[];
+
+export {};

@@ -1,15 +1,17 @@
-// Type definitions for randomatic 3.1
-// Project: https://github.com/jonschlinkert/randomatic
-// Definitions by: Frelia <https://github.com/execfera>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function randomatic(p: string, l?: number, options?: {
-  chars?: string;
-  exclude?: string | string[];
-}): string;
+/**
+ * Generate randomized strings of a specified length using simple character sequences. The original generate-password.
+ */
+declare function randomatic(pattern: string, length?: number, options?: randomatic.Options): string;
+declare function randomatic(pattern: string, options?: randomatic.Options): string;
+declare function randomatic(length: number): string;
 
 declare namespace randomatic {
-  const isCrypto: boolean;
+    const isCrypto: boolean;
+
+    interface Options {
+        chars?: string | undefined;
+        exclude?: string | string[] | undefined;
+    }
 }
 
 export = randomatic;

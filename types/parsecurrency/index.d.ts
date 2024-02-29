@@ -1,8 +1,3 @@
-// Type definitions for parsecurrency 0.2
-// Project: https://github.com/mktj/parsecurrency#readme
-// Definitions by: Cristian Greco <https://github.com/cristianrgreco>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ParsedCurrency {
     raw: string;
     value: number;
@@ -14,6 +9,6 @@ interface ParsedCurrency {
     groupSeparator: string;
 }
 
-declare function parsecurrency(currency: string): ParsedCurrency;
+declare function parsecurrency(currency: string): ParsedCurrency | null;
 
 export = parsecurrency;

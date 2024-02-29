@@ -1,8 +1,3 @@
-// Type definitions for require-hacker 3.0
-// Project: https://github.com/catamphetamine/require-hacker#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Resolve {
     /**
      * @param path Path that is `require`d
@@ -19,7 +14,7 @@ export interface Unmount {
 
 export interface LogOptions {
     /* Log debug messages to the console. */
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 export interface GlobalResolve {
@@ -29,13 +24,13 @@ export interface GlobalResolve {
      */
     (path: string, module: any):
         | {
-              /**
-               * The absolute path of the path argument passed to this `require` function (which could be relative).
-               */
-              path: string;
-              /** Valid CommonJS JavaScript module source code. */
-              source: string;
-          }
+            /**
+             * The absolute path of the path argument passed to this `require` function (which could be relative).
+             */
+            path: string;
+            /** Valid CommonJS JavaScript module source code. */
+            source: string;
+        }
         | undefined;
 }
 
@@ -46,7 +41,7 @@ export interface GlobalHookOptions {
      * - `false` Intercept only those `require` calls which failed to be resolved by the Node.js `require`
      * loader.
      */
-    precede_node_loader?: boolean;
+    precede_node_loader?: boolean | undefined;
 }
 
 declare class Log {

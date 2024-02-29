@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/halfred",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/basti1302/halfred"
+    ],
+    "devDependencies": {
+        "@types/halfred": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Herges",
+            "githubUsername": "dherges"
+        }
+    ]
+}

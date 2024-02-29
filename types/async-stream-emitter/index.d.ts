@@ -1,22 +1,20 @@
-// Type definitions for async-stream-emitter 3.0
-// Project: https://github.com/SocketCluster/async-stream-emitter
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import ConsumableStream = require('consumable-stream');
-import Consumer = require('writable-consumable-stream/consumer');
+import ConsumableStream = require("consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
 
 declare class AsyncStreamEmitter<T> {
     emit(eventName: string, data: T): void;
 
     listener(eventName: string): ConsumableStream<T>;
-
     closeListener(eventName: string): void;
     closeAllListeners(): void;
+    removeListener(eventName: string): void;
 
     getListenerConsumerStats(consumerId: number): Consumer.ConsumerStats;
     getListenerConsumerStatsList(eventName: string): Consumer.ConsumerStats[];
     getAllListenersConsumerStatsList(): Consumer.ConsumerStats[];
+
+    getListenerConsumerCount(eventName: string): number;
+    getAllListenersConsumerCount(): number;
 
     killListener(eventName: string): void;
     killAllListeners(): void;

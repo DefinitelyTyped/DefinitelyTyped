@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { Sizes, SelectCallback } from 'react-bootstrap';
-import PaginationFirst = require('./PaginationFirst');
-import PaginationPrev = require('./PaginationPrev');
-import PaginationNext = require('./PaginationNext');
-import PaginationLast = require('./PaginationLast');
-import PaginationEllipsis = require('./PaginationEllipsis');
-import PaginationItem = require('./PaginationItem');
+import * as React from "react";
+import { SelectCallback, Sizes } from "react-bootstrap";
+import PaginationFirst = require("./PaginationFirst");
+import PaginationPrev = require("./PaginationPrev");
+import PaginationNext = require("./PaginationNext");
+import PaginationLast = require("./PaginationLast");
+import PaginationEllipsis = require("./PaginationEllipsis");
+import PaginationItem = require("./PaginationItem");
 
 declare namespace Pagination {
     export interface PaginationProps extends React.HTMLProps<Pagination> {
-        bsSize?: Sizes;
+        bsSize?: Sizes | undefined;
     }
 }
 declare class Pagination extends React.Component<Pagination.PaginationProps> {

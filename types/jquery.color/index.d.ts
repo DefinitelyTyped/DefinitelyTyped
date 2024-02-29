@@ -1,9 +1,3 @@
-// Type definitions for jquery.color.js v2.1.2
-// Project: https://github.com/jquery/jquery-color
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface JQueryColor {
@@ -46,7 +40,7 @@ interface JQueryColor {
      * Returns a copy of the color object with the blue set to val.
      */
     blue(val: number): JQueryColor;
-    
+
     /**
      * Returns a copy of the color object with the blue set to val.
      */
@@ -184,17 +178,17 @@ interface JQueryColor {
 }
 
 interface HslaColor {
-    hue?: number;
-    saturation?: number;
-    lightness?: number;
-    alpha?: number;
+    hue?: number | undefined;
+    saturation?: number | undefined;
+    lightness?: number | undefined;
+    alpha?: number | undefined;
 }
 
 interface RgbaColor {
-    red?: number;
-    green?: number;
-    blue?: number;
-    alpha?: number;
+    red?: number | undefined;
+    green?: number | undefined;
+    blue?: number | undefined;
+    alpha?: number | undefined;
 }
 
 interface JQueryStatic {

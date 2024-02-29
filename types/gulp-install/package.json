@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-install",
+    "version": "0.6.9999",
+    "projects": [
+        "https://www.npmjs.com/package/gulp-install"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-install": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Juras",
+            "githubUsername": "peterjuras"
+        }
+    ]
+}

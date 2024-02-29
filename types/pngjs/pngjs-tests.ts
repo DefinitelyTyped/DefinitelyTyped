@@ -1,6 +1,6 @@
-import { PNG } from 'pngjs';
-import { createDeflate } from 'zlib';
-import fs = require('fs');
+import { PNG } from "pngjs";
+import { createDeflate } from "zlib";
+import fs = require("fs");
 
 const pngs = [
     new PNG(),
@@ -9,18 +9,19 @@ const pngs = [
     new PNG({ checkCRC: false }),
     new PNG({ deflateChunkSize: 3 }),
     new PNG({
-        width: 1,
-        height: 1,
-        fill: false,
+        bitDepth: 8,
         checkCRC: true,
+        colorType: 4,
         deflateChunkSize: 1,
+        deflateFactory: createDeflate,
         deflateLevel: 1,
         deflateStrategy: 1,
-        deflateFactory: createDeflate,
-        colorType: 4,
-        bitDepth: 8,
-        inputHasAlpha: false,
+        fill: false,
         filterType: 4,
+        height: 1,
+        inputHasAlpha: false,
+        skipRescale: false,
+        width: 1,
     }),
     new PNG({ filterType: [1, 2, 3] }),
 ];
@@ -28,10 +29,10 @@ const pngs = [
 const png = pngs[0];
 
 if (png.readable) {
-    console.log('readable');
+    console.log("readable");
 }
 if (png.writable) {
-    console.log('writable');
+    console.log("writable");
 }
 png.width === 1;
 png.height === 1;
@@ -43,44 +44,44 @@ png.bitblt(pngs[1], 1);
 png.bitblt(pngs[1], 1, 1);
 png.bitblt(pngs[1], 1, 1, 1, 1, 1, 1);
 
-png.on('metadata', metadata => {
+png.on("metadata", metadata => {
     metadata.bpp === 1;
 });
-png.on('metadata', function(metadata) {
+png.on("metadata", function(metadata) {
     this; // $ExpectType PNG
     this.width === metadata.width;
     this.height === metadata.height;
 });
-png.on('parsed', data => {
+png.on("parsed", data => {
     data.byteLength === 1;
 });
-png.on('parsed', function(data) {
+png.on("parsed", function(data) {
     this; // $ExpectType PNG
     this.adjustGamma();
-    this.pack().pipe(fs.createWriteStream('out.png'));
+    this.pack().pipe(fs.createWriteStream("out.png"));
 });
-png.on('error', error => {
-    error === new Error('testing');
+png.on("error", error => {
+    error === new Error("testing");
 });
-png.on('error', function(error) {
+png.on("error", function(error) {
     this; // $ExpectType PNG
 });
-png.on('closed', () => {
+png.on("closed", () => {
     // closed
 });
-png.on('closed', function() {
+png.on("closed", function() {
     this; // $ExpectType PNG
 });
-png.on('foo', () => {});
-png.on('foo', function() {
+png.on("foo", () => {});
+png.on("foo", function() {
     this; // $ExpectType PNG
 });
 
 png.pack().adjustGamma();
 
-png.parse('foo').adjustGamma();
-png.parse(Buffer.from('foo')).adjustGamma();
-png.parse('foo', (error, data) => {
+png.parse("foo").adjustGamma();
+png.parse(Buffer.from("foo")).adjustGamma();
+png.parse("foo", (error, data) => {
     error.stack;
     data.adjustGamma();
 }).adjustGamma();
@@ -90,7 +91,7 @@ PNG.adjustGamma(png);
 PNG.bitblt(png, pngs[1]);
 PNG.bitblt(png, pngs[1], 1, 1, 1, 1, 1, 1);
 
-const pngWithMeta = PNG.sync.read(Buffer.from('foo'));
+const pngWithMeta = PNG.sync.read(Buffer.from("foo"));
 !pngWithMeta.alpha;
 pngWithMeta.bpp === 1;
 !pngWithMeta.color;

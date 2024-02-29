@@ -1,26 +1,26 @@
-import { key as LocaleKey } from "flatpickr/dist/types/locale";
 import { BaseOptions, DateOption, Hook } from "flatpickr/dist/types/options";
 import * as React from "react";
-import { ReactDivAttr, ThemeProps } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactDivAttr, "onChange">,
-    ThemeProps
-{ }
-
-export interface DatePickerProps extends InheritedProps {
-    appendTo?: string | HTMLElement,
-    dateFormat?: string,
-    datePickerType?: "range" | "single" | "simple",
-    locale?: LocaleKey,
-    maxDate?: BaseOptions["maxDate"],
-    minDate?: BaseOptions["minDate"],
-    onChange?: Hook,
-    onClose?: BaseOptions["onClose"],
-    short?: boolean,
-    value?: DateOption | readonly DateOption[],
+export interface DatePickerProps extends Omit<ReactDivAttr, "onChange"> {
+    allowInput?: boolean | undefined;
+    appendTo?: string | HTMLElement | undefined;
+    dateFormat?: string | undefined;
+    datePickerType?: "range" | "single" | "simple" | undefined;
+    disable?: BaseOptions["disable"] | undefined;
+    enable?: BaseOptions["enable"] | undefined;
+    inline?: BaseOptions["inline"] | undefined;
+    light?: boolean | undefined;
+    locale?: BaseOptions["locale"] | undefined;
+    maxDate?: BaseOptions["maxDate"] | undefined;
+    minDate?: BaseOptions["minDate"] | undefined;
+    onChange?: Hook | undefined;
+    onClose?: BaseOptions["onClose"] | undefined;
+    onOpen?: BaseOptions["onOpen"] | undefined;
+    short?: boolean | undefined;
+    value?: DateOption | readonly DateOption[] | undefined;
 }
 
-declare class DatePicker extends React.Component<DatePickerProps> { }
+declare class DatePicker extends React.Component<DatePickerProps> {}
 
 export default DatePicker;

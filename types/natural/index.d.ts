@@ -1,11 +1,4 @@
-// Type definitions for Natural 0.6
-// Project: https://github.com/NaturalNode/natural
-// Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
-//                 Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
-
 
 import events = require("events");
 
@@ -15,21 +8,70 @@ interface Tokenizer {
 declare class WordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
 }
-declare class AggressiveTokenizer implements Tokenizer {
-    tokenize(text: string): string[];
-}
 declare class TreebankWordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
 }
 interface RegexTokenizerOptions {
-    pattern: RegExp;
-    discardEmpty?: boolean;
+    pattern?: RegExp | undefined;
+    discardEmpty?: boolean | undefined;
 }
 declare class RegexpTokenizer implements Tokenizer {
     constructor(options: RegexTokenizerOptions);
     tokenize(text: string): string[];
 }
+declare class OrthographyTokenizer implements Tokenizer {
+    constructor(options: RegexTokenizerOptions & { language: string });
+    tokenize(text: string): string[];
+}
 declare class WordPunctTokenizer implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class SentenceTokenizer implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class CaseTokenizer implements Tokenizer {
+    tokenize(text: string, preserveApostrophy?: boolean): string[];
+}
+declare class AggressiveTokenizer implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerEs implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerFa implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerFr implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerId implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerIt implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerNl implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerNo implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerPl implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerPt implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerRu implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerSv implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class AggressiveTokenizerVi implements Tokenizer {
+    tokenize(text: string): string[];
+}
+declare class TokenizerJa implements Tokenizer {
     tokenize(text: string): string[];
 }
 
@@ -37,17 +79,17 @@ declare function JaroWinklerDistance(s1: string, s2: string, dt?: number): numbe
 declare function LevenshteinDistance(source: string, target: string, options?: any): number;
 export interface DamerauLevenshteinDistanceOptions {
     /** @default 1 */
-    insertion_cost?: number;
+    insertion_cost?: number | undefined;
     /** @default 1 */
-    deletion_cost?: number;
+    deletion_cost?: number | undefined;
     /** @default 1 */
-    substitution_cost?: number;
+    substitution_cost?: number | undefined;
     /** @default 1 */
-    transposition_cost?: number;
+    transposition_cost?: number | undefined;
     /** @default false */
-    search?: boolean;
+    search?: boolean | undefined;
     /** @default false */
-    restricted?: boolean;
+    restricted?: boolean | undefined;
 }
 interface SubstringDistanceResult {
     substring: string;
@@ -64,38 +106,51 @@ interface SubstringDistanceResult {
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options: DamerauLevenshteinDistanceOptions & { search: true }
+    options: DamerauLevenshteinDistanceOptions & { search: true },
 ): SubstringDistanceResult;
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options?: DamerauLevenshteinDistanceOptions & { search?: false }
+    options?: DamerauLevenshteinDistanceOptions & { search?: false | undefined },
 ): number;
 export function DamerauLevenshteinDistance(
     source: string,
     target: string,
-    options: DamerauLevenshteinDistanceOptions & { search: boolean }
+    options: DamerauLevenshteinDistanceOptions & { search: boolean },
 ): number | SubstringDistanceResult;
 declare function DiceCoefficient(str1: string, str2: string): number;
 
 interface Stemmer {
     stem(token: string): string;
+    removeStopWords(moreStopWords: string[]): void;
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }
+
+declare var CarryStemmerFr: Stemmer;
+declare var LancasterStemmer: Stemmer;
 declare var PorterStemmer: Stemmer;
-declare var PorterStemmerRu: Stemmer;
 declare var PorterStemmerEs: Stemmer;
 declare var PorterStemmerFa: Stemmer;
 declare var PorterStemmerFr: Stemmer;
 declare var PorterStemmerIt: Stemmer;
+declare var PorterStemmerNl: Stemmer;
 declare var PorterStemmerNo: Stemmer;
 declare var PorterStemmerPt: Stemmer;
-declare var LancasterStemmer: Stemmer;
+declare var PorterStemmerRu: Stemmer;
+declare var PorterStemmerSv: Stemmer;
+declare var StemmerId: Stemmer;
+declare var StemmerJa: Stemmer;
 
-interface BayesClassifierClassification { label: string, value: number }
-interface BayesClassifierCallback { (err: any, classifier: any): void }
+interface BayesClassifierClassification {
+    label: string;
+    value: number;
+}
+interface BayesClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class BayesClassifier {
+    constructor(stem?: Stemmer);
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
     addDocument(text: string[], stem: string): void;
@@ -107,8 +162,13 @@ declare class BayesClassifier {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
 }
 
-interface LogisticRegressionClassifierClassification { label: string, value: number }
-interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
+interface LogisticRegressionClassifierClassification {
+    label: string;
+    value: number;
+}
+interface LogisticRegressionClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class LogisticRegressionClassifier {
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
@@ -119,6 +179,11 @@ declare class LogisticRegressionClassifier {
     save(filename: string, callback: LogisticRegressionClassifierCallback): void;
     static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
     static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
+}
+
+declare class SentimentAnalyzer {
+    constructor(language: string, stemmer: Stemmer, vocabulary: string);
+    getSentiment(words: string[]): number;
 }
 
 interface Phonetic {
@@ -144,7 +209,7 @@ declare class NounInflector {
 }
 declare var CountInflector: {
     nth(i: number): string;
-}
+};
 declare class PresentVerbInflector {
     pluralize(token: string): string;
     singularize(token: string): string;
@@ -156,7 +221,7 @@ declare var NGrams: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 declare var NGramsZH: {
     bigrams(sequence: string, startSymbol?: string, endSymbol?: string): string[][];
     bigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
@@ -164,9 +229,11 @@ declare var NGramsZH: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 
-interface TfIdfCallback { (i: number, measure: number): void }
+interface TfIdfCallback {
+    (i: number, measure: number): void;
+}
 interface TfIdfTerm {
     term: string;
     tfidf: number;
@@ -217,8 +284,12 @@ interface WordNetLookupResults {
     synonyms: string[];
     gloss: string;
 }
-interface WordNetLookupCallback { (results: WordNetLookupResults[]): void }
-interface WordNetGetCallback { (results: WordNetLookupResults): void }
+interface WordNetLookupCallback {
+    (results: WordNetLookupResults[]): void;
+}
+interface WordNetGetCallback {
+    (results: WordNetLookupResults): void;
+}
 declare class WordNet {
     constructor(filename?: string);
     lookup(word: string, callback: WordNetLookupCallback): void;
@@ -235,8 +306,8 @@ declare class Predicate {
     constructor(name: string, parameter1: string, parameter2?: string);
     name: string;
     parameter1: string;
-    parameter2?: string;
-    function?: (tagged_sentence: string[][], i: number, parameter: string) => boolean;
+    parameter2?: string | undefined;
+    function?: ((tagged_sentence: string[][], i: number, parameter: string) => boolean) | undefined;
     evaluate(tagged_sentence: string[][], position: number): boolean;
 }
 
@@ -261,9 +332,21 @@ declare class Lexicon {
     tagWord(word: string): string[];
 }
 
+interface TaggedWord {
+    token: string;
+    tag: string;
+}
+
+declare class Sentence {
+    constructor(data?: string[]);
+    taggedWords: TaggedWord[];
+    addTaggedWord(token: string, tag: string): void;
+    clone(): Sentence;
+}
+
 declare class BrillPOSTagger {
     constructor(lexicon: Lexicon, ruleSet: RuleSet);
     lexicon: Lexicon;
     ruleSet: RuleSet;
-    tag(sentence: string[]): string[][];
+    tag(sentence: string[]): Sentence;
 }

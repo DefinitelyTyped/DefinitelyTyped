@@ -1,16 +1,21 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.2.0-0": {
-            "*": [
-                "ts3.2/*"
-            ]
+    "name": "@types/es-to-primitive",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ljharb/es-to-primitive#readme"
+    ],
+    "devDependencies": {
+        "@types/es-to-primitive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
         },
-        ">=3.1.0-0": {
-            "*": [
-                "ts3.1/*"
-            ]
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
         }
-    }
+    ]
 }

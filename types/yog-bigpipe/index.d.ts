@@ -1,27 +1,21 @@
-// Type definitions for yog-bigpipe 0.4
-// Project: https://github.com/fex-team/yog-bigpipe
-// Definitions by: ssddi456 <https://github.com/ssddi456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { EventEmitter } from 'events';
-import { Readable } from 'stream';
-import { RequestHandler } from 'express';
+import { EventEmitter } from "events";
+import { RequestHandler } from "express";
+import { Readable } from "stream";
 
 interface BigPipeOption {
-    skipAnalysis?: boolean;
+    skipAnalysis?: boolean | undefined;
     tpl?: {
-        _default?: string,
-        quickling?: string
-    };
+        _default?: string | undefined;
+        quickling?: string | undefined;
+    } | undefined;
 }
 
 type Callback = (done: (err: any, data: any) => any) => any;
 
 interface AddPageletConfig {
     id: string;
-    lazy?: boolean;
-    mode?: yogBigpipe.Pagelet.mode;
+    lazy?: boolean | undefined;
+    mode?: yogBigpipe.Pagelet.mode | undefined;
 }
 
 declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
@@ -29,7 +23,8 @@ declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
 export = yogBigpipe;
 declare namespace yogBigpipe {
     class BigPipe extends Readable {
-        constructor(option?: BigPipeOption)
+        constructor(option?: BigPipeOption);
+        // @ts-ignore conflicts with built-in Readable.map
         map: { [key: string]: Pagelet };
         pagelets: Pagelet[];
         pipelines: Pagelet[];
@@ -53,7 +48,7 @@ declare namespace yogBigpipe {
 
         addPagelet(obj: AddPageletConfig): void;
 
-        isQuicklingWidget(item: { 'mode': Pagelet.mode, [key: string]: any }): void;
+        isQuicklingWidget(item: { "mode": Pagelet.mode; [key: string]: any }): void;
 
         render(): void;
 
@@ -63,7 +58,7 @@ declare namespace yogBigpipe {
 
         renderPagelet(pagelet: Pagelet): void;
 
-        destroy(): void;
+        destroy(): this;
 
         _onPageletDone(pagelet: Pagelet): void;
 
@@ -76,19 +71,19 @@ declare namespace yogBigpipe {
         _markPageletRendered(pagelet: Pagelet): void;
     }
 
-    type PageletConstructor<T> = new (obj: PageletOption) => T;
+    type PageletConstructor<T> = new(obj: PageletOption) => T;
 
     interface PageletOption {
         id: string;
-        mode?: Pagelet.mode;
-        lazy?: boolean;
+        mode?: Pagelet.mode | undefined;
+        lazy?: boolean | undefined;
         reqID: string;
         skipAnalysis: boolean;
 
-        locals?: {};
-        compiled?: boolean;
-        container?: string;
-        for?: string;
+        locals?: {} | undefined;
+        compiled?: boolean | undefined;
+        container?: string | undefined;
+        for?: string | undefined;
         model: {};
     }
     interface PageletData {
@@ -102,7 +97,7 @@ declare namespace yogBigpipe {
         scripts: string[];
     }
     class Pagelet extends EventEmitter {
-        constructor(obj: PageletOption)
+        constructor(obj: PageletOption);
 
         model: {};
         container: string;
@@ -136,7 +131,7 @@ declare namespace yogBigpipe {
     }
 
     namespace Pagelet {
-        type status = 'pending' | 'rendering' | 'fulfilled' | 'failed';
-        type mode = 'async' | 'pipeline' | 'quickling';
+        type status = "pending" | "rendering" | "fulfilled" | "failed";
+        type mode = "async" | "pipeline" | "quickling";
     }
 }

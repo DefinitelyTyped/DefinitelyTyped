@@ -1,44 +1,39 @@
-// Type definitions for @loadable/server 5.12
-// Project: https://github.com/smooth-code/loadable-components
-// Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
-//                 Luis Herranz <https://github.com/luisherranz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { Component, ComponentType, JSX, ReactElement } from "react";
 
-import { ComponentType, ReactElement, Component } from 'react';
-
-export type ChunkExtractorOptions = {
-    /**
-     * Webpack entrypoints to load (default to `["main"]`)
-     */
-    entrypoints?: string | string[];
-    /**
-     * Optional output path (only for `requireEntrypoint`)
-     */
-    outputPath?: string;
-    /**
-     * Optional public path to override stats.publicPath at runtime
-     */
-    publicPath?: string;
-    /**
-     * Optional namespace in case of multiple apps on same page
-     */
-    namespace?: string;
-    /**
-     * File system used to read files (default to fs)
-     */
-    inputFileSystem?: object;
-} & ({
-    /**
-     * Stats file path generated using `@loadable/webpack-plugin`
-     */
-    statsFile: string;
- } | {
-    /**
-     * Stats generated using `@loadable/webpack-plugin`.
-     */
-    stats: object;
- });
+export type ChunkExtractorOptions =
+    & {
+        /**
+         * Webpack entrypoints to load (default to `["main"]`)
+         */
+        entrypoints?: string | string[] | undefined;
+        /**
+         * Optional output path (only for `requireEntrypoint`)
+         */
+        outputPath?: string | undefined;
+        /**
+         * Optional public path to override stats.publicPath at runtime
+         */
+        publicPath?: string | undefined;
+        /**
+         * Optional namespace in case of multiple apps on same page
+         */
+        namespace?: string | undefined;
+        /**
+         * File system used to read files (default to fs)
+         */
+        inputFileSystem?: object | undefined;
+    }
+    & ({
+        /**
+         * Stats file path generated using `@loadable/webpack-plugin`
+         */
+        statsFile: string;
+    } | {
+        /**
+         * Stats generated using `@loadable/webpack-plugin`.
+         */
+        stats: object;
+    });
 
 /**
  * Chunk that is received by the AttrFn function.
@@ -71,7 +66,7 @@ export class ChunkExtractor {
         /**
          * JSX element that will be wrapped in `ChunkExtractorManager`
          */
-        element: JSX.Element
+        element: JSX.Element,
     ): JSX.Element;
 
     /**
@@ -92,32 +87,37 @@ export class ChunkExtractor {
     /**
      * Get scripts as an array of React `<script>` elements.
      */
-      getScriptElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getScriptElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get "prefetch" and "preload" links as a string of `<link>` tags
      */
-      getLinkTags(attr?: {} | AttrFn): string;
+    getLinkTags(attr?: {} | AttrFn): string;
 
     /**
      * Get "prefetch" and "preload" links as an array of React `<link>` elements
      */
-      getLinkElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getLinkElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get style links as a string of `<link>` tags
      */
-      getStyleTags(attr?: {} | AttrFn): string;
+    getStyleTags(attr?: {} | AttrFn): string;
+
+    /**
+     * Returns the preload assets lists.
+     */
+    getPreAssets(): Chunk[];
 
     /**
      * Get style links as an array of React `<link>` elements
      */
-      getStyleElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+    getStyleElements(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
     /**
      * Get inline style links as a string of <link> tags (returns a promise)
      */
-      getInlineStyleTags(attr?: {} | AttrFn): Promise<string>;
+    getInlineStyleTags(attr?: {} | AttrFn): Promise<string>;
 
     /**
      * Get inline style links as an array of React <link> elements (returns a promise).

@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from 'react';
+import { ComponentType, FocusEventHandler, HTMLProps, KeyboardEventHandler, MouseEventHandler, ReactNode } from "react";
 
 declare namespace Modal {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -15,68 +15,71 @@ declare namespace Modal {
              * modal is visually labelled.
              * @defaultValue "modal-heading"
              */
-            labelledby?: string;
+            labelledby?: string | undefined;
             /**
              * If this property is added, it will be added to the modal content
              * div as aria-describedby.
              */
-            describedby?: string;
-        };
+            describedby?: string | undefined;
+        } | undefined;
         /**
          * `className` that is applied to the `document.body` while the modal is open.
          * @defaultValue "modal-open"
          */
-        bodyOpenClassName?: string;
+        bodyOpenClassName?: string | undefined;
         /**
          * Label for the close button.
          * @defaultValue "Close dialog"
          */
-        closeButtonLabel?: string;
+        closeButtonLabel?: string | undefined;
         /**
          * If this property is true, it will focus the first tabbable element
          * rendered in the modal.
          * @defaultValue true
          */
-        focusOnMount?: boolean;
+        focusOnMount?: boolean | undefined;
         /**
          * Icon component to render before the title.
          */
-        icon?: ComponentType;
+        icon?: ReactNode | undefined;
         /**
          * If this property is set to false, the modal will not display a close
          * icon and cannot be dismissed.
          * @defaultValue true
          * @deprecated Use isDismissible
          */
-        isDismissable?: boolean;
+        isDismissable?: boolean | undefined;
         /**
          * If this property is set to false, the modal will not display a close
          * icon and cannot be dismissed.
          * @defaultValue true
          */
-        isDismissible?: boolean;
+        isDismissible?: boolean | undefined;
         /**
          * If this property is added, it will an additional class name to the
          * modal overlay div.
          */
-        overlayClassName?: string;
+        overlayClassName?: string | undefined;
         /**
          * If this property is added, it will determine whether the modal
          * requests to close when a mouse click occurs outside of the modal
          * content.
          * @defaultValue true
          */
-        shouldCloseOnClickOutside?: boolean;
+        shouldCloseOnClickOutside?: boolean | undefined;
         /**
          * If this property is added, it will determine whether the modal
          * requests to close when the escape key is pressed.
          * @defaultValue true
          */
-        shouldCloseOnEsc?: boolean;
+        shouldCloseOnEsc?: boolean | undefined;
         /**
          * This function is called to indicate that the modal should be closed.
+         *
+         * The originating event might be different depending on how the modal
+         * is closed.
          */
-        onRequestClose(): void;
+        onRequestClose: KeyboardEventHandler | MouseEventHandler | FocusEventHandler;
     }
 }
 declare const Modal: ComponentType<Modal.Props>;

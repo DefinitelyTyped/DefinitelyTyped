@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/alpinejs__focus",
+    "version": "3.13.9999",
+    "projects": [
+        "https://github.com/alpinejs/alpine"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "dependencies": {
+        "@types/alpinejs": "*"
+    },
+    "devDependencies": {
+        "@types/alpinejs__focus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Surowiec",
+            "githubUsername": "xt0rted"
+        },
+        {
+            "name": "Eric Kwoka",
+            "githubUsername": "ekwoka"
+        }
+    ]
+}

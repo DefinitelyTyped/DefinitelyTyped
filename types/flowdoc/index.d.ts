@@ -1,9 +1,3 @@
-// Type definitions for non-npm package flowdoc 1.1
-// Project: https://github.com/overflowapp/Flow
-// Definitions by: Stefan Mansson <https://github.com/animify>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare namespace Flow {
     interface File {
         document: Document;
@@ -14,45 +8,45 @@ declare namespace Flow {
     interface Document {
         id: string;
         name: string;
-        type: Types['DOCUMENT'];
+        type: Types["DOCUMENT"];
         children: Page[];
     }
 
     interface Page extends Node {
-        type: Types['PAGE'];
+        type: Types["PAGE"];
         children: Array<Screen | Image | Rectangle | Ellipse | Diamond>;
         backgroundColor: Color;
-        startNodeID?: string;
+        startNodeID?: string | undefined;
     }
 
     interface Screen extends Graphic {
-        type: Types['SCREEN'];
+        type: Types["SCREEN"];
         children: Layer[];
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     interface Image extends Graphic {
-        type: Types['IMAGE'];
-        connections?: Connection[];
+        type: Types["IMAGE"];
+        connections?: Connection[] | undefined;
     }
 
     interface Rectangle extends Shape {
-        type: Types['RECTANGLE'];
+        type: Types["RECTANGLE"];
     }
 
     interface Ellipse extends Shape {
-        type: Types['ELLIPSE'];
+        type: Types["ELLIPSE"];
     }
 
     interface Diamond extends Shape {
-        type: Types['DIAMOND'];
+        type: Types["DIAMOND"];
     }
 
     interface Layer extends Node {
-        type: Types['LAYER'] | Types['HOTSPOT'];
+        type: Types["LAYER"] | Types["HOTSPOT"];
         position: Point;
         size: Size;
-        connections?: Connection[];
+        connections?: Connection[] | undefined;
     }
 
     interface Connection {
@@ -60,7 +54,7 @@ declare namespace Flow {
     }
 
     interface Settings {
-        grid?: [number, number];
+        grid?: [number, number] | undefined;
     }
 
     interface Color {
@@ -88,21 +82,21 @@ declare namespace Flow {
     }
 
     interface Types {
-        DOCUMENT: 'DOCUMENT';
-        PAGE: 'PAGE';
-        SCREEN: 'SCREEN';
-        IMAGE: 'IMAGE';
-        RECTANGLE: 'RECT';
-        ELLIPSE: 'ELLIPSE';
-        DIAMOND: 'DIAMOND';
-        HOTSPOT: 'HOTSPOT';
-        LAYER: 'LAYER';
+        DOCUMENT: "DOCUMENT";
+        PAGE: "PAGE";
+        SCREEN: "SCREEN";
+        IMAGE: "IMAGE";
+        RECTANGLE: "RECT";
+        ELLIPSE: "ELLIPSE";
+        DIAMOND: "DIAMOND";
+        HOTSPOT: "HOTSPOT";
+        LAYER: "LAYER";
     }
 
     type SchemaVersion = 1;
 }
 
-type NodeType = 'DOCUMENT' | 'PAGE' | 'SCREEN' | 'IMAGE' | 'RECT' | 'ELLIPSE' | 'DIAMOND' | 'HOTSPOT' | 'LAYER';
+type NodeType = "DOCUMENT" | "PAGE" | "SCREEN" | "IMAGE" | "RECT" | "ELLIPSE" | "DIAMOND" | "HOTSPOT" | "LAYER";
 
 interface Node {
     id: string;
@@ -113,7 +107,7 @@ interface Node {
 interface Shape extends Node {
     position: Flow.Point;
     size: Flow.Size;
-    connections?: Flow.Connection[];
+    connections?: Flow.Connection[] | undefined;
 }
 
 interface Graphic extends Node {

@@ -1,19 +1,3 @@
-// Type definitions for ECharts 4.6.1
-// Project: http://echarts.apache.org
-// Definitions by: Xie Jingyang <https://github.com/xieisabug>
-//                 AntiMoron <https://github.com/AntiMoron>
-//                 Liveangela <https://github.com/liveangela>
-//                 Ovilia <https://github.com/Ovilia>
-//                 Roman <https://github.com/iRON5>
-//                 Bilal <https://github.com/bilalucar>
-//                 TMTron <https://github.com/tmtron>
-//                 dwhitney <https://github.com/dwhitney>
-//                 Ruixuel <https://github.com/ruixuel>
-//                 Robert <https://github.com/robert-wettstaedt>
-//                 trajnisz <https://github.com/trajnisz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="zrender" />
 /// <reference path="./options/index.d.ts" />
 
@@ -44,10 +28,10 @@ declare namespace echarts {
         dom: HTMLDivElement | HTMLCanvasElement,
         theme?: object | string,
         opts?: {
-            devicePixelRatio?: number;
-            renderer?: string;
-            width?: number | string;
-            height?: number | string;
+            devicePixelRatio?: number | undefined;
+            renderer?: string | undefined;
+            width?: number | string | undefined;
+            height?: number | string | undefined;
         },
     ): ECharts;
 
@@ -146,6 +130,30 @@ declare namespace echarts {
          * x, y, x2, y2 are all percent from 0 to 1
          */
         LinearGradient: zrender.LinearGradient;
+
+        /**
+         * Create a new shape class.
+         *
+         * @param {number[][]} opt
+         * @return {zrender.graphic.Path}
+         */
+        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path;
+
+        /**
+         * Register a user defined shape.
+         *
+         * @param {string} name
+         * @param {zrender.graphic.Path} ShapeClass
+         */
+        registerShape(name: string, ShapeClass: zrender.graphic.Path): void;
+
+        /**
+         * Get the registered shape class.
+         *
+         * @param {string} name
+         * @return {zrender.graphic.Path}
+         */
+        getShapeClass(name: string): zrender.graphic.Path;
 
         /**
          * Clip the given points by the given rectangular.
@@ -273,6 +281,111 @@ declare namespace echarts {
         on(eventName: string, handler: Function, context?: object): void;
 
         /**
+         * Binds event-handling function.
+         *     There are two kinds of events in ECharts, one of which is mouse
+         *     events, which will be triggered when the mouse clicks certain
+         *     element in the chart, the other kind will be triggered after
+         *     `dispatchAction` is called. Every action has a corresponding
+         *     event.
+         *     If event is triggered externally by `dispatchAction`, and there
+         *     is batch attribute in action to trigger batch action, then the
+         *     corresponding response event parameters be in batch.
+         *
+         * @param {string} eventName Event names are all in lower-cases,
+         *     for example, `'click'`, `'mousemove'`, `'legendselected'`
+         * @param {string | Object} query Condition for filtering, optional.
+         *     `query` enables only call handlers on graphic elements of
+         *     specified components. Can be `string` or `Object`.
+         *     If `string`, the formatter can be 'mainType' or 'mainType.subType'.
+         *     For example:
+         *  ```ts
+         *  chart.on('click', 'series', function () {...});
+         *  chart.on('click', 'series.line', function () {...});
+         *  chart.on('click', 'dataZoom', function () {...});
+         *  chart.on('click', 'xAxis.category', function () {...});
+         *  ```
+         *     If `Object`, one or more properties below can be included,
+         *     and any of them is optional.
+         *  ```ts
+         *  {
+         *      <mainType>Index: number // component index
+         *      <mainType>Name: string // component name
+         *      <mainType>Id: string // component id
+         *      dataIndex: number // data item index
+         *      name: string // data item name
+         *      dataType: string // data item type, e.g.,
+         *                       // 'node' and 'edge' in graph.
+         *      element: string // element name in custom series
+         *  }
+         *  ```
+         *     For example:
+         *  ```ts
+         *  chart.setOption({
+         *      // ...
+         *      series: [{
+         *          name: 'uuu'
+         *          // ...
+         *      }]
+         *  });
+         *  chart.on('mouseover', {seriesName: 'uuu'}, function () {
+         *      // When the graphic elements in the series with name 'uuu' mouse
+         *      // overed, this method is called.
+         *  });
+         *  ```
+         *     For example:
+         *  ```ts
+         *  chart.setOption({
+         *      // ...
+         *      series: [{
+         *          type: 'graph',
+         *          nodes: [{name: 'a', value: 10}, {name: 'b', value: 20}],
+         *          edges: [{source: 0, target: 1}]
+         *      }]
+         *  });
+         *  chart.on('click', {dataType: 'node'}, function () {
+         *      // When the nodes of the graph clicked, this method is called.
+         *  });
+         *  chart.on('click', {dataType: 'edge'}, function () {
+         *      // When the edges of the graph clicked, this method is called.
+         *  });
+         *  ```
+         *     For example
+         *  ```ts
+         *  chart.setOption({
+         *      // ...
+         *      series: {
+         *          // ...
+         *          type: 'custom',
+         *          renderItem: function (params, api) {
+         *              return {
+         *                  type: 'group',
+         *                  children: [{
+         *                      type: 'circle',
+         *                      name: 'my_el',
+         *                      // ...
+         *                  }, {
+         *                      // ...
+         *                  }]
+         *              }
+         *          },
+         *          data: [[12, 33]]
+         *      }
+         *  })
+         *  chart.on('click', {targetName: 'my_el'}, function () {
+         *      // When the element with name 'my_el' clicked, this method is called.
+         *  });
+         *  ```
+         * @param {Function} handler Event-handling function, whose format
+         *     is as following:
+            ```js
+            (event: object)
+            ```
+         * @param {object} [context] context of callback function, what
+         *     `this` refers to.
+         */
+        on(eventName: string, query: string | Object, handler: Function, context?: object): void;
+
+        /**
          * Unbind event-handler function.
          *
          * @param {string} eventName Event names are all in lower-cases,
@@ -342,14 +455,14 @@ declare namespace echarts {
          */
         getDataURL(opts: {
             // Exporting format, can be either png, or jpeg
-            type?: string;
+            type?: string | undefined;
             // Resolution ratio of exporting image, 1 by default.
-            pixelRatio?: number;
+            pixelRatio?: number | undefined;
             // Background color of exporting image, use backgroundColor in
             // option by default.
-            backgroundColor?: string;
+            backgroundColor?: string | undefined;
             // Excluded components list. e.g. ['toolbox']
-            excludeComponents?: string[];
+            excludeComponents?: string[] | undefined;
         }): string;
 
         /**
@@ -368,7 +481,7 @@ declare namespace echarts {
             // option by default.
             backgroundColor: string;
             // Excluded components list. e.g. ['toolbox']
-            excludeComponents?: string[];
+            excludeComponents?: string[] | undefined;
         }): string;
 
         /**
@@ -383,9 +496,9 @@ declare namespace echarts {
          */
         appendData(opts: {
             // Specify which series the data will be appended to.
-            seriesIndex?: string;
+            seriesIndex?: string | undefined;
             // The data to be appended.
-            data?: any[] | TypedArray;
+            data?: any[] | TypedArray | undefined;
         }): void;
 
         /**
@@ -419,21 +532,21 @@ declare namespace echarts {
         | Float64Array;
 
     interface EChartsConvertFinder {
-        seriesIndex?: number;
-        seriesId?: string;
-        seriesName?: string;
-        geoIndex?: number;
-        geoId?: string;
-        geoName?: string;
-        xAxisIndex?: number;
-        xAxisId?: string;
-        xAxisName?: string;
-        yAxisIndex?: number;
-        yAxisId?: string;
-        yAxisName?: string;
-        gridIndex?: number;
-        gridId?: string;
-        gridName?: string;
+        seriesIndex?: number | undefined;
+        seriesId?: string | undefined;
+        seriesName?: string | undefined;
+        geoIndex?: number | undefined;
+        geoId?: string | undefined;
+        geoName?: string | undefined;
+        xAxisIndex?: number | undefined;
+        xAxisId?: string | undefined;
+        xAxisName?: string | undefined;
+        yAxisIndex?: number | undefined;
+        yAxisId?: string | undefined;
+        yAxisName?: string | undefined;
+        gridIndex?: number | undefined;
+        gridId?: string | undefined;
+        gridName?: string | undefined;
     }
 
     interface ERectangle {
@@ -444,28 +557,28 @@ declare namespace echarts {
     }
 
     type EChartsSeriesType =
-        | 'line'
-        | 'bar'
-        | 'pie'
-        | 'scatter'
-        | 'effectScatter'
-        | 'radar'
-        | 'tree'
-        | 'treemap'
-        | 'sunburst'
-        | 'boxplot'
-        | 'candlestick'
-        | 'heatmap'
-        | 'map'
-        | 'parallel'
-        | 'lines'
-        | 'graph'
-        | 'sankey'
-        | 'funnel'
-        | 'gauge'
-        | 'pictorialBar'
-        | 'themeRiver'
-        | 'custom';
+        | "line"
+        | "bar"
+        | "pie"
+        | "scatter"
+        | "effectScatter"
+        | "radar"
+        | "tree"
+        | "treemap"
+        | "sunburst"
+        | "boxplot"
+        | "candlestick"
+        | "heatmap"
+        | "map"
+        | "parallel"
+        | "lines"
+        | "graph"
+        | "sankey"
+        | "funnel"
+        | "gauge"
+        | "pictorialBar"
+        | "themeRiver"
+        | "custom";
 
     interface EChartOption<TSeries = EChartOption.Series> {
         /**
@@ -478,7 +591,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#title
          */
-        title?: EChartTitleOption | EChartTitleOption[];
+        title?: EChartTitleOption | EChartTitleOption[] | undefined;
 
         /**
          * Legend component.
@@ -493,7 +606,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#legend
          */
-        legend?: EChartOption.Legend;
+        legend?: EChartOption.Legend | undefined;
 
         /**
          * Drawing grid in rectangular coordinate.
@@ -506,7 +619,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#grid
          */
-        grid?: EChartOption.Grid | EChartOption.Grid[];
+        grid?: EChartOption.Grid | EChartOption.Grid[] | undefined;
 
         /**
          * The x axis in cartesian(rectangular) coordinate.
@@ -517,7 +630,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#xAxis
          */
-        xAxis?: EChartOption.XAxis | EChartOption.XAxis[];
+        xAxis?: EChartOption.XAxis | EChartOption.XAxis[] | undefined;
 
         /**
          * The y axis in cartesian(rectangular) coordinate.
@@ -527,7 +640,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#yAxis
          */
-        yAxis?: EChartOption.YAxis | EChartOption.YAxis[];
+        yAxis?: EChartOption.YAxis | EChartOption.YAxis[] | undefined;
 
         /**
          * Polar coordinate can be used in scatter and line chart.
@@ -535,21 +648,21 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#polar
          */
-        polar?: object;
+        polar?: object | undefined;
 
         /**
          * Radial axis of polar coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#radiusAxis
          */
-        radiusAxis?: object;
+        radiusAxis?: object | undefined;
 
         /**
          * The angle axis in Polar Coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#angleAxis
          */
-        angleAxis?: object;
+        angleAxis?: object | undefined;
 
         /**
          * Coordinate for `radar charts`.
@@ -567,7 +680,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#radar
          */
-        radar?: object;
+        radar?: object | undefined;
 
         /**
          * `dataZoom` component is used for zooming a specific area,
@@ -589,7 +702,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#dataZoom
          */
-        dataZoom?: EChartOption.DataZoom[];
+        dataZoom?: EChartOption.DataZoom[] | undefined;
 
         /**
          * `visualMap` is a type of component for visual encoding,
@@ -626,7 +739,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#visualMap
          */
-        visualMap?: EChartOption.VisualMap[];
+        visualMap?: EChartOption.VisualMap[] | undefined;
 
         /**
          * Tooltip component.
@@ -639,7 +752,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#tooltip
          */
-        tooltip?: EChartOption.Tooltip;
+        tooltip?: EChartOption.Tooltip | undefined;
 
         /**
          * `axisPointer` is a tool for displaying reference line and axis value
@@ -647,7 +760,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#axisPointer
          */
-        axisPointer?: EChartOption.AxisPointer;
+        axisPointer?: EChartOption.AxisPointer | undefined;
 
         /**
          * A group of utility tools, which includes `export`, `data view`,
@@ -655,7 +768,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#toolbox
          */
-        toolbox?: object;
+        toolbox?: object | undefined;
 
         /**
          * `brush` is an area-selecting component, with which user can select
@@ -664,7 +777,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#brush
          */
-        brush?: object;
+        brush?: object | undefined;
 
         /**
          * Geographic coorinate system component.
@@ -673,7 +786,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#geo
          */
-        geo?: object;
+        geo?: object | undefined;
 
         /**
          * `Parallel Coordinates` is a common way of visualizing high-dimensional
@@ -696,14 +809,14 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#parallel
          */
-        parallel?: object;
+        parallel?: object | undefined;
 
         /**
          * This component is the coordinate axis for parallel coordinate.
          *
          * @see https://echarts.apache.org/en/option.html#parallelAxis
          */
-        parallelAxis?: object;
+        parallelAxis?: object | undefined;
 
         /**
          * An axis with a single dimension. It can be used to display data
@@ -711,7 +824,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#singleAxis
          */
-        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[];
+        singleAxis?: EChartOption.SingleAxis | EChartOption.SingleAxis[] | undefined;
 
         /**
          * `timeline` component, which provides functions like switching and playing
@@ -719,7 +832,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#timeline
          */
-        timeline?: object;
+        timeline?: object | undefined;
 
         /**
          * `graphic` component enable creating graphic elements in echarts.
@@ -729,7 +842,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#graphic
          */
-        graphic?: object | object[];
+        graphic?: object | object[] | undefined;
 
         /**
          * Calendar coordinates.
@@ -741,12 +854,12 @@ declare namespace echarts {
 
          * @see https://echarts.apache.org/en/option.html#calendar
          */
-        calendar?: EChartOption.Calendar | EChartOption.Calendar[];
+        calendar?: EChartOption.Calendar | EChartOption.Calendar[] | undefined;
 
         /**
          * @see https://echarts.apache.org/en/option.html#dataset
          */
-        dataset?: EChartOption.Dataset | EChartOption.Dataset[];
+        dataset?: EChartOption.Dataset | EChartOption.Dataset[] | undefined;
 
         /**
          * `dataset` component is published since ECharts 4.
@@ -757,12 +870,12 @@ declare namespace echarts {
          * More details about `dataset` can be checked in the tutorial.
          * @see https://echarts.apache.org/en/option.html#aria
          */
-        aria?: object;
+        aria?: object | undefined;
 
         /**
          * @see https://echarts.apache.org/en/option.html#series
          */
-        series?: TSeries[];
+        series?: TSeries[] | undefined;
 
         /**
          * The color list of palette.
@@ -778,28 +891,28 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#color
          */
-        color?: string[];
+        color?: string[] | undefined;
 
         /**
          * Background color. Defaults to have no background.
          *
          * @see https://echarts.apache.org/en/option.html#backgroundColor
          */
-        backgroundColor?: string;
+        backgroundColor?: EChartOption.Color | undefined;
 
         /**
          * Global font style.
          *
          * @see https://echarts.apache.org/en/option.html#textStyle
          */
-        textStyle?: EChartOption.BaseTextStyle;
+        textStyle?: (EChartOption.BaseTextStyle & EChartOption.BaseTextStyleWithRich) | undefined;
 
         /**
          * Whether to enable animation.
          *
          * @see https://echarts.apache.org/en/option.html#animation
          */
-        animation?: boolean;
+        animation?: boolean | undefined;
 
         /**
          * Whether to set graphic number threshold to animation.
@@ -807,7 +920,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#animationThreshold
          */
-        animationThreshold?: number;
+        animationThreshold?: number | undefined;
 
         /**
          * Duration of the first animation, which supports callback function
@@ -820,7 +933,7 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDuration
          */
-        animationDuration?: number;
+        animationDuration?: number | undefined;
 
         /**
          * Easing method used for the first animation.
@@ -828,7 +941,7 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#animationEasing
          */
-        animationEasing?: string;
+        animationEasing?: string | undefined;
 
         /**
          * Delay before updating the first animation, which supports
@@ -842,7 +955,7 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDelay
          */
-        animationDelay?: number | Function;
+        animationDelay?: number | Function | undefined;
 
         /**
          * Time for animation to complete, which supports callback function
@@ -855,14 +968,14 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDurationUpdate
          */
-        animationDurationUpdate?: number | Function;
+        animationDurationUpdate?: number | Function | undefined;
 
         /**
          * Easing method used for animation.
          *
          * @see https://echarts.apache.org/en/option.html#animationEasingUpdate
          */
-        animationEasingUpdate?: string;
+        animationEasingUpdate?: string | undefined;
 
         /**
          * Delay before updating animation, which supports callback function
@@ -875,29 +988,28 @@ declare namespace echarts {
          * }
          * @see https://echarts.apache.org/en/option.html#animationDelayUpdate
          */
-        animationDelayUpdate?: number | Function;
+        animationDelayUpdate?: number | Function | undefined;
 
         /**
          * Configuration for progressive/incremental rendering
          *
          * @default 400
          */
-        progressive?: number;
+        progressive?: number | undefined;
 
         /**
          * Configuration for progressive/incremental rendering
          *
          * @default 3000
          */
-        progressiveThreshold?: number;
+        progressiveThreshold?: number | undefined;
 
         /**
          * Equal to CanvasRenderingContext2D.globalCompositeOperation
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
-         *
          */
-        blendMode?: string;
+        blendMode?: string | undefined;
 
         /**
          * Threshold of if use single hover layer to optimize.
@@ -908,7 +1020,7 @@ declare namespace echarts {
          *
          * @default 3000
          */
-        hoverLayerThreshold?: number;
+        hoverLayerThreshold?: number | undefined;
 
         /**
          * Whether to use UTC in display.
@@ -931,113 +1043,150 @@ declare namespace echarts {
          *
          * @see https://echarts.apache.org/en/option.html#useUTC
          */
-        useUTC?: boolean;
+        useUTC?: boolean | undefined;
     }
 
     type EChartsMediaOption = {
         query: {
-            width?: number;
-            height?: number;
-            aspectRatio?: number;
-            minWidth?: number;
-            minHeight?: number;
-            minAspectRatio?: number;
-            maxWidth?: number;
-            maxHeight?: number;
-            maxAspectRatio?: number;
+            width?: number | undefined;
+            height?: number | undefined;
+            aspectRatio?: number | undefined;
+            minWidth?: number | undefined;
+            minHeight?: number | undefined;
+            minAspectRatio?: number | undefined;
+            maxWidth?: number | undefined;
+            maxHeight?: number | undefined;
+            maxAspectRatio?: number | undefined;
         };
         option: EChartOption;
     };
 
     interface EChartsResponsiveOption {
-        baseOption?: EChartOption;
-        media?: EChartsMediaOption[];
+        baseOption?: EChartOption | undefined;
+        media?: EChartsMediaOption[] | undefined;
     }
 
     interface EChartsOptionConfig {
-        notMerge?: boolean;
-        lazyUpdate?: boolean;
-        silent?: boolean;
+        notMerge?: boolean | undefined;
+        lazyUpdate?: boolean | undefined;
+        silent?: boolean | undefined;
     }
 
     interface EChartsResizeOption {
         /**
          * Chart width.
          */
-        width?: number | string;
+        width?: number | string | undefined;
 
         /**
          * Chart height.
          */
-        height?: number | string;
+        height?: number | string | undefined;
 
         /**
          * Specify whether or not to prevent triggering events.
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
     }
 
     interface EChartTitleOption {
-        show?: boolean;
-        text?: string;
-        link?: string;
-        target?: string;
-        textStyle?: EChartOption.TextStyleWithRich;
-        subtext?: string;
-        sublink?: string;
-        subtarget?: string;
-        subtextStyle?: EChartOption.TextStyleWithRich;
-        textAlign?: string;
-        textVerticalAlign?: string;
-        triggerEvent?: boolean;
-        padding?: number;
-        itemGap?: number;
-        zlevel?: number;
-        z?: number;
-        left?: string | number;
-        top?: string | number;
-        right?: string | number;
-        bottom?: string | number;
-        backgroundColor?: string;
-        borderColor?: string;
-        borderWidth?: number;
-        borderRadius?: number | number[];
-        shadowBlur?: number;
-        shadowColor?: number;
-        shadowOffsetX?: number;
-        shadowOffsetY?: number;
+        show?: boolean | undefined;
+        text?: string | undefined;
+        link?: string | undefined;
+        target?: string | undefined;
+        textStyle?: EChartOption.TextStyleWithRich | undefined;
+        subtext?: string | undefined;
+        sublink?: string | undefined;
+        subtarget?: string | undefined;
+        subtextStyle?: EChartOption.TextStyleWithRich | undefined;
+        textAlign?: string | undefined;
+        textVerticalAlign?: string | undefined;
+        triggerEvent?: boolean | undefined;
+        /**
+         * Title space around content. The unit is `px`.
+         * Default values for each position are 5.
+         * And they can be set to different values with left, right, top, and bottom.
+         */
+        padding?: number | number[] | undefined;
+        itemGap?: number | undefined;
+        zlevel?: number | undefined;
+        z?: number | undefined;
+        left?: string | number | undefined;
+        top?: string | number | undefined;
+        right?: string | number | undefined;
+        bottom?: string | number | undefined;
+        backgroundColor?: string | undefined;
+        borderColor?: string | undefined;
+        borderWidth?: number | undefined;
+        borderRadius?: number | number[] | undefined;
+        shadowBlur?: number | undefined;
+        shadowColor?: number | undefined;
+        shadowOffsetX?: number | undefined;
+        shadowOffsetY?: number | undefined;
     }
 
+    /**
+     * Options for `echartsInstance.showLoading` method
+     * {@link https://echarts.apache.org/en/api.html#echartsInstance.showLoading}
+     */
     interface EChartsLoadingOption {
         /**
          * Loading text.
          * @default 'loading'
          */
-        text?: string;
+        text?: string | undefined;
 
         /**
          * Loading circle color.
          * @default '#c23531'
          */
-        color?: string;
+        color?: string | undefined;
 
         /**
          * Loading text color.
          * @default '#000'
          */
-        textColor?: string;
+        textColor?: string | undefined;
 
         /**
          * Mask background color.
          * @default 'rgba(255, 255, 255, 0.8)'
          */
-        maskColor?: string;
+        maskColor?: string | undefined;
 
         /**
          * Zlevel of loading. If not 0, it creates a new canvas for loading.
          * @default 0
          */
-        zlevel?: 0;
+        zlevel?: number | undefined;
+
+        /**
+         * Font size.
+         * @default 12
+         * @since 4.8.0
+         */
+        fontSize?: number | undefined;
+
+        /**
+         * Show an animated "spinner" or not.
+         * @default true
+         * @since 4.8.0
+         */
+        showSpinner?: boolean | undefined;
+
+        /**
+         * Radius of the "spinner".
+         * @default 10
+         * @since 4.8.0
+         */
+        spinnerRadius?: number | undefined;
+
+        /**
+         * Line width of the "spinner".
+         * @default 5
+         * @since 4.8.0
+         */
+        lineWidth?: number | undefined;
     }
 
     namespace EChartOption {
@@ -1070,13 +1219,13 @@ declare namespace echarts {
              * @todo describe
              */
             interface Line {
-                show?: boolean;
-                onZero?: boolean;
-                onZeroAxisIndex?: number;
-                symbol?: string | string[];
-                symbolSize?: number[];
-                symbolOffset?: number[];
-                lineStyle?: LineStyle;
+                show?: boolean | undefined;
+                onZero?: boolean | undefined;
+                onZeroAxisIndex?: number | undefined;
+                symbol?: string | string[] | undefined;
+                symbolSize?: number[] | undefined;
+                symbolOffset?: number[] | undefined;
+                lineStyle?: LineStyle | undefined;
             }
 
             interface CartesianAxis {
@@ -1084,14 +1233,14 @@ declare namespace echarts {
                  * Component ID, not specified by default.
                  * If specified, it can be used to refer the component in option or API.
                  */
-                id?: string;
+                id?: string | undefined;
 
                 /**
                  * If show this axis.
                  *
                  * @default 'true'
                  */
-                show?: boolean;
+                show?: boolean | undefined;
 
                 /**
                  * The index of grid which this axis belongs to.
@@ -1099,7 +1248,7 @@ declare namespace echarts {
                  *
                  * @default 0
                  */
-                gridIndex?: number;
+                gridIndex?: number | undefined;
 
                 /**
                  * Offset of this axis relative to default position.
@@ -1108,47 +1257,47 @@ declare namespace echarts {
                  * @default 0
                  * @see https://echarts.apache.org/en/option.html#yAxis.offset
                  */
-                offset?: number;
+                offset?: number | undefined;
 
                 /**
                  * Name of axis.
                  */
-                name?: string;
+                name?: string | undefined;
 
                 /**
                  * Location of axis name.
                  *
                  * @default 'start'
                  */
-                nameLocation?: 'start' | 'middle' | 'center' | 'end';
+                nameLocation?: "start" | "middle" | "center" | "end" | undefined;
 
                 /**
                  * Text style of axis name.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.nameTextStyle
                  */
-                nameTextStyle?: TextStyleWithRich;
+                nameTextStyle?: TextStyleWithRich | undefined;
 
                 /**
                  * Gap between axis name and axis line.
                  *
                  * @default 15
                  */
-                nameGap?: number;
+                nameGap?: number | undefined;
 
                 /**
                  * Rotation of axis name.
                  *
                  * @default null
                  */
-                nameRotate?: number;
+                nameRotate?: number | undefined;
 
                 /**
                  * Whether axis is inversed. New option from ECharts 3.
                  *
                  * @default false
                  */
-                inverse?: boolean;
+                inverse?: boolean | undefined;
 
                 /**
                  * The boundary gap on both sides of a coordinate axis.
@@ -1168,7 +1317,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.boundaryGap
                  */
-                boundaryGap?: boolean | (string | number)[];
+                boundaryGap?: boolean | Array<string | number> | undefined;
 
                 /**
                  * The minimun value of axis.
@@ -1185,7 +1334,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.min
                  */
-                min?: number | string | ((value: { min: number; max: number }) => number);
+                min?: number | string | ((value: { min: number; max: number }) => number) | undefined;
 
                 /**
                  * The maximum value of axis.
@@ -1202,7 +1351,7 @@ declare namespace echarts {
                  * @default null
                  * @see https://echarts.apache.org/option.html#yAxis.max
                  */
-                max?: number | string | ((value: { min: number; max: number }) => number);
+                max?: number | string | ((value: { min: number; max: number }) => number) | undefined;
 
                 /**
                  * It is available only in numerical axis, i.e., type: `'value'`.
@@ -1216,7 +1365,7 @@ declare namespace echarts {
                  * @default false
                  * @see https://echarts.apache.org/en/option.html#yAxis.scale
                  */
-                scale?: boolean;
+                scale?: boolean | undefined;
 
                 /**
                  * Number of segments that the axis is split into.
@@ -1227,7 +1376,7 @@ declare namespace echarts {
                  * @default 5
                  * @see https://echarts.apache.org/en/option.html#yAxis.splitNumber
                  */
-                splitNumber?: number;
+                splitNumber?: number | undefined;
 
                 /**
                  * Maximum gap between split lines.
@@ -1257,7 +1406,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.interval
                  */
-                interval?: number;
+                interval?: number | undefined;
 
                 /**
                  * Base of logarithm, which is valid only for numeric axes with type:
@@ -1266,14 +1415,14 @@ declare namespace echarts {
                  * @default 10
                  * @see https://echarts.apache.org/en/option.html#yAxis.logBase
                  */
-                logBase?: number;
+                logBase?: number | undefined;
 
                 /**
                  * True for axis that cannot be interacted with.
                  *
                  * @default false
                  */
-                silent?: boolean;
+                silent?: boolean | undefined;
 
                 /**
                  * Whether the labels of axis triggers and reacts to mouse events.
@@ -1294,28 +1443,28 @@ declare namespace echarts {
                  *
                  * @default false
                  */
-                triggerEvent?: boolean;
+                triggerEvent?: boolean | undefined;
 
                 /**
                  * Settings related to axis line.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.axisLine
                  */
-                axisLine?: Line;
+                axisLine?: Line | undefined;
 
                 /**
                  * Settings related to axis tick.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.axisTick
                  */
-                axisTick?: CartesianAxis.Tick;
+                axisTick?: CartesianAxis.Tick | undefined;
 
                 /**
                  * Settings related to axis minor tick.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.minorTick
                  */
-                minorTick?: CartesianAxis.MinorTick;
+                minorTick?: CartesianAxis.MinorTick | undefined;
 
                 /**
                  * Settings related to axis label.
@@ -1323,28 +1472,28 @@ declare namespace echarts {
                  * @see https://echarts.apache.org/en/option.html#yAxis.axisLabel
                  */
 
-                axisLabel?: CartesianAxis.Label;
+                axisLabel?: CartesianAxis.Label | undefined;
 
                 /**
                  * SplitLine of axis in grid area.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.splitLine
                  */
-                splitLine?: CartesianAxis.SplitLine;
+                splitLine?: CartesianAxis.SplitLine | undefined;
 
                 /**
                  * Minor SplitLine of axis in grid area.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.minorSplitLine
                  */
-                minorSplitLine?: CartesianAxis.MinorSplitLine;
+                minorSplitLine?: CartesianAxis.MinorSplitLine | undefined;
 
                 /**
                  * Split area of axis in grid area, not shown by default.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.splitArea
                  */
-                splitArea?: CartesianAxis.SplitArea;
+                splitArea?: CartesianAxis.SplitArea | undefined;
 
                 /**
                  * Category data, available in type: `'category'` axis.
@@ -1375,14 +1524,14 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.data
                  */
-                data?: (string | number | CartesianAxis.DataObject)[];
+                data?: Array<string | number | CartesianAxis.DataObject> | undefined;
 
                 /**
                  * axisPointer settings on the axis.
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.axisPointer
                  */
-                axisPointer?: CartesianAxis.Pointer;
+                axisPointer?: CartesianAxis.Pointer | undefined;
 
                 /**
                  * `zlevel` value of all graghical elements in this axis.
@@ -1399,7 +1548,7 @@ declare namespace echarts {
                  * @default 0
                  * @see https://echarts.apache.org/en/option.html#yAxis.zlevel
                  */
-                zlevel?: number;
+                zlevel?: number | undefined;
 
                 /**
                  * z value of all graghical elements in this axis,
@@ -1410,162 +1559,177 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.z
                  */
-                z?: number;
+                z?: number | undefined;
             }
 
             namespace CartesianAxis {
-                type Type = 'value' | 'category' | 'time' | 'log';
+                type Type = "value" | "category" | "time" | "log";
 
                 /**
                  * @todo describe
                  */
                 interface Tick {
-                    show?: boolean;
-                    alignWithLabel?: boolean;
-                    interval?: number | Function;
-                    inside?: boolean;
-                    length?: number;
-                    lineStyle?: LineStyle;
+                    show?: boolean | undefined;
+                    alignWithLabel?: boolean | undefined;
+                    interval?: number | Function | undefined;
+                    inside?: boolean | undefined;
+                    length?: number | undefined;
+                    lineStyle?: LineStyle | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface MinorTick {
-                    show?: boolean;
-                    splitNumber?: number;
-                    length?: number;
-                    lineStyle?: LineStyle;
+                    show?: boolean | undefined;
+                    splitNumber?: number | undefined;
+                    length?: number | undefined;
+                    lineStyle?: LineStyle | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
-                interface Label extends TextStyleWithRich {
-                    show?: boolean;
-                    interval?: number | Function;
-                    inside?: boolean;
-                    rotate?: number;
-                    margin?: number;
-                    formatter?: string | Function;
-                    showMinLabel?: boolean;
-                    showMaxLabel?: boolean;
+                interface Label extends Omit<TextStyleWithRich, "color"> {
+                    color?: string | ((val: string) => EChartOption.Color) | undefined;
+                    show?: boolean | undefined;
+                    interval?: number | Function | undefined;
+                    inside?: boolean | undefined;
+                    rotate?: number | undefined;
+                    margin?: number | undefined;
+                    formatter?: string | Function | undefined;
+                    showMinLabel?: boolean | undefined;
+                    showMaxLabel?: boolean | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface SplitLine {
-                    show?: boolean;
-                    interval?: number | Function;
-                    lineStyle?: LineStyle;
+                    show?: boolean | undefined;
+                    interval?: number | Function | undefined;
+                    lineStyle?: LineStyle | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface MinorSplitLine {
-                    show?: boolean;
-                    lineStyle?: LineStyle;
+                    show?: boolean | undefined;
+                    lineStyle?: LineStyle | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface SplitArea {
-                    interval?: number | Function;
-                    show?: boolean;
+                    interval?: number | Function | undefined;
+                    show?: boolean | undefined;
                     areaStyle?: {
-                        color?: string[];
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
+                        color?: string[] | undefined;
+                        shadowBlur?: number | undefined;
+                        shadowColor?: string | undefined;
+                        shadowOffsetX?: number | undefined;
+                        shadowOffsetY?: number | undefined;
+                        opacity?: number | undefined;
+                    } | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface DataObject {
-                    value?: string | number;
-                    textStyle?: TextStyleWithRich;
+                    value?: string | number | undefined;
+                    textStyle?: TextStyleWithRich | undefined;
                 }
 
                 /**
                  * @todo describe
                  */
                 interface Pointer {
-                    show?: boolean;
-                    type?: 'line' | 'shadow' | 'none';
-                    snap?: boolean;
-                    z?: number;
-                    label?: PointerLabel;
-                    lineStyle?: LineStyle;
+                    show?: boolean | undefined;
+                    type?: "line" | "shadow" | "none" | undefined;
+                    snap?: boolean | undefined;
+                    z?: number | undefined;
+                    label?: PointerLabel | undefined;
+                    lineStyle?: LineStyle | undefined;
                     shadowStyle?: {
-                        color?: string;
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                        opacity?: number;
-                    };
-                    triggerTooltip?: boolean;
-                    value?: number;
-                    status?: boolean;
+                        color?: EChartOption.Color | undefined;
+                        shadowBlur?: number | undefined;
+                        shadowColor?: EChartOption.Color | undefined;
+                        shadowOffsetX?: number | undefined;
+                        shadowOffsetY?: number | undefined;
+                        opacity?: number | undefined;
+                    } | undefined;
+                    triggerTooltip?: boolean | undefined;
+                    value?: number | undefined;
+                    status?: boolean | undefined;
                     handle?: {
-                        show?: boolean;
+                        show?: boolean | undefined;
                         icon?: any;
-                        size?: number | number[];
-                        margin?: number;
-                        color?: string;
-                        throttle?: number;
-                        shadowBlur?: number;
-                        shadowColor?: string;
-                        shadowOffsetX?: number;
-                        shadowOffsetY?: number;
-                    };
+                        size?: number | number[] | undefined;
+                        margin?: number | undefined;
+                        color?: string | undefined;
+                        throttle?: number | undefined;
+                        shadowBlur?: number | undefined;
+                        shadowColor?: string | undefined;
+                        shadowOffsetX?: number | undefined;
+                        shadowOffsetY?: number | undefined;
+                    } | undefined;
                 }
 
                 interface PointerLabel {
-                    show?: boolean;
-                    precision?: number | string;
-                    formatter?: string | Function;
-                    margin?: number;
-                    color?: string;
-                    fontStyle?: 'normal' | 'italic' | 'oblique';
-                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | '100' | '200' | '300' | '400';
-                    fontFamily?: string;
-                    fontSize?: number;
-                    lineHeight?: number;
-                    backgroundColor?: string | object;
-                    borderColor?: string;
-                    borderWidth?: number;
-                    borderRadius?: number;
-                    padding?: number | number[];
-                    shadowColor?: string;
-                    shadowBlur?: number;
-                    shadowOffsetX?: number;
-                    shadowOffsetY?: number;
-                    width?: number | string;
-                    height?: number | string;
-                    textBorderColor?: string;
-                    textBorderWidth?: number;
-                    textShadowColor?: string;
-                    textShadowBlur?: number;
-                    textShadowOffsetX?: number;
-                    textShadowOffsetY?: number;
+                    show?: boolean | undefined;
+                    precision?: number | string | undefined;
+                    formatter?: string | Function | undefined;
+                    margin?: number | undefined;
+                    color?: string | undefined;
+                    fontStyle?: "normal" | "italic" | "oblique" | undefined;
+                    fontWeight?:
+                        | "normal"
+                        | "bold"
+                        | "bolder"
+                        | "lighter"
+                        | 100
+                        | 200
+                        | 300
+                        | 400
+                        | 500
+                        | 600
+                        | 700
+                        | 800
+                        | 900
+                        | undefined;
+                    fontFamily?: string | undefined;
+                    fontSize?: number | undefined;
+                    lineHeight?: number | undefined;
+                    backgroundColor?: string | object | undefined;
+                    borderColor?: string | undefined;
+                    borderWidth?: number | undefined;
+                    borderRadius?: number | undefined;
+                    padding?: number | number[] | undefined;
+                    shadowColor?: string | undefined;
+                    shadowBlur?: number | undefined;
+                    shadowOffsetX?: number | undefined;
+                    shadowOffsetY?: number | undefined;
+                    width?: number | string | undefined;
+                    height?: number | string | undefined;
+                    textBorderColor?: string | undefined;
+                    textBorderWidth?: number | undefined;
+                    textShadowColor?: string | undefined;
+                    textShadowBlur?: number | undefined;
+                    textShadowOffsetX?: number | undefined;
+                    textShadowOffsetY?: number | undefined;
                 }
             }
         }
     }
 }
 
-declare module 'echarts' {
+declare module "echarts" {
     export = echarts;
 }
 
-declare module 'echarts/lib/echarts' {
+declare module "echarts/lib/echarts" {
     export = echarts;
 }

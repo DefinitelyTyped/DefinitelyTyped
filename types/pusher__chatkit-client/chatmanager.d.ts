@@ -1,8 +1,8 @@
 export {};
-import { PusherUser } from './user';
-import { PusherRoom } from './room';
-import { RoomHook, RoomUserHook, UserPresenceHook, UserParams, RoomParams } from './hooks';
-import { CurrentUser } from './currentuser';
+import { CurrentUser } from "./currentuser";
+import { RoomHook, RoomParams, RoomUserHook, UserParams, UserPresenceHook } from "./hooks";
+import { PusherRoom } from "./room";
+import { PusherUser } from "./user";
 
 interface GlobalHooks {
     onAddedToRoom: RoomHook;
@@ -31,12 +31,12 @@ interface ChatManagerConstructorArgs {
     instanceLocator: string;
     userId: string;
     tokenProvider: {};
-    logger?: Logger;
-    connectionTimeout?: number;
+    logger?: Logger | undefined;
+    connectionTimeout?: number | undefined;
 }
 
 interface ChatManagerConstructor {
-    new (args: ChatManagerConstructorArgs): ChatManager;
+    new(args: ChatManagerConstructorArgs): ChatManager;
 }
 
 interface ChatManager {
@@ -52,11 +52,11 @@ interface TokenProviderConstructorArgs {
     url: string;
     queryParams?: any;
     headers?: any;
-    withCredentials?: boolean;
+    withCredentials?: boolean | undefined;
 }
 
 interface TokenProviderConstructor {
-    new (args: TokenProviderConstructorArgs): {};
+    new(args: TokenProviderConstructorArgs): {};
 }
 
 export const TokenProvider: TokenProviderConstructor;

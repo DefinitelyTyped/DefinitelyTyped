@@ -7,10 +7,17 @@ randomstring.generate(24);
 randomstring.generate({
     length: 12,
     readable: true,
-    capitalization: "",
-    charset: "alphabetic"
+    capitalization: undefined,
+    charset: "alphabetic",
 });
 
 randomstring.generate({
-    charset: "abc"
+    charset: "abc",
 });
+
+randomstring.generate({
+    charset: "octal",
+    capitalization: "uppercase",
+});
+
+randomstring.generate({ charset: "abcdef" });

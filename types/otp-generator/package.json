@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/otp-generator",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Maheshkumar-Kakade/otp-generator"
+    ],
+    "devDependencies": {
+        "@types/otp-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Md Sifatul Islam Rabbi",
+            "githubUsername": "sifatulrabbi"
+        }
+    ]
+}

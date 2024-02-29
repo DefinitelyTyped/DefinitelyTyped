@@ -1,20 +1,20 @@
-import { DuplexConnection, Payload, ReactiveSocket, Responder } from 'rsocket-types';
-import { PayloadSerializers } from './RSocketSerialization';
+import { DuplexConnection, Payload, ReactiveSocket, Responder } from "rsocket-types";
+import { PayloadSerializers } from "./RSocketSerialization";
 
-import { Flowable } from 'rsocket-flowable';
-import { Leases } from './RSocketLease';
+import { Flowable } from "rsocket-flowable";
+import { Leases } from "./RSocketLease";
 
 export interface TransportServer {
-  start: () => Flowable<DuplexConnection>;
-  stop: () => void;
+    start: () => Flowable<DuplexConnection>;
+    stop: () => void;
 }
 
 export interface ServerConfig<D, M> {
     getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => Partial<Responder<D, M>>;
-    serializers?: PayloadSerializers<D, M>;
+    serializers?: PayloadSerializers<D, M> | undefined;
     transport: TransportServer;
-    errorHandler?: (e: Error) => void;
-    leases?: () => Leases<any>;
+    errorHandler?: ((e: Error) => void) | undefined;
+    leases?: (() => Leases<any>) | undefined;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface ServerConfig<D, M> {
  * from peers via the given transport server.
  */
 export default class RSocketServer<D, M> {
-  constructor(config: ServerConfig<D, M>);
-  start(): void;
-  stop(): void;
+    constructor(config: ServerConfig<D, M>);
+    start(): void;
+    stop(): void;
 }

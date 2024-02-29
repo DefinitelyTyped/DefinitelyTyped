@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -104,62 +99,62 @@ declare namespace BMap {
         getTileLayer(mapType: string): TileLayer;
         pixelToPoint(pixel: Pixel): Point;
         pointToPixel(point: Point): Pixel;
-        onclick: (event: { type: string, target: any, point: Point, pixel: Pixel, overlay: Overlay }) => void;
-        ondblclick: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onrightclick: (event: { type: string, target: any, point: Point, pixel: Pixel, overlay: Overlay }) => void;
-        onrightdblclick: (event: { type: string, target: any, point: Point, pixel: Pixel, overlay: Overlay }) => void;
-        onmaptypechange: (event: { type: string, target: any }) => void;
-        onmousemove: (event: { type: string, target: any, point: Point, pixel: Pixel, overlay: Overlay }) => void;
-        onmouseover: (event: { type: string, target: any }) => void;
-        onmouseout: (event: { type: string, target: any }) => void;
-        onmovestart: (event: { type: string, target: any }) => void;
-        onmoving: (event: { type: string, target: any }) => void;
-        onmoveend: (event: { type: string, target: any }) => void;
-        onzoomstart: (event: { type: string, target: any }) => void;
-        onzoomend: (event: { type: string, target: any }) => void;
-        onaddoverlay: (event: { type: string, target: any }) => void;
-        onaddcontrol: (event: { type: string, target: any }) => void;
-        onremovecontrol: (event: { type: string, target: any }) => void;
-        onremoveoverlay: (event: { type: string, target: any }) => void;
-        onclearoverlays: (event: { type: string, target: any }) => void;
-        ondragstart: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        ondragging: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        ondragend: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onaddtilelayer: (event: { type: string, target: any }) => void;
-        onremovetilelayer: (event: { type: string, target: any }) => void;
-        onload: (event: { type: string, target: any, point: Point, pixel: Pixel, zoom: number }) => void;
-        onresize: (event: { type: string, target: any, size: Size }) => void;
-        onhotspotclick: (event: { type: string, target: any, spots: HotspotOptions }) => void;
-        onhotspotover: (event: { type: string, target: any, spots: HotspotOptions }) => void;
-        onhotspotout: (event: { type: string, target: any, spots: HotspotOptions }) => void;
-        ontilesloaded: (event: { type: string, target: any }) => void;
-        ontouchstart: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        ontouchmove: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        ontouchend: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onlongpress: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
+        onclick: (event: { type: string; target: any; point: Point; pixel: Pixel; overlay: Overlay }) => void;
+        ondblclick: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onrightclick: (event: { type: string; target: any; point: Point; pixel: Pixel; overlay: Overlay }) => void;
+        onrightdblclick: (event: { type: string; target: any; point: Point; pixel: Pixel; overlay: Overlay }) => void;
+        onmaptypechange: (event: { type: string; target: any }) => void;
+        onmousemove: (event: { type: string; target: any; point: Point; pixel: Pixel; overlay: Overlay }) => void;
+        onmouseover: (event: { type: string; target: any }) => void;
+        onmouseout: (event: { type: string; target: any }) => void;
+        onmovestart: (event: { type: string; target: any }) => void;
+        onmoving: (event: { type: string; target: any }) => void;
+        onmoveend: (event: { type: string; target: any }) => void;
+        onzoomstart: (event: { type: string; target: any }) => void;
+        onzoomend: (event: { type: string; target: any }) => void;
+        onaddoverlay: (event: { type: string; target: any }) => void;
+        onaddcontrol: (event: { type: string; target: any }) => void;
+        onremovecontrol: (event: { type: string; target: any }) => void;
+        onremoveoverlay: (event: { type: string; target: any }) => void;
+        onclearoverlays: (event: { type: string; target: any }) => void;
+        ondragstart: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        ondragging: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        ondragend: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onaddtilelayer: (event: { type: string; target: any }) => void;
+        onremovetilelayer: (event: { type: string; target: any }) => void;
+        onload: (event: { type: string; target: any; point: Point; pixel: Pixel; zoom: number }) => void;
+        onresize: (event: { type: string; target: any; size: Size }) => void;
+        onhotspotclick: (event: { type: string; target: any; spots: HotspotOptions }) => void;
+        onhotspotover: (event: { type: string; target: any; spots: HotspotOptions }) => void;
+        onhotspotout: (event: { type: string; target: any; spots: HotspotOptions }) => void;
+        ontilesloaded: (event: { type: string; target: any }) => void;
+        ontouchstart: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        ontouchmove: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        ontouchend: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onlongpress: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
     }
     interface PanOptions {
-        noAnimation?: boolean;
+        noAnimation?: boolean | undefined;
     }
     interface MapOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        mapType?: MapType;
-        enableHighResolution?: boolean;
-        enableAutoResize?: boolean;
-        enableMapClick?: boolean;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        mapType?: MapType | undefined;
+        enableHighResolution?: boolean | undefined;
+        enableAutoResize?: boolean | undefined;
+        enableMapClick?: boolean | undefined;
     }
     interface Viewport {
         center: Point;
         zoom: number;
     }
     interface ViewportOptions {
-        enableAnimation?: boolean;
-        margins?: number[];
-        zoomFactor?: number;
-        delay?: number;
+        enableAnimation?: boolean | undefined;
+        margins?: number[] | undefined;
+        zoomFactor?: number | undefined;
+        delay?: number | undefined;
     }
     type APIVersion = number;
     interface MapStyle {
@@ -167,19 +162,19 @@ declare namespace BMap {
         style: string;
     }
     interface MapStyleItem {
-        featureType?: string;
-        elementType?: string;
+        featureType?: string | undefined;
+        elementType?: string | undefined;
         stylers: MapStyleItemStylers;
     }
     interface MapStyleItemStylers {
         [k: string]: string | undefined;
-        color?: string;
-        visibility?: string;
-        level?: string;
-        curZoomRegionId?: string;
-        curZoomRegion?: string;
-        fontsize?: string;
-        weight?: string;
+        color?: string | undefined;
+        visibility?: string | undefined;
+        level?: string | undefined;
+        curZoomRegionId?: string | undefined;
+        curZoomRegion?: string | undefined;
+        fontsize?: string | undefined;
+        weight?: string | undefined;
     }
     type MapStyleV2 = { styleJson: MapStyleItem[] } | { styleId: string };
 }

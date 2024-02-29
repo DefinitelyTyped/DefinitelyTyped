@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-native-scrollable-tab-view",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/brentvatne/react-native-scrollable-tab-view"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-scrollable-tab-view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "CaiHuan",
+            "githubUsername": "CaiHuan"
+        },
+        {
+            "name": "Egor Shulga",
+            "githubUsername": "egorshulga"
+        },
+        {
+            "name": "ydostyle",
+            "githubUsername": "ydostyle"
+        }
+    ]
+}

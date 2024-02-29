@@ -1,14 +1,9 @@
-// Type definitions for rsmq-worker 0.3.5
-// Project: http://smrchy.github.io/rsmq/rsmq-worker/
-// Definitions by: TANAKA Koichi <https://github.com/MugeSo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rsmq"/>
+/// <reference types="node" />
 
-
-import redis = require('redis');
-import events = require('events');
-import * as RedisSMQ from 'rsmq';
+import redis = require("redis");
+import events = require("events");
+import * as RedisSMQ from "rsmq";
 
 declare namespace RSMQWorker {
     export interface Client extends events.EventEmitter {
@@ -18,22 +13,23 @@ declare namespace RSMQWorker {
         send(message: string, cb: CallbackT<string>): Client;
         del(id: string, cb?: CallbackT<void>): Client;
         changeInterval(interval: number | number[]): Client;
+        quit(): void;
     }
 
     export interface Options {
-        interval?: number;
-        maxReceiveCount?: number;
-        invisibletime?: number;
-        defaultDelay?: number;
-        autostart?: boolean;
-        timeout?: number;
-        customExceedCheck?: CustomExceedCheckCallback;
-        rsmq?: RedisSMQ.Client;
-        redis?: redis.RedisClient;
-        redisPrefix?: string;
-        host?: string;
-        port?: number;
-        options?: redis.ClientOpts;
+        interval?: number | undefined;
+        maxReceiveCount?: number | undefined;
+        invisibletime?: number | undefined;
+        defaultDelay?: number | undefined;
+        autostart?: boolean | undefined;
+        timeout?: number | undefined;
+        customExceedCheck?: CustomExceedCheckCallback | undefined;
+        rsmq?: RedisSMQ.Client | undefined;
+        redis?: redis.RedisClient | undefined;
+        redisPrefix?: string | undefined;
+        host?: string | undefined;
+        port?: number | undefined;
+        options?: redis.ClientOpts | undefined;
     }
 
     export interface CustomExceedCheckCallback {
@@ -46,7 +42,7 @@ declare namespace RSMQWorker {
 }
 
 interface RSMQWorkerStatic {
-    new (queuename: string, options?: RSMQWorker.Options): RSMQWorker.Client;
+    new(queuename: string, options?: RSMQWorker.Options): RSMQWorker.Client;
 }
 
 declare var RSMQWorker: RSMQWorkerStatic;

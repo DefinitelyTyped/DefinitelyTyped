@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Badge {
     export interface BadgeProps extends React.HTMLProps<Badge> {
-        bsClass?: string;
-        pullRight?: boolean;
+        bsClass?: string | undefined;
+        pullRight?: boolean | undefined;
     }
 }
-declare class Badge extends React.Component<Badge.BadgeProps> { }
+declare class Badge extends React.Component<Badge.BadgeProps> {}
 export = Badge;

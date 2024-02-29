@@ -1,8 +1,3 @@
-// Type definitions for objects-to-csv 1.3
-// Project: https://github.com/anton-bot/objects-to-csv#readme
-// Definitions by: Tom Plant <https://github.com/pl4nty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class ObjectsToCsv {
     /**
      * Creates a new instance of the object array to csv converter.
@@ -26,9 +21,9 @@ declare class ObjectsToCsv {
     toDisk(
         filename: string,
         options?: {
-            append?: boolean;
-            bom?: boolean;
-            allColumns?: boolean;
+            append?: boolean | undefined;
+            bom?: boolean | undefined;
+            allColumns?: boolean | undefined;
         },
     ): Promise<string>;
 

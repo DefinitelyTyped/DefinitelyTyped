@@ -1,9 +1,3 @@
-// Type definitions for git-raw-commits 2.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -14,7 +8,10 @@ import * as Stream from "stream";
  * @param gitOpts
  * @param execOpts Options to pass to `git` `childProcess`.
  */
-declare function gitRawCommits(gitOptions: gitRawCommits.GitOptions, execOptions?: gitRawCommits.ExecOptions): Stream.Readable;
+declare function gitRawCommits(
+    gitOptions: gitRawCommits.GitOptions,
+    execOptions?: gitRawCommits.ExecOptions,
+): Stream.Readable;
 
 declare namespace gitRawCommits {
     /**
@@ -24,7 +21,7 @@ declare namespace gitRawCommits {
         /**
          * Current working directory to execute git in.
          */
-        cwd?: string;
+        cwd?: string | undefined;
     }
 
     /**
@@ -51,13 +48,13 @@ declare namespace gitRawCommits {
          * @default
          * ''
          */
-        from?: string;
+        from?: string | undefined;
 
         /**
          * @default
          * 'HEAD'
          */
-        to?: string;
+        to?: string | undefined;
 
         /**
          * Please check http://git-scm.com/docs/git-log for format options.
@@ -65,17 +62,17 @@ declare namespace gitRawCommits {
          * @default
          * '%B'
          */
-        format?: string;
+        format?: string | undefined;
 
         /**
          * A function to get debug information.
          */
-        debug?: (message: any) => void;
+        debug?: ((message: any) => void) | undefined;
 
         /**
          * Filter commits to the path provided.
          */
-        path?: string;
+        path?: string | undefined;
 
         [options: string]: any;
     }

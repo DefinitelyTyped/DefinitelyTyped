@@ -1,11 +1,6 @@
-// Type definitions for react-native-zeroconf 0.11
-// Project: https://github.com/Apercu/react-native-zeroconf#readme
-// Definitions by: Peter Matta <https://github.com/mattapet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * @example
@@ -30,7 +25,7 @@ export interface Service {
     host: string;
     port: number;
     txt: {
-        [key: string]: any
+        [key: string]: any;
     };
 }
 
@@ -92,8 +87,16 @@ export default class Zeroconf extends EventEmitter {
      * suffixed, for example `'local.'`. Defaults to `'local'`.
      * @param name should be unique to the device, often the device name.
      * @param port should be an integer between 0 and 65535.
+     * @param txt contains key-value pairs of additional TXT record data.
      */
-    publishService(type: string, protocol: string, domain?: string, name?: string, port?: number): void;
+    publishService(
+        type: string,
+        protocol: string,
+        domain?: string,
+        name?: string,
+        port?: number,
+        txt?: { [key: string]: any },
+    ): void;
 
     /**
      * Unpublish a service.
@@ -105,21 +108,21 @@ export default class Zeroconf extends EventEmitter {
      */
     unpublishService(name: string): void;
 
-    on(e: 'start' | 'stop' | 'update', listener: () => any): this;
+    on(e: "start" | "stop" | "update", listener: () => any): this;
 
     /**
      * @param name Name of the the service.
      */
-    on(e: 'found' | 'remove', listener: (name: string) => any): this;
+    on(e: "found" | "remove", listener: (name: string) => any): this;
 
     /**
      * Triggered when a service is resolved.
      * @description Broadcast a service object once it is fully resolved.
      */
-    on(e: 'resolved', listener: (service: Service) => any): this;
+    on(e: "resolved", listener: (service: Service) => any): this;
 
     /**
      * Triggered when an error occurs.
      */
-    on(e: 'error', listener: (err: Error) => any): this;
+    on(e: "error", listener: (err: Error) => any): this;
 }

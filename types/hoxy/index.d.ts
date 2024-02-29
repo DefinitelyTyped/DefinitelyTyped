@@ -1,10 +1,5 @@
-// Type definitions for hoxy 3.3
-// Project: https://github.com/greim/hoxy#readme
-// Definitions by: _TrueLecter_ <https://github.com/TrueLecter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Writable } from 'stream';
-import cheerio = require('cheerio');
+import { Writable } from "stream";
+import cheerio = require("cheerio");
 
 /**
  * Key and certificate to be passed to https.createServer()
@@ -43,7 +38,7 @@ export interface CreateServerOptions {
      * This allows Hoxy to play well with other proxies.
      * This value should take the form host:port
      */
-    upstreamProxy?: string;
+    upstreamProxy?: string | undefined;
 
     /**
      *  If present, this proxy will run as a reverse proxy for the given server.
@@ -51,7 +46,7 @@ export interface CreateServerOptions {
      *  configuring it in the client's proxy settings.
      *  This value should take the form scheme://host:port.
      */
-    reverse?: string;
+    reverse?: string | undefined;
 
     /**
      * If present, this should contain a key/cert combo representing a certificate
@@ -62,18 +57,18 @@ export interface CreateServerOptions {
      * caching them in memory for subsequent visits, thus allowing the proxy to
      * handle https requests as cleartext
      */
-    certAuthority?: CertificateParams;
+    certAuthority?: CertificateParams | undefined;
 
     /**
      * Should only be used in combination with reverse. If present, causes Hoxy to
      * run as an https server. Passed as opts to https.createServer(opts, function)
      */
-    tls?: CertificateParams;
+    tls?: CertificateParams | undefined;
 
     /**
      * Latency emulation
      */
-    slow?: Slow;
+    slow?: Slow | undefined;
 }
 
 /**
@@ -85,12 +80,12 @@ export function createServer(opts?: CreateServerOptions): Proxy;
 /**
  * Request phase
  */
-export type Phase = 'request' | 'request-sent' | 'response' | 'response-sent';
+export type Phase = "request" | "request-sent" | "response" | "response-sent";
 
 /**
  * Body parsers
  */
-export type BodyParser = '$' | 'json' | 'params' | 'buffer' | 'string';
+export type BodyParser = "$" | "json" | "params" | "buffer" | "string";
 
 export type TesterFunction<T> = (arg: T) => boolean;
 
@@ -105,54 +100,54 @@ export interface InterceptOptions {
     /**
      * Body-parsers
      */
-    as?: BodyParser;
+    as?: BodyParser | undefined;
 
     /**
      * Match the request protocol
      */
-    protocol?: Filter<string>;
+    protocol?: Filter<string> | undefined;
 
     /**
      * Match the all-uppercase HTTP request method
      */
-    method?: Filter<HttpMethod>;
+    method?: Filter<HttpMethod> | undefined;
 
     /**
      * Match the host, not including :port.
      */
-    hostname?: Filter<string>;
+    hostname?: Filter<string> | undefined;
 
     /**
      * Match the port number.
      */
-    port?: Filter<number | string>;
+    port?: Filter<number | string> | undefined;
 
     /**
      * Match the request URL. Patterns like /foo/* are allowed
      */
-    url?: Filter<string>;
+    url?: Filter<string> | undefined;
 
     /**
      * Match the full request URL including protocol and hostname.
      * Patterns like /foo/* are allowed
      */
-    fullUrl?: Filter<string>;
+    fullUrl?: Filter<string> | undefined;
 
     /**
      * Match the full content-type header of the request or
      * response (depending on the phase)
      */
-    contentType?: Filter<string>;
+    contentType?: Filter<string> | undefined;
 
     /**
      * Same as contentType but only matches request
      */
-    requestContentType?: Filter<string>;
+    requestContentType?: Filter<string> | undefined;
 
     /**
      * Same as contentType but only matches response
      */
-    responseContentType?: Filter<string>;
+    responseContentType?: Filter<string> | undefined;
 
     /**
      * Match just the mime type portion of the content-type header
@@ -160,23 +155,23 @@ export interface InterceptOptions {
      * if the entire header is "text/html; charset=utf-8", just
      * match the "text/html" part
      */
-    mimeType?: Filter<string>;
+    mimeType?: Filter<string> | undefined;
 
     /**
      * Same as mimeType but only matches request
      */
-    requestMimeType?: Filter<string>;
+    requestMimeType?: Filter<string> | undefined;
 
     /**
      * Same as mimeType but only matches response
      */
-    responseMimeType?: Filter<string>;
+    responseMimeType?: Filter<string> | undefined;
 }
 
 /**
  * Request method
  */
-export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
+export type HttpMethod = "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
 
 export class Request {
     private constructor();
@@ -222,7 +217,7 @@ export class Request {
      * Request body parsed as JSON. This is only present if you intercept the
      * request as:'json'. Changes made to this object will be seen by the server.
      */
-    json?: Record<string, any>;
+    json?: Record<string, any> | undefined;
 
     /**
      * Request body parsed as form-url-encoded params. This will be a key/value
@@ -231,20 +226,20 @@ export class Request {
      *
      * Note: parameters from the URL querystring are not included in this object.
      */
-    params?: Record<string, string>;
+    params?: Record<string, string> | undefined;
 
     /**
      * Request body string. This is only present if you intercept the request
      * as:'string'. Overwriting this will overwrite the request body sent to
      * the server.
      */
-    string?: string;
+    string?: string | undefined;
 
     /**
      * Request body binary buffer. This is only present if you intercept the
      * request as:'buffer'. Changes made to this object will be seen by the server.
      */
-    buffer?: Buffer;
+    buffer?: Buffer | undefined;
 
     /**
      * Simulates slowness during request phase. With this method you can set a minimum
@@ -292,7 +287,7 @@ export class Response {
      * the response as:'$'. This is a cheerio object, which provides a jQuery-like
      * API. Changes made to it will be seen by the client.
      */
-    $?: ReturnType<typeof cheerio>;
+    $?: ReturnType<typeof cheerio> | undefined;
 
     /**
      * Response body parsed as JSON. This is only present if you intercept the
@@ -305,13 +300,13 @@ export class Response {
      * as:'string'. Overwriting this will overwrite the response body sent to the
      * client.
      */
-    string?: string;
+    string?: string | undefined;
 
     /**
      * Response body binary buffer. This is only present if you intercept the
      * response as:'buffer'. Changes made to this object will be seen by the client.
      */
-    buffer?: Buffer;
+    buffer?: Buffer | undefined;
 
     /**
      * Simulates slowness during request phase. With this method you can set a minimum
@@ -333,7 +328,7 @@ export class Response {
     tee(stream: Writable): void;
 }
 
-export type ServeStrategy = 'replace' | 'overlay' | 'mirror';
+export type ServeStrategy = "replace" | "overlay" | "mirror";
 
 export interface ServeOptions {
     /**
@@ -341,12 +336,12 @@ export interface ServeOptions {
      * be used in mutual exclusion with docroot. Strictly speaking, path is
      * always rooted to docroot, which defaults to "/"
      */
-    path?: string;
+    path?: string | undefined;
 
     /**
      * Which local directory to serve out of. Defaults to filesystem root "/"
      */
-    docroot?: string;
+    docroot?: string | undefined;
 
     /**
      * Mainly relevant when using the docroot option. Describes the relationship
@@ -363,7 +358,7 @@ export interface ServeOptions {
      * if a requested file doesn't exist locally, it's copied to the local docroot
      * from the remote one, and will be found locally on subsequent requests.
      */
-    strategy?: ServeStrategy;
+    strategy?: ServeStrategy | undefined;
 }
 
 /**
@@ -399,11 +394,11 @@ export class Cycle {
 
 export type InterceptionHandler = (this: Proxy, req: Request, res: Response, cycle: Cycle) => Promise<void> | void;
 
-export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
+export type LogLevel = "error" | "warn" | "info" | "debug";
 
 export interface Log {
     level: LogLevel;
-    error?: Error;
+    error?: Error | undefined;
     message: string;
 }
 

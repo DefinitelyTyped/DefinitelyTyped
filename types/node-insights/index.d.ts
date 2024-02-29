@@ -1,18 +1,12 @@
-// Type definitions for node-insights 1.1
-// Project: https://github.com/flightstats/node-insights#readme
-// Definitions by: Walter Rumsby <https://github.com/wrumsby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Config {
     insertKey: string;
     queryKey: string;
     accountId: string;
-    timerInterval?: number;
-    maxPending?: number;
-    defaultEventType?: string;
-    enabled?: boolean;
-    gzip?: boolean;
+    timerInterval?: number | undefined;
+    maxPending?: number | undefined;
+    defaultEventType?: string | undefined;
+    enabled?: boolean | undefined;
+    gzip?: boolean | undefined;
 }
 
 type CallbackFunc = (err: Error | null | undefined, responseBody: string) => void;

@@ -1,10 +1,6 @@
-// Type definitions for @woocommerce/woocommerce-rest-api 1.0
-// Project: https://github.com/woocommerce/woocommerce-rest-api-js-lib
-// Definitions by: KaKa <https://github.com/climba03003>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export type WooCommerceRestApiVersion = 'wc/v3' | 'wc/v2' | 'wc/v1' | 'wc-api/v3' | 'wc-api/v2' | 'wc-api/v1';
-export type WooCommerceRestApiEncoding = 'utf-8' | 'ascii';
-export type WooCommerceRestApiMethod = 'get' | 'post' | 'put' | 'delete' | 'options';
+export type WooCommerceRestApiVersion = "wc/v3" | "wc/v2" | "wc/v1" | "wc-api/v3" | "wc-api/v2" | "wc-api/v1";
+export type WooCommerceRestApiEncoding = "utf-8" | "ascii";
+export type WooCommerceRestApiMethod = "get" | "post" | "put" | "delete" | "options";
 
 export interface WooCommerceRestApiOptions {
     /* Your Store URL, example: http://woo.dev/ */
@@ -14,17 +10,17 @@ export interface WooCommerceRestApiOptions {
     /* Your API consumer secret */
     consumerSecret: string;
     /* Custom WP REST API URL prefix, used to support custom prefixes created with the `rest_url_prefix filter` */
-    wpAPIPrefix?: string;
+    wpAPIPrefix?: string | undefined;
     /* API version, default is `v3` */
-    version?: WooCommerceRestApiVersion;
+    version?: WooCommerceRestApiVersion | undefined;
     /* Encoding, default is 'utf-8' */
-    encoding?: WooCommerceRestApiEncoding;
+    encoding?: WooCommerceRestApiEncoding | undefined;
     /* When `true` and using under HTTPS force Basic Authentication as query string, default is `false` */
-    queryStringAuth?: boolean;
+    queryStringAuth?: boolean | undefined;
     /* Provide support for URLs with ports, eg: `8080` */
-    port?: number;
+    port?: number | undefined;
     /* Define the request timeout */
-    timeout?: number;
+    timeout?: number | undefined;
     /* Define the custom Axios config, also override this library options */
     axiosConfig?: any;
 }
@@ -114,7 +110,7 @@ export default class WooCommerceRestApi {
  * Options Exception.
  */
 export class OptionsException {
-    name: 'Options Error';
+    name: "Options Error";
     message: string;
 
     /**

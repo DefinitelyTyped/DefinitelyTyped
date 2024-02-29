@@ -1,5 +1,3 @@
-
-
 var Unity = external.getUnityObject(1.0);
 var settings = new UnitySettings();
 Unity.init(settings);
@@ -36,20 +34,19 @@ Unity.Launcher.clearProgress();
 
 Unity.Launcher.setUrgent(true);
 
-Unity.Launcher.addAction("boom", function(){});
+Unity.Launcher.addAction("boom", function() {});
 Unity.Launcher.removeAction("boom");
 Unity.Launcher.removeActions();
-
 
 // MediaPlayer
 var metadata = new UnityTrackMetadata();
 Unity.MediaPlayer.setTrack(metadata);
 
-Unity.MediaPlayer.onPrevious(function(){});
-Unity.MediaPlayer.onNext(function(){});
-Unity.MediaPlayer.onPlayPause(function(){});
+Unity.MediaPlayer.onPrevious(function() {});
+Unity.MediaPlayer.onNext(function() {});
+Unity.MediaPlayer.onPlayPause(function() {});
 
-Unity.MediaPlayer.getPlaybackstate(function(){});
+Unity.MediaPlayer.getPlaybackstate(function() {});
 Unity.MediaPlayer.setPlaybackstate(UnityPlaybackState.Playing);
 
 Unity.MediaPlayer.setCanGoNext(true);

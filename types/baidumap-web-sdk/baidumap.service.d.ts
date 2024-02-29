@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -86,12 +81,12 @@ declare namespace BMap {
         setMarkersSetCallback(callback: (markers: Marker[]) => void): void;
     }
     interface LocalSearchOptions {
-        renderOptions?: RenderOptions;
-        onMarkersSet?: (pois: LocalResultPoi[]) => void;
-        onInfoHtmlSet?: (poi: LocalResultPoi, html: HTMLElement) => void;
-        onResultsHtmlSet?: (container: HTMLElement) => void;
-        pageCapacity?: number;
-        onSearchComplete?: (results: LocalResult[]) => void;
+        renderOptions?: RenderOptions | undefined;
+        onMarkersSet?: ((pois: LocalResultPoi[]) => void) | undefined;
+        onInfoHtmlSet?: ((poi: LocalResultPoi, html: HTMLElement) => void) | undefined;
+        onResultsHtmlSet?: ((container: HTMLElement) => void) | undefined;
+        pageCapacity?: number | undefined;
+        onSearchComplete?: ((results: LocalResult[]) => void) | undefined;
     }
     class DrivingRoute {
         constructor(location: Map | Point | string, opts?: DrivingRouteOptions);
@@ -116,13 +111,13 @@ declare namespace BMap {
         getLocation(point: Point, callback: (result: GeocoderResult) => void, opts?: LocationOptions): void;
     }
     interface BusLineSearchOptions {
-        renderOptions?: RenderOptions;
-        onGetBusListComplete?: (rs: BusListResult) => void;
-        onGetBusLineComplete?: (rs: BusLine) => void;
-        onBusListHtmlSet?: (container: HTMLElement) => void;
-        onBusLineHtmlSet?: (container: HTMLElement) => void;
-        onPolylinesSet?: (ply: Polyline) => void;
-        onMarkersSet?: (sts: Marker[]) => void;
+        renderOptions?: RenderOptions | undefined;
+        onGetBusListComplete?: ((rs: BusListResult) => void) | undefined;
+        onGetBusLineComplete?: ((rs: BusLine) => void) | undefined;
+        onBusListHtmlSet?: ((container: HTMLElement) => void) | undefined;
+        onBusLineHtmlSet?: ((container: HTMLElement) => void) | undefined;
+        onPolylinesSet?: ((ply: Polyline) => void) | undefined;
+        onMarkersSet?: ((sts: Marker[]) => void) | undefined;
     }
     interface CustomData {
         geotableId: number;
@@ -130,13 +125,13 @@ declare namespace BMap {
         filter: string;
     }
     interface DrivingRouteOptions {
-        renderOptions?: RenderOptions;
-        policy?: DrivingPolicy;
-        onSearchComplete?: (results: DrivingRouteResult) => void;
-        onMarkersSet?: (pois: LocalResultPoi[]) => void;
-        onInfoHtmlSet?: (poi: LocalResultPoi, html: HTMLElement) => void;
-        onPolylinesSet?: (routes: Route[]) => void;
-        onResultsHtmlSet?: (container: HTMLElement) => void;
+        renderOptions?: RenderOptions | undefined;
+        policy?: DrivingPolicy | undefined;
+        onSearchComplete?: ((results: DrivingRouteResult) => void) | undefined;
+        onMarkersSet?: ((pois: LocalResultPoi[]) => void) | undefined;
+        onInfoHtmlSet?: ((poi: LocalResultPoi, html: HTMLElement) => void) | undefined;
+        onPolylinesSet?: ((routes: Route[]) => void) | undefined;
+        onResultsHtmlSet?: ((container: HTMLElement) => void) | undefined;
     }
     interface GeocoderResult {
         point: Point;
@@ -154,10 +149,10 @@ declare namespace BMap {
     }
     interface RenderOptions {
         map: Map;
-        panel?: string | HTMLElement;
-        selectFirstResult?: boolean;
-        autoViewport?: boolean;
-        highlightMode?: HighlightModes;
+        panel?: string | HTMLElement | undefined;
+        selectFirstResult?: boolean | undefined;
+        autoViewport?: boolean | undefined;
+        highlightMode?: HighlightModes | undefined;
     }
     type DrivingPolicy = number;
     interface AddressComponent {
@@ -204,8 +199,8 @@ declare namespace BMap {
         getPlan(i: number): RoutePlan;
     }
     interface LocationOptions {
-        poiRadius?: number;
-        numPois?: number;
+        poiRadius?: number | undefined;
+        numPois?: number | undefined;
     }
     interface BusListItem {
         name: string;
@@ -245,7 +240,7 @@ declare namespace BMap {
         totalFare: number;
     }
     interface LocalCityOptions {
-        renderOptions?: RenderOptions;
+        renderOptions?: RenderOptions | undefined;
     }
     class Autocomplete {
         constructor(opts?: AutocompleteOptions);
@@ -257,8 +252,8 @@ declare namespace BMap {
         getResults(): AutocompleteResult;
         setInputValue(keyword: string): void;
         dispose(): void;
-        onconfirm: (event: { type: string, target: any, item: any }) => void;
-        onhighlight: (event: { type: string, target: any, fromitem: any, toitem: any }) => void;
+        onconfirm: (event: { type: string; target: any; item: any }) => void;
+        onhighlight: (event: { type: string; target: any; fromitem: any; toitem: any }) => void;
     }
     class TransitRoute {
         constructor(location: Map | Point | string, opts?: TransitRouteOptions);
@@ -291,20 +286,20 @@ declare namespace BMap {
         name: string;
     }
     interface AutocompleteOptions {
-        location?: string | Map | Point;
-        types?: string[];
-        onSearchComplete?: (result: AutocompleteResult) => void;
-        input?: string | HTMLElement;
+        location?: string | Map | Point | undefined;
+        types?: string[] | undefined;
+        onSearchComplete?: ((result: AutocompleteResult) => void) | undefined;
+        input?: string | HTMLElement | undefined;
     }
     interface TransitRouteOptions {
-        renderOptions?: RenderOptions;
-        policy?: TransitPolicy;
-        pageCapacity?: number;
-        onSearchComplete?: (result: TransitRouteResult) => void;
-        onMarkersSet?: (pois: LocalResultPoi[], transfers: LocalResultPoi[]) => void;
-        onInfoHtmlSet?: (poi: LocalResultPoi, html: HTMLElement) => void;
-        onPolylinesSet?: (lines: Line[]) => void;
-        onResultsHtmlSet?: (container: HTMLElement) => void;
+        renderOptions?: RenderOptions | undefined;
+        policy?: TransitPolicy | undefined;
+        pageCapacity?: number | undefined;
+        onSearchComplete?: ((result: TransitRouteResult) => void) | undefined;
+        onMarkersSet?: ((pois: LocalResultPoi[], transfers: LocalResultPoi[]) => void) | undefined;
+        onInfoHtmlSet?: ((poi: LocalResultPoi, html: HTMLElement) => void) | undefined;
+        onPolylinesSet?: ((lines: Line[]) => void) | undefined;
+        onResultsHtmlSet?: ((container: HTMLElement) => void) | undefined;
     }
     interface Route {
         getNumRoutes(): number;
@@ -324,7 +319,7 @@ declare namespace BMap {
     }
     interface AutocompleteResultPoi {
         province: string;
-        City: string;            // wtf
+        City: string; // wtf
         district: string;
         street: string;
         streetNumber: string;
@@ -367,10 +362,15 @@ declare namespace BMap {
         get(name: string, callback: (result: string[]) => void): void;
     }
     class Convertor {
-        translate(points: Point[], from: number, to: number, callback: (result: {
-            points: Point[];
-            status: number;
-        }) => void): void;
+        translate(
+            points: Point[],
+            from: number,
+            to: number,
+            callback: (result: {
+                points: Point[];
+                status: number;
+            }) => void,
+        ): void;
     }
     interface TransitRoutePlan {
         getNumLines(): number;
@@ -398,9 +398,9 @@ declare namespace BMap {
         toString(): string;
     }
     interface PositionOptions {
-        enableHighAccuracy?: boolean;
-        timeout?: number;
-        maximumAge?: number;
+        enableHighAccuracy?: boolean | undefined;
+        timeout?: number | undefined;
+        maximumAge?: number | undefined;
     }
     interface Line {
         title: string;
@@ -414,12 +414,12 @@ declare namespace BMap {
         getDistance(format?: boolean): string | number;
     }
     interface WalkingRouteOptions {
-        renderOptions?: RenderOptions;
-        onSearchComplete?: (result: WalkingRouteResult) => void;
-        onMarkersSet?: (pois: LocalResultPoi[]) => void;
-        onPolylinesSet?: (routes: Route[]) => void;
-        onInfoHtmlSet?: (poi: LocalResultPoi, html: HTMLElement) => void;
-        onResultsHtmlSet?: (container: HTMLElement) => void;
+        renderOptions?: RenderOptions | undefined;
+        onSearchComplete?: ((result: WalkingRouteResult) => void) | undefined;
+        onMarkersSet?: ((pois: LocalResultPoi[]) => void) | undefined;
+        onPolylinesSet?: ((routes: Route[]) => void) | undefined;
+        onInfoHtmlSet?: ((poi: LocalResultPoi, html: HTMLElement) => void) | undefined;
+        onResultsHtmlSet?: ((container: HTMLElement) => void) | undefined;
     }
     type HighlightModes = number;
     type ServiceStatusCode = number;

@@ -1,9 +1,9 @@
-// Type definitions for nice-try 2.0
-// Project: https://github.com/electerious/nice-try
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare const niceTry: {
+    <T>(fn: () => T): T | undefined;
+    (val?: any): undefined;
 
-declare function niceTry<T>(fn: () => T): T | undefined;
-declare function niceTry(val?: any): undefined;
+    promise<T>(fn: (() => PromiseLike<T>) | (() => T)): Promise<T | undefined>;
+    promise(val?: any): Promise<undefined>;
+};
 
 export = niceTry;

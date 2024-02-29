@@ -1,8 +1,3 @@
-// Type definitions for phonon 1.4
-// Project: https://github.com/quark-dev/Phonon-Framework
-// Definitions by: Kévin SERIN <https://github.com/kserin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="awesomplete" />
 
 declare namespace Phonon {
@@ -20,8 +15,20 @@ declare namespace Phonon {
         panel(id: string): PhononPanelComponent;
         sidePanel(id: string): PhononSidePanelComponent;
         alert(text: string, title?: string, cancelable?: boolean, textOk?: string): PhononDialogComponent;
-        confirm(text: string, title?: string, cancelable?: boolean, textOk?: string, textCancel?: string): PhononDialogComponent;
-        prompt(text: string, title?: string, cancelable?: boolean, textOk?: string, textCancel?: string): PhononDialogComponent;
+        confirm(
+            text: string,
+            title?: string,
+            cancelable?: boolean,
+            textOk?: string,
+            textCancel?: string,
+        ): PhononDialogComponent;
+        prompt(
+            text: string,
+            title?: string,
+            cancelable?: boolean,
+            textOk?: string,
+            textCancel?: string,
+        ): PhononDialogComponent;
         indicator(title: string, cancelable?: boolean): PhononIndicatorComponent;
         dialog(id: string): PhononCustomDialogComponent;
         notif(textOrId: string, timeout?: number, showButton?: boolean, textButton?: string): PhononNotifComponent;
@@ -54,22 +61,22 @@ declare namespace Phonon {
 
     /*** Options ***/
     interface PhononOptions {
-        navigator?: PhononNavigatorOptions;
-        i18n?: PhononI18nOptions | null;
+        navigator?: PhononNavigatorOptions | undefined;
+        i18n?: PhononI18nOptions | null | undefined;
     }
     interface PhononNavigatorOptions {
-        defaultPage?: string;
-        hashPrefix?: string;
-        animatePages?: boolean;
-        enableBrowserBackButton?: boolean;
-        templateRootDirectory?: string;
-        defaultTemplateExtension?: string;
-        useHash?: boolean;
+        defaultPage?: string | undefined;
+        hashPrefix?: string | undefined;
+        animatePages?: boolean | undefined;
+        enableBrowserBackButton?: boolean | undefined;
+        templateRootDirectory?: string | undefined;
+        defaultTemplateExtension?: string | undefined;
+        useHash?: boolean | undefined;
     }
     interface PhononI18nOptions {
-        directory?: string;
-        localeFallback?: string;
-        localePreferred?: string;
+        directory?: string | undefined;
+        localeFallback?: string | undefined;
+        localePreferred?: string | undefined;
     }
 
     /*** Navigation ***/
@@ -92,9 +99,9 @@ declare namespace Phonon {
     }
     interface PhononPageObject {
         page: string;
-        content?: string | null;
-        preventClose?: boolean;
-        readyDelay?: number;
+        content?: string | null | undefined;
+        preventClose?: boolean | undefined;
+        readyDelay?: number | undefined;
     }
     interface PhononOnCloseObject {
         close(): void;
@@ -116,15 +123,20 @@ declare namespace Phonon {
     }
 
     /*** Ajax ***/
-    type PhononAjaxErrorFlag = "NO_INTERNET_ACCESS" | "TIMEOUT_EXCEEDED" | "XMLHTTPREQUEST_UNAVAILABLE" | "JSON_MALFORMED" | "REQUEST_CANCELED";
+    type PhononAjaxErrorFlag =
+        | "NO_INTERNET_ACCESS"
+        | "TIMEOUT_EXCEEDED"
+        | "XMLHTTPREQUEST_UNAVAILABLE"
+        | "JSON_MALFORMED"
+        | "REQUEST_CANCELED";
     interface PhononAjaxObject {
         method: string;
         url: string;
-        crossDomain?: boolean;
+        crossDomain?: boolean | undefined;
         dataType: string;
-        contentType?: string;
+        contentType?: string | undefined;
         data?: any;
-        timeout?: number;
+        timeout?: number | undefined;
         headers?: any;
         success(res: any, xhr: XMLHttpRequest): void;
         error?(res: any, flagError: PhononAjaxErrorFlag, xhr: XMLHttpRequest): void;
@@ -167,9 +179,9 @@ declare namespace Phonon {
     interface PhononPopoverComponent {
         setList(list: string[] | PhononPopoverItem[]): PhononPopoverComponent;
         setList(list: any[], itemBuilder?: (item: any) => void): PhononPopoverComponent;
-        attachButton(element: string|Element, autoBind?: boolean): PhononPopoverComponent;
+        attachButton(element: string | Element, autoBind?: boolean): PhononPopoverComponent;
         open(direction: PhononPopoverDirection): PhononPopoverComponent;
-        openFrom(element: string|Element): PhononPopoverComponent;
+        openFrom(element: string | Element): PhononPopoverComponent;
         close(): void;
         onItemChanged(callback: (data: PhononPopoverItem) => void): PhononPopoverComponent;
     }

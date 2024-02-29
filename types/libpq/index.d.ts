@@ -1,13 +1,6 @@
-// Type definitions for libpq 1.8
-// Project: https://github.com/brianc/node-libpq#readme
-// Definitions by: Vlad Rindevich <https://github.com/Lodin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Buffer } from 'buffer';
+import { EventEmitter } from "events";
 
 declare namespace Libpq {
     interface NotifyMsg {
@@ -20,16 +13,16 @@ declare namespace Libpq {
         severity: string;
         sqlState: string;
         messagePrimary: string;
-        messageDetail?: string;
-        messageHint?: string;
-        statementPosition?: string;
-        internalPosition?: string;
-        internalQuery?: string;
-        context?: string;
-        schemaName?: string;
-        tableName?: string;
-        dataTypeName?: string;
-        constraintName?: string;
+        messageDetail?: string | undefined;
+        messageHint?: string | undefined;
+        statementPosition?: string | undefined;
+        internalPosition?: string | undefined;
+        internalQuery?: string | undefined;
+        context?: string | undefined;
+        schemaName?: string | undefined;
+        tableName?: string | undefined;
+        dataTypeName?: string | undefined;
+        constraintName?: string | undefined;
         sourceFile: string;
         sourceLine: string;
         sourceFunction: string;
@@ -49,7 +42,7 @@ declare class Libpq extends EventEmitter {
      *                             the cancel request failed for any reason. The string will
      *                             contain the error message provided by libpq.
      */
-    cancel(): true|string;
+    cancel(): true | string;
 
     /**
      * Manually frees the memory associated with a PGresult pointer. Generally this is called
@@ -139,7 +132,7 @@ declare class Libpq extends EventEmitter {
      *                                                  corresponding to each parameter in the
      *                                                  commandText.
      */
-    execParams(commandText?: string, parameters?: Array<string|number>): void;
+    execParams(commandText?: string, parameters?: Array<string | number>): void;
 
     /**
      * (sync) Sends a command to the server to execute a previously prepared statement. Blocks
@@ -149,7 +142,7 @@ declare class Libpq extends EventEmitter {
      * @param [parameters=[]] the parameters to pass to the prepared
      *                                                  statement.
      */
-    execPrepared(statementName?: string, parameters?: Array<string|number>): void;
+    execPrepared(statementName?: string, parameters?: Array<string | number>): void;
 
     /**
      * Disconnects from the backend and cleans up all memory used by the libpq connection.
@@ -187,7 +180,7 @@ declare class Libpq extends EventEmitter {
      *                          progress (only if you have called [[Libpq.setNonBlocking]](true));
      *                          -1 if the copy is completed; -2 if there was an error.
      */
-    getCopyData(async?: boolean): Buffer|number;
+    getCopyData(async?: boolean): Buffer | number;
 
     /**
      * @returns true if the value at the given offsets is actually null. Otherwise
@@ -331,7 +324,7 @@ declare class Libpq extends EventEmitter {
      *                                                  the parameterized query.
      * @returns true if the command was sent succesfully or false if it failed to send.
      */
-    sendQueryParams(commandText?: string, parameters?: Array<string|number>): boolean;
+    sendQueryParams(commandText?: string, parameters?: Array<string | number>): boolean;
 
     /**
      * (async) Sends a request to the backend to prepare a named statement with the given name.

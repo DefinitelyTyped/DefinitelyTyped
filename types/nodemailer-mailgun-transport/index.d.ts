@@ -1,26 +1,24 @@
-// Type definitions for nodemailer-mailgun-transport 1.4
-// Project: https://github.com/orliesaurus/nodemailer-mailgun-transport, http://mailgun.com
-// Definitions by: Oto Ciulis <https://github.com/otociulis>
-//                 Joachim Wallsin <https://github.com/calvinmcgee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
-import * as nodemailer from 'nodemailer';
-import Mail = require('nodemailer/lib/mailer');
-import MailMessage = require('nodemailer/lib/mailer/mail-message');
+import * as nodemailer from "nodemailer";
+import Mail = require("nodemailer/lib/mailer");
+import MailMessage = require("nodemailer/lib/mailer/mail-message");
 
 declare namespace mailgunTransport {
     interface AuthOptions {
         api_key: string;
-        domain?: string;
+        domain?: string | undefined;
+    }
+
+    interface AliasAuthOptions {
+        apiKey: string;
+        domain?: string | undefined;
     }
 
     interface Options {
-        auth: AuthOptions;
-        proxy?: string | boolean;
-        host?: string;
-        protocol?: string;
-        port?: number;
+        auth: AuthOptions | AliasAuthOptions;
+        proxy?: string | boolean | undefined;
+        host?: string | undefined;
+        protocol?: string | undefined;
+        port?: number | undefined;
     }
 
     type MailOptions = Mail.Options;

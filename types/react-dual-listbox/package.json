@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-dual-listbox",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/jakezatecky/react-dual-listbox"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dual-listbox": "workspace:."
+    },
+    "owners": []
+}

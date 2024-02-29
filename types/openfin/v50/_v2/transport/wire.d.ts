@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 export interface Wire extends EventEmitter {
     connect(address: string): Promise<any>;
     connectSync(): any;
@@ -6,45 +6,45 @@ export interface Wire extends EventEmitter {
     shutdown(): Promise<void>;
 }
 export interface WireConstructor {
-    new (onmessage: (data: any) => void): Wire;
+    new(onmessage: (data: any) => void): Wire;
 }
 export interface RuntimeConfig {
     version: string;
-    fallbackVersion?: string;
-    securityRealm?: string;
-    verboseLogging?: boolean;
-    arguments?: string;
-    rvmDir?: string;
+    fallbackVersion?: string | undefined;
+    securityRealm?: string | undefined;
+    verboseLogging?: boolean | undefined;
+    arguments?: string | undefined;
+    rvmDir?: string | undefined;
 }
 export interface ServiceConfig {
     name: string;
     manifestUrl: string;
 }
 export interface BaseConfig {
-    uuid?: string;
-    address?: string;
-    name?: string;
-    nonPersistent?: boolean;
-    runtimeClient?: boolean;
-    licenseKey?: string;
+    uuid?: string | undefined;
+    address?: string | undefined;
+    name?: string | undefined;
+    nonPersistent?: boolean | undefined;
+    runtimeClient?: boolean | undefined;
+    licenseKey?: string | undefined;
     client?: any;
-    manifestUrl?: string;
+    manifestUrl?: string | undefined;
     startupApp?: any;
-    lrsUrl?: string;
-    assetsUrl?: string;
-    devToolsPort?: number;
-    installerUI?: boolean;
-    runtime?: RuntimeConfig;
-    services?: ServiceConfig[];
+    lrsUrl?: string | undefined;
+    assetsUrl?: string | undefined;
+    devToolsPort?: number | undefined;
+    installerUI?: boolean | undefined;
+    runtime?: RuntimeConfig | undefined;
+    services?: ServiceConfig[] | undefined;
     appAssets?: [{
         src: string;
         alias: string;
         target: string;
         version: string;
         args: string;
-    }];
-    customItems?: [any];
-    timeout?: number;
+    }] | undefined;
+    customItems?: [any] | undefined;
+    timeout?: number | undefined;
 }
 export interface ConfigWithUuid extends BaseConfig {
     uuid: string;
@@ -71,5 +71,5 @@ export declare enum READY_STATE {
     CONNECTING = 0,
     OPEN = 1,
     CLOSING = 2,
-    CLOSED = 3
+    CLOSED = 3,
 }

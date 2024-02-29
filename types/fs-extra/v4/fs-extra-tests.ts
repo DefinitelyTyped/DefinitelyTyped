@@ -14,16 +14,16 @@ const fd = 0;
 const modeNum = 0;
 const modeStr = "";
 const object = {};
-const errorCallback = (err: Error) => { };
+const errorCallback = (err: Error) => {};
 const ensureNum = 0o700;
 const ensureObj: fs.EnsureOptions = {
-   mode: 0o700
+    mode: 0o700,
 };
 const readOptions: fs.ReadOptions = {
-    reviver: {}
+    reviver: {},
 };
 const writeOptions: fs.WriteOptions = {
-    replacer: {}
+    replacer: {},
 };
 
 fs.moveSync(src, dest, {});
@@ -48,39 +48,29 @@ fs.copy(src, dest, { overwrite: true }).then(() => {
 });
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
-fs.copy(src, dest,
-    {
-        overwrite: true,
-        preserveTimestamps: true,
-        filter: (src: string, dest: string) => false
-    },
-    errorCallback
-);
-fs.copy(src, dest,
-    {
-        overwrite: true,
-        preserveTimestamps: true,
-        filter: /.*/
-    },
-    errorCallback
-);
+fs.copy(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: (src: string, dest: string) => false,
+}, errorCallback);
+fs.copy(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: /.*/,
+}, errorCallback);
 fs.copySync(src, dest);
 fs.copySync(src, dest, { filter: (src: string, dest: string) => false });
 fs.copySync(src, dest, { filter: /.*/ });
-fs.copySync(src, dest,
-    {
-        overwrite: true,
-        preserveTimestamps: true,
-        filter: (src: string, dest: string) => false
-    }
-);
-fs.copySync(src, dest,
-    {
-        overwrite: true,
-        preserveTimestamps: true,
-        filter: /.*/
-    }
-);
+fs.copySync(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: (src: string, dest: string) => false,
+});
+fs.copySync(src, dest, {
+    overwrite: true,
+    preserveTimestamps: true,
+    filter: /.*/,
+});
 fs.createFile(file).then(() => {
     // stub
 });
@@ -105,12 +95,12 @@ fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
 
 fs.outputJson(file, data, {
-    spaces: 2
+    spaces: 2,
 }).then(() => {
     // stub
 });
 fs.outputJson(file, data, {
-    spaces: 2
+    spaces: 2,
 }, errorCallback);
 fs.outputJSON(file, data, errorCallback);
 fs.outputJSON(file, data).then(() => {
@@ -127,10 +117,10 @@ fs.readJson(file).then(() => {
 fs.readJson(file, readOptions).then(() => {
     // stub
 });
-fs.readJson(file, (error: Error, jsonObject: any) => { });
-fs.readJson(file, readOptions, (error: Error, jsonObject: any) => { });
-fs.readJSON(file, (error: Error, jsonObject: any) => { });
-fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => { });
+fs.readJson(file, (error: Error, jsonObject: any) => {});
+fs.readJson(file, readOptions, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, readOptions, (error: Error, jsonObject: any) => {});
 
 fs.readJsonSync(file, readOptions);
 fs.readJSONSync(file, readOptions);
@@ -197,7 +187,7 @@ fs.emptyDirSync(path);
 fs.pathExists(path).then((_exist: boolean) => {
     // stub
 });
-fs.pathExists(path, (_err: Error, _exists: boolean) => { });
+fs.pathExists(path, (_err: Error, _exists: boolean) => {});
 const x: boolean = fs.pathExistsSync(path);
 
 fs.rename(src, dest, errorCallback);

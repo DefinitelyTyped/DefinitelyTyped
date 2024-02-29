@@ -1,13 +1,7 @@
-// Type definitions for KineticJS
-// Project: http://kineticjs.com/
-// Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Kinetic {
-
     var Node: {
-        new (config: ObjectOptionsConfig): INode;
-    }
+        new(config: ObjectOptionsConfig): INode;
+    };
 
     interface INode {
         cache(cacheConfig?: any): INode;
@@ -45,7 +39,7 @@ declare namespace Kinetic {
         isDraggable(): boolean;
         isDragging(): boolean;
         isListening(): boolean;
-        move(change:{x: number; y: number}): void;
+        move(change: { x: number; y: number }): void;
         moveDown(): void;
         moveTo(newContainer: IContainer): void;
         moveToBottom(): void;
@@ -113,8 +107,8 @@ declare namespace Kinetic {
     }
 
     var Container: {
-        new (config: any): IContainer;
-    }
+        new(config: any): IContainer;
+    };
 
     interface IContainer extends INode {
         add(child: INode): any;
@@ -129,8 +123,8 @@ declare namespace Kinetic {
     }
 
     var Stage: {
-        new (config: StageConfig): IStage;
-    }
+        new(config: StageConfig): IStage;
+    };
 
     interface IStage extends IContainer {
         add(layer: ILayer): any;
@@ -156,8 +150,8 @@ declare namespace Kinetic {
     }
 
     var Layer: {
-        new (config?: LayerConfig): ILayer;
-    }
+        new(config?: LayerConfig): ILayer;
+    };
 
     interface ILayer extends IContainer {
         afterDraw(handler: () => any): any;
@@ -182,8 +176,8 @@ declare namespace Kinetic {
     }
 
     var Shape: {
-        new (config: any): IShape;
-    }
+        new(config: any): IShape;
+    };
 
     interface IShape extends INode {
         applyLineJoin(): void;
@@ -211,8 +205,8 @@ declare namespace Kinetic {
     }
 
     var Rect: {
-        new (config: RectConfig): IRect;
-    }
+        new(config: RectConfig): IRect;
+    };
 
     interface IRect extends IShape {
         getCornerRadius(): number;
@@ -224,9 +218,8 @@ declare namespace Kinetic {
     }
 
     var Circle: {
-        new (config: CircleConfig): ICircle;
-
-    }
+        new(config: CircleConfig): ICircle;
+    };
 
     interface ICircle extends IShape {
         getRadius(): number;
@@ -234,8 +227,8 @@ declare namespace Kinetic {
     }
 
     var Ellipse: {
-        new (config: CircleConfig): IEllipse;
-    }
+        new(config: CircleConfig): IEllipse;
+    };
 
     interface IEllipse extends IShape {
         getRadius(): number;
@@ -243,15 +236,15 @@ declare namespace Kinetic {
     }
 
     var Group: {
-        new (config?: ObjectOptionsConfig): IGroup;
-    }
+        new(config?: ObjectOptionsConfig): IGroup;
+    };
 
     interface IGroup extends IContainer {
     }
 
     var Collection: {
-        new (): ICollection;
-    }
+        new(): ICollection;
+    };
 
     interface ICollection {
         apply(method: Function, val: any): any;
@@ -259,8 +252,8 @@ declare namespace Kinetic {
     }
 
     var Image: {
-        new (config?: ImageConfig): IImage;
-    }
+        new(config?: ImageConfig): IImage;
+    };
 
     interface IImage extends IShape {
         applyFilter(config: any): any;
@@ -279,8 +272,8 @@ declare namespace Kinetic {
     }
 
     var Line: {
-        new (config: LineConfig): ILine;
-    }
+        new(config: LineConfig): ILine;
+    };
 
     interface ILine extends IShape {
         getDashArray(): any;
@@ -292,17 +285,17 @@ declare namespace Kinetic {
     }
 
     var Path: {
-        new (config: PathConfig): IPath;
+        new(config: PathConfig): IPath;
         parsePathData(data: string): any;
-    }
+    };
     interface IPath extends IShape {
         getData(): string;
         setData(SVG: string): any;
     }
 
     var RegularPolygon: {
-        new (config: RegularPolygonConfig): IRegularPolygon;
-    }
+        new(config: RegularPolygonConfig): IRegularPolygon;
+    };
 
     interface IRegularPolygon extends IShape {
         getRadius(): number;
@@ -312,8 +305,8 @@ declare namespace Kinetic {
     }
 
     var Sprite: {
-        new (config: SpriteConfig): ISprite;
-    }
+        new(config: SpriteConfig): ISprite;
+    };
     interface ISprite extends IShape {
         afterFrame(index: number, func: () => any): any;
         getAnimation(): string;
@@ -327,8 +320,8 @@ declare namespace Kinetic {
     }
 
     var Star: {
-        new (config: StarConfig): IStar;
-    }
+        new(config: StarConfig): IStar;
+    };
     interface IStar extends IShape {
         getInnerRadius(): number;
         getNumPoints(): number;
@@ -339,8 +332,8 @@ declare namespace Kinetic {
     }
 
     var Text: {
-        new (config: TextConfig): IText;
-    }
+        new(config: TextConfig): IText;
+    };
     interface IText extends IShape {
         getAlign(): string;
         getBoxHeight(): number;
@@ -375,8 +368,8 @@ declare namespace Kinetic {
     }
 
     var TextPath: {
-        new (config: any): ITextPath;
-    }
+        new(config: any): ITextPath;
+    };
     interface ITextPath extends IShape {
         getFontFamily(): string;
         getFontSize(): number;
@@ -397,8 +390,8 @@ declare namespace Kinetic {
     }
 
     var Animation: {
-        new (...args: any[]): IAnimation;
-    }
+        new(...args: any[]): IAnimation;
+    };
     interface IAnimation extends IContainer {
         start(): any;
         stop(): any;
@@ -418,14 +411,14 @@ declare namespace Kinetic {
     }
 
     interface LayerConfig extends ObjectOptionsConfig {
-        clearBeforeDraw?: boolean;
+        clearBeforeDraw?: boolean | undefined;
     }
 
-    //shape configs class
+    // shape configs class
     interface RectConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        width?: number;
-        height?: number;
-        cornerRadius?: number;
+        width?: number | undefined;
+        height?: number | undefined;
+        cornerRadius?: number | undefined;
     }
 
     interface CircleConfig extends DrawOptionsConfig, ObjectOptionsConfig {
@@ -434,8 +427,8 @@ declare namespace Kinetic {
 
     interface ImageConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         image: any;
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
         crop?: any;
     }
 
@@ -443,29 +436,29 @@ declare namespace Kinetic {
         image: any;
         animations?: any;
         animation?: any;
-        frameRate?: number;
+        frameRate?: number | undefined;
     }
 
     interface TextConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         text: string;
-        fontSize?: number;
-        fontFamily?: string;
-        fontStyle?: string;
+        fontSize?: number | undefined;
+        fontFamily?: string | undefined;
+        fontStyle?: string | undefined;
         textFill?: any;
         textStroke?: any;
-        textStrokeWidth?: number;
-        align?: string;
-        padding?: string;
-        width?: number;
-        height?: number;
-        lineHeight?: number;
-        cornerRadius?: number;
+        textStrokeWidth?: number | undefined;
+        align?: string | undefined;
+        padding?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        lineHeight?: number | undefined;
+        cornerRadius?: number | undefined;
     }
 
     interface LineConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         points: any;
-        lineCap?: string;
-        dash?: number[];
+        lineCap?: string | undefined;
+        dash?: number[] | undefined;
     }
 
     interface RegularPolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
@@ -488,10 +481,10 @@ declare namespace Kinetic {
     }
 
     interface DrawOptionsConfig {
-        fill?: string;
-        stroke?: string;
-        strokeWidth?: number;
-        lineJoin?: string;
+        fill?: string | undefined;
+        stroke?: string | undefined;
+        strokeWidth?: number | undefined;
+        lineJoin?: string | undefined;
         shadow?: any;
     }
 
@@ -501,23 +494,23 @@ declare namespace Kinetic {
     }
 
     interface ObjectOptionsConfig {
-        x?: number;
-        y?: number;
-        visible?: boolean;
-        listening?: boolean;
-        id?: string;
-        name?: string;
+        x?: number | undefined;
+        y?: number | undefined;
+        visible?: boolean | undefined;
+        listening?: boolean | undefined;
+        id?: string | undefined;
+        name?: string | undefined;
         opacity?: any;
-        scale?: Vector2d;
-        rotation?: number;
-        rotationDeg?: number;
-        offset?: Vector2d;
-        draggable?: boolean;
-        dragConstraint?: string;
+        scale?: Vector2d | undefined;
+        rotation?: number | undefined;
+        rotationDeg?: number | undefined;
+        offset?: Vector2d | undefined;
+        draggable?: boolean | undefined;
+        dragConstraint?: string | undefined;
         dragBounds?: any;
-        dragBoundFunc?: (pos: Vector2d) => Vector2d;
-        width?: number;
-        height?: number;
+        dragBoundFunc?: ((pos: Vector2d) => Vector2d) | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface ISize {

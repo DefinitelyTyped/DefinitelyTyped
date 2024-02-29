@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "lib": [
+            "dom",
             "es6"
         ],
         "module": "commonjs",
@@ -12,15 +12,12 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [
         "index.d.ts",
         "test/index.tsx",
-        "test/native.tsx",
-        "test/macro.tsx"
+        "test/macro.tsx",
+        "test/reexport.tsx"
     ]
 }

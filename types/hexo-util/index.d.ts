@@ -1,20 +1,14 @@
-// Type definitions for hexo-util 0.6
-// Project: https://hexo.io/
-// Definitions by: sega yuu <https://github.com/segayuu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
+import { SpawnOptions, StdioOptions } from "child_process";
 import { Transform } from "stream";
-import { SpawnOptions, StdioOptions } from 'child_process';
 
 export class CacheStream extends Transform {
-    destroy(): void;
+    destroy(): this;
     getCache(): Buffer;
 }
 
-export function camelCaseKeys(obj: { [x: string]: any; }): { [x: string]: any; };
+export function camelCaseKeys(obj: { [x: string]: any }): { [x: string]: any };
 
 export function escapeRegExp(str: string): string;
 
@@ -27,18 +21,23 @@ export function hash(str: string | ArrayBufferView): Buffer;
 export class HashStream extends Transform {}
 
 export function highlight(str: string, options?: {
-    hljs?: boolean;
-    gutter?: boolean;
-    wrap?: boolean;
-    firstLine?: number;
-    caption?: string;
-    mark?: number[];
-    tab?: string;
-    lang?: string;
-    autoDetect?: boolean;
+    hljs?: boolean | undefined;
+    gutter?: boolean | undefined;
+    wrap?: boolean | undefined;
+    firstLine?: number | undefined;
+    caption?: string | undefined;
+    mark?: number[] | undefined;
+    tab?: string | undefined;
+    lang?: string | undefined;
+    autoDetect?: boolean | undefined;
 }): string;
 
-export function htmlTag(tag: string, attrs?: string[] | ArrayLike<string> | { [x: string]: any }, text?: string | null): string;
+export function htmlTag(
+    tag: string,
+    attrs?: string[] | ArrayLike<string> | { [x: string]: any },
+    text?: string | null,
+    escape?: boolean,
+): string;
 
 export interface Pattern<T> {
     test(str: string): boolean;
@@ -48,34 +47,34 @@ export interface Pattern<T> {
 export const Pattern: {
     new<T>(rule: Pattern<T> | ((str: string) => T)): Pattern<T>;
     new(rule: RegExp): Pattern<RegExpMatchArray | null>;
-    new(rule: string): Pattern<{ 0: string; [index: number]: any; } & { [name: string]: any; } | undefined>;
+    new(rule: string): Pattern<{ 0: string; [index: number]: any } & { [name: string]: any } | undefined>;
 };
 
 export class Permalink {
     constructor(rule: string, options?: {
-        segments?: { [name: string]: string | RegExp; };
+        segments?: { [name: string]: string | RegExp } | undefined;
     });
     rule: string;
     regex: RegExp;
     params: string[];
     test(str: string): boolean;
-    parse(str: string): { [param: string]: any; } | undefined;
-    stringify(data: { [name: string]: string; }): string;
+    parse(str: string): { [param: string]: any } | undefined;
+    stringify(data: { [name: string]: string }): string;
 }
 
 export function slugize(str: string, options?: {
-    separator?: string;
-    transform?: 1 | 2;
+    separator?: string | undefined;
+    transform?: 1 | 2 | undefined;
 }): string;
 
 export interface hexoSpawnOptions extends SpawnOptions {
-    verbose?: boolean;
-    encoding?: BufferEncoding;
+    verbose?: boolean | undefined;
+    encoding?: BufferEncoding | undefined;
 }
 
 export interface hexoSpawnDisableEncodingOptions extends SpawnOptions {
-    verbose?: boolean;
-    encoding: '' | false | null;
+    verbose?: boolean | undefined;
+    encoding: "" | false | null;
 }
 
 export interface hexoSpawnOverrideStdioOptions extends hexoSpawnOptions {
@@ -86,12 +85,23 @@ export interface hexoSpawnDisableEncodingAndOverrideStdioOptions extends hexoSpa
     stdio: StdioOptions;
 }
 
-export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | undefined>;
-export function spawn(command: string, args: string[], options: hexoSpawnOverrideStdioOptions): Promise<string | undefined>;
+export function spawn(
+    command: string,
+    args: string[],
+    options: hexoSpawnDisableEncodingAndOverrideStdioOptions,
+): Promise<Buffer | undefined>;
+export function spawn(
+    command: string,
+    args: string[],
+    options: hexoSpawnOverrideStdioOptions,
+): Promise<string | undefined>;
 export function spawn(command: string, args: string[], options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
 export function spawn(command: string, args: string[], options?: hexoSpawnOptions): Promise<string>;
 
-export function spawn(command: string, options: hexoSpawnDisableEncodingAndOverrideStdioOptions): Promise<Buffer | undefined>;
+export function spawn(
+    command: string,
+    options: hexoSpawnDisableEncodingAndOverrideStdioOptions,
+): Promise<Buffer | undefined>;
 export function spawn(command: string, options: hexoSpawnOverrideStdioOptions): Promise<string | undefined>;
 export function spawn(command: string, options: hexoSpawnDisableEncodingOptions): Promise<Buffer>;
 export function spawn(command: string, options?: hexoSpawnOptions): Promise<string>;
@@ -99,11 +109,11 @@ export function spawn(command: string, options?: hexoSpawnOptions): Promise<stri
 export function stripHTML(str: string): string;
 
 export function wordWrap(str: string, options?: {
-    width?: number;
+    width?: number | undefined;
 }): string;
 
 export function truncate(str: string, options?: {
-    length?: number;
-    omission?: string;
-    separator?: string;
+    length?: number | undefined;
+    omission?: string | undefined;
+    separator?: string | undefined;
 }): string;

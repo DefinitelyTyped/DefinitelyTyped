@@ -1,5 +1,5 @@
-import * as esprima from 'esprima';
-import * as esquery from 'esquery';
+import * as esprima from "esprima";
+import * as esquery from "esquery";
 
 const AST = esprima.parseScript(`const x = 2;
 function f (n) {
@@ -8,7 +8,7 @@ function f (n) {
     return false;
 }`);
 
-const s = 'FunctionDeclaration !VariableDeclaration > VariableDeclarator[init.value > 3]';
+const s = "FunctionDeclaration !VariableDeclaration > VariableDeclarator[init.value > 3]";
 
 // $ExpectType Selector
 const selector = esquery.parse(s);
@@ -16,33 +16,36 @@ const selector = esquery.parse(s);
 // $ExpectType Node[]
 const nodes = esquery.query(AST, s);
 
+// $ExpectType void
+esquery.traverse(AST, s, (node, parent, ancestry) => {});
+
 // $ExpectType Node[]
 esquery(AST, s);
 
-// $ExpectError
+// @ts-expect-error
 esquery.parse(3);
 
 // $ExpectType Node[]
 esquery.match(AST, selector);
 
-// $ExpectError
-esquery.match(AST, 'VariableDeclarator');
+// @ts-expect-error
+esquery.match(AST, "VariableDeclarator");
 
 // $ExpectType boolean
-esquery.matches(nodes[0], selector, esquery(AST, 'FunctionDeclaration'));
+esquery.matches(nodes[0], selector, esquery(AST, "FunctionDeclaration"));
 
-// $ExpectError
+// @ts-expect-error
 esquery.match(3, selector);
 
 switch (selector.type) {
-    case 'adjacent':
+    case "adjacent":
         // $ExpectType SubjectSelector
         selector.left;
         // $ExpectType SubjectSelector
         selector.right;
         break;
 
-    case 'attribute':
+    case "attribute":
         // $ExpectType string
         selector.name;
 }

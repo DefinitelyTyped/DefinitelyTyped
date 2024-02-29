@@ -1,12 +1,6 @@
-// Type definitions for bunyan 1.8
-// Project: https://github.com/trentm/node-bunyan
-// Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class Logger extends EventEmitter {
     constructor(options: Logger.LoggerOptions);
@@ -207,7 +201,7 @@ declare namespace Logger {
     const ERROR: number;
     const FATAL: number;
 
-    type LogLevelString = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+    type LogLevelString = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
     type LogLevel = LogLevelString | number;
 
     const levelFromName: { [name in LogLevelString]: number };
@@ -221,25 +215,29 @@ declare namespace Logger {
 
     function resolveLevel(value: LogLevel): number;
 
+    interface WriteFn {
+        write: (object: Object) => void;
+    }
+
     interface Stream {
-        type?: string;
-        level?: LogLevel;
-        path?: string;
-        stream?: NodeJS.WritableStream | Stream;
-        closeOnExit?: boolean;
-        period?: string;
-        count?: number;
-        name?: string;
-        reemitErrorEvents?: boolean;
+        type?: string | undefined;
+        level?: LogLevel | undefined;
+        path?: string | undefined;
+        stream?: NodeJS.WritableStream | WriteFn | undefined;
+        closeOnExit?: boolean | undefined;
+        period?: string | undefined;
+        count?: number | undefined;
+        name?: string | undefined;
+        reemitErrorEvents?: boolean | undefined;
     }
 
     interface LoggerOptions {
         name: string;
-        streams?: Stream[];
-        level?: LogLevel;
-        stream?: NodeJS.WritableStream;
-        serializers?: Serializers;
-        src?: boolean;
+        streams?: Stream[] | undefined;
+        level?: LogLevel | undefined;
+        stream?: NodeJS.WritableStream | undefined;
+        serializers?: Serializers | undefined;
+        src?: boolean | undefined;
         [custom: string]: any;
     }
 
@@ -256,7 +254,7 @@ declare namespace Logger {
     }
 
     interface RingBufferOptions {
-        limit?: number;
+        limit?: number | undefined;
     }
 
     class RingBuffer extends EventEmitter {
@@ -273,8 +271,8 @@ declare namespace Logger {
 
     interface RotatingFileStreamOptions {
         path: string;
-        count?: number;
-        period?: string;
+        count?: number | undefined;
+        period?: string | undefined;
     }
 
     class RotatingFileStream extends EventEmitter {

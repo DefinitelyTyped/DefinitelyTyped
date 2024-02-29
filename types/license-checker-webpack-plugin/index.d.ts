@@ -1,22 +1,18 @@
-// Type definitions for license-checker-webpack-plugin 0.0
-// Project: https://github.com/Microsoft/license-checker-webpack-plugin#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import { Compiler, WebpackPluginInstance } from "webpack";
 
-import { Plugin } from 'webpack';
-
-declare class LicenseCheckerWebpackPlugin extends Plugin {
+declare class LicenseCheckerWebpackPlugin implements WebpackPluginInstance {
     constructor(options?: Partial<LicenseCheckerWebpackPlugin.Options>);
+    apply(compiler: Compiler): void;
 }
 
 declare namespace LicenseCheckerWebpackPlugin {
     interface Dependency {
         name: string;
         version: string;
-        repository: string;
+        repository?: string;
+        author?: string;
         licenseName: string;
-        licenseText: string;
+        licenseText?: string;
     }
 
     interface OutputWriterArgs {
@@ -34,7 +30,7 @@ declare namespace LicenseCheckerWebpackPlugin {
         /**
          * SPDX expression with allowed licenses.
          *
-         * Default: `"(Apache-2.0 OR BSD-2-Clause OR BSD-3-Clause OR MIT)"`
+         * @default "(Apache-2.0 OR BSD-2-Clause OR BSD-3-Clause OR MIT)"
          */
         allow: string;
 
@@ -42,7 +38,7 @@ declare namespace LicenseCheckerWebpackPlugin {
          * Array of dependencies to ignore, in the format `["<dependency name>@<version range>"]`.
          * For example, `["assignment@^2.0.0"]`.
          *
-         * Default: `[]`
+         * @default []
          */
         ignore: string[];
 
@@ -50,14 +46,14 @@ declare namespace LicenseCheckerWebpackPlugin {
          * Object of dependencies to override, in the format `{"<dependency name>@<version range>": { ... }}`.
          * For example, `{"assignment@^2.0.0": { licenseName: "MIT" }}`.
          *
-         * Default: `{}`
+         * @default {}
          */
         override: Record<string, Partial<Dependency>>;
 
         /**
          * Whether to emit errors instead of warnings.
          *
-         * Default: `false`
+         * @default false
          */
         emitError: boolean;
 
@@ -70,7 +66,7 @@ declare namespace LicenseCheckerWebpackPlugin {
         /**
          * Name of the third-party notices file with all licensing information.
          *
-         * Default: `"ThirdPartyNotices.txt"`
+         * @default "ThirdPartyNotices.txt"
          */
         outputFilename: string;
     }

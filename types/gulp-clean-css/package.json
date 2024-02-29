@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-clean-css",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/scniro/gulp-clean-css#readme"
+    ],
+    "dependencies": {
+        "@types/clean-css": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-clean-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tqma",
+            "githubUsername": "tqma113"
+        }
+    ]
+}

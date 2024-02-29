@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/set-value",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/set-value"
+    ],
+    "devDependencies": {
+        "@types/set-value": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "DanielRosenwasser"
+        }
+    ]
+}

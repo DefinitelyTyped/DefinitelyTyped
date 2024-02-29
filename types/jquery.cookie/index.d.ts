@@ -1,11 +1,4 @@
-// Type definitions for jQuery Cookie Plugin 1.4.1
-// Project: https://github.com/carhartl/jquery-cookie
-// Definitions by: Roy Goode <https://github.com/RoyGoode>, Ben Lorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="jquery" />
-
+/// <reference types="jquery" />
 
 interface JQueryCookieOptions {
     /**
@@ -15,20 +8,20 @@ interface JQueryCookieOptions {
     /**
      * Define the path where the cookie is valid. By default the path of the cookie is the path of the page where the cookie was created (standard browser behavior). If you want to make it available for instance across the entire domain use path: '/'. Default: path of page where the cookie was created.
      */
-    path?: string;
+    path?: string | undefined;
     /**
      * Define the domain where the cookie is valid. Default: domain of page where the cookie was created.
      */
-    domain?: string;
+    domain?: string | undefined;
     /**
      * If true, the cookie transmission requires a secure protocol (https). Default: false.
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
 }
 //
 // The following jsdoc comments are used to add intellisense to editors that support it. Uses snippets
 // of documentation from the Github repo when possible.
-// 
+//
 // The ordering here matters. For example, the read function with the converter parameter is purposefully after
 // the set function. This is because the intellisense that shows up after you press comma should be the set first,
 // since that is more common, then the conversion function if user starts typing a parameter with a function type
@@ -36,19 +29,19 @@ interface JQueryCookieStatic {
     /**
      * By default the cookie value is encoded/decoded when writing/reading, using encodeURIComponent/decodeURIComponent. Bypass this by setting raw to true:
      */
-    raw?: boolean;
+    raw?: boolean | undefined;
     /**
      * Turn on automatic storage of JSON objects passed as the cookie value. Assumes JSON.stringify and JSON.parse
      */
-    json?: boolean;
+    json?: boolean | undefined;
     /**
      * Cookie attributes can be set globally by setting properties of the $.cookie.defaults object or individually for each call to $.cookie() by passing a plain object to the options argument. Per-call options override the default options.
      */
-    defaults?: JQueryCookieOptions;
+    defaults?: JQueryCookieOptions | undefined;
     /**
      * Gets an object of cookies as key-value pairs
      */
-    (): {[key:string]:string};
+    (): { [key: string]: string };
     /**
      * Gets a cookie by name
      * @param name The name of the cookie to get
@@ -88,7 +81,7 @@ interface JQueryCookieStatic {
     (name: string, value: any, options: JQueryCookieOptions): void;
 }
 
-interface JQueryStatic {   
+interface JQueryStatic {
     /**
      * A simple, lightweight jQuery plugin for reading, writing and deleting cookies.
      */

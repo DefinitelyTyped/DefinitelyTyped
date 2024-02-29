@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-core",
+    "version": "7.0.9999",
+    "projects": [
+        "https://pouchdb.com/",
+        "https://github.com/pouchdb/pouchdb"
+    ],
+    "dependencies": {
+        "@types/debug": "*",
+        "@types/pouchdb-find": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Paulger",
+            "githubUsername": "spaulg"
+        },
+        {
+            "name": "Jakub Navratil",
+            "githubUsername": "trubit"
+        },
+        {
+            "name": "Brian Geppert",
+            "githubUsername": "geppy"
+        },
+        {
+            "name": "Frederico Galvão",
+            "githubUsername": "fredgalvao"
+        },
+        {
+            "name": "Tobias Bales",
+            "githubUsername": "TobiasBales"
+        },
+        {
+            "name": "Sebastián Ramírez",
+            "githubUsername": "tiangolo"
+        },
+        {
+            "name": "Katy Moe",
+            "githubUsername": "kmoe"
+        }
+    ]
+}

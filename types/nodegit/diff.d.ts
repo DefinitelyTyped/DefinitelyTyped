@@ -1,23 +1,23 @@
-import { Blob } from './blob';
-import { Repository } from './repository';
-import { Tree } from './tree';
-import { Strarray } from './str-array';
-import { Index } from './index_';
-import { DiffDelta } from './diff-delta';
-import { DiffPerfdata } from './diff-perf-data';
-import { DiffOptions } from './diff-options';
-import { Buf } from './buf';
-import { ConvenientPatch } from './convenient-patch';
-import { DiffStats } from './diff-stats';
+import { Blob } from "./blob";
+import { Buf } from "./buf";
+import { ConvenientPatch } from "./convenient-patch";
+import { DiffDelta } from "./diff-delta";
+import { DiffOptions } from "./diff-options";
+import { DiffPerfdata } from "./diff-perf-data";
+import { DiffStats } from "./diff-stats";
+import { Index } from "./index_";
+import { Repository } from "./repository";
+import { Strarray } from "./str-array";
+import { Tree } from "./tree";
 
 export interface DiffFindOptions {
-    version?: number;
-    flags?: number;
-    renameThreshold?: number;
-    renameFromRewriteThreshold?: number;
-    copyThreshold?: number;
-    breakRewriteThreshold?: number;
-    renameLimit?: number;
+    version?: number | undefined;
+    flags?: number | undefined;
+    renameThreshold?: number | undefined;
+    renameFromRewriteThreshold?: number | undefined;
+    copyThreshold?: number | undefined;
+    breakRewriteThreshold?: number | undefined;
+    renameLimit?: number | undefined;
 }
 
 export namespace Diff {
@@ -130,8 +130,6 @@ export namespace Diff {
 export class Diff {
     /**
      * Directly run a diff between a blob and a buffer.
-     *
-     *
      */
     static blobToBuffer(
         oldBlob?: Blob,
@@ -158,8 +156,6 @@ export class Diff {
     numDeltas(): number;
     /**
      * Retrieve patches in this difflist
-     *
-     *
      */
     patches(): Promise<ConvenientPatch[]>;
     merge(from: Diff): Promise<number>;

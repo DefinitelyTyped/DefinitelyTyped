@@ -1,15 +1,8 @@
-// Type definitions for ui-select 0.19.8
-// Project: https://github.com/angular-ui/ui-select
-// Definitions by: Niko Kovačič <https://github.com/nkovacic>
-//                 Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui.select {
         interface ISelectConfig {
             appendToBody: boolean;
@@ -17,7 +10,7 @@ declare module 'angular' {
             closeOnSelect: boolean;
             dropdownPosition: string;
             generateId(): number;
-            paste?: IPasteFn;
+            paste?: IPasteFn | undefined;
             placeholder: string;
             refreshDelay: number;
             removeSelected: boolean;
@@ -39,12 +32,12 @@ declare module 'angular' {
             dropdownPosition: string;
             focus: boolean;
             isEmpty(): boolean;
-            isGrouped?: boolean;
+            isGrouped?: boolean | undefined;
             isLocked(): boolean;
-            itemProperty?: string;
+            itemProperty?: string | undefined;
             open: boolean;
-            parserResult?: IRepeatExpression;
-            paste?: IPasteFn;
+            parserResult?: IRepeatExpression | undefined;
+            paste?: IPasteFn | undefined;
             placeholder: string;
             refreshDelay: number;
             refreshing: boolean;

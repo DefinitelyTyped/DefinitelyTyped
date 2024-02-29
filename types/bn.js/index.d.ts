@@ -1,15 +1,8 @@
-// Type definitions for bn.js 4.11
-// Project: https://github.com/indutny/bn.js
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-//                 Henry Nguyen <https://github.com/HenryNguyen5>
-//                 Gaylor Bosson <https://github.com/Gilthoniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare namespace BN {
-    type Endianness = 'le' | 'be';
-    type IPrimeName = 'k256' | 'p224' | 'p192' | 'p25519';
+    type Endianness = "le" | "be";
+    type IPrimeName = "k256" | "p224" | "p192" | "p25519";
 
     interface MPrime {
         name: string;
@@ -26,15 +19,18 @@ declare namespace BN {
 }
 
 declare class BN {
+    static BN: typeof BN;
+    static wordSize: 26;
+
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
-        base?: number | 'hex',
-        endian?: BN.Endianness
+        base?: number | "hex",
+        endian?: BN.Endianness,
     );
     constructor(
         number: number | string | number[] | Uint8Array | Buffer | BN,
-        endian?: BN.Endianness
-    )
+        endian?: BN.Endianness,
+    );
 
     /**
      * @description  create a reduction context
@@ -69,7 +65,7 @@ declare class BN {
     /**
      * @description  convert to base-string and pad with zeroes
      */
-    toString(base?: number | 'hex', length?: number): string;
+    toString(base?: number | "hex", length?: number): string;
 
     /**
      * @description convert to Javascript Number (limited to 53 bits)
@@ -92,13 +88,13 @@ declare class BN {
     toArrayLike(
         ArrayType: typeof Buffer,
         endian?: BN.Endianness,
-        length?: number
+        length?: number,
     ): Buffer;
 
     toArrayLike(
         ArrayType: any[],
         endian?: BN.Endianness,
-        length?: number
+        length?: number,
     ): any[];
 
     /**
@@ -327,6 +323,11 @@ declare class BN {
     idivn(b: number): BN;
 
     /**
+     * @description division with remainder
+     */
+    divmod(b: BN, mode?: "div" | "mod", positive?: boolean): { div: BN; mod: BN };
+
+    /**
      * @description reduct
      */
     mod(b: BN): BN;
@@ -337,10 +338,15 @@ declare class BN {
     umod(b: BN): BN;
 
     /**
-     * @see API consistency https://github.com/indutny/bn.js/pull/130
+     * @deprecated
      * @description reduct
      */
     modn(b: number): number;
+
+    /**
+     * @description reduct
+     */
+    modrn(b: number): number;
 
     /**
      * @description  rounded division
@@ -413,9 +419,9 @@ declare class BN {
     iuxor(b: BN): BN;
 
     /**
-     * @description set specified bit to 1
+     * @description set specified bit to value
      */
-    setn(b: number): BN;
+    setn(b: number, value: boolean | 0 | 1): BN;
 
     /**
      * @description shift left
@@ -508,8 +514,7 @@ declare class BN {
 }
 
 /**
- * Big-Number class with additionnal methods that are using modular
- * operation.
+ * BN operations in a reduction context.
  */
 declare class RedBN extends BN {
     /**
@@ -520,22 +525,22 @@ declare class RedBN extends BN {
     /**
      * @description modular addition
      */
-    redAdd(b: BN): RedBN;
+    redAdd(b: RedBN): RedBN;
 
     /**
      * @description in-place modular addition
      */
-    redIAdd(b: BN): RedBN;
+    redIAdd(b: RedBN): RedBN;
 
     /**
      * @description modular subtraction
      */
-    redSub(b: BN): RedBN;
+    redSub(b: RedBN): RedBN;
 
     /**
      * @description in-place modular subtraction
      */
-    redISub(b: BN): RedBN;
+    redISub(b: RedBN): RedBN;
 
     /**
      * @description modular shift left
@@ -545,12 +550,12 @@ declare class RedBN extends BN {
     /**
      * @description modular multiplication
      */
-    redMul(b: BN): RedBN;
+    redMul(b: RedBN): RedBN;
 
     /**
      * @description in-place modular multiplication
      */
-    redIMul(b: BN): RedBN;
+    redIMul(b: RedBN): RedBN;
 
     /**
      * @description modular square

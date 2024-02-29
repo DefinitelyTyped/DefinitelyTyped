@@ -1,21 +1,13 @@
-// Type definitions for ical 0.6
-// Project: https://github.com/peterbraden/ical.js
-// Definitions by: Nick Clifford <https://github.com/nickbclifford>
-//                 Matej Vilk <https://github.com/iammatis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { RRule } from "rrule";
 
-import request = require('request');
-import { RRule } from 'rrule';
-
-export type CalendarComponentType = 'VEVENT' | 'VTODO' | 'VJOURNAL' | 'VFREEBUSY' | 'VTIMEZONE' | 'VALARM';
+export type CalendarComponentType = "VEVENT" | "VTODO" | "VJOURNAL" | "VFREEBUSY" | "VTIMEZONE" | "VALARM";
 
 export interface ParamList {
     params: { [key: string]: string };
     val: string;
 }
 
-export type FreeBusyType = 'FREE' | 'BUSY';
+export type FreeBusyType = "FREE" | "BUSY";
 
 export interface FreeBusy {
     type: FreeBusyType;
@@ -61,4 +53,3 @@ export interface FullCalendar {
 
 export function parseICS(icsData: string): FullCalendar;
 export function parseFile(filename: string): FullCalendar;
-export function fromURL(url: string, options: request.CoreOptions, callback: (error: any, data: FullCalendar) => void): void;

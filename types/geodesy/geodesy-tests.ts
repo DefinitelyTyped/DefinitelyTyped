@@ -1,19 +1,19 @@
 /*
  * @format
  */
-import Mgrs, { LatLon as Latlon_Utm_Mgrs } from 'geodesy/mgrs';
-import Utm from 'geodesy/utm';
-import Dms from 'geodesy/dms';
-import Vector3d from 'geodesy/vector3d';
-import OsGridRef, { LatLon as LatLon_OsGridRef } from 'geodesy/osgridref';
-import LatLonEllipsoidalDatum from 'geodesy/latlon-ellipsoidal-datum';
-import LatLonSpherical from 'geodesy/latlon-spherical';
-import LatLonNvectorSpherical from 'geodesy/latlon-nvector-spherical';
+import Dms from "geodesy/dms";
+import LatLonEllipsoidalDatum from "geodesy/latlon-ellipsoidal-datum";
+import LatLonNvectorSpherical from "geodesy/latlon-nvector-spherical";
+import LatLonSpherical from "geodesy/latlon-spherical";
+import Mgrs, { LatLon as Latlon_Utm_Mgrs } from "geodesy/mgrs";
+import OsGridRef, { LatLon as LatLon_OsGridRef } from "geodesy/osgridref";
+import Utm from "geodesy/utm";
+import Vector3d from "geodesy/vector3d";
 
 /**
  * Mgrs
  */
-const mgrs = new Mgrs(31, 'U', 'D', 'Q', 48251, 11932);
+const mgrs = new Mgrs(31, "U", "D", "Q", 48251, 11932);
 const bandMgrs = mgrs.band;
 const datumMgrs = mgrs.datum;
 const e100kMgrs = mgrs.e100k;
@@ -25,12 +25,12 @@ mgrs.toString();
 mgrs.toUtm();
 
 // Static Functions
-Mgrs.parse('31U DQ 48251 11932');
+Mgrs.parse("31U DQ 48251 11932");
 
 /**
  * Utm
  */
-const utm = new Utm(31, 'N', 448251, 5411932);
+const utm = new Utm(31, "N", 448251, 5411932);
 const convergenceUtm = utm.convergence;
 const datumUtm = utm.datum;
 const eastingUtm = utm.easting;
@@ -41,36 +41,36 @@ utm.toLatLon();
 utm.toString();
 
 // Static Functions
-Utm.parse('31 N 448251 5411932');
+Utm.parse("31 N 448251 5411932");
 
 /**
  * Dms
  */
 
-Dms.separator = '\u202f';
+Dms.separator = "\u202f";
 
 // Static Functions
-Dms.parse('51° 28′ 40.12″ N');
+Dms.parse("51° 28′ 40.12″ N");
 
 Dms.toDms(45);
-Dms.toDms(45, 'dm');
-Dms.toDms(45, 'd', 1);
-Dms.toDms(45, 'dms', 3);
+Dms.toDms(45, "dm");
+Dms.toDms(45, "d", 1);
+Dms.toDms(45, "dms", 3);
 
 Dms.toLat(45);
-Dms.toLat(45, 'dm');
-Dms.toLat(45, 'd', 1);
-Dms.toLat(45, 'dms', 3);
+Dms.toLat(45, "dm");
+Dms.toLat(45, "d", 1);
+Dms.toLat(45, "dms", 3);
 
 Dms.toLon(45);
-Dms.toLon(45, 'dm');
-Dms.toLon(45, 'd', 1);
-Dms.toLon(45, 'dms', 3);
+Dms.toLon(45, "dm");
+Dms.toLon(45, "d", 1);
+Dms.toLon(45, "dms", 3);
 
 Dms.toBrng(90);
-Dms.toBrng(90, 'dm');
-Dms.toBrng(90, 'd', 1);
-Dms.toBrng(90, 'dms', 3);
+Dms.toBrng(90, "dm");
+Dms.toBrng(90, "d", 1);
+Dms.toBrng(90, "dms", 3);
 
 Dms.compassPoint(180);
 Dms.compassPoint(180, 1);
@@ -96,8 +96,8 @@ const pOSGB = pWGS84.convertDatum(LatLonEllipsoidalDatum.datums.OSGB36);
 
 latlon.toCartesian();
 latlon.toString();
-latlon.toString('dm');
-latlon.toString('d', 0);
+latlon.toString("dm");
+latlon.toString("d", 0);
 
 const mgrsGrid = new Latlon_Utm_Mgrs(45.4215296, -75.697193).toUtm().toMgrs();
 mgrsGrid.toString(6);
@@ -114,7 +114,7 @@ osgrid.toLatLon();
 osgrid.toLatLon(LatLonEllipsoidalDatum.datums.OSGB36);
 
 // Static Functions
-OsGridRef.parse('TG 51409 13177');
+OsGridRef.parse("TG 51409 13177");
 
 /**
  * LatLonSpherical
@@ -153,8 +153,8 @@ const eq2 = new LatLonSpherical(52.205, 0.119);
 eq1.equals(eq2); // true
 
 eq1.toString();
-eq1.toString('dm');
-eq1.toString('d', 0);
+eq1.toString("dm");
+eq1.toString("d", 0);
 
 // Static functions
 const brng1 = 108.547;
@@ -194,7 +194,7 @@ const boundary = [point4, point5, point6, point7];
 point3.isEnclosedBy(boundary); // true
 point3.equals(point4); // false
 point3.equals(point8); // true
-point3.toString('dms', 2); // 49°47′18.456″N, 097°26′35.016″W
+point3.toString("dms", 2); // 49°47′18.456″N, 097°26′35.016″W
 
 // Static functions
 LatLonNvectorSpherical.intersection(point4, point5, point3, 1); // LatLon { lat: 49.7981787830497, lon: -97.44279718554108 }

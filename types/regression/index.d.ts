@@ -1,8 +1,3 @@
-// Type definitions for regression 2.0
-// Project: https://github.com/Tom-Alexander/regression-js
-// Definitions by: Mattias B. Martens <https://github.com/MattiasMartens>
-// Definitions: https://github.com/MattiasMartens/DefinitelyTyped
-
 /**
  * [x, y]
  */
@@ -14,13 +9,13 @@ export interface Options {
      * This is used to round the calculated fitting coefficients,
      * the output predictions, and the value of r^2.
      */
-    precision?: number;
+    precision?: number | undefined;
     /**
      * The number of terms to solve for (and therefore
      * the number of coefficients to calculate). Only
      * relevant for polynomial fitting.
      */
-    order?: number;
+    order?: number | undefined;
 }
 
 export interface Result {
@@ -38,7 +33,7 @@ export interface Result {
      * One could use this to directly evaluate the quality
      * of the fit.
      */
-    points: ReadonlyArray<DataPoint>;
+    points: readonly DataPoint[];
     /**
      * Function that takes an arbitrary value of x and
      * produces a coordinate representing the y-value of
@@ -74,22 +69,22 @@ export interface Result {
 
 export function _round(number: number, precision: number): number;
 export function linear(
-    data: ReadonlyArray<DataPoint>,
-    options?: Options
+    data: readonly DataPoint[],
+    options?: Options,
 ): Result;
 export function exponential(
-    data: ReadonlyArray<DataPoint>,
-    options?: Options
+    data: readonly DataPoint[],
+    options?: Options,
 ): Result;
 export function logarithmic(
-    data: ReadonlyArray<DataPoint>,
-    options?: Options
+    data: readonly DataPoint[],
+    options?: Options,
 ): Result;
 export function power(
-    data: ReadonlyArray<DataPoint>,
-    options?: Options
+    data: readonly DataPoint[],
+    options?: Options,
 ): Result;
 export function polynomial(
-    data: ReadonlyArray<DataPoint>,
-    options?: Options
+    data: readonly DataPoint[],
+    options?: Options,
 ): Result;

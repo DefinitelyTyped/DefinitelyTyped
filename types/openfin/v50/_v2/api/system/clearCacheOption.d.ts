@@ -1,6 +1,6 @@
 export interface ClearCacheOption {
-    appcache?: boolean;
-    cache?: boolean;
-    cookies?: boolean;
-    localStorage?: boolean;
+    appcache?: boolean | undefined;
+    cache?: boolean | undefined;
+    cookies?: boolean | undefined;
+    localStorage?: boolean | undefined;
 }

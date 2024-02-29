@@ -1,8 +1,3 @@
-// Type definitions for AppFramework 2.0
-// Project: http://app-framework-software.intel.com/
-// Definitions by: kyo_ago <https://github.com/kyo-ago>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface appFrameworkStatic {
     /**
      * This is the internal appframework object that gets extended and added on to it
@@ -184,8 +179,17 @@ interface appFrameworkStatic {
      * @param {String} [dataType]
      * @title $.post(url,[data],success,[dataType])
      */
-    post(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void, dataType?: string): XMLHttpRequest;
-    post(url: string, data: any, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void, dataType?: string): XMLHttpRequest;
+    post(
+        url: string,
+        fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void,
+        dataType?: string,
+    ): XMLHttpRequest;
+    post(
+        url: string,
+        data: any,
+        fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void,
+        dataType?: string,
+    ): XMLHttpRequest;
 
     /**
      * Shorthand call to an Ajax request that expects a JSON response
@@ -199,7 +203,7 @@ interface appFrameworkStatic {
      * @title $.getJSON(url,data,success)
      */
     getJSON(url: string, fn: (data: any, status?: string, xhr?: XMLHttpRequest) => void): XMLHttpRequest;
-    getJSON(url: string, data: any, fn: (data: any, status: string, xhr: XMLHttpRequest) => void ): XMLHttpRequest;
+    getJSON(url: string, data: any, fn: (data: any, status: string, xhr: XMLHttpRequest) => void): XMLHttpRequest;
 
     /**
      * Converts an object into a key/value par with an optional prefix.  Used for converting objects to a query string
@@ -224,7 +228,7 @@ interface appFrameworkStatic {
      var obj=$.parseJSON("{\"bar\":\"bar\"}");
      ```
 
-     * @params {String} string
+     * @param {String} string
      * @return {Object}
      * @title $.parseJSON(string)
      */
@@ -431,11 +435,19 @@ interface appFrameworkStatic {
         cssPrefix: string;
         cssTransformStart: string;
         cssTransformEnd: string;
-    }
+    };
 }
 
 interface appFrameworkCollection {
-    reduce(callbackfn: (previousValue: appFrameworkCollection, currentValue: appFrameworkCollection, currentIndex: number, array: appFrameworkCollection[]) => appFrameworkCollection, initialValue?: appFrameworkCollection): appFrameworkCollection;
+    reduce(
+        callbackfn: (
+            previousValue: appFrameworkCollection,
+            currentValue: appFrameworkCollection,
+            currentIndex: number,
+            array: appFrameworkCollection[],
+        ) => appFrameworkCollection,
+        initialValue?: appFrameworkCollection,
+    ): appFrameworkCollection;
     push(...items: appFrameworkCollection[]): number;
     indexOf(searchElement: appFrameworkCollection, fromIndex?: number): number;
     concat(...items: appFrameworkCollection[]): appFrameworkCollection[];
@@ -1290,19 +1302,19 @@ interface appFrameworkCollection {
 }
 
 interface appFrameworkAjaxSettings {
-    type?: string;
-    beforeSend?: (xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings) => boolean;
-    success?: (data: any, status: string, xhr: XMLHttpRequest) => void;
-    error?: (xhr: XMLHttpRequest, errorType: string, error: Error) => void;
-    complete?: (xhr: XMLHttpRequest, status: string) => void;
-    timeout?: number;
-    url?: string;
-    contentType?: string;
+    type?: string | undefined;
+    beforeSend?: ((xhr: XMLHttpRequest, settings: appFrameworkAjaxSettings) => boolean) | undefined;
+    success?: ((data: any, status: string, xhr: XMLHttpRequest) => void) | undefined;
+    error?: ((xhr: XMLHttpRequest, errorType: string, error: Error) => void) | undefined;
+    complete?: ((xhr: XMLHttpRequest, status: string) => void) | undefined;
+    timeout?: number | undefined;
+    url?: string | undefined;
+    contentType?: string | undefined;
     headers?: any;
-    dataType?: string;
+    dataType?: string | undefined;
     data?: any;
     context?: any;
-    crossDomain?: boolean;
+    crossDomain?: boolean | undefined;
 }
 
 interface appFrameworkCssMatrix {

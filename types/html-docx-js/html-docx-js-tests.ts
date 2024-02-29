@@ -1,4 +1,4 @@
-import { asBlob } from 'html-docx-js';
+import { asBlob } from "html-docx-js";
 
 const html = `
 <!DOCTYPE html>
@@ -13,18 +13,23 @@ const html = `
 `;
 
 // Invalid ways to call
-asBlob(); // $ExpectError
-asBlob(1234); // $ExpectError
-asBlob(html, null); // $ExpectError
-asBlob(html, { orientation: 'invalid' }); // $ExpectError
-asBlob(html, { foo: ['bar'] }); // $ExpectError
+// @ts-expect-error
+asBlob();
+// @ts-expect-error
+asBlob(1234);
+// @ts-expect-error
+asBlob(html, null);
+// @ts-expect-error
+asBlob(html, { orientation: "invalid" });
+// @ts-expect-error
+asBlob(html, { foo: ["bar"] });
 
 // Valid ways to call
 asBlob(html); // $ExpectType Blob | Buffer
 asBlob(html, {}); // $ExpectType Blob | Buffer
 
 const result1 = asBlob(html, {
-    orientation: 'landscape',
+    orientation: "landscape",
     margins: {
         top: 100,
         right: 100,

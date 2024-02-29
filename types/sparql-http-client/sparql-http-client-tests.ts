@@ -1,18 +1,18 @@
-import StreamClient = require('sparql-http-client');
-import Endpoint = require('sparql-http-client/Endpoint');
-import BaseClient = require('sparql-http-client/BaseClient');
-import ParsingClient = require('sparql-http-client/ParsingClient');
-import RawQuery = require('sparql-http-client/RawQuery');
-import { Client } from 'sparql-http-client';
-import { Readable } from 'stream';
-import { DataFactory, Stream, Quad, NamedNode, Term } from 'rdf-js';
+import StreamClient = require("sparql-http-client");
+import Endpoint = require("sparql-http-client/Endpoint");
+import SimpleClient = require("sparql-http-client/SimpleClient");
+import ParsingClient = require("sparql-http-client/ParsingClient");
+import RawQuery = require("sparql-http-client/RawQuery");
+import { DataFactory, NamedNode, Quad, Stream, Term } from "@rdfjs/types";
+import { Client } from "sparql-http-client";
+import { Readable } from "stream";
 
 interface TestQuad extends Quad {
     toCanonical(): string;
 }
 
-const endpointUrl = '';
-const query = '';
+const endpointUrl = "";
+const query = "";
 const factory: DataFactory<TestQuad> = <any> {};
 const headers: HeadersInit = <any> {};
 const password: string = <any> {};
@@ -52,6 +52,7 @@ async function streamingClient() {
         user,
         storeUrl,
         updateUrl,
+        maxQuadsPerRequest: 10,
     });
 
     let endpoint: Endpoint = fullOptions.query.endpoint;
@@ -61,32 +62,32 @@ async function streamingClient() {
     const askNoOptions: boolean = await fullOptions.query.ask(query);
     const askFullOptions: boolean = await fullOptions.query.ask(query, {
         headers,
-        operation: 'postDirect'
+        operation: "postDirect",
     });
 
     // query.select
     const selectNoOptions: Readable = await fullOptions.query.select(query);
     const selectFullOptions: Readable = await fullOptions.query.select(query, {
         headers,
-        operation: 'postUrlencoded'
+        operation: "postUrlencoded",
     });
 
     // query.construct
-    const constructNoOptions: Stream<TestQuad> = await fullOptions.query.construct(query);
-    const constructFullOptions: Stream<TestQuad> = await fullOptions.query.construct(query, {
+    const constructNoOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query);
+    const constructFullOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 
     // query.update
     const updateNoOptions: Promise<void> = fullOptions.query.update(query);
     const updateFullOptions: Promise<void> = fullOptions.query.update(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 
     // store.get
-    const get: Stream<TestQuad> = await fullOptions.store.get(graph);
+    const get: Stream<TestQuad> & Readable = await fullOptions.store.get(graph);
 
     // store.put
     const put: Promise<void> = fullOptions.store.put(stream);
@@ -124,63 +125,74 @@ async function parsingClient() {
     const askNoOptions: boolean = await fullOptions.query.ask(query);
     const askFullOptions: boolean = await fullOptions.query.ask(query, {
         headers,
-        operation: 'postDirect'
+        operation: "postDirect",
     });
 
     // query.select
     const selectNoOptions: Array<Record<string, Term>> = await fullOptions.query.select(query);
     const selectFullOptions: Array<Record<string, Term>> = await fullOptions.query.select(query, {
         headers,
-        operation: 'postUrlencoded'
+        operation: "postUrlencoded",
     });
 
     // query.construct
     const constructNoOptions: TestQuad[] = await fullOptions.query.construct(query);
     const constructFullOptions: TestQuad[] = await fullOptions.query.construct(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 
     // query.update
     const updateNoOptions: Promise<void> = fullOptions.query.update(query);
     const updateFullOptions: Promise<void> = fullOptions.query.update(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 }
 
-async function testBaseClient_RawQuery() {
+async function simpleClient() {
     // construct
-    const client: Client<RawQuery, TestQuad> = new BaseClient<RawQuery, TestQuad>({
-        endpoint,
-        Query: RawQuery,
+    // minimal options
+    let client: Client<RawQuery, TestQuad> = new SimpleClient({
+        endpointUrl,
+    });
+    // full options
+    client = new SimpleClient({
+        endpointUrl,
+        factory,
+        fetch,
+        headers,
+        password,
+        user,
+        storeUrl,
+        updateUrl,
     });
 
     // query.ask
     const askNoOptions: Response = await client.query.ask(query);
     const askFullOptions: Response = await client.query.ask(query, {
         headers,
-        operation: 'postDirect'
+        operation: "postDirect",
     });
 
     // query.select
     const selectNoOptions: Response = await client.query.select(query);
     const selectFullOptions: Response = await client.query.select(query, {
         headers,
-        operation: 'postUrlencoded'
+        operation: "postUrlencoded",
     });
 
     // query.construct
     const constructNoOptions: Response = await client.query.construct(query);
     const constructFullOptions: Response = await client.query.construct(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 
     // query.update
     const updateNoOptions: Response = await client.query.update(query);
     const updateFullOptions: Response = await client.query.update(query, {
         headers,
-        operation: 'get'
+        operation: "get",
     });
 }

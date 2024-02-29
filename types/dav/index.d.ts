@@ -1,9 +1,3 @@
-// Type definitions for dav 1.7
-// Project: https://github.com/lambdabaa/dav/, https://github.com/gaye/dav
-// Definitions by: ToastHawaii <https://github.com/ToastHawaii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export let version: string;
 
 /**
@@ -17,27 +11,27 @@ export interface CreateAccountOptions {
     /**
      * one of 'caldav' or 'carddav'. Defaults to 'caldav'.
      */
-    accountType?: "caldav" | "carddav";
+    accountType?: "caldav" | "carddav" | undefined;
 
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      *  whether or not to load dav collections.
      */
-    loadCollections?: boolean;
+    loadCollections?: boolean | undefined;
 
     /**
      * whether or not to load dav objects.
      */
-    loadObjects?: boolean;
+    loadObjects?: boolean | undefined;
 
     /**
      * request sandox.
      */
-    sandbox?: Sandbox | {};
+    sandbox?: Sandbox | {} | undefined;
 
     /**
      *  some url for server (needn't be base url).
@@ -47,13 +41,13 @@ export interface CreateAccountOptions {
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
 
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -78,12 +72,12 @@ export interface CreateCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -92,18 +86,21 @@ export interface CreateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been updated.
  */
-export function updateCalendarObject(calendarObject: CalendarObject, options: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+export function updateCalendarObject(
+    calendarObject: CalendarObject,
+    options: UpdateCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface UpdateCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -112,18 +109,21 @@ export interface UpdateCalendarObjectOptions {
  * @param options
  * @returns a Promise which will be fulfilled when the calendar has been deleted.
  */
-export function deleteCalendarObject(calendarObject: CalendarObject, options: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+export function deleteCalendarObject(
+    calendarObject: CalendarObject,
+    options: DeleteCalendarObjectOptions,
+): Promise<CalendarObject>;
 
 export interface DeleteCalendarObjectOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -138,28 +138,28 @@ export interface SyncCalendarOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -174,28 +174,28 @@ export interface SyncCaldavAccountOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -219,11 +219,11 @@ export interface CreateCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -238,11 +238,11 @@ export interface UpdateCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -257,11 +257,11 @@ export interface DeleteCardOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -276,17 +276,17 @@ export interface SyncAddressBookOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * either 'basic' or 'webdav'.If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -301,28 +301,73 @@ export interface SyncCarddavAccountOptions {
     /**
      * list of caldav filters to send with request.
      */
-    filters?: object[];
+    filters?: object[] | undefined;
 
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
 
     /**
      * either 'basic' or 'webdav'. If unspecified, will try to do webdav sync
      * and failover to basic sync if rfc 6578 is not supported by the server.
      */
-    syncMethod?: "basic" | "webdav";
+    syncMethod?: "basic" | "webdav" | undefined;
 
     /**
      * VTIMEZONE calendar object.
      */
-    timezone?: string;
+    timezone?: string | undefined;
 
     /**
      * request sender.
      */
-    xhr?: transport.Transport;
+    xhr?: transport.Transport | undefined;
+}
+
+/**
+ * Fetch the list of Calendars associated with the account.
+ * @param  account the calendar account to fetch.
+ * @param options
+ * @returns a Promise which will be fulfilled with a list of calendars once sync is complete.
+ */
+export function listCalendars(account: Account, options: ListCalendarsOptions): Promise<Calendar[]>;
+
+export interface ListCalendarsOptions {
+    /**
+     * request sandbox.
+     */
+    sandbox?: Sandbox | undefined;
+
+    /**
+     * request sender.
+     */
+    xhr?: transport.Transport | undefined;
+}
+
+/**
+ * Fetch the list of events associated with the calendar.
+ * @param  calendar the calendar account to fetch.
+ * @param options
+ * @returns a Promise which will be fulfilled with a list of events once sync is complete.
+ */
+export function listCalendarObjects(calendar: Calendar, options: ListCalendarObjectsOptions): Promise<CalendarObject[]>;
+
+export interface ListCalendarObjectsOptions {
+    /**
+     * list of caldav filters to send with request.
+     */
+    filters?: object[] | undefined;
+
+    /**
+     * request sandbox.
+     */
+    sandbox?: Sandbox | undefined;
+
+    /**
+     * request sender.
+     */
+    xhr?: transport.Transport | undefined;
 }
 
 /**
@@ -360,9 +405,9 @@ export namespace transport {
         /**
          *  request sandbox.
          */
-        sandbox?: Sandbox;
+        sandbox?: Sandbox | undefined;
 
-        retry?: boolean;
+        retry?: boolean | undefined;
     }
 
     class Basic extends Transport {
@@ -373,7 +418,6 @@ export namespace transport {
         constructor(credentials: Credentials);
 
         /**
-         *
          * @param request object with request info.
          * @param url
          * @param options
@@ -393,7 +437,6 @@ export namespace transport {
         constructor(credentials: Credentials);
 
         /**
-         *
          * @param request object with request info.
          * @param url
          * @param options
@@ -408,17 +451,16 @@ export namespace transport {
 
 export namespace request {
     /**
-     *
      * @param options
      * @returns
      */
-    function addressBookQuery(options: AddressBookQueryOptions): string;
+    function addressBookQuery(options: AddressBookQueryOptions): Request;
 
     interface AddressBookQueryOptions {
         /**
          * value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
@@ -427,7 +469,6 @@ export namespace request {
     }
 
     /**
-     *
      * @param options
      * @returns
      */
@@ -451,17 +492,16 @@ export namespace request {
     }
 
     /**
-     *
      * @param options
      * @returns
      */
-    function calendarQuery(options: CalendarQueryOptions): string;
+    function calendarQuery(options: CalendarQueryOptions): Request;
 
     interface CalendarQueryOptions {
         /**
          * value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of filters to send with request.
@@ -480,36 +520,46 @@ export namespace request {
     }
 
     /**
-     *
+     * @param requestData
      * @param options
      * @returns
      */
-    function propfind(options: PropfindOptions): string;
+    function collectionQuery(requestData: string, options: SetRequestHeadersOptions): Request;
+
+    /**
+     * @param options
+     * @returns
+     */
+    function propfind(options: PropfindOptions): Request;
 
     interface PropfindOptions {
         /**
          *  value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
          */
         props: object[];
+
+        /**
+         * whether to merge the response props.
+         */
+        mergeResponses?: boolean | undefined;
     }
 
     /**
-     *
      * @param options
      * @returns
      */
-    function syncCollection(options: SyncCollectionOptions): string;
+    function syncCollection(options: SyncCollectionOptions): Request;
 
     interface SyncCollectionOptions {
         /**
          * option value for Depth header.
          */
-        depth?: string;
+        depth?: string | undefined;
 
         /**
          * list of props to request.
@@ -525,6 +575,27 @@ export namespace request {
          * synchronization token provided by the server.
          */
         syncToken: string;
+    }
+
+    /**
+     * @param options
+     * @returns
+     */
+    function setRequestHeaders(request: XMLHttpRequest, options: SetRequestHeadersOptions): void;
+
+    interface SetRequestHeadersOptions {
+        /**
+         * value for Content-Type header.
+         */
+        contentType?: string;
+        /**
+         * value for Depth header.
+         */
+        depth?: string;
+        /**
+         * value for If-Match header.
+         */
+        etag?: string;
     }
 }
 
@@ -571,7 +642,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been updated.
      */
-    updateCalendarObject(calendarObject: CalendarObject, options?: UpdateCalendarObjectOptions): Promise<CalendarObject>;
+    updateCalendarObject(
+        calendarObject: CalendarObject,
+        options?: UpdateCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Delete the parameter calendar object on the server.
@@ -579,7 +653,10 @@ export class Client {
      * @param options
      * @returns a Promise which will be fulfilled when the calendar has been deleted.
      */
-    deleteCalendarObject(calendarObject: CalendarObject, options?: DeleteCalendarObjectOptions): Promise<CalendarObject>;
+    deleteCalendarObject(
+        calendarObject: CalendarObject,
+        options?: DeleteCalendarObjectOptions,
+    ): Promise<CalendarObject>;
 
     /**
      * Fetch changes from the remote server to the parameter calendar.
@@ -614,7 +691,6 @@ export class Client {
     updateCard(card: VCard, options?: UpdateCardOptions): Promise<VCard>;
 
     /**
-     *
      * Delete the parameter vcard object on the server.
      * @param card target vcard object.
      * @param options
@@ -650,11 +726,11 @@ export interface ClientSendOptions {
     /**
      * request sandbox.
      */
-    sandbox?: Sandbox;
+    sandbox?: Sandbox | undefined;
     /**
      * relative url for request.
      */
-    url?: string;
+    url?: string | undefined;
 }
 
 export type Partial<T> = {
@@ -783,10 +859,10 @@ export type VCardOptions = Partial<VCard>;
 export class Request {
     constructor(options?: RequestOptions);
     method: string;
-    requestData?: string;
-    transformRequest?: (xhr: any) => any;
-    transformResponse?: (xhr: any) => any;
-    onerror?: (error: Error) => any;
+    requestData?: string | undefined;
+    transformRequest?: ((xhr: any) => any) | undefined;
+    transformResponse?: ((xhr: any) => any) | undefined;
+    onerror?: ((error: Error) => any) | undefined;
 }
 
 export type RequestOptions = Partial<Request>;
@@ -796,9 +872,9 @@ export namespace debug {
 }
 
 export namespace ns {
-    const CALENDAR_SERVER = 'http://calendarserver.org/ns/';
-    const CALDAV_APPLE = 'http://apple.com/ns/ical/';
-    const CALDAV = 'urn:ietf:params:xml:ns:caldav';
-    const CARDDAV = 'urn:ietf:params:xml:ns:carddav';
-    const DAV = 'DAV:';
+    const CALENDAR_SERVER = "http://calendarserver.org/ns/";
+    const CALDAV_APPLE = "http://apple.com/ns/ical/";
+    const CALDAV = "urn:ietf:params:xml:ns:caldav";
+    const CARDDAV = "urn:ietf:params:xml:ns:carddav";
+    const DAV = "DAV:";
 }

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shakacode__recompose",
+    "version": "0.30.9999",
+    "projects": [
+        "https://github.com/shakacode/recompose"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/prop-types": "*",
+        "@types/shakacode__recompose": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Dombrowski",
+            "githubUsername": "bdombro"
+        }
+    ]
+}

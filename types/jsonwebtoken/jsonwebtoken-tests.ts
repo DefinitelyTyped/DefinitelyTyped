@@ -6,14 +6,17 @@
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
+import { createSecretKey, KeyObject } from "crypto";
 
 let token: string;
 let cert: Buffer;
+let secretKey: KeyObject;
 
 interface TestObject {
     foo: string;
 }
 
+const testBoolean = true as boolean;
 const testObject = { foo: "bar" };
 
 /**
@@ -42,10 +45,56 @@ token = jwt.sign(testObject, cert, { algorithm: "RS256" });
 const privKey: Buffer = fs.readFileSync("encrypted_private.key"); // get private key
 const secret = { key: privKey.toString(), passphrase: "keypwd" };
 token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
-token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
+token = jwt.sign(testObject, { key: privKey, passphrase: "keypwd" }, { algorithm: "RS256" });
+
+// sign with secret key (KeyObject)
+secretKey = createSecretKey("shhhhh", "utf-8");
+token = jwt.sign(testObject, secretKey);
+
+// sign with expiresIn
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1d" });
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined });
+
+// sign with insecure key size
+token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });
+
+// sign with invalid asymmetric key type for algorithm
+token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInvalidAsymmetricKeyTypes: true });
+
+// sign with algorithm none
+token = jwt.sign(testObject, null, { algorithm: "none" });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, null, { algorithm: "RS256", allowInvalidAsymmetricKeyTypes: true });
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+
+// sign asynchronously with algorithm none
+jwt.sign(testObject, null, { algorithm: "none" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+// @ts-expect-error
+jwt.sign(testObject, null, { algorithm: "RS256" }, (
     err: Error | null,
     token: string | undefined,
 ) => {
@@ -61,6 +110,9 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
  * jwt.verify
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
  */
+// verify using secret key
+jwt.verify(token, secretKey);
+
 // verify a token symmetric
 jwt.verify(token, "shhhhh", (err, decoded) => {
     const result = decoded as TestObject;
@@ -69,7 +121,7 @@ jwt.verify(token, "shhhhh", (err, decoded) => {
 });
 
 // use external time for verifying
-jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
+jwt.verify(token, "shhhhh", { clockTimestamp: 1 }, (err, decoded) => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar
@@ -88,6 +140,13 @@ jwt.verify(token, secret, (err, decoded) => {
     console.log(result.foo); // bar
 });
 
+// verify with invalid asymmetric key type for algorithm
+jwt.verify(token, secret, { allowInvalidAsymmetricKeyTypes: true }, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
+});
+
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, (err, decoded) => {
@@ -97,16 +156,24 @@ jwt.verify(token, cert, (err, decoded) => {
 });
 
 // verify a token assymetric with async key fetch function
-function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
+function getKeySuccess(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
     cert = fs.readFileSync("public.pem");
 
     callback(null, cert);
 }
-
-jwt.verify(token, getKey, (err, decoded) => {
+jwt.verify(token, getKeySuccess, (err, decoded) => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar
+});
+
+function getKeyFailed(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
+    cert = fs.readFileSync("public.pem");
+
+    callback(new Error("FAILED_KEY_RETRIEVAL"), cert);
+}
+jwt.verify(token, getKeyFailed, (err, decoded) => {
+    console.error(err); // new JsonWebTokenError('error in secret or public key callback: FAILED_KEY_RETRIEVAL')
 });
 
 // verify audience
@@ -142,24 +209,92 @@ jwt.verify(token, cert, { ignoreExpiration: true }, (err, decoded) => {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+jwt.verify(token, cert, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, {}, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { complete: true }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType Jwt
+        decoded;
+        // $ExpectType string | JwtPayload
+        decoded.payload;
+    }
+});
+
+jwt.verify(token, cert, { complete: false }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { maxAge: 3600 }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | JwtPayload
+        decoded;
+    }
+});
+
+jwt.verify(token, cert, { complete: testBoolean }, (_err, decoded) => {
+    if (decoded) {
+        // $ExpectType string | Jwt | JwtPayload
+        decoded;
+    }
+});
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert);
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, {});
+
+// $ExpectType Jwt
+jwt.verify(token, cert, { complete: true });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: true }).payload;
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { complete: false });
+
+// $ExpectType string | JwtPayload
+jwt.verify(token, cert, { maxAge: 3600 });
+
+// $ExpectType string | Jwt | JwtPayload
+jwt.verify(token, cert, { complete: testBoolean });
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
-let decoded = jwt.decode(token);
+// $ExpectType string | JwtPayload | null
+jwt.decode(token);
 
-decoded = jwt.decode(token, { complete: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false });
 
-if (decoded !== null && typeof decoded === "object") {
-    console.log(decoded.foo);
-}
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { json: false });
 
-decoded = jwt.decode(token, { json: false });
+// $ExpectType string | JwtPayload | null
+jwt.decode(token, { complete: false, json: false });
 
-decoded = jwt.decode(token, { complete: false, json: false });
+// $ExpectType JwtPayload | null
+jwt.decode(token, { json: true });
 
-decoded = jwt.decode(token, { json: true });
-if (decoded) {
-    // $ExpectType { [key: string]: any; }
-    decoded;
-}
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true });
+
+// $ExpectType Jwt | null
+jwt.decode(token, { complete: true, json: true });

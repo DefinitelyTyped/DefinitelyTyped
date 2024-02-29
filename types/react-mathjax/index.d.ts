@@ -1,20 +1,15 @@
-// Type definitions for react-mathjax 1.0
-// Project: https://github.com/SamyPesse/react-mathjax#readme
-// Definitions by: ArtoLord <https://github.com/ArtoLord>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 interface MathJaxContextValue {
-    MathJax?: object;
+    MathJax?: object | undefined;
     registerNode: () => void;
 }
 
 declare namespace MathJax {
     class Provider extends React.Component<
         {
-            script?: string | boolean;
-            options?: object;
+            script?: string | boolean | undefined;
+            options?: object | undefined;
             children: React.ReactNode;
         },
         MathJaxContextValue
@@ -22,8 +17,8 @@ declare namespace MathJax {
 
     class Node extends React.PureComponent<{
         formula: string;
-        inline?: boolean;
-        onRender?: () => void;
+        inline?: boolean | undefined;
+        onRender?: (() => void) | undefined;
     }> {}
 }
 

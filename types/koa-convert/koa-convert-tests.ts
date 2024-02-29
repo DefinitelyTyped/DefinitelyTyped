@@ -1,16 +1,18 @@
-import convert = require('koa-convert');
-import Koa = require('koa');
+import convert = require("koa-convert");
+import Koa = require("koa");
 
 const app = new Koa();
 
-app.use(modernMiddleware);
-
+function* legacyMiddleware(next: any) {
+    yield next;
+}
 app.use(convert(legacyMiddleware));
+app.use(convert.back(legacyMiddleware));
 
-function * legacyMiddleware(next: any) {
-  yield next;
+function modernMiddleware(ctx: Koa.Context, next: Koa.Next) {
+    return next().then(() => {});
 }
+app.use(convert(modernMiddleware));
+app.use(convert.back(modernMiddleware));
 
-function modernMiddleware(ctx: Koa.Context, next: any) {
-  return next().then(() => {});
-}
+app.use(convert.compose(legacyMiddleware, modernMiddleware));

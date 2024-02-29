@@ -6,7 +6,7 @@ let mail: winstonMail.Mail = new winstonMail.Mail({ to: "test" });
 
 winston.add(mail);
 
-// $ExpectError
+// @ts-expect-error
 mail = new winstonMail.Mail({});
 
 let mailOptions: winstonMail.MailTransportOptions = {
@@ -32,19 +32,20 @@ let mailOptions: winstonMail.MailTransportOptions = {
     authentication: ["test"],
     formatter: (obj: { level: string; message: string; meta: any }): string => {
         return "test";
-    }
+    },
 };
 
 mailOptions = {
     to: "test",
     ssl: { key: "test", ca: "test", cert: "test" },
-    tls: { ciphers: "test" }
+    tls: { ciphers: "test" },
 };
 
 mail = new winstonMail.Mail(mailOptions);
 
 mailOptions = {
-    test: "test" // $ExpectError
+    // @ts-expect-error
+    test: "test",
 };
 
 let transport: winston.TransportInstance = new winstonMail.Mail({ to: "test" });

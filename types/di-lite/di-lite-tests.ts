@@ -1,7 +1,5 @@
-
-
 interface Dependency {
-    dependencies?: string;
+    dependencies?: string | undefined;
 }
 
 function doTest(test: (ctx: any, ...obj: Dependency[]) => void) {
@@ -66,7 +64,7 @@ namespace PrototypeStrategy {
 }
 
 namespace PassingConstructorArguments {
-    class ProfileView { }
+    class ProfileView {}
 
     doTest(ctx => {
         ctx.register("str", String, "hello world"); // signle simple argument

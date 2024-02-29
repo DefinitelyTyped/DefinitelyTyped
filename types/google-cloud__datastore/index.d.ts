@@ -1,39 +1,31 @@
-// Type definitions for @google-cloud/datastore 1.3
-// Project: https://github.com/googleapis/nodejs-datastore
-// Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
-//                 Futa Ogawa <https://github.com/ogawa0071>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
-declare module '@google-cloud/datastore' {
+declare module "@google-cloud/datastore" {
     export = Datastore;
 
     import {
-        DatastoreKey,
-        KEY_SYMBOL,
-        DatastoreInt,
+        DatastoreCoords,
         DatastoreDouble,
         DatastoreGeopoint,
-        DatastoreKeyPath,
+        DatastoreInt,
+        DatastoreKey,
         DatastoreKeyOptions,
-        DatastoreCoords,
-        OneOrMany
-    } from '@google-cloud/datastore/entity';
+        DatastoreKeyPath,
+        KEY_SYMBOL,
+        OneOrMany,
+    } from "@google-cloud/datastore/entity";
     import {
-        DatastoreRequest as DatastoreRequest_,
         CommitCallback,
-        CommitResult
-    } from '@google-cloud/datastore/request';
+        CommitResult,
+        DatastoreRequest as DatastoreRequest_,
+    } from "@google-cloud/datastore/request";
     import {
-        Query as DatastoreQuery,
         MoreResultsAfterCursor,
         MoreResultsAfterLimit,
-        NoMoreResults
-    } from '@google-cloud/datastore/query';
-    import { DatastoreTransaction } from '@google-cloud/datastore/transaction';
+        NoMoreResults,
+        Query as DatastoreQuery,
+    } from "@google-cloud/datastore/query";
+    import { DatastoreTransaction } from "@google-cloud/datastore/transaction";
 
     class Datastore extends DatastoreRequest_ {
         static readonly KEY: unique symbol;
@@ -59,8 +51,8 @@ declare module '@google-cloud/datastore' {
         save(entities: OneOrMany<object>, callback: CommitCallback): void;
         save(entities: OneOrMany<object>): Promise<CommitResult>;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult>;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[], callback: CommitCallback): void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): Promise<CommitResult>;
 
         transaction(): DatastoreTransaction;
 
@@ -84,15 +76,15 @@ declare module '@google-cloud/datastore' {
     }
 
     interface InitOptions {
-        apiEndpoint?: string;
-        namespace?: string;
-        projectId?: string;
-        keyFilename?: string;
-        credentials?: object;
+        apiEndpoint?: string | undefined;
+        namespace?: string | undefined;
+        projectId?: string | undefined;
+        keyFilename?: string | undefined;
+        credentials?: object | undefined;
     }
 }
 
-declare module '@google-cloud/datastore/entity' {
+declare module "@google-cloud/datastore/entity" {
     import Datastore = require("@google-cloud/datastore");
 
     interface DatastoreInt {
@@ -121,18 +113,18 @@ declare module '@google-cloud/datastore/entity' {
     type DatastoreKeyPath = PathElement[];
 
     interface DatastoreKeyOptions {
-        namespace?: string;
+        namespace?: string | undefined;
         path: DatastoreKeyPath;
     }
 
     interface DatastoreKey {
         kind: string;
-        id?: string;
-        name?: string;
+        id?: string | undefined;
+        name?: string | undefined;
 
         readonly path: DatastoreKeyPath;
 
-        parent?: DatastoreKey;
+        parent?: DatastoreKey | undefined;
     }
 
     type KEY_SYMBOL = typeof Datastore.KEY;
@@ -141,7 +133,7 @@ declare module '@google-cloud/datastore/entity' {
         key: DatastoreKey;
         // TODO Include possibility of 'raw data' with indexing options, etc
         data: T | object;
-        excludeFromIndexes?: string[];
+        excludeFromIndexes?: string[] | undefined;
     }
 
     /**
@@ -152,13 +144,12 @@ declare module '@google-cloud/datastore/entity' {
     type OneOrMany<T> = ObjOrPayload<T> | Array<ObjOrPayload<T>>;
 }
 
-declare module '@google-cloud/datastore/query' {
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
-    import { DatastoreKey } from '@google-cloud/datastore/entity';
+declare module "@google-cloud/datastore/query" {
+    import { DatastoreKey } from "@google-cloud/datastore/entity";
 
-    type MoreResultsAfterCursor = 'MORE_RESULTS_AFTER_CURSOR';
-    type MoreResultsAfterLimit = 'MORE_RESULTS_AFTER_LIMIT';
-    type NoMoreResults = 'NO_MORE_RESULTS';
+    type MoreResultsAfterCursor = "MORE_RESULTS_AFTER_CURSOR";
+    type MoreResultsAfterLimit = "MORE_RESULTS_AFTER_LIMIT";
+    type NoMoreResults = "NO_MORE_RESULTS";
 
     class Query {
         constructor(scope: string, kinds: string, namespace: string);
@@ -170,9 +161,9 @@ declare module '@google-cloud/datastore/query' {
 
         order(property: string, options?: OrderOptions): this;
 
-        groupBy(properties: string | ReadonlyArray<string>): this;
+        groupBy(properties: string | readonly string[]): this;
 
-        select(properties: string | ReadonlyArray<string>): this;
+        select(properties: string | readonly string[]): this;
 
         start(cursorToken: string): this;
 
@@ -189,19 +180,19 @@ declare module '@google-cloud/datastore/query' {
         runStream(): NodeJS.ReadableStream;
     }
 
-    type QueryFilterOperator = '<' | '<=' | '=' | '>=' | '>';
+    type QueryFilterOperator = "<" | "<=" | "=" | ">=" | ">";
 
     interface OrderOptions {
         descending: boolean;
     }
 
     interface QueryOptions {
-        consistency?: 'strong' | 'eventual';
-        maxApiCalls?: number;
+        consistency?: "strong" | "eventual" | undefined;
+        maxApiCalls?: number | undefined;
     }
 
     interface QueryInfo {
-        endCursor?: string;
+        endCursor?: string | undefined;
         readonly moreResults: MoreResultsAfterCursor | MoreResultsAfterLimit | NoMoreResults;
     }
 
@@ -209,11 +200,9 @@ declare module '@google-cloud/datastore/query' {
     type QueryResult = [object[], QueryInfo];
 }
 
-declare module '@google-cloud/datastore/request' {
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
-    import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
-    // tslint:disable-next-line no-duplicate-imports
-    import { Query, QueryCallback, QueryOptions, QueryResult } from '@google-cloud/datastore/query';
+declare module "@google-cloud/datastore/request" {
+    import { DatastoreKey, OneOrMany } from "@google-cloud/datastore/entity";
+    import { Query, QueryCallback, QueryOptions, QueryResult } from "@google-cloud/datastore/query";
 
     /**
      * Creates requests to the Datastore endpoint.
@@ -223,19 +212,22 @@ declare module '@google-cloud/datastore/request' {
         allocateIds(incompleteKey: DatastoreKey, n: number, callback: AllocateIdsCallback): void;
         allocateIds(incompleteKey: DatastoreKey, n: number): Promise<AllocateIdsResult>;
 
-        createReadStream(keys: DatastoreKey | ReadonlyArray<DatastoreKey>,
-                         options: QueryOptions): NodeJS.ReadableStream;
+        createReadStream(
+            keys: DatastoreKey | readonly DatastoreKey[],
+            options: QueryOptions,
+        ): NodeJS.ReadableStream;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult> | void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[], callback: CommitCallback): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): Promise<CommitResult> | void;
 
         get(key: DatastoreKey, options: QueryOptions, callback: GetCallback<object>): void;
-        get(keys: ReadonlyArray<DatastoreKey>, options: QueryOptions, callback: GetCallback<object[]>): void;
+        get(keys: readonly DatastoreKey[], options: QueryOptions, callback: GetCallback<object[]>): void;
         get(key: DatastoreKey, callback: GetCallback<object>): void;
-        get(keys: ReadonlyArray<DatastoreKey>, callback: GetCallback<object[]>): void;
+        get(keys: readonly DatastoreKey[], callback: GetCallback<object[]>): void;
 
         get(key: DatastoreKey, options?: QueryOptions): Promise<[object | undefined]>;
-        get(keys: ReadonlyArray<DatastoreKey>, options?: QueryOptions): Promise<[object[]]>;
+        get(keys: readonly DatastoreKey[], options?: QueryOptions): Promise<[object[]]>;
 
         runQuery(query: Query, options: QueryOptions, callback: QueryCallback): void;
         runQuery(query: Query, callback: QueryCallback): void;
@@ -244,6 +236,7 @@ declare module '@google-cloud/datastore/request' {
         runQueryStream(query: Query, options?: QueryOptions): NodeJS.ReadableStream;
 
         save(entities: OneOrMany<object>, callback: CommitCallback): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         save(entities: OneOrMany<object>): Promise<CommitResult> | void;
 
         insert(entities: OneOrMany<object>, callback: CommitCallback): void;
@@ -276,14 +269,11 @@ declare module '@google-cloud/datastore/request' {
     type AllocateIdsResult = [DatastoreKey[]];
 }
 
-declare module '@google-cloud/datastore/transaction' {
-    import Datastore_ = require('@google-cloud/datastore');
-    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
-    import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
-    // tslint:disable-next-line no-duplicate-imports
-    import { Query } from '@google-cloud/datastore/query';
-    // tslint:disable-next-line no-duplicate-imports
-    import { DatastoreRequest, CommitCallback, CommitResult } from '@google-cloud/datastore/request';
+declare module "@google-cloud/datastore/transaction" {
+    import Datastore_ = require("@google-cloud/datastore");
+    import { DatastoreKey, OneOrMany } from "@google-cloud/datastore/entity";
+    import { Query } from "@google-cloud/datastore/query";
+    import { CommitCallback, CommitResult, DatastoreRequest } from "@google-cloud/datastore/request";
 
     class DatastoreTransaction extends DatastoreRequest {
         constructor(datastore: Datastore_);
@@ -294,7 +284,7 @@ declare module '@google-cloud/datastore/transaction' {
 
         save(entities: OneOrMany<object>): void;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): void;
 
         commit(): Promise<CommitResult>;
         commit(callback: CommitCallback): void;
@@ -313,8 +303,10 @@ declare module '@google-cloud/datastore/transaction' {
     type RollbackCallback = (err: Error, rollbackResponse: {}) => void;
     type RollbackResult = [{}];
 
-    type TransactionCallback = (err: Error,
-                                tx: DatastoreTransaction,
-                                beginTxResponse: BeginTransactionResponse) => void;
+    type TransactionCallback = (
+        err: Error,
+        tx: DatastoreTransaction,
+        beginTxResponse: BeginTransactionResponse,
+    ) => void;
     type TransactionResult = [DatastoreTransaction, BeginTransactionResponse];
 }

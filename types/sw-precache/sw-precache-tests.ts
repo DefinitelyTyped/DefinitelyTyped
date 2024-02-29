@@ -1,4 +1,4 @@
-import * as swPrecache from 'sw-precache';
+import * as swPrecache from "sw-precache";
 
 swPrecache.generate();
 

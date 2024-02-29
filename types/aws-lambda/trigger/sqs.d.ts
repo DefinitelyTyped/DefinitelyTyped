@@ -1,6 +1,7 @@
 import { Handler } from "../handler";
 
-export type SQSHandler = Handler<SQSEvent, void>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
 
 // SQS
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-sqs
@@ -21,26 +22,36 @@ export interface SQSEvent {
 }
 
 export interface SQSRecordAttributes {
-    AWSTraceHeader?: string;
+    AWSTraceHeader?: string | undefined;
     ApproximateReceiveCount: string;
     SentTimestamp: string;
     SenderId: string;
     ApproximateFirstReceiveTimestamp: string;
-    SequenceNumber?: string;
-    MessageGroupId?: string;
-    MessageDeduplicationId?: string;
+    SequenceNumber?: string | undefined;
+    MessageGroupId?: string | undefined;
+    MessageDeduplicationId?: string | undefined;
+    DeadLetterQueueSourceArn?: string | undefined; // Undocumented, but used by AWS to support their re-drive functionality in the console
 }
 
-export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | string;
+export type SQSMessageAttributeDataType = "String" | "Number" | "Binary" | string;
 
 export interface SQSMessageAttribute {
-    stringValue?: string;
-    binaryValue?: string;
-    stringListValues: never[]; // Not implemented. Reserved for future use.
-    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    stringValue?: string | undefined;
+    binaryValue?: string | undefined;
+    stringListValues?: string[] | undefined; // Not implemented. Reserved for future use.
+    binaryListValues?: string[] | undefined; // Not implemented. Reserved for future use.
     dataType: SQSMessageAttributeDataType;
 }
 
 export interface SQSMessageAttributes {
     [name: string]: SQSMessageAttribute;
+}
+
+// https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#services-sqs-batchfailurereporting
+export interface SQSBatchResponse {
+    batchItemFailures: SQSBatchItemFailure[];
+}
+
+export interface SQSBatchItemFailure {
+    itemIdentifier: string;
 }

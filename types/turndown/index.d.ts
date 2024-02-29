@@ -1,11 +1,5 @@
-// Type definitions for turndown 5.0
-// Project: https://github.com/domchristie/turndown
-// Definitions by: Sergey Zhidkov <https://github.com/sergey-zhidkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare class TurndownService {
-    constructor(options?: TurndownService.Options)
+    constructor(options?: TurndownService.Options);
 
     addRule(key: string, rule: TurndownService.Rule): this;
     keep(filter: TurndownService.Filter): this;
@@ -23,25 +17,25 @@ export = TurndownService;
 
 declare namespace TurndownService {
     interface Options {
-        headingStyle?: "setext" | "atx";
-        hr?: string;
-        br?: string;
-        bulletListMarker?: "-" | "+" | "*";
-        codeBlockStyle?: "indented" | "fenced";
-        emDelimiter?: "_" | "*";
-        fence?: "```" | "~~~";
-        strongDelimiter?: "__" | "**";
-        linkStyle?: "inlined" | "referenced";
-        linkReferenceStyle?: "full" | "collapsed" | "shortcut";
+        headingStyle?: "setext" | "atx" | undefined;
+        hr?: string | undefined;
+        br?: string | undefined;
+        bulletListMarker?: "-" | "+" | "*" | undefined;
+        codeBlockStyle?: "indented" | "fenced" | undefined;
+        emDelimiter?: "_" | "*" | undefined;
+        fence?: "```" | "~~~" | undefined;
+        strongDelimiter?: "__" | "**" | undefined;
+        linkStyle?: "inlined" | "referenced" | undefined;
+        linkReferenceStyle?: "full" | "collapsed" | "shortcut" | undefined;
 
-        keepReplacement?: ReplacementFunction;
-        blankReplacement?: ReplacementFunction;
-        defaultReplacement?: ReplacementFunction;
+        keepReplacement?: ReplacementFunction | undefined;
+        blankReplacement?: ReplacementFunction | undefined;
+        defaultReplacement?: ReplacementFunction | undefined;
     }
 
     interface Rule {
         filter: Filter;
-        replacement?: ReplacementFunction;
+        replacement?: ReplacementFunction | undefined;
     }
 
     interface Rules {

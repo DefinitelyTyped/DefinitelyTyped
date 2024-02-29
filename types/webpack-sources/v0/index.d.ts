@@ -1,14 +1,8 @@
-// Type definitions for webpack-sources 0.1
-// Project: https://github.com/webpack/webpack-sources
-// Definitions by: e-cloud <https://github.com/e-cloud>
-//                 Chris Eppstein <https://github.com/chriseppstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Hash } from 'crypto';
-import { SourceNode, RawSourceMap, SourceMapGenerator } from 'source-map';
-import { SourceListMap } from 'source-list-map';
+import { Hash } from "crypto";
+import { SourceListMap } from "source-list-map";
+import { RawSourceMap, SourceMapGenerator, SourceNode } from "source-map";
 
 export abstract class Source {
     size(): number;
@@ -32,8 +26,8 @@ export abstract class Source {
 }
 
 export interface SourceAndMapMixin {
-    map(options: { columns?: boolean }): RawSourceMap;
-    sourceAndMap(options: { columns?: boolean }): {
+    map(options: { columns?: boolean | undefined }): RawSourceMap;
+    sourceAndMap(options: { columns?: boolean | undefined }): {
         source: string;
         map: RawSourceMap;
     };
@@ -44,7 +38,7 @@ export class CachedSource extends Source {
     _cachedSource: string;
     _cachedSize: number;
     _cachedMaps: {
-        [prop: string]: RawSourceMap
+        [prop: string]: RawSourceMap;
     };
 
     constructor(source: Source);
@@ -111,8 +105,8 @@ export class OriginalSource extends Source implements SourceAndMapMixin {
 
     node(
         options?: {
-            columns?: boolean;
-        }
+            columns?: boolean | undefined;
+        },
     ): SourceNode;
 
     listMap(options: any): SourceListMap;
@@ -202,8 +196,8 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
 
     listMap(
         options: {
-            module?: boolean;
-        }
+            module?: boolean | undefined;
+        },
     ): SourceListMap;
 
     updateHash(hash: Hash): void;

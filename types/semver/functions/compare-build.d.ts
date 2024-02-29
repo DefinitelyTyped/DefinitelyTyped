@@ -1,4 +1,5 @@
-import SemVer = require('../classes/semver');
+import semver = require("../index");
+import SemVer = require("../classes/semver");
 
 /**
  * Compares two versions including build identifiers (the bit after `+` in the semantic version string).
@@ -12,5 +13,9 @@ import SemVer = require('../classes/semver');
  *
  * @since 6.1.0
  */
-declare function compareBuild(a: string | SemVer, b: string | SemVer): 1 | 0 | -1;
+declare function compareBuild(
+    a: string | SemVer,
+    b: string | SemVer,
+    optionsOrLoose?: boolean | semver.Options,
+): 1 | 0 | -1;
 export = compareBuild;

@@ -1,69 +1,75 @@
-
-
 namespace MyApp.view {
     export interface CompanyGridPanel extends Ext.grid.IPanel {
     }
 }
 
-Ext.define("MyApp.view.CompanyGridPanel", <Ext.grid.IPanel>{
-    extend: "Ext.grid.Panel",
-    alias: ["widget.myApp-view-companyGridPanel"],
+Ext.define(
+    "MyApp.view.CompanyGridPanel",
+    <Ext.grid.IPanel> {
+        extend: "Ext.grid.Panel",
+        alias: ["widget.myApp-view-companyGridPanel"],
 
-    config: {
-        companyStore: null
+        config: {
+            companyStore: null,
+        },
+
+        initComponent: function() {
+            Ext.applyIf(this, {
+                itemId: "companyGridPanel",
+                title: "Company Listing",
+                store: this.companyStore,
+                columnLines: true,
+
+                columns: [
+                    <Ext.grid.column.IColumn> {
+                        xtype: "gridcolumn",
+                        dataIndex: "company",
+                        text: "Company",
+                        flex: 1,
+                    },
+                    <Ext.grid.column.INumber> {
+                        xtype: "numbercolumn",
+                        dataIndex: "price",
+                        text: "Price",
+                        renderer: Ext.util.Format.usMoney,
+                    },
+                    <Ext.grid.column.INumber> {
+                        xtype: "numbercolumn",
+                        dataIndex: "change",
+                        text: "Change",
+                        format: "0.00",
+                    },
+                    <Ext.grid.column.INumber> {
+                        xtype: "numbercolumn",
+                        dataIndex: "pctChange",
+                        text: "% Change",
+                        format: "0.00",
+                    },
+                    <Ext.grid.column.IDate> {
+                        xtype: "datecolumn",
+                        dataIndex: "lastChange",
+                        text: "Last Change",
+                    },
+                    <Ext.grid.column.IColumn> {
+                        xtype: "gridcolumn",
+                        dataIndex: "industry",
+                        text: "Industry",
+                    },
+                ],
+
+                tbar: [
+                    <Ext.form.field.ICheckbox> {
+                        xtype: "checkbox",
+                        itemId: "manufacturingFilter",
+                        boxLabel: "Show only Manufacturing companies",
+                    },
+                ],
+            });
+
+            return this.callParent(arguments);
+        },
     },
-
-    initComponent: function() {
-        Ext.applyIf(this, {
-            itemId: "companyGridPanel",
-            title: "Company Listing",
-            store: this.companyStore,
-            columnLines: true,
-
-            columns: [
-        <Ext.grid.column.IColumn>{
-          xtype: "gridcolumn",
-          dataIndex: "company",
-          text: "Company",
-          flex: 1
-        }, <Ext.grid.column.INumber>{
-          xtype: "numbercolumn",
-          dataIndex: "price",
-          text: "Price",
-          renderer: Ext.util.Format.usMoney
-        }, <Ext.grid.column.INumber>{
-          xtype: "numbercolumn",
-          dataIndex: "change",
-          text: "Change",
-          format: "0.00"
-        }, <Ext.grid.column.INumber>{
-          xtype: "numbercolumn",
-          dataIndex: "pctChange",
-          text: "% Change",
-          format: "0.00"
-        }, <Ext.grid.column.IDate>{
-          xtype: "datecolumn",
-          dataIndex: "lastChange",
-          text: "Last Change"
-        }, <Ext.grid.column.IColumn>{
-          xtype: "gridcolumn",
-          dataIndex: "industry",
-          text: "Industry"
-        }
-            ],
-
-            tbar: [
-        <Ext.form.field.ICheckbox>{
-          xtype: "checkbox",
-          itemId: "manufacturingFilter",
-          boxLabel: "Show only Manufacturing companies"
-        }
-            ]
-        });
-
-        return this.callParent(arguments);
-    }
-});
+);
 
 function test_create() {
     var gridPanel: MyApp.view.CompanyGridPanel = Ext.create("MyApp.view.CompanyGridPanel");

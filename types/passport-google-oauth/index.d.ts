@@ -1,13 +1,7 @@
-// Type definitions for passport-google-oauth 1.0.3
-// Project: https://github.com/jaredhanson/passport-google-oauth
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="passport"/>
 
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 interface Profile extends passport.Profile {
     gender: string;
@@ -19,10 +13,10 @@ interface IOAuthStrategyOption {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
-    requestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
+    requestTokenURL?: string | undefined;
+    accessTokenURL?: string | undefined;
+    userAuthorizationURL?: string | undefined;
+    sessionKey?: string | undefined;
 }
 
 interface VerifyOptions {
@@ -40,8 +34,8 @@ declare class OAuthStrategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     name: string;
     authenticate(req: express.Request, options?: Object): void;
@@ -51,18 +45,18 @@ interface IOAuth2StrategyOption {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-    authorizationURL?: string;
-    tokenURL?: string;
-    userProfileURL?: string;
-    accessType?: string;
-    approval_prompt?: string;
-    prompt?: string;
-    loginHint?: string;
-    userID?: string;
-    hostedDomain?: string;
-    display?: string;
-    requestVisibleActions?: string;
-    openIDRealm?: string;
+    authorizationURL?: string | undefined;
+    tokenURL?: string | undefined;
+    userProfileURL?: string | undefined;
+    accessType?: string | undefined;
+    approval_prompt?: string | undefined;
+    prompt?: string | undefined;
+    loginHint?: string | undefined;
+    userID?: string | undefined;
+    hostedDomain?: string | undefined;
+    display?: string | undefined;
+    requestVisibleActions?: string | undefined;
+    openIDRealm?: string | undefined;
 }
 
 interface IOAuth2StrategyOptionWithRequest extends IOAuth2StrategyOption {
@@ -76,8 +70,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
     constructor(
         options: IOAuth2StrategyOptionWithRequest,
@@ -86,8 +80,8 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: VerifyFunction
-        ) => void
+            done: VerifyFunction,
+        ) => void,
     );
 
     name: string;

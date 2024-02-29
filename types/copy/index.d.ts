@@ -1,10 +1,4 @@
-// Type definitions for copy 0.3
-// Project: https://github.com/jonschlinkert/copy
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import File = require('vinyl');
+import File = require("vinyl");
 
 declare namespace copy {
     /**
@@ -46,8 +40,8 @@ declare namespace copy {
     type Callback = (error: Error | null, files?: File[]) => void;
 
     interface Options {
-        cwd?: string;
-        srcBase?: string;
+        cwd?: string | undefined;
+        srcBase?: string | undefined;
     }
 }
 

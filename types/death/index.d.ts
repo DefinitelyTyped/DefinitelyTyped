@@ -1,11 +1,4 @@
-// Type definitions for death 1.1
-// Project: https://github.com/jprichardson/node-death
-// Definitions by: Cameron Knight <https://github.com/ckknight>
-//                 Pranay Prakash <https://github.com/pranaygp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-type Signal = 'SIGINT' | 'SIGTERM' | 'SIGQUIT';
+type Signal = "SIGINT" | "SIGTERM" | "SIGQUIT";
 
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected
@@ -47,11 +40,11 @@ declare function ON_DEATH(callback: (arg: Signal) => void): () => void;
  *  OFF_DEATH();
  */
 declare function ON_DEATH(options: {
-    debug?: boolean;
-    SIGINT?: boolean;
-    SIGTERM?: boolean;
-    SIGQUIT?: boolean;
-    uncaughtException?: false;
+    debug?: boolean | undefined;
+    SIGINT?: boolean | undefined;
+    SIGTERM?: boolean | undefined;
+    SIGQUIT?: boolean | undefined;
+    uncaughtException?: false | undefined;
 }): (callback: (signal: Signal) => void) => () => void;
 
 /**
@@ -78,10 +71,10 @@ declare function ON_DEATH(options: {
  *  OFF_DEATH();
  */
 declare function ON_DEATH(options: {
-    debug?: boolean;
-    SIGINT?: boolean;
-    SIGTERM?: boolean;
-    SIGQUIT?: boolean;
+    debug?: boolean | undefined;
+    SIGINT?: boolean | undefined;
+    SIGTERM?: boolean | undefined;
+    SIGQUIT?: boolean | undefined;
     uncaughtException: true;
 }): (callback: (signalOrErr: Signal | Error, origin?: string) => void) => () => void;
 

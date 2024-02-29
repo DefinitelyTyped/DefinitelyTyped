@@ -1,5 +1,5 @@
-export default function elements() {
-  const elements = recurly.Elements();
+export default function elements () {
+  const elements = window.recurly.Elements();
   const cardElement = elements.CardElement({
     inputType: 'mobileSelect',
     displayIcon: true,
@@ -35,7 +35,7 @@ export default function elements() {
 
   const el = document.querySelector('div');
   if (el) {
-    cardElement.attach(el);
+    cardElement.attach(el).configure({}).focus().remove();
   }
 
   [
@@ -44,7 +44,7 @@ export default function elements() {
     elements.CardYearElement(elementOptions),
     elements.CardCvvElement(elementOptions)
   ].forEach(element => {
-    element.attach('#recurly-elements');
+    element.attach('#recurly-elements').configure({}).focus().remove();
     element.on('attach', () => {});
     element.on('blur', () => {});
     element.on('change', () => {});
@@ -53,7 +53,7 @@ export default function elements() {
     element.on('submit', () => {});
   });
 
-  // $ExpectError
+  // @ts-expect-error
   cardElement.on('fake-event', () => {});
 
   elements.on('submit', () => {});

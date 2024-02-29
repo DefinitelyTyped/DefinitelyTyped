@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
-import { Base } from '../base';
-import { Identity } from '../../identity';
-import Transport, { Message } from '../../transport/transport';
-import { Channel } from './channel/index';
+import { EventEmitter } from "events";
+import { Identity } from "../../identity";
+import Transport, { Message } from "../../transport/transport";
+import { Base } from "../base";
+import { Channel } from "./channel/index";
 /**
  * A messaging bus that allows for pub/sub messaging between different applications.
  * @namespace
@@ -74,6 +74,6 @@ export declare class InterAppPayload {
     sourceUuid: string;
     sourceWindowName: string;
     topic: string;
-    destinationUuid?: string;
+    destinationUuid?: string | undefined;
     message?: any;
 }

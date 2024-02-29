@@ -1,37 +1,33 @@
-// Type definitions for mudder 1.0
-// Project: https://github.com/fasiha/mudderjs#readme
-// Definitions by: Patrick Gingras <https://github.com/p7g>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class SymbolTable {
-    num2sym: ReadonlyArray<string>;
+    num2sym: readonly string[];
     sym2num: Map<string, number>;
     maxBase: number;
     isPrefixCode: boolean;
 
-    constructor(symbols: string | ReadonlyArray<string>, map?: Record<string, number> | Map<string, number>);
+    constructor(symbols: string | readonly string[], map?: Record<string, number> | Map<string, number>);
 
     numberToDigits(num: number, base?: number): number[];
-    digitsToString(digits: ReadonlyArray<number>): string;
-    stringToDigits(string: string | ReadonlyArray<string>): number[];
-    digitsToNumber(digits: ReadonlyArray<number>, base?: number): number;
+    digitsToString(digits: readonly number[]): string;
+    stringToDigits(string: string | readonly string[]): number[];
+    digitsToNumber(digits: readonly number[], base?: number): number;
     numberToString(num: number, base?: number): string;
-    stringToNumber(num: string | ReadonlyArray<string>, base?: number): number;
+    stringToNumber(num: string | readonly string[], base?: number): number;
     roundFraction(num: number, den: number, base?: number): number[];
 
     mudder(num: number): string[];
     mudder(
-        a?: string | ReadonlyArray<string>,
-        b?: string | ReadonlyArray<string>,
+        a?: string | readonly string[],
+        b?: string | readonly string[],
         numStrings?: number,
         base?: number,
         numDivisions?: number,
+        placesToKeep?: number,
     ): string[];
 }
 
 export function longLinspace(
-    a: ReadonlyArray<number>,
-    b: ReadonlyArray<number>,
+    a: readonly number[],
+    b: readonly number[],
     base: number,
     N: number,
     M: number,

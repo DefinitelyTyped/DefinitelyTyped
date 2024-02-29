@@ -1,4 +1,4 @@
-import * as Hapi from "hapi";
+import * as Hapi from "@hapi/hapi";
 import * as Joi from "joi";
 import * as Schwifty from "schwifty";
 import DogModel from "./test/dog";
@@ -14,10 +14,10 @@ import DogModel from "./test/dog";
                 client: "sqlite3",
                 useNullAsDefault: true,
                 connection: {
-                    filename: ":memory:"
-                }
-            }
-        }
+                    filename: ":memory:",
+                },
+            },
+        },
     });
 
     Schwifty.assertCompatible(DogModel, DogModel);
@@ -26,7 +26,7 @@ import DogModel from "./test/dog";
     server.schwifty(DogModel);
 
     await server.initialize();
-    const Dog: typeof DogModel = server.models().Dog;
+    const { Dog } = server.models();
 
     await Dog.query().insert({ name: "Guinness" });
 

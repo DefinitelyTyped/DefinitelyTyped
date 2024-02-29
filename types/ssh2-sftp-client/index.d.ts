@@ -1,27 +1,16 @@
-// Type definitions for ssh2-sftp-client 5.2
-// Project: https://github.com/theophilusx/ssh2-sftp-client
-// Definitions by: igrayson <https://github.com/igrayson>
-//                 Ascari Andrea <https://github.com/ascariandrea>
-//                 Kartik Malik <https://github.com/kartik2406>
-//                 Michael Pertl <https://github.com/viamuli>
-//                 Taylor Herron <https://github.com/gbhmt>
-//                 Lane Goldberg <https://github.com/builtbylane>
-//                 Lorenzo Adinolfi <https://github.com/loru88>
-//                 Sam Galizia <https://github.com/sgalizia>
-//                 Tom Xu <https://github.com/hengkx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as ssh2 from 'ssh2';
-import * as ssh2Stream from 'ssh2-streams';
+import * as ssh2 from "ssh2";
 
 export = sftp;
 
+type FileInfoType = "d" | "-" | "l";
+
 declare class sftp {
+    constructor(name?: string);
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
-    list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
+    list(remoteFilePath: string, filter?: sftp.ListFilterFunction): Promise<sftp.FileInfo[]>;
 
-    exists(remotePath: string): Promise<false | 'd' | '-' | 'l'>;
+    exists(remotePath: string): Promise<false | FileInfoType>;
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
@@ -30,18 +19,18 @@ declare class sftp {
     get(
         path: string,
         dst?: string | NodeJS.WritableStream,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string | NodeJS.WritableStream | Buffer>;
 
-    fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
+    fastGet(remoteFilePath: string, localPath: string, options?: sftp.FastGetTransferOptions): Promise<string>;
 
     put(
         input: string | Buffer | NodeJS.ReadableStream,
         remoteFilePath: string,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.TransferOptions,
     ): Promise<string>;
 
-    fastPut(localPath: string, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
+    fastPut(localPath: string, remoteFilePath: string, options?: sftp.FastPutTransferOptions): Promise<string>;
 
     cwd(): Promise<string>;
 
@@ -49,7 +38,7 @@ declare class sftp {
 
     rmdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    delete(remoteFilePath: string): Promise<string>;
+    delete(remoteFilePath: string, noErrorOK?: boolean): Promise<string>;
 
     rename(remoteSourcePath: string, remoteDestPath: string): Promise<string>;
 
@@ -58,12 +47,12 @@ declare class sftp {
     append(
         input: Buffer | NodeJS.ReadableStream,
         remotePath: string,
-        options?: ssh2Stream.TransferOptions,
+        options?: sftp.WriteStreamOptions,
     ): Promise<string>;
 
-    uploadDir(srcDir: string, destDir: string): Promise<string>;
+    uploadDir(srcDir: string, destDir: string, options?: sftp.UploadDirOptions): Promise<string>;
 
-    downloadDir(srcDir: string, destDir: string): Promise<string>;
+    downloadDir(srcDir: string, destDir: string, options?: sftp.DownloadDirOptions): Promise<string>;
 
     end(): Promise<void>;
 
@@ -72,6 +61,12 @@ declare class sftp {
     removeListener(event: string, callback: (...args: any[]) => void): void;
 
     posixRename(fromPath: string, toPath: string): Promise<string>;
+
+    rcopy(srcPath: string, dstPath: string): Promise<string>;
+
+    createReadStream(remotePath: string, options?: ssh2.ReadStreamOptions): ssh2.ReadStream;
+
+    createWriteStream(remotePath: string, options?: ssh2.WriteStreamOptions): ssh2.WriteStream;
 }
 
 declare namespace sftp {
@@ -81,8 +76,54 @@ declare namespace sftp {
         retry_minTimeout?: number;
     }
 
+    interface ModeOption {
+        mode?: number | string;
+    }
+
+    interface PipeOptions {
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createReadStream} or {@link createWriteStream} instead
+         */
+        end?: boolean;
+    }
+
+    interface ReadStreamOptions extends ModeOption {
+        flags?: "r";
+        encoding?: null | string;
+        handle?: null | string;
+
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createReadStream} instead
+         */
+        autoClose?: boolean;
+    }
+
+    interface WriteStreamOptions extends ModeOption {
+        flags?: "w" | "a";
+        encoding?: null | string;
+
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createWriteStream} instead
+         */
+        autoClose?: boolean;
+    }
+
+    interface TransferOptions {
+        pipeOptions?: PipeOptions;
+        writeStreamOptions?: WriteStreamOptions;
+        readStreamOptions?: ReadStreamOptions;
+    }
+
+    interface FastGetTransferOptions {
+        concurrency?: number;
+        chunkSize?: number;
+        step?: (totalTransferred: number, chunk: number, total: number) => void;
+    }
+
+    interface FastPutTransferOptions extends FastGetTransferOptions, ModeOption {}
+
     interface FileInfo {
-        type: string;
+        type: FileInfoType;
         name: string;
         size: number;
         modifyTime: number;
@@ -110,5 +151,20 @@ declare namespace sftp {
         isSymbolicLink: boolean;
         isFIFO: boolean;
         isSocket: boolean;
+    }
+
+    type ListFilterFunction = (fileInfo: FileInfo) => boolean;
+    type DirFilterFunction = (filePath: string, isDirectory: boolean) => boolean;
+
+    interface DirOptions {
+        filter?: DirFilterFunction;
+    }
+
+    interface UploadDirOptions extends DirOptions {
+        useFastput?: boolean;
+    }
+
+    interface DownloadDirOptions extends DirOptions {
+        useFastget?: boolean;
     }
 }

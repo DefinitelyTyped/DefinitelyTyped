@@ -1,12 +1,6 @@
-// Type definitions for connect-history-api-fallback 1.3
-// Project: https://github.com/bripkens/connect-history-api-fallback#readme
-// Definitions by: Douglas Duteil <https://github.com/douglasduteil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { Url } from 'url';
+import { Url } from "url";
 
 import * as core from "express-serve-static-core";
 
@@ -16,22 +10,23 @@ declare function historyApiFallback(options?: historyApiFallback.Options): core.
 
 declare namespace historyApiFallback {
     interface Options {
-        disableDotRule?: true;
-        htmlAcceptHeaders?: string[];
-        index?: string;
-        logger?: typeof console.log;
-        rewrites?: Rewrite[];
-        verbose?: boolean;
+        readonly disableDotRule?: true | undefined;
+        readonly htmlAcceptHeaders?: readonly string[] | undefined;
+        readonly index?: string | undefined;
+        readonly logger?: typeof console.log | undefined;
+        readonly rewrites?: readonly Rewrite[] | undefined;
+        readonly verbose?: boolean | undefined;
     }
 
     interface Context {
-        match: RegExpMatchArray;
-        parsedUrl: Url;
+        readonly match: RegExpMatchArray;
+        readonly parsedUrl: Url;
+        readonly request: core.Request;
     }
     type RewriteTo = (context: Context) => string;
 
     interface Rewrite {
-        from: RegExp;
-        to: string | RegExp | RewriteTo;
+        readonly from: RegExp;
+        readonly to: string | RegExp | RewriteTo;
     }
 }

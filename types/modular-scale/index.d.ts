@@ -1,14 +1,9 @@
-// Type definitions for modular-scale 5.1
-// Project: https://github.com/kristoferjoseph/modular-scale
-// Definitions by: Mike Fowler <https://github.com/mikefowler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ModularScaleOptions {
     /** The ratio to use in the generated type scale function. Defaults to ModularScaleRatio.goldenSection */
-    ratio?: number;
+    ratio?: number | undefined;
 
     /** The base font size (in pixels) to use for the type scale. Defaults to 16 */
-    base?: number | string;
+    base?: number | string | undefined;
 }
 
 export interface ModularScaleRatio {

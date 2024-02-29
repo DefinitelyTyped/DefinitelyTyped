@@ -1,28 +1,26 @@
-
-declare module "meteor/webapp" {
-
-    import * as http from "http";
-    import * as connect from "connect";
+declare module 'meteor/webapp' {
+    import * as http from 'http';
+    import * as connect from 'connect';
     interface StaticFiles {
         [key: string]: {
-            content?: string,
-            absolutePath: string,
-            cacheable: boolean,
-            hash: string,
-            sourceMapUrl?: string,
-            type: string
-        }
+            content?: string | undefined;
+            absolutePath: string;
+            cacheable: boolean;
+            hash: string;
+            sourceMapUrl?: string | undefined;
+            type: string;
+        };
     }
-    module WebApp {
+    namespace WebApp {
         var defaultArch: string;
         var clientPrograms: {
             [key: string]: {
-                format: string,
-                manifest: any,
-                version: string,
-                cordovaCompatibilityVersions?: any,
-                PUBLIC_SETTINGS: any
-            }
+                format: string;
+                manifest: any;
+                version: string;
+                cordovaCompatibilityVersions?: any;
+                PUBLIC_SETTINGS: any;
+            };
         };
         var connectHandlers: connect.Server;
         var rawConnectHandlers: connect.Server;
@@ -30,24 +28,39 @@ declare module "meteor/webapp" {
         var connectApp: connect.Server;
         function suppressConnectErrors(): void;
         function onListening(callback: Function): void;
+
+        type RuntimeConfigHookCallback = (options: {
+            arch: 'web.browser' | 'web.browser.legacy' | 'web.cordova';
+            request: http.IncomingMessage;
+            encodedCurrentConfig: string;
+            updated: boolean;
+        }) => string | undefined | null | false;
+        function addRuntimeConfigHook(callback: RuntimeConfigHookCallback): void;
+        function decodeRuntimeConfig(rtimeConfigString: string): unknown;
+        function encodeRuntimeConfig(rtimeConfig: unknown): string;
     }
-    module WebAppInternals {
+    namespace WebAppInternals {
         var NpmModules: {
             [key: string]: {
-                version: string,
+                version: string;
                 module: any;
-            }
+            };
         };
         function identifyBrowser(userAgentString: string): {
-            name: string,
-            major: string,
-            minor: string,
-            patch: string
+            name: string;
+            major: string;
+            minor: string;
+            patch: string;
         };
         function registerBoilerplateDataCallback(key: string, callback: Function): Function;
         function generateBoilerplateInstance(arch: string, manifest: any, additionalOptions: any): any;
 
-        function staticFilesMiddleware(staticFiles: StaticFiles, req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
+        function staticFilesMiddleware(
+            staticFiles: StaticFiles,
+            req: http.IncomingMessage,
+            res: http.ServerResponse,
+            next: Function,
+        ): void;
         function parsePort(port: string): number;
         function reloadClientPrograms(): void;
         function generateBoilerplate(): void;

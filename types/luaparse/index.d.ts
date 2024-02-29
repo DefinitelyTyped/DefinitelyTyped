@@ -1,12 +1,3 @@
-// Type definitions for luaparse 0.2
-// Project: https://oxyc.github.io/luaparse
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-//                 thomasfn <https://github.com/thomasfn>
-//                 Teoxoy <https://github.com/teoxoy>
-//                 Zaoqi <https://github.com/zaoqi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as ast from "./lib/ast";
 export * from "./lib/ast";
 
@@ -43,6 +34,12 @@ export interface Options {
      * Note: setting luaVersion: 'LuaJIT' currently does not enable this option; this may change in the future.
      */
     extendedIdentifiers: false;
+    /**
+     * Defines the relation between code points ≥ U+0080 appearing in parser input and raw bytes in source code,
+     * and how Lua escape sequences in JavaScript strings should be interpreted.
+     * See the Encoding modes section https://github.com/fstirlitz/luaparse#encoding-modes for more information.
+     */
+    encodingMode: "pseudo-latin1" | "x-user-defined" | "none";
 }
 
 export interface Token {

@@ -1,16 +1,16 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace TimePicker {
     interface Props {
         /**
          * Date string to use as current time. If not set, current time is used.
          */
-        currentTime?: string;
+        currentTime?: string | undefined;
         /**
          * Whether we use a 12-hour clock. With a 12-hour clock, an AM/PM
          * widget is displayed and the time format is assumed to be MM-DD-YYYY.
          */
-        is12Hour?: boolean;
+        is12Hour?: boolean | undefined;
         /**
          * Function to call when the time value changes.
          */

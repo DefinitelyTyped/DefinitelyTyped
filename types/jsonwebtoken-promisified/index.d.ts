@@ -1,12 +1,3 @@
-// Type definitions for jsonwebtoken-promisified 1.0
-// Project: https://github.com/joepie91/node-jsonwebtoken-promisified
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
-//                 Daniel Heim <https://github.com/danielheim>,
-//                 Brice BERNARD <https://github.com/brikou>
-//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 export class JsonWebTokenError extends Error {
@@ -41,46 +32,46 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: string;
-    keyid?: string;
+    algorithm?: string | undefined;
+    keyid?: string | undefined;
     /** {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number;
+    expiresIn?: string | number | undefined;
     /** {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    notBefore?: string | number;
-    audience?: string | string[];
-    subject?: string;
-    issuer?: string;
-    jwtid?: string;
-    noTimestamp?: boolean;
-    header?: object;
-    encoding?: string;
+    notBefore?: string | number | undefined;
+    audience?: string | string[] | undefined;
+    subject?: string | undefined;
+    issuer?: string | undefined;
+    jwtid?: string | undefined;
+    noTimestamp?: boolean | undefined;
+    header?: object | undefined;
+    encoding?: string | undefined;
 }
 
 export interface VerifyOptions {
-    algorithms?: string[];
-    audience?: string | string[];
-    clockTimestamp?: number;
-    clockTolerance?: number;
-    issuer?: string | string[];
-    ignoreExpiration?: boolean;
-    ignoreNotBefore?: boolean;
-    jwtid?: string;
-    subject?: string;
+    algorithms?: string[] | undefined;
+    audience?: string | string[] | undefined;
+    clockTimestamp?: number | undefined;
+    clockTolerance?: number | undefined;
+    issuer?: string | string[] | undefined;
+    ignoreExpiration?: boolean | undefined;
+    ignoreNotBefore?: boolean | undefined;
+    jwtid?: string | undefined;
+    subject?: string | undefined;
     /**
      * @deprecated
      * {string} - Max age of token
      */
-    maxAge?: string;
+    maxAge?: string | undefined;
 }
 
 export interface DecodeOptions {
-    complete?: boolean;
-    json?: boolean;
+    complete?: boolean | undefined;
+    json?: boolean | undefined;
 }
 
 export type VerifyCallback = (
     err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
-    decoded: object | string
+    decoded: object | string,
 ) => void;
 
 export type SignCallback = (err: Error, encoded: string) => void;
@@ -129,7 +120,7 @@ export function sign(
 export function signAsync(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
-    options?: SignOptions
+    options?: SignOptions,
 ): Promise<string>;
 
 /**
@@ -155,13 +146,13 @@ export function verify(
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options: VerifyOptions,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 
 /**
@@ -173,8 +164,8 @@ export function verify(
 export function verifyAsync(
     token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions
-): Promise<object|string>;
+    options?: VerifyOptions,
+): Promise<object | string>;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.

@@ -1,5 +1,5 @@
-import P = require('parsimmon');
-import { Parser, Mark, Result, Index, Reply, Language, TypedLanguage } from "parsimmon";
+import P = require("parsimmon");
+import { Index, Language, Mark, Parser, Reply, Result, TypedLanguage } from "parsimmon";
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -29,7 +29,7 @@ let numPar: Parser<number> = null!;
 let voidPar: Parser<void>;
 let anyPar: Parser<any>;
 let nullPar: Parser<null>;
-let emptyStrPar: Parser<''>;
+let emptyStrPar: Parser<"">;
 let indexPar: Parser<Index>;
 
 let fooPar: Parser<Foo> = null!;
@@ -39,7 +39,9 @@ let fooOrBarPar: Parser<Foo | Bar>;
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 let strArrPar: Parser<string[]>;
+let str1ArrPar: Parser<[string, ...string[]]>;
 let fooArrPar: Parser<Foo[]>;
+let foo1ArrPar: Parser<[Foo, ...Foo[]]>;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -68,8 +70,8 @@ if (fooResult.status === true) {
 let fooReply: Reply<Foo>;
 
 fooReply = P.makeSuccess(0, foo);
-fooReply = P.makeFailure(0, '');
-fooReply = P.makeFailure(0, ['', '']);
+fooReply = P.makeFailure(0, "");
+fooReply = P.makeFailure(0, ["", ""]);
 
 fooPar = P((input: string, i: number) => P.makeSuccess(0, foo));
 fooPar = P.Parser((input: string, i: number) => P.makeSuccess(0, foo));
@@ -100,6 +102,8 @@ barPar = fooPar.map((f) => {
 
 strPar = P.string(str);
 
+strPar = strPar.assert((s: string) => s === "foo", "reason goes here");
+
 strPar = strPar.contramap((f) => {
     f; // $ExpectType string
     return f.toUpperCase();
@@ -112,6 +116,14 @@ barPar = strPar.promap((f) => {
     f; // $ExpectType number
     return bar;
 });
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+let constStrPar: P.Parser<"foo">;
+
+constStrPar = P.string("foo");
+// @ts-expect-error
+constStrPar = P.string("bar");
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -146,7 +158,16 @@ fooPar = P.succeed(foo);
 fooArrPar = P.seq(fooPar, fooPar);
 const par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
 const par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
-const par3: Parser<[string, string, string, number, string, string, string, number]> = P.seq(fooPar, fooPar, fooPar, numPar, fooPar, fooPar, fooPar, numPar);
+const par3: Parser<[string, string, string, number, string, string, string, number]> = P.seq(
+    fooPar,
+    fooPar,
+    fooPar,
+    numPar,
+    fooPar,
+    fooPar,
+    fooPar,
+    numPar,
+);
 
 interface SeqObj {
     first: number;
@@ -155,13 +176,18 @@ interface SeqObj {
 }
 
 const seqObjPar: Parser<SeqObj> = P.seqObj<SeqObj>(
-    ['first', numPar],
+    ["first", numPar],
     barPar,
     fooArrPar,
-    ['third', fooPar],
-    ['second', strPar]);
+    ["third", fooPar],
+    ["second", strPar],
+);
 
-fooPar = P.custom<Foo>((success, failure) => (stream, i) => { str = stream; num = i; return success(num, foo); });
+fooPar = P.custom<Foo>((success, failure) => (stream, i) => {
+    str = stream;
+    num = i;
+    return success(num, foo);
+});
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => failure(num, str));
 
 fooPar = P.alt(fooPar, fooPar);
@@ -189,17 +215,18 @@ interface ByteSeqObj {
 }
 
 const byteParObj: Parser<ByteSeqObj> = P.bitSeqObj([
-    ['first', 3],
+    ["first", 3],
     6,
-    ['second', 8],
+    ["second", 8],
     7,
-    ['third', 9],
+    ["third", 9],
 ]);
 
-const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([ // $ExpectError
-    ['first', 3],
+// @ts-expect-error
+const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([
+    ["first", 3],
     6,
-    ['second', 8],
+    ["second", 8],
     7,
     /* missing 'third' key */
 ]);
@@ -232,10 +259,10 @@ bool = P.isParser(numPar);
 bool = P.isParser(null);
 bool = P.isParser(42);
 
-strPar = P.oneOf('a');
-strPar = P.noneOf('a');
+strPar = P.oneOf("a");
+strPar = P.noneOf("a");
 
-strPar = P.range('a', 'z');
+strPar = P.range("a", "z");
 
 strPar = P.regex(/foo/);
 strPar = P.regex(/foo/, 3);
@@ -253,12 +280,18 @@ strPar = strPar.tieWith("");
 
 fooPar = P.of(foo);
 
-str = P.formatError('foo', strPar.parse('bar'));
+str = P.formatError("foo", strPar.parse("bar"));
 
-strPar = P.seqMap(P.digit, (a: string) => 'foo');
+strPar = P.seqMap(P.digit, (a: string) => "foo");
 numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
-strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
-strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
+strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => "foo");
+strPar = P.seqMap(
+    P.digit,
+    P.digits,
+    P.letter,
+    P.letters.map(Number),
+    (a: string, b: string, c: string, d: number) => "foo",
+);
 strPar = P.seqMap(
     P.digit,
     P.digit,
@@ -270,11 +303,17 @@ strPar = P.seqMap(
     P.digit,
     P.digit,
     P.digit,
-    (a: string, b: string, c: string, d: string, e: number, f: number, g: string, h: string, i: string, j: string) => 'foo',
+    (a: string, b: string, c: string, d: string, e: number, f: number, g: string, h: string, i: string, j: string) =>
+        "foo",
 );
 
-strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
-strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
+strArrPar = P.sepBy(P.string("foo"), P.string("bar"));
+strArrPar = P.sepBy1(P.string("foo"), P.string("bar"));
+str1ArrPar = P.sepBy1(P.string("foo"), P.string("bar"));
+function flattenMultiple(first: string, ...rest: string[]): number {
+    return rest.length;
+}
+numPar = str1ArrPar.map(arr => flattenMultiple(...arr));
 
 strPar = P.test((a: string) => false);
 
@@ -299,8 +338,8 @@ function makeNode<Name extends string>(name: Name) {
     };
 }
 
-let node: P.Parser<P.Node<'identifier', string>> = P.letters.node('identifier');
-node = P.letters.thru(makeNode('identifier'));
+let node: P.Parser<P.Node<"identifier", string>> = P.letters.node("identifier");
+node = P.letters.thru(makeNode("identifier"));
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 // Fantasy Land support
@@ -309,12 +348,12 @@ fooPar = fooPar.empty(); // $ExpectType Parser<never>
 
 // example taken from the documentation for the #ap method
 numPar = P.digit
-  .ap(P.digit
-    .map(s => (t: string) =>
-      Number(s) + Number(t)));
+    .ap(P.digit
+        .map(s => (t: string) => Number(s) + Number(t)));
 
 fooArrPar = fooPar.sepBy(barPar);
 fooArrPar = fooPar.sepBy1(barPar);
+foo1ArrPar = fooPar.sepBy1(barPar);
 
 fooPar = barPar.of(foo);
 
@@ -362,10 +401,11 @@ myLanguage.StringRule;
 
 const noRules = P.createLanguage<{}>({});
 
-// $ExpectError
-P.createLanguage<{MissingRule: string}>({});
+// @ts-expect-error
+P.createLanguage<{ MissingRule: string }>({});
 
-P.createLanguage<{SomeRule: string}>({
+P.createLanguage<{ SomeRule: string }>({
     SomeRule: r => strPar,
-    AnotherRule: (r: any) => strPar // $ExpectError
+    // @ts-expect-error
+    AnotherRule: (r: any) => strPar,
 });

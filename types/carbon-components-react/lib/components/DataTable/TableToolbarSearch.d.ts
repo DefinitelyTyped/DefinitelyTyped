@@ -1,23 +1,30 @@
 import * as React from "react";
-import { InternationalProps, ReactAttr } from "../../../typings/shared";
-import { SearchProps } from "../Search";
+import { InternationalProps } from "../../../typings/shared";
+import { SearchProps, SearchSpreadElement } from "../Search";
 
-type ExcludedAttributes = "aria-hidden" | "labelText" | "small";
-export type TableToolbarTranslationKey = "carbon.table.toolbar.search.label" | "carbon.table.toolbar.search.placeholder";
-interface InheritedProps extends
-    Omit<SearchProps, ExcludedAttributes>,
-    InternationalProps<TableToolbarTranslationKey>
+export type TableToolbarTranslationKey =
+    | "carbon.table.toolbar.search.label"
+    | "carbon.table.toolbar.search.placeholder";
+
+type ExcludedInheritedProps = "labelText" | "onBlur" | "onFocus";
+
+export type TableToolbarSearchHandleExpand = (event: React.FocusEvent<SearchSpreadElement>, newValue?: boolean) => void;
+
+export interface TableToolbarSearchProps
+    extends Omit<SearchProps, ExcludedInheritedProps>, InternationalProps<TableToolbarTranslationKey>
 {
-    labelText?: React.ReactNode,
-}
-
-export interface TableToolbarSearchProps extends InheritedProps {
+    defaultExpanded?: boolean | undefined;
+    expanded?: boolean | undefined;
+    labelText?: React.ReactNode | undefined;
+    onBlur?(event: React.FocusEvent<SearchSpreadElement>, handleExpand: TableToolbarSearchHandleExpand): void;
+    onExpand?(event: React.FocusEvent<SearchSpreadElement>, newExpand: boolean): void;
+    onFocus?(event: React.FocusEvent<SearchSpreadElement>, handleExpand: TableToolbarSearchHandleExpand): void;
     /**
      * @deprecated
      */
-    persistant?: boolean,
-    persistent?: boolean,
-    searchContainerClasses?: ReactAttr["className"],
+    persistant?: boolean | undefined;
+    persistent?: boolean | undefined;
+    searchContainerClass?: string | undefined;
 }
 
 declare const TableToolbarSearch: React.FC<TableToolbarSearchProps>;

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// tslint:disable:allow-empty-class
-// tslint:disable:allow-constructor-only
 // tslint:disable:no-unnecessary-class
 export class _TransactionProcessorError {
     protected constructor(message?: string, extendedData?: Buffer | Uint8Array);

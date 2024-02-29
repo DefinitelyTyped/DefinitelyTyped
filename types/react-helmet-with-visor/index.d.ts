@@ -1,22 +1,16 @@
-// Type definitions for react-helmet-with-visor 5.4
-// Project: https://github.com/kokushkin/react-helmet-with-visor
-// Definitions by: Nickolay Kulikov <https://github.com/kokushkin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;
 }
 
-type HtmlProps = JSX.IntrinsicElements['html'] & OtherElementAttributes;
+type HtmlProps = React.JSX.IntrinsicElements["html"] & OtherElementAttributes;
 
-type BodyProps = JSX.IntrinsicElements['body'] & OtherElementAttributes;
+type BodyProps = React.JSX.IntrinsicElements["body"] & OtherElementAttributes;
 
-type LinkProps = JSX.IntrinsicElements['link'];
+type LinkProps = React.JSX.IntrinsicElements["link"];
 
-type MetaProps = JSX.IntrinsicElements['meta'];
+type MetaProps = React.JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
     baseTag: any[];
@@ -29,22 +23,23 @@ export interface HelmetTags {
 }
 
 export interface HelmetProps {
-    async?: boolean;
+    async?: boolean | undefined;
     base?: any;
-    bodyAttributes?: BodyProps;
-    defaultTitle?: string;
-    defer?: boolean;
-    encodeSpecialCharacters?: boolean;
-    htmlAttributes?: HtmlProps;
-    onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
-    link?: LinkProps[];
-    meta?: MetaProps[];
-    noscript?: any[];
-    script?: any[];
-    style?: any[];
-    title?: string;
-    titleAttributes?: object;
-    titleTemplate?: string;
+    bodyAttributes?: BodyProps | undefined;
+    children?: React.ReactNode;
+    defaultTitle?: string | undefined;
+    defer?: boolean | undefined;
+    encodeSpecialCharacters?: boolean | undefined;
+    htmlAttributes?: HtmlProps | undefined;
+    onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
+    link?: LinkProps[] | undefined;
+    meta?: MetaProps[] | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
+    title?: string | undefined;
+    titleAttributes?: object | undefined;
+    titleTemplate?: string | undefined;
 }
 
 export class Helmet extends React.Component<HelmetProps> {
@@ -70,7 +65,7 @@ export interface HelmetData {
 
 export interface HelmetDatum {
     toString(): string;
-    toComponent(): React.Component<any>;
+    toComponent(): React.ReactElement;
 }
 
 export interface HelmetHTMLBodyDatum {

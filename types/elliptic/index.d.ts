@@ -1,17 +1,11 @@
-// Type definitions for elliptic 6.4
-// Project: https://github.com/indutny/elliptic
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gaylor Bosson <https://github.com/Gilthoniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import BN = require("bn.js");
 
 // incomplete typings
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
-export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
+export type BNInput = string | BN | number | Buffer | Uint8Array | readonly number[];
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | readonly number[] | string;
 
 export const version: number;
 
@@ -64,9 +58,9 @@ export namespace curve {
 
         interface BaseCurveOptions {
             p: number | string | number[] | Buffer | BN;
-            prime?: BN | string;
-            n?: number | BN | Buffer;
-            g?: BasePoint;
+            prime?: BN | string | undefined;
+            n?: number | BN | Buffer | undefined;
+            g?: BasePoint | undefined;
             gRed?: any; // ?
         }
 
@@ -90,7 +84,7 @@ export namespace curve {
             x: BNInput,
             y: BNInput,
             z?: BNInput,
-            t?: BNInput
+            t?: BNInput,
         ): edwards.EdwardsPoint;
         pointFromX(x: BNInput, odd?: boolean): edwards.EdwardsPoint;
         pointFromY(y: BNInput, odd?: boolean): edwards.EdwardsPoint;
@@ -131,8 +125,8 @@ export namespace curve {
         interface ShortConf extends base.BaseCurveOptions {
             a: BNInput;
             b: BNInput;
-            beta?: BNInput;
-            lambda?: BNInput;
+            beta?: BNInput | undefined;
+            lambda?: BNInput | undefined;
         }
 
         class ShortPoint extends base.BasePoint {
@@ -166,8 +160,8 @@ export namespace curves {
             hash: any;
             gRed: boolean;
             g: any; // ?
-            beta?: string;
-            lambda?: string;
+            beta?: string | undefined;
+            lambda?: string | undefined;
             basis?: any; // ?
         }
     }
@@ -185,41 +179,41 @@ export class ec {
     keyPair(options: ec.KeyPairOptions): ec.KeyPair;
     keyFromPrivate(
         priv: Uint8Array | Buffer | string | number[] | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): ec.KeyPair;
     keyFromPublic(
         pub: Uint8Array | Buffer | string | number[] | { x: string; y: string } | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): ec.KeyPair;
     genKeyPair(options?: ec.GenKeyPairOptions): ec.KeyPair;
     sign(
         msg: BNInput,
         key: Buffer | ec.KeyPair,
         enc: string,
-        options?: ec.SignOptions
+        options?: ec.SignOptions,
     ): ec.Signature;
     sign(
         msg: BNInput,
         key: Buffer | ec.KeyPair,
-        options?: ec.SignOptions
+        options?: ec.SignOptions,
     ): ec.Signature;
     verify(
         msg: BNInput,
         signature: SignatureInput,
         key: Buffer | ec.KeyPair,
-        enc?: string
+        enc?: string,
     ): boolean;
     recoverPubKey(
         msg: BNInput,
         signature: SignatureInput,
         j: number,
-        enc?: string
+        enc?: string,
     ): any;
     getKeyRecoveryParam(
         e: Error | undefined,
         signature: SignatureInput,
         Q: BN,
-        enc?: string
+        enc?: string,
     ): number;
 }
 
@@ -227,27 +221,27 @@ export namespace ec {
     interface GenKeyPairOptions {
         pers?: any;
         entropy: any;
-        persEnc?: string;
-        entropyEnc?: string;
+        persEnc?: string | undefined;
+        entropyEnc?: string | undefined;
     }
 
     interface SignOptions {
         pers?: any;
-        persEnc?: string;
-        canonical?: boolean;
-        k?: BN;
+        persEnc?: string | undefined;
+        canonical?: boolean | undefined;
+        k?: BN | undefined;
     }
 
     class KeyPair {
         static fromPublic(
             ec: ec,
             pub: Buffer | string | { x: string; y: string } | KeyPair,
-            enc?: string
+            enc?: string,
         ): KeyPair;
         static fromPrivate(
             ec: ec,
             priv: Buffer | string | KeyPair,
-            enc?: string
+            enc?: string,
         ): KeyPair;
 
         ec: ec;
@@ -267,32 +261,31 @@ export namespace ec {
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(
             msg: BNInput,
-            signature: SignatureInput
+            signature: SignatureInput,
         ): boolean;
         inspect(): string;
     }
 
-    class Signature {
+    interface Signature {
         r: BN;
         s: BN;
         recoveryParam: number | null;
 
-        constructor(options: SignatureInput, enc?: string);
-
-        toDER(enc?: string | null): any; // ?
+        toDER(): number[];
+        toDER(enc: "hex"): string;
     }
 
     interface SignatureOptions {
         r: BNInput;
         s: BNInput;
-        recoveryParam?: number;
+        recoveryParam?: number | undefined;
     }
 
     interface KeyPairOptions {
-        priv?: Buffer;
-        privEnc?: string;
-        pub?: Buffer;
-        pubEnc?: string;
+        priv?: Buffer | undefined;
+        privEnc?: string | undefined;
+        pub?: Buffer | undefined;
+        pubEnc?: string | undefined;
     }
 }
 
@@ -305,7 +298,7 @@ export class eddsa {
     verify(
         message: eddsa.Bytes,
         sig: eddsa.Bytes | eddsa.Signature,
-        pub: eddsa.Bytes | eddsa.Point | eddsa.KeyPair
+        pub: eddsa.Bytes | eddsa.Point | eddsa.KeyPair,
     ): boolean;
     hashInt(): BN;
     keyFromPublic(pub: eddsa.Bytes | eddsa.KeyPair | eddsa.Point): eddsa.KeyPair;

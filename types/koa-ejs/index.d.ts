@@ -1,16 +1,11 @@
-// Type definitions for koa-ejs 4.2
-// Project: https://github.com/koajs/ejs
-// Definitions by: Matt B <https://github.com/mattb-prg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
+import * as Ejs from "ejs";
 import * as Koa from "koa";
 
 declare module "Koa" {
-  interface ExtendableContext {
-    /** Properties values can be of any format; e.g. string, number, boolean, or even nested objects of these types */
-    render: (template: string, properties?: {[name: string]: any}) => Promise<string>;
-  }
+    interface ExtendableContext {
+        /** Properties values can be of any format; e.g. string, number, boolean, or even nested objects of these types */
+        render: (template: string, properties?: { [name: string]: any }) => Promise<string>;
+    }
 }
 
 /**
@@ -34,12 +29,14 @@ declare namespace koaEjs {
         delimiter?: string;
         /** When true, EJS will use an async function for rendering. Depends on async/await support in the JS runtime */
         async?: boolean;
+        /** When false, EJS  will only return the HTML, not write to the resposne. Defaults to true */
+        writeResp?: boolean;
     }
 
     /**
      * The ejs API.
      */
-    const ejs: any;
+    const ejs: typeof Ejs;
 }
 
 export = koaEjs;

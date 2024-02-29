@@ -1,10 +1,10 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PostSavedState {
     interface Props {
-        children?: never;
-        forceIsDirty?: boolean;
-        forceIsSaving?: boolean;
+        children?: never | undefined;
+        forceIsDirty?: boolean | undefined;
+        forceIsSaving?: boolean | undefined;
     }
 }
 declare const PostSavedState: ComponentType<PostSavedState.Props>;

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-bootstrap-table",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/AllenFang/react-bootstrap-table"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bootstrap-table": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank Laub",
+            "githubUsername": "flaub"
+        },
+        {
+            "name": "Aleksander Lode",
+            "githubUsername": "alelode"
+        }
+    ]
+}

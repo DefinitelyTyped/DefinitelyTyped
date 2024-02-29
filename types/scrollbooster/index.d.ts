@@ -1,18 +1,15 @@
-// Type definitions for scrollbooster 2.2
-// Project: https://github.com/ilyashubin/scrollbooster
-// Definitions by: Chris <https://github.com/chrisneven>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Position {
-    x?: number;
-    y?: number;
+    x?: number | undefined;
+    y?: number | undefined;
 }
 
 export interface ScrollingState {
     isMoving: boolean;
     isDragging: boolean;
+    isScrolling: boolean;
     position: Required<Position>;
-    dragOffset: number;
+    dragOffset: Required<Position>;
+    dragAngle: number;
     borderCollision: {
         left: boolean;
         right: boolean;
@@ -22,34 +19,35 @@ export interface ScrollingState {
 }
 
 export interface ScrollBoosterOptions {
-    content?: HTMLElement | null;
-    viewport: HTMLElement | null;
-    scrollMode?: 'transform' | 'native';
-    direction?: 'horizontal' | 'vertical' | 'all';
+    viewport: Element;
+    content: Element;
+    direction?: "all" | "vertical" | "horizontal";
+    pointerMode?: "all" | "touch" | "mouse";
+    scrollMode?: "transform" | "native" | undefined;
     bounce?: boolean;
+    bounceForce?: number;
+    friction?: number;
     textSelection?: boolean;
     inputsFocus?: boolean;
-    pointerMode?: 'touch' | 'mouse' | 'all';
-    friction?: number;
-    bounceForce?: number;
     emulateScroll?: boolean;
+    preventDefaultOnEmulateScroll?: "vertical" | "horizontal";
+    lockScrollOnDragDirection?: "all" | "vertical" | "horizontal";
+    dragDirectionTolerance?: number;
+    onClick?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
     onUpdate?: (state: ScrollingState) => void;
-    onClick?: (state: ScrollingState, event: Event) => void;
+    onWheel?: (state: ScrollingState, event: Event) => void;
     shouldScroll?: (state: ScrollingState, event: Event) => boolean;
+    onPointerDown?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
+    onPointerUp?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
+    onPointerMove?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
 }
 
 export default class ScrollBooster {
     constructor(options: ScrollBoosterOptions);
-
-    setPosition(position: Position): void;
-
-    scrollTo(position: Position): void;
-
-    updateMetrics(): void;
-
-    updateOptions(options: Partial<ScrollBoosterOptions>): void;
-
-    getState(): ScrollingState;
-
     destroy(): void;
+    setPosition(position: Position): void;
+    getState(): ScrollingState;
+    scrollTo(position: Position): void;
+    updateMetrics(): void;
+    updateOptions(options: Partial<ScrollBoosterOptions>): void;
 }

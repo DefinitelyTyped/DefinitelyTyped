@@ -1,28 +1,28 @@
 // tslint:disable:no-irregular-whitespace
 
-// tslint:disable-next-line:no-empty-interface
-interface JQueryCallback extends JQuery.Callbacks { }
-interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
-// tslint:disable-next-line:no-empty-interface
-interface JQueryEventConstructor extends JQuery.EventStatic { }
-interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
-// tslint:disable-next-line:no-empty-interface
-interface JQueryAjaxSettings extends JQuery.AjaxSettings { }
-interface JQueryAnimationOptions extends JQuery.EffectsOptions<Element> { }
-// tslint:disable-next-line:no-empty-interface
-interface JQueryCoordinates extends JQuery.Coordinates { }
-interface JQueryGenericPromise<T> extends JQuery.Thenable<T> { }
-// tslint:disable-next-line:no-empty-interface
-interface JQueryXHR extends JQuery.jqXHR { }
-interface JQueryPromise<T> extends JQuery.Promise<T> { }
-// tslint:disable-next-line:no-empty-interface
-interface JQuerySerializeArrayElement extends JQuery.NameValuePair { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQueryCallback extends JQuery.Callbacks {}
+interface JQueryDeferred<T> extends JQuery.Deferred<T> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQueryEventConstructor extends JQuery.EventStatic {}
+interface JQueryDeferred<T> extends JQuery.Deferred<T> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQueryAjaxSettings extends JQuery.AjaxSettings {}
+interface JQueryAnimationOptions extends JQuery.EffectsOptions<Element> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQueryCoordinates extends JQuery.Coordinates {}
+interface JQueryGenericPromise<T> extends JQuery.Thenable<T> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQueryXHR extends JQuery.jqXHR {}
+interface JQueryPromise<T> extends JQuery.Promise<T> {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQuerySerializeArrayElement extends JQuery.NameValuePair {}
 
 /**
  * @deprecated ​ Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
  */
-// tslint:disable-next-line:no-empty-interface
-interface JQuerySupport extends JQuery.PlainObject { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface JQuerySupport extends JQuery.PlainObject {}
 
 // Legacy types that are not represented in the current type definitions are marked deprecated.
 
@@ -30,7 +30,6 @@ interface JQuerySupport extends JQuery.PlainObject { }
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Deferred.Callback }\` or \`{@link JQuery.Deferred.CallbackBase }\`.
  */
 interface JQueryPromiseCallback<T> {
-    // tslint:disable-next-line:callable-types
     (value?: T, ...args: any[]): void;
 }
 /**
@@ -42,7 +41,6 @@ interface JQueryParam {
      * @param obj An array or object to serialize.
      * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
      */
-    // tslint:disable-next-line:callable-types
     (obj: any, traditional?: boolean): string;
 }
 /**
@@ -178,20 +176,22 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
 /**
  * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
+interface JQueryEventObject
+    extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject
+{}
 /**
  * @deprecated ​ Deprecated.
  */
 interface JQueryPromiseOperator<T, U> {
-    // tslint:disable-next-line:callable-types
-    (callback1: JQuery.TypeOrArray<JQueryPromiseCallback<T>>,
-     ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
+    (
+        callback1: JQuery.TypeOrArray<JQueryPromiseCallback<T>>,
+        ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>
+    ): JQueryPromise<U>;
 }
 /**
  * @deprecated ​ Deprecated. Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunction {
-    // tslint:disable-next-line:callable-types
     (percent: number): number;
 }
 /**

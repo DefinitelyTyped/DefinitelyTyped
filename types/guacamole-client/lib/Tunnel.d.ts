@@ -1,4 +1,4 @@
-import { Status } from './Status';
+import { Status } from "./Status";
 export {};
 
 export namespace Tunnel {
@@ -35,7 +35,7 @@ export namespace Tunnel {
 }
 
 export abstract class Tunnel {
-    static readonly INTERNAL_DATA_OPCODE: '';
+    static readonly INTERNAL_DATA_OPCODE: "";
     /**
      * The maximum amount of time to wait for data to be received, in
      * milliseconds. If data is not received within this amount of time,
@@ -70,7 +70,7 @@ export abstract class Tunnel {
      *
      * @param data The data to send to the tunnel when connecting.
      */
-    connect(data: string): void;
+    connect(data?: string): void;
 
     /**
      * Disconnect from the tunnel.

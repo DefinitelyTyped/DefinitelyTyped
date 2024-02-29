@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.timer",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.timer",
+    "projects": [
+        "https://github.com/jchavannes/jquery-timer"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.timer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joshua Strobl",
+            "githubUsername": "JoshStrobl"
+        }
+    ]
+}

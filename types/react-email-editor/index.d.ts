@@ -1,28 +1,38 @@
-// Type definitions for react-email-editor 1.0
-// Project: https://github.com/unlayer/react-email-editor
-// Definitions by: Nikita Granko <https://github.com/ngranko>
-//                 Vladimir Penyazkov <https://github.com/mindtraveller>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { Component as ReactComponent, CSSProperties } from "react";
 
-import { Component as ReactComponent, CSSProperties } from 'react';
-
-export type ThemeColor = 'light' | 'dark';
-export type DockPosition = 'right' | 'left';
+export type ThemeColor = "light" | "dark";
+export type DockPosition = "right" | "left";
 export interface AppearanceConfig {
-    readonly theme?: ThemeColor;
-    readonly panels?: {
-        readonly tools?: {
-            readonly dock: DockPosition;
-        };
-    };
+    readonly theme?: ThemeColor | undefined;
+    readonly panels?:
+        | {
+            readonly tools?:
+                | {
+                    readonly dock: DockPosition;
+                }
+                | undefined;
+        }
+        | undefined;
 }
 
 export interface User {
-    readonly id?: number;
-    readonly name?: string;
-    readonly email?: string;
+    readonly id?: number | undefined;
+    readonly name?: string | undefined;
+    readonly email?: string | undefined;
 }
+
+export interface GroupedSpecialLink {
+    readonly name: string;
+    readonly specialLinks: Array<SimpleSpecialLink | GroupedSpecialLink>;
+}
+
+export interface SimpleSpecialLink {
+    readonly name: string;
+    readonly href: string;
+    readonly target: string;
+}
+
+export type SpecialLink = SimpleSpecialLink | GroupedSpecialLink;
 
 export interface GroupedMergeTag {
     readonly name: string;
@@ -32,6 +42,7 @@ export interface GroupedMergeTag {
 export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
+    readonly sample?: string;
 }
 
 export interface ConditionalMergeTagRule {
@@ -43,19 +54,33 @@ export interface ConditionalMergeTagRule {
 export interface ConditionalMergeTag {
     readonly name: string;
     readonly rules: ConditionalMergeTagRule[];
-    readonly mergeTags?: SimpleMergeTag[];
+    readonly mergeTags?: SimpleMergeTag[] | undefined;
 }
 
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
-    readonly delimeter: [string, string];
+    readonly delimiter: [string, string];
+}
+
+export interface DisplayCondition {
+    readonly type: string;
+    readonly label: string;
+    readonly description: string;
+    readonly before: string;
+    readonly after: string;
+}
+
+export type EmptyDisplayCondition = object;
+
+export interface ToolPropertiesConfig {
+    readonly [key: string]: { value: string };
 }
 
 export interface ToolConfig {
-    readonly enabled?: boolean;
-    readonly position?: number;
-    readonly data?: StringList;
+    readonly enabled?: boolean | undefined;
+    readonly position?: number | undefined;
+    readonly properties?: ToolPropertiesConfig | StringList | undefined;
 }
 
 export interface ToolsConfig {
@@ -63,61 +88,82 @@ export interface ToolsConfig {
 }
 
 export interface EditorConfig {
-    readonly minRows?: number;
-    readonly maxRows?: number;
+    readonly minRows?: number | undefined;
+    readonly maxRows?: number | undefined;
 }
 
 export interface Features {
-    readonly preview?: boolean;
-    readonly imageEditor?: boolean;
-    readonly undoRedo?: boolean;
-    readonly stockImages?: boolean;
-    readonly textEditor?: TextEditor;
+    readonly audit?: boolean | undefined;
+    readonly preview?: boolean | undefined;
+    readonly imageEditor?: boolean | undefined;
+    readonly undoRedo?: boolean | undefined;
+    readonly stockImages?: boolean | undefined;
+    readonly textEditor?: TextEditor | undefined;
 }
 
 export interface TextEditor {
-    readonly spellChecker?: boolean;
-    readonly tables?: boolean;
-    readonly cleanPaste?: boolean;
-    readonly emojis?: boolean;
+    readonly spellChecker?: boolean | undefined;
+    readonly tables?: boolean | undefined;
+    readonly cleanPaste?: boolean | undefined;
+    readonly emojis?: boolean | undefined;
 }
 
 export type Translations = Record<string, Record<string, string>>;
 
-export type DisplayMode = 'email' | 'web';
+export type DisplayMode = "email" | "web";
 export interface UnlayerOptions {
-    readonly id?: string;
-    readonly displayMode?: DisplayMode;
-    readonly projectId?: number;
-    readonly locale?: string;
-    readonly appearance?: AppearanceConfig;
-    readonly user?: User;
-    readonly mergeTags?: MergeTag[];
-    readonly designTags?: StringList;
-    readonly designTagsConfig?: DesignTagConfig;
-    readonly tools?: ToolsConfig;
-    readonly blocks?: object[];
-    readonly editor?: EditorConfig;
-    readonly safeHtml?: boolean;
-    readonly customJS?: string[];
-    readonly customCSS?: string[];
-    readonly features?: Features;
-    readonly translations?: Translations;
+    readonly id?: string | undefined;
+    readonly displayMode?: DisplayMode | undefined;
+    readonly projectId?: number | undefined;
+    readonly locale?: string | undefined;
+    readonly appearance?: AppearanceConfig | undefined;
+    readonly user?: User | undefined;
+    readonly mergeTags?: MergeTag[] | undefined;
+    readonly specialLinks?: SpecialLink[] | undefined;
+    readonly designTags?: StringList | undefined;
+    readonly designTagsConfig?: DesignTagConfig | undefined;
+    readonly tools?: ToolsConfig | undefined;
+    readonly blocks?: object[] | undefined;
+    readonly editor?: EditorConfig | undefined;
+    readonly safeHtml?: boolean | undefined;
+    readonly customJS?: string[] | undefined;
+    readonly customCSS?: string[] | undefined;
+    readonly features?: Features | undefined;
+    readonly translations?: Translations | undefined;
+    readonly displayConditions?: DisplayCondition[] | undefined;
+    readonly tabs?: {
+        [tabName: string]: {
+            enabled?: boolean;
+            type?: string;
+            position?: number;
+            icon?: string;
+            active?: boolean;
+        };
+    };
 }
 
 export interface EmailEditorProps {
-    readonly style?: CSSProperties;
-    readonly minHeight?: number;
-    readonly options?: UnlayerOptions;
-    readonly tools?: ToolsConfig;
-    readonly appearance?: AppearanceConfig;
-    readonly projectId?: number;
+    readonly editorId?: string | undefined;
+    readonly style?: CSSProperties | undefined;
+    readonly minHeight?: number | string | undefined;
+    readonly options?: UnlayerOptions | undefined;
+    readonly tools?: ToolsConfig | undefined;
+    readonly appearance?: AppearanceConfig | undefined;
+    readonly projectId?: number | undefined;
+    readonly scriptUrl?: string | undefined;
+    /** @deprecated Use **onReady** instead */
     onLoad?(): void;
+    onReady?(): void;
 }
 
 export interface HtmlExport {
     readonly design: Design;
     readonly html: string;
+}
+
+export interface HtmlOptions {
+    readonly cleanup: boolean;
+    readonly minify: boolean;
 }
 
 export interface FileInfo {
@@ -127,14 +173,14 @@ export interface FileInfo {
 
 export interface FileUploadDoneData {
     readonly progress: number;
-    readonly url?: string;
+    readonly url?: string | undefined;
 }
 
 export interface Design {
-    readonly counters?: object;
+    readonly counters?: object | undefined;
     readonly body: {
         readonly rows: object[];
-        readonly values?: object;
+        readonly values?: object | undefined;
     };
 }
 
@@ -144,14 +190,22 @@ export type EventCallback = (data: object) => void;
 export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) => void;
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
+export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
+export type DisplayConditionCallback = (
+    data: DisplayCondition | EmptyDisplayCondition,
+    done: DisplayConditionDoneCallback,
+) => void;
+
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;
-    registerCallback(type: 'image', callback: FileUploadCallback): void;
+    registerCallback(type: "image", callback: FileUploadCallback): void;
+    registerCallback(type: "displayCondition", callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
+    loadBlank(type: object): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
-    exportHtml(callback: ExportHtmlCallback): void;
-    setMergeTags(mergeTags: ReadonlyArray<MergeTag>): void;
+    exportHtml(callback: ExportHtmlCallback, type?: HtmlOptions): void;
+    setMergeTags(mergeTags: readonly MergeTag[]): void;
 }
 
 export {};

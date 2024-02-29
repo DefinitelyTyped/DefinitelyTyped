@@ -1,17 +1,12 @@
-// Type definitions for wol 1.0
-// Project: https://github.com/song940/wake-on-lan#readme
-// Definitions by: Ovidiu Pruteanu <https://github.com/ovidiupruteanu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-export as namespace wol
+export as namespace wol;
 
 export type WakeCallback = (error: Error | null, result?: boolean) => void;
 
 export interface WakeOptions {
-    address?: string;
-    port?: number;
+    address?: string | undefined;
+    port?: number | undefined;
 }
 
 export function wake(mac: string, callback: WakeCallback): Promise<boolean>;

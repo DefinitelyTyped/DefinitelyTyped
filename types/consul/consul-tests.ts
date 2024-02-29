@@ -21,7 +21,6 @@ let consul: Consul.Consul;
 consul = Consul();
 consul = new Consul();
 
-
 // Consul.Acl
 {
     let acl: Consul.Acl = consul.acl;
@@ -32,7 +31,7 @@ consul = new Consul();
     {
         let opts: Consul.Acl.CreateOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.create<any>(opts, callback);
         acl.create<any>(callback);
@@ -44,7 +43,7 @@ consul = new Consul();
     {
         let opts: Consul.Acl.UpdateOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.update<any>(opts, callback);
 
@@ -55,7 +54,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Acl.DestroyOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.destroy<any>(id, callback);
         acl.destroy<any>(opts, callback);
@@ -68,7 +67,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Acl.InfoOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.info<any>(id, callback);
         acl.info<any>(opts, callback);
@@ -87,7 +86,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Acl.CloneOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.clone<any>(id, callback);
         acl.clone<any>(opts, callback);
@@ -99,7 +98,7 @@ consul = new Consul();
     {
         let opts: Consul.Acl.ListOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         acl.list<any>(opts, callback);
         acl.list<any>(callback);
@@ -108,7 +107,6 @@ consul = new Consul();
         result = acl.list<any>();
     }
 }
-
 
 // Consul.Agent
 {
@@ -120,7 +118,7 @@ consul = new Consul();
     {
         let opts: Consul.Agent.ChecksOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.checks<any>(opts, callback);
         agent.checks<any>(callback);
@@ -132,7 +130,7 @@ consul = new Consul();
     {
         let opts: Consul.Agent.ServicesOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.services<any>(opts, callback);
         agent.services<any>(callback);
@@ -144,7 +142,7 @@ consul = new Consul();
     {
         let opts: Consul.Agent.MembersOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.members<any>(opts, callback);
         agent.members<any>(callback);
@@ -156,7 +154,7 @@ consul = new Consul();
     {
         let opts: Consul.Agent.SelfOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.self<any>(opts, callback);
         agent.self<any>(callback);
@@ -169,7 +167,7 @@ consul = new Consul();
         let enable: boolean;
         let opts: Consul.Agent.MaintenanceOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.maintenance<any>(enable, callback);
         agent.maintenance<any>(opts, callback);
@@ -182,7 +180,7 @@ consul = new Consul();
         let address: string;
         let opts: Consul.Agent.JoinOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.join<any>(address, callback);
         agent.join<any>(opts, callback);
@@ -195,7 +193,7 @@ consul = new Consul();
         let node: string;
         let opts: Consul.Agent.ForceLeaveOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         agent.forceLeave<any>(node, callback);
         agent.forceLeave<any>(opts, callback);
@@ -203,7 +201,6 @@ consul = new Consul();
         result = agent.forceLeave<any>(node);
         result = agent.forceLeave<any>(opts);
     }
-
 
     // Consul.Agent.Check
     {
@@ -216,7 +213,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Check.ListOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.list<any>(opts, callback);
             check.list<any>(callback);
@@ -228,7 +225,7 @@ consul = new Consul();
         {
             let opts: Consul.Agent.Check.RegisterOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.register<any>(opts, callback);
 
@@ -239,7 +236,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Check.DeregisterOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.deregister<any>(id, callback);
             check.deregister<any>(opts, callback);
@@ -252,7 +249,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Check.PassOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.pass<any>(id, callback);
             check.pass<any>(opts, callback);
@@ -265,7 +262,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Check.WarnOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.warn<any>(id, callback);
             check.warn<any>(opts, callback);
@@ -278,7 +275,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Check.WarnOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             check.fail<any>(id, callback);
             check.fail<any>(opts, callback);
@@ -287,7 +284,6 @@ consul = new Consul();
             result = check.fail<any>(opts);
         }
     }
-
 
     // Consul.Agent.Service
     {
@@ -299,7 +295,7 @@ consul = new Consul();
         {
             let opts: Consul.Agent.Service.ListOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.list<any>(opts, callback);
             service.list<any>(callback);
@@ -312,7 +308,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Service.RegisterOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.register<any>(id, callback);
             service.register<any>(opts, callback);
@@ -325,7 +321,7 @@ consul = new Consul();
             let id: string;
             let opts: Consul.Agent.Service.DeregisterOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.deregister<any>(id, callback);
             service.deregister<any>(opts, callback);
@@ -337,7 +333,7 @@ consul = new Consul();
         {
             let opts: Consul.Agent.Service.MaintenanceOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.maintenance<any>(opts, callback);
 
@@ -356,7 +352,7 @@ consul = new Consul();
     {
         let opts: Consul.Catalog.DatacentersOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         catalog.datacenters<any>(opts, callback);
         catalog.datacenters<any>(callback);
@@ -369,7 +365,7 @@ consul = new Consul();
         let dc: string;
         let opts: Consul.Catalog.NodesOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         catalog.nodes<any>(dc, callback);
         catalog.nodes<any>(opts, callback);
@@ -384,7 +380,7 @@ consul = new Consul();
         let dc: string;
         let opts: Consul.Catalog.ServicesOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         catalog.services<any>(dc, callback);
         catalog.services<any>(opts, callback);
@@ -394,7 +390,6 @@ consul = new Consul();
         result = catalog.services<any>(opts);
         result = catalog.services<any>();
     }
-
 
     // Consul.Catalog.Node
     {
@@ -407,7 +402,7 @@ consul = new Consul();
             let dc: string;
             let opts: Consul.Catalog.Node.ListOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             node.list<any>(dc, callback);
             node.list<any>(opts, callback);
@@ -422,7 +417,7 @@ consul = new Consul();
             let nodeOption: string;
             let opts: Consul.Catalog.Node.ServicesOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             node.services<any>(nodeOption, callback);
             node.services<any>(opts, callback);
@@ -443,7 +438,7 @@ consul = new Consul();
             let dc: string;
             let opts: Consul.Catalog.Service.ListOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.list<any>(dc, callback);
             service.list<any>(opts, callback);
@@ -458,7 +453,7 @@ consul = new Consul();
             let serviceOption: string;
             let opts: Consul.Catalog.Service.NodesOptions;
             let callback: Consul.Callback<any>;
-            let result: Consul.Thenable<any>;
+            let result: Promise<any>;
 
             service.nodes<any>(serviceOption, callback);
             service.nodes<any>(opts, callback);
@@ -478,10 +473,10 @@ consul = new Consul();
 
     {
         let name: string;
-        let payload: string|Buffer;
+        let payload: string | Buffer;
         let opts: Consul.Event.FireOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         event.fire<any>(name, payload, callback);
         event.fire<any>(name, callback);
@@ -496,7 +491,7 @@ consul = new Consul();
         let name: string;
         let opts: Consul.Event.ListOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         event.list<any>(name, callback);
         event.list<any>(opts, callback);
@@ -520,7 +515,7 @@ consul = new Consul();
         let node: string;
         let opts: Consul.Health.NodeOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         health.node<any>(name, callback);
         health.node<any>(opts, callback);
@@ -533,7 +528,7 @@ consul = new Consul();
         let service: string;
         let opts: Consul.Health.ChecksOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         health.checks<any>(service, callback);
         health.checks<any>(opts, callback);
@@ -546,7 +541,7 @@ consul = new Consul();
         let service: string;
         let opts: Consul.Health.ServiceOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         health.service<any>(service, callback);
         health.service<any>(opts, callback);
@@ -559,7 +554,7 @@ consul = new Consul();
         let state: string;
         let opts: Consul.Health.StateOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         health.state<any>(state, callback);
         health.state<any>(opts, callback);
@@ -568,7 +563,6 @@ consul = new Consul();
         result = health.state<any>(opts);
     }
 }
-
 
 // Consul.Kv
 {
@@ -581,7 +575,7 @@ consul = new Consul();
         let key: string;
         let opts: Consul.Kv.GetOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         kv.get<any>(key, callback);
         kv.get<any>(opts, callback);
@@ -594,7 +588,7 @@ consul = new Consul();
         let key: string;
         let opts: Consul.Kv.KeysOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         kv.keys<any>(key, callback);
         kv.keys<any>(opts, callback);
@@ -607,10 +601,10 @@ consul = new Consul();
 
     {
         let key: string;
-        let value: string|Buffer;
+        let value: string | Buffer;
         let opts: Consul.Kv.SetOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         kv.set<any>(key, value, opts, callback);
         kv.set<any>(key, value, callback);
@@ -625,7 +619,7 @@ consul = new Consul();
         let key: string;
         let opts: Consul.Kv.DelOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         kv.del<any>(key, callback);
         kv.del<any>(opts, callback);
@@ -641,7 +635,6 @@ consul = new Consul();
     }
 }
 
-
 // Consul.Lock
 {
     let lock: Consul.Lock;
@@ -656,7 +649,6 @@ consul = new Consul();
     lock.release();
 }
 
-
 // Consul.Session
 {
     let session: Consul.Session = consul.session;
@@ -667,7 +659,7 @@ consul = new Consul();
     {
         let opts: Consul.Session.CreateOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.create<any>(opts, callback);
         session.create<any>(callback);
@@ -680,7 +672,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Session.DestroyOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.destroy<any>(id, callback);
         session.destroy<any>(opts, callback);
@@ -693,7 +685,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Session.InfoOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.info<any>(id, callback);
         session.info<any>(opts, callback);
@@ -712,7 +704,7 @@ consul = new Consul();
         let node: string;
         let opts: Consul.Session.NodeOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.node<any>(node, callback);
         session.node<any>(opts, callback);
@@ -724,7 +716,7 @@ consul = new Consul();
     {
         let opts: Consul.Session.ListOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.list<any>(opts, callback);
         session.list<any>(callback);
@@ -737,7 +729,7 @@ consul = new Consul();
         let id: string;
         let opts: Consul.Session.RenewOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         session.renew<any>(id, callback);
         session.renew<any>(opts, callback);
@@ -746,7 +738,6 @@ consul = new Consul();
         result = session.renew<any>(opts);
     }
 }
-
 
 // Consul.Status
 {
@@ -758,7 +749,7 @@ consul = new Consul();
     {
         let opts: Consul.Status.LeaderOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         status.leader<any>(opts, callback);
         status.leader<any>(callback);
@@ -770,7 +761,7 @@ consul = new Consul();
     {
         let opts: Consul.Status.LeaderOptions;
         let callback: Consul.Callback<any>;
-        let result: Consul.Thenable<any>;
+        let result: Promise<any>;
 
         status.peers<any>(opts, callback);
         status.peers<any>(callback);
@@ -779,7 +770,6 @@ consul = new Consul();
         result = status.peers<any>();
     }
 }
-
 
 // Consul.Watch
 {

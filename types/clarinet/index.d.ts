@@ -1,8 +1,3 @@
-// Type definitions for clarinet 0.12
-// Project: https://github.com/dscape/clarinet
-// Definitions by: corno <https://github.com/corno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import { Stream } from "stream";
@@ -11,8 +6,8 @@ export function parser(opt?: Options): CParser;
 export function createStream(opt?: Options): CStream;
 
 export interface Options {
-    trim?: boolean;
-    normalize?: boolean;
+    trim?: boolean | undefined;
+    normalize?: boolean | undefined;
 }
 
 export class CParser {

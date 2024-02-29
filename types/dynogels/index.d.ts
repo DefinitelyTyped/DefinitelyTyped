@@ -1,12 +1,4 @@
-// Type definitions for dynogels 9.0
-// Project: https://github.com/clarkie/dynogels#readme
-// Definitions by: Spartan Labs <https://github.com/SpartanLabs>
-//                 Ramon de Klein <https://github.com/ramondeklein>
-//                 Stephen Tuso <https://github.com/stephentuso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-export import AWS = require("aws-sdk");
+export import AWS = require("aws-sdk2-types");
 import * as joi from "joi";
 import stream = require("stream");
 
@@ -31,7 +23,10 @@ export function dynamoDriver(dynamoDB: AWS.DynamoDB): AWS.DynamoDB;
 export function reset(): void;
 export function define(modelName: string, config: ModelConfiguration): Model;
 export function createTables(callback: (err: string) => void): void;
-export function createTables(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: string) => void): void;
+export function createTables(
+    options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions,
+    callback: (err: string) => void,
+): void;
 export function Set(...args: any[]): any;
 
 export interface DynogelsGlobalOptions {
@@ -41,12 +36,12 @@ export interface DynogelsGlobalOptions {
 }
 
 export interface CreateTablesOptions {
-    readCapacity?: number;
-    writeCapacity?: number;
+    readCapacity?: number | undefined;
+    writeCapacity?: number | undefined;
     streamSpecification?: {
         streamEnabled: boolean;
         streamViewType: string;
-    };
+    } | undefined;
 }
 
 export type LifeCycleAction = "create" | "update" | "destroy";
@@ -73,10 +68,24 @@ export interface Model {
     scan(): Scan;
     parallelScan(totalSegments: number): Scan;
     getItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
-    getItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
-    batchGetItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    createTable(options: CreateTablesOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
+    getItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        options: GetItemOptions,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    batchGetItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    batchGetItems(
+        items: string[] | Array<{ [key: string]: string }>,
+        options: GetItemOptions,
+        callback: (err: Error, items: any[]) => void,
+    ): void;
+    createTable(
+        options: CreateTablesOptions,
+        callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void,
+    ): void;
     createTable(callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     updateTable(throughput: Throughput, callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
     updateTable(callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
@@ -97,57 +106,57 @@ export interface Throughput {
 }
 
 export interface CreateItemOptions {
-    expected?: { [key: string]: any };
-    overwrite?: boolean;
+    expected?: { [key: string]: any } | undefined;
+    overwrite?: boolean | undefined;
 
-    Expected?: AWS.DynamoDB.ExpectedAttributeMap;
-    ReturnValues?: AWS.DynamoDB.ReturnValue;
-    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity;
-    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics;
-    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator;
-    ConditionExpression?: AWS.DynamoDB.ConditionExpression;
-    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap;
-    ExpressionAttributeValues?: { [key: string]: any };
+    Expected?: AWS.DynamoDB.ExpectedAttributeMap | undefined;
+    ReturnValues?: AWS.DynamoDB.ReturnValue | undefined;
+    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity | undefined;
+    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics | undefined;
+    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator | undefined;
+    ConditionExpression?: AWS.DynamoDB.ConditionExpression | undefined;
+    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap | undefined;
+    ExpressionAttributeValues?: { [key: string]: any } | undefined;
 }
 
 export interface UpdateItemOptions {
-    expected?: { [key: string]: any };
+    expected?: { [key: string]: any } | undefined;
 
-    AttributeUpdates?: AWS.DynamoDB.AttributeUpdates;
-    Expected?: AWS.DynamoDB.ExpectedAttributeMap;
-    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator;
-    ReturnValues?: AWS.DynamoDB.ReturnValue;
-    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity;
-    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics;
-    UpdateExpression?: AWS.DynamoDB.UpdateExpression;
-    ConditionExpression?: AWS.DynamoDB.ConditionExpression;
-    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap;
-    ExpressionAttributeValues?: { [key: string]: any };
+    AttributeUpdates?: AWS.DynamoDB.AttributeUpdates | undefined;
+    Expected?: AWS.DynamoDB.ExpectedAttributeMap | undefined;
+    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator | undefined;
+    ReturnValues?: AWS.DynamoDB.ReturnValue | undefined;
+    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity | undefined;
+    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics | undefined;
+    UpdateExpression?: AWS.DynamoDB.UpdateExpression | undefined;
+    ConditionExpression?: AWS.DynamoDB.ConditionExpression | undefined;
+    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap | undefined;
+    ExpressionAttributeValues?: { [key: string]: any } | undefined;
 }
 
 export interface DestroyItemOptions {
-    Expected?: AWS.DynamoDB.ExpectedAttributeMap;
-    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator;
-    ReturnValues?: AWS.DynamoDB.ReturnValue;
-    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity;
-    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics;
-    ConditionExpression?: AWS.DynamoDB.ConditionExpression;
-    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap;
-    ExpressionAttributeValues?: { [key: string]: any };
+    Expected?: AWS.DynamoDB.ExpectedAttributeMap | undefined;
+    ConditionalOperator?: AWS.DynamoDB.ConditionalOperator | undefined;
+    ReturnValues?: AWS.DynamoDB.ReturnValue | undefined;
+    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity | undefined;
+    ReturnItemCollectionMetrics?: AWS.DynamoDB.ReturnItemCollectionMetrics | undefined;
+    ConditionExpression?: AWS.DynamoDB.ConditionExpression | undefined;
+    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap | undefined;
+    ExpressionAttributeValues?: { [key: string]: any } | undefined;
 }
 
 export interface GetItemOptions {
-    AttributesToGet?: AWS.DynamoDB.AttributeNameList;
-    ConsistentRead?: AWS.DynamoDB.ConsistentRead;
-    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity;
-    ProjectionExpression?: AWS.DynamoDB.ProjectionExpression;
-    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap;
+    AttributesToGet?: AWS.DynamoDB.AttributeNameList | undefined;
+    ConsistentRead?: AWS.DynamoDB.ConsistentRead | undefined;
+    ReturnConsumedCapacity?: AWS.DynamoDB.ReturnConsumedCapacity | undefined;
+    ProjectionExpression?: AWS.DynamoDB.ProjectionExpression | undefined;
+    ExpressionAttributeNames?: AWS.DynamoDB.ExpressionAttributeNameMap | undefined;
 }
 
 export interface ModelConfig {
-    tableName?: string;
+    tableName?: string | undefined;
     docClient?: any;
-    dynamodb?: AWS.DynamoDB;
+    dynamodb?: AWS.DynamoDB | undefined;
 }
 
 // Dynogels Item
@@ -242,15 +251,15 @@ export interface SchemaType {
 
 export interface ModelConfiguration {
     hashKey: string;
-    rangeKey?: string;
-    timestamps?: boolean;
-    createdAt?: boolean | string;
-    updatedAt?: boolean | string;
-    schema?: SchemaType;
-    validation?: joi.ValidationOptions;
-    tableName?: string | tableResolve;
-    indexes?: any[];
-    log?: Log;
+    rangeKey?: string | undefined;
+    timestamps?: boolean | undefined;
+    createdAt?: boolean | string | undefined;
+    updatedAt?: boolean | string | undefined;
+    schema?: SchemaType | undefined;
+    validation?: joi.ValidationOptions | undefined;
+    tableName?: string | tableResolve | undefined;
+    indexes?: any[] | undefined;
+    log?: Log | undefined;
 }
 
 export interface Document {

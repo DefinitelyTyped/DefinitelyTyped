@@ -1,6 +1,59 @@
 {
     "private": true,
+    "name": "@types/react-redux",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/reduxjs/react-redux"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "redux": "^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/object-assign": "*",
+        "@types/prop-types": "*",
+        "@types/react-redux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Curits Layne",
+            "githubUsername": "clayne11"
+        },
+        {
+            "name": "Frank Tan",
+            "githubUsername": "tansongyang"
+        },
+        {
+            "name": "Nicholas Boll",
+            "githubUsername": "nicholasboll"
+        },
+        {
+            "name": "Dibyo Majumdar",
+            "githubUsername": "mdibyo"
+        },
+        {
+            "name": "Prashant Deva",
+            "githubUsername": "pdeva"
+        },
+        {
+            "name": "Valentin Descamps",
+            "githubUsername": "val1984"
+        },
+        {
+            "name": "Johann Rakotoharisoa",
+            "githubUsername": "jrakotoharisoa"
+        },
+        {
+            "name": "Anatoli Papirovski",
+            "githubUsername": "apapirovski"
+        },
+        {
+            "name": "Boris Sergeyev",
+            "githubUsername": "surgeboris"
+        }
+    ]
 }

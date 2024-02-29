@@ -1,21 +1,43 @@
-// Type definitions for node-pdftk 2.1
-// Project: https://github.com/jjwilly16/node-pdftk#readme
-// Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/node-pdftk
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="node" />
 
+export type Letter =
+    | "A"
+    | "B"
+    | "C"
+    | "D"
+    | "E"
+    | "F"
+    | "G"
+    | "H"
+    | "I"
+    | "J"
+    | "K"
+    | "L"
+    | "M"
+    | "N"
+    | "O"
+    | "P"
+    | "Q"
+    | "R"
+    | "S"
+    | "T"
+    | "U"
+    | "V"
+    | "W"
+    | "X"
+    | "Y"
+    | "Z";
+
 export type Permission =
-    | 'Printing' // – Top Quality Printing
-    | 'DegradedPrintin' // – Lower Quality Printing
-    | 'ModifyContents' // – Also allows Assembly
-    | 'Assembly'
-    | 'CopyContents' // – Also allows ScreenReaders
-    | 'ScreenReaders'
-    | 'ModifyAnnotations' // – Also allows FillIn
-    | 'FillIn'
-    | 'AllFeatures'; // – Allows the user to perform all of the above, and top quality printing.
+    | "Printing" // – Top Quality Printing
+    | "DegradedPrintin" // – Lower Quality Printing
+    | "ModifyContents" // – Also allows Assembly
+    | "Assembly"
+    | "CopyContents" // – Also allows ScreenReaders
+    | "ScreenReaders"
+    | "ModifyAnnotations" // – Also allows FillIn
+    | "FillIn"
+    | "AllFeatures"; // – Allows the user to perform all of the above, and top quality printing.
 
 export class PDFTK {
     /**
@@ -249,11 +271,11 @@ export class PDFTK {
 }
 
 export interface ConfigureOptions {
-    bin: string;
-    Promise: PromiseConstructor;
-    ignoreWarnings: true;
-    tempDir: string;
+    bin?: string;
+    Promise?: PromiseConstructor;
+    ignoreWarnings?: true;
+    tempDir?: string;
 }
 
-export function input(file: string | Buffer): PDFTK;
+export function input(file: string | Buffer | Buffer[] | Partial<Record<Letter, string | Buffer>>): PDFTK;
 export function configure(opts: ConfigureOptions): void;

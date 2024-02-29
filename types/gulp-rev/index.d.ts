@@ -1,15 +1,9 @@
-// Type definitions for gulp-rev v5.0.1
-// Project: https://github.com/sindresorhus/gulp-rev
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-
 interface IOptions {
-    base?: string;
-    cwd?: string;
-    merge?: boolean;
+    base?: string | undefined;
+    cwd?: string | undefined;
+    merge?: boolean | undefined;
 }
 
 interface IRev {

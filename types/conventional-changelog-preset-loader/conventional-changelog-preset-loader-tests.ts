@@ -1,18 +1,17 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
-"use strict";
 
-import conventionalChangelogPresetLoader from "conventional-changelog-preset-loader";
+import conventionalChangelogPresetLoader = require("conventional-changelog-preset-loader");
 
 namespace Module {
     declare const path: string;
     declare const config: conventionalChangelogPresetLoader.Config;
 
-    // $ExpectType Config<Commit<string | number | symbol>, Context>
+    // $ExpectType Config<Commit, Context>
     conventionalChangelogPresetLoader(path);
-    // $ExpectType Config<Commit<string | number | symbol>, Context>
+    // $ExpectType Config<Commit, Context>
     conventionalChangelogPresetLoader(config);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalChangelogPresetLoader();
 }
 
@@ -22,7 +21,7 @@ namespace Module.presetLoader {
     // $ExpectType typeof conventionalChangelogPresetLoader
     conventionalChangelogPresetLoader.presetLoader(require);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalChangelogPresetLoader.presetLoader();
 }
 

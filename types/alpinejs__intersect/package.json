@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/alpinejs__intersect",
+    "version": "3.13.9999",
+    "projects": [
+        "https://github.com/alpinejs/alpine"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "dependencies": {
+        "@types/alpinejs": "*"
+    },
+    "devDependencies": {
+        "@types/alpinejs__intersect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Kwoka",
+            "githubUsername": "ekwoka"
+        }
+    ]
+}

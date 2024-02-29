@@ -1,8 +1,27 @@
+import gitConfig = require("git-config");
 
-import gitConfig = require('git-config');
+// $ExpectType object
+gitConfig.sync();
 
-var config: Object = gitConfig.sync();
-console.log(JSON.stringify(config));
+// $ExpectType object
+gitConfig.sync("gitconfig");
 
-config = gitConfig.sync('gitconfig');
-console.log(JSON.stringify(config));
+// $ExpectType void
+gitConfig("gitconfig", (err, data) => {
+    if (!err) {
+        data; // $ExpectType object
+    }
+});
+
+// $ExpectType void
+gitConfig((err, data) => {
+    if (!err) {
+        data; // $ExpectType object
+    }
+});
+
+gitConfig("gitconfig", (err, data) => {
+    if (!err) {
+        data; // $ExpectType object
+    }
+});

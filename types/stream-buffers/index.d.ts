@@ -1,14 +1,9 @@
-// Type definitions for stream-buffers 3.0
-// Project: https://github.com/samcday/node-stream-buffer#readme
-// Definitions by: Jason Dent <https://github.com/Jason3S>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export interface WritableStreamBufferOptions extends stream.WritableOptions {
-    initialSize?: number;
-    incrementAmount?: number;
+    initialSize?: number | undefined;
+    incrementAmount?: number | undefined;
 }
 
 export class WritableStreamBuffer extends stream.Writable {
@@ -20,10 +15,10 @@ export class WritableStreamBuffer extends stream.Writable {
 }
 
 export interface ReadableStreamBufferOptions extends stream.ReadableOptions {
-    frequency?: number;
-    chunkSize?: number;
-    initialSize?: number;
-    incrementAmount?: number;
+    frequency?: number | undefined;
+    chunkSize?: number | undefined;
+    initialSize?: number | undefined;
+    incrementAmount?: number | undefined;
 }
 
 export class ReadableStreamBuffer extends stream.Readable {

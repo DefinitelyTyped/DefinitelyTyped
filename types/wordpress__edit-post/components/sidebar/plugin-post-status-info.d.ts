@@ -1,5 +1,5 @@
-import { Slot } from '@wordpress/components';
-import { FC, ReactNode } from 'react';
+import { Slot } from "@wordpress/components";
+import { FC, JSX, ReactNode } from "react";
 
 declare namespace PluginPostStatusInfo {
     interface Props {
@@ -7,7 +7,7 @@ declare namespace PluginPostStatusInfo {
         /**
          * An optional class name added to the row.
          */
-        className?: string;
+        className?: string | undefined;
     }
 }
 
@@ -29,7 +29,7 @@ declare namespace PluginPostStatusInfo {
  */
 declare const PluginPostStatusInfo: {
     (props: PluginPostStatusInfo.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, 'name'>>;
+    Slot: FC<Omit<Slot.Props, "name">>;
 };
 
 export default PluginPostStatusInfo;

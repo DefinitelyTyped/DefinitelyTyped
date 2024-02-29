@@ -1,31 +1,32 @@
-// Type definitions for connect-mongodb-session
-// Project: https://github.com/kcbanner/connect-mongodb-session
-// Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+import session = require("express-session");
+import { MongoClient, MongoClientOptions } from "mongodb";
 
-/// <reference types="express-session" />
+export = ConnectMongoDBSession;
 
-import session = require('express-session');
-import * as express from 'express';
-import {MongoClient, MongoClientOptions} from 'mongodb'
+declare function ConnectMongoDBSession(fn: typeof session): typeof ConnectMongoDBSession.MongoDBStore;
 
-declare function connect(fn : (options?: session.SessionOptions) => express.RequestHandler) : connectMongodbSession.MongoDBStore
+declare namespace ConnectMongoDBSession {
+    class MongoDBStore extends session.Store {
+        constructor(connection?: MongoDBSessionOptions, callback?: (error: Error) => void);
+        client: MongoClient;
 
-declare namespace connectMongodbSession {
-    export interface MongoDBStore extends session.Store {
-        client : MongoClient
-        new(connection?: ConnectionInfo, callback?: (error : Error) => void) : MongoDBStore
+        get(sid: string, callback: (err: any, session?: session.SessionData | null) => void): void;
+        set(sid: string, session: session.SessionData, callback?: (err?: any) => void): void;
+        destroy(sid: string, callback?: (err?: any) => void): void;
+        all(
+            callback: (err: any, obj?: session.SessionData[] | { [sid: string]: session.SessionData } | null) => void,
+        ): void;
+        clear(callback?: (err?: any) => void): void;
     }
 
-    export interface ConnectionInfo {
-        idField? : string
-        collection : string
-        connectionOptions?: MongoClientOptions
-        databaseName?: string
-        expires?: number
-        uri : string
+    interface MongoDBSessionOptions {
+        uri: string;
+        collection: string;
+        expires?: number | undefined;
+        databaseName?: string | undefined;
+        connectionOptions?: MongoClientOptions | undefined;
+        idField?: string | undefined;
+        expiresKey?: string | undefined;
+        expiresAfterSeconds?: number | undefined;
     }
 }
-
-export = connect

@@ -1,15 +1,9 @@
-// Type definitions for pouch-redux-middleware 1.2
-// Project: https://github.com/pgte/pouch-redux-middleware
-// Definitions by: Adam Charron <https://github.com/charrondev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as PouchDB from "pouchdb";
+import { AnyAction, Dispatch, Middleware } from "redux";
 
-import { Dispatch, Action, Middleware } from 'redux';
-import * as PouchDB from 'pouchdb';
+export type Document<T = { [field: string]: any }> = PouchDB.Core.IdMeta & T;
 
-export type Document<T = {[field: string]: any}> = PouchDB.Core.IdMeta & T;
-
-export interface Path<T = {[field: string]: any}> {
+export interface Path<T extends {} = { [field: string]: any }> {
     path: string;
     db: PouchDB.Database<T>;
     scheduleRemove?(doc: Document<T>): void;
@@ -23,11 +17,13 @@ export interface Path<T = {[field: string]: any}> {
     queue?(...args: any[]): any;
     docs?: any;
     actions: {
-        remove(doc: Document<T>): Action;
-        update(doc: Document<T>): Action;
-        insert(doc: Document<T>): Action;
-        batchInsert(docs: Array<Document<T>>): Action;
+        remove(doc: Document<T>): AnyAction;
+        update(doc: Document<T>): AnyAction;
+        insert(doc: Document<T>): AnyAction;
+        batchInsert(docs: Array<Document<T>>): AnyAction;
     };
 }
 
-export default function PouchMiddlewareFactory<T = {[field: string]: any}>(paths?: Array<Path<T>> | Path<T>): Middleware;
+export default function PouchMiddlewareFactory<T extends {} = { [field: string]: any }>(
+    paths?: Array<Path<T>> | Path<T>,
+): Middleware;

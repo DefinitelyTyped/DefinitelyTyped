@@ -1,8 +1,3 @@
-// Type definitions for Offline 0.7.14
-// Project: https://github.com/HubSpot/offline
-// Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Offline: {
     options: OfflineOptions;
     check: () => void;
@@ -40,11 +35,11 @@ declare var Offline: {
 interface OfflineOptions {
     // TODO Should these types be `boolean|Function`?
     // The project documentation is not clear here.
-    checkOnLoad?: boolean;
-    interceptRequests?: boolean;
-    requests?: boolean;
-    game?: boolean;
-    checks?: OfflineChecks;
+    checkOnLoad?: boolean | undefined;
+    interceptRequests?: boolean | undefined;
+    requests?: boolean | undefined;
+    game?: boolean | undefined;
+    checks?: OfflineChecks | undefined;
     reconnect: {
         initialDelay: number;
         delay: number;
@@ -54,9 +49,9 @@ interface OfflineOptions {
 interface OfflineChecks {
     // TODO "xhr" and "image" probably have different options.
     // However, this is not stated in the project documentation.
-    xhr?: OfflineCheck;
-    image?: OfflineCheck;
-    active?: string;
+    xhr?: OfflineCheck | undefined;
+    image?: OfflineCheck | undefined;
+    active?: string | undefined;
 }
 
 interface OfflineCheck {

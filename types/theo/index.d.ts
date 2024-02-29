@@ -1,11 +1,4 @@
-// Type definitions for Theo 8.1
-// Project: https://github.com/salesforce-ux/theo
-// Definitions by: Pete Petrash <https://github.com/petekp>
-//                 Niko Laitinen <https://github.com/laitine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Collection, Map, List, OrderedMap } from "immutable";
+import { Collection, List, Map, OrderedMap } from "immutable";
 
 export type StyleProperty =
     | "name"
@@ -54,8 +47,8 @@ export type FormatResultFn = (result: ImmutableStyleMap) => string;
 
 export interface StyleMap {
     aliases: Aliases;
-    global?: Props;
-    imports?: string[];
+    global?: Props | undefined;
+    imports?: string[] | undefined;
     props: Props;
     meta: Meta;
     options: object;
@@ -69,36 +62,38 @@ export interface ImmutableStyleMap extends Map<string, any> {
 export interface ConvertOptions {
     transform: TransformOptions;
     format: FormatOptions;
-    resolveAliases?: boolean;
-    resolveMetaAliases?: boolean;
+    resolveAliases?: boolean | undefined;
+    resolveMetaAliases?: boolean | undefined;
 }
 
 export interface TransformOptions<T extends string = never> {
-    type?: Transform | T;
+    type?: Transform | T | undefined;
     file: string;
-    data?: string;
+    data?: string | undefined;
 }
 
 export interface FormatOptions {
     type: Format;
-    options?: (
-        options: object,
-        transformPropName?: (name: string) => string
-    ) => void;
+    options?:
+        | ((
+            options: object,
+            transformPropName?: (name: string) => string,
+        ) => void)
+        | undefined;
 }
 
 export function convert(options: ConvertOptions): Promise<string>;
 export function convertSync(options: ConvertOptions): string;
 export function registerFormat<T extends string = never>(
     name: Format | T,
-    format: FormatResultFn | string
+    format: FormatResultFn | string,
 ): void;
 export function registerTransform<
     T extends string = never,
-    V extends string = never
+    V extends string = never,
 >(name: Transform | T, valueTransforms: ValueTransform[] | V[]): void;
 export function registerValueTransform<T extends string = never>(
     name: ValueTransform | T,
     predicate: (prop: Prop) => boolean,
-    transform: (prop: Prop) => string | number
+    transform: (prop: Prop) => string | number,
 ): void;

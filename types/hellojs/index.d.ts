@@ -1,12 +1,3 @@
-// Type definitions for hello.js 1.16
-// Project: https://adodson.com/hello.js
-// Definitions by: Pavel Zika <https://github.com/PavelPZ>
-//                 Mikko Vuorinen <https://github.com/vuorinem>
-//                 Vincent Biret <https://github.com/baywet>
-//                 Batuhan Wilhelm <https://github.com/batuhanw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = hello;
 export as namespace hello;
 
@@ -15,7 +6,7 @@ declare const hello: hello.HelloJSStatic;
 declare namespace hello {
     interface HelloJSUtils {
         extend(r: object, ...a: any[]): any;
-        error(code: number, message: string): { code: number, message: string };
+        error(code: number, message: string): { code: number; message: string };
         qs(url: string, params?: object, formatFunction?: (param: any) => string): string;
         param(o: object, formatFunction?: (param: any) => string): string;
         param(s: string, formatFunction?: (param: string) => any): any;
@@ -44,7 +35,14 @@ declare namespace hello {
         clone<T>(obj: T): T;
         xhr(method: string, url: string, headers: object, data: any, callback: HelloJSResponseCallback): XMLHttpRequest;
         jsonp(url: string, callback: () => void, callbackID?: string, timeout?: number): void;
-        post(url: string, data: any, options: object, callback: HelloJSResponseCallback, callbackID?: string, timeout?: number): void;
+        post(
+            url: string,
+            data: any,
+            options: object,
+            callback: HelloJSResponseCallback,
+            callbackID?: string,
+            timeout?: number,
+        ): void;
         hasBinary(data: any): boolean;
         isBinary(data: any): boolean;
         toBlob(dataURI: string): Blob | string;
@@ -55,7 +53,7 @@ declare namespace hello {
     type HelloJSResponseCallback = (r: any, headers: any) => void;
 
     type HelloJSTokenResponseType =
-        "code"
+        | "code"
         | "code id_token"
         | "code id_token token"
         | "code token"
@@ -67,20 +65,20 @@ declare namespace hello {
     type HelloJSDisplayType = "popup" | "page" | "none";
 
     interface HelloJSLoginOptions {
-        redirect_uri?: string;
-        display?: HelloJSDisplayType;
-        scope?: string;
-        response_type?: HelloJSTokenResponseType;
-        force?: boolean | null;
-        oauth_proxy?: string;
-        timeout?: number;
-        default_service?: string;
-        popup?: HelloJSPopupOptions;
-        state?: string;
+        redirect_uri?: string | undefined;
+        display?: HelloJSDisplayType | undefined;
+        scope?: string | undefined;
+        response_type?: HelloJSTokenResponseType | undefined;
+        force?: boolean | null | undefined;
+        oauth_proxy?: string | undefined;
+        timeout?: number | undefined;
+        default_service?: string | undefined;
+        popup?: HelloJSPopupOptions | undefined;
+        state?: string | undefined;
     }
 
     interface HelloJSLogoutOptions {
-        force?: boolean;
+        force?: boolean | undefined;
     }
 
     interface HelloJSPopupOptions {
@@ -100,36 +98,39 @@ declare namespace hello {
 
     interface HelloJSEventArgument {
         network: string;
-        authResponse?: HelloJSAuthResponse;
+        authResponse?: HelloJSAuthResponse | undefined;
     }
 
     interface HelloJSLoginEventArguement {
         network: string;
-        authResponse?: HelloJSAuthResponse;
-        error?: Error;
+        authResponse?: HelloJSAuthResponse | undefined;
+        error?: Error | undefined;
     }
 
     interface HelloJSAuthResponse {
-        client_id?: string;
-        access_token?: string;
-        token_type?: string;
-        expires_in?: number;
-        id_token?: string;
-        state?: string;
-        session_state?: string;
-        network?: string;
-        display?: HelloJSDisplayType;
-        redirect_uri?: string;
-        scope?: string;
-        expires?: number;
+        client_id?: string | undefined;
+        access_token?: string | undefined;
+        token_type?: string | undefined;
+        expires_in?: number | undefined;
+        id_token?: string | undefined;
+        state?: string | undefined;
+        session_state?: string | undefined;
+        network?: string | undefined;
+        display?: HelloJSDisplayType | undefined;
+        redirect_uri?: string | undefined;
+        scope?: string | undefined;
+        expires?: number | undefined;
     }
 
     interface HelloJSStatic extends HelloJSEvent {
-        init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
-        init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
+        init(serviceAppIdsOrDefs: { [id: string]: string | HelloJSServiceDef }, options?: HelloJSLoginOptions): void;
         login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
-        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
+        login(
+            network?: string,
+            options?: HelloJSLoginOptions,
+            callback?: () => void,
+        ): PromiseLike<HelloJSLoginEventArguement>;
         logout(callback?: () => void): PromiseLike<any>;
         logout(options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
         logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
@@ -139,44 +140,54 @@ declare namespace hello {
         utils: HelloJSUtils;
         api(options: object): PromiseLike<any>;
         api(path?: string, method?: string, data?: object, callback?: (json: any) => void): PromiseLike<any>;
-        api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): PromiseLike<any>;
+        api(
+            path?: string,
+            query?: object,
+            method?: string,
+            data?: object,
+            timeout?: number,
+            callback?: (json: any) => void,
+        ): PromiseLike<any>;
     }
 
     interface HelloJSOAuthDef {
         version: string | number;
-        auth?: string;
+        auth?: string | undefined;
+        base64_state?: boolean | undefined;
     }
 
     interface HelloJSOAuth2Def extends HelloJSOAuthDef {
-        grant?: string;
-        response_type?: HelloJSTokenResponseType;
+        grant?: string | undefined;
+        response_type?: HelloJSTokenResponseType | undefined;
     }
 
     interface HelloJSOAuth1Def extends HelloJSOAuthDef {
-        request?: string;
-        token?: string;
+        request?: string | undefined;
+        token?: string | undefined;
     }
 
     type HelloJSUrlMappingFunction = (p: any, callback: (url: string) => void) => void;
 
     interface HelloJSServiceDef {
-        name?: string;
+        id?: string | undefined;
+        name?: string | undefined;
         oauth: HelloJSOAuth2Def | HelloJSOAuth1Def;
-        scope?: { [id: string]: string; };
-        scope_delim?: string;
-        refresh?: boolean;
-        base?: string;
-        root?: string;
-        get?: { [id: string]: string | HelloJSUrlMappingFunction };
-        post?: { [id: string]: string | HelloJSUrlMappingFunction };
-        del?: { [id: string]: string | HelloJSUrlMappingFunction };
-        put?: { [id: string]: string | HelloJSUrlMappingFunction };
-        patch?: { [id: string]: string | HelloJSUrlMappingFunction };
-        wrap?: { [id: string]: (r: any, headers: any, p: any) => void; };
+        scope?: { [id: string]: string } | undefined;
+        scope_delim?: string | undefined;
+        refresh?: boolean | undefined;
+        base?: string | undefined;
+        root?: string | undefined;
+        get?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
+        post?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
+        del?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
+        put?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
+        patch?: { [id: string]: string | HelloJSUrlMappingFunction } | undefined;
+        wrap?: { [id: string]: (r: any, headers: any, p: any) => void } | undefined;
         xhr?(p: any, query: any): void;
-        jsonp?: ((p: any, query: any) => void) | boolean;
-        form?: ((p: any, query: any) => void) | boolean;
+        jsonp?: ((p: any, query: any) => void) | boolean | undefined;
+        form?: ((p: any, query: any) => void) | boolean | undefined;
         login?(p: any): void;
-        logout?: ((callback: () => void | string) => void) | string;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        logout?: ((callback: () => void | string) => void) | string | undefined;
     }
 }

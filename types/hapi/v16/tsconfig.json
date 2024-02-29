@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,22 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "boom": [
-                "boom/v4"
-            ],
-            "catbox": [
-                "catbox/v7"
-            ],
-            "hapi": [
-                "hapi/v16"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
@@ -80,7 +65,6 @@
         "test/server/info.ts",
         "test/server/initialize.ts",
         "test/server/inject.ts",
-        "test/server/listener.ts",
         "test/server/load.ts",
         "test/server/log.ts",
         "test/server/lookup.ts",

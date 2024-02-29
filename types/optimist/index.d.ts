@@ -1,17 +1,10 @@
-// Type definitions for optimist
-// Project: https://github.com/substack/node-optimist
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Christopher Brown <https://github.com/chbrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 declare namespace optimist {
     interface Opt {
-        alias?: string | string[];
+        alias?: string | string[] | undefined;
         default?: any;
-        demand?: string | number | string[];
-        describe?: string;
-        type?: string;
+        demand?: string | number | string[] | undefined;
+        describe?: string | undefined;
+        type?: string | undefined;
     }
 
     interface Parser {

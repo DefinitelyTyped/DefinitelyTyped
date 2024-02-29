@@ -1,4 +1,4 @@
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 
 export = FilterBase;
 
@@ -11,7 +11,7 @@ declare namespace FilterBase {
 
     interface Token {
         readonly name: string;
-        readonly value?: string | null | boolean;
+        readonly value?: string | null | boolean | undefined;
     }
 
     type FilterFunction = (stack: Stack, token: Token) => boolean;
@@ -19,11 +19,11 @@ declare namespace FilterBase {
 
     interface FilterOptions extends TransformOptions {
         filter: string | RegExp | FilterFunction;
-        once?: boolean;
-        pathSeparator?: string;
-        streamValues?: boolean;
-        streamKeys?: boolean;
-        replacement?: ReadonlyArray<Token> | ReplacementFunction;
-        allowEmptyReplacement?: boolean;
+        once?: boolean | undefined;
+        pathSeparator?: string | undefined;
+        streamValues?: boolean | undefined;
+        streamKeys?: boolean | undefined;
+        replacement?: readonly Token[] | ReplacementFunction | undefined;
+        allowEmptyReplacement?: boolean | undefined;
     }
 }

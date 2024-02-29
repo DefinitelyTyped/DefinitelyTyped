@@ -1,5 +1,8 @@
+import { Globals } from "webidl-conversions";
+import { implementation as URLSearchParamsImpl } from "./URLSearchParams-impl";
+
 declare class URLImpl {
-    constructor(globalObject: object, [url, base]: [string, string?], privateData?: {});
+    constructor(globalObject: Globals, constructorArgs: readonly [url: string, base?: string]);
 
     href: string;
     readonly origin: string;
@@ -11,7 +14,7 @@ declare class URLImpl {
     port: string;
     pathname: string;
     search: string;
-    readonly searchParams: URLSearchParams;
+    readonly searchParams: URLSearchParamsImpl;
     hash: string;
 
     toJSON(): string;

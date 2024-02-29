@@ -1,13 +1,4 @@
-// Type definitions for D3JS d3-quadtree module 1.0
-// Project: https://github.com/d3/d3-quadtree/, https://d3js.org/d3-quadtree
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-// Last module patch version validated against: 1.0.3
+// Last module patch version validated against: 3.0.1
 
 /**
  * Leaf node of the quadtree.
@@ -21,7 +12,7 @@ export interface QuadtreeLeaf<T> {
     /**
      * The next datum in this leaf, if any.
      */
-    next?: QuadtreeLeaf<T>;
+    next?: QuadtreeLeaf<T> | undefined;
 
     /**
      * The length property may be used to distinguish leaf nodes from internal nodes: it is undefined for leaf nodes, and 4 for internal nodes.
@@ -172,7 +163,16 @@ export interface Quadtree<T> {
      *
      * @param callback The callback invoked for each node.
      */
-    visit(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void | boolean): this;
+    visit(
+        callback: (
+            node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>,
+            x0: number,
+            y0: number,
+            x1: number,
+            y1: number,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => void | boolean,
+    ): this;
 
     /**
      * Visits each node in the quadtree in post-order traversal, invoking the specified callback with arguments `node`, `x0`, `y0`, `x1`, `y1` for each node,
@@ -180,29 +180,25 @@ export interface Quadtree<T> {
      *
      * @param callback The callback invoked for each node.
      */
-    visitAfter(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void): this;
+    visitAfter(
+        callback: (
+            node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>,
+            x0: number,
+            y0: number,
+            x1: number,
+            y1: number,
+        ) => void,
+    ): this;
 }
 
 /**
  * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
- *
- * The generic refers to the data type. If omitted, the default setting assumes that,
- * the data used with the quadtree are two-element arrays.
- * The first element corresponds to the x-dimension, the second to the y-dimension.
- * When using another type, The x- and y-accessors must be specified.
+ * If data is specified, adds the specified array of data to the quadtree.
  */
-export function quadtree<T = [number, number]>(): Quadtree<T>;
+export function quadtree<T = [number, number]>(data?: T[]): Quadtree<T>;
 /**
- * Creates a new quadtree with the specified array of data.
- * If `x` and `y` are also specified, sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree, otherwise use the default x- and y-accessors.
- *
- * The generic refers to the data type. If omitted, the default setting assumes that,
- * the data used with the quadtree are two-element arrays.
- * The first element corresponds to the x-dimension, the second to the y-dimension.
- * When using another type, The x- and y-accessors must be specified.
- *
- * @param data The specified array of data to add.
- * @param x The x-coordinate accessor.
- * @param y The y-coordinate accessor.
+ * Creates a new, empty quadtree with an empty extent and the default x- and y-accessors.
+ * Adds the specified array of data to the quadtree.
+ * Sets the x- and y- accessors to the specified functions before adding the specified array of data to the quadtree.
  */
-export function quadtree<T = [number, number]>(data: T[], x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;
+export function quadtree<T = [number, number]>(data: T[], x: (d: T) => number, y: (d: T) => number): Quadtree<T>;

@@ -1,8 +1,3 @@
-// Type definitions for triplesec 3.0
-// Project: https://github.com/keybase/triplesec
-// Definitions by: Ben Speakman <https://github.com/threesquared>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface WordArray {
@@ -14,7 +9,7 @@ export interface WordArray {
 export interface Arguments {
     data: Buffer;
     key: Buffer;
-    progress_hook?: (progress: Progress) => void;
+    progress_hook?: ((progress: Progress) => void) | undefined;
 }
 
 export interface Progress {

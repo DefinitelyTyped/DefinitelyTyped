@@ -1,8 +1,10 @@
 declare class URLSearchParamsImpl {
     constructor(
         globalObject: object,
-        [init]: [Array<[string, string]> | { [name: string]: string } | string],
-        privateData: { doNotStripQMark?: boolean },
+        constructorArgs: readonly [
+            init?: ReadonlyArray<readonly [name: string, value: string]> | { readonly [name: string]: string } | string,
+        ],
+        privateData: { readonly doNotStripQMark?: boolean | undefined },
     );
 
     append(name: string, value: string): void;
@@ -13,6 +15,6 @@ declare class URLSearchParamsImpl {
     set(name: string, value: string): void;
     sort(): void;
 
-    [Symbol.iterator](): IterableIterator<[string, string]>;
+    [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
 }
 export { URLSearchParamsImpl as implementation };

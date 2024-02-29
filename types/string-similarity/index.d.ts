@@ -1,8 +1,4 @@
-// Type definitions for string-similarity 3.0
-// Project: https://github.com/aceakash/string-similarity#readme
-// Definitions by: ragtime <https://github.com/ragtime>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export as namespace stringSimilarity;
 
 /**
  * Returns a fraction between 0 and 1, which indicates the degree of similarity between the two strings.

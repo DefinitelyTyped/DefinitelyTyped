@@ -1,10 +1,3 @@
-// Type definitions for shot 3.4
-// Project: https://github.com/hapijs/shot
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-//                 Simon Schick <https://github.com/SimonSchick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import { ServerResponse } from "http";
@@ -57,28 +50,28 @@ export interface RequestOptions {
     /** a string specifying the request URL. */
     url: string;
     /** a string specifying the HTTP request method, defaulting to 'GET'. */
-    method?: string;
+    method?: string | undefined;
     /** a string specifying the HTTP HOST header value to be used if no header is provided, and the url does not include an authority component. Defaults to 'localhost'. */
-    authority?: string;
+    authority?: string | undefined;
     /** an optional object containing request headers. */
-    headers?: Headers;
+    headers?: Headers | undefined;
     /** an optional string specifying the client remote address. Defaults to '127.0.0.1'. */
-    remoteAddress?: string;
+    remoteAddress?: string | undefined;
     /** an optional request payload. Can be a string, Buffer, Stream or object. */
-    payload?: string | Buffer | Stream | object;
+    payload?: string | Buffer | Stream | object | undefined;
     /** an object containing flags to simulate various conditions: */
     simulate?: {
         /** indicates whether the request will fire an end event. Defaults to undefined, meaning an end event will fire. */
-        end?: boolean;
+        end?: boolean | undefined;
         /** indicates whether the request payload will be split into chunks. Defaults to `undefined`, meaning payload will not be chunked. */
-        split?: boolean;
+        split?: boolean | undefined;
         /** whether the request will emit an error event. Defaults to undefined, meaning no error event will be emitted. If set to true, the emitted error will have a message of 'Simulated'. */
-        error?: boolean;
+        error?: boolean | undefined;
         /** whether the request will emit a close event. Defaults to undefined, meaning no close event will be emitted. */
-        close?: boolean;
-    };
+        close?: boolean | undefined;
+    } | undefined;
     /** Optional flag to validate this options object. Defaults to true. */
-    validate?: boolean;
+    validate?: boolean | undefined;
 }
 
 export interface Headers {
@@ -107,5 +100,5 @@ export interface ResponseObject {
     /** the raw payload as a Buffer. */
     rawPayload: Buffer;
     /** an object containing the response trailers. */
-    trailers: {[index: string]: any};
+    trailers: { [index: string]: any };
 }

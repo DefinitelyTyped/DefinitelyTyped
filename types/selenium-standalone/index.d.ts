@@ -1,56 +1,42 @@
-// Type definitions for selenium-standalone 6.15
-// Project: https://github.com/vvo/selenium-standalone
-// Definitions by: Sander de Waal <https://github.com/SanderDeWaal1992>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+import { ChildProcess, SpawnOptions } from "child_process";
 import * as http from "http";
 import { URL } from "url";
-import { ChildProcess, SpawnOptions } from "child_process";
 
-export function install(cb: (error: Error | undefined, fsPaths: FsPaths) => void): void;
-export function install(opts: InstallOpts, cb: (error: Error | undefined, fsPaths: FsPaths) => void): void;
-export function install(optsCb: InstallOpts | ((error: Error | undefined, fsPaths: FsPaths) => void), cb?: (error: Error | undefined, fsPaths: FsPaths) => void): void;
+export function install(opts?: InstallOpts): Promise<void>;
 
-export function start(cb: (error: Error | null, selenium: ChildProcess) => void): void;
-export function start(opts: StartOpts, cb: (error: Error | null, selenium: ChildProcess) => void): void;
-export function start(optsCb: StartOpts | ((error: Error | null, selenium: ChildProcess) => void), cb?: (error: Error | null, selenium: ChildProcess) => void): void;
+export function start(opts?: StartOpts): Promise<ChildProcess>;
 
 export interface InstallOpts {
-    baseURL?: string;
-    basePath?: string;
-    version?: string;
+    baseURL?: string | undefined;
+    basePath?: string | undefined;
+    version?: string | undefined;
     drivers?: {
-        [browser: string]: {
-            version?: string;
-            arch: string | "ia32" | "x64";
-            baseURL: string;
-        }
-    };
-    progressCb?: (totalLength: number, progressLength: number, chunkLength: number) => void;
-    logger?: (message: string) => void;
-    requestOpts?: http.RequestOptions | string | URL;
-    cb?: (error: Error) => void;
+        [browser: string]: DriverOptions;
+    } | undefined;
+    progressCb?: ((totalLength: number, progressLength: number, chunkLength: number) => void) | undefined;
+    logger?: ((message: string) => void) | undefined;
+    requestOpts?: http.RequestOptions | string | URL | undefined;
 }
 
 export interface StartOpts {
-    basePath?: string;
-    version?: string;
+    basePath?: string | undefined;
+    version?: string | undefined;
     drivers?: {
-        [browser: string]: {
-            version?: string;
-            arch: string | "ia32" | "x64";
-            baseURL: string;
-        }
-    };
-    seleniumArgs?: string[];
-    javaArgs?: string[];
-    spawnOptions?: SpawnOptions;
-    spawnCb?: (selenium?: ChildProcess) => void;
-    javaPath?: string;
-    requestOpts?: http.RequestOptions | string | URL;
-    cb?: (error: Error, child: ChildProcess) => void;
+        [browser: string]: DriverOptions;
+    } | undefined;
+    seleniumArgs?: string[] | undefined;
+    javaArgs?: string[] | undefined;
+    spawnOptions?: SpawnOptions | undefined;
+    javaPath?: string | undefined;
+    requestOpts?: http.RequestOptions | string | URL | undefined;
+}
+
+export interface DriverOptions {
+    version?: string | undefined;
+    arch?: string | "ia32" | "x64" | undefined;
+    baseURL?: string | undefined;
 }
 
 export interface FsPaths {
@@ -58,23 +44,23 @@ export interface FsPaths {
     chrome?: {
         [x: string]: any;
         installPath: string;
-    };
+    } | undefined;
     ie?: {
         [x: string]: any;
         installPath: string;
-    };
+    } | undefined;
     edge?: {
         [x: string]: any;
         installPath: string;
-    };
+    } | undefined;
     firefox?: {
         [x: string]: any;
         installPath: string;
-    };
+    } | undefined;
     selenium?: {
         [x: string]: any;
         installPath: string;
-    };
+    } | undefined;
 }
 
 export { ChildProcess, SpawnOptions } from "child_process";

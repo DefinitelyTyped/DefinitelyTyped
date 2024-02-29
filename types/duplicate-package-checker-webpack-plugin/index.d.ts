@@ -1,10 +1,4 @@
-// Type definitions for duplicate-package-checker-webpack-plugin 2.1
-// Project: https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 export = DuplicatePackageCheckerWebpackPlugin;
 
@@ -22,19 +16,19 @@ declare namespace DuplicatePackageCheckerWebpackPlugin {
         /** Absolute path to the package */
         path: string;
         /** Absolute path to the module that requested the package */
-        issuer?: string;
+        issuer?: string | undefined;
     }
 
     /** The configurable options for the plugin */
     interface Options {
         /** Also show module that is requiring each duplicate package (default: false) */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /** Emit errors instead of warnings (default: false) */
-        emitError?: boolean;
+        emitError?: boolean | undefined;
         /** Show help message if duplicate packages are found (default: true) */
-        showHelp?: boolean;
+        showHelp?: boolean | undefined;
         /** Warn also if major versions differ (default: true) */
-        strict?: boolean;
+        strict?: boolean | undefined;
 
         /**
          * Exclude instances of packages from the results.
@@ -43,6 +37,6 @@ declare namespace DuplicatePackageCheckerWebpackPlugin {
          * @param instance The instance of a package being evaluated for exclusion.
          * @returns true to exclude the instance, false otherwise
          */
-        exclude?: (instance: PackageInstanceProperties) => boolean;
+        exclude?: ((instance: PackageInstanceProperties) => boolean) | undefined;
     }
 }

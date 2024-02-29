@@ -1,23 +1,21 @@
-// Type definitions for react-native-platform-touchable 1.1
-// Project: https://github.com/react-native-community/react-native-platform-touchable
-// Definitions by: Toni Granados <https://github.com/tngranados>
-//                 Joel Nordström <https://github.com/iwikal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
-import { BackgroundPropType, RippleBackgroundPropType, ThemeAttributeBackgroundPropType, TouchableWithoutFeedbackProps } from "react-native";
+import {
+    BackgroundPropType,
+    RippleBackgroundPropType,
+    ThemeAttributeBackgroundPropType,
+    TouchableWithoutFeedbackProps,
+} from "react-native";
 
 export interface PlatformTouchableProps extends TouchableWithoutFeedbackProps {
     // TouchableOpacity (default iOS)
-    activeOpacity?: number;
+    activeOpacity?: number | undefined;
     // TouchableNativeFeedback (default Android)
-    background?: BackgroundPropType;
-    foreground?: BackgroundPropType;
+    background?: BackgroundPropType | undefined;
+    foreground?: BackgroundPropType | undefined;
     // TouchableHighlight
-    underlayColor?: string;
-    onHideUnderlay?: () => void;
-    onShowUnderlay?: () => void;
+    underlayColor?: string | undefined;
+    onHideUnderlay?: (() => void) | undefined;
+    onShowUnderlay?: (() => void) | undefined;
 }
 
 export class Touchable extends React.Component<PlatformTouchableProps> {

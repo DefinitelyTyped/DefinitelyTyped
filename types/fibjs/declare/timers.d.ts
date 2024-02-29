@@ -202,7 +202,7 @@
 declare module "timers" {
     
 
-    module timers {
+    namespace timers {
         
         
         

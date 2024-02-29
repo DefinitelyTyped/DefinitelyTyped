@@ -1,9 +1,9 @@
-import * as yamlFront from 'yaml-front-matter';
+import * as yamlFront from "yaml-front-matter";
 
-const hello = yamlFront.loadFront('Hello World').__content;
+const hello = yamlFront.loadFront("Hello World").__content;
 
-const world = yamlFront.loadFront('Hello World', {
-    contentKeyName: 'fileContents'
+const world = yamlFront.loadFront("Hello World", {
+    contentKeyName: "fileContents",
 }).fileContents;
 
 const input = `---

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/find-unused-sass-variables",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/XhmikosR/find-unused-sass-variables#readme"
+    ],
+    "devDependencies": {
+        "@types/find-unused-sass-variables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

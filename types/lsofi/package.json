@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lsofi",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/marionebl/lsofi#readme"
+    ],
+    "devDependencies": {
+        "@types/lsofi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "oof2win2",
+            "githubUsername": "oof2win2"
+        }
+    ]
+}

@@ -1,10 +1,4 @@
-// Type definitions for @loadable/webpack-plugin 5.7
-// Project: https://github.com/smooth-code/loadable-components
-// Definitions by: Spencer Miskoviak <https://github.com/skovy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as webpack from 'webpack';
+import * as webpack from "webpack";
 
 interface PluginOptions {
     /**
@@ -12,19 +6,19 @@ interface PluginOptions {
      *
      * @default loadable-stats.json
      */
-    filename?: string;
+    filename?: string | undefined;
 
     /**
      * Always write stats file to disk.
      *
      * @default false
      */
-    writeToDisk?: boolean | { filename: string };
+    writeToDisk?: boolean | { filename: string } | undefined;
 
     /**
      * @default true
      */
-    outputAsset?: boolean;
+    outputAsset?: boolean | undefined;
 }
 
 declare class LoadablePlugin extends webpack.Plugin {

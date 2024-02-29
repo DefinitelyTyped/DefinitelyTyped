@@ -1,8 +1,8 @@
 // This code does not run, but it is type-checked.
 
 import hljs = require("highlight.js");
-import Remarkable = require("remarkable");
-import * as ImportedRemarkable from "remarkable";
+import { Remarkable } from "remarkable";
+import { linkify } from "remarkable/linkify";
 
 /**
  * Examples from README.
@@ -11,9 +11,12 @@ export class RemarkableTest {
     usage() {
         const md = new Remarkable();
         md.render("# Remarkable rulezz!");
+    }
 
-        const importedMd = new ImportedRemarkable();
-        importedMd.render("# Remarkable rulezz!");
+    presets() {
+        new Remarkable("commonmark");
+        new Remarkable("default");
+        new Remarkable("full");
     }
 
     defineOptionsInContructor() {
@@ -26,7 +29,9 @@ export class RemarkableTest {
             linkTarget: "_blank",
             typographer: false,
             quotes: "“”‘’",
-            highlight(/*str, lang*/) { return ""; },
+            highlight(/*str, lang*/) {
+                return "";
+            },
         });
 
         md.render("# Remarkable rulezz!");
@@ -60,18 +65,27 @@ export class RemarkableTest {
         md.render("# Remarkable rulezz!");
     }
 
+    useLinkifyPlugin() {
+        const md = new Remarkable("full", {
+            html: true,
+            typographer: true,
+        }).use(linkify);
+
+        md.render("# Remarkable rulezz!");
+    }
+
     highlightFencedCodeBlocks() {
         const md = new Remarkable({
             highlight(str, lang) {
                 if (lang && hljs.getLanguage(lang)) {
                     try {
                         return hljs.highlight(lang, str).value;
-                    } catch (err) { }
+                    } catch (err) {}
                 }
 
                 try {
                     return hljs.highlightAuto(str).value;
-                } catch (err) { }
+                } catch (err) {}
 
                 return "";
             },
@@ -123,7 +137,7 @@ export class RemarkableTest {
 
     loadPlugins() {
         const md = new Remarkable();
-        const noop = () => { };
+        const noop = () => {};
         const plugin1: Remarkable.Plugin = noop as (md: Remarkable) => void;
         const plugin2: Remarkable.Plugin = noop as (md: Remarkable, options: {}) => void;
         const plugin3: Remarkable.Plugin = noop as (md: Remarkable) => void;
@@ -206,7 +220,11 @@ export class TokenTest {
         };
         state.tokens.push(footnoteRefOpenToken);
 
-        const headingCloseToken: Remarkable.HeadingCloseToken = { type: "heading_close", hLevel: 1, level: state.level };
+        const headingCloseToken: Remarkable.HeadingCloseToken = {
+            type: "heading_close",
+            hLevel: 1,
+            level: state.level,
+        };
         state.tokens.push(headingCloseToken);
 
         const orderedListOpenToken: Remarkable.OrderedListOpenToken = {
@@ -374,6 +392,6 @@ export class UtilsTest {
     }
 
     escapeHtml() {
-        Remarkable.utils.replaceEntities('<script>alert("&copy;")</script>');
+        Remarkable.utils.replaceEntities("<script>alert(\"&copy;\")</script>");
     }
 }

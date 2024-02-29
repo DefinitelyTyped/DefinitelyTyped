@@ -1,8 +1,3 @@
-// Type definitions for csvrow 0.1
-// Project: https://github.com/trentm/node-csvrow
-// Definitions by: Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Parse a CSV row (i.e. a single row) into an array of strings.
  *
@@ -16,12 +11,12 @@
  *
  * @summary Parse a CSV row into an array of strings.
  */
-export function parse(row: string): string[];
+export function parse(row: string, delimiter?: string): string[];
 
 /**
  * Serialize the given array to a CSV row.
  */
-export function stringify(columns: string[]): string;
+export function stringify(columns: string[], delimiter?: string): string;
 
 /**
  * Normalize the given CSV line.

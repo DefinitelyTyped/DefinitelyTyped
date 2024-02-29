@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsprim",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/joyent/node-jsprim#readme"
+    ],
+    "dependencies": {
+        "@types/json-schema": "*",
+        "@types/verror": "*"
+    },
+    "devDependencies": {
+        "@types/jsprim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Perlicki",
+            "githubUsername": "KonradPerlicki"
+        }
+    ]
+}

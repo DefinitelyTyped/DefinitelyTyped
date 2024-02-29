@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { Duplex, WritableOptions, Writable } from "stream";
+import { Duplex, Writable, WritableOptions } from "stream";
 
 import OutgoingFrameStream = require("./OutgoingFrameStream");
 
@@ -38,13 +38,13 @@ declare namespace Socket {
     }
 
     interface SocketOptions {
-        commandHandlers?: CommandHandlers;
-        unknownCommand?: () => void;
-        outgoingFrameStream?: OutgoingFrameStream;
-        heartbeat?: Heartbeat;
-        heartbeatDelayMargin?: number;
-        heartbeatOutputMargin?: number;
-        resetDisconnect?: boolean;
+        commandHandlers?: CommandHandlers | undefined;
+        unknownCommand?: (() => void) | undefined;
+        outgoingFrameStream?: OutgoingFrameStream | undefined;
+        heartbeat?: Heartbeat | undefined;
+        heartbeatDelayMargin?: number | undefined;
+        heartbeatOutputMargin?: number | undefined;
+        resetDisconnect?: boolean | undefined;
     }
 
     interface SocketError extends Error {

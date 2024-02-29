@@ -1,79 +1,74 @@
-// Type definitions for chess.js 0.10
-// Project: https://github.com/jhlywa/chess.js
-// Definitions by: Jacob Fischer <https://github.com/JacobFischer>
-//                 Zachary Svoboda <https://github.com/zacnomore>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 /**
  * One of the possible squares on a chess board in san format,
  * e.g. "a8" to "h1".
  */
 export type Square =
-    | 'a8'
-    | 'b8'
-    | 'c8'
-    | 'd8'
-    | 'e8'
-    | 'f8'
-    | 'g8'
-    | 'h8'
-    | 'a7'
-    | 'b7'
-    | 'c7'
-    | 'd7'
-    | 'e7'
-    | 'f7'
-    | 'g7'
-    | 'h7'
-    | 'a6'
-    | 'b6'
-    | 'c6'
-    | 'd6'
-    | 'e6'
-    | 'f6'
-    | 'g6'
-    | 'h6'
-    | 'a5'
-    | 'b5'
-    | 'c5'
-    | 'd5'
-    | 'e5'
-    | 'f5'
-    | 'g5'
-    | 'h5'
-    | 'a4'
-    | 'b4'
-    | 'c4'
-    | 'd4'
-    | 'e4'
-    | 'f4'
-    | 'g4'
-    | 'h4'
-    | 'a3'
-    | 'b3'
-    | 'c3'
-    | 'd3'
-    | 'e3'
-    | 'f3'
-    | 'g3'
-    | 'h3'
-    | 'a2'
-    | 'b2'
-    | 'c2'
-    | 'd2'
-    | 'e2'
-    | 'f2'
-    | 'g2'
-    | 'h2'
-    | 'a1'
-    | 'b1'
-    | 'c1'
-    | 'd1'
-    | 'e1'
-    | 'f1'
-    | 'g1'
-    | 'h1';
+    | "a8"
+    | "b8"
+    | "c8"
+    | "d8"
+    | "e8"
+    | "f8"
+    | "g8"
+    | "h8"
+    | "a7"
+    | "b7"
+    | "c7"
+    | "d7"
+    | "e7"
+    | "f7"
+    | "g7"
+    | "h7"
+    | "a6"
+    | "b6"
+    | "c6"
+    | "d6"
+    | "e6"
+    | "f6"
+    | "g6"
+    | "h6"
+    | "a5"
+    | "b5"
+    | "c5"
+    | "d5"
+    | "e5"
+    | "f5"
+    | "g5"
+    | "h5"
+    | "a4"
+    | "b4"
+    | "c4"
+    | "d4"
+    | "e4"
+    | "f4"
+    | "g4"
+    | "h4"
+    | "a3"
+    | "b3"
+    | "c3"
+    | "d3"
+    | "e3"
+    | "f3"
+    | "g3"
+    | "h3"
+    | "a2"
+    | "b2"
+    | "c2"
+    | "d2"
+    | "e2"
+    | "f2"
+    | "g2"
+    | "h2"
+    | "a1"
+    | "b1"
+    | "c1"
+    | "d1"
+    | "e1"
+    | "f1"
+    | "g1"
+    | "h1";
+
+export type SquareColor = "light" | "dark";
 
 /**
  * - "p" for Pawn
@@ -83,7 +78,13 @@ export type Square =
  * - "q" for Queen
  * - "k" for King
  */
-export type PieceType = 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
+export type PieceType = "p" | "n" | "b" | "r" | "q" | "k";
+
+/**
+ * - "b" for Black
+ * - "w" for White
+ */
+export type PieceColor = "b" | "w";
 
 /**
  * Partial data about a chess move including the from and to square, and if a
@@ -105,7 +106,7 @@ export interface ShortMove {
     /**
      * If this move results in a promotion, this will have the unit promotion.
      */
-    promotion?: Exclude<PieceType, 'p'>;
+    promotion?: Exclude<PieceType, "p" | "k"> | undefined;
 }
 
 /**
@@ -117,7 +118,7 @@ export interface Move extends ShortMove {
      * - "b" for Black
      * - "w" for White
      */
-    color: 'b' | 'w';
+    color: PieceColor;
 
     /** Flags indicating what occurred, combined into one string */
     flags: string;
@@ -133,7 +134,7 @@ export interface Move extends ShortMove {
     /**
      * If an enemy piece was captured this is their type
      */
-    captured?: Exclude<PieceType, 'k'>;
+    captured?: Exclude<PieceType, "k"> | undefined;
 }
 
 export interface Piece {
@@ -147,119 +148,128 @@ export interface Piece {
      * - "b" for Black
      * - "w" for White
      */
-    color: 'b' | 'w';
+    color: PieceColor;
 }
 
+export interface Comment {
+    fen: string;
+    comment: string;
+}
+
+/** The string that represents the White color side */
+export const WHITE: "w";
+
+/** The string that represents the Black color side */
+export const BLACK: "b";
+
+/** The string that represents a Pawn */
+export const PAWN: "p";
+
+/** The string that represents a Knight */
+export const KNIGHT: "n";
+
+/** The string that represents a Bishop */
+export const BISHOP: "b";
+
+/** The string that represents a Rook */
+export const ROOK: "r";
+
+/** The string that represents a Queen */
+export const QUEEN: "q";
+
+/** The string that represents a King */
+export const KING: "k";
+
+/** The constant that represents an empty square or value */
+export const EMPTY: number;
+
+/** A list of all the squares in the game, from "a1" to "h8" */
+export const SQUARES: [
+    "a8",
+    "b8",
+    "c8",
+    "d8",
+    "e8",
+    "f8",
+    "g8",
+    "h8",
+    "a7",
+    "b7",
+    "c7",
+    "d7",
+    "e7",
+    "f7",
+    "g7",
+    "h7",
+    "a6",
+    "b6",
+    "c6",
+    "d6",
+    "e6",
+    "f6",
+    "g6",
+    "h6",
+    "a5",
+    "b5",
+    "c5",
+    "d5",
+    "e5",
+    "f5",
+    "g5",
+    "h5",
+    "a4",
+    "b4",
+    "c4",
+    "d4",
+    "e4",
+    "f4",
+    "g4",
+    "h4",
+    "a3",
+    "b3",
+    "c3",
+    "d3",
+    "e3",
+    "f3",
+    "g3",
+    "h3",
+    "a2",
+    "b2",
+    "c2",
+    "d2",
+    "e2",
+    "f2",
+    "g2",
+    "h2",
+    "a1",
+    "b1",
+    "c1",
+    "d1",
+    "e1",
+    "f1",
+    "g1",
+    "h1",
+];
+
+/** Flags used to build flag strings for moves */
+export const FLAGS: {
+    /** a non-capture */
+    NORMAL: "n";
+    /** a standard capture */
+    CAPTURE: "c";
+    /** a pawn push of two squares */
+    BIG_PAWN: "b";
+    /** an en passant capture */
+    EP_CAPTURE: "e";
+    /** a promotion */
+    PROMOTION: "p";
+    /** kingside castling */
+    KSIDE_CASTLE: "k";
+    /** queenside castling */
+    QSIDE_CASTLE: "q";
+};
+
 export interface ChessInstance {
-    /** The string that represents the White color side */
-    readonly WHITE: 'w';
-
-    /** The string that represents the Black color side */
-    readonly BLACK: 'b';
-
-    /** The string that represents a Pawn */
-    readonly PAWN: 'p';
-
-    /** The string that represents a Knight */
-    readonly KNIGHT: 'n';
-    /** The string that represents a Bishop */
-    readonly BISHOP: 'b';
-
-    /** The string that represents a Rook */
-    readonly ROOK: 'r';
-
-    /** The string that represents a Queen */
-    readonly QUEEN: 'q';
-
-    /** The string that represents a King */
-    readonly KING: 'k';
-
-    /** A list of all the squares in the game, from "a1" to "h8" */
-    readonly SQUARES: [
-        'a8',
-        'b8',
-        'c8',
-        'd8',
-        'e8',
-        'f8',
-        'g8',
-        'h8',
-        'a7',
-        'b7',
-        'c7',
-        'd7',
-        'e7',
-        'f7',
-        'g7',
-        'h7',
-        'a6',
-        'b6',
-        'c6',
-        'd6',
-        'e6',
-        'f6',
-        'g6',
-        'h6',
-        'a5',
-        'b5',
-        'c5',
-        'd5',
-        'e5',
-        'f5',
-        'g5',
-        'h5',
-        'a4',
-        'b4',
-        'c4',
-        'd4',
-        'e4',
-        'f4',
-        'g4',
-        'h4',
-        'a3',
-        'b3',
-        'c3',
-        'd3',
-        'e3',
-        'f3',
-        'g3',
-        'h3',
-        'a2',
-        'b2',
-        'c2',
-        'd2',
-        'e2',
-        'f2',
-        'g2',
-        'h2',
-        'a1',
-        'b1',
-        'c1',
-        'd1',
-        'e1',
-        'f1',
-        'g1',
-        'h1',
-    ];
-
-    /** Flags used to build flag strings for moves */
-    readonly FLAGS: {
-        /** a non-capture */
-        NORMAL: 'n';
-        /** a standard capture */
-        CAPTURE: 'c';
-        /** a pawn push of two squares */
-        BIG_PAWN: 'b';
-        /** an en passant capture */
-        EP_CAPTURE: 'e';
-        /** a promotion */
-        PROMOTION: 'p';
-        /** kingside castling */
-        KSIDE_CASTLE: 'k';
-        /** queenside castling */
-        QSIDE_CASTLE: 'q';
-    };
-
     /**
      * The board is cleared, and the FEN string is loaded.
      * Returns true if the position was successfully loaded, otherwise false
@@ -284,13 +294,22 @@ export interface ChessInstance {
      * verbose objects.
      */
     moves(options: {
+        /**
+         * Set to true to return return pseudo-legal moves (this includes moves that allow the king
+         * to be captured)
+         */
+        legal?: boolean | undefined;
         /** Set to true to return verbose move objects instead of strings */
         verbose: true;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): Move[];
 
     /**
@@ -303,13 +322,22 @@ export interface ChessInstance {
      * verbose objects.
      */
     moves(options?: {
+        /**
+         * Set to true to return return pseudo-legal moves (this includes moves that allow the king
+         * to be captured)
+         */
+        legal?: boolean | undefined;
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: false;
+        verbose?: false | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): string[];
 
     /**
@@ -322,13 +350,22 @@ export interface ChessInstance {
      * verbose objects.
      */
     moves(options?: {
+        /**
+         * Set to true to return return pseudo-legal moves (this includes moves that allow the king
+         * to be captured)
+         */
+        legal?: boolean | undefined;
         /** Set to true to return verbose move objects instead of strings */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
         /**
          * The string to test if it is a valid move, if it is not then an
          * empty array is returned
          */
-        square?: string;
+        square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): string[] | Move[];
 
     /**
@@ -387,9 +424,7 @@ export interface ChessInstance {
      * within the FEN string.
      * @param fen the fen formatted string to validate
      */
-    validate_fen(
-        fen: string,
-    ): {
+    validate_fen(fen: string): {
         /** Indicates if the fen is valid or not. */
         valid: boolean;
 
@@ -422,9 +457,9 @@ export interface ChessInstance {
      */
     pgn(options?: {
         /** the maximum width of a line */
-        max_width?: number;
+        max_width?: number | undefined;
         /** Specific newline character */
-        newline_char?: string;
+        newline_char?: string | undefined;
     }): string;
 
     /**
@@ -449,7 +484,7 @@ export interface ChessInstance {
              * Avoid using a newline_char that may occur elsewhere in a PGN,
              * such as . or x, as this will result in unexpected behavior.
              */
-            newline_char?: string;
+            newline_char?: string | undefined;
 
             /**
              * The sloppy flag is a boolean that permits chess.js to parse moves in
@@ -457,7 +492,7 @@ export interface ChessInstance {
              * See .move documentation for more information about non-SAN
              * notations.
              */
-            sloppy?: boolean;
+            sloppy?: boolean | undefined;
         },
     ): boolean;
 
@@ -480,7 +515,7 @@ export interface ChessInstance {
      * Returns the current side to move.
      * @returns "b" if Black is the side to move, otherwise "w" for White.
      */
-    turn(): 'b' | 'w';
+    turn(): PieceColor;
 
     /**
      * Attempts to make a move on the board, returning a move object if the
@@ -505,7 +540,7 @@ export interface ChessInstance {
              * An optional sloppy flag can be used to parse a variety of
              * non-standard move notations.
              */
-            sloppy?: boolean;
+            sloppy?: boolean | undefined;
         },
     ): Move | null;
 
@@ -559,7 +594,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: Square): 'light' | 'dark';
+    square_color(square: Square): SquareColor;
 
     /**
      * Returns the color of the square ('light' or 'dark').
@@ -567,7 +602,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: string): 'light' | 'dark' | null;
+    square_color(square: string): SquareColor | null;
 
     /**
      * Returns a list containing the moves of the current game.
@@ -582,7 +617,7 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: false;
+        verbose?: false | undefined;
     }): string[];
 
     /**
@@ -614,10 +649,20 @@ export interface ChessInstance {
          * Pass true if you want this function to output verbose objects
          * instead of strings.
          */
-        verbose?: boolean;
+        verbose?: boolean | undefined;
     }): string[] | Move[];
 
-    board(): Array<Array<{ type: PieceType; color: 'w' | 'b' } | null>>;
+    board(): Array<Array<{ type: PieceType; color: PieceColor; square: Square } | null>>;
+
+    get_comment(): string | undefined;
+
+    set_comment(comment: string): void;
+
+    delete_comment(): string | undefined;
+
+    get_comments(): Comment[];
+
+    delete_comments(): Comment[];
 }
 
 /**
@@ -638,5 +683,5 @@ export const Chess: {
      * the board configuration in Forsyth-Edwards Notation.
      * @param fen specifies the board configuration in Forsyth-Edwards Notation.
      */
-    new (fen?: string): ChessInstance;
+    new(fen?: string): ChessInstance;
 };

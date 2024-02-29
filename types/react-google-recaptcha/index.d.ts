@@ -1,15 +1,4 @@
-// Type definitions for React Google Recaptcha 2.1
-// Project: https://github.com/dozoisch/react-google-recaptcha
-// Definitions by: Koala Human <https://github.com/KoalaHuman>
-//                 Tom Sturge <https://github.com/tomsturge>
-//                 Max Bo <https://github.com/MaxwellBo>
-//                 Meir Keller <https://github.com/meirkl>
-//                 Florian Roher <https://github.com/RohrerF>
-//                 Timotei Mocan <https://github.com/mocantimoteidavid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export default ReCAPTCHA;
 export { ReCAPTCHA };
@@ -52,7 +41,9 @@ type Type = "image" | "audio";
 type Size = "compact" | "normal" | "invisible";
 type Badge = "bottomright" | "bottomleft" | "inline";
 
-export interface ReCAPTCHAProps {
+export interface ReCAPTCHAProps
+    extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "onChange" | "ref">
+{
     /**
      * The API client key
      */
@@ -63,65 +54,76 @@ export interface ReCAPTCHAProps {
      * or the compact captcha. It will also be called with null, when captcha expires.
      * @param token string or null
      */
-    onChange?: (token: string | null) => void;
+    onChange?: ((token: string | null) => void) | undefined;
 
     /**
      *  If you are using the barebone component you need to provide access to the
      *  google grecaptcha object.
      */
-    grecaptcha?: object;
+    grecaptcha?: object | undefined;
 
     /**
      * The theme of the widget.
      * @default "light"
      */
-    theme?: Theme;
+    theme?: Theme | undefined;
 
     /**
      * The type of initial captcha.
      * @default "image"
      */
-    type?: Type;
+    type?: Type | undefined;
 
     /**
      * The tabindex of the element.
      * @default 0
      */
-    tabindex?: number;
+    tabindex?: number | undefined;
 
     /**
      * Callback called when a challenge expires and has to be redone by the user.
      */
-    onExpired?: () => void;
+    onExpired?: (() => void) | undefined;
+
+    /**
+     * Callback called when google script is loaded
+     */
+    asyncScriptOnLoad?: (() => void) | undefined;
 
     /**
      *  Optional callback, called when reCAPTCHA encounters an error (usually network connectivity)
      *  and cannot continue until connectivity is restored. If you specify a function here, you are
      *  responsible for informing the user that they should retry.
      */
-    onErrored?: () => void;
+    onErrored?: (() => void) | undefined;
 
     /**
      * Set the stoken parameter, which allows the captcha to be used from different domains.
      * @see reCAPTCHA secure-token
      */
-    stoken?: string;
+    stoken?: string | undefined;
 
     /**
      *  Forces the widget to render in a specific language.
      *  Auto-detects the user's language if unspecified.
      */
-    hl?: string;
+    hl?: string | undefined;
 
     /**
      * This allows you to change the size or do an invisible captcha.
      * @default "normal"
      */
-    size?: Size;
+    size?: Size | undefined;
 
     /**
      * The badge location for g-recaptcha with size of "invisible".
      * @default "bottomright"
      */
-    badge?: Badge;
+    badge?: Badge | undefined;
+    /**
+     * Optional. For plugin owners to not interfere with existing reCAPTCHA installations on a page.
+     * If true, this reCAPTCHA instance will be part of a separate ID space.
+     * @default false
+     */
+    isolated?: boolean | undefined;
 }

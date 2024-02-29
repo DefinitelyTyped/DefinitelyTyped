@@ -1,11 +1,12 @@
-import { FileCookieStore } from 'tough-cookie-file-store';
-import { CookieJar } from 'tough-cookie';
-new CookieJar(new FileCookieStore('./cookie.json'));
+import { CookieJar } from "tough-cookie";
+import { FileCookieStore } from "tough-cookie-file-store";
+new CookieJar(new FileCookieStore("./cookie.json"));
 
-/* check if cookie is empty or expired */
-const cookieInstance = new FileCookieStore('./cookie.json');
-cookieInstance.isExpired(); // will return True if the cookie is expired
-cookieInstance.isEmpty(); // will return True if cookie is empty
+// Disabled as isExpired and isEmpty have been removed.
+// /* check if cookie is empty or expired */
+// const cookieInstance = new FileCookieStore('./cookie.json');
+// cookieInstance.isExpired(); // will return True if the cookie is expired
+// cookieInstance.isEmpty(); // will return True if cookie is empty
 
 /* request example */
 /*

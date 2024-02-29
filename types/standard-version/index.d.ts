@@ -1,9 +1,3 @@
-// Type definitions for standard-version 7.0
-// Project: https://github.com/conventional-changelog/standard-version#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import { Config } from "conventional-changelog-config-spec";
@@ -21,7 +15,7 @@ declare namespace standardVersion {
          *   'composer.json'
          * ]
          */
-        packageFiles?: string[];
+        packageFiles?: Array<string | Options.VersionFile> | undefined;
 
         /**
          * @default
@@ -31,17 +25,17 @@ declare namespace standardVersion {
          *   'composer.lock'
          * ]
          */
-        bumpFiles?: string[];
+        bumpFiles?: Array<string | Options.VersionFile> | undefined;
 
         /**
          * Specify the release type manually (like npm version <major|minor|patch>).
          */
-        releaseAs?: string;
+        releaseAs?: string | undefined;
 
         /**
          * Make a pre-release with optional option value to specify a tag id.
          */
-        prerelease?: string;
+        prerelease?: string | undefined;
 
         /**
          * Read the CHANGELOG from this file.
@@ -49,7 +43,7 @@ declare namespace standardVersion {
          * @default
          * 'CHANGELOG.md'
          */
-        infile?: string | Buffer | URL | number;
+        infile?: string | Buffer | URL | number | undefined;
 
         /**
          * Commit message, replaces %s with new version.
@@ -58,7 +52,7 @@ declare namespace standardVersion {
          * This option will be removed in the next major version, please use
          * `releaseCommitMessageFormat`.
          */
-        message?: string;
+        message?: string | undefined;
 
         /**
          * Is this the first release?
@@ -66,7 +60,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        firstRelease?: boolean;
+        firstRelease?: boolean | undefined;
 
         /**
          * Should the git commit and tag be signed?
@@ -74,7 +68,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        sign?: boolean;
+        sign?: boolean | undefined;
 
         /**
          * Bypass pre-commit or commit-msg git hooks during the commit phase.
@@ -82,7 +76,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        noVerify?: boolean;
+        noVerify?: boolean | undefined;
 
         /**
          * Commit all staged changes, not just files affected by standard-version.
@@ -90,7 +84,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        commitAll?: boolean;
+        commitAll?: boolean | undefined;
 
         /**
          * Don't print logs and errors.
@@ -98,7 +92,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        silent?: boolean;
+        silent?: boolean | undefined;
 
         /**
          * Set a custom prefix for the git tag to be created.
@@ -106,7 +100,7 @@ declare namespace standardVersion {
          * @default
          * 'v'
          */
-        tagPrefix?: string;
+        tagPrefix?: string | undefined;
 
         /**
          * Provide scripts to execute for lifecycle events (prebump, precommit, etc.,).
@@ -114,7 +108,7 @@ declare namespace standardVersion {
          * @default
          * {}
          */
-        scripts?: Options.Scripts;
+        scripts?: Options.Scripts | undefined;
 
         /**
          * Map of steps in the release process that should be skipped.
@@ -122,7 +116,7 @@ declare namespace standardVersion {
          * @default
          * {}
          */
-        skip?: Options.Skip;
+        skip?: Options.Skip | undefined;
 
         /**
          * See the commands that running standard-version would run.
@@ -130,7 +124,7 @@ declare namespace standardVersion {
          * @default
          * false
          */
-        dryRun?: boolean;
+        dryRun?: boolean | undefined;
 
         /**
          * Fallback to git tags for version, if no meta-information file is found (e.g.,
@@ -139,12 +133,12 @@ declare namespace standardVersion {
          * @default
          * true
          */
-        gitTagFallback?: boolean;
+        gitTagFallback?: boolean | undefined;
 
         /**
          * Only populate commits made under this path.
          */
-        path?: string;
+        path?: string | undefined;
 
         /**
          * Use a custom header when generating and updating changelog.
@@ -152,7 +146,7 @@ declare namespace standardVersion {
          * @deprecated
          * This option will be removed in the next major version, please use `header`.
          */
-        changelogHeader?: string;
+        changelogHeader?: string | undefined;
 
         /**
          * Commit message guideline preset.
@@ -160,59 +154,102 @@ declare namespace standardVersion {
          * @default
          * require.resolve('conventional-changelog-conventionalcommits')
          */
-        preset?: string;
+        preset?: string | undefined;
     }
 
     namespace Options {
+        interface Updater {
+            /**
+             * This method is used to read the version from the provided file contents.
+             *
+             * @param contents provided file content
+             * @return semantic version string
+             */
+            readVersion(contents: string): string;
+
+            /**
+             * This method is used to write the version to the provided contents.
+             *
+             * @param contents provided file content
+             * @param version new semantic version string to write
+             * @return value that will be written directly (overwrite) to the provided file
+             */
+            writeVersion(contents: string, version: string): string;
+        }
+
+        interface VersionFile {
+            /**
+             * path to the file you want to "bump"
+             *
+             * If no type or updater provided, type will be inferred from file extension
+             */
+            filename: string;
+
+            /**
+             * Built-in file types
+             *
+             * The `plain-text` updater assumes the file contents represents the version.
+             *
+             * The `json` updater assumes the version is available under a `version` key in the provided JSON document.
+             */
+            type?: "plain-text" | "json";
+
+            /**
+             * An updater is expected to be a Javascript module with atleast two methods exposed: readVersion and writeVersion
+             * or the path to require it.
+             */
+            updater?: string | Updater;
+        }
+
         interface Scripts {
             /**
              * Executed before anything happens. If the `prerelease` script returns a
              * non-zero exit code, versioning will be aborted, but it has no other effect on
              * the process.
              */
-            prerelease?: string;
+            prerelease?: string | undefined;
 
             /**
              * Executed before the version is bumped. If the `prebump` script returns a
              * version #, it will be used rather than the version calculated by
              * `standard-version`.
              */
-            prebump?: string;
+            prebump?: string | undefined;
 
             /**
              * Executed after the version is bumped.
              */
-            postbump?: string;
+            postbump?: string | undefined;
 
             /**
              * Executes before the CHANGELOG is generated.
              */
-            prechangelog?: string;
+            prechangelog?: string | undefined;
 
             /**
              * Executes after the CHANGELOG is generated.
              */
-            postchangelog?: string;
+            postchangelog?: string | undefined;
 
             /**
              * Called before the commit step.
              */
-            precommit?: string;
+            precommit?: string | undefined;
 
             /**
              * Called after the commit step.
              */
-            postcommit?: string;
+            postcommit?: string | undefined;
 
             /**
              * Called before the tagging step.
              */
-            pretag?: string;
+            pretag?: string | undefined;
 
             /**
              * Called after the tagging step.
              */
-            posttag?: string;
+            posttag?: string | undefined;
         }
 
         type Skip = Partial<Record<"bump" | "changelog" | "commit" | "tag", boolean>>;

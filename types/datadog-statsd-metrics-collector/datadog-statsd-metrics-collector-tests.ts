@@ -1,7 +1,7 @@
-import datadog = require('node-dogstatsd');
-import Collector = require('datadog-statsd-metrics-collector');
+import datadog = require("node-dogstatsd");
+import Collector = require("datadog-statsd-metrics-collector");
 
-const client = new datadog.StatsD('localhost');
+const client = new datadog.StatsD("localhost");
 
 // constructors
 let collector = new Collector(client);
@@ -9,13 +9,13 @@ collector = new Collector(null);
 collector = new Collector(client, 1000);
 
 // interface
-const key = 'key';
+const key = "key";
 const timeValue = 99;
 const sampleRate = 0.85;
 const incrementBy = 7;
 const decrementBy = 5;
 const gaugeValue = 199;
-const tags: string[] = ['tag1', 'tag2'];
+const tags: string[] = ["tag1", "tag2"];
 
 collector.timing(key, timeValue);
 collector.timing(key, timeValue, sampleRate);

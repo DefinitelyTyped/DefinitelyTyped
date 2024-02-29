@@ -1,14 +1,14 @@
-import fileEntryCache = require('file-entry-cache');
+import fileEntryCache = require("file-entry-cache");
 
-const cache = fileEntryCache.create('testCache');
-fileEntryCache.create('myCaceh', './fixtures', false); // $ExpectType FileEntryCache
-fileEntryCache.createFromFile('./fixtures/data.txt', true); // $ExpectType FileEntryCache
-const files = ['./fixtures/*.txt'];
+const cache = fileEntryCache.create("testCache");
+fileEntryCache.create("myCaceh", "./fixtures", false); // $ExpectType FileEntryCache
+fileEntryCache.createFromFile("./fixtures/data.txt", true); // $ExpectType FileEntryCache
+const files = ["./fixtures/*.txt"];
 let oFiles = cache.getUpdatedFiles(files);
 cache.reconcile();
-const cache2 = fileEntryCache.create('testCache');
+const cache2 = fileEntryCache.create("testCache");
 oFiles = cache.getUpdatedFiles(files);
-cache.removeEntry('path/to/file');
+cache.removeEntry("path/to/file");
 const entries = cache.normalizeEntries(files);
 cache.deleteCacheFile();
 cache.destroy();

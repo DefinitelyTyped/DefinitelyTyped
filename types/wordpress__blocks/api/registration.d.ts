@@ -1,4 +1,13 @@
-import { Block, BlockConfiguration, BlockInstance, BlockStyle, BlockSupports } from '../';
+import {
+    Block,
+    BlockConfiguration,
+    BlockIcon,
+    BlockInstance,
+    BlockStyle,
+    BlockSupports,
+    BlockVariation,
+    BlockVariationScope,
+} from "../";
 
 /**
  * Returns the block support value for a feature, if defined.
@@ -13,14 +22,16 @@ export function getBlockSupport(nameOrType: string | Block<any>, feature: keyof 
 export function getBlockSupport<T>(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports: T
+    defaultSupports: T,
 ): T extends string ? string : T extends number ? number : T extends boolean ? boolean : T;
 
 /**
  * Returns a registered block type.
  */
-// tslint:disable:no-unnecessary-generics
-export function getBlockType<T = any>(name: string | undefined): Block<T> | undefined;
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+export function getBlockType<T extends Record<string, any> = Record<string, any>>(
+    name: string | undefined,
+): Block<T> | undefined;
 
 /**
  * Returns all registered blocks.
@@ -67,7 +78,7 @@ export function getUnregisteredTypeHandlerName(): string | undefined;
 export function hasBlockSupport(
     nameOrType: string | Block<any>,
     feature: keyof BlockSupports,
-    defaultSupports?: boolean
+    defaultSupports?: boolean,
 ): boolean;
 
 /**
@@ -91,6 +102,18 @@ export function hasChildBlocksWithInserterSupport(blockName: string): boolean;
 export function isReusableBlock(blockOrType: Block<any> | BlockInstance): boolean;
 
 /**
+ * Registers a new block collection to group blocks in the same namespace in the inserter.
+ *
+ * @param namespace - The namespace to group blocks by in the inserter;
+ *                    corresponds to the block namespace.
+ * @param settings The block collection settings.
+ */
+export function registerBlockCollection(
+    namespace: string,
+    settings: { title: string; icon?: BlockIcon | undefined },
+): void;
+
+/**
  * Registers a new block style variation for the given block.
  *
  * @param blockName - Name of block (example: 'core/paragraph').
@@ -105,15 +128,19 @@ export function registerBlockStyle(blockName: string, styleVariation: BlockStyle
  * behavior. Once registered, the block is made available as an option to any
  * editor interface where blocks are implemented.
  *
- * @param name - Block name.
+ * @param blockNameOrMetadata - Block type name or its metadata.
  * @param settings - Block settings.
  *
  * @returns The block if it has been successfully registered, otherwise `undefined`.
  */
-export function registerBlockType<T extends Record<string, any> = {}>(
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
+    metadata: BlockConfiguration<TAttributes>,
+    settings?: Partial<BlockConfiguration<TAttributes>>,
+): Block<TAttributes> | undefined;
+export function registerBlockType<TAttributes extends Record<string, any> = {}>(
     name: string,
-    settings: BlockConfiguration<T>
-): Block<T> | undefined;
+    settings: BlockConfiguration<TAttributes>,
+): Block<TAttributes> | undefined;
 
 /**
  * Assigns the default block name.
@@ -151,3 +178,29 @@ export function unregisterBlockStyle(blockName: string, styleVariationName: stri
  * @returns The previous block value if successfully unregistered, otherwise `undefined`.
  */
 export function unregisterBlockType(name: string): Block<any> | undefined;
+
+/**
+ * Returns an array with the variations of a given block type.
+ *
+ * @param blockName - Name of block (example: “core/columns”).
+ * @param scope - Block variation scope name.
+ *
+ * @returns Block variations.
+ */
+export function getBlockVariations(blockName: string, scope?: BlockVariationScope): BlockVariation[] | undefined;
+
+/**
+ * Registers one or more new block variations for the given block type.
+ *
+ * @param blockName - Name of the block (example: “core/columns”).
+ * @param variation - Variation configuration object (or array of if more than one).
+ */
+export function registerBlockVariation(blockName: string, variation: BlockVariation | BlockVariation[]): void;
+
+/**
+ * Unregisters one or more variations defined for the given block type.
+ *
+ * @param blockName - Name of the block (example: “core/columns”).
+ * @param variationName - Name of variation to be unregistered (or array if unregistering multiple variations)
+ */
+export function unregisterBlockVariation(blockName: string, variationName: string | string[]): void;

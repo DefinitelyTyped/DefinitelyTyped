@@ -1,13 +1,3 @@
-// Type definitions for non-npm package geojson 7946.0
-// Project: https://geojson.org/
-// Definitions by: Jacob Bruun <https://github.com/cobster>
-//                 Arne Schubert <https://github.com/atd-schubert>
-//                 Jeff Jacobson <https://github.com/JeffJacobson>
-//                 Ilia Choly <https://github.com/icholy>
-//                 Dan Vanderkam <https://github.com/danvk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Note: as of the RFC 7946 version of GeoJSON, Coordinate Reference Systems
 // are no longer supported. (See https://tools.ietf.org/html/rfc7946#appendix-B)}
 
@@ -17,13 +7,13 @@ export as namespace GeoJSON;
  * The valid values for the "type" property of GeoJSON geometry objects.
  * https://tools.ietf.org/html/rfc7946#section-1.4
  */
-export type GeoJsonGeometryTypes = Geometry['type'];
+export type GeoJsonGeometryTypes = Geometry["type"];
 
 /**
  * The value values for the "type" property of GeoJSON Objects.
  * https://tools.ietf.org/html/rfc7946#section-1.4
  */
-export type GeoJsonTypes = GeoJSON['type'];
+export type GeoJsonTypes = GeoJSON["type"];
 
 /**
  * Bounding box
@@ -64,7 +54,7 @@ export interface GeoJsonObject {
      * The axes order of a bbox follows the axes order of geometries.
      * https://tools.ietf.org/html/rfc7946#section-5
      */
-    bbox?: BBox;
+    bbox?: BBox | undefined;
 }
 
 /**
@@ -137,12 +127,12 @@ export interface MultiPolygon extends GeoJsonObject {
  * Geometry Collection
  * https://tools.ietf.org/html/rfc7946#section-3.1.8
  */
-export interface GeometryCollection extends GeoJsonObject {
+export interface GeometryCollection<G extends Geometry = Geometry> extends GeoJsonObject {
     type: "GeometryCollection";
-    geometries: Geometry[];
+    geometries: G[];
 }
 
-export type GeoJsonProperties = { [name: string]: any; } | null;
+export type GeoJsonProperties = { [name: string]: any } | null;
 
 /**
  * A feature object which contains a geometry and associated properties.
@@ -158,7 +148,7 @@ export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProper
      * A value that uniquely identifies this feature in a
      * https://tools.ietf.org/html/rfc7946#section-3.2.
      */
-    id?: string | number;
+    id?: string | number | undefined;
     /**
      * Properties associated with this feature.
      */

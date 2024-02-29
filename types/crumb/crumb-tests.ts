@@ -1,42 +1,42 @@
-import * as hapi from 'hapi';
-import * as crumb from 'crumb';
+import * as crumb from "crumb";
+import * as hapi from "hapi";
 
 const server = new hapi.Server({ port: 8000 });
 
 server.register({
     plugin: crumb,
     options: {
-        key: 'csrf-token',
+        key: "csrf-token",
         size: 50,
         autoGenerate: true,
         addToViewContext: true,
         cookieOptions: {
-            path: '/',
+            path: "/",
         },
-        headerName: 'X-CSRF-Token',
+        headerName: "X-CSRF-Token",
         restful: true,
         skip: () => false,
         enforce: true,
         logUnauthorized: false,
-    }
+    },
 });
 
 server.route({
-    method: 'get',
-    path: '/',
+    method: "get",
+    path: "/",
     handler: async (_, h) => {
         return h.continue;
     },
 });
 
 server.route({
-    method: 'get',
-    path: '/custom',
+    method: "get",
+    path: "/custom",
     options: {
         plugins: {
             crumb: {
-                key: 'x-csrf-token',
-                source: 'query',
+                key: "x-csrf-token",
+                source: "query",
                 restful: true,
             },
         },

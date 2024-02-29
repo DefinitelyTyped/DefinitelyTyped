@@ -1,38 +1,24 @@
-// Type definitions for YouTube
-// Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
-//                 Ian Obermiller <http://ianobermiller.com>,
-//                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
-//                 Eliot Fallon <https://github.com/eliotfallon213>
-//                 Terry Mun <https://github.com/terrymun>
-//                 Paul Hobbel <https://github.com/paulhobbel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
  * @see https://developers.google.com/youtube/player_parameters
  */
-declare namespace YT
-{
+declare namespace YT {
     /**
      * State of a video player.
      */
-    export const enum PlayerState
-    {
+    export enum PlayerState {
         UNSTARTED = -1,
         ENDED = 0,
         PLAYING = 1,
         PAUSED = 2,
         BUFFERING = 3,
-        CUED = 5
+        CUED = 5,
     }
 
     /**
      * Known causes for player errors.
      */
-    export const enum PlayerError
-    {
+    export enum PlayerError {
         /**
          * The request contained an invalid parameter value.
          */
@@ -56,14 +42,13 @@ declare namespace YT
         /**
          * This error is the same as 101. It's just a 101 error in disguise!
          */
-        EmbeddingNotAllowed2 = 150
+        EmbeddingNotAllowed2 = 150,
     }
 
     /**
      * Whether to auto-hide video controls.
      */
-    export const enum AutoHide
-    {
+    export enum AutoHide {
         /**
          * Controls are visible throughout the video
          */
@@ -77,14 +62,13 @@ declare namespace YT
         /**
          * Progress bar fades out while the player controls remain visible.
          */
-        HideProgressBar = 2
+        HideProgressBar = 2,
     }
 
     /**
      * Whether to autoplay the video.
      */
-    export const enum AutoPlay
-    {
+    export enum AutoPlay {
         /**
          * Video does not autoplay.
          */
@@ -93,14 +77,13 @@ declare namespace YT
         /**
          * Video will autoplay when loaded.
          */
-        AutoPlay = 1
+        AutoPlay = 1,
     }
 
     /**
      * Whether to use user-preferred or forced caption loading.
      */
-    export const enum ClosedCaptionsLoadPolicy
-    {
+    export enum ClosedCaptionsLoadPolicy {
         /**
          * Defaults to the user's preferences.
          */
@@ -109,7 +92,7 @@ declare namespace YT
         /**
          * For closed captions to be shown.
          */
-        ForceOn = 1
+        ForceOn = 1,
     }
 
     /**
@@ -120,8 +103,7 @@ declare namespace YT
     /**
      * How video controls are shown.
      */
-    export const enum Controls
-    {
+    export enum Controls {
         /**
          * Player controls do not display.
          */
@@ -135,14 +117,13 @@ declare namespace YT
         /**
          * Player controls display after a delay.
          */
-        ShowDelayLoadPlayer = 2
+        ShowDelayLoadPlayer = 2,
     }
 
     /**
      * Whether to allow keyboard controls.
      */
-    export const enum KeyboardControls
-    {
+    export enum KeyboardControls {
         /**
          * Keyboard controls are enabled.
          */
@@ -151,14 +132,13 @@ declare namespace YT
         /**
          * Keyboard controls are disabled.
          */
-        Disable = 1
+        Disable = 1,
     }
 
     /**
      * Whether the JavaScript API should be enabled.
      */
-    export const enum JsApi
-    {
+    export enum JsApi {
         /**
          * JavaScript API will be disabled.
          */
@@ -167,14 +147,13 @@ declare namespace YT
         /**
          * JavaScript API will be enabled.
          */
-        Enable = 1
+        Enable = 1,
     }
 
     /**
      * Whether to display the full-screen button.
      */
-    export const enum FullscreenButton
-    {
+    export enum FullscreenButton {
         /**
          * The full screen button is hidden.
          */
@@ -183,14 +162,13 @@ declare namespace YT
         /**
          * The full screen button is visible.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Whether to show video annotations.
      */
-    export const enum IvLoadPolicy
-    {
+    export enum IvLoadPolicy {
         /**
          * Video annotations will be shown.
          */
@@ -199,21 +177,17 @@ declare namespace YT
         /**
          * Video annotations will not be shown.
          */
-        Hide = 3
+        Hide = 3,
     }
 
     /**
      * Which type of content loads in the player.
      */
-    export type ListType = ListTypePlayer | ListTypeSearch | ListTypeUserUploads;
-
-    /**
-     * The requested video should be shown in the player.
-     */
-    export type ListTypePlayer = "player";
+    export type ListType = ListTypeSearch | ListTypeUserUploads | ListTypePlaylist;
 
     /**
      * A search area should be shown in the player.
+     * @deprecated
      */
     export type ListTypeSearch = "search";
 
@@ -223,10 +197,14 @@ declare namespace YT
     export type ListTypeUserUploads = "user_uploads";
 
     /**
+     * A playlist should be shown in the player.
+     */
+    export type ListTypePlaylist = "playlist";
+
+    /**
      * Whether a single video should be looped.
      */
-    export const enum Loop
-    {
+    export enum Loop {
         /**
          * Video or playlist will be played only once.
          */
@@ -235,14 +213,13 @@ declare namespace YT
         /**
          * Video or playlist will be played over and over again.
          */
-        Loop = 1
+        Loop = 1,
     }
 
     /**
      * Comma separated list of video IDs to play after the URL path's video.
      */
-    export const enum ModestBranding
-    {
+    export enum ModestBranding {
         /**
          * Player will contain full YouTube branding.
          */
@@ -251,14 +228,28 @@ declare namespace YT
         /**
          * YouTube logo will not display in the control bar.
          */
-        Modest = 1
+        Modest = 1,
+    }
+
+    /**
+     * Whether or not to start the video muted. Some browsers require this set to 1 for autoplay to work (e.g. Chrome).
+     */
+    export enum Mute {
+        /**
+         * Player will start not muted, with sound
+         */
+        NotMuted = 0,
+
+        /**
+         * Player will start muted
+         */
+        Muted = 1,
     }
 
     /**
      * Whether to playback video inline or full-screen in an HTML5 player on iOS
      */
-    export const enum PlaysInline
-    {
+    export enum PlaysInline {
         /**
          * Playback in fullscreen.
          */
@@ -267,14 +258,13 @@ declare namespace YT
         /**
          * Playback inline
          */
-        Inline = 1
+        Inline = 1,
     }
 
     /**
      * Whether to show related videos after the video finishes.
      */
-    export const enum RelatedVideos
-    {
+    export enum RelatedVideos {
         /**
          * Hide related videos after playback is complete.
          */
@@ -283,14 +273,13 @@ declare namespace YT
         /**
          * Show related videos after playback is complete.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Whether to show video information before playing.
      */
-    export const enum ShowInfo
-    {
+    export enum ShowInfo {
         /**
          * Hide video title and uploader before video starts playing.
          */
@@ -299,14 +288,13 @@ declare namespace YT
         /**
          * Show video title and uploader before video starts playing.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Base interface for events triggered by a player.
      */
-    export interface PlayerEvent
-    {
+    export interface PlayerEvent {
         /**
          * Video player corresponding to the event.
          */
@@ -316,8 +304,7 @@ declare namespace YT
     /**
      * Event for player state change.
      */
-    export interface OnStateChangeEvent extends PlayerEvent
-    {
+    export interface OnStateChangeEvent extends PlayerEvent {
         /**
          * New player state.
          */
@@ -327,8 +314,7 @@ declare namespace YT
     /**
      * Event for playback quality change.
      */
-    export interface OnPlaybackQualityChangeEvent extends PlayerEvent
-    {
+    export interface OnPlaybackQualityChangeEvent extends PlayerEvent {
         /**
          * New playback quality.
          */
@@ -338,8 +324,7 @@ declare namespace YT
     /**
      * Event for playback rate change.
      */
-    export interface OnPlaybackRateChangeEvent extends PlayerEvent
-    {
+    export interface OnPlaybackRateChangeEvent extends PlayerEvent {
         /**
          * New playback rate.
          */
@@ -349,8 +334,7 @@ declare namespace YT
     /**
      * Event for a player error.
      */
-    export interface OnErrorEvent extends PlayerEvent
-    {
+    export interface OnErrorEvent extends PlayerEvent {
         /**
          * Which type of error occurred.
          */
@@ -362,58 +346,56 @@ declare namespace YT
      *
      * @param event   The triggering event.
      */
-    export interface PlayerEventHandler<TEvent extends PlayerEvent>
-    {
+    export interface PlayerEventHandler<TEvent extends PlayerEvent> {
         (event: TEvent): void;
     }
 
     /**
      * YouTube player options.
      */
-    export interface PlayerOptions
-    {
+    export interface PlayerOptions {
         /**
          * Player width.
          */
-        width?: string | number;
+        width?: string | number | undefined;
 
         /**
          * Player height
          */
-        height?: string | number;
+        height?: string | number | undefined;
 
         /**
          * ID of the video to load.
          */
-        videoId?: string;
+        videoId?: string | undefined;
 
         /**
          * Player parameters.
          */
-        playerVars?: PlayerVars;
+        playerVars?: PlayerVars | undefined;
 
         /**
          * Handlers for events fired by the player.
          */
-        events?: Events;
+        events?: Events | undefined;
 
         /**
          * Points host to correct origin for CORS
          */
-        host?: string;
+        host?: string | undefined;
     }
 
     /**
      * Allowed suggested player video qualities.
      */
-    export type SuggestedVideoQuality = (
-        VideoQualityDefault
+    export type SuggestedVideoQuality =
+        | VideoQualityDefault
         | VideoQualitySmall
         | VideoQualityMedium
         | VideoQualityLarge
         | VideoQualityHD720
         | VideoQualityHD1080
-        | VideoQualityHighRes);
+        | VideoQualityHighRes;
 
     /**
      * Default video quality chosen by YouTube.
@@ -428,177 +410,184 @@ declare namespace YT
     /**
      * Player height is 360px, and player dimensions are 640px by 360px (for 16:9 aspect ratio) or 480px by 360px (for 4:3 aspect ratio).
      */
-     export type VideoQualityMedium = "medium";
+    export type VideoQualityMedium = "medium";
 
     /**
      * Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
      */
-     export type VideoQualityLarge = "large";
+    export type VideoQualityLarge = "large";
 
     /**
      * Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
      */
-     export type VideoQualityHD720 = "hd720";
+    export type VideoQualityHD720 = "hd720";
 
     /**
      * Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
      */
-     export type VideoQualityHD1080 = "hd1080";
+    export type VideoQualityHD1080 = "hd1080";
 
     /**
      * Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
      */
-     export type VideoQualityHighRes = "highres";
+    export type VideoQualityHighRes = "highres";
 
     /**
      * Player parameters.
      */
-    export interface PlayerVars
-    {
+    export interface PlayerVars {
         /**
          * Whether to autohide video controls (by default, HideProgressBar).
          */
-        autohide?: AutoHide;
+        autohide?: AutoHide | undefined;
 
         /**
          * Whether to autoplay the video (by default, NoAutoPlay).
          */
-        autoplay?: AutoPlay;
+        autoplay?: AutoPlay | undefined;
 
         /**
          * Whether to use user-preferred or forced caption loading (by default, UserDefault).
          */
-        cc_load_policy?: ClosedCaptionsLoadPolicy;
+        cc_load_policy?: ClosedCaptionsLoadPolicy | undefined;
+
+        /**
+         * Default caption language as an ISO 639-1 two-letter language code.
+         */
+        cc_lang_pref?: string | undefined;
 
         /**
          * Player progress bar color
          */
-        color?: ProgressBarColor;
+        color?: ProgressBarColor | undefined;
 
         /**
          * How video controls are shown (by default, ShowLoadPlayer).
          */
-        controls?: Controls;
+        controls?: Controls | undefined;
 
         /**
          * Whether to allow keyboard controls (by default, Enable).
          */
-        disablekb?: KeyboardControls;
+        disablekb?: KeyboardControls | undefined;
 
         /**
          * Whether the JavaScript API should be enabled (by default, Disable).
          */
-        enablejsapi?: JsApi;
+        enablejsapi?: JsApi | undefined;
 
         /**
          * Time, in seconds from the beginning of the video, when to stop playing.
          */
-        end?: number;
+        end?: number | undefined;
 
         /**
          * Whether to display the full-screen button (by default, Show).
          */
-        fs?: FullscreenButton;
+        fs?: FullscreenButton | undefined;
 
         /**
          * Player language as an ISO 639-1 two-letter language code or fully-specified locale.
          */
-        hl?: string;
+        hl?: string | undefined;
 
         /**
          * Whether to show video annotations (by default, Show).
          */
-        iv_load_policy?: IvLoadPolicy;
+        iv_load_policy?: IvLoadPolicy | undefined;
 
         /**
          * Identifies content that will load.
-         * If listType is search, this is the search query.
-         * If listType is user_uploads, this is the YouTube user.
-         * If listType is playlist, this is the playlist ID, prepended by 'PL'.
+         * If the listType parameter value is user_uploads, then the list parameter value identifies the YouTube channel whose uploaded videos will be loaded.
+         * If the listType parameter value is playlist, then the list parameter value specifies a YouTube playlist ID.
          */
-        list?: string;
+        list?: string | undefined;
 
         /**
          * Which type of content loads in the player.
          */
-        listType?: ListType;
+        listType?: ListType | undefined;
 
         /**
          * Whether a single video should be looped (by default, SinglePlay).
          */
-        loop?: Loop;
+        loop?: Loop | undefined;
 
         /**
          * Whether to hide some YouTube branding (by default, Full).
          */
-        modestbranding?: ModestBranding;
+        modestbranding?: ModestBranding | undefined;
+
+        /**
+         * Whether to start the video muted (by default, NotMuted).
+         */
+        mute?: Mute | undefined;
 
         /**
          * Origin domain for additional security if using the JavaScript API.
          */
-        origin?: string;
+        origin?: string | undefined;
 
         /**
          * Comma separated list of video IDs to play after the URL path's video.
          */
-        playlist?: string;
+        playlist?: string | undefined;
 
         /**
          * Whether videos play inline or fullscreen in an HTML5 player on iOS. (currently by default, Fullscreen).
          */
-        playsinline?: PlaysInline;
+        playsinline?: PlaysInline | undefined;
 
         /**
          * Whether to show related videos after the video finishes (by default, Show).
          */
-        rel?: RelatedVideos;
+        rel?: RelatedVideos | undefined;
 
         /**
          * Whether to show video information before playing (by default, Show).
          */
-        showinfo?: ShowInfo;
+        showinfo?: ShowInfo | undefined;
 
         /**
          * Time, in seconds from the beginning of the video, when to start playing.
          */
-        start?: number;
+        start?: number | undefined;
     }
 
     /**
      * Handlers for events fired by the player.
      */
-    export interface Events
-    {
+    export interface Events {
         /**
          * Event fired when a player has finished loading and is ready to begin receiving API calls.
          */
-        onReady?: PlayerEventHandler<PlayerEvent>;
+        onReady?: PlayerEventHandler<PlayerEvent> | undefined;
 
         /**
          * Event fired when the player's state changes.
          */
-        onStateChange?: PlayerEventHandler<OnStateChangeEvent>;
+        onStateChange?: PlayerEventHandler<OnStateChangeEvent> | undefined;
 
         /**
          * Event fired when the playback quality of the player changes.
          */
-        onPlaybackQualityChange?: PlayerEventHandler<OnPlaybackQualityChangeEvent>;
+        onPlaybackQualityChange?: PlayerEventHandler<OnPlaybackQualityChangeEvent> | undefined;
 
         /**
          * Event fired when the playback rate of the player changes.
          */
-        onPlaybackRateChange?: PlayerEventHandler<OnPlaybackRateChangeEvent>;
+        onPlaybackRateChange?: PlayerEventHandler<OnPlaybackRateChangeEvent> | undefined;
 
         /**
          * Event fired when an error in the player occurs
          */
-        onError?: PlayerEventHandler<OnErrorEvent>;
+        onError?: PlayerEventHandler<OnErrorEvent> | undefined;
 
         /**
          * Event fired to indicate thath the player has loaded, or unloaded, a module
          * with exposed API methods. This currently only occurs for closed captioning.
          */
-        onApiChange?: PlayerEventHandler<PlayerEvent>;
+        onApiChange?: PlayerEventHandler<PlayerEvent> | undefined;
     }
 
     /**
@@ -608,17 +597,17 @@ declare namespace YT
         /**
          * Time, in seconds from the beginning of the (first) video, when to start playing.
          */
-        startSeconds?: number;
+        startSeconds?: number | undefined;
 
         /**
          * Time, in seconds from the end of the (first) video, when to end playing.
          */
-        endSeconds?: number;
+        endSeconds?: number | undefined;
 
         /**
          * Suggested video player quality.
          */
-        suggestedQuality?: SuggestedVideoQuality
+        suggestedQuality?: SuggestedVideoQuality | undefined;
     }
 
     /**
@@ -653,26 +642,37 @@ declare namespace YT
         /**
          * Which type of content loads in the player.
          */
-        listType?: ListType;
+        listType?: ListType | undefined;
 
         /**
          * Start index of the playlist, if not 0.
          */
-        index?: number;
+        index?: number | undefined;
+    }
+
+    /**
+     * The spherical video config object, including information about the
+     * viewport headings and zoom level.
+     */
+    export interface SphericalProperties {
+        enableOrientationSensor?: boolean | undefined;
+        fov?: number | undefined;
+        pitch?: number | undefined;
+        roll?: number | undefined;
+        yaw?: number | undefined;
     }
 
     /**
      * Creates and controls a YouTube player in an <iframe>.
      */
-    export class Player
-    {
+    export class Player {
         /**
          * Initializes a new instance of the Player class.
          *
          * @param container   DOM element to insert the player's <iframe>.
          * @param options   Player options.
          */
-        constructor(elt: HTMLElement, options: PlayerOptions);
+        constructor(elt: HTMLElement, options?: PlayerOptions);
 
         /**
          * Initializes a new instance of the Player class.
@@ -680,7 +680,7 @@ declare namespace YT
          * @param id   ID of the DOM element to insert the player's <iframe>.
          * @param options   Player options.
          */
-        constructor(id: string, options: PlayerOptions);
+        constructor(id: string, options?: PlayerOptions);
 
         /**
          * Queues a video by ID.
@@ -744,7 +744,14 @@ declare namespace YT
          *
          * @param args   Settings to play the video.
          */
-        loadVideoByUrl(args: { mediaContentUrl: string; startSeconds?: number; endSeconds?: number; suggestedQuality?: SuggestedVideoQuality }): void;
+        loadVideoByUrl(
+            args: {
+                mediaContentUrl: string;
+                startSeconds?: number | undefined;
+                endSeconds?: number | undefined;
+                suggestedQuality?: SuggestedVideoQuality | undefined;
+            },
+        ): void;
 
         /**
          * Queues a playlist of videos.
@@ -754,7 +761,12 @@ declare namespace YT
          * @param startSeconds   Time from which the video should start playing.
          * @param suggestedQuality   Suggested video player quality.
          */
-        cuePlaylist(playlist: string | string[], index?: number, startSeconds?: number, suggestedQuality?: SuggestedVideoQuality): void;
+        cuePlaylist(
+            playlist: string | string[],
+            index?: number,
+            startSeconds?: number,
+            suggestedQuality?: SuggestedVideoQuality,
+        ): void;
 
         /**
          * Queues a playlist of videos.
@@ -771,7 +783,12 @@ declare namespace YT
          * @param startSeconds   Time from which the video should start playing.
          * @param suggestedQuality   Suggested video player quality.
          */
-        loadPlaylist(playlist: string | string[], index?: number, startSeconds?: number, suggestedQuality?: SuggestedVideoQuality): void;
+        loadPlaylist(
+            playlist: string | string[],
+            index?: number,
+            startSeconds?: number,
+            suggestedQuality?: SuggestedVideoQuality,
+        ): void;
 
         /**
          * Loads a playlist of videos.
@@ -929,6 +946,19 @@ declare namespace YT
         getVideoUrl(): string;
 
         /**
+         * @returns The spherical video config object, with information about the viewport
+         * headings and zoom level.
+         */
+        getSphericalProperties(): SphericalProperties;
+
+        /**
+         * Sets the spherical video config object. The call will be No-Op for non-360
+         * videos, and will change the view port according to the input for 360
+         * videos.
+         */
+        setSphericalProperties(option: SphericalProperties): void;
+
+        /**
          * @returns Embed code for the currently loaded/playing video.
          */
         getVideoEmbedCode(): string;
@@ -957,8 +987,11 @@ declare namespace YT
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
-        
+        removeEventListener<TEvent extends PlayerEvent>(
+            eventName: keyof Events,
+            listener: (event: TEvent) => void,
+        ): void;
+
         /**
          * @returns The DOM node for the embedded <iframe>.
          */

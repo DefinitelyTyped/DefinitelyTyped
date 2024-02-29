@@ -1,7 +1,8 @@
 import fs = require("fs");
 import grasp = require("grasp");
 
-grasp(); // $ExpectError
+// @ts-expect-error
+grasp();
 grasp({ args: [] }); // $ExpectType void
 
 // $ExpectType void
@@ -13,16 +14,17 @@ grasp({
     console,
     stdin: process.stdin,
     fs,
-    input: "foo bar"
+    input: "foo bar",
 });
 
-// $ExpectError
+// @ts-expect-error
 grasp({ args: [], textFormat: { cyan: "cyan" } });
 
 // $ExpectType string
 grasp.VERSION;
 
-const fooquery = grasp.search("fooquery"); // $ExpectError
+// @ts-expect-error
+const fooquery = grasp.search("fooquery");
 const equery = grasp.search("equery");
 const squery = grasp.search("squery");
 

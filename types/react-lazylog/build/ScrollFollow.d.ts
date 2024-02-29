@@ -2,7 +2,7 @@ import { Component, ReactNode } from "react";
 
 export interface ScrollFollowRenderProps {
     onScroll: (
-        args: { scrollTop: number; scrollHeight: number; clientHeight: number }
+        args: { scrollTop: number; scrollHeight: number; clientHeight: number },
     ) => void;
     follow: boolean;
     startFollowing: () => void;
@@ -11,7 +11,7 @@ export interface ScrollFollowRenderProps {
 
 export interface ScrollFollowProps {
     render: (props: ScrollFollowRenderProps) => ReactNode;
-    startFollowing?: boolean;
+    startFollowing?: boolean | undefined;
 }
 
 export class ScrollFollow extends Component<ScrollFollowProps> {}

@@ -1,4 +1,5 @@
 import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Enumerable from "@ember/array/-private/enumerable";
 
 /**
@@ -24,5 +25,5 @@ interface MutableEnumerable<T> extends Enumerable<T> {
      */
     removeObjects(objects: Enumerable<T>): this;
 }
-declare const MutableEnumerable: Mixin<MutableEnumerable<any>>;
+declare const MutableEnumerable: Mixin<MutableEnumerable<unknown>>;
 export default MutableEnumerable;

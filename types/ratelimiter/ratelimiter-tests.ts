@@ -1,14 +1,21 @@
-import * as redis from 'redis';
-import Limiter = require('ratelimiter');
+import Limiter = require("ratelimiter");
 
 declare let id: string;
-declare let db: redis.RedisClient;
-let limit = new Limiter({ id: id, db: db });
+declare let db: {
+    multi(operations: any[][]): { exec(cb: (err: any, res: any) => unknown): void };
+};
 
-const str: string = limit.inspect();
+const limit = new Limiter({ id, db, duration: 3_600, max: 1_000 });
 
-limit.get((err, limit): void => {
-    const total: number = limit.total;
-    const remaining: number = limit.remaining;
-    const reset: number = limit.reset;
+limit.inspect(); // $ExpectType string
+
+limit.get((error, limit): void => {
+    if (error) {
+        return;
+    }
+
+    limit.total; // $ExpectType number
+    limit.remaining; // $ExpectType number
+    limit.reset; // $ExpectType number
+    limit.resetMs; // $ExpectType number
 });

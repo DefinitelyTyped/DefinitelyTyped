@@ -1,22 +1,16 @@
-// Type definitions for Leaflet.label 0.2
-// Project: https://github.com/Leaflet/Leaflet.label
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface IconOptions {
-        labelAnchor?: Point;
+        labelAnchor?: Point | undefined;
     }
 
     interface PathOptions {
-        labelAnchor?: Point;
+        labelAnchor?: Point | undefined;
     }
 
     interface CircleMarkerOptions {
-        labelAnchor?: Point;
+        labelAnchor?: Point | undefined;
     }
 
     interface Marker {
@@ -54,14 +48,14 @@ declare module 'leaflet' {
     }
 
     interface LabelOptions {
-        className?: string;
-        clickable?: boolean;
-        direction?: string; // 'left' | 'right' | 'auto';
-        pane?: string;
-        noHide?: boolean;
-        offset?: Point;
-        opacity?: number;
-        zoomAnimation?: boolean;
+        className?: string | undefined;
+        clickable?: boolean | undefined;
+        direction?: string | undefined; // 'left' | 'right' | 'auto';
+        pane?: string | undefined;
+        noHide?: boolean | undefined;
+        offset?: Point | undefined;
+        opacity?: number | undefined;
+        zoomAnimation?: boolean | undefined;
     }
 
     interface LabelStatic extends ClassStatic {

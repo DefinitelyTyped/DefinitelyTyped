@@ -1,5 +1,3 @@
-export = hvvProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const hvvProfile: createClient.Profile;
+export const profile: Profile;

@@ -1,930 +1,934 @@
-// Type definitions for react-syntax-highlighter 11.0
-// Project: https://github.com/conorhastings/react-syntax-highlighter
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
-//                 Guo Yunhe <https://github.com/guoyunhe>
-//                 Anirban Sengupta <https://github.com/anirban09>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
+type lineNumberStyleFunction = (lineNumber: number) => React.CSSProperties;
 type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>;
+interface rendererNode {
+    type: "element" | "text";
+    value?: string | number | undefined;
+    tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+    properties?: { className: any[]; [key: string]: any };
+    children?: rendererNode[];
+}
+interface rendererProps {
+    rows: rendererNode[];
+    stylesheet: { [key: string]: React.CSSProperties };
+    useInlineStyles: boolean;
+}
 
 declare module "react-syntax-highlighter" {
     export interface SyntaxHighlighterProps {
-        language?: string;
-        style?: any;
-        customStyle?: any;
-        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement>;
-        codeTagProps?: React.HTMLProps<HTMLElement>;
-        useInlineStyles?: boolean;
-        showLineNumbers?: boolean;
-        startingLineNumber?: number;
-        lineNumberStyle?: any;
+        language?: string | undefined;
+        style?: { [key: string]: React.CSSProperties } | undefined;
+        children: string | string[];
+        customStyle?: React.CSSProperties | undefined;
+        codeTagProps?: React.HTMLProps<HTMLElement> | undefined;
+        useInlineStyles?: boolean | undefined;
+        showLineNumbers?: boolean | undefined;
+        showInlineLineNumbers?: boolean | undefined;
+        startingLineNumber?: number | undefined;
+        lineNumberContainerStyle?: React.CSSProperties | undefined;
+        lineNumberStyle?: React.CSSProperties | lineNumberStyleFunction | undefined;
+        wrapLines?: boolean | undefined;
+        wrapLongLines?: boolean | undefined;
+        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
+        renderer?: (props: rendererProps) => React.ReactNode;
+        PreTag?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+        CodeTag?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
         [spread: string]: any;
     }
 
+    export interface createElementProps {
+        node: rendererNode;
+        stylesheet: { [key: string]: React.CSSProperties };
+        style?: React.CSSProperties;
+        useInlineStyles: boolean;
+        key: React.Key;
+    }
+
     export { default } from "react-syntax-highlighter/dist/esm/default-highlight";
-    export {
-        default as LightAsync
-    } from "react-syntax-highlighter/dist/esm/light-async";
+    export { default as LightAsync } from "react-syntax-highlighter/dist/esm/light-async";
     export { default as Light } from "react-syntax-highlighter/dist/esm/light";
 
-    export {
-        default as PrismAsyncLight
-    } from "react-syntax-highlighter/dist/esm/prism-async-light";
-    export {
-        default as PrismAsync
-    } from "react-syntax-highlighter/dist/esm/prism-async";
-    export {
-        default as PrismLight
-    } from "react-syntax-highlighter/dist/esm/prism-light";
+    export { default as PrismAsyncLight } from "react-syntax-highlighter/dist/esm/prism-async-light";
+    export { default as PrismAsync } from "react-syntax-highlighter/dist/esm/prism-async";
+    export { default as PrismLight } from "react-syntax-highlighter/dist/esm/prism-light";
     export { default as Prism } from "react-syntax-highlighter/dist/esm/prism";
+
+    export { default as createElement } from "react-syntax-highlighter/dist/esm/create-element";
 }
 
 // esm start
 declare module "react-syntax-highlighter/dist/esm/default-highlight" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module "react-syntax-highlighter/dist/esm/light-async" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/esm/light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/esm/prism-async-light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/esm/prism-async" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
 }
 
 declare module "react-syntax-highlighter/dist/esm/prism-light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/esm/prism" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
+}
+
+declare module "react-syntax-highlighter/dist/esm/create-element" {
+    import * as React from "react";
+    import { createElementProps } from "react-syntax-highlighter";
+    function createElement(props: createElementProps): React.ReactNode;
+    export default createElement;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs" {
-    export {
-        default as agate
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/agate";
-    export {
-        default as androidstudio
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/androidstudio";
-    export {
-        default as arduinoLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/arduino-light";
-    export {
-        default as arta
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/arta";
-    export {
-        default as ascetic
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/ascetic";
-    export {
-        default as atelierCaveDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-dark";
-    export {
-        default as atelierCaveLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-light";
-    export {
-        default as atelierDuneDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-dark";
-    export {
-        default as atelierDuneLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-light";
-    export {
-        default as atelierEstuaryDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-dark";
-    export {
-        default as atelierEstuaryLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-light";
-    export {
-        default as atelierForestDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-dark";
-    export {
-        default as atelierForestLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-light";
-    export {
-        default as atelierHeathDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-dark";
-    export {
-        default as atelierHeathLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-light";
-    export {
-        default as atelierLakesideDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-dark";
-    export {
-        default as atelierLakesideLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-light";
-    export {
-        default as atelierPlateauDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-dark";
-    export {
-        default as atelierPlateauLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-light";
-    export {
-        default as atelierSavannaDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-dark";
-    export {
-        default as atelierSavannaLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-light";
-    export {
-        default as atelierSeasideDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-dark";
-    export {
-        default as atelierSeasideLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-light";
-    export {
-        default as atelierSulphurpoolDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-dark";
-    export {
-        default as atelierSulphurpoolLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-light";
-    export {
-        default as atomOneDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
-    export {
-        default as atomOneLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light";
-    export {
-        default as brownPaper
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/brown-paper";
-    export {
-        default as codepenEmbed
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/codepen-embed";
-    export {
-        default as colorBrewer
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/color-brewer";
-    export {
-        default as darcula
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/darcula";
-    export {
-        default as dark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/dark";
-    export {
-        default as darkula
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/darkula";
-    export {
-        default as defaultStyle
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/default-style";
-    export {
-        default as docco
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
-    export {
-        default as dracula
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/dracula";
-    export {
-        default as far
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/far";
-    export {
-        default as foundation
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/foundation";
-    export {
-        default as githubGist
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/github-gist";
-    export {
-        default as github
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/github";
-    export {
-        default as googlecode
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/googlecode";
-    export {
-        default as grayscale
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/grayscale";
-    export {
-        default as gruvboxDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-dark";
-    export {
-        default as gruvboxLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-light";
-    export {
-        default as hopscotch
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/hopscotch";
-    export {
-        default as hybrid
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/hybrid";
-    export {
-        default as idea
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/idea";
-    export {
-        default as irBlack
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/ir-black";
-    export {
-        default as kimbieDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark";
-    export {
-        default as kimbieLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light";
-    export {
-        default as magula
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/magula";
-    export {
-        default as monoBlue
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/mono-blue";
-    export {
-        default as monokaiSublime
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
-    export {
-        default as monokai
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai";
-    export {
-        default as obsidian
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/obsidian";
-    export {
-        default as ocean
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/ocean";
-    export {
-        default as paraisoDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-dark";
-    export {
-        default as paraisoLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-light";
-    export {
-        default as pojoaque
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/pojoaque";
-    export {
-        default as purebasic
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/purebasic";
-    export {
-        default as qtcreatorDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_dark";
-    export {
-        default as qtcreatorLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_light";
-    export {
-        default as railscasts
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/railscasts";
-    export {
-        default as rainbow
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/rainbow";
-    export {
-        default as routeros
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/routeros";
-    export {
-        default as schoolBook
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/school-book";
-    export {
-        default as solarizedDark
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark";
-    export {
-        default as solarizedLight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-light";
-    export {
-        default as sunburst
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/sunburst";
-    export {
-        default as tomorrowNightBlue
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-blue";
-    export {
-        default as tomorrowNightBright
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-bright";
-    export {
-        default as tomorrowNightEighties
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-eighties";
-    export {
-        default as tomorrowNight
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night";
-    export {
-        default as tomorrow
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow";
-    export {
-        default as vs
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/vs";
-    export {
-        default as vs2015
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/vs2015";
-    export {
-        default as xcode
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/xcode";
-    export {
-        default as xt256
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/xt256";
-    export {
-        default as zenburn
-    } from "react-syntax-highlighter/dist/esm/styles/hljs/zenburn";
+    export { default as a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
+    export { default as a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-light";
+    export { default as agate } from "react-syntax-highlighter/dist/esm/styles/hljs/agate";
+    export { default as anOldHope } from "react-syntax-highlighter/dist/esm/styles/hljs/an-old-hope";
+    export { default as androidstudio } from "react-syntax-highlighter/dist/esm/styles/hljs/androidstudio";
+    export { default as arduinoLight } from "react-syntax-highlighter/dist/esm/styles/hljs/arduino-light";
+    export { default as arta } from "react-syntax-highlighter/dist/esm/styles/hljs/arta";
+    export { default as ascetic } from "react-syntax-highlighter/dist/esm/styles/hljs/ascetic";
+    export { default as atelierCaveDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-dark";
+    export { default as atelierCaveLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-light";
+    export { default as atelierDuneDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-dark";
+    export { default as atelierDuneLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-light";
+    export { default as atelierEstuaryDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-dark";
+    export { default as atelierEstuaryLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-light";
+    export { default as atelierForestDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-dark";
+    export { default as atelierForestLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-light";
+    export { default as atelierHeathDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-dark";
+    export { default as atelierHeathLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-light";
+    export { default as atelierLakesideDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-dark";
+    export { default as atelierLakesideLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-light";
+    export { default as atelierPlateauDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-dark";
+    export { default as atelierPlateauLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-light";
+    export { default as atelierSavannaDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-dark";
+    export { default as atelierSavannaLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-light";
+    export { default as atelierSeasideDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-dark";
+    export { default as atelierSeasideLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-light";
+    export { default as atelierSulphurpoolDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-dark";
+    export { default as atelierSulphurpoolLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-light";
+    export { default as atomOneDarkReasonable } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark-reasonable";
+    export { default as atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
+    export { default as atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light";
+    export { default as brownPaper } from "react-syntax-highlighter/dist/esm/styles/hljs/brown-paper";
+    export { default as codepenEmbed } from "react-syntax-highlighter/dist/esm/styles/hljs/codepen-embed";
+    export { default as colorBrewer } from "react-syntax-highlighter/dist/esm/styles/hljs/color-brewer";
+    export { default as darcula } from "react-syntax-highlighter/dist/esm/styles/hljs/darcula";
+    export { default as dark } from "react-syntax-highlighter/dist/esm/styles/hljs/dark";
+    export { default as defaultStyle } from "react-syntax-highlighter/dist/esm/styles/hljs/default-style";
+    export { default as docco } from "react-syntax-highlighter/dist/esm/styles/hljs/docco";
+    export { default as dracula } from "react-syntax-highlighter/dist/esm/styles/hljs/dracula";
+    export { default as far } from "react-syntax-highlighter/dist/esm/styles/hljs/far";
+    export { default as foundation } from "react-syntax-highlighter/dist/esm/styles/hljs/foundation";
+    export { default as githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs/github-gist";
+    export { default as github } from "react-syntax-highlighter/dist/esm/styles/hljs/github";
+    export { default as gml } from "react-syntax-highlighter/dist/esm/styles/hljs/gml";
+    export { default as googlecode } from "react-syntax-highlighter/dist/esm/styles/hljs/googlecode";
+    export { default as gradientDark } from "react-syntax-highlighter/dist/esm/styles/hljs/gradient-dark";
+    export { default as grayscale } from "react-syntax-highlighter/dist/esm/styles/hljs/grayscale";
+    export { default as gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-dark";
+    export { default as gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-light";
+    export { default as hopscotch } from "react-syntax-highlighter/dist/esm/styles/hljs/hopscotch";
+    export { default as hybrid } from "react-syntax-highlighter/dist/esm/styles/hljs/hybrid";
+    export { default as idea } from "react-syntax-highlighter/dist/esm/styles/hljs/idea";
+    export { default as irBlack } from "react-syntax-highlighter/dist/esm/styles/hljs/ir-black";
+    export { default as isblEditorDark } from "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-dark";
+    export { default as isblEditorLight } from "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-light";
+    export { default as kimbieDark } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark";
+    export { default as kimbieLight } from "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light";
+    export { default as lightfair } from "react-syntax-highlighter/dist/esm/styles/hljs/lightfair";
+    export { default as lioshi } from "react-syntax-highlighter/dist/esm/styles/hljs/lioshi";
+    export { default as magula } from "react-syntax-highlighter/dist/esm/styles/hljs/magula";
+    export { default as monoBlue } from "react-syntax-highlighter/dist/esm/styles/hljs/mono-blue";
+    export { default as monokaiSublime } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime";
+    export { default as monokai } from "react-syntax-highlighter/dist/esm/styles/hljs/monokai";
+    export { default as nightOwl } from "react-syntax-highlighter/dist/esm/styles/hljs/night-owl";
+    export { default as nnfxDark } from "react-syntax-highlighter/dist/esm/styles/hljs/nnfx-dark";
+    export { default as nnfx } from "react-syntax-highlighter/dist/esm/styles/hljs/nnfx";
+    export { default as nord } from "react-syntax-highlighter/dist/esm/styles/hljs/nord";
+    export { default as obsidian } from "react-syntax-highlighter/dist/esm/styles/hljs/obsidian";
+    export { default as ocean } from "react-syntax-highlighter/dist/esm/styles/hljs/ocean";
+    export { default as paraisoDark } from "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-dark";
+    export { default as paraisoLight } from "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-light";
+    export { default as pojoaque } from "react-syntax-highlighter/dist/esm/styles/hljs/pojoaque";
+    export { default as purebasic } from "react-syntax-highlighter/dist/esm/styles/hljs/purebasic";
+    export { default as qtcreatorDark } from "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_dark";
+    export { default as qtcreatorLight } from "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_light";
+    export { default as railscasts } from "react-syntax-highlighter/dist/esm/styles/hljs/railscasts";
+    export { default as rainbow } from "react-syntax-highlighter/dist/esm/styles/hljs/rainbow";
+    export { default as routeros } from "react-syntax-highlighter/dist/esm/styles/hljs/routeros";
+    export { default as schoolBook } from "react-syntax-highlighter/dist/esm/styles/hljs/school-book";
+    export { default as shadesOfPurple } from "react-syntax-highlighter/dist/esm/styles/hljs/shades-of-purple";
+    export { default as solarizedDark } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark";
+    export { default as solarizedLight } from "react-syntax-highlighter/dist/esm/styles/hljs/solarized-light";
+    export { default as srcery } from "react-syntax-highlighter/dist/esm/styles/hljs/srcery";
+    export { default as stackoverflowDark } from "react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-dark";
+    export { default as stackoverflowLight } from "react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-light";
+    export { default as sunburst } from "react-syntax-highlighter/dist/esm/styles/hljs/sunburst";
+    export { default as tomorrowNightBlue } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-blue";
+    export { default as tomorrowNightBright } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-bright";
+    export { default as tomorrowNightEighties } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-eighties";
+    export { default as tomorrowNight } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night";
+    export { default as tomorrow } from "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow";
+    export { default as vs } from "react-syntax-highlighter/dist/esm/styles/hljs/vs";
+    export { default as vs2015 } from "react-syntax-highlighter/dist/esm/styles/hljs/vs2015";
+    export { default as xcode } from "react-syntax-highlighter/dist/esm/styles/hljs/xcode";
+    export { default as xt256 } from "react-syntax-highlighter/dist/esm/styles/hljs/xt256";
+    export { default as zenburn } from "react-syntax-highlighter/dist/esm/styles/hljs/zenburn";
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/a11y-light" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/agate" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/an-old-hope" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/androidstudio" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/arduino-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/arta" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/ascetic" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark-reasonable" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/brown-paper" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/codepen-embed" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/color-brewer" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/darcula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/darkula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/default-style" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/docco" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/dracula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/far" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/foundation" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/github-gist" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/github" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/gml" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/googlecode" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/gradient-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/grayscale" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/hopscotch" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/hybrid" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/idea" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/ir-black" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/lightfair" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/lioshi" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/magula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/mono-blue" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/monokai" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/night-owl" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nnfx-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nnfx" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/nord" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/obsidian" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/ocean" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/paraiso-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/pojoaque" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/purebasic" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/railscasts" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/rainbow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/routeros" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/school-book" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/shades-of-purple" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/solarized-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/srcery" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/hljs/stackoverflow-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/sunburst" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-blue" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-bright" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-eighties" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/tomorrow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/vs" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/vs2015" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/xcode" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/xt256" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/hljs/zenburn" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism" {
-    export {
-        default as atomDark
-    } from "react-syntax-highlighter/dist/esm/styles/prism/atom-dark";
-    export {
-        default as base16AteliersulphurpoolLight
-    } from "react-syntax-highlighter/dist/esm/styles/prism/base16-ateliersulphurpool.light";
-    export {
-        default as cb
-    } from "react-syntax-highlighter/dist/esm/styles/prism/cb";
-    export {
-        default as coy
-    } from "react-syntax-highlighter/dist/esm/styles/prism/coy";
-    export {
-        default as darcula
-    } from "react-syntax-highlighter/dist/esm/styles/prism/darcula";
-    export {
-        default as dark
-    } from "react-syntax-highlighter/dist/esm/styles/prism/dark";
-    export {
-        default as duotoneDark
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-dark";
-    export {
-        default as duotoneEarth
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-earth";
-    export {
-        default as duotoneForest
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-forest";
-    export {
-        default as duotoneLight
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-light";
-    export {
-        default as duotoneSea
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-sea";
-    export {
-        default as duotoneSpace
-    } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-space";
-    export {
-        default as funky
-    } from "react-syntax-highlighter/dist/esm/styles/prism/funky";
-    export {
-        default as ghcolors
-    } from "react-syntax-highlighter/dist/esm/styles/prism/ghcolors";
-    export {
-        default as hopscotch
-    } from "react-syntax-highlighter/dist/esm/styles/prism/hopscotch";
-    export {
-        default as okaidia
-    } from "react-syntax-highlighter/dist/esm/styles/prism/okaidia";
-    export {
-        default as pojoaque
-    } from "react-syntax-highlighter/dist/esm/styles/prism/pojoaque";
-    export {
-        default as prism
-    } from "react-syntax-highlighter/dist/esm/styles/prism/prism";
-    export {
-        default as solarizedlight
-    } from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
-    export {
-        default as tomorrow
-    } from "react-syntax-highlighter/dist/esm/styles/prism/tomorrow";
-    export {
-        default as twilight
-    } from "react-syntax-highlighter/dist/esm/styles/prism/twilight";
-    export {
-        default as vs
-    } from "react-syntax-highlighter/dist/esm/styles/prism/vs";
-    export {
-        default as xonokai
-    } from "react-syntax-highlighter/dist/esm/styles/prism/xonokai";
+    export { default as a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism/a11y-dark";
+    export { default as atomDark } from "react-syntax-highlighter/dist/esm/styles/prism/atom-dark";
+    export { default as base16AteliersulphurpoolLight } from "react-syntax-highlighter/dist/esm/styles/prism/base16-ateliersulphurpool.light";
+    export { default as cb } from "react-syntax-highlighter/dist/esm/styles/prism/cb";
+    export { default as coldarkCold } from "react-syntax-highlighter/dist/esm/styles/prism/coldark-cold";
+    export { default as coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism/coldark-dark";
+    export { default as coy } from "react-syntax-highlighter/dist/esm/styles/prism/coy";
+    export { default as darcula } from "react-syntax-highlighter/dist/esm/styles/prism/darcula";
+    export { default as dark } from "react-syntax-highlighter/dist/esm/styles/prism/dark";
+    export { default as dracula } from "react-syntax-highlighter/dist/esm/styles/prism/dracula";
+    export { default as duotoneDark } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-dark";
+    export { default as duotoneEarth } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-earth";
+    export { default as duotoneForest } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-forest";
+    export { default as duotoneLight } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-light";
+    export { default as duotoneSea } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-sea";
+    export { default as duotoneSpace } from "react-syntax-highlighter/dist/esm/styles/prism/duotone-space";
+    export { default as funky } from "react-syntax-highlighter/dist/esm/styles/prism/funky";
+    export { default as ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism/ghcolors";
+    export { default as gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark";
+    export { default as gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light";
+    export { default as hopscotch } from "react-syntax-highlighter/dist/esm/styles/prism/hopscotch";
+    export { default as materialDark } from "react-syntax-highlighter/dist/esm/styles/prism/material-dark";
+    export { default as materialLight } from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
+    export { default as materialOceanic } from "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic";
+    export { default as nord } from "react-syntax-highlighter/dist/esm/styles/prism/nord";
+    export { default as okaidia } from "react-syntax-highlighter/dist/esm/styles/prism/okaidia";
+    export { default as oneDark } from "react-syntax-highlighter/dist/esm/styles/prism/one-dark";
+    export { default as oneLight } from "react-syntax-highlighter/dist/esm/styles/prism/one-light";
+    export { default as pojoaque } from "react-syntax-highlighter/dist/esm/styles/prism/pojoaque";
+    export { default as prism } from "react-syntax-highlighter/dist/esm/styles/prism/prism";
+    export { default as shadesOfPurple } from "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple";
+    export { default as solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
+    export { default as synthwave84 } from "react-syntax-highlighter/dist/esm/styles/prism/synthwave84";
+    export { default as tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism/tomorrow";
+    export { default as twilight } from "react-syntax-highlighter/dist/esm/styles/prism/twilight";
+    export { default as vs } from "react-syntax-highlighter/dist/esm/styles/prism/vs";
+    export { default as vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
+    export { default as xonokai } from "react-syntax-highlighter/dist/esm/styles/prism/xonokai";
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/a11y-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/atom-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/base16-ateliersulphurpool.light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/cb" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/coldark-cold" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/coldark-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/coy" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/darcula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/dracula" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-earth" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-forest" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-sea" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/duotone-space" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/funky" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/ghcolors" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/hopscotch" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-light" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/nord" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/okaidia" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/one-light" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/one-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/pojoaque" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/prism" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/synthwave84" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/tomorrow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/twilight" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/vs" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/xonokai" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
@@ -1038,6 +1042,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/brainfuck" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/c-like" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/c" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/cal" {
     const language: any;
     export default language;
@@ -1104,6 +1118,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/crystal" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/cs" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/csharp" {
     const language: any;
     export default language;
 }
@@ -1378,6 +1397,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/lasso" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/latex" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/ldif" {
     const language: any;
     export default language;
@@ -1493,6 +1517,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/nginx" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/nim" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/nimrod" {
     const language: any;
     export default language;
@@ -1548,6 +1577,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/pgsql" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/php-template" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/php" {
     const language: any;
     export default language;
@@ -1599,6 +1633,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/hljs/puppet" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/hljs/purebasic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/hljs/python-repl" {
     const language: any;
     export default language;
 }
@@ -1858,12 +1897,32 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/abap" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/abnf" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/actionscript" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/ada" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/agda" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/al" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/antlr4" {
     const language: any;
     export default language;
 }
@@ -1879,6 +1938,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/apl" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/applescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/aql" {
     const language: any;
     export default language;
 }
@@ -1933,12 +1997,27 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/batch" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/bbcode" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/bison" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/bnf" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/brainfuck" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/brightscript" {
     const language: any;
     export default language;
 }
@@ -1953,6 +2032,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/c" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/cil" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/clike" {
     const language: any;
     export default language;
@@ -1963,7 +2047,22 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/clojure" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/cmake" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/coffeescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/concurnas" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/core" {
     const language: any;
     export default language;
 }
@@ -1988,12 +2087,17 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/csp" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/esm/languages/prism/cssExtras" {
+declare module "react-syntax-highlighter/dist/esm/languages/prism/css-extras" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/css" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/cypher" {
     const language: any;
     export default language;
 }
@@ -2008,6 +2112,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/dart" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/dax" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/dhall" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/diff" {
     const language: any;
     export default language;
@@ -2018,12 +2132,32 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/django" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/dns-zone-file" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/docker" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/ebnf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/editorconfig" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/eiffel" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/ejs" {
     const language: any;
     export default language;
 }
@@ -2048,6 +2182,26 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/erlang" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/etlua" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/excel-formula" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/factor" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/firestore-security-rules" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/flow" {
     const language: any;
     export default language;
@@ -2059,6 +2213,21 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/fortran" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/fsharp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/ftl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/gcode" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/gdscript" {
     const language: any;
     export default language;
 }
@@ -2079,6 +2248,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/git" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/glsl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/gml" {
     const language: any;
     export default language;
 }
@@ -2118,6 +2292,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/haxe" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/hcl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/hlsl" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/hpkp" {
     const language: any;
     export default language;
@@ -2139,6 +2323,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/ichigojam" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/icon" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/iecst" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/ignore" {
     const language: any;
     export default language;
 }
@@ -2168,7 +2362,22 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/java" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/javadoc" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/javadoclike" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/javascript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/javastacktrace" {
     const language: any;
     export default language;
 }
@@ -2178,7 +2387,42 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/jolie" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/jq" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/js-extras" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/js-templates" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/js-doc" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/json" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/json5" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/jsonp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/jsstacktrace" {
     const language: any;
     export default language;
 }
@@ -2208,7 +2452,17 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/latex" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/latte" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/less" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/lilypond" {
     const language: any;
     export default language;
 }
@@ -2224,6 +2478,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/lisp" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/livescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/llvm" {
     const language: any;
     export default language;
 }
@@ -2248,7 +2507,7 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/markdown" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/esm/languages/prism/markupTemplating" {
+declare module "react-syntax-highlighter/dist/esm/languages/prism/markup-templating" {
     const language: any;
     export default language;
 }
@@ -2278,12 +2537,32 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/monkey" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/moonscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/n1ql" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/n4js" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/nand2tetris-hdl" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/nasm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/neon" {
     const language: any;
     export default language;
 }
@@ -2343,12 +2622,27 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/pascal" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/pascaligo" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/pcaxis" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/peoplecode" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/perl" {
     const language: any;
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/esm/languages/prism/phpExtras" {
+declare module "react-syntax-highlighter/dist/esm/languages/prism/php-extras" {
     const language: any;
     export default language;
 }
@@ -2359,6 +2653,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/php" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/plsql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/powerquery" {
     const language: any;
     export default language;
 }
@@ -2403,12 +2702,22 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/pure" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/purebasic" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/python" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/q" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/qml" {
     const language: any;
     export default language;
 }
@@ -2423,7 +2732,17 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/r" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/racket" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/reason" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/regex" {
     const language: any;
     export default language;
 }
@@ -2444,6 +2763,11 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/rip" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/roboconf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/robotframework" {
     const language: any;
     export default language;
 }
@@ -2483,6 +2807,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/scss" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/shell-session" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/smali" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/smalltalk" {
     const language: any;
     export default language;
@@ -2493,7 +2827,32 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/smarty" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/solidity" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/solution-file" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/soy" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/sparql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/splunk-spl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/sqf" {
     const language: any;
     export default language;
 }
@@ -2513,6 +2872,26 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/swift" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/t4-cs" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/t4-templating" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/t4-vb" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/tap" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/tcl" {
     const language: any;
     export default language;
@@ -2523,7 +2902,22 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/textile" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/toml" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/tsx" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/tt2" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/turtle" {
     const language: any;
     export default language;
 }
@@ -2534,6 +2928,16 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/twig" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/languages/prism/typescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/unrealscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/vala" {
     const language: any;
     export default language;
 }
@@ -2563,7 +2967,12 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/vim" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/esm/languages/prism/visualBasic" {
+declare module "react-syntax-highlighter/dist/esm/languages/prism/visual-basic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/warpscript" {
     const language: any;
     export default language;
 }
@@ -2583,7 +2992,17 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/xeora" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/esm/languages/prism/xml-doc" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/esm/languages/prism/xojo" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/xquery" {
     const language: any;
     export default language;
 }
@@ -2592,892 +3011,893 @@ declare module "react-syntax-highlighter/dist/esm/languages/prism/yaml" {
     const language: any;
     export default language;
 }
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/yang" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/esm/languages/prism/zig" {
+    const language: any;
+    export default language;
+}
 // esm end
 
 // cjs start
 declare module "react-syntax-highlighter/dist/cjs/default-highlight" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
 }
 
 declare module "react-syntax-highlighter/dist/cjs/light-async" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/cjs/light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/cjs/prism-async-light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/cjs/prism-async" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
 }
 
 declare module "react-syntax-highlighter/dist/cjs/prism-light" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > {
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
     }
 }
 
 declare module "react-syntax-highlighter/dist/cjs/prism" {
     import * as React from "react";
-    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-    export default class SyntaxHighlighter extends React.Component<
-        SyntaxHighlighterProps
-        > { }
+    import { SyntaxHighlighterProps } from "react-syntax-highlighter";
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
+        static supportedLanguages: string[];
+    }
+}
+
+declare module "react-syntax-highlighter/dist/cjs/create-element" {
+    import * as React from "react";
+    import { createElementProps } from "react-syntax-highlighter";
+    function createElement(props: createElementProps): React.ReactNode;
+    export default createElement;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs" {
-    export {
-        default as agate
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/agate";
-    export {
-        default as androidstudio
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/androidstudio";
-    export {
-        default as arduinoLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/arduino-light";
-    export {
-        default as arta
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/arta";
-    export {
-        default as ascetic
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/ascetic";
-    export {
-        default as atelierCaveDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-dark";
-    export {
-        default as atelierCaveLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-light";
-    export {
-        default as atelierDuneDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-dark";
-    export {
-        default as atelierDuneLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-light";
-    export {
-        default as atelierEstuaryDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-dark";
-    export {
-        default as atelierEstuaryLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-light";
-    export {
-        default as atelierForestDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-dark";
-    export {
-        default as atelierForestLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-light";
-    export {
-        default as atelierHeathDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-dark";
-    export {
-        default as atelierHeathLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-light";
-    export {
-        default as atelierLakesideDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-dark";
-    export {
-        default as atelierLakesideLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-light";
-    export {
-        default as atelierPlateauDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-dark";
-    export {
-        default as atelierPlateauLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-light";
-    export {
-        default as atelierSavannaDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-dark";
-    export {
-        default as atelierSavannaLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-light";
-    export {
-        default as atelierSeasideDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-dark";
-    export {
-        default as atelierSeasideLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-light";
-    export {
-        default as atelierSulphurpoolDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-dark";
-    export {
-        default as atelierSulphurpoolLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-light";
-    export {
-        default as atomOneDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark";
-    export {
-        default as atomOneLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-light";
-    export {
-        default as brownPaper
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/brown-paper";
-    export {
-        default as codepenEmbed
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/codepen-embed";
-    export {
-        default as colorBrewer
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/color-brewer";
-    export {
-        default as darcula
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/darcula";
-    export {
-        default as dark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/dark";
-    export {
-        default as darkula
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/darkula";
-    export {
-        default as defaultStyle
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/default-style";
-    export {
-        default as docco
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
-    export {
-        default as dracula
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/dracula";
-    export {
-        default as far
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/far";
-    export {
-        default as foundation
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/foundation";
-    export {
-        default as githubGist
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/github-gist";
-    export {
-        default as github
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
-    export {
-        default as googlecode
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/googlecode";
-    export {
-        default as grayscale
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/grayscale";
-    export {
-        default as gruvboxDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-dark";
-    export {
-        default as gruvboxLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-light";
-    export {
-        default as hopscotch
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/hopscotch";
-    export {
-        default as hybrid
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/hybrid";
-    export {
-        default as idea
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/idea";
-    export {
-        default as irBlack
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/ir-black";
-    export {
-        default as kimbieDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.dark";
-    export {
-        default as kimbieLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.light";
-    export {
-        default as magula
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/magula";
-    export {
-        default as monoBlue
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/mono-blue";
-    export {
-        default as monokaiSublime
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/monokai-sublime";
-    export {
-        default as monokai
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/monokai";
-    export {
-        default as obsidian
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/obsidian";
-    export {
-        default as ocean
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/ocean";
-    export {
-        default as paraisoDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-dark";
-    export {
-        default as paraisoLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-light";
-    export {
-        default as pojoaque
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/pojoaque";
-    export {
-        default as purebasic
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/purebasic";
-    export {
-        default as qtcreatorDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_dark";
-    export {
-        default as qtcreatorLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_light";
-    export {
-        default as railscasts
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/railscasts";
-    export {
-        default as rainbow
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/rainbow";
-    export {
-        default as routeros
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/routeros";
-    export {
-        default as schoolBook
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/school-book";
-    export {
-        default as solarizedDark
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-dark";
-    export {
-        default as solarizedLight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light";
-    export {
-        default as sunburst
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/sunburst";
-    export {
-        default as tomorrowNightBlue
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-blue";
-    export {
-        default as tomorrowNightBright
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-bright";
-    export {
-        default as tomorrowNightEighties
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-eighties";
-    export {
-        default as tomorrowNight
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night";
-    export {
-        default as tomorrow
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow";
-    export {
-        default as vs
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/vs";
-    export {
-        default as vs2015
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/vs2015";
-    export {
-        default as xcode
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/xcode";
-    export {
-        default as xt256
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/xt256";
-    export {
-        default as zenburn
-    } from "react-syntax-highlighter/dist/cjs/styles/hljs/zenburn";
+    export { default as a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/a11y-dark";
+    export { default as a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light";
+    export { default as agate } from "react-syntax-highlighter/dist/cjs/styles/hljs/agate";
+    export { default as anOldHope } from "react-syntax-highlighter/dist/cjs/styles/hljs/an-old-hope";
+    export { default as androidstudio } from "react-syntax-highlighter/dist/cjs/styles/hljs/androidstudio";
+    export { default as arduinoLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/arduino-light";
+    export { default as arta } from "react-syntax-highlighter/dist/cjs/styles/hljs/arta";
+    export { default as ascetic } from "react-syntax-highlighter/dist/cjs/styles/hljs/ascetic";
+    export { default as atelierCaveDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-dark";
+    export { default as atelierCaveLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-light";
+    export { default as atelierDuneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-dark";
+    export { default as atelierDuneLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-light";
+    export { default as atelierEstuaryDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-dark";
+    export { default as atelierEstuaryLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-light";
+    export { default as atelierForestDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-dark";
+    export { default as atelierForestLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-light";
+    export { default as atelierHeathDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-dark";
+    export { default as atelierHeathLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-light";
+    export { default as atelierLakesideDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-dark";
+    export { default as atelierLakesideLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-light";
+    export { default as atelierPlateauDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-dark";
+    export { default as atelierPlateauLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-light";
+    export { default as atelierSavannaDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-dark";
+    export { default as atelierSavannaLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-light";
+    export { default as atelierSeasideDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-dark";
+    export { default as atelierSeasideLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-light";
+    export { default as atelierSulphurpoolDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-dark";
+    export { default as atelierSulphurpoolLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-light";
+    export { default as atomOneDarkReasonable } from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark-reasonable";
+    export { default as atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark";
+    export { default as atomOneLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-light";
+    export { default as brownPaper } from "react-syntax-highlighter/dist/cjs/styles/hljs/brown-paper";
+    export { default as codepenEmbed } from "react-syntax-highlighter/dist/cjs/styles/hljs/codepen-embed";
+    export { default as colorBrewer } from "react-syntax-highlighter/dist/cjs/styles/hljs/color-brewer";
+    export { default as darcula } from "react-syntax-highlighter/dist/cjs/styles/hljs/darcula";
+    export { default as dark } from "react-syntax-highlighter/dist/cjs/styles/hljs/dark";
+    export { default as darkula } from "react-syntax-highlighter/dist/cjs/styles/hljs/darkula";
+    export { default as defaultStyle } from "react-syntax-highlighter/dist/cjs/styles/hljs/default-style";
+    export { default as docco } from "react-syntax-highlighter/dist/cjs/styles/hljs/docco";
+    export { default as dracula } from "react-syntax-highlighter/dist/cjs/styles/hljs/dracula";
+    export { default as far } from "react-syntax-highlighter/dist/cjs/styles/hljs/far";
+    export { default as foundation } from "react-syntax-highlighter/dist/cjs/styles/hljs/foundation";
+    export { default as githubGist } from "react-syntax-highlighter/dist/cjs/styles/hljs/github-gist";
+    export { default as github } from "react-syntax-highlighter/dist/cjs/styles/hljs/github";
+    export { default as gml } from "react-syntax-highlighter/dist/cjs/styles/hljs/gml";
+    export { default as googlecode } from "react-syntax-highlighter/dist/cjs/styles/hljs/googlecode";
+    export { default as gradientDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/gradient-dark";
+    export { default as grayscale } from "react-syntax-highlighter/dist/cjs/styles/hljs/grayscale";
+    export { default as gruvboxDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-dark";
+    export { default as gruvboxLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-light";
+    export { default as hopscotch } from "react-syntax-highlighter/dist/cjs/styles/hljs/hopscotch";
+    export { default as hybrid } from "react-syntax-highlighter/dist/cjs/styles/hljs/hybrid";
+    export { default as idea } from "react-syntax-highlighter/dist/cjs/styles/hljs/idea";
+    export { default as irBlack } from "react-syntax-highlighter/dist/cjs/styles/hljs/ir-black";
+    export { default as isblEditorDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-dark";
+    export { default as isblEditorLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-light";
+    export { default as kimbieDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.dark";
+    export { default as kimbieLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.light";
+    export { default as lightfair } from "react-syntax-highlighter/dist/cjs/styles/hljs/lightfair";
+    export { default as lioshi } from "react-syntax-highlighter/dist/cjs/styles/hljs/lioshi";
+    export { default as magula } from "react-syntax-highlighter/dist/cjs/styles/hljs/magula";
+    export { default as monoBlue } from "react-syntax-highlighter/dist/cjs/styles/hljs/mono-blue";
+    export { default as monokaiSublime } from "react-syntax-highlighter/dist/cjs/styles/hljs/monokai-sublime";
+    export { default as monokai } from "react-syntax-highlighter/dist/cjs/styles/hljs/monokai";
+    export { default as nightOwl } from "react-syntax-highlighter/dist/cjs/styles/hljs/night-owl";
+    export { default as nnfxDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark";
+    export { default as nnfx } from "react-syntax-highlighter/dist/cjs/styles/hljs/nnfx";
+    export { default as nord } from "react-syntax-highlighter/dist/cjs/styles/hljs/nord";
+    export { default as obsidian } from "react-syntax-highlighter/dist/cjs/styles/hljs/obsidian";
+    export { default as ocean } from "react-syntax-highlighter/dist/cjs/styles/hljs/ocean";
+    export { default as paraisoDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-dark";
+    export { default as paraisoLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-light";
+    export { default as pojoaque } from "react-syntax-highlighter/dist/cjs/styles/hljs/pojoaque";
+    export { default as purebasic } from "react-syntax-highlighter/dist/cjs/styles/hljs/purebasic";
+    export { default as qtcreatorDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_dark";
+    export { default as qtcreatorLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_light";
+    export { default as railscasts } from "react-syntax-highlighter/dist/cjs/styles/hljs/railscasts";
+    export { default as rainbow } from "react-syntax-highlighter/dist/cjs/styles/hljs/rainbow";
+    export { default as routeros } from "react-syntax-highlighter/dist/cjs/styles/hljs/routeros";
+    export { default as schoolBook } from "react-syntax-highlighter/dist/cjs/styles/hljs/school-book";
+    export { default as shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purple";
+    export { default as solarizedDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-dark";
+    export { default as solarizedLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light";
+    export { default as srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs/srcery";
+    export { default as stackoverflowDark } from "react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-dark";
+    export { default as stackoverflowLight } from "react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-light";
+    export { default as sunburst } from "react-syntax-highlighter/dist/cjs/styles/hljs/sunburst";
+    export { default as tomorrowNightBlue } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-blue";
+    export { default as tomorrowNightBright } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-bright";
+    export { default as tomorrowNightEighties } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-eighties";
+    export { default as tomorrowNight } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night";
+    export { default as tomorrow } from "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow";
+    export { default as vs } from "react-syntax-highlighter/dist/cjs/styles/hljs/vs";
+    export { default as vs2015 } from "react-syntax-highlighter/dist/cjs/styles/hljs/vs2015";
+    export { default as xcode } from "react-syntax-highlighter/dist/cjs/styles/hljs/xcode";
+    export { default as xt256 } from "react-syntax-highlighter/dist/cjs/styles/hljs/xt256";
+    export { default as zenburn } from "react-syntax-highlighter/dist/cjs/styles/hljs/zenburn";
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/a11y-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/agate" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/an-old-hope" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/androidstudio" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/arduino-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/arta" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/ascetic" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark-reasonable" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/brown-paper" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/codepen-embed" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/color-brewer" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/darcula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/darkula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/default-style" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/docco" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/dracula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/far" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/foundation" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/github-gist" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/github" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/gml" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/googlecode" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/gradient-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/grayscale" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/hopscotch" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/hybrid" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/idea" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/ir-black" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/lightfair" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/lioshi" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/magula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/mono-blue" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/monokai-sublime" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/monokai" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/night-owl" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/nnfx" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/nord" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/obsidian" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/ocean" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/pojoaque" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/purebasic" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/railscasts" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/rainbow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/routeros" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/school-book" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purple" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/srcery" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/hljs/stackoverflow-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/sunburst" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-blue" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-bright" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-eighties" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/vs" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/vs2015" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/xcode" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/xt256" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/hljs/zenburn" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism" {
-    export {
-        default as atomDark
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
-    export {
-        default as base16AteliersulphurpoolLight
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light";
-    export {
-        default as cb
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/cb";
-    export {
-        default as coy
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/coy";
-    export {
-        default as darcula
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/darcula";
-    export {
-        default as dark
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/dark";
-    export {
-        default as duotoneDark
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-dark";
-    export {
-        default as duotoneEarth
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-earth";
-    export {
-        default as duotoneForest
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-forest";
-    export {
-        default as duotoneLight
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-light";
-    export {
-        default as duotoneSea
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-sea";
-    export {
-        default as duotoneSpace
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-space";
-    export {
-        default as funky
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/funky";
-    export {
-        default as ghcolors
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/ghcolors";
-    export {
-        default as hopscotch
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/hopscotch";
-    export {
-        default as okaidia
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/okaidia";
-    export {
-        default as pojoaque
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/pojoaque";
-    export {
-        default as prism
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/prism";
-    export {
-        default as solarizedlight
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/solarizedlight";
-    export {
-        default as tomorrow
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow";
-    export {
-        default as twilight
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/twilight";
-    export {
-        default as vs
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/vs";
-    export {
-        default as xonokai
-    } from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
+    export { default as a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism/a11y-dark";
+    export { default as atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+    export { default as base16AteliersulphurpoolLight } from "react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light";
+    export { default as cb } from "react-syntax-highlighter/dist/cjs/styles/prism/cb";
+    export { default as coldarkCold } from "react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold";
+    export { default as coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark";
+    export { default as coy } from "react-syntax-highlighter/dist/cjs/styles/prism/coy";
+    export { default as darcula } from "react-syntax-highlighter/dist/cjs/styles/prism/darcula";
+    export { default as dark } from "react-syntax-highlighter/dist/cjs/styles/prism/dark";
+    export { default as dracula } from "react-syntax-highlighter/dist/cjs/styles/prism/dracula";
+    export { default as duotoneDark } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-dark";
+    export { default as duotoneEarth } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-earth";
+    export { default as duotoneForest } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-forest";
+    export { default as duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-light";
+    export { default as duotoneSea } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-sea";
+    export { default as duotoneSpace } from "react-syntax-highlighter/dist/cjs/styles/prism/duotone-space";
+    export { default as funky } from "react-syntax-highlighter/dist/cjs/styles/prism/funky";
+    export { default as ghcolors } from "react-syntax-highlighter/dist/cjs/styles/prism/ghcolors";
+    export { default as hopscotch } from "react-syntax-highlighter/dist/cjs/styles/prism/hopscotch";
+    export { default as materialDark } from "react-syntax-highlighter/dist/cjs/styles/prism/material-dark";
+    export { default as materialLight } from "react-syntax-highlighter/dist/cjs/styles/prism/material-light";
+    export { default as materialOceanic } from "react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic";
+    export { default as nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism/night-owl";
+    export { default as nord } from "react-syntax-highlighter/dist/cjs/styles/prism/nord";
+    export { default as okaidia } from "react-syntax-highlighter/dist/cjs/styles/prism/okaidia";
+    export { default as oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism/one-dark";
+    export { default as oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism/one-light";
+    export { default as pojoaque } from "react-syntax-highlighter/dist/cjs/styles/prism/pojoaque";
+    export { default as prism } from "react-syntax-highlighter/dist/cjs/styles/prism/prism";
+    export { default as shadesOfPurple } from "react-syntax-highlighter/dist/cjs/styles/prism/shades-of-purple";
+    export { default as solarizedlight } from "react-syntax-highlighter/dist/cjs/styles/prism/solarizedlight";
+    export { default as synthwave84 } from "react-syntax-highlighter/dist/cjs/styles/prism/synthwave84";
+    export { default as tomorrow } from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow";
+    export { default as twilight } from "react-syntax-highlighter/dist/cjs/styles/prism/twilight";
+    export { default as vsDark } from "react-syntax-highlighter/dist/cjs/styles/prism/vs-dark";
+    export { default as vs } from "react-syntax-highlighter/dist/cjs/styles/prism/vs";
+    export { default as vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus";
+    export { default as xonokai } from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/a11y-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/cb" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/coy" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/darcula" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/dracula" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-dark" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-earth" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-forest" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-light" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-sea" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/duotone-space" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/funky" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/ghcolors" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/hopscotch" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/material-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/material-light" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/night-owl" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/nord" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/okaidia" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/one-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/one-light" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/pojoaque" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/prism" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/shades-of-purple" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/solarizedlight" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/synthwave84" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/twilight" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/vs-dark" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/vs" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus" {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/styles/prism/xonokai" {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
@@ -3591,6 +4011,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/brainfuck" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/c-like" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/c" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/cal" {
     const language: any;
     export default language;
@@ -3657,6 +4087,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/crystal" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/cs" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/csharp" {
     const language: any;
     export default language;
 }
@@ -3931,6 +4366,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/lasso" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/latex" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/ldif" {
     const language: any;
     export default language;
@@ -4046,6 +4486,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/nginx" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/nim" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/nimrod" {
     const language: any;
     export default language;
@@ -4101,6 +4546,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/pgsql" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/php-template" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/php" {
     const language: any;
     export default language;
@@ -4152,6 +4602,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/hljs/puppet" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/hljs/purebasic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/hljs/python-repl" {
     const language: any;
     export default language;
 }
@@ -4411,12 +4866,32 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/abap" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/abnf" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/actionscript" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/ada" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/agda" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/al" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/antlr4" {
     const language: any;
     export default language;
 }
@@ -4432,6 +4907,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/apl" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/applescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/aql" {
     const language: any;
     export default language;
 }
@@ -4486,12 +4966,27 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/batch" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/bbcode" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/bison" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/bnf" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/brainfuck" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/brightscript" {
     const language: any;
     export default language;
 }
@@ -4506,6 +5001,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/c" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/cil" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/clike" {
     const language: any;
     export default language;
@@ -4516,7 +5016,22 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/clojure" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/cmake" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/coffeescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/concurnas" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/core" {
     const language: any;
     export default language;
 }
@@ -4541,12 +5056,17 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/csp" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/cjs/languages/prism/cssExtras" {
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/css-extras" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/css" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/cypher" {
     const language: any;
     export default language;
 }
@@ -4561,6 +5081,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/dart" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/dax" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/dhall" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/diff" {
     const language: any;
     export default language;
@@ -4571,12 +5101,32 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/django" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/dns-zone-file" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/docker" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/ebnf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/editorconfig" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/eiffel" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/ejs" {
     const language: any;
     export default language;
 }
@@ -4601,6 +5151,26 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/erlang" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/etlua" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/excel-formula" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/factor" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/firestore-security-rules" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/flow" {
     const language: any;
     export default language;
@@ -4612,6 +5182,21 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/fortran" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/fsharp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/ftl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/gcode" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/gdscript" {
     const language: any;
     export default language;
 }
@@ -4632,6 +5217,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/git" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/glsl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/gml" {
     const language: any;
     export default language;
 }
@@ -4671,6 +5261,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/haxe" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/hcl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/hlsl" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/hpkp" {
     const language: any;
     export default language;
@@ -4692,6 +5292,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/ichigojam" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/icon" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/iecst" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/ignore" {
     const language: any;
     export default language;
 }
@@ -4721,7 +5331,22 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/java" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/javadoc" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/javadoclike" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/javascript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/javastacktrace" {
     const language: any;
     export default language;
 }
@@ -4731,7 +5356,42 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/jolie" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/jq" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/js-extras" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/js-templates" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/jsdoc" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/json" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/json5" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/jsonp" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/jsstacktrace" {
     const language: any;
     export default language;
 }
@@ -4761,7 +5421,17 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/latex" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/latte" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/less" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/lilypond" {
     const language: any;
     export default language;
 }
@@ -4777,6 +5447,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/lisp" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/livescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/llvm" {
     const language: any;
     export default language;
 }
@@ -4801,7 +5476,7 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/markdown" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/cjs/languages/prism/markupTemplating" {
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/markup-templating" {
     const language: any;
     export default language;
 }
@@ -4831,12 +5506,32 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/monkey" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/moonscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/n1ql" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/n4js" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/nand2tetris-hdl" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/nasm" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/neon" {
     const language: any;
     export default language;
 }
@@ -4896,12 +5591,27 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/pascal" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/pascaligo" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/pcaxis" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/peoplecode" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/perl" {
     const language: any;
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/cjs/languages/prism/phpExtras" {
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/php-extras" {
     const language: any;
     export default language;
 }
@@ -4912,6 +5622,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/php" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/plsql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/powerquery" {
     const language: any;
     export default language;
 }
@@ -4956,12 +5671,22 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/pure" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/purebasic" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/python" {
     const language: any;
     export default language;
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/q" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/qml" {
     const language: any;
     export default language;
 }
@@ -4976,7 +5701,17 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/r" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/racket" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/reason" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/regex" {
     const language: any;
     export default language;
 }
@@ -4997,6 +5732,11 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/rip" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/roboconf" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/robotframework" {
     const language: any;
     export default language;
 }
@@ -5036,6 +5776,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/scss" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/shell-session" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/smali" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/smalltalk" {
     const language: any;
     export default language;
@@ -5046,7 +5796,32 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/smarty" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/solidity" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/solution-file" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/soy" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/sparql" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/splunk-spl" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/sqf" {
     const language: any;
     export default language;
 }
@@ -5066,6 +5841,26 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/swift" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/t4-cs" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/t4-templating" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/t4-vb" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/tap" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/tcl" {
     const language: any;
     export default language;
@@ -5076,7 +5871,22 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/textile" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/toml" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/tsx" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/tt2" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/turtle" {
     const language: any;
     export default language;
 }
@@ -5087,6 +5897,16 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/twig" {
 }
 
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/typescript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/unrealscript" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/vala" {
     const language: any;
     export default language;
 }
@@ -5116,7 +5936,12 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/vim" {
     export default language;
 }
 
-declare module "react-syntax-highlighter/dist/cjs/languages/prism/visualBasic" {
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/visual-basic" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/warpscript" {
     const language: any;
     export default language;
 }
@@ -5136,12 +5961,32 @@ declare module "react-syntax-highlighter/dist/cjs/languages/prism/xeora" {
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/xml-doc" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/xojo" {
     const language: any;
     export default language;
 }
 
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/xquery" {
+    const language: any;
+    export default language;
+}
+
 declare module "react-syntax-highlighter/dist/cjs/languages/prism/yaml" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/yang" {
+    const language: any;
+    export default language;
+}
+
+declare module "react-syntax-highlighter/dist/cjs/languages/prism/zig" {
     const language: any;
     export default language;
 }

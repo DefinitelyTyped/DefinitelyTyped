@@ -1,24 +1,21 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "dygraphs-tests.ts"
+        "dygraphs-tests.ts",
+        "test/dygraphs-tests-old.ts"
     ]
 }

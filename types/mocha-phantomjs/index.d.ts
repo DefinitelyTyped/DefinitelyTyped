@@ -1,8 +1,3 @@
-// Type definitions for mocha-phantomjs v3.5.0
-// Project: http://metaskills.net/mocha-phantomjs/
-// Definitions by: Erik Schierboom <https://github.com/ErikSchierboom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface MochaPhantomJsWindowOptions extends Window {
     env: any;
     failures: number;
@@ -17,10 +12,10 @@ interface Window {
 
 interface MochaPhantomJSOptions {
     headers?: any;
-    cookies?: any[];
-    viewportSize?: number;
-    timeout?: number;
-    file?: string;
+    cookies?: any[] | undefined;
+    viewportSize?: number | undefined;
+    timeout?: number | undefined;
+    file?: string | undefined;
 }
 
 interface MochaPhantomJS {
@@ -29,9 +24,9 @@ interface MochaPhantomJS {
     mochaStartWait: number;
     startTime: Date;
     output: any;
-    
+
     run(): void;
-    customizeMocha(options: MochaPhantomJSOptions): void;    
+    customizeMocha(options: MochaPhantomJSOptions): void;
 }
 
 declare var mochaPhantomJS: MochaPhantomJS;

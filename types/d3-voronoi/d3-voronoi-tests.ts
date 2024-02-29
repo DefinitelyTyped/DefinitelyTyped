@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Voronoi from 'd3-voronoi';
+import * as d3Voronoi from "d3-voronoi";
 
 // ---------------------------------------------------------------------
 // Preparatory Steps
@@ -30,7 +30,7 @@ const testData: VoronoiTestDatum[] = [
     { x: 10, y: 20 },
     { x: 20, y: 20 },
     { x: 50, y: 40 },
-    { x: 30, y: 15 }
+    { x: 30, y: 15 },
 ];
 let testDatum: VoronoiTestDatum;
 
@@ -65,10 +65,10 @@ point[0] = 10; // x-coordinate
 point[1] = 10; // y-coordinate
 
 point = [10, 10];
-// $ExpectError
+// @ts-expect-error
 point = [10]; // fails, second element for y-coordinate missing
-// $ExpectError
-point = ['a', 'b']; // fails, wrong element type
+// @ts-expect-error
+point = ["a", "b"]; // fails, wrong element type
 
 // VoronoiPointPair ---------------------------------------------------
 
@@ -81,14 +81,14 @@ pointPair[1][1] = 10; // y-coordinate of second point
 
 pointPair = [[10, 10], [50, 50]];
 
-// $ExpectError
+// @ts-expect-error
 pointPair = [[10, 10]]; // fails, second point coordinates missing
-// $ExpectError
+// @ts-expect-error
 pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, number]
-// $ExpectError
+// @ts-expect-error
 pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
-// $ExpectError
-pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
+// @ts-expect-error
+pointPair = [["a", 10], [50, 50]]; // fails, one element is not of type [number, number]
 
 // VoronoiPolygon -------------------------------------------------------
 
@@ -246,5 +246,5 @@ nearestSite = voronoiDiagram.find(10, 50);
 nearestSite = voronoiDiagram.find(10, 50, 20);
 
 // wrong data type
-// $ExpectError
+// @ts-expect-error
 const wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null = voronoiDiagram.find(10, 50); // fails, due to data type mismatch

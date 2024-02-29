@@ -1,4 +1,4 @@
-export default function giftCard() {
+export default function giftCard () {
   window.recurly.giftCard({ code: 'basic' }, (error, giftCard) => {
     if (error) {
       error.message;
@@ -9,8 +9,8 @@ export default function giftCard() {
     }
   });
 
-  // $ExpectError
-  recurly.giftCard('basic', (error, giftCard) => {
+  // @ts-expect-error
+  window.recurly.giftCard('basic', (error, giftCard) => {
     if (error) {
       error.message;
       error.code;

@@ -1,11 +1,11 @@
-import InputPrompt = require("./input");
-import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
+import { Answers, NumberQuestionOptions } from "../../index.js";
+import InputPrompt from "./input.js";
 
 /**
- * The question for the `NumberPrompt<T>`.
+ * The question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
  */
-type Question = inquirer.NumberQuestionOptions<inquirer.Answers>;
+type Question = NumberQuestionOptions;
 
 /**
  * Provides a prompt which allows the user to type a number as answer.
@@ -15,7 +15,7 @@ type Question = inquirer.NumberQuestionOptions<inquirer.Answers>;
  */
 declare class NumberPrompt<TQuestion extends Question = Question> extends InputPrompt<TQuestion> {
     /**
-     * Initializes a new instance of the `NumberPrompt<T>` class.
+     * Initializes a new instance of the {@link NumberPrompt `NumberPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -26,7 +26,7 @@ declare class NumberPrompt<TQuestion extends Question = Question> extends InputP
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 }
 
-export = NumberPrompt;
+export default NumberPrompt;

@@ -1,21 +1,19 @@
 import { compose } from "redux";
-import {
-    default as persistState
-} from "redux-localstorage";
+import { default as persistState } from "redux-localstorage";
 import adapter = require("redux-localstorage/lib/adapters/localStorage");
 import { default as debounce } from "redux-localstorage-debounce";
 
 const storageWait = compose(
-    debounce(100)
+    debounce(100),
 )(adapter(window.localStorage));
 const enhancerWait = persistState(storageWait, "test");
 
 const storageMax = compose(
-    debounce(100, 200)
+    debounce(100, 200),
 )(adapter(window.localStorage));
 const enhancerMax = persistState(storageMax, "test");
 
 const storageOpts = compose(
-    debounce(100, { maxWait : 200, foo : "bar" })
+    debounce(100, { maxWait: 200, foo: "bar" }),
 )(adapter(window.localStorage));
 const enhancerOpts = persistState(storageOpts, "test");

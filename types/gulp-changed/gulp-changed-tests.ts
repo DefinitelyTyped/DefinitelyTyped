@@ -10,6 +10,6 @@ gulp.src("*.html")
 
 // With some options
 gulp.src("*.html")
-    .pipe(changed("build", { hasChanged: changed.compareSha1Digest }))
+    .pipe(changed("build", { hasChanged: changed.compareContents }))
     .pipe(minifyHtml())
     .pipe(gulp.dest("build"));

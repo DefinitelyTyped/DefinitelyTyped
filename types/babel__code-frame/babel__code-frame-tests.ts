@@ -17,10 +17,10 @@ codeFrameColumns(code, { start: { line: 5, column: 22 } });
 codeFrameColumns(
     code,
     { start: { line: 5, column: 22 } },
-    { forceColor: true }
+    { forceColor: true },
 );
 codeFrameColumns(
     code,
     { start: { line: 2, column: 2 } },
-    { highlightCode: true }
+    { highlightCode: true },
 );

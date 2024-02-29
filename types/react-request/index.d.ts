@@ -1,13 +1,4 @@
-// Type definitions for react-request 3.1
-// Project: https://github.com/jamesplease/react-request
-// Definitions by: Danny Cochran <https://github.com/dannycochran>
-//                 Angus Fretwell <https://github.com/angusfretwell>
-//                 Jonathan Ly <https://github.com/jonathanly>
-//                 Alberto Juan <https://github.com/albertojuanl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface FetchResponse<T> {
     url: string;
@@ -27,34 +18,34 @@ export interface RenderProps<T> extends FetchResponse<T> {
 }
 
 export interface FetchRequestProps extends RequestInit {
-    lazy?: boolean;
+    lazy?: boolean | undefined;
     url: string;
 }
 
-export type ResponseType = 'arrayBuffer' |  'blob' | 'formData' | 'json' | 'text';
+export type ResponseType = "arrayBuffer" | "blob" | "formData" | "json" | "text";
 
 export interface FetchProps<T = any> extends FetchRequestProps {
-    afterFetch?: (args: FetchResponse<T>) => void;
-    transformData?: (data: any) => T;
-    responseType?: ResponseType;
-    children?: (renderProps: RenderProps<T>) => React.ReactNode;
+    afterFetch?: ((args: FetchResponse<T>) => void) | undefined;
+    transformData?: ((data: any) => T) | undefined;
+    responseType?: ResponseType | undefined;
+    children?: ((renderProps: RenderProps<T>) => React.ReactNode) | undefined;
 }
 
 export interface DoFetchOptions extends RequestInit {
-    url?: string;
+    url?: string | undefined;
 }
 
 export type DoFetch<T = any> = (
-    options?: DoFetchOptions
+    options?: DoFetchOptions,
 ) => Promise<FetchResponse<T>>;
 
 // TODO(dannycochran) RequestKeyOptions, ProxyRequest, fetchDedupe, getRequestKey, isRequestInFlight, clearRequestCache
 // should all be defined in an adjacent typings directory for fetch-dedupe.
 export interface RequestKeyOptions {
-    url?: string;
-    method?: string;
-    responseType?: string;
-    body?: string;
+    url?: string | undefined;
+    method?: string | undefined;
+    responseType?: string | undefined;
+    body?: string | undefined;
 }
 
 export interface ProxyRequest {
@@ -66,7 +57,7 @@ export interface ProxyRequest {
 export function fetchDedupe(
     input: any,
     init?: any,
-    dedupeOptions?: any
+    dedupeOptions?: any,
 ): Promise<ProxyRequest>;
 
 export function getRequestKey(keyOptions?: RequestKeyOptions): string;

@@ -1,10 +1,3 @@
-// Type definitions for CasperJS 1.1
-// Project: http://casperjs.org/
-// Definitions by: Jed Mao <https://github.com/jedmao>
-//                 Uriel Chemouni <https://github.com/urielch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="phantomjs" />
 
 export function create(options?: CasperOptions): Casper;
@@ -61,7 +54,7 @@ export class Casper {
     getHTML(selector?: string, outer?: boolean): string;
     getPageContent(): string;
     getTitle(): string;
-    mouseEvent(type: string, selector: string, X?: number|string, Y?: number|string): boolean;
+    mouseEvent(type: string, selector: string, X?: number | string, Y?: number | string): boolean;
     newPage(): any;
     open(location: string, settings: OpenSettings): Casper;
     reload(then?: FunctionThen): Casper;
@@ -95,15 +88,42 @@ export class Casper {
     viewport(width: number, height: number, then?: FunctionThen): Casper;
     visible(selector: string): boolean;
     wait(timeout: number, then?: FunctionThen): Casper;
-    waitFor(testFx: Function, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number, details?: any): Casper;
+    waitFor(
+        testFx: Function,
+        then?: FunctionThen,
+        onTimeout?: FunctionOnTimeout,
+        timeout?: number,
+        details?: any,
+    ): Casper;
     waitForAlert(then: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
-    waitForExec(command: string | null, parameter: string[], then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
-    waitForPopup(urlPattern: RegExp | string | number | FindByUrlNameTitle, then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
-    waitForResource(testFx: RegExp | string | ((resource: {url: string}) => boolean), then?: FunctionThen, onTimeout?: Function, timeout?: number): Casper;
+    waitForExec(
+        command: string | null,
+        parameter: string[],
+        then?: FunctionThen,
+        onTimeout?: FunctionOnTimeout,
+        timeout?: number,
+    ): Casper;
+    waitForPopup(
+        urlPattern: RegExp | string | number | FindByUrlNameTitle,
+        then?: FunctionThen,
+        onTimeout?: Function,
+        timeout?: number,
+    ): Casper;
+    waitForResource(
+        testFx: RegExp | string | ((resource: { url: string }) => boolean),
+        then?: FunctionThen,
+        onTimeout?: Function,
+        timeout?: number,
+    ): Casper;
     waitForUrl(url: RegExp | string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
     waitForSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
     waitWhileSelector(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
-    waitForSelectorTextChange(selectors: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
+    waitForSelectorTextChange(
+        selectors: string,
+        then?: FunctionThen,
+        onTimeout?: FunctionOnTimeout,
+        timeout?: number,
+    ): Casper;
     waitForText(pattern: RegExp | string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
     waitUntilVisible(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
     waitWhileVisible(selector: string, then?: FunctionThen, onTimeout?: FunctionOnTimeout, timeout?: number): Casper;
@@ -119,22 +139,22 @@ export class Casper {
 }
 
 export type FunctionThen = (this: Casper, response: HttpResponse) => void;
-export type FunctionOnTimeout  = (this: Casper, timeout: number, details: any) => void;
+export type FunctionOnTimeout = (this: Casper, timeout: number, details: any) => void;
 // not visible in doc
 // interface QtRuntimeObject {id?: any; url?: string;}
 // see modules/pagestack.js in casperjs
 
 export interface ImgOptions {
     // format to set the image format manually, avoiding relying on the filename
-    format?: string;
+    format?: string | undefined;
     // quality to set the image quality, from 1 to 100
-    quality?: number;
+    quality?: number | undefined;
 }
 
 export interface FindByUrlNameTitle {
-    url?: string;
-    title?: string;
-    windowName?: string;
+    url?: string | undefined;
+    title?: string | undefined;
+    windowName?: string | undefined;
 }
 
 export interface Header {
@@ -143,14 +163,14 @@ export interface Header {
 }
 
 export interface CasperSelector {
-    type?: 'xpath' | 'css';
+    type?: "xpath" | "css" | undefined;
     path: string;
 }
 
 export interface KeyOptions {
-    reset?: boolean;
-    keepFocus?: boolean;
-    modifiers?: string; // combinaison of 'ctrl+alt+shift+meta+keypad'
+    reset?: boolean | undefined;
+    keepFocus?: boolean | undefined;
+    modifiers?: string | undefined; // combinaison of 'ctrl+alt+shift+meta+keypad'
 }
 
 export interface HttpResponse {
@@ -193,32 +213,32 @@ export interface ElementInfo {
 }
 
 export interface CasperOptions {
-    clientScripts?: any[];
-    exitOnError?: boolean;
+    clientScripts?: any[] | undefined;
+    exitOnError?: boolean | undefined;
     httpStatusHandlers?: any;
-    logLevel?: string;
-    onAlert?: Function;
-    onDie?: Function;
-    onError?: Function;
-    onLoadError?: Function;
-    onPageInitialized?: Function;
-    onResourceReceived?: Function;
-    onResourceRequested?: Function;
-    onStepComplete?: Function;
-    onStepTimeout?: Function;
-    onTimeout?: Function;
-    onWaitTimeout?: Function;
-    page?: WebPage;
+    logLevel?: string | undefined;
+    onAlert?: Function | undefined;
+    onDie?: Function | undefined;
+    onError?: Function | undefined;
+    onLoadError?: Function | undefined;
+    onPageInitialized?: Function | undefined;
+    onResourceReceived?: Function | undefined;
+    onResourceRequested?: Function | undefined;
+    onStepComplete?: Function | undefined;
+    onStepTimeout?: Function | undefined;
+    onTimeout?: Function | undefined;
+    onWaitTimeout?: Function | undefined;
+    page?: WebPage | undefined;
     pageSettings?: any;
-    remoteScripts?: any[];
-    safeLogs?: boolean;
-    silentErrors?: boolean;
-    stepTimeout?: number;
-    timeout?: number;
-    verbose?: boolean;
+    remoteScripts?: any[] | undefined;
+    safeLogs?: boolean | undefined;
+    silentErrors?: boolean | undefined;
+    stepTimeout?: number | undefined;
+    timeout?: number | undefined;
+    verbose?: boolean | undefined;
     viewportSize?: any;
-    retryTimeout?: number;
-    waitTimeout?: number;
+    retryTimeout?: number | undefined;
+    waitTimeout?: number | undefined;
 }
 
 export interface ClientUtils {

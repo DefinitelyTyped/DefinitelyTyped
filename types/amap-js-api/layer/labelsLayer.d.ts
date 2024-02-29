@@ -1,14 +1,14 @@
 declare namespace AMap {
     namespace LabelsLayer {
         interface EventMap<I = LabelsLayer> {
-            click: Event<'click', LabelsLayerEvent<I>>;
-            mouseover: Event<'mouseover', LabelsLayerEvent<I>>;
-            mouseout: Event<'mouseout', LabelsLayerEvent<I>>;
-            mousemove: Event<'mousemove', LabelsLayerEvent<I>>;
-            mousedown: Event<'mousedown', LabelsLayerEvent<I>>;
-            mouseup: Event<'mouseup', LabelsLayerEvent<I>>;
-            touchstart: Event<'touchstart', LabelsLayerEvent<I>>;
-            touchend: Event<'touchend', LabelsLayerEvent<I>>;
+            click: Event<"click", LabelsLayerEvent<I>>;
+            mouseover: Event<"mouseover", LabelsLayerEvent<I>>;
+            mouseout: Event<"mouseout", LabelsLayerEvent<I>>;
+            mousemove: Event<"mousemove", LabelsLayerEvent<I>>;
+            mousedown: Event<"mousedown", LabelsLayerEvent<I>>;
+            mouseup: Event<"mouseup", LabelsLayerEvent<I>>;
+            touchstart: Event<"touchstart", LabelsLayerEvent<I>>;
+            touchend: Event<"touchend", LabelsLayerEvent<I>>;
         }
         interface EventData {
             data: {
@@ -16,8 +16,8 @@ declare namespace AMap {
                 name: string;
                 position: [number, number] | [string, string];
                 zooms: [number, number];
-                rank?: number;
-                txt?: string;
+                rank?: number | undefined;
+                txt?: string | undefined;
             };
             opts: {
                 opacity: number;
@@ -36,16 +36,16 @@ declare namespace AMap {
             /**
              * 图层是否可见
              */
-            visible?: boolean;
+            visible?: boolean | undefined;
             /**
              * 图层的层级
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 图层的透明度
              */
-            opacity?: number;
-            zooms?: [number, number];
+            opacity?: number | undefined;
+            zooms?: [number, number] | undefined;
         }
     }
 
@@ -82,7 +82,7 @@ declare namespace AMap {
             handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
-            unshift?: boolean
+            unshift?: boolean,
         ): any; // should be void
         /**
          * 移除事件绑定
@@ -92,8 +92,8 @@ declare namespace AMap {
          */
         off<C = this>(
             eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
-            context?: C
+            handler: ((this: C, event: any) => void) | "mv",
+            context?: C,
         ): any; // should be void
     }
 }

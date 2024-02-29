@@ -1,4 +1,4 @@
-const d1 = dragula([document.querySelector('#left')!, document.querySelector('#right')!]);
+const d1 = dragula([document.querySelector("#left")!, document.querySelector("#right")!]);
 
 const d2 = dragula({
     isContainer(el) {
@@ -12,11 +12,11 @@ const d2 = dragula({
     },
     invalid(el, target) {
         if (el) {
-            return el.tagName === 'A' || el.tagName === 'BUTTON';
+            return el.tagName === "A" || el.tagName === "BUTTON";
         }
         return false;
     },
-    direction: 'vertical',
+    direction: "vertical",
     copy: false,
     copySortSource: true,
     revertOnSpill: false,
@@ -32,27 +32,27 @@ const drake = dragula({
     copy: true,
 });
 
-drake.containers.push(document.querySelector('#container')!);
+drake.containers.push(document.querySelector("#container")!);
 
-dragula([document.getElementById('left')!, document.getElementById('right')!])
-    .on('cancel', () => {})
-    .on('cloned', () => {})
-    .on('drag', () => {})
-    .on('dragend', () => {})
-    .on('drop', () => {})
-    .on('drop', () => {})
-    .on('out', () => {})
-    .on('over', () => {})
-    .on('remove', () => {})
-    .on('shadow', () => {})
-    .on('cancel', (el, container) => {})
-    .on('cloned', (clone, original, type) => {})
-    .on('drag', (el, source) => {})
-    .on('dragend', el => {})
-    .on('drop', (el, target, source, sibling) => {})
-    .on('out', (el, containers, source) => {})
-    .on('over', (el, container, source) => {})
-    .on('remove', (el, container, source) => {})
-    .on('shadow', (el, container, source) => {});
+dragula([document.getElementById("left")!, document.getElementById("right")!])
+    .on("cancel", () => {})
+    .on("cloned", () => {})
+    .on("drag", () => {})
+    .on("dragend", () => {})
+    .on("drop", () => {})
+    .on("drop", () => {})
+    .on("out", () => {})
+    .on("over", () => {})
+    .on("remove", () => {})
+    .on("shadow", () => {})
+    .on("cancel", (el, container) => {})
+    .on("cloned", (clone, original, type) => {})
+    .on("drag", (el, source) => {})
+    .on("dragend", el => {})
+    .on("drop", (el, target, source, sibling) => {})
+    .on("out", (el, containers, source) => {})
+    .on("over", (el, container, source) => {})
+    .on("remove", (el, container, source) => {})
+    .on("shadow", (el, container, source) => {});
 
-drake.containers.push(document.querySelector('#container')!);
+drake.containers.push(document.querySelector("#container")!);

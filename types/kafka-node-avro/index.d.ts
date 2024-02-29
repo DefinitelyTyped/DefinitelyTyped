@@ -1,9 +1,3 @@
-// Type definitions for kafka-node-avro 4.0
-// Project: https://github.com/narcisoguillen/kafka-node-avro#readme
-// Definitions by: Gediminas Katilevicius <https://github.com/alfamegaxq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface SchemaSettings {
     /** Kafka schema registry url */
     registry: string;

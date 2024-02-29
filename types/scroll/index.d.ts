@@ -1,8 +1,3 @@
-// Type definitions for scroll 3.0
-// Project: https://github.com/michaelrhodes/scroll
-// Definitions by: Roman Charugin <https://github.com/romic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ScrollError = Error | null;
 
 interface ScrollOptions {
@@ -10,12 +5,12 @@ interface ScrollOptions {
      * Ease function
      * @default easeInOut
      */
-    ease?: (time: number) => number;
+    ease?: ((time: number) => number) | undefined;
     /**
      * Animation duration
      * @default 350
      */
-    duration?: number;
+    duration?: number | undefined;
 }
 
 interface ScrollCallback {

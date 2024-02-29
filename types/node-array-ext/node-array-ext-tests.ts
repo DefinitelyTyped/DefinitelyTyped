@@ -1,16 +1,14 @@
-
 import extensions = require("node-array-ext");
 
-var array: Array<string> = [ "hello", "world", "test" ];
+var array: string[] = ["hello", "world", "test"];
 var result: string = "";
 var finish = function(err?: Error) {
-    if(err) {
+    if (err) {
         console.log(err);
-    }
-    else {
+    } else {
         console.log(result);
     }
-}
+};
 function each(i: number, element: string, next: (err?: Error) => void): void {
     setTimeout(function() {
         console.log("%s => %s", i, element);

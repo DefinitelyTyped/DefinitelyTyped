@@ -1,9 +1,3 @@
-// Type definitions for jquery-editable-select 2.2
-// Project: https://github.com/indrimuska/jquery-editable-select
-// Definitions by: Vincent Biret <https://github.com/baywet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryEditableSelect {
@@ -11,23 +5,23 @@ declare namespace JQueryEditableSelect {
         /**
          * Filter (or not) items in list while typing.
          */
-        filter?: boolean;
+        filter?: boolean | undefined;
         /**
          * Easing used for showing and hiding the dropdown list.
          */
-        effects?: 'default' | 'slide' | 'fade';
+        effects?: "default" | "slide" | "fade" | undefined;
         /**
          * Duration of the easings (in milliseconds).
          */
-        duration?: number | 'fast' | 'slow';
+        duration?: number | "fast" | "slow" | undefined;
         /**
          * Where to append the dropdown list in the DOM.
          */
-        appendTo?: string | JQuery;
+        appendTo?: string | JQuery | undefined;
         /**
          * How dropdown list is triggered.
          */
-        trigger?: 'focus'| 'manual';
+        trigger?: "focus" | "manual" | undefined;
     }
 }
 
@@ -43,14 +37,14 @@ interface JQuery {
      *
      * @param action Action to apply
      */
-    editableSelect(action: 'show'| 'hide'| 'filter' | 'clear'| 'destroy'): void;
+    editableSelect(action: "show" | "hide" | "filter" | "clear" | "destroy"): void;
     /**
      * Manually sets the value of the text field to the value of the $element passed as parameter.
      *
      * @param action Action to apply, must be 'select'
      * @param element element to select (it must be one of the elements in the dropdown list)
      */
-    editableSelect(action: 'select', element: JQuery): void;
+    editableSelect(action: "select", element: JQuery): void;
     /**
      * Adds a new option in the dropdown list
      *
@@ -60,12 +54,18 @@ interface JQuery {
      * @param attrs optional attributes to add to the element
      * @param data optional data to add to the element
      */
-    editableSelect(action: 'add', text: string , index?: number, attrs?: Array<{name: string, value: string}>, data?: string): void;
+    editableSelect(
+        action: "add",
+        text: string,
+        index?: number,
+        attrs?: Array<{ name: string; value: string }>,
+        data?: string,
+    ): void;
     /**
      * Removes an option in the dropdown list at the given index.
      *
      * @param action Action to apply, must be 'remove'
      * @param index position of the element to remove.
      */
-    editableSelect(action: 'remove', index: number): void;
+    editableSelect(action: "remove", index: number): void;
 }

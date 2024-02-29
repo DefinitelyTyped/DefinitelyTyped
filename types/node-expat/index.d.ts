@@ -1,13 +1,5 @@
-// Type definitions for node-expat 2.3
-// Project: https://github.com/astro/node-expat
-// Definitions by: winston01 <https://github.com/winston01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
-import {
-    Stream
-} from 'stream';
+import { Stream } from "stream";
 
 export class Parser extends Stream {
     constructor(encoding?: string);
@@ -32,15 +24,15 @@ export class Parser extends Stream {
     pause(): void;
     resume(): void;
 
-    destroy(): void;
+    destroy(): any;
 
     destroySoon(): void;
 
     write(data: Buffer | string): boolean;
 
-    end(cb?: () => void): void;
-    end(chunk: any, cb?: () => void): void;
-    end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
+    end(cb?: () => void): any;
+    end(chunk: any, cb?: () => void): any;
+    end(chunk: any, encoding: BufferEncoding, cb?: () => void): any;
 
     reset(): void;
 

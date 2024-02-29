@@ -1,9 +1,3 @@
-// Type definitions for koa-multer 1.0
-// Project: https://github.com/koa-modules/multer
-// Definitions by: benstevens48 <https://github.com/benstevens48>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /**
  * @file
  * These definitions are based on the type definitions for multer - https://github.com/expressjs/multer - found on DefinitelyTyped.
@@ -28,8 +22,8 @@
  * The type cast is necessary since the type definitions for Koa do not allow for the `Context.req` property to be extended.
  */
 
-import * as Koa from 'koa';
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
+import * as Koa from "koa";
 
 declare namespace multer {
     interface File {
@@ -65,38 +59,42 @@ declare namespace multer {
         /** The field name. */
         name: string;
         /** Optional maximum number of files per field to accept. */
-        maxCount?: number;
+        maxCount?: number | undefined;
     }
 
     interface Options {
         /** The destination directory for the uploaded files. */
-        dest?: string;
+        dest?: string | undefined;
         /** The storage engine to use for uploaded files. */
-        storage?: StorageEngine;
+        storage?: StorageEngine | undefined;
         /**
          * An object specifying the size limits of the following optional properties. This object is passed to busboy
          * directly, and the details of properties can be found on https://github.com/mscdex/busboy#busboy-methods
          */
         limits?: {
             /** Max field name size (Default: 100 bytes) */
-            fieldNameSize?: number;
+            fieldNameSize?: number | undefined;
             /** Max field value size (Default: 1MB) */
-            fieldSize?: number;
+            fieldSize?: number | undefined;
             /** Max number of non- file fields (Default: Infinity) */
-            fields?: number;
+            fields?: number | undefined;
             /** For multipart forms, the max file size (in bytes)(Default: Infinity) */
-            fileSize?: number;
+            fileSize?: number | undefined;
             /** For multipart forms, the max number of file fields (Default: Infinity) */
-            files?: number;
+            files?: number | undefined;
             /** For multipart forms, the max number of parts (fields + files)(Default: Infinity) */
-            parts?: number;
+            parts?: number | undefined;
             /** For multipart forms, the max number of header key=> value pairs to parse Default: 2000(same as node's http). */
-            headerPairs?: number;
+            headerPairs?: number | undefined;
             /** Keep the full path of files instead of just the base name (Default: false) */
-            preservePath?: boolean;
-        };
+            preservePath?: boolean | undefined;
+        } | undefined;
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: IncomingMessage, file: File, callback: (error: Error | null, acceptFile: boolean) => void): void;
+        fileFilter?(
+            req: IncomingMessage,
+            file: File,
+            callback: (error: Error | null, acceptFile: boolean) => void,
+        ): void;
     }
 
     interface StorageEngine {
@@ -106,7 +104,10 @@ declare namespace multer {
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: string | ((req: IncomingMessage, file: File, callback: (error: Error | null, destination: string) => void) => void);
+        destination?:
+            | string
+            | ((req: IncomingMessage, file: File, callback: (error: Error | null, destination: string) => void) => void)
+            | undefined;
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
         filename?(req: IncomingMessage, file: File, callback: (error: Error | null, filename: string) => void): void;
     }

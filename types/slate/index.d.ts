@@ -1,23 +1,3 @@
-// Type definitions for slate 0.47
-// Project: https://github.com/ianstormtaylor/slate
-// Definitions by: Andy Kent <https://github.com/andykent>
-//                 Jamie Talbot <https://github.com/majelbstoat>
-//                 Jan Löbel <https://github.com/JanLoebel>
-//                 Brandon Shelton <https://github.com/YangusKhan>
-//                 Kalley Powell <https://github.com/kalley>
-//                 Francesco Agnoletto <https://github.com/Kornil>
-//                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Hanna Greaves <https://github.com/sgreav>
-//                 Jack Allen <https://github.com/jackall3n>
-//                 Benjamin Evenson <https://github.com/benjiro>
-//                 Han Jeon <https://github.com/hanstar17>
-//                 Kay Delaney <https://github.com/kaydelaney>
-//                 Yuichiro Tsuchiya <https://github.com/tuttieee>
-//                 Kamil Kamiński <https://github.com/0ctothorp>
-//                 Jay Chen <https://github.com/Jay0328>
-//                 Brian Ingles <https://github.com/bmingles>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 
@@ -34,58 +14,62 @@ export interface RulesByNodeType {
 }
 
 export interface ObjectAndType {
-    object?: string;
-    type?: string;
+    object?: string | undefined;
+    type?: string | undefined;
 }
 
 export interface Rules {
     data?: {
         [key: string]: (v: any) => boolean;
-    };
-    first?: ObjectAndType | ObjectAndType[];
-    isAtomic?: boolean;
-    isVoid?: boolean;
-    last?: ObjectAndType | ObjectAndType[];
-    marks?: Array<{
-        type: string | ((type: string) => boolean)
-    }>;
-    next?: ObjectAndType | ObjectAndType[];
-    nodes?: Array<{
-        min?: number;
-        max?: number;
-        match?: ObjectAndType | ObjectAndType[];
-    }>;
-    normalize?: (editor: Editor, error: SlateError) => void;
-    parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp | ((text: string) => boolean);
-    previous?: ObjectAndType | ObjectAndType[];
+    } | undefined;
+    first?: ObjectAndType | ObjectAndType[] | undefined;
+    isAtomic?: boolean | undefined;
+    isVoid?: boolean | undefined;
+    last?: ObjectAndType | ObjectAndType[] | undefined;
+    marks?:
+        | Array<{
+            type: string | ((type: string) => boolean);
+        }>
+        | undefined;
+    next?: ObjectAndType | ObjectAndType[] | undefined;
+    nodes?:
+        | Array<{
+            min?: number | undefined;
+            max?: number | undefined;
+            match?: ObjectAndType | ObjectAndType[] | undefined;
+        }>
+        | undefined;
+    normalize?: ((editor: Editor, error: SlateError) => void) | undefined;
+    parent?: ObjectAndType | ObjectAndType[] | undefined;
+    text?: RegExp | ((text: string) => boolean) | undefined;
+    previous?: ObjectAndType | ObjectAndType[] | undefined;
 }
 
 export interface SchemaProperties {
-    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules>;
-    document?: Rules;
-    blocks?: RulesByNodeType;
-    inlines?: RulesByNodeType;
-    marks?: RulesByNodeType;
-    annotations?: RulesByNodeType;
-    decorations?: RulesByNodeType;
+    rules?: Array<{ match: ObjectAndType | ObjectAndType[] } & Rules> | undefined;
+    document?: Rules | undefined;
+    blocks?: RulesByNodeType | undefined;
+    inlines?: RulesByNodeType | undefined;
+    marks?: RulesByNodeType | undefined;
+    annotations?: RulesByNodeType | undefined;
+    decorations?: RulesByNodeType | undefined;
 }
 
 export type Path = Immutable.List<number> | number[] | string;
 export interface ValueProperties {
-    object?: "value";
-    annotations?: Immutable.Map<string, Annotation> | { [key: string]: AnnotationJSON };
-    data?: Data | { [key: string]: any };
-    document?: Document;
-    selection?: Selection;
+    object?: "value" | undefined;
+    annotations?: Immutable.Map<string, Annotation> | { [key: string]: AnnotationJSON } | undefined;
+    data?: Data | { [key: string]: any } | undefined;
+    document?: Document | undefined;
+    selection?: Selection | undefined;
 }
 
 export interface ValueJSON {
-    object?: "value";
-    annotations?: { [key: string]: AnnotationJSON };
-    data?: { [key: string]: any };
-    document?: DocumentJSON;
-    selection?: SelectionJSON;
+    object?: "value" | undefined;
+    annotations?: { [key: string]: AnnotationJSON } | undefined;
+    data?: { [key: string]: any } | undefined;
+    document?: DocumentJSON | undefined;
+    selection?: SelectionJSON | undefined;
 }
 
 export class Value extends Immutable.Record({}) {
@@ -130,15 +114,15 @@ export class Value extends Immutable.Record({}) {
     static isValue(maybeValue: any): maybeValue is Value;
 
     toJSON(options?: {
-        preserveAnnotations?: boolean,
-        preserveData?: boolean,
-        preserveSelection?: boolean }
-    ): ValueJSON;
+        preserveAnnotations?: boolean | undefined;
+        preserveData?: boolean | undefined;
+        preserveSelection?: boolean | undefined;
+    }): ValueJSON;
     toJS(options?: {
-        preserveAnnotations?: boolean,
-        preserveData?: boolean,
-        preserveSelection?: boolean }
-    ): ValueJSON;
+        preserveAnnotations?: boolean | undefined;
+        preserveData?: boolean | undefined;
+        preserveSelection?: boolean | undefined;
+    }): ValueJSON;
     addAnnotation(annotation: Annotation | AnnotationProperties | AnnotationJSON): Value;
     addMark(path: Path, mark: MarkProperties | MarkJSON | Mark | string): Value;
     insertNode(path: Path, node: Node): Value;
@@ -155,42 +139,43 @@ export class Value extends Immutable.Record({}) {
     removeText(path: Path, offset: number, text: string): Value;
     setAnnotation(
         properties: AnnotationProperties | AnnotationJSON | Annotation,
-        newProperties: AnnotationProperties | AnnotationJSON | Annotation
+        newProperties: AnnotationProperties | AnnotationJSON | Annotation,
     ): Value;
     setNode(path: Path, properties: NodeProperties): Value;
     setMark(
         path: Path,
         properties: MarkProperties,
-        newProperties: MarkProperties
+        newProperties: MarkProperties,
     ): Value;
     setProperties(properties: ValueProperties): Value;
-    setSelection(properties:
-        | RangeTypeProperties
-        | RangeTypeJSON
-        | RangeType
-        | string
+    setSelection(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType
+            | string,
     ): Value;
     splitNode(
         path: Path,
         position: number,
-        properties: NodeProperties
+        properties: NodeProperties,
     ): Value;
     mapRanges(iterator: (val: Selection | Annotation) => any): Value;
     mapPoints(iterator: (point: Point) => Point): Value;
 }
 
 export interface DocumentProperties {
-    object?: "document";
-    nodes?: Immutable.List<Node> | Node[];
-    key?: string;
-    data?: Data | { [key: string]: any };
+    object?: "document" | undefined;
+    nodes?: Immutable.List<Node> | Node[] | undefined;
+    key?: string | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface DocumentJSON {
-    object?: "document";
-    nodes?: NodeJSON[];
-    key?: string;
-    data?: { [key: string]: any };
+    object?: "document" | undefined;
+    nodes?: NodeJSON[] | undefined;
+    key?: string | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Document extends BaseNode {
@@ -202,7 +187,7 @@ export class Document extends BaseNode {
             | DocumentJSON
             | Document
             | Array<NodeJSON | NodeProperties | Node>
-            | Immutable.List<NodeJSON | NodeProperties | Node>
+            | Immutable.List<NodeJSON | NodeProperties | Node>,
     ): Document;
     static fromJSON(properties: DocumentJSON | DocumentProperties | Document): Document;
     static fromJS(properties: DocumentJSON | DocumentProperties | Document): Document;
@@ -213,40 +198,42 @@ export class Document extends BaseNode {
 }
 
 export interface BlockProperties {
-    object?: "block";
+    object?: "block" | undefined;
     type: string;
-    key?: string;
-    nodes?: Immutable.List<Block | Text | Inline> | Array<Block | Text | Inline>;
-    data?: Data | { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Immutable.List<Block | Text | Inline> | Array<Block | Text | Inline> | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface BlockJSON {
-    object?: "block";
+    object?: "block" | undefined;
     type: string;
-    key?: string;
-    nodes?: Array<BlockJSON | InlineJSON | TextJSON>;
-    data?: { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Array<BlockJSON | InlineJSON | TextJSON> | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Block extends BaseNode {
     object: "block";
     nodes: Immutable.List<Block | Text | Inline>;
 
-    static create(properties:
-        | BlockProperties
-        | BlockJSON
-        | Block
-        | string
+    static create(
+        properties:
+            | BlockProperties
+            | BlockJSON
+            | Block
+            | string,
     ): Block;
-    static createList(array?:
-        | Array<BlockProperties | BlockJSON | Block | string>
-        | Immutable.List<BlockProperties | BlockJSON | Block | string>
+    static createList(
+        array?:
+            | Array<BlockProperties | BlockJSON | Block | string>
+            | Immutable.List<BlockProperties | BlockJSON | Block | string>,
     ): Immutable.List<Block>;
     static fromJSON(properties: BlockJSON | BlockProperties | Block): Block;
     static fromJS(properties: BlockJSON | BlockProperties | Block): Block;
     static isBlock(maybeBlock: any): maybeBlock is Block;
     static isBlockList(
-        maybeBlockList: any
+        maybeBlockList: any,
     ): maybeBlockList is Immutable.List<Block>;
 
     toJSON(): BlockJSON;
@@ -254,49 +241,52 @@ export class Block extends BaseNode {
 }
 
 export interface InlineProperties {
-    object?: "inline";
+    object?: "inline" | undefined;
     type: string;
-    key?: string;
-    nodes?: Immutable.List<Inline | Text> | Array<Inline | Text>;
-    data?: Data | { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Immutable.List<Inline | Text> | Array<Inline | Text> | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface InlineJSON {
-    object?: "inline";
+    object?: "inline" | undefined;
     type: string;
-    key?: string;
-    nodes?: Array<InlineJSON | TextJSON>;
-    data?: { [key: string]: any };
+    key?: string | undefined;
+    nodes?: Array<InlineJSON | TextJSON> | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Inline extends BaseNode {
     object: "inline";
     nodes: Immutable.List<Inline | Text>;
 
-    static create(properties:
-        | InlineProperties
-        | InlineJSON
-        | Inline
-        | string
+    static create(
+        properties:
+            | InlineProperties
+            | InlineJSON
+            | Inline
+            | string,
     ): Inline;
     static createList(
         elements?:
-        | Immutable.List<InlineProperties | InlineJSON | Inline | string>
-        | Array<InlineProperties | InlineJSON | Inline | string>
+            | Immutable.List<InlineProperties | InlineJSON | Inline | string>
+            | Array<InlineProperties | InlineJSON | Inline | string>,
     ): Immutable.List<Inline>;
-    static fromJSON(properties:
-        | InlineProperties
-        | InlineJSON
-        | Inline
+    static fromJSON(
+        properties:
+            | InlineProperties
+            | InlineJSON
+            | Inline,
     ): Inline;
-    static fromJS(properties:
-        | InlineProperties
-        | InlineJSON
-        | Inline
+    static fromJS(
+        properties:
+            | InlineProperties
+            | InlineJSON
+            | Inline,
     ): Inline;
     static isInline(maybeInline: any): maybeInline is Inline;
     static isInlineList(
-        maybeInlineList: any
+        maybeInlineList: any,
     ): maybeInlineList is Immutable.List<Inline>;
 
     toJSON(): InlineJSON;
@@ -304,17 +294,17 @@ export class Inline extends BaseNode {
 }
 
 export interface TextProperties {
-    object?: "text";
-    key?: string;
-    text?: string;
-    marks?: Immutable.Set<Mark> | Mark[];
+    object?: "text" | undefined;
+    key?: string | undefined;
+    text?: string | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
 }
 
 export interface TextJSON {
-    object?: "text";
-    key?: string;
-    text?: string;
-    marks?: MarkJSON[];
+    object?: "text" | undefined;
+    key?: string | undefined;
+    text?: string | undefined;
+    marks?: MarkJSON[] | undefined;
 }
 
 export interface LeafAndOffset {
@@ -335,25 +325,26 @@ export class Text extends Immutable.Record({}) {
     static createList(
         elements?:
             | Array<TextProperties | TextJSON | Text | string>
-            | Immutable.List<TextProperties | TextJSON | Text | string>
+            | Immutable.List<TextProperties | TextJSON | Text | string>,
     ): Immutable.List<Text>;
     static fromJSON(properties: TextJSON | TextProperties | Text): Text;
     static fromJS(properties: TextJSON | TextProperties | Text): Text;
     static isText(maybeText: any): maybeText is Text;
     static isTextList(maybeTextList: any): maybeTextList is Immutable.List<Text>;
 
-    toJSON(options?: { preserveKeys?: boolean }): TextJSON;
-    toJS(options?: { preserveKeys?: boolean }): TextJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): TextJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): TextJSON;
 
     addMark(mark: MarkProperties | MarkJSON | Mark | string): Text;
-    addMarks(marks:
-        | Array<MarkProperties | MarkJSON | Mark | string>
-        | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+    addMarks(
+        marks:
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Text;
     getKeysToPathsTable(): { [key: string]: number[] };
     getLeaves(
         annotations: Immutable.Map<string, Annotation>,
-        decorations?: Decoration[] | Immutable.List<Decoration>
+        decorations?: Decoration[] | Immutable.List<Decoration>,
     ): Immutable.List<Leaf>;
     getFirstText(): Text | null;
     getLastText(): Text | null;
@@ -368,24 +359,25 @@ export class Text extends Immutable.Record({}) {
     resolvePath(path: Path, index?: number): Immutable.List<number>;
     setMark(
         properties: MarkProperties | MarkJSON | Mark | string,
-        newProperties: MarkProperties
+        newProperties: MarkProperties,
     ): Text;
     splitText(index: number): Text[];
     mergeText(other: Text): Text;
     normalize(editor: Editor): () => void | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(editor: Editor): Error | void;
 }
 
 export interface LeafProperties {
-    object?: "leaf";
-    marks?: Immutable.Set<Mark> | Mark[];
-    text?: string;
+    object?: "leaf" | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
+    text?: string | undefined;
 }
 
 export interface LeafJSON {
-    object?: "leaf";
-    marks?: MarkJSON[];
-    text?: string;
+    object?: "leaf" | undefined;
+    marks?: MarkJSON[] | undefined;
+    text?: string | undefined;
 }
 
 export class Leaf extends Immutable.Record({}) {
@@ -397,18 +389,18 @@ export class Leaf extends Immutable.Record({}) {
     static createLeaves(leaves: Immutable.List<Leaf>): Immutable.List<Leaf>;
     static splitLeaves(
         leaves: Immutable.List<Leaf>,
-        offset: number
+        offset: number,
     ): Array<Immutable.List<Leaf>>;
     static createList(
         attrs?:
             | Array<LeafProperties | LeafJSON | Leaf>
-            | Immutable.List<LeafProperties | LeafJSON | Leaf>
+            | Immutable.List<LeafProperties | LeafJSON | Leaf>,
     ): Immutable.List<Leaf>;
     static fromJSON(properties: LeafJSON | LeafProperties): Leaf;
     static fromJS(properties: LeafJSON | LeafProperties): Leaf;
     static isLeaf(maybeLeaf: any): maybeLeaf is Leaf;
     static isLeafList(
-        maybeLeafList: any
+        maybeLeafList: any,
     ): maybeLeafList is Immutable.List<Leaf>;
 
     updateMark(mark: Mark, newMark: Mark): Leaf;
@@ -423,36 +415,38 @@ export class Leaf extends Immutable.Record({}) {
 }
 
 interface IterableOptions {
-    direction?: string;
-    downward?: boolean;
-    upward?: boolean;
-    includeBlocks?: boolean;
-    includeDocument?: boolean;
-    includeInlines?: boolean;
-    includeRoot?: boolean;
-    includeTarget?: boolean;
-    includeTargetAncestors?: boolean;
-    includeTexts?: boolean;
-    match?: (node: Node, path: Immutable.List<number>) => boolean | null;
-    range?: RangeProperties | RangeJSON | Range;
-    path?: Path;
+    direction?: string | undefined;
+    downward?: boolean | undefined;
+    upward?: boolean | undefined;
+    includeBlocks?: boolean | undefined;
+    includeDocument?: boolean | undefined;
+    includeInlines?: boolean | undefined;
+    includeRoot?: boolean | undefined;
+    includeTarget?: boolean | undefined;
+    includeTargetAncestors?: boolean | undefined;
+    includeTexts?: boolean | undefined;
+    match?: ((node: Node, path: Immutable.List<number>) => boolean | null) | undefined;
+    range?: RangeProperties | RangeJSON | Range | undefined;
+    path?: Path | undefined;
 }
 
 export namespace NodeFactory {
-  function create(attrs: Node | NodeJSON | NodeProperties): Node;
-  function createList(
-    elements?:
-        | Array<Node | NodeJSON | NodeProperties>
-        | Immutable.List<Node | NodeJSON | NodeProperties>
-  ): Immutable.List<Node>;
-  function createProperties(attrs?: Block | Inline | string | { type?: string, data?: object }): NodeProperties;
-  function fromJSON(value: { [key: string]: any }): NodeJSON;
-  function fromJS(value: { [key: string]: any }): NodeJSON;
-  function isNode(maybeNode: any): maybeNode is Node;
-  function isNodeList(maybeNodeList: any): maybeNodeList is Immutable.List<Node>;
+    function create(attrs: Node | NodeJSON | NodeProperties): Node;
+    function createList(
+        elements?:
+            | Array<Node | NodeJSON | NodeProperties>
+            | Immutable.List<Node | NodeJSON | NodeProperties>,
+    ): Immutable.List<Node>;
+    function createProperties(
+        attrs?: Block | Inline | string | { type?: string | undefined; data?: object | undefined },
+    ): NodeProperties;
+    function fromJSON(value: { [key: string]: any }): NodeJSON;
+    function fromJS(value: { [key: string]: any }): NodeJSON;
+    function isNode(maybeNode: any): maybeNode is Node;
+    function isNodeList(maybeNodeList: any): maybeNodeList is Immutable.List<Node>;
 }
 
-export type Node = (Document | Block | Inline | Text);
+export type Node = Document | Block | Inline | Text;
 export type NodeJSON = DocumentJSON | BlockJSON | InlineJSON | TextJSON;
 export type NodeProperties =
     | DocumentProperties
@@ -460,7 +454,6 @@ export type NodeProperties =
     | InlineProperties
     | TextProperties;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseNode extends Immutable.Record({}) {
     data: Data;
     type: string;
@@ -472,20 +465,23 @@ declare class BaseNode extends Immutable.Record({}) {
 
     static isNode(maybeNode: any): maybeNode is Node;
     static isNodeList(
-        maybeNodeList: any
+        maybeNodeList: any,
     ): maybeNodeList is Immutable.List<Node>;
     static createProperties(
-        attrs: NodeProperties | string | Node
+        attrs: NodeProperties | string | Node,
     ): NodeProperties;
     static fromJSON(value: NodeJSON | NodeProperties | Node): Node;
     static fromJS(value: NodeJSON | NodeProperties | Node): Node;
 
     addMark(path: Path, mark: Mark): Node;
     ancestors(path: Path): Iterable<[Node, Immutable.List<number>]>;
-    blocks(options?: IterableOptions & {
-        onlyLeaves?: boolean;
-        onlyRoots?: boolean;
-        onlyTypes?: string[]}): Iterable<[Block, Immutable.List<number>]>;
+    blocks(
+        options?: IterableOptions & {
+            onlyLeaves?: boolean | undefined;
+            onlyRoots?: boolean | undefined;
+            onlyTypes?: string[] | undefined;
+        },
+    ): Iterable<[Block, Immutable.List<number>]>;
     createAnnotation(properties: AnnotationProperties | AnnotationJSON | Annotation): Annotation;
     createDecoration(properties: DecorationProperties | DecorationJSON | Decoration): Decoration;
     createIterable(options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
@@ -554,20 +550,24 @@ declare class BaseNode extends Immutable.Record({}) {
     hasDescendant(path: Path): boolean;
     hasNode(path: Path): boolean;
     hasVoidParent(path: Path, editor: Editor): boolean;
-    inlines(options?: IterableOptions & {
-        onlyLeaves?: boolean;
-        onlyRoots?: boolean;
-        onlyTypes?: string[]}): Iterable<[Inline, Immutable.List<number>]>;
+    inlines(
+        options?: IterableOptions & {
+            onlyLeaves?: boolean | undefined;
+            onlyRoots?: boolean | undefined;
+            onlyTypes?: string[] | undefined;
+        },
+    ): Iterable<[Inline, Immutable.List<number>]>;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
         offset: number,
-        text: string
+        text: string,
     ): Node;
     isLeafBlock(): this is Block;
     isLeafInline(): this is Inline;
     isInRange(path: Path, range: RangeTypeProperties | RangeTypeJSON | RangeType): boolean;
     mapChildren(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     mapDescendants(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node | void;
     marks(options?: IterableOptions & { onlyTypes: string[] }): Iterable<[Mark, Node, Immutable.List<number>]>;
     mergeNode(path: Path): Node;
@@ -588,11 +588,12 @@ declare class BaseNode extends Immutable.Record({}) {
     setMark(
         path: Path,
         properties: MarkProperties,
-        newProperties: MarkProperties
+        newProperties: MarkProperties,
     ): Node;
     siblings(path: Path, options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
     texts(options: IterableOptions): Iterable<[Text, Immutable.List<number>]>;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(editor: Editor): Error | void;
 
     /**
@@ -604,60 +605,75 @@ declare class BaseNode extends Immutable.Record({}) {
     getInlinesAtRange(range: RangeProperties | RangeJSON | Range): Immutable.List<Inline>;
     getInlinesAtRangeAsArray(range: RangeProperties | RangeJSON | Range): Inline[];
     getNextTextAndPath(path: Path): Text | null;
-    getNextDeepMatchingNodeAndPath(path: Immutable.List<number>, iterator?: () => boolean): null | [Node, Immutable.List<number>];
+    getNextDeepMatchingNodeAndPath(
+        path: Immutable.List<number>,
+        iterator?: () => boolean,
+    ): null | [Node, Immutable.List<number>];
     getPreviousTextAndPath(path: Path): Text | null;
     findFirstDescendantAndPath(
         iterator: (
             node: Node,
             path: Immutable.List<number>,
-            nodes: Immutable.List<Node>
+            nodes: Immutable.List<Node>,
         ) => boolean,
-        pathToThisNode: Immutable.List<number>
+        pathToThisNode: Immutable.List<number>,
     ): [Node, Immutable.List<number>] | null;
-    getPreviousMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>] | null;
-    getPreviousDeepMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>] | null;
+    getPreviousMatchingNodeAndPath(
+        path: Immutable.List<number>,
+        iterator?: (node: Node) => boolean,
+    ): [Node, Immutable.List<number>] | null;
+    getPreviousDeepMatchingNodeAndPath(
+        path: Immutable.List<number>,
+        iterator?: (node: Node) => boolean,
+    ): [Node, Immutable.List<number>] | null;
     findLastDescendantAndPath(
         iterator: (
             node: Node,
             path: Immutable.List<number>,
-            nodes: Immutable.List<Node>
+            nodes: Immutable.List<Node>,
         ) => boolean,
-        pathToThisNode: Immutable.List<number>
+        pathToThisNode: Immutable.List<number>,
     ): [Node, Immutable.List<number>] | null;
     findDescendantAndPath(
         iterator: (
             node: Node,
             path: Immutable.List<number>,
-            nodes: Immutable.List<Node>
+            nodes: Immutable.List<Node>,
         ) => boolean,
         path?: Immutable.List<number>,
-        findLast?: boolean
+        findLast?: boolean,
     ): [Node, Immutable.List<number>] | null;
     forEachDescendantWithPath(
         iterator: (
             node: Node,
             path: Immutable.List<number>,
-            nodes: Immutable.List<Node>
+            nodes: Immutable.List<Node>,
         ) => boolean,
         path?: Immutable.List<number>,
-        findLast?: boolean
+        findLast?: boolean,
     ): boolean;
-    getNextMatchingNodeAndPath(path: Immutable.List<number>, iterator?: (node: Node) => boolean): [Node, Immutable.List<number>]| null;
-    getSelectionIndexes(range: RangeType, isSelected?: boolean): { start: number, end: number } | boolean | null;
+    getNextMatchingNodeAndPath(
+        path: Immutable.List<number>,
+        iterator?: (node: Node) => boolean,
+    ): [Node, Immutable.List<number>] | null;
+    getSelectionIndexes(range: RangeType, isSelected?: boolean): { start: number; end: number } | boolean | null;
     getTextsBetweenPositionsAsArray(startPath: Path, endPath: Path): Array<Node | null>;
     getOrderedMarksBetweenPositions(
         startPath: Path,
         startOffset: number,
         endPath: Path,
-        endOffset: number
+        endOffset: number,
     ): Immutable.OrderedSet<Mark>;
     getTextsBetweenPathPositionsAsArray(
         startPath: Immutable.List<number>,
-        endPath: Immutable.List<number>
+        endPath: Immutable.List<number>,
     ): Array<Node | null>;
     getFurthestAncestor(path: Path): Node | null;
     getLeafBlocksAtRangeAsArray(range: Range | RangeProperties | RangeJSON): Block[];
-    getLeafBlocksBetweenPathPositionsAsArray(startPath: Immutable.List<number>, endPath: Immutable.List<number>): Block[];
+    getLeafBlocksBetweenPathPositionsAsArray(
+        startPath: Immutable.List<number>,
+        endPath: Immutable.List<number>,
+    ): Block[];
     getBlocksAsArray(): Block[];
     getBlocksByTypeAsArray(type: string): Block[];
     getFurthestOnlyChildAncestor(path: Path): Node | null;
@@ -680,24 +696,24 @@ declare class BaseNode extends Immutable.Record({}) {
      * Assertion variants.
      */
 
-     assertChild(path: Path): Node;
-     assertDepth(path: Path, startAt?: number): number;
-     assertDescendant(path: Path): Node;
-     assertNode(path: Path): Node;
-     assertParent(path: Path): Node;
-     assertPath(key: Path): Immutable.List<number>;
+    assertChild(path: Path): Node;
+    assertDepth(path: Path, startAt?: number): number;
+    assertDescendant(path: Path): Node;
+    assertNode(path: Path): Node;
+    assertParent(path: Path): Node;
+    assertPath(key: Path): Immutable.List<number>;
 }
 
 export interface MarkProperties {
-    object?: "mark";
+    object?: "mark" | undefined;
     type: string;
-    data?: Data | { [key: string]: any };
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface MarkJSON {
-    object?: "mark";
+    object?: "mark" | undefined;
     type: string;
-    data?: { [key: string]: any };
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Mark extends Immutable.Record({}) {
@@ -709,9 +725,9 @@ export class Mark extends Immutable.Record({}) {
     static createSet(
         element?:
             | Array<MarkProperties | MarkJSON | Mark | string>
-            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Immutable.Set<Mark>;
-    static createProperties(attrs: Partial<MarkProperties | MarkJSON  | Mark | string>): MarkProperties;
+    static createProperties(attrs: Partial<MarkProperties | MarkJSON | Mark | string>): MarkProperties;
     static fromJSON(properties: MarkProperties | MarkJSON | Mark): Mark;
     static fromJS(properties: MarkProperties | MarkJSON | Mark): Mark;
     static isMark(maybeMark: any): maybeMark is Mark;
@@ -722,19 +738,19 @@ export class Mark extends Immutable.Record({}) {
 }
 
 export interface SelectionProperties {
-    object?: "selection";
-    anchor?: Point;
-    focus?: Point;
-    isFocused?: boolean;
-    marks?: Immutable.Set<Mark> | Mark[];
+    object?: "selection" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
+    isFocused?: boolean | undefined;
+    marks?: Immutable.Set<Mark> | Mark[] | undefined;
 }
 
 export interface SelectionJSON {
-    object?: "selection";
-    anchor?: PointJSON;
-    focus?: PointJSON;
-    isFocused?: boolean;
-    marks?: MarkJSON[];
+    object?: "selection" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
+    isFocused?: boolean | undefined;
+    marks?: MarkJSON[] | undefined;
 }
 
 export class Selection extends BaseRange {
@@ -750,22 +766,24 @@ export class Selection extends BaseRange {
         properties:
             | RangeTypeProperties
             | RangeTypeJSON
-            | RangeType
+            | RangeType,
     ): Selection;
     static createProperties(
         attrs:
             | RangeTypeProperties
             | RangeTypeJSON
             | RangeType
-            | string
+            | string,
     ): SelectionProperties;
-    static fromJSON(properties:
-        | RangeTypeProperties
-        | RangeTypeJSON
+    static fromJSON(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON,
     ): Selection;
-    static fromJS(properties:
-        | RangeTypeProperties
-        | RangeTypeJSON
+    static fromJS(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON,
     ): Selection;
 
     toJSON(): SelectionJSON;
@@ -774,24 +792,25 @@ export class Selection extends BaseRange {
     isSelection(maybeSelection: any): maybeSelection is Selection;
     setIsFocused(value: boolean): Selection;
     setMarks(marks: Immutable.Set<Mark>): Selection;
-    setProperties(properties:
-        | RangeTypeProperties
-        | RangeTypeJSON
-        | RangeType
-        | string
+    setProperties(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType
+            | string,
     ): Selection;
 }
 
 export interface RangeProperties {
-    object?: "range";
-    anchor?: Point;
-    focus?: Point;
+    object?: "range" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
 }
 
 export interface RangeJSON {
-    object?: "range";
-    anchor?: PointJSON;
-    focus?: PointJSON;
+    object?: "range" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
 }
 
 export class Range extends BaseRange {
@@ -803,33 +822,33 @@ export class Range extends BaseRange {
     static createList(
         elements?:
             | Array<RangeTypeProperties | RangeTypeJSON | RangeType>
-            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>
+            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>,
     ): Immutable.List<Range>;
     static createProperties(
-        attrs: RangeTypeProperties | RangeTypeJSON | RangeType
+        attrs: RangeTypeProperties | RangeTypeJSON | RangeType,
     ): RangeProperties;
     static fromJSON(properties: RangeTypeJSON): Range;
     static fromJS(properties: RangeTypeJSON): Range;
     static isRange(maybeRange: any): maybeRange is RangeType;
 
-    toJSON(options?: { preserveKeys?: boolean }): RangeJSON;
-    toJS(options?: { preserveKeys?: boolean }): RangeJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): RangeJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): RangeJSON;
 }
 
 export interface DecorationProperties {
-    object?: "decoration";
-    anchor?: Point;
-    focus?: Point;
-    type?: string;
-    data?: Data | { [key: string]: any };
+    object?: "decoration" | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
+    type?: string | undefined;
+    data?: Data | { [key: string]: any } | undefined;
 }
 
 export interface DecorationJSON {
-    object?: "decoration";
-    anchor?: PointJSON;
-    focus?: PointJSON;
-    type?: string;
-    data?: { [key: string]: any };
+    object?: "decoration" | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
+    type?: string | undefined;
+    data?: { [key: string]: any } | undefined;
 }
 
 export class Decoration extends BaseRange {
@@ -839,21 +858,22 @@ export class Decoration extends BaseRange {
     type: string;
     data: Data;
 
-    static create(properties:
-        | RangeTypeProperties
-        | RangeTypeJSON
-        | RangeType
+    static create(
+        properties:
+            | RangeTypeProperties
+            | RangeTypeJSON
+            | RangeType,
     ): Decoration;
     static createList(
         elements?:
             | Array<RangeTypeProperties | RangeTypeJSON | RangeType>
-            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>
+            | Immutable.List<RangeTypeProperties | RangeTypeJSON | RangeType>,
     ): Immutable.List<Decoration>;
     static createProperties(
-        attrs: RangeTypeProperties | RangeTypeJSON | RangeType
+        attrs: RangeTypeProperties | RangeTypeJSON | RangeType,
     ): DecorationProperties;
-    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
-    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON }): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON | undefined }): Decoration;
+    static fromJSON(properties: DecorationJSON & { mark?: MarkJSON | undefined }): Decoration;
     static isDecoration(maybeDecoration: any): maybeDecoration is Decoration;
 
     setProperties(properties: RangeTypeProperties | RangeTypeJSON | RangeType): Decoration;
@@ -863,21 +883,21 @@ export class Decoration extends BaseRange {
 }
 
 export interface AnnotationProperties {
-    object?: "annotation";
+    object?: "annotation" | undefined;
     key: string;
     type: string;
-    data?: Data | { [key: string]: any };
-    anchor?: Point;
-    focus?: Point;
+    data?: Data | { [key: string]: any } | undefined;
+    anchor?: Point | undefined;
+    focus?: Point | undefined;
 }
 
 export interface AnnotationJSON {
-    object?: "annotation";
+    object?: "annotation" | undefined;
     key: string;
     type: string;
-    data?: { [key: string]: any };
-    anchor?: PointJSON;
-    focus?: PointJSON;
+    data?: { [key: string]: any } | undefined;
+    anchor?: PointJSON | undefined;
+    focus?: PointJSON | undefined;
 }
 
 export class Annotation extends BaseRange {
@@ -892,10 +912,10 @@ export class Annotation extends BaseRange {
     static createMap(
         elements?:
             | { [key: string]: Annotation | AnnotationProperties | AnnotationJSON }
-            | Immutable.Map<string, Annotation>
+            | Immutable.Map<string, Annotation>,
     ): Immutable.Map<string, Annotation>;
     static createProperties(
-        attrs: AnnotationProperties | AnnotationJSON | Annotation
+        attrs: AnnotationProperties | AnnotationJSON | Annotation,
     ): AnnotationProperties;
     static fromJSON(properties: AnnotationProperties | AnnotationJSON): Annotation;
     static fromJS(properties: AnnotationProperties | AnnotationJSON): Annotation;
@@ -916,7 +936,6 @@ export type RangeTypeProperties =
 export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON | AnnotationJSON;
 export type RangeType = Range | Selection | Decoration | Annotation;
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare class BaseRange extends Immutable.Record({}) {
     readonly isCollapsed: boolean;
     readonly isExpanded: boolean;
@@ -975,7 +994,7 @@ declare class BaseRange extends Immutable.Record({}) {
     updatePoints(updater: (point: Point) => Point): RangeType;
     setStart(point: Point): RangeType;
     setProperties(
-        properties: RangeTypeProperties | RangeTypeJSON | RangeType
+        properties: RangeTypeProperties | RangeTypeJSON | RangeType,
     ): RangeType;
 
     toJSON(): RangeTypeJSON;
@@ -985,17 +1004,17 @@ declare class BaseRange extends Immutable.Record({}) {
 }
 
 export interface PointProperties {
-    object?: "point";
-    key?: string;
-    offset?: number;
-    path?: Immutable.List<number>;
+    object?: "point" | undefined;
+    key?: string | undefined;
+    offset?: number | undefined;
+    path?: Immutable.List<number> | undefined;
 }
 
 export interface PointJSON {
-    object?: "point";
-    key?: string;
-    offset?: number;
-    path?: number[];
+    object?: "point" | undefined;
+    key?: string | undefined;
+    offset?: number | undefined;
+    path?: number[] | undefined;
 }
 
 export class Point extends Immutable.Record({}) {
@@ -1033,8 +1052,8 @@ export class Point extends Immutable.Record({}) {
     setKey(key: string): this;
     setOffset(offset: number): this;
     setPath(path: Immutable.List<number> | number[]): this;
-    toJSON(options?: { preserveKeys?: boolean }): PointJSON;
-    toJS(options?: { preserveKeys?: boolean }): PointJSON;
+    toJSON(options?: { preserveKeys?: boolean | undefined }): PointJSON;
+    toJS(options?: { preserveKeys?: boolean | undefined }): PointJSON;
     unset(): this;
 }
 
@@ -1057,55 +1076,59 @@ export type Operation =
     | SetValueOperation;
 
 export interface OperationProperties {
-    object?: "operation";
+    object?: "operation" | undefined;
     type: string;
-    text?: string;
-    target?: number;
+    text?: string | undefined;
+    target?: number | undefined;
     properties?:
         | NodeProperties
         | ValueProperties
         | SelectionProperties
-        | AnnotationProperties;
-    position?: number;
-    path?: Immutable.List<number>;
-    offset?: number;
-    node?: Node;
+        | AnnotationProperties
+        | undefined;
+    position?: number | undefined;
+    path?: Immutable.List<number> | undefined;
+    offset?: number | undefined;
+    node?: Node | undefined;
     newProperties?:
         | NodeProperties
         | ValueProperties
         | SelectionProperties
         | MarkProperties
-        | AnnotationProperties;
-    newPath?: Immutable.List<number>;
-    mark?: Mark;
-    data?: Data | { [key: string]: any };
-    annotation?: Annotation;
+        | AnnotationProperties
+        | undefined;
+    newPath?: Immutable.List<number> | undefined;
+    mark?: Mark | undefined;
+    data?: Data | { [key: string]: any } | undefined;
+    annotation?: Annotation | undefined;
 }
 
 export interface OperationJSON {
-    object?: "operation";
+    object?: "operation" | undefined;
     type: string;
-    text?: string;
-    target?: number;
+    text?: string | undefined;
+    target?: number | undefined;
     properties?:
         | NodeJSON
         | ValueJSON
         | SelectionJSON
-        | AnnotationJSON;
-    position?: number;
-    path?: number[];
-    offset?: number;
-    node?: Node;
+        | AnnotationJSON
+        | undefined;
+    position?: number | undefined;
+    path?: number[] | undefined;
+    offset?: number | undefined;
+    node?: Node | undefined;
     newProperties?:
         | NodeJSON
         | ValueJSON
         | SelectionJSON
         | MarkJSON
-        | AnnotationJSON;
-    newPath?: number[];
-    mark?: MarkJSON;
-    data?: { [key: string]: any };
-    annotation?: AnnotationJSON;
+        | AnnotationJSON
+        | undefined;
+    newPath?: number[] | undefined;
+    mark?: MarkJSON | undefined;
+    data?: { [key: string]: any } | undefined;
+    annotation?: AnnotationJSON | undefined;
 }
 
 export class BaseOperation extends Immutable.Record({}) {
@@ -1290,14 +1313,14 @@ export namespace PathUtils {
      */
     function compare(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): number | null;
 
     /**
      * Create a path from `attrs`.
      */
     function create(
-        attrs: Immutable.List<number> | number[]
+        attrs: Immutable.List<number> | number[],
     ): Immutable.List<number>;
 
     /**
@@ -1306,7 +1329,7 @@ export namespace PathUtils {
     function crop(
         a: Immutable.List<number>,
         b: Immutable.List<number>,
-        size?: number
+        size?: number,
     ): Array<Immutable.List<number>>;
 
     /**
@@ -1315,14 +1338,14 @@ export namespace PathUtils {
     function decrement(
         path: Immutable.List<number>,
         n?: number,
-        index?: number
+        index?: number,
     ): Immutable.List<number>;
 
     /**
      * Get all ancestor paths of the given path.
      */
     function getAncestors(
-        path: Immutable.List<number>
+        path: Immutable.List<number>,
     ): Immutable.List<number>;
 
     /**
@@ -1331,7 +1354,7 @@ export namespace PathUtils {
     function increment(
         path: Immutable.List<number>,
         n?: number,
-        index?: number
+        index?: number,
     ): Immutable.List<number>;
 
     /**
@@ -1339,7 +1362,7 @@ export namespace PathUtils {
      */
     function isAbove(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1347,7 +1370,7 @@ export namespace PathUtils {
      */
     function isAfter(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1355,7 +1378,7 @@ export namespace PathUtils {
      */
     function isBefore(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1363,7 +1386,7 @@ export namespace PathUtils {
      */
     function isEqual(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1372,22 +1395,22 @@ export namespace PathUtils {
      */
     function isOlder(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
      * Is an `any` object a path?
      */
     function isPath(
-        maybePath: any
-    ): maybePath is (Immutable.List<number> | number[]);
+        maybePath: any,
+    ): maybePath is Immutable.List<number> | number[];
 
     /**
      * Is a `path` a sibling of a `target` path?
      */
     function isSibling(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1396,7 +1419,7 @@ export namespace PathUtils {
      */
     function isYounger(
         path: Immutable.List<number>,
-        target: Immutable.List<number>
+        target: Immutable.List<number>,
     ): boolean;
 
     /**
@@ -1404,7 +1427,7 @@ export namespace PathUtils {
      */
     function lift(
         path: Immutable.List<number>,
-        n?: number
+        n?: number,
     ): Immutable.List<number>;
 
     /**
@@ -1412,7 +1435,7 @@ export namespace PathUtils {
      */
     function drop(
         path: Immutable.List<number>,
-        n?: number
+        n?: number,
     ): Immutable.List<number>;
 
     /**
@@ -1420,7 +1443,7 @@ export namespace PathUtils {
      */
     function max(
         a: Immutable.List<number>,
-        b: Immutable.List<number>
+        b: Immutable.List<number>,
     ): number;
 
     /**
@@ -1428,7 +1451,7 @@ export namespace PathUtils {
      */
     function min(
         a: Immutable.List<number>,
-        b: Immutable.List<number>
+        b: Immutable.List<number>,
     ): number;
 
     /**
@@ -1436,7 +1459,7 @@ export namespace PathUtils {
      */
     function relate(
         a: Immutable.List<number>,
-        b: Immutable.List<number>
+        b: Immutable.List<number>,
     ): Immutable.List<number>;
 
     /**
@@ -1444,7 +1467,7 @@ export namespace PathUtils {
      */
     function transform(
         path: Immutable.List<number>,
-        operation: Operation | OperationJSON | OperationProperties
+        operation: Operation | OperationJSON | OperationProperties,
     ): Immutable.List<Immutable.List<number>>;
 }
 
@@ -1462,39 +1485,41 @@ export type CommandFunc<T extends Controller = Controller> = (editor: T, ...args
 export type QueryFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => any;
 
 export interface Plugin<T extends Controller = Controller> {
-    normalizeNode?: (node: Node, editor: T, next: () => void) => ((editor: T) => void) | void;
-    onChange?: (editor: T, next: () => void) => void;
-    onCommand?: (command: Command, editor: T, next: () => void) => void;
-    onConstruct?: (editor: T, next: () => void) => void;
-    onQuery?: (query: Query, editor: T, next: () => void) => void;
-    validateNode?: (node: Node, editor: T, next: () => void) => SlateError | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    normalizeNode?: ((node: Node, editor: T, next: () => void) => ((editor: T) => void) | void) | undefined;
+    onChange?: ((editor: T, next: () => void) => void) | undefined;
+    onCommand?: ((command: Command, editor: T, next: () => void) => void) | undefined;
+    onConstruct?: ((editor: T, next: () => void) => void) | undefined;
+    onQuery?: ((query: Query, editor: T, next: () => void) => void) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    validateNode?: ((node: Node, editor: T, next: () => void) => SlateError | void) | undefined;
 
-    commands?: {[name: string]: CommandFunc<T>};
-    queries?: {[name: string]: QueryFunc<T>};
-    schema?: SchemaProperties;
+    commands?: { [name: string]: CommandFunc<T> } | undefined;
+    queries?: { [name: string]: QueryFunc<T> } | undefined;
+    schema?: SchemaProperties | undefined;
 }
 
 export interface Plugins<T extends Controller = Controller> extends Array<Plugin<T> | Plugins<T>> {}
 
 export interface EditorProperties<T extends Controller = Controller> {
-    object?: "editor";
-    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
-    plugins?: Plugins<T>;
-    readOnly?: boolean;
-    value?: Value;
+    object?: "editor" | undefined;
+    onChange?: ((change: { operations: Immutable.List<Operation>; value: Value }) => void) | undefined;
+    plugins?: Plugins<T> | undefined;
+    readOnly?: boolean | undefined;
+    value?: Value | undefined;
 }
 
 export interface EditorOptions {
-    controller?: Controller;
-    construct?: boolean;
-    normalize?: boolean;
+    controller?: Controller | undefined;
+    construct?: boolean | undefined;
+    normalize?: boolean | undefined;
 }
 
 export class Editor implements Controller {
     object: "editor";
     controller: Controller;
     middleware: object;
-    onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    onChange: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
     operations: Immutable.List<Operation>;
     plugins: Array<Plugin<Editor>>;
     readOnly: boolean;
@@ -1520,20 +1545,30 @@ export class Editor implements Controller {
     isEditor(maybeEditor: any): maybeEditor is Editor;
 
     addMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    addMarks(mark: Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
+    addMarks(
+        mark: Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>,
+    ): Editor;
     delete(): Editor;
     deleteBackward(n?: number): Editor;
     deleteForward(n?: number): Editor;
     insertBlock(block: string | Block | BlockProperties | BlockJSON): Editor;
     insertFragment(fragment: Document): Editor;
     insertInline(inline: string | Inline | InlineProperties | InlineJSON): Editor;
-    insertText(text: string, marks?: Immutable.Set<string | MarkProperties | MarkJSON | Mark> | Array<string | MarkProperties | MarkJSON | Mark>): Editor;
+    insertText(
+        text: string,
+        marks?:
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+            | Array<string | MarkProperties | MarkJSON | Mark>,
+    ): Editor;
     setBlocks(properties: string | Block | BlockProperties | BlockJSON): Editor;
     setInlines(properties: string | Inline | InlineProperties): Editor;
     splitBlock(depth?: number): Editor;
     splitInline(depth: number): Editor;
     removeMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    replaceMark(mark: string | MarkProperties | MarkJSON | Mark, newMark: string | MarkProperties | MarkJSON | Mark): Editor;
+    replaceMark(
+        mark: string | MarkProperties | MarkJSON | Mark,
+        newMark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
     toggleMark(mark: string | MarkProperties | MarkJSON | Mark): Editor;
     unwrapBlock(properties: string | Block | BlockProperties | BlockJSON): Editor;
     unwrapInline(properties: string | Inline | InlineProperties | InlineJSON): Editor;
@@ -1686,53 +1721,97 @@ export class Editor implements Controller {
     moveToRangeOfDocument(): Editor;
     moveToRangeOfNode(node: Block | Document | Inline | Text): Editor;
     select(
-        properties: string | RangeTypeProperties| RangeTypeJSON | RangeType,
-        options?: { snapshot?: boolean }
+        properties: string | RangeTypeProperties | RangeTypeJSON | RangeType,
+        options?: { snapshot?: boolean | undefined },
     ): Editor;
     setAnchor(point: Point): void;
     setEnd(point: Point): void;
     setFocus(point: Point): void;
     setStart(point: Point): void;
-    addMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | Mark): Editor;
-    addMarksAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, marks: Array<string | MarkProperties | MarkJSON | Mark> | Immutable.Set<string | MarkProperties | MarkJSON | Mark>): Editor;
-    deleteAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteCharBackward(): Editor;
-    deleteCharBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteLineBackward(): Editor;
-    deleteLineBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteWordBackward(): Editor;
-    deleteWordBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteBackwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, n?: number): Editor;
-    deleteCharForward(): Editor;
-    deleteCharForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteLineForward(): Editor;
-    deleteLineForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteWordForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType): Editor;
-    deleteWordForward(): Editor;
-    deleteForwardAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, n?: number): Editor;
-    insertBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, block: string | Block | BlockProperties | BlockJSON): Editor;
-    insertFragmentAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, fragment: Document): Editor;
-    insertInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, inline: Inline | InlineProperties | InlineJSON): Editor;
-    insertTextAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, text: string): Editor;
-    setBlocksAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
-    setInlinesAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
-    splitBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, height?: number): Editor;
-    splitInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, height?: number): Editor;
-    removeMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    toggleMarkAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    unwrapBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
-    unwrapInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
-    wrapBlockAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Block | BlockProperties | BlockJSON): Editor;
-    wrapInlineAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, properties: string | Inline | InlineProperties | InlineJSON): Editor;
-    wrapTextAtRange(range: RangeTypeProperties| RangeTypeJSON | RangeType, prefix: string, suffix?: string): Editor;
-    addMarkByKey(key: string, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    addMarkByPath(path: Immutable.List<number>, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    addMarksByPath(
-        path: Immutable.List<number>,
-        offset: number, length: number,
+    addMarkAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        mark: string | MarkProperties | Mark,
+    ): Editor;
+    addMarksAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
         marks:
             | Array<string | MarkProperties | MarkJSON | Mark>
-            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>,
+    ): Editor;
+    deleteAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteCharBackward(): Editor;
+    deleteCharBackwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteLineBackward(): Editor;
+    deleteLineBackwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteWordBackward(): Editor;
+    deleteWordBackwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteBackwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, n?: number): Editor;
+    deleteCharForward(): Editor;
+    deleteCharForwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteLineForward(): Editor;
+    deleteLineForwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteWordForwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType): Editor;
+    deleteWordForward(): Editor;
+    deleteForwardAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, n?: number): Editor;
+    insertBlockAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        block: string | Block | BlockProperties | BlockJSON,
+    ): Editor;
+    insertFragmentAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, fragment: Document): Editor;
+    insertInlineAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        inline: Inline | InlineProperties | InlineJSON,
+    ): Editor;
+    insertTextAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, text: string): Editor;
+    setBlocksAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Block | BlockProperties | BlockJSON,
+    ): Editor;
+    setInlinesAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Inline | InlineProperties | InlineJSON,
+    ): Editor;
+    splitBlockAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, height?: number): Editor;
+    splitInlineAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, height?: number): Editor;
+    removeMarkAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        mark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
+    toggleMarkAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        mark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
+    unwrapBlockAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Block | BlockProperties | BlockJSON,
+    ): Editor;
+    unwrapInlineAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Inline | InlineProperties | InlineJSON,
+    ): Editor;
+    wrapBlockAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Block | BlockProperties | BlockJSON,
+    ): Editor;
+    wrapInlineAtRange(
+        range: RangeTypeProperties | RangeTypeJSON | RangeType,
+        properties: string | Inline | InlineProperties | InlineJSON,
+    ): Editor;
+    wrapTextAtRange(range: RangeTypeProperties | RangeTypeJSON | RangeType, prefix: string, suffix?: string): Editor;
+    addMarkByKey(key: string, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    addMarkByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        mark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
+    addMarksByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        marks:
+            | Array<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>,
     ): Editor;
     insertNodeByKey(key: string, index: number, node: Block | Document | Inline | Text): Editor;
     insertNodeByPath(path: Immutable.List<number>, index: number, node: Block | Document | Inline | Text): Editor;
@@ -1744,7 +1823,7 @@ export class Editor implements Controller {
         text: string,
         marks?:
             | Array<string | MarkProperties | MarkJSON | Mark>
-            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>,
     ): Editor;
     insertTextByPath(
         path: Immutable.List<number>,
@@ -1752,14 +1831,24 @@ export class Editor implements Controller {
         text: string,
         marks?:
             | Array<string | MarkProperties | MarkJSON | Mark>
-            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>,
     ): Editor;
     mergeNodeByKey(key: string): Editor;
     mergeNodeByPath(path: Immutable.List<number>): Editor;
     moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
     moveNodeByPath(path: Immutable.List<number>, newPath: Immutable.List<number>, newIndex: number): Editor;
-    removeMarkByKey(key: string, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
-    removeMarkByPath(path: Immutable.List<number>, offset: number, length: number, mark: string | MarkProperties | MarkJSON | Mark): Editor;
+    removeMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
+    removeMarkByPath(
+        path: Immutable.List<number>,
+        offset: number,
+        length: number,
+        mark: string | MarkProperties | MarkJSON | Mark,
+    ): Editor;
     removeAllMarksByKey(key: string): Editor;
     removeAllMarksByPath(path: Immutable.List<number>): Editor;
     removeMarksByPath(
@@ -1768,7 +1857,7 @@ export class Editor implements Controller {
         length: number,
         marks:
             | Array<string | MarkProperties | MarkJSON | Mark>
-            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>
+            | Immutable.Set<string | MarkProperties | MarkJSON | Mark>,
     ): Editor;
     removeNodeByKey(key: string): Editor;
     removeNodeByPath(path: Immutable.List<number>): Editor;
@@ -1782,21 +1871,21 @@ export class Editor implements Controller {
         offset: number,
         length: number,
         text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
+        marks?: Immutable.Set<Mark> | Mark[],
     ): Editor;
     setMarkByKey(
         key: string,
         offset: number,
         length: number,
         properties: string | MarkProperties | MarkJSON | Mark,
-        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
+        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>,
     ): Editor;
     setMarkByPath(
         path: Immutable.List<number>,
         offset: number,
         length: number,
         properties: string | MarkProperties | MarkJSON | Mark,
-        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>
+        newProperties: string | Partial<MarkProperties> | Partial<MarkJSON> | Partial<Mark>,
     ): Editor;
     setNodeByKey(key: string, properties: string | Partial<BlockProperties> | Partial<InlineProperties>): Editor;
     setNodeByPath(path: Immutable.List<number>, newProperties: string | NodeProperties): Editor;
@@ -1805,7 +1894,7 @@ export class Editor implements Controller {
     splitDescendantsByKey(key: string, textKey: string, textOffset: number): Editor;
     splitDescendantsByPath(path: Immutable.List<number>, textPath: Immutable.List<number>, textOffset: number): Editor;
     splitNodeByKey(key: string, offset: number): Editor;
-    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Editor;
+    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number | undefined }): Editor;
     unwrapInlineByKey(key: string, properties: string | InlineProperties): Editor;
     unwrapInlineByPath(path: Path, properties: string | InlineProperties): Editor;
     unwrapBlockByKey(key: string, properties: string | BlockProperties): Editor;
@@ -1848,9 +1937,10 @@ export interface Controller {
      * Add a mark to the characters in the current selection
      */
     addMark(mark: MarkProperties | MarkJSON | Mark | string): Controller;
-    addMarks(mark:
-        | Set<MarkProperties | MarkJSON | Mark | string>
-        | Array<MarkProperties | MarkJSON | Mark | string>
+    addMarks(
+        mark:
+            | Set<MarkProperties | MarkJSON | Mark | string>
+            | Array<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Delete everything in the current selection.
@@ -1927,7 +2017,7 @@ export interface Controller {
      */
     replaceMark(
         mark: MarkProperties | MarkJSON | Mark | string,
-        newMark: MarkProperties | MarkJSON | Mark | string
+        newMark: MarkProperties | MarkJSON | Mark | string,
     ): Controller;
 
     /**
@@ -2528,7 +2618,7 @@ export interface Controller {
             | RangeTypeJSON
             | RangeType
             | string,
-        options?: { snapshot?: boolean }
+        options?: { snapshot?: boolean | undefined },
     ): Controller;
     setAnchor(point: Point): void;
     setEnd(point: Point): void;
@@ -2543,12 +2633,13 @@ export interface Controller {
      */
     addMarkAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        mark: Mark | MarkProperties | string): Controller;
+        mark: Mark | MarkProperties | string,
+    ): Controller;
     addMarksAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
         marks:
             | Array<MarkProperties | MarkJSON | Mark | string>
-            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Delete everything in the range
@@ -2616,14 +2707,14 @@ export interface Controller {
      */
     insertBlockAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        block: Block | BlockProperties | BlockJSON | string
+        block: Block | BlockProperties | BlockJSON | string,
     ): Controller;
     /**
      * Insert a document fragment at a range, if the range is expanded, it will be deleted first.
      */
     insertFragmentAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        fragment: Document
+        fragment: Document,
     ): Controller;
     /**
      * Insert a new inline at range, splitting text to make room if it is non-empty.
@@ -2631,22 +2722,22 @@ export interface Controller {
      */
     insertInlineAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        inline: Inline | InlineJSON | InlineProperties
+        inline: Inline | InlineJSON | InlineProperties,
     ): Controller;
     /**
      * Insert text at range. If the range is expanded it will be deleted first
      */
     insertTextAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        text: string
-        ): Controller;
+        text: string,
+    ): Controller;
     /**
      * Set the properties of the block nodes in a range.
      * Passing a string will set the nodes' type only
      */
     setBlocksAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: Block | BlockJSON | BlockProperties | string
+        properties: Block | BlockJSON | BlockProperties | string,
     ): Controller;
     /**
      * Set the properties of the inline nodes in a range.
@@ -2654,21 +2745,21 @@ export interface Controller {
      */
     setInlinesAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: InlineProperties | InlineJSON | Inline | string
+        properties: InlineProperties | InlineJSON | Inline | string,
     ): Controller;
     /**
      * Split the block nodes at a `range`, to optional `height`.
      */
     splitBlockAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        height?: number
+        height?: number,
     ): Controller;
     /**
      * Split the inline nodes at a `range`, to optional `height`.
      */
     splitInlineAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        height?: number
+        height?: number,
     ): Controller;
     /**
      * Remove a mark from characters in the range. Passing a string will
@@ -2676,7 +2767,7 @@ export interface Controller {
      */
     removeMarkAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        mark: Mark | MarkProperties | MarkJSON | string
+        mark: Mark | MarkProperties | MarkJSON | string,
     ): Controller;
     /**
      * Add or remove a mark from characters in the range. Passing a string will
@@ -2684,35 +2775,35 @@ export interface Controller {
      */
     toggleMarkAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        mark: Mark | MarkProperties | MarkJSON | string
+        mark: Mark | MarkProperties | MarkJSON | string,
     ): Controller;
     /**
      * Unwrap all block nodes in a range that match properties
      */
     unwrapBlockAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: BlockProperties | BlockJSON | Block | string
+        properties: BlockProperties | BlockJSON | Block | string,
     ): Controller;
     /**
      * Unwrap all inline nodes in a range that match properties
      */
     unwrapInlineAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: InlineProperties | InlineJSON | Inline | string
+        properties: InlineProperties | InlineJSON | Inline | string,
     ): Controller;
     /**
      * wrap all block nodes in a range with a new block node with the provided properties
      */
     wrapBlockAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: BlockProperties | BlockJSON | Block | string
+        properties: BlockProperties | BlockJSON | Block | string,
     ): Controller;
     /**
      * wrap all inline nodes in a range with a new inline node with the provided properties
      */
     wrapInlineAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
-        properties: InlineProperties | InlineJSON | Inline | string
+        properties: InlineProperties | InlineJSON | Inline | string,
     ): Controller;
     /**
      * Surround the text in a range with a prefix and suffix. If the suffix is ommitted,
@@ -2721,7 +2812,7 @@ export interface Controller {
     wrapTextAtRange(
         range: RangeType | RangeTypeProperties | RangeTypeJSON,
         prefix: string,
-        suffix?: string
+        suffix?: string,
     ): Controller;
 
     // Node commands //
@@ -2732,7 +2823,7 @@ export interface Controller {
         key: string,
         offset: number,
         length: number,
-        mark: MarkProperties | MarkJSON | Mark | string
+        mark: MarkProperties | MarkJSON | Mark | string,
     ): Controller;
     /**
      * Add a mark to length characters starting at an offset in a node by path
@@ -2741,7 +2832,7 @@ export interface Controller {
         path: Immutable.List<number>,
         offset: number,
         length: number,
-        mark: MarkProperties | MarkJSON | Mark | string
+        mark: MarkProperties | MarkJSON | Mark | string,
     ): Controller;
     addMarksByPath(
         path: Immutable.List<number>,
@@ -2749,7 +2840,7 @@ export interface Controller {
         length: number,
         marks:
             | Array<MarkProperties | MarkJSON | Mark | string>
-            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Insert a node at index inside a parent node by key
@@ -2776,7 +2867,7 @@ export interface Controller {
         text: string,
         marks?:
             | Array<MarkProperties | MarkJSON | Mark | string>
-            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Insert text at an offset in a text node by its path with optional marks
@@ -2787,7 +2878,7 @@ export interface Controller {
         text: string,
         marks?:
             | Array<MarkProperties | MarkJSON | Mark | string>
-            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Merge a node by its key with its previous sibling
@@ -2807,7 +2898,7 @@ export interface Controller {
     moveNodeByPath(
         path: Immutable.List<number>,
         newPath: Immutable.List<number>,
-        newIndex: number
+        newIndex: number,
     ): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by key
@@ -2816,7 +2907,7 @@ export interface Controller {
         key: string,
         offset: number,
         length: number,
-        mark: MarkProperties | MarkJSON | Mark | string
+        mark: MarkProperties | MarkJSON | Mark | string,
     ): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by path
@@ -2825,7 +2916,7 @@ export interface Controller {
         path: Immutable.List<number>,
         offset: number,
         length: number,
-        mark: MarkProperties | MarkJSON | Mark | string
+        mark: MarkProperties | MarkJSON | Mark | string,
     ): Controller;
     /**
      * Remove all `marks` from node by `key`.
@@ -2840,8 +2931,8 @@ export interface Controller {
         offset: number,
         length: number,
         marks:
-        | Array<MarkProperties | MarkJSON | Mark | string>
-        | Immutable.Set<MarkProperties | MarkJSON | Mark | string>
+            | Array<MarkProperties | MarkJSON | Mark | string>
+            | Immutable.Set<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Remove a node from the document by its key
@@ -2882,7 +2973,7 @@ export interface Controller {
         offset: number,
         length: number,
         text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
+        marks?: Immutable.Set<Mark> | Mark[],
     ): Controller;
     /**
      * Remove length characters of text starting at an offset in a node by key
@@ -2892,7 +2983,7 @@ export interface Controller {
         offset: number,
         length: number,
         properties: MarkProperties | MarkJSON | Mark | string,
-        newProperties: Partial<MarkProperties | MarkJSON | Mark | string>
+        newProperties: Partial<MarkProperties | MarkJSON | Mark | string>,
     ): Controller;
     /**
      * Set a dictionary of newProperties on a mark by its path.
@@ -2927,7 +3018,11 @@ export interface Controller {
     /**
      * Split a node deeply down the tree by `path`, `textPath` and `textOffset`.
      */
-    splitDescendantsByPath(path: Immutable.List<number>, textPath: Immutable.List<number>, textOffset: number): Controller;
+    splitDescendantsByPath(
+        path: Immutable.List<number>,
+        textPath: Immutable.List<number>,
+        textOffset: number,
+    ): Controller;
 
     /**
      * Split a node by its key at an offset
@@ -2936,7 +3031,11 @@ export interface Controller {
     /**
      * Split a node by its path at an offset
      */
-    splitNodeByPath(path: Immutable.List<number>, position: number, options?: { target?: number }): Controller;
+    splitNodeByPath(
+        path: Immutable.List<number>,
+        position: number,
+        options?: { target?: number | undefined },
+    ): Controller;
     /**
      * Unwrap all inner content of an inline node by its key that match properties
      */
@@ -3080,7 +3179,10 @@ export interface Controller {
     /**
      * Set annotation
      */
-    setAnnotation(annotation: Annotation, newProperties: AnnotationProperties | AnnotationJSON | Annotation): Controller;
+    setAnnotation(
+        annotation: Annotation,
+        newProperties: AnnotationProperties | AnnotationJSON | Annotation,
+    ): Controller;
 }
 
 export {};

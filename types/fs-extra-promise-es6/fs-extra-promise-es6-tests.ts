@@ -1,5 +1,5 @@
-import fs = require('fs-extra-promise-es6');
-import stream = require('stream');
+import fs = require("fs-extra-promise-es6");
+import stream = require("stream");
 
 let stats: fs.Stats;
 let str: string;
@@ -182,14 +182,14 @@ fs.appendFileSync(filename, data, openOpts);
 
 fs.watchFile(filename, {
     curr: stats,
-    prev: stats
+    prev: stats,
 });
 fs.watchFile(filename, {
     persistent: bool,
-    interval: num
+    interval: num,
 }, {
     curr: stats,
-    prev: stats
+    prev: stats,
 });
 fs.unwatchFile(filename);
 watcher = fs.watch(filename, { persistent: bool }, (event: string, filename: string) => {
@@ -203,12 +203,12 @@ readStream = fs.createReadStream(path, {
     flags: str,
     encoding: str,
     fd: num,
-    mode: num
+    mode: num,
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
     flags: str,
-    encoding: str
+    encoding: str,
 });
 
 function isDirectoryCallback(err: Error, isDirectory: boolean) {}

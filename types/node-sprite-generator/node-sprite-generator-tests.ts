@@ -1,39 +1,39 @@
-import nsg = require('node-sprite-generator');
-import express = require('express');
+import nsg = require("node-sprite-generator");
+import express = require("express");
 const app = express();
 
 app.use(nsg.middleware({
     src: [
-        'images/sprite/*.png'
+        "images/sprite/*.png",
     ],
-    spritePath: 'images/sprite.png',
-    stylesheetPath: 'stylus/sprite.styl'
+    spritePath: "images/sprite.png",
+    stylesheetPath: "stylus/sprite.styl",
 }));
 
 nsg({
     src: [
-        'images/sprite/*.png'
+        "images/sprite/*.png",
     ],
-    spritePath: 'images/sprite.png',
-    stylesheetPath: 'stylus/sprite.styl'
+    spritePath: "images/sprite.png",
+    stylesheetPath: "stylus/sprite.styl",
 }, err => {
-    console.log('Sprite generated!');
+    console.log("Sprite generated!");
 });
 
 nsg({
     src: [
-        'public/images/sprite/*.png'
+        "public/images/sprite/*.png",
     ],
-    spritePath: 'public/images/all-icons.png',
-    stylesheetPath: 'public/stylesheets/all-icons.css',
-    layout: 'diagonal',
+    spritePath: "public/images/all-icons.png",
+    stylesheetPath: "public/stylesheets/all-icons.css",
+    layout: "diagonal",
     layoutOptions: {
-        padding: 30
+        padding: 30,
     },
-    stylesheet: 'app/assets/sprites/template.tpl',
+    stylesheet: "app/assets/sprites/template.tpl",
     stylesheetOptions: {
-        prefix: 'all-icons',
-        spritePath: 'http://static.your-server.org/images/all-icons.png',
-        pixelRatio: 2
-    }
+        prefix: "all-icons",
+        spritePath: "http://static.your-server.org/images/all-icons.png",
+        pixelRatio: 2,
+    },
 });

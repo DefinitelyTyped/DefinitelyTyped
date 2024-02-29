@@ -1,8 +1,12 @@
-import resolve = require('browser-resolve');
+/// <reference types="node" />
+
+import resolve = require("browser-resolve");
+
+const fixturesDir = __dirname + "/fixtures/node_modules";
 
 const basic_test_async = (callback: (err?: Error | null, resolved?: string) => void) => {
     // $ExpectType void
-    resolve('typescript', (error, resolved) => {
+    resolve("typescript", (error, resolved) => {
         if (error) {
             callback(error);
             return;
@@ -12,16 +16,17 @@ const basic_test_async = (callback: (err?: Error | null, resolved?: string) => v
 };
 
 // $ExpectType string
-resolve.sync('typescript');
+resolve.sync("typescript");
 
 resolve(
-    'typescript',
+    "typescript",
     {
-        browser: 'jsnext:main',
-        filename: './browser-resolve/browser-resolve.js',
+        browser: "jsnext:main",
+        filename: "./browser-resolve/browser-resolve.js",
         modules: {
-            fs: './fs-shim.js',
+            fs: "./fs-shim.js",
         },
+        paths: [fixturesDir],
     },
     (error, resolved) => {
         if (error) {
@@ -32,15 +37,23 @@ resolve(
     },
 );
 
-resolve.sync('typescript', {
-    filename: './browser-resolve/browser-resolve.js',
+resolve.sync("typescript", {
+    filename: "./browser-resolve/browser-resolve.js",
     modules: {},
 });
 
-resolve.sync('@scope/my-module', {
-    browser: 'module',
-    packageFilter: pkg => {
+resolve.sync("@scope/my-module", {
+    browser: "module",
+    packageFilter: (pkg: any) => {
         pkg.module = pkg.module || pkg.browser;
+        return pkg;
+    },
+});
+resolve.sync("@scope/my-module", {
+    browser: "module",
+    packageFilter: (pkg: any, pkgdir: string) => {
+        pkg.module = pkg.module || pkg.browser;
+        console.log(`pkgdir: ${pkgdir}`);
         return pkg;
     },
 });

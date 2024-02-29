@@ -1,9 +1,3 @@
-// Type definitions for yallist 3.0
-// Project: https://github.com/isaacs/yallist#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Yallist;
 
 declare class Yallist<T> implements Iterable<T> {
@@ -37,6 +31,7 @@ declare class Yallist<T> implements Iterable<T> {
     shift(): T | undefined;
     slice(from?: number, to?: number): Yallist<T>;
     sliceReverse(from?: number, to?: number): Yallist<T>;
+    splice(start: number, deleteCount: number, ...nodes: T[]): T[];
     toArray(): T[];
     toArrayReverse(): T[];
     unshift(...items: T[]): number;
@@ -52,13 +47,13 @@ declare namespace Yallist {
 
     interface NodeConstructor {
         <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
-        new <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
+        new<T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
     }
 
     interface Node<T> {
         prev: Node<T> | null;
         next: Node<T> | null;
         value: T;
-        list?: Yallist<T>;
+        list?: Yallist<T> | undefined;
     }
 }

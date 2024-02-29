@@ -1,12 +1,12 @@
-import { ComponentType, Ref } from 'react';
-import TextareaAutosize from 'react-autosize-textarea';
+import { ComponentType, Ref } from "react";
+import TextareaAutosize from "react-autosize-textarea";
 
 declare namespace PlainText {
-    interface Props extends Omit<TextareaAutosize.Props, 'onChange'> {
+    interface Props extends Omit<TextareaAutosize.Props, "onChange"> {
         /**
          * The component forwards the `ref` property to the `TextareaAutosize` component.
          */
-        ref?: Ref<typeof TextareaAutosize>;
+        ref?: Ref<typeof TextareaAutosize> | undefined;
         /**
          * String value of the textarea
          */

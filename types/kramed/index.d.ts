@@ -1,8 +1,3 @@
-// Type definitions for Kramed 0.5
-// Project: https://github.com/GitbookIO/kramed
-// Definitions by: Matthew Wilkes <https://github.com/tonicblue>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface KramedStatic {
     /**
      * Compiles kramdown to HTML.
@@ -81,8 +76,8 @@ export interface KramedRenderer {
     table(header: string, body: string): string;
     tablerow(content: string): string;
     tablecell(content: string, flags: {
-        header: boolean,
-        align: string
+        header: boolean;
+        align: string;
     }): string;
     strong(text: string): string;
     em(text: string): string;
@@ -104,42 +99,42 @@ export interface KramedOptions {
      *
      * An object containing functions to render tokens to HTML.
      */
-    renderer?: KramedRenderer;
+    renderer?: KramedRenderer | undefined;
 
     /**
      * Enable GitHub flavored kramdown.
      */
-    gfm?: boolean;
+    gfm?: boolean | undefined;
 
     /**
      * Enable GFM tables. This option requires the gfm option to be true.
      */
-    tables?: boolean;
+    tables?: boolean | undefined;
 
     /**
      * Enable GFM line breaks. This option requires the gfm option to be true.
      */
-    breaks?: boolean;
+    breaks?: boolean | undefined;
 
     /**
      * Conform to obscure parts of kramdown.pl as much as possible. Don't fix any of the original kramdown bugs or poor behavior.
      */
-    pedantic?: boolean;
+    pedantic?: boolean | undefined;
 
     /**
      * Sanitize the output. Ignore any HTML that has been input.
      */
-    sanitize?: boolean;
+    sanitize?: boolean | undefined;
 
     /**
      * Use smarter list behavior than the original kramdown. May eventually be default with the old behavior moved into pedantic.
      */
-    smartLists?: boolean;
+    smartLists?: boolean | undefined;
 
     /**
      * Shows an HTML error message when rendering fails.
      */
-    silent?: boolean;
+    silent?: boolean | undefined;
 
     /**
      * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
@@ -149,12 +144,12 @@ export interface KramedOptions {
     /**
      * Set the prefix for code block classes.
      */
-    langPrefix?: string;
+    langPrefix?: string | undefined;
 
     /**
      * Use "smart" typograhic punctuation for things like quotes and dashes.
      */
-    smartypants?: boolean;
+    smartypants?: boolean | undefined;
 }
 
 export const kramed: KramedStatic;

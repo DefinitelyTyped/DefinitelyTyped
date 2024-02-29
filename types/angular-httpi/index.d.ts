@@ -1,29 +1,21 @@
-// Type definitions for angular-httpi
-// Project: https://github.com/bennadel/httpi
-// Definitions by: Andrew Camilleri <https://github.com/Kukks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare namespace Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {
-        method?: string;
-        url?: string;
-        params?: {};
-        data?: {};
-        keepTrailingSlash?: boolean;
+        method?: string | undefined;
+        url?: string | undefined;
+        params?: {} | undefined;
+        data?: {} | undefined;
+        keepTrailingSlash?: boolean | undefined;
     }
 
     export interface HttpiFactory {
-
         (config: HttpiPayload): ng.IHttpPromise<{}>;
 
         resource(url: string): HttpiResource;
     }
 
     export class HttpiResource {
-
         constructor(http: ng.IHttpService, url: string);
 
         delete<T>(config: HttpiPayload): ng.IHttpPromise<T>;

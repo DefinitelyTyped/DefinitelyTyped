@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/11ty__eleventy-img",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/11ty/eleventy-img"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/sharp": "^0.31.0"
+    },
+    "devDependencies": {
+        "@types/11ty__eleventy-img": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tiger Oakes",
+            "githubUsername": "NotWoods"
+        }
+    ]
+}

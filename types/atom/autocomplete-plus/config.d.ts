@@ -1,5 +1,7 @@
 import "../index";
 
+// NOTE: intentional; needed for config extensibility
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "atom" {
     interface ConfigValues {
         /**
@@ -90,13 +92,13 @@ declare module "atom" {
          *  With 'Cursor' the suggestion list appears at the cursor's position.
          *  With 'Word' it appears at the beginning of the word that's being completed.
          */
-        "autocomplete-plus.suggestionListFollows": "Word"|"Cursor";
+        "autocomplete-plus.suggestionListFollows": "Word" | "Cursor";
 
         /**
          *  If you're having trouble with autocomplete, you may consider falling back
          *  to the Symbol provider and filing an issue.
          */
-        "autocomplete-plus.defaultProvider": "Subsequence"|"Symbol";
+        "autocomplete-plus.defaultProvider": "Subsequence" | "Symbol";
 
         /** Don't auto-activate when any of these classes are present in the editor. */
         "autocomplete-plus.suppressActivationForEditorClasses": string[];
@@ -123,6 +125,6 @@ declare module "atom" {
          *  Should similar suggestions be removed from the list? If so how to determine
          *  they are similar.
          */
-        "autocomplete-plus.similarSuggestionRemoval": "none"|"textOrSnippet";
+        "autocomplete-plus.similarSuggestionRemoval": "none" | "textOrSnippet";
     }
 }

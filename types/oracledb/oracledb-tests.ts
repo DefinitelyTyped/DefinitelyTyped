@@ -1,13 +1,7 @@
-import * as oracledb from 'oracledb';
+import * as oracledb from "oracledb";
 
-
-import defaultOracledb from 'oracledb';
-// import dotenv from 'dotenv';
-import assert from 'assert';
-
-
-
-// dotenv.config();
+import assert from "assert";
+import defaultOracledb from "oracledb";
 
 /*
 
@@ -35,66 +29,64 @@ const initSession = (connection: oracledb.Connection, requestedTag: string, call
 };
 
 const testBreak = (connection: oracledb.Connection): Promise<void> =>
-    new Promise(
-        (resolve): void => {
-            console.log('Testing connection.execute()...');
+    new Promise((resolve): void => {
+        console.log("Testing connection.execute()...");
 
-            connection.execute(
-                `   BEGIN
+        connection.execute(
+            `   BEGIN
                         dbms_lock.sleep(:seconds);
                     END;
                 `,
-                [2],
-                (error: oracledb.DBError): void => {
-                    // ORA-01013: user requested cancel of current operation
-                    assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
-                    assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
-                    assert(error.offset !== undefined, 'offset not defined for DB error');
+            [2],
+            (error: oracledb.DBError): void => {
+                // ORA-01013: user requested cancel of current operation
+                assert(error.message.includes("ORA-01013"), "message not defined for DB error");
+                assert(error.errorNum !== undefined, "errorNum not defined for DB error");
+                assert(error.offset !== undefined, "offset not defined for DB error");
 
-                    return resolve();
-                },
-            );
+                return resolve();
+            },
+        );
 
-            setTimeout((): void => {
-                console.log('Testing connection.execute()...');
+        setTimeout((): void => {
+            console.log("Testing connection.execute()...");
 
-                connection.break().then((): void => { });
-            }, 1000);
-        },
-    );
+            connection.break().then((): void => {});
+        }, 1000);
+    });
 
 const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<void> => {
-    console.log('Testing connection.getStatementInfo()...');
+    console.log("Testing connection.getStatementInfo()...");
 
-    const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
+    const info = await connection.getStatementInfo("SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate");
 
     assert.deepStrictEqual(
         info.metaData[0],
         {
-            name: '1',
+            name: "1",
             fetchType: 2002,
             dbType: 2,
             nullable: true,
             precision: 0,
             scale: -127,
         },
-        'connection.getStatementInfo() has invalid metaData field in its response',
+        "connection.getStatementInfo() has invalid metaData field in its response",
     );
 
     assert(
-        info.bindNames.findIndex(s => s === 'MYDATE') >= 0,
-        'connection.getStatementInfo() has invalid bindNames field in its response',
+        info.bindNames.findIndex(s => s === "MYDATE") >= 0,
+        "connection.getStatementInfo() has invalid bindNames field in its response",
     );
-    assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
+    assert(info.statementType === 1, "connection.getStatementInfo() has invalid statementType field in its response");
 
     return;
 };
 
 const testQueryStream = async (connection: oracledb.Connection): Promise<void> =>
     new Promise(resolve => {
-        console.log('Testing connection.queryStream()...');
+        console.log("Testing connection.queryStream()...");
 
-        const stream = connection.queryStream('SELECT 1 FROM DUAL WHERE 10 < :myValue', {
+        const stream = connection.queryStream("SELECT 1 FROM DUAL WHERE 10 < :myValue", {
             myValue: {
                 dir: oracledb.BIND_IN,
                 maxSize: 50,
@@ -104,36 +96,36 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
             anotherValue: {
                 dir: oracledb.BIND_INOUT,
                 type: oracledb.DB_TYPE_NCLOB,
-            }
+            },
         });
 
-        let data = '';
+        let data = "";
 
-        stream.on('data', chunk => {
+        stream.on("data", chunk => {
             data += chunk;
         });
 
-        stream.on('metadata', metadata => {
+        stream.on("metadata", metadata => {
             assert.deepStrictEqual(metadata[0], {
-                name: '1',
+                name: "1",
             });
         });
 
-        stream.on('end', () => {
+        stream.on("end", () => {
             return resolve(JSON.parse(data));
         });
 
-        stream.on('error', err => {
+        stream.on("error", err => {
             throw err;
         });
     });
 
 const createAndPopulateLob = (connection: oracledb.Connection): Promise<oracledb.Lob> =>
     new Promise(resolve => {
-        console.log('Testing connection.createLob()...');
+        console.log("Testing connection.createLob()...");
 
         connection.createLob(oracledb.CLOB).then(lob => {
-            lob.write('abcdefg', 'utf-8', err => {
+            lob.write("abcdefg", "utf-8", err => {
                 if (err) {
                     throw err;
                 }
@@ -144,7 +136,7 @@ const createAndPopulateLob = (connection: oracledb.Connection): Promise<oracledb
     });
 
 const testResultSet = async (connection: oracledb.Connection): Promise<void> => {
-    console.log('Testing ResultSet...');
+    console.log("Testing ResultSet...");
 
     const result = await connection.execute(
         `   SELECT 1 FROM DUAL
@@ -160,41 +152,41 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assert.deepStrictEqual(result.metaData[0], { name: '1' });
+    assert.deepStrictEqual(result.metaData[0], { name: "1" });
 
     const { resultSet, lastRowid } = result;
 
     console.log(lastRowid);
-    console.log('Testing resultSet.getRow()...');
+    console.log("Testing resultSet.getRow()...");
 
     const row = await resultSet.getRow();
 
     assert.deepStrictEqual(row, [1]);
 
-    console.log('Testing resultSet.getRows()...');
+    console.log("Testing resultSet.getRows()...");
 
     const rows = await resultSet.getRows(1);
 
     assert.deepStrictEqual(rows, [[2]]);
 
-    console.log('Testing resultSet.close()...');
+    console.log("Testing resultSet.close()...");
 
     await resultSet.close();
 };
 
 const runPromiseTests = async (): Promise<void> => {
     try {
-        if (typeof DB_USER !== 'string') {
-            throw new Error('DB_USER must be fined');
+        if (typeof DB_USER !== "string") {
+            throw new Error("DB_USER must be fined");
         }
-        if (typeof DB_PASSWORD !== 'string') {
-            throw new Error('DB_PASSWORD must be fined');
+        if (typeof DB_PASSWORD !== "string") {
+            throw new Error("DB_PASSWORD must be fined");
         }
-        if (typeof DB_CONNECTION_STRING !== 'string') {
-            throw new Error('DB_CONNECTION_STRING must be fined');
+        if (typeof DB_CONNECTION_STRING !== "string") {
+            throw new Error("DB_CONNECTION_STRING must be fined");
         }
 
-        console.log('Testing createPool()...');
+        console.log("Testing createPool()...");
 
         await oracledb.createPool({
             connectString: DB_CONNECTION_STRING,
@@ -203,7 +195,7 @@ const runPromiseTests = async (): Promise<void> => {
             externalAuth: false,
             homogeneous: true,
             password: DB_PASSWORD,
-            poolAlias: 'myPool',
+            poolAlias: "myPool",
             poolIncrement: 1,
             poolMax: 5,
             poolMin: 3,
@@ -215,11 +207,11 @@ const runPromiseTests = async (): Promise<void> => {
             user: DB_USER,
         });
 
-        console.log('Testing getPool()...');
+        console.log("Testing getPool()...");
 
-        const pool = oracledb.getPool('myPool');
+        const pool = oracledb.getPool("myPool");
 
-        console.log('Testing pool.getConnection()...');
+        console.log("Testing pool.getConnection()...");
 
         const connection = await pool.getConnection();
 
@@ -234,9 +226,9 @@ const runPromiseTests = async (): Promise<void> => {
         //     }
         // })
 
-        const lob = 'test'; //await createAndPopulateLob(connection);
+        const lob = "test"; // await createAndPopulateLob(connection);
 
-        console.log('Testing connection.executeMany()...');
+        console.log("Testing connection.executeMany()...");
 
         // const results = await connection.executeMany(
         //     `INSERT INTO CONNOR_TEST_TABLE VALUES(
@@ -272,15 +264,15 @@ const runPromiseTests = async (): Promise<void> => {
         //     },
         // );
 
-        console.log('Testing lob.close()...');
+        console.log("Testing lob.close()...");
 
         // await lob.close();
 
-        console.log('Testing connection.commit()...');
+        console.log("Testing connection.commit()...");
 
         await connection.commit();
 
-        console.log('Testing connection.changePassword()...');
+        console.log("Testing connection.changePassword()...");
 
         await connection.changePassword(DB_USER, DB_PASSWORD, DB_PASSWORD);
 
@@ -288,21 +280,21 @@ const runPromiseTests = async (): Promise<void> => {
 
         await testQueryStream(connection);
 
-        console.log('Testing connection.ping()...');
+        console.log("Testing connection.ping()...");
 
         await connection.ping();
 
-        console.log('Testing connection.rollback()...');
+        console.log("Testing connection.rollback()...");
 
         await connection.rollback();
 
         await testResultSet(connection);
 
-        console.log('Testing connection.close()...');
+        console.log("Testing connection.close()...");
 
         await connection.close({ drop: true });
 
-        console.log('Testing pool.close()...');
+        console.log("Testing pool.close()...");
 
         await pool.close(5);
     } catch (err) {
@@ -322,13 +314,13 @@ const dbObjectTests = async () => {
         COLUMN2: string;
     }
 
-    const TestClass = await conn.getDbObjectClass<Test>('test')
+    const TestClass = await conn.getDbObjectClass<Test>("test");
 
     const test1 = new TestClass({
-        COLUMN1: '1234',
-        COLUMN2: '1234'
-    })
-    test1.COLUMN1 = '1234'
+        COLUMN1: "1234",
+        COLUMN2: "1234",
+    });
+    test1.COLUMN1 = "1234";
 
     TestClass.prototype;
 
@@ -353,29 +345,23 @@ const dbObjectTests = async () => {
     geom.SDO_ELEM_INFO = [1, 1003, 3];
     geom.SDO_ORDINATES = [1, 1, 5, 7];
 
-    geom.getKeys().find((e) => e === 'SDO_ELEM_INFO')
+    geom.getKeys().find(e => e === "SDO_ELEM_INFO");
 
-    await conn.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        { id: 1, g: geom }
-    );
+    await conn.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, { id: 1, g: geom });
 
-    await conn.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        {
-            id: 1,
-            g: {
-                type: "MDSYS.SDO_GEOMETRY",
-                val: {
-                    SDO_GTYPE: 2003,
-                    SDO_SRID: null,
-                    SDO_POINT: null,
-                    SDO_ELEM_INFO: [1, 1003, 3],
-                    SDO_ORDINATES: [1, 1, 5, 7]
-                }
-            }
-        }
-    );
+    await conn.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, {
+        id: 1,
+        g: {
+            type: "MDSYS.SDO_GEOMETRY",
+            val: {
+                SDO_GTYPE: 2003,
+                SDO_SRID: null,
+                SDO_POINT: null,
+                SDO_ELEM_INFO: [1, 1003, 3],
+                SDO_ORDINATES: [1, 1, 5, 7],
+            },
+        },
+    });
 
     interface OutGeom {
         SDO_GTYPE: number;
@@ -385,15 +371,17 @@ const dbObjectTests = async () => {
         SDO_ORDINATES: oracledb.DBObject_OUT<number>;
     }
 
-    const result = await conn.execute<oracledb.DBObject_OUT<OutGeom>[]>(`SELECT geometry FROM testgeometry WHERE id = 1`);
+    const result = await conn.execute<Array<oracledb.DBObject_OUT<OutGeom>>>(
+        `SELECT geometry FROM testgeometry WHERE id = 1`,
+    );
     const o = result.rows[0][0];
     console.log(o.isCollection);
-    o.getKeys()
-    o.SDO_ELEM_INFO.getKeys()
+    o.getKeys();
+    o.SDO_ELEM_INFO.getKeys();
     console.log(o.SDO_ELEM_INFO.isCollection);
-    console.log(o.SDO_ELEM_INFO.getKeys().find(e => typeof e === 'number'));
+    console.log(o.SDO_ELEM_INFO.getKeys().find(e => typeof e === "number"));
     console.log(o.getValues()[0].SDO_ELEM_INFO);
-}
+};
 
 const version4Tests = async () => {
     console.log(oracledb.OUT_FORMAT_ARRAY, oracledb.OUT_FORMAT_OBJECT);
@@ -402,17 +390,14 @@ const version4Tests = async () => {
 
     const connection = await pool.getConnection();
 
-    const implicitResults = (await connection.execute<One>(
-        'SELECT 1 FROM DUAL',
-    )).implicitResults as oracledb.ResultSet<One>[];
+    const implicitResults = (await connection.execute<One>("SELECT 1 FROM DUAL"))
+        .implicitResults as Array<oracledb.ResultSet<One>>;
 
     (await implicitResults[0].getRow()).one;
 
-    await implicitResults[0].close()
+    await implicitResults[0].close();
 
-    const implicitResults2 = (await connection.execute<One>(
-        'SELECT 1 FROM DUAL',
-    )).implicitResults as One[][];
+    const implicitResults2 = (await connection.execute<One>("SELECT 1 FROM DUAL")).implicitResults as One[][];
 
     const results = implicitResults2[0][0];
 
@@ -420,69 +405,57 @@ const version4Tests = async () => {
 
     const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
 
-    const geom = new GeomType(
-        {
-            SDO_GTYPE: 2003,
-            SDO_SRID: null,
-            SDO_POINT: null,
-            SDO_ELEM_INFO: [1, 1003, 3],
-            SDO_ORDINATES: [1, 1, 5, 7]
-        }
-    );
+    const geom = new GeomType({
+        SDO_GTYPE: 2003,
+        SDO_SRID: null,
+        SDO_POINT: null,
+        SDO_ELEM_INFO: [1, 1003, 3],
+        SDO_ORDINATES: [1, 1, 5, 7],
+    });
 
     geom.attributes = {
-        STREET_NUMBER: { type: 2, typeName: 'NUMBER' },
+        STREET_NUMBER: { type: 2, typeName: "NUMBER" },
         LOCATION: {
             type: 2023,
-            typeName: 'MDSYS.SDO_POINT_TYPE',
+            typeName: "MDSYS.SDO_POINT_TYPE",
             typeClass: GeomType,
-        }
-    }
+        },
+    };
 
     new geom.attributes.test.typeClass({});
 
-    await connection.execute(
-        `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
-        { id: 1, g: geom }
-    );
+    await connection.execute(`INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`, { id: 1, g: geom });
 
-    const sub = await connection.subscribe('test', {
-        sql: 'test',
-        callback: (message) => {
+    const sub = await connection.subscribe("test", {
+        sql: "test",
+        callback: message => {
             console.log(message.queueName);
-        }
+            for (const query of message.queries ?? []) {
+                for (const table of query.tables ?? []) {
+                    console.log(table.name);
+                    for (const row of table.rows ?? []) {
+                        console.log(row.operation);
+                        console.log(row.rowid);
+                    }
+                }
+            }
+        },
     });
 
     console.log(sub.regId);
 
-    const queue = await connection.getQueue('test', {
-        payloadType: 'test'
-    })
+    const queue = await connection.getQueue("test", {
+        payloadType: "test",
+    });
 
-    const {
-        name,
-        deqOptions,
-        enqOptions,
-        payloadType,
-        payloadTypeClass,
-        payloadTypeName
-    } = queue;
+    const { name, deqOptions, enqOptions, payloadType, payloadTypeClass, payloadTypeName } = queue;
 
-    const {
-        condition,
-        consumerName,
-        correlation,
-        mode,
-        msgId,
-        navigation,
-        transformation,
-        visibility,
-        wait,
-    } = deqOptions;
+    const { condition, consumerName, correlation, mode, msgId, navigation, transformation, visibility, wait } =
+        deqOptions;
 
     const messages = await queue.deqMany(5);
 
-    const lob = await connection.createLob(2);
+    const lob = await connection.createLob(oracledb.CLOB);
 
     await lob.getData();
 
@@ -508,11 +481,11 @@ const version4Tests = async () => {
     result = await connection.execute(plsql, [], { resultSet: true });
 
     for (let i = 0; i < result.implicitResults.length; i++) {
-        console.log(' Implicit Result Set', i + 1);
+        console.log(" Implicit Result Set", i + 1);
         const rs = result.implicitResults[i] as oracledb.ResultSet<One>; // get the next ResultSet
         let row;
         while ((row = await rs.getRow())) {
-            console.log('  ', row);
+            console.log("  ", row);
         }
 
         await rs.close();
@@ -529,19 +502,17 @@ const version4Tests = async () => {
     await connection.commit();
     console.log(msg.payload.toString());
 
-    const message = new queue.payloadTypeClass(
-        {
-            NAME: "scott",
-            ADDRESS: "The Kennel"
-        }
-    );
+    const message = new queue.payloadTypeClass({
+        NAME: "scott",
+        ADDRESS: "The Kennel",
+    });
     await queue.enqOne(message);
     await connection.commit();
 
     const queue5 = await connection.getQueue(queueName, { payloadType: "DEMOQUEUE.USER_ADDRESS_TYPE" });
     const msg5 = await queue.deqOne();
     await connection.commit();
-}
+};
 
 const aqTests = async () => {
     const c = await oracledb.getConnection();
@@ -552,16 +523,24 @@ const aqTests = async () => {
         test2: number;
     }
 
-    const MyClass = await c.getDbObjectClass<QueueItem>('test');
-    const q = await c.getQueue<QueueItem>('test');
+    const MyClass = await c.getDbObjectClass<QueueItem>("test");
+    const q = await c.getQueue<QueueItem>("test");
 
-    q.enqOne('test');
-    q.enqOne(new Buffer('test'));
+    q.enqOne("test");
+    q.enqOne(new Buffer("test"));
     q.enqOne(new MyClass());
 
     const msg = await q.deqOne();
-    msg.payload
-}
+    msg.payload;
+};
+
+export const thinTests = async () => {
+    const c = await oracledb.getConnection();
+
+    const thin = oracledb.thin;
+
+    assert(thin);
+};
 
 interface MyTableRow {
     firstColumn: string;
@@ -570,20 +549,20 @@ interface MyTableRow {
 
 const testGenerics = async () => {
     const connection = await oracledb.getConnection({
-        user: 'test'
+        user: "test",
     });
 
-    const result = await connection.execute<MyTableRow>('SELECT 1 FROM DUAL');
+    const result = await connection.execute<MyTableRow>("SELECT 1 FROM DUAL");
 
     console.log(result.rows[0].firstColumn);
     console.log(result.rows[0].secondColumn);
 
-    const result2 = await connection.execute<{ test: string }>(' BEGIN DO_SOMETHING END;', {
+    const result2 = await connection.execute<{ test: string }>(" BEGIN DO_SOMETHING END;", {
         test: {
             dir: oracledb.BIND_OUT,
-            val: 'something'
-        }
-    })
+            val: "something",
+        },
+    });
 
     console.log(result2.outBinds.test);
 
@@ -592,9 +571,38 @@ const testGenerics = async () => {
     const result3 = await connection.executeMany<MyTableRow>(sql, 5);
 
     console.log(result3.outBinds[0].firstColumn);
-}
+};
 
+export const testQueryStreamGenerics = (connection: oracledb.Connection): void => {
+    interface MyStream {
+        streamTest: string;
+    }
 
+    const stream = connection.queryStream<MyStream>("SELECT 1 FROM DUAL WHERE 10 < :myValue", {
+        myValue: {
+            dir: oracledb.BIND_IN,
+            maxSize: 50,
+            type: oracledb.NUMBER,
+            val: 20,
+        },
+        anotherValue: {
+            dir: oracledb.BIND_INOUT,
+            type: oracledb.DB_TYPE_NCLOB,
+        },
+    });
+
+    stream.on("data", data => {
+        console.log(data);
+    });
+
+    stream.on("metadata", metadata => {
+        const streamClass = metadata[0].dbTypeClass;
+
+        const streamClassInstance = new streamClass({
+            streamTest: "success",
+        });
+    });
+};
 
 const test4point1 = async (): Promise<void> => {
     defaultOracledb.poolMaxPerShard = 45;
@@ -604,12 +612,12 @@ const test4point1 = async (): Promise<void> => {
     });
 
     const connection = await oracledb.getConnection({
-        shardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
-        superShardingKey: ['TEST', 1234, new Date(), new Buffer('1234')],
+        shardingKey: ["TEST", 1234, new Date(), new Buffer("1234")],
+        superShardingKey: ["TEST", 1234, new Date(), new Buffer("1234")],
     });
 
-    connection.clientInfo = '12345';
-    connection.dbOp = '12345';
+    connection.clientInfo = "12345";
+    connection.dbOp = "12345";
 };
 
 export const v5Tests = async (): Promise<void> => {
@@ -622,16 +630,16 @@ export const v5Tests = async (): Promise<void> => {
         queueMax: 5,
     });
     defaultOracledb.initOracleClient({
-        configDir: '',
-        driverName: '',
-        errorUrl: '',
-        libDir: '',
+        configDir: "",
+        driverName: "",
+        errorUrl: "",
+        libDir: "",
     });
 
     const creds = {
-        user: 'test',
-        password: 'test',
-        connectionString: 'test',
+        user: "test",
+        password: "test",
+        connectionString: "test",
         externalAuth: true,
     };
 
@@ -640,7 +648,7 @@ export const v5Tests = async (): Promise<void> => {
     await defaultOracledb.startup(creds, {
         force: true,
         restrict: true,
-        pfile: ''
+        pfile: "",
     });
 
     await defaultOracledb.shutdown(creds, defaultOracledb.SHUTDOWN_MODE_ABORT);
@@ -650,12 +658,21 @@ export const v5Tests = async (): Promise<void> => {
     await conn.startup({
         force: true,
         restrict: true,
-        pfile: '',
+        pfile: "",
     });
 
     await conn.shutdown(defaultOracledb.SHUTDOWN_MODE_ABORT);
 
-    await conn.execute('', {}, {
-        prefetchRows: 5,
-    });
-}
+    await conn.execute(
+        "",
+        {},
+        {
+            prefetchRows: 5,
+        },
+    );
+};
+
+export const v5point1Tests = (): void => {
+    console.log(defaultOracledb.DB_TYPE_JSON);
+    defaultOracledb.dbObjectAsPojo = true;
+};

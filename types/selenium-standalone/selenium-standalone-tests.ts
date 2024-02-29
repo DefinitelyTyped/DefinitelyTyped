@@ -1,5 +1,5 @@
 "use strict";
-import { install, start, ChildProcess, FsPaths, InstallOpts, StartOpts } from "selenium-standalone";
+import { FsPaths, install, InstallOpts, start, StartOpts } from "selenium-standalone";
 
 // InstallOpts interface
 let installOpts: InstallOpts = {
@@ -16,12 +16,20 @@ let installOpts: InstallOpts = {
             version: "version",
             arch: "ia64",
             baseURL: "baseURL b",
-        }
+        },
     },
     progressCb: (totalLength: number, progressLength: number, chunkLength: number) => {},
     logger: (message: string) => {},
     requestOpts: "requestOpts",
-    cb: (error: Error) => {},
+};
+
+const installOptsCompact: InstallOpts = {
+    version: "version",
+    drivers: {
+        chrome: {
+            version: "chrome_version",
+        },
+    },
 };
 
 installOpts = {};
@@ -30,7 +38,7 @@ installOpts = {
     requestOpts: {
         agent: true,
         host: "host",
-        family: 5
+        family: 5,
     },
 };
 
@@ -48,17 +56,24 @@ let startOpts: StartOpts = {
             version: "version",
             arch: "ia64",
             baseURL: "baseURL b",
-        }
+        },
     },
     seleniumArgs: ["bla", "foo"],
     javaArgs: ["bla", "foo"],
     spawnOptions: {},
-    spawnCb: (selenium?: ChildProcess) => {},
     javaPath: "javaPath",
     requestOpts: "requestOpts",
-    cb: (error: Error, child: ChildProcess) => {},
 };
 startOpts = {};
+
+const startOptsCompact: StartOpts = {
+    version: "version",
+    drivers: {
+        firefox: {
+            version: "version",
+        },
+    },
+};
 
 // FsPaths interface
 let fsPaths: FsPaths = {
@@ -87,9 +102,13 @@ let fsPaths: FsPaths = {
 fsPaths = {};
 
 // start method
-start(startOpts, (error: Error | null, selenium: ChildProcess) => {});
-start((error: Error | null, selenium: ChildProcess) => {});
+start(startOpts).then((cp) => {
+    cp.kill();
+});
+start(installOptsCompact);
+start();
 
 // install method
-install(installOpts, (error: Error | undefined, fsPaths: FsPaths) => {});
-install((error: Error | undefined, fsPaths: FsPaths) => {});
+install(installOpts).then(() => {});
+install(installOptsCompact);
+install();

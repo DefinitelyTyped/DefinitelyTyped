@@ -1,11 +1,4 @@
-// Type definitions for d3-fetch 1.1
-// Project: https://d3js.org/d3-fetch/
-// Definitions by: Hugues Stefanski <https://github.com/ledragon>
-//                 denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-// Last module patch version validated against: 1.1.0
+// Last module patch version validated against: 3.0.1
 
 import { DSVParsedArray, DSVRowArray, DSVRowString } from "d3-dsv";
 
@@ -39,9 +32,10 @@ export function buffer(url: string, init?: RequestInit): Promise<ArrayBuffer>;
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function csv<Columns extends string>(
     url: string,
-    init?: RequestInit
+    init?: RequestInit,
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the CSV file at the specified input URL and returns
@@ -61,7 +55,7 @@ export function csv<Columns extends string>(
  */
 export function csv<ParsedRow extends object, Columns extends string = string>(
     url: string,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the CSV file at the specified input URL and returns
@@ -85,7 +79,7 @@ export function csv<ParsedRow extends object, Columns extends string = string>(
 export function csv<ParsedRow extends object, Columns extends string = string>(
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**
@@ -101,10 +95,11 @@ export function csv<ParsedRow extends object, Columns extends string = string>(
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function dsv<Columns extends string>(
     delimiter: string,
     url: string,
-    init?: RequestInit
+    init?: RequestInit,
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the DSV file with the specified delimiter character at the specified input URL and returns
@@ -126,7 +121,7 @@ export function dsv<Columns extends string>(
 export function dsv<ParsedRow extends object, Columns extends string = string>(
     delimiter: string,
     url: string,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the DSV file with the specified delimiter character at the specified input URL and returns
@@ -152,7 +147,7 @@ export function dsv<ParsedRow extends object, Columns extends string = string>(
     delimiter: string,
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**
@@ -180,12 +175,19 @@ export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HT
  *
  * If init is specified, it is passed along to the underlying call to fetch.
  *
+ * If the server returns a status code of [204 No Content](https://developer.mozilla.org/docs/Web/HTTP/Status/204)
+ * or [205 Reset Content](https://developer.mozilla.org/docs/Web/HTTP/Status/205), the promise resolves to `undefined`.
+ *
  * The generic parameter describes the type of the object parsed from the returned JSON.
  *
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
-export function json<ParsedJSONObject extends any>(url: string, init?: RequestInit): Promise<ParsedJSONObject>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function json<ParsedJSONObject extends any>(
+    url: string,
+    init?: RequestInit,
+): Promise<ParsedJSONObject | undefined>;
 
 /**
  * Fetches the file at the specified input URL as text, parses it as SVG and returns a Promise of an SVG Document.
@@ -218,9 +220,10 @@ export function text(url: string, init?: RequestInit): Promise<string>;
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function tsv<Columns extends string>(
     url: string,
-    init?: RequestInit
+    init?: RequestInit,
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the TSV file at the specified input URL and returns
@@ -241,7 +244,7 @@ export function tsv<Columns extends string>(
  */
 export function tsv<ParsedRow extends object, Columns extends string = string>(
     url: string,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 /**
  * Fetches the TSV file at the specified input URL and returns
@@ -265,7 +268,7 @@ export function tsv<ParsedRow extends object, Columns extends string = string>(
 export function tsv<ParsedRow extends object, Columns extends string = string>(
     url: string,
     init: RequestInit,
-    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null
+    row: (rawRow: DSVRowString<Columns>, index: number, columns: Columns[]) => ParsedRow | undefined | null,
 ): Promise<DSVParsedArray<ParsedRow>>;
 
 /**

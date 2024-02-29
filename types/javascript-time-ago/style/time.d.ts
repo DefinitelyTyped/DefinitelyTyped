@@ -1,3 +1,3 @@
-import { FormatStyle } from './index';
+import { FormatStyle } from "./index";
 
 export default FormatStyle;

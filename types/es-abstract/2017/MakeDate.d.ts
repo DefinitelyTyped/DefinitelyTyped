@@ -1,2 +1,2 @@
-import MakeDate = require('../2016/MakeDate');
+import MakeDate = require("../2016/MakeDate");
 export = MakeDate;

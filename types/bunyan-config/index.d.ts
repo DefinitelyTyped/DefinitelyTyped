@@ -1,29 +1,23 @@
-// Type definitions for bunyan-config 0.2.0
-// Project: https://github.com/LSEducation/bunyan-config
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="bunyan"/>
 
 declare module "bunyan-config" {
     import * as bunyan from "bunyan";
     interface StreamConfiguration {
-        name: string,
+        name: string;
         params?: {
-            host: string,
-            port: number
-        }
+            host: string;
+            port: number;
+        } | undefined;
     }
 
     interface Stream {
-        type?: string;
-        level?: bunyan.LogLevel;
-        path?: string;
-        stream?: string | StreamConfiguration
-        closeOnExit?: boolean;
-        period?: string;
-        count?: number;
+        type?: string | undefined;
+        level?: bunyan.LogLevel | undefined;
+        path?: string | undefined;
+        stream?: string | StreamConfiguration | undefined;
+        closeOnExit?: boolean | undefined;
+        period?: string | undefined;
+        count?: number | undefined;
     }
 
     /**
@@ -32,11 +26,11 @@ declare module "bunyan-config" {
      */
     interface Configuration {
         name: string;
-        streams?: Stream[];
-        level?: string | number;
-        stream?: NodeJS.WritableStream;
-        serializers?: {};
-        src?: boolean;
+        streams?: Stream[] | undefined;
+        level?: string | number | undefined;
+        stream?: NodeJS.WritableStream | undefined;
+        serializers?: {} | undefined;
+        src?: boolean | undefined;
     }
 
     /**

@@ -1,20 +1,15 @@
-// Type definitions for text-encoding-utf-8 1.0
-// Project: https://github.com/arv/text-encoding-utf-8
-// Definitions by: Paul Taylor <https://github.com/trxcllnt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace TextEncoding {
     interface TextDecoderOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
     }
 
     interface TextDecodeOptions {
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface TextEncoderOptions {
-        NONSTANDARD_allowLegacyEncoding?: boolean;
+        NONSTANDARD_allowLegacyEncoding?: boolean | undefined;
     }
 
     interface TextDecoder {
@@ -30,17 +25,17 @@ export namespace TextEncoding {
     }
 
     interface TextEncodeOptions {
-        stream?: boolean;
+        stream?: boolean | undefined;
     }
 
     interface TextEncoderStatic {
         (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
-        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        new(utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
     }
 
     interface TextDecoderStatic {
         (label?: string, options?: TextDecoderOptions): TextDecoder;
-        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new(label?: string, options?: TextDecoderOptions): TextDecoder;
     }
 
     interface TextEncodingStatic {

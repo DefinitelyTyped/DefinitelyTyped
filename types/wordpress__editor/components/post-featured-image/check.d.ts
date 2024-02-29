@@ -1,9 +1,9 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
 declare namespace PostFeaturedImageCheck {
     interface Props {
         children: ReactNode;
-        supportKeys?: string | string[];
+        supportKeys?: string | string[] | undefined;
     }
 }
 declare const PostFeaturedImageCheck: ComponentType<PostFeaturedImageCheck.Props>;

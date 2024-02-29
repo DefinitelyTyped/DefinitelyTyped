@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/apple-mapkit-js-browser",
+    "version": "5.65.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "MapKit JS",
+    "projects": [
+        "https://developer.apple.com/reference/mapkitjs"
+    ],
+    "devDependencies": {
+        "@types/apple-mapkit-js-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philipp Jean-Jacques",
+            "githubUsername": "kilghaz"
+        },
+        {
+            "name": "Waseem Dahman",
+            "githubUsername": "wsmd"
+        },
+        {
+            "name": "Chris Drackett",
+            "githubUsername": "chrisdrackett"
+        },
+        {
+            "name": "Moritz Sternemann",
+            "githubUsername": "moritzsternemann"
+        },
+        {
+            "name": "Vinayak Kulkarni",
+            "githubUsername": "vinayakkulkarni"
+        }
+    ]
+}

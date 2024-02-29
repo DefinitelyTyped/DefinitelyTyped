@@ -1,38 +1,32 @@
-// Type definitions for EpicEditor 0.2
-// Project: http://epiceditor.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 interface EpicEditorOptions {
     container?: any;
     textarea?: any;
-    basePath?: string;
-    clientSideStorage?: boolean;
-    localStorageName?: string;
-    useNativeFullsreen?: boolean;
+    basePath?: string | undefined;
+    clientSideStorage?: boolean | undefined;
+    localStorageName?: string | undefined;
+    useNativeFullsreen?: boolean | undefined;
     parser?: any;
     file?: {
         name: string;
         defaultContent: string;
         autoSave: any;
-    };
+    } | undefined;
     theme?: {
         base: string;
         preview: string;
         editor: string;
-    };
-    focusOnLoad?: boolean;
+    } | undefined;
+    focusOnLoad?: boolean | undefined;
     shortcut?: {
         modifier: number;
         fullscreen: number;
         preview: number;
-    };
+    } | undefined;
     string?: {
         togglePreview: string;
         toggleEdit: string;
         toggleFullscreen: string;
-    };
+    } | undefined;
 }
 
 declare class EpicEditor {

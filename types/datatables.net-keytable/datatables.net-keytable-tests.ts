@@ -9,9 +9,9 @@ $(document).ready(() => {
             editOnFocus: false,
             focus: ":eq(0)",
             tabIndex: 2,
-            keys: [ "\t".charCodeAt(0) ],
-            clipboardOrthogonal: 'export',
-            editor: null
-        }
+            keys: ["\t".charCodeAt(0)],
+            clipboardOrthogonal: "export",
+            editor: null,
+        },
     };
 });

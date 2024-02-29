@@ -1,8 +1,3 @@
-// Type definitions for deps-sort 2.0
-// Project: https://github.com/browserify/deps-sort, https://github.com/substack/deps-sort
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as stream from "stream";
@@ -24,19 +19,19 @@ declare namespace depsSort {
          * When true, for each module-deps row, insert 'row.index' with the numeric index and
          * 'row.indexDeps' like 'row.deps' but mapping require strings to row indices
          */
-        index?: boolean;
+        index?: boolean | undefined;
 
         /**
          * array of names or object mapping names to true not to mangle with integer indexes when 'index' is turned on.
          * If 'expose' maps names to strings, those strings will be used to resolve the indexed references.
          */
-        expose?: string[] | { [name: string]: boolean | string };
+        expose?: string[] | { [name: string]: boolean | string } | undefined;
 
         /**
          * Set 'row.dedupe' for files that match existing contents. Sets 'row.dedupeIndex' when 'index' is enabled.
          * When 'row.dedupe' is set, 'row.sameDeps' will be set to a boolean of whether the dependencies at the dedupe target match (true) or just the source content (false).
          */
-        dedupe?: boolean;
+        dedupe?: boolean | undefined;
 
         [prop: string]: any;
     }

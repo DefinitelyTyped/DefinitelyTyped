@@ -1,6 +1,7 @@
 import GlVec2 = require("gl-vec2");
 
 import GlVec2Add = require("gl-vec2/add");
+import GlVec2Ceil = require("gl-vec2/ceil");
 import GlVec2Clone = require("gl-vec2/clone");
 import GlVec2Copy = require("gl-vec2/copy");
 import GlVec2Create = require("gl-vec2/create");
@@ -23,6 +24,8 @@ import GlVec2Mul = require("gl-vec2/mul");
 import GlVec2Negate = require("gl-vec2/negate");
 import GlVec2Normalize = require("gl-vec2/normalize");
 import GlVec2Random = require("gl-vec2/random");
+import GlVec2Rotate = require("gl-vec2/rotate");
+import GlVec2Round = require("gl-vec2/round");
 import GlVec2Scale = require("gl-vec2/scale");
 import GlVec2ScaleAndAdd = require("gl-vec2/scaleAndAdd");
 import GlVec2Set = require("gl-vec2/set");
@@ -36,6 +39,9 @@ import GlVec2TransformMat4 = require("gl-vec2/transformMat4");
 
 GlVec2.add([1, 2, 3], [1, 2, 3], [1, 2, 3]);
 GlVec2Add([1, 2, 3], [1, 2, 3], [1, 2, 3]);
+
+GlVec2.ceil([1, 2, 3], [1, 2, 3]);
+GlVec2Ceil([1, 2, 3], [1, 2, 3]);
 
 GlVec2.clone([1, 2, 3]);
 GlVec2Clone([1, 2, 3]);
@@ -102,6 +108,12 @@ GlVec2Normalize([1, 2, 3], [1, 2, 3]);
 
 GlVec2.random([1, 2, 3], 6);
 GlVec2Random([1, 2, 3], 6);
+
+GlVec2.rotate([1, 2, 3], [1, 2, 3], 2);
+GlVec2Rotate([1, 2, 3], [1, 2, 3], 2);
+
+GlVec2.round([1, 2, 3], [1, 2, 3]);
+GlVec2Round([1, 2, 3], [1, 2, 3]);
 
 GlVec2.scale([1, 2, 3], [1, 2, 3], 6);
 GlVec2Scale([1, 2, 3], [1, 2, 3], 6);

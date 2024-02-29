@@ -1,10 +1,4 @@
-// Type definitions for codeflask 1.4
-// Project: https://kazzkiq.github.io/CodeFlask/
-// Definitions by: Joachim Holwech <https://github.com/holwech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Languages } from 'prismjs';
+import { Languages } from "prismjs";
 
 declare class CodeFlask {
     constructor(selectorOrElement: string | HTMLElement, opts: CodeFlask.options);
@@ -18,17 +12,18 @@ export = CodeFlask;
 
 declare namespace CodeFlask {
     interface options {
-        language?: string;
-        rtl?: boolean;
-        tabSize?: number;
-        enableAutocorrect?: boolean;
-        lineNumbers?: boolean;
-        defaultTheme?: boolean;
-        areaId?: string;
-        ariaLabelledby?: string;
-        readonly?: boolean;
-        handleTabs?: boolean;
-        handleSelfClosingCharacters?: boolean;
-        handleNewLineIndentation?: boolean;
+        language?: string | undefined;
+        rtl?: boolean | undefined;
+        tabSize?: number | undefined;
+        enableAutocorrect?: boolean | undefined;
+        lineNumbers?: boolean | undefined;
+        defaultTheme?: boolean | undefined;
+        areaId?: string | undefined;
+        ariaLabelledby?: string | undefined;
+        readonly?: boolean | undefined;
+        handleTabs?: boolean | undefined;
+        handleSelfClosingCharacters?: boolean | undefined;
+        handleNewLineIndentation?: boolean | undefined;
+        styleParent?: ShadowRoot | undefined;
     }
 }

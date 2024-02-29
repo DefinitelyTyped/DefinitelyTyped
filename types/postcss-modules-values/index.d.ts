@@ -1,10 +1,11 @@
-// Type definitions for postcss-modules-values 3.0
-// Project: https://github.com/css-modules/postcss-modules-values#readme
-// Definitions by: Bob Matcuk <https://github.com/bmatcuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+import { PluginCreator } from "postcss";
 
-import { Plugin } from "postcss";
+declare namespace values {
+    interface Options {
+        createImportedName(name: string): string;
+    }
+}
 
-declare const values: Plugin<void>;
-export = values;
+declare const creator: PluginCreator<values.Options>;
+
+export = creator;

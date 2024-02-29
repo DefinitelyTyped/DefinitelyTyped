@@ -1,8 +1,3 @@
-// Type definitions for npm-user-packages 3.0
-// Project: https://github.com/kevva/npm-user-packages#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = npmUserPackages;
 
 /**
@@ -14,19 +9,19 @@ declare function npmUserPackages(username: string): Promise<npmUserPackages.Pack
 declare namespace npmUserPackages {
     interface PackageData {
         author: {
-            email?: string;
+            email?: string | undefined;
             name: string;
-            url?: string;
-            username?: string;
+            url?: string | undefined;
+            username?: string | undefined;
         };
         date: string;
         description: string;
         keywords: string[];
         links: {
-            bugs?: string;
-            homepage?: string;
+            bugs?: string | undefined;
+            homepage?: string | undefined;
             npm: string;
-            repository?: string;
+            repository?: string | undefined;
         };
         maintainers: Array<{
             email: string;

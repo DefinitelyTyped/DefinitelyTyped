@@ -1,9 +1,3 @@
-// Type definitions for chai-dom
-// Project: https://github.com/nathanboktae/chai-dom
-// Definitions by: Matt Lewis <https://github.com/mattlewis92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare namespace Chai {
@@ -12,7 +6,7 @@ declare namespace Chai {
 
         attribute(name: string, value?: string): Assertion;
 
-        class(className: string): Assertion;
+        class(className: string | RegExp): Assertion;
 
         id(id: string): Assertion;
 
@@ -21,6 +15,8 @@ declare namespace Chai {
         text(text: string | string[]): Assertion;
 
         value(text: string): Assertion;
+
+        style(property: string, value: string): Assertion;
 
         empty: Assertion;
 
@@ -36,9 +32,15 @@ declare namespace Chai {
 
         trimmed: Assertion;
 
+        rendered: Assertion;
+
         visible: Assertion;
 
         tagName(name: string): Assertion;
+
+        focus: Assertion;
+
+        checked: Assertion;
     }
 
     interface Include {
@@ -52,7 +54,7 @@ declare namespace Chai {
     }
 }
 
-declare module 'chai-dom' {
+declare module "chai-dom" {
     const chaiDom: Chai.ChaiPlugin;
     export = chaiDom;
 }

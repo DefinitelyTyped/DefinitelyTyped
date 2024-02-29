@@ -1,8 +1,3 @@
-// Type definitions for ssh2-streams v0.1.9
-// Project: https://github.com/mscdex/ssh2-streams
-// Definitions by: Ron Buckton <https://github.com/rbuckton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as stream from "stream";
@@ -137,7 +132,6 @@ export class SSH2Stream extends stream.Transform {
      */
     channelOpenFail(remoteChannel: number, reasonCode: number, description?: string, lang?: string): boolean;
 
-
     /**
      * (Client-only)
      * Writes a service request packet for `serviceName`.
@@ -180,7 +174,11 @@ export class SSH2Stream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    authPK(username: string, pubKey: ParsedKey, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
+    authPK(
+        username: string,
+        pubKey: ParsedKey,
+        cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void,
+    ): boolean;
 
     /**
      * (Client-only)
@@ -191,7 +189,13 @@ export class SSH2Stream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    authHostBased(username: string, pubKey: ParsedKey, localHostname: string, localUsername: string, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
+    authHostBased(
+        username: string,
+        pubKey: ParsedKey,
+        localHostname: string,
+        localUsername: string,
+        cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void,
+    ): boolean;
 
     /**
      * (Client-only)
@@ -259,7 +263,16 @@ export class SSH2Stream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    pty(channel: number, rows: number, cols: number, height: number, width: number, terminalType?: string, terminalModes?: any, wantReply?: boolean): boolean;
+    pty(
+        channel: number,
+        rows: number,
+        cols: number,
+        height: number,
+        width: number,
+        terminalType?: string,
+        terminalModes?: any,
+        wantReply?: boolean,
+    ): boolean;
 
     /**
      * (Client-only)
@@ -343,8 +356,12 @@ export class SSH2Stream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_directStreamLocal(channel: number, initWindow: number, maxPacket: number, config: SocketForwardingConfig): boolean;
-
+    openssh_directStreamLocal(
+        channel: number,
+        initWindow: number,
+        maxPacket: number,
+        config: SocketForwardingConfig,
+    ): boolean;
 
     /**
      * (Server-only)
@@ -411,7 +428,12 @@ export class SSH2Stream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    openssh_forwardedStreamLocal(channel: number, initWindow: number, maxPacket: number, info: ForwardedSocket): boolean;
+    openssh_forwardedStreamLocal(
+        channel: number,
+        initWindow: number,
+        maxPacket: number,
+        info: ForwardedSocket,
+    ): boolean;
 
     /**
      * (Server-only)
@@ -429,7 +451,6 @@ export class SSH2Stream extends stream.Transform {
      */
     exitSignal(channel: number, signalName: string, coreDumped: boolean, errorMessage: string): boolean;
 
-
     /**
      * (Client/Server)
      * Emitted when the protocol header is seen.
@@ -439,7 +460,10 @@ export class SSH2Stream extends stream.Transform {
     /**
      * (Client/Server)
      */
-    on(event: "GLOBAL_REQUEST", listener: (reqName: string, wantReply: boolean, request: GlobalRequest | Buffer | undefined) => void): this;
+    on(
+        event: "GLOBAL_REQUEST",
+        listener: (reqName: string, wantReply: boolean, request: GlobalRequest | Buffer | undefined) => void,
+    ): this;
 
     /**
      * (Client/Server)
@@ -521,7 +545,6 @@ export class SSH2Stream extends stream.Transform {
      */
     on(event: "CHANNEL_CLOSE:0", listener: () => void): this;
 
-
     /**
      * (Client-only)
      * This event allows you to verify a host's key. If `callback` is called with `true`, the
@@ -544,7 +567,10 @@ export class SSH2Stream extends stream.Transform {
     /**
      * (Client-only)
      */
-    on(event: "USERAUTH_INFO_REQUEST", listener: (name: string, instructions: string, lang: string, prompts: Prompt[]) => void): this;
+    on(
+        event: "USERAUTH_INFO_REQUEST",
+        listener: (name: string, instructions: string, lang: string, prompts: Prompt[]) => void,
+    ): this;
 
     /**
      * (Client-only)
@@ -574,7 +600,10 @@ export class SSH2Stream extends stream.Transform {
     /**
      * (Server-only)
      */
-    on(event: "USERAUTH_REQUEST", listener: (username: string, serviceName: string, authMethod: string, authMethodData: AuthMethodData) => void): this;
+    on(
+        event: "USERAUTH_REQUEST",
+        listener: (username: string, serviceName: string, authMethod: string, authMethodData: AuthMethodData) => void,
+    ): this;
 
     /**
      * (Server-only)
@@ -613,45 +642,45 @@ export interface SSH2StreamConfig {
     /**
      * Set to true to create an instance in server mode.
      */
-    server?: boolean;
+    server?: boolean | undefined;
 
     /**
      * If in server mode, an object keyed on host key format.
      */
-    hostKeys?: HostKeys;
+    hostKeys?: HostKeys | undefined;
 
     /**
      * A message that is sent to clients immediately upon connection, before handshaking begins.
      */
-    banner?: string;
+    banner?: string | undefined;
 
     /**
      * A custom server software name/version identifier.
      * @default 'ssh2js' + moduleVersion + 'srv'
      */
-    ident?: string;
+    ident?: string | undefined;
 
     /**
      * This is the maximum packet size that will be accepted. It should be 35000 bytes or larger to be compatible with other SSH2 implementations.
      * @default 35000
      */
-    maxPacketSize?: number;
+    maxPacketSize?: number | undefined;
 
     /**
      * This is the highWaterMark to use for the parser stream.
      * @default 32 * 1024
      */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
 
     /**
      * This option allows you to explicitly override the default transport layer algorithms used for the connection. Each value must be an array of valid algorithms for that category. The order of the algorithms in the arrays are important, with the most favorable being first.
      */
-    algorithms?: Algorithms;
+    algorithms?: Algorithms | undefined;
 
     /**
      * Set this to a function that receives a single string argument to get detailed (local) debug information.
      */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface HostKeys {
@@ -669,18 +698,18 @@ export interface HostKey {
  * The order of the algorithms in the arrays are important, with the most favorable being first.
  */
 export interface Algorithms {
-    kex?: string[];
-    cipher?: string[];
-    serverHostKey?: string[];
-    hmac?: string[];
-    compress?: string[];
+    kex?: string[] | undefined;
+    cipher?: string[] | undefined;
+    serverHostKey?: string[] | undefined;
+    hmac?: string[] | undefined;
+    compress?: string[] | undefined;
 }
 
 export interface Header {
     /**
      * (Client-only) An optional greeting message presented by the server.
      */
-    greeting?: string;
+    greeting?: string | undefined;
 
     /**
      * The raw identification string sent by the remote party.
@@ -812,7 +841,14 @@ export interface SessionChannelInfo {
     packetSize: number;
 }
 
-export type ChannelOpenInfo = X11ChannelInfo | ForwardedTcpipChannelInfo | openssh_ForwardedStreamLocalChannelInfo | openssh_AuthAgentChannelInfo | DirectTcpipChannelInfo | openssh_DirectStreamLocalChannelInfo | SessionChannelInfo;
+export type ChannelOpenInfo =
+    | X11ChannelInfo
+    | ForwardedTcpipChannelInfo
+    | openssh_ForwardedStreamLocalChannelInfo
+    | openssh_AuthAgentChannelInfo
+    | DirectTcpipChannelInfo
+    | openssh_DirectStreamLocalChannelInfo
+    | SessionChannelInfo;
 
 export interface ExitStatusChannelRequest {
     request: "exit-status";
@@ -904,20 +940,31 @@ export interface openssh_AuthAgentChannelRequest {
     recipient: number;
 }
 
-export type ChannelRequest = ExitStatusChannelRequest | ExitSignalChannelRequest | PseudoTtyChannelRequest | WindowChangeChannelRequest | X11ChannelRequest | EnvChannelRequest | ShellChannelRequest | ExecChannelRequest | SubsystemChannelRequest | SignalChannelRequest | FlowControlChannelRequest;
+export type ChannelRequest =
+    | ExitStatusChannelRequest
+    | ExitSignalChannelRequest
+    | PseudoTtyChannelRequest
+    | WindowChangeChannelRequest
+    | X11ChannelRequest
+    | EnvChannelRequest
+    | ShellChannelRequest
+    | ExecChannelRequest
+    | SubsystemChannelRequest
+    | SignalChannelRequest
+    | FlowControlChannelRequest;
 
 export interface PublicKeyAuthMethodData {
     keyAlgo: string;
     key: Buffer;
-    signature?: Buffer;
-    blob?: Buffer;
+    signature?: Buffer | undefined;
+    blob?: Buffer | undefined;
 }
 
 export interface HostbasedAuthMethodData {
     keyAlgo: string;
     key: Buffer;
-    signature?: Buffer;
-    blob?: Buffer;
+    signature?: Buffer | undefined;
+    blob?: Buffer | undefined;
     localHostname: string;
     localUsername: string;
 }
@@ -974,7 +1021,7 @@ export interface SocketForwardingConfig {
 
 export interface Prompt {
     prompt: string;
-    echo?: boolean;
+    echo?: boolean | undefined;
 }
 
 export interface ForwardedTcpip {
@@ -1070,6 +1117,29 @@ export class SFTPStream extends stream.Transform {
 
     /**
      * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(
+        remotePath: string,
+        data: string | Buffer,
+        options: WriteFileOptions,
+        callback?: (err: any) => void,
+    ): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, encoding: string, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
+     * Writes data to a file
+     */
+    writeFile(remotePath: string, data: string | Buffer, callback?: (err: any) => void): void;
+
+    /**
+     * (Client-only)
      * Returns a new writable stream for `path`.
      */
     createWriteStream(path: string, options?: WriteStreamOptions): stream.Writable;
@@ -1080,7 +1150,12 @@ export class SFTPStream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    open(filename: string, mode: string, attributes: InputAttributes, callback: (err: any, handle: Buffer) => void): boolean;
+    open(
+        filename: string,
+        mode: string,
+        attributes: InputAttributes,
+        callback: (err: any, handle: Buffer) => void,
+    ): boolean;
 
     /**
      * (Client-only)
@@ -1105,13 +1180,27 @@ export class SFTPStream extends stream.Transform {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    readData(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void): boolean;
+    readData(
+        handle: Buffer,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void,
+    ): boolean;
 
     /**
      * (Client-only)
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    writeData(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any) => void): boolean;
+    writeData(
+        handle: Buffer,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback: (err: any) => void,
+    ): boolean;
 
     /**
      * (Client-only)
@@ -1580,7 +1669,7 @@ export namespace SFTPStream {
         BAD_MESSAGE = 5,
         NO_CONNECTION = 6,
         CONNECTION_LOST = 7,
-        OP_UNSUPPORTED = 8
+        OP_UNSUPPORTED = 8,
     }
 
     /**
@@ -1592,7 +1681,7 @@ export namespace SFTPStream {
         APPEND = 0x00000004,
         CREAT = 0x00000008,
         TRUNC = 0x00000010,
-        EXCL = 0x00000020
+        EXCL = 0x00000020,
     }
 }
 
@@ -1600,55 +1689,55 @@ export interface SFTPStreamConfig {
     /**
      * Set to true to create an instance in server mode.
      */
-    server?: boolean;
+    server?: boolean | undefined;
 
     /**
      * This is the highWaterMark to use for the stream.
      */
-    highWaterMark?: number;
+    highWaterMark?: number | undefined;
 
     /**
      * Set this to a function that receives a single string argument to get detailed (local) debug information.
      */
-    debug?: (information: string) => any;
+    debug?: ((information: string) => any) | undefined;
 }
 
 export interface TransferOptions {
     /**
      * Number of concurrent reads
      */
-    concurrency?: number;
+    concurrency?: number | undefined;
 
     /**
      * Size of each read in bytes
      */
-    chunkSize?: number;
+    chunkSize?: number | undefined;
 
     /**
      * Called every time a part of a file was transferred
      */
-    step?: (total_transferred: number, chunk: number, total: number) => void;
+    step?: ((total_transferred: number, chunk: number, total: number) => void) | undefined;
 
     /**
      * Integer or string representing the file mode to set for the uploaded file.
      */
-    mode?: number | string;
+    mode?: number | string | undefined;
 }
 
 export interface ReadStreamOptions {
-    flags?: string;
-    encoding?: string;
-    handle?: Buffer;
-    mode?: number;
-    autoClose?: boolean;
-    start?: number;
-    end?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    handle?: Buffer | undefined;
+    mode?: number | undefined;
+    autoClose?: boolean | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
 }
 
 export interface WriteStreamOptions {
-    flags?: string;
-    encoding?: string;
-    mode?: number;
+    flags?: string | undefined;
+    encoding?: string | undefined;
+    mode?: number | undefined;
 }
 
 export interface FileEntry {
@@ -1658,12 +1747,12 @@ export interface FileEntry {
 }
 
 export interface InputAttributes {
-    mode?: number | string;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    atime?: number | Date;
-    mtime?: number | Date;
+    mode?: number | string | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    atime?: number | Date | undefined;
+    mtime?: number | Date | undefined;
 }
 
 export interface Attributes {
@@ -1700,6 +1789,12 @@ export interface ParsedKey {
 }
 
 export interface ReadFileOptions {
-    encoding?: string;
-    flag?: string;
+    encoding?: string | undefined;
+    flag?: string | undefined;
+}
+
+export interface WriteFileOptions {
+    encoding?: string | undefined;
+    mode?: number | undefined;
+    flag?: string | undefined;
 }

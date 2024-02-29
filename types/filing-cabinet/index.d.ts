@@ -1,8 +1,3 @@
-// Type definitions for filing-cabinet 2.5
-// Project: https://github.com/mrjoelkemp/node-filing-cabinet
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace cabinet {
     interface Options {
         /** the dependency path */
@@ -34,11 +29,11 @@ declare namespace cabinet {
          * Path to a typescript configuration.
          * Could also be an object representing a pre-parsed typescript config
          */
-        tsConfig?: string | object;
+        tsConfig?: string | object | undefined;
         /**
          * For typescript files, whether to prefer *.js over *.d.ts
          */
-        noTypeDefinitions?: boolean;
+        noTypeDefinitions?: boolean | undefined;
     }
 
     type Resolver = (partial: string, filename: string, directory: string, config?: any) => void;

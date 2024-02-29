@@ -1,16 +1,14 @@
-
-
 // Examples taken from https://github.com/pyrsmk/qwest/blob/master/README.md
 
-qwest.get('example.com')
+qwest.get("example.com")
     .then(function(response) {
         alert(response);
     });
 
-qwest.post('example.com', {
-    firstname: 'Pedro',
-    lastname: 'Sanchez',
-    age: 30
+qwest.post("example.com", {
+    firstname: "Pedro",
+    lastname: "Sanchez",
+    age: 30,
 })
     .then(function(response) {
         // Make some useful actions
@@ -19,7 +17,7 @@ qwest.post('example.com', {
         // Process the error
     });
 
-qwest.get('example.com')
+qwest.get("example.com")
     .then(function(response) {
         // Blah blah blah
     })
@@ -27,7 +25,7 @@ qwest.get('example.com')
         throw e;
     });
 
-qwest.base = 'http://example.com/';
+qwest.base = "http://example.com/";
 
 qwest.limit(4);
 
@@ -36,7 +34,7 @@ qwest.before(function() {
         // Upload in progress
     };
 })
-    .get('example.com')
+    .get("example.com")
     .then(function(response) {
         // Blah blah blah
     });
@@ -47,36 +45,35 @@ if (qwest.xhr2) {
     // Actions for XHR1
 }
 
-qwest.setDefaultXdrResponseType('text');
-
+qwest.setDefaultXdrResponseType("text");
 
 // Extra tests for anything not covered above
 
 // Tests for method types
-qwest.post('foo')
-qwest.put('foo')
-qwest.delete('foo')
+qwest.post("foo");
+qwest.put("foo");
+qwest.delete("foo");
 
 // Tests for request method options
-qwest.get('foo', null, {
-    dataType: 'foo',
-    responseType: 'bar',
+qwest.get("foo", null, {
+    dataType: "foo",
+    responseType: "bar",
     cache: true,
     async: false,
-    user: 'bob',
-    password: 'pass',
+    user: "bob",
+    password: "pass",
     headers: {
-        'X-Foo': 'Bar',
-        'X-Something': {
-            foo: 'bar'
-        }
+        "X-Foo": "Bar",
+        "X-Something": {
+            foo: "bar",
+        },
     },
     withCredentials: true,
     timeout: 2000,
-    attempts: 7
-})
-qwest.get('foo', null, {})
+    attempts: 7,
+});
+qwest.get("foo", null, {});
 
-qwest.get('foo', null, {}).complete(() => {
-    //done
-})
+qwest.get("foo", null, {}).complete(() => {
+    // done
+});

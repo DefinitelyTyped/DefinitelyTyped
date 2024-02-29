@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/topojson-client",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/topojson/topojson-client"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/topojson-specification": "*"
+    },
+    "devDependencies": {
+        "@types/topojson": "*",
+        "@types/topojson-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Ricardo Mello",
+            "githubUsername": "ricmello"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for escape-html 1.0
-// Project: https://github.com/component/escape-html
-// Definitions by: Elisée MAURER <https://github.com/elisee>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Escape string for use in HTML
  */
@@ -20,6 +14,6 @@
  * *Note* when using the escaped value within a tag, it is only suitable as the value of an attribute,
  * where the value is quoted with either a double quote character (`"`) or a single quote character (`'`).
  */
-declare function escapeHTML(text: string): string;
+declare function escapeHTML(text?: string | null): string;
 
 export = escapeHTML;

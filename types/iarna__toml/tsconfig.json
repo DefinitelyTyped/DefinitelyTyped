@@ -1,28 +1,16 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true,
-        "paths": {
-            "@iarna/toml": [
-                "iarna__toml"
-            ],
-            "@iarna/toml/*": [
-                "iarna__toml/*"
-            ]
-        }
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",

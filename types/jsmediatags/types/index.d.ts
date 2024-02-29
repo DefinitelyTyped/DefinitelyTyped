@@ -1,32 +1,41 @@
-import MediaFileReader from '../build2/MediaFileReader';
+import MediaFileReader from "../build2/MediaFileReader";
 
 export interface jsmediatagsError {
     type: string;
     info: string;
-    xhr?: XMLHttpRequest;
+    xhr?: XMLHttpRequest | undefined;
 }
 export interface CallbackType {
     onSuccess: (data: TagType) => void;
-    onError?: (error: jsmediatagsError) => void;
+    onError?: ((error: jsmediatagsError) => void) | undefined;
 }
 
 export interface LoadCallbackType {
     onSuccess: () => void;
-    onError?: (error: jsmediatagsError) => void;
+    onError?: ((error: jsmediatagsError) => void) | undefined;
 }
 
 export type CharsetType =
-    "utf-16" |
-    "utf-16le" |
-    "utf-16be" |
-    "utf-8" |
-    "iso-8859-1";
+    | "utf-16"
+    | "utf-16le"
+    | "utf-16be"
+    | "utf-8"
+    | "iso-8859-1";
 
 export interface ByteRange {
     offset: number; // negative offset is relative to the end of the file.
     length: number;
 }
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
 
 export type DataType = number[] | TypedArray | string;
 
@@ -44,7 +53,7 @@ export type FrameReaderSignature = (
     length: number,
     data: MediaFileReader,
     flags?: any,
-    id3header?: TagHeader
+    id3header?: TagHeader,
 ) => any;
 
 export interface TagFrames {
@@ -62,7 +71,7 @@ export interface TagFrameHeader {
     id: string;
     size: number;
     headerSize: number;
-    flags?: TagFrameFlags;
+    flags?: TagFrameFlags | undefined;
 }
 
 export interface TagFrameFlags {
@@ -101,15 +110,15 @@ export interface TagType {
 }
 
 export interface ShortcutTags {
-    title?: string;
-    artist?: string;
-    album?: string;
-    year?: string;
-    comment?: string;
-    track?: string;
-    genre?: string;
-    picture?: PictureType;
-    lyrics?: string;
+    title?: string | undefined;
+    artist?: string | undefined;
+    album?: string | undefined;
+    year?: string | undefined;
+    comment?: string | undefined;
+    track?: string | undefined;
+    genre?: string | undefined;
+    picture?: PictureType | undefined;
+    lyrics?: string | undefined;
 }
 
 export interface PictureType {
@@ -126,12 +135,12 @@ export interface FrameType {
 }
 
 export type ShortcutNameType =
-    "title" |
-    "artist" |
-    "album" |
-    "year" |
-    "comment" |
-    "track" |
-    "genre" |
-    "picture" |
-    "lyrics";
+    | "title"
+    | "artist"
+    | "album"
+    | "year"
+    | "comment"
+    | "track"
+    | "genre"
+    | "picture"
+    | "lyrics";

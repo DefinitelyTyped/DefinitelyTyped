@@ -1,16 +1,13 @@
 import * as React from "react";
-import { ReactDivAttr, SizingProps } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-label" | "aria-live";
-interface InheritedProps extends
-    Omit<ReactDivAttr, ExcludedAttributes>,
-    SizingProps
-{ }
+type ExcludedAttributes = "aria-atomic" | "aria-labelledby" | "aria-live";
 
-export interface LoadingProps extends InheritedProps {
-    active?: boolean,
-    description?: string,
-    withOverlay?: boolean,
+export interface LoadingProps extends Omit<ReactDivAttr, ExcludedAttributes> {
+    active?: boolean | undefined;
+    description?: string | undefined;
+    small?: boolean | undefined;
+    withOverlay?: boolean | undefined;
 }
 
 declare const Loading: React.FC<LoadingProps>;

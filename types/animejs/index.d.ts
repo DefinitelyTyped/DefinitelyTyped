@@ -1,14 +1,6 @@
-// Type definitions for animejs 3.1
-// Project: http://animejs.com
-// Definitions by: Andrew Babin     <https://github.com/A-Babin>
-//                 supaiku0         <https://github.com/supaiku0>
-//                 southrock         <https://github.com/southrock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 type FunctionBasedParameter = (element: HTMLElement, index: number, length: number) => number;
 type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
-type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => ((time: number) => number);
+type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => (time: number) => number;
 // Allowing null is necessary because DOM queries may not return anything.
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
@@ -48,33 +40,33 @@ declare namespace anime {
     type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
-        begin?: AnimeCallbackFunction;
-        change?: AnimeCallbackFunction;
-        update?: AnimeCallbackFunction;
-        complete?: AnimeCallbackFunction;
-        loopBegin?: AnimeCallbackFunction;
-        loopComplete?: AnimeCallbackFunction;
-        changeBegin?: AnimeCallbackFunction;
-        changeComplete?: AnimeCallbackFunction;
+        begin?: AnimeCallbackFunction | undefined;
+        change?: AnimeCallbackFunction | undefined;
+        update?: AnimeCallbackFunction | undefined;
+        complete?: AnimeCallbackFunction | undefined;
+        loopBegin?: AnimeCallbackFunction | undefined;
+        loopComplete?: AnimeCallbackFunction | undefined;
+        changeBegin?: AnimeCallbackFunction | undefined;
+        changeComplete?: AnimeCallbackFunction | undefined;
     }
 
     interface AnimeInstanceParams extends AnimeCallBack {
-        loop?: number | boolean;
-        autoplay?: boolean;
-        direction?: DirectionOptions | string;
+        loop?: number | boolean | undefined;
+        autoplay?: boolean | undefined;
+        direction?: DirectionOptions | string | undefined;
     }
 
     interface AnimeAnimParams extends AnimeCallBack {
-        targets?: AnimeTarget | ReadonlyArray<AnimeTarget>;
+        targets?: AnimeTarget | readonly AnimeTarget[] | undefined;
 
-        duration?: number | FunctionBasedParameter;
-        delay?: number | FunctionBasedParameter;
-        endDelay?: number | FunctionBasedParameter;
-        elasticity?: number | FunctionBasedParameter;
-        round?: number | boolean | FunctionBasedParameter;
-        keyframes?: ReadonlyArray<AnimeAnimParams>;
+        duration?: number | FunctionBasedParameter | undefined;
+        delay?: number | FunctionBasedParameter | undefined;
+        endDelay?: number | FunctionBasedParameter | undefined;
+        elasticity?: number | FunctionBasedParameter | undefined;
+        round?: number | boolean | FunctionBasedParameter | undefined;
+        keyframes?: readonly AnimeAnimParams[] | undefined;
 
-        easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string);
+        easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string) | undefined;
 
         [AnyAnimatedProperty: string]: any;
     }
@@ -83,12 +75,31 @@ declare namespace anime {
         // Just need this to merge both Params interfaces.
     }
 
+    interface Animatable {
+        id: number;
+        target: HTMLElement;
+        total: number;
+        transforms: object;
+    }
+
+    interface Animation {
+        animatable: Animatable;
+        currentValue: string;
+        delay: number;
+        duration: number;
+        endDelay: number;
+        property: string;
+        tweens: readonly object[];
+        type: string;
+    }
+
     interface AnimeInstance extends AnimeCallBack {
         play(): void;
         pause(): void;
         restart(): void;
         reverse(): void;
         seek(time: number): void;
+        tick(time: number): void;
 
         began: boolean;
         paused: boolean;
@@ -106,8 +117,8 @@ declare namespace anime {
         remaining: number;
         reversed: boolean;
 
-        animatables: ReadonlyArray<object>;
-        animations: ReadonlyArray<object>;
+        animatables: readonly Animatable[];
+        animations: readonly Animation[];
     }
 
     interface AnimeTimelineAnimParams extends AnimeAnimParams {
@@ -119,12 +130,12 @@ declare namespace anime {
     }
 
     interface StaggerOptions {
-        start?: number | string;
-        direction?: 'normal' | 'reverse';
-        easing?: CustomEasingFunction | string | EasingOptions;
-        grid?: ReadonlyArray<number>;
-        axis?: 'x' | 'y';
-        from?: 'first' | 'last' | 'center' | number;
+        start?: number | string | undefined;
+        direction?: "normal" | "reverse" | undefined;
+        easing?: CustomEasingFunction | string | EasingOptions | undefined;
+        grid?: readonly number[] | undefined;
+        axis?: "x" | "y" | undefined;
+        from?: "first" | "last" | "center" | number | undefined;
     }
 
     // Helpers
@@ -132,19 +143,22 @@ declare namespace anime {
     const speed: number;
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
-    function remove(targets: AnimeTarget | ReadonlyArray<AnimeTarget>): void;
-    function get(targets: AnimeTarget, prop: string): string | number;
+    function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;
+    function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
-        el: HTMLElement | SVGElement,
-        property: string,
-        totalLength: number
+        el: HTMLElement | SVGElement;
+        property: string;
+        totalLength: number;
     };
     function setDashoffset(el: HTMLElement | SVGElement | null): number;
     function bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
-    function stagger(value: number | string | ReadonlyArray<number | string>, options?: StaggerOptions): FunctionBasedParameter;
-    function set(targets: AnimeTarget, value: {[AnyAnimatedProperty: string]: any}): void;
+    function stagger(
+        value: number | string | ReadonlyArray<number | string>,
+        options?: StaggerOptions,
+    ): FunctionBasedParameter;
+    function set(targets: AnimeTarget, value: { [AnyAnimatedProperty: string]: any }): void;
     // Timeline
-    function timeline(params?: AnimeParams | ReadonlyArray<AnimeInstance>): AnimeTimelineInstance;
+    function timeline(params?: AnimeParams | readonly AnimeInstance[]): AnimeTimelineInstance;
     function random(min: number, max: number): number;
 }
 

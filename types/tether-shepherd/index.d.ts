@@ -1,10 +1,4 @@
-// Type definitions for Tether-Shepherd v1.2.0
-// Project: https://github.hubspot.com/shepherd/
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace TetherShepherd {
-
     interface ShepherdStatic {
         on(eventName: string, handler: Function, context?: any): any;
         off(eventName: string, handler?: Function): any;
@@ -15,12 +9,12 @@ declare namespace TetherShepherd {
     }
 
     interface IShepherdTourOptions {
-        steps?: IShepherdTourStep[];
-        defaults?: IShepherdTourStepOptions;
+        steps?: IShepherdTourStep[] | undefined;
+        defaults?: IShepherdTourStepOptions | undefined;
     }
 
     interface IShepherdTour {
-        new (options?: IShepherdTourOptions): IShepherdTour
+        new(options?: IShepherdTourOptions): IShepherdTour;
 
         /**
          * Creates a new Step object with options, and returns the Tour object for convenient chaining when creating multiple steps. If you'd like you can also just pass an options hash which includes id as a key. If the options hash doesn't include an id, one will be generated. You can also pass an existing Step instance rather than options, but note that Shepherd does not support a Step being attached to multiple Tours.
@@ -140,16 +134,16 @@ declare namespace TetherShepherd {
 
     interface IShepherdTourStepOptions {
         text?: any;
-        title?: string;
+        title?: string | undefined;
         attachTo?: any;
         beforeShowPromise?: any;
-        classes?: string;
-        buttons?: IShepherdTourButton[];
+        classes?: string | undefined;
+        buttons?: IShepherdTourButton[] | undefined;
         advanceOn?: any;
-        showCancelLink?: boolean;
-        scrollTo?: boolean;
+        showCancelLink?: boolean | undefined;
+        scrollTo?: boolean | undefined;
         when?: any;
-        showOn?: () => boolean;
+        showOn?: (() => boolean) | undefined;
 
         // TODO: Tie this in with the tether.d.ts
         tetherOptions?: any;
@@ -157,9 +151,9 @@ declare namespace TetherShepherd {
 
     interface IShepherdTourButton {
         text: string;
-        classes?: string;
-        action?: Function;
-        events?: IShepherdTourButtonEventHash;
+        classes?: string | undefined;
+        action?: Function | undefined;
+        events?: IShepherdTourButtonEventHash | undefined;
     }
 
     interface IShepherdTourButtonEventHash {

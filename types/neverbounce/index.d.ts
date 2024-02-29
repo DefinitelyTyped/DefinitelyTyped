@@ -1,8 +1,3 @@
-// Type definitions for neverbounce 4.2
-// Project: https://github.com/NeverBounce/NeverBounceApi-NodeJS
-// Definitions by: George Novitskiy <https://github.com/georgenov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 export = NeverBounce;
 
 declare class NeverBounce {
@@ -87,10 +82,10 @@ declare class Errors extends Error {
     constructor(type: string, message: string);
 
     static _lut: {
-        general_failure: string,
-        auth_failure: string,
-        bad_referrer: string,
-        throttle_triggered: string,
+        general_failure: string;
+        auth_failure: string;
+        bad_referrer: string;
+        throttle_triggered: string;
     };
 
     static AuthError: string;
@@ -106,7 +101,14 @@ declare class Account {
 declare class Jobs {
     search(query: any): Promise<Response>;
 
-    create(input: any, inputLocation: any, fileName: any, runSample?: any, autoParse?: any, autoStart?: any): Promise<Response>;
+    create(
+        input: any,
+        inputLocation: any,
+        fileName: any,
+        runSample?: any,
+        autoParse?: any,
+        autoStart?: any,
+    ): Promise<Response>;
 
     parse(jobId: number, autoStart?: any): Promise<Response>;
 
@@ -129,18 +131,18 @@ declare class Single {
 
 interface Config {
     apiKey?: any;
-    opts?: ConfigOptions;
-    timeout?: number;
+    opts?: ConfigOptions | undefined;
+    timeout?: number | undefined;
 }
 
 interface ConfigOptions {
-    acceptedType?: string;
+    acceptedType?: string | undefined;
     headers?: {
-        "Content-Type"?: string;
-        "User-Agent"?: string;
-    };
-    host?: string;
-    port?: number;
+        "Content-Type"?: string | undefined;
+        "User-Agent"?: string | undefined;
+    } | undefined;
+    host?: string | undefined;
+    port?: number | undefined;
 }
 
 type Response = object;

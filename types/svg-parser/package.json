@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/svg-parser",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Rich-Harris/svg-parser"
+    ],
+    "devDependencies": {
+        "@types/svg-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mrmlnc",
+            "githubUsername": "mrmlnc"
+        },
+        {
+            "name": "Joel Shinness",
+            "githubUsername": "JoelCodes"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

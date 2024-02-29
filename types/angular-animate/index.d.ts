@@ -1,15 +1,9 @@
-// Type definitions for Angular JS (ngAnimate module) 1.5
-// Project: http://angularjs.org
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>, Raphael Schweizer <https://github.com/rasch>, Cody Schaaf <https://github.com/codyschaaf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     /**
      * ngAnimate module (angular-animate.js)
      */
@@ -19,20 +13,52 @@ declare module 'angular' {
         }
 
         interface IAnimateCallbackObject {
-            eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeSetClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeAddClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            beforeRemoveClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-            enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
+            eventFn?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            beforeSetClass?:
+                | ((
+                    element: JQuery,
+                    addedClasses: string,
+                    removedClasses: string,
+                    doneFunction: Function,
+                    options: IAnimationOptions,
+                ) => any)
+                | undefined;
+            setClass?:
+                | ((
+                    element: JQuery,
+                    addedClasses: string,
+                    removedClasses: string,
+                    doneFunction: Function,
+                    options: IAnimationOptions,
+                ) => any)
+                | undefined;
+            beforeAddClass?:
+                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
+                | undefined;
+            addClass?:
+                | ((element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
+                | undefined;
+            beforeRemoveClass?:
+                | ((element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
+                | undefined;
+            removeClass?:
+                | ((element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any)
+                | undefined;
+            enter?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            leave?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            move?: ((element: JQuery, doneFunction: Function, options: IAnimationOptions) => any) | undefined;
+            animate?:
+                | ((
+                    element: JQuery,
+                    fromStyles: string,
+                    toStyles: string,
+                    doneFunction: Function,
+                    options: IAnimationOptions,
+                ) => any)
+                | undefined;
         }
 
-        interface IAnimationPromise extends IPromise<void> { }
+        interface IAnimationPromise extends IPromise<void> {}
 
         /**
          * AnimateService
@@ -66,12 +92,12 @@ declare module 'angular' {
             pin(element: JQuery, parentElement: JQuery): void;
 
             /**
-            * Globally enables / disables animations.
-            *
-            * @param element If provided then the element will be used to represent the enable/disable operation.
-            * @param value If provided then set the animation on or off.
-            * @returns current animation state
-            */
+             * Globally enables / disables animations.
+             *
+             * @param element If provided then the element will be used to represent the enable/disable operation.
+             * @param value If provided then set the animation on or off.
+             * @returns current animation state
+             */
             enabled(element: JQuery, value?: boolean): boolean;
             enabled(value?: boolean): boolean;
 
@@ -90,7 +116,13 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            animate(element: JQuery, from: any, to: any, className?: string, options?: IAnimationOptions): IAnimationPromise;
+            animate(
+                element: JQuery,
+                from: any,
+                to: any,
+                className?: string,
+                options?: IAnimationOptions,
+            ): IAnimationPromise;
 
             /**
              * Appends the element to the parentElement element that resides in the document and then runs the enter animation.
@@ -101,7 +133,12 @@ declare module 'angular' {
              * @param options an optional collection of styles that will be picked up by the CSS transition/animation
              * @returns the animation callback promise
              */
-            enter(element: JQuery, parentElement: JQuery, afterElement?: JQuery, options?: IAnimationOptions): IAnimationPromise;
+            enter(
+                element: JQuery,
+                parentElement: JQuery,
+                afterElement?: JQuery,
+                options?: IAnimationOptions,
+            ): IAnimationPromise;
 
             /**
              * Runs the leave animation operation and, upon completion, removes the element from the DOM.
@@ -191,55 +228,55 @@ declare module 'angular' {
              * ng-EVENT-active will be applied to the element during the animation. Multiple events can be provided when
              * spaces are used as a separator. (Note that this will not perform any DOM operation.)
              */
-            event?: string;
+            event?: string | undefined;
 
             /**
-         * Indicates that the ng-prefix will be added to the event class. Setting to false or
-         * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
-         */
-            structural?: boolean;
+             * Indicates that the ng-prefix will be added to the event class. Setting to false or
+             * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
+             */
+            structural?: boolean | undefined;
 
             /**
-                 * The CSS easing value that will be applied to the transition or keyframe animation (or both).
-                 */
-            easing?: string;
+             * The CSS easing value that will be applied to the transition or keyframe animation (or both).
+             */
+            easing?: string | undefined;
 
             /**
              * The raw CSS transition style that will be used (e.g. 1s linear all).
              */
-            transitionStyle?: string;
+            transitionStyle?: string | undefined;
 
             /**
              * The raw CSS keyframe animation style that will be used (e.g. 1s my_animation linear).
              */
-            keyframeStyle?: string;
+            keyframeStyle?: string | undefined;
 
             /**
              * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
              */
-            from?: Object;
+            from?: Object | undefined;
 
             /**
              * The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
              */
-            to?: Object;
+            to?: Object | undefined;
 
             /**
              * A space separated list of CSS classes that will be added to the element and spread across the animation.
              */
-            addClass?: string;
+            addClass?: string | undefined;
 
             /**
              * A space separated list of CSS classes that will be removed from the element and spread across
              * the animation.
              */
-            removeClass?: string;
+            removeClass?: string | undefined;
 
             /**
              * A number value representing the total duration of the transition and/or keyframe (note that a value
              * of 1 is 1000ms). If a value of 0 is provided then the animation will be skipped entirely.
              */
-            duration?: number;
+            duration?: number | undefined;
 
             /**
              * A number value representing the total delay of the transition and/or keyframe (note that a value of
@@ -248,27 +285,26 @@ declare module 'angular' {
              * transition-delay: DETECTED_VALUE). Using true is useful when you want the CSS classes and inline styles to
              * all share the same CSS delay value.
              */
-            delay?: number;
+            delay?: number | undefined;
 
             /**
              * A numeric time value representing the delay between successively animated elements (Click here to
              * learn how CSS-based staggering works in ngAnimate.)
              */
-            stagger?: number;
+            stagger?: number | undefined;
 
             /**
              * The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item
              * in the stagger; therefore when a stagger option value of 0.1 is used then there will be a stagger delay of 600ms)
-         *
              */
-            staggerIndex?: number;
+            staggerIndex?: number | undefined;
 
             /**
              * Whether or not the provided from and to styles will be removed once the animation is closed. This is useful for
              * when the styles are used purely for the sake of the animation and do not have a lasting visual effect on the element
              * (e.g. a colapse and open animation). By default this value is set to false.
              */
-            cleanupStyles?: boolean;
+            cleanupStyles?: boolean | undefined;
         }
 
         interface IAnimateCssRunner {

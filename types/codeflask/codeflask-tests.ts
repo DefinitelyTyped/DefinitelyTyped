@@ -1,12 +1,12 @@
-import CodeFlask  = require('codeflask');
+import CodeFlask = require("codeflask");
 
 const flask = new CodeFlask(new HTMLElement(), {
-  language: 'js',
-  defaultTheme: false
+    language: "js",
+    defaultTheme: false,
 });
 
-flask.onUpdate((code) => { });
+flask.onUpdate((code) => {});
 
-flask.updateCode('Test');
+flask.updateCode("Test");
 
 const code: string = flask.getCode();

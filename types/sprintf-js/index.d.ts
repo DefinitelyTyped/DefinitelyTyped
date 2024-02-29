@@ -1,10 +1,3 @@
-// Type definitions for sprintf-js 1.1
-// Project: https://github.com/alexei/sprintf.js
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Caner Dagli <https://github.com/cdagli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns a formatted string:
  *

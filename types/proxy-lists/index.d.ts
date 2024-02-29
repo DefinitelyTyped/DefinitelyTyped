@@ -1,11 +1,5 @@
-// Type definitions for proxy-lists 1.14
-// Project: https://github.com/chill117/proxy-lists#readme
-// Definitions by: BehindTheMath <https://github.com/BehindTheMath>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { CoreOptions as RequestOptions } from "request";
 import { EventEmitter } from "events";
+import { CoreOptions as RequestOptions } from "request";
 
 export function getProxies(options?: Partial<Options>): GetProxiesEventEmitter;
 
@@ -22,16 +16,16 @@ export class GetProxiesEventEmitter extends EventEmitter {
 }
 
 export interface Options {
-    filterMode?: "strict" | "loose";
-    countries?: string[];
-    countriesBlackList?: string[];
-    protocols?: Protocol[];
-    anonymityLevels?: AnonymityLevel[];
-    sourcesWhiteList?: string[];
-    sourcesBlackList?: string[];
-    series?: boolean;
-    ipTypes?: IPType[];
-    defaultRequestOptions?: RequestOptions;
+    filterMode?: "strict" | "loose" | undefined;
+    countries?: string[] | undefined;
+    countriesBlackList?: string[] | undefined;
+    protocols?: Protocol[] | undefined;
+    anonymityLevels?: AnonymityLevel[] | undefined;
+    sourcesWhiteList?: string[] | undefined;
+    sourcesBlackList?: string[] | undefined;
+    series?: boolean | undefined;
+    ipTypes?: IPType[] | undefined;
+    defaultRequestOptions?: RequestOptions | undefined;
 }
 
 export type Protocol = "http" | "https" | "socks5" | "socks4";
@@ -44,14 +38,14 @@ export interface Proxy {
     ipAddress: string;
     port: number;
     country: string;
-    anonymityLevel?: AnonymityLevel;
-    protocols?: Protocol[];
+    anonymityLevel?: AnonymityLevel | undefined;
+    protocols?: Protocol[] | undefined;
     source: string;
-    tunnel?: boolean;
+    tunnel?: boolean | undefined;
 }
 
 export interface InternalOptions extends Options {
-    sample?: boolean;
+    sample?: boolean | undefined;
 }
 
 export interface AddSource {
@@ -60,8 +54,8 @@ export interface AddSource {
 }
 
 export interface ListSourcesOptions {
-    sourcesWhiteList?: string[];
-    sourcesBlackList?: string[];
+    sourcesWhiteList?: string[] | undefined;
+    sourcesBlackList?: string[] | undefined;
 }
 
 export interface Source {

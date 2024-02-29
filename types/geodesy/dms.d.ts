@@ -2,7 +2,7 @@
  * @format
  */
 
-import { Format, Dp } from '.';
+import { Dp, Format } from ".";
 
 type Precision = 1 | 2 | 3;
 

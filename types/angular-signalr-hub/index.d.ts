@@ -1,9 +1,3 @@
-// Type definitions for angular-signalr-hub v1.5.0
-// Project: https://github.com/JustMaier/angular-signalr-hub
-// Definitions by: Adam Santaniello <https://github.com/AdamSantaniello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="signalr" />
 /// <reference types="angular" />
 
@@ -17,7 +11,7 @@ declare namespace ngSignalr {
         /**
          * Creates a new Hub connection
          */
-        new (hubName: string, options: HubOptions): Hub
+        new(hubName: string, options: HubOptions): Hub;
     }
 
     class Hub {
@@ -35,37 +29,37 @@ declare namespace ngSignalr {
         /**
          * Collection of client side callbacks
          */
-        listeners?: { [index: string]: (...args: any[]) => void };
+        listeners?: { [index: string]: (...args: any[]) => void } | undefined;
 
         /**
          * String array of server side methods which the client can call
          */
-        methods?: Array<string>;
+        methods?: string[] | undefined;
 
         /**
          * Sets the root path for the SignalR web service
          */
-        rootPath?: string;
+        rootPath?: string | undefined;
 
         /**
          * Object representing additional query params to be sent on connection
          */
-        queryParams?: { [index: string]: string };
+        queryParams?: { [index: string]: string } | undefined;
 
         /**
          * Function to handle hub connection errors
          */
-        errorHandler?: (error: string) => void;
+        errorHandler?: ((error: string) => void) | undefined;
 
         /**
          * Enable/disable logging
          */
-        logging?: boolean;
+        logging?: boolean | undefined;
 
         /**
          * Use a shared global connection or create a new one just for this hub, defaults to true
          */
-        useSharedConnection?: boolean;
+        useSharedConnection?: boolean | undefined;
 
         /**
          * Sets transport method (e.g    'longPolling'    or    ['webSockets', 'longPolling'] )
@@ -75,6 +69,6 @@ declare namespace ngSignalr {
         /**
          * Function to handle hub connection state changed event
          */
-        stateChanged?: (state: SignalR.StateChanged) => void;
+        stateChanged?: ((state: SignalR.StateChanged) => void) | undefined;
     }
 }

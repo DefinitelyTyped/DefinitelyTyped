@@ -1,23 +1,23 @@
 /// <reference types="node" />
 
-import { DuplexConnection, Payload, ReactiveSocket, Responder } from 'rsocket-types';
-import { PayloadSerializers } from './RSocketSerialization';
-import { Single } from 'rsocket-flowable';
-import { Leases } from './RSocketLease';
+import { Single } from "rsocket-flowable";
+import { DuplexConnection, Payload, ReactiveSocket, Responder } from "rsocket-types";
+import { Leases } from "./RSocketLease";
+import { PayloadSerializers } from "./RSocketSerialization";
 
 export interface ClientConfig<D, M> {
-    serializers?: PayloadSerializers<D, M>;
+    serializers?: PayloadSerializers<D, M> | undefined;
     setup: {
-        payload?: Payload<D, M>,
+        payload?: Payload<D, M> | undefined;
         dataMimeType: string;
         keepAlive: number;
         lifetime: number;
         metadataMimeType: string;
     };
     transport: DuplexConnection;
-    responder?: Partial<Responder<D, M>>;
-    errorHandler?: (error: Error) => void;
-    leases?: () => Leases<any>;
+    responder?: Partial<Responder<D, M>> | undefined;
+    errorHandler?: ((error: Error) => void) | undefined;
+    leases?: (() => Leases<any>) | undefined;
 }
 
 /**

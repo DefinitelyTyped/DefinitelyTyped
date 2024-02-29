@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/screeps-arena",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "screeps-arena",
+    "projects": [
+        "https://github.com/screepers/typed-screeps-arena"
+    ],
+    "devDependencies": {
+        "@types/screeps-arena": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "thmsn",
+            "githubUsername": "thmsndk"
+        },
+        {
+            "name": "Skyler Kehren",
+            "githubUsername": "pyrodogg"
+        }
+    ]
+}

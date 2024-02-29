@@ -1,14 +1,14 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, CSSProperties, ReactNode } from "react";
 
 export interface SearchBarProps {
-  onSearch?: (keyword: string) => void;
-  onClearSearch?: () => void;
-  onFilterLinesWithMatches?: (isFiltered: boolean) => void;
-  resultsCount?: number;
-  filterActive?: boolean;
-  disabled?: boolean;
+    onSearch?: ((keyword: string) => void) | undefined;
+    onClearSearch?: (() => void) | undefined;
+    onFilterLinesWithMatches?: ((isFiltered: boolean) => void) | undefined;
+    resultsCount?: number | undefined;
+    filterActive?: boolean | undefined;
+    disabled?: boolean | undefined;
 }
 
 export default class SearchBar extends Component<SearchBarProps> {
-  static defaultProps: Partial<SearchBarProps>;
+    static defaultProps: Partial<SearchBarProps>;
 }

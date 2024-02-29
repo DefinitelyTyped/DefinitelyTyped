@@ -1,10 +1,10 @@
-type maybe<T> = (T | null | undefined)
+type maybe<T> = T | null | undefined;
 
 // From
 // https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_calls_describesobjects_describesobjectresult.htm
 export interface DescribeSObjectResult {
     activateable: boolean;
-    actionOverrides?: maybe<ActionOverride[]>;
+    actionOverrides?: maybe<ActionOverride[]> | undefined;
     childRelationships: ChildRelationship[];
     compactLayoutable: boolean;
     createable: boolean;
@@ -14,17 +14,17 @@ export interface DescribeSObjectResult {
     deprecatedAndHidden: boolean;
     feedEnabled: boolean;
     fields: Field[];
-    keyPrefix?: maybe<string>;
+    keyPrefix?: maybe<string> | undefined;
     label: string;
     labelPlural: string;
     layoutable: boolean;
-    listviewable?: maybe<boolean>;
-    lookupLayoutable?: maybe<boolean>;
+    listviewable?: maybe<boolean> | undefined;
+    lookupLayoutable?: maybe<boolean> | undefined;
     mergeable: boolean;
     mruEnabled: boolean;
     name: string;
     namedLayoutInfos: NamedLayoutInfo[];
-    networkScopeFieldName?: maybe<string>;
+    networkScopeFieldName?: maybe<string> | undefined;
     queryable: boolean;
     recordTypeInfos: RecordTypeInfo[];
     replicateable: boolean;
@@ -35,9 +35,9 @@ export interface DescribeSObjectResult {
     triggerable: boolean;
     undeletable: boolean;
     updateable: boolean;
-    urlDetail?: string;
-    urlEdit?: string;
-    urlNew?: string;
+    urlDetail?: string | undefined;
+    urlEdit?: string | undefined;
+    urlNew?: string | undefined;
     urls: Record<string, string>;
 }
 
@@ -46,7 +46,7 @@ export interface ActionOverride {
     isAvailableInTouch: boolean;
     name: string;
     pageId: string;
-    url?: maybe<string>;
+    url?: maybe<string> | undefined;
 }
 
 export interface ChildRelationship {
@@ -56,57 +56,64 @@ export interface ChildRelationship {
     field: string;
     junctionIdListNames: string[];
     junctionReferenceTo: string[];
-    relationshipName?: maybe<string>;
+    relationshipName?: maybe<string> | undefined;
     restrictedDelete: boolean;
 }
 
 export interface Field {
     aggregatable: boolean;
-    autonumber: boolean;
+    // Not in documentation, but exists in data
+    aiPredictionField?: maybe<boolean> | undefined;
+    // Salesforce documentation is wrong, they show `autonumber` but true data returned is `autoNumber`
+    autoNumber: boolean;
     byteLength: number;
     calculated: boolean;
-    calculatedFormula?: maybe<string>;
+    calculatedFormula?: maybe<string> | undefined;
     cascadeDelete: boolean;
     caseSensitive: boolean;
-    compoundFieldName?: maybe<string>;
-    controllerName?: maybe<string>;
+    compoundFieldName?: maybe<string> | undefined;
+    controllerName?: maybe<string> | undefined;
     createable: boolean;
     custom: boolean;
-    defaultValue?: maybe<string | boolean>;
-    defaultValueFormula?: maybe<string>;
+    defaultValue?: maybe<string | boolean> | undefined;
+    defaultValueFormula?: maybe<string> | undefined;
     defaultedOnCreate: boolean;
     dependentPicklist: boolean;
     deprecatedAndHidden: boolean;
-    digits?: maybe<number>;
-    displayLocationInDecimal?: maybe<boolean>;
-    encrypted?: maybe<true>;
+    digits?: maybe<number> | undefined;
+    displayLocationInDecimal?: maybe<boolean> | undefined;
+    encrypted?: maybe<boolean> | undefined;
     externalId: boolean;
-    extraTypeInfo?: maybe<ExtraTypeInfo>;
+    extraTypeInfo?: maybe<ExtraTypeInfo> | undefined;
     filterable: boolean;
-    filteredLookupInfo?: maybe<FilteredLookupInfo>;
-    formula?: maybe<string>;
+    filteredLookupInfo?: maybe<FilteredLookupInfo> | undefined;
+    // Salesforce documentation is wrong, this field does not exist, calculatedFormula is correct
+    formula?: maybe<string> | undefined;
+    // Not in documentation, but exists in data
+    formulaTreatNullNumberAsZero?: maybe<boolean> | undefined;
     groupable: boolean;
-    highScaleNumber?: maybe<boolean>;
-    htmlFormatted :boolean;
+    highScaleNumber?: maybe<boolean> | undefined;
+    htmlFormatted: boolean;
     idLookup: boolean;
-    inlineHelpText?: maybe<string>;
+    inlineHelpText?: maybe<string> | undefined;
     label: string;
     length: number;
-    mask?: maybe<string>;
-    maskType?: maybe<string>;
+    mask?: maybe<string> | undefined;
+    maskType?: maybe<string> | undefined;
     name: string;
     nameField: boolean;
     namePointing: boolean;
     nillable: boolean;
     permissionable: boolean;
-    picklistValues?: maybe<PicklistEntry[]>;
+    picklistValues?: maybe<PicklistEntry[]> | undefined;
     polymorphicForeignKey: boolean;
-    precision?: maybe<number>;
+    precision?: maybe<number> | undefined;
     queryByDistance: boolean;
-    relationshipName?: maybe<string>;
-    relationshipOrder?: maybe<number>;
-    referenceTargetField?: maybe<string>;
-    referenceTo?: maybe<string[]>;
+    referenceTargetField?: maybe<string> | undefined;
+    referenceTo?: maybe<string[]> | undefined;
+    relationshipName?: maybe<string> | undefined;
+    relationshipOrder?: maybe<number> | undefined;
+    restrictedDelete?: maybe<boolean> | undefined;
     restrictedPicklist: boolean;
     scale: number;
     searchPrefilterable: boolean;
@@ -115,44 +122,44 @@ export interface Field {
     type: FieldType;
     unique: boolean;
     updateable: boolean;
-    writeRequiresMasterRead?: maybe<boolean>;
+    writeRequiresMasterRead?: maybe<boolean> | undefined;
 }
 
 export type ExtraTypeInfo =
-    | 'imageurl'
-    | 'personname'
-    | 'plaintextarea'
-    | 'richtextarea'
-    | 'switchablepersonname'
-    | 'externallookup'
-    | 'indirectlookup'
+    | "imageurl"
+    | "personname"
+    | "plaintextarea"
+    | "richtextarea"
+    | "switchablepersonname"
+    | "externallookup"
+    | "indirectlookup";
 
 export type FieldType =
-    | 'string'
-    | 'boolean'
-    | 'int'
-    | 'double'
-    | 'date'
-    | 'datetime'
-    | 'base64'
-    | 'id'
-    | 'reference'
-    | 'currency'
-    | 'textarea'
-    | 'percent'
-    | 'phone'
-    | 'url'
-    | 'email'
-    | 'combobox'
-    | 'picklist'
-    | 'multipicklist'
-    | 'anyType'
-    | 'location'
+    | "string"
+    | "boolean"
+    | "int"
+    | "double"
+    | "date"
+    | "datetime"
+    | "base64"
+    | "id"
+    | "reference"
+    | "currency"
+    | "textarea"
+    | "percent"
+    | "phone"
+    | "url"
+    | "email"
+    | "combobox"
+    | "picklist"
+    | "multipicklist"
+    | "anyType"
+    | "location"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'time'
-    | 'encryptedstring'
-    | 'address'
-    | 'complexvalue'
+    | "time"
+    | "encryptedstring"
+    | "address"
+    | "complexvalue";
 
 export interface FilteredLookupInfo {
     controllingFields: string[];
@@ -161,37 +168,37 @@ export interface FilteredLookupInfo {
 }
 
 export type SOAPType =
-    | 'tns:ID'
-    | 'xsd:anyType'
-    | 'xsd:base64Binary'
-    | 'xsd:boolean'
-    | 'xsd:date'
-    | 'xsd:dateTime'
-    | 'xsd:double'
-    | 'xsd:int'
-    | 'xsd:string'
+    | "tns:ID"
+    | "xsd:anyType"
+    | "xsd:base64Binary"
+    | "xsd:boolean"
+    | "xsd:date"
+    | "xsd:dateTime"
+    | "xsd:double"
+    | "xsd:int"
+    | "xsd:string"
     // the following are not found in official documentation, but still occur when describing an sobject
-    | 'xsd:time'
-    | 'urn:address'
-    | 'urn:JunctionIdListNames'
-    | 'urn:location'
-    | 'urn:RecordTypesSupported'
-    | 'urn:RelationshipReferenceTo'
-    | 'urn:SearchLayoutButtonsDisplayed'
-    | 'urn:SearchLayoutFieldsDisplayed'
+    | "xsd:time"
+    | "urn:address"
+    | "urn:JunctionIdListNames"
+    | "urn:location"
+    | "urn:RecordTypesSupported"
+    | "urn:RelationshipReferenceTo"
+    | "urn:SearchLayoutButtonsDisplayed"
+    | "urn:SearchLayoutFieldsDisplayed";
 
 export interface PicklistEntry {
     active: boolean;
-    validFor?: maybe<string>;
+    validFor?: maybe<string> | undefined;
     defaultValue: boolean;
-    label?: maybe<string>;
+    label?: maybe<string> | undefined;
     value: string;
 }
 
 export interface RecordTypeInfo {
     available: boolean;
     defaultRecordTypeMapping: boolean;
-    developerName?: maybe<string>;
+    developerName?: maybe<string> | undefined;
     master: boolean;
     name: string;
     recordTypeId: string;
@@ -236,6 +243,17 @@ export interface DescribeGlobalSObjectResult {
     undeletable: boolean;
     updateable: boolean;
     urls: Record<string, string>;
+}
+
+export interface DescribeSObjectOptions {
+    type: string;
+    ifModifiedSince?: string | undefined;
+}
+
+export interface BatchDescribeSObjectOptions {
+    types: string[];
+    autofetch?: boolean | undefined;
+    maxConcurrentRequests?: number | undefined;
 }
 
 export interface DescribeGlobalResult {

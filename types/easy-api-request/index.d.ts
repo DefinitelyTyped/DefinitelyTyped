@@ -1,28 +1,22 @@
-// Type definitions for easy-api-request
-// Project: https://github.com/DeadAlready/easy-api-request
-// Definitions by: Karl Düüna <https://github.com/DeadAlready>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import stream = require('stream');
-import http = require('http');
-import request = require('request');
-import Logger = require('bunyan');
-import express = require('express');
-import Q = require('q');
+import stream = require("stream");
+import http = require("http");
+import request = require("request");
+import Logger = require("bunyan");
+import express = require("express");
+import Q = require("q");
 
 export declare function create(opts: {
     name: any;
     config: {
         url: string;
-        internal?: boolean;
-        headers?: string[];
-        cookies?: string[];
-        replyCookies?: string[];
-        jSend?: boolean;
-        opts?: Object;
+        internal?: boolean | undefined;
+        headers?: string[] | undefined;
+        cookies?: string[] | undefined;
+        replyCookies?: string[] | undefined;
+        jSend?: boolean | undefined;
+        opts?: Object | undefined;
     };
 }): void;
 

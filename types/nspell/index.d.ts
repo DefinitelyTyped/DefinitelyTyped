@@ -1,15 +1,9 @@
-// Type definitions for nspell 2.1
-// Project: https://github.com/wooorm/nspell#readme
-// Definitions by: Ulrich Block <https://github.com/ulrichblock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node" />
 
 /**
  * Returned by NSpell.spell with the following properties:
  * @param correct - Whether word is correctly spelled
- * @param - forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
+ * @param forbidden - Whether word is actually correct, but forbidden from showing up as such (often by the users wish)
  * @param warn - Whether word is correct, but should trigger a warning (rarely used in dictionaries)
  */
 interface SpellCheck {
@@ -20,7 +14,7 @@ interface SpellCheck {
 
 interface Dictionary {
     aff: Buffer | string;
-    dic?: Buffer | string;
+    dic?: Buffer | string | undefined;
 }
 
 declare function NSpell(aff: Buffer | string, dic?: Buffer | string): NSpell;
@@ -30,8 +24,8 @@ declare function NSpell(dictionary: Dictionary | Dictionary[]): NSpell;
  * Describes instance of NSpell, which is returned by the default factory function.
  */
 declare class NSpell {
-    constructor(aff: Buffer | string, dic?: Buffer | string)
-    constructor(dictionary: Dictionary | Dictionary[])
+    constructor(aff: Buffer | string, dic?: Buffer | string);
+    constructor(dictionary: Dictionary | Dictionary[]);
 
     /**
      * Add word to known words.
@@ -91,7 +85,7 @@ declare class NSpell {
  * make sure to pass one either in the constructor or to NSpell.dictionary
  * @param aff - Affix document to use. Must be in UTF-8 when buffer
  * @param dic - Dictionary document to use. Must be in UTF-8 when buffer
- * @param dictionary {Dictionary} - Object with aff (required) and dic (optional) properties
- * @param dictionary {Dictionary[]} - List of dictionary objects. The first must have an aff key, other aff keys are ignored
+ * @param dictionary - Object with aff (required) and dic (optional) properties
+ * @param dictionary - List of dictionary objects. The first must have an aff key, other aff keys are ignored
  */
 export = NSpell;

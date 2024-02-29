@@ -1,14 +1,12 @@
 import * as React from "react";
-import { ValidityProps } from "../../../typings/shared";
 
-interface InheritedProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
-    invalid?: ValidityProps["invalid"],
-}
-
-export interface FormGroupProps extends InheritedProps {
-    legendText: string,
-    message?: boolean,
-    messageText?: string,
+export interface FormGroupProps extends React.FieldsetHTMLAttributes<HTMLFieldSetElement> {
+    hasMargin?: boolean | undefined;
+    invalid?: boolean | undefined;
+    legendId?: string | undefined;
+    legendText: NonNullable<React.ReactNode>;
+    message?: boolean | undefined;
+    messageText?: React.ReactNode | undefined;
 }
 
 declare const FormGroup: React.FC<FormGroupProps>;

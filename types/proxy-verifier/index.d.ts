@@ -1,9 +1,3 @@
-// Type definitions for proxy-verifier 0.4
-// Project: https://github.com/chill117/proxy-verifier#readme
-// Definitions by: BehindTheMath <https://github.com/BehindTheMath>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { CoreOptions as RequestOptions } from "request";
 
 export function testAll(proxy: Proxy, options: RequestOptions, cb: (error: any, result: AllResults) => void): void;
@@ -12,10 +6,18 @@ export function testAll(proxy: Proxy, cb: (error: any, result: AllResults) => vo
 export function testProtocol(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;
 export function testProtocol(proxy: Proxy, cb: (error: any, result: Result) => void): void;
 
-export function testProtocols(proxy: Proxy, options: RequestOptions, cb: (error: any, result: ProtocolResult) => void): void;
+export function testProtocols(
+    proxy: Proxy,
+    options: RequestOptions,
+    cb: (error: any, result: ProtocolResult) => void,
+): void;
 export function testProtocols(proxy: Proxy, cb: (error: any, result: ProtocolResult) => void): void;
 
-export function testAnonymityLevel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: string) => void): void;
+export function testAnonymityLevel(
+    proxy: Proxy,
+    options: RequestOptions,
+    cb: (error: any, result: string) => void,
+): void;
 export function testAnonymityLevel(proxy: Proxy, cb: (error: any, result: string) => void): void;
 
 export function testTunnel(proxy: Proxy, options: RequestOptions, cb: (error: any, result: Result) => void): void;
@@ -30,9 +32,9 @@ export interface Proxy {
     /**
      * Proxy-Authorization header
      */
-    auth?: string;
-    protocol?: Protocol;
-    protocols?: Protocol[];
+    auth?: string | undefined;
+    protocol?: Protocol | undefined;
+    protocols?: Protocol[] | undefined;
 }
 
 export type Protocol = "http" | "https" | "socks5" | "socks4";
@@ -40,9 +42,9 @@ export type Protocol = "http" | "https" | "socks5" | "socks4";
 export type AnonymityLevel = "transparent" | "anonymous" | "elite";
 
 export interface AllResults {
-    anonymityLevel?: AnonymityLevel;
-    protocols?: ProtocolResult;
-    tunnel?: Result;
+    anonymityLevel?: AnonymityLevel | undefined;
+    protocols?: ProtocolResult | undefined;
+    tunnel?: Result | undefined;
 }
 
 export type Result = WorkingResult | NotWorkingResult;

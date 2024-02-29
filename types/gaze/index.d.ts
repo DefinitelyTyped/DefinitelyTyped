@@ -1,29 +1,23 @@
-// Type definitions for gaze 1.1
-// Project: https://github.com/shama/gaze
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
-type Mode = 'auto' | 'watch' | 'poll';
+type Mode = "auto" | "watch" | "poll";
 
 interface Options {
     /**
      * Interval to pass to fs.watchFile.
      */
-    interval?: number;
+    interval?: number | undefined;
     /**
      * Delay for events called in succession for the same file/event in milliseconds.
      */
-    debounceDelay?: number;
+    debounceDelay?: number | undefined;
     /**
      * Force the watch mode. Either 'auto' (default),
      * 'watch' (force native events), or 'poll' (force stat polling).
      */
-    mode?: Mode;
+    mode?: Mode | undefined;
     /**
      * The current working directory to base file patterns from. Default is `process.cwd()`.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 }
 
 declare namespace gaze {
@@ -31,7 +25,7 @@ declare namespace gaze {
         constructor(
             patterns: string | string[],
             options?: Options | null,
-            callback?: (error: Error | null, watcher: Gaze) => void
+            callback?: (error: Error | null, watcher: Gaze) => void,
         );
 
         /**
@@ -69,7 +63,7 @@ declare namespace gaze {
 declare function gaze(
     patterns: string | string[],
     options?: Options | null,
-    callback?: (error: Error | null, watcher: gaze.Gaze) => void
+    callback?: (error: Error | null, watcher: gaze.Gaze) => void,
 ): void;
 
 export = gaze;

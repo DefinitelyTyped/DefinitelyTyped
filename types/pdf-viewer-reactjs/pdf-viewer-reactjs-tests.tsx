@@ -1,10 +1,9 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import PDFViewer = require('pdf-viewer-reactjs');
+import * as React from "react";
+import PDFViewer = require("pdf-viewer-reactjs");
 
 const sources = {
-    url: 'https://arxiv.org/pdf/quant-ph/0410100.pdf',
-    base64: 'FtDWVuZG9iag1zdGFydHhyZWYNCjExNg0KJSVFT0YNCg==',
+    url: "https://arxiv.org/pdf/quant-ph/0410100.pdf",
+    base64: "FtDWVuZG9iag1zdGFydHhyZWYNCjExNg0KJSVFT0YNCg==",
 };
 
 class Example extends React.Component {
@@ -15,6 +14,13 @@ class Example extends React.Component {
                     <PDFViewer
                         document={{
                             url: sources.url,
+                        }}
+                        showThumbnail={{
+                            scale: 3,
+                            onTop: true,
+                            backgroundColor: "#000000",
+                            thumbCss: "customThumbStyle",
+                            selectedThumbCss: "customSelThumbStyle",
                         }}
                     />
                 </div>
@@ -28,23 +34,23 @@ class Example extends React.Component {
                 <div>
                     <PDFViewer
                         document={{
-                            url: 'https://somewrongurl/tsjydyd.pdf',
+                            url: "https://somewrongurl/tsjydyd.pdf",
                         }}
                     />
                 </div>
                 <div>
                     <PDFViewer
                         document={{
-                            url: 'https://somewrongurl/tsjydyd.pdf',
+                            url: "https://somewrongurl/tsjydyd.pdf",
                         }}
                         alert={err => (
                             <div
                                 style={{
-                                    color: '#fa5b35',
-                                    backgroundColor: '#0c0c0c',
+                                    color: "#fa5b35",
+                                    backgroundColor: "#0c0c0c",
                                 }}
                             >
-                                <h3 style={{ fontWeight: 'bolder' }}>Failed To load !!!</h3>
+                                <h3 style={{ fontWeight: "bolder" }}>Failed To load !!!</h3>
                                 <h6>{err.message}</h6>
                             </div>
                         )}
@@ -55,7 +61,7 @@ class Example extends React.Component {
                         document={{
                             url: sources.url,
                         }}
-                        loader={<h2 style={{ color: '#fa5b35' }}>Custom loader element</h2>}
+                        loader={<h2 style={{ color: "#fa5b35" }}>Custom loader element</h2>}
                     />
                 </div>
                 <div>
@@ -86,16 +92,16 @@ class Example extends React.Component {
                         canvasCss="customCanvas"
                         navigation={{
                             css: {
-                                navbarWrapper: 'customWrapper',
-                                zoomOutBtn: 'customPrevBtn',
-                                resetZoomBtn: 'customResetBtn',
-                                zoomInBtn: 'customNextBtn',
-                                previousPageBtn: 'customPrevBtn',
-                                pageIndicator: 'customPages',
-                                nextPageBtn: 'customNextBtn',
-                                rotateLeftBtn: 'customPrevBtn',
-                                resetRotationBtn: 'customResetBtn',
-                                rotateRightBtn: 'customNextBtn',
+                                navbarWrapper: "customWrapper",
+                                zoomOutBtn: "customPrevBtn",
+                                resetZoomBtn: "customResetBtn",
+                                zoomInBtn: "customNextBtn",
+                                previousPageBtn: "customPrevBtn",
+                                pageIndicator: "customPages",
+                                nextPageBtn: "customNextBtn",
+                                rotateLeftBtn: "customPrevBtn",
+                                resetRotationBtn: "customResetBtn",
+                                rotateRightBtn: "customNextBtn",
                             },
                         }}
                     />
@@ -114,7 +120,7 @@ class Example extends React.Component {
                         document={{
                             url: sources.url,
                         }}
-                        onDocumentClick={() => alert('Document was clicked')}
+                        onDocumentClick={() => alert("Document was clicked")}
                         onPrevBtnClick={page => alert(`Page ${page} selected`)}
                         onNextBtnClick={page => alert(`Page ${page} selected`)}
                         onZoom={scale => alert(`Zoom scale is ${scale}`)}
@@ -153,17 +159,32 @@ class Example extends React.Component {
                         }}
                         protectContent
                         watermark={{
-                            text: 'WaterMark Demo !!!',
+                            text: "WaterMark Demo !!!",
                             diagonal: true,
-                            opacity: '0.5',
-                            size: '72',
-                            color: '#FF5733',
+                            opacity: "0.5",
+                            font: "Comfortaa",
+                            size: "72",
+                            color: "#FF5733",
                         }}
+                    />
+                </div>
+                <div>
+                    <PDFViewer
+                        document={{
+                            url: sources.url,
+                        }}
+                        externalInput
+                    />
+                </div>
+                <div>
+                    <PDFViewer
+                        document={{
+                            url: "https://somewrongurl/tsjydyd.pdf",
+                        }}
+                        password="docPassword"
                     />
                 </div>
             </div>
         );
     }
 }
-
-ReactDOM.render(<Example />, document.getElementById('root'));

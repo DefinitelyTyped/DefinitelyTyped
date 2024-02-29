@@ -1,12 +1,6 @@
-// Type definitions for File System API
-// Project: http://www.w3.org/TR/file-system-api/
-// Definitions by: Kon <http://phyzkit.net/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="filewriter" />
 
 interface LocalFileSystem {
-
     /**
      * Used for storage with no guarantee of persistence.
      */
@@ -24,7 +18,12 @@ interface LocalFileSystem {
      * @param successCallback The callback that is called when the user agent provides a filesystem.
      * @param errorCallback A callback that is called when errors happen, or when the request to obtain the filesystem is denied.
      */
-    requestFileSystem(type: number, size: number, successCallback: FileSystemCallback, errorCallback?: ErrorCallback): void;
+    requestFileSystem(
+        type: number,
+        size: number,
+        successCallback: FileSystemCallback,
+        errorCallback?: ErrorCallback,
+    ): void;
 
     /**
      * Allows the user to look up the Entry for a file or directory referred to by a local URL.
@@ -37,7 +36,12 @@ interface LocalFileSystem {
     /**
      * see requestFileSystem.
      */
-    webkitRequestFileSystem(type: number, size: number, successCallback: FileSystemCallback, errorCallback?: ErrorCallback): void;
+    webkitRequestFileSystem(
+        type: number,
+        size: number,
+        successCallback: FileSystemCallback,
+        errorCallback?: ErrorCallback,
+    ): void;
 }
 
 interface LocalFileSystemSync {
@@ -73,13 +77,11 @@ interface LocalFileSystemSync {
 interface Metadata {
     /**
      * This is the time at which the file or directory was last modified.
-     * @readonly
      */
     modificationTime: Date;
 
     /**
      * The size of the file, in bytes. This must return 0 for directories.
-     * @readonly
      */
     size: number;
 }
@@ -88,12 +90,12 @@ interface Flags {
     /**
      * Used to indicate that the user wants to create a file or directory if it was not previously there.
      */
-    create?: boolean;
+    create?: boolean | undefined;
 
     /**
      * By itself, exclusive must have no effect. Used with create, it must cause getFile and getDirectory to fail if the target path already exists.
      */
-    exclusive?: boolean;
+    exclusive?: boolean | undefined;
 }
 
 /**
@@ -102,28 +104,25 @@ interface Flags {
 interface FileSystem {
     /**
      * This is the name of the file system. The specifics of naming filesystems is unspecified, but a name must be unique across the list of exposed file systems.
-     * @readonly
      */
-    name: string;
+    readonly name: string;
 
     /**
      * The root directory of the file system.
-     * @readonly
      */
-    root: DirectoryEntry;
+    readonly root: FileSystemDirectoryEntry;
 }
 
-interface Entry {
-
+interface FileSystemEntry {
     /**
      * Entry is a file.
      */
-    isFile: boolean;
+    readonly isFile: boolean;
 
     /**
      * Entry is a directory.
      */
-    isDirectory: boolean;
+    readonly isDirectory: boolean;
 
     /**
      * Look up metadata about this entry.
@@ -135,17 +134,17 @@ interface Entry {
     /**
      * The name of the entry, excluding the path leading to it.
      */
-    name: string;
+    readonly name: string;
 
     /**
      * The full absolute path from the root to the entry.
      */
-    fullPath: string;
+    readonly fullPath: string;
 
     /**
      * The file system on which the entry resides.
      */
-    filesystem: FileSystem;
+    readonly filesystem: FileSystem;
 
     /**
      * Move an entry to a different location on the file system. It is an error to try to:
@@ -161,7 +160,12 @@ interface Entry {
      * A move of a file on top of an existing file must attempt to delete and replace that file.
      * A move of a directory on top of an existing empty directory must attempt to delete and replace that directory.
      */
-    moveTo(parent: DirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
+    moveTo(
+        parent: FileSystemDirectoryEntry,
+        newName?: string,
+        successCallback?: EntryCallback,
+        errorCallback?: ErrorCallback,
+    ): void;
 
     /**
      * Copy an entry to a different location on the file system. It is an error to try to:
@@ -178,7 +182,12 @@ interface Entry {
      *
      * Directory copies are always recursive--that is, they copy all contents of the directory.
      */
-    copyTo(parent: DirectoryEntry, newName?: string, successCallback?: EntryCallback, errorCallback?: ErrorCallback): void;
+    copyTo(
+        parent: FileSystemDirectoryEntry,
+        newName?: string,
+        successCallback?: EntryCallback,
+        errorCallback?: ErrorCallback,
+    ): void;
 
     /**
      * Returns a URL that can be used to identify this entry. Unlike the URN defined in [FILE-API-ED], it has no specific expiration; as it describes a location on disk, it should be valid at least as long as that location exists.
@@ -200,10 +209,13 @@ interface Entry {
     getParent(successCallback: DirectoryEntryCallback, errorCallback?: ErrorCallback): void;
 }
 
+/** Alias provided for backward compatibility */
+type Entry = FileSystemEntry;
+
 /**
  * This interface represents a directory on a file system.
  */
-interface DirectoryEntry extends Entry {
+interface FileSystemDirectoryEntry extends FileSystemEntry {
     /**
      * Creates a new DirectoryReader to read Entries from this Directory.
      */
@@ -238,9 +250,13 @@ interface DirectoryEntry extends Entry {
      *     </ul>
      * @param successCallback   A callback that is called to return the DirectoryEntry selected or created.
      * @param errorCallback A callback that is called when errors happen.
-     *
      */
-    getDirectory(path: string, options?: Flags, successCallback?: DirectoryEntryCallback, errorCallback?: ErrorCallback): void;
+    getDirectory(
+        path: string,
+        options?: Flags,
+        successCallback?: DirectoryEntryCallback,
+        errorCallback?: ErrorCallback,
+    ): void;
 
     /**
      * Deletes a directory and all of its contents, if any. In the event of an error [e.g. trying to delete a directory that contains a file that cannot be removed], some of the contents of the directory may be deleted. It is an error to attempt to delete the root directory of a filesystem.
@@ -249,6 +265,9 @@ interface DirectoryEntry extends Entry {
      */
     removeRecursively(successCallback: VoidCallback, errorCallback?: ErrorCallback): void;
 }
+
+/** Alias provided for backward compatibility */
+type DirectoryEntry = FileSystemDirectoryEntry;
 
 /**
  * This interface lets a user list files and directories in a directory. If there are no additions to or deletions from a directory between the first and last call to readEntries, and no errors occur, then:
@@ -271,7 +290,7 @@ interface DirectoryReader {
 /**
  * This interface represents a file on a file system.
  */
-interface FileEntry extends Entry {
+interface FileEntry extends FileSystemEntry {
     /**
      * Creates a new FileWriter associated with the file that this FileEntry represents.
      * @param successCallback A callback that is called with the new FileWriter.
@@ -304,7 +323,7 @@ interface EntryCallback {
     /**
      * @param entry
      */
-    (entry: Entry): void;
+    (entry: FileSystemEntry): void;
 }
 
 /**
@@ -324,14 +343,14 @@ interface DirectoryEntryCallback {
     /**
      * @param entry
      */
-    (entry: DirectoryEntry): void;
+    (entry: FileSystemDirectoryEntry): void;
 }
 
 /**
  * When readEntries() succeeds, the following callback is made.
  */
 interface EntriesCallback {
-    (entries: Entry[]): void;
+    (entries: FileSystemEntry[]): void;
 }
 
 /**
@@ -366,9 +385,8 @@ interface VoidCallback {
  * When an error occurs, the following callback is made.
  */
 interface ErrorCallback {
-    (err: DOMError): void;
+    (err: Error): void;
 }
-
 
 /**
  * This interface represents a file system.
@@ -391,13 +409,11 @@ interface FileSystemSync {
 interface EntrySync {
     /**
      * EntrySync is a file.
-     * @readonly
      */
     isFile: boolean;
 
     /**
      * EntrySync is a directory.
-     * @readonly
      */
     isDirectory: boolean;
 

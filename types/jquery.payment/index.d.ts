@@ -1,13 +1,6 @@
-// Type definitions for jQuery.payment
-// Project: https://github.com/stripe/jquery.payment
-// Definitions by: Eric J. Smith <https://github.com/ejsmith>, John Rutherford <https://github.com/johnrutherford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryPayment {
-
     interface Payment {
         /**
          * Validates a card number:
@@ -80,38 +73,38 @@ declare namespace JQueryPayment {
         /**
          * Card type
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * Regex used to identify the card type. For the best experience, this should be
          * the shortest pattern that can guarantee the card is of a particular type.
          */
-        pattern?: RegExp;
+        pattern?: RegExp | undefined;
 
         /**
          * Array of prefixes used to identify the card type.
          */
-        patterns?: number[];
+        patterns?: number[] | undefined;
 
         /**
          * Array of valid card number lengths.
          */
-        length?: number[];
+        length?: number[] | undefined;
 
         /**
          * Array of valid card CVC lengths.
          */
-        cvcLength?: number[];
+        cvcLength?: number[] | undefined;
 
         /**
          * Boolean indicating whether a valid card number should satisfy the Luhn check.
          */
-        luhn?: boolean;
+        luhn?: boolean | undefined;
 
         /**
          * Regex used to format the card number. Each match is joined with a space.
          */
-        format?: RegExp;
+        format?: RegExp | undefined;
     }
 }
 

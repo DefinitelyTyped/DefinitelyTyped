@@ -1,146 +1,156 @@
-// Type definitions for d3pie 0.1.9
-// Project: https://github.com/benkeen/d3pie
-// Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace d3pie {
-  interface ID3PieChart {
-    redraw(): void
-    openSegment(index: number): void
-    closeSegment(index: void): void
-    getOpenSegment(): any
-    updateProp(propKey: string, value: any): void
-    destroy(): void
-  }
+    interface ID3PieChart {
+        redraw(): void;
+        openSegment(index: number): void;
+        closeSegment(index: void): void;
+        getOpenSegment(): any;
+        updateProp(propKey: string, value: any): void;
+        destroy(): void;
+    }
 
-  interface ID3PieStyleOptions {
-    color?: string
-    fontSize?: number
-    font?: string
-  }
+    interface ID3PieStyleOptions {
+        color?: string | undefined;
+        fontSize?: number | undefined;
+        font?: string | undefined;
+    }
 
-  interface ID3PieTextOptions extends ID3PieStyleOptions {
-    text?: string
-  }
+    interface ID3PieTextOptions extends ID3PieStyleOptions {
+        text?: string | undefined;
+    }
 
-  interface ID3PieLabelsOptions {
-    format?: 'label' | 'value' | 'percentage' | 'label-value1' | 'label-value2' | 'label-percentage1' | 'label-percentage2'
-    hideWhenLessThanPercentage?: number
-  }
+    interface ID3PieLabelsOptions {
+        format?:
+            | "label"
+            | "value"
+            | "percentage"
+            | "label-value1"
+            | "label-value2"
+            | "label-percentage1"
+            | "label-percentage2"
+            | undefined;
+        hideWhenLessThanPercentage?: number | undefined;
+    }
 
-  interface ID3PieOptions {
-    header?: {
-      title?: ID3PieTextOptions
-      subtitle?: ID3PieTextOptions
-      location?: 'top-center' | 'top-left' | 'pie-center'
-      titleSubtitlePadding?: number
+    interface ID3PieOptions {
+        header?: {
+            title?: ID3PieTextOptions | undefined;
+            subtitle?: ID3PieTextOptions | undefined;
+            location?: "top-center" | "top-left" | "pie-center" | undefined;
+            titleSubtitlePadding?: number | undefined;
+        } | undefined;
+        footer?: { location?: "left" | undefined } & ID3PieTextOptions | undefined;
+        size?: {
+            canvasHeight?: number | undefined;
+            canvasWidth?: number | undefined;
+            pieOuterRadius?: string | number | undefined;
+            pieInnerRadius?: string | number | undefined;
+        } | undefined;
+        data: {
+            sortOrder?: "none" | "random" | "value-asc" | "value-desc" | "label-asc" | "label-desc" | undefined;
+            smallSegmentGrouping?: {
+                enabled?: boolean | undefined;
+                value?: number | undefined;
+                valueType?: "percentage" | "value" | undefined;
+                label?: string | undefined;
+                color?: string | undefined;
+            } | undefined;
+            content: Array<{
+                label: string;
+                value: number;
+                color?: string | undefined;
+            }>;
+        };
+        labels?: {
+            outer?: { pieDistance?: number | undefined } & ID3PieLabelsOptions | undefined;
+            inner?: ID3PieLabelsOptions | undefined;
+            mainLabel?: ID3PieStyleOptions | undefined;
+            percentage?: { decimalPlaces?: number | undefined } & ID3PieStyleOptions | undefined;
+            value?: ID3PieStyleOptions | undefined;
+            lines?: {
+                enabled?: boolean | undefined;
+                style?: "curved" | "straight" | undefined;
+                color?: string | undefined;
+            } | undefined;
+            truncation?: {
+                enabled?: boolean | undefined;
+                truncateLength?: number | undefined;
+            } | undefined;
+            formatter?:
+                | ((context: {
+                    section: "outer" | "inner";
+                    value: number;
+                    label: string;
+                }) => string)
+                | undefined;
+        } | undefined;
+        effects?: {
+            load?: {
+                effect?: "none" | "default" | undefined;
+                speed?: number | undefined;
+            } | undefined;
+            pullOutSegmentOnClick?: {
+                effect?: "none" | "linear" | "bounce" | "elastic" | "back" | undefined;
+                speed?: number | undefined;
+                size?: number | undefined;
+            } | undefined;
+            highlightSegmentOnMouseover?: boolean | undefined;
+            highlightLuminosity?: number | undefined;
+        } | undefined;
+        tooltips?: {
+            enabled?: boolean | undefined;
+            type?: "placeholder" | "caption" | undefined;
+            string?: string | undefined;
+            placeholderParser?:
+                | ((
+                    index: number,
+                    data: { label?: string | undefined; percentage?: number | undefined; value?: number | undefined },
+                ) => void)
+                | undefined;
+            styles?: {
+                fadeInSpeed?: number | undefined;
+                backgroundColor?: string | undefined;
+                backgroundOpacity?: number | undefined;
+                color?: string | undefined;
+                borderRadius?: number | undefined;
+                font?: string | undefined;
+                fontSize?: number | undefined;
+                padding?: number | undefined;
+            } | undefined;
+        } | undefined;
+        misc?: {
+            colors?: {
+                background?: string | undefined;
+                segments?: string[] | undefined;
+                segmentStroke?: string | undefined;
+            } | undefined;
+            gradient?: {
+                enabled?: boolean | undefined;
+                percentage?: number | undefined;
+                color?: string | undefined;
+            } | undefined;
+            canvasPadding?: {
+                top?: number | undefined;
+                right?: number | undefined;
+                bottom?: number | undefined;
+                left?: number | undefined;
+            } | undefined;
+            pieCenterOffset?: {
+                x?: number | undefined;
+                y?: number | undefined;
+            } | undefined;
+            cssPrefix?: string | undefined;
+        } | undefined;
+        callbacks?: {
+            onload?: Function | undefined;
+            onMouseoverSegment?: Function | undefined;
+            onMouseoutSegment?: Function | undefined;
+            onClickSegment?: Function | undefined;
+        } | undefined;
     }
-    footer?: { location?: 'left' } & ID3PieTextOptions
-    size?: {
-      canvasHeight?: number
-      canvasWidth?: number
-      pieOuterRadius?: string | number
-      pieInnerRadius?: string | number
-    }
-    data: {
-      sortOrder?: 'none' | 'random' | 'value-asc' | 'value-desc' | 'label-asc' | 'label-desc'
-      smallSegmentGrouping?: {
-        enabled?: boolean
-        value?: number
-        valueType?: 'percentage' | 'value'
-        label?: string
-        color?: string
-      }
-      content: {
-        label: string
-        value: number
-        color?: string
-      }[]
-    }
-    labels?: {
-      outer?: { pieDistance?: number } & ID3PieLabelsOptions
-      inner?: ID3PieLabelsOptions
-      mainLabel?: ID3PieStyleOptions
-      percentage?: { decimalPlaces?: number } & ID3PieStyleOptions
-      value?: ID3PieStyleOptions
-      lines?: {
-        enabled?: boolean
-        style?: 'curved' | 'straight'
-        color?: string
-      }
-      truncation?: {
-        enabled?: boolean
-        truncateLength?: number
-      }
-      formatter?: (context: {
-        section: 'outer' | 'inner'
-        value: number
-        label: string
-      }) => string
-    }
-    effects?: {
-      load?: {
-        effect?: 'none' | 'default'
-        speed?: number
-      }
-      pullOutSegmentOnClick?: {
-        effect?: 'none' | 'linear' | 'bounce' | 'elastic' | 'back'
-        speed?: number
-        size?: number
-      }
-      highlightSegmentOnMouseover?: boolean
-      highlightLuminosity?: number
-    }
-    tooltips?: {
-      enabled?: boolean
-      type?: 'placeholder' | 'caption'
-      string?: string
-      placeholderParser?: (index: number, data: { label?: string, percentage?: number, value?: number }) => void
-      styles?: {
-        fadeInSpeed?: number
-        backgroundColor?: string
-        backgroundOpacity?: number
-        color?: string
-        borderRadius?: number
-        font?: string
-        fontSize?: number
-        padding?: number
-      }
-    }
-    misc?: {
-      colors?: {
-        background?: string
-        segments?: string[]
-        segmentStroke?: string
-      }
-      gradient?: {
-        enabled?: boolean
-        percentage?: number
-        color?: string
-      }
-      canvasPadding?: {
-        top?: number
-        right?: number
-        bottom?: number
-        left?: number
-      }
-      pieCenterOffset?: {
-        x?: number
-        y?: number
-      }
-      cssPrefix?: string
-    }
-    callbacks?: {
-      onload?: Function
-      onMouseoverSegment?: Function
-      onMouseoutSegment?: Function
-      onClickSegment?: Function
-    }
-  }
 
-  interface ID3PieClass {
-    new (id: string | HTMLElement, options: ID3PieOptions): ID3PieChart
-  }
+    interface ID3PieClass {
+        new(id: string | HTMLElement, options: ID3PieOptions): ID3PieChart;
+    }
 }
 
-declare const d3pie: d3pie.ID3PieClass
+declare const d3pie: d3pie.ID3PieClass;

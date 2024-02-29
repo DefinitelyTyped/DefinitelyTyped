@@ -40,12 +40,25 @@ app.use((req: connect.IncomingMessage, res: http.ServerResponse) => {
 
 // Allow http.IncomingMessage as the type for req
 app.use((req: http.IncomingMessage, res: http.ServerResponse) => {
-  console.log(req, res);
-  res.end();
+    console.log(req, res);
+    res.end();
 });
 
-//create node.js http server and listen on port
+// Infer arguments for simple handler usage
+app.use((req, res) => {
+    console.log(req.originalUrl);
+    res.end();
+});
+
+// Infer arguments for next handler usage
+app.use((req, res, next) => {
+    console.log(req.originalUrl);
+    res.setHeader("foo", "bar");
+    next();
+});
+
+// create node.js http server and listen on port
 http.createServer(app).listen(3000);
 
-//create node.js http server and listen on port using connect shortcut
+// create node.js http server and listen on port using connect shortcut
 app.listen(3000);

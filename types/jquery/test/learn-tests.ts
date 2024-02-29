@@ -7,7 +7,6 @@ interface JQuery {
 }
 
 interface GreenifyPlugin {
-    // tslint:disable-next-line:callable-types
     (this: JQuery): void;
 }
 
@@ -25,7 +24,7 @@ function special() {
     function defineSpecialEvent() {
         jQuery.event.special.pushy = {
             bindType: "click",
-            delegateType: "click"
+            delegateType: "click",
         };
     }
 
@@ -47,12 +46,12 @@ function special() {
                     event.type = handleObj.type;
                     return ret;
                 }
-            }
+            },
         };
 
         // Sample usage
         $("p").on("multiclick", {
-            clicks: 3
+            clicks: 3,
         }, () => {
             alert("clicked 3 times");
         });

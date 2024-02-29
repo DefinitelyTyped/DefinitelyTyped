@@ -1,10 +1,4 @@
-// Type definitions for simperium 1.1
-// Project: https://github.com/Simperium/node-simperium#readme
-// Definitions by: Dennis Snell <https://github.com/dmsnell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
-import type { EventEmitter } from 'events';
+import type { EventEmitter } from "events";
 
 export type ChangeVersion = string;
 export type EntityId = string;
@@ -15,14 +9,14 @@ interface FailedAuthDetails {
 }
 
 interface ClientEvent extends SimperiumEvent {
-    'access-token': (token: string) => void;
+    "access-token": (token: string) => void;
     close: () => void;
     connect: () => void;
     disconnect: () => void;
     error: (error: Error) => void;
     message: (message: string) => void;
-    'message:h': (count: number) => void;
-    'message:log': (logLevel: 0 | 1 | 2) => void;
+    "message:h": (count: number) => void;
+    "message:log": (logLevel: 0 | 1 | 2) => void;
     reconnect: (attempt: number) => void;
     send: (msg: string) => void;
     unauthorized: (details: FailedAuthDetails) => void;
@@ -45,7 +39,7 @@ export interface Client<Buckets = {}> extends CustomEventEmitter<ClientEvent> {
 export interface BucketObject<T> {
     id: EntityId;
     data: T;
-    isIndexing?: boolean;
+    isIndexing?: boolean | undefined;
 }
 
 export type EntityCallback<T, E = Error | null> = (
@@ -83,30 +77,30 @@ export interface GhostStore<T> {
 type DMPDiff = string;
 
 type DiffOp<T> =
-    | { o: '+'; v: T }
-    | { o: '-' }
-    | { o: 'r'; v: T }
-    | { o: 'I'; v: number }
+    | { o: "+"; v: T }
+    | { o: "-" }
+    | { o: "r"; v: T }
+    | { o: "I"; v: number }
     | {
-          o: 'L';
-          v: { [index: number]: T extends Array<infer U> ? DiffOp<U> : never };
-      }
-    | { o: 'O'; v: JSONDiff<T> }
-    | { o: 'd'; v: DMPDiff };
+        o: "L";
+        v: { [index: number]: T extends Array<infer U> ? DiffOp<U> : never };
+    }
+    | { o: "O"; v: JSONDiff<T> }
+    | { o: "d"; v: DMPDiff };
 
 type JSONDiff<T> = { [K in keyof T]?: DiffOp<T[K]> };
 
 interface ModificationChange<T> {
-    o: 'M';
+    o: "M";
     id: string;
     ccid: string;
     v: JSONDiff<T>;
-    sv?: number;
-    d?: T;
+    sv?: number | undefined;
+    d?: T | undefined;
 }
 
 interface RemovalChange {
-    o: '-';
+    o: "-";
     id: string;
     ccid: string;
 }
@@ -162,9 +156,9 @@ export interface Bucket<Name, T = null, Q = never> extends CustomEventEmitter<Bu
 export function Bucket<T>(name: string, storeProvider: BucketStore<T>, channel?: Channel<T>): Bucket<T>;
 
 type LocalQueuedChange<T> =
-    | { type: 'modify'; id: EntityId; object: T }
-    | { type: 'full'; originalChange: Change<T>; object: T }
-    | { type: 'remove'; id: EntityId };
+    | { type: "modify"; id: EntityId; object: T }
+    | { type: "full"; originalChange: Change<T>; object: T }
+    | { type: "remove"; id: EntityId };
 
 interface LocalQueueEvent<T> extends SimperiumEvent {
     queued: (id: EntityId, change: Change<T>, queue: ReadonlyArray<LocalQueuedChange<T>>) => void;
@@ -220,8 +214,8 @@ export function Auth(
     appId: string,
     apiKey: string,
 ): {
-    authorize(username: string, password: string): Promise<{ access_token?: string }>;
-    create(username: string, password: string): Promise<{ access_token?: string }>;
+    authorize(username: string, password: string): Promise<{ access_token?: string | undefined }>;
+    create(username: string, password: string): Promise<{ access_token?: string | undefined }>;
 };
 
 export default createClient;

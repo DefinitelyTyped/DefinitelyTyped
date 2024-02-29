@@ -7,12 +7,12 @@ declare module "../globalize" {
         /**
          * form: [String] eg. "long", "short" or "narrow".
          */
-        form?: "long" | "short" | "narrow";
+        form?: "long" | "short" | "narrow" | undefined;
 
         /**
          * numberFormatter: [Function] a number formatter function. Defaults to Globalize .numberFormatter() for the current locale using the default options.
          */
-        numberFormatter?: NumberFormatterOptions;
+        numberFormatter?: NumberFormatterOptions | undefined;
     }
 
     interface Shared {
@@ -32,7 +32,7 @@ declare module "../globalize" {
          * @param {UnitFormatterOptions} options form: [String] eg. "long", "short" or "narrow".
          * @returns {string} Returns the unit formatted.
          */
-        formatUnit(value: number, unit: string, options?: UnitFormatterOptions): string
+        formatUnit(value: number, unit: string, options?: UnitFormatterOptions): string;
     }
 }
 

@@ -1,38 +1,38 @@
-// Type definitions for datadog-metrics 0.6
-// Project: https://github.com/dbader/node-datadog-metrics
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BufferedMetricsLoggerOptions {
     /**
      * Sets the DataDog API key.
      */
-    apiKey?: string;
+    apiKey?: string | undefined;
 
     /**
      * Sets the DataDog APP key.
      */
-    appKey?: string;
+    appKey?: string | undefined;
 
     /**
      * Default tags used for all metric reporting.
      */
-    defaultTags?: string[];
+    defaultTags?: string[] | undefined;
 
     /**
      * How often to send metrics to DataDog.
      */
-    flushIntervalSeconds?: number;
+    flushIntervalSeconds?: number | undefined;
 
     /**
      * Sets the hostname reported with each metric.
      */
-    host?: string;
+    host?: string | undefined;
 
     /**
      * Sets a default prefix for all metrics.
      */
-    prefix?: string;
+    prefix?: string | undefined;
+
+    /**
+     * Sets host address corresponding to your DD service region.
+     */
+    apiHost?: string | undefined;
 }
 
 export class BufferedMetricsLogger {

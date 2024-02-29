@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/redux-mock-store",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/arnaudbenard/redux-mock-store"
+    ],
     "dependencies": {
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-mock-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marian Palkus",
+            "githubUsername": "MarianPalkus"
+        },
+        {
+            "name": "Cap3",
+            "url": "http://www.cap3.de"
+        }
+    ]
 }

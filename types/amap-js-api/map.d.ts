@@ -1,68 +1,68 @@
 declare namespace AMap {
     namespace Map {
-        type Feature = 'bg' | 'point' | 'road' | 'building';
-        type ViewMode = '2D' | '3D';
+        type Feature = "bg" | "point" | "road" | "building";
+        type ViewMode = "2D" | "3D";
         interface Options {
             /**
              * 地图视口，用于控制影响地图静态显示的属性
              */
-            view?: View2D;
+            view?: View2D | undefined;
             /**
              * 地图图层数组，数组可以是图层 中的一个或多个，默认为普通二维地图
              */
-            layers?: Layer[];
+            layers?: Layer[] | undefined;
             /**
              * 地图显示的缩放级别
              */
-            zoom?: number;
+            zoom?: number | undefined;
             /**
              * 地图中心点坐标值
              */
-            center?: LocationValue;
+            center?: LocationValue | undefined;
             /**
              * 地图标注显示顺序
              */
-            labelzIndex?: number;
+            labelzIndex?: number | undefined;
             /**
              * 地图显示的缩放级别范围
              */
-            zooms?: [number, number];
+            zooms?: [number, number] | undefined;
             /**
              * 地图语言类型
              */
-            lang?: Lang;
+            lang?: Lang | undefined;
             /**
              * 地图默认鼠标样式
              */
-            defaultCursor?: string;
+            defaultCursor?: string | undefined;
             /**
              * 地图显示的参考坐标系
              */
-            crs?: 'EPSG3857' | 'EPSG3395' | 'EPSG4326';
+            crs?: "EPSG3857" | "EPSG3395" | "EPSG4326" | undefined;
             /**
              * 地图平移过程中是否使用动画
              */
-            animateEnable?: boolean;
+            animateEnable?: boolean | undefined;
             /**
              * 是否开启地图热点和标注的hover效果
              */
-            isHotspot?: boolean;
+            isHotspot?: boolean | undefined;
             /**
              * 当前地图中默认显示的图层
              */
-            defaultLayer?: TileLayer;
+            defaultLayer?: TileLayer | undefined;
             /**
              * 地图是否可旋转
              */
-            rotateEnable?: boolean;
+            rotateEnable?: boolean | undefined;
             /**
              * 是否监控地图容器尺寸变化
              */
-            resizeEnable?: boolean;
+            resizeEnable?: boolean | undefined;
             /**
              * 是否在有矢量底图的时候自动展示室内地图
              */
-            showIndoorMap?: boolean;
+            showIndoorMap?: boolean | undefined;
             /**
              * 在展示矢量图的时候自动展示室内地图图层
              */
@@ -70,93 +70,97 @@ declare namespace AMap {
             /**
              * 是否支持可以扩展最大缩放级别
              */
-            expandZoomRange?: boolean;
+            expandZoomRange?: boolean | undefined;
             /**
              * 地图是否可通过鼠标拖拽平移
              */
-            dragEnable?: boolean;
+            dragEnable?: boolean | undefined;
             /**
              * 地图是否可缩放
              */
-            zoomEnable?: boolean;
+            zoomEnable?: boolean | undefined;
             /**
              * 地图是否可通过双击鼠标放大地图
              */
-            doubleClickZoom?: boolean;
+            doubleClickZoom?: boolean | undefined;
             /**
              * 地图是否可通过键盘控制
              */
-            keyboardEnable?: boolean;
+            keyboardEnable?: boolean | undefined;
             /**
              * 地图是否使用缓动效果
              */
-            jogEnable?: boolean;
+            jogEnable?: boolean | undefined;
             /**
              * 地图是否可通过鼠标滚轮缩放浏览
              */
-            scrollWheel?: boolean;
+            scrollWheel?: boolean | undefined;
             /**
              * 地图在移动终端上是否可通过多点触控缩放浏览地图
              */
-            touchZoom?: boolean;
+            touchZoom?: boolean | undefined;
             /**
              * 当touchZoomCenter=1的时候，手机端双指缩放的以地图中心为中心，否则默认以双指中间点为中心
              */
-            touchZoomCenter?: number;
+            touchZoomCenter?: number | undefined;
             /**
              * 设置地图的显示样式
              */
-            mapStyle?: string;
+            mapStyle?: string | undefined;
             /**
              * 设置地图上显示的元素种类
              */
-            features?: Feature[] | 'all' | Feature;
+            features?: Feature[] | "all" | Feature | undefined;
             /**
              * 设置地图显示3D楼块效果
              */
-            showBuildingBlock?: boolean;
+            showBuildingBlock?: boolean | undefined;
             /**
              * 视图模式
              */
-            viewMode?: ViewMode;
+            viewMode?: ViewMode | undefined;
             /**
              * 俯仰角度
              */
-            pitch?: number;
+            pitch?: number | undefined;
             /**
              * 是否允许设置俯仰角度
              */
-            pitchEnable?: boolean;
+            pitchEnable?: boolean | undefined;
             /**
              * 楼块出现和消失的时候是否显示动画过程
              */
-            buildingAnimation?: boolean;
+            buildingAnimation?: boolean | undefined;
             /**
              * 调整天空颜色
              */
-            skyColor?: string;
+            skyColor?: string | undefined;
             /**
              * 设置地图的预加载模式
              */
-            preloadMode?: boolean;
+            preloadMode?: boolean | undefined;
             /**
              * 为 Map 实例指定掩模的路径，各图层将只显示路径范围内图像
              */
-            mask?: Array<[number, number]> | Array<Array<[number, number]>> | Array<Array<Array<[number, number]>>>;
-            maxPitch?: number;
-            rotation?: number;
-            forceVector?: boolean;
+            mask?:
+                | Array<[number, number]>
+                | Array<Array<[number, number]>>
+                | Array<Array<Array<[number, number]>>>
+                | undefined;
+            maxPitch?: number | undefined;
+            rotation?: number | undefined;
+            forceVector?: boolean | undefined;
 
             // internal
-            baseRender?: 'vw' | 'd' | 'dv' | 'v';
-            overlayRender?: 'c' | 'd';
-            showLabel?: boolean;
-            gridMapForeign?: boolean;
-            logoUrl?: string;
-            logoUrlRetina?: string;
-            copyright?: string;
-            turboMode?: boolean;
-            workerMode?: boolean;
+            baseRender?: "vw" | "d" | "dv" | "v" | undefined;
+            overlayRender?: "c" | "d" | undefined;
+            showLabel?: boolean | undefined;
+            gridMapForeign?: boolean | undefined;
+            logoUrl?: string | undefined;
+            logoUrlRetina?: string | undefined;
+            copyright?: string | undefined;
+            turboMode?: boolean | undefined;
+            workerMode?: boolean | undefined;
             // continuousZoomEnable?: boolean;
             // showFog: boolean;
             // yaw: number;
@@ -228,36 +232,36 @@ declare namespace AMap {
             isIndoorPOI: boolean;
         }>;
         interface EventMap {
-            click: MapsEvent<'click', Map>;
-            dblclick: MapsEvent<'dblclick', Map>;
-            rightclick: MapsEvent<'rightclick', Map>;
-            rdblclick: MapsEvent<'rdblclick', Map>;
-            mouseup: MapsEvent<'mouseup', Map>;
-            mousedown: MapsEvent<'mousedown', Map>;
-            mousemove: MapsEvent<'mousemove', Map>;
-            mousewheel: MapsEvent<'mousewheel', Map>;
-            mouseover: MapsEvent<'mouseover', Map>;
-            mouseout: MapsEvent<'mouseout', Map>;
-            touchstart: MapsEvent<'touchstart', Map>;
-            touchmove: MapsEvent<'touchmove', Map>;
-            touchend: MapsEvent<'touchend', Map>;
-            contextmenu: MapsEvent<'contextmenu', Map>;
+            click: MapsEvent<"click", Map>;
+            dblclick: MapsEvent<"dblclick", Map>;
+            rightclick: MapsEvent<"rightclick", Map>;
+            rdblclick: MapsEvent<"rdblclick", Map>;
+            mouseup: MapsEvent<"mouseup", Map>;
+            mousedown: MapsEvent<"mousedown", Map>;
+            mousemove: MapsEvent<"mousemove", Map>;
+            mousewheel: MapsEvent<"mousewheel", Map>;
+            mouseover: MapsEvent<"mouseover", Map>;
+            mouseout: MapsEvent<"mouseout", Map>;
+            touchstart: MapsEvent<"touchstart", Map>;
+            touchmove: MapsEvent<"touchmove", Map>;
+            touchend: MapsEvent<"touchend", Map>;
+            contextmenu: MapsEvent<"contextmenu", Map>;
 
-            hotspotclick: HotspotEvent<'hotspotclick'>;
-            hotspotover: HotspotEvent<'hotspotover'>;
-            hotspotout: HotspotEvent<'hotspotout'>;
+            hotspotclick: HotspotEvent<"hotspotclick">;
+            hotspotover: HotspotEvent<"hotspotover">;
+            hotspotout: HotspotEvent<"hotspotout">;
 
-            complete: Event<'complete'>;
-            mapmove: Event<'mapmove'>;
-            movestart: Event<'movestart'>;
-            moveend: Event<'moveend'>;
-            zoomchange: Event<'zoomchange'>;
-            zoomstart: Event<'zoomstart'>;
-            zoomend: Event<'zoomend'>;
-            dragstart: Event<'dragstart'>;
-            dragging: Event<'dragging'>;
-            dragend: Event<'dragend'>;
-            resize: Event<'resize'>;
+            complete: Event<"complete">;
+            mapmove: Event<"mapmove">;
+            movestart: Event<"movestart">;
+            moveend: Event<"moveend">;
+            zoomchange: Event<"zoomchange">;
+            zoomstart: Event<"zoomstart">;
+            zoomend: Event<"zoomend">;
+            dragstart: Event<"dragstart">;
+            dragging: Event<"dragging">;
+            dragend: Event<"dragend">;
+            resize: Event<"resize">;
         }
     }
 
@@ -272,12 +276,12 @@ declare namespace AMap {
          * 唤起高德地图客户端marker页
          * @param obj 唤起参数
          */
-        poiOnAMAP(obj: { id: string; location?: LocationValue; name?: string }): void;
+        poiOnAMAP(obj: { id: string; location?: LocationValue | undefined; name?: string | undefined }): void;
         /**
          * 唤起高德地图客户端marker详情页
          * @param obj 唤起参数
          */
-        detailOnAMAP(obj: { id: string; location?: LocationValue; name?: string }): void;
+        detailOnAMAP(obj: { id: string; location?: LocationValue | undefined; name?: string | undefined }): void;
         /**
          * 获取当前地图缩放级别
          */
@@ -297,24 +301,26 @@ declare namespace AMap {
         /**
          * 获取地图中心点所在区域
          */
-        getCity(callback: (cityData: {
-            /**
-             * 市名称
-             */
-            city: string;
-            /**
-             * 市代码
-             */
-            citycode: string;
-            /**
-             * 区名称
-             */
-            district: string;
-            /**
-             * 省
-             */
-            province: string | never[]; // province is empty array when getCity fail
-        }) => void): void;
+        getCity(
+            callback: (cityData: {
+                /**
+                 * 市名称
+                 */
+                city: string;
+                /**
+                 * 市代码
+                 */
+                citycode: string;
+                /**
+                 * 区名称
+                 */
+                district: string;
+                /**
+                 * 省
+                 */
+                province: string | never[]; // province is empty array when getCity fail
+            }) => void,
+        ): void;
         /**
          * 获取当前地图视图范围，获取当前可视区域
          */
@@ -386,7 +392,7 @@ declare namespace AMap {
          * 返回添加的覆盖物对象
          * @param type 覆盖物类型
          */
-        getAllOverlays(type?: 'marker' | 'circle' | 'polyline' | 'polygon'): Overlay[];
+        getAllOverlays(type?: "marker" | "circle" | "polyline" | "polygon"): Overlay[];
         /**
          * 设置地图显示的中心点
          * @param center 中心点经纬度
@@ -468,7 +474,7 @@ declare namespace AMap {
             overlayList?: Overlay | Overlay[],
             immediately?: boolean,
             avoid?: [number, number, number, number],
-            maxZoom?: number
+            maxZoom?: number,
         ): Bounds | false | undefined;
         /**
          * 删除地图上所有的覆盖物
@@ -541,11 +547,11 @@ declare namespace AMap {
          * 设置地图上显示的元素种类
          * @param feature 元素
          */
-        setFeatures(feature: Map.Feature | Map.Feature[] | 'all'): void;
+        setFeatures(feature: Map.Feature | Map.Feature[] | "all"): void;
         /**
          * 获取地图显示元素种类
          */
-        getFeatures(): Map.Feature | Map.Feature[] | 'all';
+        getFeatures(): Map.Feature | Map.Feature[] | "all";
         /**
          * 修改底图图层
          * @param layer 图层

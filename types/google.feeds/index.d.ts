@@ -1,30 +1,25 @@
-// Type definitions for Google Feed Apis
-// Project: https://developers.google.com/feed/
-// Definitions by: RodneyJT <https://github.com/RodneyJT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google.feeds {
     export class Feed {
         constructor();
         constructor(url: string);
-        findFeeds(query?: string, callback?: (result: findResult) => void ): void;
+        findFeeds(query?: string, callback?: (result: findResult) => void): void;
         getElementsByTagNameNS(node: string, ns: string, localName: string): any[];
         includeHistoricalEntries(): void;
-        load(callback?: (result: feedResult) => void ): void;
+        load(callback?: (result: feedResult) => void): void;
         setNumEntries(num: number): void;
         setResultFormat(format: string): void;
     }
 }
 
 interface feedResult {
-    error?: feedError;
-    xmlDocument?: string;
+    error?: feedError | undefined;
+    xmlDocument?: string | undefined;
     feed: feedJSON;
 }
 
 interface findResult {
-    error?: feedError;
-    xmlDocument?: string;
+    error?: feedError | undefined;
+    xmlDocument?: string | undefined;
     findEntries: findEntry[];
 }
 

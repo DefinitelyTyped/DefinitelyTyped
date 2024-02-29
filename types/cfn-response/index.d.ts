@@ -1,14 +1,8 @@
-// Type definitions for cfn-response 1.0
-// Project: https://github.com/LukeMizuhashi/cfn-response
-// Definitions by: Ivo Murrell <https://github.com/ivoisbelongtous>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
 
-export type ResponseStatus = "SUCCESS" | "FAILED";
-export const SUCCESS: ResponseStatus;
-export const FAILED: ResponseStatus;
+export const SUCCESS: "SUCCESS";
+export const FAILED: "FAILED";
+export type ResponseStatus = typeof SUCCESS | typeof FAILED;
 
 export function send(
     event: CloudFormationCustomResourceEvent,
@@ -16,5 +10,5 @@ export function send(
     responseStatus: ResponseStatus,
     responseData?: object,
     physicalResourceId?: string,
-    noEcho?: boolean
-): Promise<void>;
+    noEcho?: boolean,
+): void;

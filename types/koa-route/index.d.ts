@@ -1,16 +1,12 @@
-// Type definitions for koa-route 3.2
-// Project: https://github.com/koajs/route#readme
-// Definitions by: Mike Cook <https://github.com/migstopheles>
-//                 Jaco Greeff <https://github.com/jacogr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Koa from 'koa';
-import * as pathToRegexp from 'path-to-regexp';
+import * as Koa from "koa";
+import * as pathToRegexp from "path-to-regexp";
 
 declare namespace KoaRoute {
     type Path = string | RegExp | Array<string | RegExp>;
 
+    /**
+     * The Koa handler will receive parameters extracted from the route as extra arguments.
+     */
     type Handler = (this: Koa.Context, ctx: Koa.Context, ...params: any[]) => any;
 
     type CreateRoute = (routeFunc: Handler) => Koa.Middleware;

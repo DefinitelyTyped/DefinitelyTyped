@@ -1,9 +1,3 @@
-// Type definitions for sc-errors 1.4
-// Project: https://github.com/SocketCluster/sc-errors
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export class AuthTokenExpiredError extends Error {
     expiry: Date;
 
@@ -79,7 +73,7 @@ export class BrokerError extends Error {
 }
 
 export class ProcessExitError extends Error {
-    code?: number;
+    code?: number | undefined;
 
     constructor(message: string, code?: number);
 }

@@ -1,34 +1,20 @@
 /* tslint:disable:no-mergeable-namespace no-namespace */
 "use strict";
 
-import conventionalCommitsParser from "conventional-commits-parser";
-import conventionalRecommendedBump from "conventional-recommended-bump";
+import type conventionalCommitsParser from "conventional-commits-parser";
+import conventionalRecommendedBump, { type Recommendation } from "conventional-recommended-bump";
 
 namespace Module {
-    declare const callback: conventionalRecommendedBump.Callback;
     declare const options: conventionalRecommendedBump.Options;
     declare const parserOpts: conventionalCommitsParser.Options;
 
-    // $ExpectType void
-    conventionalRecommendedBump(options, callback);
-    // $ExpectType void
-    conventionalRecommendedBump(options, parserOpts, callback);
+    // $ExpectType Promise<Recommendation>
+    conventionalRecommendedBump(options);
+    // $ExpectType Promise<Recommendation>
+    conventionalRecommendedBump(options, parserOpts);
 
-    // $ExpectError
+    // @ts-expect-error
     conventionalRecommendedBump();
-}
-
-namespace Module.Callback {
-    const callback: conventionalRecommendedBump.Callback = (error, recommendation) => {
-        // $ExpectType any
-        error;
-
-        // $ExpectType Recommendation
-        recommendation;
-        recommendation.level; // $ExpectType number | undefined
-        recommendation.reason; // $ExpectType string | undefined
-        recommendation.releaseType; // $ExpectType "major" | "minor" | "patch" | undefined
-    };
 }
 
 namespace Module.Options {
@@ -36,12 +22,13 @@ namespace Module.Options {
 
     // $ExpectType Options
     options;
-    // tslint:disable-next-line max-line-length
     options.ignoreReverted; // $ExpectType boolean | undefined
     options.lernaPackage; // $ExpectType string | undefined
     options.preset; // $ExpectType string | undefined
     options.tagPrefix; // $ExpectType string | undefined
     options.whatBump; // $ExpectType WhatBump | undefined
+    options.skipUnstable; // $ExpectType boolean | undefined
+    options.path; // $ExpectType string | undefined
 }
 
 namespace Module.Options.WhatBump {
@@ -51,7 +38,7 @@ namespace Module.Options.WhatBump {
     // $ExpectType Result
     whatBump(commits);
 
-    // $ExpectError
+    // @ts-expect-error
     whatBump();
 }
 

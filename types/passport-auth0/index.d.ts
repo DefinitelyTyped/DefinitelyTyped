@@ -1,14 +1,5 @@
-// Type definitions for passport-auth0 1.0
-// Project: https://github.com/auth0/passport-auth0
-// Definitions by: John Umeh <https://github.com/johnbendi>
-//                 Vishnu Sankar <https://github.com/iamvishnusankar>
-//                 Duncan Hall <https://github.com/duncanhall>
-//                 Karl Horky <https://github.com/karlhorky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 declare class StrategyInternal extends passport.Strategy {
     constructor(
@@ -25,13 +16,13 @@ declare namespace StrategyInternal {
     interface Profile extends passport.Profile {
         id: string;
         displayName: string;
-        gender?: string;
+        gender?: string | undefined;
         ageRange?: {
             min: number;
-            max?: number;
-        };
-        profileUrl?: string;
-        username?: string;
+            max?: number | undefined;
+        } | undefined;
+        profileUrl?: string | undefined;
+        username?: string | undefined;
         birthday: string;
 
         _raw: string;
@@ -39,7 +30,7 @@ declare namespace StrategyInternal {
     }
 
     interface AuthenticateOptions extends passport.AuthenticateOptions {
-        authType?: string;
+        authType?: string | undefined;
     }
 
     interface StrategyOption {
@@ -47,19 +38,19 @@ declare namespace StrategyInternal {
         clientSecret: string;
         callbackURL: string;
         domain: string;
-        scopeSeparator?: string;
-        enableProof?: boolean;
-        profileFields?: string[];
-        state?: boolean;
+        scopeSeparator?: string | undefined;
+        enableProof?: boolean | undefined;
+        profileFields?: string[] | undefined;
+        state?: boolean | undefined;
     }
 
     interface StrategyOptionWithRequest extends StrategyOption {
         passReqToCallback: true;
     }
     interface ExtraVerificationParams {
-        audience?: string;
-        connection?: string;
-        prompt?: string;
+        audience?: string | undefined;
+        connection?: string | undefined;
+        prompt?: string | undefined;
     }
 
     type VerifyFunction = (
@@ -80,7 +71,7 @@ declare namespace StrategyInternal {
     ) => void;
 
     // NOTE: not true for `export import` statements
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Strategy = StrategyInternal;
 }
 

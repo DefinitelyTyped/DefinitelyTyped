@@ -1,16 +1,10 @@
-// Type definitions for schema-registry 1.17
-// Project: https://github.com/nodefluent/schema-registry#readme
-// Definitions by: Tomislav Fabeta <https://github.com/bonzzy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 export interface RegistryClientConfig {
     host: string;
     port: number;
-    protocol?: string;
-    logger?: object;
-    type?: string;
+    protocol?: string | undefined;
+    logger?: object | undefined;
+    type?: string | undefined;
 }
 
 export interface AvroSchemaResponseInterface {

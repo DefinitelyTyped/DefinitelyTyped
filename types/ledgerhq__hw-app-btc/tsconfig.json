@@ -1,20 +1,19 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "lib": ["es6"],
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@ledgerhq/hw-transport": ["ledgerhq__hw-transport"],
-            "@ledgerhq/hw-app-btc": ["ledgerhq__hw-app-btc"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "ledgerhq__hw-app-btc-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "ledgerhq__hw-app-btc-tests.ts"
+    ]
 }

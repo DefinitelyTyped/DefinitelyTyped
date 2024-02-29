@@ -1,18 +1,24 @@
-import { EventEmitter } from 'events';
-import { DescribeSObjectResult, DescribeGlobalResult } from './describe-result';
-import { Query, QueryResult, ExecuteOptions } from './query';
-import { Record } from './record';
-import { RecordResult } from './record-result';
-import { SObject } from './salesforce-object';
-import { Analytics } from './api/analytics';
-import { Chatter } from './api/chatter';
-import { Metadata } from './api/metadata';
-import { Apex } from './api/apex';
-import { Bulk } from './bulk';
-import { Cache } from './cache'
-import { OAuth2, Streaming } from '.';
-import { HttpApiOptions } from './http-api'
-import { LimitsInfo } from './limits-info';
+import { EventEmitter } from "events";
+import { OAuth2, Streaming } from ".";
+import { Analytics } from "./api/analytics";
+import { Apex } from "./api/apex";
+import { Chatter } from "./api/chatter";
+import { Metadata } from "./api/metadata";
+import { SoapApi } from "./api/soap";
+import { Bulk } from "./bulk";
+import { Cache } from "./cache";
+import {
+    BatchDescribeSObjectOptions,
+    DescribeGlobalResult,
+    DescribeSObjectOptions,
+    DescribeSObjectResult,
+} from "./describe-result";
+import { HttpApiOptions } from "./http-api";
+import { LimitInfo, LimitsInfo } from "./limits-info";
+import { ExecuteOptions, Query, QueryResult } from "./query";
+import { Record } from "./record";
+import { RecordResult } from "./record-result";
+import { SObject } from "./salesforce-object";
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -20,43 +26,48 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // go to http://jsforce.github.io/jsforce/doc/connection.js.html#line568
 // and search for options
 export interface RestApiOptions {
-    headers?: { [x: string]: string }
+    headers?: { [x: string]: string } | undefined;
+    allowRecursive?: boolean | undefined;
+    allOrNone?: boolean | undefined;
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
 // the oauth options can either be in the `oauth2` property OR spread across the main connection
 export interface PartialOAuth2Options {
-    clientId?: string;
-    clientSecret?: string;
-    loginUrl?: string;
-    redirectUri?: string;
-    tokenServiceUrl?: string;
-    authzServiceUrl?: string;
+    clientId?: string | undefined;
+    clientSecret?: string | undefined;
+    loginUrl?: string | undefined;
+    redirectUri?: string | undefined;
+    tokenServiceUrl?: string | undefined;
+    authzServiceUrl?: string | undefined;
 }
 
 export interface RequestInfo {
-    body?: string;
-    headers?: object;
-    method?: string;
-    url?: string;
+    body?: string | undefined;
+    headers?: object | undefined;
+    method?: string | undefined;
+    url?: string | undefined;
 }
 
 export interface ConnectionOptions extends PartialOAuth2Options {
-    accessToken?: string;
-    callOptions?: Object;
-    instanceUrl?: string;
-    loginUrl?: string;
-    logLevel?: string;
-    maxRequest?: number;
-    oauth2?: Partial<PartialOAuth2Options>;
-    proxyUrl?: string;
-    redirectUri?: string;
-    refreshToken?: string;
-    refreshFn?: (conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>;
-    serverUrl?: string;
-    sessionId?: string;
-    signedRequest?: string | Object;
-    version?: string;
+    accessToken?: string | undefined;
+    callOptions?: Object | undefined;
+    instanceUrl?: string | undefined;
+    loginUrl?: string | undefined;
+    logLevel?: string | undefined;
+    maxRequest?: number | undefined;
+    oauth2?: Partial<PartialOAuth2Options> | undefined;
+    proxyUrl?: string | undefined;
+    httpProxy?: string | undefined;
+    redirectUri?: string | undefined;
+    refreshToken?: string | undefined;
+    refreshFn?:
+        | ((conn: Connection, callback: (err: Error | null, accessToken: string, res?: unknown) => void) => unknown)
+        | undefined;
+    serverUrl?: string | undefined;
+    sessionId?: string | undefined;
+    signedRequest?: string | Object | undefined;
+    version?: string | undefined;
 }
 
 export interface UserInfo {
@@ -117,7 +128,7 @@ export interface IdentityInfo {
         users: string;
         feed_items: string;
         feed_elements: string;
-        custom_domain?: string;
+        custom_domain?: string | undefined;
     };
     active: boolean;
     user_type: string;
@@ -150,6 +161,10 @@ export interface ExecuteAnonymousResult {
 
 export type ConnectionEvent = "refresh";
 
+export interface SearchResult<T> {
+    searchRecords: Array<Record<T>>;
+}
+
 /**
  * the methods exposed here are done so that a client can use 'declaration augmentation' to get intellisense on their own projects.
  * for example, given a type
@@ -171,70 +186,147 @@ export type ConnectionEvent = "refresh";
  */
 export abstract class BaseConnection extends EventEmitter {
     _baseUrl(): string;
-    request(info: RequestInfo | string, options?: HttpApiOptions, callback?: (err: Error, Object: object) => void): Promise<Object>;
-    query<T>(soql: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
-    queryMore<T>(locator: string, options?: ExecuteOptions, callback?: (err: Error, result: QueryResult<T>) => void): Promise<QueryResult<T>>;
-    create<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    create<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    insert<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    retrieve<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void): Promise<(Record<T> | Array<Record<T>>)>;
-    update<T>(type: string, records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    update<T>(records: Record<T> | Array<Record<T>>, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(type: string, records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    upsert<T>(records: Record<T> | Array<Record<T>>, extIdField: string, options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    del<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    delete<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
-    destroy<T>(type: string, ids: string | string[], options?: RestApiOptions,
-        callback?: (err: Error, result: RecordResult | RecordResult[]) => void): Promise<(RecordResult | RecordResult[])>;
+    request<T = object>(
+        info: RequestInfo | string,
+        options?: HttpApiOptions,
+        callback?: (err: Error, Object: T) => void,
+    ): Promise<T>;
+    query<T>(
+        soql: string,
+        options?: ExecuteOptions,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Query<QueryResult<T>>;
+    queryMore<T>(
+        locator: string,
+        options?: ExecuteOptions,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Promise<QueryResult<T>>;
+    create<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    create<T>(
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    insert<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    retrieve<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: Record<T> | Array<Record<T>>) => void,
+    ): Promise<Record<T> | Array<Record<T>>>;
+    update<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    update<T>(
+        records: Record<T> | Array<Record<T>>,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | Array<Record<T>>) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    upsert<T>(
+        type: string,
+        records: Record<T> | Array<Record<T>>,
+        extIdField: string,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    upsert<T>(
+        records: Record<T> | Array<Record<T>>,
+        extIdField: string,
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    del<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    delete<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
+    destroy<T>(
+        type: string,
+        ids: string | string[],
+        options?: RestApiOptions,
+        callback?: (err: Error, result: RecordResult | RecordResult[]) => void,
+    ): Promise<RecordResult | RecordResult[]>;
     describe$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describe */
-        (type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): DescribeSObjectResult;
+        (
+            type: string | DescribeSObjectOptions,
+            callback?: (err: Error, result: DescribeSObjectResult) => void,
+        ): DescribeSObjectResult;
         clear(): void;
-    }
-    describe(type: string, callback?: (err: Error, result: DescribeSObjectResult) => void): Promise<DescribeSObjectResult>;
+    };
+    describe(
+        type: string | DescribeSObjectOptions,
+        callback?: (err: Error, result: DescribeSObjectResult) => void,
+    ): Promise<DescribeSObjectResult>;
+    batchDescribe(
+        options: BatchDescribeSObjectOptions,
+        callback?: (err: Error, result: DescribeSObjectResult[]) => void,
+    ): Promise<DescribeSObjectResult[]>;
     describeGlobal$: {
         /** Returns a value from the cache if it exists, otherwise calls Connection.describeGlobal */
         (callback?: (err: Error, result: DescribeGlobalResult) => void): DescribeGlobalResult;
         clear(): void;
-    }
+    };
     describeGlobal<T>(callback?: (err: Error, result: DescribeGlobalResult) => void): Promise<DescribeGlobalResult>;
     // we want any object to be accepted if the user doesn't decide to give an explicit type
     sobject<T = object>(resource: string): SObject<T>;
-    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
-    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
-    recent(type: string, limit: number, callback?: (err: Error, result: RecordResult[]) => void): Promise<(RecordResult[])>;
+    recent(callback?: (err: Error, result: RecordResult[]) => void): Promise<RecordResult[]>;
+    recent(param: number | string, callback?: (err: Error, result: RecordResult[]) => void): Promise<RecordResult[]>;
+    recent(
+        type: string,
+        limit: number,
+        callback?: (err: Error, result: RecordResult[]) => void,
+    ): Promise<RecordResult[]>;
+    search<T>(sosl: string, callback?: (err: Error, result: SearchResult<T>) => void): Promise<SearchResult<T>>;
 }
 
 export class Connection extends BaseConnection {
-    constructor(params: ConnectionOptions)
+    constructor(params: ConnectionOptions);
 
     tooling: Tooling;
     analytics: Analytics;
     apex: Apex;
     chatter: Chatter;
     metadata: Metadata;
+    soap: SoapApi;
     bulk: Bulk;
     oauth2: OAuth2;
     streaming: Streaming;
     cache: Cache;
+    limitInfo?: LimitInfo;
 
     // Specific to Connection
     instanceUrl: string;
     version: string;
     accessToken: string;
-    refreshToken?: string;
+    refreshToken?: string | undefined;
+    userInfo?: UserInfo | undefined;
     initialize(options?: ConnectionOptions): void;
-    queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
+    queryAll<T>(
+        soql: string,
+        options?: object,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
@@ -247,6 +339,17 @@ export class Connection extends BaseConnection {
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
     identity(callback?: (err: Error, res: IdentityInfo) => void): Promise<IdentityInfo>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options_callback?: HttpApiOptions | ((err: Error, Object: T) => void),
+    ): Promise<T>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options?: HttpApiOptions,
+        callback?: (err: Error, Object: T) => void,
+    ): Promise<T>;
 }
 
 export class Tooling extends BaseConnection {

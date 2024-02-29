@@ -1,15 +1,4 @@
-// Type definitions for moc-better-sqlite3 6.2
-// Project: http://github.com/vazra/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent>
-//                 Mathew Rumsey <https://github.com/matrumz>
-//                 Santiago Aguilar <https://github.com/sant123>
-//                 Alessandro Vergani <https://github.com/loghorn>
-//                 Andrew Kaiser <https://github.com/andykais>
-//                 Mark Stewart <https://github.com/mrkstwrt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
-import Integer = require('integer');
+import Integer = require("integer");
 
 type VariableArgFunction = (...params: any[]) => any;
 type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A) => any ? A : never;
@@ -55,7 +44,6 @@ declare namespace MocBetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        // tslint:disable-next-line no-unnecessary-generics
         prepare<BindParameters extends any[] | {} = any[]>(
             source: string,
         ): BindParameters extends any[] ? Statement<BindParameters> : Statement<[BindParameters]>;
@@ -73,7 +61,7 @@ declare namespace MocBetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string, options?: Database.Options): Database;
+        new(filename: string, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
@@ -96,28 +84,28 @@ declare namespace Database {
     }
 
     interface Options {
-        memory?: boolean;
-        readonly?: boolean;
-        fileMustExist?: boolean;
-        timeout?: number;
-        verbose?: (message?: any, ...additionalArgs: any[]) => void;
+        memory?: boolean | undefined;
+        readonly?: boolean | undefined;
+        fileMustExist?: boolean | undefined;
+        timeout?: number | undefined;
+        verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
     }
 
     interface PragmaOptions {
-        simple?: boolean;
+        simple?: boolean | undefined;
     }
 
     interface RegistrationOptions {
-        varargs?: boolean;
-        deterministic?: boolean;
-        safeIntegers?: boolean;
+        varargs?: boolean | undefined;
+        deterministic?: boolean | undefined;
+        safeIntegers?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
         start?: any;
         step: (total: any, next: any) => any;
-        inverse?: (total: any, dropped: any) => any;
-        result?: (total: any) => any;
+        inverse?: ((total: any, dropped: any) => any) | undefined;
+        result?: ((total: any) => any) | undefined;
     }
 
     interface BackupMetadata {

@@ -1,5 +1,5 @@
-// tslint:disable-next-line no-single-declare-module
-declare module 'meteor/dburles:collection-helpers' {
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "meteor/dburles:collection-helpers" {
     export {};
     type PropertyNamesMatching<T, TPred> = {
         [K in keyof T]: T[K] extends TPred ? K : never;
@@ -15,10 +15,8 @@ declare module 'meteor/dburles:collection-helpers' {
      */
     // "T extends T ? ... : never" looks tautological, but actually serves to distribute over union types
     // https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
-    export type Helper<T> = T extends T
-        ? T extends FlavorUnsupportedTypes
-            ? T | HelperBrand
-            : T & HelperFlavor
+    export type Helper<T> = T extends T ? T extends FlavorUnsupportedTypes ? T | HelperBrand
+        : T & HelperFlavor
         : never;
 
     // where possible, helpers are tagged as (T & HelperFlavor)
@@ -29,7 +27,7 @@ declare module 'meteor/dburles:collection-helpers' {
     // property with it)
     // weirdly, ({} & HelperFlavor) still accepts {}!
     interface HelperFlavor {
-        _meteor_dburles_collection_helpers_isHelper?: Flavor;
+        _meteor_dburles_collection_helpers_isHelper?: Flavor | undefined;
     }
     // for types where (T & HelperFlavor) === never, (T | HelperBrand) is used instead,
     // and the HelperBrand is stripped off in HelpersOf
@@ -59,7 +57,7 @@ declare module 'meteor/dburles:collection-helpers' {
     // used to flavor Helpers<T> so we can get back to the original T if needed
     // not to be confused with HelperFlavor
     interface HelpersFlavor<T> {
-        _meteor_dburles_collection_helpers_isHelpersOf?: [Flavor, T];
+        _meteor_dburles_collection_helpers_isHelpersOf?: [Flavor, T] | undefined;
     }
     // apply HelpersFlavor, but only if the resulting type wouldn't be never or weak
     type FlavorAsHelpers<TOriginal, TToFlavor> = [TToFlavor] extends [TToFlavor & HelpersFlavor<TOriginal>]
@@ -72,38 +70,31 @@ declare module 'meteor/dburles:collection-helpers' {
 
     // To get all the helper properties, we union the list of function properties and the list of Helper<T> properties.
     // Make anything not marked optional required, and anything marked optional optional.
-    type HelpersOf<T> = T extends T
-        ? RemoveHelperBrands<
-              Required<
-                  Pick<
-                      T,
-                      Exclude<
-                          PropertyNamesMatching<Required<T>, Func> | HelperNames<Required<T>>,
-                          OptionalHelperNames<Required<T>>
-                      >
-                  >
-              > &
-                  Partial<Pick<T, OptionalHelperNames<Required<T>>>>
-          >
+    type HelpersOf<T> = T extends T ? RemoveHelperBrands<
+            & Required<
+                Pick<
+                    T,
+                    Exclude<
+                        PropertyNamesMatching<Required<T>, Func> | HelperNames<Required<T>>,
+                        OptionalHelperNames<Required<T>>
+                    >
+                >
+            >
+            & Partial<Pick<T, OptionalHelperNames<Required<T>>>>
+        >
         : never;
 
     type Func = (...args: any[]) => any;
 
     // The names of all properties of T with either a HelperBrand or a HelperFlavor (whether required or optional)
-    type HelperNames<T> = T extends T
-        ? {
-              [K in keyof T]: Exclude<T[K], undefined> extends infer NoUndefined
-                  ? [HelperBrand] extends [NoUndefined]
-                      ? K
-                      : [HelperBrand | OptionalHelperBrand] extends [NoUndefined]
-                      ? K
-                      : [Required<NoUndefined>] extends [Required<HelperFlavor>]
-                      ? K
-                      : [Required<NoUndefined>] extends [Required<HelperFlavor & OptionalHelperFlavor>]
-                      ? K
-                      : never
-                  : never;
-          }[keyof T]
+    type HelperNames<T> = T extends T ? {
+            [K in keyof T]: Exclude<T[K], undefined> extends infer NoUndefined ? [HelperBrand] extends [NoUndefined] ? K
+                : [HelperBrand | OptionalHelperBrand] extends [NoUndefined] ? K
+                : [Required<NoUndefined>] extends [Required<HelperFlavor>] ? K
+                : [Required<NoUndefined>] extends [Required<HelperFlavor & OptionalHelperFlavor>] ? K
+                : never
+                : never;
+        }[keyof T]
         : never;
 
     // We also want to strip brands from the flavor-unsupported types - since the brands are no longer needed to
@@ -119,7 +110,7 @@ declare module 'meteor/dburles:collection-helpers' {
     // void when stripping helper brands, and Helpers<TInterface>.helperVoidProperty can be assigned undefined!
     // This is one way to make a helper with an optional value that can be read off a raw TInterface (although
     // Helper<T | false> would work almost as well).
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type RemoveHelperFlavorForVoid<T> = T extends void & HelperFlavor ? void : T;
 
     // however, we can do better
@@ -130,30 +121,26 @@ declare module 'meteor/dburles:collection-helpers' {
      * helpers". If you actually want a helper that's only sometimes there, use this.
      */
     export type OptionalHelper<T> = T extends T
-        ? T extends FlavorUnsupportedTypes
-            ? T | HelperBrand | OptionalHelperBrand | undefined
-            : (T & HelperFlavor & OptionalHelperFlavor) | undefined
+        ? T extends FlavorUnsupportedTypes ? T | HelperBrand | OptionalHelperBrand | undefined
+        : (T & HelperFlavor & OptionalHelperFlavor) | undefined
         : never;
     interface OptionalHelperFlavor {
-        _meteor_dburles_collection_helpers_isOptionalHelper?: Flavor;
+        _meteor_dburles_collection_helpers_isOptionalHelper?: Flavor | undefined;
     }
     interface OptionalHelperBrand {
-        _meteor_dburles_collection_helpers_isBrandUnsupportedOptionalHelper?: Brand;
+        _meteor_dburles_collection_helpers_isBrandUnsupportedOptionalHelper?: Brand | undefined;
     }
-    type OptionalHelperNames<T> = T extends T
-        ? {
-              [K in keyof T]: Exclude<T[K], undefined> extends infer NoUndefined
-                  ? [HelperBrand | OptionalHelperBrand] extends [NoUndefined]
-                      ? K
-                      : [Required<NoUndefined>] extends [Required<HelperFlavor & OptionalHelperFlavor>]
-                      ? K
-                      : never
-                  : never;
-          }[keyof T]
+    type OptionalHelperNames<T> = T extends T ? {
+            [K in keyof T]: Exclude<T[K], undefined> extends infer NoUndefined
+                ? [HelperBrand | OptionalHelperBrand] extends [NoUndefined] ? K
+                : [Required<NoUndefined>] extends [Required<HelperFlavor & OptionalHelperFlavor>] ? K
+                : never
+                : never;
+        }[keyof T]
         : never;
 
     interface DataFlavor<T> {
-        _meteor_dburles_collection_helpers_isData?: [Flavor, T];
+        _meteor_dburles_collection_helpers_isData?: [Flavor, T] | undefined;
     }
     /**
      * Just the non-method/Helper properties of the type, with the methods and Helpers made optional.
@@ -166,14 +153,13 @@ declare module 'meteor/dburles:collection-helpers' {
     export type NonData<T> = T extends DataFlavor<infer U> ? U : T;
 
     // All the members of T that aren't helpers
-    type NonHelpersOf<T> = T extends T
-        ? Pick<
-              T,
-              Exclude<
-                  PropertyNamesNotMatching<Required<T>, Func>,
-                  HelperNames<Required<T>> | OptionalHelperNames<Required<T>>
-              >
-          >
+    type NonHelpersOf<T> = T extends T ? Pick<
+            T,
+            Exclude<
+                PropertyNamesNotMatching<Required<T>, Func>,
+                HelperNames<Required<T>> | OptionalHelperNames<Required<T>>
+            >
+        >
         : never;
 
     /**

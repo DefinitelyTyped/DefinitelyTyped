@@ -1,10 +1,4 @@
-// Type definitions for webidl2js 16.0
-// Project: https://github.com/jsdom/webidl2js#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { AttributeMemberType } from 'webidl2';
+import { AttributeMemberType } from "webidl2";
 
 declare class Transformer {
     constructor(opts?: Transformer.Options);
@@ -56,7 +50,7 @@ declare namespace Transformer {
          *
          * @default ""
          */
-        implSuffix?: string;
+        implSuffix?: string | undefined;
 
         /**
          * The function used to modify attributes and operations
@@ -64,7 +58,7 @@ declare namespace Transformer {
          *
          * The default value is the identity function.
          */
-        processCEReactions?: CodeProcessor;
+        processCEReactions?: CodeProcessor | undefined;
 
         /**
          * The function used to modify attributes and operations
@@ -72,7 +66,7 @@ declare namespace Transformer {
          *
          * The default value is the identity function.
          */
-        processHTMLConstructor?: CodeProcessor;
+        processHTMLConstructor?: CodeProcessor | undefined;
 
         /**
          * The function used to generate attributes and operations
@@ -80,14 +74,14 @@ declare namespace Transformer {
          *
          * @default null
          */
-        processReflect?: AttributeProcessor | null;
+        processReflect?: AttributeProcessor | null | undefined;
 
         /**
          * Whether non-fatal errors should be ignored.
          *
          * @default false
          */
-        suppressErrors?: boolean;
+        suppressErrors?: boolean | undefined;
     }
 }
 

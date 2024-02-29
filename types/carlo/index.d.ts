@@ -1,12 +1,6 @@
-// Type definitions for carlo 0.9
-// Project: https://github.com/GoogleChromeLabs/carlo#readme
-// Definitions by: Adam Dierkens <https://github.com/adierkens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import { Serializable, Browser, Page } from "puppeteer-core";
+import { Browser, Page, Serializable } from "puppeteer";
 
 export type Channel = string;
 
@@ -21,33 +15,36 @@ export type Channel = string;
  * If the function passed to the Window.evaluate returns a non-Serializable value,
  * then Window.evaluate resolves to undefined.
  */
-export type EvaluateFunction = (pageFunction: ((...args: any[]) => any) | string, ...args: Serializable[]) => Promise<Serializable>;
+export type EvaluateFunction = (
+    pageFunction: ((...args: any[]) => any) | string,
+    ...args: Serializable[]
+) => Promise<Serializable>;
 
 export interface WindowOptions {
     /**
      * App window width in pixels.
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * App window height in pixels.
      */
-    height?: number;
+    height?: number | undefined;
 
     /**
      * App window top offset in pixels.
      */
-    top?: number;
+    top?: number | undefined;
 
     /**
      * App window left offset in pixels.
      */
-    left?: number;
+    left?: number | undefined;
 
     /**
      * Background color using hex notation, defaults to '#ffffff'.
      */
-    bgcolor?: string;
+    bgcolor?: string | undefined;
 }
 
 /**
@@ -57,7 +54,7 @@ export interface LaunchOptions extends WindowOptions {
     /**
      * Browser to be used, defaults to ['stable']
      */
-    channel?: Channel[];
+    channel?: Channel[] | undefined;
 
     /**
      * Application icon to be used in the system dock.
@@ -65,7 +62,7 @@ export interface LaunchOptions extends WindowOptions {
      * This feature is only available in Chrome M72+.
      * One can use 'canary' channel to see it in action before M72 hits stable.
      */
-    icon?: Buffer | string;
+    icon?: Buffer | string | undefined;
 
     /**
      * Optional parameters to share between Carlo instances.
@@ -75,28 +72,28 @@ export interface LaunchOptions extends WindowOptions {
     /**
      * Application title
      */
-    title?: string;
+    title?: string | undefined;
 
     /**
      *  Path to a User Data Directory. This folder is created upon the first app launch and contains user settings and Web storage data. Defaults to '.profile'.
      */
-    userDataDir?: string;
+    userDataDir?: string | undefined;
 
     /**
      * Path to a Chromium or Chrome executable to run instead of the automatically located Chrome.
      * If executablePath is a relative path, then it is resolved relative to current working directory.
      * Carlo is only guaranteed to work with the latest Chrome stable version.
      */
-    executablePath?: string;
+    executablePath?: string | undefined;
 
     /**
      * Additional arguments to pass to the browser instance.
      */
-    args?: string[];
+    args?: string[] | undefined;
 }
 
-export type AppEvent = 'exit' | 'window';
-export type WindowEvent = 'close';
+export type AppEvent = "exit" | "window";
+export type WindowEvent = "close";
 
 export interface Bounds {
     /**
@@ -214,22 +211,22 @@ export interface Window {
         /**
          * Top offset in pixels.
          */
-        top?: number;
+        top?: number | undefined;
 
         /**
          * Left offset in pixels.
          */
-        left?: number;
+        left?: number | undefined;
 
         /**
          * Width in pixels.
          */
-        width?: number;
+        width?: number | undefined;
 
         /**
          * Height in pixels.
          */
-        height?: number;
+        height?: number | undefined;
     }): Promise<void>;
 }
 
@@ -397,4 +394,4 @@ export function fileInfo(file: any): Promise<{
  * This method is available in the Web world and returns parameters passed into the window.load().
  * This is how Carlo passes initial set of <rpc> handles to Node objects into the web world.
  */
-export function loadParams(): Promise<ReadonlyArray<any>>;
+export function loadParams(): Promise<readonly any[]>;

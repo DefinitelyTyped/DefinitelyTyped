@@ -11,7 +11,7 @@ export interface S3ArtifactLocation {
     objectKey: string;
 }
 export interface S3ArtifactStore {
-    type: 'S3';
+    type: "S3";
     s3Location: S3ArtifactLocation;
 }
 
@@ -26,7 +26,7 @@ export interface Artifact {
 export interface Credentials {
     accessKeyId: string;
     secretAccessKey: string;
-    sessionToken?: string;
+    sessionToken?: string | undefined;
 }
 
 export interface EncryptionKey {
@@ -35,7 +35,7 @@ export interface EncryptionKey {
 }
 
 export interface CodePipelineEvent {
-    'CodePipeline.job': {
+    "CodePipeline.job": {
         id: string;
         accountId: string;
         data: {
@@ -48,8 +48,8 @@ export interface CodePipelineEvent {
             inputArtifacts: Artifact[];
             outputArtifacts: Artifact[];
             artifactCredentials: Credentials;
-            encryptionKey?: EncryptionKey & { type: 'KMS' };
-            continuationToken?: string;
+            encryptionKey?: (EncryptionKey & { type: "KMS" }) | undefined;
+            continuationToken?: string | undefined;
         };
     };
 }

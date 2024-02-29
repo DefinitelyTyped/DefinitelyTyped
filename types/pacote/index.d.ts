@@ -1,15 +1,9 @@
-// Type definitions for pacote 11.1
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import npmFetch = require('npm-registry-fetch');
-import { Logger } from 'npmlog';
-import { Integrity } from 'ssri';
-import { Transform } from 'stream';
+import npmFetch = require("npm-registry-fetch");
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Transform } from "stream";
 
 export interface PackageDist {
     /**
@@ -22,34 +16,34 @@ export interface PackageDist {
      * older packages on the npm registry. (Copied by Pacote to
      * `manifest._integrity`.)
      */
-    integrity?: string;
+    integrity?: string | undefined;
     /**
      * Legacy integrity value. Hexadecimal-encoded sha1 hash. (Converted to an
      * SRI string and copied by Pacote to `manifest._integrity` when
      * `dist.integrity` is not present.)
      */
-    shasum?: string;
+    shasum?: string | undefined;
     /**
      * Number of files in the tarball.
      */
-    fileCount?: number;
+    fileCount?: number | undefined;
     /**
      * Size on disk of the package when unpacked.
      */
-    unpackedSize?: number;
+    unpackedSize?: number | undefined;
     /**
      * A signature of the package by the
      * [`npmregistry`](https://keybase.io/npmregistry) Keybase account.
      * (Obviously only present for packages published to
      * https://registry.npmjs.org.)
      */
-    'npm-signature'?: string;
+    "npm-signature"?: string | undefined;
 }
 
 export interface Person {
     name: string;
-    email?: string;
-    url?: string;
+    email?: string | undefined;
+    url?: string | undefined;
 }
 
 /**
@@ -57,24 +51,24 @@ export interface Person {
  * only appear when requesting with `fullMetadata = true`.
  */
 export interface CommonMetadata {
-    author?: Person;
+    author?: Person | undefined;
     bugs?: {
-        url?: string;
-        email?: string;
-    };
-    contributors?: Person[];
-    homepage?: string;
-    keywords?: string[];
-    license?: string;
-    maintainers?: Person[];
-    readme?: string;
-    readmeFilename?: string;
+        url?: string | undefined;
+        email?: string | undefined;
+    } | undefined;
+    contributors?: Person[] | undefined;
+    homepage?: string | undefined;
+    keywords?: string[] | undefined;
+    license?: string | undefined;
+    maintainers: Person[];
+    readme?: string | undefined;
+    readmeFilename?: string | undefined;
     repository?: {
-        type?: string;
-        url?: string;
-        directory?: string;
-    };
-    users?: Record<string, boolean>;
+        type?: string | undefined;
+        url?: string | undefined;
+        directory?: string | undefined;
+    } | undefined;
+    users?: Record<string, boolean> | undefined;
 }
 
 /**
@@ -88,36 +82,52 @@ export interface Manifest extends CommonMetadata {
     dist: PackageDist;
 
     // These properties usually appear in all requests.
-    dependencies?: Record<string, string>;
-    optionalDependencies?: Record<string, string>;
-    devDependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-    bundledDependencies?: false | string[];
+    dependencies?: Record<string, string> | undefined;
+    optionalDependencies?: Record<string, string> | undefined;
+    devDependencies?: Record<string, string> | undefined;
+    peerDependencies?: Record<string, string> | undefined;
+    bundledDependencies?: false | string[] | undefined;
 
-    bin?: Record<string, string>;
-    directories?: Record<string, string>;
-    engines?: Record<string, string>;
+    bin?: Record<string, string> | undefined;
+    directories?: Record<string, string> | undefined;
+    engines?: Record<string, string> | undefined;
 
     // These properties usually only appear when fullMetadata = true.
-    browser?: string;
-    config?: Record<string, unknown>;
-    cpu?: string[];
-    description?: string;
-    files?: string[];
-    main?: string;
-    man?: string | string[];
-    os?: string[];
-    publishConfig?: Record<string, unknown>;
-    scripts?: Record<string, string>;
+    browser?: string | undefined;
+    config?: Record<string, unknown> | undefined;
+    cpu?: string[] | undefined;
+    description?: string | undefined;
+    files?: string[] | undefined;
+    main?: string | undefined;
+    man?: string | string[] | undefined;
+    os?: string[] | undefined;
+    publishConfig?: Record<string, unknown> | undefined;
+    scripts?: Record<string, string> | undefined;
 
-    _id?: string;
-    _nodeVersion?: string;
-    _npmVersion?: string;
-    _npmUser?: Person;
+    _id: string;
+    _nodeVersion: string;
+    _npmVersion: string;
+    _npmUser: Person;
 
     // Non-standard properties from package.json may also appear.
     [key: string]: unknown;
 }
+
+export type AbbreviatedManifest = Pick<
+    Manifest,
+    | "name"
+    | "version"
+    | "bin"
+    | "directories"
+    | "dependencies"
+    | "devDependencies"
+    | "peerDependencies"
+    | "bundledDependencies"
+    | "optionalDependencies"
+    | "engines"
+    | "dist"
+    | "deprecated"
+>;
 
 /**
  * A packument is the top-level package document that lists the set of manifests
@@ -138,19 +148,20 @@ export interface Packument extends CommonMetadata {
      * An object mapping dist-tags to version numbers. This is how `foo@latest`
      * gets turned into `foo@1.2.3`.
      */
-    'dist-tags': { latest: string; } & Record<string, string>;
+    "dist-tags": { latest: string } & Record<string, string>;
     /**
      * In the full packument, an object mapping version numbers to publication
      * times, for the `opts.before` functionality.
      */
-    time?: Record<string, string> & {
+    time: Record<string, string> & {
         created: string;
         modified: string;
     };
-
-    // Non-standard properties may also appear when fullMetadata = true.
-    [key: string]: unknown;
 }
+
+export type AbbreviatedPackument = {
+    versions: Record<string, AbbreviatedManifest>;
+} & Pick<Packument, "name" | "dist-tags">;
 
 export interface FetchResult {
     /**
@@ -167,7 +178,7 @@ export interface FetchResult {
     integrity: string;
 }
 
-export interface ManifestResult extends Manifest {
+export interface ManifestResult {
     /**
      * A normalized form of the spec passed in as an argument.
      */
@@ -180,6 +191,17 @@ export interface ManifestResult extends Manifest {
      * The integrity value for the package artifact.
      */
     _integrity: string;
+    /**
+     * The canonical spec of this package version: name@version.
+     */
+    _id: string;
+}
+
+export interface PackumentResult {
+    /**
+     * The size of the packument.
+     */
+    _contentLength: number;
 }
 
 export interface PacoteOptions {
@@ -188,67 +210,77 @@ export interface PacoteOptions {
      * [`cacache`](http://npm.im/cacache). Defaults to the same cache directory
      * that npm will use by default, based on platform and environment.
      */
-    cache?: string;
+    cache?: string | undefined;
     /**
      * Base folder for resolving relative `file:` dependencies.
      */
-    where?: string;
+    where?: string | undefined;
     /**
      * Shortcut for looking up resolved values. Should be specified if known.
      */
-    resolved?: string;
+    resolved?: string | undefined;
     /**
      * Expected integrity of fetched package tarball. If specified, tarballs
      * with mismatched integrity values will raise an `EINTEGRITY` error.
      */
-    integrity?: string | Integrity;
+    integrity?: string | Integrity | undefined;
     /**
      * Permission mode mask for extracted files and directories. Defaults to
      * `0o22`.
      */
-    umask?: number;
+    umask?: number | undefined;
     /**
      * Minimum permission mode for extracted files. Defaults to `0o666`.
      */
-    fmode?: number;
+    fmode?: number | undefined;
     /**
      * Minimum permission mode for extracted directories. Defaults to `0o777`.
      */
-    dmode?: number;
+    dmode?: number | undefined;
     /**
      * A logger object with methods for various log levels. Typically, this will
      * be [`npmlog`](http://npm.im/npmlog) in the npm CLI use case, but if not
      * specified, the default is a logger that emits 'log' events on the process
      * object.
      */
-    log?: Logger;
+    log?: Logger | undefined;
     /**
      * Prefer to revalidate cache entries, even when it would not be strictly
      * necessary. Default `false`.
      */
-    preferOnline?: boolean;
+    preferOnline?: boolean | undefined;
     /**
      * When picking a manifest from a packument, only consider packages
      * published before the specified date. Default `null`.
      */
-    before?: Date | null;
+    before?: Date | null | undefined;
     /**
      * The default `dist-tag` to use when choosing a manifest from a packument.
      * Defaults to `latest`.
      */
-    defaultTag?: string;
+    defaultTag?: string | undefined;
     /**
      * The npm registry to use by default. Defaults to
      * `https://registry.npmjs.org/`.
      */
-    registry?: string;
+    registry?: string | undefined;
     /**
      * Fetch the full metadata from the registry for packuments, including
      * information not strictly required for installation (author, description,
      * etc.) Defaults to `true` when `before` is set, since the version publish
      * time is part of the extended packument metadata.
      */
-    fullMetadata?: boolean;
+    fullMetadata?: boolean | undefined;
+
+    /**
+     * you usually don't want to fetch the same packument multiple times in
+     * the span of a given script or command, no matter how many pacote calls
+     * are made, so this lets us avoid doing that.  It's only relevant for
+     * registry fetchers, because other types simulate their packument from
+     * the manifest, which they memoize on this.package, so it's very cheap
+     * already.
+     */
+    packumentCache?: Map<string, Packument> | undefined;
 }
 
 export type Options = PacoteOptions & npmFetch.Options;
@@ -269,13 +301,18 @@ export function extract(spec: string, dest?: string, opts?: Options): Promise<Fe
  * Fetch (or simulate) a package's manifest (basically, the `package.json` file,
  * plus a bit of metadata).
  */
-export function manifest(spec: string, opts?: Options): Promise<ManifestResult>;
+export function manifest(
+    spec: string,
+    opts: Options & ({ before: Date } | { fullMetadata: true }),
+): Promise<Manifest & ManifestResult>;
+export function manifest(spec: string, opts?: Options): Promise<AbbreviatedManifest & ManifestResult>;
 
 /**
  * Fetch (or simulate) a package's packument (basically, the top-level package
  * document listing all the manifests that the registry returns).
  */
-export function packument(spec: string, opts?: Options): Promise<Packument>;
+export function packument(spec: string, opts: Options & { fullMetadata: true }): Promise<Packument & PackumentResult>;
+export function packument(spec: string, opts?: Options): Promise<AbbreviatedPackument & PackumentResult>;
 
 /**
  * Get a package tarball data as a buffer in memory.

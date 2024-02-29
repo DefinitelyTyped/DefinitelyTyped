@@ -1,6 +1,6 @@
-import { DeviceEventEmitter, NativeModules } from 'react-native'
+import { DeviceEventEmitter, NativeModules } from "react-native";
 
-const SensorManager = NativeModules.SensorManager
+const SensorManager = NativeModules.SensorManager;
 
 let num: number;
 let bool: boolean;
@@ -32,41 +32,39 @@ SensorManager.stopProximity();
 SensorManager.startLightSensor(num);
 SensorManager.stopLightSensor();
 
-
-DeviceEventEmitter.addListener('Accelerometer', (data) => {
+DeviceEventEmitter.addListener("Accelerometer", (data) => {
     num = data.x;
     num = data.y;
     num = data.z;
 });
 
-
-DeviceEventEmitter.addListener('Gyroscope', (data) => {
+DeviceEventEmitter.addListener("Gyroscope", (data) => {
     num = data.x;
     num = data.y;
     num = data.z;
 });
 
-DeviceEventEmitter.addListener('Magnetometer', (data) => {
+DeviceEventEmitter.addListener("Magnetometer", (data) => {
     num = data.x;
     num = data.y;
     num = data.z;
 });
 
-DeviceEventEmitter.addListener('Orientation', (data) => {
+DeviceEventEmitter.addListener("Orientation", (data) => {
     num = data.azimuth;
     num = data.pitch;
     num = data.roll;
 });
 
-DeviceEventEmitter.addListener('Thermometer', (data) => {
+DeviceEventEmitter.addListener("Thermometer", (data) => {
     num = data.temp;
 });
 
-DeviceEventEmitter.addListener('LightSensor', (data) => {
+DeviceEventEmitter.addListener("LightSensor", (data) => {
     num = data.light;
 });
 
-DeviceEventEmitter.addListener('Proximity', (data) => {
+DeviceEventEmitter.addListener("Proximity", (data) => {
     bool = data.isNear;
     num = data.value;
     num = data.value;

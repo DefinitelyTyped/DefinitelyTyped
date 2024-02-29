@@ -1,39 +1,34 @@
-// Type definitions for co-views 2.1
-// Project: https://github.com/tj/co-views/
-// Definitions by: devlee <https://github.com/devlee>, Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CoViews {
     interface Options {
         /**
          * default extname
          */
-        ext?: string;
+        ext?: string | undefined;
 
         /**
          * default extname
          */
-        default?: string;
+        default?: string | undefined;
 
         /**
          * engine map
          */
-        map?: Object;
+        map?: Object | undefined;
 
         /**
          * proxy partials
          */
-        partials?: Object;
+        partials?: Object | undefined;
 
         /**
          * cache compiled templates
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
 
         /**
          * common locals data
          */
-        locals?: Object;
+        locals?: Object | undefined;
     }
 }
 

@@ -1,25 +1,30 @@
-// tslint:disable:no-unnecessary-generics
-import { BlockInstance } from '@wordpress/blocks';
-import { Autocomplete, ToolbarButton } from '@wordpress/components';
-import { ComponentType, HTMLProps, ReactNode } from 'react';
-import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { BlockInstance } from "@wordpress/blocks";
+import { Autocomplete, ToolbarButton } from "@wordpress/components";
+import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
+import { ComponentType, HTMLProps, JSX, ReactNode } from "react";
 
 declare namespace RichText {
-    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, 'onChange'> {
+    interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
+        /**
+         * By default, all registered formats are allowed. This setting can be used to fine-tune
+         * the allowed formats.
+         */
+        allowedFormats?: string[] | undefined;
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: Array<Autocomplete.Completer<any>>;
-        children?: never;
-        className?: string;
-        identifier?: string;
-        inlineToolbar?: boolean;
+        autocompleters?: Array<Autocomplete.Completer<any>> | undefined;
+        children?: never | undefined;
+        className?: string | undefined;
+        identifier?: string | undefined;
+        inlineToolbar?: boolean | undefined;
         /**
          * By default, the placeholder will hide as soon as the editable field receives focus. With
          * this setting it can be be kept while the field is focussed and empty.
          */
-        keepPlaceholderOnFocus?: boolean;
-        multiline?: boolean | keyof HTMLElementTagNameMap;
+        keepPlaceholderOnFocus?: boolean | undefined;
+        multiline?: boolean | keyof HTMLElementTagNameMap | undefined;
         /**
          * Called when the value changes.
          */
@@ -50,32 +55,32 @@ declare namespace RichText {
          * attribute of the same name.
          * See: {@link https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/HTML5_updates#The_placeholder_attribute }
          */
-        placeholder?: string;
+        placeholder?: string | undefined;
         /**
          * The tag name of the editable element.
          * @defaultValue div
          */
-        tagName?: T;
+        tagName?: T | undefined;
         /**
          * HTML string to make editable. The HTML should be valid, and valid inside the `tagName`,
          * if provided.
          */
         value: string;
-        wrapperClassName?: string;
+        wrapperClassName?: string | undefined;
     }
     interface ContentProps<T extends keyof HTMLElementTagNameMap> extends HTMLProps<T> {
-        children?: never;
-        multiline?: boolean | 'p' | 'li';
-        tagName?: T;
+        children?: never | undefined;
+        multiline?: boolean | "p" | "li" | undefined;
+        tagName?: T | undefined;
         value: string;
     }
 }
 declare const RichText: {
-    <T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.Props<T>): JSX.Element;
+    <T extends keyof HTMLElementTagNameMap = "div">(props: RichText.Props<T>): JSX.Element;
     /**
      * Should be used in the `save` function of your block to correctly save rich text content.
      */
-    Content<T extends keyof HTMLElementTagNameMap = 'div'>(props: RichText.ContentProps<T>): JSX.Element;
+    Content<T extends keyof HTMLElementTagNameMap = "div">(props: RichText.ContentProps<T>): JSX.Element;
     isEmpty(value: string | string[]): boolean;
 };
 
@@ -90,9 +95,9 @@ export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
     interface Props extends ToolbarButton.Props {
-        name?: string;
-        shortcutType?: keyof typeof displayShortcut;
-        shortcutCharacter?: string;
+        name?: string | undefined;
+        shortcutType?: keyof typeof displayShortcut | undefined;
+        shortcutCharacter?: string | undefined;
     }
 }
 export const RichTextToolbarButton: ComponentType<RichTextToolbarButton.Props>;

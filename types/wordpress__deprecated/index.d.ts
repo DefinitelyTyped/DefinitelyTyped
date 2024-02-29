@@ -1,30 +1,24 @@
-// Type definitions for @wordpress/deprecated 2.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/deprecated/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface DeprecatedOptions {
     /**
      * Feature to use instead.
      */
-    alternative?: string;
+    alternative?: string | undefined;
     /**
      * Additional message to help transition away from the deprecated feature.
      */
-    hint?: string;
+    hint?: string | undefined;
     /**
      * Link to documentation.
      */
-    link?: string;
+    link?: string | undefined;
     /**
      * Plugin name if it's a plugin feature.
      */
-    plugin?: string;
+    plugin?: string | undefined;
     /**
      * Version in which the feature will be removed.
      */
-    version?: string;
+    version?: string | undefined;
 }
 
 /**

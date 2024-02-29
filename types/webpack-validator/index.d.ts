@@ -1,18 +1,10 @@
-// Type definitions for webpack-validator v2.2.6
-// Project: https://github.com/js-dxtools/webpack-validator
-// Definitions by: Simon Hartcher <https://github.com/deevus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="webpack" />
-
 declare module "webpack-validator" {
     import { Configuration } from "webpack";
 
     interface ValidationOptions {
-        "no-root-files-node-modules-nameclash"?: boolean;
-        "loader-enforce-include-or-exclude"?: boolean;
-        "loader-prefer-include"?: boolean;
+        "no-root-files-node-modules-nameclash"?: boolean | undefined;
+        "loader-enforce-include-or-exclude"?: boolean | undefined;
+        "loader-prefer-include"?: boolean | undefined;
     }
 
     /**

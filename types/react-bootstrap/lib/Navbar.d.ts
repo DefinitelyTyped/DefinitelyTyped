@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
-import NavbarBrand = require('./NavbarBrand');
-import NavbarCollapse = require('./NavbarCollapse');
-import NavbarHeader = require('./NavbarHeader');
-import NavbarToggle = require('./NavbarToggle');
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
+import NavbarBrand = require("./NavbarBrand");
+import NavbarCollapse = require("./NavbarCollapse");
+import NavbarHeader = require("./NavbarHeader");
+import NavbarToggle = require("./NavbarToggle");
 
 declare namespace Navbar {
     export interface NavbarProps extends React.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
-        bsSize?: Sizes;
-        bsStyle?: string;
-        collapseOnSelect?: boolean;
-        componentClass?: React.ReactType;
-        defaultNavExpanded?: boolean;
-        fixedBottom?: boolean;
-        fixedTop?: boolean;
-        fluid?: boolean;
-        inverse?: boolean;
-        expanded?: boolean;
-        onToggle?: Function;
-        staticTop?: boolean;
+        bsSize?: Sizes | undefined;
+        bsStyle?: string | undefined;
+        collapseOnSelect?: boolean | undefined;
+        componentClass?: React.ElementType | undefined;
+        defaultNavExpanded?: boolean | undefined;
+        fixedBottom?: boolean | undefined;
+        fixedTop?: boolean | undefined;
+        fluid?: boolean | undefined;
+        inverse?: boolean | undefined;
+        expanded?: boolean | undefined;
+        onToggle?: Function | undefined;
+        staticTop?: boolean | undefined;
         toggleButton?: any; // TODO: Add more specific type
-        toggleNavKey?: string | number;
+        toggleNavKey?: string | number | undefined;
     }
 }
 declare class Navbar extends React.Component<Navbar.NavbarProps> {
@@ -40,19 +40,19 @@ export = Navbar;
  */
 
 interface NavbarLinkProps extends React.HTMLProps<NavbarLink> {
-  href: string;
-  onClick?: React.MouseEventHandler<any>;
+    href: string;
+    onClick?: React.MouseEventHandler<any> | undefined;
 }
-declare class NavbarLink extends React.Component<NavbarLinkProps> { }
+declare class NavbarLink extends React.Component<NavbarLinkProps> {}
 
 interface NavbarTextProps extends React.HTMLProps<NavbarText> {
-  pullRight?: boolean;
+    pullRight?: boolean | undefined;
 }
-declare class NavbarText extends React.Component<NavbarTextProps> { }
+declare class NavbarText extends React.Component<NavbarTextProps> {}
 
 interface NavbarFormProps extends React.HTMLProps<NavbarForm> {
-  componentClass?: React.ReactType;
-  pullRight?: boolean;
-  pullLeft?: boolean;
+    componentClass?: React.ElementType | undefined;
+    pullRight?: boolean | undefined;
+    pullLeft?: boolean | undefined;
 }
-declare class NavbarForm extends React.Component<NavbarFormProps> { }
+declare class NavbarForm extends React.Component<NavbarFormProps> {}

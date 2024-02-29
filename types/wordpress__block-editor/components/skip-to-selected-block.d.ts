@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace SkipToSelectedBlock {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const SkipToSelectedBlock: ComponentType<SkipToSelectedBlock.Props>;

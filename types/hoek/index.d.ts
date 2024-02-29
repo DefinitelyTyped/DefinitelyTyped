@@ -1,28 +1,23 @@
-// Type definitions for hoek 4.1
-// Project: https://github.com/hapijs/hoek
-// Definitions by: Prashant Tiwari <https://github.com/prashaantt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ContainOptions {
     /** Perform a deep comparison of the values? */
-    deep?: boolean;
+    deep?: boolean | undefined;
     /** Allow only one occurrence of each value? */
-    once?: boolean;
+    once?: boolean | undefined;
     /** Don't allow values not explicitly listed? */
-    only?: boolean;
+    only?: boolean | undefined;
     /** Allow partial match of the values? */
-    part?: boolean;
+    part?: boolean | undefined;
 }
 
 export interface ReachOptions {
     /** String to split chain path on. Defaults to ".". */
-    separator?: string;
+    separator?: string | undefined;
     /** Value to return if the path or value is not present. Default is undefined. */
     default?: any;
     /** Throw an error on missing member? Default is false. */
-    strict?: boolean;
+    strict?: boolean | undefined;
     /** Allow traversing functions for properties? */
-    functions?: boolean;
+    functions?: boolean | undefined;
 }
 
 // Object
@@ -165,6 +160,7 @@ export function escapeRegex(regexString: string): string;
 /**
  * Print message or throw error if condition fails.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function assert(condition: boolean, message: string | Error): void | Error;
 
 /**

@@ -1,5 +1,5 @@
-import { Dashicon, Slot } from '@wordpress/components';
-import { FC, ReactNode } from 'react';
+import { Dashicon, Slot } from "@wordpress/components";
+import { FC, JSX, ReactNode } from "react";
 
 declare namespace PluginDocumentSettingPanel {
     interface Props {
@@ -7,20 +7,20 @@ declare namespace PluginDocumentSettingPanel {
         /**
          * The machine-friendly name for the panel.
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * An optional class name added to the row.
          */
-        className?: string;
+        className?: string | undefined;
         /**
          * The title of the panel.
          */
-        title?: string;
+        title?: string | undefined;
         /**
          * A Dashicon slug or a custom JSX element to be rendered when the sidebar is pinned to
          * toolbar.
          */
-        icon?: Dashicon.Icon | JSX.Element;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
     }
 }
 
@@ -43,7 +43,7 @@ declare namespace PluginDocumentSettingPanel {
  */
 declare const PluginDocumentSettingPanel: {
     (props: PluginDocumentSettingPanel.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, 'name'>>;
+    Slot: FC<Omit<Slot.Props, "name">>;
 };
 
 export default PluginDocumentSettingPanel;

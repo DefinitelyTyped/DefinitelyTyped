@@ -1,13 +1,13 @@
-import * as yauzl from 'yauzl';
-import { Writable } from 'stream';
+import { Writable } from "stream";
+import * as yauzl from "yauzl";
 
-yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
+yauzl.open("path/to/file.zip", { lazyEntries: true }, (err, zipfile) => {
     if (err) {
         throw err;
     }
     if (zipfile) {
         zipfile.readEntry();
-        zipfile.on('entry', entry => {
+        zipfile.on("entry", entry => {
             if (/\/$/.test(entry.fileName)) {
                 zipfile.readEntry();
             } else {
@@ -16,7 +16,7 @@ yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
                         throw err;
                     }
                     if (readStream) {
-                        readStream.on('end', () => {
+                        readStream.on("end", () => {
                             zipfile.readEntry();
                         });
                         readStream.pipe(new Writable());
@@ -27,4 +27,4 @@ yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
     }
 });
 
-yauzl.open('options.zip', {strictFileNames: true}, () => {});
+yauzl.open("options.zip", { strictFileNames: true }, () => {});

@@ -1,8 +1,3 @@
-// Type definitions for alertify 0.3.11
-// Project: http://fabien-d.github.io/alertify.js/
-// Definitions by: John Jeffery <https://github.com/jjeffery>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var alertify: alertify.IAlertifyStatic;
 
 declare namespace alertify {
@@ -104,21 +99,21 @@ declare namespace alertify {
      */
     interface IProperties {
         /** Default value for milliseconds display of log messages */
-        delay?: number;
+        delay?: number | undefined;
 
         /** Default values for display of labels */
-        labels?: ILabels;
+        labels?: ILabels | undefined;
 
         /** Default button for focus */
-        buttonFocus?: string;
+        buttonFocus?: string | undefined;
 
         /** Should buttons be displayed in reverse order */
-        buttonReverse?: boolean;
+        buttonReverse?: boolean | undefined;
     }
 
     /** Labels for altertify.set function */
     interface ILabels {
-        ok?: string;
-        cancel?: string;
+        ok?: string | undefined;
+        cancel?: string | undefined;
     }
 }

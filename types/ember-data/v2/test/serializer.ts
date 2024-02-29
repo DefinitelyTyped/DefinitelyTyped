@@ -1,54 +1,60 @@
-import Ember from 'ember';
-import DS from 'ember-data';
+import Ember from "ember";
+import DS from "ember-data";
 
 const JsonApi = DS.JSONAPISerializer.extend({});
 
 const Customized = DS.JSONAPISerializer.extend({
-    serialize(snapshot: DS.Snapshot<'user'>, options: {}) {
-        const lookup = snapshot.belongsTo('username');
+    serialize(snapshot: DS.Snapshot<"user">, options: {}) {
+        const lookup = snapshot.belongsTo("username");
         let json: any = this._super(...Array.from(arguments));
 
         json.data.attributes.cost = {
             amount: json.data.attributes.amount,
-            currency: json.data.attributes.currency
+            currency: json.data.attributes.currency,
         };
 
         return json;
     },
-    normalizeResponse(store: DS.Store, primaryModelClass: DS.Model, payload: any, id: string|number, requestType: string) {
+    normalizeResponse(
+        store: DS.Store,
+        primaryModelClass: DS.Model,
+        payload: any,
+        id: string | number,
+        requestType: string,
+    ) {
         payload.data.attributes.amount = payload.data.attributes.cost.amount;
         payload.data.attributes.currency = payload.data.attributes.cost.currency;
 
         delete payload.data.attributes.cost;
 
         return this._super(...Array.from(arguments));
-    }
+    },
 });
 
 const EmbeddedRecordMixin = DS.JSONSerializer.extend(DS.EmbeddedRecordsMixin, {
     attrs: {
         author: {
             serialize: false,
-            deserialize: 'records'
+            deserialize: "records",
         },
         comments: {
-            deserialize: 'records',
-            serialize: 'ids'
-        }
-    }
+            deserialize: "records",
+            serialize: "ids",
+        },
+    },
 });
 
 class Message extends DS.Model.extend({
     title: DS.attr(),
     body: DS.attr(),
 
-    author: DS.belongsTo('user'),
-    comments: DS.belongsTo('comment')
+    author: DS.belongsTo("user"),
+    comments: DS.belongsTo("comment"),
 }) {}
 
-declare module 'ember-data' {
+declare module "ember-data" {
     interface ModelRegistry {
-        'message-for-serializer': Message;
+        "message-for-serializer": Message;
     }
 }
 
@@ -57,11 +63,11 @@ interface CustomSerializerOptions {
 }
 
 const SerializerUsingSnapshots = DS.RESTSerializer.extend({
-    serialize(snapshot: DS.Snapshot<'message-for-serializer'>, options: CustomSerializerOptions) {
+    serialize(snapshot: DS.Snapshot<"message-for-serializer">, options: CustomSerializerOptions) {
         let json: any = {
-            POST_TTL: snapshot.attr('title'),
-            POST_BDY: snapshot.attr('body'),
-            POST_CMS: snapshot.hasMany('comments', { ids: true })
+            POST_TTL: snapshot.attr("title"),
+            POST_BDY: snapshot.attr("body"),
+            POST_CMS: snapshot.hasMany("comments", { ids: true }),
         };
 
         if (options.includeId) {
@@ -69,13 +75,13 @@ const SerializerUsingSnapshots = DS.RESTSerializer.extend({
         }
 
         return json;
-    }
+    },
 });
 
 DS.Serializer.extend({
-    serialize(snapshot: DS.Snapshot<'message-for-serializer'>, options: {}) {
+    serialize(snapshot: DS.Snapshot<"message-for-serializer">, options: {}) {
         let json: any = {
-            id: snapshot.id
+            id: snapshot.id,
         };
 
         snapshot.eachAttribute((key, attribute) => {
@@ -83,9 +89,9 @@ DS.Serializer.extend({
         });
 
         snapshot.eachRelationship((key, relationship) => {
-            if (relationship.kind === 'belongsTo') {
+            if (relationship.kind === "belongsTo") {
                 json[key] = snapshot.belongsTo(key, { id: true });
-            } else if (relationship.kind === 'hasMany') {
+            } else if (relationship.kind === "hasMany") {
                 json[key] = snapshot.hasMany(key, { ids: true });
             }
         });

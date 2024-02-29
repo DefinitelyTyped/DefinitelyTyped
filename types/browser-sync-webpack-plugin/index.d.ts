@@ -1,11 +1,5 @@
-// Type definitions for browser-sync-webpack-plugin 2.2
-// Project: https://github.com/Va1/browser-sync-webpack-plugin/blob/master/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import BrowserSync = require('browser-sync');
-import { Plugin } from 'webpack';
+import BrowserSync = require("browser-sync");
+import { Plugin } from "webpack";
 
 declare namespace BrowserSyncPlugin {
     interface Options {
@@ -19,17 +13,17 @@ declare namespace BrowserSyncPlugin {
          * chunks are all CSS files.
          * @defaultValue false
          */
-        injectCss?: boolean;
+        injectCss?: boolean | undefined;
         /**
          * BrowserSync instance name.
          * @defaultValue 'bs-webpack-plugin'
          */
-        name?: string;
+        name?: string | undefined;
         /**
          * Should BrowserSync handle reloads?
          * @defaultValue true
          */
-        reload?: boolean;
+        reload?: boolean | undefined;
     }
 }
 declare class BrowserSyncPlugin extends Plugin {

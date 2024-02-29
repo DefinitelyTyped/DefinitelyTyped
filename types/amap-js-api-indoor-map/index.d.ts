@@ -1,20 +1,14 @@
-// Type definitions for non-npm package amap-js-api-indoor-map 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/indoormap
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace IndoorMap {
         interface EventMap {
-            complete: Event<'complete'>;
-            click: MouseEvent<'click'>;
+            complete: Event<"complete">;
+            click: MouseEvent<"click">;
 
-            floor_complete: Event<'floor_complete', SearchResult>;
-            mouseover: MouseEvent<'mouseover'>;
-            mouseout: MouseEvent<'mouseout'>;
+            floor_complete: Event<"floor_complete", SearchResult>;
+            mouseover: MouseEvent<"mouseover">;
+            mouseout: MouseEvent<"mouseout">;
         }
         type MouseEvent<N extends string> = Event<N, {
             /**
@@ -38,32 +32,32 @@ declare namespace AMap {
             /**
              * 图层叠加的顺序值
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 图层的透明度
              */
-            opacity?: number;
+            opacity?: number | undefined;
             /**
              * 鼠标悬停到店铺面时的鼠标样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 是否隐藏楼层切换控件
              */
-            hideFloorBar?: boolean;
+            hideFloorBar?: boolean | undefined;
             /**
              * 是否持续显示
              */
-            alaysShow?: boolean;
+            alaysShow?: boolean | undefined;
 
             // internal
-            visible?: boolean;
-            featurezIndex?: number;
-            zooms?: [number, number];
-            disableIconRender?: boolean;
-            disableLabelRender?: boolean;
-            disableHoverMarker?: boolean;
-            autoLoadBuildingsInTile?: boolean;
+            visible?: boolean | undefined;
+            featurezIndex?: number | undefined;
+            zooms?: [number, number] | undefined;
+            disableIconRender?: boolean | undefined;
+            disableLabelRender?: boolean | undefined;
+            disableHoverMarker?: boolean | undefined;
+            autoLoadBuildingsInTile?: boolean | undefined;
         }
         interface FloorDetails {
             /**
@@ -79,7 +73,7 @@ declare namespace AMap {
              */
             floor_names: string[];
         }
-        type ShopCategory = 'public' | 'connection' | 'shop';
+        type ShopCategory = "public" | "connection" | "shop";
         interface Shop {
             /**
              * 店铺的id
@@ -160,7 +154,7 @@ declare namespace AMap {
          */
         showIndoorMap(
             indoorId: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定室内地图信息
@@ -171,7 +165,7 @@ declare namespace AMap {
         showIndoorMap(
             indoorId: string,
             floor?: number,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定室内地图信息
@@ -184,7 +178,7 @@ declare namespace AMap {
             indoorId: string,
             floor?: number,
             shopId?: string,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定室内地图信息
@@ -199,7 +193,7 @@ declare namespace AMap {
             floor?: number,
             shopId?: string,
             noMove?: boolean,
-            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void
+            callback?: (error: null | Error, result: IndoorMap.SearchResult) => void,
         ): void;
         /**
          * 显示指定的楼层

@@ -1,41 +1,35 @@
-// Type definitions for react-native-navbar 2.1
-// Project: https://github.com/react-native-community/react-native-navbar
-// Definitions by: Ryo Kikuchi <https://github.com/ryokik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { ViewStyle, TextProps } from 'react-native';
+import * as React from "react";
+import { TextProps, ViewStyle } from "react-native";
 
 export interface NavigationBarButton {
     title: string;
-    style?: ViewStyle;
-    handler?: () => void;
-    disable?: boolean;
+    style?: ViewStyle | undefined;
+    handler?: (() => void) | undefined;
+    disable?: boolean | undefined;
 }
 
 export interface NavigationBarTitle {
     title: string;
-    tintColor?: string;
-    ellipsizeMode?: TextProps["ellipsizeMode"];
-    numberOfLines?: number;
+    tintColor?: string | undefined;
+    ellipsizeMode?: TextProps["ellipsizeMode"] | undefined;
+    numberOfLines?: number | undefined;
 }
 
 export interface StatusBar {
-    style?: 'light-content' | 'default';
-    hidden?: boolean;
-    tintColor?: string;
-    hideAnimation?: 'fade' | 'slide' | 'none';
-    showAnimation?: 'fade' | 'slide' | 'none';
+    style?: "light-content" | "default" | undefined;
+    hidden?: boolean | undefined;
+    tintColor?: string | undefined;
+    hideAnimation?: "fade" | "slide" | "none" | undefined;
+    showAnimation?: "fade" | "slide" | "none" | undefined;
 }
 
 export interface NavigationBarProps {
-    style?: ViewStyle;
-    tintColor?: string;
-    statusBar?: StatusBar;
-    leftButton?: NavigationBarButton | React.ReactElement | null;
-    rightButton?: NavigationBarButton | React.ReactElement | null;
-    title?: NavigationBarTitle | React.ReactElement | null;
+    style?: ViewStyle | undefined;
+    tintColor?: string | undefined;
+    statusBar?: StatusBar | undefined;
+    leftButton?: NavigationBarButton | React.ReactElement | null | undefined;
+    rightButton?: NavigationBarButton | React.ReactElement | null | undefined;
+    title?: NavigationBarTitle | React.ReactElement | null | undefined;
 }
 
 export default class NavigationBar extends React.Component<NavigationBarProps> {}

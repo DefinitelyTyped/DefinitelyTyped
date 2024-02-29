@@ -1,21 +1,14 @@
-// Type definitions for Mailcheck 1.1
-// Project: https://github.com/mailcheck/mailcheck
-// Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="jquery" />
 
 declare var Mailcheck: MailcheckModule.Static;
 
 declare namespace MailcheckModule {
-
     export interface IDistanceFunction {
         (s1: string, s2: string): number;
     }
 
     export interface ISuggestFunction {
-        (email: string, domains?: string[], topLevelDomains?: string[], distanceFunction?: IDistanceFunction):void;
+        (email: string, domains?: string[], topLevelDomains?: string[], distanceFunction?: IDistanceFunction): void;
     }
 
     export interface IJQuerySuggested {
@@ -35,9 +28,9 @@ declare namespace MailcheckModule {
     }
 
     export interface ISplitEmail {
-        topLevelDomain?: string;
-        domain?: string;
-        address?: string;
+        topLevelDomain?: string | undefined;
+        domain?: string | undefined;
+        address?: string | undefined;
     }
 
     export interface ISuggestion {
@@ -48,20 +41,19 @@ declare namespace MailcheckModule {
 
     export interface IAsynchronousOptions {
         email: string;
-        domains?: string[];
-        secondLevelDomains?: string[];
-        topLevelDomains?: string[];
-        distanceFunction?: IDistanceFunction;
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
         suggested: ISuggested | IJQuerySuggested;
-        empty?: IEmpty | IJQueryEmpty;
+        empty?: IEmpty | IJQueryEmpty | undefined;
     }
     export interface ISynchronousOptions {
         email: string;
-        domains?: string[];
-        secondLevelDomains?: string[];
-        topLevelDomains?: string[];
-        distanceFunction?: IDistanceFunction;
-
+        domains?: string[] | undefined;
+        secondLevelDomains?: string[] | undefined;
+        topLevelDomains?: string[] | undefined;
+        distanceFunction?: IDistanceFunction | undefined;
     }
     export interface Static {
         defaultDomains: string[];
@@ -69,22 +61,27 @@ declare namespace MailcheckModule {
         defaultTopLevelDomains: string[];
         domainThreshold: number;
         topLevelThreshold: number;
-        run(opts: IAsynchronousOptions):void;
-        run(opts: ISynchronousOptions):ISuggestion | undefined;
+        run(opts: IAsynchronousOptions): void;
+        run(opts: ISynchronousOptions): ISuggestion | undefined;
         suggest: ISuggestFunction;
         encodeEmail(email: string): string;
         splitEmail(email: string): ISplitEmail;
         sift3Distance(s1: string, s2: string): number;
-        findClosestDomain(domain: string, domains: string[], distanceFunction?: IDistanceFunction, threshold?: number): boolean|string;
+        findClosestDomain(
+            domain: string,
+            domains: string[],
+            distanceFunction?: IDistanceFunction,
+            threshold?: number,
+        ): boolean | string;
     }
-
 }
 
 interface JQuery {
-    mailcheck(opts: MailcheckModule.IAsynchronousOptions):void;
-    mailcheck(opts: MailcheckModule.ISynchronousOptions):MailcheckModule.ISuggestion | void;
+    mailcheck(opts: MailcheckModule.IAsynchronousOptions): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    mailcheck(opts: MailcheckModule.ISynchronousOptions): MailcheckModule.ISuggestion | void;
 }
 
-declare module 'mailcheck' {
+declare module "mailcheck" {
     export = Mailcheck;
 }

@@ -1,16 +1,15 @@
-import { dom, expect, spy } from 'mochaccino';
+import { dom, expect, spy } from "mochaccino";
 /**
  * spy test
- *
  */
 const obj = {
     funcName: (): any => {
-    }
+    },
 };
 let s = spy();
 s(1, 2);
 expect(s).toHaveBeenCalledWith(1, 2);
-spy(obj, 'funcName');
+spy(obj, "funcName");
 obj.funcName();
 expect(obj.funcName).toHaveBeenCalled();
 /***********************/
@@ -18,17 +17,17 @@ s = spy();
 s();
 expect(s).toHaveBeenCalled();
 /***********************/
-s(obj, 'funcName').and.callFake(() => {
+s(obj, "funcName").and.callFake(() => {
     return 123;
 });
 expect(obj.funcName()).toEqual(123);
-spy(obj, 'funcName');
+spy(obj, "funcName");
 
 expect(obj.funcName).toHaveBeenCalled();
 /***********************/
-s(obj, 'funcName').and.callThrough();
+s(obj, "funcName").and.callThrough();
 /***********************/
-s(obj, 'funcName').and.returnValue(5);
+s(obj, "funcName").and.returnValue(5);
 /***********************/
 /**
  * dom test
@@ -38,7 +37,6 @@ dom.destroy();
 dom.clear();
 /**
  * expect test
- *
  */
 const a = 1;
 const b = true;
@@ -62,5 +60,5 @@ expect(f).toThrow();
 expect(f).toThrowError(ErrorType);
 expect(s).toMatch(regexp);
 expect(s).toHaveBeenCalled();
-expect(s).toHaveBeenCalledWith(1, '23');
+expect(s).toHaveBeenCalledWith(1, "23");
 expect(s).toHaveBeenCalledTimes(55);

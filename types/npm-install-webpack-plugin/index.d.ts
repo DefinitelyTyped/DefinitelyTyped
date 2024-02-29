@@ -1,8 +1,4 @@
-// Type definitions for npm-install-webpack-plugin 4.0
-// Project: https://github.com/ericclemmons/npm-install-webpack-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 /**
  * Speed up development by automatically installing & saving dependencies with Webpack.
@@ -17,21 +13,21 @@ declare namespace NpmInstallPlugin {
          * Use --save or --save-dev
          * @default false
          */
-        dev?: boolean | DevFunction;
+        dev?: boolean | DevFunction | undefined;
         /**
          * Install missing peerDependencies
          * @default true
          */
-        peerDependencies?: boolean;
+        peerDependencies?: boolean | undefined;
         /**
          * Reduce amount of console logging
          * @default false
          */
-        quiet?: boolean;
+        quiet?: boolean | undefined;
         /**
          * npm command used inside company, yarn is not supported yet
          */
-        npm?: string;
+        npm?: string | undefined;
     }
 
     type DevFunction = (module: string, path: string) => boolean;

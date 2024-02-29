@@ -1,24 +1,18 @@
-// Type definitions for jSuite
-// Project: https://github.com/darrenthill/jsuite
-// Definitions by: Darren Hill <https://github.com/darrenhillconsulting>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="suitescript"/>
 /// <reference types="jquery" />
 
 interface Iconfig {
-    logging?: boolean;
-    smartConvert?: boolean;
-    searchId?: string;
-    recordType?: string;
+    logging?: boolean | undefined;
+    smartConvert?: boolean | undefined;
+    searchId?: string | undefined;
+    recordType?: string | undefined;
     filterExpression?: any;
-    columns?: string;
-    start?: number;
-    end?: number;
-    maxUnitsUsage?: number;
+    columns?: string | undefined;
+    start?: number | undefined;
+    end?: number | undefined;
+    maxUnitsUsage?: number | undefined;
 }
-declare module jSuite {
+declare namespace jSuite {
     function getVersion(): string;
     function setLogging(toggle: boolean): void;
     function getRoleCenter(): any;

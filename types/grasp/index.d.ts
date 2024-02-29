@@ -1,13 +1,7 @@
-// Type definitions for grasp 0.6
-// Project: http://graspjs.com
-// Definitions by: Isaac Wolkerstorfer <https://github.com/agnoster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import * as fs from "fs";
 import * as cliColor from "cli-color";
+import * as fs from "fs";
 // Though Grasp does not use esprima, the parser it uses (flow-parser) has a compatible Node type and existing typedefs
 import { Node } from "estree";
 
@@ -15,10 +9,10 @@ export = grasp;
 
 declare function grasp(options: {
     args: string[] | Record<string, any> | string;
-    error?: (message: string) => void;
-    callback?: (result: string) => void;
-    exit?: (code: number) => void;
-    input?: string;
+    error?: ((message: string) => void) | undefined;
+    callback?: ((result: string) => void) | undefined;
+    exit?: ((code: number) => void) | undefined;
+    input?: string | undefined;
 
     // The following are "overrides" for defaults, such as console, cli-color,
     // process.stdin, or fs. In most cases grasp only makes use of a small
@@ -27,10 +21,10 @@ declare function grasp(options: {
     // it should be up to them to use a cast rather than the typedef to be
     // overly lenient. We never know if grasp might change their internal use of
     // fs, after all.
-    fs?: typeof fs;
-    console?: typeof console;
-    textFormat?: typeof cliColor;
-    stdin?: typeof process.stdin;
+    fs?: typeof fs | undefined;
+    console?: typeof console | undefined;
+    textFormat?: typeof cliColor | undefined;
+    stdin?: typeof process.stdin | undefined;
 }): void;
 
 declare namespace grasp {
@@ -54,19 +48,22 @@ declare namespace grasp {
     type Replacement =
         | string
         | ((
-              getRaw: (node: Node) => string,
-              node: Node,
-              query: (q: string) => Node[],
-              named: { [key: string]: string | Node }
-          ) => string);
+            getRaw: (node: Node) => string,
+            node: Node,
+            query: (q: string) => Node[],
+            named: { [key: string]: string | Node },
+        ) => string);
 
-    type GraspSearchWithQueryEngine = ((selector: string, input: string) => Node[]) &
-        ((selector: string) => (input: string) => Node[]);
+    type GraspSearchWithQueryEngine =
+        & ((selector: string, input: string) => Node[])
+        & ((selector: string) => (input: string) => Node[]);
 
-    type GraspReplaceWithQueryEngine = ((selector: string) => GraspReplaceWithSelector) &
-        ((selector: string, replacement: Replacement) => (input: string) => string) &
-        ((selector: string, replacement: Replacement, input: string) => string);
+    type GraspReplaceWithQueryEngine =
+        & ((selector: string) => GraspReplaceWithSelector)
+        & ((selector: string, replacement: Replacement) => (input: string) => string)
+        & ((selector: string, replacement: Replacement, input: string) => string);
 
-    type GraspReplaceWithSelector = ((replacement: Replacement) => (input: string) => string) &
-        ((replacement: Replacement, input: string) => string);
+    type GraspReplaceWithSelector =
+        & ((replacement: Replacement) => (input: string) => string)
+        & ((replacement: Replacement, input: string) => string);
 }

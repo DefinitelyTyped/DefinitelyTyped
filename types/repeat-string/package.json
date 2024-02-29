@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/repeat-string",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/repeat-string"
+    ],
+    "devDependencies": {
+        "@types/repeat-string": "workspace:."
+    },
+    "owners": []
+}

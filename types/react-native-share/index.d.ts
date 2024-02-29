@@ -1,36 +1,28 @@
-// Type definitions for react-native-share 3.3
-// Project: https://github.com/react-native-community/react-native-share#readme
-// Definitions by: Mark Nelissen <https://github.com/marknelissen>
-//                 pera <https://github.com/santiagofm>
-//                 MateusAndrade <https://github.com/MateusAndrade>
-//                 Jesse Katsumata <https://github.com/Naturalclar>
-//                 Fabian Lee <https://github.com/fabianlee1211>
-//                 Evan Cloutier <https://github.com/evancloutier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-import { ReactNode, Component } from 'react';
-import { ViewProps, StyleProp } from 'react-native';
-import Overlay from './Overlay.d';
-import Button from './Button.d';
-import Sheet from './Sheet.d';
+import { Component, JSX, ReactNode } from "react";
+import { StyleProp, ViewProps } from "react-native";
+import Button from "./Button.d";
+import Overlay from "./Overlay.d";
+import Sheet from "./Sheet.d";
 
 declare namespace Share {
     enum Social {
-        FACEBOOK = 'facebook',
-        PAGESMANAGER = 'pagesmanager',
-        TWITTER = 'twitter',
-        WHATSAPP = 'whatsapp',
-        INSTAGRAM = 'instagram',
-        INSTAGRAM_STORIES = 'instagram-stories',
-        GOOGLEPLUS = 'googleplus',
-        EMAIL = 'email',
-        PINTEREST = 'pinterest',
-        LINKEDIN = 'linkedin',
+        FACEBOOK = "facebook",
+        PAGESMANAGER = "pagesmanager",
+        TWITTER = "twitter",
+        WHATSAPP = "whatsapp",
+        INSTAGRAM = "instagram",
+        INSTAGRAM_STORIES = "instagram-stories",
+        GOOGLEPLUS = "googleplus",
+        EMAIL = "email",
+        PINTEREST = "pinterest",
+        LINKEDIN = "linkedin",
+        SMS = "SMS",
     }
     enum InstagramStories {
-        SHARE_BACKGROUND_IMAGE = 'shareBackgroundImage',
-        SHARE_STICKER_IMAGE = 'shareStickerImage',
-        SHARE_BACKGROUND_AND_STICKER_IMAGE = 'shareBackgroundAndStickerImage',
+        SHARE_BACKGROUND_IMAGE = "shareBackgroundImage",
+        SHARE_BACKGROUND_VIDEO = "shareBackgroundVideo",
+        SHARE_STICKER_IMAGE = "shareStickerImage",
+        SHARE_BACKGROUND_AND_STICKER_IMAGE = "shareBackgroundAndStickerImage",
     }
     function open(options: Options | MultipleOptions): Promise<OpenReturn>;
     function shareSingle(options: Options & { social: Social }): Promise<ShareSingleReturn>;
@@ -38,8 +30,8 @@ declare namespace Share {
 }
 
 export interface OpenReturn {
-    app?: string;
-    dismissedAction?: boolean;
+    app?: string | undefined;
+    dismissedAction?: boolean | undefined;
 }
 
 export interface ShareSingleReturn {
@@ -47,78 +39,78 @@ export interface ShareSingleReturn {
 }
 
 type ActivityType =
-    | 'addToReadingList'
-    | 'airDrop'
-    | 'assignToContact'
-    | 'copyToPasteBoard'
-    | 'mail'
-    | 'message'
-    | 'openInIBooks' // iOS 9 or later
-    | 'postToFacebook'
-    | 'postToFlickr'
-    | 'postToTencentWeibo'
-    | 'postToTwitter'
-    | 'postToVimeo'
-    | 'postToWeibo'
-    | 'print'
-    | 'saveToCameraRoll'
-    | 'markupAsPDF'; // iOS 11 or later
+    | "addToReadingList"
+    | "airDrop"
+    | "assignToContact"
+    | "copyToPasteBoard"
+    | "mail"
+    | "message"
+    | "openInIBooks" // iOS 9 or later
+    | "postToFacebook"
+    | "postToFlickr"
+    | "postToTencentWeibo"
+    | "postToTwitter"
+    | "postToVimeo"
+    | "postToWeibo"
+    | "print"
+    | "saveToCameraRoll"
+    | "markupAsPDF"; // iOS 11 or later
 
 interface LinkMetadata {
-    originalUrl?: string;
-    url?: string;
-    title?: string;
-    icon?: string;
-    image?: string;
-    remoteVideoUrl?: string;
-    video?: string;
+    originalUrl?: string | undefined;
+    url?: string | undefined;
+    title?: string | undefined;
+    icon?: string | undefined;
+    image?: string | undefined;
+    remoteVideoUrl?: string | undefined;
+    video?: string | undefined;
 }
 
 interface ActivityItem {
     content: string;
-    type: 'text' | 'url';
+    type: "text" | "url";
 }
 
 export interface ActivityItemSource {
     placeholderItem: ActivityItem;
     item: { [key in ActivityType | string]: ActivityItem | null | undefined };
-    subject?: { [key in ActivityType | string]: string };
-    dataTypeIdentifier?: { [key in ActivityType | string]: string };
-    thumbnailImage?: { [key in ActivityType | string]: string };
-    linkMetadata?: LinkMetadata;
+    subject?: { [key in ActivityType | string]: string } | undefined;
+    dataTypeIdentifier?: { [key in ActivityType | string]: string } | undefined;
+    thumbnailImage?: { [key in ActivityType | string]: string } | undefined;
+    linkMetadata?: LinkMetadata | undefined;
 }
 
 export interface Options {
-    url?: string;
-    urls?: string[];
-    type?: string;
-    message?: string;
-    title?: string;
-    subject?: string;
-    activityItemSources?: ActivityItemSource[];
-    filename?: string;
-    saveToFiles?: boolean;
-    excludedActivityTypes?: string;
-    failOnCancel?: boolean;
-    showAppsToView?: boolean;
+    url?: string | undefined;
+    urls?: string[] | undefined;
+    type?: string | undefined;
+    message?: string | undefined;
+    title?: string | undefined;
+    subject?: string | undefined;
+    activityItemSources?: ActivityItemSource[] | undefined;
+    filename?: string | undefined;
+    saveToFiles?: boolean | undefined;
+    excludedActivityTypes?: string | undefined;
+    failOnCancel?: boolean | undefined;
+    showAppsToView?: boolean | undefined;
 }
 export interface MultipleOptions {
-    url?: string;
+    url?: string | undefined;
     urls: string[];
-    type?: string;
-    message?: string;
-    title?: string;
-    subject?: string;
-    excludedActivityTypes?: string;
-    failOnCancel?: boolean;
-    showAppsToView?: boolean;
+    type?: string | undefined;
+    message?: string | undefined;
+    title?: string | undefined;
+    subject?: string | undefined;
+    excludedActivityTypes?: string | undefined;
+    failOnCancel?: boolean | undefined;
+    showAppsToView?: boolean | undefined;
 }
 export interface ShareSheetProps {
     visible: boolean;
     onCancel: () => void;
     children: ReactNode;
-    style?: StyleProp<ViewProps>;
-    overlayStyle?: StyleProp<ViewProps>;
+    style?: StyleProp<ViewProps> | undefined;
+    overlayStyle?: StyleProp<ViewProps> | undefined;
 }
 
 export class ShareSheet extends Component<ShareSheetProps> {
@@ -128,5 +120,5 @@ export class ShareSheet extends Component<ShareSheetProps> {
     render(): JSX.Element;
 }
 
-export { Overlay, Button, Sheet };
+export { Button, Overlay, Sheet };
 export default Share;

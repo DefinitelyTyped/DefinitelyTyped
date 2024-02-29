@@ -1,8 +1,3 @@
-// Type definitions for trtc-js-sdk 4.3
-// Project: https://github.com/tencentyun/TRTCSDK#readme
-// Definitions by: yokots <https://github.com/yokots>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace TRTC;
 
 // utils types
@@ -40,7 +35,7 @@ export namespace Logger {
      * TRTC.Logger.setLogLevel(TRTC.Logger.LogLevel.INFO);
      * ```
      */
-    function setLogLevel(level: 0 | 1 | 2 | 3 | 4 | 5 | 6): void;
+    function setLogLevel(level: 0 | 1 | 2 | 3 | 4 | 5): void;
 
     /** 打开日志上传 */
     function enableUploadLog(): void;
@@ -53,7 +48,7 @@ export namespace Logger {
 export const VERSION: string;
 
 /** 检测浏览器是否兼容 TRTC Web SDK */
-export function checkSystemRequirements(): Promise<boolean>;
+export function checkSystemRequirements(): Promise<CheckResult>;
 
 /** 检测浏览器是否支持屏幕分享 */
 export function isScreenShareSupported(): boolean;
@@ -187,6 +182,7 @@ export interface Client {
      * 订阅远端流
      * @param stream 远端流，通过监听 'stream-added' 事件获得。
      *
+     * @param options
      * @example
      * ```javascript
      * // 监听远端流订阅成功事件
@@ -206,13 +202,16 @@ export interface Client {
      * });
      * ```
      */
-    subscribe(stream: RemoteStream, options?: { audio?: boolean; video?: boolean }): void;
+    subscribe(
+        stream: RemoteStream,
+        options?: { audio?: boolean | undefined; video?: boolean | undefined },
+    ): Promise<void>;
 
     /**
      * 取消订阅远端流
      * @param stream 远端流，通过监听 'stream-added' 事件获得。
      */
-    unsubscribe(stream: RemoteStream): void;
+    unsubscribe(stream: RemoteStream): Promise<void>;
 
     /** 切换用户角色 */
     switchRole(role: Role): Promise<void>;
@@ -224,16 +223,10 @@ export interface Client {
     off<K extends keyof ClientEventMap>(event: K, handler: Callback<ClientEventMap[K]>): void;
 
     /** 取消所有事件绑定 */
-    off(event: '*'): void;
+    off(event: "*"): void;
 
     /** 获取当前房间内远端用户音视频 mute 状态列表。 */
     getRemoteMutedState(): RemoteMutedState[];
-
-    /**
-     * 设置是否默认接收远端流。该方法可在 join() 调用前使用，若在进房后调用，会接收不到后续进房的远端用户音视频流。
-     * @param muted 是否默认不接收远端流: true true 默认不接收任何远端流。false 默认接收所有远端流。（默认）
-     */
-    setDefaultMuteRemoteStreams(muted: boolean): void;
 
     /** 获取当前网络传输状况统计数据, 该方法需要在 `publish()` 后调用 */
     getTransportStats(): Promise<TransportStats>;
@@ -249,6 +242,12 @@ export interface Client {
 
     /** 获取当前所有远端流的视频统计数据 */
     getRemoteVideoStats(): Promise<RemoteVideoStatsMap>;
+
+    /** 开始混流转码 */
+    startMixTranscode(config: MixTranscodeConfig): Promise<void>;
+
+    /** 停止混流转码 */
+    stopMixTranscode(): Promise<void>;
 }
 
 /** 客户端配置项 */
@@ -261,53 +260,64 @@ export interface ClientConfig {
     userSig: string;
     /**
      * 应用场景,目前支持以下两种场景:
-     * - `videoCall` 实时通话模式
+     * - `rtc` 实时通话模式
      * - `live` 互动直播模式
      */
-    mode: 'videoCall' | 'live';
+    mode: "rtc" | "live";
+    /** 是否使用 String 类型的 roomId，支持 v4.3.0+ 版本。 */
+    useStringRoomId?: boolean | undefined;
     /** 绑定腾讯云直播 CDN 流 ID，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV|HLS）播放该用户的音视频流。 */
-    streamId?: string;
+    streamId?: string | undefined;
     /** 设置云端录制完成后的回调消息中的 "userdefinerecordid" 字段内容，便于您更方便的识别录制回调。 */
-    userDefineRecordId?: string;
-    /** 自动录制时业务自定义ID(32位整型)，将在录制完成后通过直播录制回调接口通知业务方 */
-    recordId?: number;
+    userDefineRecordId?: string | undefined;
     /**
      * 纯音频推流模式,需要旁路直播和录制时需要带上此参数:
      * - 1 表示本次是纯音频推流，不需要录制 MP3 文件
      * - 2 表示本次是纯音频推流，录制文件为 MP3
      */
-    pureAudioPushMode?: 1 | 2;
+    pureAudioPushMode?: 1 | 2 | undefined;
+    /**
+     * autoSubscribe flag instead of deprecated Client.setDefaultMuteRemoteStreams
+     * default: true
+     */
+    autoSubscribe?: boolean;
 }
 
 /** 客户端事件 */
 export interface ClientEventMap {
     /** 远端流添加事件，当远端用户发布流后会收到该通知。 */
-    'stream-added': RemoteStreamInfo;
+    "stream-added": RemoteStreamInfo;
     /** 远端流移除事件，当远端用户取消发布流后会收到该通知。  */
-    'stream-removed': RemoteStreamInfo;
+    "stream-removed": RemoteStreamInfo;
     /** 远端流更新事件，当远端用户添加、移除或更换音视频轨道后会收到该通知。 */
-    'stream-updated': RemoteStreamInfo;
+    "stream-updated": RemoteStreamInfo;
     /** 远端流订阅成功事件，调用 subscribe() 成功后会触发该事件。 */
-    'stream-subscribed': RemoteStreamInfo;
+    "stream-subscribed": RemoteStreamInfo;
     /** 信令通道连接状态变化事件 */
-    'connection-state-changed': {
+    "connection-state-changed": {
         prevState: ConnectionState;
-        curState: ConnectionState;
+        state: ConnectionState;
     };
     /** 远端用户进房通知，只有主动推流的远端用户进房才会收到该通知。 */
-    'peer-join': RemoteUserInfo;
+    "peer-join": RemoteUserInfo;
     /** 远端用户退房通知，只有主动推流的远端用户退房才会收到该通知。 */
-    'peer-leave': RemoteUserInfo;
+    "peer-leave": RemoteUserInfo;
     /** 远端用户禁用音频通知。 */
-    'mute-audio': RemoteUserInfo;
+    "mute-audio": RemoteUserInfo;
     /** 远端用户禁用视频通知。 */
-    'mute-video': RemoteUserInfo;
+    "mute-video": RemoteUserInfo;
     /** 远端用户启用音频通知。 */
-    'unmute-audio': RemoteUserInfo;
+    "unmute-audio": RemoteUserInfo;
     /** 远端用户启用视频通知。 */
-    'unmute-video': RemoteUserInfo;
-    /** 用户被踢出房间通知，被踢原因有 */
-    'client-banned': RtcError;
+    "unmute-video": RemoteUserInfo;
+    /**
+     * 用户被踢出房间通知，被踢原因有：
+     *  - 同名用户登录，注意：同名用户同时登陆是不允许的行为，可能会导致双方音视频通话异常，此乃应用业务逻辑错误！
+     *  - 被账户管理员主动踢出房间
+     */
+    "client-banned": RtcError;
+    /** 网络质量统计数据事件，进房后开始统计，每两秒触发一次，包括上行（uplinkNetworkQuality）和下行（downlinkNetworkQuality）的质量统计数据。 */
+    "network-quality": NetworkQuality;
     /** 客户端错误事件 */
     error: RtcError;
 }
@@ -323,7 +333,7 @@ export interface Stream {
      * @param elementId HTML <div> 标签ID，该方法内部自动创建的音视频标签将被添加到该容器中。
      * @param options 播放选项
      */
-    play(elementId: HTMLDivElement['id'] | HTMLDivElement, options?: PlayOptions): Promise<void>;
+    play(elementId: HTMLDivElement["id"] | HTMLDivElement, options?: PlayOptions): Promise<void>;
 
     /** 停止播放音视频流,该方法还会将由 `play()` 创建的音视频标签从 HTML 页面中删除。 */
     stop(): void;
@@ -341,7 +351,7 @@ export interface Stream {
      * });
      * ```
      */
-    resume(): void;
+    resume(): Promise<void>;
 
     /** 关闭音视频流,对于本地流，该方法会关闭摄像头并释放摄像头和麦克风访问权限。 */
     close(): void;
@@ -443,7 +453,7 @@ export interface LocalStream extends Stream {
      * - `standard` 采样率：48000，声道：单声道，码率：40kbps
      * - `high` 采样率：48000，声道：单声道，码率：128kbps
      */
-    setAudioProfile(profile: 'standard' | 'high'): void;
+    setAudioProfile(profile: "standard" | "high"): void;
 
     /**
      * 设置视频 Profile,该方法需要在调用 `initialize()` 之前调用。
@@ -479,7 +489,7 @@ export interface LocalStream extends Stream {
      * - `detail`：本地视频内容为 ppt、带有文本内容、绘画或艺术线条的网页。一般屏幕分享默认使用这个提示。
      * - `text`：本地视频内容主要是含有文本的 ppt 或网页等。
      */
-    setVideoContentHint(hint: 'motion' | 'detail' | 'text'): void;
+    setVideoContentHint(hint: "motion" | "detail" | "text"): void;
 
     /**
      * 切换本地流的媒体输入设备,该方法仅适用于从摄像头和麦克风采集音视频的本地流。
@@ -492,7 +502,7 @@ export interface LocalStream extends Stream {
      * - 摄像头设备标识通过 getCameras() 获取。在移动设备上，可以通过设置 deviceId 为 'user' 和 'environment' 来切换前置和后置摄像头。
      * - 麦克风设备标识通过 getMicrophones() 获取。
      */
-    switchDevice(type: 'audio' | 'video', deviceId: string): Promise<void>;
+    switchDevice(type: "audio" | "video", deviceId: string): Promise<void>;
 
     /**
      * 添加音频或视频轨道
@@ -577,22 +587,24 @@ export interface RemoteStream extends Stream {
      * - `main` 主音视频流
      * - `auxiliary` 辅助视频流，通常是一个屏幕分享流
      */
-    getType(): 'main' | 'auxiliary';
+    getType(): "main" | "auxiliary";
 }
 
 export interface StreamConfig {
+    /** 用户ID */
+    userId: string;
     /** 是否从麦克风采集音频 */
     audio: boolean;
     /** 是否从摄像头采集视频 */
     video: boolean;
     /** 音频源 */
-    audioSource?: MediaStreamTrack;
+    audioSource?: MediaStreamTrack | undefined;
     /** 视频源 */
-    videoSource?: MediaStreamTrack;
+    videoSource?: MediaStreamTrack | undefined;
     /** 麦克风设备 deviceId，通过 getMicrophones() 获取 */
-    microphoneId?: string;
+    microphoneId?: string | undefined;
     /** 摄像头设备 deviceId，通过 getCameras() 获取 */
-    cameraId?: string;
+    cameraId?: string | undefined;
     /**
      * 在移动设备上，可通过该参数选择使用前置或后置摄像头：
      * - `user`：前置摄像头
@@ -600,24 +612,32 @@ export interface StreamConfig {
      *
      * **注意** 请勿同时使用 cameraId 和 facingMode 参数。
      */
-    facingMode?: 'user' | 'environment';
+    facingMode?: "user" | "environment" | undefined;
     /** 是否采集屏幕分享流 */
-    screen?: boolean;
+    screen?: boolean | undefined;
+    /**
+     * 是否采集系统音频
+     * 请勿同时设置 audio 和 screenAudio 为 true。
+     * 采集系统声音只支持 Chrome M74+ ，在 Windows 和 Chrome OS 上，可以捕获整个系统的音频，在 Linux 和 Mac 上，只能捕获选项卡的音频。其它 Chrome 版本、其它系统、其它浏览器均不支持。
+     * 屏幕分享获取指引：https://trtc-1252463788.file.myqcloud.com/web/docs/tutorial-06-advanced-screencast.html。
+     */
+    screenAudio?: boolean | undefined;
     /** 视频显示是否为镜像，默认为 true。建议在使用前置摄像头时开启，使用后置摄像头时关闭。镜像设置不适用于屏幕分享。 */
-    mirror?: boolean;
+    mirror?: boolean | undefined;
 }
 
 export interface StreamEventMap {
     /** Audio/Video Player 状态变化事件 App 可根据状态变化来更新 UI，比如，通过监听 video player 状态变化来关闭或打开遮板。 */
-    'player-state-changed': {
+    "player-state-changed": {
         type: string;
-        state: 'PLAYING' | 'PAUSED' | 'STOPPED';
+        state: "PLAYING" | "PAUSED" | "STOPPED";
+        reason: "playing" | "mute" | "unmute" | "ended";
     };
     /** 本地屏幕分享停止事件通知，仅对本地屏幕分享流有效。 */
-    'screen-sharing-stopped': undefined;
+    "screen-sharing-stopped": undefined;
 }
 
-export interface TurnServerConfig extends Omit<RTCIceServer, 'urls'> {
+export interface TurnServerConfig extends Omit<RTCIceServer, "urls"> {
     /** TURN 服务器 url */
     url: string;
 }
@@ -629,17 +649,17 @@ export interface TurnServerConfig extends Omit<RTCIceServer, 'urls'> {
  *
  * **注意** 互动直播 live 模式下的观众角色没有发布本地流的权限，只有收看远端流的权限。如果观众想要连麦跟主播互动， 请先通过 switchRole() 切换角色到主播 anchor 后再发布本地流。
  */
-export type Role = 'anchor' | 'audience';
+export type Role = "anchor" | "audience";
 
 export interface JoinOptions {
     /** 房间号 */
-    roomId: number;
+    roomId: number | string;
     /** 用户角色 */
-    role?: Role;
+    role?: Role | undefined;
     /**
      * @deprecated 进房钥匙，若需要权限控制请携带该参数，因某些局限性目前已不建议使用该参数。
      */
-    privateMapKey?: string;
+    privateMapKey?: string | undefined;
 }
 
 export interface RemoteMutedState {
@@ -683,6 +703,10 @@ export interface LocalVideoStats extends SentMediaStats, VideoStats {
     framesEncoded: number;
     /** 已发送帧数 */
     framesSent: number;
+    /** 视频宽度 */
+    frameWidth: number;
+    /** 视频高度 */
+    frameHeight: number;
 }
 
 export interface ReceivedMediaStats {
@@ -701,6 +725,10 @@ export type RemoteAudioStats = ReceivedMediaStats;
 export interface RemoteVideoStats extends ReceivedMediaStats, VideoStats {
     /** 已解码帧数 */
     framesDecoded: number;
+    /** 视频宽度 */
+    frameWidth: number;
+    /** 视频高度 */
+    frameHeight: number;
 }
 
 export interface LocalAudioStatsMap {
@@ -734,14 +762,14 @@ export interface RemoteUserInfo {
  * - `RECONNECTING`: 自动重连中
  * - `CONNECTED`: 已连接
  */
-export type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'RECONNECTING' | 'CONNECTED';
+export type ConnectionState = "DISCONNECTED" | "CONNECTING" | "RECONNECTING" | "CONNECTED";
 
 /** 播放选项 */
 export interface PlayOptions {
     /** 视频画面显示模式，参考 [CSS object-fit 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit) */
-    objectFit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+    objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down" | undefined;
     /** 是否需要 mute 声音，对于本地流通常需要 mute 声音以防止播放从麦克风采集回来的声音。 */
-    muted: boolean;
+    muted?: boolean | undefined;
 }
 
 export interface Profile {
@@ -755,6 +783,72 @@ export interface Profile {
     bitrate: number;
 }
 
-export type VideoProfileString = '120p' | '180p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '4K';
+export type VideoProfileString = "120p" | "180p" | "240p" | "360p" | "480p" | "720p" | "1080p" | "1440p" | "4K";
 
-export type ScreenProfileString = '480p' | '480p_2' | '720p' | '720p_2' | '1080p' | '1080p_2';
+export type ScreenProfileString = "480p" | "480p_2" | "720p" | "720p_2" | "1080p" | "1080p_2";
+
+export interface CheckResult {
+    /** 检测结果 */
+    result: boolean;
+    detail: {
+        /** 当前浏览器是否是 SDK 支持的浏览器 */
+        isBrowserSupported: boolean;
+        /** 当前浏览器是否支持 webRTC */
+        isWebRTCSupported: boolean;
+        /** 当前浏览器是否支持获取媒体设备及媒体流 */
+        isMediaDevicesSupported: boolean;
+        /** 当前浏览器是否支持 H264 编码 */
+        isH264Supported: boolean;
+    };
+}
+
+export interface NetworkQuality {
+    /** 上行网络质量为 SDK 到腾讯云的上行连接网络质量 */
+    uplinkNetworkQuality: 1 | 2 | 3 | 4 | 5 | 6;
+    /** 下行网络质量为 腾讯云到 SDK 的所有下行连接的平均网络质量 */
+    downlinkNetworkQuality: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+export interface MixTranscodeConfig {
+    /** 混流转码后的流 ID，默认值为'' */
+    streamId?: string | undefined;
+    /** 转码后视频分辨率的宽度（px），转码后视频的宽度设置必须大于等于 0 且能容纳所有混入视频，默认值为 640 */
+    videoWidth?: number | undefined;
+    /** 转码后视频分辨率的高度（px），转码后视频的高度设置必须大于等于 0 且能容纳所有混入视频，默认值为 480 */
+    videoHeight?: number | undefined;
+    /** 转码后的视频码率（kbps），如果传入值为 0，码率值将由 videoWidth 和 videoHeight 决定 */
+    videoBitrate?: number | undefined;
+    /** 转码后的视频帧率（fps），默认值为 15， 取值范围为(0, 30] */
+    videoFramerate?: number | undefined;
+    /** 转码后的视频关键帧间隔（s），默认值为 2，取值范围为[1, 8] */
+    videoGOP?: number | undefined;
+    /** 转码后的音频采样率（Hz），默认值为 48000 */
+    audioSampleRate?: number | undefined;
+    /** 转码后的音频码率（kbps），默认值为 64，取值范围为[32, 192] */
+    audioBitrate?: number | undefined;
+    /** 转码后的音频声道数， 默认值为 1，取值范围为 1 或 2 */
+    audioChannels?: 1 | 2 | undefined;
+    /** 混合后画面的背景颜色，格式为十六进制数字，默认值为 0x000000（黑色） */
+    backgroundColor?: number | undefined;
+    /** 混合后画面的背景图，默认值为 '' */
+    backgroundImage?: string | undefined;
+    /** 混入用户流的信息列表[必填]，必须包含接口调用者的信息 */
+    mixUsers: MixUser[];
+}
+
+export interface MixUser {
+    /** 用户标识[必填]，该用户的 userId */
+    userId: string;
+    /** 只混入该用户的音频流, 若该值为true, 则以下视频相关参数不需要传入 */
+    pureAudio: boolean;
+    /** 该用户流在混流中的宽度（px），必须大于等于0，默认值为 0 */
+    width?: number | undefined;
+    /** 该用户流在混流中的高度（px），必须大于等于0，默认值为 0 */
+    height?: number | undefined;
+    /** 以混流左上角为起点，该用户流在混流中的 X 坐标（px），必须大于等于 0，默认值为 0 */
+    locationX?: number | undefined;
+    /** 以混流左上角为起点，该用户流在混流中的 Y 坐标（px），必须大于等于 0，默认值为 0 */
+    locationY?: number | undefined;
+    /** 该用户流在混流中的图层层次，取值范围为[1, 15]；若 pureAudio 的值为 false， 则 zOrder 必传，且各混入流的 zOrder 不可重复 */
+    zOrder?: number | undefined;
+}

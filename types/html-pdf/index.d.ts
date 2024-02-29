@@ -1,100 +1,102 @@
-// Type definitions for html-pdf v2.2.0
-// Project: https://github.com/marcbachmann/node-html-pdf
-// Definitions by: Seth Westphal <https://github.com/westy92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare module 'html-pdf' {
+declare module "html-pdf" {
+    import * as fs from "fs";
 
-  import * as fs from 'fs';
+    export interface CreateOptions {
+        // Export options
+        directory?: string | undefined;
 
-  export interface CreateOptions {
+        // Papersize Options: http://phantomjs.org/api/webpage/property/paper-size.html
+        height?: string | undefined;
+        width?: string | undefined;
+        format?: "A3" | "A4" | "A5" | "Legal" | "Letter" | "Tabloid" | undefined;
+        orientation?: "portrait" | "landscape" | undefined;
 
-    // Export options
-    directory?: string;
+        // Page options
+        border?: string | {
+            top?: string | undefined;
+            right?: string | undefined;
+            bottom?: string | undefined;
+            left?: string | undefined;
+        } | undefined;
 
-    // Papersize Options: http://phantomjs.org/api/webpage/property/paper-size.html
-    height?: string;
-    width?: string;
-    format?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
-    orientation?: 'portrait' | 'landscape';
+        paginationOffset?: number | undefined;
 
-    // Page options
-    border?: string | {
-      top?: string;
-      right?: string;
-      bottom?: string;
-      left?: string;
-    };
+        header?: {
+            height?: string | undefined;
+            contents?: string | undefined;
+        } | undefined;
+        footer?: {
+            height?: string | undefined;
+            contents?: {
+                first?: string | undefined;
+                [page: number]: string;
+                default?: string | undefined;
+                last?: string | undefined;
+            } | undefined;
+        } | undefined;
 
-    paginationOffset?: number;
+        // Rendering options
+        base?: string | undefined;
 
-    header?: {
-      height?: string;
-      contents?: string;
-    };
-    footer?: {
-      height?: string;
-      contents?: {
-        first?: string;
-        [page: number]: string;
-        default?: string;
-        last?: string;
-      };
-    };
+        // Zooming option, can be used to scale images if `options.type` is not pdf
+        zoomFactor?: string | undefined;
 
-    // Rendering options
-    base?: string;
+        // File options
+        type?: "png" | "jpeg" | "pdf" | undefined;
+        quality?: string | undefined;
 
-    // Zooming option, can be used to scale images if `options.type` is not pdf
-    zoomFactor?: string;
+        // Script options
+        phantomPath?: string | undefined;
+        phantomArgs?: string[] | undefined;
 
-    // File options
-    type?: 'png' | 'jpeg' | 'pdf';
-    quality?: string;
+        // Prevent local file:// access by passing '--local-url-access=false' to phantomjs
+        // For security reasons you should keep the default value if you render
+        // arbitrary html/js.
+        // The default is `false`
+        localUrlAccess?: boolean | undefined;
 
-    // Script options
-    phantomPath?: string;
-    phantomArgs?: string[];
-    script?: string;
-    timeout?: number;
+        script?: string | undefined;
+        timeout?: number | undefined;
 
-    // Time we should wait after window load
-    renderDelay?: 'manual' | number;
+        // Time we should wait after window load
+        renderDelay?: "manual" | number | undefined;
 
-    // HTTP Headers that are used for requests
-    httpHeaders?: {
-      [header: string]: string;
-    };
+        // HTTP Headers that are used for requests
+        httpHeaders?: {
+            [header: string]: string;
+        } | undefined;
 
-    // To run Node application as Windows service
-    childProcessOptions?: {
-      detached?: boolean;
-    };
+        // To run Node application as Windows service
+        childProcessOptions?: {
+            detached?: boolean | undefined;
+        } | undefined;
 
-    // HTTP Cookies that are used for requests
-    httpCookies?: Array<{
-      name: string;
-      value: string;
-      domain?: string;
-      path: string;
-      httponly?: boolean;
-      secure?: boolean;
-      expires?: number;
-    }>;
-  }
+        // HTTP Cookies that are used for requests
+        httpCookies?:
+            | Array<{
+                name: string;
+                value: string;
+                domain?: string | undefined;
+                path: string;
+                httponly?: boolean | undefined;
+                secure?: boolean | undefined;
+                expires?: number | undefined;
+            }>
+            | undefined;
+    }
 
-  export interface FileInfo {
-    filename: string;
-  }
+    export interface FileInfo {
+        filename: string;
+    }
 
-  export interface CreateResult {
-    toBuffer(callback: (err: Error, buffer: Buffer) => void): void;
-    toFile(callback: (err: Error, res: FileInfo) => void): void;
-    toFile(filename?: string, callback?: (err: Error, res: FileInfo) => void): void;
-    toStream(callback: (err: Error, stream: fs.ReadStream) => void): void;
-  }
+    export interface CreateResult {
+        toBuffer(callback: (err: Error, buffer: Buffer) => void): void;
+        toFile(callback: (err: Error, res: FileInfo) => void): void;
+        toFile(filename?: string, callback?: (err: Error, res: FileInfo) => void): void;
+        toStream(callback: (err: Error, stream: fs.ReadStream) => void): void;
+    }
 
-  export function create(html: string, options?: CreateOptions): CreateResult;
+    export function create(html: string, options?: CreateOptions): CreateResult;
 }

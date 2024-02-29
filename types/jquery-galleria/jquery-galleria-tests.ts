@@ -11,7 +11,7 @@ gOptions.lightbox = false;
 
 Galleria.ready(function() {
     this.configure(gOptions).refreshImage();
-    });
+});
 
 Galleria.run("galleria");
 

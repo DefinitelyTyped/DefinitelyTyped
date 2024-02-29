@@ -1,8 +1,8 @@
-import { ComponentType, ComponentClass } from 'react';
+import { ComponentClass, ComponentType } from "react";
 
-import { TableProps } from '../../index';
+import { TableProps } from "../../index";
 
-export type SelectType = 'checkbox' | 'radio';
+export type SelectType = "checkbox" | "radio";
 
 export interface SelectInputComponentProps {
     selectType: SelectType;
@@ -22,35 +22,35 @@ export interface SelectTableAdditionalProps {
     /**
      * Default: _id
      */
-    keyField?: string;
+    keyField?: string | undefined;
 
-    isSelected?: (key: string) => boolean;
+    isSelected?: ((key: string) => boolean) | undefined;
 
-    selectAll?: boolean;
+    selectAll?: boolean | undefined;
 
-    toggleAll?: SelectAllInputComponentProps['onClick'];
+    toggleAll?: SelectAllInputComponentProps["onClick"] | undefined;
 
-    toggleSelection?: SelectInputComponentProps['onClick'];
+    toggleSelection?: SelectInputComponentProps["onClick"] | undefined;
 
     /**
      * Default: checkbox
      */
-    selectType?: SelectType;
-    selectWidth?: number;
-    SelectInputComponent?: ComponentType<SelectInputComponentProps>;
-    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps>;
+    selectType?: SelectType | undefined;
+    selectWidth?: number | undefined;
+    SelectInputComponent?: ComponentType<SelectInputComponentProps> | undefined;
+    SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps> | undefined;
 }
 
 export interface SelectTableHOCOptions {
     /**
      * Default: false
      */
-    floatingLeft?: boolean;
+    floatingLeft?: boolean | undefined;
 }
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(
     WrappedComponent: ComponentType<Props>,
-    options?: SelectTableHOCOptions
+    options?: SelectTableHOCOptions,
 ): ComponentClass<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

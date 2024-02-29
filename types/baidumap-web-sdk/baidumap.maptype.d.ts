@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -42,11 +37,11 @@ declare namespace BMap {
         getTips(): string;
     }
     interface MapTypeOptions {
-        minZoom?: number;
-        maxZoom?: number;
-        errorImageUrl?: string;
-        textColor?: number;
-        tips?: string;
+        minZoom?: number | undefined;
+        maxZoom?: number | undefined;
+        errorImageUrl?: string | undefined;
+        textColor?: number | undefined;
+        tips?: string | undefined;
     }
     interface Projection {
         lngLatToPoint(lngLat: Point): Pixel;

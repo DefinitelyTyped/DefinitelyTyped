@@ -1,22 +1,15 @@
-// Type definitions for jxon 2.0
-// Project: https://www.npmjs.com/package/jxon
-// Definitions by: Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
-//                                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export type FunctionType = (arg: unknown) => void;
 export type VerbosityType = 0 | 1 | 2 | 3;
 
 export interface ConfigOptions {
-    attrKey?: string;
-    attrPrefix?: string;
-    autoDate?: boolean;
-    ignorePrefixedNodes?: boolean;
-    lowerCaseTags?: boolean;
-    parseValues?: boolean;
-    trueIsEmpty?: boolean;
-    valueKey?: string;
+    attrKey?: string | undefined;
+    attrPrefix?: string | undefined;
+    autoDate?: boolean | undefined;
+    ignorePrefixedNodes?: boolean | undefined;
+    lowerCaseTags?: boolean | undefined;
+    parseValues?: boolean | undefined;
+    trueIsEmpty?: boolean | undefined;
+    valueKey?: string | undefined;
 }
 
 export function config(cfg: ConfigOptions): void;
@@ -29,7 +22,12 @@ export function jsToString(
     qualifiedName?: string,
     documentType?: object,
 ): string;
-export function stringify(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+export function stringify(
+    objTree: object,
+    namespaceURI?: string,
+    qualifiedName?: string,
+    documentType?: object,
+): string;
 
 export function xmlToJs(
     xmlDocument: any,

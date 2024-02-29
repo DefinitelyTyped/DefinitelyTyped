@@ -1,9 +1,3 @@
-// Type definitions for oauth-shim 1.1
-// Project: https://github.com/MrSwitch/node-oauth-shim
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as express from "express";
 
 export = oauthShim;
@@ -28,14 +22,14 @@ declare namespace oauthShim {
         oauthshim?: {
             options?: {
                 [key: string]: any;
-                path?: string;
-            };
-            redirect?: string;
+                path?: string | undefined;
+            } | undefined;
+            redirect?: string | undefined;
             data?: {
                 [key: string]: any;
-                access_token?: string;
-            };
-        };
+                access_token?: string | undefined;
+            } | undefined;
+        } | undefined;
     }
 
     interface Config {

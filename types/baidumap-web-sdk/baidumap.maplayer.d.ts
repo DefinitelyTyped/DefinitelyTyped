@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -38,16 +33,16 @@ declare namespace BMap {
         isTransparentPng(): boolean;
     }
     interface TileLayerOptions {
-        transparentPng?: boolean;
-        tileUrlTemplate?: string;
-        copyright?: Copyright;
-        zIndex?: number;
+        transparentPng?: boolean | undefined;
+        tileUrlTemplate?: string | undefined;
+        copyright?: Copyright | undefined;
+        zIndex?: number | undefined;
     }
     class TrafficLayer extends TileLayer {
         constructor(opts?: TrafficLayerOptions);
     }
     interface TrafficLayerOptions {
-        predictDate?: PredictDate;
+        predictDate?: PredictDate | undefined;
     }
     interface PredictDate {
         weekday: number;
@@ -55,7 +50,7 @@ declare namespace BMap {
     }
     class CustomLayer extends TileLayer {
         constructor(opts: CustomLayerOptions);
-        onhotspotclick: (event: { type: string, target: any, content: any }) => void;
+        onhotspotclick: (event: { type: string; target: any; content: any }) => void;
     }
     interface Custompoi {
         poiId: string;
@@ -79,12 +74,12 @@ declare namespace BMap {
         constructor();
     }
     interface CustomLayerOptions {
-        databoxId?: string;
-        geotableId?: string;
-        q?: string;
-        tags?: string;
-        filter?: string;
-        pointDensityType?: PointDensityType;
+        databoxId?: string | undefined;
+        geotableId?: string | undefined;
+        q?: string | undefined;
+        tags?: string | undefined;
+        filter?: string | undefined;
+        pointDensityType?: PointDensityType | undefined;
     }
     type PointDensityType = number;
 }

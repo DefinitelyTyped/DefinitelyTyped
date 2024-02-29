@@ -1,14 +1,8 @@
-// Type definitions for poi 12.5
-// Project: https://github.com/egoist/poi/
-// Definitions by: c4605 <https://github.com/bolasblack>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { ICompiler, Configuration as WebpackConfig } from "webpack";
-import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
-import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
-import * as WebpackChainConfig from "webpack-chain";
 import CAC from "cac/types/CAC";
+import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
+import { Configuration as WebpackConfig, ICompiler } from "webpack";
+import * as WebpackChainConfig from "webpack-chain";
+import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
 
 /**
  * https://poi.js.org/api.html#constructor-argv
@@ -45,7 +39,7 @@ declare class PoiCore {
     getCacheConfig(
         dir: string,
         keys: { [k: string]: string },
-        files: ReadonlyArray<string>
+        files: readonly string[],
     ): {
         cacheDirectory: string;
         cacheIdentifier: string;
@@ -73,33 +67,33 @@ declare namespace PoiCore {
      * https://poi.js.org/config.html
      */
     interface Config {
-        entry?: Config.Entry;
-        output?: Config.Output;
-        pages?: Config.Pages;
-        babel?: Config.Babel;
-        css?: Config.Css;
-        assets?: Config.Assets;
-        envs?: Config.Envs;
-        constants?: Config.Constants;
-        chainWebpack?: Config.ChainWebpack;
-        configureWebpack?: Config.ConfigureWebpack;
-        publicFolder?: Config.PublicFolder;
-        devServer?: Config.DevServer;
-        plugins?: Config.Plugins;
+        entry?: Config.Entry | undefined;
+        output?: Config.Output | undefined;
+        pages?: Config.Pages | undefined;
+        babel?: Config.Babel | undefined;
+        css?: Config.Css | undefined;
+        assets?: Config.Assets | undefined;
+        envs?: Config.Envs | undefined;
+        constants?: Config.Constants | undefined;
+        chainWebpack?: Config.ChainWebpack | undefined;
+        configureWebpack?: Config.ConfigureWebpack | undefined;
+        publicFolder?: Config.PublicFolder | undefined;
+        devServer?: Config.DevServer | undefined;
+        plugins?: Config.Plugins | undefined;
     }
 
     namespace Config {
         type Entry = WebpackConfig["entry"];
 
         interface Output {
-            dir?: string;
-            clean?: boolean;
-            format?: "iife" | "cjs" | "umd";
-            moduleName?: string;
-            sourceMap?: boolean;
-            minimize?: boolean;
-            publicUrl?: string;
-            fileNames?: Output.FileNames;
+            dir?: string | undefined;
+            clean?: boolean | undefined;
+            format?: "iife" | "cjs" | "umd" | undefined;
+            moduleName?: string | undefined;
+            sourceMap?: boolean | undefined;
+            minimize?: boolean | undefined;
+            publicUrl?: string | undefined;
+            fileNames?: Output.FileNames | undefined;
             target?:
                 | "web"
                 | "electron"
@@ -108,22 +102,23 @@ declare namespace PoiCore {
                 | "node"
                 | "node-webkit"
                 | "async-node"
-                | "webworker";
-            html?: Output.Html;
+                | "webworker"
+                | undefined;
+            html?: Output.Html | undefined;
         }
         namespace Output {
             interface FileNames {
-                js?: string;
-                css?: string;
-                font?: string;
-                image?: string;
+                js?: string | undefined;
+                css?: string | undefined;
+                font?: string | undefined;
+                image?: string | undefined;
             }
 
             interface HtmlOptions {
-                title?: string;
-                filename?: string;
-                template?: string;
-                inject?: boolean;
+                title?: string | undefined;
+                filename?: string | undefined;
+                template?: string | undefined;
+                inject?: boolean | undefined;
             }
 
             type Html = boolean | HtmlOptions;
@@ -133,15 +128,15 @@ declare namespace PoiCore {
             [pageName: string]:
                 | string
                 | Partial<HtmlWebpackPluginOptions> & {
-                      entry: string;
-                      chunks?: string[];
-                  };
+                    entry: string;
+                    chunks?: string[] | undefined;
+                };
         }
 
         interface Babel {
-            jsx?: string;
-            transpileModules?: string | string[];
-            namedImports?: string | Babel.NamedImportsOptions;
+            jsx?: string | undefined;
+            transpileModules?: string | string[] | undefined;
+            namedImports?: string | Babel.NamedImportsOptions | undefined;
         }
         namespace Babel {
             interface NamedImportsOptions {
@@ -152,9 +147,9 @@ declare namespace PoiCore {
         }
 
         interface Css {
-            extract?: boolean;
-            sourceMap?: boolean;
-            loaderOptions?: Css.LoaderOptions;
+            extract?: boolean | undefined;
+            sourceMap?: boolean | undefined;
+            loaderOptions?: Css.LoaderOptions | undefined;
         }
         namespace Css {
             interface LoaderOptions {
@@ -167,7 +162,7 @@ declare namespace PoiCore {
         }
 
         interface Assets {
-            inlineImageMaxSize?: number;
+            inlineImageMaxSize?: number | undefined;
         }
 
         interface Envs {
@@ -184,23 +179,24 @@ declare namespace PoiCore {
 
         type ConfigureWebpack =
             | WebpackConfig
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
 
         type PublicFolder = string | boolean;
 
         interface DevServer {
-            host?: string;
-            port?: string | number;
-            hot?: boolean;
-            hotOnly?: boolean;
-            hotEntries?: string[];
-            historyApiFallback?: WebpackDevServerConfig["historyApiFallback"];
-            open?: boolean;
-            proxy?: string | WebpackDevServerConfig["proxy"];
-            https?: WebpackDevServerConfig["https"];
-            before?: WebpackDevServerConfig["before"];
-            after?: WebpackDevServerConfig["after"];
-            headers?: WebpackDevServerConfig["headers"];
+            host?: string | undefined;
+            port?: string | number | undefined;
+            hot?: boolean | undefined;
+            hotOnly?: boolean | undefined;
+            hotEntries?: string[] | undefined;
+            historyApiFallback?: WebpackDevServerConfig["historyApiFallback"] | undefined;
+            open?: boolean | undefined;
+            proxy?: string | WebpackDevServerConfig["proxy"] | undefined;
+            https?: WebpackDevServerConfig["https"] | undefined;
+            before?: WebpackDevServerConfig["before"] | undefined;
+            after?: WebpackDevServerConfig["after"] | undefined;
+            headers?: WebpackDevServerConfig["headers"] | undefined;
         }
 
         interface PluginOption {
@@ -212,26 +208,26 @@ declare namespace PoiCore {
 
     interface ConfigLoader {
         resolve(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
-            stopDir?: string
+            stopDir?: string,
         ): string | null;
         resolve(options?: ConfigLoader.Options): string | null;
 
         load(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
-            stopDir?: string
+            stopDir?: string,
         ): any;
         load(options?: ConfigLoader.Options): any;
     }
     namespace ConfigLoader {
         interface Options {
-            files?: string[];
-            cwd?: string;
-            stopDir?: string;
-            packageKey?: string;
-            parseJSON?: (str: string) => any;
+            files?: string[] | undefined;
+            cwd?: string | undefined;
+            stopDir?: string | undefined;
+            packageKey?: string | undefined;
+            parseJSON?: ((str: string) => any) | undefined;
         }
     }
 

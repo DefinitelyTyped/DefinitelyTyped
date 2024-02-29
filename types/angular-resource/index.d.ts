@@ -1,15 +1,9 @@
-// Type definitions for Angular JS (ngResource module) 1.5
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>, Michael Jess <https://github.com/miffels>
-// Definitions: https://github.com/daptiv/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngResource module (angular-resource.js)
     ///////////////////////////////////////////////////////////////////////////////
@@ -21,12 +15,12 @@ declare module 'angular' {
             /**
              * If true then the trailing slashes from any calculated URL will be stripped (defaults to true)
              */
-            stripTrailingSlashes?: boolean;
+            stripTrailingSlashes?: boolean | undefined;
             /**
              * If true, the request made by a "non-instance" call will be cancelled (if not already completed) by calling
              * $cancelRequest() on the call's return value. This can be overwritten per action. (Defaults to false.)
              */
-            cancellable?: boolean;
+            cancellable?: boolean | undefined;
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -44,7 +38,12 @@ declare module 'angular' {
              * @param actions example: {update: { method: 'PUT' }, delete: deleteDescriptor } where deleteDescriptor: IActionDescriptor
              * @param options Hash with custom settings that should extend the default $resourceProvider behavior
              */
-            (url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
+            (
+                url: string,
+                paramDefaults?: any,
+                actions?: IActionHash,
+                options?: IResourceOptions,
+            ): IResourceClass<IResource<any>>;
             <T>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
             <T, U>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): U;
         }
@@ -72,23 +71,23 @@ declare module 'angular' {
         interface IActionDescriptor {
             method: string;
             params?: any;
-            url?: string;
-            isArray?: boolean;
-            transformRequest?: IHttpRequestTransformer | IHttpRequestTransformer[];
-            transformResponse?: IHttpResponseTransformer | IHttpResponseTransformer[];
+            url?: string | undefined;
+            isArray?: boolean | undefined;
+            transformRequest?: IHttpRequestTransformer | IHttpRequestTransformer[] | undefined;
+            transformResponse?: IHttpResponseTransformer | IHttpResponseTransformer[] | undefined;
             headers?: any;
-            cache?: boolean | ICacheObject;
+            cache?: boolean | ICacheObject | undefined;
             /**
              * Note: In contrast to $http.config, promises are not supported in $resource, because the same value
              * would be used for multiple requests. If you are looking for a way to cancel requests, you should
              * use the cancellable option.
              */
-            timeout?: number;
-            cancellable?: boolean;
-            withCredentials?: boolean;
-            responseType?: string;
-            interceptor?: IResourceInterceptor;
-            hasBody?: boolean;
+            timeout?: number | undefined;
+            cancellable?: boolean | undefined;
+            withCredentials?: boolean | undefined;
+            responseType?: string | undefined;
+            interceptor?: IResourceInterceptor | undefined;
+            hasBody?: boolean | undefined;
         }
 
         // Allow specify more resource methods
@@ -203,7 +202,7 @@ declare module 'angular' {
 
     namespace auto {
         interface IInjectorService {
-            get(name: '$resource'): resource.IResourceService;
+            get(name: "$resource"): resource.IResourceService;
         }
     }
 }

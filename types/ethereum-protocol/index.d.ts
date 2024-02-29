@@ -1,10 +1,4 @@
-// Type definitions for ethereum-protocol 1.0
-// Project: https://www.npmjs.com/package/ethereum-protocol
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 
 export type JSONRPCErrorCallback = (err: Error | null, result?: JSONRPCResponsePayload) => void;
 
@@ -22,14 +16,14 @@ export type AbiDefinition = FunctionAbi | EventAbi;
 
 export type FunctionAbi = MethodAbi | ConstructorAbi | FallbackAbi;
 
-export type ConstructorStateMutability = 'nonpayable' | 'payable';
-export type StateMutability = 'pure' | 'view' | ConstructorStateMutability;
+export type ConstructorStateMutability = "nonpayable" | "payable";
+export type StateMutability = "pure" | "view" | ConstructorStateMutability;
 
 export enum AbiType {
-    Function = 'function',
-    Constructor = 'constructor',
-    Event = 'event',
-    Fallback = 'fallback',
+    Function = "function",
+    Constructor = "constructor",
+    Event = "event",
+    Fallback = "fallback",
 }
 
 export interface MethodAbi {
@@ -68,20 +62,20 @@ export interface EventAbi {
 export interface DataItem {
     name: string;
     type: string;
-    components?: DataItem[];
+    components?: DataItem[] | undefined;
 }
 
 export enum OpCode {
-    DelegateCall = 'DELEGATECALL',
-    Revert = 'REVERT',
-    Create = 'CREATE',
-    Stop = 'STOP',
-    Invalid = 'INVALID',
-    CallCode = 'CALLCODE',
-    StaticCall = 'STATICCALL',
-    Return = 'RETURN',
-    Call = 'CALL',
-    SelfDestruct = 'SELFDESTRUCT',
+    DelegateCall = "DELEGATECALL",
+    Revert = "REVERT",
+    Create = "CREATE",
+    Stop = "STOP",
+    Invalid = "INVALID",
+    CallCode = "CALLCODE",
+    StaticCall = "STATICCALL",
+    Return = "RETURN",
+    Call = "CALL",
+    SelfDestruct = "SELFDESTRUCT",
 }
 
 export interface StructLog {
@@ -103,21 +97,21 @@ export interface TransactionTrace {
 }
 
 export type Unit =
-    | 'kwei'
-    | 'ada'
-    | 'mwei'
-    | 'babbage'
-    | 'gwei'
-    | 'shannon'
-    | 'szabo'
-    | 'finney'
-    | 'ether'
-    | 'kether'
-    | 'grand'
-    | 'einstein'
-    | 'mether'
-    | 'gether'
-    | 'tether';
+    | "kwei"
+    | "ada"
+    | "mwei"
+    | "babbage"
+    | "gwei"
+    | "shannon"
+    | "szabo"
+    | "finney"
+    | "ether"
+    | "kether"
+    | "grand"
+    | "einstein"
+    | "mether"
+    | "gether"
+    | "tether";
 
 export interface JSONRPCRequestPayload {
     params: any[];
@@ -175,12 +169,12 @@ export interface Transaction {
 }
 
 export interface CallTxDataBase {
-    to?: string;
-    value?: number | string | BigNumber;
-    gas?: number | string | BigNumber;
-    gasPrice?: number | string | BigNumber;
-    data?: string;
-    nonce?: number;
+    to?: string | undefined;
+    value?: number | string | BigNumber | undefined;
+    gas?: number | string | BigNumber | undefined;
+    gasPrice?: number | string | BigNumber | undefined;
+    data?: string | undefined;
+    nonce?: number | undefined;
 }
 
 export interface TxData extends CallTxDataBase {
@@ -188,14 +182,14 @@ export interface TxData extends CallTxDataBase {
 }
 
 export interface CallData extends CallTxDataBase {
-    from?: string;
+    from?: string | undefined;
 }
 
 export interface FilterObject {
-    fromBlock?: number | string;
-    toBlock?: number | string;
-    address?: string;
-    topics?: LogTopic[];
+    fromBlock?: number | string | undefined;
+    toBlock?: number | string | undefined;
+    address?: string | undefined;
+    topics?: LogTopic[] | undefined;
 }
 
 export type LogTopic = null | string | string[];
@@ -225,7 +219,7 @@ export interface LogEntry {
 }
 
 export interface TxDataPayable extends TxData {
-    value?: BigNumber;
+    value?: BigNumber | undefined;
 }
 
 export interface TransactionReceipt {
@@ -252,9 +246,9 @@ export interface LogWithDecodedArgs<ArgsType extends DecodedLogArgs> extends Dec
 export type RawLog = LogEntry;
 
 export enum BlockParamLiteral {
-    Earliest = 'earliest',
-    Latest = 'latest',
-    Pending = 'pending',
+    Earliest = "earliest",
+    Latest = "latest",
+    Pending = "pending",
 }
 
 export type BlockParam = BlockParamLiteral | number;
@@ -271,10 +265,10 @@ export interface RawLogEntry {
 }
 
 export enum SolidityTypes {
-    Address = 'address',
-    Uint256 = 'uint256',
-    Uint8 = 'uint8',
-    Uint = 'uint',
+    Address = "address",
+    Uint256 = "uint256",
+    Uint8 = "uint8",
+    Uint = "uint",
 }
 
 /**
@@ -287,7 +281,7 @@ export interface TransactionReceiptWithDecodedLogs extends TransactionReceipt {
 }
 
 export interface TraceParams {
-    disableMemory?: boolean;
-    disableStack?: boolean;
-    disableStorage?: boolean;
+    disableMemory?: boolean | undefined;
+    disableStack?: boolean | undefined;
+    disableStorage?: boolean | undefined;
 }

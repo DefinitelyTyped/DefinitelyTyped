@@ -1,8 +1,3 @@
-// Type definitions for json-to-ast 2.1
-// Project: https://github.com/vtrushin/json-to-ast
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parse {
     interface Options {
         /**
@@ -10,14 +5,14 @@ declare namespace parse {
          *
          * @default true
          */
-        loc?: boolean;
+        loc?: boolean | undefined;
 
         /**
          * Appends source information to node’s location.
          *
          * @default null
          */
-        source?: string;
+        source?: string | undefined;
     }
 
     type ValueNode = ObjectNode | ArrayNode | LiteralNode;
@@ -36,7 +31,7 @@ declare namespace parse {
 
     interface ASTNode {
         type: string;
-        loc?: Location;
+        loc?: Location | undefined;
     }
 
     interface ObjectNode extends ASTNode {

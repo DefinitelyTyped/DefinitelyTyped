@@ -1,13 +1,19 @@
 import Truncate = require("html-truncate");
 
-Truncate('hello world', 4);
+Truncate("hello world", 4); // $ExpectType string
 
-Truncate('<p><div>hello world</div></p>', 4, {
+// $ExpectType string
+Truncate("<p><div>hello world</div></p>", 4, {
     keepImageTag: true,
-    ellipsis: true
+    ellipsis: true,
 });
 
-Truncate('<p><div>hello world</div></p>', 6, {
+// $ExpectType string
+Truncate("<p><div>hello world</div></p>", 6, {
     keepImageTag: false,
-    ellipsis: '---'
+    ellipsis: "---",
 });
+
+Truncate("a good little fox is <span>a good</span> little forest creature", 26, { truncateLastWord: false }); // $ExpectType string
+
+Truncate("a good little fox is <span>a good</span> little forest creature", 29, { truncateLastWord: false, slop: 2 }); // $ExpectType string

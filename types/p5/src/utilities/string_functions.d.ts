@@ -26,11 +26,10 @@ declare module '../../index' {
          *   in the regular expression, but the sequence
          *   matches, an array of length 1 (with the matched
          *   text as the first element of the array) will be
-         *   returned.  To use the function, first check to see
+         *   returned. To use the function, first check to see
          *   if the result is null. If the result is null, then
          *   the sequence did not match at all. If the sequence
          *   did match, an array is returned.
-         *
          *
          *   If there are groups (specified by sets of
          *   parentheses) in the regular expression, then the
@@ -54,12 +53,11 @@ declare module '../../index' {
          *   returned. If no groups are specified in the
          *   regular expression, but the sequence matches, a
          *   two dimensional array is still returned, but the
-         *   second dimension is only of length one.  To use
-         *   the function, first check to see if the result is
+         *   second dimension is only of length one. To use the
+         *   function, first check to see if the result is
          *   null. If the result is null, then the sequence did
          *   not match at all. If the sequence did match, a 2D
          *   array is returned.
-         *
          *
          *   If there are groups (specified by sets of
          *   parentheses) in the regular expression, then the
@@ -81,14 +79,17 @@ declare module '../../index' {
          *   formatting floats, and one for formatting ints.
          *   The values for the digits, left, and right
          *   parameters should always be positive integers.
+         *
          *   (NOTE): Be cautious when using left and right
          *   parameters as it prepends numbers of 0's if the
          *   parameter if greater than the current length of
-         *   the number. For example if number is 123.2 and
-         *   left parameter passed is 4 which is greater than
-         *   length of 123 (integer part) i.e 3 than result
-         *   will be 0123.2. Same case for right parameter i.e.
-         *   if right is 3 than the result will be 123.200.
+         *   the number.
+         *
+         *   For example if number is 123.2 and left parameter
+         *   passed is 4 which is greater than length of 123
+         *   (integer part) i.e 3 than result will be 0123.2.
+         *   Same case for right parameter i.e. if right is 3
+         *   than the result will be 123.200.
          *   @param num the Number to format
          *   @param [left] number of digits to the left of the
          *   decimal point
@@ -104,14 +105,17 @@ declare module '../../index' {
          *   formatting floats, and one for formatting ints.
          *   The values for the digits, left, and right
          *   parameters should always be positive integers.
+         *
          *   (NOTE): Be cautious when using left and right
          *   parameters as it prepends numbers of 0's if the
          *   parameter if greater than the current length of
-         *   the number. For example if number is 123.2 and
-         *   left parameter passed is 4 which is greater than
-         *   length of 123 (integer part) i.e 3 than result
-         *   will be 0123.2. Same case for right parameter i.e.
-         *   if right is 3 than the result will be 123.200.
+         *   the number.
+         *
+         *   For example if number is 123.2 and left parameter
+         *   passed is 4 which is greater than length of 123
+         *   (integer part) i.e 3 than result will be 0123.2.
+         *   Same case for right parameter i.e. if right is 3
+         *   than the result will be 123.200.
          *   @param nums the Numbers to format
          *   @param [left] number of digits to the left of the
          *   decimal point
@@ -193,19 +197,25 @@ declare module '../../index' {
          *   digits (place values) of a non-negative number
          *   with some negative number (See the example to get
          *   a clear picture). There are two versions: one for
-         *   formatting float, and one for formatting int. The
-         *   values for the digits, left, and right parameters
-         *   should always be positive integers. (IMP): The
-         *   result on the canvas basically the expected
-         *   alignment can vary based on the typeface you are
-         *   using. (NOTE): Be cautious when using left and
-         *   right parameters as it prepends numbers of 0's if
-         *   the parameter if greater than the current length
-         *   of the number. For example if number is 123.2 and
-         *   left parameter passed is 4 which is greater than
-         *   length of 123 (integer part) i.e 3 than result
-         *   will be 0123.2. Same case for right parameter i.e.
-         *   if right is 3 than the result will be 123.200.
+         *   formatting float, and one for formatting int.
+         *
+         *   The values for the digits, left, and right
+         *   parameters should always be positive integers.
+         *
+         *   (IMP): The result on the canvas basically the
+         *   expected alignment can vary based on the typeface
+         *   you are using.
+         *
+         *   (NOTE): Be cautious when using left and right
+         *   parameters as it prepends numbers of 0's if the
+         *   parameter if greater than the current length of
+         *   the number.
+         *
+         *   For example if number is 123.2 and left parameter
+         *   passed is 4 which is greater than length of 123
+         *   (integer part) i.e 3 than result will be 0123.2.
+         *   Same case for right parameter i.e. if right is 3
+         *   than the result will be 123.200.
          *   @param num the Number to format
          *   @param [left] number of digits to the left of the
          *   decimal point
@@ -225,19 +235,25 @@ declare module '../../index' {
          *   digits (place values) of a non-negative number
          *   with some negative number (See the example to get
          *   a clear picture). There are two versions: one for
-         *   formatting float, and one for formatting int. The
-         *   values for the digits, left, and right parameters
-         *   should always be positive integers. (IMP): The
-         *   result on the canvas basically the expected
-         *   alignment can vary based on the typeface you are
-         *   using. (NOTE): Be cautious when using left and
-         *   right parameters as it prepends numbers of 0's if
-         *   the parameter if greater than the current length
-         *   of the number. For example if number is 123.2 and
-         *   left parameter passed is 4 which is greater than
-         *   length of 123 (integer part) i.e 3 than result
-         *   will be 0123.2. Same case for right parameter i.e.
-         *   if right is 3 than the result will be 123.200.
+         *   formatting float, and one for formatting int.
+         *
+         *   The values for the digits, left, and right
+         *   parameters should always be positive integers.
+         *
+         *   (IMP): The result on the canvas basically the
+         *   expected alignment can vary based on the typeface
+         *   you are using.
+         *
+         *   (NOTE): Be cautious when using left and right
+         *   parameters as it prepends numbers of 0's if the
+         *   parameter if greater than the current length of
+         *   the number.
+         *
+         *   For example if number is 123.2 and left parameter
+         *   passed is 4 which is greater than length of 123
+         *   (integer part) i.e 3 than result will be 0123.2.
+         *   Same case for right parameter i.e. if right is 3
+         *   than the result will be 123.200.
          *   @param nums the Numbers to format
          *   @param [left] number of digits to the left of the
          *   decimal point
@@ -268,7 +284,7 @@ declare module '../../index' {
          *   The splitTokens() function splits a String at one
          *   or many character delimiters or "tokens." The
          *   delim parameter specifies the character or
-         *   characters to be used as a boundary.  If no delim
+         *   characters to be used as a boundary. If no delim
          *   characters are specified, any whitespace character
          *   is used to split. Whitespace characters include
          *   tab (\t), line feed (\n), carriage return (\r),

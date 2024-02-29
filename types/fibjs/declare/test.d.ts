@@ -208,7 +208,7 @@ declare module "test" {
     import consoleNS = require('console')
     import assertNS = require('assert')
 
-    module test {
+    namespace test {
         
         
         /**

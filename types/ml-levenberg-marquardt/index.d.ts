@@ -1,9 +1,3 @@
-// Type definitions for ml-levenberg-marquardt 1.0
-// Project: https://github.com/mljs/levenberg-marquardt#readme
-// Definitions by: m93a <https://github.com/m93a>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare namespace LM {
     /**
      * Function that receives an array of parameters and returns
@@ -21,22 +15,48 @@ declare namespace LM {
 
     interface Options {
         /**
+         * Maximum time running before throw in seconds.
+         */
+        timeout: number;
+
+        /**
+         * Maximum values for the parameters.
+         * Default value: Array(parameters.length).fill(MAX_SAFE_INTEGER)
+         */
+        maxValues: number[];
+
+        /**
+         * Minimum values for the parameters.
+         * Default value: Array(parameters.length).fill(MIN_SAFE_INTEGER)
+         */
+        minValues: number[];
+
+        /**
+         * Initial guesses for the parameters.
+         * Default value: Array(parameters.length).fill(1)
+         */
+        initialValues: number[];
+
+        /**
+         * Weighting vector, if the length does not match with the number of data points, the vector is reconstructed with first value.
+         */
+        weights: number[];
+
+        /**
          * The Levenberg-Marquardt lambda parameter.
          * Default value: 0
          */
         damping: number;
 
         /**
-         * Initial guesses for the parameters.
-         * Default value: Array(parameters.lengh).fill(1)
+         * Factor to increase the damping (Levenberg-Marquardt parameter) when there is an improvement when updating parameters.
          */
-        initialValues: number[];
+        dampingStepUp: number;
 
         /**
-         * Adjustment for decrease the damping parameter.
-         * Default value: 10e-2
+         * factor to reduce the damping (Levenberg-Marquardt parameter) when there is not an improvement when updating parameters.
          */
-        gradientDifference: number;
+        dampingStepDown: number;
 
         /**
          * The maximum number of iterations before halting.
@@ -51,16 +71,19 @@ declare namespace LM {
         errorTolerance: number;
 
         /**
-         * Maximum values for the parameters.
-         * Default value: Array(data.x.length).fill(MAX_SAFE_INTEGER)
+         * If true the jacobian matrix is approximated by central differences otherwise by forward differences.
          */
-        maxValue: number[];
+        centralDifference: boolean;
 
         /**
-         * Minimum values for the parameters.
-         * Default value: Array(data.x.length).fill(MIN_SAFE_INTEGER)
+         * The step size to approximate the jacobian matrix.
          */
-        minValue: number[];
+        gradientDifference: number | number[];
+
+        /**
+         * The threshold to define an improvement through an update of parameters.
+         */
+        improvementThreshold: number;
     }
 
     interface Result {

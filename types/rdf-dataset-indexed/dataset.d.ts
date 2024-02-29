@@ -1,5 +1,5 @@
-import { DatasetCore, DatasetFactory, DataFactory, Quad, BaseQuad, Stream, Term } from 'rdf-js';
-import { Readable } from 'stream';
+import { BaseQuad, DataFactory, DatasetCore, DatasetFactory, Quad, Stream, Term } from "@rdfjs/types";
+import { Readable } from "stream";
 
 declare namespace DatasetIndexed {
     interface DatasetIndexed<Q extends BaseQuad = Quad, InQuad extends BaseQuad = Quad> extends DatasetCore<Q, InQuad> {
@@ -21,11 +21,18 @@ declare namespace DatasetIndexed {
         some(predicate: (quad: Q) => boolean): boolean;
         toArray(): Q[];
         toStream(): Stream<Q> & Readable;
-        match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): DatasetIndexed<Q, InQuad>;
+        match(
+            subject?: Term | null,
+            predicate?: Term | null,
+            object?: Term | null,
+            graph?: Term | null,
+        ): DatasetIndexed<Q, InQuad>;
     }
 }
 
-interface DatasetIndexed<Q extends BaseQuad = Quad, InQuad extends BaseQuad = Quad> extends DatasetIndexed.DatasetIndexed<Q> {}
+interface DatasetIndexed<Q extends BaseQuad = Quad, InQuad extends BaseQuad = Quad>
+    extends DatasetIndexed.DatasetIndexed<Q>
+{}
 
 // tslint:disable-next-line no-unnecessary-class
 declare class DatasetIndexed<Q> {

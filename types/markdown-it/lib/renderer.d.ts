@@ -1,20 +1,20 @@
-import MarkdownIt = require('.');
-import Token = require('./token');
+import MarkdownIt = require(".");
+import Token = require("./token");
 
 declare namespace Renderer {
     type RenderRule = (tokens: Token[], idx: number, options: MarkdownIt.Options, env: any, self: Renderer) => string;
 
     interface RenderRuleRecord {
         [type: string]: RenderRule | undefined;
-        code_inline?: RenderRule;
-        code_block?: RenderRule;
-        fence?: RenderRule;
-        image?: RenderRule;
-        hardbreak?: RenderRule;
-        softbreak?: RenderRule;
-        text?: RenderRule;
-        html_block?: RenderRule;
-        html_inline?: RenderRule;
+        code_inline?: RenderRule | undefined;
+        code_block?: RenderRule | undefined;
+        fence?: RenderRule | undefined;
+        image?: RenderRule | undefined;
+        hardbreak?: RenderRule | undefined;
+        softbreak?: RenderRule | undefined;
+        text?: RenderRule | undefined;
+        html_block?: RenderRule | undefined;
+        html_inline?: RenderRule | undefined;
     }
 }
 

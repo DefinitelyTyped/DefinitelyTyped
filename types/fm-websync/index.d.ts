@@ -1,8 +1,3 @@
-// Type definitions for fm-websync 3.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Markus Mauch <https://github.com/markusmauch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fm {
     namespace websync {
         interface initializeConfig {
@@ -12,26 +7,26 @@ declare namespace fm {
              * (See disconnectConfig for details.) Note that automatic disconnects are a best-effort. The only way to guarantee success is to execute the disconnect synchronously
              * and target a request URL on the same domain as the page ({ sync: true, requestUrl: '...relative path.../request.ashx' }). Defaults to false.
              */
-            autoDisconnect?: boolean;
+            autoDisconnect?: boolean | undefined;
 
             /**
              * The amount of time in milliseconds to add to the delay between each reconnect attempt in the event of network failure. Defaults to 3000 (3 seconds).
              */
 
-            backoffInterval?: number;
+            backoffInterval?: number | undefined;
 
             /**
              * The URL of the HTML frame to be used with HTML5 postMessage for cross-domain environments. Must have the same domain as requestUrl.
              * Defaults to a dynamically generated URL based on the host of the client script URL (or the host web.config attribute, if specified) and the path to the WebSync Server
              * ClientHandler registered in web.config with "frame" added to the query.
              */
-            clientFrameUrl?: string;
+            clientFrameUrl?: string | undefined;
 
             /**
              * The domain key to send with each request. If using WebSync On-Demand, this should be set to the public or private API key specified in the Frozen Mountain Portal.
              * If using WebSync Server, this should be used only if grouping connections. Defaults to "11111111-1111-1111-1111-111111111111".
              */
-            key?: string;
+            key?: string | undefined;
 
             /**
              * The callback to invoke after onSuccess or onFailure. See initializeCompleteArgs for callback argument details.
@@ -51,19 +46,19 @@ declare namespace fm {
             /**
              * Whether or not to suppress the alerting of a failure if the client is already initialized.
              */
-            quiet?: boolean;
+            quiet?: boolean | undefined;
 
             /**
              * The URL of the WebSync request handler. This URL typically ends with request.ashx. Must have the same domain as clientFrameUrl.
              * Defaults to a dynamically generated URL based on the host of the client script URL (or the host web.config attribute, if specified) and the path to the
              * WebSync Server RequestHandler registered in web.config.
              */
-            requestUrl?: string;
+            requestUrl?: string | undefined;
 
             /**
              * The number of times to retry a request in the event of network failure before considering it failed and invoking the corresponding OnFailure callback. Defaults to 3.
              */
-            retries?: number;
+            retries?: number | undefined;
 
             /**
              * The URLs to use for streaming connections. Three properties are available:
@@ -84,13 +79,13 @@ declare namespace fm {
             /**
              * The number of milliseconds to wait for a standard request to return a response before it is cancelled and a new attempt is made. Defaults to 15000 (15 seconds).
              */
-            timeout?: number;
+            timeout?: number | undefined;
 
             /**
              * The token sent with every client request identifying it for query-based load balancing. Defaults to the current timestamp.
              */
 
-            token?: string;
+            token?: string | undefined;
 
             /**
              * An object specifying URLs to be used for specific client methods. Overrides initializeConfig.requestUrl for the specified method type, but can be overridden
@@ -133,20 +128,20 @@ declare namespace fm {
             /**
              * The URL of the proxy to use for this request.
              */
-            requestUrl?: string;
+            requestUrl?: string | undefined;
 
             /**
              * Whether to ignore errors when parsing the server response. If true, any errors thrown while parsing the JSON response received from the server will be ignored.
              * Defaults to false.
              */
-            suppressErrors?: boolean;
+            suppressErrors?: boolean | undefined;
 
             /**
              * Whether the request should be executed asynchronously. If true, the request will be executed synchronously if supported by the browser; otherwise,
              * it will be executed asynchronously. All browsers support synchronous requests if the request URL is the same domain as the page. Synchronous requests
              * are not supported in IE6 and IE7 for cross-domain environments. Defaults to false.
              */
-            sync?: boolean;
+            sync?: boolean | undefined;
         }
 
         interface connectConfig extends baseRequestConfig {
@@ -186,19 +181,19 @@ declare namespace fm {
              * Whether to always attempt to stay connected in the event of network failure. If true, the client will continually reconnect, even after exhausting the specified number
              * of retries specified by initializeConfig.retries. If false, the client will stop reconnecting if all retry attempts fail.
              */
-            stayConnected?: boolean;
+            stayConnected?: boolean | undefined;
         }
 
         interface subscribeConfig extends baseRequestConfig {
             /**
              * The channel to which the client should be subscribed. Must start with a forward slash (/). Overrides channels.
              */
-            channel?: string;
+            channel?: string | undefined;
 
             /**
              * The channels to which the client should be subscribed. Each must start with a forward slash (/). Overrides channel.
              */
-            channels?: string[];
+            channels?: string[] | undefined;
 
             /**
              * The callback to invoke after onSuccess or onFailure. See subscribeCompleteArgs for callback argument details.
@@ -363,12 +358,12 @@ declare namespace fm {
             /**
              * The details of the change that occurred.
              */
-            change?: subscribersChange;
+            change?: subscribersChange | undefined;
 
             /**
              * The channel on which the change occurred.
              */
-            channel?: string;
+            channel?: string | undefined;
         }
 
         interface publishingClient {
@@ -440,12 +435,12 @@ declare namespace fm {
             /**
              * The channel from which the client should be unsubscribed. Must start with a forward slash (/). Overrides channels.
              */
-            channel?: string;
+            channel?: string | undefined;
 
             /**
              * The channels from which the client should be unsubscribed. Each must start with a forward slash (/). Overrides channel.
              */
-            channels?: string[];
+            channels?: string[] | undefined;
 
             /**
              * The callback to invoke after onSuccess or onFailure. See unsubscribeCompleteArgs for callback argument details.
@@ -473,7 +468,6 @@ declare namespace fm {
             connect(config: connectConfig): client;
 
             /**
-             *
              * @param config Takes down a streaming connection to the server and unsubscribes the client.
              * After the disconnect completes successfully, any further calls to methods that require an active connection, like bind, subscribe and publish, will be queued
              * automatically and executed only if/when the client reconnects.
@@ -491,7 +485,7 @@ declare namespace fm {
              * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false.
              * Otherwise, the client will reconnect automatically.
              */
-             reconnect(config?: connectConfig): client;
+            reconnect(config?: connectConfig): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.

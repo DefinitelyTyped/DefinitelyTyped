@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/uglify-js",
+    "version": "3.17.9999",
+    "projects": [
+        "https://github.com/mishoo/UglifyJS"
+    ],
     "dependencies": {
         "source-map": "^0.6.1"
-    }
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/uglify-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Agius",
+            "githubUsername": "alan-agius4"
+        },
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

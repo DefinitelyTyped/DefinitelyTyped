@@ -1,9 +1,3 @@
-// Type definitions for non-npm package clearbladejs-client 1.1
-// Project: https://github.com/ClearBlade/JavaScript-API
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="paho-mqtt" />
 declare namespace CbClient {
     interface Resp {
@@ -14,37 +8,37 @@ declare namespace CbClient {
     enum MessagingQOS {
         MESSAGING_QOS_AT_MOST_ONCE = 0,
         MESSAGING_QOS_AT_LEAST_ONCE = 1,
-        MESSAGING_QOS_EXACTLY_ONCE = 2
+        MESSAGING_QOS_EXACTLY_ONCE = 2,
     }
 
     interface InitOptions {
         systemKey: string;
         systemSecret: string;
-        masterSecret?: string;
-        logging?: boolean;
-        callback?: CbCallback;
-        email?: string;
-        password?: string;
-        registerUser?: boolean;
-        useUser?: APIUser;
-        URI?: string;
-        messagingURI?: string;
-        messagingPort?: number;
-        defaultQoS?: MessagingQOS;
-        callTimeout?: number;
-        messagingAuthPort?: number;
+        masterSecret?: string | undefined;
+        logging?: boolean | undefined;
+        callback?: CbCallback | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        registerUser?: boolean | undefined;
+        useUser?: APIUser | undefined;
+        URI?: string | undefined;
+        messagingURI?: string | undefined;
+        messagingPort?: number | undefined;
+        defaultQoS?: MessagingQOS | undefined;
+        callTimeout?: number | undefined;
+        messagingAuthPort?: number | undefined;
     }
 
     interface RequestOptions {
-        method?: string;
-        endpoint?: string;
-        body?: string;
-        qs?: string;
-        URI?: string;
-        useUser?: boolean;
-        authToken?: string;
-        timeout?: number;
-        user?: APIUser;
+        method?: string | undefined;
+        endpoint?: string | undefined;
+        body?: string | undefined;
+        qs?: string | undefined;
+        URI?: string | undefined;
+        useUser?: boolean | undefined;
+        authToken?: string | undefined;
+        timeout?: number | undefined;
+        user?: APIUser | undefined;
     }
 
     interface APIUser {
@@ -77,7 +71,7 @@ declare namespace CbClient {
         registerUser(
             email: string,
             password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         isCurrentUserAuthenticated(callback: CbCallback): void;
         logoutUser(callback: CbCallback): void;
@@ -86,17 +80,17 @@ declare namespace CbClient {
         loginUserMqtt(
             email: string,
             password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         registerMasterCallback(callback: CbCallback): void;
         Collection(
             options:
                 | string
                 | CollectionOptionsWithName
-                | CollectionOptionsWithID
+                | CollectionOptionsWithID,
         ): Collection;
         Query(
-            options: string | QueryOptionsWithName | QueryOptionsWithID
+            options: string | QueryOptionsWithName | QueryOptionsWithID,
         ): QueryObj;
         Item(data: object, collectionID: string | ItemOptions): Item;
         Code(): Code;
@@ -107,7 +101,7 @@ declare namespace CbClient {
             users: string[],
             payload: object,
             appId: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getEdges(query: Query, callback: CbCallback): void;
         Edge(): Edge;
@@ -146,7 +140,7 @@ declare namespace CbClient {
 
     enum QuerySortDirections {
         QUERY_SORT_ASCENDING = "ASC",
-        QUERY_SORT_DESCENDING = "DESC"
+        QUERY_SORT_DESCENDING = "DESC",
     }
 
     enum QueryConditions {
@@ -156,29 +150,25 @@ declare namespace CbClient {
         QUERY_GREATERTHAN_EQUAL = "GTE",
         QUERY_LESSTHAN = "LT",
         QUERY_LESSTHAN_EQUAL = "LTE",
-        QUERY_MATCHES = "RE"
+        QUERY_MATCHES = "RE",
     }
 
     type QueryValue = string | number | boolean;
 
     interface QueryOptions {
-        offset?: number;
-        limit?: number;
+        offset?: number | undefined;
+        limit?: number | undefined;
     }
 
-    interface QueryOptionsWithName
-        extends CollectionOptionsWithName,
-            QueryOptions {}
-    interface QueryOptionsWithID
-        extends CollectionOptionsWithID,
-            QueryOptions {}
+    interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
+    interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
     interface Query {
-        SELECTCOLUMNS?: string[];
-        SORT?: QuerySortDirections;
-        FILTERS?: QueryFilter[];
-        PAGESIZE?: number;
-        PAGENUM?: number;
+        SELECTCOLUMNS?: string[] | undefined;
+        SORT?: QuerySortDirections | undefined;
+        FILTERS?: QueryFilter[] | undefined;
+        PAGESIZE?: number | undefined;
+        PAGENUM?: number | undefined;
     }
 
     interface QueryFilter {
@@ -203,13 +193,13 @@ declare namespace CbClient {
         addSortToQuery(
             query: QueryObj,
             direction: QuerySortDirections,
-            column: string
+            column: string,
         ): void;
         addFilterToQuery(
             query: QueryObj,
             condition: QueryConditions,
             key: string,
-            value: QueryValue
+            value: QueryValue,
         ): void;
         ascending(field: string): void;
         descending(field: string): void;
@@ -268,7 +258,7 @@ declare namespace CbClient {
         setPassword(
             old_password: string,
             new_password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         count(query: Query, callback: CbCallback): void;
     }
@@ -288,13 +278,13 @@ declare namespace CbClient {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getMessageHistory(
             topic: string,
             last: number,
             count: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getAndDeleteMessageHistory(
             topic: string,
@@ -302,7 +292,7 @@ declare namespace CbClient {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         currentTopics(callback: CbCallback): void;
         publish(topic: string, payload: object): void;
@@ -310,23 +300,23 @@ declare namespace CbClient {
         subscribe(
             topic: string,
             options: MessagingSubscribeOptions,
-            messageCallback: MessageCallback
+            messageCallback: MessageCallback,
         ): void;
         unsubscribe(topic: string, options: MessagingSubscribeOptions): void;
         disconnect(): void;
     }
 
     interface CommonMessagingProperties {
-        cleanSession?: boolean;
-        useSSL?: boolean;
-        hosts?: string;
-        ports?: string;
-        onSuccess?: Function;
-        onFailure?: Function;
+        cleanSession?: boolean | undefined;
+        useSSL?: boolean | undefined;
+        hosts?: string | undefined;
+        ports?: string | undefined;
+        onSuccess?: Function | undefined;
+        onFailure?: Function | undefined;
     }
 
     interface MessagingOptions extends CommonMessagingProperties {
-        qos?: MessagingQOS;
+        qos?: MessagingQOS | undefined;
     }
 
     interface MessagingConfiguration extends CommonMessagingProperties {
@@ -337,11 +327,11 @@ declare namespace CbClient {
     type MessageCallback = (message: string) => void;
 
     interface MessagingSubscribeOptions {
-        qos?: MessagingQOS;
-        invocationContext?: object;
-        onSuccess?: Function;
-        onFailure?: Function;
-        timeout?: number;
+        qos?: MessagingQOS | undefined;
+        invocationContext?: object | undefined;
+        onSuccess?: Function | undefined;
+        onFailure?: Function | undefined;
+        timeout?: number | undefined;
     }
 
     interface MessagingStats {
@@ -354,7 +344,7 @@ declare namespace CbClient {
             topic: string,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getOpenConnections(callback: CbCallback): void;
         getCurrentSubscribers(topic: string, callback: CbCallback): void;
@@ -369,7 +359,7 @@ declare namespace CbClient {
         updateEdgeByName(
             name: string,
             object: object,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         deleteEdgeByName(name: string, callback: CbCallback): void;
         create(newEdge: object, name: string, callback: CbCallback): void;
@@ -400,7 +390,7 @@ declare namespace CbClient {
             name: string,
             object: object,
             trigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         deleteDeviceByName(name: string, callback: CbCallback): void;
         fetch(query: Query, callback: CbCallback): void;
@@ -408,7 +398,7 @@ declare namespace CbClient {
             query: Query,
             object: object,
             trigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         delete(query: Query, callback: CbCallback): void;
         create(newDevice: object, callback: CbCallback): void;

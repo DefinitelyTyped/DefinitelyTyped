@@ -1,18 +1,12 @@
-// Type definitions for non-npm package clearbladejs-node 1.0
-// Project: https://github.com/ClearBlade/Node-SDK
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="request" />
 
-import { Response, RequestCallback } from "request/index";
+import { RequestCallback, Response } from "request/index";
 // import {//PacketCallback } from "mqtt";
 
 export enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
     MESSAGING_QOS_AT_LEAST_ONCE = 1,
-    MESSAGING_QOS_EXACTLY_ONCE = 2
+    MESSAGING_QOS_EXACTLY_ONCE = 2,
 }
 
 export interface Resp {
@@ -23,30 +17,30 @@ export interface Resp {
 export interface InitOptions {
     systemKey: string;
     systemSecret: string;
-    logging?: boolean;
-    callback?: CbCallback;
-    email?: string;
-    password?: string;
-    registerUser?: boolean;
-    useUser?: APIUser;
-    URI?: string;
-    messagingURI?: string;
-    messagingPort?: number;
-    defaultQoS?: MessagingQOS;
-    callTimeout?: number;
+    logging?: boolean | undefined;
+    callback?: CbCallback | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
+    registerUser?: boolean | undefined;
+    useUser?: APIUser | undefined;
+    URI?: string | undefined;
+    messagingURI?: string | undefined;
+    messagingPort?: number | undefined;
+    defaultQoS?: MessagingQOS | undefined;
+    callTimeout?: number | undefined;
 }
 
 export interface RequestOptions {
     systemKey: string;
     systemSecret: string;
-    method?: string;
-    endpoint?: string;
-    body?: string;
-    qs?: string;
-    URI?: string;
-    useUser?: boolean;
-    authToken?: string;
-    user?: APIUser;
+    method?: string | undefined;
+    endpoint?: string | undefined;
+    body?: string | undefined;
+    qs?: string | undefined;
+    URI?: string | undefined;
+    useUser?: boolean | undefined;
+    authToken?: string | undefined;
+    user?: APIUser | undefined;
 }
 
 export interface APIUser {
@@ -113,25 +107,25 @@ export interface Collection {
 }
 
 export enum QuerySortDirections {
-    QUERY_SORT_ASCENDING = 'ASC',
-    QUERY_SORT_DESCENDING = 'DESC'
+    QUERY_SORT_ASCENDING = "ASC",
+    QUERY_SORT_DESCENDING = "DESC",
 }
 
 export enum QueryConditions {
-    QUERY_EQUAL = 'EQ',
-    QUERY_NOTEQUAL = 'NEQ',
-    QUERY_GREATERTHAN = 'GT',
-    QUERY_GREATERTHAN_EQUAL = 'GTE',
-    QUERY_LESSTHAN = 'LT',
-    QUERY_LESSTHAN_EQUAL = 'LTE',
-    QUERY_MATCHES = 'RE'
+    QUERY_EQUAL = "EQ",
+    QUERY_NOTEQUAL = "NEQ",
+    QUERY_GREATERTHAN = "GT",
+    QUERY_GREATERTHAN_EQUAL = "GTE",
+    QUERY_LESSTHAN = "LT",
+    QUERY_LESSTHAN_EQUAL = "LTE",
+    QUERY_MATCHES = "RE",
 }
 
-export type QueryValue = string|number|boolean;
+export type QueryValue = string | number | boolean;
 
 export interface QueryOptions {
-    offset?: number;
-    limit?: number;
+    offset?: number | undefined;
+    limit?: number | undefined;
 }
 
 export interface QueryOptionsWithCollection extends QueryOptions {
@@ -143,11 +137,11 @@ export interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOp
 export interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
 export interface Query {
-    SELECTCOLUMNS?: string[];
-    SORT?: QuerySortDirections;
-    FILTERS?: QueryFilter[];
-    PAGESIZE?: number;
-    PAGENUM?: number;
+    SELECTCOLUMNS?: string[] | undefined;
+    SORT?: QuerySortDirections | undefined;
+    FILTERS?: QueryFilter[] | undefined;
+    PAGESIZE?: number | undefined;
+    PAGENUM?: number | undefined;
 }
 
 export interface QueryFilter {
@@ -231,17 +225,17 @@ export interface Messaging {
 }
 
 export interface CommonMessagingProperties {
-    hosts?: string;
-    ports?: string;
+    hosts?: string | undefined;
+    ports?: string | undefined;
 }
 
 export interface MessagingOptions extends CommonMessagingProperties {
-    qos?: MessagingQOS;
+    qos?: MessagingQOS | undefined;
 }
 
 export interface MessagingSubscribeOptions {
-    qos?: MessagingQOS;
-    timeout?: number;
+    qos?: MessagingQOS | undefined;
+    timeout?: number | undefined;
 }
 
 export type MessageCallback = (message: string) => void;

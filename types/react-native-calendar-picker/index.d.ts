@@ -1,89 +1,81 @@
-// Type definitions for react-native-calendar-picker 6.1
-// Project: https://github.com/stephy/CalendarPicker
-// Definitions by: Tobias Hann <https://github.com/automatensalat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { Moment, MomentInput } from 'moment';
+import * as React from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export default class CalendarPicker extends React.Component<CalendarPickerProps> {
-    handleOnPressDay(day: number): void;
+    handleOnPressDay(date: HandleOnPressDayArg): void;
     handleOnPressNext(): void;
     handleOnPressPrevious(): void;
     resetSelections(): void;
 }
 
 export interface CalendarPickerProps {
-    weekdays?: string[];
-    months?: string[];
-    startFromMonday?: boolean;
-    showDayStragglers?: boolean;
-    allowRangeSelection?: boolean;
-    allowBackwardRangeSelect?: boolean;
-    previousTitle?: string;
-    nextTitle?: string;
-    selectedDayColor?: string;
-    selectedDayStyle?: StyleProp<ViewStyle>;
-    selectedDayTextColor?: string;
-    selectedRangeStartStyle?: StyleProp<ViewStyle>;
-    selectedRangeEndStyle?: StyleProp<ViewStyle>;
-    selectedRangeStyle?: StyleProp<ViewStyle>;
-    disabledDates?: Date[] | DisabledDatesFunc;
-    disabledDatesTextStyle?: StyleProp<TextStyle>;
-    selectedStartDate?: Date;
-    selectedEndDate?: Date;
-    minRangeDuration?: number | MinDurationArrayItem[];
-    maxRangeDuration?: number | MaxDurationArrayItem[];
-    todayBackgroundColor?: string;
-    todayTextStyle?: StyleProp<TextStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc;
-    /**
-     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
-     */
-    customDatesStylesPriority?: 'dayOfWeek' | 'customDates';
-    scaleFactor?: number;
-    minDate?: Date;
-    maxDate?: Date;
-    initialDate?: Date;
-    width?: number;
-    height?: number;
-    swipeConfig?: SwipeConfig;
-    enableSwipe?: boolean;
-    enableDateChange?: boolean;
-    restrictMonthNavigation?: boolean;
-    onDateChange?: DateChangedCallback;
-    onMonthChange?: DateChangedCallback;
-    onSwipe?: SwipeCallback;
-    dayShape?: 'circle' | 'square';
-    headingLevel?: number;
-    previousTitleStyle?: StyleProp<TextStyle>;
-    nextTitleStyle?: StyleProp<TextStyle>;
-    previousComponent?: React.ReactNode;
-    nextComponent?: React.ReactNode;
-    dayLabelsWrapper?: StyleProp<ViewStyle>;
-    /**
-     * @deprecated Use customDatesStyles & customDayHeaderStyles callbacks to style individual dates, days of week, and/or header.
-     */
-    dayOfWeekStyles?: DayOfWeekStyle;
-    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle>;
-    customDayHeaderStyles?: CustomDayHeaderStylesFunc;
+    weekdays?: string[] | undefined;
+    months?: string[] | undefined;
+    startFromMonday?: boolean | undefined;
+    showDayStragglers?: boolean | undefined;
+    allowRangeSelection?: boolean | undefined;
+    allowBackwardRangeSelect?: boolean | undefined;
+    previousTitle?: string | undefined;
+    nextTitle?: string | undefined;
+    selectedDayColor?: string | undefined;
+    selectedDayStyle?: StyleProp<ViewStyle> | undefined;
+    selectedDayTextColor?: string | undefined;
+    selectedDayTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeStartTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeEndTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedRangeStartStyle?: StyleProp<ViewStyle> | undefined;
+    selectedRangeEndStyle?: StyleProp<ViewStyle> | undefined;
+    selectedRangeStyle?: StyleProp<ViewStyle> | undefined;
+    selectedDisabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
+    disabledDates?: Date[] | DisabledDatesFunc | undefined;
+    disabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
+    selectedStartDate?: DateParsable | undefined;
+    selectedEndDate?: DateParsable | undefined;
+    minRangeDuration?: number | MinDurationArrayItem[] | undefined;
+    maxRangeDuration?: number | MaxDurationArrayItem[] | undefined;
+    todayBackgroundColor?: string | undefined;
+    todayTextStyle?: StyleProp<TextStyle> | undefined;
+    textStyle?: StyleProp<TextStyle> | undefined;
+    customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc | undefined;
+    scaleFactor?: number | undefined;
+    minDate?: DateParsable | undefined;
+    maxDate?: DateParsable | undefined;
+    initialDate?: Date | undefined;
+    width?: number | undefined;
+    height?: number | undefined;
+    scrollable?: boolean | undefined;
+    horizontal?: boolean | undefined;
+    enableDateChange?: boolean | undefined;
+    restrictMonthNavigation?: boolean | undefined;
+    onDateChange?: DateChangedCallback | undefined;
+    onMonthChange?: DateChangedCallback | undefined;
+    dayShape?: "circle" | "square" | undefined;
+    headingLevel?: number | undefined;
+    selectMonthTitle?: string | undefined;
+    selectYearTitle?: string | undefined;
+    previousTitleStyle?: StyleProp<TextStyle> | undefined;
+    nextTitleStyle?: StyleProp<TextStyle> | undefined;
+    previousComponent?: React.ReactNode | undefined;
+    nextComponent?: React.ReactNode | undefined;
+    dayLabelsWrapper?: StyleProp<ViewStyle> | undefined;
+    monthYearHeaderWrapperStyle?: StyleProp<ViewStyle> | undefined;
+    headerWrapperStyle?: StyleProp<ViewStyle> | undefined;
+    monthTitleStyle?: StyleProp<TextStyle> | undefined;
+    yearTitleStyle?: StyleProp<TextStyle> | undefined;
+    customDayHeaderStyles?: CustomDayHeaderStylesFunc | undefined;
+    initialView?: "years" | "months" | "days" | undefined;
 }
 
 export type DayOfWeekStyle = {
-    [key in '0' | '1' | '2' | '3' | '4' | '5' | '6']?: TextStyle;
+    [key in "0" | "1" | "2" | "3" | "4" | "5" | "6"]?: TextStyle;
 };
 
-export type DisabledDatesFunc = (date: Moment) => boolean;
+export type DisabledDatesFunc = (date: Date) => boolean;
 
-export type CustomDatesStylesFunc = (
-    date: Moment,
-) => {
-    containerStyle?: ViewStyle;
-    style?: ViewStyle;
-    textStyle?: TextStyle;
+export type CustomDatesStylesFunc = (date: Date) => {
+    containerStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
+    textStyle?: TextStyle | undefined;
 };
 
 export interface CustomDayHeaderStylesFuncDateArg {
@@ -92,38 +84,38 @@ export interface CustomDayHeaderStylesFuncDateArg {
     year: number;
 }
 
-export type CustomDayHeaderStylesFunc = (
-    date: CustomDayHeaderStylesFuncDateArg,
-) => {
-    textStyle?: TextStyle;
-    style?: ViewStyle;
+export type CustomDayHeaderStylesFunc = (date: CustomDayHeaderStylesFuncDateArg) => {
+    textStyle?: TextStyle | undefined;
+    style?: ViewStyle | undefined;
 };
 
-export type MomentParsable = MomentInput;
+export type DateParsable = Date | number | string;
 
 export interface MinDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     minDuration: number;
 }
 
 export interface MaxDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     maxDuration: number;
 }
 
 export interface CustomDateStyle {
-    date: MomentParsable;
-    containerStyle?: ViewStyle;
-    style?: ViewStyle;
-    textStyle?: TextStyle;
+    date: DateParsable;
+    containerStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
+    textStyle?: TextStyle | undefined;
 }
 
-export type DateChangedCallback = (date: Moment, type?: 'START_DATE' | 'END_DATE') => void;
-
-export interface SwipeConfig {
-    velocityThreshold?: number;
-    directionalOffsetThreshold?: number;
+export interface HandleOnPressDayArg {
+    day: number;
+    month: number;
+    year: number;
 }
-export type SwipeDirection = 'SWIPE_LEFT' | 'SWIPE_RIGHT' | 'SWIPE_UP' | 'SWIPE_DOWN';
 
-export type SwipeCallback = (swipeDirection: SwipeDirection) => void;
+export type ChangedDate = "START_DATE" | "END_DATE";
+
+export type DateChangedCallback = (date: Date, type: ChangedDate) => void;
+
+export type MonthChangedCallback = (date: Date) => void;

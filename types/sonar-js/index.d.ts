@@ -1,8 +1,3 @@
-// Type definitions for sonar-js 1.1
-// Project: https://github.com/brandonweiss/sonar-js
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Sonar;
 
 /**
@@ -12,7 +7,7 @@ export as namespace Sonar;
  * letting them know they can receive new posts by email if they submit their email address.
  */
 declare class Sonar {
-    withinRangeOfPageBottom?: boolean;
+    withinRangeOfPageBottom?: boolean | undefined;
 
     constructor(window: Window);
 

@@ -1,9 +1,4 @@
-// Type definitions for opentype.js 0.7
-// Project: https://github.com/opentypejs/opentype.js
-// Definitions by: Dan Marshall <https://github.com/danmarshall>
-//                 Edgar Simson <https://github.com/edzis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+/// <reference lib="dom" />
 
 export as namespace opentype;
 
@@ -36,7 +31,7 @@ export class Font {
         x?: number,
         y?: number,
         fontSize?: number,
-        options?: RenderOptions
+        options?: RenderOptions,
     ): void;
     drawMetrics(
         ctx: CanvasRenderingContext2D,
@@ -44,7 +39,7 @@ export class Font {
         x?: number,
         y?: number,
         fontSize?: number,
-        options?: RenderOptions
+        options?: RenderOptions,
     ): void;
     drawPoints(
         ctx: CanvasRenderingContext2D,
@@ -52,7 +47,7 @@ export class Font {
         x?: number,
         y?: number,
         fontSize?: number,
-        options?: RenderOptions
+        options?: RenderOptions,
     ): void;
     forEachGlyph(
         text: string,
@@ -60,38 +55,13 @@ export class Font {
         y: number | undefined,
         fontSize: number | undefined,
         options: RenderOptions | undefined,
-        callback: (
-            glyph: Glyph,
-            x: number,
-            y: number,
-            fontSize: number,
-            options?: RenderOptions
-        ) => void
+        callback: (glyph: Glyph, x: number, y: number, fontSize: number, options?: RenderOptions) => void,
     ): number;
-    getAdvanceWidth(
-        text: string,
-        fontSize?: number,
-        options?: RenderOptions
-    ): number;
+    getAdvanceWidth(text: string, fontSize?: number, options?: RenderOptions): number;
     getEnglishName(name: string): string;
-    getKerningValue(
-        leftGlyph: Glyph | number,
-        rightGlyph: Glyph | number
-    ): number;
-    getPath(
-        text: string,
-        x: number,
-        y: number,
-        fontSize: number,
-        options?: RenderOptions
-    ): Path;
-    getPaths(
-        text: string,
-        x: number,
-        y: number,
-        fontSize: number,
-        options?: RenderOptions
-    ): Path[];
+    getKerningValue(leftGlyph: Glyph | number, rightGlyph: Glyph | number): number;
+    getPath(text: string, x: number, y: number, fontSize: number, options?: RenderOptions): Path;
+    getPaths(text: string, x: number, y: number, fontSize: number, options?: RenderOptions): Path[];
     glyphIndexToName(gid: number): string;
     glyphNames: GlyphNames;
     hasChar(c: string): boolean;
@@ -108,34 +78,36 @@ export class Font {
     validate(): void;
 }
 
-export type FontConstructorOptions = FontConstructorOptionsBase &
-    Partial<FontOptions> & {
+export type FontConstructorOptions =
+    & FontConstructorOptionsBase
+    & Partial<FontOptions>
+    & {
         glyphs: Glyph[];
     };
 
 export interface FontOptions {
-    empty?: boolean;
+    empty?: boolean | undefined;
     familyName: string;
     styleName: string;
-    fullName?: string;
-    postScriptName?: string;
-    designer?: string;
-    designerURL?: string;
-    manufacturer?: string;
-    manufacturerURL?: string;
-    license?: string;
-    licenseURL?: string;
-    version?: string;
-    description?: string;
-    copyright?: string;
-    trademark?: string;
+    fullName?: string | undefined;
+    postScriptName?: string | undefined;
+    designer?: string | undefined;
+    designerURL?: string | undefined;
+    manufacturer?: string | undefined;
+    manufacturerURL?: string | undefined;
+    license?: string | undefined;
+    licenseURL?: string | undefined;
+    version?: string | undefined;
+    description?: string | undefined;
+    copyright?: string | undefined;
+    trademark?: string | undefined;
     unitsPerEm: number;
     ascender: number;
     descender: number;
     createdTimestamp: number;
-    weightClass?: string;
-    widthClass?: string;
-    fsSelection?: string;
+    weightClass?: string | undefined;
+    widthClass?: string | undefined;
+    fsSelection?: string | undefined;
 }
 
 export interface FontConstructorOptionsBase {
@@ -191,67 +163,49 @@ export interface Field {
  ******************************************/
 
 export class Glyph {
-    private index;
-    private xMin;
-    private xMax;
-    private yMin;
-    private yMax;
-    private points;
-
-    name: string;
-    path: Path | (() => Path);
-    unicode: number;
+    index: number;
+    name: string | null;
+    unicode?: number | undefined;
     unicodes: number[];
-    advanceWidth: number;
+    xMin?: number | undefined;
+    xMax?: number | undefined;
+    yMin?: number | undefined;
+    yMax?: number | undefined;
+    advanceWidth?: number | undefined;
+    leftSideBearing?: number | undefined;
+    path: Path;
 
+    private bindConstructorValues(options: GlyphOptions): void;
     constructor(options: GlyphOptions);
 
     addUnicode(unicode: number): void;
-    bindConstructorValues(options: GlyphOptions): void;
-    draw(
-        ctx: CanvasRenderingContext2D,
-        x?: number,
-        y?: number,
-        fontSize?: number,
-        options?: RenderOptions
-    ): void;
+    getBoundingBox(): BoundingBox;
+    getPath(x?: number, y?: number, fontSize?: number, options?: RenderOptions, font?: Font): Path;
+    getContours(): Contour;
+    getMetrics(): Metrics;
+    draw(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
+    drawPoints(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
     drawMetrics(
         ctx: CanvasRenderingContext2D,
         x?: number,
         y?: number,
         fontSize?: number,
-        options?: RenderOptions
-    ): void;
-    drawPoints(
-        ctx: CanvasRenderingContext2D,
-        x?: number,
-        y?: number,
-        fontSize?: number,
-        options?: RenderOptions
-    ): void;
-    getBoundingBox(): BoundingBox;
-    getContours(): Contour;
-    getMetrics(): Metrics;
-    getPath(
-        x?: number,
-        y?: number,
-        fontSize?: number,
         options?: RenderOptions,
-        font?: Font
-    ): Path;
+    ): void;
 }
+
 export interface GlyphOptions {
-    advanceWidth?: number;
-    index?: number;
-    font?: Font;
-    name?: string;
-    path?: Path;
-    unicode?: number;
-    unicodes?: number[];
-    xMax?: number;
-    xMin?: number;
-    yMax?: number;
-    yMin?: number;
+    index?: number | undefined;
+    name?: string | undefined;
+    unicode?: number | undefined;
+    unicodes?: number[] | undefined;
+    xMin?: number | undefined;
+    yMin?: number | undefined;
+    xMax?: number | undefined;
+    yMax?: number | undefined;
+    advanceWidth?: number | undefined;
+    leftSideBearing?: number | undefined;
+    path?: Path | (() => Path) | undefined;
 }
 
 export class GlyphNames {
@@ -264,42 +218,46 @@ export class GlyphNames {
 export class GlyphSet {
     private font;
     private glyphs;
-    constructor(font: Font, glyphs: Glyph[] | Array<(() => Glyph)>);
+    constructor(font: Font, glyphs: Glyph[] | Array<() => Glyph>);
     get(index: number): Glyph;
     length: number;
     push(index: number, loader: () => Glyph): void;
 }
 
 export interface Post {
-    glyphNameIndex?: number[];
+    glyphNameIndex?: number[] | undefined;
     isFixedPitch: number;
     italicAngle: number;
     maxMemType1: number;
     minMemType1: number;
     maxMemType42: number;
     minMemType42: number;
-    names?: string[];
-    numberOfGlyphs?: number;
-    offset?: number[];
+    names?: string[] | undefined;
+    numberOfGlyphs?: number | undefined;
+    offset?: number[] | undefined;
     underlinePosition: number;
     underlineThickness: number;
     version: number;
 }
 
 export interface RenderOptions {
-    script?: string;
-    language?: string;
-    kerning?: boolean;
-    xScale?: number;
-    yScale?: number;
-    features?: {
-        [key: string]: boolean;
-    };
+    script?: string | undefined;
+    language?: string | undefined;
+    kerning?: boolean | undefined;
+    xScale?: number | undefined;
+    yScale?: number | undefined;
+    letterSpacing?: number | undefined;
+    tracking?: number | undefined;
+    features?:
+        | {
+            [key: string]: boolean;
+        }
+        | undefined;
 }
 
 export interface Metrics {
     leftSideBearing: number;
-    rightSideBearing?: number;
+    rightSideBearing?: number | undefined;
     xMax: number;
     xMin: number;
     yMax: number;
@@ -309,7 +267,7 @@ export interface Metrics {
 export interface Contour extends Array<Point> {}
 
 export interface Point {
-    lastPointOfContour?: boolean;
+    lastPointOfContour?: boolean | undefined;
 }
 
 /******************************************
@@ -317,29 +275,15 @@ export interface Point {
  ******************************************/
 
 export class Path {
-    private fill;
-    private stroke;
-    private strokeWidth;
+    fill: string | null;
+    stroke: string | null;
+    strokeWidth: number;
     constructor();
-    bezierCurveTo(
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        x: number,
-        y: number
-    ): void;
+    bezierCurveTo(x1: number, y1: number, x2: number, y2: number, x: number, y: number): void;
     close: () => void;
     closePath(): void;
     commands: PathCommand[];
-    curveTo: (
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        x: number,
-        y: number
-    ) => void;
+    curveTo: (x1: number, y1: number, x2: number, y2: number, x: number, y: number) => void;
     draw(ctx: CanvasRenderingContext2D): void;
     extend(pathOrCommands: Path | PathCommand[] | BoundingBox): void;
     getBoundingBox(): BoundingBox;
@@ -353,15 +297,36 @@ export class Path {
     unitsPerEm: number;
 }
 
-export interface PathCommand {
-    type: string;
-    x?: number;
-    y?: number;
-    x1?: number;
-    y1?: number;
-    x2?: number;
-    y2?: number;
-}
+export type PathCommand =
+    | {
+        type: "M";
+        x: number;
+        y: number;
+    }
+    | {
+        type: "L";
+        x: number;
+        y: number;
+    }
+    | {
+        type: "C";
+        x1: number;
+        y1: number;
+        x2: number;
+        y2: number;
+        x: number;
+        y: number;
+    }
+    | {
+        type: "Q";
+        x1: number;
+        y1: number;
+        x: number;
+        y: number;
+    }
+    | {
+        type: "Z";
+    };
 
 /******************************************
  * UTIL CLASSES
@@ -394,11 +359,14 @@ export type Substitution = (font: Font) => any;
  * STATIC
  ******************************************/
 
-export function load(
-    url: string,
-    callback: (error: any, font?: Font) => void
-): void;
+export function load(url: string, callback: (error: any, font?: Font) => void): void;
+export function load(url: string): Promise<Font>;
 
-export function loadSync(url: string): Font;
+export function loadSync(
+    url: string,
+    opt?: {
+        lowMemory: boolean;
+    },
+): Font;
 
 export function parse(buffer: any): Font;

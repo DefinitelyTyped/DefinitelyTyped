@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace Polyline {
-        interface EventMap<I = Polyline> extends PathOverlay.EventMap<I> { }
+        interface EventMap<I = Polyline> extends PathOverlay.EventMap<I> {}
         interface GetOptionsResult<ExtraData = any> extends ShapeOverlay.GetOptionsResult<ExtraData> {
             /**
              * 线条是否带描边
@@ -48,33 +48,33 @@ declare namespace AMap {
             /**
              * 线条是否带描边
              */
-            isOutline?: boolean;
+            isOutline?: boolean | undefined;
             /**
              * 线条描边颜色
              */
-            outlineColor?: string;
+            outlineColor?: string | undefined;
             /**
              * 是否绘制成大地线
              */
-            geodesic?: boolean;
+            geodesic?: boolean | undefined;
             /**
              * 方向箭头颜色
              */
-            dirColor?: string;
+            dirColor?: string | undefined;
             /**
              * 描边的宽度
              */
-            borderWeight?: number;
+            borderWeight?: number | undefined;
             /**
              * 是否延路径显示方向箭头
              */
-            showDir?: boolean;
+            showDir?: boolean | undefined;
 
             // internal
             /**
              * 折线的节点数组
              */
-            path?: LocationValue[];
+            path?: LocationValue[] | undefined;
         }
     }
 
@@ -89,15 +89,14 @@ declare namespace AMap {
          * @param path 节点数组
          */
         setPath(
-            path: this extends Omit<BezierCurve, keyof Polyline> ?
-                Array<Array<number | string | Array<string | number>>>
-                : LocationValue[]
+            path: this extends Omit<BezierCurve, keyof Polyline>
+                ? Array<Array<number | string | Array<string | number>>>
+                : LocationValue[],
         ): void;
         /**
          * 获取折线路径的节点数组
          */
-        getPath(): this extends Omit<BezierCurve, keyof Polyline> ?
-            Array<LngLat & { controlPoints: LngLat[] }>
+        getPath(): this extends Omit<BezierCurve, keyof Polyline> ? Array<LngLat & { controlPoints: LngLat[] }>
             : LngLat[];
         /**
          * 获取折线的总长度（单位：米）
@@ -107,9 +106,9 @@ declare namespace AMap {
          * 设置线的属性
          * @param options 属性
          */
-        setOptions(options: this extends Omit<BezierCurve, keyof Polyline> ?
-            Partial<BezierCurve.Options<ExtraData>>
-            : Polyline.Options<ExtraData>
+        setOptions(
+            options: this extends Omit<BezierCurve, keyof Polyline> ? Partial<BezierCurve.Options<ExtraData>>
+                : Polyline.Options<ExtraData>,
         ): void;
         /**
          * 获取线的属性

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pidusage",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/soyuka/pidusage"
+    ],
+    "devDependencies": {
+        "@types/pidusage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

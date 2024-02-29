@@ -1,8 +1,3 @@
-// Type definitions for postmate 1.5
-// Project: https://github.com/dollarshaveclub/postmate
-// Definitions by: Wayne Carson <https://github.com/wcarson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This is written in the parent page. Creates an iFrame at the specified url. Initiates a connection with the
  * child. Returns a Promise that signals when the handshake is complete and communication is ready to begin.
@@ -34,7 +29,7 @@ declare namespace Postmate {
         /**
          * An element to append the iFrame to. Default: document.body
          */
-        container?: HTMLElement | null;
+        container?: HTMLElement | null | undefined;
 
         /**
          * An object literal to represent the default values of the child's model
@@ -49,12 +44,12 @@ declare namespace Postmate {
         /**
          * An Array to add classes to the iFrame. Useful for styling
          */
-        classListArray?: string[];
+        classListArray?: string[] | undefined;
 
         /**
          * A name which is used for the name attribute of the created iFrame
          */
-        name?: string;
+        name?: string | undefined;
     }
 
     /**

@@ -1,14 +1,7 @@
-// Type definitions for non-npm package stripe.js 3.0
-// Project: https://stripe.com/
-// Definitions by: Robin van Tienhoven <https://github.com/RobinvanTienhoven>
-//                 Matt Ferderer <https://github.com/mattferderer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-import { StripeElement, ElementCreatorOptions, ElementFactory } from './element';
-import { StripePaymentOptions, StripePaymentRequest } from './payment';
-import { BankTokenData, PiiTokenData, TokenData, IBANTokenData, TokenResult } from './token';
-import { SourceData, SourceResult } from './source';
+import { ElementCreatorOptions, ElementFactory, StripeElement } from "./element";
+import { StripePaymentOptions, StripePaymentRequest } from "./payment";
+import { SourceData, SourceResult } from "./source";
+import { BankTokenData, IBANTokenData, PiiTokenData, TokenData, TokenResult } from "./token";
 
 export interface StripeJS {
     /**
@@ -62,8 +55,8 @@ export interface StripeJS {
      * @return an object containing the generated token or an error
      */
     createToken(element: StripeElement, data?: TokenData | IBANTokenData): Promise<TokenResult>;
-    createToken(type: 'bank_account', data: BankTokenData): Promise<TokenResult>;
-    createToken(type: 'pii', data: PiiTokenData): Promise<TokenResult>;
+    createToken(type: "bank_account", data: BankTokenData): Promise<TokenResult>;
+    createToken(type: "pii", data: PiiTokenData): Promise<TokenResult>;
 
     /**
      *  convert payment information collected by Elements into a Source object that you safely pass
@@ -88,7 +81,7 @@ export interface StripeJS {
      *
      * @return an object containing the generated Source or an error
      */
-    retrieveSource({id, client_secret}: { id: string, client_secret: string }): Promise<SourceResult>;
+    retrieveSource({ id, client_secret }: { id: string; client_secret: string }): Promise<SourceResult>;
 }
 
 export interface StripeConfigOptions {
@@ -107,42 +100,42 @@ export interface StripeError {
     /**
      * For card errors, the ID of the failed charge
      */
-    charge?: string;
+    charge?: string | undefined;
 
     /**
      * For some errors that could be handled programmatically,
      * a short string indicating the error code reported
      */
-    code?: string;
+    code?: string | undefined;
 
     /**
      * For card errors resulting from a card issuer decline,
      * a short string indicating the card issuer’s reason for the decline if they provide one
      */
-    decline_code?: string;
+    decline_code?: string | undefined;
 
     /**
      * A URL to more information about the error code reported
      */
-    doc_url?: string;
+    doc_url?: string | undefined;
 
     /**
      * A human-readable message providing more details about the error.
      * NOTE: For card errors, these messages can be shown to your users
      */
-    message?: string;
+    message?: string | undefined;
 
     /**
      * If the error is parameter-specific, the parameter related to the error
      */
-    param?: string;
+    param?: string | undefined;
 }
 
 export type errorType =
-    'api_connection_error' |
-    'api_error' |
-    'authentication_error' |
-    'card_error' |
-    'idempotency_error' |
-    'invalid_request_error' |
-    'rate_limit_error';
+    | "api_connection_error"
+    | "api_error"
+    | "authentication_error"
+    | "card_error"
+    | "idempotency_error"
+    | "invalid_request_error"
+    | "rate_limit_error";

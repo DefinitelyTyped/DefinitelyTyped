@@ -1,4 +1,4 @@
-import { Literal } from 'rdf-js';
+import { Literal } from "@rdfjs/types";
 
 declare function literal(literal: Literal): string;
 

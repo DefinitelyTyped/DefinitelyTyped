@@ -1,56 +1,66 @@
-// Type definitions for bull-arena 2.6
-// Project: https://github.com/bee-queue/arena/
-// Definitions by: Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { RequestHandler } from "express";
+import { Redis } from "ioredis";
 import { ClientOpts } from "redis";
 
 declare function Arena(
-  options: BullArena.MiddlewareOptions,
-  listenOptions?: BullArena.MiddlewareListenOptions
+    options: BullArena.MiddlewareOptions,
+    listenOptions?: BullArena.MiddlewareListenOptions,
 ): RequestHandler;
 
 declare namespace BullArena {
-  interface MiddlewareOptions {
-    queues: Array<QueueOptions & ConnectionOptions>;
-  }
+    interface MiddlewareOptions {
+        Bull?: QueueConstructor | undefined;
+        Bee?: QueueConstructor | undefined;
+        BullMQ?: QueueConstructor | undefined;
+        queues: Array<QueueOptions & ConnectionOptions>;
+    }
 
-  interface MiddlewareListenOptions {
-    port?: number;
-    host?: string;
-    basePath?: string;
-    disableListen?: boolean;
-    useCdn?: boolean;
-  }
+    interface QueueConstructor {
+        new(queueName: string, opts?: QueueOptions): Queue;
+    }
 
-  interface QueueOptions {
-    name: string;
-    hostId?: string;
-    type?: "bull" | "bee";
-    prefix?: "bull" | "bq" | string;
-  }
+    interface Queue {
+        // Interface of Queue is much larger and
+        // inconsistent between different packages.
+        // We are using an example method here
+        // that is consistent across all providers.
+        getJob(jobId: string): Promise<unknown>;
+    }
 
-  type ConnectionOptions =
-    | PortHostConnectionOptions
-    | RedisUrlConnectionOptions
-    | RedisClientConnectionOptions;
+    interface MiddlewareListenOptions {
+        port?: number | undefined;
+        host?: string | undefined;
+        basePath?: string | undefined;
+        disableListen?: boolean | undefined;
+        useCdn?: boolean | undefined;
+    }
 
-  interface PortHostConnectionOptions {
-    host: string;
-    port?: number;
-    password?: string;
-    db?: string;
-  }
+    interface QueueOptions {
+        name: string;
+        hostId?: string | undefined;
+        type?: "bull" | "bee" | "bullmq" | string | undefined;
+        prefix?: "bull" | "bq" | string | undefined;
+    }
 
-  interface RedisUrlConnectionOptions {
-    url: string;
-  }
+    type ConnectionOptions =
+        | PortHostConnectionOptions
+        | RedisUrlConnectionOptions
+        | RedisClientConnectionOptions;
 
-  interface RedisClientConnectionOptions {
-    redis: ClientOpts;
-  }
+    interface PortHostConnectionOptions {
+        host: string;
+        port?: number | undefined;
+        password?: string | undefined;
+        db?: string | undefined;
+    }
+
+    interface RedisUrlConnectionOptions {
+        url: string;
+    }
+
+    interface RedisClientConnectionOptions {
+        redis: ClientOpts | Redis;
+    }
 }
 
 export = Arena;

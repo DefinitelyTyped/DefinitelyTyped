@@ -1,9 +1,3 @@
-// Type definitions for cookie 0.4
-// Project: https://github.com/jshttp/cookie
-// Definitions by: Pine Mizune <https://github.com/pine>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Basic HTTP cookie parser and serializer for HTTP servers.
  */
@@ -17,7 +11,7 @@ export interface CookieSerializeOptions {
      * domain is set, and most clients will consider the cookie to apply to only
      * the current domain.
      */
-    domain?: string;
+    domain?: string | undefined;
 
     /**
      * Specifies a function that will be used to encode a cookie's value. Since
@@ -41,7 +35,7 @@ export interface CookieSerializeOptions {
      * possible not all clients by obey this, so if both are set, they should
      * point to the same date and time.
      */
-    expires?: Date;
+    expires?: Date | undefined;
     /**
      * Specifies the boolean value for the {@link https://tools.ietf.org/html/rfc6265#section-5.2.6|`HttpOnly` `Set-Cookie` attribute}.
      * When truthy, the `HttpOnly` attribute is set, otherwise it is not. By
@@ -50,7 +44,7 @@ export interface CookieSerializeOptions {
      * *Note* be careful when setting this to true, as compliant clients will
      * not allow client-side JavaScript to see the cookie in `document.cookie`.
      */
-    httpOnly?: boolean;
+    httpOnly?: boolean | undefined;
     /**
      * Specifies the number (in seconds) to be the value for the `Max-Age`
      * `Set-Cookie` attribute. The given number will be converted to an integer
@@ -61,12 +55,37 @@ export interface CookieSerializeOptions {
      * possible not all clients by obey this, so if both are set, they should
      * point to the same date and time.
      */
-    maxAge?: number;
+    maxAge?: number | undefined;
+    /**
+     * Specifies the `boolean` value for the [`Partitioned` `Set-Cookie`](rfc-cutler-httpbis-partitioned-cookies)
+     * attribute. When truthy, the `Partitioned` attribute is set, otherwise it is not. By default, the
+     * `Partitioned` attribute is not set.
+     *
+     * **note** This is an attribute that has not yet been fully standardized, and may change in the future.
+     * This also means many clients may ignore this attribute until they understand it.
+     *
+     * More information about can be found in [the proposal](https://github.com/privacycg/CHIPS)
+     */
+    partitioned?: boolean | undefined;
     /**
      * Specifies the value for the {@link https://tools.ietf.org/html/rfc6265#section-5.2.4|`Path` `Set-Cookie` attribute}.
      * By default, the path is considered the "default path".
      */
-    path?: string;
+    path?: string | undefined;
+    /**
+     * Specifies the `string` to be the value for the [`Priority` `Set-Cookie` attribute][rfc-west-cookie-priority-00-4.1].
+     *
+     * - `'low'` will set the `Priority` attribute to `Low`.
+     * - `'medium'` will set the `Priority` attribute to `Medium`, the default priority when not set.
+     * - `'high'` will set the `Priority` attribute to `High`.
+     *
+     * More information about the different priority levels can be found in
+     * [the specification][rfc-west-cookie-priority-00-4.1].
+     *
+     * **note** This is an attribute that has not yet been fully standardized, and may change in the future.
+     * This also means many clients may ignore this attribute until they understand it.
+     */
+    priority?: "low" | "medium" | "high" | undefined;
     /**
      * Specifies the boolean or string to be the value for the {@link https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7|`SameSite` `Set-Cookie` attribute}.
      *
@@ -84,7 +103,7 @@ export interface CookieSerializeOptions {
      *
      * *note* This is an attribute that has not yet been fully standardized, and may change in the future. This also means many clients may ignore this attribute until they understand it.
      */
-    sameSite?: true | false | 'lax' | 'strict' | 'none';
+    sameSite?: true | false | "lax" | "strict" | "none" | undefined;
     /**
      * Specifies the boolean value for the {@link https://tools.ietf.org/html/rfc6265#section-5.2.5|`Secure` `Set-Cookie` attribute}. When truthy, the
      * `Secure` attribute is set, otherwise it is not. By default, the `Secure` attribute is not set.
@@ -93,7 +112,7 @@ export interface CookieSerializeOptions {
      * not send the cookie back to the server in the future if the browser does
      * not have an HTTPS connection.
      */
-    secure?: boolean;
+    secure?: boolean | undefined;
 }
 
 /**
@@ -122,7 +141,7 @@ export interface CookieParseOptions {
  * @param str the string representing a `Cookie` header value
  * @param [options] object containing parsing options
  */
-export function parse(str: string, options?: CookieParseOptions): { [key: string]: string };
+export function parse(str: string, options?: CookieParseOptions): Record<string, string>;
 
 /**
  * Serialize a cookie name-value pair into a `Set-Cookie` header string.

@@ -1,24 +1,13 @@
-// Type definitions for webpack-plugin-serve 0.10
-// Project: https://github.com/shellscape/webpack-plugin-serve
-// Definitions by: Matheus Gonçalves da Silva <https://github.com/PlayMa256>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="node" />
 
-import { Url } from 'url';
-import { Config as HttpProxyMiddlewareConfig, Proxy } from 'http-proxy-middleware';
-import * as Koa from 'koa';
-import {
-    ServerOptions as Http2ServerOptions,
-    SecureServerOptions as Http2SecureServerOptions,
-} from 'http2';
-import { ServerOptions as HttpsServerOptions } from 'https';
-import { ZlibOptions } from 'zlib';
-import { Compiler } from 'webpack';
-import { Options as HistoryApiFallbackOptions } from 'connect-history-api-fallback';
-import { CompressOptions } from 'koa-compress';
-import { Options as KoaStaticOptions } from 'koa-static';
-import { Options as FastGlobOptions } from 'fast-glob';
+import { Options as HistoryApiFallbackOptions } from "connect-history-api-fallback";
+import type { GlobbyOptions } from "globby";
+import { Options as HttpProxyMiddlewareConfig, RequestHandler as Proxy } from "http-proxy-middleware";
+import { SecureServerOptions as Http2SecureServerOptions, ServerOptions as Http2ServerOptions } from "http2";
+import { ServerOptions as HttpsServerOptions } from "https";
+import * as Koa from "koa";
+import { CompressOptions } from "koa-compress";
+import { Options as KoaStaticOptions } from "koa-static";
 
 export interface Builtins {
     proxy: (args: HttpProxyMiddlewareConfig) => Proxy;
@@ -30,42 +19,44 @@ export interface Builtins {
 }
 
 export interface StaticObject {
-    glob?: string | string[];
-    options?: FastGlobOptions;
+    glob?: string | string[] | undefined;
+    options?: GlobbyOptions | undefined;
 }
 
 export interface WebpackPluginServeOptions {
     client?: {
-        address?: string;
-        retry?: boolean;
-        silent?: boolean;
-    };
-    compress?: boolean;
-    historyFallback?: boolean | HistoryApiFallbackOptions;
-    hmr?: boolean;
-    host?: string | Promise<string>;
-    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions;
-    https?: HttpsServerOptions;
-    liveReload?: boolean;
+        address?: string | undefined;
+        protocol?: "ws" | "wss" | undefined;
+        retry?: boolean | undefined;
+        silent?: boolean | undefined;
+    } | undefined;
+    compress?: boolean | undefined;
+    historyFallback?: boolean | HistoryApiFallbackOptions | undefined;
+    hmr?: boolean | "refresh-on-failure" | undefined;
+    host?: string | Promise<string> | undefined;
+    http2?: boolean | Http2ServerOptions | Http2SecureServerOptions | undefined;
+    https?: HttpsServerOptions | undefined;
+    liveReload?: boolean | undefined;
     log?: {
-        level: 'trace' | 'debug' | 'info' | 'warn' | 'error';
-        timestamp?: boolean;
-    };
-    middleware?: (app: Koa, builtins: Builtins) => void;
+        level: "trace" | "debug" | "info" | "warn" | "error";
+        timestamp?: boolean | undefined;
+    } | undefined;
+    middleware?: ((app: Koa, builtins: Builtins) => void) | undefined;
     open?:
-    | boolean
-    | {
-        wait?: boolean;
-        app?: string | ReadonlyArray<string>;
-    };
-    port?: number | Promise<number>;
-    progress?: boolean | 'minimal';
-    static?: string | string[] | StaticObject;
-    status?: boolean;
-    waitForBuild?: boolean;
+        | boolean
+        | {
+            wait?: boolean | undefined;
+            app?: string | readonly string[] | undefined;
+        }
+        | undefined;
+    port?: number | Promise<number> | undefined;
+    progress?: boolean | "minimal" | undefined;
+    static?: string | string[] | StaticObject | undefined;
+    status?: boolean | undefined;
+    waitForBuild?: boolean | undefined;
 }
 
-export class WebpackPluginServe {
+export class WebpackPluginServe<Compiler> {
     constructor(opts?: WebpackPluginServeOptions);
     attach(): {
         apply(compiler: Compiler): void;

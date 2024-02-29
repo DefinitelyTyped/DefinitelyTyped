@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import Shortcut from '../shortcut';
+import Shortcut from "../shortcut";
 
 declare namespace MenuItemsChoice {
     interface Props {
@@ -33,7 +33,7 @@ declare namespace MenuItemsChoice {
          * Optional keyboard sequence to trigger choice with keyboard shortcut
          * (e.g. `ctrl+s`).
          */
-        shortcut?: Shortcut.ShortcutType;
+        shortcut?: Shortcut.ShortcutType | undefined;
     }
 }
 declare const MenuItemsChoice: ComponentType<MenuItemsChoice.Props>;

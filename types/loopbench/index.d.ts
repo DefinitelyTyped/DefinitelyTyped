@@ -1,9 +1,4 @@
-// Type definitions for loopbench 1.2
-// Project: https://github.com/mcollina/loopbench#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = loopbench;
 
@@ -17,12 +12,12 @@ declare namespace loopbench {
         /**
          * The interval at which the eventLoop should be sampled, defaults to `5`.
          */
-        sampleInterval?: number;
+        sampleInterval?: number | undefined;
         /**
          * The maximum amount of delay that is tolerated before `overLimit` becomes true,
          * and the `load` event is emitted, defaults to `42`.
          */
-        limit?: number;
+        limit?: number | undefined;
     }
 
     /**
@@ -52,18 +47,18 @@ declare namespace loopbench {
          */
         stop(): void;
 
-        addListener(event: 'load' | 'unload', listener: () => void): this;
-        on(event: 'load' | 'unload', listener: () => void): this;
-        once(event: 'load' | 'unload', listener: () => void): this;
-        removeListener(event: 'load' | 'unload', listener: () => void): this;
-        off(event: 'load' | 'unload', listener: () => void): this;
-        removeAllListeners(event?: 'load' | 'unload'): this;
-        listeners(event: 'load' | 'unload'): Array<() => void>;
-        rawListeners(event: 'load' | 'unload'): Array<() => void>;
-        emit(event: 'load' | 'unload'): boolean;
-        listenerCount(type: 'load' | 'unload'): number;
-        prependListener(event: 'load' | 'unload', listener: () => void): this;
-        prependOnceListener(event: 'load' | 'unload', listener: () => void): this;
-        eventNames(): Array<'load' | 'unload'>;
+        addListener(event: "load" | "unload", listener: () => void): this;
+        on(event: "load" | "unload", listener: () => void): this;
+        once(event: "load" | "unload", listener: () => void): this;
+        removeListener(event: "load" | "unload", listener: () => void): this;
+        off(event: "load" | "unload", listener: () => void): this;
+        removeAllListeners(event?: "load" | "unload"): this;
+        listeners(event: "load" | "unload"): Array<() => void>;
+        rawListeners(event: "load" | "unload"): Array<() => void>;
+        emit(event: "load" | "unload"): boolean;
+        listenerCount(type: "load" | "unload"): number;
+        prependListener(event: "load" | "unload", listener: () => void): this;
+        prependOnceListener(event: "load" | "unload", listener: () => void): this;
+        eventNames(): Array<"load" | "unload">;
     }
 }

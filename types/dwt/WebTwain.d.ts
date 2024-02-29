@@ -1,10 +1,11 @@
-import { DynamsoftEnums as Dynamsoft } from "./Dynamsoft.Enum";
-import { WebTwainViewer } from "./WebTwain.Viewer";
 import { BarcodeReader } from "./Addon.BarcodeReader";
+import { Camera } from "./Addon.Camera";
 import { OCR } from "./Addon.OCR";
 import { OCRPro } from "./Addon.OCRPro";
 import { PDF } from "./Addon.PDF";
 import { Webcam } from "./Addon.Webcam";
+import { DynamsoftEnums as Dynamsoft } from "./Dynamsoft.Enum";
+import { WebTwainViewer } from "./WebTwain.Viewer";
 
 export interface WebTwain extends WebTwainViewer {
     /**
@@ -46,4 +47,5 @@ export interface Addon {
     OCRPro: OCRPro;
     PDF: PDF;
     Webcam: Webcam;
+    Camera: Camera;
 }

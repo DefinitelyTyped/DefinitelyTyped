@@ -1,10 +1,4 @@
-// Type definitions for react-adal 0.5
-// Project: https://github.com/salvoravida/react-adal
-// Definitions by: Dimitry Korolev <https://github.com/dkorolev1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export type TokenCallback = (errorDesc: string | null, token: string | null, error: any) => void;
 
@@ -18,75 +12,75 @@ export interface AdalConfig {
     /**
      * Endpoint at which you expect to receive tokens.Defaults to `window.location.href`.
      */
-    redirectUri?: string;
+    redirectUri?: string | undefined;
     /**
      * Azure Active Directory instance. Defaults to `https://login.microsoftonline.com/`.
      */
-    instance?: string;
+    instance?: string | undefined;
     /**
      * Your target tenant. Defaults to `common`.
      */
-    tenant?: string;
+    tenant?: string | undefined;
     /**
      * Query parameters to add to the authentication request.
      */
-    extraQueryParameter?: string;
+    extraQueryParameter?: string | undefined;
     /**
      * Unique identifier used to map the request with the response. Defaults to RFC4122 version 4 guid (128 bits).
      */
-    correlationId?: string;
+    correlationId?: string | undefined;
     /**
      * User defined function of handling the navigation to Azure AD authorization endpoint in case of login.
      */
-    displayCall?: (url: string) => void;
+    displayCall?: ((url: string) => void) | undefined;
     /**
      * Set this to true to enable login in a popup winodow instead of a full redirect. Defaults to `false`.
      */
-    popUp?: boolean;
+    popUp?: boolean | undefined;
     /**
      * Set this to the resource to request on login. Defaults to `clientId`.
      */
-    loginResource?: string;
+    loginResource?: string | undefined;
     /**
      * Set this to redirect the user to a custom login page.
      */
-    localLoginUrl?: string;
+    localLoginUrl?: string | undefined;
     /**
      * Redirects to start page after login. Defaults to `true`.
      */
-    navigateToLoginRequestUrl?: boolean;
+    navigateToLoginRequestUrl?: boolean | undefined;
     /**
      * Set this to redirect the user to a custom logout page.
      */
-    logOutUri?: string;
+    logOutUri?: string | undefined;
     /**
      * Redirects the user to postLogoutRedirectUri after logout. Defaults to `redirectUri`.
      */
-    postLogoutRedirectUri?: string;
+    postLogoutRedirectUri?: string | undefined;
     /**
      * Sets browser storage to either 'localStorage' or sessionStorage'. Defaults to `sessionStorage`.
      */
-    cacheLocation?: 'localStorage' | 'sessionStorage';
+    cacheLocation?: "localStorage" | "sessionStorage" | undefined;
     /**
      * Array of keywords or URIs. Adal will attach a token to outgoing requests that have these keywords or URIs.
      */
-    endpoints?: { [resource: string]: string };
+    endpoints?: { [resource: string]: string } | undefined;
     /**
      * Array of keywords or URIs. Adal will not attach a token to outgoing requests that have these keywords or URIs.
      */
-    anonymousEndpoints?: string[];
+    anonymousEndpoints?: string[] | undefined;
     /**
      * If the cached token is about to be expired in the expireOffsetSeconds (in seconds), Adal will renew the token instead of using the cached token. Defaults to 300 seconds.
      */
-    expireOffsetSeconds?: number;
+    expireOffsetSeconds?: number | undefined;
     /**
      * The number of milliseconds of inactivity before a token renewal response from AAD should be considered timed out. Defaults to 6 seconds.
      */
-    loadFrameTimeout?: number;
+    loadFrameTimeout?: number | undefined;
     /**
      * Callback to be invoked when a token is acquired.
      */
-    callback?: TokenCallback;
+    callback?: TokenCallback | undefined;
 }
 
 export type LoggingLevel = 0 | 1 | 2 | 3;
@@ -114,9 +108,9 @@ export interface RequestInfo {
     valid: boolean;
 }
 
-export type RequestType = 'LOGIN' | 'RENEW_TOKEN' | 'UNKNOWN';
+export type RequestType = "LOGIN" | "RENEW_TOKEN" | "UNKNOWN";
 
-export type ResponseType = 'id_token token' | 'token';
+export type ResponseType = "id_token token" | "token";
 
 export interface UserInfo {
     /**
@@ -130,32 +124,32 @@ export interface UserInfo {
 }
 
 export interface Constants {
-    ACCESS_TOKEN: 'access_token';
-    EXPIRES_IN: 'expires_in';
-    ID_TOKEN: 'id_token';
-    ERROR_DESCRIPTION: 'error_description';
-    SESSION_STATE: 'session_state';
+    ACCESS_TOKEN: "access_token";
+    EXPIRES_IN: "expires_in";
+    ID_TOKEN: "id_token";
+    ERROR_DESCRIPTION: "error_description";
+    SESSION_STATE: "session_state";
     STORAGE: {
-        TOKEN_KEYS: 'adal.token.keys';
-        ACCESS_TOKEN_KEY: 'adal.access.token.key';
-        EXPIRATION_KEY: 'adal.expiration.key';
-        STATE_LOGIN: 'adal.state.login';
-        STATE_RENEW: 'adal.state.renew';
-        NONCE_IDTOKEN: 'adal.nonce.idtoken';
-        SESSION_STATE: 'adal.session.state';
-        USERNAME: 'adal.username';
-        IDTOKEN: 'adal.idtoken';
-        ERROR: 'adal.error';
-        ERROR_DESCRIPTION: 'adal.error.description';
-        LOGIN_REQUEST: 'adal.login.request';
-        LOGIN_ERROR: 'adal.login.error';
-        RENEW_STATUS: 'adal.token.renew.status';
+        TOKEN_KEYS: "adal.token.keys";
+        ACCESS_TOKEN_KEY: "adal.access.token.key";
+        EXPIRATION_KEY: "adal.expiration.key";
+        STATE_LOGIN: "adal.state.login";
+        STATE_RENEW: "adal.state.renew";
+        NONCE_IDTOKEN: "adal.nonce.idtoken";
+        SESSION_STATE: "adal.session.state";
+        USERNAME: "adal.username";
+        IDTOKEN: "adal.idtoken";
+        ERROR: "adal.error";
+        ERROR_DESCRIPTION: "adal.error.description";
+        LOGIN_REQUEST: "adal.login.request";
+        LOGIN_ERROR: "adal.login.error";
+        RENEW_STATUS: "adal.token.renew.status";
     };
-    RESOURCE_DELIMETER: '|';
-    LOADFRAME_TIMEOUT: '6000';
-    TOKEN_RENEW_STATUS_CANCELED: 'Canceled';
-    TOKEN_RENEW_STATUS_COMPLETED: 'Completed';
-    TOKEN_RENEW_STATUS_IN_PROGRESS: 'In Progress';
+    RESOURCE_DELIMETER: "|";
+    LOADFRAME_TIMEOUT: "6000";
+    TOKEN_RENEW_STATUS_CANCELED: "Canceled";
+    TOKEN_RENEW_STATUS_COMPLETED: "Completed";
+    TOKEN_RENEW_STATUS_IN_PROGRESS: "In Progress";
     LOGGING_LEVEL: {
         ERROR: 0;
         WARN: 1;
@@ -163,10 +157,10 @@ export interface Constants {
         VERBOSE: 3;
     };
     LEVEL_STRING_MAP: {
-        0: 'ERROR:';
-        1: 'WARNING:';
-        2: 'INFO:';
-        3: 'VERBOSE:';
+        0: "ERROR:";
+        1: "WARNING:";
+        2: "INFO:";
+        3: "VERBOSE:";
     };
     POPUP_WIDTH: 483;
     POPUP_HEIGHT: 600;
@@ -383,7 +377,7 @@ export function withAdalLogin(
     authContext: AuthenticationContext,
     resource: string,
 ): (
-    wrappedComponent: React.ComponentClass | React.StatelessComponent,
-    renderLoading: () => JSX.Element | null,
-    renderError: (error: any) => JSX.Element | null,
+    wrappedComponent: React.ComponentClass | React.FunctionComponent,
+    renderLoading: () => React.JSX.Element | null,
+    renderError: (error: any) => React.JSX.Element | null,
 ) => React.ComponentClass;

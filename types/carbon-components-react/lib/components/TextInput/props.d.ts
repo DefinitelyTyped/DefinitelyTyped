@@ -1,26 +1,16 @@
 import * as React from "react";
-import {
-    ReactInputAttr,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps,
-    RefForwardingProps,
-    CarbonInputSize
-} from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 
 type ExcludedAttributes = "defaultValue" | "id" | "size" | "value";
-interface TextInputInheritedProps extends
-    Omit<ReactInputAttr, ExcludedAttributes>,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps,
-    RefForwardingProps<HTMLInputElement>
-{ }
 
-export interface TextInputSharedProps extends TextInputInheritedProps {
-    defaultValue?: TextInputSharedProps["value"],
-    helperText?: React.ReactNode,
-    hideLabel?: boolean,
-    labelText: NonNullable<React.ReactNode>,
-    value?: string | number,
+export interface TextInputSharedProps extends Omit<ReactInputAttr, ExcludedAttributes> {
+    defaultValue?: TextInputSharedProps["value"] | undefined;
+    helperText?: React.ReactNode | undefined;
+    hideLabel?: boolean | undefined;
+    id: string;
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
+    labelText: NonNullable<React.ReactNode>;
+    light?: boolean | undefined;
+    value?: string | number | undefined;
 }

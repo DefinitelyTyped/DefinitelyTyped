@@ -1,13 +1,13 @@
 import {
+    ChangeEvent,
     Component,
     ComponentType,
-    ReactElement,
-    ChangeEvent,
     DragEvent,
     FocusEvent,
     InputHTMLAttributes,
+    ReactElement,
     SelectHTMLAttributes,
-    TextareaHTMLAttributes
+    TextareaHTMLAttributes,
 } from "react";
 import { Dispatch } from "redux";
 
@@ -37,15 +37,15 @@ export interface CommonFieldProps extends CommonFieldInputProps {
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
-    format?: Formatter | null;
-    normalize?: Normalizer;
-    props?: P;
-    parse?: Parser;
-    validate?: Validator | Validator[];
-    warn?: Validator | Validator[];
-    forwardRef?: boolean;
-    immutableProps?: string[];
+    component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea" | undefined;
+    format?: Formatter | null | undefined;
+    normalize?: Normalizer | undefined;
+    props?: P | undefined;
+    parse?: Parser | undefined;
+    validate?: Validator | Validator[] | undefined;
+    warn?: Validator | Validator[] | undefined;
+    forwardRef?: boolean | undefined;
+    immutableProps?: string[] | undefined;
 }
 
 export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
@@ -57,11 +57,13 @@ export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
 }
 
 export type GenericFieldHTMLAttributes =
-    InputHTMLAttributes<HTMLInputElement> |
-    SelectHTMLAttributes<HTMLSelectElement> |
-    TextareaHTMLAttributes<HTMLTextAreaElement>;
+    | InputHTMLAttributes<HTMLInputElement>
+    | SelectHTMLAttributes<HTMLSelectElement>
+    | TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<P> {
+export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps>
+    extends Component<P>
+{
     dirty: boolean;
     name: string;
     pristine: boolean;
@@ -75,14 +77,14 @@ export interface WrappedFieldProps {
 }
 
 export interface WrappedFieldInputProps extends CommonFieldInputProps {
-    checked?: boolean;
+    checked?: boolean | undefined;
     value: any;
     onBlur: EventOrValueHandler<FocusEvent<any>>;
     onChange: EventOrValueHandler<ChangeEvent<any>>;
 }
 
 export interface WrappedFieldMetaProps {
-    active?: boolean;
+    active?: boolean | undefined;
     autofilled: boolean;
     asyncValidating: boolean;
     dirty: boolean;

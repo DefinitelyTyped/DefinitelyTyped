@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/steam-user",
+    "version": "4.26.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-steam-user"
+    ],
+    "dependencies": {
+        "@types/bytebuffer": "*",
+        "@types/file-manager": "*",
+        "@types/node": "*",
+        "@types/steamid": "*"
+    },
+    "devDependencies": {
+        "@types/steam-user": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joshua Jeschek",
+            "githubUsername": "joshuajeschek"
+        }
+    ]
+}

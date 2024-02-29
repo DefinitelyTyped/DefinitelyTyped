@@ -1,14 +1,14 @@
 declare namespace AMap {
     namespace MassMarks {
         interface EventMap<I = MassMarks> {
-            click: UIEvent<'click', I>;
-            dblclick: UIEvent<'dblclick', I>;
-            mousedown: UIEvent<'mousedown', I>;
-            mouseup: UIEvent<'mouseup', I>;
-            mouseover: UIEvent<'mouseover', I>;
-            mouseout: UIEvent<'mouseout', I>;
-            touchstart: UIEvent<'touchstart', I>;
-            touchend: UIEvent<'touchend', I>;
+            click: UIEvent<"click", I>;
+            dblclick: UIEvent<"dblclick", I>;
+            mousedown: UIEvent<"mousedown", I>;
+            mouseup: UIEvent<"mouseup", I>;
+            mouseover: UIEvent<"mouseover", I>;
+            mouseout: UIEvent<"mouseout", I>;
+            touchstart: UIEvent<"touchstart", I>;
+            touchend: UIEvent<"touchend", I>;
         }
 
         interface Style {
@@ -27,7 +27,7 @@ declare namespace AMap {
             /**
              * 旋转角度
              */
-            rotation?: number;
+            rotation?: number | undefined;
         }
 
         type UIEvent<N extends string, I> = Event<N, {
@@ -45,15 +45,15 @@ declare namespace AMap {
             /**
              * 显示层级
              */
-            zIndex?: number;
+            zIndex?: number | undefined;
             /**
              * 指针样式
              */
-            cursor?: string;
+            cursor?: string | undefined;
             /**
              * 是否在拖拽缩放过程中实时重绘
              */
-            alwayRender?: boolean;
+            alwayRender?: boolean | undefined;
             /**
              * 设置点的样式
              */
@@ -62,7 +62,7 @@ declare namespace AMap {
         }
         interface Data {
             lnglat: LocationValue;
-            style?: number;
+            style?: number | undefined;
         }
     }
 
@@ -90,7 +90,7 @@ declare namespace AMap {
         /**
          * 获取数据集
          */
-        getData(): Array<Pick<D, Exclude<keyof D, 'lnglat'>> & { lnglat: LngLat }>;
+        getData(): Array<Pick<D, Exclude<keyof D, "lnglat">> & { lnglat: LngLat }>;
         /**
          * 清除海量点
          */

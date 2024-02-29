@@ -1,8 +1,3 @@
-// Type definitions for libqp 1.1
-// Project: https://github.com/nodemailer/libqp
-// Definitions by: Chris. Webster <https://github.com/webstech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform, TransformOptions } from "stream";
 
@@ -17,7 +12,7 @@ export function wrap(str: string, lineLength?: number): string;
 
 /** Extend options to add lineLength */
 export interface EncoderOptions extends TransformOptions {
-    lineLength?: number;
+    lineLength?: number | undefined;
 }
 
 /** Create a transform stream for encoding data to Quoted-Printable encoding */

@@ -5,12 +5,12 @@ google.script.url.getLocation(location => {
 });
 
 google.script.history.push(null);
-google.script.history.push({ timestamp: Date.now() }, { foo: 'bar', fiz: 'baz' });
-google.script.history.push({ timestamp: Date.now() }, { foo: ['bar', 'cat'], fiz: 'baz' }, 'anchor1');
+google.script.history.push({ timestamp: Date.now() }, { foo: "bar", fiz: "baz" });
+google.script.history.push({ timestamp: Date.now() }, { foo: ["bar", "cat"], fiz: "baz" }, "anchor1");
 
 google.script.history.replace(null);
-google.script.history.replace({ timestamp: Date.now() }, { foo: 'bar', fiz: 'baz' });
-google.script.history.replace({ timestamp: Date.now() }, { foo: ['bar', 'cat'], fiz: 'baz' }, 'anchor1');
+google.script.history.replace({ timestamp: Date.now() }, { foo: "bar", fiz: "baz" });
+google.script.history.replace({ timestamp: Date.now() }, { foo: ["bar", "cat"], fiz: "baz" }, "anchor1");
 
 google.script.history.setChangeHandler(e => {
     e.state; // $ExpectType State
@@ -25,9 +25,9 @@ google.script.host.editor.focus();
 google.script.host.setHeight(450);
 google.script.host.setWidth(300);
 
-google.script.run.withSuccessHandler(() => {}); // $ExpectType Runner
-google.script.run.withFailureHandler(() => {}); // $ExpectType Runner
-google.script.run.withUserObject({}); // $ExpectType Runner
+google.script.run.withSuccessHandler(() => {}); // $ExpectType RunnerFunctions & PublicEndpoints
+google.script.run.withFailureHandler(() => {}); // $ExpectType RunnerFunctions & PublicEndpoints
+google.script.run.withUserObject({}); // $ExpectType RunnerFunctions & PublicEndpoints
 
 google.script.run
     .withSuccessHandler(value => {})
@@ -61,8 +61,8 @@ google.script.run.testFunctionWithArray([
         nullValue: null,
         undef: undefined,
         array: [0, true, "", null, undefined, [], {}],
-        object: {}
-    }
+        object: {},
+    },
 ]);
 google.script.run.testFunctionWithObject({
     number: 0,
@@ -71,7 +71,7 @@ google.script.run.testFunctionWithObject({
     nullValue: null,
     undef: undefined,
     array: [0, true, "", null, undefined, [], {}],
-    object: {}
+    object: {},
 });
 google.script.run.testFunctionWithMultipleParameters(
     0,
@@ -86,7 +86,7 @@ google.script.run.testFunctionWithMultipleParameters(
         null,
         undefined,
         [],
-        {}
+        {},
     ],
     {
         number: 0,
@@ -95,9 +95,11 @@ google.script.run.testFunctionWithMultipleParameters(
         nullValue: null,
         undef: undefined,
         array: [0, true, "", null, undefined, [], {}],
-        object: {}
-    }
+        object: {},
+    },
 );
 google.script.run.testFunctionWithForm(new HTMLFormElement());
-google.script.run.testFunctionWithDateError(new Date()); // $ExpectError
-google.script.run.testFunctionWithFunctionError(() => {}); // $ExpectError
+// @ts-expect-error
+google.script.run.testFunctionWithDateError(new Date());
+// @ts-expect-error
+google.script.run.testFunctionWithFunctionError(() => {});

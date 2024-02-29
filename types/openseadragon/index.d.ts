@@ -1,14 +1,3 @@
-// Type definitions for OpenSeadragon 2.4
-// Project: https://openseadragon.github.io/
-// Definitions by:  Álvaro Martínez <https://github.com/alvaromartmart>
-//                  RobertYost <https://github.com/RobertYost>
-//                  Jasper Staab <https://github.com/jstaab>
-//                  Kristin Ruben <https://github.com/kristinruben>
-//                  Geoff Harper <https://github.com/geoff-harper>
-//                  Justin <https://github.com/justincy>
-//                  Peter Blazejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/alvaromartmart/types-openseadragon
-// TypeScript Version: 3.1
 declare namespace OpenSeadragon {
     class Browser {
         vendor: BROWSERS;
@@ -23,6 +12,8 @@ declare namespace OpenSeadragon {
         SAFARI = 3,
         CHROME = 4,
         OPERA = 5,
+        EDGE = 6,
+        CHROMEEDGE = 7,
     }
 
     enum ButtonState {
@@ -101,7 +92,7 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: (event: Event) => void,
-        useCapture?: boolean,
+        useCapture?: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
     ): void;
 
     function cancelEvent(event?: OSDEvent<any>): void;
@@ -111,6 +102,8 @@ declare namespace OpenSeadragon {
     function createCallback(object: object, method: (...args: any[]) => void, ...args: any[]): (...args: any[]) => void;
 
     function delegate(object: object, method: (...args: any[]) => void): (object: any, ...args: any[]) => void; // REVIEW: unsure of return type
+
+    function eventIsCanceled(event: OSDEvent<any>): boolean;
 
     function extend(): any;
 
@@ -124,7 +117,9 @@ declare namespace OpenSeadragon {
 
     function getElementSize(element: Element | string): Point;
 
-    function getElementStyle(element: Element | string): any; // CSSStyle?
+    function getElementStyle(element: Element | string): CSSStyleDeclaration;
+
+    function getViewer(element: Element): Viewer;
 
     function getMousePosition(event?: OSDEvent<any>): Point;
 
@@ -148,7 +143,7 @@ declare namespace OpenSeadragon {
         error: (obj: object) => void;
         headers: object;
         responseType: string;
-        withCredentials?: boolean;
+        withCredentials?: boolean | undefined;
     }): XMLHttpRequest;
 
     function makeCenteredNode(element: Element | string): Element;
@@ -156,6 +151,10 @@ declare namespace OpenSeadragon {
     function makeNeutralElement(tagName: string): Element;
 
     function makeTransparentImage(src: string): Element;
+
+    function normalizeEventListenerOptions(
+        options: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
+    ): string;
 
     function now(): number;
 
@@ -173,27 +172,41 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: EventHandler<any>,
-        useCapture?: boolean,
+        useCapture?: boolean | { capture?: boolean },
     ): void;
 
     function setElementOpacity(element: Element | string, opacity: number, usesAlpha?: boolean): void;
 
+    function setElementPointerEvents(element: Element | string, value: string): void;
+
+    function setElementPointerEventsNone(element: Element | string): void;
+
     function setElementTouchActionNone(element: Element | string): void;
+
+    function setImageFormatsSupported(formats: {
+        bmp?: boolean;
+        jpeg?: boolean;
+        jpg?: boolean;
+        png?: boolean;
+        tif?: boolean;
+        wdp?: boolean;
+    }): void;
 
     function setPageScroll(point: Point): void;
 
-    function setString(property: string, value: any): void;
+    function setString(property: string, value: string): void;
 
     function stopEvent(event?: OSDEvent<any>): void;
 
     interface GestureSettings {
-        scrollToZoom?: boolean;
-        clickToZoom?: boolean;
-        dblClickToZoom?: boolean;
-        pinchToZoom?: boolean;
-        flickEnabled?: boolean;
-        flickMinSpeed?: number;
-        flickMomentum?: number;
+        scrollToZoom?: boolean | undefined;
+        clickToZoom?: boolean | undefined;
+        dblClickToZoom?: boolean | undefined;
+        dragToPan?: boolean | undefined;
+        pinchToZoom?: boolean | undefined;
+        flickEnabled?: boolean | undefined;
+        flickMinSpeed?: number | undefined;
+        flickMomentum?: number | undefined;
     }
 
     interface NavImagesValues {
@@ -215,180 +228,180 @@ declare namespace OpenSeadragon {
     }
 
     interface Options {
-        id?: string;
-        element?: HTMLElement;
+        id?: string | undefined;
+        element?: HTMLElement | undefined;
         tileSources?:
             | string
-            | string[]
-            | TileSource[]
             | TileSourceOptions
             | {
-                  type: string;
-                  levels: Array<{
-                      url: string;
-                      height: number;
-                      width: number;
-                  }>;
-              }
+                type: string;
+                levels?: Array<{
+                    url: string;
+                    height: number;
+                    width: number;
+                }>;
+            }
             | {
-                  Image: {
-                      xmlns?: string;
-                      Url: string;
-                      Format: string;
-                      Overlap: string;
-                      TileSize: string;
-                      Size: {
-                          Width: string;
-                          Height: string;
-                      };
-                  };
-              };
-        tabIndex?: number;
-        overlays?: any[];
-        prefixUrl?: string;
-        navImages?: NavImages;
-        debugMode?: boolean;
-        debugGridColor?: string[];
-        blendTime?: number;
-        alwaysBlend?: boolean;
-        autoHideControls?: boolean;
-        immediateRender?: boolean;
-        defaultZoomLevel?: number;
-        opacity?: number;
-        preload?: boolean;
+                Image: {
+                    xmlns?: string | undefined;
+                    Url: string;
+                    Format: string;
+                    Overlap: string;
+                    TileSize: string;
+                    Size: {
+                        Width: string;
+                        Height: string;
+                    };
+                };
+            }
+            | Array<string | TileSource | { type: "openstreetmaps" }>;
+        tabIndex?: number | undefined;
+        overlays?: any[] | undefined;
+        prefixUrl?: string | undefined;
+        navImages?: NavImages | undefined;
+        debugMode?: boolean | undefined;
+        debugGridColor?: string[] | undefined;
+        blendTime?: number | undefined;
+        alwaysBlend?: boolean | undefined;
+        autoHideControls?: boolean | undefined;
+        immediateRender?: boolean | undefined;
+        defaultZoomLevel?: number | undefined;
+        opacity?: number | undefined;
+        preload?: boolean | undefined;
         compositeOperation?:
-            | 'source-over'
-            | 'source-atop'
-            | 'source-in'
-            | 'source-out'
-            | 'destination-over'
-            | 'destination-atop'
-            | 'destination-in'
-            | 'destination-out'
-            | 'lighter'
-            | 'copy'
-            | 'xor';
-        placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
-        degrees?: number;
-        flipped?: boolean;
-        minZoomLevel?: number;
-        maxZoomLevel?: number;
-        homeFillsViewer?: boolean;
-        panHorizontal?: boolean;
-        panVertical?: boolean;
-        constrainDuringPan?: boolean;
-        wrapHorizontal?: boolean;
-        wrapVertical?: boolean;
-        minZoomImageRatio?: number;
-        maxZoomPixelRatio?: number;
-        smoothTileEdgesMinZoom?: number;
-        iOSDevice?: boolean;
-        autoResize?: boolean;
-        preserveImageSizeOnResize?: boolean;
-        minScrollDeltaTime?: number;
-        pixelsPerWheelLine?: number;
-        pixelsPerArrowPress?: number;
-        visibilityRatio?: number;
-        viewportMargins?: object;
-        imageLoaderLimit?: number;
-        clickTimeThreshold?: number;
-        clickDistThreshold?: number;
-        dblClickTimeThreshold?: number;
-        dblClickDistThreshold?: number;
-        springStiffness?: number;
-        animationTime?: number;
-        gestureSettingsMouse?: GestureSettings;
-        gestureSettingsTouch?: GestureSettings;
-        gestureSettingsPen?: GestureSettings;
-        gestureSettingsUnknown?: GestureSettings;
-        zoomPerClick?: number;
-        zoomPerScroll?: number;
-        zoomPerSecond?: number;
-        showNavigator?: boolean;
-        navigatorId?: string;
-        navigatorPosition?: 'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_LEFT' | 'BOTTOM_RIGHT' | 'ABSOLUTE';
-        navigatorSizeRatio?: number;
-        navigatorMaintainSizeRatio?: boolean;
-        navigatorTop?: number | string;
-        navigatorLeft?: number | string;
-        navigatorHeight?: number | string;
-        navigatorWidth?: number | string;
-        navigatorAutoResize?: boolean;
-        navigatorAutoFade?: boolean;
-        navigatorRotate?: boolean;
-        navigatorBackground?: string;
-        navigatorOpacity?: number;
-        navigatorBorderColor?: string;
-        navigatorDisplayRegionColor?: string;
-        controlsFadeDelay?: number;
-        controlsFadeLength?: number;
-        maxImageCacheCount?: number;
-        timeout?: number;
-        useCanvas?: boolean;
-        minPixelRatio?: number;
-        mouseNavEnabled?: number;
-        showNavigationControl?: boolean;
-        navigationControlAnchor?: ControlAnchor;
-        showZoomControl?: boolean;
-        showHomeControl?: boolean;
-        showFullPageControl?: boolean;
-        showRotationControl?: boolean;
-        showFlipControl?: boolean;
-        showSequenceControl?: boolean;
-        sequenceControlAnchor?: ControlAnchor;
-        navPrevNextWrap?: boolean;
-        zoomInButton?: string;
-        zoomOutButton?: string;
-        homeButton?: string;
-        fullPageButton?: string;
-        rotateLeftButton?: string;
-        rotateRightButton?: string;
-        previousButton?: string;
-        nextButton?: string;
-        sequenceMode?: boolean;
+            | "source-over"
+            | "source-atop"
+            | "source-in"
+            | "source-out"
+            | "destination-over"
+            | "destination-atop"
+            | "destination-in"
+            | "destination-out"
+            | "lighter"
+            | "copy"
+            | "xor"
+            | undefined;
+        placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
+        degrees?: number | undefined;
+        flipped?: boolean | undefined;
+        minZoomLevel?: number | undefined;
+        maxZoomLevel?: number | undefined;
+        homeFillsViewer?: boolean | undefined;
+        panHorizontal?: boolean | undefined;
+        panVertical?: boolean | undefined;
+        constrainDuringPan?: boolean | undefined;
+        wrapHorizontal?: boolean | undefined;
+        wrapVertical?: boolean | undefined;
+        minZoomImageRatio?: number | undefined;
+        maxZoomPixelRatio?: number | undefined;
+        smoothTileEdgesMinZoom?: number | undefined;
+        iOSDevice?: boolean | undefined;
+        autoResize?: boolean | undefined;
+        preserveImageSizeOnResize?: boolean | undefined;
+        minScrollDeltaTime?: number | undefined;
+        pixelsPerWheelLine?: number | undefined;
+        pixelsPerArrowPress?: number | undefined;
+        visibilityRatio?: number | undefined;
+        viewportMargins?: object | undefined;
+        imageLoaderLimit?: number | undefined;
+        clickTimeThreshold?: number | undefined;
+        clickDistThreshold?: number | undefined;
+        dblClickTimeThreshold?: number | undefined;
+        dblClickDistThreshold?: number | undefined;
+        springStiffness?: number | undefined;
+        animationTime?: number | undefined;
+        gestureSettingsMouse?: GestureSettings | undefined;
+        gestureSettingsTouch?: GestureSettings | undefined;
+        gestureSettingsPen?: GestureSettings | undefined;
+        gestureSettingsUnknown?: GestureSettings | undefined;
+        zoomPerClick?: number | undefined;
+        zoomPerScroll?: number | undefined;
+        zoomPerSecond?: number | undefined;
+        showNavigator?: boolean | undefined;
+        navigatorId?: string | undefined;
+        navigatorPosition?: "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "ABSOLUTE" | undefined;
+        navigatorSizeRatio?: number | undefined;
+        navigatorMaintainSizeRatio?: boolean | undefined;
+        navigatorTop?: number | string | undefined;
+        navigatorLeft?: number | string | undefined;
+        navigatorHeight?: number | string | undefined;
+        navigatorWidth?: number | string | undefined;
+        navigatorAutoResize?: boolean | undefined;
+        navigatorAutoFade?: boolean | undefined;
+        navigatorRotate?: boolean | undefined;
+        navigatorBackground?: string | undefined;
+        navigatorOpacity?: number | undefined;
+        navigatorBorderColor?: string | undefined;
+        navigatorDisplayRegionColor?: string | undefined;
+        controlsFadeDelay?: number | undefined;
+        controlsFadeLength?: number | undefined;
+        maxImageCacheCount?: number | undefined;
+        timeout?: number | undefined;
+        useCanvas?: boolean | undefined;
+        minPixelRatio?: number | undefined;
+        mouseNavEnabled?: boolean | undefined;
+        showNavigationControl?: boolean | undefined;
+        navigationControlAnchor?: ControlAnchor | undefined;
+        showZoomControl?: boolean | undefined;
+        showHomeControl?: boolean | undefined;
+        showFullPageControl?: boolean | undefined;
+        showRotationControl?: boolean | undefined;
+        showFlipControl?: boolean | undefined;
+        showSequenceControl?: boolean | undefined;
+        sequenceControlAnchor?: ControlAnchor | undefined;
+        navPrevNextWrap?: boolean | undefined;
+        zoomInButton?: string | undefined;
+        zoomOutButton?: string | undefined;
+        homeButton?: string | undefined;
+        fullPageButton?: string | undefined;
+        rotateLeftButton?: string | undefined;
+        rotateRightButton?: string | undefined;
+        previousButton?: string | undefined;
+        nextButton?: string | undefined;
+        sequenceMode?: boolean | undefined;
         /**
          * If sequenceMode is true, display this page initially.
          * @default 0
          */
-        initialPage?: number;
-        preserveViewport?: boolean;
-        preserveOverlays?: boolean;
-        showReferenceStrip?: boolean;
-        referenceStripScroll?: string;
-        referenceStripElement?: HTMLElement;
-        referenceStripHeight?: number;
-        referenceStripWidth?: number;
-        referenceStripPosition?: string;
-        referenceStripSizeRatio?: number;
-        collectionMode?: boolean;
-        collectionRows?: number;
-        collectionColumns?: number;
-        collectionLayout?: 'horizontal' | 'vertical';
-        collectionTileSize?: number;
-        collectionTileMargin?: number;
-        crossOriginPolicy?: 'Anonymous' | 'use-credentials' | false;
-        ajaxWithCredentials?: boolean;
-        loadTilesWithAjax?: boolean;
-        ajaxHeaders?: object;
-        imageSmoothingEnabled?: boolean;
-        rotationIncrement?: number;
+        initialPage?: number | undefined;
+        preserveViewport?: boolean | undefined;
+        preserveOverlays?: boolean | undefined;
+        showReferenceStrip?: boolean | undefined;
+        referenceStripScroll?: string | undefined;
+        referenceStripElement?: HTMLElement | undefined;
+        referenceStripHeight?: number | undefined;
+        referenceStripWidth?: number | undefined;
+        referenceStripPosition?: string | undefined;
+        referenceStripSizeRatio?: number | undefined;
+        collectionMode?: boolean | undefined;
+        collectionRows?: number | undefined;
+        collectionColumns?: number | undefined;
+        collectionLayout?: "horizontal" | "vertical" | undefined;
+        collectionTileSize?: number | undefined;
+        collectionTileMargin?: number | undefined;
+        crossOriginPolicy?: "Anonymous" | "use-credentials" | false | undefined;
+        ajaxWithCredentials?: boolean | undefined;
+        loadTilesWithAjax?: boolean | undefined;
+        ajaxHeaders?: object | undefined;
+        imageSmoothingEnabled?: boolean | undefined;
+        rotationIncrement?: number | undefined;
     }
 
     interface TileSourceOptions {
-        url?: string;
-        referenceStripThumbnailUrl?: string;
-        success?: (event: Event) => void;
-        ajaxWithCredentials?: boolean;
-        ajaxHeaders?: object;
-        width?: number;
-        height?: number;
-        tileSize?: number;
-        tileWidth?: number;
-        tileHeight?: number;
-        tileOverlap?: number;
-        minLevel?: number;
-        maxLevel?: number;
-        getTileUrl?: (l: number, x: number, y: number) => string;
+        url?: string | undefined;
+        referenceStripThumbnailUrl?: string | undefined;
+        success?: ((event: Event) => void) | undefined;
+        ajaxWithCredentials?: boolean | undefined;
+        ajaxHeaders?: object | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        tileSize?: number | undefined;
+        tileWidth?: number | undefined;
+        tileHeight?: number | undefined;
+        tileOverlap?: number | undefined;
+        minLevel?: number | undefined;
+        maxLevel?: number | undefined;
+        getTileUrl?: ((l: number, x: number, y: number) => string) | undefined;
     }
 
     class Button extends EventSource {
@@ -399,21 +412,22 @@ declare namespace OpenSeadragon {
         tracker: MouseTracker;
 
         constructor(options: {
-            element?: Element;
-            tooltip?: string;
-            srcRest?: string;
-            srcGroup?: string;
-            srcHover?: string;
-            srcDown?: string;
-            fadeDelay?: number;
-            fadeLength?: number;
-            onPress?: EventHandler<ButtonEvent>;
-            onRelease?: EventHandler<ButtonEvent>;
-            onClick?: EventHandler<ButtonEvent>;
-            onEnter?: EventHandler<ButtonEvent>;
-            onExit?: EventHandler<ButtonEvent>;
-            onFocus?: EventHandler<ButtonEvent>;
-            onBlur?: EventHandler<ButtonEvent>;
+            userData?: string | undefined;
+            element?: Element | undefined;
+            tooltip?: string | undefined;
+            srcRest?: string | undefined;
+            srcGroup?: string | undefined;
+            srcHover?: string | undefined;
+            srcDown?: string | undefined;
+            fadeDelay?: number | undefined;
+            fadeLength?: number | undefined;
+            onPress?: EventHandler<ButtonEvent> | undefined;
+            onRelease?: EventHandler<ButtonEvent> | undefined;
+            onClick?: EventHandler<ButtonEvent> | undefined;
+            onEnter?: EventHandler<ButtonEvent> | undefined;
+            onExit?: EventHandler<ButtonEvent> | undefined;
+            onFocus?: EventHandler<ButtonEvent> | undefined;
+            onBlur?: EventHandler<ButtonEvent> | undefined;
         });
 
         addHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>, userData?: object): void;
@@ -429,6 +443,9 @@ declare namespace OpenSeadragon {
         raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
         removeAllHandlers(eventName: ButtonEventName): void;
         removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
+        notifyGroupEnter(): void;
+        notifyGroupExit(): void;
+        destroy(): void;
     }
 
     class ButtonGroup {
@@ -436,13 +453,15 @@ declare namespace OpenSeadragon {
         element: Element;
         tracker: MouseTracker;
 
-        constructor(options: { buttons: Button[]; element?: Element });
+        constructor(options: { buttons: Button[]; element?: Element | undefined });
+
+        destroy(): void;
     }
 
     interface TControlOptions {
-        anchor?: ControlAnchor;
-        attachToViewer?: boolean;
-        autoFade?: boolean;
+        anchor?: ControlAnchor | undefined;
+        attachToViewer?: boolean | undefined;
+        autoFade?: boolean | undefined;
     }
 
     class Control {
@@ -463,7 +482,7 @@ declare namespace OpenSeadragon {
     class ControlDock {
         constructor(options: object);
 
-        addControl(element: Control, controlOptions: TControlOptions): void;
+        addControl(element: string | Element, controlOptions: TControlOptions): void;
         areControlsEnabled(): boolean;
         clearControls(): ControlDock;
         removeControl(element: Control): ControlDock;
@@ -483,14 +502,19 @@ declare namespace OpenSeadragon {
         context: CanvasRenderingContext2D | null;
         // element : Element; // Deprecated
 
-        constructor(options: { viewer: Viewer; viewport: Viewport; element: Element; debugGridColor?: string });
+        constructor(options: {
+            viewer: Viewer;
+            viewport: Viewport;
+            element: Element;
+            debugGridColor?: string | undefined;
+        });
 
         blendSketch(options: {
             opacity: number;
-            scale?: number;
-            translate?: Point;
-            compositeOperation?: string;
-            bounds?: Rect;
+            scale?: number | undefined;
+            translate?: Point | undefined;
+            compositeOperation?: string | undefined;
+            bounds?: Rect | undefined;
         }): void;
         canRotate(): boolean;
         clear(): void;
@@ -526,20 +550,20 @@ declare namespace OpenSeadragon {
     }
 
     class IIIFTileSource extends TileSource {
-        constructor(options: TileSourceOptions & { tileFormat?: string });
+        constructor(options: TileSourceOptions & { tileFormat?: string | undefined });
     }
 
     class ImageLoader {
-        constructor(options: { jobLimit?: number; timeout?: number });
+        constructor(options: { jobLimit?: number | undefined; timeout?: number | undefined });
 
         addJob(options: {
-            src?: string;
-            loadWithAjax?: string;
-            ajaxHeaders?: string;
-            crossOriginPolicy?: string | boolean;
-            ajaxWithCredentials?: boolean;
-            callback?: () => void;
-            abort?: () => void;
+            src?: string | undefined;
+            loadWithAjax?: string | undefined;
+            ajaxHeaders?: string | undefined;
+            crossOriginPolicy?: string | boolean | undefined;
+            ajaxWithCredentials?: boolean | undefined;
+            callback?: (() => void) | undefined;
+            abort?: (() => void) | undefined;
         }): void;
         clear(): void;
     }
@@ -547,11 +571,12 @@ declare namespace OpenSeadragon {
     class ImageTileSource extends TileSource {
         constructor(options: {
             url: string;
-            buildPyramid?: boolean;
-            crossOriginPolicy?: string | boolean;
-            ajaxWithCredentials?: string | boolean;
-            useCanvas?: boolean;
+            buildPyramid?: boolean | undefined;
+            crossOriginPolicy?: string | boolean | undefined;
+            ajaxWithCredentials?: string | boolean | undefined;
+            useCanvas?: boolean | undefined;
         });
+        destroy(): void;
     }
 
     class LegacyTileSource extends TileSource {
@@ -566,32 +591,41 @@ declare namespace OpenSeadragon {
 
     interface MouseTrackerOptions {
         element: Element | string;
-        startDisabled?: boolean;
-        clickTimeThreshold?: number;
-        clickDistThreshold?: number;
-        dblClickTimeThreshold?: number;
-        dblClickDistThreshold?: number;
-        stopDelay?: number;
-        enterHandler?: EventHandler<OSDEvent<any>>;
-        exitHandler?: EventHandler<OSDEvent<any>>;
-        pressHandler?: EventHandler<OSDEvent<any>>;
-        nonPrimaryPressHandler?: EventHandler<OSDEvent<any>>;
-        releaseHandler?: EventHandler<OSDEvent<any>>;
-        nonPrimaryReleaseHandler?: EventHandler<OSDEvent<any>>;
-        moveHandler?: EventHandler<OSDEvent<any>>;
-        scrollHandler?: EventHandler<OSDEvent<any>>;
-        clickHandler?: EventHandler<OSDEvent<any>>;
-        dblClickHandler?: EventHandler<OSDEvent<any>>;
-        dragHandler?: EventHandler<OSDEvent<any>>;
-        dragEndHandler?: EventHandler<OSDEvent<any>>;
-        pinchHandler?: EventHandler<OSDEvent<any>>;
-        keyDownHandler?: EventHandler<OSDEvent<any>>;
-        keyUpHandler?: EventHandler<OSDEvent<any>>;
-        keyHandler?: EventHandler<OSDEvent<any>>;
-        focusHandler?: EventHandler<OSDEvent<any>>;
-        blurHandler?: EventHandler<OSDEvent<any>>;
-        userData?: object;
+        startDisabled?: boolean | undefined;
+        clickTimeThreshold?: number | undefined;
+        clickDistThreshold?: number | undefined;
+        dblClickTimeThreshold?: number | undefined;
+        dblClickDistThreshold?: number | undefined;
+        stopDelay?: number | undefined;
+        preProcessEventHandler?: PreprocessEventHandler | undefined;
+        contextMenuHandler?: EventHandler<ContextMenuMouseTrackerEvent> | undefined;
+        enterHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        /**
+         * @deprecated use leaveHandler instead
+         */
+        exitHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        leaveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        overHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        outHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pressHandler?: EventHandler<PressMouseTrackerEvent> | undefined;
+        nonPrimaryPressHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        releaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        nonPrimaryReleaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        moveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        scrollHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        clickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dblClickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragEndHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pinchHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyDownHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyUpHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        focusHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        blurHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        userData?: object | undefined;
     }
+
     class MouseTracker {
         clickTimeThreshold: number;
         clickDistThreshold: number;
@@ -601,30 +635,75 @@ declare namespace OpenSeadragon {
 
         constructor(options: MouseTrackerOptions);
 
-        blurHandler: (event: OSDEvent<any>) => void;
-        clickHandler: (event: OSDEvent<any>) => void;
-        dblClickHandler: (event: OSDEvent<any>) => void;
+        blurHandler: EventHandler<MouseTrackerEvent>;
+        clickHandler: EventHandler<MouseTrackerEvent>;
+        contextMenuHandler: EventHandler<ContextMenuMouseTrackerEvent>;
+        dblClickHandler: EventHandler<MouseTrackerEvent>;
         destroy(): void;
-        dragEndHandler: (event: OSDEvent<any>) => void;
-        dragHandler: (event: OSDEvent<any>) => void;
-        enterHandler: (event: OSDEvent<any>) => void;
-        exitHandler: (event: OSDEvent<any>) => void;
-        focusHandler: (event: OSDEvent<any>) => void;
+        dragEndHandler: EventHandler<MouseTrackerEvent>;
+        dragHandler: EventHandler<MouseTrackerEvent>;
+        enterHandler: EventHandler<MouseTrackerEvent>;
+        /**
+         * @deprecated use leaveHandler instead
+         */
+        exitHandler: EventHandler<MouseTrackerEvent>;
+        leaveHandler: EventHandler<MouseTrackerEvent>;
+        focusHandler: EventHandler<MouseTrackerEvent>;
         getActivePointerCount(): number;
         getActivePointersListByType(type: string): GesturePointList;
-        getActivePointersListsExceptType(type: string): GesturePointList[];
-        keyDownHandler: (event: OSDEvent<any>) => void;
-        keyHandler: (event: OSDEvent<any>) => void;
-        keyUpHandler: (event: OSDEvent<any>) => void;
-        moveHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryPressHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryReleaseHandler: (event: OSDEvent<any>) => void;
-        pinchHandler: (event: OSDEvent<any>) => void;
-        pressHandler: (event: OSDEvent<any>) => void;
-        releaseHandler: (event: OSDEvent<any>) => void;
-        scrollHandler: (event: OSDEvent<any>) => void;
-        setTracking(track: boolean): any;
-        stopHandler: (event: OSDEvent<any>) => void;
+        keyDownHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyUpHandler: EventHandler<KeyMouseTrackerEvent>;
+        moveHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryPressHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryReleaseHandler: EventHandler<MouseTrackerEvent>;
+        overHandler: EventHandler<MouseTrackerEvent>;
+        outHandler: EventHandler<MouseTrackerEvent>;
+        pinchHandler: EventHandler<MouseTrackerEvent>;
+        pressHandler: EventHandler<PressMouseTrackerEvent>;
+        preProcessEventHandler: PreprocessEventHandler;
+        releaseHandler: EventHandler<MouseTrackerEvent>;
+        scrollHandler: EventHandler<MouseTrackerEvent>;
+        setTracking(track: boolean): MouseTracker;
+        stopHandler: EventHandler<MouseTrackerEvent>;
+    }
+
+    interface EventProcessInfo {
+        eventSource: MouseTracker;
+        originalEvent: Event;
+        originalTarget: Element;
+        eventPhase: EventPhase;
+        eventType:
+            | "keydown"
+            | "keyup"
+            | "keypress"
+            | "focus"
+            | "blur"
+            | "contextmenu"
+            | "gotpointercapture"
+            | "lostpointercapture"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointerover"
+            | "pointerout"
+            | "pointerdown"
+            | "pointerup"
+            | "pointermove"
+            | "pointercancel"
+            | "wheel"
+            | "click"
+            | "dblclick";
+        pointerType: string;
+        isEmulated: boolean;
+        isStoppable: boolean;
+        isCancelable: boolean;
+        defaultPrevented: boolean;
+        preventDefault: boolean;
+        preventGesture: boolean;
+        stopPropagation: boolean;
+        shouldCapture: boolean;
+        shouldReleaseCapture: boolean;
+        userData: unknown;
     }
 
     interface GesturePoint {
@@ -681,12 +760,12 @@ declare namespace OpenSeadragon {
     interface OverlayOptions {
         element: HTMLElement;
         location: Point | Rect;
-        placement?: Placement;
-        onDraw?: OnDrawCallback;
-        checkResize?: boolean;
-        width?: number;
-        height?: number;
-        rotationMode?: boolean;
+        placement?: Placement | undefined;
+        onDraw?: OnDrawCallback | undefined;
+        checkResize?: boolean | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        rotationMode?: OverlayRotationMode | undefined;
     }
 
     class Overlay {
@@ -763,8 +842,8 @@ declare namespace OpenSeadragon {
         constructor(options: {
             springStiffness: number;
             animationTime: number;
-            initial?: number;
-            exponential?: boolean;
+            initial?: number | undefined;
+            exponential?: boolean | undefined;
         });
         isAtTargetValue(): boolean;
         resetTo(target: number): void;
@@ -782,6 +861,7 @@ declare namespace OpenSeadragon {
         context2D: CanvasRenderingContext2D;
         element: Element;
         exists: boolean;
+        flipped: boolean;
         image: object;
         imgElement: HTMLImageElement;
         isBottomMost: boolean;
@@ -827,12 +907,12 @@ declare namespace OpenSeadragon {
     }
 
     class TileCache {
-        constructor(options: { maxImageCacheCount?: number });
+        constructor(options: { maxImageCacheCount?: number | undefined });
         cacheTile(options: {
             tile: Tile;
             image: HTMLImageElement; // TODO: check type
             tiledImage: TiledImage;
-            cutoff?: number;
+            cutoff?: number | undefined;
         }): void;
         clearTilesFor(tiledImage: TiledImage): void;
         numTilesLoaded(): number;
@@ -846,37 +926,45 @@ declare namespace OpenSeadragon {
             tileCache: TileCache;
             drawer: Drawer;
             imageLoader: ImageLoader;
-            x?: number;
-            y?: number;
-            width?: number;
-            height?: number;
-            fitBounds?: Rect;
-            fitBoundsPlacement?: Placement;
-            clip?: Rect;
-            springStiffness?: number;
-            animationTime?: boolean;
-            minZoomImageRatio?: number;
-            wrapHorizontal?: boolean;
-            wrapVertical?: boolean;
-            immediateRender?: boolean;
-            blendTime?: number;
-            alwaysBlend?: boolean;
-            minPixelRatio?: number;
-            smoothTileEdgesMinZoom?: number;
-            iOSDevice?: boolean;
-            opacity?: number;
-            preload?: boolean;
-            compositeOperation?: string;
-            debugMode?: boolean;
-            placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
-            crossOriginPolicy?: string | boolean;
-            ajaxWithCredentials?: boolean;
-            loadTilesWithAjax?: boolean;
-            ajaxHeaders?: object;
+            x?: number | undefined;
+            y?: number | undefined;
+            width?: number | undefined;
+            height?: number | undefined;
+            fitBounds?: Rect | undefined;
+            fitBoundsPlacement?: Placement | undefined;
+            clip?: Rect | undefined;
+            springStiffness?: number | undefined;
+            animationTime?: boolean | undefined;
+            minZoomImageRatio?: number | undefined;
+            wrapHorizontal?: boolean | undefined;
+            wrapVertical?: boolean | undefined;
+            immediateRender?: boolean | undefined;
+            blendTime?: number | undefined;
+            alwaysBlend?: boolean | undefined;
+            minPixelRatio?: number | undefined;
+            smoothTileEdgesMinZoom?: number | undefined;
+            iOSDevice?: boolean | undefined;
+            opacity?: number | undefined;
+            preload?: boolean | undefined;
+            compositeOperation?: string | undefined;
+            debugMode?: boolean | undefined;
+            placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
+            crossOriginPolicy?: string | boolean | undefined;
+            ajaxWithCredentials?: boolean | undefined;
+            loadTilesWithAjax?: boolean | undefined;
+            ajaxHeaders?: object | undefined;
         });
 
-        addHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
-        addOnceHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
+        addHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
         destroy(): void;
         draw(): void;
         fitBounds(bounds: Rect, anchor?: Placement, immediately?: boolean): void;
@@ -887,11 +975,14 @@ declare namespace OpenSeadragon {
         getCompositeOperation(): string;
         getContentSize(): Point;
         getFullyLoaded(): boolean;
+        getFlip(): boolean;
         getHandler(eventName: string): (source: Event, ...args: any[]) => void;
         getOpacity(): number;
         getPreload(): boolean;
         getRotation(current?: boolean): number;
-        imageToViewerElementCoordinats(pixel: Point): Point;
+        getSizeInWindowCoordinates(): Point;
+        getTileBounds(level: number, x: number, y: number): Rect;
+        imageToViewerElementCoordinates(pixel: Point): Point;
         imageToViewportCoordinates(position: Point, current?: boolean): Point;
         imageToViewportCoordinates(imageX: number, imageY: number, current?: boolean): Point;
         imageToViewportRectangle(
@@ -907,13 +998,17 @@ declare namespace OpenSeadragon {
         imageToWindowCoordinates(pixel: Point): Point;
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
+        removeAllHandlers(eventName: keyof TiledImageEventMap): void;
+        removeHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+        ): void;
         reset(): void;
         resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
         setCompositeOperation(compositeOperation: string): void;
         setCroppingPolygons(polygons: Point[][]): void;
+        setFlip(flip: boolean): void;
         setHeight(height: number, immediately?: boolean): void;
         setOpacity(opacity: number): void;
         setPosition(position: Point, immediately?: boolean): void;
@@ -940,14 +1035,18 @@ declare namespace OpenSeadragon {
         aspectRatio: number;
         dimensions: Point;
         maxLevel: number;
-        minlevel: number;
+        minLevel: number;
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
-        addHandler(eventName: string, handler: EventHandler<TileSourceEvent>, userData?: object): void;
-        addOnceHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>,
+        addHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
             userData?: object,
             times?: number,
         ): void;
@@ -965,8 +1064,12 @@ declare namespace OpenSeadragon {
         getTileUrl(level: number, x: number, y: number): string;
         getTileWidth(level: number): number;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<TileSourceEvent>): void;
+        removeAllHandlers(eventName: keyof TileSourceEventMap): void;
+        removeHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
+        ): void;
+        setMaxLevel(level: number): void;
         supports(data: string | object | any[] | Document, url: string): boolean;
         tileExists(level: number, x: number, y: number): boolean;
     }
@@ -976,27 +1079,28 @@ declare namespace OpenSeadragon {
     }
 
     interface ImageOptions {
-        index?: number;
-        replace?: boolean;
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        fitBounds?: Rect;
-        fitBoundsPlacement?: Placement;
-        clip?: Rect;
-        opacity?: number;
-        preload?: boolean;
-        degrees?: number;
-        compositeOperation?: string;
-        crossOriginPolicy?: string;
-        ajaxWithCredentials?: boolean;
-        loadTilesWithAjax?: boolean;
-        ajaxHeaders?: object;
-        success?: (event: Event) => void;
-        error?: (error: Error) => void;
-        collectionImmediately?: boolean;
-        placeholderFillStyle?: string | CanvasGradient | CanvasPattern;
+        index?: number | undefined;
+        replace?: boolean | undefined;
+        x?: number | undefined;
+        y?: number | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        fitBounds?: Rect | undefined;
+        fitBoundsPlacement?: Placement | undefined;
+        clip?: Rect | undefined;
+        opacity?: number | undefined;
+        preload?: boolean | undefined;
+        degrees?: number | undefined;
+        flipped?: boolean | undefined;
+        compositeOperation?: string | undefined;
+        crossOriginPolicy?: string | undefined;
+        ajaxWithCredentials?: boolean | undefined;
+        loadTilesWithAjax?: boolean | undefined;
+        ajaxHeaders?: object | undefined;
+        success?: ((event: Event) => void) | undefined;
+        error?: ((error: Error) => void) | undefined;
+        collectionImmediately?: boolean | undefined;
+        placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
     }
 
     interface TiledImageOptions extends ImageOptions {
@@ -1020,15 +1124,19 @@ declare namespace OpenSeadragon {
 
         constructor(options: Options);
         _cancelPendingImages(): void;
-        addHandler(eventName: ViewerEventName, callback: EventHandler<ViewerEvent>, userData?: object): void;
-        addOnceHandler(
-            eventName: ViewerEventName,
-            callback: EventHandler<ViewerEvent>,
+        addHandler<T extends keyof ViewerEventMap>(
+            eventName: T,
+            callback: EventHandler<ViewerEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof ViewerEventMap>(
+            eventName: T,
+            callback: EventHandler<ViewerEventMap[T]>,
             userData?: object,
             times?: number,
         ): void;
         addOverlay(
-            element: HTMLElement | string | object,
+            element: HTMLElement | string | OverlayOptions,
             location?: Point | Rect,
             placement?: Placement,
             onDraw?: (element: HTMLElement, location: Location, placement: Placement) => void,
@@ -1053,8 +1161,8 @@ declare namespace OpenSeadragon {
         isVisible(): boolean;
         open(tileSources: string | object | TileSource[], initialPage?: number): Viewer;
         raiseEvent(eventName: string, eventArgs?: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<ViewerEvent>): void;
+        removeAllHandlers(eventName: keyof ViewerEventMap): void;
+        removeHandler<T extends keyof ViewerEventMap>(eventName: T, handler: EventHandler<ViewerEventMap[T]>): void;
         removeOverlay(overlay: Element | string): Viewer;
         removeReferenceStrip(): void;
         setControlsEnabled(enabled: boolean): Viewer;
@@ -1069,18 +1177,18 @@ declare namespace OpenSeadragon {
     class Viewport {
         constructor(options: {
             margins: object;
-            springStiffness?: number;
-            animationTime?: number;
-            minZoomImageRatio?: number;
-            maxZoomPixelRatio?: number;
-            visibilityRatio?: number;
-            wrapHorizontal?: boolean;
-            wrapVertical?: boolean;
-            defaultZoomLevel?: number;
-            minZoomLevel?: number;
-            maxZoomLevel?: number;
-            degrees?: number;
-            homeFillsViewer?: boolean;
+            springStiffness?: number | undefined;
+            animationTime?: number | undefined;
+            minZoomImageRatio?: number | undefined;
+            maxZoomPixelRatio?: number | undefined;
+            visibilityRatio?: number | undefined;
+            wrapHorizontal?: boolean | undefined;
+            wrapVertical?: boolean | undefined;
+            defaultZoomLevel?: number | undefined;
+            minZoomLevel?: number | undefined;
+            maxZoomLevel?: number | undefined;
+            degrees?: number | undefined;
+            homeFillsViewer?: boolean | undefined;
         });
 
         applyConstraints(immediately?: boolean): Viewport;
@@ -1093,7 +1201,7 @@ declare namespace OpenSeadragon {
         fitBoundsWithConstraints(bounds: Rect, immediately?: boolean): Viewport;
         fitHorizontally(immediately?: boolean): Viewport;
         fitVertically(immediately?: boolean): Viewport;
-        getAspectRatio(): any; // TODO: determine return type
+        getAspectRatio(): number;
         getBounds(current?: boolean): Rect;
         getBoundsNoRotate(current?: boolean): Rect;
         getBoundsNoRotateWithMargins(current?: boolean): Rect;
@@ -1156,16 +1264,25 @@ declare namespace OpenSeadragon {
     class World extends EventSource {
         constructor(options: object);
 
-        addHandler(eventName: WorldEventName, callback: EventHandler<WorldEvent>, userData?: object): void;
-        addItem(item: TiledImage, options?: { index?: number }): void;
-        addOnceHandler(eventName: string, handler: EventHandler<WorldEvent>, userData?: object, times?: number): void;
+        addHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+        ): void;
+        addItem(item: TiledImage, options?: { index?: number | undefined }): void;
+        addOnceHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+            times?: number,
+        ): void;
         arrange(options: {
-            immediately?: boolean;
-            layout?: 'horizontal' | 'vertical';
-            rows?: number;
-            columns?: number;
-            tileSize?: number;
-            tileMargin?: number;
+            immediately?: boolean | undefined;
+            layout?: "horizontal" | "vertical" | undefined;
+            rows?: number | undefined;
+            columns?: number | undefined;
+            tileSize?: number | undefined;
+            tileMargin?: number | undefined;
         }): void;
         draw(): void;
         getContentFactor(): number;
@@ -1177,8 +1294,8 @@ declare namespace OpenSeadragon {
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAll(): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<WorldEvent>): void;
+        removeAllHandlers(eventName: keyof WorldEventMap): void;
+        removeHandler<T extends keyof WorldEventMap>(eventName: T, callback: EventHandler<WorldEventMap[T]>): void;
         removeItem(item: TiledImage): void;
         resetItems(): void;
         setAutoRefigureSizes(value?: boolean): void;
@@ -1190,155 +1307,460 @@ declare namespace OpenSeadragon {
         constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
-    // TODO: use proper eventName type aliases, and OSDEvent where appropiate
+    type EventHandler<T extends OSDEvent<unknown>> = (event: T) => void;
 
-    type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
+    type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
-    type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
-    type TiledImageEventName =
-        | 'bounds-change'
-        | 'clip-change'
-        | 'composite-operation-change'
-        | 'fully-loaded-change'
-        | 'opacity-change';
-    type TileSourceEventname = 'open-failed' | 'ready';
-    type ViewerEventName =
-        | 'add-item-failed'
-        | 'add-overlay'
-        | 'animation'
-        | 'animation-finish'
-        | 'animation-start'
-        | 'canvas-click'
-        | 'canvas-double-click'
-        | 'canvas-drag'
-        | 'canvas-drag-end'
-        | 'canvas-enter'
-        | 'canvas-exit'
-        | 'canvas-key'
-        | 'canvas-nonprimary-press'
-        | 'canvas-nonprimary-release'
-        | 'canvas-pinch'
-        | 'canvas-press'
-        | 'canvas-release'
-        | 'canvas-scroll'
-        | 'clear-overlay'
-        | 'close'
-        | 'constrain'
-        | 'container-enter'
-        | 'container-exit'
-        | 'controls-enabled'
-        | 'flip'
-        | 'full-page'
-        | 'full-screen'
-        | 'home'
-        | 'mouse-enabled'
-        | 'navigator-click'
-        | 'navigator-drag'
-        | 'navigator-scroll'
-        | 'open'
-        | 'open-failed'
-        | 'page'
-        | 'pan'
-        | 'pre-full-page'
-        | 'pre-full-screen'
-        | 'remove-overlay'
-        | 'reset-size'
-        | 'resize'
-        | 'rotate'
-        | 'tile-drawing'
-        | 'tile-drawn'
-        | 'tile-load-failed'
-        | 'tile-loaded'
-        | 'tile-unloaded'
-        | 'update-level'
-        | 'update-overlay'
-        | 'update-tile'
-        | 'update-viewport'
-        | 'viewport-change'
-        | 'visible'
-        | 'zoom';
-    type WorldEventName = 'add-item' | 'item-index-change' | 'metrics-change' | 'remove-item';
+    type ButtonEventName = "blur" | "click" | "enter" | "exit" | "focus" | "press" | "release";
 
-    interface OSDEvent<T> extends Event {
-        eventSource?: T;
-        userData: any;
+    interface TiledImageEventMap {
+        "bounds-change": TiledImageEvent;
+        "clip-change": TiledImageEvent;
+        "composite-operation-change": CompositeOperationChangeTiledImageEvent;
+        "fully-loaded-change": FullyLoadedChangeTiledImageEvent;
+        "opacity-change": OpacityChangeTiledImageEvent;
+    }
+
+    interface TileSourceEventMap {
+        "open-failed": OpenFailedTileSourceEvent;
+        "ready": ReadyTileSourceEvent;
+    }
+
+    interface ViewerEventMap {
+        "add-item-failed": AddItemFailedEvent;
+        "add-overlay": AddOverlayEvent;
+        "animation": ViewerEvent;
+        "animation-finish": ViewerEvent;
+        "animation-start": ViewerEvent;
+        "canvas-click": CanvasClickEvent;
+        "canvas-contextmenu": CanvasContextMenuEvent;
+        "canvas-double-click": CanvasDoubleClickEvent;
+        "canvas-drag": CanvasDragEvent;
+        "canvas-drag-end": CanvasDragEvent;
+        "canvas-enter": CanvasEnterEvent;
+        "canvas-exit": CanvasExitEvent;
+        "canvas-key": CanvasKeyEvent;
+        "canvas-nonprimary-press": CanvasNonPrimaryButtonEvent;
+        "canvas-nonprimary-release": CanvasNonPrimaryButtonEvent;
+        "canvas-pinch": CanvasPinchEvent;
+        "canvas-press": CanvasPressEvent;
+        "canvas-release": CanvasReleaseEvent;
+        "canvas-scroll": CanvasScrollEvent;
+        "clear-overlay": ViewerEvent;
+        "close": ViewerEvent;
+        "constrain": ConstrainEvent;
+        "container-enter": ContainerEvent;
+        "container-exit": ContainerEvent;
+        "controls-enabled": ControlsEnabledEvent;
+        "flip": FlipEvent;
+        "full-page": FullPageEvent;
+        "full-screen": FullScreenEvent;
+        "home": HomeEvent;
+        "mouse-enabled": MouseEnabledEvent;
+        "navigator-click": NavigatorClickEvent;
+        "navigator-drag": NavigatorDragEvent;
+        "navigator-scroll": NavigatorScrollEvent;
+        "open": OpenEvent;
+        "open-failed": OpenFailedEvent;
+        "page": PageEvent;
+        "pan": PanEvent;
+        "pre-full-page": PreFullPageEvent;
+        "pre-full-screen": PreFullScreenEvent;
+        "remove-overlay": RemoveOverlayEvent;
+        "reset-size": ResetSizeEvent;
+        "resize": ResizeEvent;
+        "rotate": RotateEvent;
+        "tile-drawing": TileDrawingEvent;
+        "tile-drawn": TileEvent;
+        "tile-load-failed": TileLoadFailedEvent;
+        "tile-loaded": TileLoadedEvent;
+        "tile-unloaded": TileEvent;
+        "update-level": UpdateLevelEvent;
+        "update-overlay": UpdateOverlayEvent;
+        "update-tile": TileEvent;
+        "update-viewport": ViewerEvent;
+        "viewport-change": ViewerEvent;
+        "visible": VisibleEvent;
+        "zoom": ZoomEvent;
+    }
+
+    interface WorldEventMap {
+        "add-item": AddItemWorldEvent;
+        "item-index-change": ItemIndexChangeWorldEvent;
+        "metrics-change": WorldEvent;
+        "remove-item": RemoveItemWorldEvent;
+    }
+
+    interface OSDEvent<T> {
+        eventSource: T;
+        userData: unknown;
     }
 
     interface ButtonEvent extends OSDEvent<Button> {
         originalEvent: Event;
     }
 
-    interface TiledImageEvent extends OSDEvent<TiledImage> {
-        compositeOperationChange?: string;
-        fullyLoaded?: boolean;
-        opacity?: boolean;
+    // -- TILED IMAGE EVENTS --
+    interface TiledImageEvent extends OSDEvent<TiledImage> {}
+
+    interface CompositeOperationChangeTiledImageEvent extends TiledImageEvent {
+        compositeOperationChange: string;
     }
 
-    interface TileSourceEvent extends OSDEvent<TileSource> {
-        message?: string;
-        source?: string;
-        tileSource?: object;
+    interface FullyLoadedChangeTiledImageEvent extends TiledImageEvent {
+        fullyLoaded: boolean;
     }
 
-    interface ViewerEvent extends OSDEvent<Viewer> {
-        message?: string;
-        source?: string;
-        options?: object;
-        element?: Element;
-        location?: Point | Rect;
-        placement?: Placement;
-        tracker?: MouseTracker;
-        position?: Point;
-        quick?: boolean;
-        shift?: boolean;
-        preventDefaultAction?: true;
-        delta?: Point;
-        speed?: number;
-        direction?: number;
-        pointerType?: string;
-        button?: number;
-        buttons?: number;
-        pointers?: number;
-        insideElementPressed?: boolean;
-        buttonDownAny?: boolean;
-        preventVerticalPan?: boolean;
-        preventHorizontalPan?: boolean;
-        gesturePoints?: GesturePoint[];
-        lastCenter?: Point;
-        center?: Point;
-        lastDistance?: number;
-        insideElementReleased?: boolean;
-        scroll?: number;
-        immediately?: number;
-        enabled?: boolean;
-        flipped?: number;
-        fullPage?: boolean;
-        fullScreen?: boolean;
-        page?: number;
-        contentSize?: Point;
-        contentBounds?: Rect;
-        homeBounds?: Rect;
-        contentFactor?: number;
-        newContainerSize?: Point;
-        mantain?: boolean;
-        degrees?: number;
-        tile?: Tile;
-        tiledImage?: TiledImage | XMLHttpRequest;
-        context?: Tile;
-        rendered?: Tile;
-        time?: number;
-        tileRequest?: XMLHttpRequest;
-        getCompletionCallback?: (...args: any) => void;
-        visible?: boolean;
-        refPoint?: Point;
-        zoom?: number;
+    interface OpacityChangeTiledImageEvent extends TiledImageEvent {
+        opacity: boolean;
     }
 
-    interface WorldEvent extends OSDEvent<World> {
-        item?: TiledImage;
-        previousIndex?: number;
-        newIndex?: number;
+    // -- TILE SOURCE EVENTS --
+    interface TileSourceEvent extends OSDEvent<TileSource> {}
+
+    interface OpenFailedTileSourceEvent extends TileSourceEvent {
+        message: string;
+        source: string;
     }
+
+    interface ReadyTileSourceEvent extends TileSourceEvent {
+        tileSource: object;
+    }
+
+    // -- VIEWER EVENTS --
+    interface ViewerEvent extends OSDEvent<Viewer> {}
+
+    interface AddItemFailedEvent extends ViewerEvent {
+        message: string;
+        source: string;
+        options: object;
+    }
+
+    interface AddOverlayEvent extends ViewerEvent {
+        element: Element;
+        location: Point | Rect;
+        placement: Placement;
+    }
+
+    interface CanvasEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        position: Point;
+        originalEvent: Event;
+    }
+
+    interface CanvasClickEvent extends CanvasEvent {
+        quick: boolean;
+        shift: boolean;
+        originalTarget: Element;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasContextMenuEvent extends CanvasEvent {
+        preventDefault: boolean;
+    }
+
+    interface CanvasDoubleClickEvent extends CanvasEvent {
+        shift: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasDragEvent extends CanvasEvent {
+        pointerType: PointerType;
+        delta: Point;
+        speed: number;
+        direction: number;
+        shift: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasEnterEvent extends CanvasEvent {
+        pointerType: PointerType;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+    }
+
+    interface CanvasExitEvent extends CanvasEvent {
+        pointerType: PointerType;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+    }
+
+    interface CanvasKeyEvent extends CanvasEvent {
+        preventDefaultAction: boolean;
+        preventVerticalPan: boolean;
+        preventHorizontalPan: boolean;
+    }
+
+    interface CanvasNonPrimaryButtonEvent extends CanvasEvent {
+        pointerType: PointerType;
+        button: number;
+        buttons: number;
+    }
+
+    interface CanvasPinchEvent extends CanvasEvent {
+        pointerType: PointerType;
+        gesturePoints: GesturePoint[];
+        lastCenter: Point;
+        center: Point;
+        lastDistance: number;
+        distance: number;
+        shift: boolean;
+        preventDefaultPanAction: boolean;
+        preventDefaultZoomAction: boolean;
+        preventDefaultRotateAction: boolean;
+    }
+
+    interface CanvasPressEvent extends CanvasEvent {
+        pointerType: PointerType;
+        insideElementPressed: boolean;
+        insideElementReleased: boolean;
+    }
+
+    interface CanvasReleaseEvent extends CanvasEvent {
+        pointerType: PointerType;
+        insideElementPressed: boolean;
+        insideElementReleased: boolean;
+    }
+
+    interface CanvasScrollEvent extends CanvasEvent {
+        scroll: number;
+        shift: boolean;
+        preventDefaultAction: boolean;
+        preventDefault: boolean;
+    }
+
+    interface ConstrainEvent extends ViewerEvent {
+        immediately: boolean;
+    }
+
+    interface ContainerEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        pointerType: PointerType;
+        position: Point;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+        originalEvent: Event;
+    }
+
+    interface ControlsEnabledEvent extends ViewerEvent {
+        enabled: boolean;
+    }
+
+    interface FlipEvent extends ViewerEvent {
+        flipped: number;
+    }
+
+    interface FullPageEvent extends ViewerEvent {
+        fullPage: boolean;
+    }
+
+    interface FullScreenEvent extends ViewerEvent {
+        fullScreen: boolean;
+    }
+
+    interface HomeEvent extends ViewerEvent {
+        immediately: boolean;
+    }
+
+    interface MouseEnabledEvent extends ViewerEvent {
+        enabled: boolean;
+    }
+
+    interface NavigatorEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        position: Point;
+        shift: boolean;
+        originalEvent: Event;
+    }
+
+    interface NavigatorClickEvent extends NavigatorEvent {
+        quick: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface NavigatorDragEvent extends NavigatorEvent {
+        delta: Point;
+        speed: number;
+        direction: number;
+        preventDefaultAction: boolean;
+    }
+
+    interface NavigatorScrollEvent extends NavigatorEvent {
+        scroll: number;
+        preventDefault: boolean;
+    }
+
+    interface OpenEvent extends ViewerEvent {
+        source: TileSource;
+    }
+
+    interface OpenFailedEvent extends OpenEvent {
+        message: string;
+    }
+
+    interface PageEvent extends ViewerEvent {
+        page: number;
+    }
+
+    interface PanEvent extends ViewerEvent {
+        center: Point;
+        immediately: boolean;
+    }
+
+    interface PreFullPageEvent extends ViewerEvent {
+        fullPage: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface PreFullScreenEvent extends ViewerEvent {
+        fullScreen: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface RemoveOverlayEvent extends ViewerEvent {
+        element: Element;
+    }
+
+    interface ResetSizeEvent extends ViewerEvent {
+        contentSize: Point;
+        contentBounds: Rect;
+        homeBounds: Rect;
+        contentFactor: number;
+    }
+
+    interface ResizeEvent extends ViewerEvent {
+        newContainerSize: Point;
+        maintain: boolean;
+    }
+
+    interface RotateEvent extends ViewerEvent {
+        degrees: number;
+    }
+
+    interface TileEvent extends ViewerEvent {
+        tile: Tile;
+        tiledImage: TiledImage;
+    }
+
+    interface TileDrawingEvent extends TileEvent {
+        context: Tile;
+        rendered: Tile;
+    }
+
+    interface TileLoadFailedEvent extends TileEvent {
+        time: number;
+        message: string;
+        tileRequest: XMLHttpRequest;
+    }
+
+    interface TileLoadedEvent extends TileEvent {
+        image: HTMLImageElement;
+        tileRequest: XMLHttpRequest;
+        getCompletionCallback: () => () => void;
+    }
+
+    interface UpdateLevelEvent extends ViewerEvent {
+        tiledImage: TiledImage;
+        havedrawn: object;
+        level: object;
+        opacity: object;
+        visibility: object;
+        drawArea: Rect;
+        /**
+         * @deprecated use `drawArea` instead
+         */
+        topleft: object;
+        /**
+         * @deprecated use `drawArea` instead
+         */
+        bottomright: object;
+        currenttime: object;
+        best: object;
+    }
+
+    interface UpdateOverlayEvent extends ViewerEvent {
+        element: Element;
+        location: Point | Rect;
+        placement: Placement;
+    }
+
+    interface VisibleEvent extends ViewerEvent {
+        visible: boolean;
+    }
+
+    interface ZoomEvent extends ViewerEvent {
+        zoom: number;
+        refPoint: Point;
+        immediately: boolean;
+    }
+
+    // -- WORLD EVENTS --
+    interface WorldEvent extends OSDEvent<World> {}
+
+    interface AddItemWorldEvent extends WorldEvent {
+        item: TiledImage;
+    }
+
+    interface ItemIndexChangeWorldEvent extends WorldEvent {
+        item: TiledImage;
+        previousIndex: number;
+        newIndex: number;
+    }
+
+    interface RemoveItemWorldEvent extends WorldEvent {
+        item: TiledImage;
+    }
+
+    // -- MOUSE TRACKER EVENTS --
+    interface MouseTrackerEvent<T extends Event = Event> extends OSDEvent<MouseTracker> {
+        originalEvent: T;
+    }
+
+    interface PointerMouseTrackerEvent extends MouseTrackerEvent<PointerEvent> {
+        pointerType: PointerType;
+        position: Point;
+        /**
+         * @deprecated Use `pointerType` and/or `originalEvent` instead
+         */
+        isTouchEvent: boolean;
+    }
+
+    interface KeyMouseTrackerEvent extends MouseTrackerEvent<KeyboardEvent> {
+        keyCode: number;
+        ctrl: boolean;
+        shift: boolean;
+        alt: boolean;
+        meta: boolean;
+        preventDefault: boolean;
+    }
+
+    interface ContextMenuMouseTrackerEvent extends MouseTrackerEvent<MouseEvent> {
+        position: Point;
+        preventDefault: boolean;
+    }
+
+    interface PressMouseTrackerEvent extends PointerMouseTrackerEvent {
+        buttons: number;
+    }
+
+    type PointerType = "mouse" | "touch" | "pen";
+
+    type EventPhase = 0 | 1 | 2 | 3;
 }
 
 export as namespace OpenSeadragon;

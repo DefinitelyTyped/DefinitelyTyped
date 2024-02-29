@@ -1,11 +1,3 @@
-// Type definitions for tinycolor 1.4
-// Project: https://github.com/bgrins/TinyColor
-// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>,
-//                 Geert Jansen <https://github.com/geertjansen>,
-//                 Niels van Hoorn <https://github.com/nvh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare namespace tinycolor {
     type ColorInputWithoutInstance =
         | string
@@ -16,8 +8,7 @@ declare namespace tinycolor {
         | ColorFormats.HSL
         | ColorFormats.HSLA
         | ColorFormats.HSV
-        | ColorFormats.HSVA
-        ;
+        | ColorFormats.HSVA;
     type ColorInput = ColorInputWithoutInstance | Instance;
 
     namespace ColorFormats {
@@ -61,17 +52,17 @@ declare namespace tinycolor {
     }
 
     interface ConstructorOptions {
-        format?: string;
-        gradientType?: boolean;
+        format?: string | undefined;
+        gradientType?: boolean | undefined;
     }
 
     interface WCAG2Options {
-        level?: "AA" | "AAA";
-        size?: "large" | "small";
+        level?: "AA" | "AAA" | undefined;
+        size?: "large" | "small" | undefined;
     }
 
     interface MostReadableArgs extends WCAG2Options {
-        includeFallbackColors?: boolean;
+        includeFallbackColors?: boolean | undefined;
     }
 
     interface Constructor {
@@ -80,7 +71,7 @@ declare namespace tinycolor {
          *
          * @param color - the color as one of the valid color input format.
          */
-        new (color?: ColorInput, opts?: ConstructorOptions): Instance;
+        new(color?: ColorInput, opts?: ConstructorOptions): Instance;
         (color?: ColorInput, opts?: ConstructorOptions): Instance;
 
         /**

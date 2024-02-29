@@ -1,12 +1,3 @@
-// Type definitions for moment-duration-format 2.2
-// Project: https://github.com/jsmreese/moment-duration-format
-// Definitions by: Swint De Coninck <https://github.com/SwintDC>
-//                 Niklas Walter <https://github.com/TwoStone>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-//                 Lukasz Bendykowski <https://github.com/bendykowski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import * as moment from "moment";
 
 declare module "moment" {
@@ -26,53 +17,65 @@ declare module "moment" {
         (settings?: DurationFormatSettings): string;
     }
 
-    type UnitOfTrimV1 = 'left' | 'right';
-    type UnitOfTrim = (
-        'large' | 'small' | 'both' |
-        'mid' | 'all' | 'final'
-    );
+    type UnitOfTrimV1 = "left" | "right";
+    type UnitOfTrim = "large" | "small" | "both" | "mid" | "all" | "final";
 
     interface DurationFormatSettings {
-        trim?: false | UnitOfTrimV1 | UnitOfTrim | string | Array<UnitOfTrim | string>;
-        largest?: number;
-        trunc?: true;
-        stopTrim?: string;
+        trim?: false | UnitOfTrimV1 | UnitOfTrim | string | Array<UnitOfTrim | string> | undefined;
+        largest?: number | undefined;
+        trunc?: true | undefined;
+        stopTrim?: string | undefined;
 
-        minValue?: number;
-        maxValue?: number;
+        minValue?: number | undefined;
+        maxValue?: number | undefined;
 
-        useGrouping?: boolean;
-        precision?: number;
-        decimalSeparator?: string;
-        groupingSeparator?: string;
-        grouping?: number[];
+        useGrouping?: boolean | undefined;
+        precision?: number | undefined;
+        decimalSeparator?: string | undefined;
+        groupingSeparator?: string | undefined;
+        grouping?: number[] | undefined;
 
-        useSignificantDigits?: true;
+        useSignificantDigits?: true | undefined;
 
-        forceLength?: boolean;
-        template?: string | TemplateFunction;
+        forceLength?: boolean | undefined;
+        template?: string | TemplateFunction | undefined;
 
-        userLocale?: string;
-        usePlural?: boolean;
-        useLeftUnits?: boolean;
-        useToLocaleString?: boolean;
+        userLocale?: string | undefined;
+        usePlural?: boolean | undefined;
+        useLeftUnits?: boolean | undefined;
+        useToLocaleString?: boolean | undefined;
     }
 
     type DurationLabelType = "long" | "standard" | "short";
     type DurationTemplate = "HMS" | "HM" | "MS";
-    type DurationToken = (
-        "S" | "SS" | "SSS" |
-        "s" | "ss" | "sss" |
-        "m" | "mm" | "mmm" |
-        "h" | "hh" | "hhh" |
-        "d" | "dd" | "ddd" |
-        "w" | "ww" | "www" |
-        "M" | "MM" | "MMM" |
-        "y" | "yy" | "yyy"
-    );
+    type DurationToken =
+        | "S"
+        | "SS"
+        | "SSS"
+        | "s"
+        | "ss"
+        | "sss"
+        | "m"
+        | "mm"
+        | "mmm"
+        | "h"
+        | "hh"
+        | "hhh"
+        | "d"
+        | "dd"
+        | "ddd"
+        | "w"
+        | "ww"
+        | "www"
+        | "M"
+        | "MM"
+        | "MMM"
+        | "y"
+        | "yy"
+        | "yyy";
 
-    type DurationLabelDef = {[duration in DurationToken]: string};
-    type DurationTimeDef = {[template in DurationTemplate]: string};
+    type DurationLabelDef = { [duration in DurationToken]: string };
+    type DurationTimeDef = { [template in DurationTemplate]: string };
 
     interface DurationLabelTypeDef {
         type: DurationLabelType;
@@ -80,15 +83,15 @@ declare module "moment" {
     }
 
     interface LocaleSpecification {
-        durationLabelsLong?: DurationLabelDef;
-        durationLabelsStandard?: DurationLabelDef;
-        durationLabelsShort?: DurationLabelDef;
-        durationTimeTemplates?: DurationTimeDef;
-        durationLabelTypes?: DurationLabelTypeDef[];
-        durationPluralKey?: (token: string, integerValue: number, decimalValue: number) => string;
+        durationLabelsLong?: DurationLabelDef | undefined;
+        durationLabelsStandard?: DurationLabelDef | undefined;
+        durationLabelsShort?: DurationLabelDef | undefined;
+        durationTimeTemplates?: DurationTimeDef | undefined;
+        durationLabelTypes?: DurationLabelTypeDef[] | undefined;
+        durationPluralKey?: ((token: string, integerValue: number, decimalValue: number) => string) | undefined;
     }
 
-    type TemplateFunction = ((this: DurationFormatSettings) => string);
+    type TemplateFunction = (this: DurationFormatSettings) => string;
 }
 
 declare function momentDurationFormatSetup(_moment: typeof moment): void;

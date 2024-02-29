@@ -1,10 +1,4 @@
-// Type definitions for vitalsigns 0.4.3
-// Project: https://github.com/TomFrost/node-vitalsigns
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="express"/>
+/// <reference types="express"/>
 
 declare module "vitalsigns" {
     import { RequestHandler } from "express";
@@ -18,31 +12,26 @@ declare module "vitalsigns" {
             /**
              * The comparator to use when comparing the field's value with the constraint value.
              * Valid comparators are: 'equal', 'greater', and 'less'.
-             * @type {string}
              */
             comparator: string;
 
             /**
              * The name of the field to be constrained.
-             * @type {string}
              */
             field: string;
 
             /**
              * The name of the monitor containing the field to be constrained.
-             * @type {string}
              */
             monitor: string;
 
             /**
              * true to negate the outcome of the comparison; false or omitted to use the comparison result.
-             * @type {boolean}
              */
-            negate?: boolean;
+            negate?: boolean | undefined;
 
             /**
              * The value against which the field should be compared.
-             * @type {any}
              */
             value: any;
         }
@@ -52,13 +41,13 @@ declare module "vitalsigns" {
          * @interface
          */
         export interface ConstraintWrapper {
-            equals?: (num: number) => ConstraintWrapper;
+            equals?: ((num: number) => ConstraintWrapper) | undefined;
 
-            greaterThan?: (num: number) => ConstraintWrapper;
+            greaterThan?: ((num: number) => ConstraintWrapper) | undefined;
 
-            lessThan?: (num: number) => ConstraintWrapper;
+            lessThan?: ((num: number) => ConstraintWrapper) | undefined;
 
-            not?: ConstraintWrapper;
+            not?: ConstraintWrapper | undefined;
         }
 
         /**
@@ -68,27 +57,23 @@ declare module "vitalsigns" {
         export interface Options {
             /**
              * Number of milliseconds to wait between automatic health checks.
-             * @type {number|boolean}
              */
-            autoCheck?: number | boolean;
+            autoCheck?: number | boolean | undefined;
 
             /**
              * HTTP response code to send back in the VitalSigns.
-             * @type {number}
              */
-            httpHealthy?: number;
+            httpHealthy?: number | undefined;
 
             /**
              * HTTP response code to send back in the VitalSigns.
-             * @type {number}
              */
-            httpUnhealthy?: number;
+            httpUnhealthy?: number | undefined;
         }
 
         export interface Monitor {
             /**
              * Connections.
-             * @type {any}
              */
             connections: any;
         }
@@ -100,15 +85,13 @@ declare module "vitalsigns" {
         export interface MonitorField {
             /**
              * Name.
-             * @type {string}
              */
-            name?: string;
+            name?: string | undefined;
 
             /**
              * Units.
-             * @type {string}
              */
-            units?: string;
+            units?: string | undefined;
         }
 
         /**
@@ -118,15 +101,13 @@ declare module "vitalsigns" {
         interface ReportOptions {
             /**
              * true to flatten the report object down to a single level by concatenating nested key names; false to keep the default hierarchical format.
-             * @type {boolean}
              */
-            flatten?: boolean;
+            flatten?: boolean | undefined;
 
             /**
              * If flatten is true, this string will be used to separate key names when they are concatenated together.
-             * @type {boolean}
              */
-            separator?: string;
+            separator?: string | undefined;
         }
     }
 
@@ -136,10 +117,9 @@ declare module "vitalsigns" {
     class VitalSigns {
         /**
          * Constructor.
-         * @constructors
          * @param {Options} [options] Options.
          */
-        constructor (options?: vitalsigns.Options);
+        constructor(options?: vitalsigns.Options);
 
         /**
          * Pushes a health constraint onto this instance's constraint array.
@@ -155,7 +135,6 @@ declare module "vitalsigns" {
 
         /**
          * Gets a request handler.
-         * @type {RequestHandler}
          */
         express: RequestHandler;
 
@@ -163,7 +142,7 @@ declare module "vitalsigns" {
          * Retrieves an array of human-readable messages that define the specific health constraints that failed when running the last health check.
          * @returns {Array<string>} An array of failure messages.
          */
-        getFailed(): Array<string>;
+        getFailed(): string[];
 
         /**
          * Gets a report of all monitors, their fields, and the values of those fields, compiled into Javascript object form.  Additionally, a 'healthy' field is

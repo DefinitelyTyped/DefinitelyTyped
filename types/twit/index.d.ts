@@ -1,28 +1,15 @@
-// Type definitions for twit 2.2
-// Project: https://github.com/ttezel/twit
-// Definitions by: Volox <https://github.com/Volox>
-//                 sapphiredev <https://github.com/sapphiredev>
-//                 abraham <https://github.com/abraham>
-//                 siwalik <https://github.com/siwalikm>
-//                 plhery <https://github.com/plhery>
-//                 justGoscha <https://github.com/justgoscha>
-//                 darkade <https://github.com/darkade>
-//                 brianjychan <https://github.com/brianjychan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="geojson" />
 
-declare module 'twit' {
-    import { IncomingMessage } from 'http';
-    import { EventEmitter } from 'events';
+declare module "twit" {
+    import { IncomingMessage } from "http";
+    import { EventEmitter } from "events";
 
     namespace Twit {
-        export type StreamEndpoint = 'statuses/filter' | 'statuses/sample' | 'statuses/firehose' | 'user' | 'site';
+        export type StreamEndpoint = "statuses/filter" | "statuses/sample" | "statuses/firehose" | "user" | "site";
 
         export namespace Twitter {
-            export type ResultType = 'mixed' | 'popular' | 'recent';
+            export type ResultType = "mixed" | "popular" | "recent";
 
             /**
              * @see https://dev.twitter.com/overview/api/tweets#obj-contributors
@@ -52,7 +39,7 @@ declare module 'twit' {
             export interface Size {
                 h: number;
                 w: number;
-                resize: 'crop' | 'fit';
+                resize: "crop" | "fit";
             }
             export interface Sizes {
                 thumb: Size;
@@ -120,19 +107,19 @@ declare module 'twit' {
                 description: string;
                 entities: Entities;
                 favourites_count: number;
-                follow_request_sent?: boolean;
-                following?: boolean;
+                follow_request_sent?: boolean | undefined;
+                following?: boolean | undefined;
                 followers_count: number;
                 friends_count: number;
-                geo_enabled?: boolean;
+                geo_enabled?: boolean | undefined;
                 id: number;
                 id_str: string;
-                is_translator?: boolean;
+                is_translator?: boolean | undefined;
                 lang: string;
                 listed_count: number;
                 location: string;
                 name: string;
-                notifications?: boolean;
+                notifications?: boolean | undefined;
                 profile_background_color: string;
                 profile_background_image_url: string;
                 profile_background_image_url_https: string;
@@ -148,11 +135,11 @@ declare module 'twit' {
                 protected: boolean;
                 screen_name: string;
                 show_all_inline_media: boolean;
-                status?: Status;
+                status?: Status | undefined;
                 statuses_count: number;
-                time_zone?: string;
+                time_zone?: string | undefined;
                 url: string;
-                utc_offset?: number;
+                utc_offset?: number | undefined;
                 verified: boolean;
                 withheld_in_countries: string;
                 withheld_scope: string;
@@ -170,7 +157,7 @@ declare module 'twit' {
                 phone: string;
                 twitter: string;
                 url: string;
-                'app:id': string;
+                "app:id": string;
             }
             export interface Place {
                 geometry: GeoJSON.Point;
@@ -192,62 +179,65 @@ declare module 'twit' {
             export interface Status {
                 id: number;
                 id_str: string;
-                annotations?: Object;
-                contributors?: Contributors[];
-                coordinates?: GeoJSON.Point;
+                annotations?: Object | undefined;
+                contributors?: Contributors[] | undefined;
+                coordinates?: GeoJSON.Point | undefined;
                 created_at: string;
                 current_user_retweet?: {
                     id: number;
                     id_str: string;
-                };
-                display_text_range?: [number, number];
+                } | undefined;
+                display_text_range?: [number, number] | undefined;
                 entities: Entities;
-                favorite_count?: number;
-                favorited?: boolean;
-                filter_level: 'none' | 'low' | 'medium';
-                full_text?: string;
-                in_reply_to_screen_name?: string;
-                in_reply_to_status_id?: number;
-                in_reply_to_status_id_str?: string;
-                in_reply_to_user_id?: number;
-                in_reply_to_user_id_str?: string;
+                extended_entities?: {
+                    media: MediaEntity[];
+                } | undefined;
+                favorite_count?: number | undefined;
+                favorited?: boolean | undefined;
+                filter_level: "none" | "low" | "medium";
+                full_text?: string | undefined;
+                in_reply_to_screen_name?: string | undefined;
+                in_reply_to_status_id?: number | undefined;
+                in_reply_to_status_id_str?: string | undefined;
+                in_reply_to_user_id?: number | undefined;
+                in_reply_to_user_id_str?: string | undefined;
                 is_quote_status: string;
-                lang?: string;
-                matching_rules?: MatchingRules[];
-                place?: Place;
-                possibly_sensitive?: boolean;
-                quoted_status_id?: number;
-                quoted_status_id_str?: string;
-                quoted_status?: Status;
+                lang?: string | undefined;
+                matching_rules?: MatchingRules[] | undefined;
+                place?: Place | undefined;
+                possibly_sensitive?: boolean | undefined;
+                quoted_status_id?: number | undefined;
+                quoted_status_id_str?: string | undefined;
+                quoted_status?: Status | undefined;
                 retweet_count: number;
                 retweeted: boolean;
-                retweeted_status?: Status;
-                scopes?: Object;
-                source?: string;
-                text?: string;
+                retweeted_status?: Status | undefined;
+                scopes?: Object | undefined;
+                source?: string | undefined;
+                text?: string | undefined;
                 truncated: boolean;
                 user: User;
-                withheld_copyright?: boolean;
-                withheld_in_countries?: string[];
-                withheld_scope?: string;
+                withheld_copyright?: boolean | undefined;
+                withheld_in_countries?: string[] | undefined;
+                withheld_scope?: string | undefined;
             }
             export interface Metadata {
-                max_id?: number;
-                since_id?: number;
-                refresh_url?: string;
-                next_results?: string;
-                count?: number;
-                completed_in?: number;
-                since_id_str?: string;
-                query?: string;
-                max_id_str?: string;
+                max_id?: number | undefined;
+                since_id?: number | undefined;
+                refresh_url?: string | undefined;
+                next_results?: string | undefined;
+                count?: number | undefined;
+                completed_in?: number | undefined;
+                since_id_str?: string | undefined;
+                query?: string | undefined;
+                max_id_str?: string | undefined;
             }
 
             export interface Errors {
-                errors: {
+                errors: Array<{
                     code: number;
                     message: string;
-                }[];
+                }>;
             }
 
             export interface SearchResults {
@@ -261,54 +251,109 @@ declare module 'twit' {
         interface MediaParam {
             file_path: string;
         }
+
+        interface QuickReplyOption {
+            label: string;
+            description?: string;
+            metadata?: string;
+        }
+
+        interface QuickReply {
+            type: "options";
+            options: QuickReplyOption[];
+        }
+
+        interface Attachement {
+            type: "location" | "media";
+            location?: {
+                type: "shared_coordinate";
+                shared_coordinate: {
+                    coordinates: {
+                        type: "Point";
+                        coordinates: number[];
+                    };
+                };
+            };
+            media?: {
+                id: string;
+            };
+        }
+
+        interface MessageCreateEvent {
+            type: "message_create";
+            message_create: {
+                target: {
+                    recipient_id: string;
+                };
+                message_data: {
+                    text: string;
+                    quick_reply?: QuickReply;
+                    attachment?: Attachement;
+                };
+            };
+        }
+
         interface Params {
             // search/tweets
-            q?: string;
-            geocode?: string;
-            lang?: string;
-            locale?: string;
-            result_type?: Twitter.ResultType;
-            count?: number;
-            results_per_page?: number;
-            until?: string;
-            since_id?: string;
-            max_id?: string;
-            include_entities?: boolean;
+            q?: string | undefined;
+            geocode?: string | undefined;
+            lang?: string | undefined;
+            locale?: string | undefined;
+            result_type?: Twitter.ResultType | undefined;
+            count?: number | undefined;
+            results_per_page?: number | undefined;
+            until?: string | undefined;
+            since_id?: string | undefined;
+            max_id?: string | undefined;
+            include_entities?: boolean | undefined;
 
-            source_id?: number;
-            source_screen_name?: string;
-            target_id?: number;
-            target_screen_name?: string;
+            source_id?: number | undefined;
+            source_screen_name?: string | undefined;
+            target_id?: number | undefined;
+            target_screen_name?: string | undefined;
 
             // Other params from various endpoints
-            track?: string | string[];
-            media_id?: string;
-            media_ids?: string[];
+            track?: string | string[] | undefined;
+            media_id?: string | undefined;
+            media_ids?: string[] | undefined;
             alt_text?: {
-                text?: string;
-            };
-            media_data?: Buffer | string;
-            screen_name?: string;
-            id?: string;
-            slug?: string;
-            owner_screen_name?: string;
-            status?: string;
-            user_id?: number | string;
-            lat?: number;
-            long?: number;
-            follow?: boolean | string | string[];
-            include_email?: boolean;
-            cursor?: number | string;
-            tweet_mode?: string;
-            trim_user?: boolean;
-            exclude_replies?: boolean;
-            include_rts?: boolean;
-            skip_status?: boolean;
-            url?: string;
-            include_user_entities?: boolean;
-            stringify_ids?: boolean;
-            in_reply_to_status_id?: number | string;
-            page?: number;
+                text?: string | undefined;
+            } | undefined;
+            media_data?: Buffer | string | undefined;
+            screen_name?: string | undefined;
+            id?: string | undefined;
+            slug?: string | undefined;
+            owner_screen_name?: string | undefined;
+            status?: string | undefined;
+            user_id?: number | string | undefined;
+            lat?: number | undefined;
+            long?: number | undefined;
+            follow?: boolean | string | string[] | undefined;
+            include_email?: boolean | undefined;
+            cursor?: number | string | undefined;
+            tweet_mode?: string | undefined;
+            trim_user?: boolean | undefined;
+            exclude_replies?: boolean | undefined;
+            include_rts?: boolean | undefined;
+            skip_status?: boolean | undefined;
+            url?: string | undefined;
+            include_user_entities?: boolean | undefined;
+            stringify_ids?: boolean | undefined;
+            in_reply_to_status_id?: number | string | undefined;
+            page?: number | undefined;
+            auto_populate_reply_metadata?: boolean | undefined;
+            list_id?: number | string | undefined;
+            name?: string | undefined;
+            description?: string | undefined;
+            mode?: "public" | "private" | undefined;
+            exclude_reply_user_ids?: string | string[] | undefined;
+            attachment_url?: string | undefined;
+            place_id?: string | undefined;
+            display_coordinates?: boolean | undefined;
+            enable_dmcommands?: boolean | undefined;
+            fail_dmcommands?: boolean | undefined;
+            card_uri?: string | undefined;
+            event?: MessageCreateEvent;
         }
         export interface PromiseResponse {
             data: Response;
@@ -320,14 +365,14 @@ declare module 'twit' {
         export interface ConfigKeys {
             consumer_key: string;
             consumer_secret: string;
-            access_token?: string;
-            access_token_secret?: string;
+            access_token?: string | undefined;
+            access_token_secret?: string | undefined;
         }
         export interface Options extends ConfigKeys {
-            app_only_auth?: boolean;
-            timeout_ms?: number;
-            trusted_cert_fingerprints?: string[];
-            strictSSL?: boolean;
+            app_only_auth?: boolean | undefined;
+            timeout_ms?: number | undefined;
+            trusted_cert_fingerprints?: string[] | undefined;
+            strictSSL?: boolean | undefined;
         }
         export interface Stream extends EventEmitter {
             start(): void;

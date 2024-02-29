@@ -1,23 +1,17 @@
-// Type definitions for polka 0.5
-// Project: https://github.com/lukeed/polka
-// Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
-//                 James Messinger <https://github.com/JamesMessinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /// <reference types="node" />
 
-import { RequestHandler } from 'express';
-import { Params, ParamsDictionary, Query } from 'express-serve-static-core';
-import { IncomingMessage, Server, ServerResponse } from 'http';
-import * as Trouter from 'trouter';
-import { Url } from 'url';
+import { RequestHandler } from "express";
+import { Params, ParamsDictionary, Query } from "express-serve-static-core";
+import { IncomingMessage, Server, ServerResponse } from "http";
+import * as Trouter from "trouter";
+import { Url } from "url";
 
 declare namespace polka {
     /**
      * A middleware function
      */
-    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> = RequestHandler<P, ResBody, ReqBody, ReqQuery>;
+    type Middleware<P extends Params = ParamsDictionary, ResBody = any, ReqBody = any, ReqQuery = Query> =
+        RequestHandler<P, ResBody, ReqBody, ReqQuery>;
 
     /**
      * Calls the next middleware function in the chain, or throws an error.
@@ -61,7 +55,7 @@ declare namespace polka {
     /**
      * An instance of the Polka router.
      */
-    interface Polka extends Trouter<RequestHandler> {
+    interface Polka {
         /**
          * Parses the `req.url` property of the given request.
          */
@@ -95,6 +89,37 @@ declare namespace polka {
          * It receives all requests and tries to match the incoming URL against known routes.
          */
         handler(req: Request, res: ServerResponse, parsed?: Url): void;
+
+        /**
+         * The instantiated `server` Polka creates when `listen()` is called.
+         * `server` is only created if a server was not provided via `option.server`
+         * `server` will be undefined until polka.listen is invoked or if a server was provided.
+         */
+        server?: Server | undefined;
+
+        find(method: Trouter.HTTPMethod, url: string): Trouter.FindResult<RequestHandler>;
+
+        add(method: Trouter.HTTPMethod, pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        all(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        get(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        head(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        patch(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        options(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        connect(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        delete(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        trace(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        post(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
+
+        put(pattern: string | RegExp, ...handlers: RequestHandler[]): this;
     }
 
     /**
@@ -104,7 +129,7 @@ declare namespace polka {
         /**
          * The server instance to use when `polka.listen()` is called.
          */
-        server?: Server;
+        server?: Server | undefined;
 
         /**
          * A catch-all error handler; executed whenever a middleware throws an error.

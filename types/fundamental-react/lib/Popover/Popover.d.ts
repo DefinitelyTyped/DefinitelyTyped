@@ -23,7 +23,7 @@ export type PopoverTypes =
     | "tree";
 
 export type PopperSizingTypes =
-    | 'none'
+    | "none"
     | "matchTarget"
     | "minTarget"
     | "maxTarget";
@@ -31,20 +31,28 @@ export type PopperSizingTypes =
 export type PopoverProps = {
     body: React.ReactNode;
     control: React.ReactNode;
-    className?: string;
-    disabled?: boolean;
-    disableEdgeDetection?: boolean;
-    disableKeyPressHandler?: boolean;
-    disableStyles?: boolean;
-    noArrow?: boolean;
-    placement?: PopperPlacement;
-    popperClassName?: string;
+    className?: string | undefined;
+    disabled?: boolean | undefined;
+    disableEdgeDetection?: boolean | undefined;
+    disableKeyPressHandler?: boolean | undefined;
+    disableTriggerOnClick?: boolean | undefined;
+    /** Index of the focusable item to focus first within the Popover */
+    firstFocusIndex?: number;
+    /** The bounding container to use when determining if the popover is out of bounds */
+    flipContainer?: Element[];
+    /** If Popover is to be rendered in a modal, the parent modal manager can be passed as a prop */
+    modalManager?: object;
+    noArrow?: boolean | undefined;
+    placement?: PopperPlacement | undefined;
+    popperClassName?: string | undefined;
     popperProps?: any;
-    type?: PopoverTypes;
-    useArrowKeyNavigation?: boolean;
-    widthSizingType?: PopperSizingTypes;
-    onClickOutside?: (event: MouseEvent | TouchEvent | FocusEvent) => void;
-    onEscapeKey?: () => void;
+    /** Handling for show/hide popover if true show the popover */
+    show?: boolean;
+    type?: PopoverTypes | undefined;
+    useArrowKeyNavigation?: boolean | undefined;
+    widthSizingType?: PopperSizingTypes | undefined;
+    onClickOutside?: ((event: MouseEvent | TouchEvent | FocusEvent) => void) | undefined;
+    onEscapeKey?: (() => void) | undefined;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare class Popover extends React.Component<PopoverProps> {}

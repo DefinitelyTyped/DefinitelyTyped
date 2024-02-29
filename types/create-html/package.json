@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/create-html",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/sethvincent/create-html#readme"
+    ],
+    "devDependencies": {
+        "@types/create-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ciarán Ingle",
+            "githubUsername": "inglec-arista"
+        }
+    ]
+}

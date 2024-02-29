@@ -1,9 +1,3 @@
-// Type definitions for non-npm package wx-js-sdk 1.4
-// Project: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
-// Definitions by: Bian Zhongjie <https://github.com/agasbzj>
-//                 Ming Huang <https://github.com/forzoom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace wx {
     /**
      * 微信配置对象
@@ -12,7 +6,7 @@ declare namespace wx {
         /**
          * 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
 
         /**
          * 公众号的唯一标识
@@ -38,6 +32,10 @@ declare namespace wx {
          * 需要使用的JS接口列表
          */
         jsApiList: string[];
+        /**
+         * 可选，需要使用的开放标签列表
+         */
+        openTagList?: string[] | undefined;
     }
 
     /**
@@ -91,7 +89,7 @@ declare namespace wx {
         /**
          * 监听Menu中的按钮点击时触发的方法
          */
-        trigger?: () => void;
+        trigger?: (() => void) | undefined;
     }
 
     /**
@@ -107,7 +105,7 @@ declare namespace wx {
          * 以键值对的形式返回，可用的 api 值 true，不可用为 false
          * 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
          */
-        success(res: { checkResult: { [methodName: string]: boolean }, errMsg: { msg: string } }): void;
+        success(res: { checkResult: { [methodName: string]: boolean }; errMsg: { msg: string } }): void;
     }
 
     /**
@@ -129,7 +127,7 @@ declare namespace wx {
         /**
          * 分享图标
          */
-        imgUrl?: string;
+        imgUrl?: string | undefined;
     }
 
     /**
@@ -145,24 +143,24 @@ declare namespace wx {
         /**
          * 分享标题
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * 分享描述
          */
-        desc?: string;
+        desc?: string | undefined;
 
         /**
          * 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
          */
-        link?: string;
+        link?: string | undefined;
 
         /**
          * 分享图标
          */
-        imgUrl?: string;
+        imgUrl?: string | undefined;
 
-        success?: () => void;
+        success?: (() => void) | undefined;
     }
 
     /**
@@ -172,19 +170,19 @@ declare namespace wx {
         /**
          * 分享标题
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
          */
-        link?: string;
+        link?: string | undefined;
 
         /**
          * 分享图标
          */
-        imgUrl?: string;
+        imgUrl?: string | undefined;
 
-        success?: () => void;
+        success?: (() => void) | undefined;
     }
 
     /**
@@ -200,12 +198,12 @@ declare namespace wx {
         /**
          * 分享类型, music、video 或 link，不填默认为 link
          */
-        type?: string;
+        type?: string | undefined;
 
         /**
          * 如果 type 是 music 或 video，则要提供数据链接，默认为空
          */
-        dataUrl?: string;
+        dataUrl?: string | undefined;
     }
 
     /**
@@ -264,22 +262,22 @@ declare namespace wx {
         /**
          * 照片数，默认9
          */
-        count?: number;
+        count?: number | undefined;
 
         /**
          * 可以指定是原图还是压缩图，默认二者都有
          */
-        sizeType?: string[];
+        sizeType?: string[] | undefined;
 
         /**
          * 可以指定来源是相册还是相机，默认二者都有
          */
-        sourceType?: string[];
+        sourceType?: string[] | undefined;
 
         /**
          * 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
          */
-        success(res: { localIds: string[]}): void;
+        success(res: { localIds: string[] }): void;
     }
 
     /**
@@ -315,7 +313,7 @@ declare namespace wx {
         /**
          * 默认为1，显示进度提示
          */
-        isShowProgressTips?: number;
+        isShowProgressTips?: number | undefined;
 
         /**
          * res: var serverId = res.serverId;  返回图片的服务器端 ID
@@ -334,7 +332,7 @@ declare namespace wx {
          */
         serverId: string;
 
-        isShowProgressTips?: number;
+        isShowProgressTips?: number | undefined;
 
         /**
          * var localId = res.localId;  返回图片下载后的本地 ID
@@ -353,7 +351,7 @@ declare namespace wx {
         /**
          * 成功后的回调, localData是图片的base64数据，可以用img标签显示
          */
-        success(res: { localData: string}): void;
+        success(res: { localData: string }): void;
     }
 
     /**
@@ -369,7 +367,7 @@ declare namespace wx {
     /**
      * 停止录音
      */
-    function stopRecord(success: (res: {localId: string}) => void): void;
+    function stopRecord(success: (res: { localId: string }) => void): void;
 
     /**
      * 录音时间超过一分钟没有停止的时候会执行回调
@@ -397,9 +395,9 @@ declare namespace wx {
     function onVoicePlayEnd(success: (res: { localId: string }) => void): void;
 
     interface UploadVoiceConfig extends WxBaseRequestConfig {
-         localId: string;
-         isShowProgressTips?: number;
-         success(res: any): void;
+        localId: string;
+        isShowProgressTips?: number | undefined;
+        success(res: any): void;
     }
 
     /**
@@ -416,13 +414,13 @@ declare namespace wx {
         /**
          * 默认为1，显示进度提示
          */
-        isShowProgressTips?: number;
+        isShowProgressTips?: number | undefined;
 
         /**
          * 下载成功回调
          */
         success(res: any): void;
-     }
+    }
 
     function downloadVoice(config: DownloadVoiceConfig): void;
 
@@ -437,28 +435,28 @@ declare namespace wx {
     function getNetworkType(success: (res: { networkType: string }) => void): void;
 
     interface OpenLocationConfig extends WxBaseRequestConfig {
-        latitude?: number;
-        longitude?: number;
+        latitude?: number | undefined;
+        longitude?: number | undefined;
 
         /**
          * 位置名
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * 地址详情说明
          */
-        address?: string;
+        address?: string | undefined;
 
         /**
          * 地图缩放级别,整形值,范围从1~28。默认为最大
          */
-        scale?: number;
+        scale?: number | undefined;
 
         /**
          * 在查看位置界面底部显示的超链接, 可点击跳转
          */
-        infoUrl?: string;
+        infoUrl?: string | undefined;
     }
 
     /**
@@ -485,7 +483,7 @@ declare namespace wx {
         /**
          * 默认为 wgs84 的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
          */
-        type?: string;
+        type?: string | undefined;
 
         success(res: Location): void;
     }
@@ -566,12 +564,12 @@ declare namespace wx {
         /**
          * 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
          */
-        needResult?: number;
+        needResult?: number | undefined;
 
         /**
          * ["qrCode","barCode"], 可以指定扫二维码还是一维码，默认二者都有
          */
-        scanType?: string[];
+        scanType?: string[] | undefined;
 
         /**
          * resultStr 是当 needResult 为 1 时，扫码返回的结果
@@ -593,7 +591,7 @@ declare namespace wx {
         /**
          * 0.默认值，普通商品详情页; 1.扫一扫商品详情页; 2.小店商品详情页
          */
-        viewType?: number;
+        viewType?: number | undefined;
     }
 
     /**
@@ -605,17 +603,17 @@ declare namespace wx {
         /**
          * 门店Id
          */
-        shopId?: string;
+        shopId?: string | undefined;
 
         /**
          * 卡券类型
          */
-        cardType?: string;
+        cardType?: string | undefined;
 
         /**
          * 卡券Id
          */
-        cardId?: string;
+        cardId?: string | undefined;
 
         /**
          * 卡券签名时间戳
@@ -702,7 +700,7 @@ declare namespace wx {
         /**
          * 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
          */
-        signType?: string;
+        signType?: string | undefined;
 
         /**
          * 支付签名
@@ -749,5 +747,5 @@ interface Window {
     /**
      * iOS微信6.5.3及其之后的版本 window.__wxjs_is_wkwebview 为true时是使用WKWebview，为 false或者 “undefine”时是 UIWebview
      */
-    __wxjs_is_wkwebview?: boolean;
+    __wxjs_is_wkwebview?: boolean | undefined;
 }

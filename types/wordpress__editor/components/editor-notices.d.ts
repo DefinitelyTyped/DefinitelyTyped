@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace EditorNotices {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const EditorNotices: ComponentType<EditorNotices.Props>;

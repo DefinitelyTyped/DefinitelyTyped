@@ -1,12 +1,5 @@
-// Type definitions for wampy.js v6.x.x
-// Project: https://github.com/KSDaemon/wampy.js
-// Definitions by: Konstantin Burkalev <https://github.com/KSDaemon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace wampy {
-
-    type Dict = {[key: string]: any};
+    type Dict = { [key: string]: any };
 
     type Callback = () => void;
 
@@ -16,150 +9,134 @@ declare namespace wampy {
 
     type SuccessCallback = (args: DataArgs) => void;
 
-    type RPCCallback = (args: DataArgs) => RPCResult | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    type RPCCallback = (args: DataArgs) => RPCResult | void;
 
     type ChallengeCallback = (auth_method: string, extra: Dict) => string;
 
-    type Payload = Args | Dict | string | number | boolean | any[] | null;
+    type Payload = Args | Dict | string | number | boolean | any[] | null;
 
-    interface Args
-    {
+    interface Args {
         argsList: any[];
         argsDict: Dict;
     }
 
-    interface ErrorArgs
-    {
+    interface ErrorArgs {
         error: string;
         details: Dict;
     }
 
-    interface DataArgs extends Args
-    {
+    interface DataArgs extends Args {
         details: Dict;
     }
 
-    interface RPCOptions
-    {
-        process?: boolean;
+    interface RPCOptions {
+        process?: boolean | undefined;
     }
 
-    interface RPCResult extends Args
-    {
+    interface RPCResult extends Args {
         options: RPCOptions;
     }
 
-    interface SubscribeCallbacksHash
-    {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
-        onEvent?: EventCallback;
+    interface SubscribeCallbacksHash {
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
+        onEvent?: EventCallback | undefined;
     }
 
-    interface UnsubscibeCallbacksHash extends SubscribeCallbacksHash
-    {
-
+    interface UnsubscibeCallbacksHash extends SubscribeCallbacksHash {
     }
 
-    interface PublishCallbacksHash
-    {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+    interface PublishCallbacksHash {
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
-    interface CallCallbacksHash
-    {
-        onSuccess?: SuccessCallback;
-        onError?: ErrorCallback;
+    interface CallCallbacksHash {
+        onSuccess?: SuccessCallback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
-    interface CancelCallbacksHash
-    {
-        onSuccess?: Callback;
-        onError?: Callback;
+    interface CancelCallbacksHash {
+        onSuccess?: Callback | undefined;
+        onError?: Callback | undefined;
     }
 
-    interface RegisterCallbacksHash
-    {
+    interface RegisterCallbacksHash {
         rpc: RPCCallback;
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
-    interface UnregisterCallbacksHash
-    {
-        onSuccess?: Callback;
-        onError?: ErrorCallback;
+    interface UnregisterCallbacksHash {
+        onSuccess?: Callback | undefined;
+        onError?: ErrorCallback | undefined;
     }
 
-    interface AdvancedOptions
-    {
-        exclude?: number | number[];
-        eligible?: number | number[];
-        exclude_me?: boolean;
-        disclose_me?: boolean;
+    interface SubscribeAdvancedOptions {
+        match?: "prefix" | "wildcard" | undefined;
     }
 
-    interface PublishAdvancedOptions extends AdvancedOptions
-    {
-        exclude_authid?: string | string[];
-        exclude_authrole?: string | string[];
-        eligible_authid?: string | string[];
-        eligible_authrole?: string | string[];
+    interface AdvancedOptions {
+        exclude?: number | number[] | undefined;
+        eligible?: number | number[] | undefined;
+        exclude_me?: boolean | undefined;
+        disclose_me?: boolean | undefined;
     }
 
-    interface CallAdvancedOptions
-    {
-        disclose_me?: boolean;
-        receive_progress?: boolean;
-        timeout?: number;
+    interface PublishAdvancedOptions extends AdvancedOptions {
+        exclude_authid?: string | string[] | undefined;
+        exclude_authrole?: string | string[] | undefined;
+        eligible_authid?: string | string[] | undefined;
+        eligible_authrole?: string | string[] | undefined;
     }
 
-    interface CancelAdvancedOptions
-    {
-        mode?: "skip" | "kill" | "killnowait";
+    interface CallAdvancedOptions {
+        disclose_me?: boolean | undefined;
+        receive_progress?: boolean | undefined;
+        timeout?: number | undefined;
     }
 
-    interface RegisterAdvancedOptions
-    {
-        match?: "prefix" | "wildcard"
-        invoke?: "single" | "roundrobin" | "random" | "first" | "last"
+    interface CancelAdvancedOptions {
+        mode?: "skip" | "kill" | "killnowait" | undefined;
     }
 
-    interface WampyOptions
-    {
-        autoReconnect?: boolean;
-        reconnectInterval?: number;
-        maxRetries?: number;
-        realm?: string;
+    interface RegisterAdvancedOptions {
+        match?: "prefix" | "wildcard" | undefined;
+        invoke?: "single" | "roundrobin" | "random" | "first" | "last" | undefined;
+    }
+
+    interface WampyOptions {
+        autoReconnect?: boolean | undefined;
+        reconnectInterval?: number | undefined;
+        maxRetries?: number | undefined;
+        realm?: string | undefined;
         helloCustomDetails?: any;
-        authid?: string;
-        authmethods?: string[];
-        onChallenge?: ChallengeCallback;
-        onConnect?: Callback;
-        onClose?: Callback;
-        onError?: Callback;
-        onReconnect?: Callback;
-        onReconnectSuccess?: Callback;
+        authid?: string | undefined;
+        authmethods?: string[] | undefined;
+        onChallenge?: ChallengeCallback | undefined;
+        onConnect?: Callback | undefined;
+        onClose?: Callback | undefined;
+        onError?: Callback | undefined;
+        onReconnect?: Callback | undefined;
+        onReconnectSuccess?: Callback | undefined;
         ws?: any;
         serializer?: any;
+        uriValidation?: "strict" | "loose" | undefined;
     }
 
-    interface WampyOpStatus
-    {
+    interface WampyOpStatus {
         code: number;
         description: string;
-        reqId?: number;
+        reqId?: number | undefined;
     }
 
-    interface WampyStatic
-    {
-        new (options?: WampyOptions): Wampy;
-        new (url: string, options?: WampyOptions): Wampy;
+    interface WampyStatic {
+        new(options?: WampyOptions): Wampy;
+        new(url: string, options?: WampyOptions): Wampy;
     }
 
-    interface Wampy
-    {
+    interface Wampy {
         constructor: WampyStatic;
         options(opts?: WampyOptions): WampyOptions | Wampy;
         getOpStatus(): WampyOpStatus;
@@ -167,26 +144,35 @@ declare namespace wampy {
         connect(url?: string): Wampy;
         disconnect(): Wampy;
         abort(): Wampy;
-        subscribe(topicURI: string,
-                  callbacks: EventCallback | SubscribeCallbacksHash): Wampy;
-        unsubscribe(topicURI: string,
-                    callbacks?: EventCallback | UnsubscibeCallbacksHash): Wampy;
-        publish(topicURI: string,
-                payload?: Payload,
-                callbacks?: PublishCallbacksHash,
-                advancedOptions?: PublishAdvancedOptions): Wampy;
-        call(topicURI: string,
-             payload?: Payload,
-             callbacks?: SuccessCallback | CallCallbacksHash,
-             advancedOptions?: CallAdvancedOptions): Wampy;
-        cancel(reqId: number,
-               callbacks?: Callback | CancelCallbacksHash,
-               advancedOptions?: CancelAdvancedOptions): Wampy;
-        register(topicURI: string,
-                 callbacks: RPCCallback | RegisterCallbacksHash,
-                 avdancedOptions?: RegisterAdvancedOptions): Wampy;
-        unregister(topicURI: string,
-                   callbacks?: Callback | UnregisterCallbacksHash): Wampy;
+        subscribe(
+            topicURI: string,
+            callbacks: EventCallback | SubscribeCallbacksHash,
+            advancedOptions?: SubscribeAdvancedOptions,
+        ): Wampy;
+        unsubscribe(topicURI: string, callbacks?: EventCallback | UnsubscibeCallbacksHash): Wampy;
+        publish(
+            topicURI: string,
+            payload?: Payload,
+            callbacks?: PublishCallbacksHash,
+            advancedOptions?: PublishAdvancedOptions,
+        ): Wampy;
+        call(
+            topicURI: string,
+            payload?: Payload,
+            callbacks?: SuccessCallback | CallCallbacksHash,
+            advancedOptions?: CallAdvancedOptions,
+        ): Wampy;
+        cancel(
+            reqId: number,
+            callbacks?: Callback | CancelCallbacksHash,
+            advancedOptions?: CancelAdvancedOptions,
+        ): Wampy;
+        register(
+            topicURI: string,
+            callbacks: RPCCallback | RegisterCallbacksHash,
+            avdancedOptions?: RegisterAdvancedOptions,
+        ): Wampy;
+        unregister(topicURI: string, callbacks?: Callback | UnregisterCallbacksHash): Wampy;
     }
 }
 

@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PageAttributesOrder {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PageAttributesOrder: ComponentType<PageAttributesOrder.Props>;

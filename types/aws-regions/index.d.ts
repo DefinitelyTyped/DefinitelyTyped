@@ -1,19 +1,13 @@
-// Type definitions for aws-regions 2.1
-// Project: https://github.com/jsonmaur/aws-regions/tree/master/javascript#readme
-// Definitions by: Alex Lapa <https://github.com/Deadarius>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 interface AwsRegionInfo {
     name: string;
     full_name: string;
     code: string;
     public: boolean;
-    zones: ReadonlyArray<string>;
+    zones: readonly string[];
 }
 
 interface ListOptions {
-    public?: boolean;
+    public?: boolean | undefined;
 }
 
 interface LookupOptionsCode {

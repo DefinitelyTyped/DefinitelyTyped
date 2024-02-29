@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Signature } from './signature';
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Signature } from "./signature";
 
 export class Reflog {
     static delete(repo: Repository, name: string): number;
@@ -12,7 +12,6 @@ export class Reflog {
     entryByIndex(idx: number): ReflogEntry;
     entrycount(): number;
 
-    free(): void;
     write(): number;
 }
 

@@ -1,99 +1,95 @@
-// Type definitions for pkgcloud 1.7
-// Project: https://github.com/pkgcloud/pkgcloud#readme
-// Definitions by: Daniel Friesen <https://github.com/dantman>
-//                 Adam Smith <https://github.com/ScriptSmith>
-//                 Cornelis Heuperman <https://github.com/heuperman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 export const version: string;
 
 export interface ClientError extends Error {
-    provider?: Providers;
-    method?: string;
-    failCode?: string;
-    statusCode?: number;
-    href?: string;
-    headers?: { [headerName: string]: string };
+    provider?: Providers | undefined;
+    method?: string | undefined;
+    failCode?: string | undefined;
+    statusCode?: number | undefined;
+    href?: string | undefined;
+    headers?: { [headerName: string]: string } | undefined;
     result?: any;
 }
 
 export type Providers =
-    | 'amazon'
-    | 'azure'
-    | 'digitalocean'
-    | 'google'
-    | 'hp'
-    | 'iriscouch'
-    | 'joyent'
-    | 'mongohq'
-    | 'mongolab'
-    | 'oneandone'
-    | 'openstack'
-    | 'rackspace'
-    | 'redistogo'
-    | 'telefonic';
+    | "amazon"
+    | "azure"
+    | "digitalocean"
+    | "google"
+    | "hp"
+    | "iriscouch"
+    | "joyent"
+    | "mongohq"
+    | "mongolab"
+    | "oneandone"
+    | "openstack"
+    | "rackspace"
+    | "redistogo"
+    | "telefonic";
 
 export interface BaseProviderOptions {
     provider: Providers;
 }
 
 export interface AmazonProviderOptions {
-    provider: 'amazon';
+    provider: "amazon";
     keyId: string;
     key: string;
-    region?: string;
+    region?: string | undefined;
 }
 
 export interface AzureProviderOptions {
-    provider: 'azure';
+    provider: "azure";
     storageAccount: string;
     storageAccessKey: string;
-    location?: string;
+    location?: string | undefined;
 }
 
 export interface GoogleProviderOptions {
-    provider: 'google';
+    provider: "google";
     keyFilename: string;
     projectId: string;
 }
 
 export interface OpenstackProviderOptions {
-    provider: 'openstack';
+    provider: "openstack";
     username: string;
     password: string;
     authUrl: string;
-    region?: string;
-    tenantId?: string;
-    version?: string;
-    keystoneAuthVersion?: string;
+    region?: string | undefined;
+    tenantId?: string | undefined;
+    version?: string | undefined;
+    keystoneAuthVersion?: string | undefined;
+    domainId?: string | undefined;
+    domainName?: string | undefined;
 }
 
 export type RackspaceRegions =
-    | 'DFW' // Dallas/Fort Worth, United States
-    | 'ORD' // Chicago, United States
-    | 'IAD' // Northern Virginia, United States
-    | 'LON' // London, United Kingdom
-    | 'HKG' // Hong Kong, China
-    | 'SYD'; // Sydney, Australia
+    | "DFW" // Dallas/Fort Worth, United States
+    | "ORD" // Chicago, United States
+    | "IAD" // Northern Virginia, United States
+    | "LON" // London, United Kingdom
+    | "HKG" // Hong Kong, China
+    | "SYD"; // Sydney, Australia
 
 export interface RackspaceProviderOptions {
-    provider: 'rackspace';
+    provider: "rackspace";
     username: string;
     apiKey: string;
     region: RackspaceRegions;
-    useInternal?: boolean;
+    useInternal?: boolean | undefined;
 }
 
-export type ProviderOptions = BaseProviderOptions & Partial<
-    | AmazonProviderOptions
-    | AzureProviderOptions
-    | GoogleProviderOptions
-    | OpenstackProviderOptions
-    | RackspaceProviderOptions
->;
+export type ProviderOptions =
+    & BaseProviderOptions
+    & Partial<
+        | AmazonProviderOptions
+        | AzureProviderOptions
+        | GoogleProviderOptions
+        | OpenstackProviderOptions
+        | RackspaceProviderOptions
+    >;
 
 /**
  * Storage

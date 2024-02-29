@@ -1,18 +1,16 @@
-import utils = require('./common/utils');
-import helpers = require('./helpers');
-import State = require('./rules_core/state_core');
-import Renderer = require('./renderer');
-import ParserCore = require('./parser_core');
-import ParserBlock = require('./parser_block');
-import ParserInline = require('./parser_inline');
+import LinkifyIt = require("linkify-it");
 
-import LinkifyIt = require('linkify-it');
-import mdurl = require('mdurl');
-import punycode = require('punycode');
-
-import Token = require('./token');
+import utils = require("./common/utils");
+import helpers = require("./helpers");
+import ParserBlock = require("./parser_block");
+import ParserCore = require("./parser_core");
+import ParserInline = require("./parser_inline");
+import Renderer = require("./renderer");
+import Token = require("./token");
 
 declare namespace MarkdownIt {
+    type Token = import("./token");
+
     /**
      * MarkdownIt provides named presets as a convenience to quickly
      * enable/disable active syntax rules and options for common use cases.
@@ -26,7 +24,7 @@ declare namespace MarkdownIt {
      *   all rules disabled. Useful to quickly setup your config via `.enable()`.
      *   For example, when you need only `bold` and `italic` markup and nothing else.
      */
-    type PresetName = 'default' | 'zero' | 'commonmark';
+    type PresetName = "default" | "zero" | "commonmark";
 
     interface Options {
         /**
@@ -35,7 +33,7 @@ declare namespace MarkdownIt {
          * It's better to extend features via plugins, instead of enabling HTML.
          * @default false
          */
-        html?: boolean;
+        html?: boolean | undefined;
 
         /**
          * Set `true` to add '/' when closing single tags
@@ -43,33 +41,33 @@ declare namespace MarkdownIt {
          * world you will need HTML output.
          * @default false
          */
-        xhtmlOut?: boolean;
+        xhtmlOut?: boolean | undefined;
 
         /**
          * Set `true` to convert `\n` in paragraphs into `<br>`.
          * @default false
          */
-        breaks?: boolean;
+        breaks?: boolean | undefined;
 
         /**
          * CSS language class prefix for fenced blocks.
          * Can be useful for external highlighters.
          * @default 'language-'
          */
-        langPrefix?: string;
+        langPrefix?: string | undefined;
 
         /**
          * Set `true` to autoconvert URL-like text to links.
          * @default false
          */
-        linkify?: boolean;
+        linkify?: boolean | undefined;
 
         /**
          * Set `true` to enable [some language-neutral replacement](https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/replacements.js) +
          * quotes beautification (smartquotes).
          * @default false
          */
-        typographer?: boolean;
+        typographer?: boolean | undefined;
 
         /**
          * Double + single quotes replacement
@@ -82,12 +80,12 @@ declare namespace MarkdownIt {
 
         /**
          * Highlighter function for fenced code blocks.
-         * Highlighter `function (str, lang)` should return escaped HTML. It can also
-         * return empty string if the source was not changed and should be escaped
-         * externaly. If result starts with <pre... internal wrapper is skipped.
+         * Highlighter `function (str, lang, attrs)` should return escaped HTML. It can
+         * also return empty string if the source was not changed and should be escaped
+         * externally. If result starts with <pre... internal wrapper is skipped.
          * @default null
          */
-        highlight?: ((str: string, lang: string) => string) | null;
+        highlight?: ((str: string, lang: string, attrs: string) => string) | null | undefined;
     }
 
     type PluginSimple = (md: MarkdownIt) => void;
@@ -96,9 +94,9 @@ declare namespace MarkdownIt {
 }
 
 interface MarkdownItConstructor {
-    new (): MarkdownIt;
-    new (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
-    new (options: MarkdownIt.Options): MarkdownIt;
+    new(): MarkdownIt;
+    new(presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
+    new(options: MarkdownIt.Options): MarkdownIt;
     (): MarkdownIt;
     (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
     (options: MarkdownIt.Options): MarkdownIt;

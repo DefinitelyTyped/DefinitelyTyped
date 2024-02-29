@@ -1,14 +1,9 @@
-// Type definitions for stubby 4.1
-// Project: https://github.com/mrak/stubby4node
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as http from 'http';
-import * as tls from 'tls';
+import * as http from "http";
+import * as tls from "tls";
 
-export type StubbyMethod = 'GET' | 'PUT' | 'POST' | 'HEAD' | 'PATCH' | 'TRACE' | 'DELETE' | 'CONNECT' | 'OPTIONS';
+export type StubbyMethod = "GET" | "PUT" | "POST" | "HEAD" | "PATCH" | "TRACE" | "DELETE" | "CONNECT" | "OPTIONS";
 
 export interface StubbyRequest {
     /**
@@ -35,7 +30,7 @@ export interface StubbyRequest {
      *   - etc.
      * - it can also be an array of values.
      */
-    method?: StubbyMethod | StubbyMethod[];
+    method?: StubbyMethod | StubbyMethod[] | undefined;
     /**
      * - values are full-fledged **regular expressions**
      * - if omitted, stubby ignores query parameters for the given url.
@@ -48,13 +43,13 @@ export interface StubbyRequest {
      * **NOTE**: repeated querystring keys (often array representations) will
      * have their values converted to a comma-separated list.
      */
-    query?: { [key: string]: string };
+    query?: { [key: string]: string } | undefined;
     /**
      * - is a full-fledged **regular expression**
      * - if omitted, any post data is ignored.
      * - the body contents of the server request, such as form data.
      */
-    post?: string;
+    post?: string | undefined;
     /**
      * - if supplied, replaces `post` with the contents of the locally given
      *   file.
@@ -63,21 +58,21 @@ export interface StubbyRequest {
      *   for matching.
      * - allows you to split up stubby data across multiple files
      */
-    file?: string;
+    file?: string | undefined;
     /**
      * - not used if `post` or `file` are present.
      * - will be parsed into a JavaScript object.
      * - allows you to specify a JSON string that will be deeply compared with a
      *   JSON request
      */
-    json?: string;
+    json?: string | undefined;
     /**
      * - values are full-fledged **regular expressions**
      * - if omitted, stubby ignores headers for the given url.
      * - case-insensitive matching of header names.
      * - a hashmap of header/value pairs similar to `query`.
      */
-    headers?: { [key: string]: string };
+    headers?: { [key: string]: string } | undefined;
 }
 
 export interface StubbyResponse {
@@ -86,27 +81,27 @@ export interface StubbyResponse {
      * - integer or integer-like string.
      * - defaults to `200`.
      */
-    status?: number | string;
+    status?: number | string | undefined;
     /**
      * - contents of the response body
      * - defaults to an empty content body
      */
-    body?: string;
+    body?: string | undefined;
     /**
      * - similar to `request.file`, but the contents of the file are used as the
      *   `body`.
      */
-    file?: string;
+    file?: string | undefined;
     /**
      * - similar to `request.headers` except that these are sent back to the
      *   client.
      */
-    headers?: { [key: string]: string };
+    headers?: { [key: string]: string } | undefined;
     /**
      * - time to wait, in milliseconds, before sending back the response
      * - good for testing timeouts, or slow connections
      */
-    latency?: number;
+    latency?: number | undefined;
 }
 
 export interface StubbyData {
@@ -128,39 +123,39 @@ export interface StubbyData {
      * portion of the endpoint will be used to assemble a request to the url
      * given as the `response`.
      */
-    response?: string | StubbyResponse | Array<string | StubbyResponse>;
+    response?: string | StubbyResponse | Array<string | StubbyResponse> | undefined;
 }
 
 export interface StubbyCommonOptions {
     /** port number to run the stubs portal */
-    stubs?: number;
+    stubs?: number | undefined;
     /** port number to run the admin portal */
-    admin?: number;
+    admin?: number | undefined;
     /** port number to run the stubs portal over https */
-    tls?: number;
+    tls?: number | undefined;
     /** JavaScript Object/Array containing endpoint data */
-    data?: StubbyData | StubbyData[];
+    data?: StubbyData | StubbyData[] | undefined;
     /** address/hostname at which to run stubby */
-    location?: string;
+    location?: string | undefined;
     /** filename to monitor and load as stubby's data when changes occur */
-    watch?: string;
+    watch?: string | undefined;
     /** defaults to `true`. Pass in `false` to have console output (if available) */
-    quiet?: boolean;
+    quiet?: boolean | undefined;
     /** additional options to pass to the underlying tls server */
-    _httpsOptions?: tls.TlsOptions;
-    datadir?: string;
+    _httpsOptions?: tls.TlsOptions | undefined;
+    datadir?: string | undefined;
 }
 
 export interface StubbyWithKeyCertOptions extends StubbyCommonOptions {
     /** keyfile contents (in PEM format) */
-    key: string | Buffer | Array<Buffer | Object>; // tslint:disable-line:ban-types
+    key: string | Buffer | Array<Buffer | Object>; // eslint-disable-line @typescript-eslint/ban-types
     /** certificate file contents (in PEM format) */
     cert: string | Buffer | Array<string | Buffer>;
 }
 
 export interface StubbyWithPfxOptions extends StubbyCommonOptions {
     /** pfx file contents (mutually exclusive with key/cert options) */
-    pfx?: string | Buffer | Array<string | Buffer | Object>; // tslint:disable-line:ban-types
+    pfx?: string | Buffer | Array<string | Buffer | Object> | undefined; // eslint-disable-line @typescript-eslint/ban-types
 }
 
 export type StubbyOptions = StubbyWithKeyCertOptions | StubbyWithPfxOptions;
@@ -176,12 +171,12 @@ declare class Endpoints {
     constructor(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, datadir: string) => void,
-        datadir: string
+        datadir: string,
     );
     create(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, endpoint: Endpoint) => void,
-        datadir: string
+        datadir: string,
     ): void;
     retrieve(id: string, callback: (err: Error | undefined, endpoint: Endpoint) => void): void;
     update(id: string, data: StubbyData, callback: (err?: Error) => void): void;

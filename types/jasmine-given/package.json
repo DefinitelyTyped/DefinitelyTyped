@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jasmine-given",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/searls/jasmine-given"
+    ],
+    "devDependencies": {
+        "@types/jasmine-given": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shai Reznik",
+            "githubUsername": "shairez"
+        },
+        {
+            "name": "Dmitry Efimenko",
+            "githubUsername": "DmitryEfimenko"
+        }
+    ]
+}

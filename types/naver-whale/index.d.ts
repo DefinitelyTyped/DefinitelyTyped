@@ -1,9 +1,3 @@
-// Type definitions for Naver Whale extension development
-// Project: https://developers.whale.naver.com/getting_started/
-// Definitions by: tbvjaos510 <https://github.com/tbvjaos510>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="chrome" />
 
 declare interface Window {
@@ -251,12 +245,12 @@ declare namespace whale {
     export namespace sidebarAction {
         export interface SidebarShowDetail {
             /** Optional. 사이드바 영역에 표시할 페이지 URL. 지정하지 않으면 매니페스트에 정의한 default_page. */
-            url?: string;
+            url?: string | undefined;
             /**
              * Optional. url 인자와 현재 URL이 같을 때에도 페이지를 새로고침 할 것인지 여부.
              * @default false
              */
-            reload?: boolean;
+            reload?: boolean | undefined;
         }
 
         export interface SidebarTitleDetail {
@@ -266,7 +260,7 @@ declare namespace whale {
         export interface SidebarIconDetail {
             /**
              * 아이콘 이미지 데이터입니다. @see https://developer.chrome.com/extensions/pageAction#type-ImageDataType
-             * */
+             */
             icon: ImageData;
         }
 
@@ -282,7 +276,7 @@ declare namespace whale {
 
         export interface SidebarDockDetail {
             /** 부모 윈도우의 ID. 지정하지 않으면 마지막 사용된 윈도우에 도킹합니다. */
-            targetWindowId?: number;
+            targetWindowId?: number | undefined;
         }
 
         export interface BadgeBackgroundColorDetails {
@@ -291,8 +285,7 @@ declare namespace whale {
         }
         export type ColorArray = [number, number, number, number];
 
-        export interface BrowserClickedEvent
-            extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
+        export interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
         /**
          * 지정한 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
@@ -304,7 +297,7 @@ declare namespace whale {
         export function show(
             windowId: number,
             details?: SidebarShowDetail,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -315,7 +308,7 @@ declare namespace whale {
          */
         export function show(
             details: SidebarShowDetail,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -327,7 +320,6 @@ declare namespace whale {
 
         /**
          * 현재 윈도우에 사이드바 영역을 열고 포커스를 주는 메소드입니다. 이미 사이드바가 열려있다면 포커스만 옮겨줍니다.
-         *
          */
         export function show(): void;
 
@@ -338,7 +330,7 @@ declare namespace whale {
          */
         export function hide(
             windowId: number,
-            callback?: (windowId: number) => void
+            callback?: (windowId: number) => void,
         ): void;
 
         /**
@@ -402,7 +394,7 @@ declare namespace whale {
          * @param details 뱃지 배경 색상을 담은 객체
          */
         export function setBadgeBackgroundColor(
-            details: BadgeBackgroundColorDetails
+            details: BadgeBackgroundColorDetails,
         ): void;
 
         /**
@@ -410,7 +402,7 @@ declare namespace whale {
          * @param callback 뱃지 배경 색상. RGBA 색상값 배열 [R, G, B, A]를 담은 인자값으로 넣은 콜백 함수.
          */
         export function getBadgeBackgroundColor(
-            callback: (color: ColorArray) => void
+            callback: (color: ColorArray) => void,
         ): void;
 
         /**
@@ -423,7 +415,7 @@ declare namespace whale {
         export function dock(
             popupWindowId: number,
             details: SidebarDockDetail,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -434,7 +426,7 @@ declare namespace whale {
          */
         export function dock(
             popupWindowId: number,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -445,7 +437,7 @@ declare namespace whale {
          */
         export function undock(
             popupWindowId: number,
-            callback: (windowId: number) => void
+            callback: (windowId: number) => void,
         ): void;
 
         /**
@@ -502,7 +494,6 @@ declare namespace whale {
      * Whale에서 더 많은 기능을 지원합니다.
      * 권한: "topSites"
      * @since Chrome 19.
-     *
      */
     export namespace topSites {
         /** 많이 방문한 URL을 저장하는 Object입니다. get에서 사용됩니다. */
@@ -541,14 +532,14 @@ declare namespace whale {
         export function add(
             url: string,
             title: string,
-            callback?: (status: boolean) => void
+            callback?: (status: boolean) => void,
         ): void;
 
         /**
          * 자주 가는 사이트에서 해당 url을 삭제합니다.
          * @param url 삭제할 url
          */
-        var _delete: (url: string) => void;
+        function _delete(url: string): void;
         export { _delete as delete };
 
         /**
@@ -570,7 +561,7 @@ declare namespace whale {
          */
         export function isBlocked(
             url: string,
-            callback: (status: boolean) => void
+            callback: (status: boolean) => void,
         ): void;
 
         /**
@@ -582,7 +573,7 @@ declare namespace whale {
         export function search(
             term: string,
             count: number,
-            callback?: (result: MostVisitedURL2[]) => void
+            callback?: (result: MostVisitedURL2[]) => void,
         ): void;
 
         /**

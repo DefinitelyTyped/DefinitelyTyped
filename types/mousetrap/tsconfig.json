@@ -7,12 +7,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -20,6 +16,6 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/global-bind.ts"
+        "test/index-module.ts"
     ]
 }

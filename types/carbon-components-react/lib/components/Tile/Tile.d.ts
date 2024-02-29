@@ -1,78 +1,92 @@
 import * as React from "react";
-import {
-    EmbeddedIconProps,
-    ReactAnchorAttr,
-    ReactDivAttr,
-    ReactLabelAttr,
-    ThemeProps, ReactButtonAttr
-} from "../../../typings/shared";
+import { ReactAnchorAttr, ReactButtonAttr, ReactDivAttr, ReactLabelAttr } from "../../../typings/shared";
+import { LinkProps } from "../Link";
 
 // Tile
 
-interface TileInheritedProps extends ReactDivAttr, ThemeProps { }
+export interface TileProps extends ReactDivAttr {
+    light?: boolean | undefined;
+}
 
-export interface TileProps extends TileInheritedProps { }
-
-export declare class Tile extends React.Component<TileProps> { }
+export declare class Tile extends React.Component<TileProps> {}
 
 // ClickableTile
 
-interface ClickableTileInheritedProps extends Omit<ReactAnchorAttr, "onClick" | "onKeyDown">, ThemeProps { }
-
-export interface ClickableTileProps extends ClickableTileInheritedProps {
-    handleClick?: ReactAnchorAttr["onClick"],
-    handleKeyDown?: ReactAnchorAttr["onKeyDown"],
-}
-
-export declare class ClickableTile extends React.Component<ClickableTileProps> { }
-
-// SelectableTile
-
-type SelectedTileExcludedAttributes = "onChange" | "onClick" | "onKeyDown";
-interface SelectableTileInheritedProps extends
-    Omit<ReactLabelAttr, SelectedTileExcludedAttributes>,
-    ThemeProps
-{
+export interface ClickableTileProps extends LinkProps {
     /**
      * @deprecated
      */
-    iconDescription?: EmbeddedIconProps["iconDescription"],
+    handleClick?: ReactAnchorAttr["onClick"] | undefined;
+    /**
+     * @deprecated
+     */
+    handleKeyDown?: ReactAnchorAttr["onKeyDown"] | undefined;
+    light?: boolean | undefined;
 }
 
-export interface SelectableTileProps extends SelectableTileInheritedProps {
-    handleClick?(e: React.MouseEvent<HTMLLabelElement>): void,
-    handleKeyDown?(e: React.KeyboardEvent<HTMLLabelElement>): void,
-    onChange(e: React.KeyboardEvent<HTMLLabelElement> | React.MouseEvent<HTMLLabelElement>): void,
-    selected?: boolean,
-    value: string | number,
+export declare class ClickableTile extends React.Component<ClickableTileProps> {}
+
+// SelectableTile
+
+export interface SelectableTileProps extends Omit<ReactLabelAttr, "onChange"> {
+    disabled?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    handleClick?(e: React.MouseEvent<HTMLLabelElement>): void;
+    /**
+     * @deprecated
+     */
+    handleKeyDown?(e: React.KeyboardEvent<HTMLLabelElement>): void;
+    /**
+     * @deprecated
+     */
+    iconDescription?: string | undefined;
+    light?: boolean | undefined;
+    onChange?(
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.MouseEvent<HTMLLabelElement>
+            | React.KeyboardEvent<HTMLLabelElement>,
+    ): void;
+    selected?: boolean | undefined;
+    value: string | number;
 }
 
-export declare class SelectableTile extends React.Component<SelectableTileProps> { }
+export declare const SelectableTile: React.FC<SelectableTileProps>;
 
 // ExpandableTile
 
-interface ExpandableTileInheritedProps extends Omit<ReactButtonAttr, "onClick">, ThemeProps { }
-
-export interface ExpandableTileProps extends ExpandableTileInheritedProps {
-    expanded?: boolean,
-    handleClick?(e: React.MouseEvent<HTMLButtonElement>): void,
-    onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void,
-    tileCollapsedIconText?: string,
-    tileExpandedIconText?: string,
-    tileMaxHeight?: number,
-    tilePadding?: number,
+export interface ExpandableTileProps extends ReactButtonAttr {
+    expanded?: boolean | undefined;
+    /**
+     * @deprecated
+     */
+    handleClick?(e: React.MouseEvent<HTMLButtonElement>): void;
+    light?: boolean | undefined;
+    onBeforeClick?(e: React.MouseEvent<HTMLButtonElement>): void;
+    tileCollapsedIconText?: string | undefined;
+    tileCollapsedLabel?: string | undefined;
+    tileExpandedIconText?: string | undefined;
+    tileExpandedLabel?: string | undefined;
+    tileMaxHeight?: number | undefined;
+    tilePadding?: number | undefined;
 }
 
-export declare class ExpandableTile extends React.Component<ExpandableTileProps> { }
+export declare class ExpandableTile extends React.Component<ExpandableTileProps> {}
 
 // TileAboveTheFoldContent
 
-export interface TileAboveTheFoldContentProps { }
+export interface TileAboveTheFoldContentProps {
+    children?: React.ReactNode | undefined;
+}
 
-export declare class TileAboveTheFoldContent extends React.Component<TileAboveTheFoldContentProps> { }
+export declare class TileAboveTheFoldContent extends React.Component<TileAboveTheFoldContentProps> {}
 
 // TileBelowTheFoldContent
 
-export interface TileBelowTheFoldContentProps { }
+export interface TileBelowTheFoldContentProps {
+    children?: React.ReactNode | undefined;
+}
 
-export declare class TileBelowTheFoldContent extends React.Component<TileBelowTheFoldContentProps> { }
+export declare class TileBelowTheFoldContent extends React.Component<TileBelowTheFoldContentProps> {}

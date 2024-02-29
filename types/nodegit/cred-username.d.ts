@@ -1,4 +1,4 @@
-import { Cred } from './cred';
+import { Cred } from "./cred";
 
 export class CredUsername {
     parent: Cred;

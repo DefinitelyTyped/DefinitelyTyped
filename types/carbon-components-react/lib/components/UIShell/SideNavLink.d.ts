@@ -1,32 +1,30 @@
 import * as React from "react";
 import {
-    ReactAttr,
+    FCReturn,
+    ForwardRefProps,
     ReactAnchorAttr,
     RenderIconProps,
     RequiresChildrenProps,
     SideNavSharedProps,
-    SideNavSizingProps, FCReturn, FCProps,
+    SideNavSizingProps,
 } from "../../../typings/shared";
 import { LinkProps } from "./Link";
 
-interface InheritedProps extends
-    RenderIconProps,
-    RequiresChildrenProps<string>,
-    SideNavSharedProps,
-    SideNavSizingProps
+export interface SideNavLinkPropsBase
+    extends RenderIconProps, RequiresChildrenProps<string>, SideNavSharedProps, SideNavSizingProps
 {
-    className?: ReactAttr["className"],
+    className?: string | undefined;
 }
-
-export interface SideNavLinkPropsBase extends InheritedProps { }
 
 export type SideNavLinkProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavLinkPropsBase;
 
-declare interface SideNavLinkFC<E extends object = {}> extends React.FC<SideNavLinkProps<E>> { }
+declare interface SideNavLinkFC<E extends object = {}> extends React.FC<SideNavLinkProps<E>> {}
 export declare function createCustomSideNavLink<E extends object = {}>(
-    element: SideNavLinkProps['element']
-): SideNavLinkFC<Omit<E, 'element'>>;
+    element: SideNavLinkProps["element"],
+): SideNavLinkFC<Omit<E, "element">>;
 
-declare function SideNavLink<E extends object = ReactAnchorAttr>(props: FCProps<SideNavLinkProps<E>>): FCReturn;
+declare function SideNavLink<E extends object = ReactAnchorAttr>(
+    props: ForwardRefProps<HTMLElement, SideNavLinkProps<E>>,
+): FCReturn;
 
 export default SideNavLink;

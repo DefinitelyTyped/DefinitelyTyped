@@ -1,22 +1,16 @@
-// Type definitions for squirrelly 7.1
-// Project: https://squirrelly.js.org
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace Sqrl;
 
 export interface Options {
-    $cache?: boolean;
-    $file?: string;
-    $name?: string;
+    $cache?: boolean | undefined;
+    $file?: string | undefined;
+    $name?: string | undefined;
 }
 
 export interface NativeHelper {
-    blocks?: Blocks;
-    helperEnd?: () => string;
-    helperStart?: (param?: string, id?: string) => string;
-    selfClosing?: (param?: string) => string;
+    blocks?: Blocks | undefined;
+    helperEnd?: (() => string) | undefined;
+    helperStart?: ((param?: string, id?: string) => string) | undefined;
+    selfClosing?: ((param?: string) => string) | undefined;
 }
 
 export type Blocks = Record<string, () => string>;
@@ -36,7 +30,7 @@ export function load(options: Options): SqrlFn | string;
 export function load(options: Options, str: string): SqrlFn;
 export function Render(template: string | SqrlFn, options: object): string;
 export function renderFile(filePath: string, options: object): string;
-export function setDefaultFilters(obj: 'clear' | Record<string, boolean>): void;
+export function setDefaultFilters(obj: "clear" | Record<string, boolean>): void;
 
 export namespace F {
     function e(str: string): string;

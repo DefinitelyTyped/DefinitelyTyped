@@ -1,8 +1,3 @@
-// Type definitions for DYMO Label Framework v1.2.6
-// Project: http://www.labelwriter.com/software/dls/sdk/docs/DYMOLabelFrameworkJavaScriptHelp/index.html
-// Definitions by: Thijs Kuipers <https://github.com/thijskuipers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top namespace for DYMO Label Framework JavaScript library.
  * Latest library available at http://labelwriter.com/software/dls/sdk/js/DYMO.Label.Framework.latest.js
@@ -14,7 +9,6 @@
  * which is © 2013 DYMO Label Inside Out
  */
 declare namespace dymo.label.framework {
-
     /** Enumeration that specifies where to draw the Intellegent Mail barcode for an Address object. */
     enum AddressBarcodePosition {
         /** Indicates to print the barcode above the address. */
@@ -22,7 +16,7 @@ declare namespace dymo.label.framework {
         /** Indicates to print the barcode below the address. */
         BelowAddress,
         /** Indicates to not print the barcode at all. */
-        Suppress
+        Suppress,
     }
 
     /**
@@ -33,7 +27,7 @@ declare namespace dymo.label.framework {
         /** Indicates that the content flows from left to right. */
         LeftToRight,
         /** Indicates that the content flows from right to left. */
-        RightToLeft
+        RightToLeft,
     }
 
     /**
@@ -45,7 +39,7 @@ declare namespace dymo.label.framework {
         /** Indicates that barcode and images print quality (slow) is used. */
         BarcodeAndGraphics,
         /** Indicates that the print quality is automatically determined based on the types of objects on the label. */
-        Auto
+        Auto,
     }
 
     /** Print Job Status */
@@ -59,7 +53,7 @@ declare namespace dymo.label.framework {
         PrinterBusy,
         Printing,
         ProcessingError,
-        Unknown
+        Unknown,
     }
 
     /** Enumeration that specifies the leader and trailer for a tape label when printing to a Tape printer. */
@@ -69,7 +63,7 @@ declare namespace dymo.label.framework {
         /** Indicates a 6mm leader and a 10mm trailer. */
         Left,
         /** Indicates a 10mm leader and a 6mm trailer. */
-        Right
+        Right,
     }
 
     /** Enumeration that specifies the tape cut mode when printing multiple labels to a Tape printer. Note: This enumeration affects multiple page print jobs only. If a one page job is printed, the tape is always cut. */
@@ -77,7 +71,7 @@ declare namespace dymo.label.framework {
         /** Indicates to cut the tape between labels. */
         AutoCut,
         /** Indicates to print cut marks between labels. */
-        ChainMarks
+        ChainMarks,
     }
 
     /** Enumeration that specifies which roll to print to when printing to a Twin Turbo printer. */
@@ -87,7 +81,7 @@ declare namespace dymo.label.framework {
         /** Indicates to print to the right roll only. */
         Right,
         /** Indicates to continue printing to the other roll when the current roll is out of paper. Note: This does not indicate which roll to print to first; printing may start on either roll. */
-        Auto
+        Auto,
     }
 
     /** Returns the library version number, e.g. "1.2.6" */
@@ -101,6 +95,8 @@ declare namespace dymo.label.framework {
         isFrameworkInstalled: boolean;
         /** An empty string if no error is detected; an error message if an error is detected. */
         errorDetails: string;
+        /** Indicates whether the web service is running or not. */
+        isWebServicePresent: boolean;
     };
 
     /**
@@ -110,31 +106,31 @@ declare namespace dymo.label.framework {
      */
     interface Color {
         /** alpha channel [0..255] default: 255 */
-        alpha?: number;
+        alpha?: number | undefined;
         /** red channel [0..255] default: 0 */
-        red?: number;
+        red?: number | undefined;
         /** green channel [0..255] default: 0 */
-        green?: number;
+        green?: number | undefined;
         /** blue channel [0..255] default: 0 */
-        blue?: number;
+        blue?: number | undefined;
     }
 
     interface CreateLabelRenderParamsXmlParams {
         /** The color of the label. */
-        labelColor?: Color;
+        labelColor?: Color | undefined;
         /** The color of label shadow. */
-        shadowColor?: Color;
+        shadowColor?: Color | undefined;
         /** The shadow width in TWIPS. If '0' is specified, no shadow is rendered. */
-        shadowDepth?: number;
+        shadowDepth?: number | undefined;
         /**  The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /**
          * If true, the PNG will be generated using the display resolution.
          * If false, the PNG will be generated using the printer resolution.
          * If the display resolution is used, the resulting PNG will be smaller.
          * Use the printer resolution if the resulting image will be zoomed. This will give the zoomed preview better quality.
          */
-        pngUseDisplayResolution?: boolean;
+        pngUseDisplayResolution?: boolean | undefined;
     }
 
     /**
@@ -148,15 +144,15 @@ declare namespace dymo.label.framework {
 
     interface CreateLabelWriterPrintParamsXmlParams {
         /** The number of copies to print. */
-        copies?: number;
+        copies?: number | undefined;
         /** The print job title/description. */
-        jobTitle?: string;
+        jobTitle?: string | undefined;
         /** The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /** The print quality. Use the dymo.label.framework.LabelWriterPrintQuality enumeration to specify the value. */
-        printQuality?: LabelWriterPrintQuality;
+        printQuality?: LabelWriterPrintQuality | undefined;
         /** The roll to print to if the printer is a TwinTurbo printer. Use the dymo.label.framework.TwinTurboRoll enumeration to specify the value. */
-        twinTurboRoll?: TwinTurboRoll;
+        twinTurboRoll?: TwinTurboRoll | undefined;
     }
 
     /**
@@ -171,15 +167,15 @@ declare namespace dymo.label.framework {
 
     interface CreateTapePrintParamsXmlParams {
         /** The number of copies to print. */
-        copies?: number;
+        copies?: number | undefined;
         /** The print job title/description. */
-        jobTitle?: string;
+        jobTitle?: string | undefined;
         /** The direction of the label content on the label (left-to-right or right-to-left). Use the dymo.label.framework.FlowDirection enumeration to specify the value. */
-        flowDirection?: FlowDirection;
+        flowDirection?: FlowDirection | undefined;
         /** The label alignment on the tape. Use the dymo.label.framework.TapeAlignment enumeration to specify the value. */
-        alignment?: TapeAlignment;
+        alignment?: TapeAlignment | undefined;
         /** The cut mode (if auto-cut is supported by the printer). Use the dymo.label.framework.TapeCutMode enumeration to specify the value. */
-        cutMode?: TapeCutMode;
+        cutMode?: TapeCutMode | undefined;
     }
 
     /**
@@ -312,9 +308,9 @@ declare namespace dymo.label.framework {
         /**
          * Prints the label.
          *
-          * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
-          * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
-          * @param labelSetXml
+         * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
+         * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
+         * @param labelSetXml
          *   The LabelSet to print. LabelSet is used to print multiple labels with the same layout, but with different
          *   data, such as multiple addresses. Use the dymo.label.framework.LabelSetBuilder class to create a LabelSet
          *   or construct XML manually according to [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
@@ -324,9 +320,9 @@ declare namespace dymo.label.framework {
         /**
          * Prints a label and runs status checking in a loop
          *
-          * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
-          * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
-          * @param labelSetXml The LabelSet to print.
+         * @param printerName The name of the printer to print to. A list of printers can be obtained using dymo.label.framework.getPrinters.
+         * @param printParamsXml The print parameters, such as number of copies, print quality, etc. See [PrintParams.xsd]{@link http://labelwriter.com/software/dls/sdk/PrintParams.xsd}.
+         * @param labelSetXml The LabelSet to print.
          *   LabelSet is used to print multiple labels with the same layout, but with different data, such as multiple
          *   addresses. Use the dymo.label.framework.LabelSetBuilder class to create a LabelSet or construct XML manually
          *   according to [LabelSet.xsd]{@link http://labelwriter.com/software/dls/sdk/LabelSet.xsd}.
@@ -346,7 +342,8 @@ declare namespace dymo.label.framework {
             printParamsXml: string,
             labelSetXml: string,
             statusCallback: (printJob: PrintJob, printJobStatusInfo: PrintJobStatusInfo) => boolean,
-            pollInterval: number): PrintJob;
+            pollInterval: number,
+        ): PrintJob;
 
         /**
          * Creates a label raster image that can be used for label previewing.
@@ -377,9 +374,9 @@ declare namespace dymo.label.framework {
          * Sets the text content of an Address object.
          *
          * @param addressIndex The zero-based index of the Address object in a 'virtual' array of all Address objects on the label.
-          * @param text The plain text string that contains the content of the Address object. Note: The current text formatting is retained on a line-by-line basis.
-          *
-          * @returns self
+         * @param text The plain text string that contains the content of the Address object. Note: The current text formatting is retained on a line-by-line basis.
+         *
+         * @returns self
          */
         setAddressText(addressIndex: number, text: string): ILabel;
 
@@ -410,8 +407,8 @@ declare namespace dymo.label.framework {
         /**
          * Adds image data to the record.
          *
-          * @param objectName The name of the object that the markup is set for.
-          * @param base64Image The string containing the base64-encoded PNG image stream.
+         * @param objectName The name of the object that the markup is set for.
+         * @param base64Image The string containing the base64-encoded PNG image stream.
          *
          * @returns self
          */
@@ -430,7 +427,7 @@ declare namespace dymo.label.framework {
          * Adds data to the record specified as text markup.
          *
          * @param objectName The name of the object that the markup is set for.
-          * @param textMarkup The markup string. See [TextMarkup.xsd]{@link http://labelwriter.com/software/dls/sdk/TextMarkup.xsd}.
+         * @param textMarkup The markup string. See [TextMarkup.xsd]{@link http://labelwriter.com/software/dls/sdk/TextMarkup.xsd}.
          *
          * @returns self
          */
@@ -515,7 +512,8 @@ declare namespace dymo.label.framework {
         labelXml: string,
         labelSetXml: string,
         statusCallback: (printJob: PrintJob, printJobStatusInfo: PrintJobStatusInfo) => boolean,
-        pollInterval: number): PrintJob;
+        pollInterval: number,
+    ): PrintJob;
 
     /**
      * Creates a label raster image that can be used for label previewing.
@@ -549,7 +547,8 @@ declare namespace dymo.label.framework {
         printerUri: string,
         location?: string,
         successCallback?: AddPrinterUriCallback,
-        errorCallback?: AddPrinterUriCallback): void;
+        errorCallback?: AddPrinterUriCallback,
+    ): void;
 
     /**
      * Undocumented, removed, see http://developers.dymo.com/2013/08/14/dymo-sdk-qa/#comment-27119
@@ -576,7 +575,7 @@ declare namespace dymo.label.framework {
          *
          * @returns An XML string.
          */
-        static toXml(records: {}[]): string;
+        static toXml(records: Array<{}>): string;
 
         /**
          * Adds a new record to the LabelSet. Returns a record object.

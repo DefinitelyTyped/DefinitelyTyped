@@ -1,11 +1,4 @@
-// Type definitions for Wiredep v3.0.x
-// Project: https://github.com/taptapship/wiredep
-// Definitions by: Abraão Alves <http://abraaoalves.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 interface PathFiles {
     [type: string]: string[];
@@ -13,7 +6,7 @@ interface PathFiles {
 
 /**
  * @return {PathFiles} paths to your files by extension
- * @example:
+ * @example
  *  {
  *     js: [
  *       'paths/to/your/js/files.js',
@@ -31,20 +24,18 @@ declare namespace Wiredep {
     export function stream(config: WiredepParams): NodeJS.ReadWriteStream;
 }
 
-
 interface WiredepParams {
-    src?: string | string[];
+    src?: string | string[] | undefined;
     /**
      * the directory of your Bower packages.
      * Default: '.bowerrc'.directory || bower_components
      */
-    directory?: string;
+    directory?: string | undefined;
     /**
      * your bower.json file contents.
      * Default: require('./bower.json')
      */
-    bowerJson?: string;
-
+    bowerJson?: string | undefined;
 
     // ----- Advanced Configuration -----
     // All of the below settings are for advanced configuration, to
@@ -57,37 +48,37 @@ interface WiredepParams {
     /**
      * path to where we are pretending to be
      */
-    cwd?: string;
+    cwd?: string | undefined;
     /**
      * Default: true
      */
-    dependencies?: boolean;
+    dependencies?: boolean | undefined;
     /**
      * Default: false
      */
-    devDependencies?: boolean;
+    devDependencies?: boolean | undefined;
     /**
      * Default: false
      */
-    includeSelf?: boolean;
+    includeSelf?: boolean | undefined;
     /**
-     * @example:
+     * @example
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
-    exclude?: Array<string | RegExp>;
+    exclude?: Array<string | RegExp> | undefined;
 
     /**
      * string or regexp to ignore from the injected filepath
-     * @example:
+     * @example
      *  [ /jquery/, 'bower_components/modernizr/modernizr.js' ]
      */
-    ignorePath?: string | RegExp;
+    ignorePath?: string | RegExp | undefined;
 
     /**
      *  This inline object offers another way to define your overrides if
      *  modifying your project's `bower.json` isn't an option.
      */
-    overrides?: Object;
+    overrides?: Object | undefined;
 
     /**
      * If not overridden, an error will throw
@@ -96,24 +87,24 @@ interface WiredepParams {
      *  - "PKG_NOT_INSTALLED" (a Bower package was not found)
      *  - "BOWER_COMPONENTS_MISSING" (cannot find the `bower_components` directory)
      */
-    onError?: (err: Error) => void;
+    onError?: ((err: Error) => void) | undefined;
 
     /**
      * @param {string} filePath name of file that was updated
      */
-    onFileUpdated?: (filePath: string) => void;
+    onFileUpdated?: ((filePath: string) => void) | undefined;
 
     /**
      * @param {FileObject} fileObject
      */
-    onPathInjected?: (fileObject: FileObject) => void;
+    onPathInjected?: ((fileObject: FileObject) => void) | undefined;
 
     /**
      * @param {string} pkg name of bower package without main
      */
-    onMainNotFound?: (pkg: string) => void;
+    onMainNotFound?: ((pkg: string) => void) | undefined;
 
-    fileTypes?: FileTypes;
+    fileTypes?: FileTypes | undefined;
 }
 
 interface FileObject {
@@ -128,7 +119,7 @@ interface FileObject {
     /**
      * path to file that was injected
      */
-    path: string
+    path: string;
 }
 
 interface FileTypes {
@@ -149,29 +140,29 @@ interface FileTypes {
              */
             typeOfBowerFile: string;
             /**
-             * @exemple:
+             * @example
              *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
              */
             anotherTypeOfBowerFile: (filePath: string) => string;
-        }
+        };
     };
 
     // defaults:
     html: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /<script.*src=['"]([^'"]+)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /<link.*href=['"]([^'"]+)/gi
              */
             css: RegExp;
@@ -179,12 +170,12 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '<script src="{{filePath}}"></script>'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  '<link rel="stylesheet" href="{{filePath}}" />'
              */
             css: string;
@@ -193,18 +184,18 @@ interface FileTypes {
 
     jade: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /script\(.*src=['"]([^'"]+)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /link\(.*href=['"]([^'"]+)/gi
              */
             css: RegExp;
@@ -212,45 +203,45 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  'script(src=\'{{filePath}}\')'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  'link(rel=\'stylesheet\', href=\'{{filePath}}\')'
              */
             css: string;
-        }
+        };
     };
 
     less: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+less)['"]/gi
              */
-            less: RegExp
+            less: RegExp;
         };
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             less: string;
@@ -259,73 +250,73 @@ interface FileTypes {
 
     scss: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+sass)['"]/gi
              */
             sass: RegExp;
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+scss)['"]/gi
              */
             scss: RegExp;
-        },
+        };
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             sass: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}";'
              */
             scss: string;
-        }
+        };
     };
 
     styl: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /@import\s['"](.+css)['"]/gi
              */
             css: RegExp;
             /**
-             * @example:
+             * @example
              *   /@import\s['"](.+styl)['"]/gi
              */
             styl: RegExp;
         };
         replace: {
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}"'
              */
             css: string;
             /**
-             * @example:
+             * @example
              *  '@import "{{filePath}}"'
              */
             styl: string;
@@ -334,19 +325,19 @@ interface FileTypes {
 
     yaml: {
         /**
-         * @example:
+         * @example
          *  /(([ \t]*)#\s*bower:*(\S*))(\n|\r|.)*?(#\s*endbower)/gi
          */
         block: RegExp;
 
         detect: {
             /**
-             * @example:
+             * @example
              *  /-\s(.+js)/gi
              */
             js: RegExp;
             /**
-             * @example:
+             * @example
              *  /-\s(.+css)/gi
              */
             css: RegExp;
@@ -354,18 +345,17 @@ interface FileTypes {
 
         replace: {
             /**
-             * @example:
+             * @example
              *  '- {{filePath}}'
              */
             js: string;
             /**
-             * @example:
+             * @example
              *  '- {{filePath}}'
              */
             css: string;
         };
     };
 }
-
 
 export = Wiredep;

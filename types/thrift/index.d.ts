@@ -1,23 +1,15 @@
-// Type definitions for thrift 0.10
-// Project: http://thrift.apache.org
-// Definitions by: Kamek <https://github.com/kamek-pf>
-//                 Kevin Greene <https://github.com/kevin-greene-ck>
-//                 Jesse Zhang <https://github.com/jessezhang91>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as net from 'net';
-import * as http from 'http';
-import * as https from 'https';
-import * as tls from 'tls';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import * as http from "http";
+import * as https from "https";
+import * as net from "net";
+import * as tls from "tls";
 
 // Thrift re-exports node-int64 and Q
-import Int64 = require('node-int64');
+import Int64 = require("node-int64");
 export { Int64 as Int64 };
-import Q = require('q');
+import Q = require("q");
 export { Q as Q };
 
 export interface TMap {
@@ -218,65 +210,64 @@ export class MultiplexedProcessor {
     process(input: TProtocol, output: TProtocol): void;
 }
 
-export type TTransportCallback =
-    (msg?: Buffer, seqid?: number) => void;
+export type TTransportCallback = (msg?: Buffer, seqid?: number) => void;
 
 export interface ServiceMap<TProcessor, THandler> {
     [uri: string]: ServerOptions<TProcessor, THandler>;
 }
 
 export interface ServiceOptions<TProcessor, THandler> {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    processor?: { new(handler: THandler): TProcessor };
-    handler?: THandler;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    processor?: { new(handler: THandler): TProcessor } | undefined;
+    handler?: THandler | undefined;
 }
 
 export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
-    cors?: string[];
-    files?: string;
-    headers?: HttpHeaders;
-    services?: ServiceMap<TProcessor, THandler>;
-    tls?: tls.TlsOptions;
+    cors?: string[] | undefined;
+    files?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    services?: ServiceMap<TProcessor, THandler> | undefined;
+    tls?: tls.TlsOptions | undefined;
 }
 
 export interface ConnectOptions {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    path?: string;
-    headers?: HttpHeaders;
-    https?: boolean;
-    debug?: boolean;
-    max_attempts?: number;
-    retry_max_delay?: number;
-    connect_timeout?: number;
-    timeout?: number;
-    nodeOptions?: http.RequestOptions | https.RequestOptions;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    path?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    https?: boolean | undefined;
+    debug?: boolean | undefined;
+    max_attempts?: number | undefined;
+    retry_max_delay?: number | undefined;
+    connect_timeout?: number | undefined;
+    timeout?: number | undefined;
+    nodeOptions?: http.RequestOptions | https.RequestOptions | undefined;
 }
 
 export interface WSConnectOptions {
-    transport?: TTransportConstructor;
-    protocol?: TProtocolConstructor;
-    path?: string;
-    headers?: HttpHeaders;
-    secure?: boolean;
-    wsOptions?: WSOptions;
+    transport?: TTransportConstructor | undefined;
+    protocol?: TProtocolConstructor | undefined;
+    path?: string | undefined;
+    headers?: HttpHeaders | undefined;
+    secure?: boolean | undefined;
+    wsOptions?: WSOptions | undefined;
 }
 
 export type TClientConstructor<TClient> =
-    { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } |
-    { Client: { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } };
+    | { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient }
+    | { Client: { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient } };
 
 export type TProcessorConstructor<TProcessor, THandler> =
-    { new(handler: THandler): TProcessor } |
-    { Processor: { new(handler: THandler): TProcessor } };
+    | { new(handler: THandler): TProcessor }
+    | { Processor: { new(handler: THandler): TProcessor } };
 
 export interface WebServerOptions<TProcessor, THandler> {
     services: {
         [path: string]: {
             processor: TProcessorConstructor<TProcessor, THandler>;
             handler: THandler;
-        }
+        };
     };
 }
 
@@ -284,46 +275,51 @@ export function createConnection(host: string | undefined, port: number, options
 export function createSSLConnection(host: string | undefined, port: number, options?: ConnectOptions): Connection;
 export function createHttpConnection(host: string | undefined, port: number, options?: ConnectOptions): HttpConnection;
 export function createXHRConnection(host: string | undefined, port: number, options?: ConnectOptions): XHRConnection;
-export function createWSConnectin(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
+export function createWSConnection(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
 
 export function createXHRClient<TClient>(
     client: TClientConstructor<TClient>,
-    connection: XHRConnection
+    connection: XHRConnection,
 ): TClient;
 
 export function createHttpClient<TClient>(
     client: TClientConstructor<TClient>,
-    connection: HttpConnection
+    connection: HttpConnection,
 ): TClient;
 
 export function createWSClient<TClient>(
     client: TClientConstructor<TClient>,
-    connection: WSConnection
+    connection: WSConnection,
 ): TClient;
 
 export function createStdIOClient<TClient>(
     client: TClientConstructor<TClient>,
-    connection: Connection
+    connection: Connection,
 ): TClient;
 
 export function createClient<TClient>(
     client: TClientConstructor<TClient>,
-    connection: Connection
+    connection: Connection,
 ): TClient;
 
 // THandler is going to be a hash of user-defined functions for prcessing RPC calls
 export function createServer<TProcessor, THandler>(
     processor: TProcessorConstructor<TProcessor, THandler>,
     handler: THandler,
-    options?: ServerOptions<TProcessor, THandler>
+    options?: ServerOptions<TProcessor, THandler>,
 ): http.Server | tls.Server;
 
-// tslint:disable-next-line no-unnecessary-generics
-export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function createWebServer<TProcessor, THandler>(
+    options: WebServerOptions<TProcessor, THandler>,
+): http.Server | tls.Server;
 
 export class TBufferedTransport implements TTransport {
     constructor(buffer?: Buffer, callback?: TTransportCallback);
-    static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
+    static receiver(
+        callback: (trans: TBufferedTransport, seqid: number) => void,
+        seqid: number,
+    ): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
     isOpen(): boolean;
@@ -532,14 +528,14 @@ export namespace Thrift {
         SET = 14,
         LIST = 15,
         UTF8 = 16,
-        UTF16 = 17
+        UTF16 = 17,
     }
 
     enum MessageType {
         CALL = 1,
         REPLY = 2,
         EXCEPTION = 3,
-        ONEWAY = 4
+        ONEWAY = 4,
     }
 
     class TException extends Error {
@@ -562,7 +558,7 @@ export namespace Thrift {
         PROTOCOL_ERROR = 7,
         INVALID_TRANSFORM = 8,
         INVALID_PROTOCOL = 9,
-        UNSUPPORTED_CLIENT_TYPE = 10
+        UNSUPPORTED_CLIENT_TYPE = 10,
     }
 
     class TApplicationException extends TException {
@@ -582,7 +578,7 @@ export namespace Thrift {
         SIZE_LIMIT = 3,
         BAD_VERSION = 4,
         NOT_IMPLEMENTED = 5,
-        DEPTH_LIMIT = 6
+        DEPTH_LIMIT = 6,
     }
 
     class TProtocolException implements Error {

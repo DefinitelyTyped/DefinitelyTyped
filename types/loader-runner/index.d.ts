@@ -1,8 +1,3 @@
-// Type definitions for loader-runner v2.2.0
-// Project: https://github.com/webpack/loader-runner.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Loader {
@@ -24,13 +19,13 @@ export interface RunLoaderOption {
     context: any;
     readResource: (
         filename: string,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer | null) => void
+        callback: (err: NodeJS.ErrnoException | null, data: Buffer | null) => void,
     ) => void;
 }
 
 export interface RunLoaderResult {
-    result?: (Buffer | null)[];
-    resourceBuffer?: Buffer | null;
+    result?: Array<Buffer | null> | undefined;
+    resourceBuffer?: Buffer | null | undefined;
     cacheable: boolean;
     fileDependencies: string[];
     contextDependencies: string[];
@@ -66,7 +61,5 @@ export function getContext(resource: string): string;
 
 export function runLoaders(
     options: RunLoaderOption,
-    callback: (err: NodeJS.ErrnoException | null, result: RunLoaderResult) => any
+    callback: (err: NodeJS.ErrnoException | null, result: RunLoaderResult) => any,
 ): void;
-
-

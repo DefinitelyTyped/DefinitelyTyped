@@ -1,12 +1,12 @@
-import { EventEmitter } from 'events';
-import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
-import grouped = require('rdf-dataset-ext');
-import addAll = require('rdf-dataset-ext/addAll');
-import deleteMatch = require('rdf-dataset-ext/deleteMatch');
-import equals = require('rdf-dataset-ext/equals');
-import fromStream = require('rdf-dataset-ext/fromStream');
-import toCanonical = require('rdf-dataset-ext/toCanonical');
-import toStream = require('rdf-dataset-ext/toStream');
+import { BaseQuad, DatasetCore, Quad, Stream, Term } from "@rdfjs/types";
+import { EventEmitter, Readable } from "stream";
+import grouped = require("rdf-dataset-ext");
+import addAll = require("rdf-dataset-ext/addAll");
+import deleteMatch = require("rdf-dataset-ext/deleteMatch");
+import equals = require("rdf-dataset-ext/equals");
+import fromStream = require("rdf-dataset-ext/fromStream");
+import toCanonical = require("rdf-dataset-ext/toCanonical");
+import toStream = require("rdf-dataset-ext/toStream");
 
 const dataset1: DatasetCore = {} as any;
 const dataset2: DatasetCore<BaseQuad> = {} as any;
@@ -51,6 +51,9 @@ const dataset2deleteMatch10: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset
 const dataset2deleteMatch11: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term);
 const dataset2deleteMatch12: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term, term);
 
+const delete1MatchNulls: DatasetCore = grouped.deleteMatch(dataset1, null, null, null, null);
+const delete2MatchNulls: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, null, null, null, null);
+
 // equals
 
 const equals1: boolean = equals(dataset1, dataset1);
@@ -78,9 +81,9 @@ const toCanonical4: string = grouped.toCanonical(dataset2);
 
 // toStream
 
-const toStream1: Stream = toStream(dataset1);
-const toStream2: Stream<BaseQuad> = toStream(dataset2);
-const toStream3: Stream<BaseQuad> = toStream<BaseQuad>(dataset2);
-const toStream4: Stream = grouped.toStream(dataset1);
-const toStream5: Stream<BaseQuad> = grouped.toStream(dataset2);
-const toStream6: Stream<BaseQuad> = grouped.toStream<BaseQuad>(dataset2);
+const toStream1: Readable & Stream = toStream(dataset1);
+const toStream2: Readable & Stream<BaseQuad> = toStream(dataset2);
+const toStream3: Readable & Stream<BaseQuad> = toStream<BaseQuad>(dataset2);
+const toStream4: Readable & Stream = grouped.toStream(dataset1);
+const toStream5: Readable & Stream<BaseQuad> = grouped.toStream(dataset2);
+const toStream6: Readable & Stream<BaseQuad> = grouped.toStream<BaseQuad>(dataset2);

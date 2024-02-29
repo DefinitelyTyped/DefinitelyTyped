@@ -1,24 +1,19 @@
-// Type definitions for cpx 1.5
-// Project: https://github.com/mysticatea/cpx
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+import { EventEmitter } from "events";
 import * as stream from "stream";
-import { EventEmitter } from 'events';
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */
-    clean?: boolean;
+    clean?: boolean | undefined;
     /** Follow symbolic links when copying from them. */
-    dereference?: boolean;
+    dereference?: boolean | undefined;
     /** Copy empty directories which is matched with the glob. */
-    includeEmptyDirs?: boolean;
+    includeEmptyDirs?: boolean | undefined;
     /** Preserve UID, GID, ATIME, and MTIME of files. */
-    preserve?: boolean;
+    preserve?: boolean | undefined;
     /** Do not overwrite files on destination if the source file is older. */
-    update?: boolean;
+    update?: boolean | undefined;
 }
 
 export interface AsyncOptions extends SyncOptions {
@@ -28,7 +23,7 @@ export interface AsyncOptions extends SyncOptions {
 
 export interface WatchOptions extends AsyncOptions, SyncOptions {
     /** Flag to not copy at the initial time of watch. */
-    initialCopy?: boolean;
+    initialCopy?: boolean | undefined;
 }
 
 export class Watcher extends EventEmitter {
@@ -37,7 +32,12 @@ export class Watcher extends EventEmitter {
     close(): void;
 }
 
-export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): void;
+export function copy(
+    source: string,
+    dest: string,
+    options?: AsyncOptions,
+    callback?: (error: Error | null) => void,
+): void;
 export function copy(source: string, dest: string, callback?: (error: Error | null) => void): void;
 
 export function copySync(source: string, dest: string, options?: SyncOptions): void;

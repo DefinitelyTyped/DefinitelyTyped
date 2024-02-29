@@ -1,9 +1,3 @@
-// Type definitions for align-text 1.0
-// Project: https://github.com/jonschlinkert/align-text
-// Definitions by: Claas Ahlrichs <https://github.com/claasahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 interface TransformResult {
     /**
      * the amount of indentation to use. Default is 0 when an object is returned.
@@ -25,8 +19,9 @@ interface Callback {
      * @param longest the length of the longest line
      * @param line the current line (string) being aligned
      * @param lines the array of all lines
+     * @param idx the index of the current line
      */
-    (len: number, longest: number, line: string, lines: string[]):
+    (len: number, longest: number, line: string, lines: string[], idx: number):
         | number
         | TransformResult;
 }

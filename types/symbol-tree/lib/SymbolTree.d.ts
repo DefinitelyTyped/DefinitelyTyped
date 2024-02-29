@@ -1,5 +1,5 @@
-import TreeIterator = require('./TreeIterator');
-import TreePosition = require('./TreePosition');
+import TreeIterator = require("./TreeIterator");
+import TreePosition = require("./TreePosition");
 
 declare namespace SymbolTree {
     interface SiblingOptions<T extends object = any> {
@@ -10,14 +10,14 @@ declare namespace SymbolTree {
          *
          * @default null
          */
-        root?: T | null;
+        root?: T | null | undefined;
 
         /**
          * If set, ignore the children of `object`
          *
          * @default false
          */
-        skipChildren?: boolean;
+        skipChildren?: boolean | undefined;
     }
 
     interface ToArrayOptions<T extends object = any> {
@@ -29,7 +29,7 @@ declare namespace SymbolTree {
          * new Array(0);
          * ```
          */
-        array?: T[];
+        array?: T[] | undefined;
 
         /**
          * Function to test each object before it is added to the array.
@@ -51,7 +51,7 @@ declare namespace SymbolTree {
          *
          * @default false
          */
-        reverse?: boolean;
+        reverse?: boolean | undefined;
     }
 }
 

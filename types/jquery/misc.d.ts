@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
 declare namespace JQuery {
@@ -32,7 +31,7 @@ declare namespace JQuery {
          *
          * **Solution**: Rename any of the older usage to `jQuery.expr.pseudos`. The functionality is identical.
          */
-        ':': Sizzle.Selectors.PseudoFunctions;
+        ":": Sizzle.Selectors.PseudoFunctions;
         /**
          * @deprecated ​ Deprecated since 3.0. Use \`{@link Selectors#pseudos }\`.
          *
@@ -50,7 +49,7 @@ declare namespace JQuery {
         /**
          * A string containing the URL to which the request is sent.
          */
-        url?: string;
+        url?: string | undefined;
     }
 
     interface UrlAjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -61,13 +60,23 @@ declare namespace JQuery {
     }
 
     namespace Ajax {
-        type SuccessTextStatus = 'success' | 'notmodified' | 'nocontent';
-        type ErrorTextStatus = 'timeout' | 'error' | 'abort' | 'parsererror';
+        type SuccessTextStatus = "success" | "notmodified" | "nocontent";
+        type ErrorTextStatus = "timeout" | "error" | "abort" | "parsererror";
         type TextStatus = SuccessTextStatus | ErrorTextStatus;
 
-        type SuccessCallback<TContext> = (this: TContext, data: any, textStatus: SuccessTextStatus, jqXHR: jqXHR) => void;
+        type SuccessCallback<TContext> = (
+            this: TContext,
+            data: any,
+            textStatus: SuccessTextStatus,
+            jqXHR: jqXHR,
+        ) => void;
 
-        type ErrorCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus, errorThrown: string) => void;
+        type ErrorCallback<TContext> = (
+            this: TContext,
+            jqXHR: jqXHR,
+            textStatus: ErrorTextStatus,
+            errorThrown: string,
+        ) => void;
 
         type CompleteCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: TextStatus) => void;
 
@@ -78,47 +87,48 @@ declare namespace JQuery {
             /**
              * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept request header. This header tells the server what kind of response it will accept in return.
              */
-            accepts?: PlainObject<string>;
+            accepts?: PlainObject<string> | undefined;
             /**
              * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation. Note that synchronous requests may temporarily lock the browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async: false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback options instead of the corresponding methods of the jqXHR object such as jqXHR.done().
              */
-            async?: boolean;
+            async?: boolean | undefined;
             /**
              * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless of the type of request.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeSend?(this: TContext, jqXHR: jqXHR, settings: this): false | void;
             /**
              * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a POST is made to a URL that has already been requested by a GET.
              */
-            cache?: boolean;
+            cache?: boolean | undefined;
             /**
              * A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a string categorizing the status of the request ("success", "notmodified", "nocontent", "error", "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
              */
-            complete?: TypeOrArray<CompleteCallback<TContext>>;
+            complete?: TypeOrArray<CompleteCallback<TContext>> | undefined;
             /**
              * An object of string/regular-expression pairs that determine how jQuery will parse the response, given its content type.
              */
-            contents?: PlainObject<RegExp>;
+            contents?: PlainObject<RegExp> | undefined;
             /**
              * When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent). As of jQuery 1.6 you can pass false to tell jQuery to not set any content type header. Note: The W3C XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset will not force the browser to change the encoding. Note: For cross-domain requests, setting the content type to anything other than application/x-www-form-urlencoded, multipart/form-data, or text/plain will trigger the browser to send a preflight OPTIONS request to the server.
              */
-            contentType?: string | false;
+            contentType?: string | false | undefined;
             /**
              * This object will be the context of all Ajax-related callbacks. By default, the context is an object that represents the Ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
              */
-            context?: TContext;
+            context?: TContext | undefined;
             /**
              * An object containing dataType-to-dataType converters. Each converter's value is a function that returns the transformed value of the response.
              */
-            converters?: PlainObject<((value: any) => any) | true>;
+            converters?: PlainObject<((value: any) => any) | true> | undefined;
             /**
              * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of crossDomain to true. This allows, for example, server-side redirection to another domain.
              */
-            crossDomain?: boolean;
+            crossDomain?: boolean | undefined;
             /**
              * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
              */
-            data?: PlainObject | string;
+            data?: PlainObject | string | undefined;
             /**
              * A function to be used to handle the raw response data of XMLHttpRequest. This is a pre-filtering function to sanitize the response. You should return the sanitized data. The function accepts two arguments: The raw data returned from the server and the 'dataType' parameter.
              */
@@ -140,7 +150,7 @@ declare namespace JQuery {
              *
              * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it received in the Content-Type header to what you require. For example, if you want a text response to be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from jsonp to text, and then from text to xml.
              */
-            dataType?: 'xml' | 'html' | 'script' | 'json' | 'jsonp' | 'text' | string;
+            dataType?: "xml" | "html" | "script" | "json" | "jsonp" | "text" | string | undefined;
             /**
              * The MIME type of content that is used to submit the form to the server. Possible values are:
              *
@@ -150,81 +160,81 @@ declare namespace JQuery {
              *
              * "text/plain": A type introduced in HTML5.
              */
-            enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
+            enctype?: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain" | undefined;
             /**
              * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
              */
-            error?: TypeOrArray<ErrorCallback<TContext>>;
+            error?: TypeOrArray<ErrorCallback<TContext>> | undefined;
             /**
              * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
              */
-            global?: boolean;
+            global?: boolean | undefined;
             /**
              * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest transport. The header X-Requested-With: XMLHttpRequest is always added, but its default XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from within the beforeSend function.
              */
-            headers?: PlainObject<string | null | undefined>;
+            headers?: PlainObject<string | null | undefined> | undefined;
             /**
              * Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
              */
-            ifModified?: boolean;
+            ifModified?: boolean | undefined;
             /**
              * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery does not recognize it as such by default. The following protocols are currently recognized as local: file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so once in the $.ajaxSetup() method.
              */
-            isLocal?: boolean;
+            isLocal?: boolean | undefined;
             /**
              * Override the callback function name in a JSONP request. This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for transformation. In this case, you should also explicitly set the jsonpCallback setting. For example, { jsonp: false, jsonpCallback: "callbackName" }. If you don't trust the target of your Ajax requests, consider setting the jsonp property to false for security reasons.
              */
-            jsonp?: string | false;
+            jsonp?: string | false | undefined;
             /**
              * Specify the callback function name for a JSONP request. This value will be used instead of the random name automatically generated by jQuery. It is preferable to let jQuery generate a unique name as it'll make it easier to manage the requests and provide callbacks and error handling. You may want to specify the callback when you want to enable better browser caching of GET requests. As of jQuery 1.5, you can also use a function for this setting, in which case the value of jsonpCallback is set to the return value of that function.
              */
-            jsonpCallback?: string | ((this: TContext) => string);
+            jsonpCallback?: string | ((this: TContext) => string) | undefined;
             /**
              * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
              */
-            method?: string;
+            method?: string | undefined;
             /**
              * A mime type to override the XHR mime type.
              */
-            mimeType?: string;
+            mimeType?: string | undefined;
             /**
              * A password to be used with XMLHttpRequest in response to an HTTP access authentication request.
              */
-            password?: string;
+            password?: string | undefined;
             /**
              * By default, data passed in to the data option as an object (technically, anything other than a string) will be processed and transformed into a query string, fitting to the default content-type "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data, set this option to false.
              */
-            processData?: boolean;
+            processData?: boolean | undefined;
             /**
              * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request. Used when the character set on the local page is not the same as the one on the remote script.
              */
-            scriptCharset?: string;
+            scriptCharset?: string | undefined;
             /**
              * An object of numeric HTTP codes and functions to be called when the response has the corresponding code.
              *
              * If the request is successful, the status code functions take the same parameters as the success callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback.
              */
-            statusCode?: StatusCodeCallbacks<TContext>;
+            statusCode?: StatusCodeCallbacks<TContext> | undefined;
             /**
              * A function to be called if the request succeeds. The function gets passed three arguments: The data returned from the server, formatted according to the dataType parameter or the dataFilter callback function, if specified; a string describing the status; and the jqXHR (in jQuery 1.4.x, XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
              */
-            success?: TypeOrArray<SuccessCallback<TContext>>;
+            success?: TypeOrArray<SuccessCallback<TContext>> | undefined;
             /**
              * Set a timeout (in milliseconds) for the request. A value of 0 means there will be no timeout. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
              */
-            timeout?: number;
+            timeout?: number | undefined;
             /**
              * Set this to true if you wish to use the traditional style of param serialization.
              */
-            traditional?: boolean;
+            traditional?: boolean | undefined;
             /**
              * An alias for method. You should use type if you're using versions of jQuery prior to 1.9.0.
              */
-            type?: string;
+            type?: string | undefined;
             /**
              * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
              */
-            username?: string;
+            username?: string | undefined;
             // ActiveXObject requires "lib": ["scripthost"] which consumers would also require
             /**
              * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE), the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or enhancements to the factory.
@@ -235,7 +245,7 @@ declare namespace JQuery {
              *
              * In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+ should you require the use of it.
              */
-            xhrFields?: XHRFields;
+            xhrFields?: XHRFields | undefined;
         }
 
         // region StatusCodeCallbacks
@@ -247,413 +257,412 @@ declare namespace JQuery {
 
             // jQuery treats 2xx and 304 status codes as a success
 
-            200?: SuccessCallback<TContext>;
-            201?: SuccessCallback<TContext>;
-            202?: SuccessCallback<TContext>;
-            203?: SuccessCallback<TContext>;
-            204?: SuccessCallback<TContext>;
-            205?: SuccessCallback<TContext>;
-            206?: SuccessCallback<TContext>;
-            207?: SuccessCallback<TContext>;
-            208?: SuccessCallback<TContext>;
-            209?: SuccessCallback<TContext>;
-            210?: SuccessCallback<TContext>;
-            211?: SuccessCallback<TContext>;
-            212?: SuccessCallback<TContext>;
-            213?: SuccessCallback<TContext>;
-            214?: SuccessCallback<TContext>;
-            215?: SuccessCallback<TContext>;
-            216?: SuccessCallback<TContext>;
-            217?: SuccessCallback<TContext>;
-            218?: SuccessCallback<TContext>;
-            219?: SuccessCallback<TContext>;
-            220?: SuccessCallback<TContext>;
-            221?: SuccessCallback<TContext>;
-            222?: SuccessCallback<TContext>;
-            223?: SuccessCallback<TContext>;
-            224?: SuccessCallback<TContext>;
-            225?: SuccessCallback<TContext>;
-            226?: SuccessCallback<TContext>;
-            227?: SuccessCallback<TContext>;
-            228?: SuccessCallback<TContext>;
-            229?: SuccessCallback<TContext>;
-            230?: SuccessCallback<TContext>;
-            231?: SuccessCallback<TContext>;
-            232?: SuccessCallback<TContext>;
-            233?: SuccessCallback<TContext>;
-            234?: SuccessCallback<TContext>;
-            235?: SuccessCallback<TContext>;
-            236?: SuccessCallback<TContext>;
-            237?: SuccessCallback<TContext>;
-            238?: SuccessCallback<TContext>;
-            239?: SuccessCallback<TContext>;
-            240?: SuccessCallback<TContext>;
-            241?: SuccessCallback<TContext>;
-            242?: SuccessCallback<TContext>;
-            243?: SuccessCallback<TContext>;
-            244?: SuccessCallback<TContext>;
-            245?: SuccessCallback<TContext>;
-            246?: SuccessCallback<TContext>;
-            247?: SuccessCallback<TContext>;
-            248?: SuccessCallback<TContext>;
-            249?: SuccessCallback<TContext>;
-            250?: SuccessCallback<TContext>;
-            251?: SuccessCallback<TContext>;
-            252?: SuccessCallback<TContext>;
-            253?: SuccessCallback<TContext>;
-            254?: SuccessCallback<TContext>;
-            255?: SuccessCallback<TContext>;
-            256?: SuccessCallback<TContext>;
-            257?: SuccessCallback<TContext>;
-            258?: SuccessCallback<TContext>;
-            259?: SuccessCallback<TContext>;
-            260?: SuccessCallback<TContext>;
-            261?: SuccessCallback<TContext>;
-            262?: SuccessCallback<TContext>;
-            263?: SuccessCallback<TContext>;
-            264?: SuccessCallback<TContext>;
-            265?: SuccessCallback<TContext>;
-            266?: SuccessCallback<TContext>;
-            267?: SuccessCallback<TContext>;
-            268?: SuccessCallback<TContext>;
-            269?: SuccessCallback<TContext>;
-            270?: SuccessCallback<TContext>;
-            271?: SuccessCallback<TContext>;
-            272?: SuccessCallback<TContext>;
-            273?: SuccessCallback<TContext>;
-            274?: SuccessCallback<TContext>;
-            275?: SuccessCallback<TContext>;
-            276?: SuccessCallback<TContext>;
-            277?: SuccessCallback<TContext>;
-            278?: SuccessCallback<TContext>;
-            279?: SuccessCallback<TContext>;
-            280?: SuccessCallback<TContext>;
-            281?: SuccessCallback<TContext>;
-            282?: SuccessCallback<TContext>;
-            283?: SuccessCallback<TContext>;
-            284?: SuccessCallback<TContext>;
-            285?: SuccessCallback<TContext>;
-            286?: SuccessCallback<TContext>;
-            287?: SuccessCallback<TContext>;
-            288?: SuccessCallback<TContext>;
-            289?: SuccessCallback<TContext>;
-            290?: SuccessCallback<TContext>;
-            291?: SuccessCallback<TContext>;
-            292?: SuccessCallback<TContext>;
-            293?: SuccessCallback<TContext>;
-            294?: SuccessCallback<TContext>;
-            295?: SuccessCallback<TContext>;
-            296?: SuccessCallback<TContext>;
-            297?: SuccessCallback<TContext>;
-            298?: SuccessCallback<TContext>;
-            299?: SuccessCallback<TContext>;
-            304?: SuccessCallback<TContext>;
+            200?: SuccessCallback<TContext> | undefined;
+            201?: SuccessCallback<TContext> | undefined;
+            202?: SuccessCallback<TContext> | undefined;
+            203?: SuccessCallback<TContext> | undefined;
+            204?: SuccessCallback<TContext> | undefined;
+            205?: SuccessCallback<TContext> | undefined;
+            206?: SuccessCallback<TContext> | undefined;
+            207?: SuccessCallback<TContext> | undefined;
+            208?: SuccessCallback<TContext> | undefined;
+            209?: SuccessCallback<TContext> | undefined;
+            210?: SuccessCallback<TContext> | undefined;
+            211?: SuccessCallback<TContext> | undefined;
+            212?: SuccessCallback<TContext> | undefined;
+            213?: SuccessCallback<TContext> | undefined;
+            214?: SuccessCallback<TContext> | undefined;
+            215?: SuccessCallback<TContext> | undefined;
+            216?: SuccessCallback<TContext> | undefined;
+            217?: SuccessCallback<TContext> | undefined;
+            218?: SuccessCallback<TContext> | undefined;
+            219?: SuccessCallback<TContext> | undefined;
+            220?: SuccessCallback<TContext> | undefined;
+            221?: SuccessCallback<TContext> | undefined;
+            222?: SuccessCallback<TContext> | undefined;
+            223?: SuccessCallback<TContext> | undefined;
+            224?: SuccessCallback<TContext> | undefined;
+            225?: SuccessCallback<TContext> | undefined;
+            226?: SuccessCallback<TContext> | undefined;
+            227?: SuccessCallback<TContext> | undefined;
+            228?: SuccessCallback<TContext> | undefined;
+            229?: SuccessCallback<TContext> | undefined;
+            230?: SuccessCallback<TContext> | undefined;
+            231?: SuccessCallback<TContext> | undefined;
+            232?: SuccessCallback<TContext> | undefined;
+            233?: SuccessCallback<TContext> | undefined;
+            234?: SuccessCallback<TContext> | undefined;
+            235?: SuccessCallback<TContext> | undefined;
+            236?: SuccessCallback<TContext> | undefined;
+            237?: SuccessCallback<TContext> | undefined;
+            238?: SuccessCallback<TContext> | undefined;
+            239?: SuccessCallback<TContext> | undefined;
+            240?: SuccessCallback<TContext> | undefined;
+            241?: SuccessCallback<TContext> | undefined;
+            242?: SuccessCallback<TContext> | undefined;
+            243?: SuccessCallback<TContext> | undefined;
+            244?: SuccessCallback<TContext> | undefined;
+            245?: SuccessCallback<TContext> | undefined;
+            246?: SuccessCallback<TContext> | undefined;
+            247?: SuccessCallback<TContext> | undefined;
+            248?: SuccessCallback<TContext> | undefined;
+            249?: SuccessCallback<TContext> | undefined;
+            250?: SuccessCallback<TContext> | undefined;
+            251?: SuccessCallback<TContext> | undefined;
+            252?: SuccessCallback<TContext> | undefined;
+            253?: SuccessCallback<TContext> | undefined;
+            254?: SuccessCallback<TContext> | undefined;
+            255?: SuccessCallback<TContext> | undefined;
+            256?: SuccessCallback<TContext> | undefined;
+            257?: SuccessCallback<TContext> | undefined;
+            258?: SuccessCallback<TContext> | undefined;
+            259?: SuccessCallback<TContext> | undefined;
+            260?: SuccessCallback<TContext> | undefined;
+            261?: SuccessCallback<TContext> | undefined;
+            262?: SuccessCallback<TContext> | undefined;
+            263?: SuccessCallback<TContext> | undefined;
+            264?: SuccessCallback<TContext> | undefined;
+            265?: SuccessCallback<TContext> | undefined;
+            266?: SuccessCallback<TContext> | undefined;
+            267?: SuccessCallback<TContext> | undefined;
+            268?: SuccessCallback<TContext> | undefined;
+            269?: SuccessCallback<TContext> | undefined;
+            270?: SuccessCallback<TContext> | undefined;
+            271?: SuccessCallback<TContext> | undefined;
+            272?: SuccessCallback<TContext> | undefined;
+            273?: SuccessCallback<TContext> | undefined;
+            274?: SuccessCallback<TContext> | undefined;
+            275?: SuccessCallback<TContext> | undefined;
+            276?: SuccessCallback<TContext> | undefined;
+            277?: SuccessCallback<TContext> | undefined;
+            278?: SuccessCallback<TContext> | undefined;
+            279?: SuccessCallback<TContext> | undefined;
+            280?: SuccessCallback<TContext> | undefined;
+            281?: SuccessCallback<TContext> | undefined;
+            282?: SuccessCallback<TContext> | undefined;
+            283?: SuccessCallback<TContext> | undefined;
+            284?: SuccessCallback<TContext> | undefined;
+            285?: SuccessCallback<TContext> | undefined;
+            286?: SuccessCallback<TContext> | undefined;
+            287?: SuccessCallback<TContext> | undefined;
+            288?: SuccessCallback<TContext> | undefined;
+            289?: SuccessCallback<TContext> | undefined;
+            290?: SuccessCallback<TContext> | undefined;
+            291?: SuccessCallback<TContext> | undefined;
+            292?: SuccessCallback<TContext> | undefined;
+            293?: SuccessCallback<TContext> | undefined;
+            294?: SuccessCallback<TContext> | undefined;
+            295?: SuccessCallback<TContext> | undefined;
+            296?: SuccessCallback<TContext> | undefined;
+            297?: SuccessCallback<TContext> | undefined;
+            298?: SuccessCallback<TContext> | undefined;
+            299?: SuccessCallback<TContext> | undefined;
+            304?: SuccessCallback<TContext> | undefined;
 
             // #endregion
 
             // region Error Status Codes
             // #region Error Status Codes
 
-            300?: ErrorCallback<TContext>;
-            301?: ErrorCallback<TContext>;
-            302?: ErrorCallback<TContext>;
-            303?: ErrorCallback<TContext>;
-            305?: ErrorCallback<TContext>;
-            306?: ErrorCallback<TContext>;
-            307?: ErrorCallback<TContext>;
-            308?: ErrorCallback<TContext>;
-            309?: ErrorCallback<TContext>;
-            310?: ErrorCallback<TContext>;
-            311?: ErrorCallback<TContext>;
-            312?: ErrorCallback<TContext>;
-            313?: ErrorCallback<TContext>;
-            314?: ErrorCallback<TContext>;
-            315?: ErrorCallback<TContext>;
-            316?: ErrorCallback<TContext>;
-            317?: ErrorCallback<TContext>;
-            318?: ErrorCallback<TContext>;
-            319?: ErrorCallback<TContext>;
-            320?: ErrorCallback<TContext>;
-            321?: ErrorCallback<TContext>;
-            322?: ErrorCallback<TContext>;
-            323?: ErrorCallback<TContext>;
-            324?: ErrorCallback<TContext>;
-            325?: ErrorCallback<TContext>;
-            326?: ErrorCallback<TContext>;
-            327?: ErrorCallback<TContext>;
-            328?: ErrorCallback<TContext>;
-            329?: ErrorCallback<TContext>;
-            330?: ErrorCallback<TContext>;
-            331?: ErrorCallback<TContext>;
-            332?: ErrorCallback<TContext>;
-            333?: ErrorCallback<TContext>;
-            334?: ErrorCallback<TContext>;
-            335?: ErrorCallback<TContext>;
-            336?: ErrorCallback<TContext>;
-            337?: ErrorCallback<TContext>;
-            338?: ErrorCallback<TContext>;
-            339?: ErrorCallback<TContext>;
-            340?: ErrorCallback<TContext>;
-            341?: ErrorCallback<TContext>;
-            342?: ErrorCallback<TContext>;
-            343?: ErrorCallback<TContext>;
-            344?: ErrorCallback<TContext>;
-            345?: ErrorCallback<TContext>;
-            346?: ErrorCallback<TContext>;
-            347?: ErrorCallback<TContext>;
-            348?: ErrorCallback<TContext>;
-            349?: ErrorCallback<TContext>;
-            350?: ErrorCallback<TContext>;
-            351?: ErrorCallback<TContext>;
-            352?: ErrorCallback<TContext>;
-            353?: ErrorCallback<TContext>;
-            354?: ErrorCallback<TContext>;
-            355?: ErrorCallback<TContext>;
-            356?: ErrorCallback<TContext>;
-            357?: ErrorCallback<TContext>;
-            358?: ErrorCallback<TContext>;
-            359?: ErrorCallback<TContext>;
-            360?: ErrorCallback<TContext>;
-            361?: ErrorCallback<TContext>;
-            362?: ErrorCallback<TContext>;
-            363?: ErrorCallback<TContext>;
-            364?: ErrorCallback<TContext>;
-            365?: ErrorCallback<TContext>;
-            366?: ErrorCallback<TContext>;
-            367?: ErrorCallback<TContext>;
-            368?: ErrorCallback<TContext>;
-            369?: ErrorCallback<TContext>;
-            370?: ErrorCallback<TContext>;
-            371?: ErrorCallback<TContext>;
-            372?: ErrorCallback<TContext>;
-            373?: ErrorCallback<TContext>;
-            374?: ErrorCallback<TContext>;
-            375?: ErrorCallback<TContext>;
-            376?: ErrorCallback<TContext>;
-            377?: ErrorCallback<TContext>;
-            378?: ErrorCallback<TContext>;
-            379?: ErrorCallback<TContext>;
-            380?: ErrorCallback<TContext>;
-            381?: ErrorCallback<TContext>;
-            382?: ErrorCallback<TContext>;
-            383?: ErrorCallback<TContext>;
-            384?: ErrorCallback<TContext>;
-            385?: ErrorCallback<TContext>;
-            386?: ErrorCallback<TContext>;
-            387?: ErrorCallback<TContext>;
-            388?: ErrorCallback<TContext>;
-            389?: ErrorCallback<TContext>;
-            390?: ErrorCallback<TContext>;
-            391?: ErrorCallback<TContext>;
-            392?: ErrorCallback<TContext>;
-            393?: ErrorCallback<TContext>;
-            394?: ErrorCallback<TContext>;
-            395?: ErrorCallback<TContext>;
-            396?: ErrorCallback<TContext>;
-            397?: ErrorCallback<TContext>;
-            398?: ErrorCallback<TContext>;
-            399?: ErrorCallback<TContext>;
-            400?: ErrorCallback<TContext>;
-            401?: ErrorCallback<TContext>;
-            402?: ErrorCallback<TContext>;
-            403?: ErrorCallback<TContext>;
-            404?: ErrorCallback<TContext>;
-            405?: ErrorCallback<TContext>;
-            406?: ErrorCallback<TContext>;
-            407?: ErrorCallback<TContext>;
-            408?: ErrorCallback<TContext>;
-            409?: ErrorCallback<TContext>;
-            410?: ErrorCallback<TContext>;
-            411?: ErrorCallback<TContext>;
-            412?: ErrorCallback<TContext>;
-            413?: ErrorCallback<TContext>;
-            414?: ErrorCallback<TContext>;
-            415?: ErrorCallback<TContext>;
-            416?: ErrorCallback<TContext>;
-            417?: ErrorCallback<TContext>;
-            418?: ErrorCallback<TContext>;
-            419?: ErrorCallback<TContext>;
-            420?: ErrorCallback<TContext>;
-            421?: ErrorCallback<TContext>;
-            422?: ErrorCallback<TContext>;
-            423?: ErrorCallback<TContext>;
-            424?: ErrorCallback<TContext>;
-            425?: ErrorCallback<TContext>;
-            426?: ErrorCallback<TContext>;
-            427?: ErrorCallback<TContext>;
-            428?: ErrorCallback<TContext>;
-            429?: ErrorCallback<TContext>;
-            430?: ErrorCallback<TContext>;
-            431?: ErrorCallback<TContext>;
-            432?: ErrorCallback<TContext>;
-            433?: ErrorCallback<TContext>;
-            434?: ErrorCallback<TContext>;
-            435?: ErrorCallback<TContext>;
-            436?: ErrorCallback<TContext>;
-            437?: ErrorCallback<TContext>;
-            438?: ErrorCallback<TContext>;
-            439?: ErrorCallback<TContext>;
-            440?: ErrorCallback<TContext>;
-            441?: ErrorCallback<TContext>;
-            442?: ErrorCallback<TContext>;
-            443?: ErrorCallback<TContext>;
-            444?: ErrorCallback<TContext>;
-            445?: ErrorCallback<TContext>;
-            446?: ErrorCallback<TContext>;
-            447?: ErrorCallback<TContext>;
-            448?: ErrorCallback<TContext>;
-            449?: ErrorCallback<TContext>;
-            450?: ErrorCallback<TContext>;
-            451?: ErrorCallback<TContext>;
-            452?: ErrorCallback<TContext>;
-            453?: ErrorCallback<TContext>;
-            454?: ErrorCallback<TContext>;
-            455?: ErrorCallback<TContext>;
-            456?: ErrorCallback<TContext>;
-            457?: ErrorCallback<TContext>;
-            458?: ErrorCallback<TContext>;
-            459?: ErrorCallback<TContext>;
-            460?: ErrorCallback<TContext>;
-            461?: ErrorCallback<TContext>;
-            462?: ErrorCallback<TContext>;
-            463?: ErrorCallback<TContext>;
-            464?: ErrorCallback<TContext>;
-            465?: ErrorCallback<TContext>;
-            466?: ErrorCallback<TContext>;
-            467?: ErrorCallback<TContext>;
-            468?: ErrorCallback<TContext>;
-            469?: ErrorCallback<TContext>;
-            470?: ErrorCallback<TContext>;
-            471?: ErrorCallback<TContext>;
-            472?: ErrorCallback<TContext>;
-            473?: ErrorCallback<TContext>;
-            474?: ErrorCallback<TContext>;
-            475?: ErrorCallback<TContext>;
-            476?: ErrorCallback<TContext>;
-            477?: ErrorCallback<TContext>;
-            478?: ErrorCallback<TContext>;
-            479?: ErrorCallback<TContext>;
-            480?: ErrorCallback<TContext>;
-            481?: ErrorCallback<TContext>;
-            482?: ErrorCallback<TContext>;
-            483?: ErrorCallback<TContext>;
-            484?: ErrorCallback<TContext>;
-            485?: ErrorCallback<TContext>;
-            486?: ErrorCallback<TContext>;
-            487?: ErrorCallback<TContext>;
-            488?: ErrorCallback<TContext>;
-            489?: ErrorCallback<TContext>;
-            490?: ErrorCallback<TContext>;
-            491?: ErrorCallback<TContext>;
-            492?: ErrorCallback<TContext>;
-            493?: ErrorCallback<TContext>;
-            494?: ErrorCallback<TContext>;
-            495?: ErrorCallback<TContext>;
-            496?: ErrorCallback<TContext>;
-            497?: ErrorCallback<TContext>;
-            498?: ErrorCallback<TContext>;
-            499?: ErrorCallback<TContext>;
-            500?: ErrorCallback<TContext>;
-            501?: ErrorCallback<TContext>;
-            502?: ErrorCallback<TContext>;
-            503?: ErrorCallback<TContext>;
-            504?: ErrorCallback<TContext>;
-            505?: ErrorCallback<TContext>;
-            506?: ErrorCallback<TContext>;
-            507?: ErrorCallback<TContext>;
-            508?: ErrorCallback<TContext>;
-            509?: ErrorCallback<TContext>;
-            510?: ErrorCallback<TContext>;
-            511?: ErrorCallback<TContext>;
-            512?: ErrorCallback<TContext>;
-            513?: ErrorCallback<TContext>;
-            514?: ErrorCallback<TContext>;
-            515?: ErrorCallback<TContext>;
-            516?: ErrorCallback<TContext>;
-            517?: ErrorCallback<TContext>;
-            518?: ErrorCallback<TContext>;
-            519?: ErrorCallback<TContext>;
-            520?: ErrorCallback<TContext>;
-            521?: ErrorCallback<TContext>;
-            522?: ErrorCallback<TContext>;
-            523?: ErrorCallback<TContext>;
-            524?: ErrorCallback<TContext>;
-            525?: ErrorCallback<TContext>;
-            526?: ErrorCallback<TContext>;
-            527?: ErrorCallback<TContext>;
-            528?: ErrorCallback<TContext>;
-            529?: ErrorCallback<TContext>;
-            530?: ErrorCallback<TContext>;
-            531?: ErrorCallback<TContext>;
-            532?: ErrorCallback<TContext>;
-            533?: ErrorCallback<TContext>;
-            534?: ErrorCallback<TContext>;
-            535?: ErrorCallback<TContext>;
-            536?: ErrorCallback<TContext>;
-            537?: ErrorCallback<TContext>;
-            538?: ErrorCallback<TContext>;
-            539?: ErrorCallback<TContext>;
-            540?: ErrorCallback<TContext>;
-            541?: ErrorCallback<TContext>;
-            542?: ErrorCallback<TContext>;
-            543?: ErrorCallback<TContext>;
-            544?: ErrorCallback<TContext>;
-            545?: ErrorCallback<TContext>;
-            546?: ErrorCallback<TContext>;
-            547?: ErrorCallback<TContext>;
-            548?: ErrorCallback<TContext>;
-            549?: ErrorCallback<TContext>;
-            550?: ErrorCallback<TContext>;
-            551?: ErrorCallback<TContext>;
-            552?: ErrorCallback<TContext>;
-            553?: ErrorCallback<TContext>;
-            554?: ErrorCallback<TContext>;
-            555?: ErrorCallback<TContext>;
-            556?: ErrorCallback<TContext>;
-            557?: ErrorCallback<TContext>;
-            558?: ErrorCallback<TContext>;
-            559?: ErrorCallback<TContext>;
-            560?: ErrorCallback<TContext>;
-            561?: ErrorCallback<TContext>;
-            562?: ErrorCallback<TContext>;
-            563?: ErrorCallback<TContext>;
-            564?: ErrorCallback<TContext>;
-            565?: ErrorCallback<TContext>;
-            566?: ErrorCallback<TContext>;
-            567?: ErrorCallback<TContext>;
-            568?: ErrorCallback<TContext>;
-            569?: ErrorCallback<TContext>;
-            570?: ErrorCallback<TContext>;
-            571?: ErrorCallback<TContext>;
-            572?: ErrorCallback<TContext>;
-            573?: ErrorCallback<TContext>;
-            574?: ErrorCallback<TContext>;
-            575?: ErrorCallback<TContext>;
-            576?: ErrorCallback<TContext>;
-            577?: ErrorCallback<TContext>;
-            578?: ErrorCallback<TContext>;
-            579?: ErrorCallback<TContext>;
-            580?: ErrorCallback<TContext>;
-            581?: ErrorCallback<TContext>;
-            582?: ErrorCallback<TContext>;
-            583?: ErrorCallback<TContext>;
-            584?: ErrorCallback<TContext>;
-            585?: ErrorCallback<TContext>;
-            586?: ErrorCallback<TContext>;
-            587?: ErrorCallback<TContext>;
-            588?: ErrorCallback<TContext>;
-            589?: ErrorCallback<TContext>;
-            590?: ErrorCallback<TContext>;
-            591?: ErrorCallback<TContext>;
-            592?: ErrorCallback<TContext>;
-            593?: ErrorCallback<TContext>;
-            594?: ErrorCallback<TContext>;
-            595?: ErrorCallback<TContext>;
-            596?: ErrorCallback<TContext>;
-            597?: ErrorCallback<TContext>;
-            598?: ErrorCallback<TContext>;
-            599?: ErrorCallback<TContext>;
-
+            300?: ErrorCallback<TContext> | undefined;
+            301?: ErrorCallback<TContext> | undefined;
+            302?: ErrorCallback<TContext> | undefined;
+            303?: ErrorCallback<TContext> | undefined;
+            305?: ErrorCallback<TContext> | undefined;
+            306?: ErrorCallback<TContext> | undefined;
+            307?: ErrorCallback<TContext> | undefined;
+            308?: ErrorCallback<TContext> | undefined;
+            309?: ErrorCallback<TContext> | undefined;
+            310?: ErrorCallback<TContext> | undefined;
+            311?: ErrorCallback<TContext> | undefined;
+            312?: ErrorCallback<TContext> | undefined;
+            313?: ErrorCallback<TContext> | undefined;
+            314?: ErrorCallback<TContext> | undefined;
+            315?: ErrorCallback<TContext> | undefined;
+            316?: ErrorCallback<TContext> | undefined;
+            317?: ErrorCallback<TContext> | undefined;
+            318?: ErrorCallback<TContext> | undefined;
+            319?: ErrorCallback<TContext> | undefined;
+            320?: ErrorCallback<TContext> | undefined;
+            321?: ErrorCallback<TContext> | undefined;
+            322?: ErrorCallback<TContext> | undefined;
+            323?: ErrorCallback<TContext> | undefined;
+            324?: ErrorCallback<TContext> | undefined;
+            325?: ErrorCallback<TContext> | undefined;
+            326?: ErrorCallback<TContext> | undefined;
+            327?: ErrorCallback<TContext> | undefined;
+            328?: ErrorCallback<TContext> | undefined;
+            329?: ErrorCallback<TContext> | undefined;
+            330?: ErrorCallback<TContext> | undefined;
+            331?: ErrorCallback<TContext> | undefined;
+            332?: ErrorCallback<TContext> | undefined;
+            333?: ErrorCallback<TContext> | undefined;
+            334?: ErrorCallback<TContext> | undefined;
+            335?: ErrorCallback<TContext> | undefined;
+            336?: ErrorCallback<TContext> | undefined;
+            337?: ErrorCallback<TContext> | undefined;
+            338?: ErrorCallback<TContext> | undefined;
+            339?: ErrorCallback<TContext> | undefined;
+            340?: ErrorCallback<TContext> | undefined;
+            341?: ErrorCallback<TContext> | undefined;
+            342?: ErrorCallback<TContext> | undefined;
+            343?: ErrorCallback<TContext> | undefined;
+            344?: ErrorCallback<TContext> | undefined;
+            345?: ErrorCallback<TContext> | undefined;
+            346?: ErrorCallback<TContext> | undefined;
+            347?: ErrorCallback<TContext> | undefined;
+            348?: ErrorCallback<TContext> | undefined;
+            349?: ErrorCallback<TContext> | undefined;
+            350?: ErrorCallback<TContext> | undefined;
+            351?: ErrorCallback<TContext> | undefined;
+            352?: ErrorCallback<TContext> | undefined;
+            353?: ErrorCallback<TContext> | undefined;
+            354?: ErrorCallback<TContext> | undefined;
+            355?: ErrorCallback<TContext> | undefined;
+            356?: ErrorCallback<TContext> | undefined;
+            357?: ErrorCallback<TContext> | undefined;
+            358?: ErrorCallback<TContext> | undefined;
+            359?: ErrorCallback<TContext> | undefined;
+            360?: ErrorCallback<TContext> | undefined;
+            361?: ErrorCallback<TContext> | undefined;
+            362?: ErrorCallback<TContext> | undefined;
+            363?: ErrorCallback<TContext> | undefined;
+            364?: ErrorCallback<TContext> | undefined;
+            365?: ErrorCallback<TContext> | undefined;
+            366?: ErrorCallback<TContext> | undefined;
+            367?: ErrorCallback<TContext> | undefined;
+            368?: ErrorCallback<TContext> | undefined;
+            369?: ErrorCallback<TContext> | undefined;
+            370?: ErrorCallback<TContext> | undefined;
+            371?: ErrorCallback<TContext> | undefined;
+            372?: ErrorCallback<TContext> | undefined;
+            373?: ErrorCallback<TContext> | undefined;
+            374?: ErrorCallback<TContext> | undefined;
+            375?: ErrorCallback<TContext> | undefined;
+            376?: ErrorCallback<TContext> | undefined;
+            377?: ErrorCallback<TContext> | undefined;
+            378?: ErrorCallback<TContext> | undefined;
+            379?: ErrorCallback<TContext> | undefined;
+            380?: ErrorCallback<TContext> | undefined;
+            381?: ErrorCallback<TContext> | undefined;
+            382?: ErrorCallback<TContext> | undefined;
+            383?: ErrorCallback<TContext> | undefined;
+            384?: ErrorCallback<TContext> | undefined;
+            385?: ErrorCallback<TContext> | undefined;
+            386?: ErrorCallback<TContext> | undefined;
+            387?: ErrorCallback<TContext> | undefined;
+            388?: ErrorCallback<TContext> | undefined;
+            389?: ErrorCallback<TContext> | undefined;
+            390?: ErrorCallback<TContext> | undefined;
+            391?: ErrorCallback<TContext> | undefined;
+            392?: ErrorCallback<TContext> | undefined;
+            393?: ErrorCallback<TContext> | undefined;
+            394?: ErrorCallback<TContext> | undefined;
+            395?: ErrorCallback<TContext> | undefined;
+            396?: ErrorCallback<TContext> | undefined;
+            397?: ErrorCallback<TContext> | undefined;
+            398?: ErrorCallback<TContext> | undefined;
+            399?: ErrorCallback<TContext> | undefined;
+            400?: ErrorCallback<TContext> | undefined;
+            401?: ErrorCallback<TContext> | undefined;
+            402?: ErrorCallback<TContext> | undefined;
+            403?: ErrorCallback<TContext> | undefined;
+            404?: ErrorCallback<TContext> | undefined;
+            405?: ErrorCallback<TContext> | undefined;
+            406?: ErrorCallback<TContext> | undefined;
+            407?: ErrorCallback<TContext> | undefined;
+            408?: ErrorCallback<TContext> | undefined;
+            409?: ErrorCallback<TContext> | undefined;
+            410?: ErrorCallback<TContext> | undefined;
+            411?: ErrorCallback<TContext> | undefined;
+            412?: ErrorCallback<TContext> | undefined;
+            413?: ErrorCallback<TContext> | undefined;
+            414?: ErrorCallback<TContext> | undefined;
+            415?: ErrorCallback<TContext> | undefined;
+            416?: ErrorCallback<TContext> | undefined;
+            417?: ErrorCallback<TContext> | undefined;
+            418?: ErrorCallback<TContext> | undefined;
+            419?: ErrorCallback<TContext> | undefined;
+            420?: ErrorCallback<TContext> | undefined;
+            421?: ErrorCallback<TContext> | undefined;
+            422?: ErrorCallback<TContext> | undefined;
+            423?: ErrorCallback<TContext> | undefined;
+            424?: ErrorCallback<TContext> | undefined;
+            425?: ErrorCallback<TContext> | undefined;
+            426?: ErrorCallback<TContext> | undefined;
+            427?: ErrorCallback<TContext> | undefined;
+            428?: ErrorCallback<TContext> | undefined;
+            429?: ErrorCallback<TContext> | undefined;
+            430?: ErrorCallback<TContext> | undefined;
+            431?: ErrorCallback<TContext> | undefined;
+            432?: ErrorCallback<TContext> | undefined;
+            433?: ErrorCallback<TContext> | undefined;
+            434?: ErrorCallback<TContext> | undefined;
+            435?: ErrorCallback<TContext> | undefined;
+            436?: ErrorCallback<TContext> | undefined;
+            437?: ErrorCallback<TContext> | undefined;
+            438?: ErrorCallback<TContext> | undefined;
+            439?: ErrorCallback<TContext> | undefined;
+            440?: ErrorCallback<TContext> | undefined;
+            441?: ErrorCallback<TContext> | undefined;
+            442?: ErrorCallback<TContext> | undefined;
+            443?: ErrorCallback<TContext> | undefined;
+            444?: ErrorCallback<TContext> | undefined;
+            445?: ErrorCallback<TContext> | undefined;
+            446?: ErrorCallback<TContext> | undefined;
+            447?: ErrorCallback<TContext> | undefined;
+            448?: ErrorCallback<TContext> | undefined;
+            449?: ErrorCallback<TContext> | undefined;
+            450?: ErrorCallback<TContext> | undefined;
+            451?: ErrorCallback<TContext> | undefined;
+            452?: ErrorCallback<TContext> | undefined;
+            453?: ErrorCallback<TContext> | undefined;
+            454?: ErrorCallback<TContext> | undefined;
+            455?: ErrorCallback<TContext> | undefined;
+            456?: ErrorCallback<TContext> | undefined;
+            457?: ErrorCallback<TContext> | undefined;
+            458?: ErrorCallback<TContext> | undefined;
+            459?: ErrorCallback<TContext> | undefined;
+            460?: ErrorCallback<TContext> | undefined;
+            461?: ErrorCallback<TContext> | undefined;
+            462?: ErrorCallback<TContext> | undefined;
+            463?: ErrorCallback<TContext> | undefined;
+            464?: ErrorCallback<TContext> | undefined;
+            465?: ErrorCallback<TContext> | undefined;
+            466?: ErrorCallback<TContext> | undefined;
+            467?: ErrorCallback<TContext> | undefined;
+            468?: ErrorCallback<TContext> | undefined;
+            469?: ErrorCallback<TContext> | undefined;
+            470?: ErrorCallback<TContext> | undefined;
+            471?: ErrorCallback<TContext> | undefined;
+            472?: ErrorCallback<TContext> | undefined;
+            473?: ErrorCallback<TContext> | undefined;
+            474?: ErrorCallback<TContext> | undefined;
+            475?: ErrorCallback<TContext> | undefined;
+            476?: ErrorCallback<TContext> | undefined;
+            477?: ErrorCallback<TContext> | undefined;
+            478?: ErrorCallback<TContext> | undefined;
+            479?: ErrorCallback<TContext> | undefined;
+            480?: ErrorCallback<TContext> | undefined;
+            481?: ErrorCallback<TContext> | undefined;
+            482?: ErrorCallback<TContext> | undefined;
+            483?: ErrorCallback<TContext> | undefined;
+            484?: ErrorCallback<TContext> | undefined;
+            485?: ErrorCallback<TContext> | undefined;
+            486?: ErrorCallback<TContext> | undefined;
+            487?: ErrorCallback<TContext> | undefined;
+            488?: ErrorCallback<TContext> | undefined;
+            489?: ErrorCallback<TContext> | undefined;
+            490?: ErrorCallback<TContext> | undefined;
+            491?: ErrorCallback<TContext> | undefined;
+            492?: ErrorCallback<TContext> | undefined;
+            493?: ErrorCallback<TContext> | undefined;
+            494?: ErrorCallback<TContext> | undefined;
+            495?: ErrorCallback<TContext> | undefined;
+            496?: ErrorCallback<TContext> | undefined;
+            497?: ErrorCallback<TContext> | undefined;
+            498?: ErrorCallback<TContext> | undefined;
+            499?: ErrorCallback<TContext> | undefined;
+            500?: ErrorCallback<TContext> | undefined;
+            501?: ErrorCallback<TContext> | undefined;
+            502?: ErrorCallback<TContext> | undefined;
+            503?: ErrorCallback<TContext> | undefined;
+            504?: ErrorCallback<TContext> | undefined;
+            505?: ErrorCallback<TContext> | undefined;
+            506?: ErrorCallback<TContext> | undefined;
+            507?: ErrorCallback<TContext> | undefined;
+            508?: ErrorCallback<TContext> | undefined;
+            509?: ErrorCallback<TContext> | undefined;
+            510?: ErrorCallback<TContext> | undefined;
+            511?: ErrorCallback<TContext> | undefined;
+            512?: ErrorCallback<TContext> | undefined;
+            513?: ErrorCallback<TContext> | undefined;
+            514?: ErrorCallback<TContext> | undefined;
+            515?: ErrorCallback<TContext> | undefined;
+            516?: ErrorCallback<TContext> | undefined;
+            517?: ErrorCallback<TContext> | undefined;
+            518?: ErrorCallback<TContext> | undefined;
+            519?: ErrorCallback<TContext> | undefined;
+            520?: ErrorCallback<TContext> | undefined;
+            521?: ErrorCallback<TContext> | undefined;
+            522?: ErrorCallback<TContext> | undefined;
+            523?: ErrorCallback<TContext> | undefined;
+            524?: ErrorCallback<TContext> | undefined;
+            525?: ErrorCallback<TContext> | undefined;
+            526?: ErrorCallback<TContext> | undefined;
+            527?: ErrorCallback<TContext> | undefined;
+            528?: ErrorCallback<TContext> | undefined;
+            529?: ErrorCallback<TContext> | undefined;
+            530?: ErrorCallback<TContext> | undefined;
+            531?: ErrorCallback<TContext> | undefined;
+            532?: ErrorCallback<TContext> | undefined;
+            533?: ErrorCallback<TContext> | undefined;
+            534?: ErrorCallback<TContext> | undefined;
+            535?: ErrorCallback<TContext> | undefined;
+            536?: ErrorCallback<TContext> | undefined;
+            537?: ErrorCallback<TContext> | undefined;
+            538?: ErrorCallback<TContext> | undefined;
+            539?: ErrorCallback<TContext> | undefined;
+            540?: ErrorCallback<TContext> | undefined;
+            541?: ErrorCallback<TContext> | undefined;
+            542?: ErrorCallback<TContext> | undefined;
+            543?: ErrorCallback<TContext> | undefined;
+            544?: ErrorCallback<TContext> | undefined;
+            545?: ErrorCallback<TContext> | undefined;
+            546?: ErrorCallback<TContext> | undefined;
+            547?: ErrorCallback<TContext> | undefined;
+            548?: ErrorCallback<TContext> | undefined;
+            549?: ErrorCallback<TContext> | undefined;
+            550?: ErrorCallback<TContext> | undefined;
+            551?: ErrorCallback<TContext> | undefined;
+            552?: ErrorCallback<TContext> | undefined;
+            553?: ErrorCallback<TContext> | undefined;
+            554?: ErrorCallback<TContext> | undefined;
+            555?: ErrorCallback<TContext> | undefined;
+            556?: ErrorCallback<TContext> | undefined;
+            557?: ErrorCallback<TContext> | undefined;
+            558?: ErrorCallback<TContext> | undefined;
+            559?: ErrorCallback<TContext> | undefined;
+            560?: ErrorCallback<TContext> | undefined;
+            561?: ErrorCallback<TContext> | undefined;
+            562?: ErrorCallback<TContext> | undefined;
+            563?: ErrorCallback<TContext> | undefined;
+            564?: ErrorCallback<TContext> | undefined;
+            565?: ErrorCallback<TContext> | undefined;
+            566?: ErrorCallback<TContext> | undefined;
+            567?: ErrorCallback<TContext> | undefined;
+            568?: ErrorCallback<TContext> | undefined;
+            569?: ErrorCallback<TContext> | undefined;
+            570?: ErrorCallback<TContext> | undefined;
+            571?: ErrorCallback<TContext> | undefined;
+            572?: ErrorCallback<TContext> | undefined;
+            573?: ErrorCallback<TContext> | undefined;
+            574?: ErrorCallback<TContext> | undefined;
+            575?: ErrorCallback<TContext> | undefined;
+            576?: ErrorCallback<TContext> | undefined;
+            577?: ErrorCallback<TContext> | undefined;
+            578?: ErrorCallback<TContext> | undefined;
+            579?: ErrorCallback<TContext> | undefined;
+            580?: ErrorCallback<TContext> | undefined;
+            581?: ErrorCallback<TContext> | undefined;
+            582?: ErrorCallback<TContext> | undefined;
+            583?: ErrorCallback<TContext> | undefined;
+            584?: ErrorCallback<TContext> | undefined;
+            585?: ErrorCallback<TContext> | undefined;
+            586?: ErrorCallback<TContext> | undefined;
+            587?: ErrorCallback<TContext> | undefined;
+            588?: ErrorCallback<TContext> | undefined;
+            589?: ErrorCallback<TContext> | undefined;
+            590?: ErrorCallback<TContext> | undefined;
+            591?: ErrorCallback<TContext> | undefined;
+            592?: ErrorCallback<TContext> | undefined;
+            593?: ErrorCallback<TContext> | undefined;
+            594?: ErrorCallback<TContext> | undefined;
+            595?: ErrorCallback<TContext> | undefined;
+            596?: ErrorCallback<TContext> | undefined;
+            597?: ErrorCallback<TContext> | undefined;
+            598?: ErrorCallback<TContext> | undefined;
+            599?: ErrorCallback<TContext> | undefined;
             // #endregion
         } & {
             // Status codes not listed require type annotations when defining the callback
@@ -663,8 +672,10 @@ declare namespace JQuery {
         // #endregion
 
         // Writable properties on XMLHttpRequest
-        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
-            msCaching?: string;
+        interface XHRFields
+            extends Partial<Pick<XMLHttpRequest, "onreadystatechange" | "responseType" | "timeout" | "withCredentials">>
+        {
+            msCaching?: string | undefined;
         }
     }
 
@@ -674,18 +685,43 @@ declare namespace JQuery {
     }
 
     namespace Transport {
-        type SuccessCallback = (status: number, statusText: Ajax.TextStatus, responses?: PlainObject, headers?: string) => void;
+        type SuccessCallback = (
+            status: number,
+            statusText: Ajax.TextStatus,
+            responses?: PlainObject,
+            headers?: string,
+        ) => void;
     }
 
     /**
      * @see \`{@link https://api.jquery.com/jquery.ajax/#jqXHR }\`
      */
-    interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
-        Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
-        jqXHR<TResolve>, string, never>,
-        Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
-            'setRequestHeader' | 'status' | 'statusText'>,
-        Partial<Pick<XMLHttpRequest, 'responseXML'>> {
+    interface jqXHR<TResolve = any> extends
+        Promise3<
+            TResolve,
+            jqXHR<TResolve>,
+            never,
+            Ajax.SuccessTextStatus,
+            Ajax.ErrorTextStatus,
+            never,
+            jqXHR<TResolve>,
+            string,
+            never
+        >,
+        Pick<
+            XMLHttpRequest,
+            | "abort"
+            | "getAllResponseHeaders"
+            | "getResponseHeader"
+            | "overrideMimeType"
+            | "readyState"
+            | "responseText"
+            | "setRequestHeader"
+            | "status"
+            | "statusText"
+        >,
+        Partial<Pick<XMLHttpRequest, "responseXML">>
+    {
         responseJSON?: any;
         abort(statusText?: string): void;
 
@@ -694,16 +730,20 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
-        state(): 'pending' | 'resolved' | 'rejected';
+        state(): "pending" | "resolved" | "rejected";
         statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
     }
 
     namespace jqXHR {
-        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> { }
+        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>>
+            extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR>
+        {}
 
-        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> { }
+        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> {}
 
-        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
+        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>>
+            extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string>
+        {}
     }
 
     // #endregion
@@ -718,11 +758,13 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types callable-types no-unnecessary-generics
+        /* eslint-disable @definitelytyped/no-unnecessary-generics */
+        // eslint-disable-next-line @typescript-eslint/ban-types
         <T extends Function>(flags?: string): Callbacks<T>;
+        /* eslint-enable @definitelytyped/no-unnecessary-generics */
     }
 
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
@@ -1135,9 +1177,10 @@ callbacks.fire( "world" );
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
     type CSSHook<TElement> =
-        Partial<_CSSHook<TElement>> & (
-            Pick<_CSSHook<TElement>, 'get'> |
-            Pick<_CSSHook<TElement>, 'set'>
+        & Partial<_CSSHook<TElement>>
+        & (
+            | Pick<_CSSHook<TElement>, "get">
+            | Pick<_CSSHook<TElement>, "set">
         );
 
     interface _CSSHook<TElement> {
@@ -1158,7 +1201,7 @@ callbacks.fire( "world" );
     /**
      * Any object that has a then method.
      */
-    interface Thenable<T> extends PromiseLike<T> { }
+    interface Thenable<T> extends PromiseLike<T> {}
 
     // Type parameter guide
     // --------------------
@@ -1179,10 +1222,7 @@ callbacks.fire( "world" );
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN,
-        SR, SJ, SN> {
+    interface PromiseBase<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN, SR, SJ, SN> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
@@ -1196,8 +1236,10 @@ $.get( "test.php" ).always(function() {
 });
 ```
          */
-        always(alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
+        always(
+            alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
@@ -1258,8 +1300,10 @@ $( "button" ).on( "click", function() {
 </html>
 ```
          */
-        done(doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
+        done(
+            doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
+            ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
@@ -1277,8 +1321,10 @@ $.get( "test.php" )
   });
 ```
          */
-        fail(failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
+        fail(
+            failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
+            ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
@@ -1287,8 +1333,10 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.progress/ }\`
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
+        progress(
+            progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
+            ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>
+        ): this;
         /**
          * Return a Deferred's Promise object.
          * @param target Object onto which the promise methods have to be attached
@@ -1369,7 +1417,7 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
-        state(): 'pending' | 'resolved' | 'rejected';
+        state(): "pending" | "resolved" | "rejected";
 
         // region pipe
         // #region pipe
@@ -1423,33 +1471,76 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1487,26 +1578,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1544,26 +1668,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1589,19 +1746,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        pipe<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1651,26 +1818,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1708,19 +1908,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1758,19 +1968,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -1851,33 +2071,76 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1909,26 +2172,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -1981,26 +2277,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2020,19 +2349,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        then<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                t: TN,
+                u: UN,
+                v: VN,
+                ...s: SN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2107,26 +2446,59 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2158,19 +2530,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                t: TJ,
+                u: UJ,
+                v: VJ,
+                ...s: SJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2223,19 +2605,29 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+        >(
+            doneFilter: (
+                t: TR,
+                u: UR,
+                v: VR,
+                ...s: SR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -2255,48 +2647,52 @@ $.get( "test.php" )
   } );
 ```
          */
-        catch<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                failFilter?: ((t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        catch<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            failFilter?:
+                | ((
+                    t: TJ,
+                    u: UJ,
+                    v: VJ,
+                    ...s: SJ[]
+                ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF)
+                | null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
     }
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise3<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN> extends PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        VR, VJ, VN,
-        never, never, never> { }
+    interface Promise3<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN>
+        extends PromiseBase<TR, TJ, TN, UR, UJ, UN, VR, VJ, VN, never, never, never>
+    {}
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise2<TR, TJ, TN,
-        UR, UJ, UN> extends PromiseBase<TR, TJ, TN,
-        UR, UJ, UN,
-        never, never, never,
-        never, never, never> { }
+    interface Promise2<TR, TJ, TN, UR, UJ, UN>
+        extends PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>
+    {}
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
-    interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
-        TR, TJ, TN,
-        TR, TJ, TN,
-        TR, TJ, TN> { }
+    interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN, TR, TJ, TN, TR, TJ, TN, TR, TJ, TN> {}
 
     interface DeferredStatic {
         // https://jquery.com/upgrade-guide/3.0/#callback-exit
@@ -2307,7 +2703,9 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
          * @since 1.5
          */
-        <TR = any, TJ = any, TN = any>(beforeStart?: (this: Deferred<TR, TJ, TN>, deferred: Deferred<TR, TJ, TN>) => void): Deferred<TR, TJ, TN>;
+        <TR = any, TJ = any, TN = any>(
+            beforeStart?: (this: Deferred<TR, TJ, TN>, deferred: Deferred<TR, TJ, TN>) => void,
+        ): Deferred<TR, TJ, TN>;
     }
 
     interface Deferred<TR, TJ = any, TN = any> {
@@ -2370,8 +2768,10 @@ $.get( "test.php" ).always(function() {
 });
 ```
          */
-        always(alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
+        always(
+            alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
+            ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
@@ -2432,8 +2832,10 @@ $( "button" ).on( "click", function() {
 </html>
 ```
          */
-        done(doneCallback: TypeOrArray<Deferred.Callback<TR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
+        done(
+            doneCallback: TypeOrArray<Deferred.Callback<TR>>,
+            ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
@@ -2451,8 +2853,10 @@ $.get( "test.php" )
   });
 ```
          */
-        fail(failCallback: TypeOrArray<Deferred.Callback<TJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
+        fail(
+            failCallback: TypeOrArray<Deferred.Callback<TJ>>,
+            ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>
+        ): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
@@ -2461,8 +2865,10 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.progress/ }\`
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.Callback<TN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
+        progress(
+            progressCallback: TypeOrArray<Deferred.Callback<TN>>,
+            ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>
+        ): this;
         /**
          * Return a Deferred's Promise object.
          * @param target Object onto which the promise methods have to be attached
@@ -2543,7 +2949,7 @@ $.when( asyncEvent() ).then(
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
-        state(): 'pending' | 'resolved' | 'rejected';
+        state(): "pending" | "resolved" | "rejected";
 
         // region pipe
         // #region pipe
@@ -2597,33 +3003,67 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2661,26 +3101,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2718,26 +3185,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2763,19 +3257,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        pipe<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2825,26 +3326,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2882,19 +3410,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<AJF> | AJF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        pipe<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<AJF> | AJF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -2932,19 +3467,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        pipe<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -3025,33 +3567,67 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
-            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
-            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARF | ARP,
+            AJD | AJF | AJP,
+            AND | ANF | ANP,
+            BRD | BRF | BRP,
+            BJD | BJF | BJP,
+            BND | BNF | BNP,
+            CRD | CRF | CRP,
+            CJD | CJF | CJP,
+            CND | CNF | CNP,
+            RRD | RRF | RRP,
+            RJD | RJF | RJP,
+            RND | RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3083,26 +3659,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
-            BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP,
-            RRF | RRP, RJF | RJP, RNF | RNP>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARF | ARP,
+            AJF | AJP,
+            ANF | ANP,
+            BRF | BRP,
+            BJF | BJP,
+            BNF | BNP,
+            CRF | CRP,
+            CJF | CJP,
+            CNF | CNP,
+            RRF | RRP,
+            RJF | RJP,
+            RNF | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3155,26 +3758,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: null,
-                progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
-            BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP,
-            RRD | RRP, RJD | RJP, RND | RNP>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: null,
+            progressFilter: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<
+            ARD | ARP,
+            AJD | AJP,
+            AND | ANP,
+            BRD | BRP,
+            BJD | BJP,
+            BND | BNP,
+            CRD | CRP,
+            CJD | CJP,
+            CND | CNP,
+            RRD | RRP,
+            RJD | RJP,
+            RND | RNP
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -3194,19 +3824,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARP = never, AJP = never, ANP = never,
-            BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never,
-            RRP = never, RJP = never, RNP = never>(
-                doneFilter: null,
-                failFilter: null,
-                progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
-                    BRP, BJP, BNP,
-                    CRP, CJP, CNP,
-                    RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
-            BRP, BJP, BNP,
-            CRP, CJP, CNP,
-            RRP, RJP, RNP>;
+        then<
+            ARP = never,
+            AJP = never,
+            ANP = never,
+            BRP = never,
+            BJP = never,
+            BNP = never,
+            CRP = never,
+            CJP = never,
+            CNP = never,
+            RRP = never,
+            RJP = never,
+            RNP = never,
+        >(
+            doneFilter: null,
+            failFilter: null,
+            progressFilter?: (
+                ...t: TN[]
+            ) => PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP> | Thenable<ANP> | ANP,
+        ): PromiseBase<ARP, AJP, ANP, BRP, BJP, BNP, CRP, CJP, CNP, RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3281,26 +3918,53 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF,
-            RRD | RRF, RJD | RJF, RND | RNF>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<
+            ARD | ARF,
+            AJD | AJF,
+            AND | ANF,
+            BRD | BRF,
+            BJD | BJF,
+            BND | BNF,
+            CRD | CRF,
+            CJD | CJF,
+            CND | CNF,
+            RRD | RRF,
+            RJD | RJF,
+            RND | RNF
+        >;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3332,19 +3996,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                doneFilter: null,
-                failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF,
-                progressFilter?: null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        then<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            doneFilter: null,
+            failFilter: (
+                ...t: TJ[]
+            ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF,
+            progressFilter?: null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          * @param doneFilter An optional function that is called when the Deferred is resolved.
@@ -3397,19 +4068,26 @@ chained.done(function( data ) {
 });
 ```
          */
-        then<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            RRD = never, RJD = never, RND = never>(
-                doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
-                    BRD, BJD, BND,
-                    CRD, CJD, CND,
-                    RRD, RJD, RND> | Thenable<ARD> | ARD,
-                failFilter?: null,
-                progressFilter?: null): PromiseBase<ARD, AJD, AND,
-            BRD, BJD, BND,
-            CRD, CJD, CND,
-            RRD, RJD, RND>;
+        then<
+            ARD = never,
+            AJD = never,
+            AND = never,
+            BRD = never,
+            BJD = never,
+            BND = never,
+            CRD = never,
+            CJD = never,
+            CND = never,
+            RRD = never,
+            RJD = never,
+            RND = never,
+        >(
+            doneFilter: (
+                ...t: TR[]
+            ) => PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND> | Thenable<ARD> | ARD,
+            failFilter?: null,
+            progressFilter?: null,
+        ): PromiseBase<ARD, AJD, AND, BRD, BJD, BND, CRD, CJD, CND, RRD, RJD, RND>;
 
         // #endregion
 
@@ -3429,45 +4107,54 @@ $.get( "test.php" )
   } );
 ```
          */
-        catch<ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never,
-            RRF = never, RJF = never, RNF = never>(
-                failFilter?: ((...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
-                    BRF, BJF, BNF,
-                    CRF, CJF, CNF,
-                    RRF, RJF, RNF> | Thenable<ARF> | ARF) | null): PromiseBase<ARF, AJF, ANF,
-            BRF, BJF, BNF,
-            CRF, CJF, CNF,
-            RRF, RJF, RNF>;
+        catch<
+            ARF = never,
+            AJF = never,
+            ANF = never,
+            BRF = never,
+            BJF = never,
+            BNF = never,
+            CRF = never,
+            CJF = never,
+            CNF = never,
+            RRF = never,
+            RJF = never,
+            RNF = never,
+        >(
+            failFilter?:
+                | ((
+                    ...t: TJ[]
+                ) => PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF> | Thenable<ARF> | ARF)
+                | null,
+        ): PromiseBase<ARF, AJF, ANF, BRF, BJF, BNF, CRF, CJF, CNF, RRF, RJF, RNF>;
     }
 
     namespace Deferred {
         type CallbackBase<T, U, V, R> = (t: T, u: U, v: V, ...r: R[]) => void;
 
-        interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> { }
+        interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> {}
 
         type Callback<T> = (...args: T[]) => void;
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface DoneCallback<TResolve> extends Callback<TResolve> { }
+        interface DoneCallback<TResolve> extends Callback<TResolve> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface FailCallback<TReject> extends Callback<TReject> { }
+        interface FailCallback<TReject> extends Callback<TReject> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
+        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> {}
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
-        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
+        interface ProgressCallback<TNotify> extends Callback<TNotify> {}
     }
 
     // #endregion
@@ -3475,7 +4162,7 @@ $.get( "test.php" )
     // region Effects
     // #region Effects
 
-    type Duration = number | 'fast' | 'slow';
+    type Duration = number | "fast" | "slow";
 
     /**
      * @see \`{@link https://api.jquery.com/animate/#animate-properties-options }\`
@@ -3496,11 +4183,11 @@ $.get( "test.php" )
         /**
          * A string or number determining how long the animation will run.
          */
-        duration?: Duration;
+        duration?: Duration | undefined;
         /**
          * A string indicating which easing function to use for the transition.
          */
-        easing?: string;
+        easing?: string | undefined;
         /**
          * A function to be called when the animation on an element fails to complete (its Promise object is rejected).
          */
@@ -3512,11 +4199,11 @@ $.get( "test.php" )
         /**
          * A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string. When a custom queue name is used the animation does not automatically start; you must call .dequeue("queuename") to start it.
          */
-        queue?: boolean | string;
+        queue?: boolean | string | undefined;
         /**
          * An object containing one or more of the CSS properties defined by the properties argument and their corresponding easing functions.
          */
-        specialEasing?: PlainObject<string>;
+        specialEasing?: PlainObject<string> | undefined;
         /**
          * A function to call when the animation on an element begins.
          */
@@ -3550,8 +4237,14 @@ $.get( "test.php" )
          * @since 1.8
          */
         prefilter<TElement>(
-            callback: (this: Animation<TElement>, element: TElement, props: PlainObject, opts: EffectsOptions<TElement>) => Animation<TElement> | _Falsy | void,
-            prepend?: boolean
+            callback: (
+                this: Animation<TElement>,
+                element: TElement,
+                props: PlainObject,
+                opts: EffectsOptions<TElement>,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            ) => Animation<TElement> | _Falsy | void,
+            prepend?: boolean,
         ): void;
         /**
          * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
@@ -3573,11 +4266,19 @@ $.get( "test.php" )
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
      * @since 1.8
      */
-    interface Animation<TElement> extends Promise3<
-        Animation<TElement>, Animation<TElement>, Animation<TElement>,
-        true | undefined, false, number,
-        never, never, number
-    > {
+    interface Animation<TElement> extends
+        Promise3<
+            Animation<TElement>,
+            Animation<TElement>,
+            Animation<TElement>,
+            true | undefined,
+            false,
+            number,
+            never,
+            never,
+            number
+        >
+    {
         /**
          * The duration specified in ms
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
@@ -3672,7 +4373,14 @@ jQuery.Tween.propHooks[ property ] = {
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
-        <TElement>(elem: TElement, options: EffectsOptions<TElement>, prop: string, end: number, easing?: string, unit?: string): Tween<TElement>;
+        <TElement>(
+            elem: TElement,
+            options: EffectsOptions<TElement>,
+            prop: string,
+            end: number,
+            easing?: string,
+            unit?: string,
+        ): Tween<TElement>;
     }
 
     /**
@@ -3712,7 +4420,7 @@ jQuery.Tween.propHooks[ property ] = {
          */
         options: EffectsOptions<TElement>;
         // Undocumented. Is this intended to be public?
-        pos?: number;
+        pos?: number | undefined;
         /**
          * The property being animated
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
@@ -3928,7 +4636,7 @@ $( "input" ).click(function() {
     // #region Queue
 
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
-    type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
+    type Queue<TElement> = { 0: string } & Array<QueueFunction<TElement>>;
 
     type QueueFunction<TElement> = (this: TElement, next: () => void) => void;
 
@@ -4025,7 +4733,7 @@ var e = jQuery.Event( "keydown", { keyCode: 64 } );
 jQuery( "body" ).trigger( e );
 ```
          */
-        new <T extends object>(event: string, properties?: T): Event & T;
+        new<T extends object>(event: string, properties?: T): Event & T;
     }
 
     /**
@@ -4515,7 +5223,7 @@ $( "p" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends Event {
         /**
          * The current DOM element within the event bubbling phase.
@@ -4696,8 +5404,8 @@ $( "button" ).click(function( event ) {
 </html>
 ```
          */
-        namespace?: string;
-        originalEvent?: _Event;
+        namespace?: string | undefined;
+        originalEvent?: _Event | undefined;
         /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          * @see \`{@link https://api.jquery.com/event.result/ }\`
@@ -4739,7 +5447,7 @@ $( "button" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -4877,7 +5585,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -4970,52 +5677,52 @@ $( "#checkMetaKey" ).click(function( event ) {
         metaKey: undefined;
         shiftKey: undefined;
 
-        originalEvent?: _Event;
+        originalEvent?: _Event | undefined;
     }
 
     interface ChangeEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'change';
+        type: "change";
     }
 
     interface ResizeEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'resize';
+        type: "resize";
     }
 
     interface ScrollEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'scroll';
+        type: "scroll";
     }
 
     interface SelectEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'select';
+        type: "select";
     }
 
     interface SubmitEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'submit';
+        type: "submit";
     }
 
     // #endregion
@@ -5027,7 +5734,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Event
 
@@ -5040,7 +5747,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         detail: number;
         view: Window;
 
-        originalEvent?: _UIEvent;
+        originalEvent?: _UIEvent | undefined;
     }
 
     // region MouseEvent
@@ -5050,7 +5757,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5063,7 +5770,7 @@ $( "a" ).mouseout(function( event ) {
 });
 ```
         */
-        relatedTarget?: EventTarget | null;
+        relatedTarget?: EventTarget | null | undefined;
 
         // MouseEvent
 
@@ -5177,7 +5884,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -5270,14 +5976,14 @@ $( "#checkMetaKey" ).click(function( event ) {
         metaKey: boolean;
         shiftKey: boolean;
 
-        originalEvent?: _MouseEvent;
+        originalEvent?: _MouseEvent | undefined;
     }
 
     interface ClickEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5290,16 +5996,16 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'click';
+        type: "click";
     }
 
     interface ContextMenuEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5312,16 +6018,16 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'contextmenu';
+        type: "contextmenu";
     }
 
     interface DoubleClickEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5334,16 +6040,16 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'dblclick';
+        type: "dblclick";
     }
 
     interface MouseDownEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5356,36 +6062,36 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'mousedown';
+        type: "mousedown";
     }
 
     interface MouseEnterEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Special handling by jQuery.
-        type: 'mouseover';
+        type: "mouseover";
     }
 
     interface MouseLeaveEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // Special handling by jQuery.
-        type: 'mouseout';
+        type: "mouseout";
     }
 
     interface MouseMoveEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5398,34 +6104,34 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'mousemove';
+        type: "mousemove";
     }
 
     interface MouseOutEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'mouseout';
+        type: "mouseout";
     }
 
     interface MouseOverEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'mouseover';
+        type: "mouseover";
     }
 
     interface MouseUpEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5438,9 +6144,9 @@ $( "#checkMetaKey" ).click(function( event ) {
  });
  ```
         */
-        relatedTarget?: null;
+        relatedTarget?: null | undefined;
 
-        type: 'mouseup';
+        type: "mouseup";
     }
 
     // region DragEvent
@@ -5450,81 +6156,81 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        originalEvent?: _DragEvent;
+        originalEvent?: _DragEvent | undefined;
     }
 
     interface DragEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'drag';
+        type: "drag";
     }
 
     interface DragEndEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragend';
+        type: "dragend";
     }
 
     interface DragEnterEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragenter';
+        type: "dragenter";
     }
 
     interface DragExitEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragexit';
+        type: "dragexit";
     }
 
     interface DragLeaveEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragleave';
+        type: "dragleave";
     }
 
     interface DragOverEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragover';
+        type: "dragover";
     }
 
     interface DragStartEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'dragstart';
+        type: "dragstart";
     }
 
     interface DropEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends DragEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'drop';
+        type: "drop";
     }
 
     // #endregion
@@ -5538,7 +6244,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5649,6 +6355,7 @@ $( document ).on( "mousemove", function( event ) {
         char: string | undefined;
         /** @deprecated */
         charCode: number;
+        code: string;
         key: string;
         /** @deprecated */
         keyCode: number;
@@ -5665,7 +6372,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -5758,34 +6464,34 @@ $( "#checkMetaKey" ).click(function( event ) {
         metaKey: boolean;
         shiftKey: boolean;
 
-        originalEvent?: _KeyboardEvent;
+        originalEvent?: _KeyboardEvent | undefined;
     }
 
     interface KeyDownEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'keydown';
+        type: "keydown";
     }
 
     interface KeyPressEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'keypress';
+        type: "keypress";
     }
 
     interface KeyUpEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'keyup';
+        type: "keyup";
     }
 
     // #endregion
@@ -5797,7 +6503,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -5924,7 +6630,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -6017,43 +6722,43 @@ $( "#checkMetaKey" ).click(function( event ) {
         metaKey: boolean;
         shiftKey: boolean;
 
-        originalEvent?: _TouchEvent;
+        originalEvent?: _TouchEvent | undefined;
     }
 
     interface TouchCancelEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'touchcancel';
+        type: "touchcancel";
     }
 
     interface TouchEndEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'touchend';
+        type: "touchend";
     }
 
     interface TouchMoveEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'touchmove';
+        type: "touchmove";
     }
 
     interface TouchStartEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'touchstart';
+        type: "touchstart";
     }
 
     // #endregion
@@ -6065,7 +6770,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
@@ -6078,7 +6783,7 @@ $( "a" ).mouseout(function( event ) {
 });
 ```
         */
-        relatedTarget?: EventTarget | null;
+        relatedTarget?: EventTarget | null | undefined;
 
         // MouseEvent
 
@@ -6192,7 +6897,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -6285,43 +6989,43 @@ $( "#checkMetaKey" ).click(function( event ) {
         metaKey: undefined;
         shiftKey: undefined;
 
-        originalEvent?: _FocusEvent;
+        originalEvent?: _FocusEvent | undefined;
     }
 
     interface BlurEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'blur';
+        type: "blur";
     }
 
     interface FocusEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'focus';
+        type: "focus";
     }
 
     interface FocusInEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'focusin';
+        type: "focusin";
     }
 
     interface FocusOutEvent<
         TDelegateTarget = any,
         TData = any,
         TCurrentTarget = any,
-        TTarget = any
+        TTarget = any,
     > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
-        type: 'focusout';
+        type: "focusout";
     }
 
     // #endregion
@@ -6332,7 +7036,7 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget
+        TTarget,
     > {
         // Event
 
@@ -6396,7 +7100,7 @@ $( "#checkMetaKey" ).click(function( event ) {
 
     type EventHandler<
         TCurrentTarget,
-        TData = undefined
+        TData = undefined,
     > = EventHandlerBase<TCurrentTarget, TriggeredEvent<TCurrentTarget, TData>>;
 
     type TypeEventHandler<
@@ -6404,33 +7108,37 @@ $( "#checkMetaKey" ).click(function( event ) {
         TData,
         TCurrentTarget,
         TTarget,
-        TType extends keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>
-    > = EventHandlerBase<TCurrentTarget, TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]>;
+        TType extends keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>,
+    > = EventHandlerBase<
+        TCurrentTarget,
+        TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]
+    >;
 
     interface TypeEventHandlers<
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget
+        TTarget,
     > extends _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // No idea why it's necessary to include `object` in the union but otherwise TypeScript complains that
         // derived types of Event are not assignable to Event.
-        [type: string]: TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, string> |
-                        false |
-                        undefined |
-                        object;
+        [type: string]:
+            | TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, string>
+            | false
+            | undefined
+            | object;
     }
 
     type _TypeEventHandlers<
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget
+        TTarget,
     > = {
         [TType in keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>]?:
-            TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType> |
-            false |
-            object;
+            | TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType>
+            | false
+            | object;
     };
 
     // region Event extensions
@@ -6481,6 +7189,7 @@ $( "#checkMetaKey" ).click(function( event ) {
          * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
     } | {
         /**
@@ -6489,6 +7198,7 @@ $( "#checkMetaKey" ).click(function( event ) {
          * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         teardown(this: TTarget): void | false;
     } | {
         /**
@@ -6509,12 +7219,14 @@ $( "#checkMetaKey" ).click(function( event ) {
          * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         trigger(this: TTarget, event: Event, data: TData): void | false;
     } | {
         /**
          * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         _default(event: TriggeredEvent<TTarget, TData>, data: TData): void | false;
     } | {
         /**
@@ -6523,13 +7235,18 @@ $( "#checkMetaKey" ).click(function( event ) {
          * Based in the information it has, the handle hook should decide whether to call the original handler function which is in `event.handleObj.handler`. It can modify information in the event object before calling the original handler, but _must restore_ that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook. The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a `bindType` and `delegateType`, since those other hooks will never be called.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
-        handle(this: TTarget, event: TriggeredEvent<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
+        handle(
+            this: TTarget,
+            event: TriggeredEvent<TTarget, TData> & { handleObj: HandleObject<TTarget, TData> },
+            ...data: TData[]
+        ): void;
     } | {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         preDispatch(this: TTarget, event: Event): false | void;
     } | {
         postDispatch(this: TTarget, event: Event): void;
     } | {
-        [key: string]: never;
+        [key: string]: any;
     };
 
     interface SpecialEventHooks {
@@ -6588,9 +7305,9 @@ $( "#checkMetaKey" ).click(function( event ) {
 
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
     type CoordinatesPartial =
-        Pick<Coordinates, 'left'> |
-        Pick<Coordinates, 'top'> |
-        { [key: string]: never; };
+        | Pick<Coordinates, "left">
+        | Pick<Coordinates, "top">
+        | { [key: string]: never };
 
     // #endregion
 
@@ -6613,7 +7330,7 @@ $( "#checkMetaKey" ).click(function( event ) {
 
     // #endregion
 
-    type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
+    type _Falsy = false | null | undefined | 0 | "" | typeof document.all;
 }
 
 declare const jQuery: JQueryStatic;
@@ -6631,8 +7348,8 @@ type _FocusEvent = FocusEvent;
 // #region ES5 compatibility
 
 // Forward declaration of `Iterable<T>`.
-// tslint:disable-next-line:no-empty-interface
-interface Iterable<T> { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Iterable<T> {}
 
 interface SymbolConstructor {
     /**

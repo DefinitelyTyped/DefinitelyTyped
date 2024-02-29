@@ -1,9 +1,4 @@
-// Type definitions for css-declaration-sorter 5.1
-// Project: https://github.com/Siilwyn/css-declaration-sorter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Plugin } from 'postcss';
+import { PluginCreator } from "postcss";
 
 /**
  * A Node.js module and PostCSS plugin to sort CSS, SCSS or Less declarations based on their property names.
@@ -12,7 +7,7 @@ declare namespace cssDeclarationSorter {
     /**
      * Default, order in a simple alphabetical manner from a - z.
      */
-    type Alphabetical = 'alphabetical';
+    type Alphabetical = "alphabetical";
 
     /**
      * Order from most important, flow affecting properties, to least important properties.
@@ -24,7 +19,7 @@ declare namespace cssDeclarationSorter {
      * 5. Other
      * ```
      */
-    type SMACSS = 'smacss';
+    type SMACSS = "smacss";
 
     /**
      * Order properties applying outside the box model, moving inward to intrinsic changes.
@@ -36,7 +31,7 @@ declare namespace cssDeclarationSorter {
      * 5. Text
      * ```
      */
-    type ConcentricCSS = 'concentric-css';
+    type ConcentricCSS = "concentric-css";
 
     type SortOrder = Alphabetical | SMACSS | ConcentricCSS;
 
@@ -51,16 +46,16 @@ declare namespace cssDeclarationSorter {
          * Provide the name of one of the built-in sort orders or a comparison function that is passed to `Array.sort`.
          * @default 'alphabetical'
          */
-        order?: SortOrder | SortFunction;
+        order?: SortOrder | SortFunction | undefined;
         /**
          * To prevent breaking legacy CSS where shorthand declarations override longhand declarations
          * (also taking into account vendor prefixes) this option can enabled.
          * For example `animation-name: some; animation: greeting;` will be kept in this order when `keepOverrides` is `true`.
          */
-        keepOverrides?: boolean;
+        keepOverrides?: boolean | undefined;
     }
 
-    type CssDeclarationSorter = Plugin<Options>;
+    type CssDeclarationSorter = PluginCreator<Options>;
 }
 
 declare const cssDeclarationSorter: cssDeclarationSorter.CssDeclarationSorter;

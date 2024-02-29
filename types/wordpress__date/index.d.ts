@@ -1,10 +1,4 @@
-// Type definitions for @wordpress/date 3.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/date/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import { Moment, MomentInput } from 'moment';
+import { Moment, MomentInput } from "moment";
 
 export interface DateSettings {
     formats: {
@@ -26,7 +20,7 @@ export interface DateSettings {
         relative: {
             future: string;
             past: string;
-        }
+        };
         weekdays: string[];
         weekdaysShort: string[];
     };
@@ -41,21 +35,30 @@ export interface DateSettings {
  *
  * @param dateFormat - PHP-style formatting string. See {@link https://php.net/date }.
  * @param [dateValue] - Date object or string, parsable by moment.js.
+ * @param [timezone] - Timezone to output result in or a
+ *                     UTC offset. Defaults to timezone from
+ *                     site. Notice: `boolean` is effectively
+ *                     deprecated, but still supported for
+ *                     backward compatibility reasons
  *
  * @returns - Formatted date.
  */
-export function date(dateFormat: string, dateValue?: MomentInput): string;
+export function date(dateFormat: string, dateValue?: MomentInput, timezone?: string | boolean): string;
 
 /**
  * Formats a date (like `date_i18n()` in PHP).
  *
  * @param dateFormat - PHP-style formatting string. See {@link https://php.net/date }.
  * @param [dateValue] - Date object or string, parsable by moment.js.
- * @param [gmt=false] - `true` for GMT/UTC, `false` for site's timezone.
+ * @param [timezone] - Timezone to output result in or a
+ *                     UTC offset. Defaults to timezone from
+ *                     site. Notice: `boolean` is effectively
+ *                     deprecated, but still supported for
+ *                     backward compatibility reasons
  *
  * @returns - Formatted date.
  */
-export function dateI18n(dateFormat: string, dateValue?: MomentInput, gmt?: boolean): string;
+export function dateI18n(dateFormat: string, dateValue?: MomentInput, timezone?: string | boolean): string;
 
 /**
  * Formats a date. Does not alter the date's timezone.

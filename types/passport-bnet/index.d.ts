@@ -1,10 +1,9 @@
-// Type definitions for passport-bnet 2.0
-// Project: https://github.com/Blizzard/passport-bnet#readme
-// Definitions by: Ivan Fernandes <https://github.com/ivan94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Strategy as OAuth2Strategy, VerifyFunction, VerifyFunctionWithRequest, _StrategyOptionsBase } from 'passport-oauth2';
+import {
+    _StrategyOptionsBase,
+    Strategy as OAuth2Strategy,
+    VerifyFunction,
+    VerifyFunctionWithRequest,
+} from "passport-oauth2";
 
 declare class BnetStrategy extends OAuth2Strategy {
     constructor(options: BnetStrategy.StrategyOptions, verify: VerifyFunction);
@@ -17,11 +16,11 @@ declare namespace BnetStrategy {
         clientID: string;
         clientSecret: string;
 
-        region?: string;
+        region?: string | undefined;
     }
 
     interface StrategyOptions extends _BaseBnetOptions {
-        passReqToCallback?: false;
+        passReqToCallback?: false | undefined;
     }
 
     interface StrategyOptionsWithRequest extends _BaseBnetOptions {

@@ -244,7 +244,7 @@ export interface LoaderOptions {
      * };
      * ```
      */
-    sassOptions?: LoaderOptions.SassOptions | LoaderOptions.Callback<LoaderOptions.SassOptions>;
+    sassOptions?: LoaderOptions.SassOptions | LoaderOptions.Callback<LoaderOptions.SassOptions> | undefined;
 
     /**
      * Prepends `Sass`/`SCSS` code before the actual entry file. In this case, the
@@ -319,7 +319,7 @@ export interface LoaderOptions {
      * @default
      * undefined
      */
-    prependData?: string | LoaderOptions.Callback<string>;
+    additionalData?: string | LoaderOptions.Callback<string> | undefined;
 
     /**
      * Enables/Disables generation of source maps.
@@ -362,10 +362,10 @@ export interface LoaderOptions {
      *   to latest version or you can try to set within `sassOptions` the
      *   `outputStyle` option to `compressed`.
      *
-     * @defaults
+     * @default
      * Depends on the `compiler.devtool` value.
      */
-    sourceMap?: boolean;
+    sourceMap?: boolean | undefined;
 
     /**
      * Enables/Disables the default Webpack importer.
@@ -401,11 +401,41 @@ export interface LoaderOptions {
      * @default
      * true
      */
-    webpackImporter?: boolean;
+    webpackImporter?: boolean | undefined;
+    /**
+     * Treats the @warn rule as a webpack warning.
+     *
+     * Note: It will be true by default in the next major release.
+     *
+     * **webpack.config.js**
+     *
+     * ```js
+     * module.exports = {
+     *  module: {
+     *    rules: [
+     *      {
+     *        test: /\.s[ac]ss$/i,
+     *        use: [
+     *          'style-loader',
+     *          'css-loader',
+     *          {
+     *            loader: 'sass-loader',
+     *            options: {
+     *              warnRuleAsWarning: false,
+     *            },
+     *          },
+     *        ],
+     *      },
+     *    ],
+     *  },
+     * };
+     * ```
+     */
+    warnRuleAsWarning?: boolean | undefined;
 }
 
 export namespace LoaderOptions {
     type Callback<T> = (loaderContext: Webpack.loader.LoaderContext) => T;
 
-    type SassOptions = NodeSass.Options | Sass.Options;
+    type SassOptions = NodeSass.Options | Sass.LegacyOptions<"sync">;
 }

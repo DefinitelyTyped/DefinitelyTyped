@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/scriptable-ios",
+    "version": "1.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "scriptable-ios",
+    "projects": [
+        "https://scriptable.app/"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "devDependencies": {
+        "@types/scriptable-ios": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "schl3ck",
+            "githubUsername": "schl3ck"
+        },
+        {
+            "name": "FuJuntao",
+            "githubUsername": "FuJuntao"
+        },
+        {
+            "name": "FifiTheBulldog",
+            "githubUsername": "FifiTheBulldog"
+        }
+    ]
+}

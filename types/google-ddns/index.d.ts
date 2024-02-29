@@ -1,9 +1,3 @@
-// Type definitions for google-ddns 1.1
-// Project: https://github.com/DEDAjs/google-ddns#readme
-// Definitions by: Mick Dekkers <https://github.com/mickdekkers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * The options for the DynamicDNS class
  */
@@ -23,17 +17,17 @@ export interface DynamicDNSOptions {
     /**
      * The URL used to check the current public IP of the device.
      */
-    publicIpUrl?: string;
+    publicIpUrl?: string | undefined;
     /**
      * The URL of the Google Dynamic DNS API. Must include the text `%HOSTNAME%` and `%IPADDRESS%` as placeholders for the hostname and IP
      * address.
      */
-    updateIpUrl?: string;
+    updateIpUrl?: string | undefined;
     /**
      * The HTTP header User-Agent to send when updating the IP address.
      * This is required by the Google Dynamic DNS API.
      */
-    userAgent?: string;
+    userAgent?: string | undefined;
     /**
      * Whether to fail or continue synchronizing if the current hostname
      * was not resolved. This typically happens if the domain was created
@@ -41,30 +35,30 @@ export interface DynamicDNSOptions {
      * for more information. Even if this fails, the update can still be
      * successful.
      */
-    failOnUnresolvedHostName?: boolean;
+    failOnUnresolvedHostName?: boolean | undefined;
     /**
      * The maximum number of times to attempt synchronization despite the
      * hostname not being resolved. Applies if `failOnUnresolvedHostName`
      * is `false`.
      */
-    maxUnresolvedHostNameFail?: number;
+    maxUnresolvedHostNameFail?: number | undefined;
     /**
      * Whether to cache the IP address of the DNS record or make a DNS
      * request every time. This can usually be left enabled since this
      * client is the only one responsible for updating the DNS record.
      */
-    useHostIPAddressCache?: boolean;
+    useHostIPAddressCache?: boolean | undefined;
     /**
      * If `useHostIPAddressCache` is `true`, this option is used to force a
      * DNS request every once in a while. This is the number of seconds
      * until the cache expires.
      */
-    hostIPAddressCacheExpires?: number;
+    hostIPAddressCacheExpires?: number | undefined;
     /**
      * If debug mode is enabled, debug and status information will be
      * written to the console.
      */
-    debug?: boolean;
+    debug?: boolean | undefined;
 }
 
 /**
@@ -74,11 +68,11 @@ export interface SuccessResponse {
     /**
      * The response status
      */
-    status: 'success';
+    status: "success";
     /**
      * The response code
      */
-    response: 'good' | 'nochg';
+    response: "good" | "nochg";
     /**
      * A human-readable response message
      */
@@ -96,20 +90,20 @@ export interface ErrorResponse {
     /**
      * The response status
      */
-    status: 'error';
+    status: "error";
     /**
      * The response code (may include `good` or `nochg` in edge cases)
      */
     response:
-        | 'nohost'
-        | 'badauth'
-        | 'notfqdn'
-        | 'badagent'
-        | 'abuse'
-        | '911'
+        | "nohost"
+        | "badauth"
+        | "notfqdn"
+        | "badagent"
+        | "abuse"
+        | "911"
         // Error status is possible for these in certain edge cases
-        | 'good'
-        | 'nochg';
+        | "good"
+        | "nochg";
     /**
      * A human-readable response message
      */
@@ -157,26 +151,26 @@ export interface ServiceOptions extends DynamicDNSOptions {
     /**
      * The number of seconds between updates.
      */
-    checkInterval?: number;
+    checkInterval?: number | undefined;
     /**
      * The maximum number of consecutive errors before stopping the service
      * if `exitOnMaxErrors` is `true`.
      */
-    maxConsecutiveErrors?: number;
+    maxConsecutiveErrors?: number | undefined;
     /**
      * Whether to stop the service if the maximum number of consecutive
      * errors is reached.
      */
-    exitOnMaxErrors?: boolean;
+    exitOnMaxErrors?: boolean | undefined;
     /**
      * The path of the log file to output to. Set to `false` to disable
      * logging to file.
      */
-    logPath?: string | false;
+    logPath?: string | false | undefined;
     /**
      * Whether to log output to the console.
      */
-    logToConsole?: boolean;
+    logToConsole?: boolean | undefined;
 }
 
 /**

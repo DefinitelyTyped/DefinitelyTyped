@@ -1,16 +1,19 @@
-// Type definitions for is-hotkey 0.1
-// Project: https://github.com/ianstormtaylor/is-hotkey#readme
-// Definitions by: Pierre-Marc Airoldi <https://github.com/petester42>
-//                 Kalley Powell <https://github.com/kalley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export interface KeyboardEventLike {
+    key: string;
+    which: number;
+    altKey: boolean;
+    ctrlKey: boolean;
+    metaKey: boolean;
+    shiftKey: boolean;
+}
 
 export interface HotKeyOptions {
     byKey: boolean;
 }
 
 export interface HotKey {
-    which?: number;
-    key?: string;
+    which?: number | undefined;
+    key?: string | undefined;
     altKey: boolean;
     ctrlKey: boolean;
     metaKey: boolean;
@@ -21,31 +24,23 @@ export interface HotKey {
  * Is hotkey?
  */
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    options?: HotKeyOptions
-): (event: KeyboardEvent) => boolean;
+    hotkey: string | readonly string[],
+    options?: HotKeyOptions,
+): (event: KeyboardEventLike) => boolean;
+
+export function isHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    options?: HotKeyOptions | KeyboardEvent,
-    event?: KeyboardEvent
+    hotkey: string | readonly string[],
+    options: HotKeyOptions,
+    event: KeyboardEventLike,
 ): boolean;
 
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isCodeHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isCodeHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isKeyHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isKeyHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 /**
  * Parse.
@@ -55,7 +50,7 @@ export function parseHotkey(hotkey: string, options?: HotKeyOptions): HotKey;
 /**
  * Compare.
  */
-export function compareHotkey(object: HotKey, event: KeyboardEvent): boolean;
+export function compareHotkey(object: HotKey, event: KeyboardEventLike): boolean;
 
 /**
  * Utils.

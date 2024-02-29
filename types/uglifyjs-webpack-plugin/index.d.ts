@@ -1,10 +1,4 @@
-// Type definitions for uglifyjs-webpack-plugin 1.1
-// Project: https://github.com/webpack-contrib/uglifyjs-webpack-plugin
-// Definitions by: Rene Vajkay <https://github.com/vajkayrene>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 export = UglifyJsPlugin;
 
@@ -14,35 +8,40 @@ declare class UglifyJsPlugin extends Plugin {
 
 declare namespace UglifyJsPlugin {
     interface UglifyJsPluginOptions {
-        test?: RegExp | RegExp[];
-        include?: RegExp | RegExp[];
-        exclude?: RegExp | RegExp[];
-        cache?: boolean | string;
-        parallel?: boolean | number;
-        sourceMap?: boolean;
-        uglifyOptions?: UglifyJsOptions;
-        extractComments?: boolean | RegExp | ((node: object, comment: string) => boolean) | ExtractCommentsOptions;
-        warningsFilter?: (source: string) => boolean;
+        test?: RegExp | RegExp[] | undefined;
+        include?: RegExp | RegExp[] | undefined;
+        exclude?: RegExp | RegExp[] | undefined;
+        cache?: boolean | string | undefined;
+        parallel?: boolean | number | undefined;
+        sourceMap?: boolean | undefined;
+        uglifyOptions?: UglifyJsOptions | undefined;
+        extractComments?:
+            | boolean
+            | RegExp
+            | ((node: object, comment: string) => boolean)
+            | ExtractCommentsOptions
+            | undefined;
+        warningsFilter?: ((source: string) => boolean) | undefined;
     }
 
     interface UglifyJsOptions {
-        ie8?: boolean;
-        ecma?: number;
-        parse?: object;
-        mangle?: boolean | object;
-        output?: object;
-        compress?: boolean | object;
-        warnings?: boolean;
-        toplevel?: boolean;
-        nameCache?: object;
-        keep_classnames?: boolean;
-        keep_fnames?: boolean;
-        safari10?: boolean;
+        ie8?: boolean | undefined;
+        ecma?: number | undefined;
+        parse?: object | undefined;
+        mangle?: boolean | object | undefined;
+        output?: object | undefined;
+        compress?: boolean | object | undefined;
+        warnings?: boolean | undefined;
+        toplevel?: boolean | undefined;
+        nameCache?: object | undefined;
+        keep_classnames?: boolean | undefined;
+        keep_fnames?: boolean | undefined;
+        safari10?: boolean | undefined;
     }
 
     interface ExtractCommentsOptions {
-        condition?: RegExp | ((node: object, comment: string) => boolean);
-        filename?: string | ((originalFileName: string) => string);
-        banner?: boolean | string | ((fileName: string) => string);
+        condition?: RegExp | ((node: object, comment: string) => boolean) | undefined;
+        filename?: string | ((originalFileName: string) => string) | undefined;
+        banner?: boolean | string | ((fileName: string) => string) | undefined;
     }
 }

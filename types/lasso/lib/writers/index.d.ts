@@ -1,5 +1,5 @@
-import { LassoConfig } from '../Lasso';
-import _Writer from './Writer';
+import { LassoConfig } from "../Lasso";
+import _Writer from "./Writer";
 
 export interface Writer extends _Writer {}
 

@@ -1,8 +1,3 @@
-// Type definitions for gsheets 2.0
-// Project: https://github.com/interactivethings/gsheets
-// Definitions by: Kyle Nazario <https://github.com/kyle-n>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
  * - Numeric cells are converted to numbers
  * - Empty cells are converted to `null`

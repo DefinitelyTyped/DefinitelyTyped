@@ -3,7 +3,6 @@ export interface StoreHandlers {
     setter?(key: string, value: any): void;
 }
 
-// tslint:disable-next-line strict-export-declare-modifiers
 declare const _default: {
     setHandlers(handlers?: StoreHandlers): void;
     setNamespace(namespace: string): void;

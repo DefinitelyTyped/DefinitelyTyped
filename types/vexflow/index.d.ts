@@ -1,13 +1,4 @@
-// Type definitions for VexFlow v3.0.9
-// Project: http://vexflow.com
-// Definitions by: Roman Quiring <https://github.com/rquiring>
-//                 Sebastian Haas <https://github.com/sebastianhaas>
-//                 Basti Hoffmann <https://github.com/bohoffi>
-//                 Simon Schmid <https://github.com/sschmidTU>
-//                 Benjamin Giesinger <https://github.com/bneumann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-//inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
+// inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
 declare function sanitizeDuration(duration: string): string;
 
 declare namespace Vex {
@@ -30,6 +21,10 @@ declare namespace Vex {
 
     class RERR {
         constructor(code: string, message: string);
+    }
+
+    interface GroupAttributes {
+        pointerBBox: boolean;
     }
 
     /**
@@ -71,7 +66,7 @@ declare namespace Vex {
         fillText(text: string, x: number, y: number): IRenderContext;
         save(): IRenderContext;
         restore(): IRenderContext;
-        openGroup(): Node | undefined;
+        openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node | undefined;
         closeGroup(): void;
 
         /**
@@ -84,7 +79,7 @@ declare namespace Vex {
      * Helper interface for handling the Vex.Flow.Font object in Vex.Flow.Glyph. Not part of VexFlow!
      */
     interface IFont {
-        glyphs: { x_min: number; x_max: number; ha: number; o: string[] }[];
+        glyphs: Array<{ x_min: number; x_max: number; ha: number; o: string[] }>;
         cssFontWeight: string;
         ascender: number;
         underlinePosition: number;
@@ -115,7 +110,7 @@ declare namespace Vex {
             license_description: string;
             manufacturer_name: string;
             font_sub_family_name: string;
-        };
+        } | undefined;
     }
 
     namespace Flow {
@@ -126,13 +121,13 @@ declare namespace Vex {
         const STEM_HEIGHT: number;
         const STAVE_LINE_THICKNESS: number;
         const TIME4_4: { num_beats: number; beat_value: number; resolution: number };
-        const unicode: { [name: string]: string }; //inconsistent API: this should be private and have a wrapper function like the other tables
+        const unicode: { [name: string]: string }; // inconsistent API: this should be private and have a wrapper function like the other tables
         const DEFAULT_NOTATION_FONT_SCALE: number;
         function clefProperties(clef: string): { line_shift: number };
         function keyProperties(
             key: string,
             clef: string,
-            params: { octave_shift?: number },
+            params: { octave_shift?: number | undefined },
         ): {
             key: string;
             octave: number;
@@ -163,7 +158,7 @@ declare namespace Vex {
         function ornamentCodes(
             acc: string,
         ): { code: string; shift_right: number; shift_up: number; shift_down: number; width: number };
-        function keySignature(spec: string): { type: string; line: number }[];
+        function keySignature(spec: string): Array<{ type: string; line: number }>;
         function parseNoteDurationString(durationString: string): { duration: string; dots: number; type: string };
         function parseNoteData(noteData: {
             duration: string;
@@ -190,9 +185,9 @@ declare namespace Vex {
             dot_shiftY: number;
             line_above: number;
             line_below: number;
-            code_head?: string;
-            rest?: boolean;
-            position?: string;
+            code_head?: string | undefined;
+            rest?: boolean | undefined;
+            position?: string | undefined;
         };
 
         // from glyph.js:
@@ -207,7 +202,7 @@ declare namespace Vex {
 
         // from vexflow_font.js / gonville_original.js / gonville_all.js
         var Font: {
-            glyphs: { x_min: number; x_max: number; ha: number; o: string[] }[];
+            glyphs: Array<{ x_min: number; x_max: number; ha: number; o: string[] }>;
             cssFontWeight: string;
             ascender: number;
             underlinePosition: number;
@@ -219,7 +214,7 @@ declare namespace Vex {
             lineHeight: number;
             underlineThickness: number;
 
-            //inconsistent member : this is missing in vexflow_font.js, but present in gonville_original.js and gonville_all.js
+            // inconsistent member : this is missing in vexflow_font.js, but present in gonville_original.js and gonville_all.js
             original_font_information: {
                 postscript_name: string;
                 version_string: string;
@@ -240,7 +235,7 @@ declare namespace Vex {
         };
 
         class Accidental extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setNote(note: Note): Modifier;
 
             constructor(type: string);
@@ -340,10 +335,10 @@ declare namespace Vex {
         class Beam {
             constructor(notes: StemmableNote[], auto_stem?: boolean);
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): Beam;
             setContext(context: IRenderContext): Beam;
             getNotes(): StemmableNote[];
@@ -352,7 +347,7 @@ declare namespace Vex {
             getSlopeY(): number;
             calculateSlope(): void;
             applyStemExtensions(): void;
-            getBeamLines(duration: string): { start: number; end: number }[];
+            getBeamLines(duration: string): Array<{ start: number; end: number }>;
             drawStems(): void;
             drawBeamLines(): void;
             preFormat(): Beam;
@@ -364,18 +359,18 @@ declare namespace Vex {
             static generateBeams(
                 notes: StemmableNote[],
                 config?: {
-                    groups?: Fraction[];
-                    stem_direction?: number;
-                    beam_rests?: boolean;
-                    beam_middle_only?: boolean;
-                    show_stemlets?: boolean;
-                    maintain_stem_directions?: boolean;
+                    groups?: Fraction[] | undefined;
+                    stem_direction?: number | undefined;
+                    beam_rests?: boolean | undefined;
+                    beam_middle_only?: boolean | undefined;
+                    show_stemlets?: boolean | undefined;
+                    maintain_stem_directions?: boolean | undefined;
                 },
             ): Beam[];
         }
 
         class Bend extends Modifier {
-            constructor(text: string, release?: boolean, phrase?: { type: number; text: string; width: number }[]);
+            constructor(text: string, release?: boolean, phrase?: Array<{ type: number; text: string; width: number }>);
             static UP: number;
             static DOWN: number;
             static format(
@@ -411,7 +406,7 @@ declare namespace Vex {
         }
 
         class CanvasContext implements IRenderContext {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setLineDash(dash: string): CanvasContext;
             scale(x: number, y: number): CanvasContext;
             resize(width: number, height: number): CanvasContext;
@@ -447,12 +442,12 @@ declare namespace Vex {
             setFillStyle(style: string): CanvasContext;
             setBackgroundFillStyle(style: string): CanvasContext;
             setStrokeStyle(style: string): CanvasContext;
-            setShadowColor(style: string): CanvasContext; //inconsistent name: style -> color
+            setShadowColor(style: string): CanvasContext; // inconsistent name: style -> color
             setShadowBlur(blur: string): CanvasContext;
             setLineWidth(width: number): CanvasContext;
             setLineCap(cap_type: string): CanvasContext;
 
-            //inconsistent type: void -> CanvasContext
+            // inconsistent type: void -> CanvasContext
             setLineDash(dash: string): void;
             scale(x: number, y: number): void;
             resize(width: number, height: number): void;
@@ -462,7 +457,7 @@ declare namespace Vex {
             moveTo(x: number, y: number): void;
             lineTo(x: number, y: number): void;
             bezierCurveToTo(x1: number, y1: number, x2: number, y2: number, x: number, y: number): void;
-            quadraticCurveToTo(x1: number, y1: number, x: number, y: number): void; //inconsistent name: x -> x2, y -> y2
+            quadraticCurveToTo(x1: number, y1: number, x: number, y: number): void; // inconsistent name: x -> x2, y -> y2
             arc(
                 x: number,
                 y: number,
@@ -479,12 +474,12 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): void;
             save(): void;
             restore(): void;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
         class Clef extends StaveModifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             addModifier(): void;
             addEndModifier(): void;
 
@@ -495,7 +490,7 @@ declare namespace Vex {
         }
 
         class ClefNote extends Note {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setStave(stave: Stave): Note;
 
             constructor(clef: string, size?: string, annotation?: string);
@@ -510,7 +505,7 @@ declare namespace Vex {
         }
 
         class Crescendo extends Note {
-            constructor(note_struct: { duration: number; line?: number });
+            constructor(note_struct: { duration: number; line?: number | undefined });
             static DEBUG: boolean;
             setLine(line: number): Crescendo;
             setHeight(height: number): Crescendo;
@@ -524,13 +519,13 @@ declare namespace Vex {
                 from: Note,
                 to: Note,
                 options?: {
-                    spacing?: number;
-                    thickness?: number;
-                    x_shift?: number;
+                    spacing?: number | undefined;
+                    thickness?: number | undefined;
+                    x_shift?: number | undefined;
                     y_shift: number;
                     position: Curve.Position;
                     invert: boolean;
-                    cps?: { x: number; y: number }[];
+                    cps?: Array<{ x: number; y: number }> | undefined;
                 },
             );
             static DEBUG: boolean;
@@ -555,11 +550,11 @@ declare namespace Vex {
         }
 
         class Dot extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setNote(note: Note): Dot;
 
             static format(dots: number, state: { left_shift: number; right_shift: number; text_line: number }): void;
-            setNote(note: Note): void; //inconsistent type: void -> Dot
+            setNote(note: Note): void; // inconsistent type: void -> Dot
             setDotShiftY(y: number): Dot;
             draw(): void;
         }
@@ -571,8 +566,8 @@ declare namespace Vex {
         class Formatter {
             static DEBUG: boolean;
             constructor(options?: {
-                softmaxFactor?: number,
-                maxIterations?: number
+                softmaxFactor?: number | undefined;
+                maxIterations?: number | undefined;
             });
             static FormatAndDraw(
                 ctx: IRenderContext,
@@ -611,12 +606,12 @@ declare namespace Vex {
             format(
                 voices: Voice[],
                 justifyWidth: number,
-                options?: { align_rests?: boolean; context: IRenderContext },
+                options?: { align_rests?: boolean | undefined; context: IRenderContext },
             ): Formatter;
             formatToStave(
                 voices: Voice[],
                 stave: Stave,
-                options?: { align_rests?: boolean; context: IRenderContext },
+                options?: { align_rests?: boolean | undefined; context: IRenderContext },
             ): Formatter;
         }
 
@@ -625,6 +620,8 @@ declare namespace Vex {
             static GCD(a: number, b: number): number;
             static LCM(a: number, b: number): number;
             static LCMM(a: number, b: number): number;
+            denominator: number;
+            numerator: number;
             set(numerator: number, denominator: number): Fraction;
             value(): number;
             simplify(): Fraction;
@@ -676,21 +673,29 @@ declare namespace Vex {
         }
 
         class GhostNote extends StemmableNote {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setStave(stave: Stave): Note;
 
             constructor(duration: string);
-            constructor(note_struct: { type?: string; dots?: number; duration: string }); //inconsistent name : init struct is called 'duration', should be 'params'/'options' (may be string or Object)
+            constructor(note_struct: {
+                type?: string | undefined;
+                dots?: number | undefined;
+                duration: string;
+            }); // inconsistent name : init struct is called 'duration', should be 'params'/'options' (may be string or Object)
             isRest(): boolean;
-            setStave(stave: Stave): void; //inconsistent type: void -> GhostNote
+            setStave(stave: Stave): void; // inconsistent type: void -> GhostNote
             addToModifierContext(): GhostNote;
             preFormat(): GhostNote;
             draw(): void;
         }
 
         class Glyph {
-            constructor(code: string, point: number, options?: { cache?: boolean; font?: IFont });
-            setOptions(options: { cache?: boolean; font?: IFont }): void;
+            constructor(
+                code: string,
+                point: number,
+                options?: { cache?: boolean | undefined; font?: IFont | undefined },
+            );
+            setOptions(options: { cache?: boolean | undefined; font?: IFont | undefined }): void;
             setStave(stave: Stave): Glyph;
             setXShift(x_shift: number): Glyph;
             setYShift(y_shift: number): Glyph;
@@ -717,15 +722,15 @@ declare namespace Vex {
 
         class GraceNote extends StaveNote {
             constructor(note_struct: {
-                slash?: boolean;
-                type?: string;
-                dots?: number;
+                slash?: boolean | undefined;
+                type?: string | undefined;
+                dots?: number | undefined;
                 duration: string;
-                clef?: string;
+                clef?: string | undefined;
                 keys: string[];
-                octave_shift?: number;
-                auto_stem?: boolean;
-                stem_direction?: number;
+                octave_shift?: number | undefined;
+                auto_stem?: boolean | undefined;
+                stem_direction?: number | undefined;
             });
             static LEDGER_LINE_OFFSET: number;
             getStemExtension(): number;
@@ -738,11 +743,11 @@ declare namespace Vex {
         }
 
         class GraceNoteGroup extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setWidth(width: number): Modifier;
             setNote(note: StaveNote): Modifier;
 
-            constructor(grace_notes: GraceNote[], show_slur?: boolean); //inconsistent name: 'show_slur' is called 'config', suggesting object (is boolean)
+            constructor(grace_notes: GraceNote[], show_slur?: boolean); // inconsistent name: 'show_slur' is called 'config', suggesting object (is boolean)
             static DEBUG: boolean;
             static format(
                 gracenote_groups: GraceNoteGroup[],
@@ -750,8 +755,8 @@ declare namespace Vex {
             ): boolean;
             preFormat(): void;
             beamNotes(): GraceNoteGroup;
-            setNote(note: Note): void; //inconsistent type: void -> GraceNoteGroup
-            setWidth(width: number): void; //inconsistent type: void -> GraceNoteGroup
+            setNote(note: Note): void; // inconsistent type: void -> GraceNoteGroup
+            setWidth(width: number): void; // inconsistent type: void -> GraceNoteGroup
             getWidth(): number;
             setXShift(x_shift: number): void;
             draw(): void;
@@ -771,7 +776,7 @@ declare namespace Vex {
         }
 
         class KeySignature extends StaveModifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             addModifier(): void;
 
             constructor(key_spec: string);
@@ -803,9 +808,22 @@ declare namespace Vex {
             setPosition(position: Modifier.Position): Modifier;
             setTextLine(line: number): Modifier;
             setYShift(y: number): Modifier;
-            setXShift(x: number): void; //inconsistent type: void -> Modifier
+            setXShift(x: number): void; // inconsistent type: void -> Modifier
             draw(): void;
             alignSubNotesWithNote(subNotes: Note[], note: Note): void;
+            // (Modifier extends Element in vexflow, but not in these definitions, probably because of some typing problem)
+            getStyle(): {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            };
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): Modifier;
         }
 
         namespace Modifier {
@@ -862,7 +880,7 @@ declare namespace Vex {
         }
 
         class Note implements Tickable {
-            //from tickable interface:
+            // from tickable interface:
             getTicks(): Fraction;
             getCenterXShift(): number;
             isCenterAligned(): boolean;
@@ -879,7 +897,7 @@ declare namespace Vex {
             setDuration(duration: Fraction): void;
             preFormatted: boolean;
 
-            constructor(note_struct: { type?: string; dots?: number; duration: string });
+            constructor(note_struct: { type?: string | undefined; dots?: number | undefined; duration: string });
             getPlayNote(): any;
             setPlayNote(note: any): Note;
             isRest(): boolean;
@@ -936,30 +954,35 @@ declare namespace Vex {
 
         class NoteHead extends Note {
             constructor(head_options: {
-                x?: number;
-                y?: number;
-                note_type?: string;
+                x?: number | undefined;
+                y?: number | undefined;
+                note_type?: string | undefined;
                 duration: string;
-                displaced?: boolean;
-                stem_direction?: number;
+                displaced?: boolean | undefined;
+                stem_direction?: number | undefined;
                 line: number;
                 x_shift: number;
-                custom_glyph_code?: string;
-                style?: string;
-                slashed?: boolean;
-                glyph_font_scale?: number;
+                custom_glyph_code?: string | undefined;
+                style?: string | undefined;
+                slashed?: boolean | undefined;
+                glyph_font_scale?: number | undefined;
             });
             static DEBUG: boolean;
             getCategory(): string;
             setContext(context: IRenderContext): NoteHead;
             getWidth(): number;
             isDisplaced(): boolean;
-            getStyle(): { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string };
+            getStyle(): {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): NoteHead;
             getGlyph(): Glyph;
             setX(x: number): NoteHead;
@@ -998,7 +1021,7 @@ declare namespace Vex {
         }
 
         class PedalMarking {
-            constructor(notes: Note[]); //inconsistent name: 'notes' is called 'type', suggesting string (is Note[])
+            constructor(notes: Note[]); // inconsistent name: 'notes' is called 'type', suggesting string (is Note[])
             static DEBUG: boolean;
             static createSustain(notes: Note[]): PedalMarking;
             static createSostenuto(notes: Note[]): PedalMarking;
@@ -1022,7 +1045,7 @@ declare namespace Vex {
         }
 
         class RaphaelContext implements IRenderContext {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setLineWidth(width: number): RaphaelContext;
             glow(): RaphaelContext;
 
@@ -1032,9 +1055,9 @@ declare namespace Vex {
             setFillStyle(style: string): RaphaelContext;
             setBackgroundFillStyle(style: string): RaphaelContext;
             setStrokeStyle(style: string): RaphaelContext;
-            setShadowColor(style: string): RaphaelContext; //inconsistent name: style -> color
+            setShadowColor(style: string): RaphaelContext; // inconsistent name: style -> color
             setShadowBlur(blur: string): RaphaelContext;
-            setLineWidth(width: number): void; //inconsistent type: void -> RaphaelContext
+            setLineWidth(width: number): void; // inconsistent type: void -> RaphaelContext
             setLineDash(dash: string): RaphaelContext;
             setLineCap(cap_type: string): RaphaelContext;
             scale(x: number, y: number): RaphaelContext;
@@ -1048,7 +1071,7 @@ declare namespace Vex {
             moveTo(x: number, y: number): RaphaelContext;
             lineTo(x: number, y: number): RaphaelContext;
             bezierCurveTo(x1: number, y1: number, x2: number, y2: number, x: number, y: number): RaphaelContext;
-            quadraticCurveTo(x1: number, y1: number, x: number, y: number): RaphaelContext; //inconsistent name: x, y -> x2, y2
+            quadraticCurveTo(x1: number, y1: number, x: number, y: number): RaphaelContext; // inconsistent name: x, y -> x2, y2
             arc(
                 x: number,
                 y: number,
@@ -1057,7 +1080,7 @@ declare namespace Vex {
                 endAngle: number,
                 antiClockwise: boolean,
             ): RaphaelContext;
-            glow(): { width: number; fill: boolean; opacity: number; offsetx: number; offsety: number; color: string }; //inconsistent type : Object -> RaphaelContext
+            glow(): { width: number; fill: boolean; opacity: number; offsetx: number; offsety: number; color: string }; // inconsistent type : Object -> RaphaelContext
             fill(): RaphaelContext;
             stroke(): RaphaelContext;
             closePath(): RaphaelContext;
@@ -1065,7 +1088,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): RaphaelContext;
             save(): RaphaelContext;
             restore(): RaphaelContext;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1134,7 +1157,7 @@ declare namespace Vex {
             setShiftY(y: number): Repetition;
             draw(stave: Stave, x: number): Repetition;
             drawCodaFixed(stave: Stave, x: number): Repetition;
-            drawSignoFixed(stave: Stave, x: number): Repetition; //inconsistent name: drawSignoFixed -> drawSegnoFixed
+            drawSignoFixed(stave: Stave, x: number): Repetition; // inconsistent name: drawSignoFixed -> drawSegnoFixed
             drawSymbolText(stave: Stave, x: number, text: string, draw_coda: boolean): Repetition;
         }
 
@@ -1161,28 +1184,30 @@ declare namespace Vex {
                 y: number,
                 width: number,
                 options?: {
-                    vertical_bar_width?: number;
-                    glyph_spacing_px?: number;
-                    num_lines?: number;
-                    fill_style?: string;
-                    spacing_between_lines_px?: number;
-                    space_above_staff_ln?: number;
-                    space_below_staff_ln?: number;
-                    top_text_position?: number;
+                    vertical_bar_width?: number | undefined;
+                    glyph_spacing_px?: number | undefined;
+                    num_lines?: number | undefined;
+                    fill_style?: string | undefined;
+                    spacing_between_lines_px?: number | undefined;
+                    space_above_staff_ln?: number | undefined;
+                    space_below_staff_ln?: number | undefined;
+                    top_text_position?: number | undefined;
                 },
             );
             options: {
-                vertical_bar_width?: number;
-                glyph_spacing_px?: number;
-                num_lines?: number;
-                fill_style?: string;
-                left_bar?: boolean;
-                right_bar?: boolean;
-                spacing_between_lines_px?: number;
-                space_above_staff_ln?: number;
-                space_below_staff_ln?: number;
-                top_text_position?: number;
+                vertical_bar_width?: number | undefined;
+                glyph_spacing_px?: number | undefined;
+                num_lines?: number | undefined;
+                fill_style?: string | undefined;
+                left_bar?: boolean | undefined;
+                line_config?: Array<{ visible: boolean }>;
+                right_bar?: boolean | undefined;
+                spacing_between_lines_px?: number | undefined;
+                space_above_staff_ln?: number | undefined;
+                space_below_staff_ln?: number | undefined;
+                top_text_position?: number | undefined;
             };
+            endClef: Clef;
             resetLines(): void;
             setNoteStartX(x: number): Stave;
             getNoteStartX(): number;
@@ -1193,6 +1218,7 @@ declare namespace Vex {
             getContext(): IRenderContext;
             getX(): number;
             getNumLines(): number;
+            setNumLines(lines: number): void;
             setX(x: number): Stave;
             setY(y: number): Stave;
             setWidth(width: number): Stave;
@@ -1205,11 +1231,18 @@ declare namespace Vex {
             setRepetitionTypeRight(type: Repetition.type, y: number): Stave;
             setVoltaType(type: Volta.type, number_t: number, y: number): Stave;
             setSection(section: string, y: number): Stave;
-            setTempo(tempo: { name?: string; duration: string; dots: boolean; bpm: number }, y: number): Stave;
+            setTempo(
+                tempo: { name?: string | undefined; duration: string; dots: boolean; bpm: number },
+                y: number,
+            ): Stave;
             setText(
                 text: string,
                 position: Modifier.Position,
-                options?: { shift_x?: number; shift_y?: number; justification?: TextNote.Justification },
+                options?: {
+                    shift_x?: number | undefined;
+                    shift_y?: number | undefined;
+                    justification?: TextNote.Justification | undefined;
+                },
             ): Stave;
             getHeight(): number;
             getSpacingBetweenLines(): number;
@@ -1230,16 +1263,16 @@ declare namespace Vex {
             addClef(clef: string, size?: string, annotation?: string, position?: StaveModifier.Position): Stave;
             addEndClef(clef: string, size?: string, annotation?: string): Stave;
             setEndClef(clef: string, size?: string, annotation?: string): Stave;
-            addTimeSignature(timeSpec: string, customPadding?: number): void; //inconsistent type: void -> Stave
+            addTimeSignature(timeSpec: string, customPadding?: number): void; // inconsistent type: void -> Stave
             addTrebleGlyph(): Stave;
             draw(): void;
             drawVertical(x: number, isDouble: boolean): void;
             drawVerticalFixed(x: number, isDouble: boolean): void;
             drawVerticalBar(x: number): void;
             drawVerticalBarFixed(x: number): void;
-            getConfigForLines(): { visible: boolean }[];
+            getConfigForLines(): Array<{ visible: boolean }>;
             setConfigForLine(line_number: number, line_config: { visible: boolean }): Stave;
-            setConfigForLines(lines_configuration: { visible: boolean }[]): Stave;
+            setConfigForLines(lines_configuration: Array<{ visible: boolean }>): Stave;
             getModifiers(position?: number, category?: string): StaveModifier[];
         }
 
@@ -1251,8 +1284,13 @@ declare namespace Vex {
             x_shift: number;
             setContext(ctx: IRenderContext): StaveConnector;
             setType(type: StaveConnector.type): StaveConnector;
-            setText(text: string, text_options?: { shift_x?: number; shift_y?: number }): StaveConnector;
-            setFont(font: { family?: string; size?: number; weight?: string }): void; //inconsistent type: void -> StaveConnector
+            setText(
+                text: string,
+                text_options?: { shift_x?: number | undefined; shift_y?: number | undefined },
+            ): StaveConnector;
+            setFont(
+                font: { family?: string | undefined; size?: number | undefined; weight?: string | undefined },
+            ): void; // inconsistent type: void -> StaveConnector
             setXShift(x_shift: number): StaveConnector;
             draw(): void;
             drawBoldDoubleLine(ctx: Object, type: StaveConnector.type, topX: number, topY: number, botY: number): void;
@@ -1286,7 +1324,7 @@ declare namespace Vex {
             setContext(context: IRenderContext): StaveHairpin;
             setPosition(position: Modifier.Position): StaveHairpin;
             setRenderOptions(options: {
-                height?: number;
+                height?: number | undefined;
                 y_shift: number;
                 left_shift_px: number;
                 right_shift_px: number;
@@ -1317,14 +1355,14 @@ declare namespace Vex {
             setNotes(notes: {
                 first_note: Note;
                 last_note: Note;
-                first_indices?: number[];
-                last_indices?: number[];
+                first_indices?: number[] | undefined;
+                last_indices?: number[] | undefined;
             }): StaveLine;
             applyLineStyle(): void;
             applyFontStyle(): void;
             draw(): StaveLine;
 
-            //inconsistent API: this should be set via an options object in the constructor
+            // inconsistent API: this should be set via an options object in the constructor
             render_options: {
                 padding_left: number;
                 padding_right: number;
@@ -1367,6 +1405,20 @@ declare namespace Vex {
             getPosition(): number;
             getWidth(): number;
             getPadding(index: number): number;
+
+            // (StaveModifier extends Element in vexflow, but not in these definitions, probably because of a typing problem)
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): StaveModifier;
+            getStyle(): {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            };
         }
 
         namespace StaveModifier {
@@ -1382,10 +1434,10 @@ declare namespace Vex {
         }
 
         class StaveNote extends StemmableNote {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes and/or inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes and/or inconsistencies mentioned below are fixed
             buildStem(): StemmableNote;
             setStave(stave: Stave): Note;
-            //TODO: vexflow actualy managed to have Note use modifier, index and stavenote index,modifier. To use the function in
+            // TODO: vexflow actualy managed to have Note use modifier, index and stavenote index,modifier. To use the function in
             // Typescript we need to allow both. The name is the correct type :(
             addModifier(index: any, modifier?: any): Note;
             getModifierStartXY(): { x: number; y: number };
@@ -1393,14 +1445,14 @@ declare namespace Vex {
             x_shift: number;
 
             constructor(note_struct: {
-                type?: string;
-                dots?: number;
+                type?: string | undefined;
+                dots?: number | undefined;
                 duration: string;
-                clef?: string;
+                clef?: string | undefined;
                 keys: string[];
-                octave_shift?: number;
-                auto_stem?: boolean;
-                stem_direction?: number;
+                octave_shift?: number | undefined;
+                auto_stem?: boolean | undefined;
+                stem_direction?: number | undefined;
             });
             static DEBUG: boolean;
             static format(
@@ -1412,7 +1464,7 @@ declare namespace Vex {
                 state: { left_shift: number; right_shift: number; text_line: number },
             ): void;
             static postFormat(notes: StaveNote[]): boolean;
-            buildStem(): void; //inconsistent type: void -> StaveNote
+            buildStem(): void; // inconsistent type: void -> StaveNote
             buildNoteHeads(): void;
             autoStem(): void;
             calculateKeyProps(): void;
@@ -1425,7 +1477,7 @@ declare namespace Vex {
             getYForBottomText(text_line: number): number;
             setStave(stave: Stave): StaveNote;
             getKeys(): string[];
-            getKeyProps(): {
+            getKeyProps(): Array<{
                 key: string;
                 octave: number;
                 line: number;
@@ -1435,7 +1487,7 @@ declare namespace Vex {
                 stroke: number;
                 shift_right: number;
                 displaced: boolean;
-            }[];
+            }>;
             isDisplaced(): boolean;
             setNoteDisplaced(displaced: boolean): StaveNote;
             getTieRightX(): number;
@@ -1443,20 +1495,25 @@ declare namespace Vex {
             getLineForRest(): number;
             getModifierStartXY(position: Modifier.Position, index: number): { x: number; y: number };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void; // inconsistent type: void -> StaveNote
             setStemStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
             setKeyStyle(
                 index: number,
-                style: { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string },
+                style: {
+                    shadowColor?: string | undefined;
+                    shadowBlur?: string | undefined;
+                    fillStyle?: string | undefined;
+                    strokeStyle?: string | undefined;
+                },
             ): StaveNote;
             setKeyLine(index: number, line: number): StaveNote;
             getKeyLine(index: number): number;
@@ -1479,13 +1536,13 @@ declare namespace Vex {
             drawFlag(): void;
             drawNoteHeads(): void;
             drawStem(struct: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             }): void;
             draw(): void;
         }
@@ -1497,7 +1554,7 @@ declare namespace Vex {
         }
 
         class StaveSection extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             draw(): void;
 
             constructor(section: string, x: number, shift_y: number);
@@ -1510,31 +1567,37 @@ declare namespace Vex {
 
         class StaveTempo extends StaveModifier {
             constructor(
-                tempo: { name?: string; duration: string; dots: number; bpm: number },
+                tempo: { name?: string | undefined; duration: string; dots: number; bpm: number },
                 x: number,
                 shift_y: number,
             );
             getCategory(): string;
-            setTempo(tempo: { name?: string; duration: string; dots: number; bpm: number }): StaveTempo;
+            setTempo(tempo: { name?: string | undefined; duration: string; dots: number; bpm: number }): StaveTempo;
             setShiftX(x: number): StaveTempo;
             setShiftY(y: number): StaveTempo;
             draw(stave: Stave, shift_x: number): StaveTempo;
         }
 
         class StaveText extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             draw(): void;
 
             constructor(
                 text: string,
                 position: Modifier.Position,
-                options?: { shift_x?: number; shift_y?: number; justification?: TextNote.Justification },
+                options?: {
+                    shift_x?: number | undefined;
+                    shift_y?: number | undefined;
+                    justification?: TextNote.Justification | undefined;
+                },
             );
             getCategory(): string;
             setStaveText(text: string): StaveText;
             setShiftX(x: number): StaveText;
             setShiftY(y: number): StaveText;
-            setFont(font: { family?: string; size?: number; weight?: number }): void;
+            setFont(
+                font: { family?: string | undefined; size?: number | undefined; weight?: number | undefined },
+            ): void;
             setText(text: string): void;
             draw(stave: Stave): StaveText;
         }
@@ -1553,19 +1616,23 @@ declare namespace Vex {
              *  }
              * All properties are optional, since ties can span line breaks in which case
              * two ties can be used, each with either "first_note" or "last_note" missing.
-             *
-             **/
+             */
             constructor(
-                notes: { first_note?: Note; last_note?: Note; first_indices?: number[]; last_indices?: number[] },
+                notes: {
+                    first_note?: Note | undefined;
+                    last_note?: Note | undefined;
+                    first_indices?: number[] | undefined;
+                    last_indices?: number[] | undefined;
+                },
                 text?: string,
             );
             setContext(context: IRenderContext): StaveTie;
             setFont(font: { family: string; size: number; weight: string }): StaveTie;
             setNotes(notes: {
-                first_note?: Note;
-                last_note?: Note;
-                first_indices?: number[];
-                last_indices?: number[];
+                first_note?: Note | undefined;
+                last_note?: Note | undefined;
+                first_indices?: number[] | undefined;
+                last_indices?: number[] | undefined;
             }): StaveTie;
             isPartial(): boolean;
             renderTie(params: {
@@ -1581,13 +1648,13 @@ declare namespace Vex {
 
         class Stem {
             constructor(options: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             });
             static DEBUG: boolean;
             setNoteHeadXBounds(x_begin: number, x_end: number): Stem;
@@ -1600,16 +1667,21 @@ declare namespace Vex {
             getBoundingBox(): BoundingBox;
             getExtents(): { topY: number; baseY: number };
             setStyle(style: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
-            getStyle(): { shadowColor?: string; shadowBlur?: string; fillStyle?: string; strokeStyle?: string };
+            getStyle(): {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            };
             applyStyle(context: IRenderContext): Stem;
             draw(): void;
 
-            //inconsistent API: this should be set via the options object in the constructor
+            // inconsistent API: this should be set via the options object in the constructor
             hide: boolean;
         }
 
@@ -1619,25 +1691,25 @@ declare namespace Vex {
         }
 
         class StemmableNote extends Note {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setBeam(): Note;
 
-            constructor(note_struct: { type?: string; dots?: number; duration: string });
+            constructor(note_struct: { type?: string | undefined; dots?: number | undefined; duration: string });
             static DEBUG: boolean;
             flag: Glyph;
             getAttribute(attr: string): any;
             setFlagStyle(style_struct: {
-                shadowColor?: string;
-                shadowBlur?: string;
-                fillStyle?: string;
-                strokeStyle?: string;
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
             }): void;
             getStem(): Stem;
             setStem(stem: Stem): StemmableNote;
             buildStem(): StemmableNote;
             getStemLength(): number;
             getBeamCount(): number;
-            getStemMinumumLength(): number; //inconsistent name: getStemMinumumLength -> getStemMinimumLength
+            getStemMinumumLength(): number; // inconsistent name: getStemMinumumLength -> getStemMinimumLength
             getStemDirection(): number;
             setStemDirection(direction: number): StemmableNote;
             getStemX(): number;
@@ -1650,18 +1722,18 @@ declare namespace Vex {
             getYForBottomText(text_line: number): number;
             postFormat(): StemmableNote;
             drawStem(stem_struct: {
-                x_begin?: number;
-                x_end?: number;
-                y_top?: number;
-                y_bottom?: number;
-                y_extend?: number;
-                stem_extension?: number;
-                stem_direction?: number;
+                x_begin?: number | undefined;
+                x_end?: number | undefined;
+                y_top?: number | undefined;
+                y_bottom?: number | undefined;
+                y_extend?: number | undefined;
+                stem_extension?: number | undefined;
+                stem_direction?: number | undefined;
             }): void;
         }
 
         class StringNumber extends Modifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setNote(note: Note): StringNumber;
 
             // actually this is not really consistent in the vexflow code "ctx.measureText(this.string_number).width" looks
@@ -1672,6 +1744,7 @@ declare namespace Vex {
                 state: { left_shift: number; right_shift: number; text_line: number },
             ): boolean;
             string_number: number | string;
+            radius: number;
             getNote(): Note;
             setNote(note: StemmableNote): StringNumber;
             getIndex(): number;
@@ -1692,7 +1765,7 @@ declare namespace Vex {
         }
 
         class Stroke extends Modifier {
-            constructor(type: Stroke.Type, options?: { all_voices?: boolean });
+            constructor(type: Stroke.Type, options?: { all_voices?: boolean | undefined });
             static format(
                 strokes: Stroke[],
                 state: { left_shift: number; right_shift: number; text_line: number },
@@ -1727,7 +1800,7 @@ declare namespace Vex {
             setFillStyle(style: string): SVGContext;
             setBackgroundFillStyle(style: string): SVGContext;
             setStrokeStyle(style: string): SVGContext;
-            setShadowColor(style: string): SVGContext; //inconsistent name: style -> color
+            setShadowColor(style: string): SVGContext; // inconsistent name: style -> color
             setShadowBlur(blur: string): SVGContext;
             setLineWidth(width: number): SVGContext;
             setLineDash(dash: string): SVGContext;
@@ -1743,7 +1816,7 @@ declare namespace Vex {
             moveTo(x: number, y: number): SVGContext;
             lineTo(x: number, y: number): SVGContext;
             bezierCurveTo(x1: number, y1: number, x2: number, y2: number, x: number, y: number): SVGContext;
-            quadraticCurveTo(x1: number, y1: number, x: number, y: number): SVGContext; //inconsistent: x, y -> x2, y2
+            quadraticCurveTo(x1: number, y1: number, x: number, y: number): SVGContext; // inconsistent: x, y -> x2, y2
             arc(
                 x: number,
                 y: number,
@@ -1761,22 +1834,22 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): SVGContext;
             save(): SVGContext;
             restore(): SVGContext;
-            openGroup(): Node;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node;
             closeGroup(): void;
         }
 
         class TabNote extends StemmableNote {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             setStave(stave: Stave): Note;
             getModifierStartXY(): { x: number; y: number };
 
             constructor(
                 tab_struct: {
-                    positions: { str: number; fret: number }[];
-                    type?: string;
-                    dots?: number;
+                    positions: Array<{ str: number; fret: number }>;
+                    type?: string | undefined;
+                    dots?: number | undefined;
                     duration: string;
-                    stem_direction?: number;
+                    stem_direction?: number | undefined;
                 },
                 draw_stem?: boolean,
             );
@@ -1787,7 +1860,7 @@ declare namespace Vex {
             addDot(): TabNote;
             updateWidth(): void;
             setStave(stave: Stave): TabNote;
-            getPositions(): { str: number; fret: number }[];
+            getPositions(): Array<{ str: number; fret: number }>;
             addToModifierContext(mc: ModifierContext): TabNote;
             getTieRightX(): number;
             getTieLeftX(): number;
@@ -1840,14 +1913,14 @@ declare namespace Vex {
                 y: number,
                 width: number,
                 options?: {
-                    vertical_bar_width?: number;
-                    glyph_spacing_px?: number;
-                    num_lines?: number;
-                    fill_style?: string;
-                    spacing_between_lines_px?: number;
-                    space_above_staff_ln?: number;
-                    space_below_staff_ln?: number;
-                    top_text_position?: number;
+                    vertical_bar_width?: number | undefined;
+                    glyph_spacing_px?: number | undefined;
+                    num_lines?: number | undefined;
+                    fill_style?: string | undefined;
+                    spacing_between_lines_px?: number | undefined;
+                    space_above_staff_ln?: number | undefined;
+                    space_below_staff_ln?: number | undefined;
+                    top_text_position?: number | undefined;
                 },
             );
             getYForGlyphs(): number;
@@ -1878,9 +1951,9 @@ declare namespace Vex {
             constructor(bracket_data: {
                 start: Note;
                 stop: Note;
-                text?: string;
-                superscript?: string;
-                position?: TextBracket.Positions;
+                text?: string | undefined;
+                superscript?: string | undefined;
+                position?: TextBracket.Positions | undefined;
             });
             static DEBUG: boolean;
             start: Note;
@@ -1902,7 +1975,7 @@ declare namespace Vex {
         }
 
         class TextDynamics extends Note {
-            constructor(text_struct: { duration: string; text: string; line?: number });
+            constructor(text_struct: { duration: string; text: string; line?: number | undefined });
             static DEBUG: boolean;
             setLine(line: number): TextDynamics;
             preFormat(): TextDynamics;
@@ -1912,14 +1985,14 @@ declare namespace Vex {
         class TextNote extends Note {
             constructor(text_struct: {
                 duration: string;
-                text?: string;
-                superscript?: boolean;
-                subscript?: boolean;
-                glyph?: string;
-                font?: { family: string; size: number; weight: string };
-                line?: number;
-                smooth?: boolean;
-                ignore_ticks?: boolean;
+                text?: string | undefined;
+                superscript?: boolean | undefined;
+                subscript?: boolean | undefined;
+                glyph?: string | undefined;
+                font?: { family: string; size: number; weight: string } | undefined;
+                line?: number | undefined;
+                smooth?: boolean | undefined;
+                ignore_ticks?: boolean | undefined;
             });
             setJustification(just: TextNote.Justification): TextNote;
             setLine(line: number): TextNote;
@@ -1991,7 +2064,7 @@ declare namespace Vex {
         }
 
         class TimeSignature extends StaveModifier {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes
             addModifier(): void;
             addEndModifier(): void;
 
@@ -2008,11 +2081,11 @@ declare namespace Vex {
         }
 
         class TimeSigNote extends Note {
-            //TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
+            // TODO remove the following lines once TypeScript allows subclass overrides with type changes or type inconsistencies mentioned below are fixed
             setStave(stave: Stave): Note;
 
             constructor(timeSpec: string, customPadding: number);
-            setStave(stave: Stave): void; //inconsistent type: void -> TimeSignote
+            setStave(stave: Stave): void; // inconsistent type: void -> TimeSignote
             getBoundingBox(): BoundingBox;
             addToModifierContext(): TimeSigNote;
             preFormat(): TimeSigNote;
@@ -2042,12 +2115,12 @@ declare namespace Vex {
             constructor(
                 notes: StaveNote[],
                 options?: {
-                    location?: number;
-                    bracketed?: boolean;
+                    location?: number | undefined;
+                    bracketed?: boolean | undefined;
                     ratioed: boolean;
-                    num_notes?: number;
-                    notes_occupied?: number;
-                    y_offset?: number;
+                    num_notes?: number | undefined;
+                    notes_occupied?: number | undefined;
+                    y_offset?: number | undefined;
                 },
             );
             attach(): void;
@@ -2085,7 +2158,13 @@ declare namespace Vex {
         }
 
         class Voice {
-            constructor(time: { num_beats?: number; beat_value?: number; resolution?: number });
+            constructor(
+                time: {
+                    num_beats?: number | undefined;
+                    beat_value?: number | undefined;
+                    resolution?: number | undefined;
+                },
+            );
             getTotalTicks(): Fraction;
             getTicksUsed(): Fraction;
             getLargestTickWidth(): number;
@@ -2152,17 +2231,17 @@ declare namespace Vex {
                 noSpace?: boolean,
             ):
                 | {
-                      success: boolean;
-                      matchedString: any;
-                      incrementPos: any;
-                      pos: any;
-                  }
+                    success: boolean;
+                    matchedString: any;
+                    incrementPos: any;
+                    pos: any;
+                }
                 | {
-                      success: boolean;
-                      pos: any;
-                      matchedString?: undefined;
-                      incrementPos?: undefined;
-                  };
+                    success: boolean;
+                    pos: any;
+                    matchedString?: undefined;
+                    incrementPos?: undefined;
+                };
             expectOne(rule: any, maybe?: boolean): any;
             expectOneOrMore(rule: any, maybe?: boolean): any;
             expectZeroOrMore(rule: any): any;
@@ -2361,6 +2440,6 @@ declare namespace Vex {
     }
 }
 
-declare module 'vexflow' {
+declare module "vexflow" {
     export = Vex;
 }

@@ -1,18 +1,12 @@
-// Type definitions for react-touch 1.8
-// Project: https://github.com/leonaves/react-touch
-// Definitions by: Grzegorz Kielak <https://github.com/grzesie2k>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export function defineHold(config?: HoldConfig): HoldableConfig;
 
 export interface HoldConfig {
     /** @default 250 */
-    updateEvery?: number;
+    updateEvery?: number | undefined;
     /** @default 1000 */
-    holdFor?: number;
+    holdFor?: number | undefined;
 }
 
 /** @see defineHold */
@@ -23,7 +17,7 @@ export interface HoldableConfig {
 
 export interface HoldableProps {
     /** @see defineHold */
-    config?: HoldableConfig;
+    config?: HoldableConfig | undefined;
     onHoldProgress?(): void;
     onHoldComplete?(): void;
     onMouseDown?(): void;
@@ -34,12 +28,12 @@ export class Holdable extends React.Component<HoldableProps> {
 }
 
 export interface DraggableStyle {
-    translateX?: number;
-    translateY?: number;
-    top?: number;
-    left?: number;
-    right?: number;
-    bottom?: number;
+    translateX?: number | undefined;
+    translateY?: number | undefined;
+    top?: number | undefined;
+    left?: number | undefined;
+    right?: number | undefined;
+    bottom?: number | undefined;
 }
 
 export interface DraggableCallbackArgument extends DraggableStyle {
@@ -47,7 +41,7 @@ export interface DraggableCallbackArgument extends DraggableStyle {
     dy: number;
 }
 
-export type DraggableCallback = (argument: DraggableCallbackArgument) => JSX.Element;
+export type DraggableCallback = (argument: DraggableCallbackArgument) => React.JSX.Element;
 
 export interface DraggableProps {
     /**
@@ -66,7 +60,7 @@ export function defineSwipe(config?: SwipeConfig): SwipeableConfig;
 
 export interface SwipeConfig {
     /** @default 100 */
-    swipeDistance?: number;
+    swipeDistance?: number | undefined;
 }
 
 /** @see defineSwipe */
@@ -79,7 +73,7 @@ export interface SwipeableConfig {
 
 export interface SwipeableProps {
     /** @see defineSwipe */
-    config?: SwipeableConfig;
+    config?: SwipeableConfig | undefined;
     onSwipeLeft?(): void;
     onSwipeRight?(): void;
     onSwipeUp?(): void;
@@ -91,7 +85,16 @@ export interface SwipeableProps {
 export class Swipeable extends React.Component<SwipeableProps> {
 }
 
-export enum moves {UPLEFT, UP, UPRIGHT, LEFT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT}
+export enum moves {
+    UPLEFT,
+    UP,
+    UPRIGHT,
+    LEFT,
+    RIGHT,
+    DOWNRIGHT,
+    DOWN,
+    DOWNLEFT,
+}
 
 export interface CustomGestureProps {
     config: moves[];

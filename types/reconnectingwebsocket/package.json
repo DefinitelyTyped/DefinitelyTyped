@@ -1,11 +1,21 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.4.0-0": {
-            "*": [
-                "ts3.4/*"
-            ]
+    "name": "@types/reconnectingwebsocket",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/joewalnes/reconnecting-websocket"
+    ],
+    "devDependencies": {
+        "@types/reconnectingwebsocket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicholas Guarracino",
+            "githubUsername": "nguarracino"
+        },
+        {
+            "name": "AppLover69",
+            "githubUsername": "AppLover69"
         }
-    }
+    ]
 }

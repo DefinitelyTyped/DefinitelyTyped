@@ -1,6 +1,6 @@
-import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from 'react';
+import { ComponentType, JSX, SVGProps } from "react";
 
-import Dashicon from '../dashicon';
+import Dashicon from "../dashicon";
 
 declare namespace Icon {
     type IconType<P> = Dashicon.Icon | ComponentType<P> | JSX.Element;
@@ -10,21 +10,20 @@ declare namespace Icon {
          * strings), functions, WPComponent instances and `null`.
          * @defaultValue null
          */
-        icon?: IconType<P>;
+        icon?: IconType<P> | undefined;
         /**
          * The size (width and height) of the icon.
          * @defaultValue `20` (when using Dashicon), `24` otherwise
          */
-        size?: number;
+        size?: number | undefined;
     }
     // prettier-ignore
-    type AdditionalProps<T> =
-        T extends ComponentType<infer U> ? U :
-        T extends Dashicon.Icon ? SVGProps<SVGSVGElement> :
-        {};
+    type AdditionalProps<T> = T extends ComponentType<infer U> ? U
+        : T extends Dashicon.Icon ? SVGProps<SVGSVGElement>
+        : {};
     type Props<P> = BaseProps<P> & AdditionalProps<IconType<P>>;
 }
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Icon<P>(props: Icon.Props<P>): JSX.Element;
 
 export default Icon;

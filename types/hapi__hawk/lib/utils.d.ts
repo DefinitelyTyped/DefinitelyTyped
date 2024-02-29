@@ -1,6 +1,6 @@
-import * as Boom from '@hapi/boom';
-import * as http from 'http';
-import * as https from 'https';
+import * as Boom from "@hapi/boom";
+import * as http from "http";
+import * as https from "https";
 
 export interface Host {
     name: string;
@@ -17,10 +17,10 @@ export interface CustomRequest {
 }
 
 export interface ParseRequestOptions {
-    host?: string;
-    hostHeaderName?: string;
-    name?: string;
-    port?: number;
+    host?: string | undefined;
+    hostHeaderName?: string | undefined;
+    name?: string | undefined;
+    port?: number | undefined;
 }
 
 export const version: string;

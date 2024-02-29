@@ -1,17 +1,4 @@
-// Type definitions for jsreport-phantom-pdf 1.4
-// Project: https://github.com/jsreport/jsreport-phantom-pdf
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { ExtensionDefinition } from 'jsreport-core';
-
-declare module 'jsreport-core' {
-    interface Template {
-        phantom?: Partial<JsReportPhantomPdf.Phantom>;
-        recipe: 'phantom-pdf' | string;
-    }
-}
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportPhantomPdf {
     interface Margin {
@@ -30,7 +17,7 @@ declare namespace JsReportPhantomPdf {
         headerHeight: string;
         footerHeight: string;
         format: string;
-        orientation: 'portrait' | 'landscape';
+        orientation: "portrait" | "landscape";
         blockJavaScript: boolean;
         resourceTimeout: number;
         waitForJS: boolean;
@@ -48,13 +35,24 @@ declare namespace JsReportPhantomPdf {
         allowLocalFilesAccess: boolean;
         // appDirectory: string;
         defaultPhantomjsVersion: string;
-        strategy: 'dedicated-process' | 'phantom-server';
+        strategy: "dedicated-process" | "phantom-server";
         timeout: number;
     }
 
     // without exporting enum, it doesn't include the require('jsreport-core') in the test.js for some reason
     // help welcome
     // export enum Foo { }
+
+    interface PhantomPDFTemplate extends Template {
+        phantom?: Partial<Phantom> | undefined;
+        recipe: "phantom-pdf" | string;
+    }
+}
+
+declare module "jsreport-core" {
+    interface TemplateRegistry {
+        PhantomPDFTemplate: JsReportPhantomPdf.PhantomPDFTemplate;
+    }
 }
 
 declare function JsReportPhantomPdf(options?: Partial<JsReportPhantomPdf.Options>): ExtensionDefinition;

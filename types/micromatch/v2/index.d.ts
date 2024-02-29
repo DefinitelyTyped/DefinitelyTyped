@@ -1,68 +1,62 @@
-// Type definitions for micromatch 2.3.7
-// Project: https://github.com/jonschlinkert/micromatch
-// Definitions by: glen-84 <https://github.com/glen-84>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-import parseGlob = require('parse-glob');
+import parseGlob = require("parse-glob");
 
 declare namespace micromatch {
-    type MatchFunction<T> = ((value: T) => boolean);
-    type Pattern = (string | RegExp | MatchFunction<string>);
+    type MatchFunction<T> = (value: T) => boolean;
+    type Pattern = string | RegExp | MatchFunction<string>;
 
     interface Options {
         /**
          * Normalize slashes in file paths and glob patterns to forward slashes.
          */
-        unixify?: boolean;
+        unixify?: boolean | undefined;
         /**
          * Match dotfiles. Same behavior as minimatch.
          */
-        dot?: boolean;
+        dot?: boolean | undefined;
         /**
          * Unescape slashes in glob patterns. Use cautiously, especially on windows.
          */
-        unescape?: boolean;
+        unescape?: boolean | undefined;
         /**
          * Remove duplicate elements from the result array.
          */
-        nodupes?: boolean;
+        nodupes?: boolean | undefined;
         /**
          * Allow glob patterns without slashes to match a file path based on its basename. Same behavior as
          * minimatch.
          */
-        matchBase?: boolean;
+        matchBase?: boolean | undefined;
         /**
          * Don't expand braces in glob patterns. Same behavior as minimatch nobrace.
          */
-        nobraces?: boolean;
+        nobraces?: boolean | undefined;
         /**
          * Don't expand POSIX bracket expressions.
          */
-        nobrackets?: boolean;
+        nobrackets?: boolean | undefined;
         /**
          * Don't expand extended globs.
          */
-        noextglob?: boolean;
+        noextglob?: boolean | undefined;
         /**
          * Use a case-insensitive regex for matching files. Same behavior as minimatch.
          */
-        nocase?: boolean;
+        nocase?: boolean | undefined;
         /**
          * If true, when no matches are found the actual (array-ified) glob pattern is returned instead of an empty
          * array. Same behavior as minimatch.
          */
-        nonull?: boolean;
+        nonull?: boolean | undefined;
         /**
          * Cache the platform (e.g. win32) to prevent this from being looked up for every file path.
          */
-        cache?: boolean;
+        cache?: boolean | undefined;
     }
 
     interface Glob {
         options: micromatch.Options;
         pattern: string;
-        history: { msg: any, pattern: string }[];
+        history: Array<{ msg: any; pattern: string }>;
         tokens: parseGlob.Result;
         orig: string;
         negated: boolean;
@@ -149,7 +143,10 @@ interface Micromatch {
     /**
      * Returns a function that can be passed to Array#filter().
      */
-    filter(patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): micromatch.MatchFunction<any>;
+    filter(
+        patterns: micromatch.Pattern | micromatch.Pattern[],
+        opts?: micromatch.Options,
+    ): micromatch.MatchFunction<any>;
 
     /**
      * Returns true if a file path matches any of the given patterns.

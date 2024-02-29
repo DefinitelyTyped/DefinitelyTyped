@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-scroll-to-bottom",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/compulim/react-scroll-to-bottom"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-scroll-to-bottom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zechariah Tan",
+            "githubUsername": "zS1L3NT"
+        }
+    ]
+}

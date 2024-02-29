@@ -1,8 +1,3 @@
-// Type definitions for code 4.0
-// Project: https://github.com/hapijs/code
-// Definitions by: Prashant Tiwari <https://github.com/prashaantt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Generates an assertion object. */
 export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
 /** Makes the test fail with the given message. */
@@ -179,12 +174,12 @@ export interface Settings {
      * Truncate long assertion error messages for readability?
      * Defaults to true.
      */
-    truncateMessages?: boolean;
+    truncateMessages?: boolean | undefined;
     /**
      * Ignore object prototypes when doing a deep comparison?
      * Defaults to false.
      */
-    comparePrototypes?: boolean;
+    comparePrototypes?: boolean | undefined;
 }
 
 export interface CodeError {

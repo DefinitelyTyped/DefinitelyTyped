@@ -1,4 +1,4 @@
-import * as rtlDetect from 'rtl-detect';
+import * as rtlDetect from "rtl-detect";
 
-rtlDetect.getLangDir('');
-rtlDetect.isRtlLang('');
+rtlDetect.getLangDir("");
+rtlDetect.isRtlLang("");

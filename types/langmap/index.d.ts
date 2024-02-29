@@ -1,11 +1,14 @@
-// Type definitions for langmap 0.0
-// Project: https://github.com/mozilla/language-mapping-list
-// Definitions by: Gábor Balogh <https://github.com/grabofus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+declare const langmap: langmap.LanguageMappingList;
 
-import { LanguageMappingList } from './types';
+declare namespace langmap {
+    interface Language {
+        englishName: string;
+        nativeName: string;
+    }
 
-declare const langmap: LanguageMappingList;
+    interface LanguageMappingList {
+        [language: string]: Language;
+    }
+}
 
 export = langmap;

@@ -1,8 +1,3 @@
-// Type definitions for frappe-gantt 0.4
-// Project: https://github.com/frappe/gantt
-// Definitions by: Sam Alexander <https://github.com/samalexander>, Elijah Lucian <https://github.com/eli7vh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Gantt;
 
 declare class Gantt {
@@ -20,32 +15,38 @@ declare namespace Gantt {
         end: string;
         progress: number;
         dependencies: string;
-        custom_class?: string;
+        custom_class?: string | undefined;
     }
 
     interface EnrichedTask extends Task {
         _start: Date;
         _end: Date;
         _index: number;
+        invalid?: boolean | undefined;
     }
 
     interface Options {
-        header_height?: number;
-        column_width?: number;
-        step?: number;
-        view_modes?: viewMode[];
-        bar_height?: number;
-        bar_corner_radius?: number;
-        arrow_curve?: number;
-        padding?: number;
-        view_mode?: viewMode;
-        date_format?: string;
-        custom_popup_html?: string | ((task: EnrichedTask) => string);
-        on_click?: (task: EnrichedTask) => void;
-        on_date_change?: (task: EnrichedTask, start: Date, end: Date) => void;
-        on_progress_change?: (task: EnrichedTask, progress: number) => void;
-        on_view_change?: (mode: viewMode) => void;
+        header_height?: number | undefined;
+        column_width?: number | undefined;
+        step?: number | undefined;
+        view_modes?: viewMode[] | undefined;
+        bar_height?: number | undefined;
+        bar_corner_radius?: number | undefined;
+        arrow_curve?: number | undefined;
+        padding?: number | undefined;
+        view_mode?: viewMode | undefined;
+        date_format?: string | undefined;
+        custom_popup_html?: string | ((task: EnrichedTask) => string) | undefined;
+        language?: string | undefined;
+        on_click?: ((task: EnrichedTask) => void) | undefined;
+        on_date_change?: ((task: EnrichedTask, start: Date, end: Date) => void) | undefined;
+        on_progress_change?: ((task: EnrichedTask, progress: number) => void) | undefined;
+        on_view_change?: ((mode: viewMode) => void) | undefined;
     }
 
-    type viewMode = 'Quarter Day' | 'Half Day' | 'Day' | 'Week' | 'Month';
+    type viewMode = "Quarter Day" | "Half Day" | "Day" | "Week" | "Month" | "Year";
+
+    type viewModeKey = "QUARTER_DAY" | "HALF_DAY" | "DAY" | "WEEK" | "MONTH" | "YEAR";
+
+    const VIEW_MODE: Record<viewModeKey, viewMode>;
 }

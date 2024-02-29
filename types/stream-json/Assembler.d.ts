@@ -1,15 +1,15 @@
-import { EventEmitter } from 'events';
-import { Readable } from 'stream';
+import { EventEmitter } from "events";
+import { Readable } from "stream";
 
 export = Assembler;
 
 interface Token {
     name: string;
-    value?: string;
+    value?: string | undefined;
 }
 
 declare class Assembler extends EventEmitter {
-    constructor();
+    constructor(options?: Assembler.AssemblerOptions);
 
     connectTo(stream: Readable): this;
     consume(chunk: Token): this;
@@ -24,14 +24,18 @@ declare class Assembler extends EventEmitter {
     readonly path: string;
 
     // events
-    addListener(event: 'done', listener: (asm: Assembler) => void): this;
-    on(event: 'done', listener: (asm: Assembler) => void): this;
-    once(event: 'done', listener: (asm: Assembler) => void): this;
-    prependListener(event: 'done', listener: (asm: Assembler) => void): this;
-    prependOnceListener(event: 'done', listener: (asm: Assembler) => void): this;
-    removeListener(event: 'done', listener: (asm: Assembler) => void): this;
+    addListener(event: "done", listener: (asm: Assembler) => void): this;
+    on(event: "done", listener: (asm: Assembler) => void): this;
+    once(event: "done", listener: (asm: Assembler) => void): this;
+    prependListener(event: "done", listener: (asm: Assembler) => void): this;
+    prependOnceListener(event: "done", listener: (asm: Assembler) => void): this;
+    removeListener(event: "done", listener: (asm: Assembler) => void): this;
 }
 
 declare namespace Assembler {
+    interface AssemblerOptions {
+        reviver?: ((key: string, value: any) => any) | undefined;
+    }
+
     function connectTo(stream: Readable): Assembler;
 }

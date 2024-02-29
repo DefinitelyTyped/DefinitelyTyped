@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace BlockEditorKeyboardShortcuts {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const BlockEditorKeyboardShortcuts: ComponentType<BlockEditorKeyboardShortcuts.Props>;

@@ -1,10 +1,20 @@
-import MarkdownIt = require('markdown-it');
-import MarkdownIt1 = require('markdown-it/index');
-import MarkdownIt2 = require('markdown-it/lib');
-import MarkdownIt3 = require('markdown-it/lib/index');
+import LinkifyIt = require("linkify-it");
+import MarkdownIt = require("markdown-it");
+import MarkdownIt1 = require("markdown-it");
+import MarkdownIt2 = require("markdown-it/lib");
+import MarkdownIt3 = require("markdown-it/lib");
 
-import hljs = require('highlight.js');
-import LinkifyIt = require('linkify-it');
+// sstub highlight-js interaction
+declare const hljs: {
+    highlight: (
+        codeOrlanguageName: string,
+        optionsOrCode: string,
+        ignoreIllegals?: boolean,
+    ) => {
+        value: string;
+    };
+    getLanguage: (languageName: string) => string | undefined;
+};
 
 {
     // check exports
@@ -18,10 +28,11 @@ import LinkifyIt = require('linkify-it');
     // test constuctor usage
     let md: MarkdownIt;
     const options: MarkdownIt.Options = {};
-    const presets: MarkdownIt.PresetName[] = ['commonmark', 'zero', 'default'];
+    options.quotes; // $ExpectType string | string[] | undefined
+    const presets: MarkdownIt.PresetName[] = ["commonmark", "zero", "default"];
 
     md = MarkdownIt();
-    md = new MarkdownIt();
+    md = new MarkdownIt({});
     md = MarkdownIt(options);
     md = new MarkdownIt(options);
 
@@ -47,24 +58,24 @@ import LinkifyIt = require('linkify-it');
         html: false,
         xhtmlOut: false,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '“”‘’',
-        highlight: function(str: string, lang: string): string {
-            return '';
+        quotes: "“”‘’",
+        highlight: (str: string, lang: string): string => {
+            return "";
         },
     });
     md = new MarkdownIt({
         html: false,
         xhtmlOut: false,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '“”‘’',
-        highlight: function(str: string, lang: string): string {
-            return '';
+        quotes: "“”‘’",
+        highlight: (str: string, lang: string): string => {
+            return "";
         },
     });
 }
@@ -73,50 +84,47 @@ declare const plugin1: any;
 declare const plugin2: any;
 declare const plugin3: any;
 declare const opts: any;
+
+let md: MarkdownIt;
 {
-    var md = MarkdownIt()
-        .use(plugin1)
-        .use(plugin2, opts)
-        .use(plugin3);
+    md = MarkdownIt().use(plugin1).use(plugin2, opts).use(plugin3);
 }
 
 {
-    var md = MarkdownIt({
-        highlight: function(str, lang) {
+    md = MarkdownIt({
+        highlight: (str, lang) => {
             if (lang && hljs.getLanguage(lang)) {
                 try {
                     return hljs.highlight(lang, str, true).value;
                 } catch (__) {}
             }
 
-            return '';
+            return "";
         },
     });
 }
+
 {
-    var md = MarkdownIt({
-        highlight: function(str, lang) {
+    md = MarkdownIt({
+        highlight: (str, lang) => {
             if (lang && hljs.getLanguage(lang)) {
                 try {
-                    return '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + '</code></pre>';
+                    return "<pre class=\"hljs\"><code>" + hljs.highlight(lang, str, true).value + "</code></pre>";
                 } catch (__) {}
             }
 
-            return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+            return "<pre class=\"hljs\"><code>" + md.utils.escapeHtml(str) + "</code></pre>";
         },
     });
 }
 
 {
     const linkify: LinkifyIt.LinkifyIt = md.linkify;
-    md.linkify.tlds('.py', false);
+    md.linkify.tlds(".py", false);
 }
 
 {
-    let md = MarkdownIt()
-        .disable(['link', 'image'])
-        .enable(['link'])
-        .enable('image');
+    md = MarkdownIt().disable(["link", "image"]).enable(["link"]).enable("image");
 
     md = MarkdownIt({
         html: true,
@@ -127,12 +135,12 @@ declare const opts: any;
 
 {
     let md = MarkdownIt();
-    let state = new md.inline.State('text `code`', md, {}, []);
+    let state = new md.inline.State("text `code`", md, {}, []);
     md.inline.tokenize(state);
-    let hasNull = false
+    let hasNull = false;
     for (let i of state.tokens_meta) {
         if (i === null) {
-            hasNull = true 
+            hasNull = true;
         }
     }
 }

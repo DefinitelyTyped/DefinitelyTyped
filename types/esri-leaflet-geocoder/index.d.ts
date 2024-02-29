@@ -1,15 +1,9 @@
-// Type definitions for esri-leaflet-geocoder 2.2
-// Project: https://github.com/Esri/esri-leaflet-geocoder
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+import * as L from "leaflet";
+import "esri-leaflet";
 
-import * as L from 'leaflet';
-import 'esri-leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace esri.Geocoding {
-        type GeosearchConstructor = new (options?: GeosearchObject) => Geosearch;
+        type GeosearchConstructor = new(options?: GeosearchObject) => Geosearch;
         type Geosearch = GeosearchControl & Evented;
 
         interface GeosearchControl extends Control {
@@ -24,16 +18,16 @@ declare module 'leaflet' {
         function geosearch(options?: GeosearchObject): Geosearch;
 
         interface GeosearchObject {
-            position?: ControlPosition;
-            zoomToResult?: boolean;
-            useMapBounds?: boolean | number;
-            collapseAfterResult?: boolean;
-            expanded?: boolean;
-            allowMultipleResults?: boolean;
-            providers?: GeosearchProvider[];
-            placeholder?: string;
-            title?: string;
-            searchBounds?: LatLngBoundsExpression | null;
+            position?: ControlPosition | undefined;
+            zoomToResult?: boolean | undefined;
+            useMapBounds?: boolean | number | undefined;
+            collapseAfterResult?: boolean | undefined;
+            expanded?: boolean | undefined;
+            allowMultipleResults?: boolean | undefined;
+            providers?: GeosearchProvider[] | undefined;
+            placeholder?: string | undefined;
+            title?: string | undefined;
+            searchBounds?: LatLngBoundsExpression | null | undefined;
         }
 
         class GeocodeService extends Service {
@@ -46,11 +40,11 @@ declare module 'leaflet' {
         function geocodeService(options?: GeocodeServiceOptions): GeocodeService;
 
         interface GeocodeServiceOptions extends ServiceOptions {
-            supportsSuggest?: boolean;
+            supportsSuggest?: boolean | undefined;
         }
 
         class Geocode extends Task {
-            constructor(options?: TaskOptions | Service);
+            constructor(options?: ServiceOptions | Service);
             text(text: string): this;
             address(text: string): this;
             neighborhood(text: string): this;
@@ -62,13 +56,16 @@ declare module 'leaflet' {
             category(text: string): this;
             within(bounds: LatLngBoundsExpression): this;
             nearby(latlng: LatLngExpression, distance: number): this;
-            run(callback: (error: any | undefined, results: { results: any[] }, response: any) => void, context?: any): this;
+            run(
+                callback: (error: any | undefined, results: { results: any[] }, response: any) => void,
+                context?: any,
+            ): this;
         }
 
-        function geocode(options?: TaskOptions | Service): Geocode;
+        function geocode(options?: ServiceOptions | Service): Geocode;
 
         class Suggest extends Task {
-            constructor(options?: TaskOptions | Service);
+            constructor(options?: ServiceOptions | Service);
             text(text: string): this;
             category(text: string): this;
             within(bounds: LatLngBoundsExpression): this;
@@ -76,49 +73,79 @@ declare module 'leaflet' {
             run(callback: (error: any | undefined, results: any, response: any) => void, context?: any): this;
         }
 
-        function suggest(options?: TaskOptions | Service): Suggest;
+        function suggest(options?: ServiceOptions | Service): Suggest;
 
         class ReverseGeocode extends Task {
-            constructor(options?: TaskOptions | Service);
+            constructor(options?: ServiceOptions | Service);
             latlng(latlng: LatLngExpression): this;
             distance(distance: number): this;
             language(language: string): this;
-            run(callback: (error: any | undefined, results: { latlng: LatLng; address: string; }, response: any) => void, context?: any): this;
+            run(
+                callback: (error: any | undefined, results: { latlng: LatLng; address: string }, response: any) => void,
+                context?: any,
+            ): this;
         }
 
-        function reverseGeocode(options?: TaskOptions | Service): ReverseGeocode;
+        function reverseGeocode(options?: ServiceOptions | Service): ReverseGeocode;
 
         interface GeosearchProvider {
-            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Task;
-            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Task;
+            suggestions(
+                text: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Task;
+            results(
+                text: string,
+                key: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Task;
         }
         type GeosearchCallback = (error: any | undefined, results: any) => void;
 
         interface BaseProviderOptions {
-            label?: string;
-            maxResults?: number;
-            attribution?: string;
-            token?: string | null;
+            label?: string | undefined;
+            maxResults?: number | undefined;
+            attribution?: string | undefined;
+            token?: string | null | undefined;
         }
 
         class ArcgisOnlineProvider extends GeocodeService implements GeosearchProvider {
             constructor(options?: ArcgisOnlineProviderOptions);
-            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
-            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
+            suggestions(
+                text: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Suggest;
+            results(
+                text: string,
+                key: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Geocode;
         }
 
         function arcgisOnlineProvider(options?: ArcgisOnlineProviderOptions): ArcgisOnlineProvider;
 
         interface ArcgisOnlineProviderOptions extends BaseProviderOptions {
-            countries?: string | string[];
-            categories?: string | string[];
-            forStorage?: boolean;
+            countries?: string | string[] | undefined;
+            categories?: string | string[] | undefined;
+            forStorage?: boolean | undefined;
         }
 
         class GeocodeServiceProvider extends GeocodeService implements GeosearchProvider {
             constructor(options?: GeocodeServiceProviderOptions);
-            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Suggest;
-            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Geocode;
+            suggestions(
+                text: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Suggest;
+            results(
+                text: string,
+                key: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Geocode;
         }
 
         function geocodeServiceProvider(options?: GeocodeServiceProviderOptions): GeocodeServiceProvider;
@@ -129,23 +156,41 @@ declare module 'leaflet' {
 
         class FeatureLayerProvider extends FeatureLayerService implements GeosearchProvider {
             constructor(options?: FeatureLayerProviderOptions);
-            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query;
-            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query;
+            suggestions(
+                text: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Query;
+            results(
+                text: string,
+                key: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Query;
         }
 
         function featureLayerProvider(options?: FeatureLayerProviderOptions): FeatureLayerProvider;
 
         interface FeatureLayerProviderOptions extends BaseProviderOptions {
             url: string;
-            searchFields?: string | string[];
-            bufferRadius?: number;
+            searchFields?: string | string[] | undefined;
+            bufferRadius?: number | undefined;
             formatSuggestion?(featureInformation: any): string;
         }
 
         class MapServiceProvider extends MapService implements GeosearchProvider {
             constructor(options?: MapServiceProviderOptions);
-            suggestions(text: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Find;
-            results(text: string, key: string, bounds: LatLngBoundsExpression | undefined | null, callback: GeosearchCallback): Query | Find;
+            suggestions(
+                text: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Find;
+            results(
+                text: string,
+                key: string,
+                bounds: LatLngBoundsExpression | undefined | null,
+                callback: GeosearchCallback,
+            ): Query | Find;
         }
 
         function mapServiceProvider(options?: MapServiceProviderOptions): MapServiceProvider;
@@ -159,11 +204,11 @@ declare module 'leaflet' {
         }
 
         interface ResultObject {
-            text?: string;
-            bounds?: LatLngBoundsExpression;
-            latlng?: LatLngExpression;
+            text?: string | undefined;
+            bounds?: LatLngBoundsExpression | undefined;
+            latlng?: LatLngExpression | undefined;
             properties?: any;
-            geojson?: GeoJSON;
+            geojson?: GeoJSON | undefined;
             [key: string]: any;
         }
 

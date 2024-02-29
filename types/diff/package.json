@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/diff",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/kpdecker/jsdiff"
+    ],
+    "devDependencies": {
+        "@types/diff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        },
+        {
+            "name": "szdc",
+            "githubUsername": "szdc"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

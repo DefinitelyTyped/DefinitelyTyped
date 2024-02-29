@@ -1,16 +1,16 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { HorizontalAlignments } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { HorizontalAlignments } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Media object component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const MediaObject: React.StatelessComponent<MediaObjectProps>;
+export declare const MediaObject: React.FunctionComponent<MediaObjectProps>;
 export interface MediaObjectProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    stackForSmall?: boolean;
+    stackForSmall?: boolean | undefined;
 }
 /**
  * Media object section component.
@@ -18,10 +18,10 @@ export interface MediaObjectProps extends FlexboxPropTypes, React.HTMLAttributes
  * @param {Object} props
  * @returns {Object}
  */
-export declare const MediaObjectSection: React.StatelessComponent<MediaObjectSectionProps>;
+export declare const MediaObjectSection: React.FunctionComponent<MediaObjectSectionProps>;
 export interface MediaObjectSectionProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-    alignment?: HorizontalAlignments;
-    isMain?: boolean;
-    isMiddle?: boolean;
-    isBottom?: boolean;
+    alignment?: HorizontalAlignments | undefined;
+    isMain?: boolean | undefined;
+    isMiddle?: boolean | undefined;
+    isBottom?: boolean | undefined;
 }

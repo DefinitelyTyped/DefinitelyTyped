@@ -1,3 +1,3 @@
-export * from "./RadioButton";
-export * from "./RadioButton.Skeleton";
+export { RadioButtonProps, RadioButtonValue } from "./RadioButton";
 export { default } from "./RadioButton";
+export * from "./RadioButton.Skeleton";

@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/fluent-ffmpeg",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/fluent-ffmpeg/node-fluent-ffmpeg"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fluent-ffmpeg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "KIM Jaesuck a.k.a. gim tcaesvk",
+            "githubUsername": "tcaesvk"
+        },
+        {
+            "name": "DingWeizhe",
+            "githubUsername": "DingWeizhe"
+        },
+        {
+            "name": "Mounir Abid",
+            "githubUsername": "mabidina"
+        },
+        {
+            "name": "Doyoung Ha",
+            "githubUsername": "hados99"
+        },
+        {
+            "name": "Prasad Nayak",
+            "githubUsername": "buzzertech"
+        }
+    ]
+}

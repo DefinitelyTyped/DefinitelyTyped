@@ -1,11 +1,5 @@
-// Type definitions for redux-form 4.0
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { Dispatch, ActionCreator, Reducer } from 'redux';
+import * as React from "react";
+import { ActionCreator, Dispatch, Reducer } from "redux";
 
 export const actionTypes: { [actionName: string]: string };
 
@@ -27,7 +21,7 @@ export interface FieldProp<T> {
      * convenience of destructuring the whole field object into the props of a
      * form element.
      */
-    checked?: boolean;
+    checked?: boolean | undefined;
 
     /**
      * true if the field value has changed from its initialized value.
@@ -132,7 +126,7 @@ export interface ReduxFormProps<T> {
     /**
      * The name of the currently active (with focus) field.
      */
-    active?: string;
+    active?: string | undefined;
 
     /**
      * A function that may be called to initiate asynchronous validation if
@@ -144,7 +138,7 @@ export interface ReduxFormProps<T> {
      * true if the asynchronous validation function has been called but has not
      * yet returned.
      */
-    asyncValidating?: boolean;
+    asyncValidating?: boolean | undefined;
 
     /**
      * Destroys the form state in the Redux store. By default, this will be
@@ -156,7 +150,7 @@ export interface ReduxFormProps<T> {
      * true if the form data has changed from its initialized values. Opposite
      * of pristine.
      */
-    dirty?: boolean;
+    dirty?: boolean | undefined;
 
     /**
      * A generic error for the entire form given by the _error key in the
@@ -171,7 +165,7 @@ export interface ReduxFormProps<T> {
      * props, e.g. <input type="text" {...field.name}/>. Each field Object has
      * the following properties:
      */
-    fields?: { [field: string]: FieldProp<T> };
+    fields?: { [field: string]: FieldProp<T> } | undefined;
 
     /**
      * A function meant to be passed to <form onSubmit={handleSubmit}> or to
@@ -192,6 +186,7 @@ export interface ReduxFormProps<T> {
      */
     handleSubmit?(event: React.SyntheticEvent<T>): void;
     handleSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): React.FormEventHandler<T>;
 
     /**
@@ -205,13 +200,13 @@ export interface ReduxFormProps<T> {
     /**
      * true if the form has validation errors. Opposite of valid.
      */
-    invalid?: boolean;
+    invalid?: boolean | undefined;
 
     /**
      * true if the form data is the same as its initialized values. Opposite
      * of dirty.
      */
-    pristine?: boolean;
+    pristine?: boolean | undefined;
 
     /**
      * Resets all the values in the form to the initialized state, making it
@@ -222,21 +217,21 @@ export interface ReduxFormProps<T> {
     /**
      * The same formKey prop that was passed in. See Editing Multiple Records.
      */
-    formKey?: string;
+    formKey?: string | undefined;
 
     /**
      * Whether or not your form is currently submitting. This prop will only
      * work if you have passed an onSubmit function that returns a promise. It
      * will be true until the promise is resolved or rejected.
      */
-    submitting?: boolean;
+    submitting?: boolean | undefined;
 
     /**
      * Starts as false. If onSubmit is called, and fails to submit for any
      * reason, submitFailed will be set to true. A subsequent successful
      * submit will set it back to false.
      */
-    submitFailed?: boolean;
+    submitFailed?: boolean | undefined;
 
     /**
      * Marks the given fields as "touched" to show errors.
@@ -265,12 +260,12 @@ export interface ReduxFormProps<T> {
      * true if the form passes validation (has no validation errors). Opposite
      * of invalid.
      */
-    valid?: boolean;
+    valid?: boolean | undefined;
 
     /**
      * All of your values in the form { field1: <string>, field2: <string> }.
      */
-    values?: FormData;
+    values?: FormData | undefined;
 }
 
 declare class ElementClass extends React.Component<any> {
@@ -291,9 +286,11 @@ interface MapDispatchToPropsObject {
     [name: string]: ActionCreator<any>;
 }
 
-export declare function reduxForm(config: ReduxFormConfig,
+export declare function reduxForm(
+    config: ReduxFormConfig,
     mapStateToProps?: MapStateToProps,
-    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
+    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject,
+): ClassDecorator;
 
 export interface ReduxFormConfig {
     /**
@@ -318,7 +315,7 @@ export interface ReduxFormConfig {
      * alwaysAsyncValidate to true will always run asynchronous validation on
      * blur, even if the form is pristine or sync validation fails.
      */
-    alwaysAsyncValidate?: boolean;
+    alwaysAsyncValidate?: boolean | undefined;
 
     /**
      * field names for which onBlur should trigger a call to the asyncValidate
@@ -326,7 +323,7 @@ export interface ReduxFormConfig {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncBlurFields?: string[];
+    asyncBlurFields?: string[] | undefined;
 
     /**
      * a function that takes all the form values, the dispatch function, and
@@ -342,14 +339,14 @@ export interface ReduxFormConfig {
      * Whether or not to automatically destroy your form's state in the Redux
      * store when your component is unmounted. Defaults to true.
      */
-    destroyOnUnmount?: boolean;
+    destroyOnUnmount?: boolean | undefined;
 
     /**
      * The key for your sub-form.
      *
      * See Multirecord Example for more details.
      */
-    formKey?: string;
+    formKey?: string | undefined;
 
     /**
      * A function that takes the entire Redux state and the reduxMountPoint
@@ -367,7 +364,7 @@ export interface ReduxFormConfig {
      * with single-record forms. The values should be in the form
      * { field1: 'value1', field2: 'value2' }.
      */
-    initialValues?: { [field: string]: FieldValue };
+    initialValues?: { [field: string]: FieldValue } | undefined;
 
     /**
      * The function to call with the form data when the handleSubmit() is fired
@@ -382,7 +379,7 @@ export interface ReduxFormConfig {
      * prop changes. If false, the values will not be overwritten if the form has
      * previously been initialized. Defaults to true.
      */
-    overwriteOnInitialValuesChange?: boolean;
+    overwriteOnInitialValuesChange?: boolean | undefined;
 
     /**
      * If specified, all the props normally passed into your decorated
@@ -390,7 +387,7 @@ export interface ReduxFormConfig {
      * using other decorator libraries on the same component to avoid prop
      * namespace collisions.
      */
-    propNamespace?: string;
+    propNamespace?: string | undefined;
 
     /**
      * if true, the decorated component will not be passed any of the onX
@@ -398,7 +395,7 @@ export interface ReduxFormConfig {
      * decorating another component that is not your form, but that needs to
      * know about the state of your form.
      */
-    readonly?: boolean;
+    readonly?: boolean | undefined;
 
     /**
      * The use of this property is highly discouraged, but if you absolutely
@@ -408,25 +405,25 @@ export interface ReduxFormConfig {
      *
      * See Alternate Mount Point Example for more details.
      */
-    reduxMountPoint?: string;
+    reduxMountPoint?: string | undefined;
 
     /**
      * If set to true, a failed submit will return a rejected promise. Defaults
      * to false. Only use this if you need to detect submit failures and run
      * some code when a submit fails.
      */
-    returnRejectedSubmitPromise?: boolean;
+    returnRejectedSubmitPromise?: boolean | undefined;
 
     /**
      * marks fields as touched when the blur action is fired. Defaults to true.
      */
-    touchOnBlur?: boolean;
+    touchOnBlur?: boolean | undefined;
 
     /**
      * marks fields as touched when the change action is fired. Defaults to
      * false.
      */
-    touchOnChange?: boolean;
+    touchOnChange?: boolean | undefined;
 
     /**
      * a synchronous validation function that takes the form values and props
@@ -446,9 +443,12 @@ export interface ReduxFormConfig {
  * @param previousAllValues All the values of the form before the current
  * change. Useful to change one field based on a change in another.
  */
-export type Normalizer =
-    (value: FieldValue, previousValue: FieldValue,
-        allValues: FormData, previousAllValues: FormData) => any;
+export type Normalizer = (
+    value: FieldValue,
+    previousValue: FieldValue,
+    allValues: FormData,
+    previousAllValues: FormData,
+) => any;
 
 export declare const reducer: {
     (state: any, action: any): any;
@@ -462,8 +462,8 @@ export declare const reducer: {
      */
     normalize(normalizers: {
         [formName: string]: {
-            [fieldName: string]: Normalizer
-        }
+            [fieldName: string]: Normalizer;
+        };
     }): Reducer<any>;
 
     /**

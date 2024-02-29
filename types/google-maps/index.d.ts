@@ -1,11 +1,6 @@
-// Type definitions for google-maps 3.2.1
-// Project: https://www.npmjs.com/package/google-maps
-// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 3.0
 
-/// <reference types="googlemaps" />
+/// <reference types="google.maps" />
 
 declare namespace GoogleMapsLoader {
     type google = { maps: typeof google.maps };
@@ -15,7 +10,7 @@ declare namespace GoogleMapsLoader {
 
     export var KEY: string;
     export var URL: string;
-    export var LIBRARIES: Array<string>;
+    export var LIBRARIES: string[];
     export var CLIENT: string;
     export var CHANNEL: string;
     export var LANGUAGE: string;

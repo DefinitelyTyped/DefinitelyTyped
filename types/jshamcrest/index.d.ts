@@ -1,8 +1,3 @@
-// Type definitions for JsHamcrest 0.7.0
-// Project: https://github.com/danielfm/jshamcrest/
-// Definitions by: David Harkness <https://github.com/dharkness>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top-level module for the JsHamcrest matcher library.
  *
@@ -13,7 +8,6 @@ declare namespace JsHamcrest {
      * Library version.
      */
     export var version: string;
-
 
     //
     // Description
@@ -100,7 +94,6 @@ declare namespace JsHamcrest {
         get(): string;
     }
 
-
     //
     // Matcher
     //
@@ -128,7 +121,7 @@ declare namespace JsHamcrest {
     interface MatcherConfig {
         matches: Matches;
         describeTo: DescribeTo;
-        describeValueTo?: DescribeValueTo;
+        describeValueTo?: DescribeValueTo | undefined;
     }
 
     /**
@@ -163,7 +156,6 @@ declare namespace JsHamcrest {
         or(matcherOrValue: any): CombinableMatcher;
     }
 
-
     //
     // Helpers
     //
@@ -184,7 +176,6 @@ declare namespace JsHamcrest {
      */
     export function EqualTo(factory: (matcher: Matcher) => Matcher): (matcherOrValue: any) => Matcher;
 
-
     /**
      * Provides the assertion, filtering, and currying methods.
      */
@@ -194,8 +185,8 @@ declare namespace JsHamcrest {
          */
         interface AssertOptions {
             message?: any;
-            pass?: (description: string) => void;
-            fail?: (description: string) => void;
+            pass?: ((description: string) => void) | undefined;
+            fail?: ((description: string) => void) | undefined;
         }
 
         /**
@@ -226,7 +217,6 @@ declare namespace JsHamcrest {
          */
         export function callTo(func: (...args: any[]) => any, ...args: any[]): () => any;
     }
-
 
     /**
      * Defines all of the built-in matchers grouped into five categories.
@@ -290,7 +280,6 @@ declare namespace JsHamcrest {
          * @return {JsHamcrest.SimpleMatcher} Instance of JsHamcrest.SimpleMatcher
          */
         export function oneOf(...items: any[]): JsHamcrest.SimpleMatcher;
-
 
         //
         // Core Matchers
@@ -396,7 +385,6 @@ declare namespace JsHamcrest {
          */
         export function truth(): JsHamcrest.SimpleMatcher;
 
-
         //
         // Number Matchers
         //
@@ -486,7 +474,6 @@ declare namespace JsHamcrest {
          */
         export function zero(): JsHamcrest.SimpleMatcher;
 
-
         //
         // Object Matchers
         //
@@ -559,7 +546,6 @@ declare namespace JsHamcrest {
          */
         export function typeOf(typeName: string): JsHamcrest.SimpleMatcher;
 
-
         //
         // Text Matchers
         //
@@ -614,7 +600,6 @@ declare namespace JsHamcrest {
         export function startsWith(str: string): JsHamcrest.SimpleMatcher;
     }
 
-
     /**
      * Provides methods for exposing matchers and operators for several testing frameworks.
      */
@@ -652,7 +637,6 @@ declare namespace JsHamcrest {
          */
         export function installOperators(source: {}): void;
 
-
         //
         // Testing Frameworks
         //
@@ -674,58 +658,57 @@ declare namespace JsHamcrest {
          *
          * @param params Omit to copy members to global scope
          */
-        export function JsTestDriver(params?: { scope?: {} }): void;
+        export function JsTestDriver(params?: { scope?: {} | undefined }): void;
 
         /**
          * NodeUnit (Node.js Unit Testing) integration.
          *
          * @param params Omit to copy members to "global"
          */
-        export function Nodeunit(params?: { scope?: {} }): void;
+        export function Nodeunit(params?: { scope?: {} | undefined }): void;
 
         /**
          * JsUnitTest integration.
          *
          * @param params Omit to copy members to "JsUnitTest.Unit.Testcase.prototype"
          */
-        export function JsUnitTest(params?: { scope?: {} }): void;
+        export function JsUnitTest(params?: { scope?: {} | undefined }): void;
 
         /**
          * YUITest (Yahoo UI) integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function YUITest(params?: { scope?: {} }): void;
+        export function YUITest(params?: { scope?: {} | undefined }): void;
 
         /**
          * QUnit (JQuery) integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function QUnit(params?: { scope?: {} }): void;
+        export function QUnit(params?: { scope?: {} | undefined }): void;
 
         /**
          * jsUnity integration.
          *
          * @param params Omit to copy members to "jsUnity.env.defaultScope"
          */
-        export function jsUnity(params?: { scope?: {}; attachAssertions?: boolean }): void;
+        export function jsUnity(params?: { scope?: {} | undefined; attachAssertions?: boolean | undefined }): void;
 
         /**
          * Screw.Unit integration.
          *
          * @param params Omit to copy members to "Screw.Matchers"
          */
-        export function screwunit(params?: { scope?: {} }): void;
+        export function screwunit(params?: { scope?: {} | undefined }): void;
 
         /**
          * Jasmine integration.
          *
          * @param params Omit to copy members to global scope
          */
-        export function jasmine(params?: { scope?: {} }): void;
+        export function jasmine(params?: { scope?: {} | undefined }): void;
     }
-
 
     //
     // Builders
@@ -739,13 +722,11 @@ declare namespace JsHamcrest {
     }
 }
 
-
 //
 // Functions that are copied by copyMembers() to the global scope are copy-n-pasted here.
 //
 // TODO There must be a better way to do this, and not every testing framework places them in the global scope.
 //
-
 
 //
 // Assert
@@ -760,7 +741,6 @@ declare namespace JsHamcrest {
  * @return {JsHamcrest.Description} Contains the message, actual value, matcher, and result
  */
 declare function assertThat(actual: any, matcher?: JsHamcrest.Matcher, message?: any): JsHamcrest.Description;
-
 
 //
 // Collection Matchers
@@ -820,7 +800,6 @@ declare function isIn(...items: any[]): JsHamcrest.SimpleMatcher;
  * @return {JsHamcrest.SimpleMatcher} Instance of JsHamcrest.SimpleMatcher
  */
 declare function oneOf(...items: any[]): JsHamcrest.SimpleMatcher;
-
 
 //
 // Core Matchers
@@ -926,7 +905,6 @@ declare function sameAs(expected: any): JsHamcrest.SimpleMatcher;
  */
 declare function truth(): JsHamcrest.SimpleMatcher;
 
-
 //
 // Number Matchers
 //
@@ -1016,7 +994,6 @@ declare function odd(): JsHamcrest.SimpleMatcher;
  */
 declare function zero(): JsHamcrest.SimpleMatcher;
 
-
 //
 // Object Matchers
 //
@@ -1088,7 +1065,6 @@ declare function string(): JsHamcrest.SimpleMatcher;
  * @return {JsHamcrest.SimpleMatcher} Instance of JsHamcrest.SimpleMatcher
  */
 declare function typeOf(typeName: string): JsHamcrest.SimpleMatcher;
-
 
 //
 // Text Matchers

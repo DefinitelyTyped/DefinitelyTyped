@@ -1,9 +1,11 @@
-// tslint:disable:no-unnecessary-generics
-import { Dashicon, DropZone } from '@wordpress/components';
-import { ComponentType, MouseEventHandler } from 'react';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { Dashicon, DropZone } from "@wordpress/components";
+import { ComponentType, JSX, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {
-    interface Props<T extends boolean> extends Pick<DropZone.Props, 'onHTMLDrop'> {
+    type MediaPlaceholderMultipleAction = "add";
+
+    interface Props<T extends boolean> extends Pick<DropZone.Props, "onHTMLDrop"> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
          * to the upload window the browser use e.g: `image#<{(|,video#<{(|`.
@@ -14,7 +16,7 @@ declare namespace MediaPlaceholder {
          *
          * See: {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers }
          */
-        accept?: string;
+        accept?: string | undefined;
         /**
          * If `true`, and if  `gallery === true` the gallery media modal opens directly in the media
          * library where the user can add additional images. When uploading/selecting files on the
@@ -24,7 +26,7 @@ declare namespace MediaPlaceholder {
          * on the placeholder the files replace the existing files list.
          * @defaultValue false
          */
-        addToGallery?: boolean;
+        addToGallery?: boolean | undefined;
         /**
          * Array with the types of the media to upload/select from the media library.
          *
@@ -37,15 +39,15 @@ declare namespace MediaPlaceholder {
          * affects the behavior of `MediaUpload` while `accept` affects the behavior
          * `FormFileUpload`.
          */
-        allowedTypes?: string[];
-        children?: never;
-        className?: string;
+        allowedTypes?: string[] | undefined;
+        children?: never | undefined;
+        className?: string | undefined;
         /** Undocumented. */
-        dropZoneUIOnly?: boolean;
+        dropZoneUIOnly?: boolean | undefined;
         /**
          * Icon to display left of the title.
          */
-        icon?: Dashicon.Icon | JSX.Element;
+        icon?: Dashicon.Icon | JSX.Element | undefined;
         /**
          * If `true`, the property changes the look of the placeholder to be adequate to scenarios
          * where new files are added to an already existing set of files, e.g., adding files to a
@@ -55,32 +57,33 @@ declare namespace MediaPlaceholder {
          *
          * @defaultValue false
          */
-        isAppender?: boolean;
+        isAppender?: boolean | undefined;
         /**
          * An object that can contain a `title` and `instructions` properties. These properties are
          * passed to the placeholder component as `label` and `instructions` respectively.
          */
         labels?: {
-            title?: string;
-            instructions?: string;
-        };
+            title?: string | undefined;
+            instructions?: string | undefined;
+        } | undefined;
         /** Undocumented. */
-        mediaPreview?: JSX.Element;
+        mediaPreview?: JSX.Element | undefined;
         /**
          * Optionally pass in `noticeUI` obtained from `withNotices` HOC.
          */
-        notices?: JSX.Element;
+        notices?: JSX.Element | undefined;
         onCancel?(): void;
-        onDoubleClick?: MouseEventHandler<HTMLDivElement>;
+        onDoubleClick?: MouseEventHandler<HTMLDivElement> | undefined;
         /**
          * Callback called when an upload error happens.
          */
         onError?(message: string): void;
         onSelectURL?(src: string): void;
-        multiple?: T;
-        value?: T extends true ? number[] : number;
+        multiple?: T | MediaPlaceholderMultipleAction | undefined;
+        value?: T extends true ? number[] : number | undefined | undefined | undefined | undefined;
         onSelect(
-            value: T extends true ? Array<{ id: number } & { [k: string]: any }> : { id: number } & { [k: string]: any }
+            value: T extends true ? Array<{ id: number } & { [k: string]: any }>
+                : { id: number } & { [k: string]: any },
         ): void;
     }
     // type Props<T extends boolean> = BaseProps<T>;

@@ -1,13 +1,13 @@
-import CodeMirror = require('codemirror');
+import CodeMirror = require("codemirror");
 
 const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 
 const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
-    value: 'function myScript(){return 100;}\n',
-    mode: 'javascript',
+    value: "function myScript(){return 100;}\n",
+    mode: { name: "javascript", json: true },
     extraKeys: {
         Enter: cm => {
-            console.log('save');
+            console.log("save");
         },
         Esc: cm => {
             return CodeMirror.Pass;
@@ -15,10 +15,10 @@ const myCodeMirror2: CodeMirror.Editor = CodeMirror(document.body, {
     },
 });
 
-// $ExpectError
 const myCodeMirror2_1: CodeMirror.Editor = CodeMirror(document.body, {
     extraKeys: {
-        'Shift-Enter': cm => {
+        // @ts-expect-error
+        "Shift-Enter": cm => {
             return 42;
         }, // not a valid return value
     },
@@ -32,7 +32,7 @@ const to = range.to();
 
 const myTextArea: HTMLTextAreaElement = undefined!;
 const myCodeMirror3: CodeMirror.Editor = CodeMirror(
-    function (elt) {
+    elt => {
         myTextArea.parentNode!.replaceChild(elt, myTextArea);
     },
     { value: myTextArea.value },
@@ -40,90 +40,35 @@ const myCodeMirror3: CodeMirror.Editor = CodeMirror(
 
 const myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
 
-const doc: CodeMirror.Doc = new CodeMirror.Doc('text');
+const doc: CodeMirror.Doc = new CodeMirror.Doc("text");
 doc.lineSeparator();
 const doc2: CodeMirror.Doc = CodeMirror(document.body).getDoc();
 
-const lintStateOptions: CodeMirror.LintStateOptions = {
-    async: true,
-    hasGutters: true,
-};
-
-const asyncLintOptions: CodeMirror.LintStateOptions = {
-    async: true,
-    hasGutters: true,
-    getAnnotations: (
-        content: string,
-        updateLintingCallback: CodeMirror.UpdateLintingCallback,
-        options: CodeMirror.LintStateOptions,
-        codeMirror: CodeMirror.Editor,
-    ) => {},
-};
-
-const syncLintOptions: CodeMirror.LintStateOptions = {
-    async: false,
-    hasGutters: true,
-    getAnnotations: (
-        content: string,
-        options: CodeMirror.LintStateOptions,
-        codeMirror: CodeMirror.Editor,
-    ): CodeMirror.Annotation[] => {
-        return [];
-    },
-};
-
-const customLintOptions: CodeMirror.LintStateOptions = {
-    async: false,
-    options: {},
-    getAnnotations: (
-        content: string,
-        options: any,
-        codeMirror: CodeMirror.Editor,
-    ): CodeMirror.Annotation[] => {
-        return [];
-    },
-};
-
-const updateLintingCallback: CodeMirror.UpdateLintingCallback = (
-    codeMirror: CodeMirror.Editor,
-    annotations: CodeMirror.Annotation[],
-) => {};
-
-const annotation: CodeMirror.Annotation = {
-    from: {
-        ch: 0,
-        line: 0,
-    },
-    to: CodeMirror.Pos(1),
-    message: 'test',
-    severity: 'warning',
-};
-
 myCodeMirror.getValue();
-myCodeMirror.getValue('foo');
-myCodeMirror.setValue('bar');
+myCodeMirror.getValue("foo");
+myCodeMirror.setValue("bar");
 
 myCodeMirror.getCursor();
-myCodeMirror.getCursor('from');
+myCodeMirror.getCursor("from");
 myCodeMirror.setCursor({ ch: 1, line: 0 });
 
-myCodeMirror.on('renderLine', (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => {});
+myCodeMirror.on("renderLine", (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => {});
 
-myCodeMirror.on('beforeChange', (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
-    // $ExpectError
+myCodeMirror.on("beforeChange", (instance: CodeMirror.Editor, change: CodeMirror.EditorChangeCancellable) => {
+    // @ts-expect-error
     change.update();
     if (change.update != null) change.update();
 });
 
-CodeMirror.registerHelper('lint', 'javascript', {});
+CodeMirror.registerHelper("lint", "javascript", {});
 
 myCodeMirror.isReadOnly();
-myCodeMirror.execCommand('selectAll');
+myCodeMirror.execCommand("selectAll");
 
-let htmlElement1 = document.createElement('div');
-let htmlElement2 = document.createElement('div');
-let widget1 = myCodeMirror.addLineWidget(1, htmlElement1, {});
-let widget2 = doc.addLineWidget(1, htmlElement2, {});
+const htmlElement1 = document.createElement("div");
+const htmlElement2 = document.createElement("div");
+const widget1 = myCodeMirror.addLineWidget(1, htmlElement1, {});
+const widget2 = doc.addLineWidget(1, htmlElement2, {});
 widget1.clear();
 widget2.clear();
 htmlElement1.remove();
@@ -131,19 +76,39 @@ htmlElement2.remove();
 
 CodeMirror.commands.newlineAndIndent(myCodeMirror);
 
-let stringStream = new CodeMirror.StringStream('var myEditor;');
+const stringStream = new CodeMirror.StringStream("var myEditor;");
+stringStream.lookAhead(1);
 
 // Call a method from the CodeMirror.Doc interface to confirm a CodeMirror.Editor extends it
 myCodeMirror.getCursor();
 
 // Ensure marks come back with option values
 myCodeMirror.markText(from, to, {
-  readOnly: true,
-  inclusiveLeft: true,
-  inclusiveRight: false,
+    readOnly: true,
+    inclusiveLeft: true,
+    inclusiveRight: false,
 });
+
+// Ensure extendSelection accepts the same options as setSelection
+myCodeMirror.extendSelection(from, to, {
+    scroll: true,
+    bias: -1,
+    origin: "+input",
+});
+
+const textMarker = myCodeMirror.markText(
+    { line: 6, ch: 26 },
+    { line: 6, ch: 42 },
+    {
+        className: "styled-background",
+        attributes: {
+            title: "yellow text",
+        },
+    },
+);
+textMarker.clear();
 
 const marks = myCodeMirror.getAllMarks();
 
-// $ExpectType TextMarker
+// $ExpectType TextMarker<MarkerRange | Position> || TextMarker<Position | MarkerRange>
 const mark = marks[0];

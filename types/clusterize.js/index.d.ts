@@ -1,8 +1,3 @@
-// Type definitions for clusterize.js 0.17
-// Project: https://github.com/NeXTs/Clusterize.js
-// Definitions by: Pr1st0n <https://github.com/Pr1st0n>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Clusterize {
     constructor(options: Clusterize.Options);
 
@@ -17,24 +12,24 @@ declare class Clusterize {
 }
 
 declare namespace Clusterize {
-    interface Options {
-        scrollId: string;
-        contentId: string;
-        rows?: string[];
-        tag?: string;
-        rows_in_block?: number;
-        blocks_in_cluster?: number;
-        show_no_data_row?: boolean;
-        no_data_text?: string;
-        no_data_class?: string;
-        keep_parity?: boolean;
-        callbacks?: Callbacks;
-    }
+    type Setup = { scrollId: string; contentId: string } | { scrollElem: HTMLElement; contentElem: HTMLElement };
+
+    type Options = Setup & {
+        rows?: string[] | undefined;
+        tag?: string | undefined;
+        rows_in_block?: number | undefined;
+        blocks_in_cluster?: number | undefined;
+        show_no_data_row?: boolean | undefined;
+        no_data_text?: string | undefined;
+        no_data_class?: string | undefined;
+        keep_parity?: boolean | undefined;
+        callbacks?: Callbacks | undefined;
+    };
 
     interface Callbacks {
-        clusterWillChange?: () => void;
-        clusterChanged?: () => void;
-        scrollingProgress?: (progress: number) => void;
+        clusterWillChange?: (() => void) | undefined;
+        clusterChanged?: (() => void) | undefined;
+        scrollingProgress?: ((progress: number) => void) | undefined;
     }
 }
 

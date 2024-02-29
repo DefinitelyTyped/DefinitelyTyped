@@ -1,8 +1,3 @@
-// Type definitions for require-directory 2.1
-// Project: https://github.com/troygoode/node-require-directory/
-// Definitions by: Ihor Chulinda <https://github.com/Igmat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 /// <reference types="node" />
 
 declare namespace requireDirectory {
@@ -24,22 +19,22 @@ declare namespace requireDirectory {
          * @description array of file extensions that will be included in resulting hash as modules
          * @default "['js', 'json', 'coffee']"
          */
-        extensions?: string[];
+        extensions?: string[] | undefined;
         /**
          * @description option to include subdirectories
          * @default true
          */
-        recurse?: boolean;
+        recurse?: boolean | undefined;
         /**
          * @description RegExp or function for whitelisting modules
          * @default undefined
          */
-        include?: RegExp | CheckPathFn;
+        include?: RegExp | CheckPathFn | undefined;
         /**
          * @description RegExp or function for blacklisting modules
          * @default undefined
          */
-        exclude?: RegExp | CheckPathFn;
+        exclude?: RegExp | CheckPathFn | undefined;
         /**
          * @description function for renaming modules in resulting hash
          * @param name name of required module
@@ -53,6 +48,7 @@ declare namespace requireDirectory {
          * @returns transformed module OR nothing (in second case module itself will be added to hash)
          * @default "change nothing"
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         visit?(obj: T): U | void;
     }
 
@@ -72,6 +68,7 @@ declare namespace requireDirectory {
 declare function requireDirectory<T, U>(
     m: NodeModule,
     path?: string | requireDirectory.RequireDirectoryOptions<T, U>,
-    options?: requireDirectory.RequireDirectoryOptions<T, U>): requireDirectory.RequireDirectoryResult<U>;
+    options?: requireDirectory.RequireDirectoryOptions<T, U>,
+): requireDirectory.RequireDirectoryResult<U>;
 
 export = requireDirectory;

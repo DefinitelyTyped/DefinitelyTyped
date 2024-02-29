@@ -10,10 +10,10 @@ export interface SelectSource {
     /**
      * The filter-value.
      */
-    value?: string;
+    value?: string | undefined;
 
     /**
      * Classes to add to the dropdown-entries.
      */
-    "data-class"?: string;
+    "data-class"?: string | undefined;
 }

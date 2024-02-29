@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/express-mysql-session",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/chill117/express-mysql-session#readme"
+    ],
+    "dependencies": {
+        "@types/express-session": "*",
+        "mysql2": "3.2.0"
+    },
+    "devDependencies": {
+        "@types/express-mysql-session": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Akim95",
+            "githubUsername": "Akim95"
+        },
+        {
+            "name": "Sebastian Krüger",
+            "githubUsername": "mathe42"
+        },
+        {
+            "name": "Ionaru",
+            "githubUsername": "Ionaru"
+        }
+    ]
+}

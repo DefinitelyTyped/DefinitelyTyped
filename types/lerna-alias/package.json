@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lerna-alias",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/Andarist/lerna-alias#readme"
+    ],
+    "devDependencies": {
+        "@types/lerna-alias": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elizabeth Craig",
+            "githubUsername": "ecraig12345"
+        }
+    ]
+}

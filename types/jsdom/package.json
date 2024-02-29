@@ -1,26 +1,35 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.6.0-0": {
-            "*": [
-                "ts3.6/*"
-            ]
-        },
-        ">=3.5.0-0": {
-            "*": [
-                "ts3.5/*"
-            ]
-        },
-        ">=3.4.0-0": {
-            "*": [
-                "ts3.4/*"
-            ]
-        },
-        ">=3.1.0-0": {
-            "*": [
-                "ts3.1/*"
-            ]
+    "name": "@types/jsdom",
+    "version": "21.1.9999",
+    "projects": [
+        "https://github.com/jsdom/jsdom"
+    ],
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
         }
-    }
+    },
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tough-cookie": "*",
+        "parse5": "^7.0.0"
+    },
+    "devDependencies": {
+        "@types/jsdom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Johan Palmfjord",
+            "githubUsername": "palmfjord"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
 }

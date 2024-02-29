@@ -1,9 +1,3 @@
-// Type definitions for swagger-node-runner 0.6
-// Project: https://github.com/theganyo/swagger-node-runner
-// Definitions by: Michael Mrowetz <https://github.com/micmro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /* =================== USAGE ===================
 
 import * as SwaggerNodeRunner from "swagger-node-runner";
@@ -31,12 +25,12 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 
 /// <reference types="node"/>
 
-import { Express, NextFunction } from "express";
-import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
+import { Express, NextFunction } from "express";
 import * as Hapi from "hapi";
-import * as Restify from "restify";
 import { OutgoingHttpHeaders } from "http";
+import * as Restify from "restify";
+import { Spec } from "swagger-schema-official";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -51,66 +45,66 @@ export interface Config {
      *
      * default is `false`
      */
-    mockMode?: boolean;
+    mockMode?: boolean | undefined;
     /**
      * If `true` resonse is validated
      *
      * default is `true`
      */
-    validateResponse?: boolean;
+    validateResponse?: boolean | undefined;
     /**
      *  Sets `NODE_CONFIG_DIR` env if not set yet
      */
-    configDir?: string;
+    configDir?: string | undefined;
     /**
      * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
      */
-    controllersDirs?: string[];
+    controllersDirs?: string[] | undefined;
     /**
      * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
-    mockControllersDirs?: string[];
+    mockControllersDirs?: string[] | undefined;
     /**
      * Used for Bagpipes library
      *
      * default is `[api/fittings]`
      */
-    fittingsDirs?: string[];
+    fittingsDirs?: string[] | undefined;
     /**
      * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
-    swaggerSecurityHandlers?: SwaggerSecurityHandlers;
+    swaggerSecurityHandlers?: SwaggerSecurityHandlers | undefined;
     /**
      * Used for Bagpipes library
      *
-     * @se @link{https://github.com/apigee-127/bagpipes|Github Source}
+     * @see @link{https://github.com/apigee-127/bagpipes|Github Source}
      */
     bagpipes?: any;
     /**
      *  default is `null`
      */
-    defaultPipe?: string;
+    defaultPipe?: string | undefined;
     /**
      * default is `swagger_controllers`
      */
-    swaggerControllerPipe?: string;
+    swaggerControllerPipe?: string | undefined;
     /**
      * Absolute path to swagger.yml file, if not set default value is used.
      */
-    swaggerFile?: string;
+    swaggerFile?: string | undefined;
 }
 
 /** Internally stored version of config */
 export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
-    swagger?: Config;
+    swagger?: Config | undefined;
 }
 
 /** Middleware used by `swagger-tools` */
@@ -124,12 +118,17 @@ export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
  * otherwise, the statusCode will be set to 403.
  */
 export interface SwaggerToolsSecurityHandlerCallbackError {
-    code?: string;
-    headers?: OutgoingHttpHeaders;
-    message?: string;
-    statusCode?: number;
+    code?: string | undefined;
+    headers?: OutgoingHttpHeaders | undefined;
+    message?: string | undefined;
+    statusCode?: number | undefined;
 }
-export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
+export type SwaggerToolsSecurityHandler = (
+    request: any,
+    securityDefinition: any,
+    scopes: any,
+    callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void,
+) => void;
 
 /**
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
@@ -167,7 +166,7 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-metadata.js|Git Source}
          */
-        swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware
+        swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware;
         /**
          *  Middleware for using Swagger information to route requests to handlers.
          * @param [] options - The configuration options
@@ -175,14 +174,14 @@ export interface Runner extends EventEmitter {
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/docs/Middleware.md#swaggerrouteroptions|Docs}
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-router.js|Github Source}
          */
-        swaggerRouter(options?: any): SwaggerToolsMiddleware
+        swaggerRouter(options?: any): SwaggerToolsMiddleware;
         /**
          * Middleware for using Swagger security information to authenticate requests.
          * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
          */
-        swaggerSecurity(options?: SwaggerSecurityHandlers): SwaggerToolsMiddleware
+        swaggerSecurity(options?: SwaggerSecurityHandlers): SwaggerToolsMiddleware;
         /**
          * Middleware for serving the Swagger documents and Swagger UI.
          *
@@ -192,14 +191,14 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-ui.js|Github Source}
          */
-        swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware
+        swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware;
         /**
          * Middleware for using Swagger information to validate API requests/responses.type
          * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-validator.js|Github Source}
          */
-        swaggerValidator(options?: any): SwaggerToolsMiddleware
+        swaggerValidator(options?: any): SwaggerToolsMiddleware;
     };
     swaggerSecurityHandlers: SwaggerSecurityHandlers | undefined;
     /**
@@ -236,8 +235,8 @@ export interface ConnectMiddleware extends Middleware {
  *
  * _Alias for `ConnectMiddleware`_
  */
-// tslint:disable-next-line:no-empty-interface
-export interface ExpressMiddleware extends ConnectMiddleware { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ExpressMiddleware extends ConnectMiddleware {}
 
 /** Sails specific Middleware */
 export interface SailsMiddleware extends Middleware {
@@ -268,11 +267,11 @@ export interface HapiMiddleware extends Middleware {
             /** Object attached to `register` function to provide hapi with some additional information about the plugin */
             attributes: {
                 /**  Name of Plugin (e.g. `swagger-node-runner`) */
-                name: string
+                name: string;
                 /** Version of Plugin */
-                version: string
-            }
-        }
+                version: string;
+            };
+        };
     };
 }
 

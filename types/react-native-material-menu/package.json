@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-menu",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mxck/react-native-material-menu"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-material-menu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hyun",
+            "githubUsername": "KoreanThinker"
+        }
+    ]
+}

@@ -1,61 +1,80 @@
-// Type definitions for Amplitude SDK 5.11
-// Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Arvydas Sidorenko <https://github.com/Asido>
-//                 Dan Manastireanu <https://github.com/danmana>
-//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace amplitude;
 
 export type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 export type LogReturn = number | undefined;
+export type Transport = "http" | "beacon";
+// https://github.com/amplitude/Amplitude-JavaScript/blob/v8.9.0/src/server-zone.js#L9
+export type ServerZone = "EU" | "US";
 
+// https://amplitude.github.io/Amplitude-JavaScript/Options
 export interface Config {
-    apiEndpoint?: string;
-    batchEvents?: boolean;
-    cookieExpiration?: number;
-    cookieName?: string;
-    userId?: string;
-    deviceId?: string;
-    deviceIdFromUrlParam?: boolean;
-    domain?: string;
-    eventUploadPeriodMillis?: number;
-    eventUploadThreshold?: number;
-    forceHttps?: boolean;
-    includeGclid?: boolean;
-    includeReferrer?: boolean;
-    includeUtm?: boolean;
-    language?: string;
-    logLevel?: 'DISABLE' | 'ERROR' | 'WARN' | 'INFO';
-    optOut?: boolean;
-    onError?: () => void;
-    platform?: string;
-    saveEvents?: boolean;
-    savedMaxCount?: number;
-    saveParamsReferrerOncePerSession?: boolean;
-    secureCookie?: boolean;
-    sessionTimeout?: number;
-    sameSiteCookie?: 'Lax' | 'Strict' | 'None';
-    useNativeDeviceInfo?: boolean;
+    apiEndpoint?: string | undefined;
+    batchEvents?: boolean | undefined;
+    cookieExpiration?: number | undefined;
+    cookieForceUpgrade?: boolean | undefined;
+    cookieName?: string | undefined;
+    userId?: string | undefined;
+    deferInitialization?: boolean | undefined;
+    deviceId?: string | undefined;
+    deviceIdFromUrlParam?: boolean | undefined;
+    disableCookies?: boolean | undefined;
+    domain?: string | undefined;
+    eventUploadPeriodMillis?: number | undefined;
+    eventUploadThreshold?: number | undefined;
+    forceHttps?: boolean | undefined;
+    includeFbclid?: boolean | undefined;
+    includeGclid?: boolean | undefined;
+    includeReferrer?: boolean | undefined;
+    includeUtm?: boolean | undefined;
+    language?: string | undefined;
+    logLevel?: "DISABLE" | "ERROR" | "WARN" | "INFO" | undefined;
+    optOut?: boolean | undefined;
+    onError?: (() => void) | undefined;
+    onExitPage?: (() => void) | undefined;
+    platform?: string | undefined;
+    sameSiteCookie?: "Lax" | "Strict" | "None" | undefined;
+    saveEvents?: boolean | undefined;
+    savedMaxCount?: number | undefined;
+    saveParamsReferrerOncePerSession?: boolean | undefined;
+    secureCookie?: boolean | undefined;
+    sessionTimeout?: number | undefined;
+    sessionId?: number | null;
+    storage?: "" | "cookies" | "localStorage" | "sessionStorage" | "none";
     trackingOptions?: {
-        city?: boolean;
-        country?: boolean;
-        carrier?: boolean;
-        device_manufacturer?: boolean;
-        device_model?: boolean;
-        dma?: boolean;
-        ip_address?: boolean;
-        language?: boolean;
-        os_name?: boolean;
-        os_version?: boolean;
-        platform?: boolean;
-        region?: boolean;
-        version_name?: boolean;
-    };
-    unsetParamsReferrerOnNewSession?: boolean;
-    unsentKey?: string;
-    unsentIdentifyKey?: string;
-    uploadBatchSize?: number;
+        city?: boolean | undefined;
+        country?: boolean | undefined;
+        carrier?: boolean | undefined;
+        device_manufacturer?: boolean | undefined;
+        device_model?: boolean | undefined;
+        dma?: boolean | undefined;
+        ip_address?: boolean | undefined;
+        language?: boolean | undefined;
+        os_name?: boolean | undefined;
+        os_version?: boolean | undefined;
+        platform?: boolean | undefined;
+        region?: boolean | undefined;
+        version_name?: boolean | undefined;
+    } | undefined;
+    unsetParamsReferrerOnNewSession?: boolean | undefined;
+    unsentKey?: string | undefined;
+    unsentIdentifyKey?: string | undefined;
+    uploadBatchSize?: number | undefined;
+    useNativeDeviceInfo?: boolean | undefined;
+    transport?: Transport | undefined;
+    serverZone?: ServerZone | undefined;
+    serverZoneBasedApi?: boolean | undefined;
+    useDynamicConfig?: boolean | undefined;
+    logAttributionCapturedEvent?: boolean | undefined;
+    plan?: {
+        branch?: string;
+        source?: string;
+        version?: string;
+    } | undefined;
+    headers?: Record<string, string>;
+    library?: {
+        name?: string;
+        version?: string;
+    } | undefined;
 }
 
 export class Identify {
@@ -65,6 +84,8 @@ export class Identify {
     append(key: string, value: number | string | any[] | object): Identify;
     /** Prepend a value or values to a user property */
     prepend(key: string, value: boolean | number | string | any[] | object): Identify;
+    /** Preinsert a value or values to a user property */
+    preInsert(key: string, value: number | string | any[] | object): Identify;
     /** Sets the value of a given user property */
     set(key: string, value: boolean | number | string | any[] | object): Identify;
     /** Sets the value of a given user property only once */
@@ -86,44 +107,113 @@ export class AmplitudeClient {
 
     options: Config;
 
-    init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
+    cookieStorage: CookieStorage;
 
+    init(apiKey: string, userId?: string, config?: Config, callback?: (client: AmplitudeClient) => void): void;
+    onInit(callback: (client: AmplitudeClient) => void): void;
+
+    setLibrary(name?: string, version?: string): void;
     setVersionName(versionName: string): void;
 
+    onNewSessionStart(callback: (client: AmplitudeClient) => void): void;
     isNewSession(): boolean;
     setSessionId(sessionId: number): void;
     getSessionId(): number;
+    resetSessionId(): void;
+    setMinTimeBetweenSessionsMillis(timeInMillis: number): void;
 
     setDomain(domain: string): void;
-    setUserId(userId: string | null): void;
+    setUserId(userId: string | null, startNewSession?: boolean): void;
+    getUserId(): string;
+
+    enableTracking(): void;
 
     setDeviceId(id: string): void;
+    getDeviceId(): string;
     regenerateDeviceId(): void;
 
-    identify(identify_obj: Identify, opt_callback?: Callback): void;
+    identify(identify: Identify, callback?: Callback, errorCallback?: Callback, outOfSession?: boolean): void;
+    groupIdentify(
+        groupType: string,
+        groupName: string | string[],
+        identify: Identify,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): void;
 
     setUserProperties(properties: any): void;
+    /**
+     * @deprecated Use `setUserProperties` instead
+     */
     setGlobalUserProperties(properties: any): void;
     clearUserProperties(): void;
+
+    clearStorage(): boolean;
+
+    setUseDynamicConfig(useDynamicConfig: boolean): void;
 
     setOptOut(enable: boolean): void;
 
     setGroup(groupType: string, groupName: string | string[]): void;
 
-    logEvent(event: string, data?: any, callback?: Callback): LogReturn;
-    logEventWithGroups(event: string, data?: any, groups?: any, callback?: Callback): LogReturn;
+    setTransport(transport: Transport): void;
+    setServerUrl(serverUrl: string): void;
+    setServerZone(serverZone: ServerZone, serverZoneBasedApi?: boolean): void;
+
+    setEventUploadThreshold(eventUploadThreshold: number): void;
+    logEvent(
+        event: string,
+        data?: any,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
+    logEventWithGroups(
+        event: string,
+        data?: any,
+        groups?: any,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
     logRevenueV2(revenue_obj: Revenue): LogReturn;
-    logRevenue(pric: number, quantity: number, product: string): LogReturn;
-    logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
+
+    /**
+     * @deprecated Use `logRevenueV2` instead
+     */
+    logRevenue(price: number, quantity: number, product: string): LogReturn;
+    logEventWithTimestamp(
+        event: string,
+        data?: any,
+        timestamp?: number,
+        callback?: Callback,
+        errorCallback?: Callback,
+        outOfSession?: boolean,
+    ): LogReturn;
 
     Identify: typeof Identify;
     Revenue: typeof Revenue;
 }
 
+export interface CookieStorageOptions {
+    expirationDays?: number | undefined;
+    domain?: string | undefined;
+    secure?: boolean | undefined;
+    sameSite?: "Lax" | "Strict" | "None" | undefined;
+}
+export interface CookieStorage {
+    reset(): void;
+    options(): CookieStorageOptions;
+    options(opts: CookieStorageOptions): void;
+    get(name: string): any;
+    set(name: string, value: any): boolean;
+    remove(name: string): boolean;
+}
+
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)
 
 /**
- *
  * @deprecated Please use amplitude.getInstance().init(apiKey, opt_userId, opt_config, opt_callback);
  */
 export function init(

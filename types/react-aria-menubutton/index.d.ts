@@ -1,19 +1,10 @@
-// Type definitions for react-aria-menubutton 6.2
-// Project: https://github.com/davidtheclark/react-aria-menubutton
-// Definitions by: Muhammad Fawwaz Orabi <https://github.com/forabi>
-//                 Chris Rohlfs <https://github.com/crohlfs>
-//                 Mats Roshauw <https://github.com/karmats>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface WrapperState {
     isOpen: boolean;
 }
 
-export interface WrapperProps<T extends HTMLElement>
-    extends React.HTMLProps<T> {
+export interface WrapperProps<T extends HTMLElement> extends React.HTMLProps<T> {
     /**
      * A callback to run when the user makes a selection
      * (i.e. clicks or presses Enter or Space on a `MenuItem`).
@@ -32,16 +23,16 @@ export interface WrapperProps<T extends HTMLElement>
      * If false, the menu will not automatically close when a
      * selection is made. Default: `true`.
      */
-    closeOnSelection?: boolean;
+    closeOnSelection?: boolean | undefined;
 
     /**
      * By default, it does automatically close.
      * If false, the menu will not automatically close when it
      * blurs. Default: `true`.
      */
-    closeOnBlur?: boolean;
+    closeOnBlur?: boolean | undefined;
 
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**
@@ -55,18 +46,17 @@ export interface WrapperProps<T extends HTMLElement>
  */
 export class Wrapper extends React.Component<WrapperProps<HTMLElement>> {}
 
-export interface ButtonProps<T extends HTMLElement>
-    extends React.HTMLProps<T> {
+export interface ButtonProps<T extends HTMLElement> extends React.HTMLProps<T> {
     /**
      * If true, the element is disabled
      * (aria-disabled='true', not in tab order, clicking has no effect).
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**
@@ -77,15 +67,14 @@ export interface ButtonProps<T extends HTMLElement>
  * Each `Button` must be wrapped in a Wrapper, and each Wrapper can wrap only
  * one `Button`.
  */
-export class Button extends React.Component<ButtonProps<HTMLElement>> {}
+export const Button: React.ForwardRefExoticComponent<ButtonProps<HTMLElement>>;
 
-export interface MenuProps<T extends HTMLElement>
-    extends React.HTMLProps<T> {
+export interface MenuProps<T extends HTMLElement> extends Omit<React.HTMLProps<T>, "children"> {
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
-    children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
+    tag?: T["tagName"] | undefined;
+    children: React.JSX.Element | (({ isOpen }: { isOpen: boolean }) => React.JSX.Element);
 }
 
 /**
@@ -93,8 +82,7 @@ export interface MenuProps<T extends HTMLElement>
  */
 export class Menu extends React.Component<MenuProps<HTMLElement>> {}
 
-export interface MenuItemProps<T extends HTMLElement>
-    extends React.HTMLProps<T> {
+export interface MenuItemProps<T extends HTMLElement> extends React.HTMLProps<T> {
     /**
      * If value has a value, it will be passed to the onSelection handler
      * when the `MenuItem` is selected
@@ -105,12 +93,12 @@ export interface MenuItemProps<T extends HTMLElement>
      * If `text` has a value, its first letter will be the letter a user can
      * type to navigate to that item.
      */
-    text?: string;
+    text?: string | undefined;
 
     /**
-     * The HTML tag for this element. Default: 'span'.
+     * The HTML tag for this element. Default: 'div'.
      */
-    tag?: T["tagName"];
+    tag?: T["tagName"] | undefined;
 }
 
 /**
@@ -142,7 +130,7 @@ export function openMenu(
          * menu opens. Default: `false`.
          */
         focusMenu: boolean;
-    }
+    },
 ): void;
 
 /**
@@ -158,5 +146,5 @@ export function closeMenu(
          * menu closes. Default: `false`.
          */
         focusButton: boolean;
-    }
+    },
 ): void;

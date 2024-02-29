@@ -1,9 +1,4 @@
-// Type definitions for pvutils
-// Project: https://github.com/PeculiarVentures/pvutils
-// Definitions by: Stepan Miroshin <https://github.com/microshine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-export = PvUtils
+export = PvUtils;
 
 declare namespace PvUtils {
     /**
@@ -38,7 +33,12 @@ declare namespace PvUtils {
      * @param {number} inputLength
      * @returns {boolean}
      */
-    function checkBufferParams(baseBlock: any, inputBuffer: ArrayBuffer, inputOffset: number, inputLength: number): boolean;
+    function checkBufferParams(
+        baseBlock: any,
+        inputBuffer: ArrayBuffer,
+        inputOffset: number,
+        inputLength: number,
+    ): boolean;
 
     /**
      * Convert number from 2^base to 2^10
@@ -112,7 +112,7 @@ declare namespace PvUtils {
      */
     function fromBase64(input: string, useUrlTemplate?: boolean, cutTailZeros?: boolean): string;
 
-    function arrayBufferToString(buffer: BufferSource): string;
+    function arrayBufferToString(buffer: ArrayBuffer | ArrayBufferView): string;
     function stringToArrayBuffer(str: string): ArrayBuffer;
 
     /**

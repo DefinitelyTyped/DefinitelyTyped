@@ -1,13 +1,13 @@
 /// <reference types="knockout" />
 /// <reference types='knockout'/>
 declare class Router {
-    readonly currentState: (() => RouterState | undefined);
-    readonly currentValue: (() => string | undefined);
+    readonly currentState: () => RouterState | undefined;
+    readonly currentValue: () => string | undefined;
     defaultStateId: string | undefined;
     static defaults: {
-        urlAdapter?: Router.urlPathAdapter | Router.urlParamAdapter;
-        baseUrl?: string;
-        rootInstanceName?: string;
+        urlAdapter?: Router.urlPathAdapter | Router.urlParamAdapter | undefined;
+        baseUrl?: string | undefined;
+        rootInstanceName?: string | undefined;
     };
     readonly direction: string | undefined;
     readonly moduleConfig: {
@@ -19,22 +19,24 @@ declare class Router {
             };
         };
         lifecycleListener: {
-            attached: ((param0: string) => void);
+            attached: (param0: string) => void;
         };
     };
     readonly name: string;
     readonly observableModuleConfig: KnockoutObservable<Router.ModuleConfigType>;
     readonly parent: Router | undefined;
     static readonly rootInstance: Router;
-    readonly stateId: ((param0?: string) => string);
+    readonly stateId: (param0?: string) => string;
     readonly states: RouterState[] | null;
     static readonly transitionedToState: object;
     static sync(): Promise<{
         hasChanged: boolean;
     }>;
-    configure(option: {
-        [key: string]: RouterState.ConfigOptions;
-    } | ((id: string) => RouterState | undefined | null)): any;
+    configure(
+        option: {
+            [key: string]: RouterState.ConfigOptions;
+        } | ((id: string) => RouterState | undefined | null),
+    ): any;
     createChildRouter(name: string, parentStateId?: string): Router;
     dispose(): undefined;
     getChildRouter(name: string): Router | undefined;
@@ -49,7 +51,7 @@ declare class Router {
     store(data: object): undefined;
 }
 declare namespace Router {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ModuleConfigType = {
         name: KnockoutObservable<string>;
         params: {
@@ -60,7 +62,7 @@ declare namespace Router {
             };
         };
         lifecycleListener: {
-            attached: ((param0: object) => void);
+            attached: (param0: object) => void;
         };
     };
     // tslint:disable-next-line no-unnecessary-class
@@ -88,15 +90,15 @@ declare namespace Router {
         isCurrent(): boolean;
     }
     namespace RouterState {
-        // tslint:disable-next-line interface-over-type-literal
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
         type ConfigOptions = {
-            label?: string;
+            label?: string | undefined;
             value?: any;
-            isDefault?: boolean;
-            canEnter?: (() => boolean) | (() => Promise<boolean>);
-            enter?: (() => void) | (() => Promise<void>);
-            canExit?: (() => boolean) | (() => Promise<boolean>);
-            exit?: (() => void) | (() => Promise<void>);
+            isDefault?: boolean | undefined;
+            canEnter?: (() => boolean) | (() => Promise<boolean>) | undefined;
+            enter?: (() => void) | (() => Promise<void>) | undefined;
+            canExit?: (() => boolean) | (() => Promise<boolean>) | undefined;
+            exit?: (() => void) | (() => Promise<void>) | undefined;
         };
     }
 }
@@ -118,14 +120,14 @@ declare class RouterState {
     isCurrent(): boolean;
 }
 declare namespace RouterState {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConfigOptions = {
-        label?: string;
+        label?: string | undefined;
         value?: any;
-        isDefault?: boolean;
-        canEnter?: (() => boolean) | (() => Promise<boolean>);
-        enter?: (() => void) | (() => Promise<void>);
-        canExit?: (() => boolean) | (() => Promise<boolean>);
-        exit?: (() => void) | (() => Promise<void>);
+        isDefault?: boolean | undefined;
+        canEnter?: (() => boolean) | (() => Promise<boolean>) | undefined;
+        enter?: (() => void) | (() => Promise<void>) | undefined;
+        canExit?: (() => boolean) | (() => Promise<boolean>) | undefined;
+        exit?: (() => void) | (() => Promise<void>) | undefined;
     };
 }

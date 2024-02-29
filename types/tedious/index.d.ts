@@ -1,17 +1,7 @@
-// Type definitions for tedious 4.0.0
-// Project: http://tediousjs.github.io/tedious/
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Chris Thompson <https://github.com/cjthompson>
-//                 Suraiya Hameed <https://github.com/v-suhame>
-//                 Guilherme Amorim <https://github.com/guiampm>
-//                 Simon Childs <https://github.com/csharpsi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-///<reference types="node" />
-
-
+/// <reference types="node" />
 
 import events = require("events");
+import { SecureContextOptions } from "tls";
 
 export interface ColumnType {
     /**
@@ -34,39 +24,39 @@ export interface ColumnMetaData {
     /**
      * The precision. Only applicable to numeric and decimal.
      */
-    precision?: number;
+    precision?: number | undefined;
 
     /**
      * The scale. Only applicable to numeric, decimal, time, datetime2 and datetimeoffset.
      */
-    scale?: number;
+    scale?: number | undefined;
 
     /**
      * The length, for char, varchar, nvarchar and varbinary.
      */
-    dataLength?: number;
+    dataLength?: number | undefined;
 }
 
 export interface DebugOptions {
     /**
      * A boolean, controlling whether debug events will be emitted with text describing packet details (default: false).
      */
-    packet?: boolean;
+    packet?: boolean | undefined;
 
     /**
      * A boolean, controlling whether debug events will be emitted with text describing packet data details (default: false).
      */
-    data?: boolean;
+    data?: boolean | undefined;
 
     /**
      * A boolean, controlling whether debug events will be emitted with text describing packet payload details (default: false).
      */
-    payload?: boolean;
+    payload?: boolean | undefined;
 
     /**
      * A boolean, controlling whether debug events will be emitted with text describing token stream tokens (default: false).
      */
-    token?: boolean;
+    token?: boolean | undefined;
 }
 
 export declare enum ISOLATION_LEVEL {
@@ -75,7 +65,7 @@ export declare enum ISOLATION_LEVEL {
     READ_COMMITTED = 0x02,
     REPEATABLE_READ = 0x03,
     SERIALIZABLE = 0x04,
-    SNAPSHOT = 0x05
+    SNAPSHOT = 0x05,
 }
 
 /**
@@ -115,7 +105,7 @@ export interface TediousTypes {
     Numeric: TediousType;
     Real: TediousType;
     SmallDateTime: TediousType;
-    SmallInt        : TediousType;
+    SmallInt: TediousType;
     SmallMoney: TediousType;
     TVP: TediousType;
     Text: TediousType;
@@ -125,83 +115,83 @@ export interface TediousTypes {
     UniqueIdentifier: TediousType;
     VarBinary: TediousType;
     VarChar: TediousType;
+    Variant: TediousType;
     Xml: TediousType;
 }
 
 export declare var TYPES: TediousTypes;
 
 export interface ConnectionOptions {
-
     /**
      * Port to connect to (default: 1433). Mutually exclusive with options.instanceName.
      */
-    port?: number;
+    port?: number | undefined;
 
     /**
      * The instance name to connect to. The SQL Server Browser service must be running on the database server,
      * and UDP port 1444 on the database server must be reachable. (no default) Mutually exclusive with options.port.
      */
-    instanceName?: string;
+    instanceName?: string | undefined;
 
     /**
      * Database to connect to (default: dependent on server configuration).
      */
-    database?: string;
+    database?: string | undefined;
 
     /**
      * By default, if the database requested by options.database cannot be accessed,
      * the connection will fail with an error. However, if options.fallbackToDefaultDb is set to true,
      * then the user's default database will be  * used instead (Default: false).
      */
-    fallbackToDefaultDb?: boolean;
+    fallbackToDefaultDb?: boolean | undefined;
 
     /**
      * The number of milliseconds before the attempt to connect is considered failed (default: 15000).
      */
-    connectTimeout?: number;
+    connectTimeout?: number | undefined;
 
     /**
      * The number of milliseconds before a request is considered failed, or 0 for no timeout (default: 15000).
      */
-    requestTimeout?: number;
+    requestTimeout?: number | undefined;
 
     /**
      * The number of milliseconds before the cancel (abort) of a request is considered failed (default: 5000).
      */
-    cancelTimeout?: number;
+    cancelTimeout?: number | undefined;
 
     /**
      * The size of TDS packets (subject to negotiation with the server). Should be a power of 2. (default: 4096).
      */
-    packetSize?: number;
+    packetSize?: number | undefined;
 
     /**
      * A boolean determining whether to pass time values in UTC or local time. (default: true).
      */
-    useUTC?: boolean;
+    useUTC?: boolean | undefined;
 
     /**
      * A boolean determining whether to rollback a transaction automatically if any error is encountered
      * during the given transaction's execution. This sets the value for SET XACT_ABORT during the initial
      * SQL phase of a connection (documentation).
      */
-    abortTransactionOnError?: boolean;
+    abortTransactionOnError?: boolean | undefined;
 
     /**
      * A string indicating which network interface (ip address) to use when connecting to SQL Server.
      */
-    localAddress?: string;
+    localAddress?: string | undefined;
 
     /**
      * A boolean determining whether to return rows as arrays or key-value collections. (default: false).
      */
-    useColumnNames?: boolean;
+    useColumnNames?: boolean | undefined;
 
     /**
      * A boolean, controlling whether the column names returned will have the first letter converted
      * to lower case (true) or not. This value is ignored if you provide a columnNameReplacer. (default: false).
      */
-    camelCaseColumns?: boolean;
+    camelCaseColumns?: boolean | undefined;
 
     /**
      * A function with parameters (columnName, index, columnMetaData) and returning a string. If provided,
@@ -209,174 +199,190 @@ export interface ConnectionOptions {
      * SQL-provided column name on row and meta data objects. This allows you to dynamically convert between
      * naming conventions. (default: null).
      */
-    columnNameReplacer?: (columnName: string, index: number, columnMetaData: ColumnMetaData) => string;
+    columnNameReplacer?: ((columnName: string, index: number, columnMetaData: ColumnMetaData) => string) | undefined;
 
     /**
      * Debug options
      */
-    debug?: DebugOptions;
+    debug?: DebugOptions | undefined;
 
     /**
      * The default isolation level that transactions will be run with. (default: READ_COMMITTED).
      */
-    isolationLevel?: ISOLATION_LEVEL;
+    isolationLevel?: ISOLATION_LEVEL | undefined;
 
     /**
      * The default isolation level for new connections. All out-of-transaction queries are executed with this setting. (default: READ_COMMITED)
      */
-    connectionIsolationLevel?: ISOLATION_LEVEL;
+    connectionIsolationLevel?: ISOLATION_LEVEL | undefined;
 
     /**
      * A boolean, determining whether the connection will request read only access from a SQL Server Availability Group. For more information, see here. (default: false).
      */
-    readOnlyIntent?: boolean;
+    readOnlyIntent?: boolean | undefined;
 
     /**
      * A boolean determining whether or not the connection will be encrypted. Set to true if you're on Windows Azure. (default: false).
      */
-    encrypt?: boolean;
+    encrypt?: boolean | undefined;
 
     /**
      * When encryption is used, an object may be supplied that will be used for the first argument when calling tls.createSecurePair (default: {}).
      */
-    cryptoCredentialsDetails?: Object;
+    cryptoCredentialsDetails?: SecureContextOptions | undefined;
 
     /**
      * A boolean, that when true will expose received rows in Requests' done* events. See done, doneInProc and doneProc. (default: false)
      * Caution: If many row are received, enabling this option could result in excessive memory usage.
      */
-    rowCollectionOnDone?: boolean;
+    rowCollectionOnDone?: boolean | undefined;
 
     /**
      * A boolean, that when true will expose received rows in Requests' completion callback. See new Request. (default: false)
      * Caution: If many row are received, enabling this option could result in excessive memory usage.
      */
-    rowCollectionOnRequestCompletion?: boolean;
+    rowCollectionOnRequestCompletion?: boolean | undefined;
 
     /**
      * The version of TDS to use. If server doesn't support specified version, negotiated version is used instead. (default: 7_4).
      * Take this from tedious.TDS_VERSION.7_4 .
      */
-    tdsVersion?: number;
+    tdsVersion?: string | undefined;
 
     /**
      * Application name used for identifying a specific application in profiling, logging or tracing tools of SQL Server. (default: Tedious)
      */
-    appName?: string;
+    appName?: string | undefined;
 
     /**
      * Number of milliseconds before retrying to establish connection, in case of transient failure. (default: 500)
      */
-    connectionRetryInterval?: number;
+    connectionRetryInterval?: number | undefined;
 
     /**
      * Number that sets to the first day of the week, it can be a number from 1 through 7.(default: 7, i.e, first day of the week is Sunday)
      */
-    datefirst?: number;
+    datefirst?: number | undefined;
 
     /**
      * A string representing position of month, day and year in temporal datatypes. (default: mdy)
      */
-    dateFormat?: string;
+    dateFormat?: string | undefined;
 
     /**
      * A boolean, controls the way null values should be used during comparison operation. (default: true)
      */
-    enableAnsiNull?: boolean;
+    enableAnsiNull?: boolean | undefined;
 
     /**
      * If true, SET ANSI_NULL_DFLT_ON ON will be set in the initial sql. This means new columns will be nullable by default. See the T-SQL documentation for more details. (Default: true).
      */
-    enableAnsiNullDefault?: boolean;
+    enableAnsiNullDefault?: boolean | undefined;
 
     /**
      * A boolean, controls if padding should be applied for values shorter than the size of defined column. (default: true)
      */
-    enableAnsiPadding?: boolean;
+    enableAnsiPadding?: boolean | undefined;
 
     /**
      * If true, SQL Server will follow ISO standard behavior during various error conditions. For details, see documentation. (default: true)
      */
-    enableAnsiWarnings?: boolean;
+    enableAnsiWarnings?: boolean | undefined;
 
     /**
      * A boolean, determines if query execution should be terminated during overflow or divide-by-zero error. (default: false)
      */
-    enableArithAbort?: boolean;
+    enableArithAbort?: boolean | undefined;
 
     /**
      * A boolean, determines if concatenation with NULL should result in NULL or empty string value, more details in documentation. (default: true)
      */
-    enableConcatNullYieldsNull?: boolean;
+    enableConcatNullYieldsNull?: boolean | undefined;
 
     /**
      * A boolean, controls whether cursor should be closed, if the transaction opening it gets committed or rolled back. (default: false)
      */
-    enableCursorCloseOnCommit?: boolean;
+    enableCursorCloseOnCommit?: boolean | undefined;
 
     /**
      * A boolean, sets the connection to either implicit or autocommit transaction mode. (default: false)
      */
-    enableImplicitTransactions?: boolean;
+    enableImplicitTransactions?: boolean | undefined;
 
     /**
      * If false, error is not generated during loss of precession. (default: false)
      */
-    enableNumericRoundabort?: boolean;
+    enableNumericRoundabort?: boolean | undefined;
 
     /**
      * If true, characters enclosed in single quotes are treated as literals and those enclosed double quotes are treated as identifiers. (default: true)
      */
-    enableQuotedIdentifier?: boolean;
+    enableQuotedIdentifier?: boolean | undefined;
 
     /**
      * A string, sets the language of the session (default: us_english)
      */
-    language?: string;
+    language?: string | undefined;
 
     /**
      * Number of retries on transient error (default: 3)
      */
-    maxRetriesOnTransientErrors?: number;
+    maxRetriesOnTransientErrors?: number | undefined;
+
+    /**
+     * Sets the MultiSubnetFailover = True parameter, which can help minimize the client recovery latency when failovers occur.
+     * (default: `false`).
+     */
+    multiSubnetFailover?: boolean | undefined;
 
     /**
      * Size of data to be returned by SELECT statement for varchar(max), nvarchar(max), varbinary(max), text, ntext, and image type. (default: 2147483647)
      */
-    textsize?: number;
+    textsize?: number | undefined;
 
     /**
      * A boolean, that verifies whether server's identity matches it's certificate's names (default: true)
      */
-    trustServerCertificate?: boolean;
+    trustServerCertificate?: boolean | undefined;
 }
 
 export interface ConnectionAuthenticationOptions {
     /**
      * Once you set domain, driver will connect to SQL Server using domain login.
      */
-    domain?: string;
+    domain?: string | undefined;
 
     /**
      * User name to use for authentication.
      */
-    userName?: string;
+    userName?: string | undefined;
 
     /**
      * Password to use for authentication.
      */
-    password?: string;
+    password?: string | undefined;
 
     /**
      * Authentication token used when type is 'azure-active-directory-access-token'
      */
-    token?: string;
+    token?: string | undefined;
+
+    /**
+     * Optional application (client) ID from your registered Azure application
+     */
+    clientId?: string | undefined;
+
+    /**
+     * Optional parameter for specific Azure tenant ID
+     */
+    tenantId?: string | undefined;
 }
 
 export interface ConnectionAuthentication {
     /**
      * Authentication Type. Default value is 'default'.
      */
-    type?: string;
+    type?: string | undefined;
 
     /**
      * Authentication Options
@@ -388,31 +394,31 @@ export interface ConnectionConfig {
     /**
      * Hostname to connect to.
      */
-    server?: string;
+    server?: string | undefined;
 
     /**
      * Once you set domain, driver will connect to SQL Server using domain login.
      */
-    domain?: string;
+    domain?: string | undefined;
 
     /**
      * Further options
      */
-    options?: ConnectionOptions;
+    options?: ConnectionOptions | undefined;
 
     /**
      * Authentication Options
      */
-    authentication?: ConnectionAuthentication;
+    authentication?: ConnectionAuthentication | undefined;
 }
 
 export interface ParameterOptions {
     //  for VarChar, NVarChar, VarBinary
-    length?: number | 'max';
+    length?: number | "max" | undefined;
     // precision for Numeric, Decimal
-    precision?: number;
+    precision?: number | undefined;
     // scale for Numeric, Decimal, Time, DateTime2, DateTimeOffset
-    scale?: number;
+    scale?: number | undefined;
 }
 
 /**
@@ -427,47 +433,52 @@ export interface Request {
     /**
      * This event, describing result set columns, will be emitted before row events are emitted. This event may be emited multiple times when more than one recordset is produced by the statement.
      */
-    on(event: 'columnMetadata', listener: (columns: ColumnMetaData[]) => void ):this;
+    on(event: "columnMetadata", listener: (columns: ColumnMetaData[]) => void): this;
 
     /**
      * The request has been prepared and can be used in subsequent calls to execute and unprepare.
      */
-    on(event: 'prepared', listener: () => void):this;
+    on(event: "prepared", listener: () => void): this;
 
     /**
      * The request encountered an error and has not been prepared.
      */
-    on(event: 'error', listener: (err: Error) => void):this;
+    on(event: "error", listener: (err: Error) => void): this;
 
     /**
      * This is the final event emitted by a request. This is emitted after the callback passed in a request is called.
      */
-    on(event: 'requestCompleted', listener: () => void):this;
+    on(event: "requestCompleted", listener: () => void): this;
 
     /**
-     * A row resulting from execution of the SQL statement
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `false` (default).
      */
-    on(event: 'row', listener: (columns: ColumnValue[]) => void):this;
+    on(event: "row", listener: (columns: ColumnValue[]) => void): this;
+
+    /**
+     * A row resulting from execution of the SQL statement with `config.options.useColumnNames` set to `true`.
+     */
+    on(event: "row", listener: (columns: Record<string, ColumnValue>) => void): this;
 
     /**
      * All rows from a result set have been provided (through row events). This token is used to indicate the completion of a SQL statement. As multiple SQL statements can be sent to the server in a single SQL batch, multiple done events can be generated. An done event is emited for each SQL statement in the SQL batch except variable declarations. For execution of SQL statements within stored procedures, doneProc and doneInProc events are used in place of done events.
      */
-    on(event: 'done', listener: (rowCount: number, more: boolean, rows: any[]) => void):this;
+    on(event: "done", listener: (rowCount: number, more: boolean, rows: any[]) => void): this;
 
     /**
      * Indicates the completion status of a SQL statement within a stored procedure. All rows from a statement in a stored procedure have been provided (through row events).
      */
-    on(event: 'doneInProc', listener: (rowCount: number, more: boolean, rows: any[]) => void):this;
+    on(event: "doneInProc", listener: (rowCount: number, more: boolean, rows: any[]) => void): this;
 
     /**
      * Indicates the completion status of a stored procedure. This is also generated for stored procedures executed through SQL statements.
      */
-    on(event: 'doneProc', listener: (rowCount: number, more: boolean, returnStatus: any, rows: any[]) => void):this;
+    on(event: "doneProc", listener: (rowCount: number, more: boolean, returnStatus: any, rows: any[]) => void): this;
 
     /**
      * A value for an output parameter (that was added to the request with addOutputParameter(...)). See also Using Parameters.
      */
-    on(event: 'returnValue', listener: (parameterName: string, value: any, metadata: ColumnMetaData ) => void):this;
+    on(event: "returnValue", listener: (parameterName: string, value: any, metadata: ColumnMetaData) => void): this;
 }
 
 /**
@@ -483,7 +494,6 @@ export interface Request {
  * @event  'returnValue' A value for an output parameter (that was added to the request with addOutputParameter(...)). See also Using Parameters.
  */
 export class Request extends events.EventEmitter {
-
     /**
      * Constructor
      * @param sql The SQL statement to be executed (or a procedure name, if the request is to be used with connection.callProcedure).
@@ -515,23 +525,28 @@ export class Request extends events.EventEmitter {
     /**
      * Temporarily suspends the flow of data from the database. No more 'row' events will be emitted until request.resume() is called.
      */
-    pause():void;
+    pause(): void;
 
     /**
      * Resumes the flow of data from the database.
      */
-    resume():void;
+    resume(): void;
+
+    /**
+     * Sets a timeout for this request. Default is 1500ms
+     * @param timeout time in ms
+     */
+    setTimeout(timeout: number): void;
 }
 
 export interface BulkLoadColumnOpts extends ParameterOptions {
     //  Indicates whether the column accepts NULL values.
     nullable: boolean;
     //  If the name of the column is different from the name of the property found on rowObj arguments passed to , then you can use this option to specify the property name.
-    objName?: string;
+    objName?: string | undefined;
 }
 
 export interface BulkLoad {
-
     /**
      * Adds a column to the bulk load. The column definitions should match the table you are trying to insert into. Attempting to call addColumn after the first row has been added will throw an exception.
      * @param name    The name of the column.
@@ -596,47 +611,47 @@ export interface Connection {
     /**
      * The attempt to connect and validate has completed.
      */
-    on(event: 'connect', listener: (err: Error) => void ):this;
+    on(event: "connect", listener: (err: Error) => void): this;
 
     /**
      * The connection has ended. This may be as a result of the client calling close(), the server closing the connection, or a network error.
      */
-    on(event: 'end', listener: () => void ):this;
+    on(event: "end", listener: () => void): this;
 
     /**
      * Internal error occurs.
      */
-    on(event: 'error', listener: (err: Error) => void ):this;
+    on(event: "error", listener: (err: Error) => void): this;
 
     /**
      * A debug message is available. It may be logged or ignored.
      */
-    on(event: 'debug', listener: (messageText: string) => void ):this;
+    on(event: "debug", listener: (messageText: string) => void): this;
 
     /**
      * The server has issued an information message.
      */
-    on(event: 'infoMessage', listener: (info: InfoObject) => void ):this;
+    on(event: "infoMessage", listener: (info: InfoObject) => void): this;
 
     /**
      * The server has issued an error message.
      */
-    on(event: 'errorMessage', listener: (err: Error) => void ):this;
+    on(event: "errorMessage", listener: (err: Error) => void): this;
 
     /**
      * The server has reported that the active database has changed. This may be as a result of a successful login, or a use statement.
      */
-    on(event: 'databaseChange', listener: (databaseName: string) => void ):this;
+    on(event: "databaseChange", listener: (databaseName: string) => void): this;
 
     /**
      * The server has reported that the language has changed.
      */
-    on(event: 'languageChange', listener: (languageName: string) => void ):this;
+    on(event: "languageChange", listener: (languageName: string) => void): this;
 
     /**
      * The server has reported that the charset has changed.
      */
-    on(event: 'charsetChange', listener: (charset: string) => void ):this;
+    on(event: "charsetChange", listener: (charset: string) => void): this;
 }
 
 /**
@@ -653,8 +668,13 @@ export interface Connection {
  * @event  'secure' A secure connection has been established.
  */
 export class Connection extends events.EventEmitter {
-
     constructor(config: ConnectionConfig);
+
+    /**
+     * Establish a connection to the server.
+     * @param callback The callback is called when the connection was established or an error occured. If an error occured then err will describe the error.
+     */
+    connect(callback?: (err?: Error) => void): void;
 
     /**
      * Start a transaction. As only one request at a time may be executed on
@@ -698,7 +718,14 @@ export class Connection extends events.EventEmitter {
      * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. In case of a nested transaction, naming the transaction name has no effect.
      * @param isolationLevel The isolation level that the transaction is to be run with.
      */
-    transaction(callback: (error: Error, done: (error?: Error, doneCallback?: (error?: Error, ...args: any[]) => void, ...args: any[]) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
+    transaction(
+        callback: (
+            error: Error,
+            done: (error?: Error, doneCallback?: (error?: Error, ...args: any[]) => void, ...args: any[]) => void,
+        ) => void,
+        name?: string,
+        isolationLevel?: ISOLATION_LEVEL,
+    ): void;
 
     /**
      * Prepare the SQL represented by the request. The request can then be used in subsequent calls to execute and unprepare
@@ -764,7 +791,6 @@ export class Connection extends events.EventEmitter {
      * Closes the connection to the database. The end will be emmited once the connection has been closed.
      */
     close(): void;
-
 }
 
 /**

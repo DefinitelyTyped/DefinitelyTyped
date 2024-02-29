@@ -1,23 +1,17 @@
-// Type definitions for makeup-expander 0.6
-// Project: https://github.com/makeup-js/makeup-expander
-// Definitions by: Timur Manyanov <https://github.com/darkwebdev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 declare namespace Expander {
     interface Options {
-        autoCollapse?: boolean;
-        collapseOnClickOut?: boolean;
-        collapseOnFocusOut?: boolean;
-        collapseOnMouseOut?: boolean;
-        contentSelector?: string;
-        expandOnClick?: boolean;
-        expandOnFocus?: boolean;
-        expandOnHover?: boolean;
-        focusManagement?: string | null;
-        hostSelector?: string;
-        expandedClass?: string;
-        simulateSpacebarClick?: boolean;
+        autoCollapse?: boolean | undefined;
+        collapseOnClickOut?: boolean | undefined;
+        collapseOnFocusOut?: boolean | undefined;
+        collapseOnMouseOut?: boolean | undefined;
+        contentSelector?: string | undefined;
+        expandOnClick?: boolean | undefined;
+        expandOnFocus?: boolean | undefined;
+        expandOnHover?: boolean | undefined;
+        focusManagement?: string | null | undefined;
+        hostSelector?: string | undefined;
+        expandedClass?: string | undefined;
+        simulateSpacebarClick?: boolean | undefined;
     }
 }
 

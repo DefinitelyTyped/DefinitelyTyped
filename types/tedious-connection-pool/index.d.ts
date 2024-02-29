@@ -1,12 +1,7 @@
-// Type definitions for tedious-connection-pool 1.0
-// Project: https://github.com/tediousjs/tedious-connection-pool
-// Definitions by: Cyprien Autexier <https://github.com/sandorfr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import events = require('events');
-import tedious = require('tedious');
+import events = require("events");
+import tedious = require("tedious");
 
 declare namespace tcp {
     /**
@@ -33,32 +28,32 @@ declare namespace tcp {
         /**
          * Minimum concurrent connections
          */
-        min?: number;
+        min?: number | undefined;
 
         /**
          * Maximum concurrent connections
          */
-        max?: number;
+        max?: number | undefined;
 
         /**
          * Defines if logging is activated
          */
-        log?: boolean;
+        log?: boolean | undefined;
 
         /**
          * Idle timeout
          */
-        idleTimeout?: number;
+        idleTimeout?: number | undefined;
 
         /**
          * Retry delay
          */
-        retryDelay?: number;
+        retryDelay?: number | undefined;
 
         /**
          * Acquire timeout
          */
-        acquireTimeout?: number;
+        acquireTimeout?: number | undefined;
     }
 }
 

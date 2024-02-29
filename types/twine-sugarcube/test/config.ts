@@ -26,7 +26,9 @@ Config.navigation.override = (passageName: string) => passageName + "anything";
 Config.passages.descriptions = false;
 Config.passages.descriptions = true;
 Config.passages.descriptions = null;
-Config.passages.descriptions = function() { return this.domId; };
+Config.passages.descriptions = function() {
+    return this.domId;
+};
 Config.passages.displayTitles = false;
 Config.passages.nobr = true;
 Config.passages.onProcess = (passage) => passage.text;
@@ -73,6 +75,8 @@ Config.saves.onSave = (save: TwineSugarCube.SaveObject) => {};
 Config.saves.onSave = (save: TwineSugarCube.SaveObject, details: TwineSugarCube.SaveDetails) => {};
 
 Config.saves.slots = 123;
+
+Config.saves.tryDiskOnMobile = b;
 
 Config.saves.version = 123;
 Config.saves.version = "ver-2";

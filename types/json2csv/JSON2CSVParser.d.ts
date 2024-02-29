@@ -1,30 +1,30 @@
-import JSON2CSVBase from './JSON2CSVBase';
+import JSON2CSVBase = require("./JSON2CSVBase");
 
 declare class JSON2CSVParser<T> extends JSON2CSVBase<T> {
     /**
      * Main function that converts json to csv.
      *
-     * @param {object|object[]} data Array of JSON objects to be converted to CSV
-     * @returns {string} The CSV formated data as a string
+     * @param data Array of JSON objects to be converted to CSV
+     * @returns The CSV formated data as a string
      */
-    public parse(data: Readonly<T> | ReadonlyArray<T>): string;
+    parse(data: Readonly<T> | readonly T[]): string;
 
     /**
      * Preprocess the data according to the give opts (unwind, flatten, etc.)
-        and calculate the fields and field names if they are not provided.
+     * and calculate the fields and field names if they are not provided.
      *
-     * @param {object|object[]} data Array or object to be converted to CSV
-     * @returns {object[]} Preprocessed data ready to be processed
+     * @param data Array or object to be converted to CSV
+     * @returns Preprocessed data ready to be processed
      */
-    protected preprocessData(data: T | Array<T>): Array<T>;
+    protected preprocessData(data: T | T[]): T[];
 
     /**
      * Create the content row by row below the header
      *
-     * @param {object[]} data Array of JSON objects to be converted to CSV
-     * @returns {string} CSV string (body)
+     * @param data Array of JSON objects to be converted to CSV
+     * @returns CSV string (body)
      */
-    protected processData(data: Array<T>): string;
+    protected processData(data: T[]): string;
 }
 
-export default JSON2CSVParser;
+export = JSON2CSVParser;

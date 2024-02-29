@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import BaseControl from '../base-control';
+import BaseControl from "../base-control";
 
 declare namespace ToggleControl {
     interface Props extends BaseControl.ControlProps {
@@ -9,11 +9,16 @@ declare namespace ToggleControl {
          * `false` the toggle will be unchecked. If no value is passed the
          * toggle will be unchecked.
          */
-        checked?: boolean;
+        checked?: boolean | undefined;
         /**
          * A function that receives the checked state as input.
          */
         onChange?(isChecked: boolean): void;
+        /**
+         * If disabled, the toggle will be grayed out and won't be available
+         * for user interaction.
+         */
+        disabled?: boolean | undefined;
     }
 }
 declare const ToggleControl: ComponentType<ToggleControl.Props>;

@@ -1,11 +1,6 @@
-// Type definitions for sparse-bitfield 3.0
-// Project: https://github.com/mafintosh/sparse-bitfield
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PagerInstance } from 'memory-pager';
+import { PagerInstance } from "memory-pager";
 
 export = BitField;
 
@@ -13,7 +8,7 @@ declare const BitField: BitField;
 
 interface BitField {
     (bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
-    new (bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
+    new(bufferOrOptions?: BitField.Options | Buffer): BitField.BitFieldInstance;
 }
 
 declare namespace BitField {
@@ -21,25 +16,25 @@ declare namespace BitField {
         /**
          * @default 0
          */
-        pageOffset?: number;
+        pageOffset?: number | undefined;
         /**
          * How big should the partial buffers be.
          * @default 1024
          */
-        pageSize?: number;
+        pageSize?: number | undefined;
         /**
          * A pre-configured Pager instance.
          */
-        pages?: PagerInstance;
+        pages?: PagerInstance | undefined;
         /**
          * An existing bitfield.
          */
-        buffer?: Buffer;
+        buffer?: Buffer | undefined;
         /**
          * Track when pages are being updated in the pager.
          * @default false
          */
-        trackUpdates?: boolean;
+        trackUpdates?: boolean | undefined;
     }
 
     interface BitFieldInstance {

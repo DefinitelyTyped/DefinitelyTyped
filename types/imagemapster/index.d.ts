@@ -1,13 +1,7 @@
-// Type definitions for imagemapster 1.2.10
-// Project: http://www.outsharked.com/imagemapster/
-// Definitions by: delphinus <https://github.com/delphinus35>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import jQuery = require('jquery');
+import jQuery = require("jquery");
 
 declare global {
     namespace ImageMapster {
-
         type Select = "select";
         type Deselect = "deselect";
         type Set = "set";
@@ -25,25 +19,24 @@ declare global {
         type State = "highlight" | "select";
 
         interface RenderingOptions {
-
             /**
              * fade effect - can only be applied to "render_highlight".
              *
              * Use a fade effect when highlighting areas on mouseover.
              */
-            fade?: boolean;
+            fade?: boolean | undefined;
 
             /**
              * The duration of the fade-in effect, in milliseconds.
              */
-            fadeDuration?: number;
+            fadeDuration?: number | undefined;
 
             /**
              * highlight areas on mouseover. When null (default), the behavior is
              * disabled for mobile browsers. You can explicitly enable or disable
              * it by setting this option to a boolean value.
              */
-            highlight?: boolean;
+            highlight?: boolean | undefined;
 
             /**
              * the map or an area on the map can be selected (or deselected).
@@ -55,7 +48,7 @@ declare global {
              * whether that individual area (or group) can be selected. By default,
              * the map and all areas are selectable.
              */
-            isSelectable?: boolean;
+            isSelectable?: boolean | undefined;
 
             /**
              * the map or area on the map can be deselected.
@@ -68,7 +61,7 @@ declare global {
              * items to be selected if this is the default state (or the only
              * selected item is deselected programatically).
              */
-            isDeselectable?: boolean;
+            isDeselectable?: boolean | undefined;
 
             /**
              * only one area can be selected at a time
@@ -80,7 +73,7 @@ declare global {
              * programatically, only one (or zero) areas can ever be selected when
              * this option is true.
              */
-            singleSelect?: boolean;
+            singleSelect?: boolean | undefined;
 
             /**
              * the map or area is permanently in a selected or deselected state.
@@ -96,7 +89,7 @@ declare global {
              * Note that when setting states programatically, this option will not
              * be honored; it only affects user interaction.
              */
-            staticState?: boolean;
+            staticState?: boolean | undefined;
 
             /**
              * initial selection state of an area.
@@ -105,7 +98,7 @@ declare global {
              * creating a new mapster, use this option for a specific area (see
              * above).
              */
-            selected?: boolean;
+            selected?: boolean | undefined;
 
             /**
              * Use an alternate image of the same size as the imagemap as the
@@ -128,46 +121,46 @@ declare global {
              * fill/stroke effect, which may be different from when you're using an
              * alternate image.
              */
-            altImage?: string;
-            altImageFill?: boolean;
-            altImageStroke?: boolean;
-            altImageOpacity?: number;
+            altImage?: string | undefined;
+            altImageFill?: boolean | undefined;
+            altImageStroke?: boolean | undefined;
+            altImageOpacity?: number | undefined;
 
             /**
              * Areas should be flood-filled when moused over or highlighted.
              */
-            fill?: boolean;
+            fill?: boolean | undefined;
 
             /**
              * The color used for flood fill.
              */
-            fillColor?: string;
-            fillColorMask?: string;
+            fillColor?: string | undefined;
+            fillColorMask?: string | undefined;
 
             /**
              * The opacity of the fill. This is a number from 0 to 1.
              */
-            fillOpacity?: number;
+            fillOpacity?: number | undefined;
 
             /**
              * Areas should be outlined when moused over or highlighted.
              */
-            stroke?: boolean;
+            stroke?: boolean | undefined;
 
             /**
              * The color of the outline.
              */
-            strokeColor?: string;
+            strokeColor?: string | undefined;
 
             /**
              * The opacity of the outline.
              */
-            strokeOpacity?: number;
+            strokeOpacity?: number | undefined;
 
             /**
              * The width of the outline.
              */
-            strokeWidth?: number;
+            strokeWidth?: number | undefined;
 
             /**
              * The options below control the way highlighted areas are rendered.
@@ -180,12 +173,11 @@ declare global {
              * object. They can also be applied to one or the other situations
              * specifically using the render_highlight and render_select options.
              */
-            render_highlight?: string | RenderingOptions;
-            render_select?: string | RenderingOptions;
+            render_highlight?: string | RenderingOptions | undefined;
+            render_select?: string | RenderingOptions | undefined;
         }
 
         interface AreaRenderingOptions extends RenderingOptions {
-
             key: string;
 
             /**
@@ -210,7 +202,7 @@ declare global {
              * menu to display when the hotspot is moused over, but when it's
              * hidden, mousing over the menu area itself should have no effect.
              */
-            includeKeys?: string;
+            includeKeys?: string | undefined;
 
             /**
              * the area is a mask rather than a highlighted area.
@@ -260,9 +252,8 @@ declare global {
              * mask as well as the areas, to create both inner and outer borders.
              * You can always specifically enable or disable this, or any other
              * effect, for any area as desired.
-             *
              */
-            isMask?: boolean;
+            isMask?: boolean | undefined;
 
             /**
              * tool tip data for an area
@@ -274,15 +265,14 @@ declare global {
              * using this option you must use a jQuery object. Any string will be
              * treated as plain text (and special characters rendered correctly).
              */
-            toolTip?: string;
+            toolTip?: string | undefined;
         }
 
         interface OnClickData {
-
             /**
              * $(item) from boundList
              */
-            listTarget?: JQuery;
+            listTarget?: JQuery | undefined;
 
             /**
              * mapKey for this area
@@ -294,7 +284,6 @@ declare global {
         }
 
         interface OnStateChangeData {
-
             /**
              * map key
              */
@@ -309,7 +298,6 @@ declare global {
         }
 
         interface OnMouseData {
-
             /**
              * area key
              */
@@ -325,7 +313,6 @@ declare global {
         }
 
         interface OnGetListData {
-
             /**
              * primary mapKey for this area or area group
              */
@@ -345,7 +332,6 @@ declare global {
         }
 
         interface OnShowToolTipData {
-
             /**
              * jQuery object of the tooltip container
              */
@@ -365,7 +351,6 @@ declare global {
         }
 
         interface Options extends RenderingOptions {
-
             /**
              * an attribute identifying each imagemap area.
              *
@@ -398,7 +383,7 @@ declare global {
              * of each group. When the area is physically moused over, the first
              * key listed will identify the group that's effective for that action.
              */
-            mapKey?: string;
+            mapKey?: string | undefined;
 
             /**
              * an attribute on each area tag containing additional descriptive
@@ -420,7 +405,7 @@ declare global {
              * If there are grouped areas (areas with the same key), then the value
              * from the first area found with data in this attribute will be used.
              */
-            mapValue?: string;
+            mapValue?: string | undefined;
 
             /**
              * Clicking on a link should cause the browser to navigate to the href
@@ -438,7 +423,7 @@ declare global {
              * you can include it on just one, and clicking any area will cause the
              * appropraite navigation.
              */
-            clickNavigate?: boolean;
+            clickNavigate?: boolean | undefined;
 
             /**
              * an attribute on items in a boundList that corresponds to the value
@@ -449,7 +434,7 @@ declare global {
              * imageMap mapKey tag. Any item in the boundList with missing or
              * mismatched data will be ignored.
              */
-            listKey?: string;
+            listKey?: string | undefined;
 
             /**
              * attribute to set or remove when an area is selected or deselected
@@ -458,7 +443,7 @@ declare global {
              * this attribute on the list element that matches that area based on
              * their respective keys.
              */
-            listSelectedAttribute?: string;
+            listSelectedAttribute?: string | undefined;
 
             /**
              * a class to add or remove when an area is selected or deselected
@@ -468,26 +453,25 @@ declare global {
              * used to easily create any kind of associated action when areas on
              * the map are changed.
              */
-            listSelectedClass?: string;
+            listSelectedClass?: string | undefined;
 
             /**
-             *
              * define area-specific options; each object in the array must contain
              * a "key" property identifying a valid mapKey, and additional
              * rendering options specific to that area or group
              */
-            areas?: AreaRenderingOptions[],
+            areas?: AreaRenderingOptions[] | undefined;
 
             /**
              * add "classname" class to the wrapper created around the image, or
              * copy classes from the image if "true"
              */
-            wrapClass?: string | boolean;
+            wrapClass?: string | boolean | undefined;
 
             /**
              * add CSS to the wrapper created around the image
              */
-            wrapCss?: string | boolean;
+            wrapCss?: string | boolean | undefined;
 
             /**
              * delay removing highlight when mouse exits an area (1.2.5b36)
@@ -516,7 +500,7 @@ declare global {
              * is intended to help keep the higlights active for imagemaps that are
              * sparse, or have very small areas.
              */
-            mouseoutDelay?: number;
+            mouseoutDelay?: number | undefined;
 
             /**
              * sort the values before calling onGetList
@@ -525,7 +509,7 @@ declare global {
              * ascending order by the area value from mapValue. If "desc" is
              * passed, the list will be sorted in descending order.
              */
-            sortList?: boolean | "asc" | "desc";
+            sortList?: boolean | "asc" | "desc" | undefined;
 
             /**
              * time (in milliseconds) to wait for images to load before giving up
@@ -537,7 +521,7 @@ declare global {
              * will give up. If you have particularly large pages or images, you
              * may want to increase this to account for long load times.
              */
-            configTimeout?: number;
+            configTimeout?: number | undefined;
 
             /**
              * Automatically scale imagemaps to match the size of a
@@ -558,7 +542,7 @@ declare global {
              * If this behavior is not desired for some reason, this can be
              * disabled by setting this option to false.
              */
-            scaleMap?: boolean;
+            scaleMap?: boolean | undefined;
 
             /**
              * Treat areas containing the onhref attribute (or missing the href
@@ -583,7 +567,7 @@ declare global {
              * different color. This can be specified for each area (see the
              * fillColorMask option below) to create the best possible effect.
              */
-            noHrefIsMask?: boolean;
+            noHrefIsMask?: boolean | undefined;
 
             /**
              * a jQuery object whose elements are bound to the map.
@@ -594,7 +578,7 @@ declare global {
              * attribute. If more than one element in the list has the same value,
              * the action will affect all matching elements.
              */
-            boundList?: JQuery;
+            boundList?: JQuery | undefined;
 
             /**
              * enable tooltips
@@ -607,7 +591,7 @@ declare global {
              * rather enables tooltips for the entire map. At the item level, only
              * the presence of tooltip data is necessary for a tooltip to appear.
              */
-            showToolTip?: boolean;
+            showToolTip?: boolean | undefined;
 
             /**
              * HTML describing the popup that will be created for tooltips.
@@ -622,7 +606,7 @@ declare global {
              * it can't be placed within the image, it will be placed in the
              * lower-right corner and extend outside the image.
              */
-            toolTipContainer?: string | JQuery;
+            toolTipContainer?: string | JQuery | undefined;
 
             /**
              * specify the behavior that causes a toolTip to close.
@@ -649,7 +633,7 @@ declare global {
              * tooltips never closing, leaving it to you to close them manually
              * though the tooltip method.
              */
-            toolTipClose?: ToolTipCloseEvent[];
+            toolTipClose?: ToolTipCloseEvent[] | undefined;
 
             /**
              * callback when a hotspot area is clicked. Return false to cancel
@@ -665,14 +649,14 @@ declare global {
              * This can be used to perform additional actions on a click without
              * binding another event and having to obtain information manually.
              */
-            onClick?: (data: OnClickData) => void;
+            onClick?: ((data: OnClickData) => void) | undefined;
 
             /**
              * callback when mouse enters a bound area.
              *
              * This function is called when the mouse enters a bound area.
              */
-            onMouseover?: (data: OnMouseData) => void;
+            onMouseover?: ((data: OnMouseData) => void) | undefined;
 
             /**
              * callback when mouse leavesd a bound area.
@@ -680,7 +664,7 @@ declare global {
              * Callback when the mouse leaves a bound area. The data structure
              * passed to the callback is the same as onMouseover.
              */
-            onMouseout?: (data: OnMouseData) => void;
+            onMouseout?: ((data: OnMouseData) => void) | undefined;
 
             /**
              * a callback on mapster initialization that provides summary data
@@ -694,7 +678,7 @@ declare global {
              * that make up the bound list, the same as if it was assigned
              * manually.
              */
-            onGetList?: (data: OnGetListData) => JQuery;
+            onGetList?: ((data: OnGetListData) => JQuery) | undefined;
 
             /**
              * a callback when the mapster has finished initial configuration
@@ -712,7 +696,7 @@ declare global {
              * because the alternate image is loaded by the client at configure
              * time to ensure it is available immediately when needed.
              */
-            onConfigured?: (success: boolean) => void;
+            onConfigured?: ((success: boolean) => void) | undefined;
 
             /**
              * callback when area state is changed (either highlight or select).
@@ -720,7 +704,7 @@ declare global {
              * onStateChange can be used to get more specific information than the
              * mouseover or click events.
              */
-            onStateChange?: (data: OnStateChangeData) => void;
+            onStateChange?: ((data: OnStateChangeData) => void) | undefined;
 
             /**
              * callback when a toolTip is created
@@ -728,14 +712,12 @@ declare global {
              * This can be used to control tooltip closing behavior directly, if
              * desired.
              */
-            onShowToolTip?: (data: OnShowToolTipData) => void;
+            onShowToolTip?: ((data: OnShowToolTipData) => void) | undefined;
         }
     }
 
     interface JQuery {
-
         /**
-         *
          * All images in the jQuery object will be bound. The specific example
          * above will attempt to bind to all images present on the page. Each image
          * must be bound to an image map identified with the usemap attribute. If
@@ -977,7 +959,11 @@ declare global {
          * including those that are inherited, as well as any specifically assigned
          * to the area.
          */
-        mapster(method: ImageMapster.GetOptions, key?: string, effective?: boolean): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
+        mapster(
+            method: ImageMapster.GetOptions,
+            key?: string,
+            effective?: boolean,
+        ): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
 
         /**
          * tooltip: show/hide tooltips from code

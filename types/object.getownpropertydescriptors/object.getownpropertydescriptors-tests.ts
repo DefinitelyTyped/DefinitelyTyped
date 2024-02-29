@@ -1,4 +1,4 @@
-import getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
+import getOwnPropertyDescriptors = require("object.getownpropertydescriptors");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -8,12 +8,12 @@ declare function expectType<T>(value: T): T;
 
 interface Language {
     language: string;
-    description?: string;
+    description?: string | undefined;
 }
 
 interface LanguageDescriptorMap {
     language: TypedPropertyDescriptor<string>;
-    description?: TypedPropertyDescriptor<string | undefined>;
+    description?: TypedPropertyDescriptor<string | undefined> | undefined;
 }
 
 declare let lang: Language;
@@ -30,11 +30,11 @@ let implementation = getOwnPropertyDescriptors.getPolyfill();
 implementation = getOwnPropertyDescriptors.shim();
 implementation = getOwnPropertyDescriptors.implementation;
 
-import polyfillImpl = require('object.getownpropertydescriptors/implementation');
+import polyfillImpl = require("object.getownpropertydescriptors/implementation");
 implementation = polyfillImpl;
 
-import getPolyfill = require('object.getownpropertydescriptors/polyfill');
+import getPolyfill = require("object.getownpropertydescriptors/polyfill");
 implementation = getPolyfill();
 
-import shimGetOwnPropertyDescriptors = require('object.getownpropertydescriptors/shim');
+import shimGetOwnPropertyDescriptors = require("object.getownpropertydescriptors/shim");
 implementation = shimGetOwnPropertyDescriptors();

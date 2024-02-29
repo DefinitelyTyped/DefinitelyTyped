@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PostLastRevision {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PostLastRevision: ComponentType<PostLastRevision.Props>;

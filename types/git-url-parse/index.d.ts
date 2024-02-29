@@ -1,8 +1,3 @@
-// Type definitions for git-url-parse 9.0
-// Project: https://github.com/IonicaBizau/git-url-parse
-// Definitions by: Klaus Meinhardt <https://github.com/ajafff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace gitUrlParse {
     interface GitUrl {
         /** An array with the url protocols (usually it has one element). */
@@ -36,7 +31,7 @@ declare namespace gitUrlParse {
         /** The organization the owner belongs to. This is CloudForge specific. */
         organization: string;
         /** Whether to add the `.git` suffix or not. */
-        git_suffix?: boolean;
+        git_suffix?: boolean | undefined;
         toString(type?: string): string;
     }
 

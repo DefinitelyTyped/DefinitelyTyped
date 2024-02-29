@@ -1,50 +1,65 @@
-// Type definitions for atlassian-connect-js 5.2
-// Project: https://bitbucket.org/atlassian/atlassian-connect-js#readme
-// Definitions by: Josh Parnham <https://github.com/josh->
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AP {
-    interface RequestOptions {
-        /**
-         * The HTTP method name.
-         */
-        type: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
+    type RequestOptions =
+        & {
+            /**
+             * The HTTP method name.
+             */
+            type?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "PATCH";
 
-        /**
-         * If the request should be cached.
-         */
-        cache: boolean;
+            /**
+             * If the request should be cached.
+             */
+            cache?: boolean;
 
-        /**
-         * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
-         */
-        data: string | object;
+            /**
+             * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
+             */
+            data?: string | object;
 
-        /**
-         * The content-type string value of the entity body, above; required when data is supplied.
-         */
-        contentType: string;
+            /**
+             * The content-type string value of the entity body, above; required when data is supplied.
+             */
+            contentType?: string;
 
-        /**
-         * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
-         */
-        headers: { Accept: string; 'If-Match': string; 'If-None-Match': string };
+            /**
+             * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
+             */
+            headers?: { Accept: string; "If-Match": string; "If-None-Match": string };
 
-        /**
-         * An optional callback function executed on a 200 success status code.
-         */
-        success: (response: string) => void;
+            /**
+             * An optional callback function executed when a HTTP status error code is returned.
+             */
+            error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
-        /**
-         * An optional callback function executed when a HTTP status error code is returned.
-         */
-        error: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
+            /**
+             * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
+             */
+            experimental?: boolean;
+        }
+        & (
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: string) => void;
 
-        /**
-         * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
-         */
-        experimental: boolean;
-    }
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment?: false;
+            }
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: ArrayBuffer) => void;
+
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment: true;
+            }
+        );
 
     function defineGlobal(module: object): void;
     function defineModule(name: string, module: object): void;
@@ -66,6 +81,16 @@ declare namespace AP {
      * @param height the desired height
      */
     function resize(width: string, height: string): void;
+
+    /**
+     * Undocumented: Resize the iframe according to content.
+     *
+     * Only content within an element with the class `ac-content` will be resized automatically.
+     * Content without this identifier is sized according to the `body` element, and will dynamically grow, but not shrink.
+     *
+     * Note that this method cannot be used in dialogs.
+     */
+    function resize(): void;
 
     /**
      * Resize the iframe, so that it takes the entire page. Add-on may define to hide the footer using data-options.
@@ -91,15 +116,185 @@ declare namespace AP {
      * @param url Either the URI to request or an options object (as below) containing at least a 'url' property; This value should be relative to the context path of the host application.
      * @param options The options of the request.
      */
-    function request(url: string, options?: Partial<RequestOptions>): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options?: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
+    ): Promise<{ body: string; xhr: XMLHttpRequest }>;
     function request(
         options: {
             /**
              * The url to request from the host application, relative to the host's context path
              */
             url: string;
-        } & Partial<RequestOptions>,
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment?: false;
+        } & RequestOptions,
     ): Promise<{ body: string; xhr: XMLHttpRequest }>;
+    function request(
+        url: string,
+        options: {
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
+    function request(
+        options: {
+            /**
+             * The url to request from the host application, relative to the host's context path
+             */
+            url: string;
+
+            /**
+             * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+             */
+            binaryAttachment: true;
+        } & RequestOptions,
+    ): Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>;
+
+    /**
+     * A Confluence specific JavaScript module which provides functions to interact with the macro editor.
+     */
+    namespace confluence {
+        interface ContentProperty {
+            /**
+             * the key of the property to create or update
+             */
+            key: string;
+
+            /**
+             * the value of the property - may be a String or JavaScript object.
+             */
+            value: string | object;
+
+            /**
+             * a JavaScript object that defines the version of the content property
+             */
+            version: object;
+        }
+
+        /**
+         * Save a macro with data that can be accessed when viewing the confluence page.
+         * @param macroParameters data to be saved with the macro.
+         * @param macroBody the macro body to be saved with the macro. If omitted, the existing body will remain untouched.
+         * @example
+         * AP.confluence.saveMacro({foo: 'bar'});
+         * AP.confluence.saveMacro({foo: 'bar'}, "a new macro body");
+         */
+        function saveMacro(macroParameters: object, macroBody?: string): void;
+
+        /**
+         * Closes the macro editor, if it is open.
+         *
+         * This call does not save any modified parameters to the macro, and saveMacro should be called first if necessary.
+         * @example
+         * AP.confluence.closeMacroEditor();
+         */
+        function closeMacroEditor(): void;
+
+        /**
+         * Get the data saved in the saveMacro method.
+         * @param callback to be passed the macro data.
+         * @example
+         * AP.confluence.getMacroData(function(data){
+         *   alert(data);
+         * });
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        function getMacroData<T extends object>(callback: (data: T) => void): void;
+
+        /**
+         * Get the body saved in the saveMacro method.
+         * @param callback callback to be passed the macro body.
+         * @example
+         * AP.confluence.getMacroBody(function(body){
+         *   alert(body);
+         * });
+         */
+        function getMacroBody(callback: (body: string) => void): void;
+
+        /**
+         * Provide handlers for property panel control events
+         *
+         * Event name components:
+         *
+         * `control-key`: "key" property provided for the custom control declared in the JSON descriptor
+         * `event-type`: type of user interaction, as described below
+         * `macro-key`: "key" property provided for the macro declared in the JSON descriptor
+         *
+         * Event types:
+         *
+         * `click`: the property panel control was clicked by the user
+         * @param eventBindings An object which specifies property panel events as keys and handler functions as values. The handler does not take any arguments.
+         * @example
+         * AP.confluence.onMacroPropertyPanelEvent({
+         *   "{event-type}.{control-key}.{macro-key}.macro.property-panel": function() {
+         *     // handle button click
+         *     AP.confluence.closeMacroPropertyPanel();
+         *   }
+         * });
+         */
+        function onMacroPropertyPanelEvent(eventBindings: Record<string, () => void>): void;
+
+        /**
+         * Closes the macro property panel, if it is open.
+         * @example
+         * AP.confluence.closeMacroPropertyPanel();
+         */
+        function closeMacroPropertyPanel(): void;
+
+        /**
+         * Provides the Content Property with the given key, on the current Content, to the callback.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.getContentProperty('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function getContentProperty(key: string, callback: (property: ContentProperty) => void): void;
+
+        /**
+         * Sets the provided Content Property against the current Content, sending the result to the callback.
+         * @param contentProperty the content property to create or update
+         * @param callback callback to be passed the result
+         * @example
+         * AP.confluence.setContentProperty({
+         *   key: 'propertyKey',
+         *   value: 'propertyValue',
+         *   version: {
+         *     number: 2
+         *   }
+         * }, function(result) {
+         *    alert(result.property); // the updated property, if successful
+         *    alert(result.error);    // if unsuccessful, the reason for the failure
+         * });
+         */
+        function setContentProperty(
+            contentProperty: ContentProperty,
+            callback: (result: { property: ContentProperty } | { error: string }) => void,
+        ): void;
+
+        /**
+         * Raise contentProperty.update event for the Content Property with the given key on the current Content. It also provide content property to the callback like getContentProperty does.
+         * @param key the key of the property to retrieve
+         * @param callback callback to be passed the content property
+         * @example
+         * AP.confluence.syncPropertyFromServer('propertyKey', function(property) {
+         *   alert(property);
+         * });
+         */
+        function syncPropertyFromServer(key: string, callback: (property: ContentProperty) => void): void;
+    }
 
     /**
      * A JavaScript module which provides functions for the current product context.
@@ -110,12 +305,14 @@ declare namespace AP {
          * @param callback the callback that handles the response
          */
         function getToken(callback: (token: string) => void): void;
+        function getToken(): Promise<string>;
 
         /**
          * Retrieves the current user context containing details such as space key, issue id, etc.
          * @param callback the callback that handles the response
          */
         function getContext(callback: (context: any) => void): void;
+        function getContext(): Promise<any>;
     }
 
     /**
@@ -145,12 +342,178 @@ declare namespace AP {
     }
 
     /**
+     * A Confluence specific JavaScript module which provides functions to interact with the custom content.
+     */
+    namespace customContent {
+        type InterceptableEvent =
+            /**
+             * Add-on **must** intercept this event to provide the content body.
+             * The `confluence.customcontent.submit` event will be emitted when user clicks the save button on the custom content edit component.
+             * @example <caption>**Return a content body string** The string will be used as the content body.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(document.querySelector("#textarea").value);
+             * });
+             * @example <caption>**Return a complete content object** Add-on can return a complete content object.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *   editComponent.submitCallback({
+             *     "title": context.title,
+             *     "space": {"key": context.spaceKey},
+             *     "type": context.contentType,
+             *     "body": {
+             *       "storage": {
+             *         "value": "<p>New page data.</p>",
+             *         "representation": "storage"
+             *       }
+             *     }
+             *   });
+             * });
+             * @example <caption>**Return false** Add-on can also return false to cancel the submit action.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * editComponent.intercept('confluence.customcontent.submit');
+             * AP.events.on('confluence.customcontent.submit', function (context) {
+             *     editComponent.submitCallback(false);
+             *     // editComponent.submitCallback(false, 'Cannot save the content');
+             * });
+             */
+            | "confluence.customcontent.submit"
+            /**
+             * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
+             * If add-on didn't intercept this event, user will be redirected to the content view page.
+             * You can call `submitSuccessCallback` function to return the data:
+             * @example <caption>**Return false** Return false will prevent Confluence redirect user to the content view page.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(false);
+             *     // editComponent.submitSuccessCallback(false, 'Some error message');
+             * });
+             * @example <caption>**Return true** User will not be redirected until **submitSuccessCallback** has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitSuccess');
+             * AP.events.on('confluence.customcontent.submitSuccess', function (newContent) {
+             *     // newContent is the saved content object
+             *     editComponent.submitSuccessCallback(true);
+             * });
+             */
+            | "confluence.customcontent.submitSuccess"
+            /**
+             * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
+             * If add-on didn't intercept this event, a flag message will be shown.
+             * You can call `submitErrorCallback` function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent error message be shown.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(false, 'My own error message');
+             * });
+             * @example <caption>**Return true** Error message will not be shown until submitErrorCallback has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.submitError');
+             * AP.events.on('confluence.customcontent.submitError', function (errorMessage) {
+             *     editComponent.submitErrorCallback(true);
+             * });
+             */
+            | "confluence.customcontent.submitError"
+            /**
+             * The `confluence.customcontent.cancel` event will be emitted when user clicks close button.
+             * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
+             * You can call cancelCallback function to return the data:
+             * @example <caption>**Return false** Return `false` will prevent user being redirected.
+             * In this case, add-on can redirect user using the [JavaScript Navigator API]{@link navigator}.
+             * Additionally you can return an extra string as the error message. It will be shown as a flag message.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(false, 'My error message');
+             *     //  editComponent.cancelCallback(false);
+             * });
+             * @example <caption>**Return true** User will not be redirected until `cancelCallback` has been called.</caption>
+             * var editComponent = AP.customContent.getEditComponent();
+             * ...
+             * editComponent.intercept('confluence.customcontent.cancel');
+             * AP.events.on('confluence.customcontent.cancel', function (errorMessage) {
+             *     editComponent.cancelCallback(true);
+             * });
+             */
+            | "confluence.customcontent.cancel";
+
+        interface EditComponent {
+            /**
+             * See docs on InterceptableEvent type
+             * @param event Event to intercept
+             * @see InterceptableEvent
+             */
+            intercept: (event: InterceptableEvent) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submit` event to submit the content of the macro.
+             * @param contentBody can be either content body string, a complete content object or false (cancels submit action)
+             * @see InterceptableEvent
+             */
+            submitCallback: (contentBody: string | object | false) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submitSuccess` event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the content was saved successfully.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent
+             */
+            submitSuccessCallback: (doRedirect: boolean, error?: string) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.submitError` event to do something before the error is being shown and/or
+             * prevent Confluence from showing the default error message and optionally providing a custom one.
+             * @param preventDefaultErrorMessage Whether to show the default error message. If false, a custom error can be shown
+             * @param customError The error to show instead of the default Confluence one
+             * @see InterceptableEvent
+             */
+            submitErrorCallback: (preventDefaultErrorMessage: boolean, customError?: string) => void;
+
+            /**
+             * Used inside an event listener for a `confluence.customcontent.cancel` event to do something before the user is redirected and/or
+             * to instruct Confluence on whether to redirect the user to the content page view after the user clicked the "Close" button.
+             * If no redirect is desired, an error message can also be shown.
+             * @param doRedirect Whether to redirect the user to the content view. If false, an error can be shown.
+             * @param error The error to display if no redirect is desired
+             * @see InterceptableEvent
+             */
+            cancelCallback: (doRedirect: boolean, error?: string) => void;
+        }
+
+        /**
+         * Intercept edit component events of custom content.
+         * If the intercept function was invoked for an event then Confluence will wait for the data from the corresponding callback function up to 10 seconds.
+         * If add-on didn't return data, a timeout error message will be shown.
+         * @return EditComponent
+         */
+        function getEditComponent(): EditComponent;
+    }
+
+    /**
      * The Dialog module provides a mechanism for launching an add-on's modules as modal dialogs from within an add-on's iframe.
      * A modal dialog displays information without requiring the user to leave the current page.
      *
      * The dialog is opened over the entire window, rather than within the iframe itself.
      */
     namespace dialog {
+        type DialogSizes = "small" | "medium" | "large" | "x-large" | "maximum" | "fullscreen";
+
         interface DialogOptions {
             /**
              * The module key of a dialog, or the key of a page or web-item that you want to open as a dialog.
@@ -159,58 +522,59 @@ declare namespace AP {
 
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
+             * Sizes are defined in https://developer.atlassian.com/cloud/confluence/modules/dialog/ and replace the width and height options.
              */
-            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen';
+            size?: DialogSizes | Uppercase<DialogSizes> | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number;
+            width?: number | string | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number;
+            height?: number | string | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
              */
-            chrome?: boolean;
+            chrome?: boolean | undefined;
 
             /**
              * (optional) text to display in the header if opening a dialog with chrome.
              */
-            header?: string;
+            header?: string | undefined;
 
             /**
              * (optional) text for the submit button if opening a dialog with chrome.
              */
-            submitText?: string;
+            submitText?: string | undefined;
 
             /**
              * (optional) text for the cancel button if opening a dialog with chrome.
              */
-            cancelText?: string;
+            cancelText?: string | undefined;
 
             /**
              * (optional) custom data object that can be accessed from the actual dialog iFrame.
              */
-            customData?: object;
+            customData?: object | undefined;
 
             /**
              * (optional) if true, pressing ESC inside the dialog will close the dialog (default is true).
              */
-            closeOnEscape?: boolean;
+            closeOnEscape?: boolean | undefined;
 
             /**
              * (optional) an array of custom buttons to be added to the dialog if opening a dialog with chrome.
              */
-            buttons?: Array<{ text: string; identifier: string }>;
+            buttons?: Array<{ text: string; identifier: string }> | undefined;
 
             /**
              * (optional) Suggested actions or helpful info that will be added to the dialog if opening with chrome.
              */
-            hint?: string;
+            hint?: string | undefined;
         }
 
         interface DialogButton {
@@ -276,14 +640,14 @@ declare namespace AP {
 
         /**
          * Passes the custom data Object to the specified callback function.
-         * @param customData Callback method to be executed with the custom data.
+         * @param callback Callback method to be executed with the custom data.
          */
         function getCustomData(callback: (customData: object) => void): void;
 
         /**
          * Returns the button that was requested (either cancel or submit). If the requested button does not exist, an empty Object will be returned instead.
          */
-        function getButton(button: 'cancel' | 'submit'): DialogButton | {};
+        function getButton(button: "cancel" | "submit"): DialogButton | {};
 
         /**
          * Stop the dialog from closing when the submit button is clicked
@@ -359,7 +723,7 @@ declare namespace AP {
          * Listener arguments begin with the event name, followed by any arguments passed to `events.emit`, followed by an object describing the complete event information.
          * @param listener A listener callback to subscribe for any event name
          */
-        function onAny(listener: (data: object) => void): void;
+        function onAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Adds a listener for all occurrences of any event, regardless of name.
@@ -370,7 +734,7 @@ declare namespace AP {
          * @param listener A listener callback to subscribe for any event name
          * @param filter A filter function to filter the events. Callback will always be called when a matching event occurs if the filter is unspecified
          */
-        function onAnyPublic(listener: (data: object) => void, filter: (toCompare: any) => boolean): void;
+        function onAnyPublic(listener: (name: string, data: object) => void, filter: (toCompare: any) => boolean): void;
 
         /**
          * Removes a particular listener for an event.
@@ -402,13 +766,13 @@ declare namespace AP {
          * Removes an `any` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAny(listener: (data: object) => void): void;
+        function offAny(listener: (name: string, data: object) => void): void;
 
         /**
          * Removes an `anyPublic` event listener.
          * @param listener A listener callback to unsubscribe from any event name
          */
-        function offAnyPublic(listener: (data: object) => void): void;
+        function offAnyPublic(listener: (name: string, data: object) => void): void;
 
         /**
          * Emits an event on this bus, firing listeners by name as well as all 'any' listeners.
@@ -417,7 +781,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[]): void;
+        function emit(name: string, args?: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -428,7 +792,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[]): void;
+        function emitPublic(name: string, args?: string[]): void;
     }
 
     /**
@@ -458,12 +822,12 @@ declare namespace AP {
                 /**
                  * Sets the type of the message. Valid options are "info", "success", "warning" and "error".
                  */
-                type: 'info' | 'success' | 'warning' | 'error';
+                type: "info" | "success" | "warning" | "error";
 
                 /**
                  * The closing behaviour that this flag has. Valid options are "manual", and "auto".
                  */
-                close: 'manual' | 'auto';
+                close: "manual" | "auto";
 
                 /**
                  * Map of {actionIdentifier: 'Action link text'} to add to the flag. The actionIdentifier will be passed to a 'flag.action' event if the link is clicked.
@@ -503,18 +867,83 @@ declare namespace AP {
         function getState(): string;
 
         /**
+         * Retrieves the current state of the history stack and returns the value. The returned value is the same as what was set with the pushState method.
+         * @param type Type of requested value (optional). Valid values are undefined, "hash" and "all".
+         * @param callback Asynchronous callback (optional) if retrieving state during page load.
+         */
+        function getState(type: "hash" | undefined, callback: (state: string) => void): void;
+        function getState(
+            type: "all",
+            callback: (state: {
+                key: string;
+                hash: string;
+                title: string;
+                href: string;
+            }) => void,
+        ): void;
+
+        /**
          * Updates the location's anchor with the specified value and pushes the given data onto the session history. Does not invoke popState callback.
          * @param newState
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string): void;
+        function pushState(newState: any, title?: string, url?: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.
          * @param url URL to update current history value with
          */
         function replaceState(url: string): void;
+
+        /**
+         * Register a function to run when state is changed.
+         * You should use this to update your UI to show the state.
+         * NB: The function is only documented in the example code provided.
+         *
+         * @param callback Function to run when the state is changed.
+         * @example
+         * AP.history.popState(function(e){
+         *     alert("The URL has changed from: " + e.oldURL + "to: " + e.newURL);
+         * });
+         * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
+         */
+        function popState(
+            callback: (event: {
+                /**
+                 * Add-on key
+                 */
+                key: string;
+                /**
+                 * URL hash
+                 */
+                hash: null | string;
+                /**
+                 * URL query parameters
+                 */
+                query: null | string;
+                /**
+                 * Title of the destination page.
+                 */
+                title: string;
+                /**
+                 * Complete url
+                 */
+                href: string;
+                /**
+                 * State defined in the pushState function
+                 */
+                state: unknown;
+                /**
+                 * URL added to history
+                 */
+                newURL: string;
+                /**
+                 * URL previously in the history, or undefined if no URLs were already in the history.
+                 */
+                oldURL?: string;
+            }) => void,
+        ): void;
     }
 
     /**
@@ -524,6 +953,8 @@ declare namespace AP {
         /**
          * Gets the selected text on the page.
          * @param callback method to be executed with the selected text.
+         * @deprecated This method has been deprecated by Atlassian for security reasons and will always return an empty string as of 2022-07-11.
+         * @see {@link https://community.developer.atlassian.com/t/deprecation-of-connect-js-getselectedtext-api-for-security-reasons/54968}
          */
         function getSelectedText(callback: (selection: string) => void): void;
     }
@@ -695,89 +1126,76 @@ declare namespace AP {
      * The Navigator API allows your add-on to change the current page using JavaScript.
      */
     namespace navigator {
-        enum NavigatorTargetJira {
+        type NavigatorTargetJira =
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            dashboard = 'dashboard',
-
+            | "dashboard"
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            issue = 'issue',
-
+            | "issue"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
-
+            | "addonModule"
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
-
+            | "userProfile"
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            projectAdminSummary = 'projectAdminSummary',
-
+            | "projectAdminSummary"
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            projectAdminTabPanel = 'projectAdminTabPanel',
-
+            | "projectAdminTabPanel"
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            site = 'site',
-        }
+            | "site";
 
-        enum NavigatorTargetConfluence {
+        type NavigatorTargetConfluence =
             /**
              * The view page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentview = 'contentview',
-
+            | "contentview"
             /**
              * The edit page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            contentedit = 'contentedit',
-
+            | "contentedit"
             /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
-            spaceview = 'spaceview',
-
+            | "spaceview"
             /**
              * The space tools page. Takes a `spaceKey` to identify the space.
              */
-            spacetools = 'spacetools',
-
+            | "spacetools"
             /**
              * The dashboard of Confluence.
              */
-            dashboard = 'dashboard',
-
+            | "dashboard"
             /**
              * The profile page for a specific user. Takes a `username` or `userAccountId` to identify the user.
              */
-            userProfile = 'userProfile',
-
+            | "userProfile"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            addonModule = 'addonModule',
-
+            | "addonModule"
             /**
              * The list/collector page for pages, blogs and custom content contained in a space. Takes a `spaceKey` and a `contentType` to identify the content type.
              */
-            contentlist = 'contentlist',
-
+            | "contentlist"
             /**
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
-            site = 'site',
-        }
+            | "site";
+
+        type CustomDataBasicValue = string | number | boolean | null | undefined;
+        type CustomDataValue = CustomDataBasicValue | CustomDataBasicValue[];
 
         interface NavigatorContext {
             /**
@@ -788,7 +1206,7 @@ declare namespace AP {
             /**
              * Identifies the type of content. Can be either `page` or `blogpost`. Required for the `contentEdit` target.
              */
-            contentType: 'page' | 'blogpost';
+            contentType: "page" | "blogpost";
 
             /**
              * Identifies a space. Required for the `spaceView` and `spaceTools` targets.
@@ -843,8 +1261,10 @@ declare namespace AP {
             /**
              * Contains parameters that will be added as query parameters to the product url with "ac." prepended.
              * Used only in `addonModule` target. See Add-on specific context parameters for more info.
+             * @example Passing { foo: 'bar' } here causes your iframe to be called with "...?ac.foo=bar"
+             * @see {@link https://developer.atlassian.com/cloud/confluence/context-parameters#apps}
              */
-            customData: string;
+            customData: Record<string, CustomDataValue>;
 
             /**
              * Identifies a version of a piece of content in Confluence. This parameter is optional, and only applies to the `contentView` target, allowing navigation to a specific version.
@@ -859,7 +1279,7 @@ declare namespace AP {
              *
              * This parameter is optional and defaults to `current`.
              */
-            embeddedContentRender?: 'current' | 'version-at-save';
+            embeddedContentRender?: "current" | "version-at-save" | undefined;
 
             /**
              * Identifies a specific page within a site. Required for the `site` target and must begin with `/`.
@@ -871,6 +1291,19 @@ declare namespace AP {
              */
             absoluteUrl: string;
         }
+
+        interface NavigatorLocationContext {
+            /**
+             * The type of the page.
+             */
+            target: NavigatorTargetJira | NavigatorTargetConfluence;
+
+            /**
+             * Specific information that identifies the page.
+             */
+            context: Partial<NavigatorContext>;
+        }
+
         /**
          * Returns the context of the current page within the host application.
          *
@@ -885,7 +1318,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string) => void): void;
+        function getLocation(callback: (location: NavigatorLocationContext) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.
@@ -900,6 +1333,33 @@ declare namespace AP {
          * Triggers a reload of the parent page.
          */
         function reload(): void;
+    }
+
+    /**
+     * Enables apps to get and set the scroll position.
+     */
+    namespace scrollPosition {
+        /**
+         * Gets the scroll position relative to the browser viewport
+         * @param callback callback to pass the scroll position
+         */
+        function getPosition(
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+
+        /**
+         * Sets the vertical scroll position relative to the iframe
+         * @param y vertical offset position
+         * @param callback callback to pass the scroll position
+         */
+        function setVerticalPosition(
+            y: number,
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+    }
+
+    namespace theming {
+        function initializeTheming(): void;
     }
 
     /**

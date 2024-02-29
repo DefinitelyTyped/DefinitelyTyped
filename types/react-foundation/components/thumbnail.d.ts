@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Thumbnail component.
  * http://foundation.zurb.com/sites/docs/switch.html
@@ -8,7 +8,7 @@ import { FlexboxPropTypes } from '../utils';
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Thumbnail: React.StatelessComponent<ThumbnailProps>;
+export declare const Thumbnail: React.FunctionComponent<ThumbnailProps>;
 export interface ThumbnailProps extends FlexboxPropTypes, React.ImgHTMLAttributes<HTMLImageElement> {
 }
 /**
@@ -18,4 +18,4 @@ export interface ThumbnailProps extends FlexboxPropTypes, React.ImgHTMLAttribute
  * @param {Object} props
  * @returns {Object}
  */
-export declare const ThumbnailLink: React.StatelessComponent<ThumbnailProps>;
+export declare const ThumbnailLink: React.FunctionComponent<ThumbnailProps>;

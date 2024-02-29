@@ -1,16 +1,11 @@
-// Type definitions for JSONEditorOnline
-// Project: https://github.com/josdejong/jsoneditoronline
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // JSON Editor Online is a tool to easily edit and format JSON online. JSON is displayed in a clear, editable treeview and in formatted plain text.
 
 interface JSONEditorOptions {
-    change?: () => void;
-    history?: boolean;
-    mode?: string;
-    name?: string;
-    search?: boolean;
+    change?: (() => void) | undefined;
+    history?: boolean | undefined;
+    mode?: string | undefined;
+    name?: string | undefined;
+    search?: boolean | undefined;
 }
 
 declare class JSONEditorHistory {
@@ -25,8 +20,8 @@ declare class JSONEditorHistory {
 }
 
 interface JSONEditorNodeUpdateDomOptions {
-    recurse?: boolean;
-    updateIndexes?: boolean;
+    recurse?: boolean | undefined;
+    updateIndexes?: boolean | undefined;
 }
 
 interface JSONEditorNodeType {
@@ -36,8 +31,8 @@ interface JSONEditorNodeType {
 }
 
 interface JSONEditorConstructorParams {
-    field?: string;
-    fieldEditable?: boolean;
+    field?: string | undefined;
+    fieldEditable?: boolean | undefined;
     value?: any;
 }
 
@@ -113,18 +108,18 @@ interface JSONEditorBuffer {
 }
 
 interface JSONEditorActionParams {
-    node?: JSONEditorNode;
-    oldValue?: string;
-    newValue?: string;
-    startParent?: JSONEditorNode;
-    endParent?: JSONEditorNode;
-    startIndex?: number;
-    endIndex?: number;
-    clone?: JSONEditorNode;
-    parent?: JSONEditorNode;
-    index?: number;
-    oldType?: JSONEditorNodeType;
-    newType?: JSONEditorNodeType;
+    node?: JSONEditorNode | undefined;
+    oldValue?: string | undefined;
+    newValue?: string | undefined;
+    startParent?: JSONEditorNode | undefined;
+    endParent?: JSONEditorNode | undefined;
+    startIndex?: number | undefined;
+    endIndex?: number | undefined;
+    clone?: JSONEditorNode | undefined;
+    parent?: JSONEditorNode | undefined;
+    index?: number | undefined;
+    oldType?: JSONEditorNodeType | undefined;
+    newType?: JSONEditorNodeType | undefined;
 }
 
 declare class JSONEditor {
@@ -154,19 +149,28 @@ declare class JSONEditor {
     static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;
     static getInternetExplorerVersion(): number;
     Events: {
-        addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): (event?: Event) => void;
-        removeEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): void;
+        addEventListener(
+            element: HTMLElement,
+            action: string,
+            listener: (event?: Event) => void,
+            useCapture: boolean,
+        ): (event?: Event) => void;
+        removeEventListener(
+            element: HTMLElement,
+            action: string,
+            listener: (event?: Event) => void,
+            useCapture: boolean,
+        ): void;
         stopPropagation(event: Event): void;
-        preventDefault(event:Event): void;
-
+        preventDefault(event: Event): void;
     };
     static parse(jsonString: string): Object;
     static validate(jsonString: string): string;
 }
 
 interface JSONFormatterOptions {
-    change?: () => void;
-    indentation?: number;
+    change?: (() => void) | undefined;
+    indentation?: number | undefined;
 }
 
 declare class JSONFormatter {

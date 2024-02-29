@@ -1,59 +1,63 @@
-// Type definitions for pg 7.14
-// Project: http://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import events = require('events');
-import stream = require('stream');
-import pgTypes = require('pg-types');
+import events = require("events");
+import stream = require("stream");
+import pgTypes = require("pg-types");
+import { NoticeMessage } from "pg-protocol/dist/messages";
 
-import { ConnectionOptions } from 'tls';
+import { ConnectionOptions } from "tls";
 
 export interface ClientConfig {
-    user?: string;
-    database?: string;
-    password?: string;
-    port?: number;
-    host?: string;
-    connectionString?: string;
-    keepAlive?: boolean;
-    stream?: stream.Duplex;
-    statement_timeout?: false | number;
-    parseInputDatesAsUTC?: boolean;
-    ssl?: boolean | ConnectionOptions;
-    query_timeout?: number;
-    keepAliveInitialDelayMillis?: number;
-    idle_in_transaction_session_timeout?: number;
-    application_name?: string;
+    user?: string | undefined;
+    database?: string | undefined;
+    password?: string | (() => string | Promise<string>) | undefined;
+    port?: number | undefined;
+    host?: string | undefined;
+    connectionString?: string | undefined;
+    keepAlive?: boolean | undefined;
+    stream?: () => stream.Duplex | stream.Duplex | undefined;
+    statement_timeout?: false | number | undefined;
+    ssl?: boolean | ConnectionOptions | undefined;
+    query_timeout?: number | undefined;
+    keepAliveInitialDelayMillis?: number | undefined;
+    idle_in_transaction_session_timeout?: number | undefined;
+    application_name?: string | undefined;
+    connectionTimeoutMillis?: number | undefined;
+    types?: CustomTypesConfig | undefined;
+    options?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
 
 export interface Defaults extends ClientConfig {
-    poolSize?: number;
-    poolIdleTimeout?: number;
-    reapIntervalMillis?: number;
-    binary?: boolean;
-    parseInt8?: boolean;
+    poolSize?: number | undefined;
+    poolIdleTimeout?: number | undefined;
+    reapIntervalMillis?: number | undefined;
+    binary?: boolean | undefined;
+    parseInt8?: boolean | undefined;
+    parseInputDatesAsUTC?: boolean | undefined;
 }
 
 export interface PoolConfig extends ClientConfig {
     // properties from module 'node-pool'
-    max?: number;
-    min?: number;
-    connectionTimeoutMillis?: number;
-    idleTimeoutMillis?: number;
-    log?: (...messages: any[]) => void;
-    Promise?: PromiseConstructorLike;
+    max?: number | undefined;
+    min?: number | undefined;
+    idleTimeoutMillis?: number | undefined;
+    log?: ((...messages: any[]) => void) | undefined;
+    Promise?: PromiseConstructorLike | undefined;
+    allowExitOnIdle?: boolean | undefined;
+    maxUses?: number | undefined;
 }
 
 export interface QueryConfig<I extends any[] = any[]> {
-    name?: string;
+    name?: string | undefined;
     text: string;
-    values?: I;
+    values?: I | undefined;
+    types?: CustomTypesConfig | undefined;
+}
+
+export interface CustomTypesConfig {
+    getTypeParser: typeof pgTypes.getTypeParser;
 }
 
 export interface Submittable {
@@ -61,7 +65,7 @@ export interface Submittable {
 }
 
 export interface QueryArrayConfig<I extends any[] = any[]> extends QueryConfig<I> {
-    rowMode: 'array';
+    rowMode: "array";
 }
 
 export interface FieldDef {
@@ -76,7 +80,7 @@ export interface FieldDef {
 
 export interface QueryResultBase {
     command: string;
-    rowCount: number;
+    rowCount: number | null;
     oid: number;
     fields: FieldDef[];
 }
@@ -96,7 +100,7 @@ export interface QueryArrayResult<R extends any[] = any[]> extends QueryResultBa
 export interface Notification {
     processId: number;
     channel: string;
-    payload?: string;
+    payload?: string | undefined;
 }
 
 export interface ResultBuilder<R extends QueryResultRow = any> extends QueryResult<R> {
@@ -109,22 +113,29 @@ export interface QueryParse {
     types: string[];
 }
 
+type ValueMapper = (param: any, index: number) => any;
+
 export interface BindConfig {
-    portal?: string;
-    statement?: string;
-    binary?: string;
-    values?: Array<Buffer | null | undefined | string>;
+    portal?: string | undefined;
+    statement?: string | undefined;
+    binary?: string | undefined;
+    values?: Array<Buffer | null | undefined | string> | undefined;
+    valueMapper?: ValueMapper | undefined;
 }
 
 export interface ExecuteConfig {
-    portal?: string;
-    rows?: string;
+    portal?: string | undefined;
+    rows?: string | undefined;
 }
 
 export interface MessageConfig {
     type: string;
-    name?: string;
+    name?: string | undefined;
 }
+
+export function escapeIdentifier(str: string): string;
+
+export function escapeLiteral(str: string): string;
 
 export class Connection extends events.EventEmitter {
     readonly stream: stream.Duplex;
@@ -146,7 +157,7 @@ export class Connection extends events.EventEmitter {
 }
 
 /**
- * {@link https://node-postgres.com/api/pool}
+ * {@link https://node-postgres.com/apis/pool}
  */
 export class Pool extends events.EventEmitter {
     /**
@@ -161,7 +172,9 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
+    connect(
+        callback: (err: Error | undefined, client: PoolClient | undefined, done: (release?: any) => void) => void,
+    ): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
@@ -194,8 +207,8 @@ export class Pool extends events.EventEmitter {
     ): void;
     // tslint:enable:no-unnecessary-generics
 
-    on(event: 'error', listener: (err: Error, client: PoolClient) => void): this;
-    on(event: 'connect' | 'acquire' | 'remove', listener: (client: PoolClient) => void): this;
+    on(event: "release" | "error", listener: (err: Error, client: PoolClient) => void): this;
+    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
 }
 
 export class ClientBase extends events.EventEmitter {
@@ -238,17 +251,27 @@ export class ClientBase extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
-    escapeIdentifier(str: string): string;
-    escapeLiteral(str: string): string;
+    escapeIdentifier: typeof escapeIdentifier;
+    escapeLiteral: typeof escapeLiteral;
+    setTypeParser: typeof pgTypes.setTypeParser;
+    getTypeParser: typeof pgTypes.getTypeParser;
 
-    on(event: 'drain', listener: () => void): this;
-    on(event: 'error' | 'notice', listener: (err: Error) => void): this;
-    on(event: 'notification', listener: (message: Notification) => void): this;
+    on(event: "drain", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "notice", listener: (notice: NoticeMessage) => void): this;
+    on(event: "notification", listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
-    on(event: 'end', listener: () => void): this;
+    on(event: "end", listener: () => void): this;
 }
 
 export class Client extends ClientBase {
+    user?: string | undefined;
+    database?: string | undefined;
+    port: number;
+    host: string;
+    password?: string | undefined;
+    ssl: boolean;
+
     constructor(config?: string | ClientConfig);
 
     end(): Promise<void>;
@@ -260,22 +283,25 @@ export interface PoolClient extends ClientBase {
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
-    implements Submittable {
+    implements Submittable
+{
     constructor(queryTextOrConfig?: string | QueryConfig<I>, values?: I);
     submit: (connection: Connection) => void;
-    on(event: 'row', listener: (row: R, result?: ResultBuilder<R>) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (result: ResultBuilder<R>) => void): this;
+    on(event: "row", listener: (row: R, result?: ResultBuilder<R>) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (result: ResultBuilder<R>) => void): this;
 }
 
 export class Events extends events.EventEmitter {
-    on(event: 'error', listener: (err: Error, client: Client) => void): this;
+    on(event: "error", listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
 
-import * as Pg from '.';
+import * as Pg from ".";
 
 export const native: typeof Pg | null;
+
+export { DatabaseError } from "pg-protocol";

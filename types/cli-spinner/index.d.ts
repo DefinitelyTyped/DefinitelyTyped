@@ -1,13 +1,8 @@
-// Type definitions for cli-spinner 0.2
-// Project: https://github.com/helloIAmPau/node-spinner
-// Definitions by: Jay Anslow <https://github.com/janslow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Options {
-    text?: string;
-    stream?: NodeJS.WritableStream;
+    text?: string | undefined;
+    stream?: NodeJS.WritableStream | undefined;
     onTick?(this: Spinner, msg: string): void;
 }
 

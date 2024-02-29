@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,16 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "paths": {
-            "@babel/core": ["babel__core"],
-            "@babel/generator": ["babel__generator"],
-            "@babel/template": ["babel__template"],
-            "@babel/traverse": ["babel__traverse"]
-        },
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

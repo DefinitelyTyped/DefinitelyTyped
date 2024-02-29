@@ -202,7 +202,7 @@
 declare module "mq" {
     
 
-    module mq {
+    namespace mq {
         
         
         

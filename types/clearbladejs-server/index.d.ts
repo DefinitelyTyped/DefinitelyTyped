@@ -1,9 +1,3 @@
-// Type definitions for non-npm package clearbladejs-server 1.1
-// Project: https://docs.clearblade.com/v/3/4-developer_reference/platformsdk/ClearBlade.js/
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="paho-mqtt" />
 declare namespace CbServer {
     interface BasicReq {
@@ -29,31 +23,31 @@ declare namespace CbServer {
     enum MessagingQOS {
         MESSAGING_QOS_AT_MOST_ONCE = 0,
         MESSAGING_QOS_AT_LEAST_ONCE = 1,
-        MESSAGING_QOS_EXACTLY_ONCE = 2
+        MESSAGING_QOS_EXACTLY_ONCE = 2,
     }
 
     interface InitOptions {
         systemKey: string;
         systemSecret: string;
-        logging?: boolean;
-        callback?: CbCallback;
-        authToken?: string;
-        userToken?: string;
-        email?: string;
-        password?: string;
-        registerUser?: boolean;
-        useUser?: APIUser;
-        URI?: string;
-        messagingURI?: string;
-        messagingPort?: number;
-        defaultQoS?: MessagingQOS;
-        callTimeout?: number;
+        logging?: boolean | undefined;
+        callback?: CbCallback | undefined;
+        authToken?: string | undefined;
+        userToken?: string | undefined;
+        email?: string | undefined;
+        password?: string | undefined;
+        registerUser?: boolean | undefined;
+        useUser?: APIUser | undefined;
+        URI?: string | undefined;
+        messagingURI?: string | undefined;
+        messagingPort?: number | undefined;
+        defaultQoS?: MessagingQOS | undefined;
+        callTimeout?: number | undefined;
     }
 
     interface APIUser {
         email: string;
         authToken: string;
-        user_id?: string;
+        user_id?: string | undefined;
     }
 
     interface KeyValuePair {
@@ -76,12 +70,12 @@ declare namespace CbServer {
             queryObj: QueryObj,
             condition: QueryConditions,
             key: string,
-            value: QueryValue
+            value: QueryValue,
         ): void;
         addSortToQuery(
             queryObj: QueryObj,
             direction: QuerySortDirections,
-            column: string
+            column: string,
         ): void;
         Code(): Code;
         Collection(
@@ -89,7 +83,7 @@ declare namespace CbServer {
                 | string
                 | CollectionOptionsWithName
                 | CollectionOptionsWithID
-                | CollectionOptionsWithCollection
+                | CollectionOptionsWithCollection,
         ): Collection;
         Deployment(): Deployment;
         Device(): Device;
@@ -113,14 +107,14 @@ declare namespace CbServer {
             options:
                 | QueryOptionsWithCollection
                 | QueryOptionsWithName
-                | QueryOptionsWithID
+                | QueryOptionsWithID,
         ): QueryObj;
         parseOperationQuery(query: Query): string;
         parseQuery(query: Query | QueryObj): string;
         registerUser(
             email: string,
             password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         setUser(email: string, authToken: string, userId: string): void;
         User(): AppUser;
@@ -129,18 +123,18 @@ declare namespace CbServer {
             name: string,
             data: object,
             causeTrigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         deleteDevice(
             name: string,
             causeTrigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         updateDevice(
             name: string,
             data: object,
             causeTrigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getDeviceByName(name: string, callback: CbCallback): void;
         getAllDevicesForSystem(callback: CbCallback): void;
@@ -178,7 +172,7 @@ declare namespace CbServer {
 
     enum QuerySortDirections {
         QUERY_SORT_ASCENDING = "ASC",
-        QUERY_SORT_DESCENDING = "DESC"
+        QUERY_SORT_DESCENDING = "DESC",
     }
 
     enum QueryConditions {
@@ -188,34 +182,28 @@ declare namespace CbServer {
         QUERY_GREATERTHAN_EQUAL = "GTE",
         QUERY_LESSTHAN = "LT",
         QUERY_LESSTHAN_EQUAL = "LTE",
-        QUERY_MATCHES = "RE"
+        QUERY_MATCHES = "RE",
     }
 
     type QueryValue = string | number | boolean;
 
     interface QueryOptions {
-        offset?: number;
-        limit?: number;
+        offset?: number | undefined;
+        limit?: number | undefined;
     }
 
-    interface QueryOptionsWithCollection
-        extends CollectionOptionsWithCollection,
-            QueryOptions {}
+    interface QueryOptionsWithCollection extends CollectionOptionsWithCollection, QueryOptions {}
 
-    interface QueryOptionsWithName
-        extends CollectionOptionsWithName,
-            QueryOptions {}
+    interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
 
-    interface QueryOptionsWithID
-        extends CollectionOptionsWithID,
-            QueryOptions {}
+    interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
     interface Query {
-        SELECTCOLUMNS?: string[];
-        SORT?: QuerySortDirections;
-        FILTERS?: QueryFilter[];
-        PAGESIZE?: number;
-        PAGENUM?: number;
+        SELECTCOLUMNS?: string[] | undefined;
+        SORT?: QuerySortDirections | undefined;
+        FILTERS?: QueryFilter[] | undefined;
+        PAGESIZE?: number | undefined;
+        PAGENUM?: number | undefined;
     }
 
     interface QueryFilter {
@@ -273,7 +261,7 @@ declare namespace CbServer {
             name: string,
             params: object,
             loggingEnabled: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getAllServices(callback: CbCallback): void;
     }
@@ -289,12 +277,12 @@ declare namespace CbServer {
             name: string,
             description: string,
             options: DeploymentOptions,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         update(
             name: string,
             options: DeploymentOptions,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         delete(name: string, callback: CbCallback): void;
         read(name: string, callback: CbCallback): void;
@@ -325,13 +313,13 @@ declare namespace CbServer {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getMessageHistory(
             topic: string,
             start: number,
             count: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getAndDeleteMessageHistory(
             topic: string,
@@ -339,7 +327,7 @@ declare namespace CbServer {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getCurrentTopics(callback: CbCallback): void;
         publish(topic: string, payload: string | ArrayBuffer): void;
@@ -362,7 +350,7 @@ declare namespace CbServer {
         DEVICE = "Device",
         Data = "Data",
         MESSAGING = "Messaging",
-        USER = "User"
+        USER = "User",
     }
 
     interface TriggerCreateOptions {
@@ -378,26 +366,26 @@ declare namespace CbServer {
         Create(
             name: string,
             options: TriggerCreateOptions,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         Fetch(name: string, callback: CbCallback): void;
     }
 
     interface TimerCreateOptions {
-        description?: string;
-        start_time?: Date;
-        repeats?: number;
-        frequency?: number;
-        service_name?: string;
-        user_id?: string;
-        user_token?: string;
+        description?: string | undefined;
+        start_time?: Date | undefined;
+        repeats?: number | undefined;
+        frequency?: number | undefined;
+        service_name?: string | undefined;
+        user_id?: string | undefined;
+        user_token?: string | undefined;
     }
 
     interface TimerClass {
         Create(
             name: string,
             options: TimerCreateOptions,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         Fetch(name: string, callback: CbCallback): void;
     }

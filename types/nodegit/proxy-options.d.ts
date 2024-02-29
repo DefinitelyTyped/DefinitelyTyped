@@ -1,9 +1,9 @@
 export class ProxyOptions {
-    certificateCheck?: Function;
-    credentials?: Function;
+    certificateCheck?: Function | undefined;
+    credentials?: Function | undefined;
     payload?: any;
-    type?: number;
-    url?: string;
-    version?: number;
+    type?: number | undefined;
+    url?: string | undefined;
+    version?: number | undefined;
     [key: string]: any;
 }

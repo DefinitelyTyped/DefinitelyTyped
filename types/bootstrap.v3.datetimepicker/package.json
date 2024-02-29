@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/bootstrap.v3.datetimepicker",
+    "version": "4.17.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "bootstrap.v3.datetimepicker",
+    "nonNpm": true,
+    "nonNpmDescription": "Bootstrap 3 Datepicker",
+    "projects": [
+        "http://eonasdan.github.io/bootstrap-datetimepicker"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/bootstrap.v3.datetimepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Katona Péter",
+            "githubUsername": "katonap"
+        }
+    ]
 }

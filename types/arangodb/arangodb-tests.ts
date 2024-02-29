@@ -1,15 +1,17 @@
 import { aql, db, query } from "@arangodb";
-import { md5 } from "@arangodb/crypto";
+import { genRandomBytes, md5 } from "@arangodb/crypto";
 import { createRouter } from "@arangodb/foxx";
 import sessionsMiddleware = require("@arangodb/foxx/sessions");
 import jwtStorage = require("@arangodb/foxx/sessions/storages/jwt");
 import cookieTransport = require("@arangodb/foxx/sessions/transports/cookie");
+import createAuth = require("@arangodb/foxx/auth");
+import { create } from "@arangodb/foxx/queues";
 
 console.warnStack(new Error(), "something went wrong");
 
 interface User {
     username: string;
-    password?: string;
+    password?: string | undefined;
 }
 const coll = module.context.collection("users")!;
 coll.save({ username: "user" });
@@ -35,7 +37,7 @@ db._query(
         LIMIT 0, 10
         RETURN u
     `,
-    { fullCount: true }
+    { fullCount: true },
 );
 
 interface Banana {
@@ -51,22 +53,35 @@ const bananas = db._createDocumentCollection("bananas", {
     keyOptions: {
         type: "autoincrement",
         increment: 11,
-        offset: 23
-    }
+        offset: 23,
+    },
 }) as ArangoDB.Collection<Banana>;
+
+const bananas2 = db._createDocumentCollection("bananas2", {
+    keyOptions: {
+        type: "padded",
+    },
+}) as ArangoDB.Collection<Banana>;
+
+const bananas3 = db._createDocumentCollection("bananas3", {
+    keyOptions: {
+        type: "uuid",
+    },
+}) as ArangoDB.Collection<Banana>;
+
 bananas.ensureIndex({
     type: "hash",
     unique: true,
-    fields: ["color", "shape.type"]
+    fields: ["color", "shape.type"],
 });
 bananas.updateByExample(
     bananas.any(),
     { shape: { type: "round" } },
-    { mergeObjects: true }
+    { mergeObjects: true },
 );
 bananas.ensureIndex({
     type: "geo",
-    fields: ["latLng"]
+    fields: ["latLng"],
 });
 
 const router = createRouter();
@@ -79,7 +94,35 @@ router.get("/", (req, res) => {
     } else {
         res.json({ success: false });
     }
-});
+})
+    .queryParam("noJoi", {
+        validate(value) {
+            return { value };
+        },
+    });
+
+router.put(
+    (request: Foxx.Request, response: Foxx.Response) => {
+        try {
+            // $ExpectType string
+            const id = db._executeTransaction({
+                collections: {
+                    read: "users",
+                    write: ["groups", "member"],
+                    allowImplicit: false,
+                },
+                action: (params) => {
+                    return "1234";
+                },
+                params: JSON.parse(request.body),
+            });
+            response.json({ id });
+        } catch (e) {
+            e.error = true;
+            response.json(e);
+        }
+    },
+);
 
 router.use((req, res, next) => {
     if (req.is("json")) res.throw("too many requests");
@@ -89,22 +132,22 @@ router.use((req, res, next) => {
 router.use(
     sessionsMiddleware({
         storage: jwtStorage({ algorithm: "none" }),
-        transport: "header"
-    })
+        transport: "header",
+    }),
 );
 router.use(
     sessionsMiddleware({
         storage: jwtStorage({ algorithm: "HS512", secret: "tacocat" }),
-        transport: cookieTransport({ secret: "banana", algorithm: "sha256" })
-    })
+        transport: cookieTransport({ secret: "banana", algorithm: "sha256" }),
+    }),
 );
 
 router.use((req, res, next) => {
     if (!req.auth || !req.auth.basic) {
         res.throw(401);
     } else if (
-        req.auth.basic.username !== "admin" ||
-        req.auth.basic.password !== "hunter2"
+        req.auth.basic.username !== "admin"
+        || req.auth.basic.password !== "hunter2"
     ) {
         res.throw(403);
     }
@@ -114,18 +157,31 @@ router.use((req, res, next) => {
 console.log(
     query`
         FOR u IN users
-        ${aql.literal(
-            Math.random() < 0.5 ? "FILTER u.admin" : "FILTER !u.admin"
-        )}
+        ${
+        aql.literal(
+            Math.random() < 0.5 ? "FILTER u.admin" : "FILTER !u.admin",
+        )
+    }
         RETURN u
-    `.toArray()
+    `.toArray(),
 );
+
+const auth = createAuth({ method: "pbkdf2" });
+const authData = auth.create("hunter2");
+console.log(authData.iter);
 
 const view = db._view("yolo")!;
 view.properties({
     consolidationIntervalMsec: 123,
     consolidationPolicy: {
         type: "bytes",
-        segmentThreshold: 234
-    }
+        segmentThreshold: 234,
+    },
 });
+
+// $ExpectType Queue
+const myQueue = create("myQueue");
+// $ExpectType string
+const myString = myQueue.push({ mount: "/mount", name: "myItem" }, {});
+
+console.log(Buffer.concat([Buffer.allocUnsafe(4), genRandomBytes(4)], 8));

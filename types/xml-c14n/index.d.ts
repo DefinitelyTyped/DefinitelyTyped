@@ -1,16 +1,9 @@
-// Type definitions for xml-c14n 0.0
-// Project: https://github.com/deoxxa/xml-c14n
-// Definitions by: Konstantin Yuriev <https://github.com/gallowsmaker>
-//                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare namespace xml_c14n {
     type canonicaliseCb = (err: any, data: string) => void;
 
     interface Options {
-        includeComments?: boolean;
-        inclusiveNamespaces?: boolean;
+        includeComments?: boolean | undefined;
+        inclusiveNamespaces?: boolean | undefined;
     }
 
     interface Canonicalize {

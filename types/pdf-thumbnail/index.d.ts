@@ -1,15 +1,11 @@
-// Type definitions for pdf-thumbnail 1.0
-// Project: https://github.com/nicoFuccella/pdf-thumbnail#readme
-// Definitions by: Kirill Koshil <https://github.com/koshilki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 declare namespace pdf {
-    type Operations = 'compress' | 'crop' | 'resize';
+    type Operations = "compress" | "crop" | "resize";
 
     interface CompressParams {
-        type?: string;
-        quality?: number;
+        type?: string | undefined;
+        quality?: number | undefined;
     }
 
     interface CropParams {
@@ -17,12 +13,12 @@ declare namespace pdf {
         height: number;
         x: number;
         y: number;
-        ratio?: boolean;
+        ratio?: boolean | undefined;
     }
 
     interface ResizeParams {
-        width?: number;
-        height?: number;
+        width?: number | undefined;
+        height?: number | undefined;
     }
 
     interface OperationsParams {

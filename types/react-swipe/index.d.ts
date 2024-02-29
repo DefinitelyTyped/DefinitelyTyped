@@ -1,9 +1,3 @@
-// Type definitions for react-swipe 6.0
-// Project: https://github.com/voronianski/react-swipe
-// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Ammar Alakkad <https://github.com/AAlakkad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="swipe" />
 
 import * as React from "react";
@@ -24,11 +18,12 @@ declare namespace ReactSwipe {
     }
 
     interface Props {
-        id?: string;
-        swipeOptions?: SwipeOptions;
-        childCount?: number;
-        style?: Style;
-        className?: string;
+        children?: React.ReactNode;
+        id?: string | undefined;
+        swipeOptions?: SwipeOptions | undefined;
+        childCount?: number | undefined;
+        style?: Style | undefined;
+        className?: string | undefined;
     }
 }
 

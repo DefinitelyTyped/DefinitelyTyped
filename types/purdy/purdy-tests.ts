@@ -1,13 +1,13 @@
-import Purdy = require('purdy');
+import Purdy = require("purdy");
 
 const obj: object = {
-    str: 'string',
+    str: "string",
     num: 5,
     nil: null,
     bool: false,
     nested: {
-        hello: "world"
-    }
+        hello: "world",
+    },
 };
 
 const options: Purdy.Options = {
@@ -16,7 +16,7 @@ const options: Purdy.Options = {
     indent: 2,
     align: "left",
     depth: null,
-    json: true
+    json: true,
 };
 
 Purdy(obj, options); // $ExpectType void

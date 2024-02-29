@@ -1,8 +1,3 @@
-// Type definitions for selectables 1.4
-// Project: https://github.com/p34eu/Selectables#readme
-// Definitions by: Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Selectables;
 
 declare class Selectables {
@@ -17,12 +12,12 @@ declare class Selectables {
 
 declare namespace Selectables {
     interface Options {
-        zone?: string;
-        elements?: string;
-        selectedClass?: string;
-        key?: string | boolean;
-        moreUsing?: string;
-        enabled?: boolean;
+        zone?: string | undefined;
+        elements?: string | undefined;
+        selectedClass?: string | undefined;
+        key?: string | boolean | undefined;
+        moreUsing?: string | undefined;
+        enabled?: boolean | undefined;
 
         start?(e: Event): void;
 

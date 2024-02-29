@@ -1,11 +1,3 @@
-// Type definitions for js-sumo-logger 1.6
-// Project: https://github.com/SumoLogic/js-sumo-logger
-// Definitions by: forabi <https://github.com/forabi>
-//                 clementallen <https://github.com/clementallen>
-//                 kristians-salna <https://github.com/kristians-salna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace SumoLogger {
     interface SumoLoggerOptions {
         /**
@@ -19,7 +11,7 @@ declare namespace SumoLogger {
          * A number of milliseconds. Messages will be batched and sent at the interval specified.
          * Default value is zero, meaning messages are sent each time `log()` is called.
          */
-        interval?: number;
+        interval?: number | undefined;
 
         /**
          * You can provide a function that is executed only when logs are successfully sent.
@@ -40,7 +32,7 @@ declare namespace SumoLogger {
          * In the vanilla JS version, the URL is detected from the browser's
          * `window.location` value.
          */
-        clientUrl?: string;
+        clientUrl?: string | undefined;
 
         /**
          * Setting `sendErrors` to `true` will send all the unhandled errors to Sumo Logic
@@ -48,35 +40,35 @@ declare namespace SumoLogger {
          * This attribute plays well with any other `window.onerror` functions that
          * have been defined.
          */
-        sendErrors?: boolean;
+        sendErrors?: boolean | undefined;
 
         /** To identify specific user sessions, set a value for this field. */
-        sessionKey?: string;
+        sessionKey?: string | undefined;
 
         /**
          * This value identifies the host from which the log is being sent.
          */
-        hostName?: string;
+        hostName?: string | undefined;
 
         /**
          * This value sets the Source Category for the logged message.
          */
-        sourceCategory?: string;
+        sourceCategory?: string | undefined;
 
         /**
          * This value sets the Source Name for the logged message.
          */
-        sourceName?: string;
+        sourceName?: string | undefined;
 
         /**
          * This value enables and disables sending data as graphite metrics
          */
-        graphite?: boolean;
+        graphite?: boolean | undefined;
 
         /**
          * This value enables and disables sending data as a raw string
          */
-        raw?: boolean;
+        raw?: boolean | undefined;
 
         /**
          * An integer specifying total log length.
@@ -85,12 +77,12 @@ declare namespace SumoLogger {
          * If both batchSize and interval are configured sending will be triggered when the pending logs' aggregate message length
          * is reached or when the specified interval is hit, and in either case the interval will be reset on send.
          */
-        batchSize?: number;
+        batchSize?: number | undefined;
 
         /**
          * If enabled batchSize is ignored and only interval is used to trigger when the pending logs will be sent.
          */
-        useIntervalOnly?: boolean;
+        useIntervalOnly?: boolean | undefined;
     }
 
     interface PerMessageOptions {
@@ -99,13 +91,13 @@ declare namespace SumoLogger {
          * Use this when the event being logged occurred
          * at a different time than when the log was sent.
          */
-        timestamp: Date;
+        timestamp?: Date | undefined;
 
         /** Override a session key set in the `config` call. */
-        sessionKey: string;
+        sessionKey?: string | undefined;
 
         /** Override client URL set in the config call. (Node version only) */
-        url: string;
+        url?: string | undefined;
     }
 }
 

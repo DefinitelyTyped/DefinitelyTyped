@@ -1,11 +1,6 @@
-// Type definitions for du 1.0
-// Project: https://github.com/rvagg/node-du#readme
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
-    disk?: boolean;
-    filter?: (dir: string) => boolean;
+    disk?: boolean | undefined;
+    filter?: ((dir: string) => boolean) | undefined;
 }
 
 declare function du(dir: string, options?: Options): Promise<number>;

@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace VisualEditorGlobalKeyboardShortcuts {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const VisualEditorGlobalKeyboardShortcuts: ComponentType<VisualEditorGlobalKeyboardShortcuts.Props>;

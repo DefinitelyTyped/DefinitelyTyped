@@ -1,8 +1,3 @@
-// Type definitions for etag 1.8
-// Project: https://github.com/jshttp/etag#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 export = etag;
 
@@ -10,7 +5,7 @@ declare function etag(entity: string | Buffer | etag.StatsLike, options?: etag.O
 
 declare namespace etag {
     interface Options {
-        weak?: boolean;
+        weak?: boolean | undefined;
     }
 
     interface StatsLike {

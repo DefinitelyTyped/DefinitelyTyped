@@ -1,83 +1,78 @@
-// Type definitions for iScroll 5.2
-// Project: http://cubiq.org/iscroll-5-ready-for-beta-test
-// Definitions by: Christiaan Rakowski <https://github.com/csrakowski>, Denis Tokarev <https://github.com/devlato>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface IScrollOptions {
-    x?: number;
-    y?: number;
-    bounce?: boolean;
-    bounceLock?: boolean;
-    momentum?: boolean;
-    lockDirection?: boolean;
-    useTransform?: boolean;
-    useTransition?: boolean;
-    topOffset?: number;
-    checkDOMChanges?: boolean;
-    handleClick?: boolean;
+    x?: number | undefined;
+    y?: number | undefined;
+    bounce?: boolean | undefined;
+    bounceLock?: boolean | undefined;
+    momentum?: boolean | undefined;
+    lockDirection?: boolean | undefined;
+    useTransform?: boolean | undefined;
+    useTransition?: boolean | undefined;
+    topOffset?: number | undefined;
+    checkDOMChanges?: boolean | undefined;
+    handleClick?: boolean | undefined;
 
     // Scrollbar
-    hScrollbar?: boolean;
-    vScrollbar?: boolean;
-    fixedScrollbar?: boolean;
-    hideScrollbar?: boolean;
-    fadeScrollbar?: boolean;
-    scrollbarClass?: string;
+    hScrollbar?: boolean | undefined;
+    vScrollbar?: boolean | undefined;
+    fixedScrollbar?: boolean | undefined;
+    hideScrollbar?: boolean | undefined;
+    fadeScrollbar?: boolean | undefined;
+    scrollbarClass?: string | undefined;
 
     // Zoom
-    zoom?: boolean;
-    zoomMin?: number;
-    zoomMax?: number;
-    doubleTapZoom?: number;
-    mouseWheel?: boolean;
-    wheelAction?: string;
-    snap?: string | boolean;
-    snapThreshold?: number;
+    zoom?: boolean | undefined;
+    zoomMin?: number | undefined;
+    zoomMax?: number | undefined;
+    doubleTapZoom?: number | undefined;
+    mouseWheel?: boolean | undefined;
+    wheelAction?: string | undefined;
+    snap?: string | boolean | undefined;
+    snapThreshold?: number | undefined;
 
     // New in IScroll 5?
-    resizeIndicator?: boolean;
-    mouseWheelSpeed?: number;
-    startX?: number;
-    startY?: number;
-    scrollX?: boolean;
-    scrollY?: boolean;
-    scrollbars?: boolean | string;
-    shrinkScrollbars?: string;
-    interactiveScrollbars?: boolean;
-    releaseScroll?: boolean;
-    fadeScrollbars?: boolean;
-    directionLockThreshold?: number;
+    resizeIndicator?: boolean | undefined;
+    mouseWheelSpeed?: number | undefined;
+    startX?: number | undefined;
+    startY?: number | undefined;
+    scrollX?: boolean | undefined;
+    scrollY?: boolean | undefined;
+    scrollbars?: boolean | string | undefined;
+    shrinkScrollbars?: string | undefined;
+    interactiveScrollbars?: boolean | undefined;
+    releaseScroll?: boolean | undefined;
+    fadeScrollbars?: boolean | undefined;
+    directionLockThreshold?: number | undefined;
 
-    bounceTime?: number;
+    bounceTime?: number | undefined;
 
-    ///String or function
-    bounceEasing?: string|{ style: string, fn: (k: any) => any };
+    /// String or function
+    bounceEasing?: string | { style: string; fn: (k: any) => any } | undefined;
 
-    preventDefault?: boolean;
-    preventDefaultException?: Array<RegExp>|Object;
+    preventDefault?: boolean | undefined;
+    preventDefaultException?: RegExp[] | Object | undefined;
 
-    HWCompositing?: boolean;
+    HWCompositing?: boolean | undefined;
 
-    freeScroll?: boolean;
+    freeScroll?: boolean | undefined;
 
-    resizePolling?: number;
-    tap?: boolean;
-    click?: boolean;
-    invertWheelDirection?: boolean;
-    eventPassthrough?: string | boolean;
+    resizePolling?: number | undefined;
+    tap?: boolean | undefined;
+    click?: boolean | undefined;
+    invertWheelDirection?: boolean | undefined;
+    eventPassthrough?: string | boolean | undefined;
 
     // iScroll probe edition
-    probeType?: number;
+    probeType?: number | undefined;
 
     // Pointer events
-    disableMouse?: boolean;
-    disablePointer?: boolean;
-    disableTouch?: boolean;
+    disableMouse?: boolean | undefined;
+    disablePointer?: boolean | undefined;
+    disableTouch?: boolean | undefined;
 }
 
 declare class IScroll {
-    constructor (element: string, options?: IScrollOptions);
-    constructor (element: HTMLElement, options?: IScrollOptions);
+    constructor(element: string, options?: IScrollOptions);
+    constructor(element: HTMLElement, options?: IScrollOptions);
 
     x: number;
     y: number;
@@ -88,7 +83,13 @@ declare class IScroll {
     scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
     scrollToElement(element: string, time?: number): void;
     scrollToElement(element: HTMLElement, time?: number): void;
-    scrollToElement(element: HTMLElement, time?: number, offsetX?: number | boolean, offsetY?: number | boolean, easing?: Function): void;
+    scrollToElement(
+        element: HTMLElement,
+        time?: number,
+        offsetX?: number | boolean,
+        offsetY?: number | boolean,
+        easing?: Function,
+    ): void;
     goToPage(pageX: number, pageY: number, time?: number): void;
     disable(): void;
     enable(): void;

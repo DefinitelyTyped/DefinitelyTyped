@@ -1,9 +1,3 @@
-// Type definitions for project-oxford v0.1.3
-// Project: https://github.com/felixrieseberg/project-oxford
-// Definitions by: Scott Southwood <https://github.com/scsouthw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import Promise = require("bluebird");
@@ -17,7 +11,6 @@ export declare class Client {
 }
 
 export declare class FaceAPI {
-
     /**
      * Call the Face Detected API
      * Detects human faces in an image and returns face locations, face landmarks, and
@@ -180,7 +173,7 @@ export declare class PersonGroup {
 
     /**
      * Starts a person group training.
-         * Training is a necessary preparation process of a person group before identification.
+     * Training is a necessary preparation process of a person group before identification.
      * Each person group needs to be trained in order to call Identification. The training
      * will process for a while on the server side even after this API has responded.
      *
@@ -262,7 +255,12 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public create(personGroupId: string, faces: string[], name: string, userData: string): Promise<{ personId: string }>;
+    public create(
+        personGroupId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<{ personId: string }>;
 
     /**
      * Deletes an existing person from a person group.
@@ -291,7 +289,13 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public update(personGroupId: string, personId: string, faces: string[], name: string, userData: string): Promise<void>;
+    public update(
+        personGroupId: string,
+        personId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<void>;
 
     /**
      * Lists all persons in a person group, with the person information.
@@ -304,13 +308,13 @@ export declare class Person {
 
 declare namespace Options {
     interface Detect {
-        url?: string; // URL to image to be used
-        path?: string; // Path to image to be used
-        stream?: stream.Stream; // Stream of an image to be used
-        analyzesFaceLandmarks?: boolean; // Analyze face landmarks?
-        analyzesAge?: boolean; // Analyze age?
-        analyzesGender?: boolean; // Analyze gender?
-        analyzesHeadPose?: boolean; //Analyze headpose?
+        url?: string | undefined; // URL to image to be used
+        path?: string | undefined; // Path to image to be used
+        stream?: stream.Stream | undefined; // Stream of an image to be used
+        analyzesFaceLandmarks?: boolean | undefined; // Analyze face landmarks?
+        analyzesAge?: boolean | undefined; // Analyze age?
+        analyzesGender?: boolean | undefined; // Analyze gender?
+        analyzesHeadPose?: boolean | undefined; // Analyze headpose?
     }
 
     interface Identify {
@@ -319,29 +323,29 @@ declare namespace Options {
     }
 
     interface Analyze {
-        url?: string; // Url to image to be analyzed
-        path?: string; // Path to image to be analyzed
-        ImageType?: boolean; // Detects if image is clipart or a line drawing.
-        Color?: boolean; // Determines the accent color, dominant color, if image is black& white.
-        Faces?: boolean; // Detects if faces are present.If present, generate coordinates, gender and age.
-        Adult?: boolean; // Detects if image is pornographic in nature(nudity or sex act).Sexually suggestive content is also detected.
-        Categories?: boolean; // Image categorization; taxonomy defined in documentation.
+        url?: string | undefined; // Url to image to be analyzed
+        path?: string | undefined; // Path to image to be analyzed
+        ImageType?: boolean | undefined; // Detects if image is clipart or a line drawing.
+        Color?: boolean | undefined; // Determines the accent color, dominant color, if image is black& white.
+        Faces?: boolean | undefined; // Detects if faces are present.If present, generate coordinates, gender and age.
+        Adult?: boolean | undefined; // Detects if image is pornographic in nature(nudity or sex act).Sexually suggestive content is also detected.
+        Categories?: boolean | undefined; // Image categorization; taxonomy defined in documentation.
     }
 
     interface Thumbnail {
-        url?: string; // Url to image to be thumbnailed
-        path?: string; // Path to image to be thumbnailed
-        width?: number; // Width of the thumb in pixels
-        height?: number; // Height of the thumb in pixels
-        smartCropping?: boolean; // Should SmartCropping be enabled?
-        pipe?: stream.Writable; // We'll pipe the returned image to this object
+        url?: string | undefined; // Url to image to be thumbnailed
+        path?: string | undefined; // Path to image to be thumbnailed
+        width?: number | undefined; // Width of the thumb in pixels
+        height?: number | undefined; // Height of the thumb in pixels
+        smartCropping?: boolean | undefined; // Should SmartCropping be enabled?
+        pipe?: stream.Writable | undefined; // We'll pipe the returned image to this object
     }
 
     interface Ocr {
-        url?: string; // URL to image to be analyzed
-        path?: string; // Path to image to be analyzed
-        language?: string; //BCP - 47 language code of the text to be detected in the image.Default value is "unk", then the service will auto detect the language of the text in the image.
-        detectOrientation?: boolean; // Detect orientation of text in the image
+        url?: string | undefined; // URL to image to be analyzed
+        path?: string | undefined; // Path to image to be analyzed
+        language?: string | undefined; // BCP - 47 language code of the text to be detected in the image.Default value is "unk", then the service will auto detect the language of the text in the image.
+        detectOrientation?: boolean | undefined; // Detect orientation of text in the image
     }
 }
 
@@ -389,7 +393,7 @@ declare namespace FaceResponses {
     }
 
     interface Attributes {
-        "headPose": { "pitch": number, "roll": number, "yaw": number };
+        "headPose": { "pitch": number; "roll": number; "yaw": number };
         "gender": string;
         "age": number;
     }
@@ -425,7 +429,6 @@ declare namespace FaceResponses {
 }
 
 declare namespace PersonGroupResponses {
-
     export interface PersonGroup {
         "personGroupId": string;
         "name": string;
@@ -463,19 +466,19 @@ declare namespace VisionResponses {
         "categories": [{
             "name": string;
             "score": number;
-        }],
+        }];
         "adult": {
             "isAdultContent": boolean;
             "isRacyContent": boolean;
             "adultScore": number;
             "racyScore": number;
-        },
+        };
         "requestId": string;
         "metadata": {
             "width": number;
             "height": number;
             "format": string;
-        },
+        };
         "faces": [
             {
                 "age": number;
@@ -485,22 +488,21 @@ declare namespace VisionResponses {
                     "top": number;
                     "width": number;
                     "height": number;
-                }
-            }
-        ],
+                };
+            },
+        ];
         "color": {
             "dominantColorForeground": string;
             "dominantColorBackground": string;
             "dominantColors": string[];
             "accentColor": string;
             "isBWImg": boolean;
-        },
+        };
         "imageType": {
             "clipArtType": number;
             "lineDrawingType": number;
-        }
+        };
     }
-
 
     export interface Ocr {
         "language": string;
@@ -513,8 +515,8 @@ declare namespace VisionResponses {
                 "words": [{
                     "boundingBox": string;
                     "text": string;
-                }]
-            }]
-        }]
+                }];
+            }];
+        }];
     }
 }

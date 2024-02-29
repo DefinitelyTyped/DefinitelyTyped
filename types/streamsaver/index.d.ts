@@ -1,9 +1,3 @@
-// Type definitions for streamsaver 2.0
-// Project: https://github.com/jimmywarting/StreamSaver.js
-// Definitions by: Enn Michael <https://github.com/ennmichael/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 export as namespace streamSaver;
 
 /**
@@ -12,20 +6,22 @@ export as namespace streamSaver;
  * @param options Additional options.
  */
 export function createWriteStream(
-    filename: string, options?: CreateWriteStreamOptions): WritableStream;
+    filename: string,
+    options?: CreateWriteStreamOptions,
+): WritableStream;
 
 export interface CreateWriteStreamOptions<I = any, O = any> {
     /**
      * Indicates the size of the streamed data and allows the browser to show progress while downloading.
      */
-    size?: number;
+    size?: number | undefined;
     /**
      * URL to serve the stream from. This is the URL that the browser is going to request from the service worker.
      * You might need to provide this if you're using a custom service worker.
      */
-    pathname?: string;
-    writableStrategy?: QueuingStrategy<I>;
-    readableStrategy?: QueuingStrategy<O>;
+    pathname?: string | undefined;
+    writableStrategy?: QueuingStrategy<I> | undefined;
+    readableStrategy?: QueuingStrategy<O> | undefined;
 }
 
 export interface Version {
@@ -54,7 +50,7 @@ export let mitm: string;
  * but you can also provide a ponyfill or a polyfill if your target browser does not support it natively.
  */
 export let WritableStream: {
-    prototype: WritableStream,
+    prototype: WritableStream;
     new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
 };
 
@@ -63,9 +59,10 @@ export let WritableStream: {
  * but you can also provide a ponyfill or a polyfill if your target browser does not support it natively.
  */
 export let TransformStream: {
-    prototype: TransformStream,
+    prototype: TransformStream;
     new<I = any, O = any>(
         transformer: Transformer<I, O>,
         writableStrategy: QueuingStrategy<I>,
-        readableStrategy: QueuingStrategy<O>): TransformStream<I, O>,
+        readableStrategy: QueuingStrategy<O>,
+    ): TransformStream<I, O>;
 };

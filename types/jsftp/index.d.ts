@@ -1,24 +1,19 @@
-// Type definitions for jsftp 2.1
-// Project: https://github.com/sergi/jsftp
-// Definitions by: Konrad Księski <https://github.com/xyleen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Socket } from 'net';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Socket } from "net";
 
 export interface JsftpOpts {
-    host?: string;
-    port?: number;
-    user?: string;
-    pass?: string;
-    createSocket?: ({ port, host }: { port: number, host: string }, firstAction: () => {}) => Socket;
-    useList?: boolean;
+    host?: string | undefined;
+    port?: number | undefined;
+    user?: string | undefined;
+    pass?: string | undefined;
+    createSocket?: (({ port, host }: { port: number; host: string }, firstAction: () => {}) => Socket) | undefined;
+    useList?: boolean | undefined;
 }
 
 export type ErrorCallback = (err: Error) => void;
-export type RawCallback = (err: Error, data: { code: number, text: string }) => void;
+export type RawCallback = (err: Error, data: { code: number; text: string }) => void;
 export type ListCallback = (err: Error, dirContents: string) => void;
 export type GetCallback = (err: Error, socket: Socket) => void;
 export type LsCallback = (err: Error, res: [{ name: string }]) => void;
@@ -43,7 +38,7 @@ export default class Ftp extends EventEmitter {
     raw(command: string, arg1: any, arg2: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, callback: RawCallback): void;
     raw(command: string, arg1: any, arg2: any, arg3: any, arg4: any, callback: RawCallback): void;
-
+    auth(user: string, pass: string, callback: RawCallback): void;
     keepAlive(timeInMs?: number): void;
 
     destroy(): void;

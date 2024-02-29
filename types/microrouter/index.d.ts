@@ -1,22 +1,18 @@
-// Type definitions for microrouter 3.1
-// Project: https://github.com/pedronauck/micro-router#readme
-// Definitions by: Mathieu Dutour <https://github.com/mathieudutour>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+import { IncomingMessage, Server, ServerResponse as HttpServerResponse } from "http";
+import { RequestHandler } from "micro";
+import UrlPattern = require("url-pattern");
 
-import { IncomingMessage, ServerResponse as HttpServerResponse, Server } from 'http';
-import { RequestHandler } from 'micro';
 export type ServerResponse = HttpServerResponse;
 export type ServerRequest = IncomingMessage & {
-    params: { [key: string]: string },
-    query: { [key: string]: string }
+    params: { [key: string]: string };
+    query: { [key: string]: string };
 };
 export type AugmentedRequestHandler = (
     req: ServerRequest,
-    res: ServerResponse
+    res: ServerResponse,
 ) => any;
 
-export type RouteHandler = (path: string, handler: AugmentedRequestHandler) => RequestHandler;
+export type RouteHandler = (path: string | UrlPattern, handler: AugmentedRequestHandler) => RequestHandler;
 
 export function router(...routes: RequestHandler[]): RequestHandler;
 export function withNamespace(namespace: string): (...routes: RequestHandler[]) => RequestHandler;

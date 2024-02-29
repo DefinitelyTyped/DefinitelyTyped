@@ -8,16 +8,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "markdown-it-emoji-tests.ts"
+        "test/markdown-it-emoji-cjs.ts",
+        "test/markdown-it-emoji-global.ts"
     ]
 }

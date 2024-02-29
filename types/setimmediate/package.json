@@ -1,11 +1,17 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.1.0-0": {
-            "*": [
-                "ts3.1/*"
-            ]
+    "name": "@types/setimmediate",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/yuzujs/setImmediate#readme"
+    ],
+    "devDependencies": {
+        "@types/setimmediate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
         }
-    }
+    ]
 }

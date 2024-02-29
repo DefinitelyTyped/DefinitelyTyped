@@ -1,15 +1,11 @@
-// Type definitions for formdata 0.10
-// Project: https://github.com/node-file-api/FormData
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from 'events';
+/// <reference types="node" />
+import { EventEmitter } from "events";
 
 declare class FormData {
     nodeChunkedEncoding: boolean;
 
-    boundary?: string;
-    type?: string;
+    boundary?: string | undefined;
+    type?: string | undefined;
 
     append(key: keyof any, value: unknown): Error | undefined;
     getContentType(): string;

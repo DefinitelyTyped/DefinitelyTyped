@@ -1,5 +1,5 @@
-import Range = require('../classes/range');
-import semver = require('../');
+import Range = require("../classes/range");
+import semver = require("../index");
 
 /**
  * Return true if any of the ranges comparators intersect
@@ -7,7 +7,7 @@ import semver = require('../');
 declare function intersects(
     range1: string | Range,
     range2: string | Range,
-    optionsOrLoose?: boolean | semver.Options,
+    optionsOrLoose?: boolean | semver.RangeOptions,
 ): boolean;
 
 export = intersects;

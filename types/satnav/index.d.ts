@@ -1,21 +1,16 @@
-// Type definitions for satnav
-// Project: https://github.com/f5io/satnav-js
-// Definitions by: Christian Holm Diget <https://github.com/DotNetNerd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare type Callback = () => void;
 
 interface ISatnavOptions {
-    html5?: boolean,
-    force?: boolean,
-    poll?: number,
-    matchAll?: boolean
+    html5?: boolean | undefined;
+    force?: boolean | undefined;
+    poll?: number | undefined;
+    matchAll?: boolean | undefined;
 }
 
 interface INavigationOptions {
-    path?: string,
-    directions?: (params : any) => any,
-    title?: string | Callback
+    path?: string | undefined;
+    directions?: ((params: any) => any) | undefined;
+    title?: string | Callback | undefined;
 }
 
 interface ISatnav {

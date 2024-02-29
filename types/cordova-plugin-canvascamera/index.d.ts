@@ -1,8 +1,3 @@
-// Type definitions for non-npm package CanvasCameraPlugin 1.0
-// Project: https://github.com/VirtuoWorks/CanvasCameraPlugin
-// Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface CordovaPlugins {
     /**
      * cordova-plugin-device-name interface
@@ -19,102 +14,100 @@ declare class CanvasCamera {
     start(
         options: CanvasCameraOptions,
         onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
+        onSuccess?: (data: any) => void,
     ): void;
     stop(
         onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
+        onSuccess?: (data: any) => void,
     ): void;
     flashMode(
         flashMode: boolean,
         onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
+        onSuccess?: (data: any) => void,
     ): void;
     cameraPosition(
-        cameraFacing: 'front' | 'back',
+        cameraFacing: "front" | "back",
         onError?: (error?: any) => void,
-        onSuccess?: (data: any) => void
+        onSuccess?: (data: any) => void,
     ): void;
     capture(data: any): void;
     enableRenderers(): void;
     disableRenderers(): void;
     setRenderingPresets(): CanvasCamera;
-    getUISize(): { width: number, height: number };
-    getUIOrientation(): 'portrait' | 'landscape';
-    setRenderersSize(size: { width: number, height: number }): CanvasCamera;
+    getUISize(): { width: number; height: number };
+    getUIOrientation(): "portrait" | "landscape";
+    setRenderersSize(size: { width: number; height: number }): CanvasCamera;
 }
 
 interface CanvasCameraOptions {
     /**
      * Number, optional, default: 352, width in pixels of the video to capture and the output canvas width in pixels.
      */
-    width?: number;
+    width?: number | undefined;
 
     /**
      * Number, optional, default: 288, height in pixels of the video to capture and the output canvas height in pixels.
      */
-    height?: number;
+    height?: number | undefined;
 
     canvas?: {
         /**
          * Number, optional, default: 352, width in pixels of the video to capture.
          */
-        width?: number,
+        width?: number | undefined;
 
         /**
          * Number, optional, default: 288, height in pixels of the video to capture.
          */
-        height?: number
-    };
+        height?: number | undefined;
+    } | undefined;
 
     capture?: {
         /**
          * Number, optional, default: 352, output canvas width in pixels.
          */
-        width?: number,
+        width?: number | undefined;
 
         /**
          * Number, optional, default: 288, output canvas height in pixels.
          */
-        height?: number
-    };
+        height?: number | undefined;
+    } | undefined;
 
     /**
      * Number, optional, default: 30, desired number of frames per second.
      */
-    fps?: number;
+    fps?: number | undefined;
 
     /**
      * String, optional, default: 'front', 'front' or 'back'.
      */
-    use?: 'file' | 'data';
+    use?: "file" | "data" | undefined;
 
     /**
      * Boolean, optional, default: false, a boolean to set flash mode on/off.
      */
-    flashMode?: boolean;
+    flashMode?: boolean | undefined;
 
     /**
      * Number, optional, default: 1/6, a ratio used to scale down the thumbnail.
      */
-    thumbnailRatio?: number;
+    thumbnailRatio?: number | undefined;
 
     /**
      * String, optional, default: file, file to use files for rendering (lower CPU / higher storage) or data to use base64 jpg data for rendering (higher cpu / lower storage).
      */
-    cameraFacing?: 'front' | 'back';
+    cameraFacing?: "front" | "back" | undefined;
 
     /**
      * Function, optional, default : null, callback executed before a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    // tslint:disable-next-line:prefer-method-signature
-    onBeforeDraw?: (frame?: Frame) => void;
+    onBeforeDraw?: ((frame?: Frame) => void) | undefined;
 
     /**
      * Function, optional, default : null, callback executed after a frame has been drawn. frame contains the canvas element, the image element, the tracking data.
      */
-    // tslint:disable-next-line:prefer-method-signature
-    onAfterDraw?: (frame?: Frame) => void;
+    onAfterDraw?: ((frame?: Frame) => void) | undefined;
 }
 
 declare class Frame {
@@ -136,11 +129,11 @@ declare class Frame {
 }
 
 declare class Renderer {
-    size: { width: number, height: number };
-    type: 'file' | 'data';
+    size: { width: number; height: number };
+    type: "file" | "data";
     image: HTMLImageElement;
     context: CanvasRenderingContext2D;
-    orientation: 'portrait' | 'landscape';
+    orientation: "portrait" | "landscape";
     buffer: any[];
     available: boolean;
     fullscreen: boolean;
@@ -155,16 +148,16 @@ declare class Renderer {
     onOrientationChange(): void;
     clear(): Renderer;
     draw(frame: Frame): Renderer;
-    bufferize(data: any, type: 'file' | 'data'): Renderer;
+    bufferize(data: any, type: "file" | "data"): Renderer;
     run(): Renderer;
-    render(data: any, type: 'file' | 'data'): Renderer;
+    render(data: any, type: "file" | "data"): Renderer;
     enable(): Renderer;
     disable(): Renderer;
     enabled(): boolean;
     disabled(): boolean;
     invert(): Renderer;
     resize(): Renderer;
-    setSize(size: { width: number, height: number }, auto?: boolean): Renderer;
+    setSize(size: { width: number; height: number }, auto?: boolean): Renderer;
     setOnBeforeDraw(onBeforeDraw: (frame?: Frame) => void): Renderer;
     setOnAfterDraw(onAfterDraw: (frame?: Frame) => void): Renderer;
 }

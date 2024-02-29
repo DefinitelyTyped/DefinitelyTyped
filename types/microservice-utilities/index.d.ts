@@ -1,16 +1,10 @@
-// Type definitions for microservice-utilities 0.3
-// Project: https://github.com/Cimpress-MCP/microservice-utilities.js
-// Definitions by: Daan Boerlage <https://github.com/runebaas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Authorizer
  */
 
 export interface AuthorizerConfiguration {
     jwkKeyListUrl: string;
-    authorizerContextResolver?: string;
+    authorizerContextResolver?: string | undefined;
 }
 
 export interface AuthorizerPolicy {
@@ -33,7 +27,7 @@ export interface PlatformClientConfiguration {
 
 /* tslint:disable:no-unnecessary-generics */
 export interface PlatformClientResponse<T> {
-    data?: T;
+    data?: T | undefined;
     status: number;
     statusText: string;
     headers: any;
@@ -42,14 +36,18 @@ export interface PlatformClientResponse<T> {
 }
 
 export class PlatformClient {
-    constructor(logFunction: (msg: any) => void, tokenResolverFunction?: () => Promise<string>, configuration?: PlatformClientConfiguration)
-    get<T>(url: string, headers?: { [s: string]: string; }, type?: string): Promise<PlatformClientResponse<T>>;
-    post<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    put<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    patch<T>(url: string, data: object, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    delete <T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    head<T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
-    options<T>(url: string, headers?: { [s: string]: string; }): Promise<PlatformClientResponse<T>>;
+    constructor(
+        logFunction: (msg: any) => void,
+        tokenResolverFunction?: () => Promise<string>,
+        configuration?: PlatformClientConfiguration,
+    );
+    get<T>(url: string, headers?: { [s: string]: string }, type?: string): Promise<PlatformClientResponse<T>>;
+    post<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    put<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    patch<T>(url: string, data: object, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    delete<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    head<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
+    options<T>(url: string, headers?: { [s: string]: string }): Promise<PlatformClientResponse<T>>;
 }
 /* tslint:enable:no-unnecessary-generics */
 
@@ -58,9 +56,9 @@ export class PlatformClient {
  */
 
 export interface RequestLoggerConfiguration {
-    logFunction?: (msg: any) => void;
-    extendErrorObjects?: boolean;
-    jsonSpace?: number;
+    logFunction?: ((msg: any) => void) | undefined;
+    extendErrorObjects?: boolean | undefined;
+    jsonSpace?: number | undefined;
 }
 
 export class RequestLogger {

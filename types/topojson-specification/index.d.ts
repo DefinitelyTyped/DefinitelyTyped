@@ -1,9 +1,3 @@
-// Type definitions for non-npm package topojson-specification 1.0
-// Project: https://github.com/topojson/topojson-specification
-// Definitions by: denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last revision validated against: commit 90ed973 (2017-08-02)
 
 import * as GeoJSON from "geojson";
@@ -19,7 +13,7 @@ export as namespace TopoJSON;
 // 2. TopoJSON Objects
 export interface TopoJSON {
     type: "Topology" | GeoJSON.GeoJsonGeometryTypes | null;
-    bbox?: GeoJSON.BBox;
+    bbox?: GeoJSON.BBox | undefined;
 }
 
 // 2.1. Topology Objects
@@ -27,7 +21,7 @@ export interface Topology<T extends Objects<Properties> = Objects<Properties>> e
     type: "Topology";
     objects: T;
     arcs: Arc[];
-    transform?: Transform;
+    transform?: Transform | undefined;
 }
 
 // 2.1.1. Positions
@@ -55,16 +49,19 @@ export interface Objects<P extends Properties = {}> {
 // 2.2. Geometry Objects
 export interface GeometryObjectA<P extends Properties = {}> extends TopoJSON {
     type: GeoJSON.GeoJsonGeometryTypes | null;
-    id?: number | string;
-    properties?: P;
+    id?: number | string | undefined;
+    properties?: P | undefined;
 }
 
 export type GeometryObject<P extends Properties = {}> =
-    Point<P> | MultiPoint<P> |
-    LineString<P> | MultiLineString<P> |
-    Polygon<P> | MultiPolygon<P> |
-    GeometryCollection<P> |
-    NullObject;
+    | Point<P>
+    | MultiPoint<P>
+    | LineString<P>
+    | MultiLineString<P>
+    | Polygon<P>
+    | MultiPolygon<P>
+    | GeometryCollection<P>
+    | NullObject;
 
 // 2.2.1. Point
 export interface Point<P extends Properties = {}> extends GeometryObjectA<P> {

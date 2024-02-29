@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { ToastContainer, ToastMessageAnimated } from 'react-toastr';
+import * as React from "react";
+import { ToastContainer, ToastMessageAnimated } from "react-toastr";
 
 const toastMessageFactory = React.createFactory(ToastMessageAnimated);
 
 class Test extends React.Component {
-    ref: ToastContainer;
+    ref: ToastContainer | null = null;
 
-    toastRef = (ref: ToastContainer) => {
+    toastRef = (ref: ToastContainer | null) => {
         this.ref = ref;
-    }
+    };
 
     render() {
         return (

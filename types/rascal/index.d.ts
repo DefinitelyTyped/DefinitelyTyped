@@ -1,129 +1,140 @@
-// Type definitions for rascal 10.0
-// Project: https://guidesmiths.github.io/rascal/
-// Definitions by: ethan <https://github.com/zijin-m>
-//                 MartinTechy <https://github.com/MartinTechy>
-//                 Nikita Volodin <https://github.com/qlonik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Message, Options, Connection, Channel } from 'amqplib';
+import { Channel, Connection, Message, Options } from "amqplib";
+import { EventEmitter } from "events";
 
 export interface BindingConfig {
-    source?: string;
-    destination?: string;
-    destinationType?: 'queue' | 'exchange';
-    bindingKey?: string;
-    bindingKeys?: string[];
+    source?: string | undefined;
+    destination?: string | undefined;
+    destinationType?: "queue" | "exchange" | undefined;
+    bindingKey?: string | undefined;
+    bindingKeys?: string[] | undefined;
     options?: any;
 }
 
 export interface QueueConfig {
-    assert?: boolean;
-    check?: boolean;
-    options?: Options.AssertQueue;
+    name?: string | undefined;
+    assert?: boolean | undefined;
+    check?: boolean | undefined;
+    options?: Options.AssertQueue | undefined;
 }
 
 export interface ExchangeConfig {
-    assert?: boolean;
-    check?: boolean;
-    type?: 'direct' | 'fanout' | 'headers' | 'topic';
-    options?: Options.AssertExchange;
+    name?: string | undefined;
+    assert?: boolean | undefined;
+    check?: boolean | undefined;
+    type?: "direct" | "fanout" | "headers" | "topic" | undefined;
+    options?: Options.AssertExchange | undefined;
 }
 
 export interface ConnectionAttributes {
-    slashes?: boolean;
-    protocol?: string;
-    hostname?: string;
-    user?: string;
-    password?: string;
-    port?: string | number;
-    vhost?: string;
-    auth?: string;
-    pathname?: string;
-    query?: string;
-    url?: string;
-    loggableUrl?: string;
-    options?: {
-        heartbeat?: number;
-        timeout?: number;
-        channelMax?: number;
-        connection_timeout?: number;
-        [key: string]: any;
-    };
-    socketOptions?: {
-        timeout?: number;
-    };
+    slashes?: boolean | undefined;
+    protocol?: string | undefined;
+    hostname?: string | undefined;
+    user?: string | undefined;
+    password?: string | undefined;
+    port?: string | number | undefined;
+    vhost?: string | undefined;
+    auth?: string | undefined;
+    pathname?: string | undefined;
+    query?: string | undefined;
+    url?: string | undefined;
+    loggableUrl?: string | undefined;
+    options?:
+        | {
+            heartbeat?: number | undefined;
+            timeout?: number | undefined;
+            channelMax?: number | undefined;
+            connection_timeout?: number | undefined;
+            [key: string]: any;
+        }
+        | undefined;
+    socketOptions?:
+        | {
+            timeout?: number | undefined;
+            clientProperties?: {
+                connection_name?: string | undefined;
+                [key: string]: string | undefined;
+            };
+        }
+        | undefined;
 }
 
 export interface RetryConfig {
-    factor?: number;
-    max?: number;
-    min?: number;
-    strategy?: 'exponential' | 'linear';
-    delay?: number;
+    factor?: number | undefined;
+    max?: number | undefined;
+    min?: number | undefined;
+    strategy?: "exponential" | "linear" | undefined;
+    delay?: number | undefined;
 }
 
 export interface ConnectionConfig extends ConnectionAttributes {
-    retry?: RetryConfig;
-    management?: ConnectionAttributes;
+    retry?: RetryConfig | undefined;
+    management?: ConnectionAttributes | undefined;
 }
 
 export interface ChannelPoolConfig {
-    autostart?: boolean;
-    evictionRunIntervalMillis?: number;
-    idleTimeoutMillis?: number;
-    max?: number;
-    min?: number;
-    testOnBorrow?: boolean;
+    autostart?: boolean | undefined;
+    evictionRunIntervalMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined;
+    max?: number | undefined;
+    min?: number | undefined;
+    testOnBorrow?: boolean | undefined;
 }
 
 export interface VhostConfig {
-    check?: boolean;
-    assert?: boolean;
-    namespace?: string | boolean;
-    publicationChannelPools?: {
-        regularPool?: ChannelPoolConfig;
-        confirmPool?: ChannelPoolConfig;
-    };
-    connection?: ConnectionConfig;
-    connections?: ConnectionConfig[];
-    connectionStrategy?: 'random' | 'fixed';
+    check?: boolean | undefined;
+    assert?: boolean | undefined;
+    namespace?: string | boolean | undefined;
+    publicationChannelPools?:
+        | {
+            regularPool?: ChannelPoolConfig | undefined;
+            confirmPool?: ChannelPoolConfig | undefined;
+        }
+        | undefined;
+    connection?: ConnectionConfig | undefined;
+    connections?: ConnectionConfig[] | undefined;
+    connectionStrategy?: "random" | "fixed" | undefined;
     exchanges?:
         | {
-              [key: string]: ExchangeConfig;
-          }
-        | string[];
+            [key: string]: ExchangeConfig;
+        }
+        | Array<string | ExchangeConfig>
+        | undefined;
     queues?:
         | {
-              [key: string]: QueueConfig;
-          }
-        | string[];
+            [key: string]: QueueConfig;
+        }
+        | Array<string | QueueConfig>
+        | undefined;
     bindings?:
         | {
-              [key: string]: BindingConfig;
-          }
-        | string[];
-    publications?: {
-        [key: string]: PublicationConfig;
-    };
-    subscriptions?: {
-        [key: string]: SubscriptionConfig;
-    };
+            [key: string]: BindingConfig;
+        }
+        | Array<string | BindingConfig>
+        | undefined;
+    publications?:
+        | {
+            [key: string]: PublicationConfig;
+        }
+        | undefined;
+    subscriptions?:
+        | {
+            [key: string]: SubscriptionConfig;
+        }
+        | undefined;
 }
 
 export interface PublicationConfig {
-    vhost?: string;
-    exchange?: string;
-    queue?: string;
-    routingKey?: string;
-    confirm?: boolean;
-    options?: Options.Publish;
-    autoCreated?: boolean;
-    deprecated?: boolean;
-    encryption?: string;
+    vhost?: string | undefined;
+    exchange?: string | undefined;
+    queue?: string | undefined;
+    routingKey?: string | undefined;
+    confirm?: boolean | undefined;
+    options?: Options.Publish | undefined;
+    autoCreated?: boolean | undefined;
+    deprecated?: boolean | undefined;
+    encryption?: string | undefined;
 }
 
 export interface Encryption {
@@ -133,63 +144,77 @@ export interface Encryption {
 }
 
 export interface Redelivery {
-    counters?: {
-        [key: string]: {
-            type: 'stub' | 'inMemory' | 'inMemoryCluster';
-            size?: number;
-        };
-    };
+    counters?:
+        | {
+            [key: string]: {
+                type: "stub" | "inMemory" | "inMemoryCluster";
+                size?: number | undefined;
+            };
+        }
+        | undefined;
 }
 
 export interface Recovery {
-    strategy: 'ack' | 'nack' | 'republish' | 'forward';
-    defer?: number;
-    attempts?: number;
-    requeue?: boolean;
-    publication?: string;
-    options?: PublicationConfig;
-    xDeathFix?: boolean;
-    immediateNack?: boolean;
+    strategy: "ack" | "nack" | "republish" | "forward";
+    defer?: number | undefined;
+    attempts?: number | undefined;
+    requeue?: boolean | undefined;
+    publication?: string | undefined;
+    options?: PublicationConfig | undefined;
+    xDeathFix?: boolean | undefined;
+    immediateNack?: boolean | undefined;
 }
 
 export interface SubscriptionConfig {
-    vhost?: string;
-    queue?: string;
-    contentType?: string;
-    options?: Options.Consume;
-    prefetch?: number;
-    retry?: RetryConfig | boolean;
-    handler?: string;
-    handlers?: string[];
+    vhost?: string | undefined;
+    queue?: string | undefined;
+    contentType?: string | undefined;
+    options?: Options.Consume | undefined;
+    prefetch?: number | undefined;
+    retry?: RetryConfig | boolean | undefined;
+    handler?: string | undefined;
+    handlers?: string[] | undefined;
     recovery?: any;
-    deferCloseChannel?: number;
-    encryption?: string;
-    autoCreated?: boolean;
-    redeliveries?: {
-        counter: string;
-        limit: number;
-        timeout?: number;
-    };
+    deferCloseChannel?: number | undefined;
+    encryption?: string | undefined;
+    autoCreated?: boolean | undefined;
+    redeliveries?:
+        | {
+            counter: string;
+            limit: number;
+            timeout?: number | undefined;
+        }
+        | undefined;
 }
 
 interface BrokerConfig {
-    vhosts?: {
-        [key: string]: VhostConfig;
-    };
-    publications?: {
-        [key: string]: PublicationConfig;
-    };
-    subscriptions?: {
-        [key: string]: SubscriptionConfig;
-    };
-    redeliveries?: Redelivery;
-    recovery?: {
-        [key: string]: Recovery | Recovery[];
-    };
-    defaults?: VhostConfig;
-    encryption?: {
-        [key: string]: Encryption;
-    };
+    vhosts?:
+        | {
+            [key: string]: VhostConfig;
+        }
+        | undefined;
+    publications?:
+        | {
+            [key: string]: PublicationConfig;
+        }
+        | undefined;
+    subscriptions?:
+        | {
+            [key: string]: SubscriptionConfig;
+        }
+        | undefined;
+    redeliveries?: Redelivery | undefined;
+    recovery?:
+        | {
+            [key: string]: Recovery | Recovery[];
+        }
+        | undefined;
+    defaults?: VhostConfig | undefined;
+    encryption?:
+        | {
+            [key: string]: Encryption;
+        }
+        | undefined;
 }
 
 declare const defaultConfig: {
@@ -412,10 +437,10 @@ export class SubscriberSessionAsPromised extends EventEmitter {
     name: string;
     cancel(): Promise<void>;
 
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
+    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
     on(
-        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
+        event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
         listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
     ): this;
 }
@@ -441,10 +466,10 @@ export class SubscriptionSession extends EventEmitter {
     isCancelled(): boolean;
     cancel(next: ErrorCb): void;
 
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
+    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
     on(
-        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
+        event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
         listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
     ): this;
 }
@@ -490,9 +515,9 @@ export class PublicationSession extends EventEmitter {
     isAborted(): boolean;
     emitPaused(): void;
 
-    on(event: 'error', cb: (err: Error, messageId: string) => void): this;
-    on(event: 'success', cb: (messageId: string) => void): this;
-    on(event: 'return', cb: (message: Message) => void): this;
+    on(event: "error", cb: (err: Error, messageId: string) => void): this;
+    on(event: "success", cb: (messageId: string) => void): this;
+    on(event: "return", cb: (message: Message) => void): this;
 }
 
 export class Vhost extends EventEmitter {
@@ -534,15 +559,15 @@ declare namespace counters {
 }
 
 export {
+    AckOrNack,
     Broker,
     BrokerAsPromised,
+    BrokerConfig,
+    counters,
     createBroker,
     createBrokerAsPromised,
     defaultConfig,
     testConfig,
     withDefaultConfig,
     withTestConfig,
-    counters,
-    BrokerConfig,
-    AckOrNack,
 };

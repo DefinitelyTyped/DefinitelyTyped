@@ -1,20 +1,16 @@
-// Type definitions for element-resize-detector 1.1
-// Project: https://github.com/wnr/element-resize-detector
-// Definitions by: Saransh Kataria <https://github.com/saranshkataria>
-//                 Frank Li <https://github.com/franklixuefei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions): elementResizeDetectorMaker.Erd;
+declare function elementResizeDetectorMaker(
+    options?: elementResizeDetectorMaker.ErdmOptions,
+): elementResizeDetectorMaker.Erd;
 
 declare namespace elementResizeDetectorMaker {
     interface ErdmOptions {
-        strategy?: 'scroll' | 'object';
+        strategy?: "scroll" | "object" | undefined;
         /**
          * A custom reporter that handles reporting logs, warnings and errors.
          * If not provided, a default id handler will be used.
          * If set to false, then nothing will be reported.
          */
-        reporter?: ReporterProps;
+        reporter?: ReporterProps | undefined;
 
         /**
          * Determines if listeners should be called when they are getting added.
@@ -24,20 +20,20 @@ declare namespace elementResizeDetectorMaker {
          *
          * @default true
          */
-        callOnAdd?: boolean;
+        callOnAdd?: boolean | undefined;
 
         /**
          * A custom id handler that is responsible for generating,
          * setting and retrieving id's for elements.
          * If not provided, a default id handler will be used.
          */
-        idHandler?: IdHandlerProps;
+        idHandler?: IdHandlerProps | undefined;
 
         /**
          * If set to true, the the system will report debug messages as default
          * for the listenTo method.
          */
-        debug?: boolean;
+        debug?: boolean | undefined;
     }
 
     interface IdHandlerProps {

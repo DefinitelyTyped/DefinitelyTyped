@@ -21,7 +21,7 @@ declare namespace sn_ws {
             keystoreId: string,
             keystoreAlias: string,
             keystorePassword: string,
-            certificateId: string
+            certificateId: string,
         ): void;
         getRequestBody(): string;
         getEndpoint(): string;

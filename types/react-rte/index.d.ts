@@ -1,25 +1,18 @@
-// Type definitions for react-rte 0.16
-// Project: https://github.com/sstur/react-rte
-// Definitions by: jclyons52 <https://github.com/jclyons52>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import { Component, ReactNode } from "react";
 import { ContentBlock, EditorState } from "draft-js";
+import { Component, ReactNode } from "react";
 import draftjs = require("draft-js");
 
 type CustomBlockFn = (
-    element: Element
+    element: Element,
 ) => undefined | null | CustomBlockObject;
 type CustomInlineFn = (
     element: Element,
-    inlineCreators: InlineCreators
+    inlineCreators: InlineCreators,
 ) => undefined | null | Style | draftjs.EntityInstance;
 
 interface CustomBlockObject {
-    type?: string;
-    data?: object;
+    type?: string | undefined;
+    data?: object | undefined;
 }
 
 interface InlineCreators {
@@ -33,36 +26,36 @@ interface Style {
 }
 
 interface ImportOptions {
-    parser?: (html: string) => HTMLBodyElement;
-    elementStyles?: { [styleName: string]: string };
-    customBlockFn?: CustomBlockFn;
-    customInlineFn?: CustomInlineFn;
+    parser?: ((html: string) => HTMLBodyElement) | undefined;
+    elementStyles?: { [styleName: string]: string } | undefined;
+    customBlockFn?: CustomBlockFn | undefined;
+    customInlineFn?: CustomInlineFn | undefined;
 }
 
 declare function stateFromHTML(
     html: string,
-    options?: ImportOptions
+    options?: ImportOptions,
 ): draftjs.ContentState;
 
 type BlockStyleFn = (block: draftjs.ContentBlock) => RenderConfig;
 type EntityStyleFn = (entity: draftjs.EntityInstance) => RenderConfig;
 type BlockRenderer = (block: draftjs.ContentBlock) => string;
 interface RenderConfig {
-    element?: string;
+    element?: string | undefined;
     attributes?: any;
     style?: any;
 }
 
 interface ExportOptions {
-    inlineStyles?: { [styleName: string]: RenderConfig };
-    blockRenderers?: { [blockType: string]: BlockRenderer };
-    blockStyleFn?: BlockStyleFn;
-    entityStyleFn?: EntityStyleFn;
+    inlineStyles?: { [styleName: string]: RenderConfig } | undefined;
+    blockRenderers?: { [blockType: string]: BlockRenderer } | undefined;
+    blockStyleFn?: BlockStyleFn | undefined;
+    entityStyleFn?: EntityStyleFn | undefined;
 }
 
 declare function stateToHTML(
     content: draftjs.ContentState,
-    options?: ExportOptions
+    options?: ExportOptions,
 ): string;
 
 interface StringMap {
@@ -77,7 +70,7 @@ export class EditorValue {
     setContentFromString(
         markup: string,
         format: string,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
     static createEmpty(decorator?: any): EditorValue;
     static createFromState(editorState: EditorState): EditorValue;
@@ -85,17 +78,17 @@ export class EditorValue {
         markup: string,
         format: string,
         decorator?: any,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
 }
 
-interface StyleConfig {
+export interface StyleConfig {
     label: string;
     style: string;
-    className?: string;
+    className?: string | undefined;
 }
 
-type StyleConfigList = StyleConfig[];
+export type StyleConfigList = StyleConfig[];
 
 type ChangeHandler = (value: EditorValue) => any;
 
@@ -106,7 +99,7 @@ type SetControlState = (key: string, value: string) => void;
 type CustControlFunc = (
     set: SetControlState,
     get: GetControlState,
-    state: EditorState
+    state: EditorState,
 ) => ReactNode;
 
 type CustomControl = ReactNode | CustControlFunc;
@@ -114,38 +107,41 @@ type CustomControl = ReactNode | CustControlFunc;
 type GroupName =
     | "INLINE_STYLE_BUTTONS"
     | "BLOCK_TYPE_BUTTONS"
+    | "BLOCK_ALIGNMENT_BUTTONS"
     | "LINK_BUTTONS"
     | "BLOCK_TYPE_DROPDOWN"
     | "HISTORY_BUTTONS"
     | "IMAGE_BUTTON";
 
-interface ToolbarConfig {
+export interface ToolbarConfig {
     display: GroupName[];
-    extraProps?: object;
+    extraProps?: object | undefined;
     INLINE_STYLE_BUTTONS: StyleConfigList;
+    BLOCK_ALIGNMENT_BUTTONS: StyleConfigList;
     BLOCK_TYPE_DROPDOWN: StyleConfigList;
     BLOCK_TYPE_BUTTONS: StyleConfigList;
 }
 
 interface Props {
-    className?: string;
-    toolbarClassName?: string;
-    editorClassName?: string;
+    className?: string | undefined;
+    toolbarClassName?: string | undefined;
+    editorClassName?: string | undefined;
     value: EditorValue;
-    onChange?: ChangeHandler;
-    placeholder?: string;
-    customStyleMap?: { [style: string]: { [key: string]: any } };
-    handleReturn?: (event: object) => boolean;
-    customControls?: CustomControl[];
-    readOnly?: boolean;
-    disabled?: boolean; // Alias of readOnly
-    toolbarConfig?: ToolbarConfig;
-    blockStyleFn?: (block: ContentBlock) => string | undefined;
-    autoFocus?: boolean;
-    keyBindingFn?: (event: object) => string | undefined;
-    rootStyle?: object;
-    editorStyle?: object;
-    toolbarStyle?: object;
+    onChange?: ChangeHandler | undefined;
+    placeholder?: string | undefined;
+    customStyleMap?: { [style: string]: { [key: string]: any } } | undefined;
+    handleReturn?: ((event: object) => boolean) | undefined;
+    customControls?: CustomControl[] | undefined;
+    readOnly?: boolean | undefined;
+    disabled?: boolean | undefined; // Alias of readOnly
+    toolbarConfig?: ToolbarConfig | undefined;
+    blockStyleFn?: ((block: ContentBlock) => string | undefined) | undefined;
+    autoFocus?: boolean | undefined;
+    keyBindingFn?: ((event: object) => string | undefined) | undefined;
+    rootStyle?: object | undefined;
+    editorStyle?: object | undefined;
+    toolbarStyle?: object | undefined;
+    onBlur?: (event: object) => void;
 }
 
 declare class RichTextEditor extends Component<Props, any> {
@@ -153,7 +149,7 @@ declare class RichTextEditor extends Component<Props, any> {
     static createValueFromString(
         markup: string,
         format: string,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
 }
 

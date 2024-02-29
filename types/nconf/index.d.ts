@@ -1,14 +1,6 @@
-// Type definitions for nconf 0.10
-// Project: https://github.com/flatiron/nconf
-// Definitions by: Jeff Goddard <https://github.com/jedigo>, 
-//                 Jean-Martin Thibault <https://github.com/jmthibault>
-//                 Dave Houston <https://github.com/ew73>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
 
-
-export declare var version: number;
+export declare var version: string;
 export declare var stores: any;
 export declare var sources: any[];
 
@@ -36,7 +28,7 @@ export declare function defaults(options?: IOptions): Provider;
 export declare function init(options?: IOptions): void;
 export declare function overrides(options?: IOptions): Provider;
 export declare function remove(name: string): void;
-export declare function required(keys: string[]): Provider; 
+export declare function required(keys: string[]): Provider;
 export declare function create(name: string, options: IOptions): IStore;
 
 export declare function key(...values: any[]): string;
@@ -61,17 +53,17 @@ export interface IOptions {
 
 export interface ISecureFileOptions {
     secret: string;
-    alg?: string;
+    alg?: string | undefined;
 }
 
 export interface IFileOptions {
-    type?: string;
-    file?: string;
-    dir?: string;
-    search?: boolean;
-    format?: IFormat;
-    json_spacing?: number;
-    secure?: ISecureFileOptions;
+    type?: string | undefined;
+    file?: string | undefined;
+    dir?: string | undefined;
+    search?: boolean | undefined;
+    format?: IFormat | undefined;
+    json_spacing?: number | undefined;
+    secure?: ISecureFileOptions | undefined;
 }
 
 export interface ICallbackFunction {

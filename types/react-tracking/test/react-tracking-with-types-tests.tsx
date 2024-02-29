@@ -1,21 +1,20 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    Decorator,
+    Options,
+    ReactTrackingContext,
     Track,
     track as _track,
-    TrackingProp,
-    Options,
-    Decorator,
     TrackingContext,
-    ReactTrackingContext,
+    TrackingProp,
     useTracking,
-} from 'react-tracking';
-import { string } from 'prop-types';
+} from "react-tracking";
 
-function customEventReporter(data: { page?: string }) { }
+function customEventReporter(data: { page?: string | undefined }) {}
 
 interface Props {
     someProp: string;
-    tracking?: TrackingProp;
+    tracking?: TrackingProp | undefined;
 }
 
 interface State {
@@ -30,18 +29,18 @@ interface TrackingData {
 const track: Track<TrackingData, Props, State> = _track;
 
 @track(
-    { page: 'ClassPage' },
+    { page: "ClassPage" },
     {
         dispatch: customEventReporter,
-        dispatchOnMount: contextData => ({ event: 'pageDataReady' }),
-        process: ownTrackingData => (ownTrackingData.page ? { event: 'pageview' } : null),
-    }
+        dispatchOnMount: contextData => ({ event: "pageDataReady" }),
+        process: ownTrackingData => (ownTrackingData.page ? { event: "pageview" } : null),
+    },
 )
 class ClassPage extends React.Component<Props, State> {
-    @track({ event: 'Clicked' })
+    @track({ event: "Clicked" })
     @track((_props, _state, [e]: [React.MouseEvent]) => {
         if (e.ctrlKey) {
-            return { event: 'Click + ctrl key' };
+            return { event: "Click + ctrl key" };
         }
     })
     handleClick() {
@@ -64,21 +63,21 @@ class ClassPage extends React.Component<Props, State> {
 
     @track((_props, _state, _args, [resp, err]) => {
         if (err || !resp) {
-            return { event: 'Async Error' };
+            return { event: "Async Error" };
         }
-        return { event: 'Async Response' };
+        return { event: "Async Response" };
     })
     async handleAsync() {
         // ... other stuff
-        return 'response';
+        return "response";
     }
 }
 
-const FunctionPage: React.SFC<Props> = props => {
+const FunctionPage: React.FC<Props> = props => {
     return (
         <div
             onClick={() => {
-                props.tracking && props.tracking.trackEvent({ action: 'click' });
+                props.tracking && props.tracking.trackEvent({ action: "click" });
             }}
         />
     );
@@ -86,11 +85,11 @@ const FunctionPage: React.SFC<Props> = props => {
 
 const WrappedFunctionPage = track(
     {
-        page: 'FunctionPage',
+        page: "FunctionPage",
     },
     {
         dispatchOnMount: true,
-    }
+    },
 )(FunctionPage);
 
 class Test extends React.Component<any, null> {
@@ -107,7 +106,7 @@ class Test extends React.Component<any, null> {
 const TestContext = () => {
     const trackingContext = {
         tracking: {
-            data: { foo: 'bar' },
+            data: { foo: "bar" },
             dispatch: (data: {}) => data,
             process: (x: string) => x,
         },
@@ -121,24 +120,74 @@ const TestContext = () => {
 
 interface Trackables {
     page: string;
+    action: string;
     app: string;
 }
 
-const App = track()((props: { foo: string }) => {
-    const tracking = useTracking<Trackables>();
+const TestHook = track()((props: { foo: string }) => {
+    const { Track, trackEvent } = useTracking<Trackables>({ page: "Page" }, { dispatchOnMount: false });
 
     React.useEffect(() =>
-        tracking.trackEvent({
-            page: 'Home - useEffect callback'
+        trackEvent({
+            action: "useEffect callback",
         })
     );
     return (
-        <div
-            onClick={() => {
-                tracking.trackEvent({
-                    page: 'Home',
-                });
-            }}
-        />
+        <Track>
+            <div
+                onClick={() => {
+                    trackEvent({
+                        action: "Click",
+                    });
+                }}
+            />
+        </Track>
+    );
+});
+
+const TestHookWithDataFunction = track()((props: { foo: string }) => {
+    const { Track, trackEvent } = useTracking<Trackables>(() => ({ page: "Page" }), {
+        dispatchOnMount: false,
+        dispatch: ({ page }) => {},
+    });
+
+    React.useEffect(() =>
+        trackEvent({
+            action: "useEffect callback",
+        })
+    );
+    return (
+        <Track>
+            <div
+                onClick={() => {
+                    trackEvent({
+                        action: "Click",
+                    });
+                }}
+            />
+        </Track>
+    );
+});
+
+const TestEmptyHook = track()((props: { foo: string }) => {
+    const { Track, trackEvent } = useTracking<Trackables>();
+
+    React.useEffect(() =>
+        trackEvent({
+            page: "Home",
+            action: "useEffect callback",
+        })
+    );
+    return (
+        <Track>
+            <div
+                onClick={() => {
+                    trackEvent({
+                        page: "Home",
+                        action: "Click",
+                    });
+                }}
+            />
+        </Track>
     );
 });

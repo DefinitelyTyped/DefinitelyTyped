@@ -1,13 +1,8 @@
-// Type definitions for lockfile 0.4
-// Project: https://github.com/isaacs/lockfile
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
-    wait?: number;
-    stale?: number;
-    retries?: number;
-    retryWait?: number;
+    wait?: number | undefined;
+    stale?: number | undefined;
+    retries?: number | undefined;
+    retryWait?: number | undefined;
 }
 
 export function lock(path: string, opts: Options, callback: (err: Error) => void): void;

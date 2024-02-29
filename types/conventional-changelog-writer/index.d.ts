@@ -1,9 +1,3 @@
-// Type definitions for conventional-changelog-writer 4.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -17,8 +11,11 @@ import { Commit } from "conventional-commits-parser";
  *                object contains, but not limits to the following fields.
  * @param options
  */
-// tslint:disable-next-line no-unnecessary-generics
-declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(context?: Partial<TContext>, options?: Options<TCommit, TContext>): Stream.Transform;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(
+    context?: Partial<TContext>,
+    options?: Options<TCommit, TContext>,
+): Stream.Transform;
 
 declare namespace conventionalChangelogWriter {
     interface CommitGroup<T extends Commit = Commit> {
@@ -31,9 +28,9 @@ declare namespace conventionalChangelogWriter {
          * Version number of the up-coming release. If `version` is found in the last
          * commit before generating logs, it will be overwritten.
          */
-        version?: string;
+        version?: string | undefined;
 
-        title?: string;
+        title?: string | undefined;
 
         /**
          * By default, this value is true if `version`'s patch is `0`.
@@ -41,37 +38,37 @@ declare namespace conventionalChangelogWriter {
          * @default
          * semver.patch(context.version) !== 0
          */
-        isPatch?: boolean;
+        isPatch?: boolean | undefined;
 
         /**
          * The hosting website. Eg: `'https://github.com'` or `'https://bitbucket.org'`.
          */
-        host?: string;
+        host?: string | undefined;
 
         /**
          * The owner of the repository. Eg: `'stevemao'`.
          */
-        owner?: string;
+        owner?: string | undefined;
 
         /**
          * The repository name on `host`. Eg: `'conventional-changelog-writer'`.
          */
-        repository?: string;
+        repository?: string | undefined;
 
         /**
          * The whole repository url. Eg: `'https://github.com/conventional-changelog/conventional-changelog-writer'`.
          * The should be used as a fallback when `context.repository` doesn't exist.
          */
-        repoUrl?: string;
+        repoUrl?: string | undefined;
 
         /**
          * Should all references be linked?
          *
-         * @defaults
+         * @default
          * `true` if (`context.repository` or `context.repoUrl`), `context.commit` and
          * `context.issue` are truthy.
          */
-        linkReferences?: boolean;
+        linkReferences?: boolean | undefined;
 
         /**
          * Commit keyword in the url if `context.linkReferences === true`.
@@ -100,7 +97,10 @@ declare namespace conventionalChangelogWriter {
         date: string;
     }
 
-    type GeneratedContext<TCommit extends Commit = Commit, TContext extends Context = Context> = TContext & TransformedCommit<TCommit> & GeneratedContext.ExtraContext<TCommit>;
+    type GeneratedContext<TCommit extends Commit = Commit, TContext extends Context = Context> =
+        & TContext
+        & TransformedCommit<TCommit>
+        & GeneratedContext.ExtraContext<TCommit>;
 
     namespace GeneratedContext {
         interface ExtraContext<T extends Commit = Commit> {
@@ -139,7 +139,7 @@ declare namespace conventionalChangelogWriter {
          *
          * A `raw` object that is originally poured form upstream is attached to `commit`.
          */
-        transform?: Options.Transform<TCommit, TContext>;
+        transform?: Options.Transform<TCommit, TContext> | undefined;
 
         /**
          * How to group the commits. EG: based on the same type. If this value is falsy,
@@ -148,7 +148,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'type'
          */
-        groupBy?: string | false;
+        groupBy?: string | false | undefined;
 
         /**
          * A compare function used to sort commit groups. If it's a string or array, it
@@ -157,7 +157,7 @@ declare namespace conventionalChangelogWriter {
          *
          * The string can be a dot path to a nested object property.
          */
-        commitGroupsSort?: Options.Sort<CommitGroup<TCommit>>;
+        commitGroupsSort?: Options.Sort<CommitGroup<TCommit>> | undefined;
 
         /**
          * A compare function used to sort commits. If it's a string or array, it sorts
@@ -169,7 +169,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'header'
          */
-        commitsSort?: Options.Sort<TransformedCommit<TCommit>>;
+        commitsSort?: Options.Sort<TransformedCommit<TCommit>> | undefined;
 
         /**
          * A compare function used to sort note groups. If it's a string or array, it
@@ -181,7 +181,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'title'
          */
-        noteGroupsSort?: Options.Sort<NoteGroup>;
+        noteGroupsSort?: Options.Sort<NoteGroup> | undefined;
 
         /**
          * A compare function used to sort note groups. If it's a string or array, it
@@ -193,7 +193,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'text'
          */
-        notesSort?: Options.Sort<Commit.Note>;
+        notesSort?: Options.Sort<Commit.Note> | undefined;
 
         /**
          * When the upstream finishes pouring the commits it will generate a block of
@@ -211,18 +211,18 @@ declare namespace conventionalChangelogWriter {
          * If this value is a `string`, it checks the existence of the field. Set to
          * other type to disable it.
          *
-         * @defaults
+         * @default
          * If `commit.version` is a valid semver.
          */
-        generateOn?: Options.GenerateOn<TContext, TCommit>;
+        generateOn?: Options.GenerateOn<TContext, TCommit> | undefined;
 
         /**
          * Last chance to modify your context before generating a changelog.
          *
-         * @defaults
+         * @default
          * Pass through.
          */
-        finalizeContext?: Options.FinalizeContext<TContext, TCommit>;
+        finalizeContext?: Options.FinalizeContext<TContext, TCommit> | undefined;
 
         /**
          * A function to get debug information.
@@ -230,7 +230,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * function () {}
          */
-        debug?: (message?: any) => void;
+        debug?: ((message?: any) => void) | undefined;
 
         /**
          * The normal order means reverse chronological order. `reverse` order means
@@ -242,7 +242,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * false
          */
-        reverse?: boolean;
+        reverse?: boolean | undefined;
 
         /**
          * If this value is `true`, instead of emitting strings of changelog, it emits
@@ -254,7 +254,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * false
          */
-        includeDetails?: boolean;
+        includeDetails?: boolean | undefined;
 
         /**
          * If `true`, reverted commits will be ignored.
@@ -262,7 +262,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * true
          */
-        ignoreReverted?: boolean;
+        ignoreReverted?: boolean | undefined;
 
         /**
          * If `true`, the stream will flush out the last bit of commits (could be empty)
@@ -271,40 +271,40 @@ declare namespace conventionalChangelogWriter {
          * @default
          * true
          */
-        doFlush?: boolean;
+        doFlush?: boolean | undefined;
 
         /**
          * The main handlebars template.
          *
-         * @defaults
+         * @default
          * [template.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/template.hbs)
          */
-        mainTemplate?: string;
+        mainTemplate?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [header.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/header.hbs)
          */
-        headerPartial?: string;
+        headerPartial?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [commit.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/commit.hbs)
          */
-        commitPartial?: string;
+        commitPartial?: string | undefined;
 
         /**
-         * @defaults
+         * @default
          * [footer.hbs](https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-writer/templates/footer.hbs)
          */
-        footerPartial?: string;
+        footerPartial?: string | undefined;
 
         /**
          * Partials that used in the main template, if any. The key should be the
          * partial name and the value should be handlebars template strings. If you are
          * using handlebars template files, read files by yourself.
          */
-        partials?: Record<string, string>;
+        partials?: Record<string, string> | undefined;
     }
 
     namespace Options {
@@ -316,11 +316,18 @@ declare namespace conventionalChangelogWriter {
              * @param commits   Filtered commits from your git metadata.
              * @param keyCommit The commit that triggers to generate the log.
              */
-            // tslint:disable-next-line max-line-length
-            (context: GeneratedContext<TCommit, TContext>, options: Options<TCommit, TContext>, commits: Array<TransformedCommit<TCommit>>, keyCommit: TransformedCommit<TCommit>): GeneratedContext<TCommit, TContext>;
+            (
+                context: GeneratedContext<TCommit, TContext>,
+                options: Options<TCommit, TContext>,
+                commits: Array<TransformedCommit<TCommit>>,
+                keyCommit: TransformedCommit<TCommit>,
+            ): GeneratedContext<TCommit, TContext>;
         }
 
-        type GenerateOn<TContext extends Context = Context, TCommit extends Commit = Commit> = GenerateOn.Function<TContext, TCommit> | string | object;
+        type GenerateOn<TContext extends Context = Context, TCommit extends Commit = Commit> =
+            | GenerateOn.Function<TContext, TCommit>
+            | string
+            | object;
 
         namespace GenerateOn {
             interface FunctionType<TContext extends Context = Context, TCommit extends Commit = Commit> {
@@ -331,25 +338,28 @@ declare namespace conventionalChangelogWriter {
                  *                `options`.
                  * @param options Normalized options.
                  */
-                (commit: TransformedCommit<TCommit>, commits: Array<TransformedCommit<TCommit>>, context: GeneratedContext<TCommit, TContext>, options: Options<TCommit, TContext>): boolean;
+                (
+                    commit: TransformedCommit<TCommit>,
+                    commits: Array<TransformedCommit<TCommit>>,
+                    context: GeneratedContext<TCommit, TContext>,
+                    options: Options<TCommit, TContext>,
+                ): boolean;
             }
 
-            export {
-                FunctionType as Function,
-            };
+            export { FunctionType as Function };
         }
 
-        type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
+        type Sort<T = any> = Sort.Function<T> | string | readonly string[] | false;
 
         namespace Sort {
             type FunctionType<T = any> = (a: T, b: T) => number;
 
-            export {
-                FunctionType as Function,
-            };
+            export { FunctionType as Function };
         }
 
-        type Transform<TCommit extends Commit = Commit, TContext extends Context = Context> = Transform.Object | Transform.Function<TCommit, TContext>;
+        type Transform<TCommit extends Commit = Commit, TContext extends Context = Context> =
+            | Transform.Object
+            | Transform.Function<TCommit, TContext>;
 
         namespace Transform {
             interface FunctionType<TCommit extends Commit = Commit, TContext extends Context = Context> {
@@ -361,24 +371,22 @@ declare namespace conventionalChangelogWriter {
             namespace ObjectType {
                 type FunctionType<T = any> = (value: T, path: string) => T;
 
-                export {
-                    FunctionType as Function,
-                };
+                export { FunctionType as Function };
             }
 
-            export {
-                FunctionType as Function,
-                ObjectType as Object,
-            };
+            export { FunctionType as Function, ObjectType as Object };
         }
     }
 
-    type TransformedCommit<T extends Commit = Commit> = Omit<T, "raw"> & { raw: T; };
+    type TransformedCommit<T extends Commit = Commit> = Omit<T, "raw"> & { raw: T };
 }
 
 type Context = conventionalChangelogWriter.Context;
-type Options<TCommit extends Commit = Commit, TContext extends Context = Context> = conventionalChangelogWriter.Options<TCommit, TContext>;
+type Options<TCommit extends Commit = Commit, TContext extends Context = Context> = conventionalChangelogWriter.Options<
+    TCommit,
+    TContext
+>;
 
-type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; };
+type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
 
 export = conventionalChangelogWriter;

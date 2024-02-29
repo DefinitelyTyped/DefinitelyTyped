@@ -1,7 +1,7 @@
 import * as React from "react";
 import Cleave = require("cleave.js");
 import CleaveReact = require("cleave.js/react");
-import { Props, ChangeEvent } from "cleave.js/react/props";
+import { ChangeEvent, Props } from "cleave.js/react/props";
 
 const ExampleSelector1 = () => {
     const cleave = new Cleave("#my-input", { phone: true });
@@ -18,40 +18,32 @@ const ExampleElement1 = () => {
     const cleave = new Cleave(input, { date: true });
     cleave.setRawValue("2001/01/01");
     const formattedDate: string = cleave.getISOFormatDate();
+    cleave.properties.result; // $ExpectType string
     cleave.destroy();
 };
 
 const ExampleReact1 = (props: any) => {
-    return (
-        <CleaveReact
-            value="test"
-            className="form-control"
-            options={{ phone: true }}
-        />
-    );
+    return <CleaveReact value="test" className="form-control" options={{ phone: true }} />;
 };
 
 const ExampleReact2 = (props: Props) => {
-    return (
-        <CleaveReact
-            value="test"
-            className="form-control"
-            {...props}
-            options={{ phone: true }}
-        />
-    );
+    return <CleaveReact value="test" className="form-control" {...props} options={{ phone: true }} />;
 };
 
 const ExampleReact3 = (props: Props) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         return e.target.rawValue;
     };
+    return <CleaveReact value="test" className="form-control" options={{ date: true }} onChange={handleChange} />;
+};
+
+const ExampleReact4 = () => {
     return (
         <CleaveReact
             value="test"
             className="form-control"
-            options={{ date: true }}
-            onChange={handleChange}
+            options={{ phone: true }}
+            onInit={cleaveInstance => cleaveInstance.setRawValue("Set by onInit")}
         />
     );
 };

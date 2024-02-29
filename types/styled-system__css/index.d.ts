@@ -1,12 +1,4 @@
-// Type definitions for @styled-system/css 5.0
-// Project: https://github.com/styled-system/styled-system
-// Definitions by: Sebastian Sebald <https://github.com/sebald>
-//                 Bartosz Szewczyk <https://github.com/sztobar>
-//                 Ryan Dowling <https://github.com/RyanTheAllmighty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
 
 export {};
 
@@ -28,10 +20,15 @@ export type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ResponsiveStyleValue<T> = T | Array<T | null>;
 
 /**
- * All non-vendor-prefixed CSS properties. (Allow `number` to support CSS-in-JS libs,
+ * All CSS properties. (Allow `number` to support CSS-in-JS libs,
  * since they are converted to pixels)
  */
-export interface CSSProperties extends CSS.StandardProperties<number | string>, CSS.SvgProperties<number | string> {}
+export interface CSSProperties
+    extends
+        CSS.StandardProperties<number | string>,
+        CSS.SvgProperties<number | string>,
+        CSS.VendorProperties<number | string>
+{}
 
 /**
  * Map of all CSS pseudo selectors (`:hover`, `:focus`, ...)
@@ -72,7 +69,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/background-color
      */
-    bg?: StandardCSSProperties['backgroundColor'];
+    bg?: StandardCSSProperties["backgroundColor"] | undefined;
     /**
      * The **`margin`** CSS property sets the margin area on all four sides of an element. It is a shorthand for `margin-top`, `margin-right`, `margin-bottom`, and `margin-left`.
      *
@@ -82,7 +79,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/margin
      */
-    m?: StandardCSSProperties['margin'];
+    m?: StandardCSSProperties["margin"] | undefined;
     /**
      * The **`margin-top`** CSS property sets the margin area on the top of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
      *
@@ -94,7 +91,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-top
      */
-    mt?: StandardCSSProperties['marginTop'];
+    mt?: StandardCSSProperties["marginTop"] | undefined;
     /**
      * The **`margin-right`** CSS property sets the margin area on the right side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
      *
@@ -106,7 +103,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-right
      */
-    mr?: StandardCSSProperties['marginRight'];
+    mr?: StandardCSSProperties["marginRight"] | undefined;
     /**
      * The **`margin-bottom`** CSS property sets the margin area on the bottom of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
      *
@@ -118,7 +115,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-bottom
      */
-    mb?: StandardCSSProperties['marginBottom'];
+    mb?: StandardCSSProperties["marginBottom"] | undefined;
     /**
      * The **`margin-left`** CSS property sets the margin area on the left side of an element. A positive value places it farther from its neighbors, while a negative value places it closer.
      *
@@ -130,9 +127,9 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-left
      */
-    ml?: StandardCSSProperties['marginLeft'];
+    ml?: StandardCSSProperties["marginLeft"] | undefined;
     /**
-     * The **`mx`** is shorthand for using both **`margin-left`** and **`margin-right`** CSS properties. They set the margin area on the left and right side of an element. A positive value placesit
+     * The **`mx`** is shorthand for using both **`margin-left`** and **`margin-right`** CSS properties. They set the margin area on the left and right side of an element. A positive value places it
      * farther from its neighbors, while a negative value places it closer.
      *
      * **Initial value**: `0`
@@ -145,7 +142,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-left
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-right
      */
-    mx?: StandardCSSProperties['marginLeft'];
+    mx?: StandardCSSProperties["marginLeft"] | undefined;
     /**
      * The **`marginX`** is shorthand for using both **`margin-left`** and **`margin-right`** CSS properties. They set the margin area on the left and right side of an element. A positive value
      * places it farther from its neighbors, while a negative value places it closer.
@@ -160,7 +157,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-left
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-right
      */
-    marginX?: StandardCSSProperties['marginLeft'];
+    marginX?: StandardCSSProperties["marginLeft"] | undefined;
     /**
      * The **`my`** is shorthard for using both **`margin-top`** and **`margin-bottom`** CSS properties. They set the margin area on the top and bottom of an element. A positive value places it
      * farther from its neighbors, while a negative value places it closer.
@@ -175,7 +172,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-top
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-bottom
      */
-    my?: StandardCSSProperties['marginTop'];
+    my?: StandardCSSProperties["marginTop"] | undefined;
     /**
      * The **`marginY`** is shorthard for using both **`margin-top`** and **`margin-bottom`** CSS properties. They set the margin area on the top and bottom of an element. A positive value places
      * it farther from its neighbors, while a negative value places it closer.
@@ -190,7 +187,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-top
      * @see https://developer.mozilla.org/docs/Web/CSS/margin-bottom
      */
-    marginY?: StandardCSSProperties['marginTop'];
+    marginY?: StandardCSSProperties["marginTop"] | undefined;
     /**
      * The **`padding`** CSS property sets the padding area on all four sides of an element. It is a shorthand for `padding-top`, `padding-right`, `padding-bottom`, and `padding-left`.
      *
@@ -200,7 +197,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/padding
      */
-    p?: StandardCSSProperties['padding'];
+    p?: StandardCSSProperties["padding"] | undefined;
     /**
      * The **`padding-top`** padding area on the top of an element.
      *
@@ -212,7 +209,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-top
      */
-    pt?: StandardCSSProperties['paddingTop'];
+    pt?: StandardCSSProperties["paddingTop"] | undefined;
     /**
      * The **`padding-right`** CSS property sets the width of the padding area on the right side of an element.
      *
@@ -224,7 +221,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-right
      */
-    pr?: StandardCSSProperties['paddingRight'];
+    pr?: StandardCSSProperties["paddingRight"] | undefined;
     /**
      * The **`padding-bottom`** CSS property sets the height of the padding area on the bottom of an element.
      *
@@ -236,7 +233,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-bottom
      */
-    pb?: StandardCSSProperties['paddingBottom'];
+    pb?: StandardCSSProperties["paddingBottom"] | undefined;
     /**
      * The **`padding-left`** CSS property sets the width of the padding area on the left side of an element.
      *
@@ -248,7 +245,7 @@ export interface AliasesCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-left
      */
-    pl?: StandardCSSProperties['paddingLeft'];
+    pl?: StandardCSSProperties["paddingLeft"] | undefined;
     /**
      * The **`px`** is shorthand property for CSS properties **`padding-left`** and **`padding-right`**. They set the width of the padding area on the left and right side of an element.
      *
@@ -262,7 +259,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-left
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-right
      */
-    px?: StandardCSSProperties['paddingLeft'];
+    px?: StandardCSSProperties["paddingLeft"] | undefined;
     /**
      * The **`paddingX`** is shorthand property for CSS properties **`padding-left`** and **`padding-right`**. They set the width of the padding area on the left and right side of an element.
      *
@@ -276,7 +273,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-left
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-right
      */
-    paddingX?: StandardCSSProperties['paddingLeft'];
+    paddingX?: StandardCSSProperties["paddingLeft"] | undefined;
     /**
      * The **`py`** is shorthand property for CSS properties **`padding-top`** and **`padding-bottom`**. They set the width of the padding area on the top and bottom of an element.
      *
@@ -290,7 +287,7 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-top
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-bottom
      */
-    py?: StandardCSSProperties['paddingTop'];
+    py?: StandardCSSProperties["paddingTop"] | undefined;
     /**
      * The **`paddingY`** is shorthand property for CSS properties **`padding-top`** and **`padding-bottom`**. They set the width of the padding area on the top and bottom of an element.
      *
@@ -304,7 +301,20 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-top
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-bottom
      */
-    paddingY?: StandardCSSProperties['paddingTop'];
+    paddingY?: StandardCSSProperties["paddingTop"] | undefined;
+    /**
+     * The **`size`** is shorthand for using both **`width`** and **`height`** CSS properties. They set the width and height of an element.
+     *
+     * **Initial value**: `0`
+     *
+     * | Chrome | Firefox | Safari |  Edge  |  IE   |
+     * | :----: | :-----: | :----: | :----: | :---: |
+     * | **1**  |  **1**  | **1**  | **12** | **3** |
+     *
+     * @see https://developer.mozilla.org/docs/Web/CSS/width
+     * @see https://developer.mozilla.org/docs/Web/CSS/height
+     */
+    size?: StandardCSSProperties["width"] | undefined;
 }
 
 export interface OverwriteCSSProperties {
@@ -321,7 +331,7 @@ export interface OverwriteCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/box-shadow
      */
-    boxShadow?: CSS.Property.BoxShadow | number;
+    boxShadow?: CSS.Property.BoxShadow | number | undefined;
     /**
      * The **`font-weight`** CSS property specifies the weight (or boldness) of the font. The font weights available to you will depend on the `font-family` you are using. Some fonts are only
      * available in `normal` and `bold`.
@@ -334,7 +344,7 @@ export interface OverwriteCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/font-weight
      */
-    fontWeight?: CSS.Property.FontWeight | string;
+    fontWeight?: CSS.Property.FontWeight | string | undefined;
     /**
      * The **`z-index`** CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
      *
@@ -346,7 +356,7 @@ export interface OverwriteCSSProperties {
      *
      * @see https://developer.mozilla.org/docs/Web/CSS/z-index
      */
-    zIndex?: CSS.Property.ZIndex | string;
+    zIndex?: CSS.Property.ZIndex | string | undefined;
 }
 
 /**
@@ -355,9 +365,8 @@ export interface OverwriteCSSProperties {
  * theme function or nested) in `SystemCssProperties`.
  */
 export interface AllSystemCSSProperties
-    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight' | 'zIndex'>,
-        AliasesCSSProperties,
-        OverwriteCSSProperties {}
+    extends Omit<CSSProperties, "boxShadow" | "fontWeight" | "zIndex">, AliasesCSSProperties, OverwriteCSSProperties
+{}
 
 export type SystemCssProperties = {
     [K in keyof AllSystemCSSProperties]:
@@ -396,7 +405,7 @@ export interface UseThemeFunction {
 }
 
 export interface EmotionLabel {
-    label?: string;
+    label?: string | undefined;
 }
 
 /**
@@ -422,8 +431,8 @@ export type SystemStyleObject =
 export type ThemeValue<T> =
     | T[]
     | {
-          [name: string]: T | ThemeValue<T>;
-      };
+        [name: string]: T | ThemeValue<T>;
+    };
 
 /**
  * Object that defines the minimal specification of a theme. It follows
@@ -449,7 +458,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#color
      */
-    colors?: ThemeValue<CSS.Property.Color>;
+    colors?: ThemeValue<CSS.Property.Color> | undefined;
     /**
      * | Prop              | CSS Property                   | Theme Field |
      * | :---------------- | :----------------------------- | :---------- |
@@ -470,7 +479,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#space
      */
-    space?: ThemeValue<CSS.Property.Margin<number> & CSS.Property.Padding<number>>;
+    space?: ThemeValue<CSS.Property.Margin<number> & CSS.Property.Padding<number>> | undefined;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -478,7 +487,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fonts?: ThemeValue<CSS.Property.FontFamily>;
+    fonts?: ThemeValue<CSS.Property.FontFamily> | undefined;
     /**
      * | Prop     | CSS Property | Theme Field |
      * | :------- | :----------- | :---------- |
@@ -486,7 +495,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fontSizes?: ThemeValue<CSS.Property.FontSize<number>>;
+    fontSizes?: ThemeValue<CSS.Property.FontSize<number>> | undefined;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -494,7 +503,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    fontWeights?: ThemeValue<CSS.Property.FontWeight>;
+    fontWeights?: ThemeValue<CSS.Property.FontWeight> | undefined;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -502,7 +511,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    lineHeights?: ThemeValue<CSS.Property.LineHeight<string>>;
+    lineHeights?: ThemeValue<CSS.Property.LineHeight<string>> | undefined;
     /**
      * | Prop          | CSS Property   | Theme Field    |
      * | :------------ | :------------- | :------------- |
@@ -510,7 +519,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#typography
      */
-    letterSpacings?: ThemeValue<CSS.Property.LetterSpacing<string | number>>;
+    letterSpacings?: ThemeValue<CSS.Property.LetterSpacing<string | number>> | undefined;
     /**
      * | Prop         | CSS Property               | Theme Field |
      * | :----------- | :------------------------- | :---------- |
@@ -524,7 +533,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borders?: ThemeValue<CSS.Property.Border<{}>>;
+    borders?: ThemeValue<CSS.Property.Border<{}>> | undefined;
     /**
      * | Prop        | CSS Property | Theme Field  |
      * | :---------- | :----------- | :----------- |
@@ -532,7 +541,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borderWidths?: ThemeValue<CSS.Property.BorderWidth<{}>>;
+    borderWidths?: ThemeValue<CSS.Property.BorderWidth<{}>> | undefined;
     /**
      * | Prop        | CSS Property | Theme Field  |
      * | :---------- | :----------- | :----------- |
@@ -540,7 +549,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    borderStyles?: ThemeValue<CSS.Property.BorderStyle>;
+    borderStyles?: ThemeValue<CSS.Property.BorderStyle> | undefined;
     /**
      * | Prop         | CSS Property  | Theme Field |
      * | :----------- | :------------ | :---------- |
@@ -548,7 +557,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#border
      */
-    radii?: ThemeValue<CSS.Property.BorderRadius<{}>>;
+    radii?: ThemeValue<CSS.Property.BorderRadius<{}>> | undefined;
     /**
      * | Prop       | CSS Property | Theme Field |
      * | :--------- | :----------- | :---------- |
@@ -557,7 +566,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#shadow
      */
-    shadows?: ThemeValue<CSS.Property.BoxShadow>;
+    shadows?: ThemeValue<CSS.Property.BoxShadow> | undefined;
     /**
      * | Prop    | CSS Property | Theme Field |
      * | :------ | :----------- | :---------- |
@@ -565,7 +574,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#position
      */
-    zIndices?: ThemeValue<CSS.Property.ZIndex>;
+    zIndices?: ThemeValue<CSS.Property.ZIndex> | undefined;
     /**
      * | Prop      | CSS Property | Theme Field |
      * | :-------- | :----------- | :---------- |
@@ -579,7 +588,7 @@ export interface ScaleThemeProperties {
      *
      * @see https://styled-system.com/table#layout
      */
-    sizes?: ThemeValue<CSS.Property.Height<{}> | CSS.Property.Width<{}>>;
+    sizes?: ThemeValue<CSS.Property.Height<{}> | CSS.Property.Width<{}>> | undefined;
 }
 
 /**

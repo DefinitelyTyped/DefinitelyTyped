@@ -1,19 +1,28 @@
-// Type definitions for stream-demux 7.0
-// Project: https://github.com/SocketCluster/stream-demux
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import WritableConsumableStream = require("writable-consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
 
-import Consumer = require('writable-consumable-stream/consumer');
+import DemuxedConsumableStream = require("./demuxed-consumable-stream");
 
-import DemuxedConsumableStream = require('./demuxed-consumable-stream');
+declare namespace StreamDemux {
+    interface ConsumerStats extends Consumer.ConsumerStats {
+        stream: string;
+    }
+}
 
 declare class StreamDemux<T> {
+    streams: Record<string, WritableConsumableStream<T>>;
+    generateConsumerId: () => number;
+
     write(streamName: string, value: T): void;
     close(streamName: string, value?: T): void;
     closeAll(value?: T): void;
 
     writeToConsumer(consumerId: number, value: T): void;
     closeConsumer(consumerId: number, value: T): void;
+
+    getConsumerStats(consumerId: number): StreamDemux.ConsumerStats | undefined;
+    getConsumerStatsList(streamName: string): StreamDemux.ConsumerStats[];
+    getConsumerStatsListAll(): StreamDemux.ConsumerStats[];
 
     kill(streamName: string, value?: T): void;
     killAll(value?: T): void;
@@ -26,13 +35,13 @@ declare class StreamDemux<T> {
     hasConsumer(streamName: string, consumerId: number): boolean;
     hasConsumerAll(consumerId: number): boolean;
 
-    getConsumerStats(consumerId: number): Consumer.ConsumerStats;
-    getConsumerStatsList(streamName: string): Consumer.ConsumerStats[];
-    getConsumerStatsListAll(): Consumer.ConsumerStats[];
+    getConsumerCount(streamName: string): number;
+    getConsumerCountAll(): number;
 
-    createConsumer(streamName: string, timeout?: number): Consumer<T>;
+    createConsumer(streamName: string, timeout?: number, usabilityMode?: unknown): Consumer<T>;
 
     stream(streamName: string): DemuxedConsumableStream<T>;
+    unstream(streamName: string): void;
 }
 
 export = StreamDemux;

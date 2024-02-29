@@ -1,92 +1,99 @@
-import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode, FlatDataItem } from '..';
+import { FlatDataItem, FullTree, NodeData, SearchData, TreeIndex, TreeItem, TreeNode, TreePath } from "..";
 
-export type GetNodeKeyFunction = (data: TreeIndex & TreeNode) => string | number;
-export type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean};
+export type GetNodeKeyFunction<T = {}> = (data: TreeIndex & TreeNode<T>) => string | number;
+export type WalkAndMapFunctionParameters<T = {}> = FullTree<T> & {
+    getNodeKey: GetNodeKeyFunction<T>;
+    callback: Function;
+    ignoreCollapsed?: boolean | undefined;
+};
 
-export function getDescendantCount(data: TreeNode & {ignoreCollapsed?: boolean}): number;
-export function getVisibleNodeCount(data: FullTree): number;
-export function getVisibleNodeInfoAtIndex(
-    data: FullTree & {
-        index: number,
-        getNodeKey: GetNodeKeyFunction,
-    }): TreeNode & TreePath & {lowerSiblingsCounts: number[]} | null;
-export function walk(data: WalkAndMapFunctionParameters): void;
-export function map(data: WalkAndMapFunctionParameters): TreeItem[];
-export function toggleExpandedForAll(
-    data: FullTree & {
-        expanded?: boolean,
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function getDescendantCount<T = {}>(data: TreeNode<T> & { ignoreCollapsed?: boolean | undefined }): number;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function getVisibleNodeCount<T = {}>(data: FullTree<T>): number;
+export function getVisibleNodeInfoAtIndex<T = {}>(
+    data: FullTree<T> & {
+        index: number;
+        getNodeKey: GetNodeKeyFunction<T>;
     },
-): TreeItem[];
-export function changeNodeAtPath(
-    data: FullTree & TreePath & {
-        newNode: Function | any,
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
+): TreeNode<T> & TreePath & { lowerSiblingsCounts: number[] } | null;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function walk<T = {}>(data: WalkAndMapFunctionParameters<T>): void;
+export function map<T = {}>(data: WalkAndMapFunctionParameters<T>): Array<TreeItem<T>>;
+export function toggleExpandedForAll<T = {}>(
+    data: FullTree<T> & {
+        expanded?: boolean | undefined;
     },
-): TreeItem[];
-export function removeNodeAtPath(
-    data: FullTree & TreePath & {
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
+): Array<TreeItem<T>>;
+export function changeNodeAtPath<T = {}>(
+    data: FullTree<T> & TreePath & {
+        newNode: Function | any;
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
     },
-): TreeItem[];
-export function removeNode(
-    data: FullTree & TreePath & {
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
+): Array<TreeItem<T>>;
+export function removeNodeAtPath<T = {}>(
+    data: FullTree<T> & TreePath & {
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
     },
-): (FullTree & TreeNode & TreeIndex) | null;
-export function getNodeAtPath(
-    data: FullTree & TreePath & {
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
+): Array<TreeItem<T>>;
+export function removeNode<T = {}>(
+    data: FullTree<T> & TreePath & {
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
     },
-): (TreeNode & TreeIndex) | null;
-export function addNodeUnderParent(
-    data: FullTree & {
-        newNode: TreeItem,
-        parentKey?: number | string,
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
-        expandParent?: boolean,
-        addAsFirstChild?: boolean,
+): (FullTree<T> & TreeNode<T> & TreeIndex) | null;
+export function getNodeAtPath<T = {}>(
+    data: FullTree<T> & TreePath & {
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
     },
-): FullTree & TreeIndex;
-export function insertNode(
-    data: FullTree & {
-        depth: number,
-        newNode: TreeItem,
-        minimumTreeIndex: number,
-        ignoreCollapsed?: boolean,
-        expandParent?: boolean,
-        getNodeKey: GetNodeKeyFunction,
+): (TreeNode<T> & TreeIndex) | null;
+export function addNodeUnderParent<T = {}>(
+    data: FullTree<T> & {
+        newNode: TreeItem<T>;
+        parentKey?: number | string | undefined;
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
+        expandParent?: boolean | undefined;
+        addAsFirstChild?: boolean | undefined;
     },
-): FullTree & TreeIndex & TreePath & {parentNode: TreeItem};
-export function getFlatDataFromTree(
-    data: FullTree & {
-        getNodeKey: GetNodeKeyFunction,
-        ignoreCollapsed?: boolean,
+): FullTree<T> & TreeIndex;
+export function insertNode<T = {}>(
+    data: FullTree<T> & {
+        depth: number;
+        newNode: TreeItem<T>;
+        minimumTreeIndex: number;
+        ignoreCollapsed?: boolean | undefined;
+        expandParent?: boolean | undefined;
+        getNodeKey: GetNodeKeyFunction<T>;
     },
-): FlatDataItem[];
-export function getTreeFromFlatData<T, K extends keyof T, P extends keyof T, I extends string | number>(
+): FullTree<T> & TreeIndex & TreePath & { parentNode: TreeItem<T> };
+export function getFlatDataFromTree<T = {}>(
+    data: FullTree<T> & {
+        getNodeKey: GetNodeKeyFunction<T>;
+        ignoreCollapsed?: boolean | undefined;
+    },
+): Array<FlatDataItem<T>>;
+export function getTreeFromFlatData<T = {}>(
     data: {
-        flatData: T[] | I extends string ? { [key: string]: T } : { [key: number]: T },
-        // tslint:disable-next-line:no-unnecessary-generics
-        getKey?: (item: T) => T[K],
-        // tslint:disable-next-line:no-unnecessary-generics
-        getParentKey?: (item: T) => T[P],
-        rootKey?: I,
+        flatData: Array<Omit<TreeItem<T>, "children">>;
+        getKey?: ((item: TreeItem<T>) => string | number) | undefined;
+        getParentKey?: ((item: TreeItem<T>) => string | number | null) | undefined;
+        rootKey?: string | number | undefined;
     },
-): TreeItem[];
-export function isDescendant(older: TreeItem, younger: TreeItem): boolean;
-export function getDepth(node: TreeItem, depth?: number): number;
-export function find(
-    data: FullTree & {
-        getNodeKey: GetNodeKeyFunction,
-        searchQuery?: string | number,
-        searchMethod: (data: SearchData) => boolean,
-        searchFocusOffset?: number,
-        expandAllMatchPaths?: boolean,
-        expandFocusMatchPaths?: boolean,
+): Array<TreeItem<T>>;
+export function isDescendant<T = {}>(older: TreeItem<T>, younger: TreeItem<T>): boolean;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function getDepth<T = {}>(node: TreeItem<T>, depth?: number): number;
+export function find<T = {}>(
+    data: FullTree<T> & {
+        getNodeKey: GetNodeKeyFunction<T>;
+        searchQuery?: string | number | undefined;
+        searchMethod: (data: SearchData<T>) => boolean;
+        searchFocusOffset?: number | undefined;
+        expandAllMatchPaths?: boolean | undefined;
+        expandFocusMatchPaths?: boolean | undefined;
     },
-): {matches: NodeData[]} & FullTree;
+): { matches: Array<NodeData<T>> } & FullTree<T>;

@@ -1,6 +1,8 @@
+/// <reference types="react" />
+
 declare namespace ComponentFramework {
     /**
-     * Interface for the PowerApps Controls (Standard)
+     * Interface for the Power Apps Controls (Standard)
      */
     interface StandardControl<TInputs, TOutputs> {
         /**
@@ -13,7 +15,12 @@ declare namespace ComponentFramework {
          * 'setControlState' in the Mode interface.
          * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
          */
-        init(context: Context<TInputs>, notifyOutputChanged?: () => void, state?: Dictionary, container?: HTMLDivElement): void;
+        init(
+            context: Context<TInputs>,
+            notifyOutputChanged?: () => void,
+            state?: Dictionary,
+            container?: HTMLDivElement,
+        ): void;
 
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
@@ -37,6 +44,727 @@ declare namespace ComponentFramework {
     }
 
     /**
+     * Interface for Power Apps React controls
+     */
+    interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+        /**
+         * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
+         * offline status, control metadata values such as label, visible, etc.
+         * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names
+         * defined in the manifest, as well as utility functions
+         * @returns a React element
+         */
+        updateView(context: Context<TInputs>): React.ReactElement;
+    }
+
+    /**
+     * Fluent v9 theming data
+     */
+    interface FluentDesignState {
+        /**
+         * Full set of design tokens from the Fluent v9 theme
+         */
+        tokenTheme: Theme;
+
+        /**
+         * Typography styles are predefined styles for typography defined by a set of theme tokens.
+         * These presets are used to create and share a consistent typographical look and feel
+         */
+        typographyTokens?: TypographyStyles;
+
+        /**
+         * Brand variants represent the 16-slot color ramp generated from the theme's base brand color
+         */
+        brand: BrandVariants;
+
+        /**
+         * Determines whether the dark mode variant of the theme is active
+         */
+        isDarkTheme?: boolean;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type BorderRadiusTokens = {
+        borderRadiusNone: string;
+        borderRadiusSmall: string;
+        borderRadiusMedium: string;
+        borderRadiusLarge: string;
+        borderRadiusXLarge: string;
+        borderRadiusCircular: string;
+    };
+
+    type Brands = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150 | 160;
+
+    type BrandVariants = Record<Brands, string>;
+
+    type ColorPaletteAnchor =
+        | "colorPaletteAnchorBackground2"
+        | "colorPaletteAnchorForeground2"
+        | "colorPaletteAnchorBorderActive";
+
+    type ColorPaletteBeige =
+        | "colorPaletteBeigeBackground2"
+        | "colorPaletteBeigeForeground2"
+        | "colorPaletteBeigeBorderActive";
+
+    type ColorPaletteBerry =
+        | "colorPaletteBerryBackground1"
+        | "colorPaletteBerryBackground2"
+        | "colorPaletteBerryBackground3"
+        | "colorPaletteBerryForeground1"
+        | "colorPaletteBerryForeground2"
+        | "colorPaletteBerryForeground3"
+        | "colorPaletteBerryBorderActive"
+        | "colorPaletteBerryBorder1"
+        | "colorPaletteBerryBorder2";
+
+    type ColorPaletteBlue =
+        | "colorPaletteBlueBackground2"
+        | "colorPaletteBlueForeground2"
+        | "colorPaletteBlueBorderActive";
+
+    type ColorPaletteBrass =
+        | "colorPaletteBrassBackground2"
+        | "colorPaletteBrassForeground2"
+        | "colorPaletteBrassBorderActive";
+
+    type ColorPaletteBrown =
+        | "colorPaletteBrownBackground2"
+        | "colorPaletteBrownForeground2"
+        | "colorPaletteBrownBorderActive";
+
+    type ColorPaletteCornflower =
+        | "colorPaletteCornflowerBackground2"
+        | "colorPaletteCornflowerForeground2"
+        | "colorPaletteCornflowerBorderActive";
+
+    type ColorPaletteCranberry =
+        | "colorPaletteCranberryBackground2"
+        | "colorPaletteCranberryForeground2"
+        | "colorPaletteCranberryBorderActive";
+
+    type ColorPaletteDarkGreen =
+        | "colorPaletteDarkGreenBackground2"
+        | "colorPaletteDarkGreenForeground2"
+        | "colorPaletteDarkGreenBorderActive";
+
+    type ColorPaletteDarkOrange =
+        | "colorPaletteDarkOrangeBackground1"
+        | "colorPaletteDarkOrangeBackground2"
+        | "colorPaletteDarkOrangeBackground3"
+        | "colorPaletteDarkOrangeForeground1"
+        | "colorPaletteDarkOrangeForeground2"
+        | "colorPaletteDarkOrangeForeground3"
+        | "colorPaletteDarkOrangeBorderActive"
+        | "colorPaletteDarkOrangeBorder1"
+        | "colorPaletteDarkOrangeBorder2";
+
+    type ColorPaletteDarkRed =
+        | "colorPaletteDarkRedBackground2"
+        | "colorPaletteDarkRedForeground2"
+        | "colorPaletteDarkRedBorderActive";
+
+    type ColorPaletteForest =
+        | "colorPaletteForestBackground2"
+        | "colorPaletteForestForeground2"
+        | "colorPaletteForestBorderActive";
+
+    type ColorPaletteGold =
+        | "colorPaletteGoldBackground2"
+        | "colorPaletteGoldForeground2"
+        | "colorPaletteGoldBorderActive";
+
+    type ColorPaletteGrape =
+        | "colorPaletteGrapeBackground2"
+        | "colorPaletteGrapeForeground2"
+        | "colorPaletteGrapeBorderActive";
+
+    type ColorPaletteGreen =
+        | "colorPaletteGreenBackground1"
+        | "colorPaletteGreenBackground2"
+        | "colorPaletteGreenBackground3"
+        | "colorPaletteGreenForeground1"
+        | "colorPaletteGreenForeground2"
+        | "colorPaletteGreenForeground3"
+        | "colorPaletteGreenForegroundInverted"
+        | "colorPaletteGreenBorderActive"
+        | "colorPaletteGreenBorder1"
+        | "colorPaletteGreenBorder2";
+
+    type ColorPaletteLavender =
+        | "colorPaletteLavenderBackground2"
+        | "colorPaletteLavenderForeground2"
+        | "colorPaletteLavenderBorderActive";
+
+    type ColorPaletteLightGreen =
+        | "colorPaletteLightGreenBackground1"
+        | "colorPaletteLightGreenBackground2"
+        | "colorPaletteLightGreenBackground3"
+        | "colorPaletteLightGreenForeground1"
+        | "colorPaletteLightGreenForeground2"
+        | "colorPaletteLightGreenForeground3"
+        | "colorPaletteLightGreenBorderActive"
+        | "colorPaletteLightGreenBorder1"
+        | "colorPaletteLightGreenBorder2";
+
+    type ColorPaletteLightTeal =
+        | "colorPaletteLightTealBackground2"
+        | "colorPaletteLightTealForeground2"
+        | "colorPaletteLightTealBorderActive";
+
+    type ColorPaletteLilac =
+        | "colorPaletteLilacBackground2"
+        | "colorPaletteLilacForeground2"
+        | "colorPaletteLilacBorderActive";
+
+    type ColorPaletteMagenta =
+        | "colorPaletteMagentaBackground2"
+        | "colorPaletteMagentaForeground2"
+        | "colorPaletteMagentaBorderActive";
+
+    type ColorPaletteMarigold =
+        | "colorPaletteMarigoldBackground1"
+        | "colorPaletteMarigoldBackground2"
+        | "colorPaletteMarigoldBackground3"
+        | "colorPaletteMarigoldForeground1"
+        | "colorPaletteMarigoldForeground2"
+        | "colorPaletteMarigoldForeground3"
+        | "colorPaletteMarigoldBorderActive"
+        | "colorPaletteMarigoldBorder1"
+        | "colorPaletteMarigoldBorder2";
+
+    type ColorPaletteMink =
+        | "colorPaletteMinkBackground2"
+        | "colorPaletteMinkForeground2"
+        | "colorPaletteMinkBorderActive";
+
+    type ColorPaletteNavy =
+        | "colorPaletteNavyBackground2"
+        | "colorPaletteNavyForeground2"
+        | "colorPaletteNavyBorderActive";
+
+    type ColorPalettePeach =
+        | "colorPalettePeachBackground2"
+        | "colorPalettePeachForeground2"
+        | "colorPalettePeachBorderActive";
+
+    type ColorPalettePink =
+        | "colorPalettePinkBackground2"
+        | "colorPalettePinkForeground2"
+        | "colorPalettePinkBorderActive";
+
+    type ColorPalettePlatinum =
+        | "colorPalettePlatinumBackground2"
+        | "colorPalettePlatinumForeground2"
+        | "colorPalettePlatinumBorderActive";
+
+    type ColorPalettePlum =
+        | "colorPalettePlumBackground2"
+        | "colorPalettePlumForeground2"
+        | "colorPalettePlumBorderActive";
+
+    type ColorPalettePumpkin =
+        | "colorPalettePumpkinBackground2"
+        | "colorPalettePumpkinForeground2"
+        | "colorPalettePumpkinBorderActive";
+
+    type ColorPalettePurple =
+        | "colorPalettePurpleBackground2"
+        | "colorPalettePurpleForeground2"
+        | "colorPalettePurpleBorderActive";
+
+    type ColorPaletteRed =
+        | "colorPaletteRedBackground1"
+        | "colorPaletteRedBackground2"
+        | "colorPaletteRedBackground3"
+        | "colorPaletteRedForeground1"
+        | "colorPaletteRedForeground2"
+        | "colorPaletteRedForeground3"
+        | "colorPaletteRedForegroundInverted"
+        | "colorPaletteRedBorderActive"
+        | "colorPaletteRedBorder1"
+        | "colorPaletteRedBorder2";
+
+    type ColorPaletteRoyalBlue =
+        | "colorPaletteRoyalBlueBackground2"
+        | "colorPaletteRoyalBlueForeground2"
+        | "colorPaletteRoyalBlueBorderActive";
+
+    type ColorPaletteSeafoam =
+        | "colorPaletteSeafoamBackground2"
+        | "colorPaletteSeafoamForeground2"
+        | "colorPaletteSeafoamBorderActive";
+
+    type ColorPaletteSteel =
+        | "colorPaletteSteelBackground2"
+        | "colorPaletteSteelForeground2"
+        | "colorPaletteSteelBorderActive";
+
+    type ColorPaletteTeal =
+        | "colorPaletteTealBackground2"
+        | "colorPaletteTealForeground2"
+        | "colorPaletteTealBorderActive";
+
+    type ColorPaletteTokens = StatusColorPaletteTokens & PersonaColorPaletteTokens;
+
+    type ColorPaletteYellow =
+        | "colorPaletteYellowBackground1"
+        | "colorPaletteYellowBackground2"
+        | "colorPaletteYellowBackground3"
+        | "colorPaletteYellowForeground1"
+        | "colorPaletteYellowForeground2"
+        | "colorPaletteYellowForeground3"
+        | "colorPaletteYellowForegroundInverted"
+        | "colorPaletteYellowBorderActive"
+        | "colorPaletteYellowBorder1"
+        | "colorPaletteYellowBorder2";
+
+    type ColorStatusDanger =
+        | "colorStatusDangerBackground1"
+        | "colorStatusDangerBackground2"
+        | "colorStatusDangerBackground3"
+        | "colorStatusDangerForeground1"
+        | "colorStatusDangerForeground2"
+        | "colorStatusDangerForeground3"
+        | "colorStatusDangerForegroundInverted"
+        | "colorStatusDangerBorderActive"
+        | "colorStatusDangerBorder1"
+        | "colorStatusDangerBorder2";
+
+    type ColorStatusSuccess =
+        | "colorStatusSuccessBackground1"
+        | "colorStatusSuccessBackground2"
+        | "colorStatusSuccessBackground3"
+        | "colorStatusSuccessForeground1"
+        | "colorStatusSuccessForeground2"
+        | "colorStatusSuccessForeground3"
+        | "colorStatusSuccessForegroundInverted"
+        | "colorStatusSuccessBorderActive"
+        | "colorStatusSuccessBorder1"
+        | "colorStatusSuccessBorder2";
+
+    type ColorStatusTokens = Record<ColorStatusSuccess | ColorStatusWarning | ColorStatusDanger, string>;
+
+    type ColorStatusWarning =
+        | "colorStatusWarningBackground1"
+        | "colorStatusWarningBackground2"
+        | "colorStatusWarningBackground3"
+        | "colorStatusWarningForeground1"
+        | "colorStatusWarningForeground2"
+        | "colorStatusWarningForeground3"
+        | "colorStatusWarningForegroundInverted"
+        | "colorStatusWarningBorderActive"
+        | "colorStatusWarningBorder1"
+        | "colorStatusWarningBorder2";
+
+    /**
+     * Design tokens for alias colors
+     */
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ColorTokens = {
+        colorNeutralForeground1: string;
+        colorNeutralForeground1Hover: string;
+        colorNeutralForeground1Pressed: string;
+        colorNeutralForeground1Selected: string;
+        colorNeutralForeground2: string;
+        colorNeutralForeground2Hover: string;
+        colorNeutralForeground2Pressed: string;
+        colorNeutralForeground2Selected: string;
+        colorNeutralForeground2BrandHover: string;
+        colorNeutralForeground2BrandPressed: string;
+        colorNeutralForeground2BrandSelected: string;
+        colorNeutralForeground3: string;
+        colorNeutralForeground3Hover: string;
+        colorNeutralForeground3Pressed: string;
+        colorNeutralForeground3Selected: string;
+        colorNeutralForeground3BrandHover: string;
+        colorNeutralForeground3BrandPressed: string;
+        colorNeutralForeground3BrandSelected: string;
+        colorNeutralForeground4: string;
+        colorNeutralForegroundDisabled: string;
+        colorNeutralForegroundInvertedDisabled: string;
+        colorBrandForegroundLink: string;
+        colorBrandForegroundLinkHover: string;
+        colorBrandForegroundLinkPressed: string;
+        colorBrandForegroundLinkSelected: string;
+        colorNeutralForeground2Link: string;
+        colorNeutralForeground2LinkHover: string;
+        colorNeutralForeground2LinkPressed: string;
+        colorNeutralForeground2LinkSelected: string;
+        colorCompoundBrandForeground1: string;
+        colorCompoundBrandForeground1Hover: string;
+        colorCompoundBrandForeground1Pressed: string;
+        colorBrandForeground1: string;
+        colorBrandForeground2: string;
+        colorBrandForeground2Hover: string;
+        colorBrandForeground2Pressed: string;
+        colorNeutralForeground1Static: string;
+        colorNeutralForegroundInverted: string;
+        colorNeutralForegroundInvertedHover: string;
+        colorNeutralForegroundInvertedPressed: string;
+        colorNeutralForegroundInvertedSelected: string;
+        colorNeutralForegroundInverted2: string;
+        colorNeutralForegroundOnBrand: string;
+        colorNeutralForegroundStaticInverted: string;
+        colorNeutralForegroundInvertedLink: string;
+        colorNeutralForegroundInvertedLinkHover: string;
+        colorNeutralForegroundInvertedLinkPressed: string;
+        colorNeutralForegroundInvertedLinkSelected: string;
+        colorBrandForegroundInverted: string;
+        colorBrandForegroundInvertedHover: string;
+        colorBrandForegroundInvertedPressed: string;
+        colorBrandForegroundOnLight: string;
+        colorBrandForegroundOnLightHover: string;
+        colorBrandForegroundOnLightPressed: string;
+        colorBrandForegroundOnLightSelected: string;
+        colorNeutralBackground1: string;
+        colorNeutralBackground1Hover: string;
+        colorNeutralBackground1Pressed: string;
+        colorNeutralBackground1Selected: string;
+        colorNeutralBackground2: string;
+        colorNeutralBackground2Hover: string;
+        colorNeutralBackground2Pressed: string;
+        colorNeutralBackground2Selected: string;
+        colorNeutralBackground3: string;
+        colorNeutralBackground3Hover: string;
+        colorNeutralBackground3Pressed: string;
+        colorNeutralBackground3Selected: string;
+        colorNeutralBackground4: string;
+        colorNeutralBackground4Hover: string;
+        colorNeutralBackground4Pressed: string;
+        colorNeutralBackground4Selected: string;
+        colorNeutralBackground5: string;
+        colorNeutralBackground5Hover: string;
+        colorNeutralBackground5Pressed: string;
+        colorNeutralBackground5Selected: string;
+        colorNeutralBackground6: string;
+        colorNeutralBackgroundInverted: string;
+        colorNeutralBackgroundStatic: string;
+        colorNeutralBackgroundAlpha: string;
+        colorNeutralBackgroundAlpha2: string;
+        colorSubtleBackground: string;
+        colorSubtleBackgroundHover: string;
+        colorSubtleBackgroundPressed: string;
+        colorSubtleBackgroundSelected: string;
+        colorSubtleBackgroundLightAlphaHover: string;
+        colorSubtleBackgroundLightAlphaPressed: string;
+        colorSubtleBackgroundLightAlphaSelected: string;
+        colorSubtleBackgroundInverted: string;
+        colorSubtleBackgroundInvertedHover: string;
+        colorSubtleBackgroundInvertedPressed: string;
+        colorSubtleBackgroundInvertedSelected: string;
+        colorTransparentBackground: string;
+        colorTransparentBackgroundHover: string;
+        colorTransparentBackgroundPressed: string;
+        colorTransparentBackgroundSelected: string;
+        colorNeutralBackgroundDisabled: string;
+        colorNeutralBackgroundInvertedDisabled: string;
+        colorNeutralStencil1: string;
+        colorNeutralStencil2: string;
+        colorNeutralStencil1Alpha: string;
+        colorNeutralStencil2Alpha: string;
+        colorBackgroundOverlay: string;
+        colorScrollbarOverlay: string;
+        colorBrandBackground: string;
+        colorBrandBackgroundHover: string;
+        colorBrandBackgroundPressed: string;
+        colorBrandBackgroundSelected: string;
+        colorCompoundBrandBackground: string;
+        colorCompoundBrandBackgroundHover: string;
+        colorCompoundBrandBackgroundPressed: string;
+        colorBrandBackgroundStatic: string;
+        colorBrandBackground2: string;
+        colorBrandBackground2Hover: string;
+        colorBrandBackground2Pressed: string;
+        colorBrandBackgroundInverted: string;
+        colorBrandBackgroundInvertedHover: string;
+        colorBrandBackgroundInvertedPressed: string;
+        colorBrandBackgroundInvertedSelected: string;
+        colorNeutralStrokeAccessible: string;
+        colorNeutralStrokeAccessibleHover: string;
+        colorNeutralStrokeAccessiblePressed: string;
+        colorNeutralStrokeAccessibleSelected: string;
+        colorNeutralStroke1: string;
+        colorNeutralStroke1Hover: string;
+        colorNeutralStroke1Pressed: string;
+        colorNeutralStroke1Selected: string;
+        colorNeutralStroke2: string;
+        colorNeutralStroke3: string;
+        colorNeutralStrokeSubtle: string;
+        colorNeutralStrokeOnBrand: string;
+        colorNeutralStrokeOnBrand2: string;
+        colorNeutralStrokeOnBrand2Hover: string;
+        colorNeutralStrokeOnBrand2Pressed: string;
+        colorNeutralStrokeOnBrand2Selected: string;
+        colorBrandStroke1: string;
+        colorBrandStroke2: string;
+        colorBrandStroke2Hover: string;
+        colorBrandStroke2Pressed: string;
+        colorBrandStroke2Contrast: string;
+        colorCompoundBrandStroke: string;
+        colorCompoundBrandStrokeHover: string;
+        colorCompoundBrandStrokePressed: string;
+        colorNeutralStrokeDisabled: string;
+        colorNeutralStrokeInvertedDisabled: string;
+        colorTransparentStroke: string;
+        colorTransparentStrokeInteractive: string;
+        colorTransparentStrokeDisabled: string;
+        colorNeutralStrokeAlpha: string;
+        colorNeutralStrokeAlpha2: string;
+        colorStrokeFocus1: string;
+        colorStrokeFocus2: string;
+        colorNeutralShadowAmbient: string;
+        colorNeutralShadowKey: string;
+        colorNeutralShadowAmbientLighter: string;
+        colorNeutralShadowKeyLighter: string;
+        colorNeutralShadowAmbientDarker: string;
+        colorNeutralShadowKeyDarker: string;
+        colorBrandShadowAmbient: string;
+        colorBrandShadowKey: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type CurveTokens = {
+        curveAccelerateMax: string;
+        curveAccelerateMid: string;
+        curveAccelerateMin: string;
+        curveDecelerateMax: string;
+        curveDecelerateMid: string;
+        curveDecelerateMin: string;
+        curveEasyEaseMax: string;
+        curveEasyEase: string;
+        curveLinear: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type DurationTokens = {
+        durationUltraFast: string;
+        durationFaster: string;
+        durationFast: string;
+        durationNormal: string;
+        durationGentle: string;
+        durationSlow: string;
+        durationSlower: string;
+        durationUltraSlow: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontFamilyTokens = {
+        fontFamilyBase: string;
+        fontFamilyMonospace: string;
+        fontFamilyNumeric: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontSizeTokens = {
+        fontSizeBase100: string;
+        fontSizeBase200: string;
+        fontSizeBase300: string;
+        fontSizeBase400: string;
+        fontSizeBase500: string;
+        fontSizeBase600: string;
+        fontSizeHero700: string;
+        fontSizeHero800: string;
+        fontSizeHero900: string;
+        fontSizeHero1000: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontWeightTokens = {
+        fontWeightRegular: number;
+        fontWeightMedium: number;
+        fontWeightSemibold: number;
+        fontWeightBold: number;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type HorizontalSpacingTokens = {
+        spacingHorizontalNone: string;
+        spacingHorizontalXXS: string;
+        spacingHorizontalXS: string;
+        spacingHorizontalSNudge: string;
+        spacingHorizontalS: string;
+        spacingHorizontalMNudge: string;
+        spacingHorizontalM: string;
+        spacingHorizontalL: string;
+        spacingHorizontalXL: string;
+        spacingHorizontalXXL: string;
+        spacingHorizontalXXXL: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type LineHeightTokens = {
+        lineHeightBase100: string;
+        lineHeightBase200: string;
+        lineHeightBase300: string;
+        lineHeightBase400: string;
+        lineHeightBase500: string;
+        lineHeightBase600: string;
+        lineHeightHero700: string;
+        lineHeightHero800: string;
+        lineHeightHero900: string;
+        lineHeightHero1000: string;
+    };
+
+    type PartialTheme = Partial<Theme>;
+
+    type PersonaColorPaletteTokens = Record<
+        | ColorPaletteDarkRed
+        | ColorPaletteCranberry
+        | ColorPalettePumpkin
+        | ColorPalettePeach
+        | ColorPaletteGold
+        | ColorPaletteBrass
+        | ColorPaletteBrown
+        | ColorPaletteForest
+        | ColorPaletteSeafoam
+        | ColorPaletteDarkGreen
+        | ColorPaletteLightTeal
+        | ColorPaletteTeal
+        | ColorPaletteSteel
+        | ColorPaletteBlue
+        | ColorPaletteRoyalBlue
+        | ColorPaletteCornflower
+        | ColorPaletteNavy
+        | ColorPaletteLavender
+        | ColorPalettePurple
+        | ColorPaletteGrape
+        | ColorPaletteLilac
+        | ColorPalettePink
+        | ColorPaletteMagenta
+        | ColorPalettePlum
+        | ColorPaletteBeige
+        | ColorPaletteMink
+        | ColorPalettePlatinum
+        | ColorPaletteAnchor,
+        string
+    >;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ShadowBrandTokens = {
+        shadow2Brand: string;
+        shadow4Brand: string;
+        shadow8Brand: string;
+        shadow16Brand: string;
+        shadow28Brand: string;
+        shadow64Brand: string;
+    };
+
+    /**
+     * Design tokens for shadow levels
+     */
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ShadowTokens = {
+        shadow2: string;
+        shadow4: string;
+        shadow8: string;
+        shadow16: string;
+        shadow28: string;
+        shadow64: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type SpacingTokens = {
+        none: string;
+        xxs: string;
+        xs: string;
+        sNudge: string;
+        s: string;
+        mNudge: string;
+        m: string;
+        l: string;
+        xl: string;
+        xxl: string;
+        xxxl: string;
+    };
+
+    type StatusColorPaletteTokens = Record<
+        | ColorPaletteRed
+        | ColorPaletteGreen
+        | ColorPaletteDarkOrange
+        | ColorPaletteYellow
+        | ColorPaletteBerry
+        | ColorPaletteMarigold
+        | ColorPaletteLightGreen,
+        string
+    >;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type StrokeWidthTokens = {
+        strokeWidthThin: string;
+        strokeWidthThick: string;
+        strokeWidthThicker: string;
+        strokeWidthThickest: string;
+    };
+
+    type Theme =
+        & FontSizeTokens
+        & LineHeightTokens
+        & BorderRadiusTokens
+        & StrokeWidthTokens
+        & HorizontalSpacingTokens
+        & VerticalSpacingTokens
+        & DurationTokens
+        & CurveTokens
+        & ShadowTokens
+        & ShadowBrandTokens
+        & FontFamilyTokens
+        & FontWeightTokens
+        & ColorPaletteTokens
+        & ColorStatusTokens
+        & ColorTokens
+        & any;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type TypographyStyle = {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: string;
+        lineHeight: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type TypographyStyles = {
+        body1: TypographyStyle;
+        body1Strong: TypographyStyle;
+        body1Stronger: TypographyStyle;
+        body2: TypographyStyle;
+        caption1: TypographyStyle;
+        caption1Strong: TypographyStyle;
+        caption1Stronger: TypographyStyle;
+        caption2: TypographyStyle;
+        caption2Strong: TypographyStyle;
+        subtitle1: TypographyStyle;
+        subtitle2: TypographyStyle;
+        subtitle2Stronger: TypographyStyle;
+        title1: TypographyStyle;
+        title2: TypographyStyle;
+        title3: TypographyStyle;
+        largeTitle: TypographyStyle;
+        display: TypographyStyle;
+    };
+
+    /**
+     * Global typography styles (fontSize, fontWeight, and lineHeight)
+     */
+    const typographyStyles: TypographyStyles;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type VerticalSpacingTokens = {
+        spacingVerticalNone: string;
+        spacingVerticalXXS: string;
+        spacingVerticalXS: string;
+        spacingVerticalSNudge: string;
+        spacingVerticalS: string;
+        spacingVerticalMNudge: string;
+        spacingVerticalM: string;
+        spacingVerticalL: string;
+        spacingVerticalXL: string;
+        spacingVerticalXXL: string;
+        spacingVerticalXXXL: string;
+    };
+
+    /**
      * The entire property bag interface available to control via Context Object
      */
     interface Context<TInputs> {
@@ -52,6 +780,11 @@ declare namespace ComponentFramework {
         webAPI: WebApi;
         parameters: TInputs;
         updatedProperties: string[];
+
+        /**
+         * Fluent v9 theming
+         */
+        fluentDesignLanguage?: FluentDesignState;
     }
 
     /**
@@ -84,6 +817,11 @@ declare namespace ComponentFramework {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
@@ -278,7 +1016,10 @@ declare namespace ComponentFramework {
          * @param options Dialog options
          * @returns promise defining success or failure of operation
          */
-        openAlertDialog(alertStrings: NavigationApi.AlertDialogStrings, options?: NavigationApi.AlertDialogOptions): Promise<void>;
+        openAlertDialog(
+            alertStrings: NavigationApi.AlertDialogStrings,
+            options?: NavigationApi.AlertDialogOptions,
+        ): Promise<void>;
 
         /**
          * Opens Confirm Dialog
@@ -286,7 +1027,10 @@ declare namespace ComponentFramework {
          * @param options Options for the dialog
          * @returns promise defining success or failure of operation. the success case returns a boolean specifying whether yes or no button was pressed
          */
-        openConfirmDialog(confirmStrings: NavigationApi.ConfirmDialogStrings, options?: NavigationApi.ConfirmDialogOptions): Promise<NavigationApi.ConfirmDialogResponse>;
+        openConfirmDialog(
+            confirmStrings: NavigationApi.ConfirmDialogStrings,
+            options?: NavigationApi.ConfirmDialogOptions,
+        ): Promise<NavigationApi.ConfirmDialogResponse>;
 
         /**
          * Opens an Error Dialog.
@@ -309,7 +1053,10 @@ declare namespace ComponentFramework {
          * @param parameters entity form parameters.
          * @returns promise defining success or failure of operation
          */
-        openForm(options: NavigationApi.EntityFormOptions, parameters?: {[key: string]: string}): Promise<NavigationApi.OpenFormSuccessResponse>;
+        openForm(
+            options: NavigationApi.EntityFormOptions,
+            parameters?: { [key: string]: string },
+        ): Promise<NavigationApi.OpenFormSuccessResponse>;
 
         /**
          * Open url, including file urls.
@@ -362,7 +1109,6 @@ declare namespace ComponentFramework {
 
         /**
          * Current user's language id
-         *
          */
         languageId: number;
 
@@ -406,17 +1152,21 @@ declare namespace ComponentFramework {
 
         /**
          * Function to return if the user has Privilege for one specific entity
-         * @entityTypeName entity type name
-         * @privilegeType privilege type i.e. Create, Read, Write etc.
-         * @privilegeDepth privilege depth i.e. basic, Global etc.
+         * @param entityTypeName entity type name
+         * @param privilegeType privilege type i.e. Create, Read, Write etc.
+         * @param privilegeDepth privilege depth i.e. basic, Global etc.
          */
-        hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.Types.PrivilegeType, privilegeDepth: PropertyHelper.Types.PrivilegeDepth): boolean;
+        hasEntityPrivilege(
+            entityTypeName: string,
+            privilegeType: PropertyHelper.Types.PrivilegeType,
+            privilegeDepth: PropertyHelper.Types.PrivilegeDepth,
+        ): boolean;
 
         /**
          * Opens a lookup dialog allowing the user to select one or more entities.
          * @param lookupOptions Options for opening the lookup dialog.
          */
-        lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<EntityReference[]>;
+        lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<LookupValue[]>;
     }
 
     /**
@@ -429,41 +1179,45 @@ declare namespace ComponentFramework {
          * @param data dictionary with attribute schema name and value
          * @returns The deferred object for the result of the operation. The created record object will be resolved if successful.
          */
-        createRecord(entityType: string, data: WebApi.Entity): Promise<EntityReference>;
+        createRecord(entityType: string, data: WebApi.Entity): Promise<LookupValue>;
 
         /**
          * Deletes an entity record.
-         * @param id GUID of the entity record you want to delete.
          * @param entityType logical name of the entity type record to delete
+         * @param id GUID of the entity record you want to delete.
          * @returns The deferred object for the result of the operation. The deleted record object will be resolved if successful.
          */
-        deleteRecord(entityType: string, id: string): Promise<EntityReference>;
+        deleteRecord(entityType: string, id: string): Promise<LookupValue>;
 
         /**
          * Updates an entity record.
+         * @param entityType logical name of the entity type record to update
          * @param id GUID of the entity record you want to update.
          * @param data dictionary containing to-change attributes with schema name and value
-         * @param entityType logical name of the entity type record to update
          * @returns The deferred object for the result of the operation. The updated record object will be resolved if successful.
          */
-        updateRecord(entityType: string, id: string, data: WebApi.Entity): Promise<EntityReference>;
+        updateRecord(entityType: string, id: string, data: WebApi.Entity): Promise<LookupValue>;
 
         /**
          * Retrieves a collection of entity records.
          * @param entityType logical name of the entity type record to retrieve
          * @param options OData system query options or FetchXML query to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords
          * @param maxPageSize Max number of records to be retrieved per page
          * @returns The deferred object for the result of the operation. An object with interface RetrieveMultipleResponse will be resolved if successful.
          */
-        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Promise<WebApi.RetrieveMultipleResponse>;
+        retrieveMultipleRecords(
+            entityType: string,
+            options?: string,
+            maxPageSize?: number,
+        ): Promise<WebApi.RetrieveMultipleResponse>;
 
         /**
          * Retrieves an entity record.
-         * @param id GUID of the entity record you want to retrieve.
          * @param entityType logical name of the entity type record to retrieve
+         * @param id GUID of the entity record you want to retrieve.
          * @param options OData system query options, $select and $expand, to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord
          * @returns The deferred object for the result of the operation. A JSON object with the retrieved properties and values will be resolved if successful.
          */
         retrieveRecord(entityType: string, id: string, options?: string): Promise<WebApi.Entity>;
@@ -516,7 +1270,6 @@ declare namespace ComponentFramework {
             /**
              * Contains a set of geographic coordinates along with associated accuracy as well as a set of other optional attributes such as altitude and speed.
              */
-
             coords: {
                 latitude: number;
                 longitude: number;
@@ -615,7 +1368,7 @@ declare namespace ComponentFramework {
             /**
              * The id to be set to the anchor control if any.
              */
-            id?: string;
+            id?: string | undefined;
 
             /**
              * The name of the Popup. Used as the reference to open Popups.
@@ -626,7 +1379,7 @@ declare namespace ComponentFramework {
              * Indicates whether popup close on an outside mouse click.
              * When it's false, the popup will not be closed on an outside mouse click.
              */
-            closeOnOutsideClick?: boolean;
+            closeOnOutsideClick?: boolean | undefined;
 
             /**
              * The name of Popup which should be opened.
@@ -635,7 +1388,7 @@ declare namespace ComponentFramework {
              * To close Popups, should be provided empty string.
              * This prop will be automatically propagated to children.
              */
-            popupToOpen?: string;
+            popupToOpen?: string | undefined;
 
             /**
              * The type of Popup, which is described in PopupType enum. Should be only one "root" Popup for each set of Popups.
@@ -657,9 +1410,10 @@ declare namespace ComponentFramework {
          * DateTime Field Behavior options
          * 0 - None - Unknown DateTime Behavior,
          * 1 - UserLocal - Respect user local time. Dates stored as UTC,
-         * 3 - TimeZoneIndependent - Dates and time stored without conversion to UTC
+         * 2 - DateOnly. Dates with time stored as midnight without conversion to UTC.
+         * 3 - TimeZoneIndependent - Dates and time stored without conversion to UTC.
          */
-        type DateTimeFieldBehavior = 0 | 1 | 3;
+        type DateTimeFieldBehavior = 0 | 1 | 2 | 3;
     }
 
     /**
@@ -673,12 +1427,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the alert dialog in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Width of the alert dialog pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -686,14 +1440,14 @@ declare namespace ComponentFramework {
          */
         interface AlertDialogStrings {
             /**
-             * The message to be displyed in the alert dialog.
+             * The message to be displayed in the alert dialog.
              */
             text: string;
 
             /**
              * The confirm button label. If you do not specify the button label, OK (in user's preferred language) is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
         }
 
         /**
@@ -703,12 +1457,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the confirmation dialog in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              *  Width of the confirmation dialog pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -718,12 +1472,12 @@ declare namespace ComponentFramework {
             /**
              * Confirm Dialog Title.
              */
-            title?: string;
+            title?: string | undefined;
 
             /**
              * Confirm Dialog Subtitle
              */
-            subtitle?: string;
+            subtitle?: string | undefined;
 
             /**
              * Confirm Dialog Text\Message.
@@ -733,12 +1487,12 @@ declare namespace ComponentFramework {
             /**
              * The confirm button label. If you do not specify the button label, OK (in user's preferred language) is used as the button label.
              */
-            confirmButtonLabel?: string;
+            confirmButtonLabel?: string | undefined;
 
             /**
              * Cancel Button label.
              */
-            cancelButtonLabel?: string;
+            cancelButtonLabel?: string | undefined;
         }
 
         /**
@@ -758,12 +1512,12 @@ declare namespace ComponentFramework {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name
              */
-            createFromEntity?: EntityReference;
+            createFromEntity?: EntityReference | undefined;
 
             /**
              * ID of the entity record to display the form for.
              */
-            entityId?: string;
+            entityId?: string | undefined;
 
             /**
              * Logical name of the entity to display the form for.
@@ -773,34 +1527,34 @@ declare namespace ComponentFramework {
             /**
              * ID of the form instance to be displayed.
              */
-            formId?: string;
+            formId?: string | undefined;
 
             /**
              * Height of the form window to be displayed in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Indicates whether to display form in a new window.
              */
-            openInNewWindow?: boolean;
+            openInNewWindow?: boolean | undefined;
 
             /**
              * Indicates whether to open a quick create form. If you do not specify this, by default false is passed.
              */
-            useQuickCreateForm?: boolean;
+            useQuickCreateForm?: boolean | undefined;
 
             /**
              * Width of the form window to be displayed in pixels.
              */
-            width?: number;
+            width?: number | undefined;
 
             /**
              * Specify one of the following values for the window position of the form on the screen:
              *   1:center
              *   2:side
              */
-            windowPosition?: number;
+            windowPosition?: number | undefined;
         }
 
         /**
@@ -812,18 +1566,18 @@ declare namespace ComponentFramework {
              * Details about the error. When you specify this, the Download Log File button is available in the error message, and clicking it will let users download a text file with
              * the content specified in this attribute.
              */
-            details?: string;
+            details?: string | undefined;
 
             /**
              * If you just set errorCode, the message for the error code is automatically retrieved from the server and displayed in the error dialog. If you specify an errorCode value,
-             * an error dialog with a default error message is displyed.
+             * an error dialog with a default error message is displayed.
              */
-            errorCode?: number;
+            errorCode?: number | undefined;
 
             /**
              * The message to be displayed in the error dialog.
              */
-            message?: string;
+            message?: string | undefined;
         }
 
         namespace Types {
@@ -852,7 +1606,7 @@ declare namespace ComponentFramework {
          * The object returned when a save is successful for open form.
          */
         interface OpenFormSuccessResponse {
-            savedEntityReference: EntityReference[];
+            savedEntityReference: LookupValue[];
         }
 
         /**
@@ -862,12 +1616,12 @@ declare namespace ComponentFramework {
             /**
              * Height of the window to display the resultant page in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Width of the window to display the resultant page in pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
 
         /**
@@ -877,7 +1631,7 @@ declare namespace ComponentFramework {
             /**
              * Height of the window to display the resultant page in pixels.
              */
-            height?: number;
+            height?: number | undefined;
 
             /**
              * Indicates whether to open the web resource in a new window.
@@ -887,7 +1641,7 @@ declare namespace ComponentFramework {
             /**
              * Width of the window to display the resultant page in pixels.
              */
-            width?: number;
+            width?: number | undefined;
         }
     }
 
@@ -1208,17 +1962,17 @@ declare namespace ComponentFramework {
             /**
              * Whether the lookup allows more than one item to be selected.
              */
-            allowMultiSelect: boolean;
+            allowMultiSelect?: boolean;
 
             /**
              * The default entity type.
              */
-            defaultEntityType: string;
+            defaultEntityType?: string;
 
             /**
              * The default view to use.
              */
-            defaultViewId: string;
+            defaultViewId?: string;
 
             /**
              * The entity types to display.
@@ -1228,7 +1982,7 @@ declare namespace ComponentFramework {
             /**
              * The views to be available in the view picker. Only System views are supported (not user views).
              */
-            viewIds: string[];
+            viewIds?: string[];
         }
     }
 
@@ -1263,17 +2017,38 @@ declare namespace ComponentFramework {
         /**
          * The record id. Read-only.
          */
-        id: { guid: string; };
+        id: { guid: string };
 
         /**
          * The entity logical name. Read-only.
          */
-        etn?: string;
+        etn?: string | undefined;
 
         /**
          * The name of the entity reference. Read-only.
          */
         name: string;
+    }
+
+    /**
+     * An object used to contain an entity reference to a selected Lookup value. Fields defined as
+     * such to align with other Lookup APIs
+     */
+    interface LookupValue {
+        /**
+         * The record id.
+         */
+        id: string;
+
+        /**
+         * The name of the record the lookup selection references.
+         */
+        name?: string | undefined;
+
+        /**
+         * The entity logical name of the record the lookup selection references.
+         */
+        entityType: string;
     }
 
     /**
@@ -1301,7 +2076,7 @@ declare namespace ComponentFramework {
         mimeType: string;
     }
 
-///////////////////// Parameter ////////////////////////
+    ///////////////////// Parameter ////////////////////////
 
     namespace PropertyTypes {
         /**
@@ -1310,11 +2085,11 @@ declare namespace ComponentFramework {
         interface Property {
             error: boolean;
             errorMessage: string;
-            formatted?: string;
-            security?: PropertyHelper.SecurityValues;
+            formatted?: string | undefined;
+            security?: PropertyHelper.SecurityValues | undefined;
             raw: any;
             type: string;
-            attributes?: PropertyHelper.FieldPropertyMetadata.Metadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.Metadata | undefined;
         }
 
         /**
@@ -1322,29 +2097,28 @@ declare namespace ComponentFramework {
          */
         interface NumberProperty extends Property {
             raw: number | null;
-
-            attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.NumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is Decimal
          */
         interface DecimalNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.DecimalNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.DecimalNumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is FP
          */
         interface FloatingNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.FloatingNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.FloatingNumberMetadata | undefined;
         }
 
         /**
          * Property Interface for context.parameters.[property_key], when property manifest type is Whole.None
          */
         interface WholeNumberProperty extends NumberProperty {
-            attributes?: PropertyHelper.FieldPropertyMetadata.WholeNumberMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.WholeNumberMetadata | undefined;
         }
 
         /**
@@ -1352,8 +2126,7 @@ declare namespace ComponentFramework {
          */
         interface DateTimeProperty extends Property {
             raw: Date | null;
-
-            attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.DateTimeMetadata | undefined;
         }
 
         /**
@@ -1361,8 +2134,7 @@ declare namespace ComponentFramework {
          */
         interface StringProperty extends Property {
             raw: string | null;
-
-            attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.StringMetadata | undefined;
         }
 
         /**
@@ -1378,8 +2150,7 @@ declare namespace ComponentFramework {
          */
         interface OptionSetProperty extends Property {
             raw: number | null;
-
-            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata | undefined;
         }
 
         /**
@@ -1387,8 +2158,7 @@ declare namespace ComponentFramework {
          */
         interface MultiSelectOptionSetProperty extends Property {
             raw: number[] | null;
-
-            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.OptionSetMetadata | undefined;
         }
 
         /**
@@ -1396,7 +2166,25 @@ declare namespace ComponentFramework {
          */
         interface TwoOptionsProperty extends Property {
             raw: boolean;
-            attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata;
+            attributes?: PropertyHelper.FieldPropertyMetadata.TwoOptionMetadata | undefined;
+        }
+
+        /**
+         * Property Interface for context.parameters.[property_key], when property manifest type is Lookup. Currently
+         * targeted for use with Lookup.Simple only, and interface will be expanded as more features are made public.
+         */
+        interface LookupProperty extends Property {
+            raw: LookupValue[];
+
+            /**
+             * Get Lookup target entity type
+             */
+            getTargetEntityType(): string;
+
+            /**
+             * Gets Id of view used by the lookup property
+             */
+            getViewId(): string;
         }
 
         /**
@@ -1423,7 +2211,7 @@ declare namespace ComponentFramework {
              * @param name column name to be added to the columnset
              * @param entityAlias entity alias for which the column name needs to be added
              */
-            addColumn?: (name: string, entityAlias?: string) => void;
+            addColumn?: ((name: string, entityAlias?: string) => void) | undefined;
 
             /**
              * Set of columns available in this dataset.
@@ -1516,7 +2304,7 @@ declare namespace ComponentFramework {
 
             /**
              * Set the ids of the selected records
-             * @ids List of recordId's
+             * @param ids List of recordId's
              */
             setSelectedRecordIds(ids: string[]): void;
         }
@@ -1548,7 +2336,7 @@ declare namespace ComponentFramework {
             type PrivilegeType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
             /**
-             * Entity Priviledge Depth
+             * Entity Privilege Depth
              * -1 - None
              * 0 - Basic
              * 1 - Local
@@ -1570,7 +2358,7 @@ declare namespace ComponentFramework {
 
         /**
          * Entity metadata refer to online documentation
-         * https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getentitymetadata
+         * https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata
          */
         interface EntityMetadata {
             [key: string]: any;
@@ -1640,8 +2428,8 @@ declare namespace ComponentFramework {
 
             interface WholeNumberMetadata extends NumberMetadata {
                 Format: string;
-                LanguageByCode?: Dictionary;
-                TimeZoneByCode?: Dictionary;
+                LanguageByCode?: Dictionary | undefined;
+                TimeZoneByCode?: Dictionary | undefined;
             }
 
             interface DateTimeMetadata extends Metadata {
@@ -1675,8 +2463,43 @@ declare namespace ComponentFramework {
                  * Supported Condition Operator for filtering expression condition
                  * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
                  */
-                type ConditionOperator = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 22 | 23
-                                            | 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
+                type ConditionOperator =
+                    | -1
+                    | 0
+                    | 1
+                    | 2
+                    | 3
+                    | 4
+                    | 5
+                    | 6
+                    | 8
+                    | 12
+                    | 14
+                    | 15
+                    | 16
+                    | 17
+                    | 18
+                    | 19
+                    | 20
+                    | 22
+                    | 23
+                    | 25
+                    | 26
+                    | 27
+                    | 28
+                    | 29
+                    | 33
+                    | 34
+                    | 37
+                    | 38
+                    | 49
+                    | 70
+                    | 75
+                    | 76
+                    | 77
+                    | 78
+                    | 79
+                    | 87;
 
                 /**
                  * Supported Filter Operator for filtering expression linkage
@@ -1716,7 +2539,7 @@ declare namespace ComponentFramework {
                 /**
                  * Entity alias name so filtering can be used on linked entities.
                  */
-                entityAliasName?: string;
+                entityAliasName?: string | undefined;
             }
 
             /**
@@ -1736,7 +2559,7 @@ declare namespace ComponentFramework {
                 /**
                  * Any child filters that should be evaluated after evaluating this filter.
                  */
-                filters?: FilterExpression[];
+                filters?: FilterExpression[] | undefined;
             }
 
             /**
@@ -1750,7 +2573,7 @@ declare namespace ComponentFramework {
 
                 /**
                  * Sets the top-most filter associated with the data-set
-                 * @expression filter expression to be set
+                 * @param expression filter expression to be set
                  */
                 setFilter(expression: FilterExpression): void;
 
@@ -1797,21 +2620,21 @@ declare namespace ComponentFramework {
                 /**
                  * The column visibility state.
                  */
-                isHidden?: boolean;
+                isHidden?: boolean | undefined;
 
                 /**
-                 * Is specific column the primary attrribute of the view's entity
+                 * Is specific column the primary attribute of the view's entity
                  */
-                isPrimary?: boolean;
+                isPrimary?: boolean | undefined;
 
                 /**
                  * Prevents the UI from making the column sortable.
                  */
-                disableSorting?: boolean;
+                disableSorting?: boolean | undefined;
             }
 
             /**
-             * Base interface for dataset record result. Supports value retrival by column name.
+             * Base interface for dataset record result. Supports value retrieval by column name.
              */
             interface EntityRecord {
                 /**
@@ -1829,7 +2652,18 @@ declare namespace ComponentFramework {
                  * Get the raw value of the record's column
                  * @param columnName Column name of the record
                  */
-                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[];
+                getValue(
+                    columnName: string,
+                ):
+                    | string
+                    | Date
+                    | number
+                    | number[]
+                    | boolean
+                    | EntityReference
+                    | EntityReference[]
+                    | LookupValue
+                    | LookupValue[];
 
                 /**
                  * Get the object that encapsulates an Entity Reference as a plain object
@@ -1857,9 +2691,24 @@ declare namespace ComponentFramework {
              */
             interface Paging {
                 /**
-                 * Total number of results on the server for the current query.
+                 * Total number of results on the server for the currently applied query.
                  */
                 totalResultCount: number;
+
+                /**
+                 * The number of the first page to retrieve
+                 */
+                firstPageNumber: number;
+
+                /**
+                 * The number of the last page to retrieve
+                 */
+                lastPageNumber: number;
+
+                /**
+                 * The pagesize for each page retrieved
+                 */
+                pageSize: number;
 
                 /**
                  * Whether the result set can be paged forwards.
@@ -1872,14 +2721,18 @@ declare namespace ComponentFramework {
                 hasPreviousPage: boolean;
 
                 /**
-                 * Request the next page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                 * Request the next page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
-                loadNextPage(): void;
+                loadNextPage(loadOnlyNewPage?: boolean): void;
 
                 /**
-                 * Request the previous page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+                 * Request the previous page of results to be loaded. Returns results for the whole page range.
+                 * New data will be pushed to control in another 'updateView' cycle.
+                 * @param loadOnlyNewPage Limits return value to only newly loaded page.
                  */
-                loadPreviousPage(): void;
+                loadPreviousPage(loadOnlyNewPage?: boolean): void;
 
                 /**
                  * Reload the results from the server, and reset to page 1.
@@ -1888,9 +2741,15 @@ declare namespace ComponentFramework {
 
                 /**
                  * Sets the number of results to return per page on the next data refresh.
-                 * @pageSize pageSize to be set.
+                 * @param pageSize pageSize to be set.
                  */
                 setPageSize(pageSize: number): void;
+
+                /**
+                 * Request the exact page of results to be loaded.
+                 * @param pageNumber exact page to be loaded.
+                 */
+                loadExactPage(pageNumber: number): void;
             }
 
             /**
@@ -1904,6 +2763,7 @@ declare namespace ComponentFramework {
 
                 /**
                  * Add a new linked entity relationship with the existed query primary entity
+                 * @param expression The new linked entity to add
                  */
                 addLinkedEntity(expression: LinkEntityExposedExpression): void;
             }

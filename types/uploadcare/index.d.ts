@@ -1,8 +1,3 @@
-// Type definitions for uploadcare 0.4
-// Project: https://github.com/rexmorgan/uploadcare-node
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ReadStream } from "fs";
@@ -38,23 +33,23 @@ declare namespace Uploadcare {
         file: {
             upload: (
                 readStream: ReadStream,
-                options: { store?: boolean },
-                callback: (err: Error, res: { file: string }) => void
+                options: { store?: boolean | undefined },
+                callback: (err: Error, res: { file: string }) => void,
             ) => void;
             fromUrl: (
                 url: string,
-                options: { store?: boolean },
-                callback: (err: Error, res: File) => void
+                options: { store?: boolean | undefined },
+                callback: (err: Error, res: File) => void,
             ) => void;
         };
         files: {
             store: (
                 uuid: string,
-                callback: (err: Error, res: File) => void
+                callback: (err: Error, res: File) => void,
             ) => void;
             remove: (
                 uuid: string,
-                callback: (err: Error, res: File) => void
+                callback: (err: Error, res: File) => void,
             ) => void;
         };
     }
@@ -62,7 +57,7 @@ declare namespace Uploadcare {
 
 declare function Uploadcare(
     publicKey: string,
-    privateKey: string
+    privateKey: string,
 ): Uploadcare.Instance;
 
 export = Uploadcare;

@@ -1,6 +1,6 @@
-import { Duplex } from 'stream';
-import { JSONObject } from './sharedb';
-import ShareDbBackend = require('..');
+import { Duplex } from "stream";
+import { JSONObject } from "./sharedb";
+import ShareDbBackend = require("..");
 
 export = Agent;
 
@@ -16,7 +16,7 @@ export = Agent;
  *
  * @see https://github.com/share/sharedb#class-sharedbagent
  */
-declare class Agent {
+declare class Agent<TCustom = any> {
     backend: ShareDbBackend;
     stream: Duplex & {
         /**
@@ -30,7 +30,11 @@ declare class Agent {
      * given client session. It is in memory only as long as the session is
      * active, and it is passed to each middleware call.
      */
-    custom: Agent.Custom;
+    custom: TCustom;
+
+    clientId: string;
+    src: string;
+    connectTime: number;
 
     /**
      * Sends a JSON-compatible message to the client for this agent.
@@ -38,10 +42,4 @@ declare class Agent {
      * @param message
      */
     send(message: JSONObject): void;
-}
-
-declare namespace Agent {
-    interface Custom {
-        [key: string]: unknown;
-    }
 }

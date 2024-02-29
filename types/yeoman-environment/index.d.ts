@@ -1,20 +1,18 @@
-// Type definitions for yeoman-environment 2.10
-// Project: https://github.com/yeoman/environment, http://yeoman.io
-// Definitions by: c4605 <https://github.com/bolasblack>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
+import { Command } from "commander";
 import { EventEmitter } from "events";
-import { Store as MemFsStore } from "mem-fs";
+import { ExecaChildProcess, ExecaSyncReturnValue, Options, SyncOptions } from "execa";
 import * as inquirer from "inquirer";
+import { Store as MemFsStore } from "mem-fs";
 import * as Generator from "yeoman-generator";
 import Storage = require("yeoman-generator/lib/util/storage");
 import TerminalAdapter = require("./lib/adapter");
 import { Logger as LoggerBase } from "./lib/util/log";
 import util = require("./lib/util/util");
+import Conflicter = require("./lib/util/conflicter");
+import { Stream, Transform } from "stream";
 
 /**
- * `Environment` object is responsible of handling the lifecyle and bootstrap
+ * `Environment` object is responsible of handling the lifecycle and bootstrap
  * of generators in a specific environment (your app).
  *
  * It provides a high-level API to create and run generators, as well as further
@@ -82,16 +80,17 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     constructor(args?: string | string[], opts?: TOptions, adapter?: Environment.Adapter);
 
     /**
-     * Createas a new `Environment` instance.
+     * Creates a new `Environment` instance.
      *
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
      * @param adapter A `TerminalAdapter` instance for handling input/output.
+     * @returns The newly created environment.
      */
     static createEnv<TOptions extends Environment.Options = Environment.Options>(
         args?: string | string[],
         opts?: TOptions,
-        adapter?: Environment.Adapter
+        adapter?: Environment.Adapter,
     ): Environment<TOptions>;
 
     /**
@@ -101,12 +100,13 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param args The arguments to pass to the environment.
      * @param opts The options for the environment.
      * @param adapter A `TerminalAdapter` instance for handling input/output.
+     * @returns The newly created environment.
      */
     static createEnvWithVersion<TOptions extends Environment.Options>(
         version: string,
         args?: string | string[],
         opts?: TOptions,
-        adapter?: Environment.Adapter
+        adapter?: Environment.Adapter,
     ): Environment<TOptions>;
 
     /**
@@ -122,8 +122,18 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * @param namespace The namespace of the generator to search.
      * @param options Options for searching the generator.
+     * @returns The paths to the generators which were found.
      */
-    static lookupGenerator(namespace: string, options?: Environment.GeneratorLookupOptions): string;
+    static lookupGenerator(namespace: string, options?: Environment.ArrayGeneratorLookupOptions): string[];
+
+    /**
+     * Invokes a lookup for a specific generator.
+     *
+     * @param namespace The namespace of the generator to search.
+     * @param options Options for searching the generator.
+     * @returns The path to the generator which was found.
+     */
+    static lookupGenerator(namespace: string, options?: Environment.SingleGeneratorLookupOptions): string;
 
     /**
      * Converts a generator namespace to its name.
@@ -131,6 +141,23 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param namespace The generator namespace.
      */
     static namespaceToName(namespace: string): string;
+
+    /**
+     * Prepares a command for cli support.
+     *
+     * @param generatorClass The generator class to create a command for.
+     * @returns The prepared command.
+     */
+    static prepareCommand(generatorClass: Generator.GeneratorConstructor): Command;
+
+    /**
+     * Prepares a command for cli support.
+     *
+     * @param command The command to prepare.
+     * @param generatorClass The constructor of the generator to prepare the command for.
+     * @returns The prepared command.
+     */
+    static prepareGeneratorCommand(command: Command, generatorClass: Generator.GeneratorConstructor): Command;
 
     /**
      * Gets the alias for the specified `name`.
@@ -162,15 +189,43 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     alias(match: string | RegExp, value: string): void;
 
     /**
+     * Applies the specified transform streams to the files in the `sharedFs`.
+     *
+     * @param transformStreams The transforms to apply.
+     * @param stream The file stream to apply the transforms on.
+     */
+    applyTransforms(transformStreams: Transform[], stream?: NodeJS.ReadableStream): Promise<void>;
+
+    /**
+     * Commits the `mem-fs` to the disk.
+     *
+     * @param stream The files to commit.
+     */
+    commitSharedFs(stream: Stream): Promise<void>;
+
+    /**
+     * Composes with a generator.
+     *
+     * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @param args The options to pass to the generator.
+     * @param options The options to pass to the generator.
+     * @returns The instantiated generator or a singleton instance.
+     */
+    composeWith(namespaceOrPath: string, args: string[], options: Generator.GeneratorOptions): Generator;
+
+    /**
      * Creates a new generator.
      *
      * @param namespaceOrPath The namespace of the generator or the path to a generator.
+     * @param args The arguments to pass to the generator.
      * @param options The options to pass to the generator.
-     *
      * @returns Either the newly created generator or the error that occurred.
      */
     create<TOptions extends Generator.GeneratorOptions>(
-        namespaceOrPath: string, options?: Environment.InstantiateOptions<TOptions>): Generator<TOptions> | Error;
+        namespaceOrPath: string,
+        args: string[],
+        options?: Environment.InstantiateOptions<TOptions>,
+    ): Generator<TOptions> | Error;
 
     /**
      * Handles the specified `error`.
@@ -179,9 +234,8 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * If no `error` listener is registered, the error is thrown.
      *
      * @param error An object representing the error.
-     * @param verifyListener A value indicating whether an error should be thrown if no `error` listener is present.
      */
-    error(error: Error | object, verifyListener?: boolean): Error;
+    error(error: Error | object): Error;
 
     /**
      * Searches npm for every available generator.
@@ -281,12 +335,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     /**
      * Instantiates a generator.
      *
-     * @param name The constructor of the generator.
+     * @param generator The constructor of the generator.
+     * @param args The arguments to pass to the generator.
      * @param options The options to pass to the generator.
      */
     instantiate(
-        name: Generator.GeneratorConstructor,
-        options: Environment.InstantiateOptions
+        generator: Generator.GeneratorConstructor,
+        args: string[],
+        options: Environment.InstantiateOptions,
     ): Generator;
 
     /**
@@ -296,6 +352,22 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @returns A value indicating whether a package with the specified `packageNamespace` has been registered.
      */
     isPackageRegistered(packageNamespace?: string): boolean;
+
+    /**
+     * Applies the specified `options` to the environment.
+     *
+     * @param options The options to load.
+     * @returns The new options of the environment.
+     */
+    loadEnvironmentOptions(options: Environment.Options): Environment.Options;
+
+    /**
+     * Loads the specified `options` into the environment for passing to the generators.
+     *
+     * @param options The options to load.
+     * @return the new shared options of the environment.
+     */
+    loadSharedOptions(options: Generator.GeneratorOptions): Generator.GeneratorOptions;
 
     /**
      * Searches for generators and their sub-generators.
@@ -310,10 +382,9 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * So the index file `node_modules/generator-dummy/lib/generators/yo/index.js` would be registered as `dummy:yo` generator.
      *
      * @param options The options for the lookup.
-     * @param cb A callback that is called once the lookup has been finished.
      * @returns A list of generators.
      */
-    lookup(options?: Environment.LookupOptions, cb?: (err: null | Error) => void): Environment.LookupGeneratorMeta[];
+    lookup(options?: Environment.LookupOptions): Environment.LookupGeneratorMeta[];
 
     /**
      * Searches and registers generators inside the custom local repository.
@@ -336,6 +407,25 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
     namespaces(): string[];
 
     /**
+     * Queue's the environment's commit task.
+     */
+    queueConflicter(): void;
+
+    /**
+     * Queues the specified `generator`.
+     *
+     * @param generator The generator to queue.
+     * @param schedule A value indicating whether the execution of the generator should be scheduled.
+     * @returns The queued generator.
+     */
+    queueGenerator(generator: Generator, schedule?: boolean): Generator;
+
+    /**
+     * Queues the package manager installation task.
+     */
+    queuePackageManagerInstall(): void;
+
+    /**
      * Registers a specific `generator` to this environment.
      * This generator is stored under the provided `namespace` or, if not specified, a default namespace format.
      *
@@ -353,7 +443,12 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @param resolved The file-path to the generator.
      * @param packagePath The path to the npm package of the generator.
      */
-    registerStub(generator: Generator.GeneratorConstructor, namespace: string, resolved?: string, packagePath?: string): this;
+    registerStub(
+        generator: Generator.GeneratorConstructor,
+        namespace: string,
+        resolved?: string,
+        packagePath?: string,
+    ): this;
 
     /**
      * Resolves the path of the specified module.
@@ -362,6 +457,14 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * @returns The resolved path to the module.
      */
     resolveModulePath(moduleId: string): string;
+
+    /**
+     * Resolves a package name with a specific version.
+     *
+     * @param packageName The name of the package to resolve.
+     * @param packageVersion The version or the version range of the package to resolve.
+     */
+    resolvePackage(packageName: string, packageVersion: string): [string, string];
 
     /**
      * Gets the first generator that was queued to run in this environment.
@@ -374,36 +477,10 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      *
      * When the environment was unable to resolve a generator, an error is raised.
      *
-     * @param done The callback.
-     */
-    run(done: Environment.Callback): void;
-
-    /**
-     * Tries to locate and run a specific generator.
-     * The lookup is done depending on the provided arguments, options and the list of registered generators.
-     *
-     * When the environment was unable to resolve a generator, an error is raised.
-     *
      * @param args The arguments to pass to the generator.
-     * @param done The callback.
+     * @param options The options to pass to the generator.
      */
-    run(args: string | string[], done: Environment.Callback): void;
-
-    /**
-     * Tries to locate and run a specific generator.
-     * The lookup is done depending on the provided arguments, options and the list of registered generators.
-     *
-     * When the environment was unable to resolve a generator, an error is raised.
-     *
-     * @param args The arguments to pass to the generator.
-     * @param options The options for creating the generator.
-     * @param done The callback.
-     */
-    run(
-        args: string | string[],
-        options: object,
-        done: Environment.Callback
-    ): void;
+    run(args: string | [string, ...string[]], options?: Generator.GeneratorOptions): Promise<void>;
 
     /**
      * Runs the specified generator.
@@ -411,9 +488,33 @@ declare class Environment<TOptions extends Environment.Options = Environment.Opt
      * See [#101](https://github.com/yeoman/environment/pull/101) for more info.
      *
      * @param generator The generator to run.
-     * @param callback The callback.
      */
-    runGenerator(generator: Generator, callback?: Environment.Callback): Promise<void>;
+    runGenerator(generator: Generator): Promise<void>;
+
+    /**
+     * Starts the environment queue.
+     *
+     * @param options The conflicter options.
+     */
+    start(options: Conflicter.ConflicterOptions): Promise<void>;
+
+    /**
+     * Spawns a command asynchronously.
+     *
+     * @param command The command to execute.
+     * @param args The arguments to pass to the program.
+     * @param options The options to use for running the command.
+     */
+    spawnCommand(command: string, args: string[], options: Options): ExecaChildProcess;
+
+    /**
+     * Spawns a command synchronously.
+     *
+     * @param command The command to execute.
+     * @param args The arguments to pass to the program.
+     * @param options The options to use for running the command.
+     */
+    spawnCommandSync(command: string, args: string[], options: SyncOptions): ExecaSyncReturnValue;
 }
 
 declare namespace Environment {
@@ -425,12 +526,12 @@ declare namespace Environment {
     /**
      * Represents a question.
      */
-    type Question<T> = inquirer.DistinctQuestion<T>;
+    type Question<T extends inquirer.Answers> = inquirer.DistinctQuestion<T>;
 
     /**
      * Represents a collection of questions.
      */
-    type Questions<T> = inquirer.QuestionCollection<T>;
+    type Questions<T extends inquirer.Answers> = inquirer.QuestionCollection<T>;
 
     /**
      * Represents an answer-hash.
@@ -464,7 +565,37 @@ declare namespace Environment {
         /**
          * The working-directory of the environment.
          */
-        cwd?: string;
+        cwd?: string | undefined;
+
+        /**
+         * A value indicating whether the experimental features should be enabled.
+         */
+        experimental?: boolean;
+
+        /**
+         * The options to pass to generators.
+         */
+        sharedOptions?: Generator.GeneratorOptions;
+
+        /**
+         * A console instance for logging messages.
+         */
+        console?: Console;
+
+        /**
+         * A stream for receiving data from.
+         */
+        stdin?: Stream;
+
+        /**
+         * A stream to write normal messages to.
+         */
+        stdout?: Stream;
+
+        /**
+         * A stream to write error messages to.
+         */
+        stderr?: Stream;
 
         /**
          * Additional options.
@@ -509,12 +640,12 @@ declare namespace Environment {
         /**
          * The arguments to pass to the generator.
          */
-        arguments?: string | string[];
+        arguments?: string | string[] | undefined;
 
         /**
          * The options for creating the generator.
          */
-        options?: TOptions;
+        options?: TOptions | undefined;
     }
 
     /**
@@ -524,7 +655,7 @@ declare namespace Environment {
         /**
          * A value indicating whether globally installed packages should be ignored.
          */
-        localOnly?: boolean;
+        localOnly?: boolean | undefined;
     }
 
     /**
@@ -534,12 +665,32 @@ declare namespace Environment {
         /**
          * A value indicating whether the path to the package should be returned instead of the path to the generator.
          */
-        packagePath?: boolean;
+        packagePath?: boolean | undefined;
 
         /**
          * A value indicating whether only one result should be returned.
          */
-        singleResult?: boolean;
+        singleResult?: boolean | undefined;
+    }
+
+    /**
+     * Provides options for single generator lookups.
+     */
+    interface SingleGeneratorLookupOptions extends GeneratorLookupOptions {
+        /**
+         * @inheritdoc
+         */
+        singleResult: true;
+    }
+
+    /**
+     * Provides options array generator lookups.
+     */
+    interface ArrayGeneratorLookupOptions extends GeneratorLookupOptions {
+        /**
+         * @inheritdoc
+         */
+        singleResult?: false | undefined;
     }
 
     /**
@@ -549,7 +700,7 @@ declare namespace Environment {
         /**
          * A value indicating whether paths which don't end with a supported directory-name should be filtered (unless they are part of `NODE_PATH`).
          */
-        filterPaths?: boolean;
+        filterPaths?: boolean | undefined;
     }
 
     /**
@@ -559,32 +710,32 @@ declare namespace Environment {
         /**
          * The paths to look for generators.
          */
-        packagePaths?: string[];
+        packagePaths?: string[] | undefined;
 
         /**
          * The repüository paths to look for generator packages.
          */
-        npmPaths?: string[];
+        npmPaths?: string[] | undefined;
 
         /**
          * The file-patterns to look for.
          */
-        filePatterns?: string[];
+        filePatterns?: string[] | undefined;
 
         /**
          * The package patterns to look for.
          */
-        packagePatterns?: string[];
+        packagePatterns?: string[] | undefined;
 
         /**
          * A value indicating whether the lookup should be stopped after finding the first result.
          */
-        singleResult?: boolean;
+        singleResult?: boolean | undefined;
 
         /**
          * The `deep` option to pass to `globby`.
          */
-        globbyDeep?: number;
+        globbyDeep?: number | undefined;
     }
 
     /**
@@ -594,7 +745,7 @@ declare namespace Environment {
         /**
          * The package-patterns to look for.
          */
-        packagePatterns?: string[];
+        packagePatterns?: string[] | undefined;
     }
 
     /**

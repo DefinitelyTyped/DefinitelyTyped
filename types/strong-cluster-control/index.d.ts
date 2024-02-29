@@ -1,23 +1,19 @@
-// Type definitions for strong-cluster-control 2.2
-// Project: https://github.com/strongloop/strong-cluster-control
-// Definitions by: Shun Takahashi <https://github.com/shuntksh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 declare namespace StrongClusterControl {
     type pid = number;
 
     interface StartOptions {
-        size?: number;
-        env?: {};
-        shutdownTimeout?: number;
-        terminateTimeout?: number;
-        throttleDelay?: number;
+        size?: number | undefined;
+        env?: {} | undefined;
+        shutdownTimeout?: number | undefined;
+        terminateTimeout?: number | undefined;
+        throttleDelay?: number | undefined;
     }
 
     interface ClusterMaster {
         pid: number;
-        setSize?: number;
+        setSize?: number | undefined;
         startTime: number;
     }
 

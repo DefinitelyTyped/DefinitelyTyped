@@ -1,7 +1,22 @@
-// Type definitions for json-diff 0.5
-// Project: https://github.com/andreyvit/json-diff
-// Definitions by: Tommy Wong <https://github.com/wchtommy20013/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export interface DiffOptions {
+    verbose?: boolean;
+    raw?: boolean;
+    keysOnly?: boolean;
+    full?: boolean;
+    sort?: boolean;
+    outputKeys?: string[];
+    excludeKeys?: string[];
+    keepUnchangedValues?: boolean;
+    outputNewOnly?: boolean;
+    maxElisions?: number;
+    precision?: number;
+}
 
-export function diff(obj1: any, obj2: any): any;
-export function diffString(obj1: any, obj2: any): any;
+export interface DiffStringOptions extends DiffOptions {
+    color?: boolean;
+}
+
+export function diff(obj1: unknown, obj2: unknown, options?: DiffOptions): any;
+export function diffString(obj1: unknown, obj2: unknown, options?: DiffStringOptions): string;
+
+export { colorize, colorizeToCallback } from "./lib/colorize";

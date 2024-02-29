@@ -26,26 +26,38 @@ new Vivus("my-svg", { duration: 200 }, onEndOfAnimation);
 
 new Vivus("my-div", { duration: 200, file: "link/to/my.svg" }, onEndOfAnimation);
 
-var myVivus = new Vivus("my-svg-element");
+new Vivus("my-div-id", {
+    file: "link/to/my.svg",
+    onReady: myVivus => {
+        // `el` property is the SVG element
+        myVivus.el.setAttribute("height", "auto");
+    },
+});
+
+const myVivus = new Vivus("my-svg-element");
 myVivus.stop().reset().play(2);
+myVivus.play(1, () => {});
+myVivus.play(() => {});
 
-new Vivus("my-svg-element", {
-    type: "delayed",
-    duration: 200,
-    animTimingFunction: Vivus.EASE
-}, onEndOfAnimation);
-
-
+new Vivus(
+    "my-svg-element",
+    {
+        type: "delayed",
+        duration: 200,
+        animTimingFunction: Vivus.EASE,
+    },
+    onEndOfAnimation,
+);
 
 // Empty options tests.
 
 new Vivus("svg-element", {});
 
-const el = document.getElementById("my-element") !;
+const el = document.getElementById("my-element")!;
 
 // 'duration' & 'delay' options tests.
 
-new Vivus(el, { duration: 200, delay: 199 })
+new Vivus(el, { duration: 200, delay: 199 });
 
 // 'type' option tests.
 
@@ -70,7 +82,7 @@ new Vivus("my-svg-element", {
 });
 
 function testEasingFunctions() {
-    var n: number;
+    let n: number;
 
     n = Vivus.LINEAR(0);
     n = Vivus.LINEAR(1);

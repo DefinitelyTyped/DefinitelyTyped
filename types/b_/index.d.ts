@@ -1,16 +1,11 @@
-// Type definitions for b_ 1.3
-// Project: https://github.com/azproduction/b_
-// Definitions by: Vasya Aksyonov <https://github.com/outring>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
-    tailSpace?: string;
-    elementSeparator?: string;
-    modSeparator?: string;
-    modValueSeparator?: string;
-    classSeparator?: string;
-    isFullModifier?: boolean;
-    isFullBoolValue?: boolean;
+    tailSpace?: string | undefined;
+    elementSeparator?: string | undefined;
+    modSeparator?: string | undefined;
+    modValueSeparator?: string | undefined;
+    classSeparator?: string | undefined;
+    isFullModifier?: boolean | undefined;
+    isFullBoolValue?: boolean | undefined;
 }
 
 interface Mods {

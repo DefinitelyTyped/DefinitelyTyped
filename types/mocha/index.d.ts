@@ -1,14 +1,3 @@
-// Type definitions for mocha 8.0
-// Project: https://mochajs.org
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
-//                 otiai10 <https://github.com/otiai10>
-//                 jt000 <https://github.com/jt000>
-//                 Vadim Macagon <https://github.com/enlight>
-//                 Andrew Bradley <https://github.com/cspotcode>
-//                 Dmitrii Sorin <https://github.com/1999>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Mocha API
  *
@@ -26,6 +15,13 @@ declare class Mocha {
     options: Mocha.MochaInstanceOptions;
 
     /**
+     * Add test `file`.
+     *
+     * @see https://mochajs.org/api/mocha#addFile
+     */
+    addFile(file: string): this;
+
+    /**
      * Enable or disable bailing on the first failure.
      *
      * @see https://mochajs.org/api/mocha#bail
@@ -33,11 +29,21 @@ declare class Mocha {
     bail(bail?: boolean): this;
 
     /**
-     * Add test `file`.
+     * Enables or disables whether or not to dispose after each test run.
+     * Disable this to ensure you can run the test suite multiple times.
+     * If disabled, be sure to dispose mocha when you're done to prevent memory leaks.
      *
-     * @see https://mochajs.org/api/mocha#addFile
+     * @see https://mochajs.org/api/mocha#cleanReferencesAfterRun
      */
-    addFile(file: string): this;
+    cleanReferencesAfterRun(clean?: boolean): this;
+
+    /**
+     * Manually dispose this mocha instance. Mark this instance as `disposed` and unable to run more tests.
+     * It also removes function references to tests functions and hooks, so variables trapped in closures can be cleaned by the garbage collector.
+     *
+     * @see https://mochajs.org/api/mocha#dispose
+     */
+    dispose(): void;
 
     /**
      * Set reporter to one of the built-in reporters.
@@ -84,6 +90,13 @@ declare class Mocha {
     grep(re: string | RegExp): this;
 
     /**
+     * Whether to activate dry-run mode.
+     *
+     * @param dryRun Whether to activate dry-run mode. Defaults to `true`.
+     */
+    dryRun(dryRun?: boolean): this;
+
+    /**
      * Invert `.grep()` matches.
      *
      * @see https://mochajs.org/api/mocha#invert
@@ -116,7 +129,7 @@ declare class Mocha {
      *
      * @see https://mochajs.org/api/mocha#globals
      */
-    globals(globals: string | ReadonlyArray<string>): this;
+    globals(globals: string | readonly string[]): this;
 
     /**
      * Set the timeout in milliseconds.
@@ -235,6 +248,50 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#rootHooks
      */
     rootHooks(hooks: Mocha.RootHookObject): this;
+
+    /**
+     * Configures one or more global setup fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalSetup
+     */
+    globalSetup: Mocha.HookFunction;
+
+    /**
+     * Configures one or more global teardown fixtures.
+     * If given no parameters, unsets any previously-set fixtures.
+     *
+     * @see https://mochajs.org/api/mocha#globalTeardown
+     */
+    globalTeardown: Mocha.HookFunction;
+
+    /**
+     * Returns `true` if one or more global setup fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalSetupFixtures
+     */
+    hasGlobalSetupFixtures(): boolean;
+
+    /**
+     * Returns `true` if one or more global teardown fixtures have been supplied
+     *
+     * @see https://mochajs.org/api/mocha#hasGlobalTeardownFixtures
+     */
+    hasGlobalTeardownFixtures(): boolean;
+
+    /**
+     * Toggle execution of any global setup fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalSetup
+     */
+    enableGlobalSetup(enabled: boolean): this;
+
+    /**
+     * Toggle execution of any global teardown fixture(s)
+     *
+     * @see https://mochajs.org/api/mocha#enableGlobalTeardown
+     */
+    enableGlobalTeardown(enabled: boolean): this;
 }
 
 declare namespace Mocha {
@@ -290,13 +347,6 @@ declare namespace Mocha {
          * @see https://mochajs.org/api/module-utils.html#.canonicalize
          */
         function canonicalize(value: any, stack: any[], typeHint: string): any;
-
-        /**
-         * Lookup file names at the given `path`.
-         *
-         * @see https://mochajs.org/api/Mocha.utils.html#.exports.lookupFiles
-         */
-        function lookupFiles(filepath: string, extensions?: string[], recursive?: boolean): string[];
 
         /**
          * Generate an undefined error with a message warning the user.
@@ -422,6 +472,7 @@ declare namespace Mocha {
      * @returns [tdd] `void`
      */
     interface PendingSuiteFunction {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (title: string, fn: (this: Suite) => void): Suite | void;
     }
 
@@ -594,6 +645,13 @@ declare namespace Mocha {
      * - _Only available when invoked via the mocha CLI._
      */
     let describe: SuiteFunction;
+
+    /**
+     * Describe a pending suite.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     */
+    let xdescribe: PendingSuiteFunction;
 
     /**
      * Describes a test case.
@@ -857,32 +915,28 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Dot.html
          */
-        class Dot extends Base {
-        }
+        class Dot extends Base {}
 
         /**
          * Initialize a new `Doc` reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.Doc.html
          */
-        class Doc extends Base {
-        }
+        class Doc extends Base {}
 
         /**
          * Initialize a new `TAP` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.TAP.html
          */
-        class TAP extends Base {
-        }
+        class TAP extends Base {}
 
         /**
          * Initialize a new `JSON` reporter
          *
          * @see https://mochajs.org/api/Mocha.reporters.JSON.html
          */
-        class JSON extends Base {
-        }
+        class JSON extends Base {}
 
         /**
          * Initialize a new `HTML` reporter.
@@ -919,24 +973,21 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.List.html
          */
-        class List extends Base {
-        }
+        class List extends Base {}
 
         /**
          * Initialize a new `Min` minimal test reporter (best used with --watch).
          *
          * @see https://mochajs.org/api/Mocha.reporters.Min.html
          */
-        class Min extends Base {
-        }
+        class Min extends Base {}
 
         /**
          * Initialize a new `Spec` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.Spec.html
          */
-        class Spec extends Base {
-        }
+        class Spec extends Base {}
 
         /**
          * Initialize a new `NyanCat` test reporter.
@@ -995,12 +1046,12 @@ declare namespace Mocha {
 
         namespace XUnit {
             interface MochaOptions extends Mocha.MochaOptions {
-                reporterOptions?: ReporterOptions;
+                reporterOptions?: ReporterOptions | undefined;
             }
 
             interface ReporterOptions {
-                output?: string;
-                suiteName?: string;
+                output?: string | undefined;
+                suiteName?: string | undefined;
             }
         }
 
@@ -1009,8 +1060,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Markdown.html
          */
-        class Markdown extends Base {
-        }
+        class Markdown extends Base {}
 
         /**
          * Initialize a new `Progress` bar test reporter.
@@ -1023,15 +1073,15 @@ declare namespace Mocha {
 
         namespace Progress {
             interface MochaOptions extends Mocha.MochaOptions {
-                reporterOptions?: ReporterOptions;
+                reporterOptions?: ReporterOptions | undefined;
             }
 
             interface ReporterOptions {
-                open?: string;
-                complete?: string;
-                incomplete?: string;
-                close?: string;
-                verbose?: boolean;
+                open?: string | undefined;
+                complete?: string | undefined;
+                incomplete?: string | undefined;
+                close?: string | undefined;
+                verbose?: boolean | undefined;
             }
         }
 
@@ -1040,16 +1090,14 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Landing.html
          */
-        class Landing extends Base {
-        }
+        class Landing extends Base {}
 
         /**
          * Initialize a new `JSONStream` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.JSONStream.html
          */
-        class JSONStream extends Base {
-        }
+        class JSONStream extends Base {}
 
         // value-only aliases
         const base: typeof Base;
@@ -1083,6 +1131,7 @@ declare namespace Mocha {
 
         constructor(title: string, fn?: Func | AsyncFunc);
 
+        id: string;
         title: string;
         fn: Func | AsyncFunc | undefined;
         body: string;
@@ -1090,14 +1139,14 @@ declare namespace Mocha {
         sync: boolean;
         timedOut: boolean;
         pending: boolean;
-        duration?: number;
-        parent?: Suite;
-        state?: "failed" | "passed";
+        duration?: number | undefined;
+        parent?: Suite | undefined;
+        state?: "failed" | "passed" | "pending" | undefined;
         timer?: any;
-        ctx?: Context;
-        callback?: Done;
-        allowUncaught?: boolean;
-        file?: string;
+        ctx?: Context | undefined;
+        callback?: Done | undefined;
+        allowUncaught?: boolean | undefined;
+        file?: string | undefined;
 
         /**
          * Get test timeout.
@@ -1220,7 +1269,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Runnable.html#globals
          */
-        globals(globals: ReadonlyArray<string>): void;
+        globals(globals: readonly string[]): void;
 
         /**
          * Run the test and invoke `fn(err)`.
@@ -1261,8 +1310,8 @@ declare namespace Mocha {
     class Context {
         private _runnable;
 
-        test?: Runnable;
-        currentTest?: Test;
+        test?: Runnable | undefined;
+        currentTest?: Test | undefined;
 
         /**
          * Get the context `Runnable`.
@@ -1313,20 +1362,34 @@ declare namespace Mocha {
     }
 
     interface RunnerConstants {
-        readonly EVENT_HOOK_BEGIN: 'hook';
-        readonly EVENT_HOOK_END: 'hook end';
-        readonly EVENT_RUN_BEGIN: 'start';
-        readonly EVENT_DELAY_BEGIN: 'waiting';
-        readonly EVENT_DELAY_END: 'ready';
-        readonly EVENT_RUN_END: 'end';
-        readonly EVENT_SUITE_BEGIN: 'suite';
-        readonly EVENT_SUITE_END: 'suite end';
-        readonly EVENT_TEST_BEGIN: 'test';
-        readonly EVENT_TEST_END: 'test end';
-        readonly EVENT_TEST_FAIL: 'fail';
-        readonly EVENT_TEST_PASS: 'pass';
-        readonly EVENT_TEST_PENDING: 'pending';
-        readonly EVENT_TEST_RETRY: 'retry';
+        readonly EVENT_HOOK_BEGIN: "hook";
+        readonly EVENT_HOOK_END: "hook end";
+        readonly EVENT_RUN_BEGIN: "start";
+        readonly EVENT_DELAY_BEGIN: "waiting";
+        readonly EVENT_DELAY_END: "ready";
+        readonly EVENT_RUN_END: "end";
+        readonly EVENT_SUITE_BEGIN: "suite";
+        readonly EVENT_SUITE_END: "suite end";
+        readonly EVENT_TEST_BEGIN: "test";
+        readonly EVENT_TEST_END: "test end";
+        readonly EVENT_TEST_FAIL: "fail";
+        readonly EVENT_TEST_PASS: "pass";
+        readonly EVENT_TEST_PENDING: "pending";
+        readonly EVENT_TEST_RETRY: "retry";
+        readonly STATE_IDLE: "idle";
+        readonly STATE_RUNNING: "running";
+        readonly STATE_STOPPED: "stopped";
+    }
+
+    interface RunnerOptions {
+        /** Whether to delay execution of root suite until ready. */
+        delay?: boolean;
+
+        /** Whether to report tests without running them. */
+        dryRun?: boolean;
+
+        /** Whether to clean references to test fns and hooks when a suite is done. */
+        cleanReferencesAfterRun?: boolean;
     }
 
     /**
@@ -1346,21 +1409,35 @@ declare namespace Mocha {
 
         static readonly constants: RunnerConstants;
 
-        constructor(suite: Suite, delay: boolean);
+        /**
+         * Initialize a `Runner` at the Root Suite, which represents a hierarchy of Suites and Tests.
+         *
+         * @param suite Root suite
+         * @param optionsOrDelay Options. If boolean (deprecated), whether or not to delay execution of root suite until ready.
+         */
+        constructor(suite: Suite, optionsOrDelay?: RunnerOptions | boolean);
 
         suite: Suite;
         started: boolean;
         total: number;
         failures: number;
-        asyncOnly?: boolean;
-        allowUncaught?: boolean;
-        fullStackTrace?: boolean;
-        forbidOnly?: boolean;
-        forbidPending?: boolean;
-        checkLeaks?: boolean;
-        test?: Test;
-        currentRunnable?: Runnable;
-        stats?: Stats; // added by reporters
+        asyncOnly?: boolean | undefined;
+        allowUncaught?: boolean | undefined;
+        fullStackTrace?: boolean | undefined;
+        forbidOnly?: boolean | undefined;
+        forbidPending?: boolean | undefined;
+        checkLeaks?: boolean | undefined;
+        test?: Test | undefined;
+        currentRunnable?: Runnable | undefined;
+        stats?: Stats | undefined; // added by reporters
+
+        /**
+         * Removes all event handlers set during a run on this instance.
+         * Remark: this does *not* clean/dispose the tests or suites themselves.
+         *
+         * @see https://mochajs.org/api/runner#dispose
+         */
+        dispose(): void;
 
         /**
          * Run tests with full titles matching `re`. Updates runner.total
@@ -1390,7 +1467,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Runner.html#.Runner#globals
          */
-        globals(arr: ReadonlyArray<string>): this;
+        globals(arr: readonly string[]): this;
 
         /**
          * Run the root suite and invoke `fn(failures)` on completion.
@@ -1662,22 +1739,22 @@ declare namespace Mocha {
     // #endregion Runner untyped events
 
     interface SuiteConstants {
-        readonly EVENT_FILE_POST_REQUIRE: 'post-require';
-        readonly EVENT_FILE_PRE_REQUIRE: 'pre-require';
-        readonly EVENT_FILE_REQUIRE: 'require';
-        readonly EVENT_ROOT_SUITE_RUN: 'run';
+        readonly EVENT_FILE_POST_REQUIRE: "post-require";
+        readonly EVENT_FILE_PRE_REQUIRE: "pre-require";
+        readonly EVENT_FILE_REQUIRE: "require";
+        readonly EVENT_ROOT_SUITE_RUN: "run";
 
-        readonly HOOK_TYPE_AFTER_ALL: 'afterAll';
-        readonly HOOK_TYPE_AFTER_EACH: 'afterEach';
-        readonly HOOK_TYPE_BEFORE_ALL: 'beforeAll';
-        readonly HOOK_TYPE_BEFORE_EACH: 'beforeEach';
+        readonly HOOK_TYPE_AFTER_ALL: "afterAll";
+        readonly HOOK_TYPE_AFTER_EACH: "afterEach";
+        readonly HOOK_TYPE_BEFORE_ALL: "beforeAll";
+        readonly HOOK_TYPE_BEFORE_EACH: "beforeEach";
 
-        readonly EVENT_SUITE_ADD_HOOK_AFTER_ALL: 'afterAll';
-        readonly EVENT_SUITE_ADD_HOOK_AFTER_EACH: 'afterEach';
-        readonly EVENT_SUITE_ADD_HOOK_BEFORE_ALL: 'beforeAll';
-        readonly EVENT_SUITE_ADD_HOOK_BEFORE_EACH: 'beforeEach';
-        readonly EVENT_SUITE_ADD_SUITE: 'suite';
-        readonly EVENT_SUITE_ADD_TEST: 'test';
+        readonly EVENT_SUITE_ADD_HOOK_AFTER_ALL: "afterAll";
+        readonly EVENT_SUITE_ADD_HOOK_AFTER_EACH: "afterEach";
+        readonly EVENT_SUITE_ADD_HOOK_BEFORE_ALL: "beforeAll";
+        readonly EVENT_SUITE_ADD_HOOK_BEFORE_EACH: "beforeEach";
+        readonly EVENT_SUITE_ADD_SUITE: "suite";
+        readonly EVENT_SUITE_ADD_TEST: "test";
     }
 
     /**
@@ -1705,7 +1782,7 @@ declare namespace Mocha {
         suites: Suite[];
         tests: Test[];
         pending: boolean;
-        file?: string;
+        file?: string | undefined;
         root: boolean;
         delayed: boolean;
         parent: Suite | undefined;
@@ -1917,6 +1994,13 @@ declare namespace Mocha {
         addTest(test: Test): this;
 
         /**
+         * Cleans all references from this suite and all child suites.
+         *
+         * https://mochajs.org/api/suite#dispose
+         */
+        dispose(): void;
+
+        /**
          * Return the full title generated by recursively concatenating the parent's
          * full title.
          *
@@ -2042,9 +2126,18 @@ declare namespace Mocha {
         on(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
         once(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
         addListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        removeListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependOnceListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        removeListener(
+            event: "pre-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependListener(
+            event: "pre-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependOnceListener(
+            event: "pre-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
         emit(name: "pre-require", context: MochaGlobals, file: string, mocha: Mocha): boolean;
     }
     // #endregion Suite "pre-require" event
@@ -2064,9 +2157,18 @@ declare namespace Mocha {
         on(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
         once(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
         addListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        removeListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependOnceListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        removeListener(
+            event: "post-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependListener(
+            event: "post-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependOnceListener(
+            event: "post-require",
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
         emit(name: "post-require", context: MochaGlobals, file: string, mocha: Mocha): boolean;
     }
     // #endregion Suite "post-require" event
@@ -2091,7 +2193,7 @@ declare namespace Mocha {
         private _error;
 
         type: "hook";
-        originalTitle?: string; // added by Runner
+        originalTitle?: string | undefined; // added by Runner
 
         /**
          * Get the test `err`.
@@ -2119,24 +2221,24 @@ declare namespace Mocha {
      * @see https://mochajs.org/#root-hook-plugins
      */
     interface RootHookObject {
-      /**
-       * In serial mode, run after all tests end, once only.
-       * In parallel mode, run after all tests end, for each file.
-       */
-      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
-      /**
-       * In serial mode (Mocha's default), before all tests begin, once only.
-       * In parallel mode, run before all tests begin, for each file.
-       */
-      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[];
-      /**
-       * In both modes, run after every test.
-       */
-      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
-      /**
-       * In both modes, run before each test.
-       */
-      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[];
+        /**
+         * In serial mode, run after all tests end, once only.
+         * In parallel mode, run after all tests end, for each file.
+         */
+        afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In serial mode (Mocha's default), before all tests begin, once only.
+         * In parallel mode, run before all tests begin, for each file.
+         */
+        beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In both modes, run after every test.
+         */
+        afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In both modes, run before each test.
+         */
+        beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
     }
 
     /**
@@ -2146,8 +2248,8 @@ declare namespace Mocha {
      */
     class Test extends Runnable {
         type: "test";
-        speed?: "slow" | "medium" | "fast"; // added by reporters
-        err?: Error; // added by reporters
+        speed?: "slow" | "medium" | "fast" | undefined; // added by reporters
+        err?: Error | undefined; // added by reporters
         clone(): Test;
     }
 
@@ -2160,15 +2262,15 @@ declare namespace Mocha {
         passes: number;
         pending: number;
         failures: number;
-        start?: Date;
-        end?: Date;
-        duration?: number;
+        start?: Date | undefined;
+        end?: Date | undefined;
+        duration?: number | undefined;
     }
 
     type TestInterface = (suite: Suite) => void;
 
     interface ReporterConstructor {
-        new (runner: Runner, options: MochaOptions): reporters.Base;
+        new(runner: Runner, options: MochaOptions): reporters.Base;
     }
 
     type Done = (err?: any) => void;
@@ -2187,74 +2289,96 @@ declare namespace Mocha {
      * Options to pass to Mocha.
      */
     interface MochaOptions {
-        /** Test interfaces ("bdd", "tdd", "exports", etc.). */
-        ui?: Interface;
+        /** Propagate uncaught errors? */
+        allowUncaught?: boolean | undefined;
 
-        /**
-         * Reporter constructor, built-in reporter name, or reporter module path. Defaults to
-         * `"spec"`.
-         */
-        reporter?: string | ReporterConstructor;
-
-        /** Options to pass to the reporter. */
-        reporterOptions?: any;
-
-        /** Array of accepted globals. */
-        globals?: string[];
-
-        /** timeout in milliseconds or time string like '1s'. */
-        timeout?: number | string;
-
-        /** number of times to retry failed tests. */
-        retries?: number;
+        /** Force `done` callback or promise? */
+        asyncOnly?: boolean | undefined;
 
         /** bail on the first test failure. */
-        bail?: boolean;
+        bail?: boolean | undefined;
 
-        /** milliseconds to wait before considering a test slow. */
-        slow?: number;
-
-        /** check for global variable leaks. */
-        checkLeaks?: boolean;
-
-        /** display the full stack trace on failure. */
-        fullStackTrace?: boolean;
-
-        /** string or regexp to filter tests with. */
-        grep?: string | RegExp;
-
-        /** Enable growl support. */
-        growl?: boolean;
+        /** Check for global variable leaks? */
+        checkLeaks?: boolean | undefined;
 
         /** Color TTY output from reporter */
-        color?: boolean;
+        color?: boolean | undefined;
 
-        /** Use inline diffs rather than +/-. */
-        inlineDiffs?: boolean;
+        /** Delay root suite execution? */
+        delay?: boolean | undefined;
 
-        /** Do not show diffs at all. */
-        hideDiff?: boolean;
+        /** Show diff on failure? */
+        diff?: boolean | undefined;
 
-        /** Run job in parallel */
-        parallel?: boolean;
+        /** Report tests without running them? */
+        dryRun?: boolean | undefined;
 
-        /** Max number of worker processes for parallel runs */
-        jobs?: number;
+        /** Test filter given string. */
+        fgrep?: string | undefined;
 
-        /** Assigns hooks to the root suite */
-        rootHooks?: RootHookObject;
+        /** Tests marked `only` fail the suite? */
+        forbidOnly?: boolean | undefined;
 
-        asyncOnly?: boolean;
-        delay?: boolean;
-        forbidOnly?: boolean;
-        forbidPending?: boolean;
-        noHighlighting?: boolean;
-        allowUncaught?: boolean;
-        fullTrace?: boolean;
+        /** Pending tests fail the suite? */
+        forbidPending?: boolean | undefined;
+
+        /** Full stacktrace upon failure? */
+        fullTrace?: boolean | undefined;
+
+        /** Variables expected in global scope. */
+        globals?: string[] | undefined;
+
+        /** Test filter given regular expression. */
+        grep?: string | RegExp | undefined;
+
+        /** Enable desktop notifications? */
+        growl?: boolean | undefined;
+
+        /** Display inline diffs? */
+        inlineDiffs?: boolean | undefined;
+
+        /** Invert test filter matches? */
+        invert?: boolean | undefined;
+
+        /** Disable syntax highlighting? */
+        noHighlighting?: boolean | undefined;
+
+        /** Reporter name or constructor. */
+        reporter?: string | ReporterConstructor | undefined;
+
+        /** Reporter settings object. */
+        reporterOptions?: any;
+
+        /** Number of times to retry failed tests. */
+        retries?: number | undefined;
+
+        /** Slow threshold value. */
+        slow?: number | undefined;
+
+        /** Timeout threshold value. */
+        timeout?: number | string | undefined;
+
+        /** Interface name. */
+        ui?: Interface | undefined;
+
+        /** Run jobs in parallel */
+        parallel?: boolean | undefined;
+
+        /** Max number of worker processes for parallel runs. */
+        jobs?: number | undefined;
+
+        /** Hooks to bootstrap the root suite with. */
+        rootHooks?: RootHookObject | undefined;
+
+        /** Pathname of `rootHooks` plugin for parallel runs. */
+        require?: string[] | undefined;
+
+        /** Should be `true` if `Mocha` process is running in a worker process. */
+        isWorker?: boolean | undefined;
     }
 
     interface MochaInstanceOptions extends MochaOptions {
-        files?: string[];
+        files?: string[] | undefined;
     }
 
     /**
@@ -2618,23 +2742,23 @@ declare var xspecify: Mocha.PendingTestFunction;
 // Forward declaration for `HTMLLIElement` from lib.dom.d.ts.
 // Required by Mocha.reporters.HTML.
 // NOTE: Mocha *must not* have a direct dependency on DOM types.
-// tslint:disable-next-line no-empty-interface
-interface HTMLLIElement { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface HTMLLIElement {}
 
 // Augments the DOM `Window` object when lib.dom.d.ts is loaded.
-// tslint:disable-next-line no-empty-interface
-interface Window extends Mocha.MochaGlobals { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Window extends Mocha.MochaGlobals {}
 
 declare namespace NodeJS {
     // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
     // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
     // NOTE: Mocha *must not* have a direct dependency on @types/node.
-    // tslint:disable-next-line no-empty-interface
-    interface EventEmitter { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface EventEmitter {}
 
     // Augments NodeJS's `global` object when node.d.ts is loaded
-    // tslint:disable-next-line no-empty-interface
-    interface Global extends Mocha.MochaGlobals { }
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Global extends Mocha.MochaGlobals {}
 }
 
 // #endregion Reporter augmentations
@@ -2672,23 +2796,13 @@ declare module "mocha" {
     export = Mocha;
 }
 
-declare module "mocha/lib/ms" {
-    export = milliseconds;
-    /**
-     * Parse the given `str` and return milliseconds.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~parse}
-     */
-    function milliseconds(val: string): number;
+declare module "mocha/lib/stats-collector" {
+    export = createStatsCollector;
 
     /**
-     * Format for `ms`.
-     *
-     * @see {@link https://mochajs.org/api/module-milliseconds.html}
-     * @see {@link https://mochajs.org/api/module-milliseconds.html#~format}
+     * Provides stats such as test duration, number of tests passed / failed etc., by listening for events emitted by `runner`.
      */
-    function milliseconds(val: number): string;
+    function createStatsCollector(runner: Mocha.Runner): void;
 }
 
 declare module "mocha/lib/interfaces/common" {
@@ -2753,16 +2867,16 @@ declare module "mocha/lib/interfaces/common" {
             title: string;
 
             /** Suite function */
-            fn?: (this: Mocha.Suite) => void;
+            fn?: ((this: Mocha.Suite) => void) | undefined;
 
             /** Is suite pending? */
-            pending?: boolean;
+            pending?: boolean | undefined;
 
             /** Filepath where this Suite resides */
-            file?: string;
+            file?: string | undefined;
 
             /** Is suite exclusive? */
-            isOnly?: boolean;
+            isOnly?: boolean | undefined;
         }
 
         interface SuiteFunctions {

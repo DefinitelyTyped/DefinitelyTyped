@@ -2,7 +2,7 @@ import * as FluxStore from "./FluxStore";
 
 declare namespace FluxMixinLegacy {
     interface Options {
-        withProps?: boolean;
+        withProps?: boolean | undefined;
     }
 }
 

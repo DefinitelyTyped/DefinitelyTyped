@@ -96,14 +96,10 @@ async function main() {
             }
         }
     }
-
-    // Check whether or not an interface is an overload or the main lodash function
-    const isExportedInterface = (interfaceDef: Interface) => !!interfaceGroups.find(g => g.interfaces[0].name === interfaceDef.name);
-
     const interfaces = _.uniqBy(_.flatMap(interfaceGroups, g => g.interfaces), i => i.name);
     const commonTypeSearch = new RegExp(`\\b(${commonTypes.join("|")})\\b`, "g");
     const interfaceStrings = _(interfaces)
-        .map(i => tab(interfaceToString(i, isExportedInterface(i)), 1))
+        .map(i => tab(interfaceToString(i), 1))
         .join(lineBreak)
         .replace(commonTypeSearch, match => `lodash.${match}`);
     const fpFile = [
@@ -117,10 +113,6 @@ async function main() {
         "",
         "declare const _: _.LoDashFp;",
         "declare namespace _ {",
-        // Add LodashConvertible to allow `.convert` method on each lodash/fp function
-        "    interface LodashConvertible {",
-        "        convert(options: lodash.ConvertOptions): (...args: any[]) => any;",
-        "    }",
         interfaceStrings,
         "",
         "    interface LoDashFp {",
@@ -134,6 +126,24 @@ async function main() {
     fs.writeFile(path.join("..", "fp.d.ts"), fpFile, (err) => {
         if (err)
             console.error("Failed to write fp.d.ts: ", err);
+    });
+
+    // Make sure the generated files are listed in tsconfig.json, so they are included in the lint checks
+    const tsconfigPath = path.join("..", "tsconfig.json");
+    const tsconfigFile = await readFile(tsconfigPath);
+    const tsconfig = tsconfigFile.split(lineBreak).filter(row => !row.includes("fp/") || row.includes("fp/convert.d.ts"));
+    const newRows = interfaceGroups.map(g => `        "fp/${g.functionName}.d.ts",`)
+        .concat(["__", "placeholder"].map(p => `        "fp/${p}.d.ts",`));
+    newRows[newRows.length - 1] = newRows[newRows.length - 1].replace(",", "");
+
+    const insertIndex = _.findLastIndex(tsconfig, row => row.trim() === "]"); // Assume "files" is the last array
+    if (!tsconfig[insertIndex - 1].endsWith(","))
+        tsconfig[insertIndex - 1] += ",";
+    tsconfig.splice(insertIndex, 0, ...newRows);
+
+    fs.writeFile(tsconfigPath, tsconfig.join(lineBreak), (err) => {
+        if (err)
+            console.error(`Failed to write ${tsconfigPath}: `, err);
     });
 }
 
@@ -737,7 +747,14 @@ function curryParams(
     };
     // Remove the `extends` constraint from interface type parameters, because sometimes they extend things that aren't passed to the interface.
     for (const typeParam of interfaceDef.typeParams) {
-        if (!_.startsWith(typeParam.extends, "keyof ")) // We need to keep `extends keyof` constraints, because they're needed for TObject[TKey] to work.
+        // 1. retain `extends keyof X` constraints so that TObject[TKey] still works.
+        // 2. retain `any[]` constraints so that variadic generics work.
+        // 3. retain `(...args: any[]) => any` constraints so that function-based generics work
+        if (!_.startsWith(typeParam.extends, "keyof ")
+            && typeParam.extends !== "any[]"
+            && typeParam.extends !== "(...args: any) => any"
+            && typeParam.extends !== "(...args: any[]) => any"
+        )
             delete typeParam.extends;
     }
     return interfaceDef;
@@ -836,13 +853,7 @@ function getInterfaceName(baseName: string, overloadId: number, index: number, t
     return interfaceName;
 }
 
-function interfaceToString(interfaceDef: Interface, exportedInterface: boolean): string {
-    // Exported interface extends LodashConvertible to allow
-    // calling `.convert({})` on each lodash/fp functions
-    const interfaceExtendsStatement = exportedInterface
-        ? " extends LodashConvertible"
-        : "";
-
+function interfaceToString(interfaceDef: Interface): string {
     if (_.isEmpty(interfaceDef.overloads)) {
         // No point in creating an empty interface
         return "";
@@ -859,7 +870,7 @@ function interfaceToString(interfaceDef: Interface, exportedInterface: boolean):
     } else {
         const overloadStrings = interfaceDef.overloads.map(o => lineBreak + tab(overloadToString(o), 1)).join("")
             + interfaceDef.constants.map(c => `${lineBreak}${tab(c, 1)};`).join("");
-        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)}${interfaceExtendsStatement} {${overloadStrings}${lineBreak}}`;
+        return `interface ${interfaceDef.name}${typeParamsToString(interfaceDef.typeParams)} {${overloadStrings}${lineBreak}}`;
     }
 }
 

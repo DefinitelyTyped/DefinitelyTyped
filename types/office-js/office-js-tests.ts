@@ -13,8 +13,8 @@ function test_excel() {
         return ctx.sync()
             .then(function () {
                 var vals = range.values;
-                for (var i = 0; i < vals.length; i++) {
-                    for (var j = 0; j < vals[i].length; j++) {
+                for (var i = 0; i < vals.length; i += 1) {
+                    for (var j = 0; j < vals[i].length; j += 1) {
                         vals[i][j] = vals[i][j].toUpperCase();
                     }
                 }
@@ -72,7 +72,7 @@ function test_excel() {
                 var largestRow = 0;
                 var largestValue = 0;
 
-                for (var i = 0; i < rows.items.length; i++) {
+                for (var i = 0; i < rows.items.length; i += 1) {
                     if (rows.items[i].values[0][1] > largestValue) {
                         largestRow = i;
                         largestValue = rows.items[i].values[0][1];
@@ -133,7 +133,7 @@ function test_word() {
                 '; we highlighted the results.';
 
             // Queue a command to change the font for each found item. 
-            for (var i = 0; i < searchResults.items.length; i++) {
+            for (var i = 0; i < searchResults.items.length; i += 1) {
                 searchResults.items[i].font.color = '#FF0000'    // Change color to Red
                 searchResults.items[i].font.highlightColor = '#FFFF00';
                 searchResults.items[i].font.bold = true;
@@ -233,7 +233,7 @@ function test_word() {
                 if (this._calloutNumber > 0) {
                     var lastParagraph = insertedImage.insertParagraph('Here are your callout descriptions:', Word.InsertLocation.after) as Word.Paragraph;
 
-                    for (var i = 0; i < this._calloutNumber; i++) {
+                    for (var i = 0; i < this._calloutNumber; i += 1) {
                         lastParagraph = lastParagraph.insertParagraph((i + 1) + ') [enter callout description].', Word.InsertLocation.after);
                     }
                 }
@@ -316,5 +316,24 @@ async function testResumeExistingObject () {
     await Excel.run({delayForCellEdit: true, previousObjects: range}, async context => {
         range.clear();
         await context.sync();
+    });
+}
+
+/* Office direct API tests */
+async function testOfficeDirectApis() {
+    let supported = Office.isSetSupported('ExcelApi', '1.10');
+    Office.addin.setStartupBehavior(Office.StartupBehavior.load);
+    let startupBehavior = Office.addin.getStartupBehavior();
+    Office.ribbon.requestUpdate({
+        tabs: [
+            {
+                id: 'test-id',
+                controls: [
+                {
+                    id: 'button-1',
+                    enabled: true,
+                }]
+            },
+        ],
     });
 }

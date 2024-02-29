@@ -1,26 +1,20 @@
-// Type definitions for pngjs2 2.0.0
-// Project: https://www.npmjs.com/package/pngjs2
-// Definitions by: Elisée Maurer <https://sparklinlabs.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import fs = require("fs");
 import events = require("events");
 import stream = require("stream");
 
 interface PNGOptions {
-    width?: number;
-    height?: number;
-    checkCRC?: boolean;
-    deflateChunkSize?: number;
-    deflateLevel?: number;
-    deflateStrategy?: number;
+    width?: number | undefined;
+    height?: number | undefined;
+    checkCRC?: boolean | undefined;
+    deflateChunkSize?: number | undefined;
+    deflateLevel?: number | undefined;
+    deflateStrategy?: number | undefined;
     deflateFactory?: any;
-    filterType?: number | number[];
-    colorType?: number;
-    inputHasAlpha?: boolean;
+    filterType?: number | number[] | undefined;
+    colorType?: number | undefined;
+    inputHasAlpha?: boolean | undefined;
 }
 
 interface PNGMetadata {
@@ -48,11 +42,18 @@ export declare class PNG extends stream.Writable {
     parse(data: string | Buffer, callback?: (err: Error, data: Buffer) => void): PNG;
     pack(): PNG;
 
-    static bitblt(src: PNG, dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): void;
+    static bitblt(
+        src: PNG,
+        dst: PNG,
+        srcX: number,
+        srcY: number,
+        width: number,
+        height: number,
+        deltaX: number,
+        deltaY: number,
+    ): void;
 
-    bitblt(dst: PNG, srcX: number, srcY: number,
-        width: number, height: number, deltaX: number, deltaY: number): PNG;
+    bitblt(dst: PNG, srcX: number, srcY: number, width: number, height: number, deltaX: number, deltaY: number): PNG;
 }
 
 export declare namespace PNG {

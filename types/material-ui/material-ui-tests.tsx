@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {
   Component, ComponentClass, CSSProperties,
-  StatelessComponent, ReactElement, ReactInstance, ValidationMap
+  FunctionComponent, ReactElement, ReactInstance, ValidationMap
 } from 'react';
-import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
@@ -2286,9 +2285,9 @@ class DeepDownTheTree extends Component<{} & {muiTheme: MuiTheme}> {
 
 interface Props {
   label: string;
-  muiTheme?: MuiTheme;
+  muiTheme?: MuiTheme | undefined;
 }
-const MuiThemeableFunction = muiThemeable()<StatelessComponent<Props>, Props>(props => {
+const MuiThemeableFunction = muiThemeable()<FunctionComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
@@ -2297,7 +2296,7 @@ const MuiThemeableFunction = muiThemeable()<StatelessComponent<Props>, Props>(pr
 });
 
 @muiThemeable()
-class MuiThemeableClass extends Component<{label: string} & {muiTheme?: MuiTheme}> {
+class MuiThemeableClass extends Component<{label: string} & {muiTheme?: MuiTheme | undefined}> {
   render() {
     return (
       <span style={{color: this.props.muiTheme.palette.textColor}}>
@@ -3024,7 +3023,7 @@ const ChipExampleSimple = () => (
     <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
     <Chip style={styles.chip}>Styled</Chip>
     <Chip containerElement="span">String Container</Chip>
-    <Chip containerElement={() => {}}>ReactNode Container</Chip>
+    <Chip containerElement={<div />}>ReactNode Container</Chip>
   </div>
 );
 
@@ -3068,10 +3067,10 @@ const optionsStyle = {
 };
 
 interface DatePickerExampleToggleState {
-  minDate?: Date;
-  maxDate?: Date;
-  autoOk?: boolean;
-  disableYearSelection?: boolean;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
+  autoOk?: boolean | undefined;
+  disableYearSelection?: boolean | undefined;
 }
 
 class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState> {
@@ -3155,7 +3154,7 @@ class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState
     }
 }
 
-class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date}> {
+class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date | undefined}> {
   state = {
     controlledDate: null,
   };
@@ -3217,7 +3216,7 @@ const DatePickerExampleInternational = () => (
 );
 
 // "http://material-ui.com/#/components/dialog"
-class DialogExampleSimple extends Component<{}, {open?: boolean}> {
+class DialogExampleSimple extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3262,7 +3261,7 @@ class DialogExampleSimple extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleModal extends Component<{}, {open?: boolean}> {
+class DialogExampleModal extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3306,7 +3305,7 @@ class DialogExampleModal extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
+class DialogExampleCustomWidth extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3350,7 +3349,7 @@ class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
+class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3391,7 +3390,7 @@ class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
+class DialogExampleScrollable extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3451,7 +3450,7 @@ class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleAlert extends Component<{}, {open?: boolean}> {
+class DialogExampleAlert extends Component<{}, {open?: boolean | undefined}> {
   state = {
     open: false,
   };
@@ -3532,7 +3531,7 @@ const DividerExampleMenu = () => (
 );
 
 // "http://www.material-ui.com/#/components/drawer"
-class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
+class DrawerSimpleExample extends Component<{}, {open?: boolean | undefined}> {
   state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -3553,7 +3552,7 @@ class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
+class DrawerUndockedExample extends Component<{}, {open?: boolean | undefined}> {
   state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -3581,7 +3580,7 @@ class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
   }
 }
 
-class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
+class DrawerOpenRightExample extends Component<{}, {open?: boolean | undefined}> {
   state = {open: false};
 
   handleToggle = () => this.setState({open: !this.state.open});
@@ -3602,7 +3601,7 @@ class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
 }
 
 // "http://www.material-ui.com/#/components/grid-list"
-const tilesData: Array<{img: string, title: string, author: string, featured?: boolean}> = [
+const tilesData: Array<{img: string, title: string, author: string, featured?: boolean | undefined}> = [
   {
     img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
@@ -4195,8 +4194,8 @@ const ListExampleMessages = () => (
   </div>
 );
 
-function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.SelectableProps>) {
-  return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
+function wrapState(ComposedComponent: ComponentClass<React.PropsWithChildren<__MaterialUI.List.SelectableProps>>) {
+  return class SelectableList extends Component<{children?: React.ReactNode, defaultValue: number}, {selectedIndex: number}> {
     static propTypes = {
       children: PropTypes.node.isRequired,
       defaultValue: PropTypes.number.isRequired,
@@ -4227,7 +4226,7 @@ function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.Selectabl
   };
 }
 
-const SelectableList = wrapState(makeSelectable<{}>(List));
+const SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -4262,6 +4261,12 @@ const ListExampleSelectable = () => (
       />
     </SelectableList>
   </Paper>
+);
+
+const DirectSelectableList = makeSelectable(List);
+
+const DirectSelectableListExample = () => (
+    <DirectSelectableList onChange={(e, v) => console.log(v)} />
 );
 
 // "http://www.material-ui.com/#/components/menu"
@@ -4495,9 +4500,9 @@ const IconMenuExampleSimple = () => (
 );
 
 interface IconMenuExampleControlledState {
-  valueSingle?: string;
-  valueMultiple?: string[];
-  openMenu?: boolean;
+  valueSingle?: string | undefined;
+  valueMultiple?: string[] | undefined;
+  openMenu?: boolean | undefined;
 }
 
 class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledState> {
@@ -4673,7 +4678,7 @@ const IconMenuExampleNested = () => (
 );
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
-class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
+class DropDownMenuSimpleExample extends Component<{}, {value?: number | undefined}> {
   state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -4706,7 +4711,7 @@ class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
   }
 }
 
-class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
+class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number | undefined}> {
   state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -4724,7 +4729,7 @@ class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   }
 }
 
-const DropDownMenuAnchorExample: React.SFC = () => (
+const DropDownMenuAnchorExample: React.FC = () => (
   <DropDownMenu
     value={1}
     targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
@@ -4740,7 +4745,7 @@ for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
 
-class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
+class DropDownMenuLongMenuExample extends Component<{}, {value?: number | undefined}> {
   state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -4754,7 +4759,7 @@ class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
   }
 }
 
-class DropDownMenuLabeledExample extends Component<{}, {value?: number}> {
+class DropDownMenuLabeledExample extends Component<{}, {value?: number | undefined}> {
   state = {value: 2};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -4803,7 +4808,7 @@ const PaperExampleCircle = () => (
 );
 
 // "http://www.material-ui.com/#/components/popover"
-class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
+class PopoverExampleSimple extends Component<{}, {open?: boolean | undefined, anchorEl?: ReactInstance | undefined}> {
   state = {
     open: false,
     anchorEl: null
@@ -4851,7 +4856,7 @@ class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: Rea
   }
 }
 
-class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
+class PopoverExampleAnimation extends Component<{}, {open?: boolean | undefined, anchorEl?: ReactInstance | undefined}> {
   state = {
     open: false,
     anchorEl: null
@@ -4900,10 +4905,10 @@ class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: 
 }
 
 interface PopoverExampleConfigurableState {
-  open?: boolean;
-  anchorOrigin?: __MaterialUI.propTypes.origin;
-  targetOrigin?: __MaterialUI.propTypes.origin;
-  anchorEl?: ReactInstance;
+  open?: boolean | undefined;
+  anchorOrigin?: __MaterialUI.propTypes.origin | undefined;
+  targetOrigin?: __MaterialUI.propTypes.origin | undefined;
+  anchorEl?: ReactInstance | undefined;
 }
 
 class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurableState> {
@@ -5061,7 +5066,7 @@ const CircularProgressExampleSimple = () => (
   </div>
 );
 
-class CircularProgressExampleDeterminate extends Component<{}, {completed?: number}> {
+class CircularProgressExampleDeterminate extends Component<{}, {completed?: number | undefined}> {
   private timer: number;
 
   state = {
@@ -5102,7 +5107,7 @@ const LinearProgressExampleSimple = () => (
     <LinearProgress mode="indeterminate"/>
 );
 
-class LinearProgressExampleDeterminate extends Component<{}, {completed?: number}> {
+class LinearProgressExampleDeterminate extends Component<{}, {completed?: number | undefined}> {
   private timer: number;
 
   state = {
@@ -5195,7 +5200,7 @@ const RefreshIndicatorExampleLoading = () => (
 );
 
 // "http://www.material-ui.com/#/components/select-field"
-class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
+class SelectFieldExampleSimple extends Component<{}, {value?: number | undefined}> {
   state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5244,7 +5249,7 @@ class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
+class SelectFieldLongMenuExample extends Component<{}, {value?: number | undefined}> {
   state = {value: 10};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5258,7 +5263,7 @@ class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldExampleCustomLabel extends Component<{}, {value?: number}> {
+class SelectFieldExampleCustomLabel extends Component<{}, {value?: number | undefined}> {
   state = {value: 1};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5283,7 +5288,7 @@ const itemsPeriod = [
     <MenuItem key={5} value={5} primaryText="Weekly"/>,
 ];
 
-export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number}> {
+export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number | undefined}> {
   state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5313,7 +5318,7 @@ export default class SelectFieldExampleFloatingLabel extends Component<{}, {valu
   }
 }
 
-class SelectFieldExampleError extends Component<{}, {value?: number}> {
+class SelectFieldExampleError extends Component<{}, {value?: number | undefined}> {
   state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5359,7 +5364,7 @@ const names = [
   'Kelly Snyder',
 ];
 
-class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[]}> {
+class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[] | undefined}> {
   state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
@@ -5404,7 +5409,7 @@ const persons = [
   {value: 9, name: 'Kelly Snyder'},
 ];
 
-class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[]}> {
+class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[] | undefined}> {
   state = {values: []};
 
   handleChange = (event, index, values) => this.setState({values});
@@ -5447,7 +5452,7 @@ class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string
   }
 }
 
-class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number}> {
+class SelectFieldExampleDropDownMenu extends Component<{}, {value?: number | undefined}> {
   state = {value: null};
 
   handleChange = (event, index, value) => this.setState({value});
@@ -5490,7 +5495,7 @@ const SliderExampleStep = () => (
     <Slider step={0.10} value={.5}/>
 );
 
-class SliderExampleControlled extends Component<{}, {firstSlider?: number, secondSlider?: number}> {
+class SliderExampleControlled extends Component<{}, {firstSlider?: number | undefined, secondSlider?: number | undefined}> {
   state = {
     firstSlider: 0.5,
     secondSlider: 50,
@@ -5656,7 +5661,7 @@ const ToggleExampleSimple = () => (
 );
 
 // "http://material-ui.com/#/components/snackbar"
-class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
+class SnackbarExampleSimple extends Component<{}, {open?: boolean | undefined}> {
   state = { open: false, };
 
   handleClick = () => {
@@ -5690,7 +5695,7 @@ class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
   }
 }
 
-class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
+class SnackbarExampleAction extends Component<{}, {open?: boolean | undefined, autoHideDuration?: number | undefined, message?: string | undefined}> {
   state = {
     autoHideDuration: 4000,
     message: 'Event added to your calendar',
@@ -5749,12 +5754,12 @@ class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDurat
   }
 }
 
-class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: string}> {
+class SnackbarExampleTwice extends Component<{}, {open?: boolean | undefined, message?: string | undefined}> {
   state = {
     message: 'Event 1 added to your calendar',
     open: false,
   };
-  private timer?: number;
+  private timer?: number | undefined;
 
   componentWillUnMount() {
     clearTimeout(this.timer);
@@ -5798,7 +5803,7 @@ class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: stri
 }
 
 // "http://www.material-ui.com/#/components/stepper"
-class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
+class HorizontalLinearStepper extends Component<{}, {stepIndex?: number | undefined, finished?: boolean | undefined}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -5886,7 +5891,7 @@ class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finishe
   }
 }
 
-class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
+class VerticalLinearStepper extends Component<{}, {stepIndex?: number | undefined, finished?: boolean | undefined}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -5988,7 +5993,7 @@ class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?
   }
 }
 
-class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
+class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number | undefined}> {
   state = {
     stepIndex: 0,
   };
@@ -6065,7 +6070,7 @@ class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
   }
 }
 
-class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
+class VerticalNonLinear extends Component<{}, {stepIndex?: number | undefined}> {
   state = {
     stepIndex: 0,
   };
@@ -6178,7 +6183,7 @@ const getStyles = () => {
   };
 };
 
-class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?: number[]}> {
+class GranularControlStepper extends Component<{}, {stepIndex?: number | undefined, visited?: number[] | undefined}> {
   state = {
     stepIndex: null,
     visited: [],
@@ -6280,7 +6285,7 @@ class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?
   }
 }
 
-class CustomIcon extends Component<{}, {stepIndex?: number}> {
+class CustomIcon extends Component<{}, {stepIndex?: number | undefined}> {
   state = {
     stepIndex: 0,
   };
@@ -6378,7 +6383,7 @@ const TableExampleSimple = () => (
   </Table>
 );
 
-const tableData: Array<{name: string, status: string, selected?: boolean}> = [
+const tableData: Array<{name: string, status: string, selected?: boolean | undefined}> = [
   {
     name: 'John Smith',
     status: 'Employed',
@@ -6412,16 +6417,16 @@ const tableData: Array<{name: string, status: string, selected?: boolean}> = [
 ];
 
 interface TableExampleComplexState {
-  fixedHeader?: boolean;
-  fixedFooter?: boolean;
-  stripedRows?: boolean;
-  showRowHover?: boolean;
-  selectable?: boolean;
-  multiSelectable?: boolean;
-  enableSelectAll?: boolean;
-  deselectOnClickaway?: boolean;
-  showCheckboxes?: boolean;
-  height?: string;
+  fixedHeader?: boolean | undefined;
+  fixedFooter?: boolean | undefined;
+  stripedRows?: boolean | undefined;
+  showRowHover?: boolean | undefined;
+  selectable?: boolean | undefined;
+  multiSelectable?: boolean | undefined;
+  enableSelectAll?: boolean | undefined;
+  deselectOnClickaway?: boolean | undefined;
+  showCheckboxes?: boolean | undefined;
+  height?: string | undefined;
 }
 
 class TableExampleComplex extends Component<{}, TableExampleComplexState> {
@@ -6615,7 +6620,7 @@ const TabsExampleSimple = () => (
   </Tabs>
 );
 
-class TabsExampleControlled extends Component<{}, {value?: string}> {
+class TabsExampleControlled extends Component<{}, {value?: string | undefined}> {
   state = {
     value: 'a',
   };
@@ -6817,7 +6822,7 @@ const TextFieldExampleDisabled = () => (
   </div>
 );
 
-class TextFieldExampleControlled extends Component<{}, {value?: string}> {
+class TextFieldExampleControlled extends Component<{}, {value?: string | undefined}> {
   state = {
     value: 'Property Value',
   };
@@ -6859,7 +6864,7 @@ const TimePickerExampleSimple = () => (
   </div>
 );
 
-class TimePickerExampleComplex extends Component<{}, {value24?: Date, value12?: Date}> {
+class TimePickerExampleComplex extends Component<{}, {value24?: Date | undefined, value12?: Date | undefined}> {
   state = {value24: null, value12: null};
 
   handleChangeTimePicker24 = (event, date) => {
@@ -6901,7 +6906,7 @@ const TimePickerInternational = () => (
 );
 
 // "http://www.material-ui.com/#/components/toolbar"
-class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
+class ToolbarExamplesSimple extends Component<{}, {value?: number | undefined}> {
   state = {
     value: 3
   };
@@ -6946,7 +6951,7 @@ class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
 class BottomNavigationExample extends Component<{}, {
-  index?: number
+  index?: number | undefined
 }> {
   state = {
     index: 0
@@ -6959,6 +6964,7 @@ class BottomNavigationExample extends Component<{}, {
   }
 }
 
+// "http://www.material-ui.com/#/get-started/usage"
 class MaterialUiTests extends Component {
     render() {
     return (
@@ -6969,9 +6975,3 @@ class MaterialUiTests extends Component {
     );
   }
 }
-
-// "http://www.material-ui.com/#/get-started/usage"
-ReactDOM.render(
-  <MaterialUiTests />,
-  document.getElementById('app')
-);

@@ -1,20 +1,20 @@
-import { WriteStream } from 'fs';
+import { WriteStream } from "fs";
 
-import { Repository } from './repository';
-import { Blob } from './blob';
-import { Buf } from './buf';
+import { Blob } from "./blob";
+import { Buf } from "./buf";
+import { Repository } from "./repository";
 
 export namespace Filter {
     const enum FLAG {
         DEFAULT = 0,
-        ALLOW_UNSAFE = 1
+        ALLOW_UNSAFE = 1,
     }
 
     const enum MODE {
         TO_WORKTREE = 0,
         SMUDGE = 0,
         TO_ODB = 1,
-        CLEAN = 1
+        CLEAN = 1,
     }
 }
 

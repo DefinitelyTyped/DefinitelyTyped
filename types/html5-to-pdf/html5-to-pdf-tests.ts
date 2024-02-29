@@ -1,4 +1,4 @@
-import * as HTML5ToPDF from "html5-to-pdf";
+import HTML5ToPDF = require("html5-to-pdf");
 
 const options = { inputBody: "<html><body>Hello World</body></html>" };
 const converter = new HTML5ToPDF(options);

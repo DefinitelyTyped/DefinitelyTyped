@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/feathersjs__authentication-oauth2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://feathersjs.com"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/feathersjs__feathers": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/express-serve-static-core": "*",
+        "@types/feathersjs__authentication-oauth2": "workspace:.",
+        "@types/passport-facebook": "*",
+        "@types/passport-github": "*"
+    },
+    "owners": [
+        {
+            "name": " Jan Lohage",
+            "githubUsername": "j2L4e"
+        },
+        {
+            "name": "Nick Bolles",
+            "githubUsername": "NickBolles"
+        }
+    ]
+}

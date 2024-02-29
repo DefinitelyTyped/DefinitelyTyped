@@ -1,16 +1,9 @@
-// Type definitions for Angular JS (ngRoute module) 1.7
-// Project: http://angularjs.org
-// Definitions by: Jonathan Park <https://github.com/park9140>
-//                 George Kalpakas <https://github.com/gkalpak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngRoute module (angular-route.js)
     ///////////////////////////////////////////////////////////////////////////////
@@ -34,7 +27,7 @@ declare module 'angular' {
 
             // May not always be available. For instance, current will not be available
             // to a controller that was not initialized as a result of a route maching.
-            current?: ICurrentRoute;
+            current?: ICurrentRoute | undefined;
 
             /**
              * Causes $route service to update the current URL, replacing current route parameters with those specified in newParams.
@@ -46,7 +39,7 @@ declare module 'angular' {
             updateParams(newParams: { [key: string]: string }): void;
         }
 
-        type InlineAnnotatedFunction = Function | Array<string | Function>
+        type InlineAnnotatedFunction = Function | Array<string | Function>;
 
         /**
          * see http://docs.angularjs.org/api/ngRoute/provider/$routeProvider#when for API documentation
@@ -56,11 +49,11 @@ declare module 'angular' {
              * {(string|Function)=}
              * Controller fn that should be associated with newly created scope or the name of a registered controller if passed as a string.
              */
-            controller?: string | InlineAnnotatedFunction;
+            controller?: string | InlineAnnotatedFunction | undefined;
             /**
              * A controller alias name. If present the controller will be published to scope under the controllerAs name.
              */
-            controllerAs?: string;
+            controllerAs?: string | undefined;
             /**
              * {(string|Function)=}
              * Html template as a string or a function that returns an html template as a string which should be used by ngView or ngInclude directives. This property takes precedence over templateUrl.
@@ -69,7 +62,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            template?: string | { ($routeParams?: IRouteParamsService): string; }
+            template?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {(string|Function)=}
              * Path or function that returns a path to an html template that should be used by ngView.
@@ -78,7 +71,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            templateUrl?: string | { ($routeParams?: IRouteParamsService): string; }
+            templateUrl?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {Object.<string, Function>=}
              * An optional map of dependencies which should be injected into the controller. If any of these
@@ -104,13 +97,13 @@ declare module 'angular' {
              *   `ngRoute.$routeParams` will still refer to the previous route within these resolve functions.  Use
              *   `$route.current.params` to access the new route parameters, instead.
              */
-            resolve?: { [key: string]: any };
+            resolve?: { [key: string]: any } | undefined;
             /**
              * {string=}
              * The name under which the `resolve` map will be available on the scope of the route. If omitted, defaults
              * to `$resolve`.
              */
-            resolveAs?: string;
+            resolveAs?: string | undefined;
             /**
              * {(string|Function)=}
              * Value to update `$location` path with and trigger route redirection.
@@ -131,7 +124,9 @@ declare module 'angular' {
              * is if the `redirectTo` is a function that returns `undefined`. In this case the route transition occurs
              * as though there was no redirection.
              */
-            redirectTo?: string | { ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any): string };
+            redirectTo?: string | {
+                ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any): string;
+            } | undefined;
             /**
              * {Function=}
              * A function that will (eventually) return the value to update `$location` URL with and trigger route
@@ -148,7 +143,9 @@ declare module 'angular' {
              * `redirectTo` takes precedence over `resolveRedirectTo`, so specifying both on the same route definition,
              * will cause the latter to be ignored.
              */
-            resolveRedirectTo?: angular.Injectable<(...deps: any[]) => angular.IPromise<string | undefined> | string | undefined>;
+            resolveRedirectTo?:
+                | angular.Injectable<(...deps: any[]) => angular.IPromise<string | undefined> | string | undefined>
+                | undefined;
             /**
              * {boolean=true}
              * Reload route when any part of the URL changes (including the path) even if the new URL maps to the same
@@ -159,7 +156,7 @@ declare module 'angular' {
              *
              * Defaults to `true`.
              */
-            reloadOnUrl?: boolean;
+            reloadOnUrl?: boolean | undefined;
             /**
              * {boolean=true}
              * Reload route when only `$location.search()` or `$location.hash()` changes.
@@ -171,7 +168,7 @@ declare module 'angular' {
              *
              * Defaults to `true`.
              */
-            reloadOnSearch?: boolean;
+            reloadOnSearch?: boolean | undefined;
             /**
              * {boolean=false}
              * Match routes without being case sensitive.
@@ -179,7 +176,7 @@ declare module 'angular' {
              *
              * Defaults to `false`.
              */
-            caseInsensitiveMatch?: boolean;
+            caseInsensitiveMatch?: boolean | undefined;
         }
 
         // see http://docs.angularjs.org/api/ng.$route#current
@@ -199,7 +196,7 @@ declare module 'angular' {
              *
              * This option defaults to false. If the option is set to true, then the particular route can be matched without being case sensitive
              */
-            caseInsensitiveMatch?: boolean;
+            caseInsensitiveMatch?: boolean | undefined;
             /**
              * Call this method as a setter to enable/disable eager instantiation of the $route service upon application bootstrap.
              *
@@ -209,15 +206,15 @@ declare module 'angular' {
              *
              * @param enabled If provided, update the internal eagerInstantiationEnabled flag.
              */
-            eagerInstantiationEnabled(enabled: boolean) : IRouteProvider;
+            eagerInstantiationEnabled(enabled: boolean): IRouteProvider;
             /**
              * Call this method as a getter (i.e. without any arguments) to get the current value of the eagerInstantiationEnabled flag.
              */
-            eagerInstantiationEnabled() : boolean;
+            eagerInstantiationEnabled(): boolean;
             /**
              * Sets route definition that will be used on route change when no other route definition is matched.
              *
-             * @params Mapping information to be assigned to $route.current.
+             * @param params Mapping information to be assigned to $route.current.
              */
             otherwise(params: IRoute | string): IRouteProvider;
             /**

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/webcl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.khronos.org/registry/webcl/specs/1.0.0/"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/webcl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ralph Brown",
+            "githubUsername": "NCARalph"
+        }
+    ]
+}

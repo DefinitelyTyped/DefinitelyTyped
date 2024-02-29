@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/fuzzy-finder",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tiaanduplessis/fuzzy-finder"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./dist/fuzzy-finder.m.d.ts",
+                "default": "./index.d.ts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/fuzzy-finder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

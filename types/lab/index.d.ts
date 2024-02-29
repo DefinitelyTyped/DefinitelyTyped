@@ -1,8 +1,3 @@
-// Type definitions for lab 11.1.0
-// Project: https://github.com/hapijs/lab
-// Definitions by: Prashant Tiwari <https://github.com/prashaantt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** The test script. */
 export function script(options?: ScriptOptions): Lab & ExperimentAlt & TestAlt;
 /** Access the configured assertion library. */
@@ -129,7 +124,7 @@ interface SkipOnlyTest {
 
 interface ScriptOptions {
     /** Enable auto-execution of the script? (true) */
-    schedule?: boolean;
+    schedule?: boolean | undefined;
 
     /** Pass Lab CLI options */
     cli?: any;
@@ -137,26 +132,26 @@ interface ScriptOptions {
 
 interface ExperimentOptions {
     /** Set a specific timeout in milliseconds (2000) */
-    timeout?: number;
+    timeout?: number | undefined;
 
     /** Execute tests in parallel? (false) */
-    parallel?: boolean;
+    parallel?: boolean | undefined;
 
     /** Skip execution? (false) */
-    skip?: boolean;
+    skip?: boolean | undefined;
 
     /** Execute only this test/experiment? (false) */
-    only?: boolean;
+    only?: boolean | undefined;
 }
 
 interface TestOptions extends ExperimentOptions {
     /** The expected number of assertions to execute */
-    plan?: number;
+    plan?: number | undefined;
 }
 
 interface AsyncOptions {
     /** Set a specific timeout in milliseconds (disabled) */
-    timeout?: number;
+    timeout?: number | undefined;
 }
 
 interface DoneNote {
@@ -184,4 +179,4 @@ type ExperimentWithOptionsArgs = (desc: string, options: ExperimentOptions, cb: 
 
 type TestArgs = (desc: string, cb: TestCallback) => {};
 
-type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {}
+type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {};

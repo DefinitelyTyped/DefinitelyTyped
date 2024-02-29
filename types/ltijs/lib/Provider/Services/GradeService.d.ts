@@ -1,17 +1,17 @@
-import { IdToken } from '../../IdToken';
+import { IdToken } from "../../IdToken";
 
 export interface PublishedGrade {
     scoreGiven: number;
-    comment?: string;
+    comment?: string | undefined;
     activityProgress: string;
     gradingProgress: string;
 }
 
 export interface GradeFilters {
-    resourceLinkId?: boolean;
-    tag?: boolean;
-    limit?: number;
-    userId?: boolean;
+    resourceLinkId?: boolean | undefined;
+    tag?: boolean | undefined;
+    limit?: number | undefined;
+    userId?: boolean | undefined;
 }
 
 export interface RetrievedGrade {

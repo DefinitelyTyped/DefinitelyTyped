@@ -1,38 +1,32 @@
-// Type definitions for tar 4.0
-// Project: https://github.com/npm/node-tar
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Connor Peet <https://github.com/connor4312>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TODO: When/if typings for [fstream](https://github.com/npm/fstream) are written, refactor this typing to use it for the various streams.
-
 /// <reference types="node" />
 
-import stream = require('stream');
-import events = require('events');
-import zlib = require('zlib');
-import MiniPass = require('minipass');
+import stream = require("stream");
+import zlib = require("zlib");
+import MiniPass = require("minipass");
+import fs = require("fs");
 
 // #region Interfaces
 
 export interface HeaderProperties {
     path: string;
-    mode?: number;
-    noProprietary?: boolean;
-    uid?: number;
-    gid?: number;
-    size?: number;
-    mtime?: number;
-    type?: string;
-    uname?: string;
-    gname?: string;
-    devmaj?: number;
-    devmin?: number;
+    mode?: number | undefined;
+    noProprietary?: boolean | undefined;
+    uid?: number | undefined;
+    gid?: number | undefined;
+    size?: number | undefined;
+    mtime?: number | undefined;
+    type?: string | undefined;
+    uname?: string | undefined;
+    gname?: string | undefined;
+    devmaj?: number | undefined;
+    devmin?: number | undefined;
 }
 
 export interface ExtractOptions {
-    type?: string;
-    Directory?: boolean;
-    path?: string;
-    strip?: number;
+    type?: string | undefined;
+    Directory?: boolean | undefined;
+    path?: string | undefined;
+    strip?: number | undefined;
 }
 
 export interface ParseStream extends NodeJS.ReadWriteStream {
@@ -198,20 +192,161 @@ export const knownExtended: {
 export const headerSize: number;
 export const blockSize: number;
 
-//#endregion
-
-//#region Global Methods
-
+export interface ParseOptions {
+    strict?: boolean;
+    filter?: (path: string, entry: ReadEntry) => boolean;
+    onentry?: (entry: ReadEntry) => void;
+    onwarn?: (code: string, message: string, data: Buffer) => void;
+}
 /**
- * Returns a writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
+ * A writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
-export function Parse(): ParseStream;
+export interface Parse extends ParseStream {
+    on(event: "end" | "close", listener: () => void): this;
+    on(event: "entry", listener: (entry: ReadEntry) => void): this;
+}
+
+export const Parse: {
+    new(opt?: ParseOptions): Parse;
+};
+// #endregion
+
+// #region Global Methods
+
+export interface PackOptions {
+    /**
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
+     */
+    onwarn?(code: string, message: string, data: Buffer): void;
+    /**
+     * Treat warnings as crash-worthy errors.
+     *
+     * @default false
+     */
+    strict?: boolean;
+    /**
+     * The current working directory for creating the archive.
+     *
+     * @default process.cwd()
+     */
+    cwd?: string;
+    /**
+     * A path portion to prefix onto the entries in the archive.
+     */
+    prefix?: string;
+    /**
+     * Set to any truthy value to create a gzipped archive, or an object with
+     * settings for zlib.Gzip()
+     */
+    gzip?: boolean | zlib.ZlibOptions;
+    /**
+     * A function that gets called with (path, stat) for each entry being added.
+     * Return true to add the entry to the archive, or false to omit it.
+     */
+    filter?(path: string, stat: fs.Stats): boolean;
+    /**
+     * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
+     * gname, dev, ino, and nlink. Note that mtime is still included, because
+     * this is necessary for other time-based operations. Additionally, mode is
+     * set to a "reasonable default" for most unix systems, based on a umask
+     * value of 0o22.
+     */
+    portable?: boolean;
+    /**
+     * Allow absolute paths. By default, / is stripped from absolute paths.
+     */
+    preservePaths?: boolean;
+    /**
+     * A Map object containing the device and inode value for any file whose
+     * nlink is > 1, to identify hard links.
+     */
+    linkCache?: Map<string, string>;
+    /**
+     * A Map object that caches calls lstat.
+     */
+    statCache?: Map<string, string>;
+    /**
+     * A Map object that caches calls to readdir.
+     */
+    readdirCache?: Map<string, string>;
+    /**
+     * A number specifying how many concurrent jobs to run.
+     *
+     * @default 4
+     */
+    jobs?: number;
+    /**
+     * The maximum buffer size for fs.read() operations.
+     *
+     * @default 16 MB
+     */
+    maxReadSize?: number;
+    /**
+     * Do not recursively archive the contents of directories.
+     */
+    noDirRecurse?: boolean;
+    /**
+     * Set to true to pack the targets of symbolic links. Without this option,
+     * symbolic links are archived as such.
+     */
+    follow?: boolean;
+    /**
+     * Suppress pax extended headers. Note that this means that long paths and
+     * linkpaths will be truncated, and large or negative numeric values may be
+     * interpreted incorrectly.
+     */
+    noPax?: boolean;
+    /**
+     * Set to true to omit writing mtime values for entries. Note that this
+     * prevents using other mtime-based features like tar.update or the
+     * keepNewer option with the resulting tar archive.
+     */
+    noMtime?: boolean;
+    /**
+     * Set to a Date object to force a specific mtime for everything added to
+     * the archive. Overridden by noMtime.
+     */
+    mtime?: Date;
+}
+
 /**
  * Returns a through stream. Use fstream to write files into the pack stream and you will receive tar archive data from the pack stream.
  * This only works with directories, it does not work with individual files.
  * The optional properties object are used to set properties in the tar 'Global Extended Header'.
  */
-export function Pack(props?: HeaderProperties): PackStream;
+export class Pack extends MiniPass {
+    linkCache: PackOptions["linkCache"];
+    readdirCache: PackOptions["readdirCache"];
+    statCache: PackOptions["statCache"];
+
+    static Sync: typeof PackSync;
+
+    constructor(opt?: PackOptions);
+
+    add(path: string): this;
+}
+
+declare class PackSync extends Pack {
+    constructor(opt: PackOptions);
+
+    // pause/resume are no-ops in sync streams.
+    pause(): void;
+    resume(): void;
+}
+
+declare class PackJob {
+    path: string;
+    absolute: string;
+    entry: unknown | null;
+    stat: unknown | null;
+    readdir: unknown | null;
+    pending: boolean;
+    ignore: boolean;
+    piped: boolean;
+
+    constructor(path?: string, absolute?: string);
+}
 
 /**
  * Returns a through stream. Write tar data to the stream and the files in the tarball will be extracted onto the filesystem.
@@ -256,121 +391,121 @@ export interface ReadEntry extends MiniPass, HeaderProperties {
 
 export interface CreateOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * The current working directory for creating the archive. Defaults to process.cwd().
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * Set to any truthy value to create a gzipped archive,
      * or an object with settings for zlib.Gzip()
      */
-    gzip?: boolean | zlib.ZlibOptions;
+    gzip?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * Alias for gzip.
      */
-    z?: boolean | zlib.ZlibOptions;
+    z?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
      * gname, dev, ino, and nlink. Note that mtime is still included,
      * because this is necessary other time-based operations.
      */
-    portable?: boolean;
+    portable?: boolean | undefined;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
      */
-    preservePaths?: boolean;
+    preservePaths?: boolean | undefined;
 
     /**
      * Alias for presevePaths.
      */
-    P?: boolean;
+    P?: boolean | undefined;
 
     /**
      * The mode to set on the created file archive.
      */
-    mode?: number;
+    mode?: number | undefined;
 
     /**
      * Do not recursively archive the contents of directories.
      */
-    noDirRecurse?: boolean;
+    noDirRecurse?: boolean | undefined;
 
     /**
      * Set to true to pack the targets of symbolic links. Without this
      * option, symbolic links are archived as such.
      */
-    follow?: boolean;
+    follow?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    L?: boolean;
+    L?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    h?: boolean;
+    h?: boolean | undefined;
 
     /**
      * Suppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
-    noPax?: boolean;
+    noPax?: boolean | undefined;
 
     /**
      * A path portion to prefix onto the entries in the archive.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 }
 
 export interface ExtractOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -382,33 +517,33 @@ export interface ExtractOptions {
      * Set to true to keep the existing file on disk if it's newer than
      * the file in the archive.
      */
-    newer?: boolean;
+    newer?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer'?: boolean;
+    "keep-newer"?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer-files'?: boolean;
+    "keep-newer-files"?: boolean | undefined;
 
     /**
      * Do not overwrite existing files. In particular, if a file appears more
      * than once in an archive, later copies will not overwrite earlier copies
      */
-    keep?: boolean;
+    keep?: boolean | undefined;
 
     /**
      * Alias for keep.
      */
-    k?: boolean;
+    k?: boolean | undefined;
 
     /**
      * Alias for keep.
      */
-    'keep-existing'?: boolean;
+    "keep-existing"?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -416,24 +551,24 @@ export interface ExtractOptions {
      * existing hardlinks will be broken, as will any symlink that would
      * affect the location of an extracted file.
      */
-    unlink?: boolean;
+    unlink?: boolean | undefined;
 
     /**
      * Remove the specified number of leading path elements. Pathnames with
      * fewer elements will be silently skipped. Note that the pathname
      * is edited after applying the filter, but before security checks.
      */
-    strip?: number;
+    strip?: number | undefined;
 
     /**
      * Alias for strip.
      */
-    'strip-components'?: number;
+    "strip-components"?: number | undefined;
 
     /**
      * Alias for strip.
      */
-    stripComponents?: number;
+    stripComponents?: number | undefined;
 
     /**
      * If true, tar will set the uid and gid of extracted entries to the uid
@@ -444,12 +579,12 @@ export interface ExtractOptions {
      * never unpacked in this implementation, and modes
      * are set by default already.
      */
-    preserveOwner?: boolean;
+    preserveOwner?: boolean | undefined;
 
     /**
      * Alias for preserveOwner.
      */
-    p?: boolean;
+    p?: boolean | undefined;
 
     /**
      * Set to a number to force ownership of all extracted files and folders,
@@ -457,7 +592,7 @@ export interface ExtractOptions {
      * user id, regardless of the uid field in the archive. Cannot be used
      * along with preserveOwner. Requires also setting a gid option.
      */
-    uid?: number;
+    uid?: number | undefined;
 
     /**
      * Set to a number to force ownership of all extracted files and folders,
@@ -465,15 +600,15 @@ export interface ExtractOptions {
      * group id, regardless of the gid field in the archive. Cannot be used
      * along with preserveOwner. Requires also setting a uid option
      */
-    gid?: number;
+    gid?: number | undefined;
 
     /**
      * Set to true to omit writing mtime value for extracted entries.
      * [Alias: m, no-mtime]
      */
-    noMtime?: boolean;
-    m?: boolean;
-    'no-mtime'?: boolean;
+    noMtime?: boolean | undefined;
+    m?: boolean | undefined;
+    "no-mtime"?: boolean | undefined;
 
     /**
      * Provide a function that takes an entry object, and returns a stream,
@@ -490,36 +625,44 @@ export interface ExtractOptions {
      */
     onentry?(entry: ReadEntry): void;
 
+    /**
+     * Set to true to omit calling `fs.chmod()` to ensure that the extracted file
+     * matches the entry mode. This also suppresses the call to `process.umask()`
+     * to determine the default umask value, since tar will extract with whatever
+     * mode is provided, and let the process `umask` apply normally.
+     */
+    noChmod?: boolean | undefined;
+
     // The following options are mostly internal, but can be modified in some
     // advanced use cases, such as re-using caches between runs.
 
     /**
      * The maximum buffer size for fs.read() operations (in bytes). Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * The maximum size of meta entries that is supported. Defaults to 1 MB.
      */
-    maxMetaEntrySize?: number;
+    maxMetaEntrySize?: number | undefined;
 }
 
 export interface ListOptions {
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
@@ -532,12 +675,12 @@ export interface ListOptions {
      * filter. This is important for when both file and sync are set, because
      * it will be called synchronously.
      */
-    onentry?(entry: FileStat): void;
+    onentry?(entry: ReadEntry): void;
 
     /**
      * The maximum buffer size for fs.read() operations. Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * By default, entry streams are resumed immediately after the call to
@@ -545,7 +688,7 @@ export interface ListOptions {
      * opting into this, the stream will never complete until the entry
      * data is consumed.
      */
-    noResume?: boolean;
+    noResume?: boolean | undefined;
 }
 
 export interface ReplaceOptions {
@@ -558,97 +701,109 @@ export interface ReplaceOptions {
      * Act synchronously. If this is set, then any provided file will be
      * fully written after the call to tar.c.
      */
-    sync?: boolean;
+    sync?: boolean | undefined;
 
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
      */
-    strict?: boolean;
+    strict?: boolean | undefined;
 
     /**
      * Extract files relative to the specified directory. Defaults to
      * process.cwd(). If provided, this must exist and must be a directory.
      */
-    cwd?: string;
+    cwd?: string | undefined;
 
     /**
      * Alias for cwd.
      */
-    C?: string;
+    C?: string | undefined;
 
     /**
      * A path portion to prefix onto the entries in the archive.
      */
-    prefix?: string;
+    prefix?: string | undefined;
 
     /**
      * Set to any truthy value to create a gzipped archive,
      * or an object with settings for zlib.Gzip()
      */
-    gzip?: boolean | zlib.ZlibOptions;
+    gzip?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to emit the entry from the archive, or false to skip it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
      */
-    preservePaths?: boolean;
+    preservePaths?: boolean | undefined;
 
     /**
      * The maximum buffer size for fs.read() operations. Defaults to 16 MB.
      */
-    maxReadSize?: number;
+    maxReadSize?: number | undefined;
 
     /**
      * Do not recursively archive the contents of directories.
      */
-    noDirRecurse?: boolean;
+    noDirRecurse?: boolean | undefined;
 
     /**
      * Set to true to pack the targets of symbolic links. Without this
      * option, symbolic links are archived as such.
      */
-    follow?: boolean;
+    follow?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    L?: boolean;
+    L?: boolean | undefined;
 
     /**
      * Alias for follow.
      */
-    h?: boolean;
+    h?: boolean | undefined;
 
     /**
      * uppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
-    noPax?: boolean;
+    noPax?: boolean | undefined;
 }
 
 export interface FileOptions {
     /**
      * Uses the given file as the input or output of this function.
      */
-    file?: string;
+    file?: string | undefined;
 
     /**
      * Alias for file.
      */
-    f?: string;
+    f?: string | undefined;
 }
+
+export type RequiredFileOptions = {
+    /**
+     * Uses the given file as the input or output of this function.
+     */
+    file: string;
+} | {
+    /**
+     * Alias for file.
+     */
+    f: string;
+};
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -658,7 +813,11 @@ export interface FileOptions {
  *
  * Archive data may be read from the returned stream.
  */
-export function create(options: CreateOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Readable;
+export function create(
+    options: CreateOptions,
+    fileList: readonly string[],
+    callback?: (err?: Error) => void,
+): stream.Readable;
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -666,9 +825,13 @@ export function create(options: CreateOptions, fileList: ReadonlyArray<string>, 
  * fileList that starts with an @ symbol is a tar archive whose entries will
  * be added. To add a file that starts with @, prepend it with `./`.
  */
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>): Promise<void>;
-export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: ReadonlyArray<string>): void;
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>, callback: (err?: Error) => void): void;
+export function create(options: CreateOptions & FileOptions, fileList: readonly string[]): Promise<void>;
+export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: readonly string[]): void;
+export function create(
+    options: CreateOptions & FileOptions,
+    fileList: readonly string[],
+    callback: (err?: Error) => void,
+): void;
 
 /**
  * Alias for create
@@ -687,7 +850,11 @@ export const c: typeof create;
  *
  * Archive data should be written to the returned stream.
  */
-export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function extract(
+    options: ExtractOptions,
+    fileList?: readonly string[],
+    callback?: (err?: Error) => void,
+): stream.Writable;
 
 /**
  * Extract a tarball archive. The fileList is an array of paths to extract
@@ -699,9 +866,13 @@ export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string
  * extraction errors will cause a warn event to be emitted. If the cwd is
  * missing, or not a directory, then the extraction will fail completely.
  */
-export function extract(options: ExtractOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
-export function extract(options: ExtractOptions & FileOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): void;
+export function extract(options: ExtractOptions & FileOptions, fileList?: readonly string[]): Promise<void>;
+export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: readonly string[]): void;
+export function extract(
+    options: ExtractOptions & FileOptions,
+    fileList: readonly string[] | undefined,
+    callback: (err?: Error) => void,
+): void;
 
 /**
  * Alias for extract
@@ -713,19 +884,15 @@ export const x: typeof extract;
  * to list from the tarball. If no paths are provided, then all the entries
  * are listed. If the archive is gzipped, then tar will detect this and unzip
  * it.
- *
- * Archive data should be written to the returned stream.
  */
-export function list(options?: ListOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
-
-/**
- * List the contents of a tarball archive. The fileList is an array of paths
- * to list from the tarball. If no paths are provided, then all the entries
- * are listed. If the archive is gzipped, then tar will detect this and unzip
- * it.
- */
-export function list(options: ListOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function list(options: ListOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function list(options: ListOptions & RequiredFileOptions, fileList?: readonly string[]): Promise<void>;
+export function list(
+    options: ListOptions & RequiredFileOptions & { sync: true },
+    fileList?: readonly string[],
+): void;
+export function list(callback?: (err?: Error) => void): Parse;
+export function list(optionsOrFileList: ListOptions | readonly string[], callback?: (err?: Error) => void): Parse;
+export function list(options: ListOptions, fileList: readonly string[], callback?: (err?: Error) => void): Parse;
 
 /**
  * Alias for list
@@ -740,8 +907,12 @@ export const t: typeof list;
  * a tar archive whose entries will be added. To add a file that
  * starts with @, prepend it with ./.
  */
-export function replace(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function replace(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function replace(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
+export function replace(
+    options: ReplaceOptions,
+    fileList: readonly string[] | undefined,
+    callback: (err?: Error) => void,
+): Promise<void>;
 
 /**
  * Alias for replace
@@ -755,10 +926,16 @@ export const r: typeof replace;
  * that starts with an @ symbol is a tar archive whose entries will be added.
  * To add a file that starts with @, prepend it with ./.
  */
-export function update(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function update(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function update(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
+export function update(
+    options: ReplaceOptions,
+    fileList: readonly string[] | undefined,
+    callback: (err?: Error) => void,
+): Promise<void>;
 
 /**
  * Alias for update
  */
 export const u: typeof update;
+
+export {};

@@ -1,19 +1,19 @@
 declare namespace AMap {
     namespace Ellipse {
         interface EventMap<I = Ellipse> extends ShapeOverlay.EventMap<I> {
-            setPath: Event<'setPath'>;
-            setCenter: Event<'setCenter'>;
+            setPath: Event<"setPath">;
+            setCenter: Event<"setCenter">;
         }
 
         interface Options<ExtraData = any> extends Polygon.Options<ExtraData> {
             /**
              * 椭圆的中心
              */
-            center?: LocationValue;
+            center?: LocationValue | undefined;
             /**
              * 椭圆半径
              */
-            radius?: [number, number];
+            radius?: [number, number] | undefined;
         }
         type GetOptionsResult<ExtraData = any> = Merge<Circle.GetOptionsResult<ExtraData>, {
             radius: [number, number];

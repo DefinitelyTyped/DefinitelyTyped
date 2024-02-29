@@ -1,10 +1,4 @@
-// Type definitions for ee-first 1.1
-// Project: https://github.com/jonathanong/ee-first
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = first;
 
@@ -23,7 +17,7 @@ export = first;
  */
 declare function first<TEmitter extends EventEmitter>(
     eventSpec: Array<[TEmitter, ...string[]]>,
-    listener: first.Listener<TEmitter>
+    listener: first.Listener<TEmitter>,
 ): first.Thunk<TEmitter>;
 
 declare namespace first {
@@ -31,7 +25,7 @@ declare namespace first {
         err: any,
         ee: TEmitter,
         event: string[],
-        args: any[]
+        args: any[],
     ) => void;
 
     interface Thunk<TEmitter extends EventEmitter> {

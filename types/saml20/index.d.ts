@@ -1,26 +1,21 @@
-// Type definitions for saml20 0.1
-// Project: https://github.com/leandrob/saml20
-// Definitions by: Jan Petzold <https://github.com/HackerUndKoch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Profile {
     issuer: string;
     claims: any;
-    audience?: string;
-    sessionIndex?: string; // only SAML 2.0
+    audience?: string | undefined;
+    sessionIndex?: string | undefined; // only SAML 2.0
 }
 
 export type ValidationOptions = ValidationOptionsWithKey | ValidationOptionsWithPrint;
 
 export interface ValidationOptionsWithKey {
     publicKey: string;
-    bypassExpiration?: boolean;
+    bypassExpiration?: boolean | undefined;
     audience?: any;
 }
 
 export interface ValidationOptionsWithPrint {
     thumbprint: string;
-    bypassExpiration?: boolean;
+    bypassExpiration?: boolean | undefined;
     audience?: any;
 }
 

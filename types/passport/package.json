@@ -1,0 +1,45 @@
+{
+    "private": true,
+    "name": "@types/passport",
+    "version": "1.0.9999",
+    "projects": [
+        "http://passportjs.org"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-session": "*",
+        "@types/passport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Horiuchi_H",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "Eric Naeseth",
+            "githubUsername": "enaeseth"
+        },
+        {
+            "name": "Igor Belagorudsky",
+            "githubUsername": "theigor"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Kevin Stiehl",
+            "githubUsername": "kstiehl"
+        },
+        {
+            "name": "Oleg Vaskevich",
+            "githubUsername": "vaskevich"
+        }
+    ]
+}

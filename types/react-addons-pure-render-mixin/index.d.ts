@@ -1,12 +1,8 @@
-// Type definitions for React (react-addons-pure-render-mixin) 0.14
-// Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Mixin } from 'react';
+import { ComponentLifecycle } from "react";
 
 declare var PureRenderMixin: PureRenderMixin;
 export = PureRenderMixin;
 
-interface PureRenderMixin extends Mixin<any, any> { }
+interface PureRenderMixin {
+    shouldComponentUpdate: NonNullable<ComponentLifecycle<any, any>["shouldComponentUpdate"]>;
+}

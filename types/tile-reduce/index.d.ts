@@ -1,15 +1,6 @@
-// Type definitions for tile-reduce 3.1.1
-// Project: https://github.com/mapbox/tile-reduce
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare namespace NodeJS  {
-    interface Global {
-        mapOptions: any
-    }
-}
+declare var mapOptions: Options;
 
 interface Events {
     /**
@@ -22,7 +13,7 @@ interface Events {
      *     console.log('starting')
      * })
      */
-    on(type: 'start', callback: () => void): Events;
+    on(type: "start", callback: () => void): Events;
 
     /**
      * Map Event
@@ -36,7 +27,7 @@ interface Events {
      *     console.log(`about to process [${ tile }] on worker ${ workerId }`)
      * })
      */
-    on(type: 'map', callback: (tile: TileReduce.Tile, workerId: number) => void): Events;
+    on(type: "map", callback: (tile: TileReduce.Tile, workerId: number) => void): Events;
 
     /**
      * Reduce Event
@@ -52,7 +43,7 @@ interface Events {
      *     count ++
      * })
      */
-    on(type: 'reduce', callback: (result: any, tile: TileReduce.Tile) => void): Events;
+    on(type: "reduce", callback: (result: any, tile: TileReduce.Tile) => void): Events;
 
     /**
      * End Event
@@ -65,22 +56,22 @@ interface Events {
      *     console.log(`Total count was: ${ count }`)
      * })
      */
-    on(type: 'end', callback: (error: any) => void): Events;
+    on(type: "end", callback: (error: any) => void): Events;
 }
 
 interface Options {
     map: string;
     zoom: number;
-    sources: Array<TileReduce.Source>;
-    bbox?: TileReduce.BBox;
+    sources: TileReduce.Source[];
+    bbox?: TileReduce.BBox | undefined;
     geojson?: any;
-    log?: boolean;
+    log?: boolean | undefined;
     mapOptions?: any;
-    maxWorkers?: number;
+    maxWorkers?: number | undefined;
     output?: any;
-    tiles?: Array<TileReduce.Tile>;
+    tiles?: TileReduce.Tile[] | undefined;
     tileStream?: any;
-    sourceCover?: string;
+    sourceCover?: string | undefined;
 }
 
 /**
@@ -106,7 +97,7 @@ interface Options {
  *     console.log('starting')
  * })
  */
-declare function TileReduce (options: Options): Events;
+declare function TileReduce(options: Options): Events;
 
 declare namespace TileReduce {
     type BBox = [number, number, number, number];
@@ -114,14 +105,14 @@ declare namespace TileReduce {
     type Types = "start" | "map" | "reduce" | "end";
     interface Source {
         name: string;
-        mbtiles?: string;
-        url?: string;
-        layers?: Array<string>;
-        maxrate?: number;
-        raw?: boolean;
+        mbtiles?: string | undefined;
+        url?: string | undefined;
+        layers?: string[] | undefined;
+        maxrate?: number | undefined;
+        raw?: boolean | undefined;
     }
 }
 
 declare module "tile-reduce" {
-    export = TileReduce
+    export = TileReduce;
 }

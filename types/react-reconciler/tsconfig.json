@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,20 +8,18 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "test/HostConfigWithNoHydration.ts",
-        "test/HostConfigWithNoPersistence.ts",
-        "test/react-reconciler-tests.ts",
+        "test/ReactFiberHostConfigWithNoHydration.ts",
+        "test/ReactFiberHostConfigWithNoMicrotasks.ts",
+        "test/ReactFiberHostConfigWithNoPersistence.ts",
+        "test/ReactFiberHostConfigWithNoTestSelectors.ts",
         "test/ReactTestHostConfig.ts",
-        "test/ReactTestRendererScheduling.ts"
+        "test/ReactTypes.ts",
+        "test/react-reconciler-tests.ts"
     ]
 }

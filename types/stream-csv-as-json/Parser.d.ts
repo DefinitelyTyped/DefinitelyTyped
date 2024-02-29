@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { Transform, TransformOptions } from 'stream';
+import { Transform, TransformOptions } from "stream";
 
 export = Parser;
 
@@ -10,11 +10,11 @@ declare class Parser extends Transform {
 
 declare namespace Parser {
     interface ParserOptions extends TransformOptions {
-        packValues?: boolean;
-        packStrings?: boolean;
-        streamValues?: boolean;
-        streamStrings?: boolean;
-        separator?: string;
+        packValues?: boolean | undefined;
+        packStrings?: boolean | undefined;
+        streamValues?: boolean | undefined;
+        streamStrings?: boolean | undefined;
+        separator?: string | undefined;
     }
 
     function make(options?: ParserOptions): Parser;

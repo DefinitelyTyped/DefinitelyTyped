@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/charset-detector",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/btd/node-charset-detector"
+    ],
+    "devDependencies": {
+        "@types/charset-detector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OpportunityLiu",
+            "githubUsername": "OpportunityLiu"
+        }
+    ]
+}

@@ -1,25 +1,11 @@
-// Type definitions for redux-form 6.6
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>
-//                 Daniel Lytkin <https://github.com/aikoven>
-//                 Karol Janyst <https://github.com/LKay>
-//                 Luka Zakrajsek <https://github.com/bancek>
-//                 Mohamed Shaaban <https://github.com/mshaaban088>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import {
-  ComponentClass,
-  StatelessComponent,
-  ReactElement
-} from "react";
+import { ComponentClass, FunctionComponent, ReactElement } from "react";
 
 export type FieldValue = any;
 
 export interface FieldState {
-    active?: boolean;
-    touched?: boolean;
-    visited?: boolean;
+    active?: boolean | undefined;
+    touched?: boolean | undefined;
+    visited?: boolean | undefined;
     error?: any;
 }
 
@@ -30,11 +16,11 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _error?: string };
+    [P in keyof FormData]?: ReactElement | string | { _error?: string | undefined };
 };
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement | string | { _warning?: string };
+    [P in keyof FormData]?: ReactElement | string | { _warning?: string | undefined };
 };
 
 export type FormMeta<FormData extends DataShape> = {
@@ -43,19 +29,19 @@ export type FormMeta<FormData extends DataShape> = {
 
 /**
  * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
+ * Workaround for: ComponentClass<P> | FC<P> which does
  * not resolve due to a bug in TypeScript.
  * https://github.com/Microsoft/TypeScript/pull/8674
  */
-export type ComponentConstructor<P> = ComponentClass<P> | StatelessComponent<P>;
+export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
-export * from "./lib/reduxForm";
-export * from "./lib/Field";
-export * from "./lib/Fields";
-export * from "./lib/FieldArray";
-export * from "./lib/Form";
-export * from "./lib/FormSection";
 export * from "./lib/actions";
 export * from "./lib/actionTypes";
+export * from "./lib/Field";
+export * from "./lib/FieldArray";
+export * from "./lib/Fields";
+export * from "./lib/Form";
+export * from "./lib/FormSection";
 export * from "./lib/reducer";
+export * from "./lib/reduxForm";
 export * from "./lib/selectors";

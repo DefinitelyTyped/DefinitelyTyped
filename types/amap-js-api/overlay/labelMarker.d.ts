@@ -1,50 +1,59 @@
 declare namespace AMap {
     namespace LabelMarker {
-        interface EventMap<I = LabelMarker> extends LabelsLayer.EventMap<I> { }
+        interface EventMap<I = LabelMarker> extends LabelsLayer.EventMap<I> {}
 
-        type TextDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
-        type FontWeight = 'normal' | 'thin' | 'bold';
-        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        type TextDirection = "top" | "right" | "bottom" | "left" | "center";
+        type FontWeight = "normal" | "thin" | "bold";
+        type Anchor =
+            | "top-left"
+            | "top-center"
+            | "top-right"
+            | "middle-left"
+            | "center"
+            | "middle-right"
+            | "bottom-left"
+            | "bottom-center"
+            | "bottom-right";
         interface TextStyle {
-            fontSize?: number;
-            fontFamily?: string;
-            fontWeight?: FontWeight;
-            fillColor?: string;
-            strokeColor?: string;
-            strokeWidth?: number;
+            fontSize?: number | undefined;
+            fontFamily?: string | undefined;
+            fontWeight?: FontWeight | undefined;
+            fillColor?: string | undefined;
+            strokeColor?: string | undefined;
+            strokeWidth?: number | undefined;
         }
         interface TextOptions {
-            content?: string;
-            direction?: TextDirection;
-            offset?: Pixel | [number, number];
-            zooms?: [number, number];
-            style?: TextStyle;
+            content?: string | undefined;
+            direction?: TextDirection | undefined;
+            offset?: Pixel | [number, number] | undefined;
+            zooms?: [number, number] | undefined;
+            style?: TextStyle | undefined;
         }
         interface IconOptions {
-            image?: string;
-            size?: number[] | Size;
+            image?: string | undefined;
+            size?: number[] | Size | undefined;
             // unsupport Pixel in v1.4.14
-            clipOrigin?: number[] | Pixel;
-            anchor?: Anchor;
-            retina?: boolean;
+            clipOrigin?: number[] | Pixel | undefined;
+            anchor?: Anchor | undefined;
+            retina?: boolean | undefined;
 
             // internal
-            angel?: number;
-            type?: string;
-            clipSize?: [number, number];
-            zooms?: [number, number];
+            angel?: number | undefined;
+            type?: string | undefined;
+            clipSize?: [number, number] | undefined;
+            zooms?: [number, number] | undefined;
         }
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
-            position?: string | LocationValue;
-            zooms?: [number, number];
-            opacity?: number;
-            icon?: IconOptions;
-            text?: TextOptions;
+            position?: string | LocationValue | undefined;
+            zooms?: [number, number] | undefined;
+            opacity?: number | undefined;
+            icon?: IconOptions | undefined;
+            text?: TextOptions | undefined;
 
             // internal
-            zIndex?: number;
-            title?: string;
-            rank?: number;
+            zIndex?: number | undefined;
+            title?: string | undefined;
+            rank?: number | undefined;
         }
     }
 
@@ -90,7 +99,7 @@ declare namespace AMap {
             handler: (this: C, event: any) => void,
             context?: C,
             once?: boolean,
-            unshift?: boolean
+            unshift?: boolean,
         ): any; // should be void
         /**
          * 移除事件绑定
@@ -100,8 +109,8 @@ declare namespace AMap {
          */
         off<C = this>(
             eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
-            context?: C
+            handler: ((this: C, event: any) => void) | "mv",
+            context?: C,
         ): any; // should be void
 
         // internal

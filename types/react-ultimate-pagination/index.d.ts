@@ -1,8 +1,3 @@
-// Type definitions for react-ultimate-pagination 1.2
-// Project: https://github.com/ultimate-pagination/react-ultimate-pagination
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as React from "react";
 
 export interface PaginationComponentProps {
@@ -77,7 +72,7 @@ export interface CreateUltimatePaginationOptions {
     /**
      * A React.js component that will be used as a wrapper for pagination items
      */
-    WrapperComponent?: string|React.ComponentType<any>;
+    WrapperComponent?: string | React.ComponentType<any> | undefined;
 }
 
 export interface UltimatePaginationProps {
@@ -94,37 +89,39 @@ export interface UltimatePaginationProps {
     /**
      * Number of always visible pages at the beginning and end
      */
-    boundaryPagesRange?: number;
+    boundaryPagesRange?: number | undefined;
 
     /**
      * Number of always visible pages before and after the current one
      */
-    siblingPagesRange?: number;
+    siblingPagesRange?: number | undefined;
 
     /**
      * Boolean flag to hide ellipsis
      */
-    hideEllipsis?: boolean;
+    hideEllipsis?: boolean | undefined;
 
     /**
      * Boolean flag to hide previous and next page links
      */
-    hidePreviousAndNextPageLinks?: boolean;
+    hidePreviousAndNextPageLinks?: boolean | undefined;
 
     /**
      * Boolean flag to hide first and last page links
      */
-    hideFirstAndLastPageLinks?: boolean;
+    hideFirstAndLastPageLinks?: boolean | undefined;
 
     /**
      * Callback that will be called with new page when it should be changed by user interaction
      */
-    onChange?: (newPage: number) => void;
+    onChange?: ((newPage: number) => void) | undefined;
 
     /**
      * Boolean flag to disable all buttons in pagination
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 }
 
-export function createUltimatePagination(options: CreateUltimatePaginationOptions): React.ComponentType<UltimatePaginationProps>;
+export function createUltimatePagination(
+    options: CreateUltimatePaginationOptions,
+): React.ComponentType<UltimatePaginationProps>;

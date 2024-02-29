@@ -1,1 +1,1 @@
-import fn = require('express-domain-middleware');
+import fn = require("express-domain-middleware");

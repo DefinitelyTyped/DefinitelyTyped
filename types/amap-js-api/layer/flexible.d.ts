@@ -15,16 +15,16 @@ declare namespace AMap {
                     y: number,
                     z: number,
                     success: (tile: HTMLImageElement | HTMLCanvasElement) => void,
-                    fail: () => void
+                    fail: () => void,
                 ): void;
                 /**
                  * 内存中缓存的切片的数量上限
                  */
-                cacheSize?: number;
+                cacheSize?: number | undefined;
                 /**
                  * 是否显示
                  */
-                visible?: boolean;
+                visible?: boolean | undefined;
             }
         }
         class Flexible extends TileLayer {

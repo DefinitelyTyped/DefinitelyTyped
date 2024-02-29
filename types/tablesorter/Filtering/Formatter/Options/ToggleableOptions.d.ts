@@ -5,10 +5,10 @@ export interface ToggleableOptions {
     /**
      * A value indicating whether the control is initially disabled.
      */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
 
     /**
      * A value indicating whether to add a box for enabling/disabling the control.
      */
-    addToggle?: boolean;
+    addToggle?: boolean | undefined;
 }

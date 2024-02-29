@@ -1,8 +1,3 @@
-// Type definitions for notp 2.0
-// Project: https://github.com/guyht/notp
-// Definitions by: Wilfred Tan <https://github.com/wilfredtan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -13,7 +8,7 @@ export interface HOTPGenOpt {
      * Counter value used in generating the token. This should be stored by the
      * application, must be user specific, and be incremented for each request.
      */
-    counter?: number;
+    counter?: number | undefined;
 }
 
 /**
@@ -33,7 +28,7 @@ export interface HOTPVerifyOpt extends HOTPGenOpt {
      *
      * Default - 50
      */
-    window?: number;
+    window?: number | undefined;
 }
 
 /**
@@ -44,7 +39,7 @@ export interface TOTPGenOpt {
     /**
      * UNIX Epoch time (overwrite time in test environment, NODE_ENV=test)
      */
-    _t?: number;
+    _t?: number | undefined;
 
     /**
      * The time step of the counter. This must be the same for every request and is
@@ -52,7 +47,7 @@ export interface TOTPGenOpt {
      *
      * Default - 30
      */
-    time?: number;
+    time?: number | undefined;
 }
 
 /**
@@ -73,7 +68,7 @@ export interface TOTPVerifyOpt extends TOTPGenOpt {
      *
      * Default - 50
      */
-    window?: number;
+    window?: number | undefined;
 }
 
 /**
@@ -106,9 +101,7 @@ export namespace hotp {
      * every user as it is the seed used to calculate the HMAC.
      * @param opt HOTP verify options.
      */
-     function verify(token: string,
-                     key: string | Buffer | Uint8Array,
-                     opt?: HOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: HOTPVerifyOpt): VerifyResult | null;
 }
 
 /**
@@ -121,7 +114,6 @@ export namespace totp {
      * @param key Key for the one time password. This should be unique and secret
      * for every user as it is the seed used to calculate the HMAC.
      * @param opt TOTP Generate options.
-     *
      */
     function gen(key: string | Buffer | Uint8Array, opt?: TOTPGenOpt): string;
 
@@ -130,9 +122,6 @@ export namespace totp {
      * @param token Passcode to validate.
      * @param key Key for the one time password. This should be unique and secret
      * @param opt TOTP verify options.
-     *
      */
-    function verify(token: string,
-                    key: string | Buffer | Uint8Array,
-                    opt?: TOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: TOTPVerifyOpt): VerifyResult | null;
 }

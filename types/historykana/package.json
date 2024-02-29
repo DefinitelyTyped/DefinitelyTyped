@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/historykana",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/terrierscript/historykana",
+        "https://github.com/inuscript/historykana"
+    ],
+    "devDependencies": {
+        "@types/historykana": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "shiratsuki",
+            "githubUsername": "h-shiratsuki"
+        }
+    ]
+}

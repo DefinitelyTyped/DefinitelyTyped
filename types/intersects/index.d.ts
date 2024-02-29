@@ -1,323 +1,91 @@
-// Type definitions for intersects 2.5
-// Project: https://github.com/davidfig/intersects#readme
-// Definitions by: Voxylu <https://github.com/voxylu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import circlePoint = require("./circle-point");
+import circleCircle = require("./circle-circle");
+import circleLine = require("./circle-line");
+import circleBox = require("./circle-box");
+import circlePolygon = require("./circle-polygon");
+import circleEllipse = require("./circle-ellipse");
 
-export function boxBox(
-    x1: number,
-    y1: number,
-    w1: number,
-    h1: number,
-    x2: number,
-    y2: number,
-    w2: number,
-    h2: number
-): boolean;
+import circleOutlineBox = require("./circleOutline-box");
+import circleOutlineLine = require("./circleOutline-line");
+import circleOutlinePoint = require("./circleOutline-point");
 
-export function boxCircle(
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number,
-    xc: number,
-    yc: number,
-    rc: number
-): boolean;
+import polygonPoint = require("./polygon-point");
+import polygonLine = require("./polygon-line");
+import polygonPolygon = require("./polygon-polygon");
+import polygonBox = require("./polygon-box");
+import polygonCircle = require("./polygon-circle");
+import polygonEllipse = require("./polygon-ellipse");
 
-export function boxEllipse(
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number,
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number
-): boolean;
+import boxPoint = require("./box-point");
+import boxBox = require("./box-box");
+import boxLine = require("./box-line");
+import boxPolygon = require("./box-polygon");
+import boxCircle = require("./box-circle");
+import boxEllipse = require("./box-ellipse");
+import boxCircleOutline = require("./box-circleOutline");
 
-export function boxLine(
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-): boolean;
+import pointBox = require("./point-box");
+import pointPolygon = require("./point-polygon");
+import pointCircle = require("./point-circle");
+import pointLine = require("./point-line");
+import pointEllipse = require("./point-ellipse");
+import pointCircleOutline = require("./point-circleOutline");
 
-export function boxPoint(
-    x1: number,
-    y1: number,
-    w1: number,
-    h1: number,
-    x2: number,
-    y2: number
-): boolean;
+import lineLine = require("./line-line");
+import lineBox = require("./line-box");
+import linePolygon = require("./line-polygon");
+import lineCircle = require("./line-circle");
+import linePoint = require("./line-point");
+import lineEllipse = require("./line-ellipse");
+import lineCircleOutline = require("./line-circleOutline");
 
-export function boxPolygon(
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number,
-    points: number[]
-): boolean;
+import ellipsePoint = require("./ellipse-point");
+import ellipseLine = require("./ellipse-line");
+import ellipseBox = require("./ellipse-box");
+import ellipseCircle = require("./ellipse-circle");
+import ellipseEllipse = require("./ellipse-ellipse");
+import ellipsePolygon = require("./ellipse-polygon");
 
-export function circleBox(
-    xc: number,
-    yc: number,
-    rc: number,
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number
-): boolean;
-
-export function circleCircle(
-    x1: number,
-    y1: number,
-    r1: number,
-    x2: number,
-    y2: number,
-    r2: number
-): boolean;
-
-export function circleEllipse(
-    xc: number,
-    yc: number,
-    rc: number,
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number
-): boolean;
-
-export function circleLine(
-    xc: number,
-    yc: number,
-    rc: number,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-): boolean;
-
-export function circlePoint(
-    x1: number,
-    y1: number,
-    r1: number,
-    x2: number,
-    y2: number
-): boolean;
-
-export function circlePolygon(
-    xc: number,
-    yc: number,
-    rc: number,
-    points: number[]
-): boolean;
-
-export function ellipseBox(
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number,
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number
-): boolean;
-
-export function ellipseCircle(
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number,
-    xc: number,
-    yc: number,
-    rc: number
-): boolean;
-
-export function ellipseEllipse(
-    x1: number,
-    y1: number,
-    r1x: number,
-    r1y: number,
-    x2: number,
-    y2: number,
-    r2x: number,
-    r2y: number
-): boolean;
-
-export function ellipseLine(
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-): boolean;
-
-export function ellipsePoint(
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number,
-    x1: number,
-    y1: number
-): boolean;
-
-export function ellipsePolygon(
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number,
-    points: number[]
-): boolean;
-
-export function lineBox(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number
-): boolean;
-
-export function lineCircle(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    xc: number,
-    yc: number,
-    rc: number
-): boolean;
-
-export function lineEllipse(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number
-): boolean;
-
-export function lineLine(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    x3: number,
-    y3: number,
-    x4: number,
-    y4: number
-): boolean;
-
-export function linePoint(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    xp: number,
-    yp: number,
-    tolerance: number
-): boolean;
-
-export function linePolygon(
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    points: number[],
-    tolerance: number
-): boolean;
-
-export function pointBox(
-    x1: number,
-    y1: number,
-    xb: number,
-    yb: number,
-    wb: number,
-    hb: number
-): boolean;
-
-export function pointCircle(
-    x1: number,
-    y1: number,
-    xc: number,
-    yc: number,
-    rc: number
-): boolean;
-
-export function pointEllipse(
-    x1: number,
-    y1: number,
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number
-): boolean;
-
-export function pointLine(
-    xp: number,
-    yp: number,
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number
-): boolean;
-
-export function pointPolygon(
-    x1: number,
-    y1: number,
-    points: number[],
-    tolerance: number
-): boolean;
-
-export function polygonBox(
-    points: number[],
-    x: number,
-    y: number,
-    w: number,
-    h: number
-): boolean;
-
-export function polygonCircle(
-    points: number[],
-    xc: number,
-    yc: number,
-    rc: number
-): boolean;
-
-export function polygonEllipse(
-    points: number[],
-    xe: number,
-    ye: number,
-    rex: number,
-    rey: number
-): boolean;
-
-export function polygonLine(
-    points: number[],
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    tolerance: number
-): boolean;
-
-export function polygonPoint(
-    points: number[],
-    x: number,
-    y: number,
-    tolerance: number
-): boolean;
-
-export function polygonPolygon(points1: number[], points2: number[]): boolean;
+export {
+    boxBox,
+    boxCircle,
+    boxCircleOutline,
+    boxEllipse,
+    boxLine,
+    boxPoint,
+    boxPolygon,
+    circleBox,
+    circleCircle,
+    circleEllipse,
+    circleLine,
+    circleOutlineBox,
+    circleOutlineLine,
+    circleOutlinePoint,
+    circlePoint,
+    circlePolygon,
+    ellipseBox,
+    ellipseCircle,
+    ellipseEllipse,
+    ellipseLine,
+    ellipsePoint,
+    ellipsePolygon,
+    lineBox,
+    lineCircle,
+    lineCircleOutline,
+    lineEllipse,
+    lineLine,
+    linePoint,
+    linePolygon,
+    pointBox,
+    pointCircle,
+    pointCircleOutline,
+    pointEllipse,
+    pointLine,
+    pointPolygon,
+    polygonBox,
+    polygonCircle,
+    polygonEllipse,
+    polygonLine,
+    polygonPoint,
+    polygonPolygon,
+};

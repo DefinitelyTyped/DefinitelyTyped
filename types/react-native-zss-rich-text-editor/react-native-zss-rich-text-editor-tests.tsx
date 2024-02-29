@@ -6,18 +6,20 @@ interface Props {
 }
 
 export class WyswygComponent extends React.Component<Props> {
-  private editorInst: RichTextEditor;
+    private editorInst: RichTextEditor | null = null;
 
-  render() {
-    const {value} = this.props;
-    return <RichTextEditor
-      ref={this.saveEditorReference}
-      hiddenTitle={true}
-      initialContentHTML={value}
-    />;
-  }
+    render() {
+        const { value } = this.props;
+        return (
+            <RichTextEditor
+                ref={this.saveEditorReference}
+                hiddenTitle={true}
+                initialContentHTML={value}
+            />
+        );
+    }
 
-  private readonly saveEditorReference = (ref: RichTextEditor) => {
-    this.editorInst = ref;
-  }
+    private readonly saveEditorReference = (ref: RichTextEditor | null) => {
+        this.editorInst = ref;
+    };
 }

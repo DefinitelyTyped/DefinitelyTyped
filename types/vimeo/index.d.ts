@@ -1,13 +1,8 @@
-// Type definitions for Vimeo 2.1
-// Project: https://github.com/vimeo/vimeo.js
-// Definitions by: Matthew Leffler <https://github.com/mattleff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type CompleteCallback = (
-    err: string | undefined,
+    err: Error | null,
     result: any,
     statusCode?: number,
-    headers?: object
+    headers?: object,
 ) => void;
 
 export type ProgressCallback = (bytesUploaded: number, bytesTotal: number) => void;
@@ -17,8 +12,8 @@ export type UriCallback = (uri: string) => void;
 export interface RequestOptions {
     method: string;
     path: string;
-    query?: string;
-    headers?: object;
+    query?: object | undefined;
+    headers?: object | undefined;
 }
 
 export class Vimeo {
@@ -116,7 +111,7 @@ export class Vimeo {
      *
      * https://developer.vimeo.com/api/reference/videos#upload_video
      *
-     * @param file              Path to the file you wish to upload.
+     * @param file              Path to the file or File you wish to upload.
      * @param params            Parameters to send when creating a new video (name,
      *                                      privacy restrictions, etc.). See the API documentation for
      *                                      supported parameters.
@@ -125,14 +120,14 @@ export class Vimeo {
      * @param errorCallback     Callback to be executed when the upload returns an error.
      */
     upload(
-        filePath: string,
+        file: string | File,
         params: object,
         completeCallback: UriCallback,
         progressCallback: ProgressCallback | undefined,
         errorCallback: ErrorCallback,
     ): void;
     upload(
-        filePath: string,
+        file: string | File,
         completeCallback: UriCallback,
         progressCallback: ProgressCallback | undefined,
         errorCallback: ErrorCallback,
@@ -143,7 +138,7 @@ export class Vimeo {
      *
      * https://developer.vimeo.com/api/reference/videos#create_video_version
      *
-     * @param file              Path to the file you wish to upload.
+     * @param file              Path to the file or File you wish to upload.
      * @param videoUri          Video URI of the video file to replace.
      * @param params            Parameters to send when creating a new video (name,
      *                                      privacy restrictions, etc.). See the API documentation for
@@ -153,7 +148,7 @@ export class Vimeo {
      * @param errorCallback     Callback to be executed when the upload returns an error.
      */
     replace(
-        file: string,
+        file: string | File,
         videoUri: string,
         params: object,
         completeCallback: UriCallback,

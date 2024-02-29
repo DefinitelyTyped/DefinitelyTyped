@@ -1,8 +1,3 @@
-// Type definitions for node-ssh 7.0
-// Project: https://github.com/steelbrain/node-ssh
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from "ssh2";
@@ -14,41 +9,42 @@ declare namespace SSH {
 
     interface ConfigGiven {
         host: string;
-        port?: number;
+        port?: number | undefined;
         username: string;
-        password?: string;
-        privateKey?: string;
-        onKeyboardInteractive?: () => void | boolean;
+        password?: string | undefined;
+        privateKey?: string | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        onKeyboardInteractive?: (() => void | boolean) | undefined;
     }
 
     interface ExecOptions {
-        cwd?: string;
-        stdin?: string;
-        options?: ssh2ExecOptions;
-        onStdout?: (chunk: Buffer) => void;
-        onStderr?: (chunk: Buffer) => void;
+        cwd?: string | undefined;
+        stdin?: string | undefined;
+        options?: ssh2ExecOptions | undefined;
+        onStdout?: ((chunk: Buffer) => void) | undefined;
+        onStderr?: ((chunk: Buffer) => void) | undefined;
     }
 
     interface ExecResult {
         stdout: string;
         stderr: string;
         code: number;
-        signal?: string;
+        signal?: string | undefined;
     }
 
     interface PutFilesOptions {
-        sftp?: SFTP;
-        sftpOptions?: TransferOptions;
-        concurrency?: number;
+        sftp?: SFTP | undefined;
+        sftpOptions?: TransferOptions | undefined;
+        concurrency?: number | undefined;
     }
 
     interface PutDirectoryOptions {
-        sftp?: SFTP;
-        sftpOptions?: TransferOptions;
-        concurrency?: number;
-        recursive?: boolean;
-        tick?: (localPath: string, remotePath: string, error: Error | null | undefined) => void;
-        validate?: (localPath: string) => boolean;
+        sftp?: SFTP | undefined;
+        sftpOptions?: TransferOptions | undefined;
+        concurrency?: number | undefined;
+        recursive?: boolean | undefined;
+        tick?: ((localPath: string, remotePath: string, error: Error | null | undefined) => void) | undefined;
+        validate?: ((localPath: string) => boolean) | undefined;
     }
 }
 
@@ -65,11 +61,17 @@ declare class SSH {
 
     mkdir(path: string, type?: "sftp", givenSftp?: SSH.SFTP): Promise<void>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream?: "stdout"|"stderr" }): Promise<string>;
+    exec(
+        command: string,
+        parameters?: readonly string[],
+        options?: SSH.ExecOptions & { stream?: "stdout" | "stderr" | undefined },
+    ): Promise<string>;
 
-    exec(command: string, parameters?: ReadonlyArray<string>,
-        options?: SSH.ExecOptions & { stream: "both" }): Promise<SSH.ExecResult>;
+    exec(
+        command: string,
+        parameters?: readonly string[],
+        options?: SSH.ExecOptions & { stream: "both" },
+    ): Promise<SSH.ExecResult>;
 
     execCommand(givenCommand: string, options?: SSH.ExecOptions): Promise<SSH.ExecResult>;
 
@@ -77,9 +79,13 @@ declare class SSH {
 
     putFile(localFile: string, remoteFile: string, givenSftp?: SSH.SFTP, givenOpts?: TransferOptions): Promise<void>;
 
-    putFiles(files: ReadonlyArray<{ local: string, remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
+    putFiles(files: ReadonlyArray<{ local: string; remote: string }>, givenConfig?: SSH.PutFilesOptions): Promise<void>;
 
-    putDirectory(localDirectory: string, remoteDirectory: string, givenConfig?: SSH.PutDirectoryOptions): Promise<boolean>;
+    putDirectory(
+        localDirectory: string,
+        remoteDirectory: string,
+        givenConfig?: SSH.PutDirectoryOptions,
+    ): Promise<boolean>;
 
     dispose(): void;
 }

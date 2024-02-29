@@ -1,9 +1,3 @@
-// Type definitions for rellax 1.7
-// Project: https://github.com/dixonandmoe/rellax, https://dixonandmoe.com/rellax
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
-//                 Tomas Achmedovas <https://github.com/minvs1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Rellax {
     interface Rellax {
         /**
@@ -17,7 +11,7 @@ declare namespace Rellax {
          * @param el Single element or string with selector of elements
          * @param options Options
          */
-        new (el?: string | Element, options?: RellaxOptions): RellaxInstance;
+        new(el?: string | Element, options?: RellaxOptions): RellaxInstance;
     }
 
     interface RellaxInstance {
@@ -48,36 +42,36 @@ declare namespace Rellax {
         /**
          * Enable the ability to center parallax elements in your viewport
          */
-        center?: boolean;
+        center?: boolean | undefined;
         /**
          * Enable horizontal parallax. This feature is intended for panoramic style websites, where users scroll horizontally instead of vertically
          */
-        horizontal?: boolean;
+        horizontal?: boolean | undefined;
         /**
          * Allow decimal pixel values
          */
-        round?: boolean;
+        round?: boolean | undefined;
         /**
          * A negative value will make it move slower than regular scrolling, and a positive value will make it move faster
          */
-        speed?: number;
+        speed?: number | undefined;
         /**
          * Enable vertical parallax
          */
-        vertical?: boolean;
+        vertical?: boolean | undefined;
         /**
          * By default, the position of parallax elements is determined via the scroll position of the body. Passing in the wrapper property will tell Rellax to watch that element instead
          */
-        wrapper?: string | HTMLElement;
+        wrapper?: string | HTMLElement | undefined;
         /**
          * Do we want rellax element to be relative to the mentioned wrapper.
          */
-        relativeToWrapper?: boolean;
+        relativeToWrapper?: boolean | undefined;
 
         /**
          * Each breakpoint value represents the resolution for mobile, tablet, desktop respectively.
          */
-        breakpoints?: [number, number, number];
+        breakpoints?: [number, number, number] | undefined;
     }
 }
 

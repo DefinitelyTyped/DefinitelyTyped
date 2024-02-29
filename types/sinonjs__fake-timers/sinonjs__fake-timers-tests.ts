@@ -1,4 +1,4 @@
-import * as FakeTimers from '@sinonjs/fake-timers';
+import * as FakeTimers from "@sinonjs/fake-timers";
 
 const global: FakeTimers.FakeTimerWithContext = FakeTimers.withGlobal({});
 const timers: FakeTimers.GlobalTimers<FakeTimers.TimerId> = FakeTimers.timers;
@@ -28,8 +28,8 @@ const browserInstalledClock = FakeTimers.install({
     loopLimit: 10,
     now: 0,
     shouldAdvanceTime: true,
-    target: {},
-    toFake: ['setTimeout', 'nextTick', 'hrtime'],
+    shouldClearNativeTimers: true,
+    toFake: ["setTimeout", "requestAnimationFrame", "queueMicrotask", "performance"],
 }) as FakeTimers.BrowserClock & FakeTimers.InstalledClock;
 
 const nodeInstalledClock = FakeTimers.install({
@@ -37,8 +37,8 @@ const nodeInstalledClock = FakeTimers.install({
     loopLimit: 10,
     now: new Date(0),
     shouldAdvanceTime: true,
-    target: {},
-    toFake: ['setTimeout', 'nextTick', 'hrtime'],
+    shouldClearNativeTimers: false,
+    toFake: ["setTimeout", "nextTick", "hrtime", "performance"],
 }) as FakeTimers.NodeClock & FakeTimers.InstalledClock;
 
 const browserNow: number = browserClock.now;
@@ -63,8 +63,9 @@ const nodeAnimationFrame: FakeTimers.NodeTimer = nodeClock.requestAnimationFrame
 const nodeIdleCallback: FakeTimers.NodeTimer = nodeClock.requestIdleCallback(() => {});
 const nodeIdleCallbackWithTimeout: FakeTimers.NodeTimer = nodeClock.requestIdleCallback(() => {}, 7);
 
-nodeTimeout.ref();
-nodeTimeout.unref();
+nodeTimeout.ref().unref();
+nodeTimeout.unref().ref();
+nodeTimeout.refresh().refresh();
 
 browserClock.clearTimeout(browserTimeout);
 browserClock.clearInterval(browserInterval);
@@ -81,16 +82,16 @@ nodeClock.cancelIdleCallback(nodeIdleCallback);
 nodeClock.cancelIdleCallback(nodeIdleCallbackWithTimeout);
 
 browserClock.tick(7);
-browserClock.tick('08');
+browserClock.tick("08");
 
 nodeClock.tick(7);
-nodeClock.tick('08:03');
+nodeClock.tick("08:03");
 
 browserClock.tickAsync(7).then(val => val.toExponential());
-browserClock.tickAsync('08').then(val => val.toExponential());
+browserClock.tickAsync("08").then(val => val.toExponential());
 
 nodeClock.tickAsync(7).then(val => val.toExponential());
-nodeClock.tickAsync('08:03').then(val => val.toExponential());
+nodeClock.tickAsync("08:03").then(val => val.toExponential());
 
 browserClock.next();
 nodeClock.next();
@@ -140,6 +141,7 @@ secs.toFixed();
 nanos.toExponential();
 
 browserInstalledClock.performance.now();
+nodeInstalledClock.performance.now();
 nodeInstalledClock.nextTick(() => {});
 
 browserInstalledClock.uninstall();

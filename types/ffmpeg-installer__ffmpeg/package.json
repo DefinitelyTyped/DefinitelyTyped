@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ffmpeg-installer__ffmpeg",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kribblo/node-ffmpeg-installer#readme"
+    ],
+    "devDependencies": {
+        "@types/ffmpeg-installer__ffmpeg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

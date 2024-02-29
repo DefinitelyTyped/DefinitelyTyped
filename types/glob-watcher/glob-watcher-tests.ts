@@ -6,21 +6,20 @@ function test() {
     const path = "";
     const globs = ["", ""];
 
-    const opts1 = {
-    };
+    const opts1 = {};
 
     const opts2 = {
         delay: 500,
         events: ["add", "change", "unlink"],
-        depth: 1
+        depth: 1,
     };
 
     optionsTypeTest(opts1);
     optionsTypeTest(opts2);
 
-    const taskFunc: Undertaker.TaskFunction = () => "";
+    const taskFunc: Undertaker.TaskFunction = async () => "";
 
-    const cb = () => {
+    const cb = async () => {
         console.log("watch change!");
     };
 

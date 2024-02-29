@@ -1,17 +1,5 @@
-// Type definitions for multer 1.4
-// Project: https://github.com/expressjs/multer
-// Definitions by: jt000 <https://github.com/jt000>
-//                 vilicvane <https://github.com/vilic>
-//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
-//                 Michael Ledin <https://github.com/mxl>
-//                 HyunSeob Lee <https://github.com/hyunseob>
-//                 Pierre Tchuente <https://github.com/PierreTchuente>
-//                 Oliver Emery <https://github.com/thrymgjol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Request, RequestHandler } from 'express';
-import { Readable } from 'stream';
+import { Request, RequestHandler } from "express";
+import { Readable } from "stream";
 
 declare global {
     namespace Express {
@@ -50,86 +38,92 @@ declare global {
 
         interface Request {
             /** `Multer.File` object populated by `single()` middleware. */
-            file: Multer.File;
+            file?: Multer.File | undefined;
             /**
              * Array or dictionary of `Multer.File` object populated by `array()`,
              * `fields()`, and `any()` middleware.
              */
-            files: {
-                [fieldname: string]: Multer.File[];
-            } | Multer.File[];
+            files?:
+                | {
+                    [fieldname: string]: Multer.File[];
+                }
+                | Multer.File[]
+                | undefined;
         }
     }
 }
 
-declare class Multer {
-    /**
-     * Returns middleware that processes a single file associated with the
-     * given form field.
-     *
-     * The `Request` object will be populated with a `file` object containing
-     * information about the processed file.
-     *
-     * @param fieldName Name of the multipart form field to process.
-     */
-    single(fieldName: string): RequestHandler;
-    /**
-     * Returns middleware that processes multiple files sharing the same field
-     * name.
-     *
-     * The `Request` object will be populated with a `files` array containing
-     * an information object for each processed file.
-     *
-     * @param fieldName Shared name of the multipart form fields to process.
-     * @param maxCount Optional. Maximum number of files to process. (default: Infinity)
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName`
-     */
-    array(fieldName: string, maxCount?: number): RequestHandler;
-    /**
-     * Returns middleware that processes multiple files associated with the
-     * given form fields.
-     *
-     * The `Request` object will be populated with a `files` object which
-     * maps each field name to an array of the associated file information
-     * objects.
-     *
-     * @param fields Array of `Field` objects describing multipart form fields to process.
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
-     */
-    fields(fields: ReadonlyArray<multer.Field>): RequestHandler;
-    /**
-     * Returns middleware that processes all files contained in the multipart
-     * request.
-     *
-     * The `Request` object will be populated with a `files` array containing
-     * an information object for each processed file.
-     */
-    any(): RequestHandler;
-    /**
-     * Returns middleware that accepts only non-file multipart form fields.
-     *
-     * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if any file is encountered.
-     */
-    none(): RequestHandler;
-}
-
- /**
-  * Returns a Multer instance that provides several methods for generating
-  * middleware that process files uploaded in `multipart/form-data` format.
-  *
-  * The `StorageEngine` specified in `storage` will be used to store files. If
-  * `storage` is not set and `dest` is, files will be stored in `dest` on the
-  * local file system with random names. If neither are set, files will be stored
-  * in memory.
-  *
-  * In addition to files, all generated middleware process all text fields in
-  * the request. For each non-file field, the `Request.body` object will be
-  * populated with an entry mapping the field name to its string value, or array
-  * of string values if multiple fields share the same name.
-  */
-declare function multer(options?: multer.Options): Multer;
+/**
+ * Returns a Multer instance that provides several methods for generating
+ * middleware that process files uploaded in `multipart/form-data` format.
+ *
+ * The `StorageEngine` specified in `storage` will be used to store files. If
+ * `storage` is not set and `dest` is, files will be stored in `dest` on the
+ * local file system with random names. If neither are set, files will be stored
+ * in memory.
+ *
+ * In addition to files, all generated middleware process all text fields in
+ * the request. For each non-file field, the `Request.body` object will be
+ * populated with an entry mapping the field name to its string value, or array
+ * of string values if multiple fields share the same name.
+ */
+declare function multer(options?: multer.Options): multer.Multer;
 
 declare namespace multer {
+    /**
+     * @see {@link https://github.com/expressjs/multer#api}
+     */
+    interface Multer {
+        /**
+         * Returns middleware that processes a single file associated with the
+         * given form field.
+         *
+         * The `Request` object will be populated with a `file` object containing
+         * information about the processed file.
+         *
+         * @param fieldName Name of the multipart form field to process.
+         */
+        single(fieldName: string): RequestHandler;
+        /**
+         * Returns middleware that processes multiple files sharing the same field
+         * name.
+         *
+         * The `Request` object will be populated with a `files` array containing
+         * an information object for each processed file.
+         *
+         * @param fieldName Shared name of the multipart form fields to process.
+         * @param maxCount Optional. Maximum number of files to process. (default: Infinity)
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName`
+         */
+        array(fieldName: string, maxCount?: number): RequestHandler;
+        /**
+         * Returns middleware that processes multiple files associated with the
+         * given form fields.
+         *
+         * The `Request` object will be populated with a `files` object which
+         * maps each field name to an array of the associated file information
+         * objects.
+         *
+         * @param fields Array of `Field` objects describing multipart form fields to process.
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
+         */
+        fields(fields: readonly Field[]): RequestHandler;
+        /**
+         * Returns middleware that processes all files contained in the multipart
+         * request.
+         *
+         * The `Request` object will be populated with a `files` array containing
+         * an information object for each processed file.
+         */
+        any(): RequestHandler;
+        /**
+         * Returns middleware that accepts only non-file multipart form fields.
+         *
+         * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if any file is encountered.
+         */
+        none(): RequestHandler;
+    }
+
     /**
      * Returns a `StorageEngine` implementation configured to store files on
      * the local file system.
@@ -140,6 +134,7 @@ declare namespace multer {
      * character filenames.
      */
     function diskStorage(options: DiskStorageOptions): StorageEngine;
+
     /**
      * Returns a `StorageEngine` implementation configured to store files in
      * memory as `Buffer` objects.
@@ -147,13 +142,13 @@ declare namespace multer {
     function memoryStorage(): StorageEngine;
 
     type ErrorCode =
-        | 'LIMIT_PART_COUNT'
-        | 'LIMIT_FILE_SIZE'
-        | 'LIMIT_FILE_COUNT'
-        | 'LIMIT_FIELD_KEY'
-        | 'LIMIT_FIELD_VALUE'
-        | 'LIMIT_FIELD_COUNT'
-        | 'LIMIT_UNEXPECTED_FILE';
+        | "LIMIT_PART_COUNT"
+        | "LIMIT_FILE_SIZE"
+        | "LIMIT_FILE_COUNT"
+        | "LIMIT_FIELD_KEY"
+        | "LIMIT_FIELD_VALUE"
+        | "LIMIT_FIELD_COUNT"
+        | "LIMIT_UNEXPECTED_FILE";
 
     class MulterError extends Error {
         constructor(code: ErrorCode, field?: string);
@@ -164,7 +159,7 @@ declare namespace multer {
         /** Descriptive error message. */
         message: string;
         /** Name of the multipart form field associated with this error. */
-        field?: string;
+        field?: string | undefined;
     }
 
     /**
@@ -175,7 +170,7 @@ declare namespace multer {
     interface FileFilterCallback {
         (error: Error): void;
         (error: null, acceptFile: boolean): void;
-     }
+    }
 
     /** Options for initializing a Multer instance. */
     interface Options {
@@ -183,7 +178,7 @@ declare namespace multer {
          * A `StorageEngine` responsible for processing files uploaded via Multer.
          * Takes precedence over `dest`.
          */
-        storage?: StorageEngine;
+        storage?: StorageEngine | undefined;
         /**
          * The destination directory for uploaded files. If `storage` is not set
          * and `dest` is, Multer will create a `DiskStorage` instance configured
@@ -191,7 +186,7 @@ declare namespace multer {
          *
          * Ignored if `storage` is set.
          */
-        dest?: string;
+        dest?: string | undefined;
         /**
          * An object specifying various limits on incoming data. This object is
          * passed to Busboy directly, and the details of properties can be found
@@ -199,22 +194,22 @@ declare namespace multer {
          */
         limits?: {
             /** Maximum size of each form field name in bytes. (Default: 100) */
-            fieldNameSize?: number;
+            fieldNameSize?: number | undefined;
             /** Maximum size of each form field value in bytes. (Default: 1048576) */
-            fieldSize?: number;
+            fieldSize?: number | undefined;
             /** Maximum number of non-file form fields. (Default: Infinity) */
-            fields?: number;
+            fields?: number | undefined;
             /** Maximum size of each file in bytes. (Default: Infinity) */
-            fileSize?: number;
+            fileSize?: number | undefined;
             /** Maximum number of file fields. (Default: Infinity) */
-            files?: number;
+            files?: number | undefined;
             /** Maximum number of parts (non-file fields + files). (Default: Infinity) */
-            parts?: number;
+            parts?: number | undefined;
             /** Maximum number of headers. (Default: 2000) */
-            headerPairs?: number;
-        };
+            headerPairs?: number | undefined;
+        } | undefined;
         /** Preserve the full path of the original filename rather than the basename. (Default: false) */
-        preservePath?: boolean;
+        preservePath?: boolean | undefined;
         /**
          * Optional function to control which files are uploaded. This is called
          * for every file that is processed.
@@ -252,7 +247,7 @@ declare namespace multer {
         _handleFile(
             req: Request,
             file: Express.Multer.File,
-            callback: (error?: any, info?: Partial<Express.Multer.File>) => void
+            callback: (error?: any, info?: Partial<Express.Multer.File>) => void,
         ): void;
         /**
          * Remove the file described by `file`, then invoke the callback with.
@@ -267,7 +262,7 @@ declare namespace multer {
         _removeFile(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error) => void
+            callback: (error: Error | null) => void,
         ): void;
     }
 
@@ -282,11 +277,14 @@ declare namespace multer {
          * @param file Object containing information about the processed file.
          * @param callback Callback to determine the destination path.
          */
-        destination?: string | ((
-            req: Request,
-            file: Express.Multer.File,
-            callback: (error: Error | null, destination: string) => void
-        ) => void);
+        destination?:
+            | string
+            | ((
+                req: Request,
+                file: Express.Multer.File,
+                callback: (error: Error | null, destination: string) => void,
+            ) => void)
+            | undefined;
         /**
          * A function that determines the name of the uploaded file. If nothing
          * is passed, Multer will generate a 32 character pseudorandom hex string
@@ -299,7 +297,7 @@ declare namespace multer {
         filename?(
             req: Request,
             file: Express.Multer.File,
-            callback: (error: Error | null, filename: string) => void
+            callback: (error: Error | null, filename: string) => void,
         ): void;
     }
 
@@ -311,7 +309,7 @@ declare namespace multer {
         /** The field name. */
         name: string;
         /** Optional maximum number of files per field to accept. (Default: Infinity) */
-        maxCount?: number;
+        maxCount?: number | undefined;
     }
 }
 

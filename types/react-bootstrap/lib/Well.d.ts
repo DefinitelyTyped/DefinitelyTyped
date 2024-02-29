@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Well {
     export interface WellProps extends React.HTMLProps<Well> {
-        bsSize?: Sizes;
-        bsStyle?: string;
-        bsClass?: string;
+        bsSize?: Sizes | undefined;
+        bsStyle?: string | undefined;
+        bsClass?: string | undefined;
     }
 }
-declare class Well extends React.Component<Well.WellProps> { }
+declare class Well extends React.Component<Well.WellProps> {}
 export = Well;

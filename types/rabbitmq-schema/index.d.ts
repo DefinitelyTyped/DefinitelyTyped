@@ -1,14 +1,8 @@
-// Type definitions for rabbitmq-schema 2.0
-// Project: https://github.com/tjmehta/rabbitmq-schema
-// Definitions by: Alex Duka <https://github.com/rulezzz1987>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Binding {
     destination: Exchange | Queue;
     source: Exchange;
-    args?: object;
-    routingPattern?: string;
+    args?: object | undefined;
+    routingPattern?: string | undefined;
 }
 
 interface TopicBinding extends Binding {
@@ -20,7 +14,7 @@ interface DirectBinding extends Binding {
 }
 
 interface Topology {
-    options?: object;
+    options?: object | undefined;
 }
 
 interface Exchange extends Topology {
@@ -30,16 +24,16 @@ interface Exchange extends Topology {
 }
 
 interface FanoutExchange extends Exchange {
-    type: 'fanout';
+    type: "fanout";
 }
 
 interface TopicExchange extends Exchange {
-    type: 'topic';
+    type: "topic";
     bindings: TopicBinding[];
 }
 
 interface DirectExchange extends Exchange {
-    type: 'direct';
+    type: "direct";
     bindings: DirectBinding[];
 }
 
@@ -63,8 +57,10 @@ declare class RabbitMQSchema {
 
     validateMessage<T>(exchangeName: string, routingPattern: string, message: T): T;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getQueueByName(name: string): Queue | void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getExchangeByName(name: string): Exchange | void;
 }
 

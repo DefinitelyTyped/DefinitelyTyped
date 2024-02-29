@@ -10,15 +10,15 @@ export interface CssIconSetOptions extends IconOptions {
      *
      * The symbols `?` and `%` in the text-pattern are replaced by the icon-id.
      */
-    className?: CssClassConfig;
+    className?: CssClassConfig | undefined;
 
     /**
      * An alias of the `className`-property.
      */
-    class?: this["className"];
+    class?: this["className"] | undefined;
 
     /**
      * An alias of the `className`-property.
      */
-    cssClass?: this["className"];
+    cssClass?: this["className"] | undefined;
 }

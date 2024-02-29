@@ -1,8 +1,3 @@
-// Type definitions for bin-pack 1.0
-// Project: https://github.com/bryanburgers/bin-pack
-// Definitions by: Oren Trutner <https://github.com/orentrutner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Packs objects that have a width and a height into as small of a square as
  * possible, using a binary tree bin packing algorithm. After packing, each
@@ -17,7 +12,7 @@ declare namespace pack {
     /** Packing options. */
     interface Options {
         /** Use inPlace=true to add x,y fields to the bins argument. */
-        inPlace?: boolean;
+        inPlace?: boolean | undefined;
     }
 
     /** Specifies the dimensions of a bin to pack. */

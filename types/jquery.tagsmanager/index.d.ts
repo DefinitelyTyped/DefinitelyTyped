@@ -1,41 +1,35 @@
-// Type definitions for jQuery Tags Manager
-// Project: http://welldonethings.com/tags/manager
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface ITagsManagerOptions {
     prefilled?: any;
-    CapitalizeFirstLetter?: boolean;
-    preventSubmitOnEnter?: boolean;
-    isClearInputOnEsc?: boolean;
-    typeahead?: boolean;
-    typeaheadAjaxSource?: string;
-    typeaheadAjaxPolling?: boolean;
-    typeaheadDelegate?: Function;
-    typeaheadOverrides?: ITypeaheadOverrides;
+    CapitalizeFirstLetter?: boolean | undefined;
+    preventSubmitOnEnter?: boolean | undefined;
+    isClearInputOnEsc?: boolean | undefined;
+    typeahead?: boolean | undefined;
+    typeaheadAjaxSource?: string | undefined;
+    typeaheadAjaxPolling?: boolean | undefined;
+    typeaheadDelegate?: Function | undefined;
+    typeaheadOverrides?: ITypeaheadOverrides | undefined;
     typeaheadSource?: any;
-    AjaxPush?: string; //url
-    delimeters?: number[];
-    backspace?: number[];
-    maxTags?: number;
-    blinkBGColor_1?: string;
-    blinkBGColor_2?: string;
-    hiddenTagListName?: string;
-    hiddenTagListId?: string;
-    deleteTagsOnBackspace?: boolean;
-    tagsContainer?: HTMLElement;
-    tagCloseIcon?: string;
-    tagClass?: string;
-    validator?: Function;
+    AjaxPush?: string | undefined; // url
+    delimeters?: number[] | undefined;
+    backspace?: number[] | undefined;
+    maxTags?: number | undefined;
+    blinkBGColor_1?: string | undefined;
+    blinkBGColor_2?: string | undefined;
+    hiddenTagListName?: string | undefined;
+    hiddenTagListId?: string | undefined;
+    deleteTagsOnBackspace?: boolean | undefined;
+    tagsContainer?: HTMLElement | undefined;
+    tagCloseIcon?: string | undefined;
+    tagClass?: string | undefined;
+    validator?: Function | undefined;
 }
 
 interface ITypeaheadOverrides {
-    instanceSelectHandler?: Function;
-    selectedClass?: string;
-    select?: Function;
+    instanceSelectHandler?: Function | undefined;
+    selectedClass?: string | undefined;
+    select?: Function | undefined;
 }
 
 interface ITagsManager {
@@ -47,9 +41,7 @@ interface ITagsManager {
     backspace: number[];
     tagToManipulate: string;
 
-    initialize(context: JQuery,
-               options?: ITagsManagerOptions,
-               tagToManipulate?: string): void;
+    initialize(context: JQuery, options?: ITagsManagerOptions, tagToManipulate?: string): void;
     setupTypeahead(): void;
     onTypeaheadAjaxSuccess(data: any, isSetTypeaheadSource: boolean, process?: Function): void;
     ajaxPolling(query: string, process: Function): void;

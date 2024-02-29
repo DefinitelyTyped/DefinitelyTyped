@@ -8,6 +8,8 @@ import { RecurlyError } from '../error';
 export interface PricingPromise<T, PricingMethods> extends Promise<T> {
   /**
    * Attaches callbacks for the resolution and/or rejection of the PricingPromise.
+   * @param onfulfilled The callback to execute when the PricingPromise is resolved.
+   * @param onrejected The callback to execute when the PricingPromise is rejected.
    * @returns A PricingPromise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
@@ -17,6 +19,7 @@ export interface PricingPromise<T, PricingMethods> extends Promise<T> {
 
   /**
    * Attaches a callback for only the rejection of the PricingPromise.
+   * @param onrejected The callback to execute when the PricingPromise is rejected.
    * @returns A PricingPromise for the completion of the callback.
    */
   catch<TResult = never>(
@@ -27,6 +30,8 @@ export interface PricingPromise<T, PricingMethods> extends Promise<T> {
 
   /**
    * Attaches callbacks for the resolution and/or rejection of the PricingPromise, without returning a new promise.
+   * @param onfulfilled The callback to execute when the PricingPromise is resolved.
+   * @param onrejected The callback to execute when the PricingPromise is rejected.
    */
   done(onfulfilled?: (value: T) => any, onrejected?: (reason: any) => any): T;
 }

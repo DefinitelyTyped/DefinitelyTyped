@@ -1,10 +1,4 @@
-// Type definitions for bearcat-es6 0.6
-// Project: https://github.com/ChrisPei/bearcat-es6
-// Definitions by: Xin Li <https://github.com/xinxinran0221010>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace bearcat {
     type CallbackFunc = () => void;
@@ -122,6 +116,7 @@ declare namespace bearcat {
          * @param   context context object
          * @api     public
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         module(func: ParamClassFunc, context?: object | null): object | void;
 
         /**
@@ -160,10 +155,8 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      // through beanName
          *      var Car = bearcat.getFunction("car");
-         *
          *
          * @param   beanName
          * @return  bean constructor function
@@ -176,10 +169,8 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      // through beanName
          *      var Car = bearcat.getClass("car");
-         *
          *
          * @param   beanName
          * @return  bean constructor function
@@ -192,9 +183,7 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      bearcat.extend("bus", "car");
-         *
          *
          * @param  beanName
          * @param  superBeanName or superBeanName array
@@ -207,9 +196,7 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      bearcat.call("car", this);
-         *
          *
          * @param   beanName
          * @param   context
@@ -223,10 +210,8 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      // through modelId
          *      var carModel = bearcat.getModel("car");
-         *
          *
          * @param   modelId
          * @return  model
@@ -239,11 +224,9 @@ declare namespace bearcat {
          *
          * Examples:
          *
-         *
          *      // express
          *      var app = express();
          *      app.get('/', bearcat.getRoute('bearController', 'index'));
-         *
          *
          * @param   beanName
          * @param   fnName routeName

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/color-convert",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/qix-/color-convert#readme"
+    ],
+    "dependencies": {
+        "@types/color-name": "*"
+    },
+    "devDependencies": {
+        "@types/color-convert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Clare Jang",
+            "githubUsername": "Airlun"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

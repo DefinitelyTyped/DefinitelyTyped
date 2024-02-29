@@ -1,11 +1,4 @@
-// Type definitions for react-copy-write 0.7
-// Project: https://github.com/aweary/react-copy-write
-// Definitions by: Sam A. Horvath-Hunt <https://github.com/samhh>
-//                 Dave Jeffery        <https://github.com/davej>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component } from 'react';
+import { Component, JSX } from "react";
 
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
@@ -20,15 +13,15 @@ type SelectorFn<T> = (state: T) => AnyDeepMemberOfState<T>;
 type RenderFn<T> = (...state: Array<Readonly<ReturnType<SelectorFn<T>>>>) => JSX.Element | JSX.Element[] | null;
 
 interface ConsumerPropsBase<T> {
-    select?: Array<SelectorFn<T>>;
+    select?: Array<SelectorFn<T>> | undefined;
 }
 
 interface ConsumerPropsExplicitRender<T> extends ConsumerPropsBase<T> {
-    render?: RenderFn<T>;
+    render?: RenderFn<T> | undefined;
 }
 
 interface ConsumerPropsImplicitRender<T> extends ConsumerPropsBase<T> {
-    children?: RenderFn<T>;
+    children?: RenderFn<T> | undefined;
 }
 
 type ConsumerProps<T> = ConsumerPropsExplicitRender<T> | ConsumerPropsImplicitRender<T>;
@@ -37,16 +30,16 @@ declare class Consumer<T> extends Component<ConsumerProps<T>> {}
 
 interface ProviderProps<T> {
     children: JSX.Element | JSX.Element[];
-    initialState?: Partial<T>;
+    initialState?: Partial<T> | undefined;
 }
 
 declare class Provider<T> extends Component<ProviderProps<T>> {}
 
 declare function create<T extends object>(state: T): {
-    Provider: new() => Provider<T>,
-    Consumer: new() => Consumer<T>,
-    createSelector: SelectorFn<T>,
-    mutate: Mutator<T>,
+    Provider: new() => Provider<T>;
+    Consumer: new() => Consumer<T>;
+    createSelector: SelectorFn<T>;
+    mutate: Mutator<T>;
 };
 
 export default create;

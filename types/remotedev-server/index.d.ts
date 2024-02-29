@@ -1,10 +1,4 @@
-// Type definitions for remotedev-server 0.3
-// Project: https://github.com/zalmoxisus/remotedev-server
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
-import SocketCluster = require('socketcluster');
+import SocketCluster = require("socketcluster");
 
 declare function remotedev(argv: remotedev.Options): Promise<SocketCluster | remotedev.PortUsedError>;
 
@@ -18,24 +12,24 @@ declare namespace remotedev {
 
     interface Options {
         /** The cert file for running a HTTPS server (`protocol` must be set to "https"). */
-        cert?: string;
+        cert?: string | undefined;
         /** Database configuration, can be an object or a path to a JSON configuration file. */
-        dbOptions?: string;
+        dbOptions?: string | undefined;
         /** Hostname. */
-        hostname?: string;
+        hostname?: string | undefined;
         /** The key file for running a HTTPS server (`protocol` must be set to "https"). */
-        key?: string;
-        logHTTPRequests?: boolean;
+        key?: string | undefined;
+        logHTTPRequests?: boolean | undefined;
         /** The socket server log level. */
-        logLevel?: LogLevel;
+        logLevel?: LogLevel | undefined;
         /** The key passphrase for running a HTTPS server (`protocol` must be set to "https"). */
-        passphrase?: string;
+        passphrase?: string | undefined;
         /** Port. */
-        port?: number;
+        port?: number | undefined;
         /** Protocol. */
-        protocol?: 'http' | 'https';
+        protocol?: "http" | "https" | undefined;
         /** The socket server websocket engine. */
-        wsEngine?: string;
+        wsEngine?: string | undefined;
     }
 
     interface PortUsedError {

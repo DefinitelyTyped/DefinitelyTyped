@@ -1,38 +1,32 @@
-// Type definitions for react-gamepad 1.0
-// Project: https://github.com/SBRK/react-gamepad
-// Definitions by: Brian Donovan <https://github.com/eventualbuddha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export type Button =
-    | 'A'
-    | 'B'
-    | 'X'
-    | 'Y'
-    | 'Start'
-    | 'Back'
-    | 'LT'
-    | 'RT'
-    | 'LB'
-    | 'RB'
-    | 'LS'
-    | 'RS'
-    | 'DPadUp'
-    | 'DPadDown'
-    | 'DPadLeft'
-    | 'DPadRight';
+    | "A"
+    | "B"
+    | "X"
+    | "Y"
+    | "Start"
+    | "Back"
+    | "LT"
+    | "RT"
+    | "LB"
+    | "RB"
+    | "LS"
+    | "RS"
+    | "DPadUp"
+    | "DPadDown"
+    | "DPadLeft"
+    | "DPadRight";
 
-export type Axis = 'LeftStickX' | 'LeftStickY' | 'RightStickX' | 'RightStickY' | 'LeftTrigger' | 'RightTrigger';
+export type Axis = "LeftStickX" | "LeftStickY" | "RightStickX" | "RightStickY" | "LeftTrigger" | "RightTrigger";
 
 export type InvertedAxis =
-    | '-LeftStickX'
-    | '-LeftStickY'
-    | '-RightStickX'
-    | '-RightStickY'
-    | '-LeftTrigger'
-    | '-RightTrigger';
+    | "-LeftStickX"
+    | "-LeftStickY"
+    | "-RightStickX"
+    | "-RightStickY"
+    | "-LeftTrigger"
+    | "-RightTrigger";
 
 export type InvertibleAxis = Axis | InvertedAxis;
 
@@ -43,25 +37,27 @@ export interface Layout {
 }
 
 export interface Props {
+    children: React.ReactElement;
+
     /**
      * The index of the gamepad to use, from 0 to 4 Default: 0
      */
-    gamepadIndex?: number;
+    gamepadIndex?: number | undefined;
 
     /**
      * Threshold above which onUp, onDown,onLeft,onRight are Triggered for the left stick Default: 0.75
      */
-    stickThreshold?: number;
+    stickThreshold?: number | undefined;
 
     /**
      * Threshold below which the axis values will be rounded to 0.0 Default: 0.08
      */
-    deadZone?: number;
+    deadZone?: number | undefined;
 
     /**
      * Layout to use, from Gamepad.layouts. For now, only Gamepad.layouts.XBOX exists Default: Gamepad.layouts.XBOX
      */
-    layout?: Layout;
+    layout?: Layout | undefined;
 
     /**
      * triggered when the gamepad connects. Will be Triggered at least once after the Gamepad component is mounted.
@@ -112,6 +108,16 @@ export interface Props {
      * Triggered when the Y button is pressed.
      */
     onY?(): void;
+
+    /**
+     * Triggered when the Start button is pressed.
+     */
+    onStart?(): void;
+
+    /**
+     * Triggered when the Back button is pressed.
+     */
+    onBack?(): void;
 
     /**
      * Triggered when the LT button is pressed.

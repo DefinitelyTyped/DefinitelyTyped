@@ -1,14 +1,10 @@
-// Type definitions for aws-greengrass-core-sdk 1.6
-// Project: https://github.com/aws/aws-greengrass-core-sdk-js#readme
-// Definitions by: Alister Hatt <https://github.com/ozxcorp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+import * as StreamManager from "./stream-manager";
 
 export interface PublishParams {
     topic: string;
     payload: Buffer | Blob | string | ArrayLike<any>;
-    queueFullPolicy?: 'AllOrError' | 'BestEffort';
+    queueFullPolicy?: "AllOrError" | "BestEffort" | undefined;
 }
 
 export interface IotCallbackData {
@@ -21,3 +17,7 @@ export class IotData {
     constructor();
     publish(params: PublishParams, callback: IotCallback): void;
 }
+
+export const GreengrassInterfaceVersion: string;
+
+export { StreamManager };

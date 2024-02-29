@@ -1,19 +1,14 @@
-// Type definitions for lambda-log 2.2
-// Project: https://github.com/KyleRoss/node-lambda-log
-// Definitions by: Andrés Reyes Monge <https://github.com/armonge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 /// <reference types="node" />
 
-import { WriteStream } from "fs";
 import { Console } from "console";
 import { EventEmitter } from "events";
+import { WriteStream } from "fs";
 
 export interface LogRecordOptions {
     level: string;
     msg: string;
     meta?: any;
-    tags?: string[];
+    tags?: string[] | undefined;
 }
 
 export interface LogRecord {
@@ -28,7 +23,7 @@ export class LogMessage {
     msg: string;
 
     meta?: any;
-    tags?: string[];
+    tags?: string[] | undefined;
 
     constructor(logRecordOptions: LogRecordOptions, opts: LambdaLogOptions);
 
@@ -44,21 +39,25 @@ export class LogMessage {
 export interface LambdaLogOptions {
     meta?: any;
     // Global tags array to include with every log
-    tags?: string[];
+    tags?: string[] | undefined;
     // Optional function which will run for every log to inject dynamic metadata
-    dynamicMeta?: (message: LogMessage) => any;
+    dynamicMeta?: ((message: LogMessage) => any) | undefined;
     // Enable debugging mode (log.debug messages)
-    debug?: boolean;
+    debug?: boolean | undefined;
     // Enable development mode which pretty-prints the log object to the console
-    dev?: boolean;
+    dev?: boolean | undefined;
     // Disables logging to the console (used for testing)
-    silent?: boolean;
+    silent?: boolean | undefined;
     // Optional replacer function for `JSON.stringify`
-    replacer?: (key: string, value: any) => any;
-    // Optional stream to write stdout messages to
-    stdoutStream?: WriteStream;
-    // Optional stream to write stderr messages to
-    stderrStream?: WriteStream;
+    replacer?: ((key: string, value: any) => any) | undefined;
+    // Console-like object containing all standard console functions. Allows logs to be written to any custom location. Default is console.
+    logHandler?: Console;
+    // Override the key in the JSON log message for the message. Default is "msg".
+    levelKey?: string | null;
+    // Override the key in the JSON log message for the message. Default is "msg".
+    messageKey?: string;
+    // Override the key in the JSON log message for the tags. Set to null to remove this key from the JSON output. Default is '_tags'.
+    tagsKey?: string | null;
 }
 
 export interface LogLevels {
@@ -91,7 +90,7 @@ export class LambdaLog extends EventEmitter {
         test: any,
         msg: string,
         meta?: object,
-        tags?: string[]
+        tags?: string[],
     ): boolean | LogMessage;
 }
 
@@ -99,20 +98,20 @@ export function log(
     level: string,
     msg: string,
     meta?: object,
-    tags?: string[]
+    tags?: string[],
 ): LogMessage;
 export function info(msg: string, meta?: object, tags?: string[]): LogMessage;
 export function warn(msg: string, meta?: object, tags?: string[]): LogMessage;
 export function error(
     msg: string | Error,
     meta?: object,
-    tags?: string[]
+    tags?: string[],
 ): LogMessage;
 export function assert(
     test: any,
     msg: string,
     meta?: object,
-    tags?: string[]
+    tags?: string[],
 ): LogMessage;
 export function debug(msg: string, meta?: object, tags?: string[]): LogMessage;
 export const options: LambdaLogOptions;

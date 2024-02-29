@@ -15,15 +15,18 @@ import nodePersist = require("node-persist");
         dir: __dirname + "/test",
         logging: (message) => {
             console.log(message);
-        }
+        },
     });
 
     await storage.init({
         ...opts,
-        logging: false
+        logging: false,
     });
 
     await storage.setItem("someArray", [1, 2, 3]);
+
+    await storage.setItem("testExpiration", "abcdefg", { ttl: 60 * 1000 });
+
     const value = await storage.getItem("someArray");
     await storage.removeItem("someArray");
 
@@ -39,7 +42,7 @@ import nodePersist = require("node-persist");
     }
 
     await storage.clear();
-    let testObject: TestObject = {foo: "bar", two: 2};
+    let testObject: TestObject = { foo: "bar", two: 2 };
     await storage.setItem("someObject", testObject);
     testObject = await storage.getItem("someObject");
     await storage.removeItem("someObject");

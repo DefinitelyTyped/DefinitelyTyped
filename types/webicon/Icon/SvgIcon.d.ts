@@ -8,5 +8,5 @@ export interface SvgIcon extends ImageIcon, Sizeable {
     /**
      * The default viewBox of the icon.
      */
-    viewBox?: string;
+    viewBox?: string | undefined;
 }

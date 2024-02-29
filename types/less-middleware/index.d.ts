@@ -1,9 +1,3 @@
-// Type definitions for less-middleware 2.0.1
-// Project: https://github.com/emberfeather/less.js-middleware
-// Definitions by: Federico Bond <https://github.com/federicobond>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import lessMiddleware = require('less-middleware');
@@ -11,10 +5,7 @@
 
  =============================================== */
 
-
-
-
-import express = require('express');
+import express = require("express");
 
 /**
  * Middleware created to allow processing of Less files for Connect JS framework
@@ -22,48 +13,46 @@ import express = require('express');
  */
 declare function lessMiddleware(source: string, options?: {
     /**
-    * Show more verbose logging?
-    */
-    debug?: boolean;
+     * Show more verbose logging?
+     */
+    debug?: boolean | undefined;
 
     /**
-    * Destination directory to output the compiled .css files.
-    */
-    dest?: string;
+     * Destination directory to output the compiled .css files.
+     */
+    dest?: string | undefined;
 
     /**
      * Always re-compile less files on each request.
      */
-    force?: boolean;
+    force?: boolean | undefined;
 
     /**
      * Only recompile once after each server restart.
      * Useful for reducing disk i/o on production.
      */
-    once?: boolean;
+    once?: boolean | undefined;
 
     /**
      * Common root of the source and destination.
      * It is prepended to both the source and destination before being used.
      */
-    pathRoot?: string;
+    pathRoot?: string | undefined;
 
     /**
      * Object containing functions relevant to preprocessing data.
      */
     postprocess?: {
-
         /**
          * Function that modifies the compiled css output before being stored.
          */
         css?(css: string, req: express.Request): string;
-    };
+    } | undefined;
 
     /**
      * Object containing functions relevant to preprocessing data.
      */
     preprocess?: {
-
         /**
          * Function that modifies the raw less output before being parsed and compiled.
          */
@@ -78,17 +67,16 @@ declare function lessMiddleware(source: string, options?: {
          * Function that modifies the import paths used by the less parser per request.
          */
         importPaths?(paths: string[], req: express.Request): string[];
-    };
+    } | undefined;
 
     /**
      * Options for the less render.
      */
     render?: {
-
-        compress?: string;
-        yuicompress?: boolean;
-        paths?: string[];
-    };
+        compress?: string | boolean | undefined;
+        yuicompress?: boolean | undefined;
+        paths?: string[] | undefined;
+    } | undefined;
 
     /**
      * Function that is in charge of storing the css in the filesystem.
@@ -101,8 +89,7 @@ declare function lessMiddleware(source: string, options?: {
      * files haven't changed and the css files still exist, specifying this option will
      * mean that the less files don't need to be recompiled after a server restart.
      */
-    cacheFile?: string;
-
+    cacheFile?: string | undefined;
 }): express.RequestHandler;
 
 export = lessMiddleware;

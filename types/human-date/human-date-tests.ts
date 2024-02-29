@@ -1,14 +1,15 @@
-import hdate = require('human-date');
+import hdate = require("human-date");
 
 // .prertyPrint method
-hdate.prettyPrint('8-16-1987');
-hdate.prettyPrint(new Date('8-16-1987'));
+hdate.prettyPrint(); // $ExpectType string
+hdate.prettyPrint("8-16-1987");
+hdate.prettyPrint(new Date("8-16-1987"));
 hdate.prettyPrint(-6400);
 hdate.prettyPrint(new Date(1416448704578), { showTime: true });
 
 // .relativeTime method
 hdate.relativeTime(4);
-hdate.relativeTime(4, {futureSuffix: "in the future"});
+hdate.relativeTime(4, { futureSuffix: "in the future" });
 hdate.relativeTime("8-16-1987");
 hdate.relativeTime(new Date("8-16-1987"));
 hdate.relativeTime(new Date("8-16-1987"), { returnObject: true });
@@ -22,6 +23,7 @@ hdate.monthName("8-16-1987");
 hdate.monthName(new Date("8-16-1987"));
 
 // .toUTC method
+hdate.toUTC(); // $ExpectType Date
 hdate.toUTC(1000000000000);
 hdate.toUTC(1000000000000).getFullYear();
 hdate.toUTC("8-16-1987");

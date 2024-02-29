@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { ColorPickerProps } from "../../..";
 import { Classes } from "reactcss";
+import { ColorPickerProps } from "../../..";
 
 export interface AlphaPickerStylesProps {
     picker: CSSProperties;
@@ -8,9 +8,9 @@ export interface AlphaPickerStylesProps {
 }
 
 export interface AlphaPickerProps extends ColorPickerProps<AlphaPicker> {
-    height?: string;
-    width?: string;
-    styles?: Partial<Classes<AlphaPickerStylesProps>>;
+    height?: string | undefined;
+    width?: string | undefined;
+    styles?: Partial<Classes<AlphaPickerStylesProps>> | undefined;
 }
 
-export default class AlphaPicker extends Component<AlphaPickerProps> { }
+export default class AlphaPicker extends Component<AlphaPickerProps> {}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/esbuild-copy-static-files",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/nickjj/esbuild-copy-static-files"
+    ],
+    "devDependencies": {
+        "@types/esbuild-copy-static-files": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Enke",
+            "githubUsername": "davidenke"
+        }
+    ]
+}

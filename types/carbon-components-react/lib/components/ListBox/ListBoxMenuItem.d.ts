@@ -1,14 +1,16 @@
 import * as React from "react";
-import { ReactDivAttr } from "../../../typings/shared";
+import { ForwardRefReturn, ReactDivAttr } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr { }
-
-export interface ListBoxMenuItemProps extends InheritedProps {
-    isActive?: boolean, // required but has default value
-    isHighlighted?: boolean, // required but has default value
+export interface ListBoxMenuItemProps extends ReactDivAttr {
+    isActive?: boolean | undefined; // required but has default value
+    isHighlighted?: boolean | undefined; // required but has default value
 }
 
-export interface ListBoxMenuItemComponent extends React.FC<ListBoxMenuItemProps> { }
+export interface ListBoxMenuItemForwardedRef {
+    menuItemOptionRef?: React.Ref<HTMLDivElement> | undefined;
+}
+
+export interface ListBoxMenuItemComponent extends ForwardRefReturn<ListBoxMenuItemForwardedRef, ListBoxMenuItemProps> {}
 
 declare const ListBoxMenuItem: ListBoxMenuItemComponent;
 

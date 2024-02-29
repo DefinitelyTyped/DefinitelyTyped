@@ -1,37 +1,37 @@
 /// <reference types="node" />
 
-import { Flowable, Single } from 'rsocket-flowable';
+import { Flowable, Single } from "rsocket-flowable";
 
 export interface Responder<D, M> {
-  /**
-   * Fire and Forget interaction model of `ReactiveSocket`. The returned
-   * Publisher resolves when the passed `payload` is successfully handled.
-   */
-  fireAndForget(payload: Payload<D, M>): void;
+    /**
+     * Fire and Forget interaction model of `ReactiveSocket`. The returned
+     * Publisher resolves when the passed `payload` is successfully handled.
+     */
+    fireAndForget(payload: Payload<D, M>): void;
 
-  /**
-   * Request-Response interaction model of `ReactiveSocket`. The returned
-   * Publisher resolves with the response.
-   */
-  requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
+    /**
+     * Request-Response interaction model of `ReactiveSocket`. The returned
+     * Publisher resolves with the response.
+     */
+    requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
 
-  /**
-   * Request-Stream interaction model of `ReactiveSocket`. The returned
-   * Publisher returns values representing the response(s).
-   */
-  requestStream(payload: Payload<D, M>): Flowable<Payload<D, M>>;
+    /**
+     * Request-Stream interaction model of `ReactiveSocket`. The returned
+     * Publisher returns values representing the response(s).
+     */
+    requestStream(payload: Payload<D, M>): Flowable<Payload<D, M>>;
 
-  /**
-   * Request-Channel interaction model of `ReactiveSocket`. The returned
-   * Publisher returns values representing the response(s).
-   */
-  requestChannel(payloads: Flowable<Payload<D, M>>): Flowable<Payload<D, M>>;
+    /**
+     * Request-Channel interaction model of `ReactiveSocket`. The returned
+     * Publisher returns values representing the response(s).
+     */
+    requestChannel(payloads: Flowable<Payload<D, M>>): Flowable<Payload<D, M>>;
 
-  /**
-   * Metadata-Push interaction model of `ReactiveSocket`. The returned Publisher
-   * resolves when the passed `payload` is successfully handled.
-   */
-  metadataPush(payload: Payload<D, M>): Single<void>;
+    /**
+     * Metadata-Push interaction model of `ReactiveSocket`. The returned Publisher
+     * resolves when the passed `payload` is successfully handled.
+     */
+    metadataPush(payload: Payload<D, M>): Single<void>;
 }
 
 /**
@@ -64,53 +64,53 @@ export interface ReactiveSocket<D, M> extends Responder<D, M> {
  * send/receive data.
  */
 export interface DuplexConnection {
-  /**
-   * Send a single frame on the connection.
-   */
-  sendOne(frame: Frame): void;
+    /**
+     * Send a single frame on the connection.
+     */
+    sendOne(frame: Frame): void;
 
-  /**
-   * Send all the `input` frames on this connection.
-   *
-   * Notes:
-   * - Implementations must not cancel the subscription.
-   * - Implementations must signal any errors by calling `onError` on the
-   *   `receive()` Publisher.
-   */
-  send(input: Flowable<Frame>): void;
+    /**
+     * Send all the `input` frames on this connection.
+     *
+     * Notes:
+     * - Implementations must not cancel the subscription.
+     * - Implementations must signal any errors by calling `onError` on the
+     *   `receive()` Publisher.
+     */
+    send(input: Flowable<Frame>): void;
 
-  /**
-   * Returns a stream of all `Frame`s received on this connection.
-   *
-   * Notes:
-   * - Implementations must call `onComplete` if the underlying connection is
-   *   closed by the peer or by calling `close()`.
-   * - Implementations must call `onError` if there are any errors
-   *   sending/receiving frames.
-   * - Implemenations may optionally support multi-cast receivers. Those that do
-   *   not should throw if `receive` is called more than once.
-   */
-  receive(): Flowable<Frame>;
+    /**
+     * Returns a stream of all `Frame`s received on this connection.
+     *
+     * Notes:
+     * - Implementations must call `onComplete` if the underlying connection is
+     *   closed by the peer or by calling `close()`.
+     * - Implementations must call `onError` if there are any errors
+     *   sending/receiving frames.
+     * - Implemenations may optionally support multi-cast receivers. Those that do
+     *   not should throw if `receive` is called more than once.
+     */
+    receive(): Flowable<Frame>;
 
-  /**
-   * Close the underlying connection, emitting `onComplete` on the receive()
-   * Publisher.
-   */
-  close(): void;
+    /**
+     * Close the underlying connection, emitting `onComplete` on the receive()
+     * Publisher.
+     */
+    close(): void;
 
-  /**
-   * Open the underlying connection. Throws if the connection is already in
-   * the CLOSED or ERROR state.
-   */
-  connect(): void;
+    /**
+     * Open the underlying connection. Throws if the connection is already in
+     * the CLOSED or ERROR state.
+     */
+    connect(): void;
 
-  /**
-   * Returns a Flowable that immediately publishes the current connection
-   * status and thereafter updates as it changes. Once a connection is in
-   * the CLOSED or ERROR state, it may not be connected again.
-   * Implementations must publish values per the comments on ConnectionStatus.
-   */
-  connectionStatus(): Flowable<ConnectionStatus>;
+    /**
+     * Returns a Flowable that immediately publishes the current connection
+     * status and thereafter updates as it changes. Once a connection is in
+     * the CLOSED or ERROR state, it may not be connected again.
+     * Implementations must publish values per the comments on ConnectionStatus.
+     */
+    connectionStatus(): Flowable<ConnectionStatus>;
 }
 
 /**
@@ -123,11 +123,11 @@ export interface DuplexConnection {
  * - ERROR: when the connection has been closed for any other reason.
  */
 export type ConnectionStatus =
-  {kind: 'NOT_CONNECTED'} |
-  {kind: 'CONNECTING'} |
-  {kind: 'CONNECTED'} |
-  {kind: 'CLOSED'} |
-  {kind: 'ERROR', error: Error};
+    | { kind: "NOT_CONNECTED" }
+    | { kind: "CONNECTING" }
+    | { kind: "CONNECTED" }
+    | { kind: "CLOSED" }
+    | { kind: "ERROR"; error: Error };
 
 export const CONNECTION_STATUS: ConnectionStatus;
 
@@ -140,36 +140,36 @@ export type Encodable = string | Buffer | Uint8Array;
  * A single unit of data exchanged between the peers of a `ReactiveSocket`.
  */
 export interface Payload<D, M> {
-  data?: D;
-  metadata?: M;
+    data?: D | undefined;
+    metadata?: M | undefined;
 }
 
 export type Frame =
-  CancelFrame |
-  ErrorFrame |
-  KeepAliveFrame |
-  LeaseFrame |
-  PayloadFrame |
-  RequestChannelFrame |
-  RequestFnfFrame |
-  RequestNFrame |
-  RequestResponseFrame |
-  RequestStreamFrame |
-  ResumeFrame |
-  ResumeOkFrame |
-  SetupFrame |
-  UnsupportedFrame;
+    | CancelFrame
+    | ErrorFrame
+    | KeepAliveFrame
+    | LeaseFrame
+    | PayloadFrame
+    | RequestChannelFrame
+    | RequestFnfFrame
+    | RequestNFrame
+    | RequestResponseFrame
+    | RequestStreamFrame
+    | ResumeFrame
+    | ResumeOkFrame
+    | SetupFrame
+    | UnsupportedFrame;
 
 export interface FrameWithData {
-  data?: Encodable;
-  metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
 }
 
 export interface CancelFrame {
     type: 0x09;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ErrorFrame {
@@ -178,16 +178,16 @@ export interface ErrorFrame {
     code: number;
     message: string;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface KeepAliveFrame {
     type: 0x03;
     flags: number;
-    data?: Encodable;
+    data?: Encodable | undefined;
     lastReceivedPosition: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface LeaseFrame {
@@ -195,37 +195,37 @@ export interface LeaseFrame {
     flags: number;
     ttl: number;
     requestCount: number;
-    metadata?: Encodable;
+    metadata?: Encodable | undefined;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface PayloadFrame {
     type: 0x0a;
     flags: number;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestChannelFrame {
     type: 0x07;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestFnfFrame {
     type: 0x05;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestNFrame {
@@ -233,16 +233,16 @@ export interface RequestNFrame {
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 // prettier-ignore
 export interface RequestResponseFrame {
     type: 0x04;
-    data?: Encodable;
-    metadata?: Encodable;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
     flags: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface RequestStreamFrame {
@@ -252,7 +252,7 @@ export interface RequestStreamFrame {
     flags: number;
     requestN: number;
     streamId: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ResumeFrame {
@@ -264,7 +264,7 @@ export interface ResumeFrame {
     resumeToken: Encodable;
     serverPosition: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface ResumeOkFrame {
@@ -272,28 +272,28 @@ export interface ResumeOkFrame {
     clientPosition: number;
     flags: number;
     streamId: 0;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface SetupFrame {
     type: 0x01;
-    data?: Encodable;
+    data?: Encodable | undefined;
     dataMimeType: string;
     flags: number;
     keepAlive: number;
     lifetime: number;
-    metadata?: Encodable;
+    metadata?: Encodable | undefined;
     metadataMimeType: string;
-    resumeToken?: Encodable;
+    resumeToken?: Encodable | undefined;
     streamId: 0;
     majorVersion: number;
     minorVersion: number;
-    length?: number;
+    length?: number | undefined;
 }
 
 export interface UnsupportedFrame {
     type: 0x3f | 0x0c | 0x00;
     streamId: 0;
     flags: number;
-    length?: number;
+    length?: number | undefined;
 }

@@ -1,13 +1,6 @@
-// Type definitions for vue-ls 3.2
-// Project: https://github.com/RobinCK/vue-ls#readme
-// Definitions by: Prateek Malhotra <https://github.com/someone1>
-//                 Oleg Spakov <https://github.com/lexasss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+import _Vue, { PluginObject } from "vue";
 
-import _Vue, { PluginObject } from 'vue';
-
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
     interface Vue {
         $ls: WebStorage;
     }
@@ -18,15 +11,15 @@ declare module 'vue/types/vue' {
 }
 
 export enum Types {
-    Session = 'session',
-    Local = 'local',
-    Memory = 'memory',
+    Session = "session",
+    Local = "local",
+    Memory = "memory",
 }
 
 export interface Options {
-    namespace?: string;
-    name?: string;
-    storage?: Types;
+    namespace?: string | undefined;
+    name?: string | undefined;
+    storage?: Types | undefined;
 }
 
 export class WebStorage {

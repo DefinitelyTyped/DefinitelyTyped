@@ -1,8 +1,3 @@
-// Type definitions for MovieDB
-// Project: https://github.com/danzajdband/moviedb
-// Definitions by: Basarat Ali Syed <https://github.com/basarat>, Pavel Puchkov <https://github.com/0x6368656174>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Ghost module for Types
 declare namespace MovieDB {
     export interface IMovieDB {
@@ -32,12 +27,12 @@ declare namespace MovieDB {
 
     export interface SearchOptions {
         query: string;
-        language?: string;
+        language?: string | undefined;
     }
 
     export interface InfoOptions {
         id: number;
-        language?: string;
+        language?: string | undefined;
     }
 
     export interface SearchResults {

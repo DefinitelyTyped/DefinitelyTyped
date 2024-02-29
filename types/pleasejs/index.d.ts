@@ -1,12 +1,7 @@
-// Type definitions for PleaseJS
-// Project: http://www.checkman.io/please/
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Please: PleaseJS.Please;
 
-declare namespace PleaseJS{
-    export interface Please{
+declare namespace PleaseJS {
+    export interface Please {
         /***
          * generate and return a random hex string
          * @param {MakeColorOption} options
@@ -85,31 +80,31 @@ declare namespace PleaseJS{
         HEX_to_HSV(hex: string): HSV;
     }
 
-    export interface MakeColorOption{
-        hue?: number;
-        saturation?: number;
-        value?: number;
-        base_color?: string;
-        greyscale?: boolean;
-        grayscale?: boolean;
-        golden?: boolean;
-        full_random?: boolean;
-        colors_returned?: number;
-        format?: string;
+    export interface MakeColorOption {
+        hue?: number | undefined;
+        saturation?: number | undefined;
+        value?: number | undefined;
+        base_color?: string | undefined;
+        greyscale?: boolean | undefined;
+        grayscale?: boolean | undefined;
+        golden?: boolean | undefined;
+        full_random?: boolean | undefined;
+        colors_returned?: number | undefined;
+        format?: string | undefined;
     }
 
-    export interface MakeSchemeOption{
+    export interface MakeSchemeOption {
         scheme_type: string;
         format: string;
     }
 
-    export interface RGB{
+    export interface RGB {
         r: number;
         g: number;
         b: number;
     }
 
-    export interface HSV{
+    export interface HSV {
         h: number;
         s: number;
         v: number;

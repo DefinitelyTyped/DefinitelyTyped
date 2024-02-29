@@ -1,15 +1,10 @@
-// Type definitions for parse-color 1.0
-// Project: https://github.com/substack/parse-color
-// Definitions by: Andrew Crites <https://github.com/ajcrites>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parseColor {
     interface Color {
         rgb: [number, number, number];
         hsl: [number, number, number];
         hsv: [number, number, number];
         cmyk: [number, number, number, number];
-        keyword: string;
+        keyword: string | undefined;
         hex: string;
         rgba: [number, number, number, number];
         hsla: [number, number, number, number];

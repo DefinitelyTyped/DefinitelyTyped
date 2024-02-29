@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { slide as Menu, State } from 'react-burger-menu';
+import * as React from "react";
+import { slide as Menu, State } from "react-burger-menu";
 
 class Example extends React.Component {
     showSettings(event: { preventDefault(): void }) {
@@ -12,6 +12,7 @@ class Example extends React.Component {
                 customBurgerIcon={<img src="img/icon.svg" />}
                 customCrossIcon={<img src="img/icon.svg" />}
                 onStateChange={this.onStateChange}
+                itemListElement="div"
                 styles={{}}
             >
                 <a id="home" className="menu-item" href="/">Home</a>
@@ -24,5 +25,5 @@ class Example extends React.Component {
 
     onStateChange = (state: State): void => {
         console.log(state.isOpen);
-    }
+    };
 }

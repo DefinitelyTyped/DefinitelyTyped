@@ -1,10 +1,4 @@
-// Type definitions for react-collapse 5.0
-// Project: https://github.com/nkbt/react-collapse
-// Definitions by:  Adam Binford <https://github.com/Kimahriman>
-//                  Kristofer Giltvedt Selbekk <https://github.com/selbekk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-import * as React from 'react';
+import * as React from "react";
 
 export interface CollapseCallbackArgs {
     /** `true` only when Collapse reached final height */
@@ -26,20 +20,20 @@ export interface CollapseProps extends React.HTMLProps<Collapse> {
     children: React.ReactNode;
     /** It is possible to set className for extra div elements that ReactCollapse creates. */
     theme?: {
-        collapse?: string;
-        content?: string;
-    };
+        collapse?: string | undefined;
+        content?: string | undefined;
+    } | undefined;
     /** Callback function triggered when animation has completed */
-    onRest?: (args: CollapseCallbackArgs) => void;
+    onRest?: ((args: CollapseCallbackArgs) => void) | undefined;
     /** Callback function triggered when animation begins */
-    onWork?: (args: CollapseCallbackArgs) => void;
+    onWork?: ((args: CollapseCallbackArgs) => void) | undefined;
     /** A way to control the initial element style. Will not be valid after the initial render */
     initialStyle?: {
-        height?: string | number;
-        overflow?: string;
-    };
+        height?: string | number | undefined;
+        overflow?: string | undefined;
+    } | undefined;
     /** How often (in ms) the height of the content is checked. */
-    checkTimeout?: number;
+    checkTimeout?: number | undefined;
 }
 
 export class Collapse extends React.PureComponent<CollapseProps> {}

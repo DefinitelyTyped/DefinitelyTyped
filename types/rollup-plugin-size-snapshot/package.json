@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-size-snapshot",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/TrySound/rollup-plugin-size-snapshot"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-size-snapshot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
 }

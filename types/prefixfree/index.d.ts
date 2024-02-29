@@ -1,16 +1,10 @@
-// Type definitions for prefixfree 1.0
-// Project: https://github.com/LeaVerou/prefixfree
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare namespace StyleFix {
     type StyleFixer = (css: string, raw: boolean, element: Element) => string;
 }
 
 interface StyleFix {
     fix: StyleFix.StyleFixer;
-    fixers?: StyleFix.StyleFixer[];
+    fixers?: StyleFix.StyleFixer[] | undefined;
     optIn: boolean;
     camelCase(str: string): string;
     deCamelCase(str: string): string;

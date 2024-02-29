@@ -1,12 +1,12 @@
-import Prompt = require("./base");
-import inquirer = require("../..");
-import Paginator = require("../utils/paginator");
 import { Interface as ReadlineInterface } from "readline";
+import { Answers, ListQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
- * The question-options for the `ListPrompt<T>`.
+ * The question-options for the {@link ListPrompt `ListPrompt<TQuestion>`}.
  */
-type Question = inquirer.ListQuestionOptions<inquirer.Answers>;
+type Question = ListQuestionOptions;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -36,7 +36,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
     protected paginator: Paginator;
 
     /**
-     * Initializes a new instance of the `ListPrompt<T>` class.
+     * Initializes a new instance of the {@link ListPrompt `ListPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -47,7 +47,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -86,4 +86,4 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
     protected onSubmit(value: any): void;
 }
 
-export = ListPrompt;
+export default ListPrompt;

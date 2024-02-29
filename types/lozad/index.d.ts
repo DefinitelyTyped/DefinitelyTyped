@@ -1,16 +1,15 @@
-// Type definitions for lozad 1.9
-// Project: https://github.com/ApoorvSaxena/lozad.js
-// Definitions by: York Yao <https://github.com/plantain-00>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace lozad {
-    interface Option {
-        rootMargin?: string;
-        threshold?: number;
+    interface Options {
+        enableAutoReload?: boolean | undefined;
+        rootMargin?: string | undefined;
+        threshold?: number | undefined;
         load?(element: Element): void;
         loaded?(element: Element): void;
     }
+
+    // TODO: remove on next major version bump
+    // tslint:disable:next-line no-empty-interface
+    interface Option extends Options {}
 
     interface Observer {
         observe(): void;
@@ -20,11 +19,10 @@ declare namespace lozad {
 
     type Selector = string | Element | HTMLCollectionOf<Element> | NodeListOf<Element>;
 
-    const prototype: {
-    };
+    const prototype: {};
 }
 
-declare function lozad(selector?: lozad.Selector, options?: lozad.Option): lozad.Observer;
+declare function lozad(selector?: lozad.Selector, options?: lozad.Options): lozad.Observer;
 
 export as namespace lozad;
 

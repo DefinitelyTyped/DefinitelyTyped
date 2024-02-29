@@ -1,10 +1,5 @@
-// Type definitions for react-native-shared-group-preferences 1.1
-// Project: https://github.com/KjellConnelly/react-native-shared-group-preferences#readme
-// Definitions by: Cambo <https://github.com/indentedspace>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface SharedGroupPreferenceOptions {
-    useAndroidSharedPreferences?: boolean;
+    useAndroidSharedPreferences?: boolean | undefined;
 }
 
 export namespace SharedGroupPreferences {

@@ -1,8 +1,3 @@
-// Type definitions for any-db-transaction 2.2.1
-// Project: https://github.com/grncdr/node-any-db-transaction
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import anyDB = require("any-db");
@@ -35,7 +30,6 @@ declare namespace begin {
      * Note that the 'error' event may be emitted multiple times! depending on the callback you are registering, you way want to wrap it using [once][].
      */
     interface Transaction extends anyDB.Queryable {
-
         /**
          * Issue a COMMIT (or RELEASE ... in the case of nested transactions) statement to the database.
          * If a continuation is provided it will be called (possibly with an error) after the COMMIT
@@ -53,36 +47,52 @@ declare namespace begin {
         /**
          * Adapter name e.g. 'mysql'
          */
-        adapter?: anyDB.Adapter;
+        adapter?: anyDB.Adapter | undefined;
         /**
          * SQL statement for beginning a transaction, default 'BEGIN'
          */
-        begin?: string;
+        begin?: string | undefined;
         /**
          * SQL statement for committing a transaction, default 'COMMIT'
          */
-        commit?: string;
+        commit?: string | undefined;
         /**
          * SQL statement for rolling back a transaction, default 'ROLLBACK'
          */
-        rollback?: string;
+        rollback?: string | undefined;
         /**
          * Callback for transaction
          */
-        callback?: (error: Error, transaction: Transaction) => void;
+        callback?: ((error: Error, transaction: Transaction) => void) | undefined;
         /**
          * Rollback automatically on error, default true
          */
-        autoRollback?: boolean;
+        autoRollback?: boolean | undefined;
     }
 }
 
 /**
  * Start a transaction
  */
-declare function begin(q: anyDB.Queryable, options?: begin.TransactionOptions, callback?: (error: Error, transaction: begin.Transaction) => void): begin.Transaction;
-declare function begin(q: anyDB.Queryable, callback?: (error: Error, transaction: begin.Transaction) => void): begin.Transaction;
-declare function begin(q: anyDB.Queryable, beginStatement?: string, callback?: (error: Error, transaction: begin.Transaction) => void): begin.Transaction;
-declare function begin(q: anyDB.Queryable, options?: begin.TransactionOptions, beginStatement?: string, callback?: (error: Error, transaction: begin.Transaction) => void): begin.Transaction;
+declare function begin(
+    q: anyDB.Queryable,
+    options?: begin.TransactionOptions,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
+): begin.Transaction;
+declare function begin(
+    q: anyDB.Queryable,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
+): begin.Transaction;
+declare function begin(
+    q: anyDB.Queryable,
+    beginStatement?: string,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
+): begin.Transaction;
+declare function begin(
+    q: anyDB.Queryable,
+    options?: begin.TransactionOptions,
+    beginStatement?: string,
+    callback?: (error: Error, transaction: begin.Transaction) => void,
+): begin.Transaction;
 
 export = begin;

@@ -1,12 +1,10 @@
 /* @jsx h */
-// tslint:disable:no-empty
-// tslint:disable:no-null-keyword
 
 import { h, mount, patch, PetitDom, unmount } from "petit-dom";
 
-function assertEqual<T>(a: T, b: T) { }
+function assertEqual<T>(a: T, b: T) {}
 
-function eventHandler(event: Event): void { }
+function eventHandler(event: Event): void {}
 
 interface CustomProps {
     name: string;
@@ -49,7 +47,8 @@ export function testHtmlElementWithMixedContent() {
     const formNode = h(
         "form",
         { key: 1, method: "POST", onsubmit: eventHandler },
-        "Hello ", h("span", null, "World")
+        "Hello ",
+        h("span", null, "World"),
     );
 
     assertEqual(formNode.isSVG, false);
@@ -60,7 +59,11 @@ export function testHtmlElementWithMixedContent() {
     assertEqual(formNode.content.length, 2);
 
     // JSX syntax returns a VNode object, so the "type" and "props" properties are "any"
-    const jsxNode = <form key={1} method="POST" onsubmit={eventHandler}>Hello <span>World</span></form>;
+    const jsxNode = (
+        <form key={1} method="POST" onsubmit={eventHandler}>
+            Hello <span>World</span>
+        </form>
+    );
     const jsxNodeType = jsxNode.type as string;
     const jsxNodeProps = jsxNode.props as PetitDom.Props<HTMLFormElement>;
 
@@ -86,7 +89,11 @@ export function testSvgElementWithChild() {
     assertEqual(svgNode.content.length, 1);
 
     // JSX syntax returns a VNode object, so the "type" and "props" properties are "any"
-    const jsxNode = <svg key={2} currentScale={1}><path /></svg>;
+    const jsxNode = (
+        <svg key={2} currentScale={1}>
+            <path />
+        </svg>
+    );
     const jsxNodeType = jsxNode.type as string;
     const jsxNodeProps = jsxNode.props as PetitDom.Props<SVGSVGElement>;
 
@@ -164,7 +171,7 @@ export function testFunctionComponentWithProps() {
  * Create a function component with child content, using HyperScript syntax and JSX syntax
  */
 export function testFunctionComponentWithChildren() {
-    function FunctionComponentWithChildren(props: CustomProps, content: ReadonlyArray<PetitDom.Content>): JSX.Element {
+    function FunctionComponentWithChildren(props: CustomProps, content: readonly PetitDom.Content[]): JSX.Element {
         const { name, count, onSomeEvent } = props;
         return <div className={name} tabIndex={count} onclick={onSomeEvent}>{content}</div>;
     }
@@ -174,7 +181,7 @@ export function testFunctionComponentWithChildren() {
         FunctionComponentWithChildren,
         { name: "xyz", count: 123, onSomeEvent: eventHandler },
         "Hello",
-        h("span", null, "World")
+        h("span", null, "World"),
     );
 
     assertEqual(node.isSVG, false);
@@ -214,10 +221,16 @@ export function testComponentClass() {
             return mount(<div className="some-class"></div>);
         }
 
-        patch(element: Element, newProps: object, oldProps: object, newContent: ReadonlyArray<PetitDom.VNode>, oldContent: ReadonlyArray<PetitDom.VNode>): Element {
+        patch(
+            element: Element,
+            newProps: object,
+            oldProps: object,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
+        ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,
-                <div {...newProps}>{newContent}</div>
+                <div {...newProps}>{newContent}</div>,
             );
             return element;
         }
@@ -264,16 +277,22 @@ export function testComponentClassWithProps() {
             return mount(<div className={name} tabIndex={count} onclick={onSomeEvent} />);
         }
 
-        patch(element: Element, newProps: CustomProps, oldProps: CustomProps, newContent: ReadonlyArray<PetitDom.VNode>, oldContent: ReadonlyArray<PetitDom.VNode>): Element {
+        patch(
+            element: Element,
+            newProps: CustomProps,
+            oldProps: CustomProps,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
+        ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,
-                <div {...newProps}>{newContent}</div>
+                <div {...newProps}>{newContent}</div>,
             );
             return element;
         }
 
         unmount(element: Element): void {
-            unmount(<div> Hello World</div >);
+            unmount(<div>Hello World</div>);
         }
     }
 
@@ -313,23 +332,29 @@ export function testComponentClassWithChildren() {
             this.props = props;
         }
 
-        mount(props: CustomProps, content: ReadonlyArray<PetitDom.Content>): Element {
+        mount(props: CustomProps, content: readonly PetitDom.Content[]): Element {
             const { name, count, onSomeEvent } = props;
             return mount(
-                <div className={name} tabIndex={count} onclick={onSomeEvent}>{content}</div>
+                <div className={name} tabIndex={count} onclick={onSomeEvent}>{content}</div>,
             );
         }
 
-        patch(element: Element, newProps: CustomProps, oldProps: CustomProps, newContent: ReadonlyArray<PetitDom.VNode>, oldContent: ReadonlyArray<PetitDom.VNode>): Element {
+        patch(
+            element: Element,
+            newProps: CustomProps,
+            oldProps: CustomProps,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
+        ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,
-                <div {...newProps}>{newContent}</div>
+                <div {...newProps}>{newContent}</div>,
             );
             return element;
         }
 
         unmount(element: Element): void {
-            unmount(<div> Hello World</div >);
+            unmount(<div>Hello World</div>);
         }
     }
 
@@ -338,7 +363,7 @@ export function testComponentClassWithChildren() {
         ComponentClassWithChildren,
         { name: "xyz", count: 123, onSomeEvent: eventHandler },
         "Hello",
-        h("span", null, "World")
+        h("span", null, "World"),
     );
 
     assertEqual(node.isSVG, false);

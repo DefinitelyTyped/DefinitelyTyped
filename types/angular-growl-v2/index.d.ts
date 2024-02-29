@@ -1,41 +1,34 @@
-// Type definitions for Angular Growl 2 0.7
-// Project: http://janstevens.github.io/angular-growl-2
-// Definitions by: Tadeusz Hucal <https://github.com/mkp05>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace growl {
-
         /**
          * Global Time-To-Leave configuration.
          */
         interface IGrowlTTLConfig {
-            success?: number;
-            error?: number;
-            warning?: number;
-            info?: number;
+            success?: number | undefined;
+            error?: number | undefined;
+            warning?: number | undefined;
+            info?: number | undefined;
         }
 
         /**
          * Custom configuration used in single message call.
          */
         interface IGrowlMessageConfig {
-            title?: string;
-            ttl?: number;
-            disableCountDown?: boolean;
-            disableIcons?: boolean;
-            disableCloseButton?: boolean;
-            onclose?: Function;
-            onopen?: Function;
-            position?: string;
-            referenceId?: number;
-            translateMessage?: boolean;
-            variables?: { [variable: string]: any; };
+            title?: string | undefined;
+            ttl?: number | undefined;
+            disableCountDown?: boolean | undefined;
+            disableIcons?: boolean | undefined;
+            disableCloseButton?: boolean | undefined;
+            onclose?: Function | undefined;
+            onopen?: Function | undefined;
+            position?: string | undefined;
+            referenceId?: number | undefined;
+            translateMessage?: boolean | undefined;
+            variables?: { [variable: string]: any } | undefined;
         }
 
         /**
@@ -62,7 +55,7 @@ declare module 'angular' {
             /**
              * Pre-defined server error interceptor.
              */
-            serverMessagesInterceptor: (string | IHttpInterceptorFactory)[];
+            serverMessagesInterceptor: Array<string | IHttpInterceptorFactory>;
 
             /**
              * Set default TTL settings.
@@ -258,7 +251,6 @@ declare module 'angular' {
              * Delete a message
              */
             deleteMessage(message: IGrowlMessage): void;
-
         }
     }
 }

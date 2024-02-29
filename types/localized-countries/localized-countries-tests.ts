@@ -8,3 +8,5 @@ localizedCountries("en").get("US");
 
 localizedCountries("de").object()["DE"];
 // => "Deutschland"
+
+localizedCountries.languages; // $ExpectType string[]

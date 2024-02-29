@@ -1,8 +1,3 @@
-// Type definitions for require-from-string 1.2
-// Project: https://github.com/floatdrop/require-from-string
-// Definitions by: Ika <https://github.com/ikatyang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Load module from string in Node.
  */
@@ -15,12 +10,12 @@ declare namespace requireFromString {
          * List of `paths`, that will be appended to module `paths`.
          * Useful when you want to be able require modules from these paths.
          */
-        appendPaths?: string[];
+        appendPaths?: string[] | undefined;
         /**
          * List of `paths`, that will be preppended to module `paths`.
          * Useful when you want to be able require modules from these paths.
          */
-        prependPaths?: string[];
+        prependPaths?: string[] | undefined;
     }
 }
 

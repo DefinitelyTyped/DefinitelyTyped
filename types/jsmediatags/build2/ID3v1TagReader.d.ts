@@ -1,10 +1,6 @@
-import {
-    LoadCallbackType,
-    ByteRange,
-    TagType
-} from '../types';
-import MediaFileReader from './MediaFileReader';
-import MediaTagReader from './MediaTagReader';
+import { ByteRange, LoadCallbackType, TagType } from "../types";
+import MediaFileReader from "./MediaFileReader";
+import MediaTagReader from "./MediaTagReader";
 
 export default class ID3v1TagReader extends MediaTagReader {
     static getTagIdentifierByteRange(): ByteRange;

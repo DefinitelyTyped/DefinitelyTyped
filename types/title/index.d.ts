@@ -1,14 +1,16 @@
-// Type definitions for title v1.0.0
-// Project: https://www.npmjs.com/package/title
-// Definitions by: Fahad <https://github.com/fa7ad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/**
+ * This package correctly capitalizes your titles as per The Chicago Manual of Style.
+ * Furthermore, all of Vercel's product names are capitalized properly as well.
+ */
+declare function title(string: string, options?: title.Options): string;
 
-declare module "title"{
-    function Title(newtitle: string): void;
-    function Title(pattern: string, newtitle?: string): void;
-    namespace Title {
-        function reset(): void;
+declare namespace title {
+    interface Options {
+        /**
+         * @default undefined
+         */
+        special?: string[] | undefined;
     }
-
-    export = Title;
 }
+
+export = title;

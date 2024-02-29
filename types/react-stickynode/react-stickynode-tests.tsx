@@ -1,7 +1,7 @@
-import * as Sticky from 'react-stickynode';
-import * as React from 'react';
+import * as React from "react";
+import * as Sticky from "react-stickynode";
 
-const StickyAllOptions: JSX.Element = (
+const StickyAllOptions: React.JSX.Element = (
     <Sticky
         enabled={true}
         top={10}
@@ -9,6 +9,8 @@ const StickyAllOptions: JSX.Element = (
         innerZ={1000}
         enableTransforms={true}
         activeClass="active"
+        innerActiveClass="innerActive"
+        className="className"
         releasedClass="released"
         innerClass="innerClass"
         onStateChange={s => s.status === Sticky.StatusCode.STATUS_ORIGINAL}
@@ -18,30 +20,30 @@ const StickyAllOptions: JSX.Element = (
     </Sticky>
 );
 
-const StickyOptionalStringOptions: JSX.Element = (
+const StickyOptionalStringOptions: React.JSX.Element = (
     <Sticky top="#elem" bottomBoundary="#bottom" innerZ="1234">
         <div />
     </Sticky>
 );
 
-const StickyNoOptions: JSX.Element = (
+const StickyNoOptions: React.JSX.Element = (
     <Sticky>
         <div />
     </Sticky>
 );
 
-const StickyChildrenFunction: JSX.Element = (
+const StickyChildrenFunction: React.JSX.Element = (
     <Sticky>
         {status => {
             if (status.status === Sticky.STATUS_FIXED) {
-                return 'the component is sticky';
+                return "the component is sticky";
             }
 
             if (status.status === Sticky.STATUS_ORIGINAL) {
-                return 'the component in the original position';
+                return "the component in the original position";
             }
 
-            return 'the component is released';
+            return "the component is released";
         }}
     </Sticky>
 );

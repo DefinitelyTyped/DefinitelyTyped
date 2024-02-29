@@ -1,16 +1,11 @@
-// Type definitions for clui 0.3
-// Project: https://github.com/nathanpeck/clui#readme
-// Definitions by: Farzad Majidfayyaz <https://github.com/farzadmf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as clc from 'cli-color';
+import * as clc from "cli-color";
 
 export interface LineBufferOptions {
-    x?: number;
-    y?: number;
-    width?: number | 'console';
-    height?: number | 'console';
-    scroll?: number;
+    x?: number | undefined;
+    y?: number | undefined;
+    width?: number | "console" | undefined;
+    height?: number | "console" | undefined;
+    scroll?: number | undefined;
 }
 
 export class LineBuffer {

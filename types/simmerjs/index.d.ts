@@ -1,8 +1,3 @@
-// Type definitions for simmerjs 0.5
-// Project: https://github.com/gmmorris/simmerjs#readme
-// Definitions by: Felix Becker <https://github.com/felixfbecker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Simmer {
     /**
      * Analyze an element and produce a unique CSS selector for it.
@@ -62,7 +57,7 @@ export interface Options {
      *
      * @default 100
      */
-    specificityThreshold?: number;
+    specificityThreshold?: number | undefined;
 
     /**
      * How deep into the DOM hierarchy should Simmer go in order to reach a
@@ -74,7 +69,7 @@ export interface Options {
      *
      * @default 3
      */
-    depth?: number;
+    depth?: number | undefined;
 
     /**
      * A maximum length for the CSS selector can be specified - if no specific
@@ -83,7 +78,7 @@ export interface Options {
      *
      * @default 520
      */
-    selectorMaxLength?: number;
+    selectorMaxLength?: number | undefined;
 
     /**
      * How to handle errors which occur during the analysis
@@ -94,7 +89,7 @@ export interface Options {
      *  - _a function callback will be called with two parameters_: the
      *    exception and the element being analyzed
      */
-    errorHandling?: boolean | ((error: any, element: Element) => void);
+    errorHandling?: boolean | ((error: any, element: Element) => void) | undefined;
 }
 
 interface SimmerConstructor {
@@ -155,7 +150,7 @@ declare global {
              * original value of window.Simmer which was there before loading the
              * Simmer.js script (if there was one)
              */
-            noConflict(): any
+            noConflict(): any;
         };
     }
 }

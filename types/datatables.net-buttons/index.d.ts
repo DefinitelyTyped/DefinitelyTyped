@@ -1,9 +1,3 @@
-// Type definitions for JQuery DataTables Buttons extension 1.4
-// Project: http://datatables.net/extensions/buttons/, https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>, Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
@@ -12,11 +6,11 @@ declare namespace DataTables {
         /**
          * Buttons extension options
          */
-        buttons?: boolean | string[] | ButtonsSettings | ButtonSettings[];
+        buttons?: boolean | string[] | ButtonsSettings | ButtonSettings[] | undefined;
     }
 
     interface LanguageSettings {
-        buttons?: {};
+        buttons?: {} | undefined;
     }
 
     interface StaticFunctions {
@@ -24,7 +18,7 @@ declare namespace DataTables {
     }
 
     interface ButtonStaticFunctions {
-        new (dt: Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
+        new(dt: Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
         version: string;
         defaults: ButtonsSettings;
     }
@@ -86,7 +80,7 @@ declare namespace DataTables {
         /**
          * Create a new button, adding it to the selected button instance and inserting immediately into the document.
          */
-        add(index: number | string, config: string|FunctionButtom|ButtonSettings): Api;
+        add(index: number | string, config: string | FunctionButtom | ButtonSettings): Api;
 
         /**
          * Disable the selected buttons.
@@ -149,11 +143,11 @@ declare namespace DataTables {
     }
 
     interface ButtonsApiExportInfoParameter {
-        extension?: string | (() => string);
-        filename?: string | (() => string);
-        messageBottom?: null | string | (() => string);
-        messageTop?: null | string | (() => string);
-        title?: null | string | (() => string);
+        extension?: string | (() => string) | undefined;
+        filename?: string | (() => string) | undefined;
+        messageBottom?: null | string | (() => string) | undefined;
+        messageTop?: null | string | (() => string) | undefined;
+        title?: null | string | (() => string) | undefined;
     }
 
     interface ButtonsApiExportInfoReturn {
@@ -167,11 +161,11 @@ declare namespace DataTables {
         rows?: any;
         columns?: any;
         modifier?: any;
-        orthogonal?: string;
-        stripHtml?: boolean;
-        stripNewlines?: boolean;
-        decodeEntities?: boolean;
-        trim?: boolean;
+        orthogonal?: string | undefined;
+        stripHtml?: boolean | undefined;
+        stripNewlines?: boolean | undefined;
+        decodeEntities?: boolean | undefined;
+        trim?: boolean | undefined;
         format?: any;
     }
 
@@ -181,101 +175,101 @@ declare namespace DataTables {
         body: string[];
     }
 
-    //#region "Button Settings"
+    // #region "Button Settings"
 
     interface ButtonsSettings {
-        name?: string;
-        tabIndex?: number;
-        buttons: Array<string|FunctionButtom|ButtonSettings>;
-        dom?: ButtonDomSettings;
+        name?: string | undefined;
+        tabIndex?: number | undefined;
+        buttons: Array<string | FunctionButtom | ButtonSettings>;
+        dom?: ButtonDomSettings | undefined;
     }
 
     interface ButtonDomSettings {
-        button?: ButtonDomButtomButton;
-        buttonContainer?: ButtonDomButtomCommon;
-        buttonLiner?: ButtonDomButtomCommon;
-        collection?: ButtonDomButtomCommon;
-        container?: ButtonDomButtomCommon;
+        button?: ButtonDomButtomButton | undefined;
+        buttonContainer?: ButtonDomButtomCommon | undefined;
+        buttonLiner?: ButtonDomButtomCommon | undefined;
+        collection?: ButtonDomButtomCommon | undefined;
+        container?: ButtonDomButtomCommon | undefined;
     }
 
     interface ButtonDomButtomCommon {
-        className?: string;
-        tag?: string;
+        className?: string | undefined;
+        tag?: string | undefined;
     }
 
     interface ButtonDomButtomButton extends ButtonDomButtomCommon {
-        active?: string;
-        disabled?: string;
+        active?: string | undefined;
+        disabled?: string | undefined;
     }
 
     interface ButtomSettingsCommon {
         /**
          * Action to take when the button is activated
          */
-        action?: FunctionButtonAction;
+        action?: FunctionButtonAction | undefined;
 
         /**
          * Ensure that any requirements have been satisfied before initialising a button
          */
-        available?: FunctionButtonAvailable;
+        available?: FunctionButtonAvailable | undefined;
 
         /**
          * Set the class name for the button
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Function that is called when the button is destroyed
          */
-        destroy?: FunctionButtonInit;
+        destroy?: FunctionButtonInit | undefined;
 
         /**
          * Set a button's initial enabled state
          */
-        enabled?: boolean;
+        enabled?: boolean | undefined;
 
         /**
          * Define which button type the button should be based on
          */
-        extend?: string;
+        extend?: string | undefined;
 
         /**
          * Initialisation function that can be used to add events specific to this button
          */
-        init?: FunctionButtonInit;
+        init?: FunctionButtonInit | undefined;
 
         /**
          * Define an activation key for a button
          */
-        key?: string | ButtonKey;
+        key?: string | ButtonKey | undefined;
 
         /**
          * Set a name for each selection
          */
-        name?: string;
+        name?: string | undefined;
 
         /**
          * Unique namespace for every button
          */
-        namespace?: string;
+        namespace?: string | undefined;
 
         /**
          * The text to show in the button
          */
-        text?: string | FunctionButtonText;
+        text?: string | FunctionButtonText | undefined;
 
         /**
          * Button 'title' attribute text
          */
-        titleAttr?: string;
+        titleAttr?: string | undefined;
     }
 
     interface ButtonKey {
-        key?: string;
-        shiftKey?: boolean;
-        altKey?: boolean;
-        ctrlKey?: boolean;
-        metaKey?: boolean;
+        key?: string | undefined;
+        shiftKey?: boolean | undefined;
+        altKey?: boolean | undefined;
+        ctrlKey?: boolean | undefined;
+        metaKey?: boolean | undefined;
     }
 
     /**
@@ -291,12 +285,13 @@ declare namespace DataTables {
 
     type FunctionButtonAction = (e: any, dt: Api, node: JQuery, config: ButtonSettings) => void;
 
-    type FunctionButtonCustomize = (win: Window|string) => void;
+    type FunctionButtonCustomize = (win: Window | string) => void;
 
     type FunctionExtButtonsCollectionText = (a: any) => string;
 
     interface ExtButtonsSettings {
         collection: ExtButtonsCollectionSettings;
+        csvHtml5: ButtonSettings;
     }
 
     interface ExtButtonsCollectionSettings {
@@ -310,123 +305,123 @@ declare namespace DataTables {
         text: FunctionExtButtonsCollectionText;
     }
 
-    //#endregion "Button Defaults"
+    // #endregion "Button Defaults"
 
-    //#region "Add-Ons"
+    // #region "Add-Ons"
 
     /**
      * Buttons extension options
      */
     interface ButtonSettings extends ButtomSettingsCommon {
-        //#region (HTML-)File-Export
+        // #region (HTML-)File-Export
 
         /**
          * CSV / EXCEL: Define what the exported filename should be
          */
-        filename?: string;
+        filename?: string | undefined;
 
         /**
          * COPY / CSV: field separator
          */
-        fieldSeparator?: string;
+        fieldSeparator?: string | undefined;
 
         /**
          * COPY / CSV: field boundary
          */
-        fieldBoundary?: string;
+        fieldBoundary?: string | undefined;
 
         /**
          * COPY / CSV: field separator
          */
-        newLine?: string;
+        newLine?: string | undefined;
 
         /**
          * CSV / EXCEL / PDF: file extension
          */
-        extension?: string;
+        extension?: string | undefined;
 
         /**
          * CSV: UTF-8 boom
          */
-        bom?: boolean;
+        bom?: boolean | undefined;
 
         /**
          * CSV: charset
          */
-        charset?: string|boolean;
+        charset?: string | boolean | undefined;
 
         /**
          * CSV: escape char
          */
-        escapeChar?: string;
+        escapeChar?: string | undefined;
 
         /**
          * EXCEL
          */
-        customizeData?: FunctionButtonCustomizeData;
+        customizeData?: FunctionButtonCustomizeData | undefined;
 
         /**
          * PDF: portrait / landscape
          */
-        orientation?: string;
+        orientation?: string | undefined;
 
         /**
          * PDF: A3 / A4 / A5 / LEGAL / LETTER / TABLOID
          */
-        pageSize?: string;
+        pageSize?: string | undefined;
 
-        //#endregion (HTML-)File-Export
+        // #endregion (HTML-)File-Export
 
-        //#region Export and Print
-
-        /**
-         * COPY / CSV / EXCEL / PDF / PRINT: show header
-         */
-        exportOptions?: ButtonExportOptions | object;
+        // #region Export and Print
 
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show header
          */
-        customize?: FunctionButtonCustomize;
+        exportOptions?: ButtonExportOptions | object | undefined;
 
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show header
          */
-        header?: boolean;
+        customize?: FunctionButtonCustomize | undefined;
+
+        /**
+         * COPY / CSV / EXCEL / PDF / PRINT: show header
+         */
+        header?: boolean | undefined;
 
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show footer
          */
-        footer?: boolean;
+        footer?: boolean | undefined;
 
         /**
          * COPY / PRINT: title
          */
-        title?: string;
+        title?: string | undefined;
 
         /**
          * COPY / EXCEL / PDF / PRINT: field separator
          */
-        messageTop?: string;
+        messageTop?: string | undefined;
 
         /**
          * COPY / EXCEL / PDF / PRINT: field separator
          */
-        messageBottom?: string;
+        messageBottom?: string | undefined;
 
         /**
          * PDF / PRINT: Extra message
          */
-        message?: string|Api|JQuery|object;
+        message?: string | Api | JQuery | object | undefined;
 
         /**
          * PRINT: Show print dialoge on click
          */
-        autoPrint?: boolean;
+        autoPrint?: boolean | undefined;
 
-        //#endregion Export and Print
+        // #endregion Export and Print
 
-        //#region ColVis
+        // #region ColVis
 
         /**
          * COLVIS: Column selector
@@ -436,19 +431,28 @@ declare namespace DataTables {
         /**
          * COLVIS:
          */
-        columnText?: FunctionButtonColvisColumnText;
+        columnText?: FunctionButtonColvisColumnText | undefined;
 
-        //#endregion ColVis
+        // #endregion ColVis
+
+        // #region Buttons
+
+        /**
+         * List of buttons to be created
+         */
+        buttons?: Array<string | FunctionButtom | ButtonSettings> | undefined;
+
+        // #endregion Buttons
     }
 
-    type ButtonSelectorTypes = string | number | JQuery<any>;
+    type ButtonSelectorTypes = string | number | JQuery;
     interface ButtonExportOptions {
-        columns?: ButtonSelectorTypes | ButtonSelectorTypes[];
+        columns?: ButtonSelectorTypes | ButtonSelectorTypes[] | undefined;
     }
 
     type FunctionButtonCustomizeData = (content: any) => void;
 
     type FunctionButtonColvisColumnText = (dt: Api, i: number, title: string) => string;
 
-    //#endregion "button-settings
+    // #endregion "button-settings
 }

@@ -1,9 +1,3 @@
-// Type definitions for nearley 2.11
-// Project: https://github.com/Hardmath123/nearley#readme
-// Definitions by: Nikita Litvin <https://github.com/deltaidea>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace nearley;
 
 export class Parser {
@@ -15,7 +9,7 @@ export class Parser {
     grammar: Grammar;
     options: ParserOptions;
     lexer: Lexer;
-    lexerState?: LexerState;
+    lexerState?: LexerState | undefined;
     current: number;
     /**
      * An array of possible parsings. Each element is the thing returned by your grammar.
@@ -38,13 +32,13 @@ export class Parser {
      */
     feed(chunk: string): this;
     finish(): any[];
-    restore(column: {[key: string]: any, lexerState: LexerState}): void;
-    save(): {[key: string]: any, lexerState: LexerState};
+    restore(column: { [key: string]: any; lexerState: LexerState }): void;
+    save(): { [key: string]: any; lexerState: LexerState };
 }
 
 export interface ParserOptions {
-    keepHistory?: boolean;
-    lexer?: Lexer;
+    keepHistory?: boolean | undefined;
+    lexer?: Lexer | undefined;
 }
 
 export class Rule {
@@ -53,7 +47,7 @@ export class Rule {
     id: number;
     name: string;
     symbols: any[];
-    postprocess?: Postprocessor;
+    postprocess?: Postprocessor | undefined;
 
     constructor(name: string, symbols: any[], postprocess?: Postprocessor);
 
@@ -65,14 +59,14 @@ export class Grammar {
 
     rules: Rule[];
     start: string;
-    byName: {[ruleName: string]: Rule[]};
-    lexer?: Lexer;
+    byName: { [ruleName: string]: Rule[] };
+    lexer?: Lexer | undefined;
 
     constructor(rules: Rule[]);
 }
 
 export interface CompiledRules {
-    Lexer?: Lexer;
+    Lexer?: Lexer | undefined;
     ParserStart: string;
     ParserRules: ParserRule[];
 }
@@ -80,7 +74,7 @@ export interface CompiledRules {
 export interface ParserRule {
     name: string;
     symbols: any[];
-    postprocess?: Postprocessor;
+    postprocess?: Postprocessor | undefined;
 }
 
 export type Postprocessor = (data: any[], reference?: number, wantedBy?: {}) => void;
@@ -107,7 +101,7 @@ export interface Lexer {
     formatError(token: Token, message: string): string;
 }
 
-export type Token = string | { value: string; };
+export type Token = string | { value: string };
 
 export interface LexerState {
     [x: string]: any;

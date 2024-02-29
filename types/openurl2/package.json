@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/openurl2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rauschma/openurl"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/openurl2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felix Hao",
+            "githubUsername": "felixhao28"
+        }
+    ]
+}

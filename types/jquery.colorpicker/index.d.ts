@@ -1,74 +1,68 @@
-// Type definitions for jQuery Colorpicker Plugin 1.4.3
-// Project: https://github.com/vanderlee/colorpicker
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryColorpickerOptions {
     // Events
     // TODO: Figure out actual types.
-    cancel?: Function,
-    close?: Function,
-    init?: Function,
-    select?: Function,
-    ok?: Function,
-    open?: Function,
+    cancel?: Function | undefined;
+    close?: Function | undefined;
+    init?: Function | undefined;
+    select?: Function | undefined;
+    ok?: Function | undefined;
+    open?: Function | undefined;
 
-    alpha?: boolean;
-    altAlpha?: boolean;
-    altField?: string;
-    altOnChange?: boolean;
-    altProperties?: string;
-    autoOpen?: boolean;
-    buttonClass?: string;
-    buttonColorize?: boolean;
-    buttonImage?: string;
-    buttonImageOnly?: boolean;
-    buttonText?: string;
-    closeOnEscape?: boolean;
-    closeOnOutside?: boolean;
-    color?: string;
-    colorFormat?: string;
-    disabled?: boolean;
-    draggable?: boolean;
-    duration?: string;
-    format?: string;
-    horizontal?: boolean;
-    hsv?: boolean;
-    inline?: boolean;
-    inlineFrame?: boolean;
-    layout?: { [part: string]: number[]; };
-    limit?: string;
-    modal?: boolean;
-    mode?: string;
-    okOnEnter?: boolean;
+    alpha?: boolean | undefined;
+    altAlpha?: boolean | undefined;
+    altField?: string | undefined;
+    altOnChange?: boolean | undefined;
+    altProperties?: string | undefined;
+    autoOpen?: boolean | undefined;
+    buttonClass?: string | undefined;
+    buttonColorize?: boolean | undefined;
+    buttonImage?: string | undefined;
+    buttonImageOnly?: boolean | undefined;
+    buttonText?: string | undefined;
+    closeOnEscape?: boolean | undefined;
+    closeOnOutside?: boolean | undefined;
+    color?: string | undefined;
+    colorFormat?: string | undefined;
+    disabled?: boolean | undefined;
+    draggable?: boolean | undefined;
+    duration?: string | undefined;
+    format?: string | undefined;
+    horizontal?: boolean | undefined;
+    hsv?: boolean | undefined;
+    inline?: boolean | undefined;
+    inlineFrame?: boolean | undefined;
+    layout?: { [part: string]: number[] } | undefined;
+    limit?: string | undefined;
+    modal?: boolean | undefined;
+    mode?: string | undefined;
+    okOnEnter?: boolean | undefined;
     part?: any;
     parts?: any;
-    regional?: string;
-    revert?: boolean;
-    rgb?: boolean;
-    showAnim?: string;
-    showCancelButton?: boolean;
-    showCloseButton?: boolean;
-    showNoneButton?: boolean;
-    showOn?: string;
+    regional?: string | undefined;
+    revert?: boolean | undefined;
+    rgb?: boolean | undefined;
+    showAnim?: string | undefined;
+    showCancelButton?: boolean | undefined;
+    showCloseButton?: boolean | undefined;
+    showNoneButton?: boolean | undefined;
+    showOn?: string | undefined;
     showOptions?: any;
     swatches?: any;
-    swatchesWidth?: number;
-    title?: string;
+    swatchesWidth?: number | undefined;
+    title?: string | undefined;
 }
 
 interface JQueryColorpickerStatic {
-    limits: { [name: string]: (color: any) => void; };
-    parsers: { [name: string]: (color: any) => any; };
-    parts: { [name: string]: (inst: any) => any; };
-    partslists: { [name: string]: string[]; };
-    regional: { [key: string]: string; };
-    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB; }; };
-    writers: { [name: string]: (color: any, that: any) => any; };
-    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
+    limits: { [name: string]: (color: any) => void };
+    parsers: { [name: string]: (color: any) => any };
+    parts: { [name: string]: (inst: any) => any };
+    partslists: { [name: string]: string[] };
+    regional: { [key: string]: string };
+    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB } };
+    writers: { [name: string]: (color: any, that: any) => any };
+    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color };
 }
 
 declare namespace JQueryColorpickerStatic {

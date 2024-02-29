@@ -1,21 +1,14 @@
-// Type definitions for ember-test-helpers 0.7
-// Project: https://github.com/emberjs/ember-test-helpers#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="jquery" />
 
-declare module 'ember-test-helpers' {
-    import Ember from 'ember';
-    import { TemplateFactory } from 'htmlbars-inline-precompile';
+declare module "ember-test-helpers" {
+    import Ember from "ember";
+    import { TemplateFactory } from "htmlbars-inline-precompile";
     import RSVP from "rsvp";
 
     interface ModuleCallbacks {
-        integration?: boolean;
-        unit?: boolean;
-        needs?: string[];
+        integration?: boolean | undefined;
+        unit?: boolean | undefined;
+        needs?: string[] | undefined;
 
         beforeSetup?(assert?: any): void;
         setup?(assert?: any): void;
@@ -83,18 +76,18 @@ declare module 'ember-test-helpers' {
     function setResolver(resolver: Ember.Resolver): void;
 }
 
-declare module 'ember-test-helpers/wait' {
+declare module "ember-test-helpers/wait" {
     import RSVP from "rsvp";
 
     interface WaitOptions {
-        waitForTimers?: boolean;
-        waitForAJAX?: boolean;
-        waitForWaiters?: boolean;
+        waitForTimers?: boolean | undefined;
+        waitForAJAX?: boolean | undefined;
+        waitForWaiters?: boolean | undefined;
     }
 
     export default function wait(options?: WaitOptions): RSVP.Promise<void>;
 }
 
-declare module 'ember-test-helpers/has-ember-version' {
+declare module "ember-test-helpers/has-ember-version" {
     export default function hasEmberVersion(major: number, minor: number): boolean;
 }

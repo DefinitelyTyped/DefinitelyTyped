@@ -1,10 +1,10 @@
-import * as checkError from 'check-error';
+import * as checkError from "check-error";
 
-const errorInstance = new Error('I am an instance');
+const errorInstance = new Error("I am an instance");
 const sameInstance = errorInstance;
-const otherInstance = new Error('I an another instance');
-const derivedInstance = new TypeError('I inherit from Error');
-const thrownMessage = 'Imagine I have been thrown';
+const otherInstance = new Error("I an another instance");
+const derivedInstance = new TypeError("I inherit from Error");
+const thrownMessage = "Imagine I have been thrown";
 
 class CustomError extends Error {
     constructor(message?: string) {
@@ -44,11 +44,11 @@ checkError.compatibleMessage(errorInstance, /unicorn$/);
 checkError.compatibleMessage(derivedInstance, /dinosaur$/);
 checkError.compatibleMessage(customError, /dinosaur$/);
 
-checkError.compatibleMessage(errorInstance, 'instance');
-checkError.compatibleMessage(derivedInstance, 'Error');
-checkError.compatibleMessage(errorInstance, 'unicorn');
-checkError.compatibleMessage(derivedInstance, 'dinosaur');
-checkError.compatibleMessage(customError, 'def');
+checkError.compatibleMessage(errorInstance, "instance");
+checkError.compatibleMessage(derivedInstance, "Error");
+checkError.compatibleMessage(errorInstance, "unicorn");
+checkError.compatibleMessage(derivedInstance, "dinosaur");
+checkError.compatibleMessage(customError, "def");
 
 // constructorName()
 // $ExpectType string

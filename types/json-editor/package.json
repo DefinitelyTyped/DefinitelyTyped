@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/json-editor",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jdorn/json-editor"
+    ],
+    "devDependencies": {
+        "@types/json-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Felipe Provenzano",
+            "githubUsername": "felipeprov"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/method-override",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/expressjs/method-override"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/method-override": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Santi Albo",
+            "githubUsername": "santialbo"
+        }
+    ]
+}

@@ -1,13 +1,8 @@
-// Type definitions for react-swipeable-views-core 0.13
-// Project: https://github.com/oliviertassinari/react-swipeable-views#readme
-// Definitions by: kodai3 <https://github.com/kodai3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { SwipeableViewsProps } from 'react-swipeable-views';
+import { SwipeableViewsProps } from "react-swipeable-views";
 
 export interface ComputeIndexParams {
-    children: SwipeableViewsProps['children'];
-    resistance: SwipeableViewsProps['resistance'];
+    children: SwipeableViewsProps["children"];
+    resistance: SwipeableViewsProps["resistance"];
     startIndex: number;
     startX: number;
     pageX: number;

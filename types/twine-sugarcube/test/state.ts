@@ -41,8 +41,10 @@ State.metadata.size = 3;
 
 State.metadata.clear();
 State.metadata.delete("key");
+State.metadata.entries(); // $ExpectType [string, any][]
 State.metadata.get("key"); // $ExpectType any
 b = State.metadata.has("key");
+State.metadata.keys(); // $ExpectType string[]
 State.metadata.set("key", a);
 
 let s: string = State.passage;

@@ -1,14 +1,9 @@
-// Type definitions for RefluxJS 0.4
-// Project: https://github.com/reflux/refluxjs
-// Definitions by: Maurice de Beijer <https://github.com/mauricedb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Reflux;
 
 export interface StoreDefinition {
-    listenables?: any[];
-    init?: Function;
-    getInitialState?: Function;
+    listenables?: any[] | undefined;
+    init?: Function | undefined;
+    getInitialState?: Function | undefined;
     [propertyName: string]: any;
 }
 

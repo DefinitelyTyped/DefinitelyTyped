@@ -1,12 +1,5 @@
-// Type definitions for express-bunyan-logger 1.3
-// Project: https://github.com/villadora/express-bunyan-logger
-// Definitions by: Shrey Jain <https://github.com/shreyjain1994>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import Bunyan = require('bunyan');
-import express = require('express');
+import Bunyan = require("bunyan");
+import express = require("express");
 
 export = Factory;
 
@@ -19,16 +12,16 @@ declare namespace Factory {
     type LevelFunction = (status: number, err: Error | null, meta: any) => string;
 
     interface Options extends Partial<Bunyan.LoggerOptions> {
-        logger?: Bunyan;
-        format?: string | FormatFunction;
-        parseUA?: boolean;
-        levelFn?: LevelFunction;
-        includesFn?: IncludesFunction;
-        excludes?: string[];
-        obfuscate?: string[];
-        obfuscatePlaceholder?: string;
-        immediate?: boolean;
-        genReqId?: RequestIdGenFunction;
+        logger?: Bunyan | undefined;
+        format?: string | FormatFunction | undefined;
+        parseUA?: boolean | undefined;
+        levelFn?: LevelFunction | undefined;
+        includesFn?: IncludesFunction | undefined;
+        excludes?: string[] | undefined;
+        obfuscate?: string[] | undefined;
+        obfuscatePlaceholder?: string | undefined;
+        immediate?: boolean | undefined;
+        genReqId?: RequestIdGenFunction | undefined;
     }
 
     function errorLogger(options?: Options): express.ErrorRequestHandler;

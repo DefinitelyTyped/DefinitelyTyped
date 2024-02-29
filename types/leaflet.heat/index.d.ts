@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.heat 0.2
-// Project: https://github.com/Leaflet/Leaflet.heat
-// Definitions by: Önder Ceylan <https://github.com/onderceylan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     type HeatLatLngTuple = [number, number, number];
 
     interface ColorGradientConfig {
@@ -14,12 +8,12 @@ declare module 'leaflet' {
     }
 
     interface HeatMapOptions {
-        minOpacity?: number;
-        maxZoom?: number;
-        max?: number;
-        radius?: number;
-        blur?: number;
-        gradient?: ColorGradientConfig;
+        minOpacity?: number | undefined;
+        maxZoom?: number | undefined;
+        max?: number | undefined;
+        radius?: number | undefined;
+        blur?: number | undefined;
+        gradient?: ColorGradientConfig | undefined;
     }
 
     interface HeatLayer extends TileLayer {

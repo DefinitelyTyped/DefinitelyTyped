@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PostFormat {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PostFormat: ComponentType<PostFormat.Props>;

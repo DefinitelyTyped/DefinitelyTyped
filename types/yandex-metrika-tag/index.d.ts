@@ -1,100 +1,94 @@
-// Type definitions for non-npm package Yandex.Metrika Tag API 2.0
-// Project: https://yandex.ru/support/metrica/code/counter-initialize.html
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var ym: ym.Event;
 
 declare namespace ym {
     interface Event {
-        (counterId: number, eventName: 'init', parameters: InitParameters): void;
-        (counterId: number, eventName: 'addFileExtension', extensions: string | string[]): void;
-        // tslint:disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'extLink', url: string, options?: ExtLinkOptions<CTX>): void;
-        // tslint:disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'file', url: string, options?: FileOptions<CTX>): void;
-        (counterId: number, eventName: 'getClientID', cb: (clientID: string) => void): void;
-        // tslint:disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'hit', url: string, options?: HitOptions<CTX>): void;
+        (counterId: number, eventName: "init", parameters: InitParameters): void;
+        (counterId: number, eventName: "addFileExtension", extensions: string | string[]): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "extLink", url: string, options?: ExtLinkOptions<CTX>): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "file", url: string, options?: FileOptions<CTX>): void;
+        (counterId: number, eventName: "getClientID", cb: (clientID: string) => void): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "hit", url: string, options?: HitOptions<CTX>): void;
         /** @deprecated */
         (
             counterId: number,
-            eventName: 'hit',
+            eventName: "hit",
             url: string,
             title?: string,
             referer?: string,
             params?: VisitParameters,
         ): void;
-        // tslint:disable-next-line no-unnecessary-generics
-        <CTX>(counterId: number, eventName: 'notBounce', options?: NotBounceOptions<CTX>): void;
-        (counterId: number, eventName: 'params', parameters: VisitParameters | VisitParameters[]): void;
-        // tslint:disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        <CTX>(counterId: number, eventName: "notBounce", options?: NotBounceOptions<CTX>): void;
+        (counterId: number, eventName: "params", parameters: VisitParameters | VisitParameters[]): void;
         <CTX>(
             counterId: number,
-            eventName: 'reachGoal',
+            eventName: "reachGoal",
             target: string,
             params?: VisitParameters,
             callback?: (this: CTX) => void,
             ctx?: CTX,
         ): void;
-        (counterId: number, eventName: 'replacePhones'): void;
-        (counterId: number, eventName: 'setUserID', userID: string): void;
-        (counterId: number, eventName: 'userParams', parameters: UserParameters): void;
+        (counterId: number, eventName: "replacePhones"): void;
+        (counterId: number, eventName: "setUserID", userID: string): void;
+        (counterId: number, eventName: "userParams", parameters: UserParameters): void;
     }
 
     interface VisitParameters {
-        order_price?: number;
-        currency?: string;
+        order_price?: number | undefined;
+        currency?: string | undefined;
         [key: string]: any;
     }
 
     interface UserParameters {
-        UserID?: number;
+        UserID?: number | undefined;
         [key: string]: any;
     }
 
     interface InitParameters {
-        accurateTrackBounce?: boolean | number;
-        childIframe?: boolean;
-        clickmap?: boolean;
-        defer?: boolean;
-        ecommerce?: boolean | string | any[];
-        params?: VisitParameters | VisitParameters[];
-        userParams?: UserParameters;
-        trackHash?: boolean;
-        trackLinks?: boolean;
-        trustedDomains?: string[];
-        type?: number;
-        ut?: 'noindex';
-        webvisor?: boolean;
-        triggerEvent?: boolean;
+        accurateTrackBounce?: boolean | number | undefined;
+        childIframe?: boolean | undefined;
+        clickmap?: boolean | undefined;
+        defer?: boolean | undefined;
+        ecommerce?: boolean | string | any[] | undefined;
+        params?: VisitParameters | VisitParameters[] | undefined;
+        userParams?: UserParameters | undefined;
+        trackHash?: boolean | undefined;
+        trackLinks?: boolean | undefined;
+        trustedDomains?: string[] | undefined;
+        type?: number | undefined;
+        ut?: "noindex" | undefined;
+        webvisor?: boolean | undefined;
+        triggerEvent?: boolean | undefined;
     }
 
     interface ExtLinkOptions<CTX> {
         callback?(this: CTX): void;
-        ctx?: CTX;
-        params?: VisitParameters;
-        title?: string;
+        ctx?: CTX | undefined;
+        params?: VisitParameters | undefined;
+        title?: string | undefined;
     }
 
     interface FileOptions<CTX> {
         callback?(this: CTX): void;
-        ctx?: CTX;
-        params?: VisitParameters;
-        referer?: string;
-        title?: string;
+        ctx?: CTX | undefined;
+        params?: VisitParameters | undefined;
+        referer?: string | undefined;
+        title?: string | undefined;
     }
 
     interface HitOptions<CTX> {
         callback?(this: CTX): void;
-        ctx?: CTX;
-        params?: VisitParameters;
-        referer?: string;
-        title?: string;
+        ctx?: CTX | undefined;
+        params?: VisitParameters | undefined;
+        referer?: string | undefined;
+        title?: string | undefined;
     }
 
     interface NotBounceOptions<CTX> {
         callback?(this: CTX): void;
-        ctx?: CTX;
+        ctx?: CTX | undefined;
     }
 }

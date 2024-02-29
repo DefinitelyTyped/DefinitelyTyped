@@ -1,14 +1,9 @@
-// Type definitions for git-diff-parser 1.0
-// Project: https://github.com/spookd/git-diff-parser
-// Definitions by: Alexey Yaroshevich <https://github.com/qfox>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='node' />
 
 declare function GitDiffParser(input: string | Buffer): GitDiffParser.Result;
 declare namespace GitDiffParser {
     /** Represents prefix in `git diff` output: '+', '-', or space */
-    type LineType = 'deleted' | 'added' | 'normal';
+    type LineType = "deleted" | "added" | "normal";
 
     interface Line {
         type: LineType;
@@ -23,7 +18,7 @@ declare namespace GitDiffParser {
         ln1: number;
 
         /** New line number (for type normal) */
-        ln2?: number;
+        ln2?: number | undefined;
     }
 
     interface File {
@@ -32,8 +27,8 @@ declare namespace GitDiffParser {
         renamed: boolean;
         binary: boolean;
         lines: Line[];
-        index?: string[];
-        oldName?: string;
+        index?: string[] | undefined;
+        oldName?: string | undefined;
         name: string;
     }
 
@@ -42,11 +37,11 @@ declare namespace GitDiffParser {
     }
 
     interface DetailedCommit extends Commit {
-        message?: string;
-        sha?: string;
-        date?: Date;
-        author?: string;
-        email?: string;
+        message?: string | undefined;
+        sha?: string | undefined;
+        date?: Date | undefined;
+        author?: string | undefined;
+        email?: string | undefined;
     }
 
     interface Result {

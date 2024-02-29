@@ -1,10 +1,4 @@
-// Type definitions for bunyan-prettystream 0.1.3
-// Project: https://www.npmjs.com/package/bunyan-prettystream
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, Vadim Macagon <https://github.com/enlight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import stream = require("stream");
 declare class PrettyStream extends stream.Writable {
@@ -14,7 +8,7 @@ declare class PrettyStream extends stream.Writable {
      * @param options.useColor Indicates whether or not output should be colored,
      *                         defaults to `true`.
      */
-    constructor(options?: { mode?: string; useColor?: boolean });
+    constructor(options?: { mode?: string | undefined; useColor?: boolean | undefined });
 
     /**
      * Pipes data from this stream to another.
@@ -24,6 +18,6 @@ declare class PrettyStream extends stream.Writable {
      *                    stream when this stream emits `end`, defaults to `true`.
      * @return The `destination` stream.
      */
-    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+    pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
 }
 export = PrettyStream;

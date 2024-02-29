@@ -1,12 +1,7 @@
-// Type definitions for klaw 1.3
-// Project: https://github.com/jprichardson/node-klaw
-// Definitions by: Matthew McEachen <https://github.com/mceachen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stats } from "fs";
-import { Readable, ReadableOptions } from 'stream';
+import { Readable, ReadableOptions } from "stream";
 
 declare function K(root: string, options?: K.Options): K.Walker;
 
@@ -19,7 +14,7 @@ declare namespace K {
     type QueueMethod = "shift" | "pop";
 
     interface Options extends ReadableOptions {
-        queueMethod?: QueueMethod;
+        queueMethod?: QueueMethod | undefined;
         pathSorter?(pathA: string, pathB: string): number;
         fs?: any; // fs or mock-fs
         filter?(path: string): boolean;

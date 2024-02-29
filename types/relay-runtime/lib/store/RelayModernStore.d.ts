@@ -1,20 +1,20 @@
+import { DataID, Disposable } from "../util/RelayRuntimeTypes";
 import {
     CheckOptions,
-    Store,
     MutableRecordSource,
-    Scheduler,
-    OperationLoader,
     OperationAvailability,
     OperationDescriptor,
+    OperationLoader,
     RecordSource,
+    RequestDescriptor,
+    Scheduler,
     SingularReaderSelector,
     Snapshot,
-    RequestDescriptor,
-} from './RelayStoreTypes';
-import { DataID, Disposable } from '../util/RelayRuntimeTypes';
+    Store,
+} from "./RelayStoreTypes";
 
 export interface InvalidationState {
-    dataIDs: ReadonlyArray<DataID>;
+    dataIDs: readonly DataID[];
     invalidations: Map<DataID, number | undefined | null>;
 }
 
@@ -22,24 +22,25 @@ export default class RelayModernStore implements Store {
     constructor(
         source: MutableRecordSource,
         options?: {
-            gcScheduler?: Scheduler | null;
-            operationLoader?: OperationLoader | null;
-            gcReleaseBufferSize?: number | null;
-            queryCacheExpirationTime?: number | null;
+            gcScheduler?: Scheduler | null | undefined;
+            operationLoader?: OperationLoader | null | undefined;
+            gcReleaseBufferSize?: number | null | undefined;
+            queryCacheExpirationTime?: number | null | undefined;
         },
     );
     getSource(): RecordSource;
     check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
     retain(operation: OperationDescriptor): Disposable;
     lookup(selector: SingularReaderSelector): Snapshot;
-    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): ReadonlyArray<RequestDescriptor>;
+    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): readonly RequestDescriptor[];
     publish(source: RecordSource, idsMarkedForInvalidation?: Set<DataID>): void;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
     holdGC(): Disposable;
-    lookupInvalidationState(dataIDs: ReadonlyArray<DataID>): InvalidationState;
+    lookupInvalidationState(dataIDs: readonly DataID[]): InvalidationState;
     checkInvalidationState(previousInvalidationState: InvalidationState): boolean;
     subscribeToInvalidationState(invalidationState: InvalidationState, callback: () => void): Disposable;
     toJSON(): unknown;
     snapshot(): void;
     restore(): void;
+    scheduleGC(): void;
 }

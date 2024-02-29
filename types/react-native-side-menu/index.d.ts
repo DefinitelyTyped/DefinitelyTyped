@@ -1,11 +1,5 @@
-// Type definitions for react-native-side-menu 1.1
-// Project: https://github.com/react-native-community/react-native-side-menu#readme
-// Definitions by: Jules Samuel Randolph <https://github.com/jsamr>
-//                 Matt Pawley <https://github.com/toughdeveloper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ReactNode, Component } from 'react';
-import { GestureResponderEvent, PanResponderGestureState, Animated, ViewStyle } from 'react-native';
+import { Component, ReactNode } from "react";
+import { Animated, GestureResponderEvent, PanResponderGestureState, ViewStyle } from "react-native";
 
 export interface ReactNativeSideMenuProps {
     /**
@@ -16,69 +10,69 @@ export interface ReactNativeSideMenuProps {
      * Props driven control over menu open state
      * @default false
      */
-    isOpen?: boolean;
+    isOpen?: boolean | undefined;
     /**
      * Content view left margin if menu is opened
      */
-    openMenuOffset?: number;
+    openMenuOffset?: number | undefined;
     /**
      * Content view left margin if menu is hidden
      */
-    hiddenMenuOffset?: number;
+    hiddenMenuOffset?: number | undefined;
     /**
      * Edge distance on content view to open side menu, defaults to 60
      */
-    edgeHitWidth?: number;
+    edgeHitWidth?: number | undefined;
     /**
      * X axis tolerance
      */
-    toleranceX?: number;
+    toleranceX?: number | undefined;
     /**
      * Y axis tolerance
      */
-    toleranceY?: number;
+    toleranceY?: number | undefined;
     /**
      * Disable whether the menu can be opened with gestures or not
      * @default false
      */
-    disableGestures?: boolean;
+    disableGestures?: boolean | undefined;
     /**
      * Function that accepts event as an argument and specify if side-menu should react on the touch or not.
      * Check https://facebook.github.io/react-native/docs/gesture-responder-system.html for more details
      */
-    onStartShouldSetResponderCapture?: (e: GestureResponderEvent) => boolean;
+    onStartShouldSetResponderCapture?: ((e: GestureResponderEvent) => boolean) | undefined;
     /**
      * Callback on menu open/close. Is passed isOpen as an argument
      */
-    onChange?: (isOpen: boolean) => void;
+    onChange?: ((isOpen: boolean) => void) | undefined;
     /**
      * Callback on menu move. Is passed left as an argument
      */
-    onMove?: (left: number) => void;
+    onMove?: ((left: number) => void) | undefined;
     /**
      * Callback when menu is sliding. It returns a decimal from 0 to 1 which represents the percentage of menu offset between hiddenMenuOffset and openMenuOffset.
      */
-    onSliding?: (fraction: number) => void;
+    onSliding?: ((fraction: number) => void) | undefined;
     /**
      * @default left
      */
-    menuPosition?: 'left' | 'right';
-    animationFunction?: (prop: Animated.Value, value: number) => Animated.CompositeAnimation;
-    animationStyle?: (value: number) => ViewStyle;
+    menuPosition?: "left" | "right" | undefined;
+    animationFunction?: ((prop: Animated.Value, value: number) => Animated.CompositeAnimation) | undefined;
+    animationStyle?: ((value: number) => ViewStyle) | undefined;
     /**
      * Callback when menu animation has completed.
      */
-    onAnimationComplete?: (event: Animated.EndCallback) => void;
+    onAnimationComplete?: ((event: Animated.EndCallback) => void) | undefined;
     /**
      * When true, content view will bounce back to openMenuOffset when dragged further
      * @default true
      */
-    bounceBackOnOverdraw?: boolean;
+    bounceBackOnOverdraw?: boolean | undefined;
     /**
      * When true, menu close automatically as soon as an event occurs
      * @default true
      */
-    autoClosing?: boolean;
+    autoClosing?: boolean | undefined;
 }
 
 export default class SideMenu extends Component<ReactNativeSideMenuProps> {

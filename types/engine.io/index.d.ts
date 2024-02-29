@@ -1,57 +1,55 @@
-// Type definitions for engine.io 3.1
-// Project: https://github.com/socketio/engine.io
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import http = require('http');
-import net = require('net');
+import http = require("http");
+import net = require("net");
 import { EventEmitter } from "events";
+import { Duplex } from "stream";
 
 declare namespace engine {
-    type Message = string|Buffer|ArrayBuffer|ArrayBufferView;
-    type Transport =  "polling"|"websocket";
+    type Message = string | Buffer | ArrayBuffer | ArrayBufferView;
+    type Transport = "polling" | "websocket";
     interface Packet {
         type: string;
-        options?: MessageOptions;
-        data?: Message;
+        options?: MessageOptions | undefined;
+        data?: Message | undefined;
     }
-    type AllowRequestFunction = (req: http.IncomingMessage, fn: (err: string|null|undefined, success: boolean) => void) => void;
+    type AllowRequestFunction = (
+        req: http.IncomingMessage,
+        fn: (err: string | null | undefined, success: boolean) => void,
+    ) => void;
 
     interface ServerOptions {
         /**
          * how many ms without a pong packet to consider the connection closed (5000)
          */
-        pingTimeout?: number;
+        pingTimeout?: number | undefined;
         /**
          * how many ms before sending a new ping packet (25000)
          */
-        pingInterval?: number;
+        pingInterval?: number | undefined;
         /**
          * how many ms before an uncompleted transport upgrade is cancelled (10000)
          */
-        upgradeTimeout?: number;
+        upgradeTimeout?: number | undefined;
         /**
          * how many bytes or characters a message can be, before closing the session (to avoid DoS). Default value is 10E6.
          */
-        maxHttpBufferSize?: number;
+        maxHttpBufferSize?: number | undefined;
         /**
          * A function that receives a given handshake or upgrade request as its first parameter,
          * and can decide whether to continue or not. The second argument is a function that needs
          * to be called with the decided information: fn(err, success), where success is a boolean
          * value where false means that the request is rejected, and err is an error code.
          */
-        allowRequest?: AllowRequestFunction;
+        allowRequest?: AllowRequestFunction | undefined;
         /**
          * to allow connections to (['polling', 'websocket'])
          */
-        transports?: Transport[];
+        transports?: Transport[] | undefined;
         /**
          * whether to allow transport upgrades (true)
          */
-        allowUpgrades?: boolean;
+        allowUpgrades?: boolean | undefined;
         /**
          * parameters of the WebSocket permessage-deflate extension (see ws module api docs). Set to false to disable. (true)
          */
@@ -63,53 +61,53 @@ declare namespace engine {
         /**
          * name of the HTTP cookie that contains the client sid to send as part of handshake response headers. Set to false to not send one. (io)
          */
-        cookie?: string|boolean;
+        cookie?: string | boolean | undefined;
         /**
          * path of the above cookie option. If false, no path will be sent,
          * which means browsers will only send the cookie on the engine.io
          * attached path (/engine.io). Set false to not save io cookie
          * on all requests. (/)
          */
-        cookiePath?: string|boolean;
+        cookiePath?: string | boolean | undefined;
         /**
          * If true HttpOnly io cookie cannot be accessed by client-side APIs,
          * such as JavaScript. (true) This option has no effect
          * if cookie or cookiePath is set to false.
          */
-        cookieHttpOnly?: boolean;
+        cookieHttpOnly?: boolean | undefined;
         /**
          * what WebSocket server implementation to use. Specified module must
          * conform to the ws interface (see ws module api docs). Default value is ws.
          * An alternative c++ addon is also available by installing uws module.
          */
-        wsEngine?: "ws"|"uws";
+        wsEngine?: "ws" | "uws" | undefined;
         /**
          * an optional packet which will be concatenated to the handshake packet emitted by Engine.IO.
          */
-        initialPacket?: Message;
+        initialPacket?: Message | undefined;
     }
     interface AttachOptions {
         /**
          * name of the path to capture (/engine.io).
          */
-        path?: string;
+        path?: string | undefined;
         /**
          * destroy unhandled upgrade requests (true)
          */
-        destroyUpgrade?: boolean;
+        destroyUpgrade?: boolean | undefined;
         /**
          * milliseconds after which unhandled requests are ended (1000)
          */
-        destroyUpgradeTimeout?: number;
+        destroyUpgradeTimeout?: number | undefined;
         /**
          * whether to let engine.io handle the OPTIONS requests. You can also pass a custom function to handle the requests (true)
          */
-        handlePreflightRequest?: boolean|((server: Server, req: http.IncomingMessage, res: http.ServerResponse) => void);
+        handlePreflightRequest?: boolean | ((req: http.IncomingMessage, res: http.ServerResponse) => void) | undefined;
     }
     interface ServerAttachOptions extends ServerOptions, AttachOptions {}
 
     interface MessageOptions {
-        compress?: boolean;
+        compress?: boolean | undefined;
     }
 
     /**
@@ -119,7 +117,7 @@ declare namespace engine {
         /**
          * hash of connected clients by id.
          */
-        clients: {[sid: string]: Socket};
+        clients: { [sid: string]: Socket };
         /**
          * number of connected clients.
          */
@@ -132,13 +130,13 @@ declare namespace engine {
         /**
          * Fired when a new connection is established.
          */
-        on(ev: 'connection'|'drain', fn: (socket: Socket) => void): this;
-        on(ev: 'flush', fn: (socket: Socket, buffer: Packet[]) => void): this;
+        on(ev: "connection" | "drain", fn: (socket: Socket) => void): this;
+        on(ev: "flush", fn: (socket: Socket, buffer: Packet[]) => void): this;
         /**
          * Closes all clients
          */
         close(): this;
-        readonly httpServer?: http.Server;
+        readonly httpServer?: http.Server | undefined;
         /**
          * Called internally when a Engine request is intercepted.
          */
@@ -146,7 +144,7 @@ declare namespace engine {
         /**
          * Called internally when a Engine ws upgrade is intercepted.
          */
-        handleUpgrade(req: http.IncomingMessage, socket: net.Socket, head: Buffer): this;
+        handleUpgrade(req: http.IncomingMessage, socket: Duplex, head: Buffer): this;
         /**
          * Attach this Server instance to an http.Server
          * Captures upgrade requests for a http.Server. In other words, makes a regular http.Server WebSocket-compatible.
@@ -182,12 +180,12 @@ declare namespace engine {
         /**
          * readyState
          */
-        readyState: 'opening'|'open'|'closing'|'closed';
+        readyState: "opening" | "open" | "closing" | "closed";
 
         /**
          * Sends a message, performing message = toString(arguments[0]) unless sending binary data, which is sent as is.
          */
-        send(message: Message, opts?: MessageOptions, fn?: ((transport: any) => void)): void;
+        send(message: Message, opts?: MessageOptions, fn?: (transport: any) => void): void;
 
         /**
          * Disconnects the client
@@ -201,7 +199,7 @@ declare namespace engine {
         /**
          * Fired when the client sends a message.
          */
-        on(ev: "message", fn: (data: string|Buffer) => void): this;
+        on(ev: "message", fn: (data: string | Buffer) => void): this;
         /**
          * Fired when an error occurs.
          */

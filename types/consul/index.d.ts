@@ -1,37 +1,22 @@
-// Type definitions for Consul v0.23.0
-// Project: https://github.com/silas/node-consul
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 Vadym Vakhovskiy <https://github.com/vadim-v>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 import { IncomingMessage as HttpIncomingMessage } from "http";
 
 declare namespace Consul {
-
-    interface Thenable<T> {
-        then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-        then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
-        catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    }
-
     interface CommonOptions {
-        consistent?: boolean;
-        dc?: string;
-        stale?: boolean;
-        token?: string;
-        wait?: string;
-        wan?: boolean;
+        consistent?: boolean | undefined;
+        dc?: string | undefined;
+        stale?: boolean | undefined;
+        token?: string | undefined;
+        wait?: string | undefined;
+        wan?: boolean | undefined;
 
-        ctx?: NodeJS.EventEmitter;
-        timeout?: number;
+        ctx?: NodeJS.EventEmitter | undefined;
+        timeout?: number | undefined;
     }
 
     interface Response extends HttpIncomingMessage {
-        body?: Object | string | Buffer;
+        body?: Object | string | Buffer | undefined;
     }
 
     interface Callback<TData> {
@@ -39,18 +24,17 @@ declare namespace Consul {
     }
 
     namespace Acl {
-
         interface CreateOptions extends CommonOptions {
-            name?: string;
-            type?: string;
-            rules?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            rules?: string | undefined;
         }
 
         interface UpdateOptions extends CommonOptions {
             id: string;
-            name?: string;
-            type?: string;
-            rules?: string;
+            name?: string | undefined;
+            type?: string | undefined;
+            rules?: string | undefined;
         }
 
         interface DestroyOptions extends CommonOptions {
@@ -61,13 +45,13 @@ declare namespace Consul {
             id: string;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface CloneOptions extends CommonOptions {
             id: string;
         }
 
-        interface ListOptions extends CommonOptions { }
+        interface ListOptions extends CommonOptions {}
     }
 
     interface Acl {
@@ -79,7 +63,7 @@ declare namespace Consul {
         create: {
             <TData>(opts: Acl.CreateOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Acl.CreateOptions): Thenable<TData>;
+            <TData>(opts?: Acl.CreateOptions): Promise<TData>;
         };
 
         /**
@@ -87,8 +71,8 @@ declare namespace Consul {
          */
         update: {
             <TData>(opts: Acl.UpdateOptions, callback: Callback<TData>): void;
-            <TData>(opts: Acl.UpdateOptions): Thenable<TData>;
-        }
+            <TData>(opts: Acl.UpdateOptions): Promise<TData>;
+        };
 
         /**
          * Destroys a given token
@@ -96,8 +80,8 @@ declare namespace Consul {
         destroy: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.DestroyOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.DestroyOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.DestroyOptions): Promise<TData>;
         };
 
         /**
@@ -106,14 +90,14 @@ declare namespace Consul {
         info: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.InfoOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.InfoOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.InfoOptions): Promise<TData>;
         };
         get: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.GetOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.GetOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.GetOptions): Promise<TData>;
         };
 
         /**
@@ -122,8 +106,8 @@ declare namespace Consul {
         clone: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.CloneOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.CloneOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.CloneOptions): Promise<TData>;
         };
 
         /**
@@ -132,30 +116,28 @@ declare namespace Consul {
         list: {
             <TData>(opts: Acl.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Acl.ListOptions): Thenable<TData>;
+            <TData>(opts?: Acl.ListOptions): Promise<TData>;
         };
     }
 
     interface AclStatic {
-        new (consul: Consul): Acl;
+        new(consul: Consul): Acl;
     }
 
     namespace Agent {
-
         namespace Check {
-
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
-                id?: string;
-                serviceid?: string;
-                http?: string;
-                script?: string;
-                interval?: string;
-                ttl?: string;
-                notes?: string;
-                status?: string;
+                id?: string | undefined;
+                serviceid?: string | undefined;
+                http?: string | undefined;
+                script?: string | undefined;
+                interval?: string | undefined;
+                ttl?: string | undefined;
+                notes?: string | undefined;
+                status?: string | undefined;
             }
 
             interface DeregisterOptions extends CommonOptions {
@@ -164,17 +146,17 @@ declare namespace Consul {
 
             interface PassOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
 
             interface WarnOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
 
             interface FailOptions extends CommonOptions {
                 id: string;
-                note?: string;
+                note?: string | undefined;
             }
         }
 
@@ -187,7 +169,7 @@ declare namespace Consul {
             list: {
                 <TData>(opts: Check.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(opts?: Check.ListOptions): Thenable<TData>;
+                <TData>(opts?: Check.ListOptions): Promise<TData>;
             };
 
             /**
@@ -195,7 +177,7 @@ declare namespace Consul {
              */
             register: {
                 <TData>(opts: Check.RegisterOptions, callback: Callback<TData>): void;
-                <TData>(opts: Check.RegisterOptions): Thenable<TData>;
+                <TData>(opts: Check.RegisterOptions): Promise<TData>;
             };
 
             /**
@@ -204,8 +186,8 @@ declare namespace Consul {
             deregister: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.DeregisterOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.DeregisterOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.DeregisterOptions): Promise<TData>;
             };
 
             /**
@@ -214,8 +196,8 @@ declare namespace Consul {
             pass: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.PassOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.PassOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.PassOptions): Promise<TData>;
             };
 
             /**
@@ -224,8 +206,8 @@ declare namespace Consul {
             warn: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.WarnOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.WarnOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.WarnOptions): Promise<TData>;
             };
 
             /**
@@ -234,36 +216,36 @@ declare namespace Consul {
             fail: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.FailOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.FailOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.FailOptions): Promise<TData>;
             };
         }
 
         interface CheckStatic {
-            new (consul: Consul): Check;
+            new(consul: Consul): Check;
         }
 
         namespace Service {
-
             interface RegisterCheck {
-                http?: string;
-                script?: string;
-                interval?: string;
-                ttl?: string;
-                notes?: string;
-                status?: string;
+                http?: string | undefined;
+                script?: string | undefined;
+                interval?: string | undefined;
+                ttl?: string | undefined;
+                notes?: string | undefined;
+                status?: string | undefined;
             }
 
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
-                id?: string;
-                tags?: string[];
-                address?: string;
-                port?: number;
-                check?: RegisterCheck;
-                checks?: RegisterCheck[];
+                id?: string | undefined;
+                tags?: string[] | undefined;
+                address?: string | undefined;
+                port?: number | undefined;
+                meta?: Record<string, string> | undefined;
+                check?: RegisterCheck | undefined;
+                checks?: RegisterCheck[] | undefined;
             }
 
             interface DeregisterOptions extends CommonOptions {
@@ -273,7 +255,7 @@ declare namespace Consul {
             interface MaintenanceOptions extends CommonOptions {
                 id: string;
                 enable: boolean;
-                reason?: string;
+                reason?: string | undefined;
             }
         }
 
@@ -286,7 +268,7 @@ declare namespace Consul {
             list: {
                 <TData>(opts: Service.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(opts?: Service.ListOptions): Thenable<TData>;
+                <TData>(opts?: Service.ListOptions): Promise<TData>;
             };
 
             /**
@@ -295,8 +277,8 @@ declare namespace Consul {
             register: {
                 <TData>(name: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.RegisterOptions, callback: Callback<TData>): void;
-                <TData>(name: string): Thenable<TData>;
-                <TData>(opts: Service.RegisterOptions): Thenable<TData>;
+                <TData>(name: string): Promise<TData>;
+                <TData>(opts: Service.RegisterOptions): Promise<TData>;
             };
 
             /**
@@ -305,8 +287,8 @@ declare namespace Consul {
             deregister: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.DeregisterOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Service.DeregisterOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Service.DeregisterOptions): Promise<TData>;
             };
 
             /**
@@ -314,32 +296,32 @@ declare namespace Consul {
              */
             maintenance: {
                 <TData>(opts: Service.MaintenanceOptions, callback: Callback<TData>): void;
-                <TData>(opts: Service.MaintenanceOptions): Thenable<TData>;
+                <TData>(opts: Service.MaintenanceOptions): Promise<TData>;
             };
         }
 
         interface ServiceStatic {
-            new (consul: Consul): Service;
+            new(consul: Consul): Service;
         }
 
-        interface ChecksOptions extends Check.ListOptions { }
+        interface ChecksOptions extends Check.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
 
         interface MembersOptions extends CommonOptions {
-            wan?: boolean;
+            wan?: boolean | undefined;
         }
 
-        interface SelfOptions extends CommonOptions { }
+        interface SelfOptions extends CommonOptions {}
 
         interface MaintenanceOptions extends CommonOptions {
             enable: boolean;
-            reason?: string;
+            reason?: string | undefined;
         }
 
         interface JoinOptions extends CommonOptions {
             address: string;
-            wan?: boolean;
+            wan?: boolean | undefined;
         }
 
         interface ForceLeaveOptions extends CommonOptions {
@@ -358,7 +340,7 @@ declare namespace Consul {
         checks: {
             <TData>(opts: Agent.ChecksOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.ChecksOptions): Thenable<TData>;
+            <TData>(opts?: Agent.ChecksOptions): Promise<TData>;
         };
 
         /**
@@ -367,7 +349,7 @@ declare namespace Consul {
         services: {
             <TData>(opts: Agent.ServicesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.ServicesOptions): Thenable<TData>;
+            <TData>(opts?: Agent.ServicesOptions): Promise<TData>;
         };
 
         /**
@@ -376,7 +358,7 @@ declare namespace Consul {
         members: {
             <TData>(opts: Agent.MembersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.MembersOptions): Thenable<TData>;
+            <TData>(opts?: Agent.MembersOptions): Promise<TData>;
         };
 
         /**
@@ -385,7 +367,7 @@ declare namespace Consul {
         self: {
             <TData>(opts: Agent.SelfOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.SelfOptions): Thenable<TData>;
+            <TData>(opts?: Agent.SelfOptions): Promise<TData>;
         };
 
         /**
@@ -394,8 +376,8 @@ declare namespace Consul {
         maintenance: {
             <TData>(enable: boolean, callback: Callback<TData>): void;
             <TData>(opts: Agent.MaintenanceOptions, callback: Callback<TData>): void;
-            <TData>(enable: boolean): Thenable<TData>;
-            <TData>(opts: Agent.MaintenanceOptions): Thenable<TData>;
+            <TData>(enable: boolean): Promise<TData>;
+            <TData>(opts: Agent.MaintenanceOptions): Promise<TData>;
         };
 
         /**
@@ -404,8 +386,8 @@ declare namespace Consul {
         join: {
             <TData>(address: string, callback: Callback<TData>): void;
             <TData>(opts: Agent.JoinOptions, callback: Callback<TData>): void;
-            <TData>(address: string): Thenable<TData>;
-            <TData>(opts: Agent.JoinOptions): Thenable<TData>;
+            <TData>(address: string): Promise<TData>;
+            <TData>(opts: Agent.JoinOptions): Promise<TData>;
         };
 
         /**
@@ -414,24 +396,22 @@ declare namespace Consul {
         forceLeave: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Agent.ForceLeaveOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Agent.ForceLeaveOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Agent.ForceLeaveOptions): Promise<TData>;
         };
     }
 
     interface AgentStatic {
-        new (consul: Consul): Agent;
+        new(consul: Consul): Agent;
 
         Check: Agent.CheckStatic;
         Service: Agent.ServiceStatic;
     }
 
     namespace Catalog {
-
         namespace Node {
-
             interface ListOptions extends CommonOptions {
-                dc?: string;
+                dc?: string | undefined;
             }
 
             interface ServicesOptions extends CommonOptions {
@@ -449,8 +429,8 @@ declare namespace Consul {
                 <TData>(dc: string, callback: Callback<TData>): void;
                 <TData>(opts: Node.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(dc?: string): Thenable<TData>;
-                <TData>(opts?: Node.ListOptions): Thenable<TData>;
+                <TData>(dc?: string): Promise<TData>;
+                <TData>(opts?: Node.ListOptions): Promise<TData>;
             };
 
             /**
@@ -459,29 +439,26 @@ declare namespace Consul {
             services: {
                 <TData>(node: string, callback: Callback<TData>): void;
                 <TData>(opts: Node.ServicesOptions, callback: Callback<TData>): void;
-                <TData>(node: string): Thenable<TData>;
-                <TData>(opts: Node.ServicesOptions): Thenable<TData>;
+                <TData>(node: string): Promise<TData>;
+                <TData>(opts: Node.ServicesOptions): Promise<TData>;
             };
         }
 
         interface NodeStatic {
-            new (consul: Consul): Node;
+            new(consul: Consul): Node;
         }
 
         namespace Service {
-
             interface ListOptions extends CommonOptions {
-                dc?: string;
+                dc?: string | undefined;
             }
 
             interface NodesOptions extends CommonOptions {
                 service: string;
-                dc?: string;
-                tag?: string;
+                dc?: string | undefined;
+                tag?: string | undefined;
             }
         }
-
-
 
         interface Service {
             consul: Consul;
@@ -493,8 +470,8 @@ declare namespace Consul {
                 <TData>(dc: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(dc?: string): Thenable<TData>;
-                <TData>(opts?: Service.ListOptions): Thenable<TData>;
+                <TData>(dc?: string): Promise<TData>;
+                <TData>(opts?: Service.ListOptions): Promise<TData>;
             };
 
             /**
@@ -503,20 +480,20 @@ declare namespace Consul {
             nodes: {
                 <TData>(service: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.NodesOptions, callback: Callback<TData>): void;
-                <TData>(service: string): Thenable<TData>;
-                <TData>(opts: Service.NodesOptions): Thenable<TData>;
+                <TData>(service: string): Promise<TData>;
+                <TData>(opts: Service.NodesOptions): Promise<TData>;
             };
         }
 
         interface ServiceStatic {
-            new (consul: Consul): Service;
+            new(consul: Consul): Service;
         }
 
-        interface DatacentersOptions extends CommonOptions { }
+        interface DatacentersOptions extends CommonOptions {}
 
-        interface NodesOptions extends Node.ListOptions { }
+        interface NodesOptions extends Node.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
     }
 
     interface Catalog {
@@ -530,7 +507,7 @@ declare namespace Consul {
         datacenters: {
             <TData>(opts: Catalog.DatacentersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Catalog.DatacentersOptions): Thenable<TData>;
+            <TData>(opts?: Catalog.DatacentersOptions): Promise<TData>;
         };
 
         /**
@@ -540,8 +517,8 @@ declare namespace Consul {
             <TData>(dc: string, callback: Callback<TData>): void;
             <TData>(opts: Catalog.NodesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(dc?: string): Thenable<TData>;
-            <TData>(opts?: Catalog.NodesOptions): Thenable<TData>;
+            <TData>(dc?: string): Promise<TData>;
+            <TData>(opts?: Catalog.NodesOptions): Promise<TData>;
         };
 
         /**
@@ -551,30 +528,29 @@ declare namespace Consul {
             <TData>(dc: string, callback: Callback<TData>): void;
             <TData>(opts: Catalog.ServicesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(dc?: string): Thenable<TData>;
-            <TData>(opts?: Catalog.ServicesOptions): Thenable<TData>;
+            <TData>(dc?: string): Promise<TData>;
+            <TData>(opts?: Catalog.ServicesOptions): Promise<TData>;
         };
     }
 
     interface CatalogStatic {
-        new (consul: Consul): Catalog;
+        new(consul: Consul): Catalog;
 
         Node: Catalog.NodeStatic;
         Service: Catalog.ServiceStatic;
     }
 
     namespace Event {
-
         interface FireOptions extends CommonOptions {
             name: string;
             payload: string | Buffer;
-            node?: string;
-            service?: string;
-            tag?: string;
+            node?: string | undefined;
+            service?: string | undefined;
+            tag?: string | undefined;
         }
 
         interface ListOptions extends CommonOptions {
-            name?: string;
+            name?: string | undefined;
         }
     }
 
@@ -588,9 +564,9 @@ declare namespace Consul {
             <TData>(name: string, payload: string | Buffer, callback: Callback<TData>): void;
             <TData>(name: string, callback: Callback<TData>): void;
             <TData>(opts: Event.FireOptions, callback: Callback<TData>): void;
-            <TData>(name: string, payload: string | Buffer): Thenable<TData>;
-            <TData>(name: string): Thenable<TData>;
-            <TData>(opts: Event.FireOptions): Thenable<TData>;
+            <TData>(name: string, payload: string | Buffer): Promise<TData>;
+            <TData>(name: string): Promise<TData>;
+            <TData>(opts: Event.FireOptions): Promise<TData>;
         };
 
         /**
@@ -600,38 +576,37 @@ declare namespace Consul {
             <TData>(name: string, callback: Callback<TData>): void;
             <TData>(opts: Event.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(name?: string): Thenable<TData>;
-            <TData>(opts?: Event.ListOptions): Thenable<TData>;
+            <TData>(name?: string): Promise<TData>;
+            <TData>(opts?: Event.ListOptions): Promise<TData>;
         };
     }
 
     interface EventStatic {
-        new (consul: Consul): Event;
+        new(consul: Consul): Event;
     }
 
     namespace Health {
-
         interface NodeOptions extends CommonOptions {
             node: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ChecksOptions extends CommonOptions {
             service: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ServiceOptions extends CommonOptions {
             service: string;
-            dc?: string;
-            tag?: string;
-            passing?: boolean;
-            near?: string;
+            dc?: string | undefined;
+            tag?: string | undefined;
+            passing?: boolean | undefined;
+            near?: string | undefined;
         }
 
         interface StateOptions extends CommonOptions {
             state: string;
-            dc?: string;
+            dc?: string | undefined;
         }
     }
 
@@ -644,8 +619,8 @@ declare namespace Consul {
         node: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Health.NodeOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Health.NodeOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Health.NodeOptions): Promise<TData>;
         };
 
         /**
@@ -654,8 +629,8 @@ declare namespace Consul {
         checks: {
             <TData>(service: string, callback: Callback<TData>): void;
             <TData>(opts: Health.ChecksOptions, callback: Callback<TData>): void;
-            <TData>(service: string): Thenable<TData>;
-            <TData>(opts: Health.ChecksOptions): Thenable<TData>;
+            <TData>(service: string): Promise<TData>;
+            <TData>(opts: Health.ChecksOptions): Promise<TData>;
         };
 
         /**
@@ -664,8 +639,8 @@ declare namespace Consul {
         service: {
             <TData>(service: string, callback: Callback<TData>): void;
             <TData>(opts: Health.ServiceOptions, callback: Callback<TData>): void;
-            <TData>(service: string): Thenable<TData>;
-            <TData>(opts: Health.ServiceOptions): Thenable<TData>;
+            <TData>(service: string): Promise<TData>;
+            <TData>(opts: Health.ServiceOptions): Promise<TData>;
         };
 
         /**
@@ -674,51 +649,50 @@ declare namespace Consul {
         state: {
             <TData>(state: string, callback: Callback<TData>): void;
             <TData>(opts: Health.StateOptions, callback: Callback<TData>): void;
-            <TData>(state: string): Thenable<TData>;
-            <TData>(opts: Health.StateOptions): Thenable<TData>;
+            <TData>(state: string): Promise<TData>;
+            <TData>(opts: Health.StateOptions): Promise<TData>;
         };
     }
 
     interface HealthStatic {
-        new (consul: Consul): Health;
+        new(consul: Consul): Health;
     }
 
     namespace Kv {
-
         interface GetOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            recurse?: boolean;
-            index?: string;
-            wait?: string;
-            raw?: boolean;
-            buffer?: boolean;
+            dc?: string | undefined;
+            recurse?: boolean | undefined;
+            index?: string | undefined;
+            wait?: string | undefined;
+            raw?: boolean | undefined;
+            buffer?: boolean | undefined;
         }
 
         interface KeysOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            separator?: string;
+            dc?: string | undefined;
+            separator?: string | undefined;
         }
 
         interface SetOptions extends CommonOptions {
             key: string;
             value: string | Buffer;
-            dc?: string;
-            flags?: number;
-            cas?: string;
-            acquire?: string;
-            release?: string;
+            dc?: string | undefined;
+            flags?: number | undefined;
+            cas?: string | undefined;
+            acquire?: string | undefined;
+            release?: string | undefined;
         }
 
         interface DelOptions extends CommonOptions {
             key: string;
-            dc?: string;
-            recurse?: boolean;
-            cas?: string;
+            dc?: string | undefined;
+            recurse?: boolean | undefined;
+            cas?: string | undefined;
         }
 
-        interface DeleteOptions extends DelOptions { }
+        interface DeleteOptions extends DelOptions {}
     }
 
     interface Kv {
@@ -730,8 +704,8 @@ declare namespace Consul {
         get: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.GetOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.GetOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.GetOptions): Promise<TData>;
         };
 
         /**
@@ -741,8 +715,8 @@ declare namespace Consul {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.KeysOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(key?: string): Thenable<TData>;
-            <TData>(opts?: Kv.KeysOptions): Thenable<TData>;
+            <TData>(key?: string): Promise<TData>;
+            <TData>(opts?: Kv.KeysOptions): Promise<TData>;
         };
 
         /**
@@ -752,9 +726,9 @@ declare namespace Consul {
             <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions, callback: Callback<TData>): void;
             <TData>(key: string, value: string | Buffer, callback: Callback<TData>): void;
             <TData>(opts: Kv.SetOptions, callback: Callback<TData>): void;
-            <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions): Thenable<TData>;
-            <TData>(key: string, value: string | Buffer): Thenable<TData>;
-            <TData>(opts: Kv.SetOptions): Thenable<TData>;
+            <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions): Promise<TData>;
+            <TData>(key: string, value: string | Buffer): Promise<TData>;
+            <TData>(opts: Kv.SetOptions): Promise<TData>;
         };
 
         /**
@@ -763,29 +737,28 @@ declare namespace Consul {
         del: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.DelOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.DelOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.DelOptions): Promise<TData>;
         };
         delete: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.DeleteOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.DeleteOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.DeleteOptions): Promise<TData>;
         };
     }
 
     interface KvStatic {
-        new (consul: Consul): Kv;
+        new(consul: Consul): Kv;
     }
 
     namespace Lock {
-
         interface Options {
             key: string;
-            session?: Object | string;
-            value?: string | Buffer;
-            lockwaittime?: string;
-            lockretrytime?: string;
+            session?: Object | string | undefined;
+            value?: string | Buffer | undefined;
+            lockwaittime?: string | undefined;
+            lockretrytime?: string | undefined;
         }
     }
 
@@ -804,48 +777,46 @@ declare namespace Consul {
     }
 
     interface LockStatic {
-        new (consul: Consul, opts: Lock.Options): Lock;
+        new(consul: Consul, opts: Lock.Options): Lock;
     }
 
     namespace Session {
-
         interface CreateOptions extends CommonOptions {
-            dc?: string;
-            lockdelay?: string;
-            name?: string;
-            node?: string;
-            checks?: string[];
-            behavior?: string;
-            ttl?: string;
+            dc?: string | undefined;
+            lockdelay?: string | undefined;
+            name?: string | undefined;
+            node?: string | undefined;
+            checks?: string[] | undefined;
+            behavior?: string | undefined;
+            ttl?: string | undefined;
         }
 
         interface DestroyOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface InfoOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface NodeOptions extends CommonOptions {
             node: string;
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface ListOptions extends CommonOptions {
-            dc?: string;
+            dc?: string | undefined;
         }
 
         interface RenewOptions extends CommonOptions {
             id: string;
-            dc?: string;
+            dc?: string | undefined;
         }
     }
-
 
     interface Session {
         consul: Consul;
@@ -856,7 +827,7 @@ declare namespace Consul {
         create: {
             <TData>(opts: Session.CreateOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Session.CreateOptions): Thenable<TData>;
+            <TData>(opts?: Session.CreateOptions): Promise<TData>;
         };
 
         /**
@@ -865,8 +836,8 @@ declare namespace Consul {
         destroy: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.DestroyOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.DestroyOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.DestroyOptions): Promise<TData>;
         };
 
         /**
@@ -875,14 +846,14 @@ declare namespace Consul {
         info: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.InfoOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.InfoOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.InfoOptions): Promise<TData>;
         };
         get: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.GetOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.GetOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.GetOptions): Promise<TData>;
         };
 
         /**
@@ -891,8 +862,8 @@ declare namespace Consul {
         node: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Session.NodeOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Session.NodeOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Session.NodeOptions): Promise<TData>;
         };
 
         /**
@@ -901,7 +872,7 @@ declare namespace Consul {
         list: {
             <TData>(opts: Session.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Session.ListOptions): Thenable<TData>;
+            <TData>(opts?: Session.ListOptions): Promise<TData>;
         };
 
         /**
@@ -910,20 +881,19 @@ declare namespace Consul {
         renew: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.RenewOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.RenewOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.RenewOptions): Promise<TData>;
         };
     }
 
     interface SessionStatic {
-        new (consul: Consul): Session;
+        new(consul: Consul): Session;
     }
 
     namespace Status {
+        interface LeaderOptions extends CommonOptions {}
 
-        interface LeaderOptions extends CommonOptions { }
-
-        interface PeersOptions extends CommonOptions { }
+        interface PeersOptions extends CommonOptions {}
     }
 
     interface Status {
@@ -935,7 +905,7 @@ declare namespace Consul {
         leader: {
             <TData>(opts: Status.LeaderOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Status.LeaderOptions): Thenable<TData>;
+            <TData>(opts?: Status.LeaderOptions): Promise<TData>;
         };
 
         /**
@@ -944,26 +914,25 @@ declare namespace Consul {
         peers: {
             <TData>(opts: Status.PeersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Status.PeersOptions): Thenable<TData>;
+            <TData>(opts?: Status.PeersOptions): Promise<TData>;
         };
     }
 
     interface StatusStatic {
-        new (consul: Consul): Status;
+        new(consul: Consul): Status;
     }
 
     namespace Watch {
-        
         interface WatchOptions {
-            key?: string;
+            key?: string | undefined;
         }
 
         interface Options {
             method: Function;
-            options?: CommonOptions & WatchOptions;
-            backoffFactor?: number;
-            backoffMax?: number;
-            maxAttempts?: number;
+            options?: CommonOptions & WatchOptions | undefined;
+            backoffFactor?: number | undefined;
+            backoffMax?: number | undefined;
+            maxAttempts?: number | undefined;
         }
     }
 
@@ -987,16 +956,16 @@ declare namespace Consul {
     }
 
     interface WatchStatic {
-        new (consul: Consul, opts: Watch.Options): Watch;
+        new(consul: Consul, opts: Watch.Options): Watch;
     }
 
     interface ConsulOptions {
-        host?: string;
-        port?: string;
-        secure?: boolean;
-        ca?: string[];
-        defaults?: CommonOptions;
-        promisify?: boolean | Function;
+        host?: string | undefined;
+        port?: string | undefined;
+        secure?: boolean | undefined;
+        ca?: string[] | undefined;
+        defaults?: CommonOptions | undefined;
+        promisify?: boolean | Function | undefined;
     }
 
     interface Consul {
@@ -1022,7 +991,7 @@ declare namespace Consul {
 
     interface ConsulStatic {
         (opts?: ConsulOptions): Consul;
-        new (opts?: ConsulOptions): Consul;
+        new(opts?: ConsulOptions): Consul;
 
         Acl: AclStatic;
         Agent: AgentStatic;

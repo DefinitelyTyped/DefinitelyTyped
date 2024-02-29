@@ -1,12 +1,3 @@
-// Type definitions for Emscripten 1.39.16
-// Project: https://emscripten.org
-// Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
-//                 Periklis Tsirakidis <https://github.com/periklis>
-//                 Bumsik Kim <https://github.com/kbumsik>
-//                 Louis DeScioli <https://github.com/lourd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
     interface Module {}
@@ -14,14 +5,14 @@ declare namespace WebAssembly {
 
 declare namespace Emscripten {
     interface FileSystemType {}
-    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
+    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
-    type JSType = 'number' | 'string' | 'array' | 'boolean';
+    type JSType = "number" | "string" | "array" | "boolean";
     type TypeCompatibleWithC = number | string | any[] | boolean;
 
-    type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
-    type CFloatType = 'float' | 'double';
-    type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
+    type CIntType = "i8" | "i16" | "i32" | "i64";
+    type CFloatType = "float" | "double";
+    type CPointerType = "i8*" | "i16*" | "i32*" | "i64*" | "float*" | "double*" | "*";
     type CType = CIntType | CFloatType | CPointerType;
 
     type WebAssemblyImports = Array<{
@@ -36,7 +27,7 @@ declare namespace Emscripten {
     }>;
 
     interface CCallOpts {
-        async?: boolean;
+        async?: boolean | undefined;
     }
 }
 
@@ -80,6 +71,8 @@ interface EmscriptenModule {
     HEAPU32: Uint32Array;
     HEAPF32: Float32Array;
     HEAPF64: Float64Array;
+    HEAP64: BigInt64Array;
+    HEAPU64: BigUint64Array;
 
     TOTAL_STACK: number;
     TOTAL_MEMORY: number;
@@ -205,10 +198,10 @@ declare namespace FS {
         flags: number,
     ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts: { encoding: 'binary'; flags?: string }): Uint8Array;
-    function readFile(path: string, opts: { encoding: 'utf8'; flags?: string }): string;
-    function readFile(path: string, opts?: { flags?: string }): Uint8Array;
-    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
+    function readFile(path: string, opts: { encoding: "binary"; flags?: string | undefined }): Uint8Array;
+    function readFile(path: string, opts: { encoding: "utf8"; flags?: string | undefined }): string;
+    function readFile(path: string, opts?: { flags?: string | undefined }): Uint8Array;
+    function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string | undefined }): void;
 
     //
     // module-level FS code
@@ -253,6 +246,26 @@ declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
+// https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html
+type StringToType<R extends any> = R extends Emscripten.JSType ? {
+        number: number;
+        string: string;
+        array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
+        boolean: boolean;
+        null: null;
+    }[R]
+    : never;
+
+type ArgsToType<T extends Array<Emscripten.JSType | null>> = Extract<
+    {
+        [P in keyof T]: StringToType<T[P]>;
+    },
+    any[]
+>;
+
+type ReturnToType<R extends Emscripten.JSType | null> = R extends null ? null
+    : StringToType<Exclude<R, null>>;
+
 // Below runtime function/variable declarations are exportable by
 // -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
 // EmscriptenModule interface to add runtime functions.
@@ -267,19 +280,26 @@ declare var IDBFS: Emscripten.FileSystemType;
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function ccall(
+declare function cwrap<
+    I extends Array<Emscripten.JSType | null> | [],
+    R extends Emscripten.JSType | null,
+>(
     ident: string,
-    returnType: Emscripten.JSType | null,
-    argTypes: Emscripten.JSType[],
-    args: Emscripten.TypeCompatibleWithC[],
+    returnType: R,
+    argTypes: I,
     opts?: Emscripten.CCallOpts,
-): any;
-declare function cwrap(
+): (...arg: ArgsToType<I>) => ReturnToType<R>;
+
+declare function ccall<
+    I extends Array<Emscripten.JSType | null> | [],
+    R extends Emscripten.JSType | null,
+>(
     ident: string,
-    returnType: Emscripten.JSType | null,
-    argTypes: Emscripten.JSType[],
+    returnType: R,
+    argTypes: I,
+    args: ArgsToType<I>,
     opts?: Emscripten.CCallOpts,
-): (...args: any[]) => any;
+): ReturnToType<R>;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
 declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;

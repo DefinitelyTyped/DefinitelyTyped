@@ -65,9 +65,9 @@ declare namespace jsrsasign.KJUR.crypto {
      */
     class Signature {
         /** Current state of this signature object whether 'SIGN', 'VERIFY' or null */
-        static readonly state: 'SIGN' | 'VERIFY' | null;
+        static readonly state: "SIGN" | "VERIFY" | null;
 
-        constructor(params?: { alg?: string });
+        constructor(params?: { alg?: string | undefined });
 
         /**
          * set signature algorithm and provider

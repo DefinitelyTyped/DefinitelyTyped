@@ -1,9 +1,3 @@
-// Type definitions for business-rules-engine v1.0.20
-// Project: https://github.com/rsamec/form
-// Definitions by: Roman Samec <https://github.com/rsamec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Q from "q";
 
 export interface IErrorCustomMessage {
@@ -11,17 +5,17 @@ export interface IErrorCustomMessage {
 }
 export interface IPropertyValidator {
     isAcceptable(s: any): boolean;
-    customMessage?: IErrorCustomMessage;
-    tagName?: string;
+    customMessage?: IErrorCustomMessage | undefined;
+    tagName?: string | undefined;
 }
 export interface IStringValidator extends IPropertyValidator {
     isAcceptable(s: string): boolean;
 }
 export interface IAsyncPropertyValidator {
     isAcceptable(s: any): Q.Promise<boolean>;
-    customMessage?: IErrorCustomMessage;
+    customMessage?: IErrorCustomMessage | undefined;
     isAsync: boolean;
-    tagName?: string;
+    tagName?: string | undefined;
 }
 export interface IAsyncStringPropertyValidator extends IAsyncPropertyValidator {
     isAcceptable(s: string): Q.Promise<boolean>;
@@ -37,12 +31,12 @@ export enum CompareOperator {
 export interface IError {
     HasError: boolean;
     ErrorMessage: string;
-    TranslateArgs?: IErrorTranslateArgs;
+    TranslateArgs?: IErrorTranslateArgs | undefined;
 }
 export interface IErrorTranslateArgs {
     TranslateId: string;
     MessageArgs: any;
-    CustomMessage?: IErrorCustomMessage;
+    CustomMessage?: IErrorCustomMessage | undefined;
 }
 export interface IOptional {
     (): boolean;
@@ -60,8 +54,8 @@ export interface IValidationResult {
     HasErrorsDirty: boolean;
     ErrorMessage: string;
     ErrorCount: number;
-    Optional?: IOptional;
-    TranslateArgs?: IErrorTranslateArgs[];
+    Optional?: IOptional | undefined;
+    TranslateArgs?: IErrorTranslateArgs[] | undefined;
 }
 export interface IValidate {
     (args: IError): void;
@@ -71,8 +65,8 @@ export interface IAsyncValidate {
 }
 export interface IValidatorFce {
     Name: string;
-    ValidationFce?: IValidate;
-    AsyncValidationFce?: IAsyncValidate;
+    ValidationFce?: IValidate | undefined;
+    AsyncValidationFce?: IAsyncValidate | undefined;
 }
 export interface IValidator {
     Validate(context: any): IValidationFailure;
@@ -126,23 +120,23 @@ export class ValidationFailure implements IError {
     public Error: IError;
     public IsAsync: boolean;
     constructor(Error: IError, IsAsync: boolean);
-    public HasError : boolean;
-    public ErrorMessage : string;
-    public TranslateArgs : IErrorTranslateArgs;
+    public HasError: boolean;
+    public ErrorMessage: string;
+    public TranslateArgs: IErrorTranslateArgs;
 }
 export class ValidationResult implements IValidationResult {
     public Name: string;
     constructor(Name: string);
     public IsDirty: boolean;
-    public Children : IValidationResult[];
+    public Children: IValidationResult[];
     public Add(error: IValidationResult): void;
     public Remove(index: number): void;
     public Optional: IOptional;
     public TranslateArgs: IErrorTranslateArgs[];
-    public HasErrorsDirty : boolean;
-    public HasErrors : boolean;
-    public ErrorCount : number;
-    public ErrorMessage : string;
+    public HasErrorsDirty: boolean;
+    public HasErrors: boolean;
+    public ErrorCount: number;
+    public ErrorMessage: string;
 }
 export class CompositeValidationResult implements IValidationResult {
     public Name: string;
@@ -152,13 +146,13 @@ export class CompositeValidationResult implements IValidationResult {
     public AddFirst(error: IValidationResult): void;
     public Add(error: IValidationResult): void;
     public Remove(index: number): void;
-    public HasErrorsDirty : boolean;
-    public HasErrors : boolean;
-    public ErrorCount : number;
-    public ErrorMessage : string;
-    public TranslateArgs : IErrorTranslateArgs[];
+    public HasErrorsDirty: boolean;
+    public HasErrors: boolean;
+    public ErrorCount: number;
+    public ErrorMessage: string;
+    public TranslateArgs: IErrorTranslateArgs[];
     public LogErrors(headerMessage?: string): void;
-    public Errors : {
+    public Errors: {
         [name: string]: IValidationResult;
     };
     private FlattenErros;

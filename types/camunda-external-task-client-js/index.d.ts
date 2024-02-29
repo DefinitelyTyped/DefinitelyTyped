@@ -1,10 +1,3 @@
-// Type definitions for camunda-external-task-client-js 1.3
-// Project: https://github.com/camunda/camunda-external-task-client-js#readme
-// Definitions by: MacRusher <https://github.com/MacRusher>
-//                 DoYoung Ha <https://github.com/hados99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export class Client {
     constructor(config: ClientConfig);
     start(): void;
@@ -22,15 +15,15 @@ export class Client {
 
 export interface ClientConfig {
     baseUrl: string;
-    workerId?: string;
-    maxTasks?: number;
-    maxParallelExecutions?: number;
-    interval?: number;
-    lockDuration?: number;
-    autoPoll?: boolean;
-    asyncResponseTimeout?: number;
-    interceptors?: Interceptor | Interceptor[];
-    use?: Middleware | Middleware[];
+    workerId?: string | undefined;
+    maxTasks?: number | undefined;
+    maxParallelExecutions?: number | undefined;
+    interval?: number | undefined;
+    lockDuration?: number | undefined;
+    autoPoll?: boolean | undefined;
+    asyncResponseTimeout?: number | undefined;
+    interceptors?: Interceptor | Interceptor[] | BasicAuthInterceptor | BasicAuthInterceptor[] | undefined | null;
+    use?: Middleware | Middleware[] | undefined;
 }
 
 export interface ValueMap {
@@ -63,22 +56,22 @@ export interface Task {
     variables: Variables;
 
     // These are not guaranteed by package documentation, but are returned according to REST API docs
-    activityId?: string;
-    activityInstanceId?: string;
-    businessKey?: string;
-    errorDetails?: string;
-    errorMessage?: string;
-    executionId?: string;
-    id?: string;
-    lockExpirationTime?: string;
-    priority?: number;
-    processDefinitionId?: string;
-    processDefinitionKey?: string;
-    processInstanceId?: string;
-    retries?: number;
-    tenantId?: string;
-    topicName?: string;
-    workerId?: string;
+    activityId?: string | undefined;
+    activityInstanceId?: string | undefined;
+    businessKey?: string | undefined;
+    errorDetails?: string | undefined;
+    errorMessage?: string | undefined;
+    executionId?: string | undefined;
+    id?: string | undefined;
+    lockExpirationTime?: string | undefined;
+    priority?: number | undefined;
+    processDefinitionId?: string | undefined;
+    processDefinitionKey?: string | undefined;
+    processInstanceId?: string | undefined;
+    retries?: number | undefined;
+    tenantId?: string | undefined;
+    topicName?: string | undefined;
+    workerId?: string | undefined;
 }
 
 export type Value = any;
@@ -97,24 +90,35 @@ export interface TaskService {
     unlock(task: Task): Promise<void>;
 }
 
+export interface BasicAuthInterceptorConfig {
+    username: string;
+    password: string;
+}
+
+export class BasicAuthInterceptor {
+    constructor(options: BasicAuthInterceptorConfig);
+    getHeader({ username, password }: { username: string; password: string }): { Authorization: string };
+    interceptor(config: any): any;
+}
+
 export interface HandleFailureOptions {
-    errorMessage?: string;
-    errorDetails?: string;
-    retries?: number;
-    retryTimeout?: number;
+    errorMessage?: string | undefined;
+    errorDetails?: string | undefined;
+    retries?: number | undefined;
+    retryTimeout?: number | undefined;
 }
 
 export interface SubscribeOptions {
-    lockDuration?: number;
-    variables?: any[];
-    businessKey?: string;
-    processDefinitionId?: string;
-    processDefinitionIdIn?: string;
-    processDefinitionKey?: string;
-    processDefinitionKeyIn?: string;
-    processDefinitionVersionTag?: string;
-    withoutTenantId?: boolean;
-    tenantIdIn?: string[];
+    lockDuration?: number | undefined;
+    variables?: any[] | undefined;
+    businessKey?: string | undefined;
+    processDefinitionId?: string | undefined;
+    processDefinitionIdIn?: string | undefined;
+    processDefinitionKey?: string | undefined;
+    processDefinitionKeyIn?: string | undefined;
+    processDefinitionVersionTag?: string | undefined;
+    withoutTenantId?: boolean | undefined;
+    tenantIdIn?: string[] | undefined;
 }
 
 export interface TopicSubscription {
@@ -133,7 +137,12 @@ export type Logger = Middleware & {
 export type TopicEvent = "subscribe" | "unsubscribe";
 export type PollEvent = "poll:start" | "poll:stop";
 export type SuccessWithTasksEvent = "poll:success";
-export type SuccessWithTaskEvent = "complete:success" | "handleFailure:success" | "handleBpmnError:success" | "extendLock:success" | "unlock:success";
+export type SuccessWithTaskEvent =
+    | "complete:success"
+    | "handleFailure:success"
+    | "handleBpmnError:success"
+    | "extendLock:success"
+    | "unlock:success";
 export type ErrorWithTaskEvent = "handleFailure:error" | "handleBpmnError:error" | "extendLock:error" | "unlock:error";
 export type ErrorEvent = "poll:error" | "complete:error";
 

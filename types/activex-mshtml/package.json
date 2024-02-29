@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/activex-mshtml",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft HTML Object Library - MSHTML",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/aa741317(v=vs.85).aspx"
+    ],
     "dependencies": {
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-mshtml": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

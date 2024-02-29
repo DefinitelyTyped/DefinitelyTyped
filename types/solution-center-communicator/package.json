@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/solution-center-communicator",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/zalando-incubator/solution-center-communicator"
+    ],
+    "devDependencies": {
+        "@types/solution-center-communicator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Damián García",
+            "githubUsername": "dami-gg"
+        }
+    ]
+}

@@ -1,15 +1,17 @@
-import { TemplateArray } from '@wordpress/blocks';
-import { ComponentType } from 'react';
+import { TemplateArray } from "@wordpress/blocks";
+import { ComponentType, JSX, Ref } from "react";
 
-import { EditorTemplateLock } from '../';
+import { EditorTemplateLock } from "../";
+
+import { Merged, Reserved } from "./use-block-props";
 
 declare namespace InnerBlocks {
     interface Props {
-        allowedBlocks?: string[];
+        allowedBlocks?: string[] | undefined;
         /**
          * A 'render prop' function that can be used to customize the block's appender.
          */
-        renderAppender?: ComponentType;
+        renderAppender?: ComponentType | undefined;
         /**
          * The template is defined as a list of block items. Such blocks can have predefined
          * attributes, placeholder, content, etc. Block templates allow specifying a default initial
@@ -17,13 +19,13 @@ declare namespace InnerBlocks {
          *
          * See {@link https://github.com/WordPress/gutenberg/blob/master/docs/designers-developers/developers/block-api/block-templates.md }
          */
-        template?: TemplateArray;
+        template?: TemplateArray | undefined;
         /**
          * If `true` when child blocks in the template are inserted the selection is updated.
          * If `false` the selection should not be updated when child blocks specified in the template are inserted.
          * @defaultValue true
          */
-        templateInsertUpdatesSelection?: boolean;
+        templateInsertUpdatesSelection?: boolean | undefined;
         /**
          * Template locking allows locking the `InnerBlocks` area for the current template.
          *
@@ -35,22 +37,33 @@ declare namespace InnerBlocks {
          *
          * If the block is a top level block: the locking of the Custom Post Type is used.
          */
-        templateLock?: EditorTemplateLock;
+        templateLock?: EditorTemplateLock | undefined;
     }
 }
 declare const InnerBlocks: {
     (props: InnerBlocks.Props): JSX.Element;
-    Content: ComponentType<{ children?: never }>;
+    Content: ComponentType<{ children?: never | undefined }>;
     /**
      * display a `+` (plus) icon button that, when clicked, displays the block picker menu. No
      * default Block is inserted.
      */
-    ButtonBlockerAppender: ComponentType<{ children?: never }>;
+    ButtonBlockAppender: ComponentType<{ children?: never | undefined }>;
     /**
      * display the default block appender as set by `wp.blocks.setDefaultBlockName`. Typically this
      * is the `paragraph` block.
      */
-    DefaultBlockAppender: ComponentType<{ children?: never }>;
+    DefaultBlockAppender: ComponentType<{ children?: never | undefined }>;
 };
+
+export interface UseInnerBlocksProps {
+    <Props extends Record<string, unknown>>(
+        props?: Props & { ref?: Ref<unknown> },
+        options?: InnerBlocks.Props,
+    ): Omit<Props, "ref"> & Merged & Reserved;
+
+    save: (props?: Record<string, unknown>) => Record<string, unknown>;
+}
+
+export const useInnerBlocksProps: UseInnerBlocksProps;
 
 export default InnerBlocks;

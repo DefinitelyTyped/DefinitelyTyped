@@ -1,10 +1,14 @@
-import { OperationType, CacheConfig } from '../util/RelayRuntimeTypes';
-import { Environment } from '../store/RelayStoreTypes';
-import { GraphQLTaggedNode } from './RelayModernGraphQLTag';
+import { RelayObservable } from "../network/RelayObservable";
+import { Environment } from "../store/RelayStoreTypes";
+import { CacheConfig, FetchQueryFetchPolicy, OperationType } from "../util/RelayRuntimeTypes";
+import { GraphQLTaggedNode } from "./RelayModernGraphQLTag";
 
 export function fetchQuery<T extends OperationType>(
     environment: Environment,
     taggedNode: GraphQLTaggedNode,
-    variables: T['variables'],
-    cacheConfig?: CacheConfig | null,
-): Promise<T['response']>;
+    variables: T["variables"],
+    cacheConfig?: {
+        networkCacheConfig?: CacheConfig | null | undefined;
+        fetchPolicy?: FetchQueryFetchPolicy | null | undefined;
+    } | null,
+): RelayObservable<T["response"]>;

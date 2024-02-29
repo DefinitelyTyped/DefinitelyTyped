@@ -1,16 +1,11 @@
-// Type definitions for identicon.js 2.3
-// Project: https://github.com/stewartlord/identicon.js
-// Definitions by: D0miH <https://github.com/D0miH>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Color = [number, number, number, number];
 
 export interface IdenticonOptions {
-    background?: Color;
-    foreground?: Color;
-    margin?: number;
-    size?: number;
-    format?: "svg" | "png";
+    background?: Color | undefined;
+    foreground?: Color | undefined;
+    margin?: number | undefined;
+    size?: number | undefined;
+    format?: "svg" | "png" | undefined;
 }
 
 export interface PNGlib {
@@ -47,7 +42,7 @@ export interface Svg {
             width: number;
             height: number;
             color: Color;
-        }
+        },
     ];
 
     /**
@@ -106,7 +101,7 @@ export default class Identicon {
         w: number,
         h: number,
         color: Color,
-        image: Svg | PNGlib
+        image: Svg | PNGlib,
     ): void;
 
     /**

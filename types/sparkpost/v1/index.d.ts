@@ -1,11 +1,5 @@
-// Type definitions for sparkpost v1.3
-// Project: https://github.com/SparkPost/node-sparkpost
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Request from "request";
 import * as Http from "http";
+import * as Request from "request";
 
 declare class SparkPost {
     /** Specifying an inbound domain enables you to customize the address to which inbound messages are sent. */
@@ -41,7 +35,10 @@ declare class SparkPost {
          * @param parameters Query parameters
          * @param callback The request callback with MessageEvent results array
          */
-        search(parameters: SparkPost.MessageEventParameters, callback: SparkPost.ResultsCallback<SparkPost.MessageEvent[]>): void;
+        search(
+            parameters: SparkPost.MessageEventParameters,
+            callback: SparkPost.ResultsCallback<SparkPost.MessageEvent[]>,
+        ): void;
     };
     /** A recipient list is a collection of recipients that can be used in a transmission. */
     recipientLists: {
@@ -57,14 +54,20 @@ declare class SparkPost {
          * @param options The find options
          * @param callback The request callback with RecipientList results
          */
-        find(options: { id: string, show_recipients?: false }, callback: SparkPost.Callback<SparkPost.RecipientList>): void;
+        find(
+            options: { id: string; show_recipients?: false | undefined },
+            callback: SparkPost.Callback<SparkPost.RecipientList>,
+        ): void;
         /**
          * Retrieve details about a specified recipient list by specifying its id in the URI path.
          * To retrieve the recipients contained in a list, the show_recipients parameter must be set to true.
          * @param options The find options
          * @param callback The request callback with RecipientList results (with recipients)
          */
-        find(options: { id: string, show_recipients: true }, callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>): void;
+        find(
+            options: { id: string; show_recipients: true },
+            callback: SparkPost.Callback<SparkPost.RecipientListWithRecipients>,
+        ): void;
         /**
          * Create a recipient list by providing a recipient list object as the POST request body.
          * At a minimum, the “recipients” array is required, which must contain a valid “address”.
@@ -73,14 +76,20 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with metadata results
          */
-        create(options: SparkPost.CreateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        create(
+            options: SparkPost.CreateRecipientList,
+            callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>,
+        ): void;
         /**
          * Update an existing recipient list by specifying its ID in the URI path and use a recipient list object as the PUT request body.
          * Use the num_rcpt_errors parameter to limit the number of recipient errors returned.
          * @param options The update options
          * @param callback The request callback with metadata results
          */
-        update(options: SparkPost.UpdateRecipientList, callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>): void;
+        update(
+            options: SparkPost.UpdateRecipientList,
+            callback: SparkPost.ResultsCallback<SparkPost.RecipientListMetadata>,
+        ): void;
         /**
          * Permanently delete the specified recipient list.
          * @param id The list id
@@ -112,7 +121,10 @@ declare class SparkPost {
          * @param options The update options
          * @param callback The request callback with webhook id results
          */
-        update(options: SparkPost.UpdateRelayWebhook & { relayWebhookId: string }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        update(
+            options: SparkPost.UpdateRelayWebhook & { relayWebhookId: string },
+            callback: SparkPost.ResultsCallback<{ id: string }>,
+        ): void;
         /**
          * Delete a relay webhook by specifying the webhook ID in the URI path.
          * @param relayWebhookId The webhook id
@@ -137,13 +149,19 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with basic info results
          */
-        create(options: SparkPost.CreateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        create(
+            options: SparkPost.CreateSendingDomain,
+            callback: SparkPost.ResultsCallback<{ message: string; domain: string }>,
+        ): void;
         /**
          * Update the attributes of an existing sending domain by specifying its domain name in the URI path and use a sending domain object as the PUT request body.
          * @param options The update options
          * @param callback The request callback with basic info results
          */
-        update(options: SparkPost.UpdateSendingDomain, callback: SparkPost.ResultsCallback<{ message: string, domain: string }>): void;
+        update(
+            options: SparkPost.UpdateSendingDomain,
+            callback: SparkPost.ResultsCallback<{ message: string; domain: string }>,
+        ): void;
         /**
          * Delete an existing sending domain.
          * @param domain The domain
@@ -165,7 +183,6 @@ declare class SparkPost {
          */
         all(callback: SparkPost.ResultsCallback<SparkPost.SubaccountInformation[]>): void;
         /**
-         *
          * @param subaccountId The webhook id
          * @param callback The request callback with subaccount information results
          */
@@ -175,7 +192,10 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with basic subaccount information results
          */
-        create(options: SparkPost.CreateSubaccount, callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>): void;
+        create(
+            options: SparkPost.CreateSubaccount,
+            callback: SparkPost.ResultsCallback<SparkPost.CreateSubaccountResponse>,
+        ): void;
         /**
          * Update an existing subaccount’s information.
          * @param options The create options
@@ -189,7 +209,10 @@ declare class SparkPost {
          * @param parameters Object of search parameters
          * @param callback The request callback with RelayWebhook results
          */
-        search(parameters: SparkPost.SupressionSearch, callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>): void;
+        search(
+            parameters: SparkPost.SupressionSearch,
+            callback: SparkPost.ResultsCallback<SparkPost.SupressionListEntry[]>,
+        ): void;
         /**
          * Retrieve the suppression status for a specific recipient by specifying the recipient’s email address in the URI path.
          * @param email Email address to check
@@ -207,7 +230,10 @@ declare class SparkPost {
          * @param parameters The suppression entry list
          * @param callback The request callback
          */
-        upsert(parameters: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[], callback: SparkPost.ResultsCallback<{ message: string }>): void;
+        upsert(
+            parameters: SparkPost.CreateSupressionListEntry | SparkPost.CreateSupressionListEntry[],
+            callback: SparkPost.ResultsCallback<{ message: string }>,
+        ): void;
     };
     templates: {
         /**
@@ -220,22 +246,28 @@ declare class SparkPost {
          * @param options The id and draft status information
          * @param callback The request callback with Template results
          */
-        find(options: { id: string, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.Template>): void;
+        find(
+            options: { id: string; draft?: boolean | undefined },
+            callback: SparkPost.ResultsCallback<SparkPost.Template>,
+        ): void;
         /**
          * Create a new template
          * @param options The create options
          * @param callback The request callback with template id results
          */
-        create(options: { template: SparkPost.CreateTemplate }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        create(
+            options: { template: SparkPost.CreateTemplate },
+            callback: SparkPost.ResultsCallback<{ id: string }>,
+        ): void;
         /**
          * Update an existing template
          * @param options The create options
          * @param callback The request callback with template id results
          */
         update(options: {
-            id: string,
-            template: SparkPost.UpdateTemplate,
-            update_published?: boolean;
+            id: string;
+            template: SparkPost.UpdateTemplate;
+            update_published?: boolean | undefined;
         }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
         /**
          * Delete an existing template
@@ -248,7 +280,10 @@ declare class SparkPost {
          * @param options The preview options
          * @param callback The request callback with webhook id results
          */
-        preview(options: { id: string, data: any, draft?: boolean }, callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>): void;
+        preview(
+            options: { id: string; data: any; draft?: boolean | undefined },
+            callback: SparkPost.ResultsCallback<SparkPost.TemplateContent>,
+        ): void;
     };
     transmissions: {
         /**
@@ -261,7 +296,10 @@ declare class SparkPost {
          * @param options The search options { campaign_id?, template_id? }
          * @param callback The request callback with Transmission results array
          */
-        all(options: { campaign_id?: string, template_id?: string }, callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>): void;
+        all(
+            options: { campaign_id?: string | undefined; template_id?: string | undefined },
+            callback: SparkPost.ResultsCallback<SparkPost.TransmissionSummary[]>,
+        ): void;
         /**
          * Retrieve the details about a transmission by its ID
          * @param transmissionID The transmission id
@@ -273,11 +311,14 @@ declare class SparkPost {
          * @param options The create options
          * @param callback The request callback with metadata and id results
          */
-        send(options: { transmissionBody: SparkPost.CreateTransmission, num_rcpt_errors?: number }, callback: SparkPost.ResultsCallback<{
-            total_rejected_recipients: number;
-            total_accepted_recipients: number;
-            id: string;
-        }>): void;
+        send(
+            options: { transmissionBody: SparkPost.CreateTransmission; num_rcpt_errors?: number | undefined },
+            callback: SparkPost.ResultsCallback<{
+                total_rejected_recipients: number;
+                total_accepted_recipients: number;
+                id: string;
+            }>,
+        ): void;
     };
     webhooks: {
         /**
@@ -290,25 +331,37 @@ declare class SparkPost {
          * @param options Object containing optional timezone
          * @param callback The request callback with RelayWebhook results array
          */
-        all(options: { timezone?: string }, callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>): void;
+        all(
+            options: { timezone?: string | undefined },
+            callback: SparkPost.ResultsCallback<Array<SparkPost.WebhookLinks & SparkPost.Webhook>>,
+        ): void;
         /**
          * Retrieve details about a specified webhook by its id
          * @param options Object containing id and optional timezone
          * @param callback The request callback with RelayWebhook results
          */
-        describe(options: { id: string, timezone?: string }, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>): void;
+        describe(
+            options: { id: string; timezone?: string | undefined },
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & SparkPost.Webhook>,
+        ): void;
         /**
          * Create a new webhook
          * @param options The create options
          * @param callback The request callback with webhook id results
          */
-        create(options: SparkPost.Webhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        create(
+            options: SparkPost.Webhook,
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>,
+        ): void;
         /**
          * Update an existing webhook
          * @param options The update options
          * @param callback The request callback with webhook id results
          */
-        update(options: SparkPost.UpdateWebhook, callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>): void;
+        update(
+            options: SparkPost.UpdateWebhook,
+            callback: SparkPost.ResultsCallback<SparkPost.WebhookLinks & { id: string }>,
+        ): void;
         /**
          * Delete an existing webhook
          * @param id The webhook id
@@ -320,25 +373,33 @@ declare class SparkPost {
          * @param options The webhook id and message
          * @param callback The request callback with validation results
          */
-        validate(options: { id: string, message: any }, callback: SparkPost.ResultsCallback<{
-            msg: string;
-            response: {
-                status: number;
-                headers: any;
-                body: string;
-            }
-        }>): void;
+        validate(
+            options: { id: string; message: any },
+            callback: SparkPost.ResultsCallback<{
+                msg: string;
+                response: {
+                    status: number;
+                    headers: any;
+                    body: string;
+                };
+            }>,
+        ): void;
         /**
          * Sends an example message event batch from the Webhook API to the target URL
          * @param options The webhook id and optional limit
          * @param callback The request callback with status results
          */
-        getBatchStatus(options: { id: string, limit?: number }, callback: SparkPost.ResultsCallback<{
-            batch_id: string;
-            ts: string;
-            attempts: number;
-            response_code: number;
-        }[]>): void;
+        getBatchStatus(
+            options: { id: string; limit?: number | undefined },
+            callback: SparkPost.ResultsCallback<
+                Array<{
+                    batch_id: string;
+                    ts: string;
+                    attempts: number;
+                    response_code: number;
+                }>
+            >,
+        ): void;
         /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
          * @param callback The request callback containing documentation results
@@ -354,7 +415,7 @@ declare class SparkPost {
          * @param options The optional event name
          * @param callback The request callback containing examples
          */
-        getSamples(options: { events?: string }, callback: SparkPost.Callback<any>): void;
+        getSamples(options: { events?: string | undefined }, callback: SparkPost.Callback<any>): void;
     };
 
     /**
@@ -372,7 +433,6 @@ declare class SparkPost {
 }
 
 declare namespace SparkPost {
-
     export interface ErrorWithDescription {
         message: string;
         code: string;
@@ -390,9 +450,9 @@ declare namespace SparkPost {
     }
 
     export interface ConstructorOptions {
-        origin?: string;
-        endpoint?: string;
-        apiVersion?: string;
+        origin?: string | undefined;
+        endpoint?: string | undefined;
+        apiVersion?: string | undefined;
         headers?: any;
     }
 
@@ -461,37 +521,37 @@ declare namespace SparkPost {
 
     export interface MessageEventParameters {
         /** delimited list of bounce classification codes to search. (See Bounce Classification Codes.) */
-        bounce_classes?: Array<string | number> | string | number;
+        bounce_classes?: Array<string | number> | string | number | undefined;
         /** delimited list of campaign ID’s to search (i.e. the campaign id used during creation of a transmission). */
-        campaign_ids?: string[] | string;
+        campaign_ids?: string[] | string | undefined;
         /** Specifies the delimiter for query parameter lists */
-        delimiter?: string;
+        delimiter?: string | undefined;
         /** delimited list of event types to search. Defaults to all event types. */
-        events?: string[] | string;
+        events?: string[] | string | undefined;
         /** delimited list of friendly from emails to search. */
-        friendly_froms?: string[] | string;
+        friendly_froms?: string[] | string | undefined;
         /** Datetime in format of YYYY-MM-DDTHH:MM. */
-        from?: string;
+        from?: string | undefined;
         /** delimited list of message ID’s to search. */
-        message_ids?: string[] | string;
+        message_ids?: string[] | string | undefined;
         /** The results page number to return. Used with per_page for paging through results. */
-        page?: number;
+        page?: number | undefined;
         /** Number of results to return per page. Must be between 1 and 10,000 (inclusive). */
-        per_page?: number;
+        per_page?: number | undefined;
         /** Bounce/failure/rejection reason that will be matched using a wildcard (e.g., %reason%). */
-        reason?: string[] | string;
+        reason?: string[] | string | undefined;
         /** delimited list of recipients to search. */
-        recipients?: string[] | string;
+        recipients?: string[] | string | undefined;
         /** delimited list of subaccount ID’s to search. */
-        subaccounts?: number[] | number;
+        subaccounts?: number[] | number | undefined;
         /** delimited list of template ID’s to search. */
-        template_ids?: string[] | string;
+        template_ids?: string[] | string | undefined;
         /** Standard timezone identification string. */
-        timezone?: string;
+        timezone?: string | undefined;
         /** Datetime in format of YYYY-MM-DDTHH:MM. */
-        to?: string;
+        to?: string | undefined;
         /** delimited list of transmission ID’s to search (i.e. id generated during creation of a transmission). */
-        transmission_ids?: string[] | string;
+        transmission_ids?: string[] | string | undefined;
     }
 
     export interface RecipientListMetadata {
@@ -520,38 +580,38 @@ declare namespace SparkPost {
 
     export interface CreateRecipientList {
         /** Short, unique, recipient list identifier */
-        id?: string;
+        id?: string | undefined;
         /** Short, pretty/readable recipient list display name, not required to be unique */
-        name?: string;
+        name?: string | undefined;
         /** Detailed description of the recipient list */
-        description?: string;
+        description?: string | undefined;
         /** Recipient list attribute object */
         attributes?: any;
         /** limit the number of recipient errors returned. */
-        num_rcpt_errors?: number;
+        num_rcpt_errors?: number | undefined;
         /** Array of recipient objects */
         recipients: Recipient[];
     }
     export interface UpdateRecipientList {
         /** Short, unique, recipient list identifier */
-        id?: string;
+        id?: string | undefined;
         /** Short, pretty/readable recipient list display name, not required to be unique */
-        name?: string;
+        name?: string | undefined;
         /** Detailed description of the recipient list */
-        description?: string;
+        description?: string | undefined;
         /** Recipient list attribute object */
         attributes?: any;
         /** limit the number of recipient errors returned. */
-        num_rcpt_errors?: number;
+        num_rcpt_errors?: number | undefined;
         /** Array of recipient objects */
-        recipients?: Recipient[];
+        recipients?: Recipient[] | undefined;
     }
 
     export interface BaseRecipient {
         /** SparkPost Enterprise API only. Email to use for envelope FROM. */
-        return_path?: string;
+        return_path?: string | undefined;
         /** Array of text labels associated with a recipient. */
-        tags?: string[];
+        tags?: string[] | undefined;
         /** Key/value pairs associated with a recipient. */
         metadata?: any;
         /** Key/value pairs associated with a recipient that are provided to the substitution engine. */
@@ -566,18 +626,12 @@ declare namespace SparkPost {
          * Address information for a recipient.
          * At a minimum, address or multichannel_addresses is required.
          * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
-         *
-         * @type {(Address | string)}
-         * @memberOf RecipientWithMultichannelAddresses
          */
-        address?: Address | string;
+        address?: Address | string | undefined;
         /**
          * Array of Multichannel Address objects for a recipient.
          * At a minimum, address or multichannel_addresses is required.
          * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
-         *
-         * @type {MultichannelAddress[]}
-         * @memberOf RecipientWithMultichannelAddresses
          */
         multichannel_addresses: MultichannelAddress[];
     }
@@ -587,9 +641,9 @@ declare namespace SparkPost {
         /** Valid email address */
         email: string;
         /** User-friendly name for the email address */
-        name?: string;
+        name?: string | undefined;
         /** Email address to display in the “To” header instead of address.email (for CC and BCC) */
-        header_to?: string;
+        header_to?: string | undefined;
     }
 
     export interface MultichannelAddress {
@@ -609,33 +663,33 @@ declare namespace SparkPost {
 
     export interface RelayWebhook {
         /** User-friendly name  no  example: Inbound Customer Replies */
-        name?: string;
+        name?: string | undefined;
         /** URL of the target to which to POST relay batches */
         target: string;
         /** Authentication token to present in the X-MessageSystems-Webhook-Token header of POST requests to target */
-        auth_token?: string;
+        auth_token?: string | undefined;
         /** Restrict which inbound messages will be relayed to the target */
         match: Match;
     }
 
     export interface UpdateRelayWebhook {
         /** User-friendly name  no  example: Inbound Customer Replies */
-        name?: string;
+        name?: string | undefined;
         /** URL of the target to which to POST relay batches */
-        target?: string;
+        target?: string | undefined;
         /** Authentication token to present in the X-MessageSystems-Webhook-Token header of POST requests to target */
-        auth_token?: string;
+        auth_token?: string | undefined;
         /** Restrict which inbound messages will be relayed to the target */
-        match?: Match;
+        match?: Match | undefined;
     }
 
     export interface Match {
         /** Inbound messaging protocol associated with this webhook. Defaults to “SMTP” */
-        protocol?: string;
+        protocol?: string | undefined;
         /** Inbound domain associated with this webhook. Required when protocol is “SMTP”. */
-        domain?: string;
+        domain?: string | undefined;
         /** ESME address binding associated with this webhook  yes, when protocol is “SMPP”. SparkPost Enterprise API only. */
-        esme_address?: string;
+        esme_address?: string | undefined;
     }
 
     export interface SendingDomain {
@@ -646,11 +700,11 @@ declare namespace SparkPost {
         /** JSON object containing status details, including whether this domain’s ownership has been verified. */
         status: Status;
         /** JSON object in which DKIM key configuration is defined. */
-        dkim?: DKIM;
+        dkim?: DKIM | undefined;
         /** Whether to generate a DKIM keypair on creation. */
-        generate_dkim?: boolean;
+        generate_dkim?: boolean | undefined;
         /** Size, in bits, of the DKIM private key to be generated. This option only applies if generate_dkim is ‘true’. */
-        dkim_key_length?: number;
+        dkim_key_length?: number | undefined;
         /** Setting to true allows this domain to be used by subaccounts. Defaults to false, only available to domains belonging to a master account. */
         shared_with_subaccounts: boolean;
     }
@@ -659,45 +713,45 @@ declare namespace SparkPost {
         /** Name of the sending domain. */
         domain: string;
         /** Associated tracking domain. */
-        tracking_domain?: string;
+        tracking_domain?: string | undefined;
         /** JSON object containing status details, including whether this domain’s ownership has been verified. */
-        status?: Status;
+        status?: Status | undefined;
         /** JSON object in which DKIM key configuration is defined. */
-        dkim?: DKIM;
+        dkim?: DKIM | undefined;
         /** Whether to generate a DKIM keypair on creation. */
-        generate_dkim?: boolean;
+        generate_dkim?: boolean | undefined;
         /** Size, in bits, of the DKIM private key to be generated. This option only applies if generate_dkim is ‘true’. */
-        dkim_key_length?: number;
+        dkim_key_length?: number | undefined;
         /** Setting to true allows this domain to be used by subaccounts. Defaults to false, only available to domains belonging to a master account. */
-        shared_with_subaccounts?: boolean;
+        shared_with_subaccounts?: boolean | undefined;
     }
 
     export interface UpdateSendingDomain {
         /** Name of the sending domain. */
         domain: string;
         /** Associated tracking domain. */
-        tracking_domain?: string;
+        tracking_domain?: string | undefined;
         /** JSON object in which DKIM key configuration is defined. */
-        dkim?: DKIM;
+        dkim?: DKIM | undefined;
         /** Whether to generate a DKIM keypair on creation. */
-        generate_dkim?: boolean;
+        generate_dkim?: boolean | undefined;
         /** Size, in bits, of the DKIM private key to be generated. This option only applies if generate_dkim is ‘true’. */
-        dkim_key_length?: number;
+        dkim_key_length?: number | undefined;
         /** Setting to true allows this domain to be used by subaccounts. Defaults to false, only available to domains belonging to a master account. */
-        shared_with_subaccounts?: boolean;
+        shared_with_subaccounts?: boolean | undefined;
     }
 
     export interface DKIM {
         /** Signing Domain Identifier (SDID). SparkPost Enterprise API only. */
-        signing_domain?: string;
+        signing_domain?: string | undefined;
         /** DKIM private key. */
-        private?: string;
+        private?: string | undefined;
         /** DKIM public key. */
         public: string;
         /** DomainKey selector. */
         selector: string;
         /** Header fields to be included in the DKIM signature. This field is currently ignored. */
-        headers?: string;
+        headers?: string | undefined;
     }
 
     export interface Status {
@@ -717,15 +771,15 @@ declare namespace SparkPost {
 
     export interface VerifyOptions {
         domain: string;
-        verifyDKIM?: boolean;
-        verifySPF?: boolean;
+        verifyDKIM?: boolean | undefined;
+        verifySPF?: boolean | undefined;
     }
 
     export interface VerifyResults extends Status {
         dns?: {
             dkim_record: string;
             spf_record: string;
-        };
+        } | undefined;
     }
 
     export interface CreateSubaccount {
@@ -736,9 +790,9 @@ declare namespace SparkPost {
         /** list of grants to give the subaccount API key */
         keyGrants: string[];
         /** list of IPs the subaccount may be used from */
-        keyValidIps?: string[];
+        keyValidIps?: string[] | undefined;
         /** id of the default IP pool assigned to subaccount"s transmissions */
-        ipPool?: string;
+        ipPool?: string | undefined;
     }
 
     export interface CreateSubaccountResponse {
@@ -756,7 +810,7 @@ declare namespace SparkPost {
         /** status of the subaccount */
         status: string;
         /** id of the default IP pool assigned to subaccount"s transmissions */
-        ipPool?: string;
+        ipPool?: string | undefined;
     }
 
     export interface SubaccountInformation {
@@ -767,47 +821,47 @@ declare namespace SparkPost {
         /** Status of the account */
         status: "active" | "suspended" | "terminated";
         /** The ID of the default IP Pool assigned to this subaccount’s transmissions */
-        ip_pool?: string;
+        ip_pool?: string | undefined;
         compliance_status: string;
     }
 
     export interface CreateSupressionListEntry {
         recipient: string;
         /** Whether the recipient requested to not receive any transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
-        transactional?: boolean;
+        transactional?: boolean | undefined;
         /** Whether the recipient requested to not receive any non-transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
-        non_transactional?: boolean;
+        non_transactional?: boolean | undefined;
         /** Short explanation of the suppression */
-        description?: string;
+        description?: string | undefined;
     }
 
     export interface SupressionListEntry {
         recipient: string;
         /** Whether the recipient requested to not receive any transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
-        transactional?: boolean;
+        transactional?: boolean | undefined;
         /** Whether the recipient requested to not receive any non-transactional messages. At a minimum, transactional or non_transactional is required upon creation of the entry.   */
-        non_transactional?: boolean;
+        non_transactional?: boolean | undefined;
         /** Coming soon */
-        type?: "transactional" | "non_transactional";
+        type?: "transactional" | "non_transactional" | undefined;
         /** Source responsible for inserting the list entry. Valid values include: Spam Complaint, List Unsubscribe, Bounce Rule, Unsubscribe Link, Manually Added, Compliance. */
-        source?: string;
+        source?: string | undefined;
         /** Short explanation of the suppression */
-        description?: string;
+        description?: string | undefined;
         created: string;
         updated: string;
     }
 
     export interface SupressionSearch {
         /** Datetime the entries were last updated, in the format of YYYY-MM-DDTHH:mm:ssZ */
-        to?: string;
+        to?: string | undefined;
         /** Datetime the entries were last updated, in the format YYYY-MM-DDTHH:mm:ssZ */
-        from?: string;
+        from?: string | undefined;
         /** Types of entries to include in the search, i.e. entries with “transactional” and/or “non_transactional” keys set to true */
-        types?: string;
+        types?: string | undefined;
         /** Sources of the entries to include in the search, i.e. entries that were added by this source */
-        sources?: string;
+        sources?: string | undefined;
         /** Maximum number of results to return. Must be between 1 and 100000. Default value is 100000. */
-        limit?: number;
+        limit?: number | undefined;
     }
 
     export interface TemplateContent {
@@ -820,34 +874,28 @@ declare namespace SparkPost {
         /**
          * Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields
          * “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header.
-         *
-         * @type {(Address | string)}
-         * @memberOf CreateTemplateContent
          */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
-        reply_to?: string;
+        reply_to?: string | undefined;
         /**  JSON dictionary containing headers other than “Subject”, “From”, “To”, and “Reply-To”. */
         headers?: any;
     }
 
     export interface CreateTemplateContent {
         /** HTML content for the email’s text/html MIME part */
-        html?: string;
+        html?: string | undefined;
         /** Text content for the email’s text/plain MIME part */
-        text?: string;
+        text?: string | undefined;
         /** Email subject line. */
         subject: string;
         /**
          * Address “from” : "deals@company.com" or JSON object composed of the “name” and “email” fields
          * “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header.
-         *
-         * @type {(Address | string)}
-         * @memberOf CreateTemplateContent
          */
         from: Address | string;
         /** Email address used to compose the email’s “Reply-To” header. */
-        reply_to?: string;
+        reply_to?: string | undefined;
         /**  JSON dictionary containing headers other than “Subject”, “From”, “To”, and “Reply-To”. */
         headers?: any;
     }
@@ -868,9 +916,6 @@ declare namespace SparkPost {
          * Short, unique, alphanumeric ID used to reference the template.
          * At a minimum, id or name is required upon creation. It is auto generated if not provided.
          * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
-         *
-         * @type {string}
-         * @memberOf CreateTemplate
          */
         id: string;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
@@ -886,7 +931,7 @@ declare namespace SparkPost {
         /** The “last_update_time” is the time the template was last updated, for both draft and published versions */
         last_update_time: string;
         /** The “last_use” time represents the last time any version of this template was used (draft or published). */
-        last_use?: string;
+        last_use?: string | undefined;
     }
 
     export interface CreateTemplate {
@@ -894,34 +939,31 @@ declare namespace SparkPost {
          * Short, unique, alphanumeric ID used to reference the template.
          * At a minimum, id or name is required upon creation. It is auto generated if not provided.
          * After a template has been created, this property cannot be changed. Maximum length - 64 bytes
-         *
-         * @type {string}
-         * @memberOf CreateTemplate
          */
-        id?: string;
+        id?: string | undefined;
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
         content: CreateTemplateContent | { email_rfc822: string };
         /** Whether the template is published or is a draft version  no - defaults to false  A template cannot be changed from published to draft. */
-        published?: boolean;
+        published?: boolean | undefined;
         /** Editable display name  At a minimum, id or name is required upon creation.  The name does not have to be unique. Maximum length - 1024 bytes */
-        name?: string;
+        name?: string | undefined;
         /** Detailed description of the template  no  Maximum length - 1024 bytes */
-        description?: string;
+        description?: string | undefined;
         /** JSON object in which template options are defined  no  For a full description, see the Options Attributes. */
-        options?: CreateTemplateOptions;
+        options?: CreateTemplateOptions | undefined;
     }
 
     export interface UpdateTemplate {
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
-        content?: CreateTemplateContent | { email_rfc822: string };
+        content?: CreateTemplateContent | { email_rfc822: string } | undefined;
         /** Whether the template is published or is a draft version  no - defaults to false  A template cannot be changed from published to draft. */
-        published?: boolean;
+        published?: boolean | undefined;
         /** Editable display name  At a minimum, id or name is required upon creation.  The name does not have to be unique. Maximum length - 1024 bytes */
-        name?: string;
+        name?: string | undefined;
         /** Detailed description of the template  no  Maximum length - 1024 bytes */
-        description?: string;
+        description?: string | undefined;
         /** JSON object in which template options are defined  no  For a full description, see the Options Attributes. */
-        options?: CreateTemplateOptions;
+        options?: CreateTemplateOptions | undefined;
     }
 
     export interface TemplateOptions {
@@ -935,30 +977,32 @@ declare namespace SparkPost {
 
     export interface CreateTemplateOptions {
         /** Enable or disable open tracking */
-        open_tracking?: boolean;
+        open_tracking?: boolean | undefined;
         /** Enable or disable click tracking */
-        click_tracking?: boolean;
+        click_tracking?: boolean | undefined;
         /** Distinguish between transactional and non-transactional messages for unsubscribe and suppression purposes */
-        transactional?: boolean;
+        transactional?: boolean | undefined;
     }
 
     export interface CreateTransmission {
         /** JSON object in which transmission options are defined */
-        options?: TransmissionOptions;
+        options?: TransmissionOptions | undefined;
         /** Inline recipient objects or object containing stored recipient list ID */
-        recipients?: Recipient[] | { list_id: string };
+        recipients?: Recipient[] | { list_id: string } | undefined;
         /** Name of the campaign */
-        campaign_id?: string;
+        campaign_id?: string | undefined;
         /** Description of the transmission */
-        description?: string;
+        description?: string | undefined;
         /** Transmission level metadata containing key/value pairs */
         metadata?: any;
         /** Key/value pairs that are provided to the substitution engine */
         substitution_data?: any;
         /** SparkPost Enterprise API only: email to use for envelope FROM */
-        return_path?: string;
+        return_path?: string | undefined;
         /** Content that will be used to construct a message */
-        content: InlineContent | { template_id: string, use_draft_template?: boolean } | { email_rfc822: string };
+        content: InlineContent | { template_id: string; use_draft_template?: boolean | undefined } | {
+            email_rfc822: string;
+        };
     }
 
     export interface TransmissionSummary {
@@ -990,7 +1034,9 @@ declare namespace SparkPost {
         /** Key/value pairs that are provided to the substitution engine */
         substitution_data: any;
         /** Content that will be used to construct a message */
-        content: InlineContent | { template_id: string, use_draft_template?: boolean } | { email_rfc822: string };
+        content: InlineContent | { template_id: string; use_draft_template?: boolean | undefined } | {
+            email_rfc822: string;
+        };
         /** Computed total number of messages generated */
         num_generated: number;
         /** Computed total number of failed messages */
@@ -1003,42 +1049,42 @@ declare namespace SparkPost {
 
     export interface TransmissionOptions {
         /** Delay generation of messages until this datetime. */
-        start_time?: string;
+        start_time?: string | undefined;
         /** Whether open tracking is enabled for this transmission */
-        open_tracking?: boolean;
+        open_tracking?: boolean | undefined;
         /** Whether click tracking is enabled for this transmission */
-        click_tracking?: boolean;
+        click_tracking?: boolean | undefined;
         /** Whether message is transactional or non-transactional for unsubscribe and suppression purposes */
-        transactional?: boolean;
+        transactional?: boolean | undefined;
         /** Whether or not to use the sandbox sending domain */
-        sandbox?: boolean;
+        sandbox?: boolean | undefined;
         /** SparkPost Enterprise API only: Whether or not to ignore customer suppression rules, for this transmission only. Only applicable if your configuration supports this parameter. */
-        skip_suppression?: boolean;
+        skip_suppression?: boolean | undefined;
         /** The ID of a dedicated IP pool associated with your account ( Note: SparkPost only ). */
-        ip_pool?: string;
+        ip_pool?: string | undefined;
         /** Whether or not to perform CSS inlining in HTML content */
-        inline_css?: boolean;
+        inline_css?: boolean | undefined;
     }
 
     export interface InlineContent {
         /** HTML content for the email’s text/html MIME part  At a minimum, html, text, or push is required. */
-        html?: string;
+        html?: string | undefined;
         /** Text content for the email’s text/plain MIME part  At a minimum, html, text, or push is required. */
-        text?: string;
+        text?: string | undefined;
         /**  Content of push notifications  At a minimum, html, text, or push is required.  SparkPost Enterprise API only. */
-        push?: PushData;
+        push?: PushData | undefined;
         /** Email subject line  required for email transmissions  Expected in the UTF-8 charset without RFC2047 encoding. Substitution syntax is supported. */
-        subject?: string;
+        subject?: string | undefined;
         /** "deals@company.com" or JSON object composed of the “name” and “email” fields “from” : { “name” : “My Company”, “email” : "deals@company.com" } used to compose the email’s “From” header */
-        from?: string | { email: string, name: string };
+        from?: string | { email: string; name: string } | undefined;
         /** Email address used to compose the email’s “Reply-To” header */
-        reply_to?: string;
+        reply_to?: string | undefined;
         /** JSON dictionary containing headers other than “Subject”, “From”, “To”, and “Reply-To” */
         headers?: any;
         /** JSON array of attachments. */
-        attachments?: Attachment[];
+        attachments?: Attachment[] | undefined;
         /** JSON array of inline images. */
-        inline_images?: Attachment[];
+        inline_images?: Attachment[] | undefined;
     }
 
     export interface PushData {
@@ -1053,9 +1099,6 @@ declare namespace SparkPost {
          * The MIME type of the attachment; e.g., “text/plain”, “image/jpeg”, “audio/mp3”, “video/mp4”, “application/msword”, “application/pdf”, etc.,
          * including the “charset” parameter (text/html; charset=“UTF-8”) if needed.
          * The value will apply “as-is” to the “Content-Type” header of the generated MIME part for the attachment.
-         *
-         * @type {string}
-         * @memberOf Attachment
          */
         type: string;
         /**   The filename of the attachment (for example, “document.pdf”). This is inserted into the filename parameter of the Content-Disposition header. */
@@ -1064,9 +1107,6 @@ declare namespace SparkPost {
          * The content of the attachment as a Base64 encoded string.
          * The string should not contain \r\n line breaks.
          * The SparkPost systems will add line breaks as necessary to ensure the Base64 encoded lines contain no more than 76 characters each.
-         *
-         * @type {string}
-         * @memberOf Attachment
          */
         data: string;
     }
@@ -1079,39 +1119,39 @@ declare namespace SparkPost {
         /** Array of event types this webhook will receive */
         events: string[];
         /** Type of authentication to be used during POST requests to target */
-        auth_type?: string;
+        auth_type?: string | undefined;
         /** Object containing details needed to request authorization credentials, as necessary */
         auth_request_details?: any;
         /** Object containing credentials needed to make authorized POST requests to target */
         auth_credentials?: any;
         /** Authentication token to present in the X-MessageSystems-Webhook-Token header of POST requests to target */
-        auth_token?: string;
+        auth_token?: string | undefined;
     }
 
     export interface UpdateWebhook {
         id: string;
         /** User-friendly name for webhook */
-        name?: string;
+        name?: string | undefined;
         /** URL of the target to which to POST event batches */
-        target?: string;
+        target?: string | undefined;
         /** Array of event types this webhook will receive */
-        events?: string[];
+        events?: string[] | undefined;
         /** Type of authentication to be used during POST requests to target */
-        auth_type?: string;
+        auth_type?: string | undefined;
         /** Object containing details needed to request authorization credentials, as necessary */
         auth_request_details?: any;
         /** Object containing credentials needed to make authorized POST requests to target */
         auth_credentials?: any;
         /** Authentication token to present in the X-MessageSystems-Webhook-Token header of POST requests to target */
-        auth_token?: string;
+        auth_token?: string | undefined;
     }
 
     export interface WebhookLinks {
-        links: {
+        links: Array<{
             href: string;
             rel: string;
             method: string[];
-        }[];
+        }>;
     }
 }
 

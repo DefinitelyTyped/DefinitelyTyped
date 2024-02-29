@@ -1,17 +1,33 @@
-// Type definitions for websequencediagrams 0.1
-// Project: https://github.com/hildjj/node-websequencediagrams
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-export type OutputType = 'png' | 'svg' | 'pdf';
-export type Style = 'default' | 'earth' | 'modern-blue' | 'mscgen' | 'omegapple' | 'qsd' | 'rose' | 'roundgreen' | 'napkin' | 'magazine' | 'vs2010' | 'patent';
-export type diagramCallback = (error: Error | null, buffer?: Buffer, mimeType?: string) => void;
-export type diagramUrlCallback = (error: Error | null, url?: string) => void;
+declare namespace WSD {
+    type OutputType = "png" | "svg" | "pdf";
+    type Style =
+        | "default"
+        | "earth"
+        | "magazine"
+        | "modern-blue"
+        | "mscgen,"
+        | "napkin"
+        | "omegapple"
+        | "patent"
+        | "qsd"
+        | "rose"
+        | "roundgreen"
+        | "vs2010";
 
-export const root: string;
-export const styles: Style[];
+    type DiagramTuple = [Buffer, string];
+}
 
-export function diagram(description: string | Buffer, style: Style | null, format: OutputType | null, callback: diagramCallback): void;
-export function diagram_url(description: string | Buffer, style: Style | null, format: OutputType | null, callback: diagramUrlCallback): void;
+declare const WSD: {
+    root: string;
+    styles: WSD.Style[];
+
+    /** @async */
+    diagramURL: (message: string | Buffer, style?: WSD.Style, format?: WSD.OutputType) => Promise<string>;
+
+    /** @async */
+    diagram: (message: string | Buffer, style?: WSD.Style, format?: WSD.OutputType) => Promise<WSD.DiagramTuple>;
+};
+
+export = WSD;

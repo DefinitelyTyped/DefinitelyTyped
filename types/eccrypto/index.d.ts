@@ -1,8 +1,3 @@
-// Type definitions for eccrypto 1.1
-// Project: https://github.com/bitchan/eccrypto
-// Definitions by: Random Nerd <https://github.com/randomnerd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
 export as namespace eccrypto;
 
@@ -19,7 +14,7 @@ export function getPublicCompressed(privateKey: Buffer): Buffer;
 export function sign(key: Buffer, msg: Buffer): Promise<Buffer>;
 
 // Verify an ECDSA signature.
-export function sign(publicKey: Buffer, msg: Buffer, sig: Buffer): Promise<null>;
+export function verify(publicKey: Buffer, msg: Buffer, sig: Buffer): Promise<null>;
 
 // Derive shared secret for given private and public keys.
 export function derive(privateKeyA: Buffer, publicKeyB: Buffer): Promise<Buffer>;
@@ -33,7 +28,11 @@ export interface Ecies {
 }
 
 // Encrypt message for given recepient's public key.
-export function encrypt(publicKeyTo: Buffer, msg: Buffer, opts?: { iv?: Buffer, ephemPrivateKey?: Buffer }): Promise<Ecies>;
+export function encrypt(
+    publicKeyTo: Buffer,
+    msg: Buffer,
+    opts?: { iv?: Buffer | undefined; ephemPrivateKey?: Buffer | undefined },
+): Promise<Ecies>;
 
 // Decrypt message using given private key.
 export function decrypt(privateKey: Buffer, opts: Ecies): Promise<Buffer>;

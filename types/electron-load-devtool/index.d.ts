@@ -1,8 +1,3 @@
-// Type definitions for electron-load-devtool 1.2
-// Project: https://github.com/akameco/electron-load-devtool
-// Definitions by: Ciffelia <https://github.com/ciffelia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ElectronLoadDevtool {
     (devtoolId: string, options?: ElectronLoadDevtoolOptions): void;
     REDUX_DEVTOOLS: string;
@@ -16,10 +11,10 @@ interface ElectronLoadDevtool {
 }
 
 interface ElectronLoadDevtoolOptions {
-    enabled?: boolean;
-    name?: string;
-    profile?: string;
-    version?: string;
+    enabled?: boolean | undefined;
+    name?: string | undefined;
+    profile?: string | undefined;
+    version?: string | undefined;
 }
 
 declare const electronLoadDevtool: ElectronLoadDevtool;

@@ -1,14 +1,14 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import * as net from 'net';
-import { Readable } from 'stream';
-import * as tls from 'tls';
+import { EventEmitter } from "events";
+import * as net from "net";
+import { Readable } from "stream";
+import * as tls from "tls";
 
-import * as shared from '../shared';
+import * as shared from "../shared";
 
-import MimeNode = require('../mime-node');
-import XOAuth2 = require('../xoauth2');
+import MimeNode = require("../mime-node");
+import XOAuth2 = require("../xoauth2");
 
 type ms = number;
 
@@ -24,18 +24,18 @@ declare namespace SMTPConnection {
 
     interface AuthenticationTypeCustom extends Credentials {
         /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
-        type: 'custom' | 'Custom' | 'CUSTOM';
+        type: "custom" | "Custom" | "CUSTOM";
         method: string;
     }
 
     interface AuthenticationTypeLogin extends Credentials {
         /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
-        type?: 'login' | 'Login' | 'LOGIN';
+        type?: "login" | "Login" | "LOGIN" | undefined;
     }
 
     interface AuthenticationTypeOAuth2 extends OAuth2 {
         /** indicates the authetication type, defaults to ‘login’, other option is ‘oauth2’ or ‘custom’ */
-        type?: 'oauth2' | 'OAuth2' | 'OAUTH2';
+        type?: "oauth2" | "OAuth2" | "OAUTH2" | undefined;
     }
 
     type AuthenticationType = AuthenticationTypeCustom | AuthenticationTypeLogin | AuthenticationTypeOAuth2;
@@ -55,7 +55,7 @@ declare namespace SMTPConnection {
         response: string;
         status: number;
         text: string;
-        code?: number;
+        code?: number | undefined;
     }
 
     interface CustomAuthenticationContext {
@@ -74,17 +74,17 @@ declare namespace SMTPConnection {
         [method: string]: (ctx: CustomAuthenticationContext) => Promise<boolean> | unknown;
     }
 
-    type DSNOption = 'NEVER' | 'SUCCESS' | 'FAILURE' | 'DELAY';
+    type DSNOption = "NEVER" | "SUCCESS" | "FAILURE" | "DELAY";
 
     interface DSNOptions {
         /** return either the full message ‘FULL’ or only headers ‘HDRS’ */
-        ret?: 'Full' | 'HDRS';
+        ret?: "Full" | "HDRS" | undefined;
         /** sender’s ‘envelope identifier’ for tracking */
-        envid?: string;
+        envid?: string | undefined;
         /** when to send a DSN. Multiple options are OK - array or comma delimited. NEVER must appear by itself. */
-        notify?: DSNOption | DSNOption[];
+        notify?: DSNOption | DSNOption[] | undefined;
         /** original recipient */
-        orcpt?: string;
+        orcpt?: string | undefined;
     }
 
     interface Envelope {
@@ -93,22 +93,22 @@ declare namespace SMTPConnection {
         /** the recipient address or an array of addresses */
         to: string | string[];
         /** an optional value of the predicted size of the message in bytes. This value is used if the server supports the SIZE extension (RFC1870) */
-        size?: number;
+        size?: number | undefined;
         /** if true then inform the server that this message might contain bytes outside 7bit ascii range */
-        use8BitMime?: boolean;
+        use8BitMime?: boolean | undefined;
         /** the dsn options */
-        dsn?: DSNOptions;
+        dsn?: DSNOptions | undefined;
     }
 
     interface SMTPError extends NodeJS.ErrnoException {
         /** string code identifying the error, for example ‘EAUTH’ is returned when authentication */
-        code?: string;
+        code?: string | undefined;
         /** the last response received from the server (if the error is caused by an error response from the server) */
-        response?: string;
+        response?: string | undefined;
         /** the numeric response code of the response string (if available) */
-        responseCode?: number;
+        responseCode?: number | undefined;
         /** command which provoked an error */
-        command?: string;
+        command?: string | undefined;
     }
 
     interface SentMessageInfo {
@@ -117,7 +117,7 @@ declare namespace SMTPConnection {
         /** an array of rejected recipient addresses. This array includes both the addresses that were rejected before sending the message and addresses rejected after sending it if using LMTP */
         rejected: string[];
         /** if some recipients were rejected then this property holds an array of error objects for the rejected recipients */
-        rejectedErrors?: SMTPError[];
+        rejectedErrors?: SMTPError[] | undefined;
         /** the last response received from the server */
         response: string;
         /** how long was envelope prepared */
@@ -130,44 +130,48 @@ declare namespace SMTPConnection {
 
     interface Options {
         /** the hostname or IP address to connect to (defaults to ‘localhost’) */
-        host?: string;
+        host?: string | undefined;
         /** the port to connect to (defaults to 25 or 465) */
-        port?: number;
+        port?: number | undefined;
         /** defines authentication data */
-        auth?: AuthenticationType;
+        auth?: AuthenticationType | undefined;
         /** defines if the connection should use SSL (if true) or not (if false) */
-        secure?: boolean;
+        secure?: boolean | undefined;
         /** turns off STARTTLS support if true */
-        ignoreTLS?: boolean;
+        ignoreTLS?: boolean | undefined;
         /** forces the client to use STARTTLS. Returns an error if upgrading the connection is not possible or fails. */
-        requireTLS?: boolean;
+        requireTLS?: boolean | undefined;
         /** tries to use STARTTLS and continues normally if it fails */
-        opportunisticTLS?: boolean;
+        opportunisticTLS?: boolean | undefined;
         /** optional hostname of the client, used for identifying to the server */
-        name?: string;
+        name?: string | undefined;
         /** the local interface to bind to for network connections */
-        localAddress?: string;
+        localAddress?: string | undefined;
         /** how many milliseconds to wait for the connection to establish */
-        connectionTimeout?: ms;
+        connectionTimeout?: ms | undefined;
         /** how many milliseconds to wait for the greeting after connection is established */
-        greetingTimeout?: ms;
+        greetingTimeout?: ms | undefined;
         /** how many milliseconds of inactivity to allow */
-        socketTimeout?: ms;
+        socketTimeout?: ms | undefined;
+        /** how many milliseconds to wait for the DNS requests to be resolved */
+        dnsTimeout?: ms | undefined;
         /** optional bunyan compatible logger instance. If set to true then logs to console. If value is not set or is false then nothing is logged */
-        logger?: shared.Logger | boolean;
+        logger?: shared.Logger | boolean | undefined;
         /** if set to true, then logs SMTP traffic without message content */
-        transactionLog?: boolean;
+        transactionLog?: boolean | undefined;
         /** if set to true, then logs SMTP traffic and message content, otherwise logs only transaction events */
-        debug?: boolean;
+        debug?: boolean | undefined;
         /** defines preferred authentication method, e.g. ‘PLAIN’ */
-        authMethod?: string;
+        authMethod?: string | undefined;
         /** defines additional options to be passed to the socket constructor, e.g. {rejectUnauthorized: true} */
-        tls?: tls.ConnectionOptions;
+        tls?: tls.ConnectionOptions | undefined;
         /** initialized socket to use instead of creating a new one */
-        socket?: net.Socket;
+        socket?: net.Socket | undefined;
         /** connected socket to use instead of creating and connecting a new one. If secure option is true, then socket is upgraded from plaintext to ciphertext */
-        connection?: net.Socket;
-        customAuth?: CustomAuthenticationHandlers;
+        connection?: net.Socket | undefined;
+        customAuth?: CustomAuthenticationHandlers | undefined;
+        /** if true, uses LMTP instead of SMTP protocol */
+        lmtp?: boolean | undefined;
     }
 }
 
@@ -177,7 +181,7 @@ declare class SMTPConnection extends EventEmitter {
     logger: shared.Logger;
 
     id: string;
-    stage: 'init' | 'connected';
+    stage: "init" | "connected";
 
     secureConnection: boolean;
     alreadySecured: boolean;
@@ -210,45 +214,55 @@ declare class SMTPConnection extends EventEmitter {
     /** Closes the connection to the server */
     close(): void;
     /** Authenticate user */
-    login(auth: SMTPConnection.AuthenticationCredentials | SMTPConnection.AuthenticationOAuth2 | SMTPConnection.Credentials, callback: (err?: SMTPConnection.SMTPError) => void): void;
+    login(
+        auth:
+            | SMTPConnection.AuthenticationCredentials
+            | SMTPConnection.AuthenticationOAuth2
+            | SMTPConnection.Credentials,
+        callback: (err?: SMTPConnection.SMTPError) => void,
+    ): void;
     /** Sends a message */
-    send(envelope: SMTPConnection.Envelope, message: string | Buffer | Readable, callback: (err: SMTPConnection.SMTPError | null, info: SMTPConnection.SentMessageInfo) => void): void;
+    send(
+        envelope: SMTPConnection.Envelope,
+        message: string | Buffer | Readable,
+        callback: (err: SMTPConnection.SMTPError | null, info: SMTPConnection.SentMessageInfo) => void,
+    ): void;
     /** Resets connection state */
     reset(callback: (err?: SMTPConnection.SMTPError) => void): void;
 
-    addListener(event: 'connect' | 'end', listener: () => void): this;
-    addListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    addListener(event: "connect" | "end", listener: () => void): this;
+    addListener(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    emit(event: 'connect' | 'end'): boolean;
-    emit(event: 'error', error: Error): boolean;
+    emit(event: "connect" | "end"): boolean;
+    emit(event: "error", error: Error): boolean;
 
-    listenerCount(event: 'connect' | 'end' | 'error'): number;
+    listenerCount(event: "connect" | "end" | "error"): number;
 
-    listeners(event: 'connect' | 'end'): Array<() => void>;
-    listeners(event: 'error'): Array<(err: SMTPConnection.SMTPError) => void>;
+    listeners(event: "connect" | "end"): Array<() => void>;
+    listeners(event: "error"): Array<(err: SMTPConnection.SMTPError) => void>;
 
-    off(event: 'connect' | 'end', listener: () => void): this;
-    off(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    off(event: "connect" | "end", listener: () => void): this;
+    off(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    on(event: 'connect' | 'end', listener: () => void): this;
-    on(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    on(event: "connect" | "end", listener: () => void): this;
+    on(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    once(event: 'connect' | 'end', listener: () => void): this;
-    once(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    once(event: "connect" | "end", listener: () => void): this;
+    once(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    prependListener(event: 'connect' | 'end', listener: () => void): this;
-    prependListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    prependListener(event: "connect" | "end", listener: () => void): this;
+    prependListener(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    prependOnceListener(event: 'connect' | 'end', listener: () => void): this;
-    prependOnceListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    prependOnceListener(event: "connect" | "end", listener: () => void): this;
+    prependOnceListener(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 
-    rawListeners(event: 'connect' | 'end'): Array<() => void>;
-    rawListeners(event: 'error'): Array<(err: SMTPConnection.SMTPError) => void>;
+    rawListeners(event: "connect" | "end"): Array<() => void>;
+    rawListeners(event: "error"): Array<(err: SMTPConnection.SMTPError) => void>;
 
-    removeAllListener(event: 'connect' | 'end' | 'error'): this;
+    removeAllListener(event: "connect" | "end" | "error"): this;
 
-    removeListener(event: 'connect' | 'end', listener: () => void): this;
-    removeListener(event: 'error', listener: (err: SMTPConnection.SMTPError) => void): this;
+    removeListener(event: "connect" | "end", listener: () => void): this;
+    removeListener(event: "error", listener: (err: SMTPConnection.SMTPError) => void): this;
 }
 
 export = SMTPConnection;

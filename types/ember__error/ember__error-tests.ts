@@ -1,6 +1,6 @@
-import Error from '@ember/error';
+import EmberError from "@ember/error";
 
-new Error('Fuuuuuuuu'); // $ExpectType EmberError
+new EmberError("Fuuuuuuuu"); // $ExpectType Error
 
 // allows to extend from EmberError
 class AjaxError extends Error {

@@ -1,22 +1,17 @@
-// Type definitions for Humane 3.2
-// Project: http://wavded.github.com/humane-js/
-// Definitions by: jmvrbanac <https://github.com/jmvrbanac>, stof <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface HumaneMessageOptions {
-    addnCls?: string;
-    timeout?: number;
-    waitForMove?: boolean;
-    clickToClose?: boolean;
+    addnCls?: string | undefined;
+    timeout?: number | undefined;
+    waitForMove?: boolean | undefined;
+    clickToClose?: boolean | undefined;
 }
 
 interface HumaneOptions extends HumaneMessageOptions {
-    baseCls?: string;
-    container?: Element;
+    baseCls?: string | undefined;
+    container?: Element | undefined;
 }
 
 type completionCallback = () => void;
-type logMessage = string | ReadonlyArray<string>;
+type logMessage = string | readonly string[];
 
 interface SpawnLogFunction {
     (message: logMessage, options?: HumaneMessageOptions): Humane;
@@ -33,8 +28,8 @@ interface Humane {
     clickToClose: boolean;
 
     create(options?: HumaneOptions): Humane;
-    info?: SpawnLogFunction;
-    error?: SpawnLogFunction;
+    info?: SpawnLogFunction | undefined;
+    error?: SpawnLogFunction | undefined;
     spawn(options: HumaneMessageOptions): SpawnLogFunction;
     remove(cb?: completionCallback): void;
     log(message: logMessage, options?: HumaneMessageOptions): Humane;

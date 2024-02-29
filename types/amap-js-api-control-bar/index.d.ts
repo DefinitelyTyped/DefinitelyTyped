@@ -1,36 +1,30 @@
-// Type definitions for non-npm package amap-js-api-control-bar 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/map-control#control-bar
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace ControlBar {
         interface EventMap {
-            hide: Event<'hide'>;
-            show: Event<'show'>;
+            hide: Event<"hide">;
+            show: Event<"show">;
         }
         interface Position {
-            top?: string;
-            right?: string;
-            bottom?: string;
-            left?: string;
+            top?: string | undefined;
+            right?: string | undefined;
+            bottom?: string | undefined;
+            left?: string | undefined;
         }
         interface Options {
             /**
              * 显示位置
              */
-            position?: Position;
+            position?: Position | undefined;
             /**
              * 是否显示缩放按钮
              */
-            showZoomBar?: boolean;
+            showZoomBar?: boolean | undefined;
             /**
              * 是否显示倾斜、旋转按钮
              */
-            showControlButton?: boolean;
+            showControlButton?: boolean | undefined;
         }
     }
     class ControlBar extends EventEmitter {

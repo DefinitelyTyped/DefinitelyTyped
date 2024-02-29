@@ -1,12 +1,3 @@
-// Type definitions for diff 4.0
-// Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 szdc <https://github.com/szdc>
-//                 moc-yuto <https://github.com/moc-yuto>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace Diff;
 
 export type Callback = (err: undefined, value?: Change[]) => void;
@@ -23,21 +14,21 @@ export interface BaseOptions {
      * `true` to ignore casing difference.
      * @default false
      */
-    ignoreCase?: boolean;
+    ignoreCase?: boolean | undefined;
 }
 
 export interface WordsOptions extends BaseOptions {
     /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffWords()`.
      */
-    ignoreWhitespace?: boolean;
+    ignoreWhitespace?: boolean | undefined;
 }
 
 export interface LinesOptions extends BaseOptions {
     /**
      * `true` to ignore leading and trailing whitespace. This is the same as `diffTrimmedLines()`.
      */
-    ignoreWhitespace?: boolean;
+    ignoreWhitespace?: boolean | undefined;
 
     /**
      * `true` to treat newline characters as separate tokens. This allows for changes to the newline structure
@@ -45,14 +36,14 @@ export interface LinesOptions extends BaseOptions {
      * human friendly form of `diffLines()` and `diffLines()` is better suited for patches and other computer
      * friendly output.
      */
-    newlineIsToken?: boolean;
+    newlineIsToken?: boolean | undefined;
 }
 
 export interface JsonOptions extends LinesOptions {
     /**
      * Replacer used to stringify the properties of the passed objects.
      */
-    stringifyReplacer?: (key: string, value: any) => any;
+    stringifyReplacer?: ((key: string, value: any) => any) | undefined;
 
     /**
      * The value to use when `undefined` values in the passed objects are encountered during stringification.
@@ -66,7 +57,7 @@ export interface ArrayOptions<TLeft, TRight> extends BaseOptions {
     /**
      * Comparator for custom equality checks.
      */
-    comparator?: (left: TLeft, right: TRight) => boolean;
+    comparator?: ((left: TLeft, right: TRight) => boolean) | undefined;
 }
 
 export interface PatchOptions extends LinesOptions {
@@ -74,7 +65,7 @@ export interface PatchOptions extends LinesOptions {
      * Describes how many lines of context should be included.
      * @default 4
      */
-    context?: number;
+    context?: number | undefined;
 }
 
 export interface ApplyPatchOptions {
@@ -82,7 +73,7 @@ export interface ApplyPatchOptions {
      * Number of lines that are allowed to differ before rejecting a patch.
      * @default 0
      */
-    fuzzFactor?: number;
+    fuzzFactor?: number | undefined;
 
     /**
      * Callback used to compare to given lines to determine if they should be considered equal when patching.
@@ -90,12 +81,14 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: (
-        lineNumber: number,
-        line: string,
-        operation: '-' | ' ',
-        patchContent: string
-    ) => boolean;
+    compareLine?:
+        | ((
+            lineNumber: number,
+            line: string,
+            operation: "-" | " ",
+            patchContent: string,
+        ) => boolean)
+        | undefined;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -105,7 +98,7 @@ export interface ApplyPatchesOptions extends ApplyPatchOptions {
 }
 
 export interface Change {
-    count?: number;
+    count?: number | undefined;
     /**
      * Text content.
      */
@@ -113,26 +106,26 @@ export interface Change {
     /**
      * `true` if the value was inserted into the new string.
      */
-    added?: boolean;
+    added?: boolean | undefined;
     /**
      * `true` if the value was removed from the old string.
      */
-    removed?: boolean;
+    removed?: boolean | undefined;
 }
 
 export interface ArrayChange<T> {
     value: T[];
-    count?: number;
-    added?: boolean;
-    removed?: boolean;
+    count?: number | undefined;
+    added?: boolean | undefined;
+    removed?: boolean | undefined;
 }
 
 export interface ParsedDiff {
-    index?: string;
-    oldFileName?: string;
-    newFileName?: string;
-    oldHeader?: string;
-    newHeader?: string;
+    index?: string | undefined;
+    oldFileName?: string | undefined;
+    newFileName?: string | undefined;
+    oldHeader?: string | undefined;
+    newHeader?: string | undefined;
     hunks: Hunk[];
 }
 
@@ -142,19 +135,20 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
-    linedelimiters: string[];
+    // Line Delimiters is only returned by parsePatch()
+    linedelimiters?: string[];
 }
 
 export interface BestPath {
     newPos: number;
-    componenets: Change[];
+    components: Change[];
 }
 
 export class Diff {
     diff(
         oldString: string,
         newString: string,
-        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>)
+        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>),
     ): Change[];
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
@@ -163,7 +157,7 @@ export class Diff {
         basePath: BestPath,
         newString: string,
         oldString: string,
-        diagonalPath: number
+        diagonalPath: number,
     ): number;
 
     equals(left: any, right: any): boolean;
@@ -186,7 +180,7 @@ export function diffChars(oldStr: string, newStr: string, options?: BaseOptions)
 export function diffChars(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -198,7 +192,7 @@ export function diffWords(oldStr: string, newStr: string, options?: WordsOptions
 export function diffWords(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback | (WordsOptions & CallbackOptions),
 ): void;
 
 /**
@@ -209,12 +203,12 @@ export function diffWords(
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options?: WordsOptions
+    options?: WordsOptions,
 ): Change[];
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback | (WordsOptions & CallbackOptions),
 ): void;
 
 /**
@@ -226,7 +220,7 @@ export function diffLines(oldStr: string, newStr: string, options?: LinesOptions
 export function diffLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback | (LinesOptions & CallbackOptions),
 ): void;
 
 /**
@@ -238,7 +232,7 @@ export function diffTrimmedLines(oldStr: string, newStr: string, options?: Lines
 export function diffTrimmedLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback | (LinesOptions & CallbackOptions),
 ): void;
 
 /**
@@ -250,7 +244,7 @@ export function diffSentences(oldStr: string, newStr: string, options?: BaseOpti
 export function diffSentences(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -262,7 +256,7 @@ export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): 
 export function diffCss(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -274,12 +268,12 @@ export function diffCss(
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options?: JsonOptions
+    options?: JsonOptions,
 ): Change[];
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options: Callback | (JsonOptions & CallbackOptions)
+    options: Callback | (JsonOptions & CallbackOptions),
 ): void;
 
 /**
@@ -290,7 +284,7 @@ export function diffJson(
 export function diffArrays<TOld, TNew>(
     oldArr: TOld[],
     newArr: TNew[],
-    options?: ArrayOptions<TOld, TNew>
+    options?: ArrayOptions<TOld, TNew>,
 ): Array<ArrayChange<TOld | TNew>>;
 
 /**
@@ -310,7 +304,7 @@ export function createTwoFilesPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -329,7 +323,7 @@ export function createPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -351,20 +345,20 @@ export function structuredPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): ParsedDiff;
 
 /**
  * Applies a unified diff patch.
  *
  * @param patch May be a string diff or the output from the `parsePatch()` or `structuredPatch()` methods.
- * @returns A string containing new version of provided data.
+ * @returns A string containing new version of provided data. false when failed
  */
 export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
-    options?: ApplyPatchOptions
-): string;
+    options?: ApplyPatchOptions,
+): string | false;
 
 /**
  * Applies one or more patches.
@@ -386,7 +380,7 @@ export function applyPatches(patch: string | ParsedDiff[], options: ApplyPatches
  *
  * @returns A JSON object representation of the a patch, suitable for use with the `applyPatch()` method.
  */
-export function parsePatch(diffStr: string, options?: { strict?: boolean }): ParsedDiff[];
+export function parsePatch(diffStr: string, options?: { strict?: boolean | undefined }): ParsedDiff[];
 
 /**
  * Converts a list of changes to a serialized XML format.

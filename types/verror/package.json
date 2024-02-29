@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/verror",
+    "version": "1.10.9999",
+    "projects": [
+        "https://github.com/davepacheco/node-verror"
+    ],
+    "devDependencies": {
+        "@types/verror": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sven Reglitzki",
+            "githubUsername": "svi3c"
+        },
+        {
+            "name": "Maxime Toumi-M",
+            "githubUsername": "max4t"
+        }
+    ]
+}

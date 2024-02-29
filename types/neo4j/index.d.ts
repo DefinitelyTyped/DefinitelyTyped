@@ -1,9 +1,3 @@
-// Type definitions for node-neo4j 2.0.0
-// Project: https://github.com/thingdom/node-neo4j
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="request" />
 
 import { Request } from "request";
@@ -42,11 +36,11 @@ export interface ConstraintOptions {
  * @interface
  */
 export interface CypherOptions {
-    commit?: {};
-    headers?: {};
-    lean?: {};
-    params?: {};
-    query?: {};
+    commit?: {} | undefined;
+    headers?: {} | undefined;
+    lean?: {} | undefined;
+    params?: {} | undefined;
+    query?: {} | undefined;
 }
 
 /**
@@ -56,31 +50,26 @@ export interface CypherOptions {
 export interface GraphDatabaseOptions {
     /**
      * HTTP agent.
-     * @type {any}
      */
     agent?: any;
 
     /**
      * Authentication information.
-     * @type {string|Authentication}
      */
     auth: string | Authentication;
 
     /**
      * HTTP headers.
-     * @type {Object}
      */
-    headers?: {};
+    headers?: {} | undefined;
 
     /**
      * Proxy address.
-     * @type {string}
      */
-    proxy?: string;
+    proxy?: string | undefined;
 
     /**
      * URL connection.
-     * @type {string}
      */
     url: string;
 }
@@ -123,50 +112,42 @@ export interface Transaction {
 
 /**
  * Database.
- * @class
  */
 export class GraphDatabase {
     /**
      * Constructor.
-     * @constructor
      * @param {string} url A URL connection.
      */
     constructor(url: string);
 
     /**
      * Constructor.
-     * @constructor
      * @param {GraphDatabaseOptions} options Connection options.
      */
     constructor(options: GraphDatabaseOptions);
 
     /**
      * Agent.
-     * @type {any}
      */
     agent: any;
 
     /**
      * Credentials.
-     * @type {Authentication}
      */
     auth: Authentication;
 
     /**
      * Headers.
-     * @type {Object}
      */
     headers: {};
 
     /**
      * Proxy.
-     * @type {any}
      */
     proxy: any;
 
     /**
      * URL connection.
-     * @type {string}
      */
     url: string;
 

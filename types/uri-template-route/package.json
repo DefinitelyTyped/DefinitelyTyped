@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/uri-template-route",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bergos/uri-template-route"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/uri-templates": "^0.1.34"
+    },
+    "devDependencies": {
+        "@types/uri-template-route": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

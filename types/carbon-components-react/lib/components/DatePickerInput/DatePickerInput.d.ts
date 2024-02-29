@@ -1,27 +1,29 @@
 import * as React from "react";
-import {
-    EmbeddedIconProps,
-    ReactInputAttr,
-    RequiresIdProps,
-    ValidityProps,
-    CarbonInputSize
-} from "../../../typings/shared";
+import { CarbonInputSize, ReactInputAttr } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactInputAttr, "className" | "id" | "size">,
-    EmbeddedIconProps,
-    RequiresIdProps,
-    ValidityProps
-{ }
-
-export interface DatePickerInputProps extends InheritedProps {
-    hideLabel?: boolean,
-    labelText: NonNullable<React.ReactNode>,
-    openCalendar?: React.MouseEventHandler,
-    pattern?: string,
-    size?: Extract<CarbonInputSize, "sm" | "xl">,
+type ExcludedAttributes = "className" | "id" | "size";
+export interface DatePickerInputProps extends Omit<ReactInputAttr, ExcludedAttributes> {
+    datePickerType?: "range" | "simple" | "single" | undefined;
+    helperText?: React.ReactNode | undefined;
+    hideLabel?: boolean | undefined;
+    id: string;
+    /**
+     * @deprecated
+     */
+    iconDescription?: string | undefined;
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
+    labelText: NonNullable<React.ReactNode>;
+    /**
+     * @deprecated
+     */
+    openCalendar?: React.MouseEventHandler | undefined;
+    pattern?: string | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
+    warn?: boolean | undefined;
+    warnText?: React.ReactNode | undefined;
 }
 
-declare class DatePickerInput extends React.Component<DatePickerInputProps> { }
+declare class DatePickerInput extends React.Component<DatePickerInputProps> {}
 
 export default DatePickerInput;

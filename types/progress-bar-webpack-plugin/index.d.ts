@@ -1,10 +1,5 @@
-// Type definitions for progress-bar-webpack-plugin 2.1
-// Project: https://github.com/clessg/progress-bar-webpack-plugin#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as ProgressBar from 'progress';
-import { Plugin } from 'webpack';
+import * as ProgressBar from "progress";
+import { Plugin } from "webpack";
 
 export = ProgressBarPlugin;
 
@@ -14,25 +9,25 @@ declare namespace ProgressBarPlugin {
          * the format of the progress bar
          * @default ':bar'
          */
-        format?: string;
+        format?: string | undefined;
         /**
          * optional function to call when the progress bar completes
          */
-        callback?: () => void;
+        callback?: (() => void) | undefined;
         /**
          * option to show summary of time taken
          * @default true
          */
-        summary?: boolean;
+        summary?: boolean | undefined;
         /**
          * custom summary message if summary option is false
          */
-        summaryContent?: boolean;
+        summaryContent?: boolean | undefined;
         /**
          * function to display a custom summary
          * (passed build time)
          */
-        customSummary?: (summary: string) => void;
+        customSummary?: ((summary: string) => void) | undefined;
     }
 }
 

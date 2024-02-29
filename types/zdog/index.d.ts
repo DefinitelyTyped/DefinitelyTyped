@@ -1,9 +1,3 @@
-// Type definitions for zdog 1.1
-// Project: https://zzz.dog
-// Definitions by: Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export as namespace Zdog;
 
 /** @see {@link Anchor} */
@@ -14,26 +8,26 @@ export interface AnchorOptions {
      * A child shape is positioned relative to its parent.
      * @see {@link https://zzz.dog/api#anchor-addto Zdog API}
      */
-    readonly addTo?: Anchor;
+    readonly addTo?: Anchor | undefined;
 
     /**
      * Positions the item.
      * @see {@link https://zzz.dog/api#anchor-translate Zdog API}
      */
-    readonly translate?: VectorOptions;
+    readonly translate?: VectorOptions | undefined;
 
     /**
      * Rotates the item.
      * Set to rotate the item around the corresponding axis.
      * @see {@link https://zzz.dog/api#anchor-rotate Zdog API}
      */
-    readonly rotate?: VectorOptions;
+    readonly rotate?: VectorOptions | undefined;
 
     /**
      * Enlarges or shrinks item geometry. `scale` does not scale `stroke`.
      * @see {@link https://zzz.dog/api#anchor-scale Zdog API}
      */
-    readonly scale?: VectorOptions | number;
+    readonly scale?: VectorOptions | number | undefined;
 }
 
 /**
@@ -47,7 +41,7 @@ export interface AnchorOptions {
  */
 export class Anchor {
     /** @see {@link AnchorOptions#addTo} */
-    addTo?: Anchor;
+    addTo?: Anchor | undefined;
 
     /** @see {@link AnchorOptions#translate} */
     translate: Vector;
@@ -140,7 +134,6 @@ export interface PathBezierCommand {
     bezier: readonly [VectorOptions, VectorOptions, VectorOptions];
 }
 
-/* tslint:disable:max-line-length */
 /**
  * Set {@link ShapeOptions#path path} to {@link Array} of path commands.
  * Path commands set the directions for the path to shape.
@@ -148,8 +141,6 @@ export interface PathBezierCommand {
  * @see {@link https://zzz.dog/shapes#shape-path-commands Zdog Shape API}
  */
 export type PathCommand = VectorOptions | PathLineCommand | PathMoveCommand | PathArcCommand | PathBezierCommand;
-
-/* tslint:enable:max-line-length */
 
 /** @see {@link Shape} */
 export interface ShapeOptions extends AnchorOptions {
@@ -159,7 +150,7 @@ export interface ShapeOptions extends AnchorOptions {
      * @default '#333'
      * @see {@link https://zzz.dog/api#shape-color Zdog API}
      */
-    readonly color?: string;
+    readonly color?: string | undefined;
 
     /**
      * Renders the shape line and sets line width.
@@ -167,14 +158,14 @@ export interface ShapeOptions extends AnchorOptions {
      * @default 1
      * @see {@link https://zzz.dog/api#shape-stroke Zdog API}
      */
-    readonly stroke?: number | false;
+    readonly stroke?: number | false | undefined;
 
     /**
      * Renders the inner shape area.
      * @default false
      * @see {@link https://zzz.dog/api#shape-fill Zdog API}
      */
-    readonly fill?: boolean;
+    readonly fill?: boolean | undefined;
 
     /**
      * Closes the path from the last point back to the first.
@@ -182,21 +173,21 @@ export interface ShapeOptions extends AnchorOptions {
      * @see {@link https://zzz.dog/api#shape-closed Zdog API}
      * @see {@link https://zzz.dog/shapes#shape-closed Zdog Shapes API}
      */
-    readonly closed?: boolean;
+    readonly closed?: boolean | undefined;
 
     /**
      * Shows or hides shape. Does not affect child items.
      * @default true
      * @see {@link https://zzz.dog/api#shape-visible Zdog API}
      */
-    readonly visible?: boolean;
+    readonly visible?: boolean | undefined;
 
     /**
      * Shows or hides the shape when its backface is visible.
      * @default true
      * @see {@link https://zzz.dog/api#shape-backface Zdog API}
      */
-    readonly backface?: boolean | string;
+    readonly backface?: boolean | string | undefined;
 
     /**
      * A {@link Vector} used to determine where the front of the shape is.
@@ -204,13 +195,13 @@ export interface ShapeOptions extends AnchorOptions {
      * @default {z: 1}
      * @see {@link https://zzz.dog/api#shape-front Zdog API}
      */
-    readonly front?: VectorOptions;
+    readonly front?: VectorOptions | undefined;
 
     /**
      * Defines the shape.
      * @see {@link https://zzz.dog/shapes#shape-path Zdog Shape API}
      */
-    readonly path?: readonly PathCommand[];
+    readonly path?: readonly PathCommand[] | undefined;
 }
 
 /**
@@ -264,14 +255,14 @@ export interface GroupOptions extends AnchorOptions {
      * @default true
      * @see {@link https://zzz.dog/api#group-visible Zdog API}
      */
-    readonly visible?: boolean;
+    readonly visible?: boolean | undefined;
 
     /**
      * Updates the rendering order of the group’s child items.
      * @default false
      * @see {@link https://zzz.dog/api#group-updatesort Zdog API}
      */
-    readonly updateSort?: boolean;
+    readonly updateSort?: boolean | undefined;
 }
 
 /**
@@ -327,13 +318,13 @@ export interface DraggerOptions {
     /**
      * The element to start dragging on the initial `mousedown`, `pointerdown`, or `touchstart` event.
      */
-    readonly startElement?: string | Element;
+    readonly startElement?: string | Element | undefined;
 
-    readonly onDragStart?: DragStartListener;
+    readonly onDragStart?: DragStartListener | undefined;
 
-    readonly onDragMove?: DragMoveListener;
+    readonly onDragMove?: DragMoveListener | undefined;
 
-    readonly onDragEnd?: DragEndListener;
+    readonly onDragEnd?: DragEndListener | undefined;
 }
 
 /**
@@ -381,32 +372,32 @@ export interface IllustrationOptions extends AnchorOptions, DraggerOptions {
      * @default 1
      * @see {@link https://zzz.dog/api#illustration-zoom Zdog API}
      */
-    readonly zoom?: number;
+    readonly zoom?: number | undefined;
 
     /**
      * Centers the scene in the element.
      * @default true
      * @see {@link https://zzz.dog/api#illustration-centered Zdog API}
      */
-    readonly centered?: boolean;
+    readonly centered?: boolean | undefined;
 
     /**
      * Enables dragging to rotate on an item.
      * @default false
      * @see {@link https://zzz.dog/api#illustration-dragrotate Zdog API}
      */
-    readonly dragRotate?: boolean | Anchor;
+    readonly dragRotate?: boolean | Anchor | undefined;
 
     /**
      * Enables fluid resizing of element.
      * @default false
      * @see {@link https://zzz.dog/api#illustration-resize Zdog API}
      */
-    readonly resize?: boolean;
+    readonly resize?: boolean | undefined;
 
-    readonly onResize?: ResizeListener;
+    readonly onResize?: ResizeListener | undefined;
 
-    readonly onPrerender?: PrerenderListener;
+    readonly onPrerender?: PrerenderListener | undefined;
 }
 
 /**
@@ -467,11 +458,11 @@ export class Illustration extends Anchor implements Dragger {
  * A vector `Object` is a plain ol' JavaScript `Object` with `x`, `y`, `z` coordinate properties.
  */
 export interface VectorOptions {
-    readonly x?: number;
+    readonly x?: number | undefined;
 
-    readonly y?: number;
+    readonly y?: number | undefined;
 
-    readonly z?: number;
+    readonly z?: number | undefined;
 }
 
 /**
@@ -579,10 +570,10 @@ export function modulo(a: number, b: number): number;
 /** @see {@link Rect} */
 export interface RectOptions extends ShapeOptions {
     /** @default 1 */
-    readonly width?: number;
+    readonly width?: number | undefined;
 
     /** @default 1 */
-    readonly height?: number;
+    readonly height?: number | undefined;
 }
 
 /**
@@ -606,13 +597,13 @@ export class Rect extends Shape {
 /** @see {@link RoundedRect} */
 export interface RoundedRectOptions extends ShapeOptions {
     /** @default 1 */
-    readonly width?: number;
+    readonly width?: number | undefined;
 
     /** @default 1 */
-    readonly height?: number;
+    readonly height?: number | undefined;
 
     /** @default 0.25 */
-    readonly cornerRadius?: number;
+    readonly cornerRadius?: number | undefined;
 }
 
 /**
@@ -645,14 +636,14 @@ export type QuartersValue = 1 | 2 | 3 | 4;
 /** @see {@link Ellipse} */
 export interface EllipseOptions extends ShapeOptions {
     /** @default 1 */
-    readonly diameter?: number;
+    readonly diameter?: number | undefined;
 
-    readonly width?: number;
+    readonly width?: number | undefined;
 
-    readonly height?: number;
+    readonly height?: number | undefined;
 
     /** @default 4 */
-    readonly quarters?: QuartersValue;
+    readonly quarters?: QuartersValue | undefined;
 }
 
 /**
@@ -664,10 +655,10 @@ export class Ellipse extends Shape {
     diameter: number;
 
     /** @see {@link EllipseOptions#width} */
-    width?: number;
+    width?: number | undefined;
 
     /** @see {@link EllipseOptions#height} */
-    height?: number;
+    height?: number | undefined;
 
     /** @see {@link EllipseOptions#quarters} */
     quarters: QuartersValue;
@@ -682,10 +673,10 @@ export class Ellipse extends Shape {
 /** @see {@link Polygon} */
 export interface PolygonOptions extends ShapeOptions {
     /** @default 0.5 */
-    readonly radius?: number;
+    readonly radius?: number | undefined;
 
     /** @default 3 */
-    readonly sides?: number;
+    readonly sides?: number | undefined;
 }
 
 /**
@@ -694,10 +685,10 @@ export interface PolygonOptions extends ShapeOptions {
  */
 export class Polygon extends Shape {
     /** @see {@link PolygonOptions#radius} */
-    readonly radius?: number;
+    radius?: number | undefined;
 
     /** @see {@link PolygonOptions#sides} */
-    readonly sides?: number;
+    sides?: number | undefined;
 
     constructor(options?: PolygonOptions);
 
@@ -709,7 +700,7 @@ export class Polygon extends Shape {
 /** @see {@link Hemisphere} */
 export interface HemisphereOptions extends EllipseOptions {
     /** @default true */
-    readonly fill?: boolean;
+    readonly fill?: boolean | undefined;
 }
 
 /**
@@ -727,10 +718,10 @@ export class Hemisphere extends Ellipse {
 /** @see {@link Cone} */
 export interface ConeOptions extends EllipseOptions {
     /** @default true */
-    readonly fill?: boolean;
+    readonly fill?: boolean | undefined;
 
     /** @default 1 */
-    readonly length?: number;
+    readonly length?: number | undefined;
 }
 
 /**
@@ -751,15 +742,15 @@ export class Cone extends Ellipse {
 /** @see {@link Cylinder} */
 export interface CylinderOptions extends ShapeOptions {
     /** @default 1 */
-    readonly diameter?: number;
+    readonly diameter?: number | undefined;
 
     /** @default 1 */
-    readonly length?: number;
+    readonly length?: number | undefined;
 
     /** @default true */
-    readonly fill?: boolean;
+    readonly fill?: boolean | undefined;
 
-    readonly frontFace?: boolean | string;
+    readonly frontFace?: boolean | string | undefined;
 }
 
 /**
@@ -774,7 +765,7 @@ export class Cylinder extends Shape {
     length: number;
 
     /** @see {@link CylinderOptions#frontFace} */
-    frontFace?: boolean | string;
+    frontFace?: boolean | string | undefined;
 
     constructor(options?: CylinderOptions);
 }
@@ -782,28 +773,28 @@ export class Cylinder extends Shape {
 /** @see {@link Box} */
 export interface BoxOptions extends RectOptions {
     /** @default 1 */
-    readonly depth?: number;
+    readonly depth?: number | undefined;
 
     /** @default true */
-    readonly fill?: boolean;
+    readonly fill?: boolean | undefined;
 
     /** @default true */
-    readonly frontFace?: boolean | string;
+    readonly frontFace?: boolean | string | undefined;
 
     /** @default true */
-    readonly rearFace?: boolean | string;
+    readonly rearFace?: boolean | string | undefined;
 
     /** @default true */
-    readonly leftFace?: boolean | string;
+    readonly leftFace?: boolean | string | undefined;
 
     /** @default true */
-    readonly rightFace?: boolean | string;
+    readonly rightFace?: boolean | string | undefined;
 
     /** @default true */
-    readonly topFace?: boolean | string;
+    readonly topFace?: boolean | string | undefined;
 
     /** @default true */
-    readonly bottomFace?: boolean | string;
+    readonly bottomFace?: boolean | string | undefined;
 }
 
 /**

@@ -1,51 +1,44 @@
-// Type definitions for amqp-rpc v0.0.8
-// Project: https://github.com/demchenkoe/node-amqp-rpc/
-// Definitions by: Wonshik Kim <https://github.com/wokim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 export interface Options {
     connection?: any;
-    url?: string;
+    url?: string | undefined;
     exchangeInstance?: any;
-    exchange?: string;
+    exchange?: string | undefined;
     exchange_options?: {
-        exclusive?: boolean;
-        autoDelete?: boolean;
-    };
+        exclusive?: boolean | undefined;
+        autoDelete?: boolean | undefined;
+    } | undefined;
     ipml_options?: {
-        defaultExchangeName?: string;
-    }
+        defaultExchangeName?: string | undefined;
+    } | undefined;
     conn_options?: any;
 }
 
 export interface CallOptions {
-    correlationId?: string;
+    correlationId?: string | undefined;
     autoDeleteCallback?: any;
 }
 
 export interface HandlerOptions {
-    queueName?: string;
-    durable?: boolean;
-    exclusive?: boolean;
-    autoDelete?: boolean;
+    queueName?: string | undefined;
+    durable?: boolean | undefined;
+    exclusive?: boolean | undefined;
+    autoDelete?: boolean | undefined;
 }
 
 export interface BroadcastOptions {
-    ttl?: number;
+    ttl?: number | undefined;
     onResponse?: any;
     context?: any;
     onComplete?: any;
 }
 
 export interface CommandInfo {
-    cmd?: string;
-    exchange?: string;
-    contentType?: string;
-    size?: number;
+    cmd?: string | undefined;
+    exchange?: string | undefined;
+    contentType?: string | undefined;
+    size?: number | undefined;
 }
 
 export interface Callback {
@@ -63,9 +56,19 @@ export declare class amqpRPC {
     generateQueueName(type: string): string;
     disconnect(): void;
     call<T>(cmd: string, params: T, cb?: Callback, context?: any, options?: CallOptions): string;
-    on<T>(cmd: string, cb: (param?: T, cb?: Callback, info?: CommandInfo) => void, context?: any, options?: HandlerOptions): boolean;
+    on<T>(
+        cmd: string,
+        cb: (param?: T, cb?: Callback, info?: CommandInfo) => void,
+        context?: any,
+        options?: HandlerOptions,
+    ): boolean;
     off(cmd: string): boolean;
     callBroadcast<T>(cmd: string, params: T, options?: BroadcastOptions): void;
-    onBroadcast<T>(cmd: string, cb?: (params?: T, cb?: CallbackWithError) => void, context?: any, options?: any): boolean;
+    onBroadcast<T>(
+        cmd: string,
+        cb?: (params?: T, cb?: CallbackWithError) => void,
+        context?: any,
+        options?: any,
+    ): boolean;
     offBroadcast(cmd: string): boolean;
 }

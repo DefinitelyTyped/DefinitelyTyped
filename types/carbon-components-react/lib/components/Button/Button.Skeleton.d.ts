@@ -1,12 +1,11 @@
 import * as React from "react";
-import { ReactAnchorAttr, SizingProps } from "../../../typings/shared";
+import { ReactAnchorAttr, ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps extends SizingProps {
-    className?: ReactAnchorAttr["className"],
-    href?: ReactAnchorAttr["href"],
+export interface ButtonSkeletonProps extends ReactAttr {
+    href?: ReactAnchorAttr["href"] | undefined;
+    size?: "default" | "field" | "lg" | "md" | "sm" | "small" | "xl" | "2xl" | undefined;
+    small?: boolean | undefined;
 }
-
-export interface ButtonSkeletonProps extends InheritedProps { }
 
 declare const ButtonSkeleton: React.FC<ButtonSkeletonProps>;
 

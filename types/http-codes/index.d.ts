@@ -1,8 +1,3 @@
-// Type definitions for http-codes 1.0
-// Project: https://github.com/flesler/node-http-codes
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const ACCEPTED: number;
 export const ALREADY_REPORTED: number;
 export const BAD_GATEWAY: number;
@@ -58,7 +53,7 @@ export const TEMPORARY_REDIRECT: number;
 export const TOO_MANY_REQUESTS: number;
 export const UNAUTHORIZED: number;
 export const UNAVAILABLE_FOR_LEGAL_REASONS: number;
-export const UNORDERED_COLLECTION: number;
+export const TOO_EARLY: number;
 export const UNPROCESSABLE_ENTITY: number;
 export const UNSUPPORTED_MEDIA_TYPE: number;
 export const UPGRADE_REQUIRED: number;

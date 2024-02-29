@@ -1,21 +1,17 @@
-// Type definitions for Greasemonkey 4.x
-// Project: http://www.greasespot.net/
-// Definitions by: Kota Saito <https://github.com/kotas>
-//                 Nikolay Borzov <https://github.com/nikolay-borzov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This definition is based on the API reference of Greasemonkey
 // https://wiki.greasespot.net/Greasemonkey_Manual:API
 // TypeScript Version: 3.2
 
 declare namespace GM {
     interface ScriptInfo {
+        /** Possibly empty string. */
         description: string;
         excludes: string[];
         includes: string[];
         matches: string[];
         name: string;
-        namespace?: string;
+        /** Possibly empty string. */
+        namespace: string;
         /**
          * An object keyed by resource name.
          * Each value is an object with keys `name` and `mimetype` and `url`
@@ -23,14 +19,15 @@ declare namespace GM {
          */
         resources: {
             [resourceName: string]: {
-                name: string
-                mimetype: string
-                url: string
-            }
+                name: string;
+                mimetype: string;
+                url: string;
+            };
         };
         /** @default 'end' */
-        runAt: 'start' | 'end' | 'idle';
+        runAt: "start" | "end" | "idle";
         uuid: string;
+        /** Possibly empty string. */
         version: string;
     }
 
@@ -40,7 +37,7 @@ declare namespace GM {
         readonly responseHeaders: string;
         readonly finalUrl: string;
         /** The same object passed into the original request */
-        readonly context?: TContext;
+        readonly context?: TContext | undefined;
 
         readonly readyState: 1 | 2 | 3 | 4;
         readonly response: any;
@@ -66,67 +63,69 @@ declare namespace GM {
         url: string;
         /** String type of HTTP request to make (E.G. "GET", "POST") */
         method:
-            | 'GET'
-            | 'POST'
-            | 'PUT'
-            | 'DELETE'
-            | 'PATCH'
-            | 'HEAD'
-            | 'TRACE'
-            | 'OPTIONS'
-            | 'CONNECT';
+            | "GET"
+            | "POST"
+            | "PUT"
+            | "DELETE"
+            | "PATCH"
+            | "HEAD"
+            | "TRACE"
+            | "OPTIONS"
+            | "CONNECT";
         /**
          * When true, the data is sent as a Blob
          * @default false
          */
-        binary?: boolean;
+        binary?: boolean | undefined;
         /**
          * Any object (Compatibility: 1.10+). This object will also be the
          * context property of the Response Object.
          */
-        context?: TContext;
+        context?: TContext | undefined;
         /**
          * Data to send in the request body. Usually for POST method requests.
          * If the data field contains form-encoded data, you usually must also
          * set the header `'Content-Type': 'application/x-www-form-urlencoded'`
          * in the `headers` field.
          */
-        data?: string;
+        data?: string | undefined;
         /** A set of headers to include in the request */
         headers?: {
-            [header: string]: string
-        };
+            [header: string]: string;
+        } | undefined;
         /**
          * A MIME type to specify with the request (e.g.
          * "text/html; charset=ISO-8859-1")
          */
-        overrideMimeType?: string;
+        overrideMimeType?: string | undefined;
         /** User name to use for authentication purposes. */
-        user?: string;
+        user?: string | undefined;
         /** Password to use for authentication purposes */
-        password?: string;
+        password?: string | undefined;
+        /** Decode the response as specified type. Default value is "text" */
+        responseType?: XMLHttpRequestResponseType | undefined;
         /**
          * When `true`, this is a synchronous request.
          * Be careful: The entire Firefox UI will be locked and frozen until the
          * request completes.In this mode, more data will be available in the
          * return value.
          */
-        synchronous?: boolean;
+        synchronous?: boolean | undefined;
         /**
          * The number of milliseconds to wait before terminating the call. Zero
          * (the default) means wait forever.
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Object containing optional function callbacks to monitor the upload
          * of data.
          */
         upload?: {
-            onabort?(response: Response<TContext>): void
-            onerror?(response: Response<TContext>): void
-            onload?(response: Response<TContext>): void
-            onprogress?(response: ProgressResponse<TContext>): void
-        };
+            onabort?(response: Response<TContext>): void;
+            onerror?(response: Response<TContext>): void;
+            onload?(response: Response<TContext>): void;
+            onprogress?(response: ProgressResponse<TContext>): void;
+        } | undefined;
 
         // Event handlers
 
@@ -160,20 +159,20 @@ declare var GM: {
      */
     info: {
         /** An object containing data about the currently running script */
-        script: GM.ScriptInfo
+        script: GM.ScriptInfo;
         /**
          * A string, the entire literal Metadata Block (without the delimiters)
          * for the currently running script
          */
-        scriptMetaStr: string
+        scriptMetaStr: string;
         /**
          * The name of the user script engine handling this script's execution.
          * The string `Greasemonkey`
          */
-        scriptHandler: string
+        scriptHandler: string;
         /** The version of Greasemonkey, a string e.g. `4.0` */
-        version: string
-    }
+        version: string;
+    };
 
     // Values
 
@@ -189,7 +188,7 @@ declare var GM: {
      * @returns A Promise, resolved successfully with no value on success,
      * rejected with no value on failure
      */
-    setValue(name: string, value: GM.Value): Promise<void>
+    setValue(name: string, value: GM.Value): Promise<void>;
 
     /**
      * Retrieves a value that was set with `GM.setValue`
@@ -211,10 +210,13 @@ declare var GM: {
      * // For structured data used `JSON.stringify()` to place an object into storage and then `JSON.parse()` to convert it back
      * const storedObject = JSON.parse(await GM.getValue('foo', '{}'));
      */
+    getValue(
+        name: string,
+    ): Promise<GM.Value | undefined>;
     getValue<TValue = GM.Value>(
         name: string,
-        defaultValue?: TValue
-    ): Promise<TValue | undefined>
+        defaultValue: TValue,
+    ): Promise<TValue>;
 
     /**
      * Deletes an existing name / value pair from storage.
@@ -223,7 +225,7 @@ declare var GM: {
      * @returns A Promise, resolved successfully with no value on success,
      * rejected with no value on failure.
      */
-    deleteValue(name: string): Promise<void>
+    deleteValue(name: string): Promise<void>;
 
     /**
      * Retrieves an array of preference names that this script has stored
@@ -231,7 +233,7 @@ declare var GM: {
      * @returns A Promise, rejected in case of error and otherwise resolved with
      * an string[] for previously set values
      */
-    listValues(): Promise<string[]>
+    listValues(): Promise<string[]>;
 
     // Resources
 
@@ -244,7 +246,7 @@ declare var GM: {
      * Treat the result as opaque string. It will work where you need a URL
      * (for a `<link>` or `<style>` for CSS, for an `<img>` tag, or similar).
      */
-    getResourceUrl(resourceName: string): Promise<string>
+    getResourceUrl(resourceName: string): Promise<string>;
 
     // Other
 
@@ -263,8 +265,8 @@ declare var GM: {
         text: string,
         title: string,
         image?: string,
-        onClick?: () => void
-    ): void
+        onClick?: () => void,
+    ): void;
 
     /**
      * Opens the specified URL in a new tab.
@@ -273,18 +275,28 @@ declare var GM: {
      * @param openInBackground Force tab to/to not open in a background tab.
      * Default (unspecified) behavior honors Firefox configuration.
      */
-    openInTab(url: string, openInBackground?: boolean): void
+    openInTab(url: string, openInBackground?: boolean): void;
+
+    /**
+     * Adds an item to the User Script Commands menu.
+     * @param caption The caption to display on the menu item.
+     * @param commandFunc The function to call when the menu item is selected.
+     * @param accessKey A single character that can be used to select the
+     * item when the menu is open. It should be a letter in the caption.
+     * @see {@link https://wiki.greasespot.net/GM.registerMenuCommand}
+     */
+    registerMenuCommand(caption: string, commandFunc: () => void, accessKey?: string): void;
 
     /**
      * Sets the current contents of the operating system's clipboard
      * @see {@link https://wiki.greasespot.net/GM.setClipboard}
      */
-    setClipboard(text: string): void
+    setClipboard(text: string): void;
 
     /**
      * Performs a similar function to the standard XMLHttpRequest object, but
      * allows these requests to cross the [same origin policy]{@link https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy} boundaries.
      * @see {@link https://wiki.greasespot.net/GM.xmlHttpRequest}
      */
-    xmlHttpRequest(details: GM.Request): void
+    xmlHttpRequest(details: GM.Request): void;
 };

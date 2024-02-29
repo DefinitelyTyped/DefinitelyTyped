@@ -4,16 +4,16 @@ declare namespace AMap {
             /**
              * 右键菜单内容
              */
-            content?: string | HTMLElement;
+            content?: string | HTMLElement | undefined;
 
             // internal
-            visible?: boolean;
+            visible?: boolean | undefined;
         }
 
         interface EventMap<I> {
-            items: Event<'items'>;
-            open: Event<'open', { target: I }>;
-            close: Event<'close', { target: I }>;
+            items: Event<"items">;
+            open: Event<"open", { target: I }>;
+            close: Event<"close", { target: I }>;
         }
     }
 

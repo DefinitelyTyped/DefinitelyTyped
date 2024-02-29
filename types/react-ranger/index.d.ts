@@ -1,36 +1,30 @@
-// Type definitions for react-ranger 2.0
-// Project: https://github.com/tannerlinsley/react-ranger#readme
-// Definitions by: Matt Polichette <https://github.com/mpolichette>,
-//                 Guy Gascoigne-Piggford <https://github.com/ggascoigne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Key, CSSProperties, MouseEvent, TouchEvent } from 'react';
+import { CSSProperties, Key, MouseEvent, TouchEvent } from "react";
 
 export interface RangerOptions {
     values: number[];
     min: number;
     max: number;
     stepSize: number;
-    steps?: number[];
-    tickSize?: number;
-    ticks?: number[];
-    onChange?: (values: number[]) => void;
-    onDrag?: (values: number[]) => void;
+    steps?: number[] | undefined;
+    tickSize?: number | undefined;
+    ticks?: number[] | undefined;
+    onChange?: ((values: number[]) => void) | undefined;
+    onDrag?: ((values: number[]) => void) | undefined;
     interpolator?: {
         getPercentageForValue: (val: number, min: number, max: number) => number;
         getValueForClientX: (clientX: number, trackDims: object, min: number, max: number) => number;
-    };
+    } | undefined;
 }
 
 export interface TrackProps {
     key: Key;
     style: CSSProperties;
 }
-export interface TickProps  {
+export interface TickProps {
     key: Key;
     style: CSSProperties;
 }
-export interface SegmentProps  {
+export interface SegmentProps {
     key: Key;
     style: CSSProperties;
 }

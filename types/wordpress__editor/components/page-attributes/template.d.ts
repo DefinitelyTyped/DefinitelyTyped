@@ -1,8 +1,8 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace PageTemplate {
     interface Props {
-        children?: never;
+        children?: never | undefined;
     }
 }
 declare const PageTemplate: ComponentType<PageTemplate.Props>;

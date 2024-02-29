@@ -1,9 +1,4 @@
-// Type definitions for nuclear-js 1.4
-// Project: https://github.com/optimizely/nuclear-js
-// Definitions by: Pat Lillis <https://github.com/patlillis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as _Immutable from 'immutable';
+import * as _Immutable from "immutable";
 
 // Disable automatic exports.
 export {};
@@ -13,31 +8,31 @@ export import Immutable = _Immutable;
 
 interface ReactorConfig {
     /** If true it will log the entire app state for every dispatch. */
-    debug?: boolean;
+    debug?: boolean | undefined;
 
     /** Additional options for customizing Reactor behavior. */
     options?: {
         /** Log information for each dispatch. */
-        logDispatches?: boolean;
+        logDispatches?: boolean | undefined;
 
         /** log the entire app state after each dispatch. */
-        logAppState?: boolean;
+        logAppState?: boolean | undefined;
 
         /** Log what stores changed after a dispatch. */
-        logDirtyStores?: boolean;
+        logDirtyStores?: boolean | undefined;
 
         /** Throw an error when dispatching an `undefined` actionType. */
-        throwOnUndefinedActionType?: boolean;
+        throwOnUndefinedActionType?: boolean | undefined;
 
         /** Throw an error if a store returns undefined. */
-        throwOnUndefinedStoreReturnValue?: boolean;
+        throwOnUndefinedStoreReturnValue?: boolean | undefined;
 
         /** Throw an error if a store.getInitialState() returns a non immutable value. */
-        throwOnNonImmutableStore?: boolean;
+        throwOnNonImmutableStore?: boolean | undefined;
 
         /** Throw when dispatching in dispatch. */
-        throwOnDispatchInDispatch?: boolean;
-    };
+        throwOnDispatchInDispatch?: boolean | undefined;
+    } | undefined;
 }
 
 // Getters have a really complex, recursive type that can't be represented
@@ -158,7 +153,7 @@ export const Reactor: {
      * update state, Reactor's dispatch messages to all registered stores, and
      * the store returns it's new state based on the message
      */
-    new (config?: ReactorConfig): Reactor;
+    new(config?: ReactorConfig): Reactor;
 
     /**
      * State is stored in NuclearJS Reactors. Reactors contain a `state` object
@@ -256,7 +251,7 @@ export const Store: {
      * entire app state and have no knowledge about the other parts of the
      * application state.
      */
-    new <T>(config: StoreLike<T>): Store<T>;
+    new<T>(config: StoreLike<T>): Store<T>;
 
     /**
      * A Store defines how a certain domain of the application should respond to

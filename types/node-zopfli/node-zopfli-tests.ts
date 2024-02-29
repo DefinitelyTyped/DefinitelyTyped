@@ -1,13 +1,13 @@
-import * as Zopfli from 'node-zopfli';
-import * as fs from 'fs';
+import * as fs from "fs";
+import * as Zopfli from "node-zopfli";
 
 const opts: Zopfli.Options = {
     verbose: true,
-    numiterations: 1
+    numiterations: 1,
 };
-let input: Buffer = Buffer.from('foo');
-const read = fs.createReadStream('foo');
-const write = fs.createWriteStream('foo');
+const input: Buffer = Buffer.from("foo");
+const read = fs.createReadStream("foo");
+const write = fs.createWriteStream("foo");
 
 function cb(e: Error, b: Buffer): void {}
 function then(b: Buffer): void {}
@@ -27,19 +27,19 @@ Zopfli.deflate(input, opts, cb);
 Zopfli.deflate(input, opts).then(then);
 Zopfli.deflate(input).then(then);
 
-Zopfli.compress(input, 'zlib', cb);
-Zopfli.compress(input, 'zlib', opts, cb);
-Zopfli.compress(input, 'zlib', opts).then(then);
-Zopfli.compress(input, 'zlib').then(then);
+Zopfli.compress(input, "zlib", cb);
+Zopfli.compress(input, "zlib", opts, cb);
+Zopfli.compress(input, "zlib", opts).then(then);
+Zopfli.compress(input, "zlib").then(then);
 
-input = Zopfli.gzipSync();
-input = Zopfli.gzipSync(opts);
+let output: Buffer = Zopfli.gzipSync(input, {});
+output = Zopfli.gzipSync(input, opts);
 
-input = Zopfli.deflateSync();
-input = Zopfli.deflateSync(opts);
+output = Zopfli.deflateSync(input, {});
+output = Zopfli.deflateSync(input, opts);
 
-input = Zopfli.zlibSync();
-input = Zopfli.zlibSync(opts);
+output = Zopfli.zlibSync(input, {});
+output = Zopfli.zlibSync(input, opts);
 
 read.pipe(Zopfli.createGzip()).pipe(write);
 read.pipe(Zopfli.createGzip(opts)).pipe(write);

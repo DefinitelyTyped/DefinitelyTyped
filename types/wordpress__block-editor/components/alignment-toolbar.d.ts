@@ -1,14 +1,16 @@
-import { Dashicon } from '@wordpress/components';
-import { ComponentType } from 'react';
+import { Dashicon } from "@wordpress/components";
+import { ComponentType, JSX } from "react";
 
 declare namespace AlignmentToolbar {
     interface Props {
-        alignmentControls?: Array<{
-            align: string;
-            icon: Dashicon.Icon | JSX.Element;
-            title: string;
-        }>;
-        children?: never;
+        alignmentControls?:
+            | Array<{
+                align: string;
+                icon: Dashicon.Icon | JSX.Element;
+                title: string;
+            }>
+            | undefined;
+        children?: never | undefined;
         value: string | undefined;
         onChange(newValue: string | undefined): void;
     }

@@ -1,13 +1,7 @@
-// Type definitions for fluent 0.11
-// Project: http://projectfluent.org
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>, James Nimlos <https://github.com/jamesnimlos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface FluentBundleContructorOptions {
-    functions?: object;
-    useIsolating?: boolean;
-    transform?: (...args: any[]) => any;
+    functions?: object | undefined;
+    useIsolating?: boolean | undefined;
+    transform?: ((...args: any[]) => any) | undefined;
 }
 
 export class FluentType {
@@ -16,7 +10,7 @@ export class FluentType {
     valueOf(): any;
 }
 
-export class FluentNone extends FluentType  {}
+export class FluentNone extends FluentType {}
 export class FluentNumber extends FluentType {}
 export class FluentDateTime extends FluentType {}
 

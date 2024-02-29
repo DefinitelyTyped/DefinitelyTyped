@@ -1,3 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
+import { InstantSearchProps } from "react-instantsearch-core";
 
-export function findResultsState(App: React.ComponentType<any>, props: any): Promise<any>;
+export function findResultsState<
+    TProps extends Pick<InstantSearchProps, "widgetsCollector" | "searchClient" | "indexName">,
+>(App: React.ComponentType<TProps>, props: TProps): Promise<InstantSearchProps["resultsState"]>;

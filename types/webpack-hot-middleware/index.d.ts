@@ -1,46 +1,36 @@
-// Type definitions for webpack-hot-middleware 2.25
-// Project: https://github.com/webpack-contrib/webpack-hot-middleware
-// Definitions by: Benjamin Lim <https://github.com/bumbleblym>
-//               Ron Martinez <https://github.com/icylace>
-//               Chris Abrams <https://github.com/chrisabrams>
-//               Ilya Zelenko <https://github.com/iliyaZelenko>
-//               Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { NextHandleFunction } from 'connect';
-import * as webpack from 'webpack';
+import { NextHandleFunction } from "connect";
+import * as webpack from "webpack";
 
 export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
-    compiler: webpack.ICompiler,
-    options?: WebpackHotMiddleware.MiddlewareOptions
+    compiler: webpack.Compiler | webpack.MultiCompiler,
+    options?: WebpackHotMiddleware.MiddlewareOptions,
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
 declare namespace WebpackHotMiddleware {
     interface ClientOptions {
-        path?: string;
-        reload?: boolean;
-        name?: string;
-        timeout?: number;
-        overlay?: boolean;
-        noInfo?: boolean;
-        quiet?: boolean;
-        dynamicPublicPath?: boolean;
-        autoConnect?: boolean;
+        path?: string | undefined;
+        reload?: boolean | undefined;
+        name?: string | undefined;
+        timeout?: number | undefined;
+        overlay?: boolean | undefined;
+        noInfo?: boolean | undefined;
+        quiet?: boolean | undefined;
+        dynamicPublicPath?: boolean | undefined;
+        autoConnect?: boolean | undefined;
         ansiColors?: {
-            [key: string]: any
-        };
+            [key: string]: any;
+        } | undefined;
         overlayStyles?: {
-            [key: string]: any
-        };
-        overlayWarnings?: boolean;
+            [key: string]: any;
+        } | undefined;
+        overlayWarnings?: boolean | undefined;
     }
     interface MiddlewareOptions {
-        log?: false | Logger;
-        path?: string;
-        heartbeat?: number;
+        log?: false | Logger | undefined;
+        path?: string | undefined;
+        heartbeat?: number | undefined;
     }
 
     type Logger = (message?: any, ...optionalParams: any[]) => void;

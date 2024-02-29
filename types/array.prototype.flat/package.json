@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/array.prototype.flat",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/es-shims/Array.prototype.flat#readme"
+    ],
+    "devDependencies": {
+        "@types/array.prototype.flat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Lin",
+            "githubUsername": "kylejlin"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

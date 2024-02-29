@@ -1,10 +1,4 @@
-// Type definitions for react-file-input
-// Project: https://www.npmjs.com/package/react-file-input
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-///<reference types="react" />
+/// <reference types="react" />
 
 declare module "react-file-input" {
     interface FileInputProps {
@@ -12,7 +6,7 @@ declare module "react-file-input" {
         className: string;
         accept: string;
         placeholder: string;
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         onChange: (event: React.SyntheticEvent<any>) => void;
     }
 

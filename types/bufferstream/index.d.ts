@@ -1,11 +1,6 @@
-// Type definitions for bufferstream 0.6
-// Project: https://github.com/dodo/node-bufferstream
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import stream = require('stream');
+import stream = require("stream");
 
 export = BufferStream;
 
@@ -65,11 +60,11 @@ declare namespace BufferStream {
         /*
             default encoding for writing strings
         */
-        encoding?: string;
+        encoding?: string | undefined;
         /*
             if true and the source is a child_process the stream will block the entire process (timeouts wont work anymore, but splitting and listening on data still works, because they work sync)
         */
-        blocking?: boolean;
+        blocking?: boolean | undefined;
         /*
             defines buffer level or sets buffer to given size (see ↓setSize for more)
         */
@@ -77,7 +72,7 @@ declare namespace BufferStream {
         /*
             immediately call disable
         */
-        disabled?: boolean;
+        disabled?: boolean | undefined;
         /*
             short form for:
             split(token, function (chunk) {emit('data', chunk)})
@@ -85,5 +80,5 @@ declare namespace BufferStream {
         // String or Buffer
         split?: any;
     }
-    const fn: {warn: boolean};
+    const fn: { warn: boolean };
 }

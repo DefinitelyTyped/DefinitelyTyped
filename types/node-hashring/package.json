@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-hashring",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sparkida/node-hashring#readme"
+    ],
+    "devDependencies": {
+        "@types/node-hashring": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

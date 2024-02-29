@@ -1,38 +1,54 @@
-// Type definitions for css-modules 1.0
-// Project: https://github.com/css-modules/css-modules
-// Definitions by: NeekSandhu <https://github.com/NeekSandhu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-interface Stringifyable {
+interface CSSModule {
     /**
-     * Stringifies the imported stylesheet for use with inline style tags
-     */
-    toString(): string;
-}
-interface SelectorNode {
-    /**
-     * Returns the specific selector from imported stylesheet as string
+     * Returns the specific selector from imported stylesheet as string.
      */
     [key: string]: string;
 }
 
-declare module '*.css' {
-    const styles: SelectorNode & Stringifyable;
+declare module "*.css" {
+    /**
+     * A CSS module.
+     */
+    const styles: CSSModule;
     export default styles;
 }
 
-declare module '*.scss' {
-    const styles: SelectorNode & Stringifyable;
+declare module "*.scss" {
+    /**
+     * An SCSS based CSS module.
+     *
+     * https://sass-lang.com
+     */
+    const styles: CSSModule;
     export default styles;
 }
 
-declare module '*.sass' {
-    const styles: SelectorNode & Stringifyable;
+declare module "*.sass" {
+    /**
+     * A Sass based CSS module.
+     *
+     * https://sass-lang.com
+     */
+    const styles: CSSModule;
     export default styles;
 }
 
-declare module '*.less' {
-    const styles: SelectorNode & Stringifyable;
+declare module "*.less" {
+    /**
+     * A Less based CSS module.
+     *
+     * http://lesscss.org
+     */
+    const styles: CSSModule;
+    export default styles;
+}
+
+declare module "*.styl" {
+    /**
+     * A Stylus based CSS module.
+     *
+     * https://stylus-lang.com
+     */
+    const styles: CSSModule;
     export default styles;
 }

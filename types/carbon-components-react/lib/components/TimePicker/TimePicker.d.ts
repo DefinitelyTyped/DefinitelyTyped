@@ -1,18 +1,16 @@
 import * as React from "react";
-import { ReactInputAttr, RequiresIdProps, ThemeProps, ValidityProps } from "../../../typings/shared";
+import { ReactInputAttr } from "../../../typings/shared";
 
-interface InheritedProps extends
-    Omit<ReactInputAttr, "id">,
-    RequiresIdProps,
-    ThemeProps,
-    ValidityProps
-{ }
-
-export interface TimePickerProps extends InheritedProps {
-    hideLabel?: boolean,
-    labelText?: React.ReactNode,
+export interface TimePickerProps extends Omit<ReactInputAttr, "id" | "size"> {
+    hideLabel?: boolean | undefined;
+    id: string;
+    invalid?: boolean | undefined;
+    invalidText?: React.ReactNode | undefined;
+    labelText?: React.ReactNode | undefined;
+    light?: boolean | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | undefined;
 }
 
-declare class TimePicker extends React.Component<TimePickerProps> { }
+declare class TimePicker extends React.Component<TimePickerProps> {}
 
 export default TimePicker;

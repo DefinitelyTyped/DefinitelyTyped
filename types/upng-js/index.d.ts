@@ -1,8 +1,3 @@
-// Type definitions for upng-js 2.1
-// Project: https://github.com/photopea/UPNG.js
-// Definitions by: York Yao <https://github.com/plantain-00>, Sophie Kirschner <https://github.com/pineapplemachine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ImageFrameRect {
     x: number;
     y: number;
@@ -27,17 +22,17 @@ export interface ImageTabText {
 }
 
 export interface ImageTabs {
-    acTL?: ImageTabACTL;
-    pHYs?: number[];
-    cHRM?: number[];
-    tEXt?: ImageTabText;
-    iTXt?: ImageTabText;
-    PLTE?: number[];
-    hIST?: number[];
-    tRNS?: (number | number[]); // Depends on ctype
-    gAMA?: number;
-    sRGB?: number;
-    bKGD?: (number | number[]); // Depends on ctype
+    acTL?: ImageTabACTL | undefined;
+    pHYs?: number[] | undefined;
+    cHRM?: number[] | undefined;
+    tEXt?: ImageTabText | undefined;
+    iTXt?: ImageTabText | undefined;
+    PLTE?: number[] | undefined;
+    hIST?: number[] | undefined;
+    tRNS?: (number | number[]) | undefined; // Depends on ctype
+    gAMA?: number | undefined;
+    sRGB?: number | undefined;
+    bKGD?: (number | number[]) | undefined; // Depends on ctype
 }
 
 export interface Image {
@@ -62,7 +57,7 @@ export function encode(
     w: number,
     h: number,
     cnum: number,
-    dels?: number[]
+    dels?: number[],
 ): ArrayBuffer;
 
 export function encodeLL(
@@ -72,7 +67,7 @@ export function encodeLL(
     cc: number,
     ac: number,
     depth: number,
-    dels?: number[]
+    dels?: number[],
 ): ArrayBuffer;
 
 export function decode(buffer: ArrayBuffer): Image;

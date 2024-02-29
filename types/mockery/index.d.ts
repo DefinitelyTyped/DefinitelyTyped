@@ -1,14 +1,7 @@
-// Type definitions for mockery 1.4.0
-// Project: https://github.com/mfncooper/mockery
-// Definitions by: jt000 <https://github.com/jt000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 interface MockeryEnableArgs {
-    useCleanCache?: boolean;
-    warnOnReplace?: boolean;
-    warnOnUnregistered?: boolean;
+    useCleanCache?: boolean | undefined;
+    warnOnReplace?: boolean | undefined;
+    warnOnUnregistered?: boolean | undefined;
 }
 
 export declare function enable(args?: MockeryEnableArgs): void;

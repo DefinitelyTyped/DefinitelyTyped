@@ -1,9 +1,3 @@
-// Type definitions for fast-text-encoding 1.0
-// Project: https://github.com/samthor/fast-text-encoding#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * fast-text-encoding does not export any members, but defines the global classes
  * 1) TextDecoder (https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder)

@@ -1,15 +1,9 @@
-// Type definitions for giphy-api 2.0
-// Project: https://github.com/austinkelleher/giphy-api
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 type Rating = "y" | "g" | "pg" | "pg-13" | "r";
 type Format = "html" | "json";
 
 interface BaseOptions {
     rating: Rating;
-    fmt?: Format;
+    fmt?: Format | undefined;
 }
 
 interface TranslateOptions extends BaseOptions {
@@ -21,7 +15,7 @@ interface RandomOptions extends BaseOptions {
 }
 
 interface TrendingOptions extends BaseOptions {
-    limit?: number;
+    limit?: number | undefined;
 }
 
 interface BaseImage {
@@ -31,12 +25,12 @@ interface BaseImage {
 }
 
 interface BaseResponse {
-  pagination: { total_count: number; count: number; offset: number };
-  meta: {
-      status: number;
-      msg: string;
-      response_id: string;
-  };
+    pagination: { total_count: number; count: number; offset: number };
+    meta: {
+        status: number;
+        msg: string;
+        response_id: string;
+    };
 }
 
 type Callback<TResponse> = (err: Error, res: TResponse) => void;
@@ -45,15 +39,15 @@ declare function giphyApi(apiKeyOrOptions?: string | giphyApi.GiphyOptions): gip
 
 declare namespace giphyApi {
     interface GiphyOptions {
-        https?: boolean;
-        timeout?: number;
-        apiKey?: string;
+        https?: boolean | undefined;
+        timeout?: number | undefined;
+        apiKey?: string | undefined;
     }
 
     interface SearchOptions extends BaseOptions {
         q: string;
-        limit?: number;
-        offset?: number;
+        limit?: number | undefined;
+        offset?: number | undefined;
     }
 
     interface Giphy {
@@ -135,7 +129,7 @@ declare namespace giphyApi {
             webp: string;
             webp_size: string;
         };
-        looping: { mp4: string; };
+        looping: { mp4: string };
         preview: {
             width: string;
             height: string;
@@ -165,7 +159,7 @@ declare namespace giphyApi {
             username: string;
             display_name: string;
             twitter: string;
-        };
+        } | undefined;
         source_tld: string;
         source_post_url: string;
         update_datetime: string;
@@ -177,11 +171,11 @@ declare namespace giphyApi {
     }
 
     interface MultiResponse extends BaseResponse {
-      data: GIFObject[];
+        data: GIFObject[];
     }
 
     interface SingleResponse extends BaseResponse {
-      data: GIFObject;
+        data: GIFObject;
     }
 }
 

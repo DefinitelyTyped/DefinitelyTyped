@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/dom 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/dom/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface Focusable {
     find(context: ParentNode): Element[];
 }
@@ -131,7 +125,12 @@ export function placeCaretAtHorizontalEdge(container: HTMLElement | undefined, i
  * @param [rect]              The rectangle to position the caret with.
  * @param [mayUseScroll=true] `true` to allow scrolling, `false` to disallow.
  */
-export function placeCaretAtVerticalEdge(container: HTMLElement | undefined, isReverse: boolean, rect?: DOMRect, mayUseScroll?: boolean): void;
+export function placeCaretAtVerticalEdge(
+    container: HTMLElement | undefined,
+    isReverse: boolean,
+    rect?: DOMRect,
+    mayUseScroll?: boolean,
+): void;
 
 /**
  * Given a DOM node, removes it from the DOM.

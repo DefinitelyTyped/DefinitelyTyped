@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-path-contours",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/mattdesl/svg-path-contours"
+    ],
+    "devDependencies": {
+        "@types/svg-path-contours": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sikriti Dakua",
+            "githubUsername": "devloop01"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-func-name",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/chaijs/get-func-name#readme"
+    ],
+    "devDependencies": {
+        "@types/get-func-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

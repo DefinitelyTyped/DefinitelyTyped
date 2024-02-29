@@ -1,43 +1,37 @@
-// Type definitions for epilogue 0.7
-// Project: https://github.com/dchester/epilogue
-// Definitions by: Satana Charuwichitratana <https://github.com/micksatana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import {
-    Sequelize,
     AssociationOptions,
     DataTypeAbstract,
-    DataTypeString,
-    DataTypeChar,
-    DataTypeText,
-    DataTypeNumber,
-    DataTypeInteger,
+    DataTypeArray,
     DataTypeBigInt,
-    DataTypeFloat,
-    DataTypeTime,
+    DataTypeBlob,
+    DataTypeBoolean,
+    DataTypeChar,
     DataTypeDate,
     DataTypeDateOnly,
-    DataTypeBoolean,
-    DataTypeNow,
-    DataTypeBlob,
     DataTypeDecimal,
+    DataTypeDouble,
+    DataTypeEnum,
+    DataTypeFloat,
+    DataTypeGeometry,
+    DataTypeHStore,
+    DataTypeInteger,
+    DataTypeJSONB,
+    DataTypeJSONType,
+    DataTypeNow,
+    DataTypeNumber,
+    DataTypeRange,
+    DataTypeReal,
+    DataTypeString,
+    DataTypeText,
+    DataTypeTime,
     DataTypeUUID,
     DataTypeUUIDv1,
     DataTypeUUIDv4,
-    DataTypeHStore,
-    DataTypeJSONType,
-    DataTypeJSONB,
     DataTypeVirtual,
-    DataTypeArray,
-    DataTypeEnum,
-    DataTypeRange,
-    DataTypeReal,
-    DataTypeDouble,
-    DataTypeGeometry
-} from 'sequelize';
+    Sequelize,
+} from "sequelize";
 
-import { Express, Request, Response } from 'express';
+import { Express, Request, Response } from "express";
 
 export class Endpoint {
     constructor(endpoint: string);
@@ -123,8 +117,8 @@ export interface ResourceSortOption {
 export interface InitializeOptions {
     app: Express;
     sequelize: Sequelize;
-    base?: string;
-    updateMethod?: string;
+    base?: string | undefined;
+    updateMethod?: string | undefined;
 }
 
 export interface BaseContollerOptions {
@@ -172,27 +166,54 @@ export class DeleteController extends BaseController {
 
 export class ListController extends BaseController {
     fetch: (req: Request, res: Response, context: Context) => Promise<() => void>;
-    _safeishParse: (value: any, type: DataTypeAbstract | DataTypeString | DataTypeChar | DataTypeText | DataTypeNumber |
-                        DataTypeInteger | DataTypeBigInt | DataTypeFloat | DataTypeTime | DataTypeDate | DataTypeDateOnly |
-                        DataTypeBoolean | DataTypeNow | DataTypeBlob | DataTypeDecimal | DataTypeUUID | DataTypeUUIDv1 |
-                        DataTypeUUIDv4 | DataTypeHStore | DataTypeJSONType | DataTypeJSONB | DataTypeVirtual |
-                        DataTypeArray | DataTypeEnum | DataTypeRange | DataTypeReal | DataTypeDouble | DataTypeGeometry,
-                    sequelize: Sequelize) => any;
+    _safeishParse: (
+        value: any,
+        type:
+            | DataTypeAbstract
+            | DataTypeString
+            | DataTypeChar
+            | DataTypeText
+            | DataTypeNumber
+            | DataTypeInteger
+            | DataTypeBigInt
+            | DataTypeFloat
+            | DataTypeTime
+            | DataTypeDate
+            | DataTypeDateOnly
+            | DataTypeBoolean
+            | DataTypeNow
+            | DataTypeBlob
+            | DataTypeDecimal
+            | DataTypeUUID
+            | DataTypeUUIDv1
+            | DataTypeUUIDv4
+            | DataTypeHStore
+            | DataTypeJSONType
+            | DataTypeJSONB
+            | DataTypeVirtual
+            | DataTypeArray
+            | DataTypeEnum
+            | DataTypeRange
+            | DataTypeReal
+            | DataTypeDouble
+            | DataTypeGeometry,
+        sequelize: Sequelize,
+    ) => any;
 }
 
 export interface ResourceOptions {
     model: any;
     endpoints: string[];
-    actions?: string[];
-    include?: Array<{ model: any } | string>;
-    pagination?: boolean;
-    search?: ResourceSearchOption;
-    sort?: ResourceSortOption;
-    reloadInstances?: boolean;
-    associations?: AssociationOptions;
-    excludeAttributes?: string[];
-    readOnlyAttributes?: string[];
-    updateMethod?: string;
+    actions?: string[] | undefined;
+    include?: Array<{ model: any } | string> | undefined;
+    pagination?: boolean | undefined;
+    search?: ResourceSearchOption | undefined;
+    sort?: ResourceSortOption | undefined;
+    reloadInstances?: boolean | undefined;
+    associations?: AssociationOptions | undefined;
+    excludeAttributes?: string[] | undefined;
+    readOnlyAttributes?: string[] | undefined;
+    updateMethod?: string | undefined;
 }
 
 export function initialize(options?: InitializeOptions): void;

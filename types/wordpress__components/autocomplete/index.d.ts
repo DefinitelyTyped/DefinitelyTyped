@@ -1,5 +1,5 @@
-import { ComponentType, ReactNode } from 'react';
-import { Value } from '@wordpress/rich-text';
+import { Value } from "@wordpress/rich-text";
+import { JSX, ReactNode } from "react";
 
 declare namespace Autocomplete {
     /**
@@ -8,12 +8,12 @@ declare namespace Autocomplete {
      *   - `replace`: Replace the current block with the block specified in
      *      the `value` property.
      */
-    type Action = 'insert-at-caret' | 'replace';
+    type Action = "insert-at-caret" | "replace";
 
     type OptionCompletion =
         | ReactNode
-        | { action: 'insert-at-caret'; value: ReactNode }
-        | { action: 'replace'; value: Value };
+        | { action: "insert-at-caret"; value: ReactNode }
+        | { action: "replace"; value: Value };
 
     interface Completer<T> {
         /**
@@ -42,13 +42,13 @@ declare namespace Autocomplete {
         /**
          * A class name to apply to the autocompletion popup menu.
          */
-        className?: string;
+        className?: string | undefined;
 
         /**
          * Whether to apply debouncing for the autocompleter. Set to `true` to
          * enable debouncing.
          */
-        isDebounced?: boolean;
+        isDebounced?: boolean | undefined;
 
         /**
          * A function that takes a string before and a string after the
@@ -106,6 +106,7 @@ declare namespace Autocomplete {
         activeId: string;
         isExpanded: boolean;
         listBoxId: string;
+        onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
     }
 
     interface Props<T> {
@@ -113,11 +114,12 @@ declare namespace Autocomplete {
         completers: ReadonlyArray<Completer<T>>;
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
-        record?: Value;
+        record?: Value | undefined;
+        isSelected?: boolean | undefined;
     }
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Autocomplete<T = any>(props: Autocomplete.Props<T>): JSX.Element;
 
 export default Autocomplete;

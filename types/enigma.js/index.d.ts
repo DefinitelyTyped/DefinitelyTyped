@@ -1,9 +1,3 @@
-// Type definitions for enigma.js 2.2
-// Project: https://github.com/qlik-oss/enigma.js/
-// Definitions by: Konrad Mattheis <https://github.com/konne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare module "enigma.js" {
     const e: IEnigmaClass;
     export = e;
@@ -23,7 +17,7 @@ interface IEnigmaClass {
 }
 
 declare namespace enigmaJS {
-    type MixinType = "Doc"| "GenericObject"| "GenericBookmark" | string;
+    type MixinType = "Doc" | "GenericObject" | "GenericBookmark" | string;
 
     interface IMixin {
         /**
@@ -33,7 +27,7 @@ declare namespace enigmaJS {
          */
         types: MixinType[];
 
-        init(args: {config: any, api: IGeneratedAPI}): void;
+        init(args: { config: any; api: IGeneratedAPI }): void;
 
         /**
          * mixin.extend is an object containing methods to extend the generated API with. These method names cannot already exist or enigma.js will throw an error.
@@ -79,7 +73,7 @@ declare namespace enigmaJS {
 
     interface IProtocol {
         // Set to false to disable the use of the bandwidth-reducing delta protocol.
-        delta?: boolean;
+        delta?: boolean | undefined;
     }
 
     /**
@@ -105,25 +99,25 @@ declare namespace enigmaJS {
         /**
          * Set to true if the session should be suspended instead of closed when the websocket is closed.
          */
-        suspendOnClose?: boolean;
+        suspendOnClose?: boolean | undefined;
         /**
          * Mixins to extend/augment the QIX Engine API.
          * See Mixins section for more information how each entry in this array should look like.
          * Mixins are applied in the array order.
          */
-        mixins?: IMixin[];
+        mixins?: IMixin[] | undefined;
         /**
          * Interceptors for augmenting requests before they are sent to QIX Engine.
          * See Interceptors section for more information how each entry in this array should look like.
          * Interceptors are applied in the array order.
          */
-        requestInterceptors?: IRequestInterceptors[];
+        requestInterceptors?: IRequestInterceptors[] | undefined;
         /**
          * Interceptors for augmenting responses before they are sent to QIX Engine.
          * See Interceptors section for more information how each entry in this array should look like.
          * Interceptors are applied in the array order.
          */
-        responseInterceptors?: IResponseInterceptors[];
+        responseInterceptors?: IResponseInterceptors[] | undefined;
         /**
          * An object containing additional JSON-RPC request parameters.
          * protocol.delta :  Set to false to disable the use of the bandwidth-reducing delta protocol.

@@ -6,9 +6,9 @@
  * are not intended as functional tests.
  */
 
-import * as d3Sankey from 'd3-sankey';
-import { select, Selection } from 'd3-selection';
-import { Link } from 'd3-shape';
+import * as d3Sankey from "d3-sankey";
+import { select } from "d3-selection";
+import { Link } from "d3-shape";
 
 // ---------------------------------------------------------------------------
 // Preparatory Steps
@@ -18,16 +18,16 @@ import { Link } from 'd3-shape';
 // the Sankey layout generator. The latter are reflected in the SankeyNode and SankeyLink interfaces provided
 // by the definitions file
 interface SNodeExtra {
-  name: string;
+    name: string;
 }
 
 interface SNodeExtraCustomId {
-  nodeId: string;
-  name: string;
+    nodeId: string;
+    name: string;
 }
 
 interface SLinkExtra {
-  uom: string;
+    uom: string;
 }
 
 // For convenience
@@ -37,118 +37,146 @@ type SLink = d3Sankey.SankeyLink<SNodeExtra, SLinkExtra>;
 type SLinkCustomId = d3Sankey.SankeyLink<SNodeExtraCustomId, SLinkExtra>;
 
 interface DAG {
-  customNodes: SNode[];
-  customLinks: SLink[];
+    customNodes: SNode[];
+    customLinks: SLink[];
 }
 
 interface DAGCustomId {
-  customNodes: SNodeCustomId[];
-  customLinks: SLinkCustomId[];
+    customNodes: SNodeCustomId[];
+    customLinks: SLinkCustomId[];
 }
 
 const graphDefault: DAG = {
-  customNodes: [{
-    name: "node0"
-  }, {
-    name: "node1"
-  }, {
-    name: "node2"
-  }, {
-    name: "node3"
-  }, {
-    name: "node4"
-  }],
-  customLinks: [{
-    source: 0,
-    target: 2,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 1,
-    target: 2,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 1,
-    target: 3,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 0,
-    target: 4,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 2,
-    target: 3,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 2,
-    target: 4,
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: 3,
-    target: 4,
-    value: 4,
-    uom: 'Widget(s)'
-  }]
+    customNodes: [
+        {
+            name: "node0",
+        },
+        {
+            name: "node1",
+        },
+        {
+            name: "node2",
+        },
+        {
+            name: "node3",
+        },
+        {
+            name: "node4",
+        },
+    ],
+    customLinks: [
+        {
+            source: 0,
+            target: 2,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 1,
+            target: 2,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 1,
+            target: 3,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 0,
+            target: 4,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 2,
+            target: 3,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 2,
+            target: 4,
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: 3,
+            target: 4,
+            value: 4,
+            uom: "Widget(s)",
+        },
+    ],
 };
 
 const graphCustomId: DAGCustomId = {
-  customNodes: [{
-    nodeId: "n0",
-    name: "node0"
-  }, {
-    nodeId: "n1",
-    name: "node1"
-  }, {
-    nodeId: "n2",
-    name: "node2"
-  }, {
-    nodeId: "n3",
-    name: "node3"
-  }, {
-    nodeId: "n4",
-    name: "node4"
-  }],
-  customLinks: [{
-    source: "n0",
-    target: "n2",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n1",
-    target: "n2",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n1",
-    target: "n3",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n0",
-    target: "n4",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n2",
-    target: "n3",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n2",
-    target: "n4",
-    value: 2,
-    uom: 'Widget(s)'
-  }, {
-    source: "n3",
-    target: "n4",
-    value: 4,
-    uom: 'Widget(s)'
-  }]
+    customNodes: [
+        {
+            nodeId: "n0",
+            name: "node0",
+        },
+        {
+            nodeId: "n1",
+            name: "node1",
+        },
+        {
+            nodeId: "n2",
+            name: "node2",
+        },
+        {
+            nodeId: "n3",
+            name: "node3",
+        },
+        {
+            nodeId: "n4",
+            name: "node4",
+        },
+    ],
+    customLinks: [
+        {
+            source: "n0",
+            target: "n2",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n1",
+            target: "n2",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n1",
+            target: "n3",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n0",
+            target: "n4",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n2",
+            target: "n3",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n2",
+            target: "n4",
+            value: 2,
+            uom: "Widget(s)",
+        },
+        {
+            source: "n3",
+            target: "n4",
+            value: 4,
+            uom: "Widget(s)",
+        },
+    ],
 };
 
 let sNodes: SNode[];
@@ -160,7 +188,7 @@ let str: string;
 let size: [number, number];
 let extent: [[number, number], [number, number]];
 
-const svgLinkPaths = select<SVGSVGElement, undefined>('svg').selectAll<SVGPathElement, SLink>('.linkPath'); // assume mock DOM
+const svgLinkPaths = select<SVGSVGElement, undefined>("svg").selectAll<SVGPathElement, SLink>(".linkPath"); // assume mock DOM
 
 let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 
@@ -170,7 +198,11 @@ let sGraph: d3Sankey.SankeyGraph<SNodeExtra, SLinkExtra>;
 
 const slgDefault: d3Sankey.SankeyLayout<d3Sankey.SankeyGraph<{}, {}>, {}, {}> = d3Sankey.sankey();
 let slgDAG: d3Sankey.SankeyLayout<DAG, SNodeExtra, SLinkExtra> = d3Sankey.sankey<DAG, SNodeExtra, SLinkExtra>();
-let slgDAGCustomId: d3Sankey.SankeyLayout<DAGCustomId, SNodeExtraCustomId, SLinkExtra> = d3Sankey.sankey<DAGCustomId, SNodeExtraCustomId, SLinkExtra>();
+let slgDAGCustomId: d3Sankey.SankeyLayout<DAGCustomId, SNodeExtraCustomId, SLinkExtra> = d3Sankey.sankey<
+    DAGCustomId,
+    SNodeExtraCustomId,
+    SLinkExtra
+>();
 
 // ---------------------------------------------------------------------------
 // NodeWidth
@@ -205,7 +237,10 @@ num = slgDAG.nodePadding();
 // Set -----------------------------------------------------------------------
 
 // test return type for chainability
-slgDAG = slgDAG.extent([[0, 0], [1200, 800]]);
+slgDAG = slgDAG.extent([
+    [0, 0],
+    [1200, 800],
+]);
 
 // Get -----------------------------------------------------------------------
 
@@ -238,14 +273,32 @@ slgDAG = slgDAG.iterations(40);
 num = slgDAG.iterations();
 
 // ---------------------------------------------------------------------------
+// nodeSort
+// ---------------------------------------------------------------------------
+
+// test multiple definitions
+slgDAG = slgDAG.nodeSort((node: SNode) => (node.index === 0 ? 1 : -1));
+slgDAG = slgDAG.nodeSort(() => undefined);
+slgDAG = slgDAG.nodeSort((node: SNode) => (node.name === "test" ? null : undefined));
+
+// ---------------------------------------------------------------------------
+// LinkSort
+// ---------------------------------------------------------------------------
+
+// test multiple definitions
+slgDAG = slgDAG.linkSort((link: SLink) => (link.index === 0 ? 1 : -1));
+slgDAG = slgDAG.linkSort(() => undefined);
+slgDAG = slgDAG.linkSort((link: SLink) => (link.source > link.target ? null : undefined));
+
+// ---------------------------------------------------------------------------
 // Node Id
 // ---------------------------------------------------------------------------
 
 // Set -----------------------------------------------------------------------
 
-slgDAGCustomId = slgDAGCustomId.nodeId((d) => {
-  const node: SNodeCustomId = d;
-  return d.nodeId;
+slgDAGCustomId = slgDAGCustomId.nodeId(d => {
+    const node: SNodeCustomId = d;
+    return d.nodeId;
 });
 
 // Get -----------------------------------------------------------------------
@@ -274,9 +327,9 @@ num = d3Sankey.sankeyJustify(testNode, 10);
 
 // Test custom
 slgDAG = slgDAG.nodeAlign((node, maxN) => {
-  const n: SNode = node;
-  const mN: number = maxN;
-  return node.depth || 0;
+    const n: SNode = node;
+    const mN: number = maxN;
+    return node.depth || 0;
 });
 
 // Get -----------------------------------------------------------------------
@@ -345,7 +398,7 @@ pathGen = d3Sankey.sankeyLinkHorizontal<SNodeExtra, SLinkExtra>();
 // Render to svg path
 
 const svgPathString: string | null = pathGen(sGraph.links[0]);
-svgLinkPaths.attr('d', pathGen);
+svgLinkPaths.attr("d", pathGen);
 
 // Render to canvas
 
@@ -373,6 +426,7 @@ numMaybe = sNode.x0;
 numMaybe = sNode.x1;
 numMaybe = sNode.y0;
 numMaybe = sNode.y1;
+numMaybe = sNode.fixedValue;
 numMaybe = sNode.value;
 numMaybe = sNode.index;
 numMaybe = sNode.depth;

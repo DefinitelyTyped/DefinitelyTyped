@@ -1,30 +1,18 @@
-// Type definitions for react-native-autocomplete-input 3.5
-// Project: https://github.com/l-urence/react-native-autocomplete-input#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component, ReactNode } from 'react';
-import {
-    GestureResponderHandlers,
-    ListViewProperties,
-    StyleProp,
-    TextInputProperties,
-    ViewStyle,
-} from 'react-native';
+import { Component, ReactNode } from "react";
+import { GestureResponderHandlers, ListViewProperties, StyleProp, TextInputProperties, ViewStyle } from "react-native";
 
 export interface AutocompleteProps<T> extends TextInputProperties {
     /**
      * style
      * These styles will be applied to the container which surrounds the autocomplete component.
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * bool
      * Set to true to hide the suggestion list.
      */
-    hideResults?: boolean;
+    hideResults?: boolean | undefined;
 
     /**
      * array
@@ -36,19 +24,19 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * style
      * These styles will be applied to the container which surrounds the textInput component.
      */
-    inputContainerStyle?: StyleProp<ViewStyle>;
+    inputContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the result list.
      */
-    listContainerStyle?: StyleProp<ViewStyle>;
+    listContainerStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * style
      * These style will be applied to the result list.
      */
-    listStyle?: StyleProp<ViewStyle>;
+    listStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * function
@@ -60,7 +48,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * onStartShouldSetResponderCapture will be passed to the result list view container (onStartShouldSetResponderCapture).
      */
-    onStartShouldSetResponderCapture?: GestureResponderHandlers['onStartShouldSetResponderCapture'];
+    onStartShouldSetResponderCapture?: GestureResponderHandlers["onStartShouldSetResponderCapture"] | undefined;
 
     /**
      * function
@@ -72,7 +60,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * renderSeparator will be called to render the list separators which will be displayed between the list elements in the result view below the text input.
      */
-    renderSeparator?: ListViewProperties['renderSeparator'];
+    renderSeparator?: ListViewProperties["renderSeparator"] | undefined;
 
     /**
      * function

@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -10,21 +10,14 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "react-select": [
-                "react-select/v1"
-            ],
-            "react-select/*": [
-                "react-select/v1/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

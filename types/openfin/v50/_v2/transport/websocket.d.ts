@@ -1,6 +1,7 @@
-import { EventEmitter } from 'events';
-import * as WebSocket from 'ws';
-import { Wire, READY_STATE } from './wire';
+/// <reference types="node" />
+import { EventEmitter } from "events";
+import * as WebSocket from "ws";
+import { READY_STATE, Wire } from "./wire";
 export default class WebSocketTransport extends EventEmitter implements Wire {
     protected wire: WebSocket;
     onmessage: (data: any) => void;

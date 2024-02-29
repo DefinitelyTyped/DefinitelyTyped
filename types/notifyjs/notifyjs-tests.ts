@@ -1,15 +1,16 @@
-import Notify from 'notifyjs';
+import Notify, { NotifyOption } from "notifyjs";
 
 function test_Notify_constructor() {
-    //Min
-    var n = new Notify("hoge")
+    // Min
+    var n = new Notify("hoge");
     n.show();
 
-    //With option
-    n = new Notify("hoge", { body: "fuga" });
+    // With option
+    const option: NotifyOption = { body: "fuga" };
+    n = new Notify("hoge", option);
     n.show();
 
-    //With Full option
+    // With Full option
     n = new Notify("hoge", {
         body: "fuga",
         icon: "./logo.png",
@@ -22,17 +23,19 @@ function test_Notify_constructor() {
         notifyError: () => console.log("notifyError"),
         permissionGranted: () => console.log("permissionGranted"),
         permissionDenied: () => console.log("permissionDenied"),
-        requireInteraction: true
+        requireInteraction: true,
     });
     n.show();
-
 }
 
 function test_Notify_static_methods() {
     Notify.needsPermission;
     Notify.requestPermission();
     Notify.requestPermission(() => console.log("onPermissionGrantedCallback"));
-    Notify.requestPermission(() => console.log("onPermissionGrantedCallback"), () => console.log("onPermissionDeniedCallback"));
+    Notify.requestPermission(
+        () => console.log("onPermissionGrantedCallback"),
+        () => console.log("onPermissionDeniedCallback"),
+    );
     Notify.isSupported();
     Notify.permissionLevel;
 }

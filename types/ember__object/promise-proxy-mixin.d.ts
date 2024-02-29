@@ -1,3 +1,4 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Mixin from "@ember/object/mixin";
 import RSVP from "rsvp";
 
@@ -9,7 +10,7 @@ interface PromiseProxyMixin<T> extends RSVP.Promise<T> {
      * If the proxied promise is rejected this will contain the reason
      * provided.
      */
-    reason: any;
+    reason: unknown;
     /**
      * Once the proxied promise has settled this will become `false`.
      */

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/metascraper-iframe",
+    "version": "5.14.9999",
+    "projects": [
+        "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-iframe"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
+    },
+    "devDependencies": {
+        "@types/metascraper-iframe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

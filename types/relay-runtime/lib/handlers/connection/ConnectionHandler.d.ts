@@ -1,16 +1,17 @@
-import { DataID, Variables } from '../../../lib/util/RelayRuntimeTypes';
 import {
-    RecordSourceProxy,
-    RecordProxy,
-    ReadOnlyRecordProxy,
     HandleFieldPayload,
-} from '../../../lib/store/RelayStoreTypes';
+    ReadOnlyRecordProxy,
+    RecordProxy,
+    RecordSourceProxy,
+} from "../../../lib/store/RelayStoreTypes";
+import { DataID, Variables } from "../../../lib/util/RelayRuntimeTypes";
 
 export interface ConnectionMetadata {
-    path: ReadonlyArray<string> | null | undefined;
+    path: readonly string[] | null | undefined;
     direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
     cursor: string | null | undefined;
     count: string | null | undefined;
+    stream?: boolean | undefined;
 }
 
 export function buildConnectionEdge(
@@ -33,6 +34,8 @@ export function getConnection(
     key: string,
     filters?: Variables | null,
 ): RecordProxy | null | undefined;
+
+export function getConnectionID(recordID: DataID, key: string, filters?: Variables | null): DataID;
 
 export function insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
 

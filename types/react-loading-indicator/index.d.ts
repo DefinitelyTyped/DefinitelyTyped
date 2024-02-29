@@ -1,9 +1,3 @@
-// Type definitions for react-loading-indicator 1.0
-// Project: https://github.com/exponentjs/react-loading-indicator#readme
-// Definitions by: Markus Lasermann <https://github.com/snaptags>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import * as React from "react";
 export interface LoadingIndicatorColor {
     red: number; // value between 0 and 255, inclusive
@@ -19,11 +13,11 @@ export interface LoadingIndicatorProps {
   The first three color components are values between 0 and 255, inclusive.
   The alpha component is a value between 0 and 1, inclusive.
      */
-    color?: LoadingIndicatorColor;
-    segments?: number; // The number of segments, evenly spaced from each other.
-    segmentWidth?: number; // The width of each segment, in logical pixels.
-    segmentLength?: number; // The length of each segment, in logical pixels.
-    spacing?: number; // Extra spacing to pad the distance between the center of the loading indicator and each segment, in logical pixels.
+    color?: LoadingIndicatorColor | undefined;
+    segments?: number | undefined; // The number of segments, evenly spaced from each other.
+    segmentWidth?: number | undefined; // The width of each segment, in logical pixels.
+    segmentLength?: number | undefined; // The length of each segment, in logical pixels.
+    spacing?: number | undefined; // Extra spacing to pad the distance between the center of the loading indicator and each segment, in logical pixels.
     /*
       The alpha multiplier of the faintest segments.
       Each segment's color is determined by multiplying the alpha channel of the color
@@ -31,14 +25,14 @@ export interface LoadingIndicatorProps {
       decreases to the fadeTo prop.
 
      */
-    fadeTo?: number;
+    fadeTo?: number | undefined;
     /*
       The number of steps between segments from the boldest segment to the faintest segments.
       If fadeSteps is segments - 1 then only the last segment will be the faintest,
       multiplied by fadeTo.
       If fadeSteps is a lower value, then several of the last segments will all have the faintest opacity.
      */
-    fadeSteps?: number;
+    fadeSteps?: number | undefined;
 }
 
 export default class LoadingIndicator extends React.PureComponent<LoadingIndicatorProps> {}

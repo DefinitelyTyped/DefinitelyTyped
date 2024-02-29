@@ -1,9 +1,17 @@
-// Type definitions for nanoid-dictionary 3.0
-// Project: https://github.com/CyberAP/nanoid-dictionary#readme
-// Definitions by: Shengjie Pan <https://github.com/kenelm007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import lowercase = require("./lowercase");
+import uppercase = require("./uppercase");
+import numbers = require("./numbers");
+import nolookalikes = require("./nolookalikes");
+import nolookalikesSafe = require("./nolookalikes-safe");
+import alphanumeric = require("./alphanumeric");
 
-export import lowercase = require('./lowercase');
-export import uppercase = require('./uppercase');
-export import numbers = require('./numbers');
-export import nolookalikes = require('./nolookalikes');
+declare const nanoidDictionary: {
+    lowercase: typeof lowercase;
+    uppercase: typeof uppercase;
+    numbers: typeof numbers;
+    nolookalikes: typeof nolookalikes;
+    nolookalikesSafe: typeof nolookalikesSafe;
+    alphanumeric: typeof alphanumeric;
+};
+
+export = nanoidDictionary;

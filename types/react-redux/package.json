@@ -1,8 +1,93 @@
 {
     "private": true,
+    "name": "@types/react-redux",
+    "version": "7.1.9999",
+    "projects": [
+        "https://github.com/reduxjs/react-redux"
+    ],
     "dependencies": {
         "@types/hoist-non-react-statics": "^3.3.0",
+        "@types/react": "*",
         "hoist-non-react-statics": "^3.3.0",
         "redux": "^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/object-assign": "*",
+        "@types/prop-types": "*",
+        "@types/react-redux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Curits Layne",
+            "githubUsername": "clayne11"
+        },
+        {
+            "name": "Frank Tan",
+            "githubUsername": "tansongyang"
+        },
+        {
+            "name": "Nicholas Boll",
+            "githubUsername": "nicholasboll"
+        },
+        {
+            "name": "Dibyo Majumdar",
+            "githubUsername": "mdibyo"
+        },
+        {
+            "name": "Valentin Descamps",
+            "githubUsername": "val1984"
+        },
+        {
+            "name": "Johann Rakotoharisoa",
+            "githubUsername": "jrakotoharisoa"
+        },
+        {
+            "name": "Anatoli Papirovski",
+            "githubUsername": "apapirovski"
+        },
+        {
+            "name": "Boris Sergeyev",
+            "githubUsername": "surgeboris"
+        },
+        {
+            "name": "Søren Bruus Frank",
+            "githubUsername": "soerenbf"
+        },
+        {
+            "name": "Jonathan Ziller",
+            "githubUsername": "mrwolfz"
+        },
+        {
+            "name": "Dylan Vann",
+            "githubUsername": "dylanvann"
+        },
+        {
+            "name": "Yuki Ito",
+            "githubUsername": "Lazyuki"
+        },
+        {
+            "name": "Kazuma Ebina",
+            "githubUsername": "kazuma1989"
+        },
+        {
+            "name": "Michael Lebedev",
+            "githubUsername": "megazazik"
+        },
+        {
+            "name": "jun-sheaf",
+            "githubUsername": "jun-sheaf"
+        },
+        {
+            "name": "Lenz Weber",
+            "githubUsername": "phryneas"
+        },
+        {
+            "name": "Mark Erikson",
+            "githubUsername": "markerikson"
+        }
+    ]
 }

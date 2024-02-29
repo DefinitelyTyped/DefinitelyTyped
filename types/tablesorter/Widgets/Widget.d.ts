@@ -35,7 +35,12 @@ export interface Widget<TElement = HTMLElement> {
      * @param widgetOptions
      * The widget-options of the tablesorter.
      */
-    init(table: TElement, thisWidget: this, config: TablesorterConfigurationStore<TElement>, widgetOptions: { [name: string]: any }): void;
+    init(
+        table: TElement,
+        thisWidget: this,
+        config: TablesorterConfigurationStore<TElement>,
+        widgetOptions: { [name: string]: any },
+    ): void;
 
     /**
      * Pre-processes the table after applying a sort.
@@ -52,7 +57,12 @@ export interface Widget<TElement = HTMLElement> {
      * @param initializing
      * A value indicating whether the widget is being initialized.
      */
-    format(table: TElement, config: TablesorterConfigurationStore<TElement>, widgetOptions: { [name: string]: any }, initializing: boolean): void;
+    format(
+        table: TElement,
+        config: TablesorterConfigurationStore<TElement>,
+        widgetOptions: { [name: string]: any },
+        initializing: boolean,
+    ): void;
 
     /**
      * Removes the widget from the table.
@@ -69,5 +79,10 @@ export interface Widget<TElement = HTMLElement> {
      * @param refreshing
      * A value indicating whether the widgets are being refreshed.
      */
-    remove(table: TElement, config: TablesorterConfigurationStore<TElement>, widgetOptions: { [name: string]: any }, refreshing: boolean): void;
+    remove(
+        table: TElement,
+        config: TablesorterConfigurationStore<TElement>,
+        widgetOptions: { [name: string]: any },
+        refreshing: boolean,
+    ): void;
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lerna-get-packages",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/azz/lerna-get-packages"
+    ],
+    "devDependencies": {
+        "@types/lerna-get-packages": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        }
+    ]
+}

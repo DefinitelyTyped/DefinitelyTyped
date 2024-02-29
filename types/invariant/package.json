@@ -1,11 +1,25 @@
 {
     "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.7.0-0": {
-            "*": [
-                "ts3.7/*"
-            ]
+    "name": "@types/invariant",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/zertosh/invariant"
+    ],
+    "devDependencies": {
+        "@types/invariant": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MichaelBennett",
+            "githubUsername": "bennett000"
+        },
+        {
+            "name": "dtinth",
+            "githubUsername": "dtinth"
+        },
+        {
+            "name": "Turadg Aleahmad",
+            "githubUsername": "turadg"
         }
-    }
+    ]
 }

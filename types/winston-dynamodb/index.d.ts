@@ -1,21 +1,16 @@
-// Type definitions for winston-dynamodb
-// Project: https://github.com/inspiredjw/winston-dynamodb
-// Definitions by: nickiannone <https://github.com/nickiannone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as winston from 'winston';
-import { TransportInstance } from 'winston';
+import * as winston from "winston";
+import { TransportInstance } from "winston";
 export interface DynamoDBTransportOptions {
-    useEnvironment?: boolean;
-    accessKeyId?: string;
-    secretAccessKey?: string;
-    region?: string;
+    useEnvironment?: boolean | undefined;
+    accessKeyId?: string | undefined;
+    secretAccessKey?: string | undefined;
+    region?: string | undefined;
     tableName: string;
     level: string;
-    dynamoDoc?: boolean;
+    dynamoDoc?: boolean | undefined;
 }
 export interface DynamoDBTransportInstance extends TransportInstance {
-    new (options?: DynamoDBTransportOptions): DynamoDBTransportInstance;
+    new(options?: DynamoDBTransportOptions): DynamoDBTransportInstance;
 }
 export declare class DynamoDB extends winston.Transport implements DynamoDBTransportInstance {
     regions: string[];

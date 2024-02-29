@@ -1,20 +1,13 @@
-// Type definitions for react-router-navigation-core 1.0
-// Project: https://github.com/LeoLeBras/react-router-navigation#readme
-// Definitions by: Kalle Ott <https://github.com/kaoDev>
-//                 John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // High-level wrappers
-import { PureComponent, ReactNode, ComponentClass, ReactElement } from "react";
-import { BackHandler, StyleProp, ViewStyle } from "react-native";
 import { History, Location } from "history";
-import { RouterProps, match } from "react-router";
+import { ComponentClass, PureComponent, ReactElement, ReactNode } from "react";
+import { BackHandler, StyleProp, ViewStyle } from "react-native";
+import { match, RouterProps } from "react-router";
 
-export type Route<T = {}> = {
+export type Route<Params extends { [K in keyof Params]?: string } = {}> = {
     key: string;
     routeName: string;
-    match?: match<T>;
+    match?: match<Params> | undefined;
 };
 
 export type NavigationState<OwnRoute> = {
@@ -23,12 +16,12 @@ export type NavigationState<OwnRoute> = {
 };
 
 export type RouteProps = {
-    component?: ComponentClass<RouterProps>;
-    render?: (props: RouterProps) => ReactNode;
-    children?: ((props: RouterProps) => ReactNode) | ReactNode;
-    path?: string;
-    exact?: boolean;
-    strict?: boolean;
+    component?: ComponentClass<RouterProps> | undefined;
+    render?: ((props: RouterProps) => ReactNode) | undefined;
+    children?: ((props: RouterProps) => ReactNode) | ReactNode | undefined;
+    path?: string | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
 };
 
 export type Card = RouteProps & {
@@ -38,29 +31,29 @@ export type Card = RouteProps & {
 export type CardsRendererProps = {
     onNavigateBack: (routeKey?: string) => boolean;
     navigationState: NavigationState<{
-        path?: string;
-        params?: object;
+        path?: string | undefined;
+        params?: object | undefined;
     }>;
     cards: Card[];
 };
 
 export type Tab = RouteProps & {
     key: string;
-    onIndexChange?: (index: number) => void;
+    onIndexChange?: ((index: number) => void) | undefined;
 };
 
 export type TabsRendererProps = {
     onIndexChange: (index: number) => void;
     navigationState: NavigationState<{
-        title?: string;
-        testID?: string;
+        title?: string | undefined;
+        testID?: string | undefined;
     }>;
     loadedTabs: string[];
     tabs: Tab[];
 };
 
 export type CardStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode[] | undefined;
     render: (props: CardsRendererProps) => ReactNode;
 };
 
@@ -69,8 +62,8 @@ export class CardStack extends PureComponent<
     {
         key: number;
         navigationState: NavigationState<{
-            path?: string;
-            params?: object;
+            path?: string | undefined;
+            params?: object | undefined;
         }>;
         cards: Card[];
     }
@@ -86,19 +79,19 @@ export class CardStack extends PureComponent<
 }
 
 export type TabStackProps = {
-    children?: ReactNode[];
+    children?: ReactNode[] | undefined;
     render: (props: TabsRendererProps) => ReactNode;
-    lazy?: boolean;
-    forceSync?: boolean;
-    style?: StyleProp<ViewStyle>;
+    lazy?: boolean | undefined;
+    forceSync?: boolean | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 };
 
 export class TabStack extends PureComponent<
     TabStackProps,
     {
         navigationState: NavigationState<{
-            title?: string;
-            testID?: string;
+            title?: string | undefined;
+            testID?: string | undefined;
         }>;
         tabs: Tab[];
         loadedTabs: string[];
@@ -110,7 +103,7 @@ export class TabStack extends PureComponent<
         forceSync: false;
     };
 
-    unlistenHistory?: () => void;
+    unlistenHistory?: (() => void) | undefined;
 
     constructor(props: TabStackProps);
 
@@ -124,7 +117,7 @@ export const shouldUpdate: (
     currentItem: RouteProps,
     nextItem: RouteProps,
     currentLocation: Location,
-    nextLocation: Location
+    nextLocation: Location,
 ) => boolean;
 
 // Get stack item from a specific route
@@ -136,22 +129,22 @@ export const createKey: (route: Route) => string;
 // Get current route from a specific history location
 export const getRoute: (
     stack: RouteProps[],
-    location: Location
+    location: Location,
 ) => Route | undefined;
 
 // Render a subview with props
 export const renderSubView: (
     render: (propsA: any, propsB: any) => ReactNode,
-    additionalProps?: any
+    additionalProps?: any,
 ) => (ownProps: any) => ReactNode;
 
 // Build stack with React elements
 export const build: <Item>(
     children: Array<ReactElement<Item>>,
-    oldBuild?: Item[]
+    oldBuild?: Item[],
 ) => Item[];
 
 export const runHistoryListenner: (
     history: History,
-    onListenHistory: () => void
+    onListenHistory: () => void,
 ) => () => void;

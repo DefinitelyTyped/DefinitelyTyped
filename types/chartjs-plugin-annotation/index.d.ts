@@ -1,24 +1,19 @@
-// Type definitions for chartjs-plugin-annotation 0.5
-// Project: https://github.com/chartjs/chartjs-plugin-annotation#readme
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import * as Chart from 'chart.js';
+import * as Chart from "chart.js";
+import { Moment } from "moment";
 
 // Extend the types from chart.js
-declare module 'chart.js' {
-  interface ChartOptions {
-    // This is deprecated on master (not released yet)
-    annotation?: ChartJsAnnotation.AnnotationConfig;
-  }
+declare module "chart.js" {
+    interface ChartOptions {
+        // This is deprecated on master (not released yet)
+        annotation?: ChartJsAnnotation.AnnotationConfig | undefined;
+    }
 
-  // This is the correct version on master (not released yet)
-  // interface ChartPluginsOptions {
-  //   annotation?: ChartJsAnnotation.AnnotationConfig;
-  // }
+    // This is the correct version on master (not released yet)
+    // interface ChartPluginsOptions {
+    //   annotation?: ChartJsAnnotation.AnnotationConfig;
+    // }
 
-  const Annotation: ChartJsAnnotation.AnnotationStatic;
+    const Annotation: ChartJsAnnotation.AnnotationStatic;
 }
 
 // This is the actual export of the library,
@@ -32,128 +27,130 @@ declare const ChartJsAnnotation: Chart.PluginServiceGlobalRegistration & Chart.P
 // We do not want to expose in typings a class that is not actually accessible in the lib.
 // The lib exposes the enum and classes under different names/props in Chart.Annotation
 declare namespace ChartJsAnnotation {
-  interface AnnotationConfig {
-    drawTime?: keyof typeof DrawTimeOptions;
-    events?: string[];
-    dblClickSpeed?: number;
-    annotations: AnnotationOptions[];
-  }
+    interface AnnotationConfig {
+        drawTime?: keyof typeof DrawTimeOptions | undefined;
+        events?: string[] | undefined;
+        dblClickSpeed?: number | undefined;
+        annotations: AnnotationOptions[];
+    }
 
-  interface AnnotationStatic {
-    drawTimeOptions: typeof DrawTimeOptions;
-    defaults: AnnotationConfig;
-    labelDefaults: LineAnnotationLabel;
-    Element: typeof AnnotationElement;
-    types: {
-      line: typeof LineAnnotation;
-      box: typeof BoxAnnotation;
-    };
-  }
+    interface AnnotationStatic {
+        drawTimeOptions: typeof DrawTimeOptions;
+        defaults: AnnotationConfig;
+        labelDefaults: LineAnnotationLabel;
+        Element: typeof AnnotationElement;
+        types: {
+            line: typeof LineAnnotation;
+            box: typeof BoxAnnotation;
+        };
+    }
 
-  interface CommonAnnotationOptions {
-    type: 'line' | 'box';
-    drawTime?: keyof typeof DrawTimeOptions;
-    id?: string;
+    interface CommonAnnotationOptions {
+        type: "line" | "box";
+        drawTime?: keyof typeof DrawTimeOptions | undefined;
+        id?: string | undefined;
 
-    onMouseenter?: (event: MouseEvent) => void;
-    onMouseover?: (event: MouseEvent) => void;
-    onMouseleave?: (event: MouseEvent) => void;
-    onMouseout?: (event: MouseEvent) => void;
-    onMousemove?: (event: MouseEvent) => void;
-    onMousedown?: (event: MouseEvent) => void;
-    onMouseup?: (event: MouseEvent) => void;
-    onClick?: (event: MouseEvent) => void;
-    onDblclick?: (event: MouseEvent) => void;
-    onContextmenu?: (event: MouseEvent) => void;
-    onWheel?: (event: MouseEvent) => void;
-  }
+        onMouseenter?: ((event: MouseEvent) => void) | undefined;
+        onMouseover?: ((event: MouseEvent) => void) | undefined;
+        onMouseleave?: ((event: MouseEvent) => void) | undefined;
+        onMouseout?: ((event: MouseEvent) => void) | undefined;
+        onMousemove?: ((event: MouseEvent) => void) | undefined;
+        onMousedown?: ((event: MouseEvent) => void) | undefined;
+        onMouseup?: ((event: MouseEvent) => void) | undefined;
+        onClick?: ((event: MouseEvent) => void) | undefined;
+        onDblclick?: ((event: MouseEvent) => void) | undefined;
+        onContextmenu?: ((event: MouseEvent) => void) | undefined;
+        onWheel?: ((event: MouseEvent) => void) | undefined;
+    }
 
-  interface LineAnnotationOptions extends CommonAnnotationOptions {
-    type: 'line';
-    mode: 'horizontal' | 'vertical';
-    scaleID: string;
-    value: number | string; // value or label
-    endValue?: number | string; // value or label
+    type ChartPointValue = number | string | Date | Moment;
 
-    borderColor?: Chart.ChartColor;
-    borderWidth?: number;
-    borderDash?: number[];
-    borderDashOffset?: number;
+    interface LineAnnotationOptions extends CommonAnnotationOptions {
+        type: "line";
+        mode: "horizontal" | "vertical";
+        scaleID: string;
+        value: ChartPointValue;
+        endValue?: ChartPointValue | undefined;
 
-    label?: LineAnnotationLabel;
-  }
+        borderColor?: Chart.ChartColor | undefined;
+        borderWidth?: number | undefined;
+        borderDash?: number[] | undefined;
+        borderDashOffset?: number | undefined;
 
-  interface BoxAnnotationOptions extends CommonAnnotationOptions {
-    type: 'box';
-    xScaleID?: string;
-    yScaleID?: string;
-    xMin: number | string; // value or label
-    xMax: number | string;
-    yMin: number | string;
-    yMax: number | string;
+        label?: LineAnnotationLabel | undefined;
+    }
 
-    borderColor?: Chart.ChartColor;
-    borderWidth?: number;
-    backgroundColor?: Chart.ChartColor;
-  }
+    interface BoxAnnotationOptions extends CommonAnnotationOptions {
+        type: "box";
+        xScaleID?: string | undefined;
+        yScaleID?: string | undefined;
+        xMin: ChartPointValue;
+        xMax: ChartPointValue;
+        yMin: ChartPointValue;
+        yMax: ChartPointValue;
 
-  type AnnotationOptions = LineAnnotationOptions | BoxAnnotationOptions;
+        borderColor?: Chart.ChartColor | undefined;
+        borderWidth?: number | undefined;
+        backgroundColor?: Chart.ChartColor | undefined;
+    }
 
-  interface LineAnnotationLabel {
-    backgroundColor?: Chart.ChartColor;
-    fontFamily?: string;
-    fontSize?: number;
-    fontStyle?: string;
-    fontColor?: Chart.ChartColor;
-    xPadding?: number;
-    yPadding?: number;
-    cornerRadius?: number;
-    position?: 'top' | 'bottom' | 'left' | 'right' | 'center';
-    xAdjust?: number;
-    yAdjust?: number;
-    enabled?: boolean;
-    content?: string; // | string[]; // only on master (not released yet)
-    // rotation?: number; // only on master (not released yet)
-  }
+    type AnnotationOptions = LineAnnotationOptions | BoxAnnotationOptions;
 
-  interface AnnotationElementOptions<T extends AnnotationOptions> {
-    id: string;
-    options: T;
-    chartInstance: Chart;
-  }
+    interface LineAnnotationLabel {
+        backgroundColor?: Chart.ChartColor | undefined;
+        fontFamily?: string | undefined;
+        fontSize?: number | undefined;
+        fontStyle?: string | undefined;
+        fontColor?: Chart.ChartColor | undefined;
+        xPadding?: number | undefined;
+        yPadding?: number | undefined;
+        cornerRadius?: number | undefined;
+        position?: "top" | "bottom" | "left" | "right" | "center" | undefined;
+        xAdjust?: number | undefined;
+        yAdjust?: number | undefined;
+        enabled?: boolean | undefined;
+        content?: string | undefined; // | string[]; // only on master (not released yet)
+        // rotation?: number; // only on master (not released yet)
+    }
+
+    interface AnnotationElementOptions<T extends AnnotationOptions> {
+        id: string;
+        options: T;
+        chartInstance: Chart;
+    }
 }
 
 // Note: classes and enums need to be outside the namespace,
 // otherwise the merge with the constant ChartJsAnnotation fails
 declare class AnnotationElement { // TODO: this should extend Chart.Element, but that typing is not defined in chart.js
-  hidden: boolean;
-  hovering: boolean;
-  _model: any;
+    hidden: boolean;
+    hovering: boolean;
+    _model: any;
 
-  initialize: () => void;
-  destroy: () => void;
-  setDataLimits: () => void;
-  configure: () => void;
-  inRange: () => void;
-  getCenterPoint: () => void;
-  getWidth: () => void;
-  getHeight: () => void;
-  getArea: () => void;
-  draw: () => void;
+    initialize: () => void;
+    destroy: () => void;
+    setDataLimits: () => void;
+    configure: () => void;
+    inRange: () => void;
+    getCenterPoint: () => void;
+    getWidth: () => void;
+    getHeight: () => void;
+    getArea: () => void;
+    draw: () => void;
 }
 
 declare class LineAnnotation extends AnnotationElement {
-  constructor(options: ChartJsAnnotation.AnnotationElementOptions<ChartJsAnnotation.LineAnnotationOptions>);
+    constructor(options: ChartJsAnnotation.AnnotationElementOptions<ChartJsAnnotation.LineAnnotationOptions>);
 }
 
 declare class BoxAnnotation extends AnnotationElement {
-  constructor(options: ChartJsAnnotation.AnnotationElementOptions<ChartJsAnnotation.BoxAnnotationOptions>);
+    constructor(options: ChartJsAnnotation.AnnotationElementOptions<ChartJsAnnotation.BoxAnnotationOptions>);
 }
 
 declare enum DrawTimeOptions {
-  afterDraw = 'afterDraw',
-  afterDatasetsDraw = 'afterDatasetsDraw',
-  beforeDatasetsDraw = 'beforeDatasetsDraw'
+    afterDraw = "afterDraw",
+    afterDatasetsDraw = "afterDatasetsDraw",
+    beforeDatasetsDraw = "beforeDatasetsDraw",
 }
 
 export = ChartJsAnnotation;

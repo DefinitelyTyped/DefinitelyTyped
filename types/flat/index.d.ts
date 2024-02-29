@@ -1,25 +1,19 @@
-// Type definitions for flat 5.0.0
-// Project: https://github.com/hughsk/flat
-// Definitions by:  Ilya Mochalov <https://github.com/chrootsu>
-//                  Oz Weiss <https://github.com/thewizarodofoz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var flatten: FlatTypes.Flatten;
 
 export = flatten;
 
 declare namespace FlatTypes {
     interface FlattenOptions {
-        delimiter?: string;
-        safe?: boolean;
-        maxDepth?: number;
-        transformKey?: (key: string) => string;
+        delimiter?: string | undefined;
+        safe?: boolean | undefined;
+        maxDepth?: number | undefined;
+        transformKey?: ((key: string) => string) | undefined;
     }
 
     interface Flatten {
         <TTarget, TResult>(
             target: TTarget,
-            options?: FlattenOptions
+            options?: FlattenOptions,
         ): TResult;
 
         flatten: Flatten;
@@ -27,16 +21,16 @@ declare namespace FlatTypes {
     }
 
     interface UnflattenOptions {
-        delimiter?: string;
-        object?: boolean;
-        overwrite?: boolean;
-        transformKey?: (key: string) => string;
+        delimiter?: string | undefined;
+        object?: boolean | undefined;
+        overwrite?: boolean | undefined;
+        transformKey?: ((key: string) => string) | undefined;
     }
 
     interface Unflatten {
         <TTarget, TResult>(
             target: TTarget,
-            options?: UnflattenOptions
+            options?: UnflattenOptions,
         ): TResult;
     }
 }

@@ -1,33 +1,37 @@
+import nodePath = require("ast-types/lib/node-path");
+import types = require("ast-types/lib/types");
 import recast = require("recast");
 import JSXElement = require("./collections/JSXElement");
 import NodeCollection = require("./collections/Node");
 import VariableDeclarator = require("./collections/VariableDeclarator");
 
-type ASTPath<N> = recast.NodePath<N, N>;
+type ASTPath<N> = nodePath.NodePath<N, N>;
 
 export interface Collection<N>
-    extends NodeCollection.TraversalMethods,
+    extends
+        NodeCollection.TraversalMethods,
         NodeCollection.MutationMethods<N>,
         VariableDeclarator.GlobalMethods,
         VariableDeclarator.TransformMethods<N>,
         JSXElement.GlobalMethods,
-        JSXElement.TraversalMethods {
+        JSXElement.TraversalMethods
+{
     /**
      * @param paths An array of AST paths
      * @param parent A parent collection
      * @param types An array of types all the paths in the collection
      *  have in common. If not passed, it will be inferred from the paths.
      */
-    new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<recast.Type<any>>): this;
+    new(paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<types.Type<any>>): this;
 
     /**
      * Returns a new collection containing the nodes for which the callback returns true.
      */
     filter<S extends N>(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>
+        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>,
     ): Collection<S>;
     filter(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean
+        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean,
     ): Collection<N>;
 
     /**
@@ -58,13 +62,13 @@ export interface Collection<N>
      * @param callback
      * @param type Force the new collection to be of a specific type
      */
-    map<T = recast.ASTNode>(
+    map<T = types.ASTNode>(
         callback: (
             path: ASTPath<N>,
             i: number,
-            paths: Array<ASTPath<N>>
+            paths: Array<ASTPath<N>>,
         ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-        type?: recast.Type<any>
+        type?: types.Type<any>,
     ): Collection<T>;
 
     /** Returns the number of elements in this collection. */
@@ -107,7 +111,7 @@ export interface Collection<N>
     /**
      * Returns true if this collection has the type 'type'.
      */
-    isOfType(type: recast.Type<any>): boolean;
+    isOfType(type: types.Type<any>): boolean;
 }
 
 export function fromPaths(...args: any[]): any;
@@ -122,7 +126,7 @@ export function fromNodes(...args: any[]): any;
  * @param methods Methods to add to the prototype
  * @param type Optional type to add the methods to
  */
-export function registerMethods(methods: object, type?: recast.Type<any>): void;
+export function registerMethods(methods: object, type?: types.Type<any>): void;
 
 export function hasConflictingRegistration(...args: any[]): any;
 

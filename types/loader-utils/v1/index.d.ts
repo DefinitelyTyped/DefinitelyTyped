@@ -1,18 +1,11 @@
-// Type definitions for loader-utils 1.1
-// Project: https://github.com/webpack/loader-utils#readme
-// Definitions by: Gyusun Yeom <https://github.com/Perlmint>
-//                 Totooria Hyperion <https://github.com/TotooriaHyperion>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { loader } from 'webpack';
+import { loader } from "webpack";
 
 export interface InterpolateOption {
-    context?: string;
-    content?: string | Buffer;
-    regExp?: string | RegExp;
+    context?: string | undefined;
+    content?: string | Buffer | undefined;
+    regExp?: string | RegExp | undefined;
 }
 export interface OptionObject {
     [key: string]: any;

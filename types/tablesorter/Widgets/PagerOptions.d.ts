@@ -25,22 +25,22 @@ export interface PagerOptions<TElement = HTMLElement> {
      * | `{sortList:name}` or `{sort:name}`     | A GET-variable called `name` containing the current sorting.           |
      * | `{filterList:name}` or `{filter:name}` | A GET-variable called `name` containing all currently applied filters. |
      */
-    pager_ajaxUrl?: string;
+    pager_ajaxUrl?: string | undefined;
 
     /**
      * Pre-processes the url for `ajax`.
      */
-    pager_customAjaxUrl?: AjaxUrlProcessor<TElement>;
+    pager_customAjaxUrl?: AjaxUrlProcessor<TElement> | undefined;
 
     /**
      * The settings for the api-interaction of the pager.
      */
-    pager_ajaxObject?: JQueryAjaxSettings;
+    pager_ajaxObject?: JQueryAjaxSettings | undefined;
 
     /**
      * Handles errors caused by an ajax-request.
      */
-    pager_ajaxError?: AjaxErrorHandler<TElement>;
+    pager_ajaxError?: AjaxErrorHandler<TElement> | undefined;
 
     /**
      * Processes the ajax-result for the `pager`-widget.
@@ -57,7 +57,7 @@ export interface PagerOptions<TElement = HTMLElement> {
      * @return
      * The data for the pager to show.
      */
-    pager_ajaxProcessing?: AjaxDataProcessor<TElement>;
+    pager_ajaxProcessing?: AjaxDataProcessor<TElement> | undefined;
 
     /**
      * The output to display in the output-area.
@@ -77,70 +77,70 @@ export interface PagerOptions<TElement = HTMLElement> {
      * | `{filteredRows}`   | The amount of filtered rows.                 |
      * | `{totalRows}`      | The total amount of rows.                    |
      */
-    pager_output?: string | PagerOutputProcessor<TElement>;
+    pager_output?: string | PagerOutputProcessor<TElement> | undefined;
 
     /**
      * The number of the first page to show.
      */
-    pager_startPage?: number;
+    pager_startPage?: number | undefined;
 
     /**
      * The number of the first page to show after applying a filter.
      */
-    pager_pageReset?: number | boolean;
+    pager_pageReset?: number | boolean | undefined;
 
     /**
      * The initial page-size.
      */
-    pager_size?: PageSize;
+    pager_size?: PageSize | undefined;
 
     /**
      * A value indicating whether to split child-rows on page-breaks.
      */
-    pager_countChildRows?: boolean;
+    pager_countChildRows?: boolean | undefined;
 
     /**
      * A value indicating whether an ajax-request should be executed after the initialization of the table.
      */
-    pager_processAjaxOnInit?: boolean;
+    pager_processAjaxOnInit?: boolean | undefined;
 
     /**
      * The initial amount of rows to show.
      */
-    pager_initialRows?: PagerInitialRows;
+    pager_initialRows?: PagerInitialRows | undefined;
 
     /**
      * The key to of the local storage to save data to.
      */
-    pager_storageKey?: string;
+    pager_storageKey?: string | undefined;
 
     /**
      * A value indicating whether to save the current page locally.
      */
-    pager_savePages?: boolean;
+    pager_savePages?: boolean | undefined;
 
     /**
      * A value indicating whether to remove the rows while performing sortings for speed up.
      */
-    pager_removeRows?: boolean;
+    pager_removeRows?: boolean | undefined;
 
     /**
      * The selectors for for handling click-events.
      */
-    pager_selectors?: PagerSelectors;
+    pager_selectors?: PagerSelectors | undefined;
 
     /**
      * The css-classes to apply to the pager-controls.
      */
-    pager_css?: PagerClasses;
+    pager_css?: PagerClasses | undefined;
 
     /**
      * A value indicating whether the table should always have the same number of rows even if there is a lesser number of records to show.
      */
-    pager_fixedHeight?: boolean;
+    pager_fixedHeight?: boolean | undefined;
 
     /**
      * A value indicating whether the `pager_css.disabled` class should be applied to non-applicable buttons.
      */
-    pager_updateArrows?: boolean;
+    pager_updateArrows?: boolean | undefined;
 }

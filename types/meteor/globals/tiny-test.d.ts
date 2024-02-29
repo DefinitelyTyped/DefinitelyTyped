@@ -22,14 +22,14 @@ declare interface ITinytestAssertions {
     isNotUndefined(v: any, msg?: string): void;
     isNan(v: any, msg?: string): void;
     isNotNan(v: any, msg?: string): void;
-    include<T>(s: Array<T> | Object | string, value: any, msg?: string, not?: boolean): void;
+    include<T>(s: T[] | Object | string, value: any, msg?: string, not?: boolean): void;
 
-    notInclude<T>(s: Array<T> | Object | string, value: any, msg?: string, not?: boolean): void;
+    notInclude<T>(s: T[] | Object | string, value: any, msg?: string, not?: boolean): void;
     length(obj: ILengthAble, expected_length: number, msg?: string): void;
     _stringEqual(actual: string, expected: string, msg?: string): void;
 }
 
-declare module Tinytest {
+declare namespace Tinytest {
     function add(description: string, func: (test: ITinytestAssertions) => void): void;
 
     function addAsync(description: string, func: (test: ITinytestAssertions) => void): void;

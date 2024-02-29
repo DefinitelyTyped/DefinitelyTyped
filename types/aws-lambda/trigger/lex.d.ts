@@ -3,14 +3,26 @@ import { Callback, Handler } from "../handler";
 export type LexHandler = Handler<LexEvent, LexResult>;
 export type LexCallback = Callback<LexResult>;
 
+export interface LexEventSlots {
+    [name: string]: string | undefined | null;
+}
+
+export interface LexEventSessionAttributes {
+    [key: string]: string | undefined;
+}
+
+export interface LexEventRequestAttributes {
+    [key: string]: string | undefined;
+}
+
 // Lex
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-lex
 export interface LexEvent {
     currentIntent: {
         name: string;
-        slots: { [name: string]: string | null };
+        slots: LexEventSlots;
         slotDetails: LexSlotDetails;
-        confirmationStatus: 'None' | 'Confirmed' | 'Denied';
+        confirmationStatus: "None" | "Confirmed" | "Denied";
     };
     bot: {
         name: string;
@@ -19,24 +31,25 @@ export interface LexEvent {
     };
     userId: string;
     inputTranscript: string;
-    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
-    outputDialogMode: 'Text' | 'Voice';
-    messageVersion: '1.0';
-    sessionAttributes: { [key: string]: string };
-    requestAttributes: { [key: string]: string } | null;
+    invocationSource: "DialogCodeHook" | "FulfillmentCodeHook";
+    outputDialogMode: "Text" | "Voice";
+    messageVersion: "1.0";
+    sessionAttributes: LexEventSessionAttributes;
+    requestAttributes: LexEventRequestAttributes | null;
 }
 
 export interface LexSlotResolution {
     value: string;
 }
 
+export interface LexSlotDetail {
+    // "at least 1 but no more than 5 items"
+    resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
+    originalValue: string;
+}
+
 export interface LexSlotDetails {
-    [name: string]: {
-        // The following line only works in TypeScript Version: 3.0, The array should have at least 1 and no more than 5 items
-        // resolutions: [LexSlotResolution, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?, LexSlotResolution?];
-        resolutions: LexSlotResolution[];
-        originalValue: string;
-    };
+    [name: string]: LexSlotDetail;
 }
 
 export interface LexGenericAttachment {
@@ -51,42 +64,46 @@ export interface LexGenericAttachment {
 }
 
 export interface LexDialogActionBase {
-    type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
-    message?: {
-        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
-        content: string;
-    };
-    responseCard?: {
-        version: number;
-        contentType: 'application/vnd.amazonaws.card.generic';
-        genericAttachments: LexGenericAttachment[];
-    };
+    type: "Close" | "ElicitIntent" | "ElicitSlot" | "ConfirmIntent";
+    message?:
+        | {
+            contentType: "PlainText" | "SSML" | "CustomPayload";
+            content: string;
+        }
+        | undefined;
+    responseCard?:
+        | {
+            version: number;
+            contentType: "application/vnd.amazonaws.card.generic";
+            genericAttachments: LexGenericAttachment[];
+        }
+        | undefined;
 }
 
 export interface LexDialogActionClose extends LexDialogActionBase {
-    type: 'Close';
-    fulfillmentState: 'Fulfilled' | 'Failed';
+    type: "Close";
+    fulfillmentState: "Fulfilled" | "Failed";
 }
 
 export interface LexDialogActionElicitIntent extends LexDialogActionBase {
-    type: 'ElicitIntent';
+    type: "ElicitIntent";
 }
 
 export interface LexDialogActionElicitSlot extends LexDialogActionBase {
-    type: 'ElicitSlot';
+    type: "ElicitSlot";
     intentName: string;
     slots: { [name: string]: string | null };
     slotToElicit: string;
 }
 
 export interface LexDialogActionConfirmIntent extends LexDialogActionBase {
-    type: 'ConfirmIntent';
+    type: "ConfirmIntent";
     intentName: string;
     slots: { [name: string]: string | null };
 }
 
 export interface LexDialogActionDelegate {
-    type: 'Delegate';
+    type: "Delegate";
     slots: { [name: string]: string | null };
 }
 
@@ -98,6 +115,6 @@ export type LexDialogAction =
     | LexDialogActionDelegate;
 
 export interface LexResult {
-    sessionAttributes?: { [key: string]: string };
+    sessionAttributes?: { [key: string]: string } | undefined;
     dialogAction: LexDialogAction;
 }

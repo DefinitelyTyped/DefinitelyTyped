@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup__plugin-virtual",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rollup/plugins/tree/master/packages/virtual#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^1.31.1"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup__plugin-virtual": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ed eustace",
+            "githubUsername": "ahum"
+        }
+    ]
 }

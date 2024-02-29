@@ -1,13 +1,9 @@
 import * as React from "react";
-import { ReactAttr } from "../../../typings/shared";
 
-interface InheritedProps {
-    children?: ReactAttr["children"],
-    className?: ReactAttr["className"],
-}
-
-export interface HeaderSideNavItemsProps extends InheritedProps {
-    hasDivider?: boolean,
+export interface HeaderSideNavItemsProps {
+    children?: React.ReactNode | undefined;
+    className?: string | undefined;
+    hasDivider?: boolean | undefined;
 }
 
 declare const HeaderSideNavItems: React.FC<HeaderSideNavItemsProps>;

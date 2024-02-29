@@ -1,13 +1,13 @@
-import { Schema } from '@wordpress/api-fetch';
+import { Attachment } from "@wordpress/core-data";
 
 export type UploadMediaErrorCode =
-    | 'MIME_TYPE_NOT_ALLOWED_FOR_USER'
-    | 'MIME_TYPE_NOT_SUPPORTED'
-    | 'SIZE_ABOVE_LIMIT'
-    | 'EMPTY_FILE'
-    | 'GENERAL';
+    | "MIME_TYPE_NOT_ALLOWED_FOR_USER"
+    | "MIME_TYPE_NOT_SUPPORTED"
+    | "SIZE_ABOVE_LIMIT"
+    | "EMPTY_FILE"
+    | "GENERAL";
 
-export interface MediaItem extends Omit<Schema.Media<'edit'>, 'alt_text' | 'caption' | 'source_url' | 'title'> {
+export interface MediaItem extends Omit<Attachment, "alt_text" | "caption" | "source_url" | "title"> {
     alt: string;
     caption: string;
     title: string;
@@ -18,11 +18,11 @@ export interface UploadMediaOptions {
     /**
      * Additional data to include in the request.
      */
-    additionalData?: Record<string, any>;
+    additionalData?: Record<string, any> | undefined;
     /**
      * Array with the types of media that can be uploaded, if unset all types are allowed.
      */
-    allowedTypes?: string[];
+    allowedTypes?: string[] | undefined;
     /**
      * List of files.
      */
@@ -48,7 +48,7 @@ export interface UploadMediaOptions {
      * }
      * ```
      */
-    wpAllowedMimeTypes?: Record<string, string>;
+    wpAllowedMimeTypes?: Record<string, string> | undefined;
 }
 
 /**
