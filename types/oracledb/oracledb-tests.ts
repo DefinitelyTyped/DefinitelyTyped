@@ -677,7 +677,18 @@ export const v5point1Tests = (): void => {
     defaultOracledb.dbObjectAsPojo = true;
 };
 
-export const testFetchAsTypeTests = (): void => {
+export const fetchAsBufferTests = (): void => {
     defaultOracledb.fetchAsBuffer = [oracledb.BLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [oracledb.DATE];
+};
+
+export const fetchAsStringTests = (): void => {
     defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [oracledb.STRING];
 };
