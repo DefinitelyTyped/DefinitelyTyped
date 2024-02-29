@@ -2,9 +2,8 @@ import * as React from "react";
 
 export type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
 export type StrokeLinecap = "round" | "butt" | "square" | "inherit";
-interface BytesizeBaseIconsProps {
+interface BytesizeBaseIconsProps extends React.RefAttributes<any> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<any> | undefined;
     width?: number | undefined;
     height?: number | undefined;
     color?: string | undefined;
