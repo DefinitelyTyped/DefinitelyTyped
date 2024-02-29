@@ -1,25 +1,24 @@
-import { Vector2 } from "../../../../src/Three.js";
-import TextureNode from "../accessors/TextureNode.js";
+import { Vector2 } from "three";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class AnamorphicNode extends TempNode {
-    textureNode: TextureNode;
+    textureNode: Node;
     thresholdNode: Node;
     scaleNode: Node;
     samples: number;
     resolution: Vector2;
 
-    constructor(textureNode: TextureNode, thresholdNode: Node, scaleNode: Node, samples: number);
+    constructor(textureNode: Node, thresholdNode: Node, scaleNode: Node, samples: number);
 
-    getTextureNode(): TextureNode;
+    getTextureNode(): Node;
 
     setSize(width: number, height: number): void;
 }
 
 export const anamorphic: (
-    node: TextureNode,
+    node: Node,
     threshold?: NodeRepresentation,
     scale?: NodeRepresentation,
     samples?: NodeRepresentation,

@@ -36,6 +36,8 @@ export default abstract class Node {
 
     setup(builder: NodeBuilder): Node | null;
 
+    increaseUsage(builder: NodeBuilder): number;
+
     analyze(builder: NodeBuilder): void;
 
     generate(builder: NodeBuilder, output?: string | null): string;

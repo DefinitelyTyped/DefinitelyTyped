@@ -1,4 +1,4 @@
-import { Group, Texture } from "../../../src/Three.js";
+import { Group, Texture } from "three";
 
 import { XRHandModel, XRHandModelHandedness } from "./XRHandModelFactory.js";
 

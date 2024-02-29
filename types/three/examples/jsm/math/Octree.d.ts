@@ -1,4 +1,4 @@
-import { Box3, Object3D, Ray, Sphere, Triangle } from "../../../src/Three.js";
+import { Box3, Object3D, Ray, Sphere, Triangle } from "three";
 
 import { Capsule } from "./Capsule.js";
 

@@ -1,4 +1,4 @@
-import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from "../../../src/Three.js";
+import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from "three";
 import Renderer from "../renderers/common/Renderer.js";
 import WebGPURenderer from "../renderers/webgpu/WebGPURenderer.js";
 import { WorkerPool } from "../utils/WorkerPool.js";
