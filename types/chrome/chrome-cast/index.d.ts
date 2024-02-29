@@ -843,10 +843,10 @@ declare namespace chrome.cast.media {
         streamType: chrome.cast.media.StreamType;
         contentType: string;
         metadata: any;
-        duration: number;
-        tracks: chrome.cast.media.Track[];
-        textTrackStyle: chrome.cast.media.TextTrackStyle;
-        customData: Object;
+        duration?: number;
+        tracks?: chrome.cast.media.Track[];
+        textTrackStyle?: chrome.cast.media.TextTrackStyle;
+        customData?: Object;
     }
 
     export class Media {
@@ -857,18 +857,18 @@ declare namespace chrome.cast.media {
          */
         constructor(sessionId: string, mediaSessionId: number);
 
-        activeTrackIds: number[];
-        currentItemId: number;
-        customData: Object;
+        activeTrackIds?: number[];
+        currentItemId?: number;
+        customData?: Object;
         idleReason: chrome.cast.media.IdleReason | null;
-        items: chrome.cast.media.QueueItem[];
+        items?: chrome.cast.media.QueueItem[];
         liveSeekableRange?: chrome.cast.media.LiveSeekableRange | undefined;
-        loadingItemId: number;
-        media: chrome.cast.media.MediaInfo;
+        loadingItemId?: number;
+        media?: chrome.cast.media.MediaInfo;
         mediaSessionId: number;
         playbackRate: number;
         playerState: chrome.cast.media.PlayerState;
-        preloadedItemId: number;
+        preloadedItemId?: number;
         repeatMode: chrome.cast.media.RepeatMode;
         sessionId: string;
         supportedMediaCommands: chrome.cast.media.MediaCommand[];
