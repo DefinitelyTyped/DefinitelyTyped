@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/good-logs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/ballyalley-o/good-logs"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/good-logs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bally Lomibao",
+            "githubUsername": "ballyalley-o"
+        }
+    ]
+}
