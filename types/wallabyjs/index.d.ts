@@ -307,6 +307,18 @@ declare module "wallabyjs" {
          * @defaultValue `false`
          */
         preservePaths?: boolean | undefined;
+
+        /**
+         * If `true`, makes node test runner symlink local node modules from
+         * Wallaby cache to correctly support ES modules resolution
+         */
+        symlinkNodeModules?: boolean | undefined;
+
+        /**
+         * If `true`, Willaby will not add new lines between test messages or
+         * test errors in Wallaby output.
+         */
+        compactMessageOutput?: boolean | undefined;
     }
 
     /**
