@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { EventEmitter } from "events";
 import fs = require("graceful-fs");
 import Watcher = require("./Watcher");

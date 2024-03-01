@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import tls = require("tls");
 import nodemailer = require("nodemailer");
 

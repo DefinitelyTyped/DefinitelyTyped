@@ -7,6 +7,7 @@
     ],
     "dependencies": {
         "@types/aws-sdk2-types": "*",
+        "@types/node": "*",
         "joi": "^17.3.0"
     },
     "devDependencies": {

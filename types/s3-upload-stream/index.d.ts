@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import * as AWS from "aws-sdk2-types";
 import * as stream from "stream";
 

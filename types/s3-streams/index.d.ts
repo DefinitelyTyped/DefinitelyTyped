@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { S3 } from "aws-sdk2-types";
 import { Readable, Writable } from "stream";
 

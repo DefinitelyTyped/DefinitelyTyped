@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as dgram from "dgram";
 import * as glossy from "glossy";
 import * as net from "net";

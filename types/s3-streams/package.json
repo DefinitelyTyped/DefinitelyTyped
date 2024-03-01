@@ -6,7 +6,8 @@
         "https://github.com/izaakschroeder/s3-streams"
     ],
     "dependencies": {
-        "@types/aws-sdk2-types": "*"
+        "@types/aws-sdk2-types": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/s3-streams": "workspace:."

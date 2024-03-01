@@ -6,6 +6,7 @@
         "https://github.com/Azure/azure-sdk-for-node/tree/master/lib/services/serviceBus"
     ],
     "dependencies": {
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/azure-sb": "workspace:."

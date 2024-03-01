@@ -1,3 +1,5 @@
+/// <reference types="node"/>
+
 import { IncomingMessage, Server, ServerResponse as HttpServerResponse } from "http";
 import { RequestHandler } from "micro";
 import UrlPattern = require("url-pattern");
