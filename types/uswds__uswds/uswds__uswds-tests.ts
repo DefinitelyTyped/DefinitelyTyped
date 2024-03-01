@@ -14,8 +14,8 @@ import {
     languageSelector,
     modal,
     navigation,
-    range,
     password,
+    range,
     search,
     skipnav,
     table,
@@ -289,7 +289,7 @@ tooltip.on(); // $ExpectType void
 tooltip.on(element); // $ExpectType void
 tooltip.off(); // $ExpectType void
 tooltip.off(element); // $ExpectType void
-tooltip.show(element, element, 'left'); // $ExpectType void
+tooltip.show(element, element, "left"); // $ExpectType void
 tooltip.hide(element); // $ExpectType void
 /*
 $ExpectType {

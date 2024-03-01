@@ -1,4 +1,4 @@
-type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
+type TooltipPosition = "top" | "right" | "bottom" | "left";
 
 interface TooltipContext {
     tooltipBody: HTMLSpanElement;
