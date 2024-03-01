@@ -1,4 +1,4 @@
-import { Camera, ColorRepresentation, Scene, ShaderMaterial, WebGLRenderTarget } from "../../../src/Three.js";
+import { Camera, ColorRepresentation, Scene, ShaderMaterial, WebGLRenderTarget } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

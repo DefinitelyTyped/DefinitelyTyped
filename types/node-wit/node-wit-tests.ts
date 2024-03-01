@@ -18,6 +18,7 @@ const wit = new Wit({
         },
     },
     logger: new log.Logger(log.DEBUG),
+    apiVersion: 20240229,
 });
 
 wit.message("what is the weather in London?", {}).then((res) => {

@@ -24,6 +24,10 @@ app.use(rdfHandler({
 }));
 
 app.use(rdfHandler({
+    sendTriples: true,
+}));
+
+app.use(rdfHandler({
     baseIriFromRequest: (req: express.Request) => req.path,
 }));
 

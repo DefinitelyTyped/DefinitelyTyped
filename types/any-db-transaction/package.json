@@ -6,8 +6,7 @@
         "https://github.com/grncdr/node-any-db-transaction"
     ],
     "dependencies": {
-        "@types/any-db": "*",
-        "@types/node": "*"
+        "@types/any-db": "*"
     },
     "devDependencies": {
         "@types/any-db-transaction": "workspace:."

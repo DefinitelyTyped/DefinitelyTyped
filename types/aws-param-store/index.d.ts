@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { SSM } from "aws-sdk2-types";
 
 export function getParameter(

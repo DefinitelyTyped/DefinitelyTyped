@@ -74,7 +74,6 @@ async function init(): Promise<void> {
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(300, 150);
-    renderer.outputEncoding = THREE.sRGBEncoding;
     container.appendChild(renderer.domElement);
 
     camera.position.set(0, 0, 5);

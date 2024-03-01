@@ -117,19 +117,16 @@ export class SkinnedMesh<
     bind(skeleton: Skeleton, bindMatrix?: Matrix4): void;
 
     /**
-     * Computes the bounding box, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks
-     * Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If an
-     * instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding box.
+     * Computes the bounding box of the skinned mesh, and updates the {@link .boundingBox} attribute. The bounding box
+     * is not computed by the engine; it must be computed by your app. If the skinned mesh is animated, the bounding box
+     * should be recomputed per frame.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes the bounding sphere, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks
-     * Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If
-     * an instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding
-     * sphere.
+     * Computes the bounding sphere of the skinned mesh, and updates the {@link .boundingSphere} attribute. The bounding
+     * sphere is automatically computed by the engine when it is needed, e.g., for ray casting and view frustum culling.
+     * If the skinned mesh is animated, the bounding sphere should be recomputed per frame.
      */
     computeBoundingSphere(): void;
 

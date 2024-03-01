@@ -1,4 +1,4 @@
-import { Loader, LoadingManager } from "../../../src/Three.js";
+import { Loader, LoadingManager } from "three";
 
 import { Collada } from "./ColladaLoader.js";
 

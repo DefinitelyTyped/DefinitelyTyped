@@ -1,4 +1,4 @@
-import { Camera, Mesh, MOUSE, Object3D, Object3DEventMap, Quaternion, Raycaster, Vector3 } from "../../../src/Three.js";
+import { Camera, Mesh, MOUSE, Object3D, Object3DEventMap, Quaternion, Raycaster, Vector3 } from "three";
 
 export interface TransformControlsEventMap extends Object3DEventMap {
     change: {};
@@ -59,6 +59,11 @@ export class TransformControls extends Object3D<TransformControlsEventMap> {
         MIDDLE?: MOUSE | null | undefined;
         RIGHT?: MOUSE | null | undefined;
     };
+
+    pointerHover(pointer: PointerEvent | null): void;
+    pointerDown(pointer: PointerEvent | null): void;
+    pointerMove(pointer: PointerEvent | null): void;
+    pointerUp(pointer: PointerEvent | null): void;
 
     attach(object: Object3D): this;
     detach(): this;

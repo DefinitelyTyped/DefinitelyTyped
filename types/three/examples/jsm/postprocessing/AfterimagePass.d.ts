@@ -1,4 +1,4 @@
-import { IUniform, ShaderMaterial, WebGLRenderTarget } from "../../../src/Three.js";
+import { IUniform, ShaderMaterial, WebGLRenderTarget } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

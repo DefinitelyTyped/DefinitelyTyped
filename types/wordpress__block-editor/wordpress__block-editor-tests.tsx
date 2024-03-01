@@ -219,6 +219,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 // inspector-controls
 //
 <be.InspectorControls>Hello World</be.InspectorControls>;
+<be.InspectorControls group={"styles"}>Hello World</be.InspectorControls>;
 <be.InspectorControls.Slot />;
 
 //

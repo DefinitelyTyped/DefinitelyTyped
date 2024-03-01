@@ -236,6 +236,10 @@ declare namespace bricks {
         customization?: BrickType extends "brand" ? BrandBrickCustomization : BrickCustomization;
     }
 
+    interface WalletBrickSettings extends BrickSettings<"wallet"> {
+        brand?: string;
+    }
+
     interface BrandBrickSettings {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
         callbacks?: BrandBrickCallbacks;
@@ -534,7 +538,9 @@ declare namespace bricks {
         create<BrickType extends BrickTypes>(
             brick: BrickType,
             containerId: string,
-            settings?: BrickType extends "brand" ? BrandBrickSettings : BrickSettings<BrickType>,
+            settings?: BrickType extends "brand" ? BrandBrickSettings
+                : BrickType extends "wallet" ? WalletBrickSettings
+                : BrickSettings<BrickType>,
         ): Promise<
             BrickType extends "cardPayment" ? CardPaymentController
                 : BrickType extends "payment" ? PaymentController

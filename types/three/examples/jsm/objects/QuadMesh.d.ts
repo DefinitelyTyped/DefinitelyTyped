@@ -1,4 +1,4 @@
-import { Material } from "../../../src/Three.js";
+import { Material } from "three";
 import Renderer from "../renderers/common/Renderer.js";
 
 export default class QuadMesh {

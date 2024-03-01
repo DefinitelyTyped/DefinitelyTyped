@@ -40,7 +40,7 @@ export interface SignOptions {
     algorithm?: Algorithm | undefined;
     keyid?: string | undefined;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
-    expiresIn?: string | number | undefined;
+    expiresIn?: string | number;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     notBefore?: string | number | undefined;
     audience?: string | string[] | undefined;

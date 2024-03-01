@@ -1,4 +1,4 @@
-import { Camera, Object3D, RenderTarget } from "../../../../src/Three.js";
+import { Camera, Object3D, RenderTarget } from "three";
 import TextureNode from "../accessors/TextureNode.js";
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 

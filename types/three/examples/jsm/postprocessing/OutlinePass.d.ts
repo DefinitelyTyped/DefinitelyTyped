@@ -10,7 +10,7 @@ import {
     Texture,
     Vector2,
     WebGLRenderTarget,
-} from "../../../src/Three.js";
+} from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

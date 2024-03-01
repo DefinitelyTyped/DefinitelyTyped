@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, Texture } from "../../../../src/Three.js";
+import { Loader, LoadingManager, Texture } from "three";
 import { AnyJson, Node } from "../Nodes.js";
 
 export interface NodeLoaderResult {
