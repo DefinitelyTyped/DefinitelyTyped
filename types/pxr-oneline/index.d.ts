@@ -3,7 +3,7 @@ declare namespace OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
         buildVideoUrl(bidder: BidderConfig[], placementID: string): void;
-        adUnitInfiniteRequest(arrOfOb: string[]);
+        adUnitInfiniteRequest(arrOfOb: string[]): void;
     }
 
     interface BidderParams {
