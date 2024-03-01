@@ -1,6 +1,7 @@
 import {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -13,6 +14,7 @@ import {
     languageSelector,
     modal,
     navigation,
+    range,
     password,
     search,
     skipnav,
@@ -23,7 +25,7 @@ import {
 } from "@uswds/uswds/js";
 
 const element = document.createElement("div");
-const button = document.createElement("button");
+const buttonElement = document.createElement("button");
 const input = document.createElement("input");
 
 // Accordion
@@ -35,10 +37,10 @@ accordion.on(); // $ExpectType void
 accordion.on(element); // $ExpectType void
 accordion.off(); // $ExpectType void
 accordion.off(element); // $ExpectType void
-accordion.show(button); // $ExpectType boolean
-accordion.hide(button); // $ExpectType boolean
-accordion.toggle(button); // $ExpectType boolean
-accordion.toggle(button, true); // $ExpectType boolean
+accordion.show(buttonElement); // $ExpectType boolean
+accordion.hide(buttonElement); // $ExpectType boolean
+accordion.toggle(buttonElement); // $ExpectType boolean
+accordion.toggle(buttonElement, true); // $ExpectType boolean
 accordion.getButtons(element); // $ExpectType HTMLButtonElement[]
 
 // Banner
@@ -46,6 +48,12 @@ banner.on(); // $ExpectType void
 banner.on(element); // $ExpectType void
 banner.off(); // $ExpectType void
 banner.off(element); // $ExpectType void
+
+// Button
+button.on(); // $ExpectType void
+button.on(element); // $ExpectType void
+button.off(); // $ExpectType void
+button.off(element); // $ExpectType void
 
 // Character Count
 characterCount.DEFAULT_STATUS_LABEL; // $ExpectType string
@@ -121,7 +129,7 @@ datePicker.getDatePickerContext(element);
 datePicker.disable(input); // $ExpectType void
 datePicker.enable(input); // $ExpectType void
 datePicker.isDateInputInvalid(input); // $ExpectType boolean
-datePicker.setCalendarValue(button, "2022-01-01"); // $ExpectType void
+datePicker.setCalendarValue(buttonElement, "2022-01-01"); // $ExpectType void
 datePicker.validateDateInput(element); // $ExpectType void
 datePicker.renderCalendar(element, new Date()); // $ExpectType HTMLElement
 datePicker.updateCalendarIfVisible(element); // $ExpectType void
@@ -221,6 +229,15 @@ password.on(); // $ExpectType void
 password.on(element); // $ExpectType void
 password.off(); // $ExpectType void
 password.off(element); // $ExpectType void
+
+// Range
+range.on(); // $ExpectType void
+range.on(element); // $ExpectType void
+range.off(); // $ExpectType void
+range.off(element); // $ExpectType void
+range.init(); // $ExpectType void
+range.init(element); // $ExpectType void
+range.updateCallout(input); // $ExpectType void
 
 // Search
 search.init(); // $ExpectType void
