@@ -272,7 +272,7 @@ tooltip.on(); // $ExpectType void
 tooltip.on(element); // $ExpectType void
 tooltip.off(); // $ExpectType void
 tooltip.off(element); // $ExpectType void
-tooltip.show(element); // $ExpectType void
+tooltip.show(element, element, 'left'); // $ExpectType void
 tooltip.hide(element); // $ExpectType void
 /*
 $ExpectType {
@@ -285,7 +285,7 @@ $ExpectType {
 tooltip.setup(element);
 /*
 $ExpectType {
-    trigger: Element;
+    trigger: HTMLElement;
     wrapper: HTMLElement;
     body: HTMLElement;
 }
