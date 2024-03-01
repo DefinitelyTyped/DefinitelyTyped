@@ -45,6 +45,9 @@ interface UploadFileResult {
 interface DownloadFileOptions {
     /** 文件下载地址 */
     url: string;
+    
+    /** 文件类型 例如 xxx.pdf */
+    fileType: string;
 }
 
 /**
