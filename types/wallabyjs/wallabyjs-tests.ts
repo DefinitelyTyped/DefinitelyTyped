@@ -22,7 +22,7 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
 
     public tests: Array<string | wallabyjs.IWallabyFilePattern> = [
         "src/**/*.spec.ts",
-        { pattern: "src/**/*.css", instrument: false, load: true },
+        { pattern: "src/**/*.css", instrument: false, load: true, binary: true },
     ];
 
     public compilers: wallabyjs.IWallabyCompilers = {

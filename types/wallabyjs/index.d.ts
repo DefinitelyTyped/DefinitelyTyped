@@ -549,6 +549,11 @@ declare module "wallabyjs" {
          * @defaultValue `true`
          */
         load?: boolean | undefined;
+
+        /**
+         * Treat this file as a binary file
+         */
+        binary?: boolean | undefined
     }
 
     /**
