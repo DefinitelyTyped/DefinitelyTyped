@@ -1,8 +1,7 @@
 import * as React from "react";
 
-interface CallBackProps {
+interface CallBackProps extends React.RefAttributes<any> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<any> | undefined;
     closePortal(): void;
 }
 
