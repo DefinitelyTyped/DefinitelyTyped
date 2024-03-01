@@ -1,9 +1,9 @@
 interface Accordion {
     ACCORDION: string;
     BUTTON: string;
-    init(root: HTMLElement | Document): void;
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    init(root?: HTMLElement | Document): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
     show(button: HTMLButtonElement): boolean;
     hide(button: HTMLButtonElement): boolean;
     /**
