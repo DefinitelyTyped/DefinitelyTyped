@@ -627,13 +627,28 @@ declare module "wallabyjs" {
     /**
      * Wallaby worker configuration.
      *
-     * recycle - Specifies the degree of parallelism used to run your tests and
-     *                                  controls the way wallaby re-uses workers.
-     *
      * @see {@link https://wallabyjs.com/docs/config/workers.html} for details.
      */
     export interface IWallabyWorkers {
+        /**
+         * May be an alias for {@link restart}
+         */
         recycle?: boolean | undefined;
+
+        /**
+         * If `true`, Wallaby will restart workers instead of reusing processes
+         */
+        restart?: boolean | undefined;
+
+        /**
+         * Initial number of parallel processes to run your tests on start
+         */
+        initial?: number;
+
+        /**
+         * Number of parallel processes to run your tests on code change
+         */
+        regular?: number;
     }
 
     /**

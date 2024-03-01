@@ -115,5 +115,12 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
         },
     };
 
+    public workers = {
+        recycle: true,
+        restart: true,
+        initial: 6,
+        regular: 2
+    }
+
     constructor(private readonly wallaby: wallabyjs.IWallaby) {}
 }
