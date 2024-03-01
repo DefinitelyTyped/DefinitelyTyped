@@ -6,7 +6,6 @@
         "https://github.com/rollup/plugins/tree/master/packages/virtual#readme"
     ],
     "dependencies": {
-        "@types/node": "*",
         "rollup": "^1.31.1"
     },
     "devDependencies": {

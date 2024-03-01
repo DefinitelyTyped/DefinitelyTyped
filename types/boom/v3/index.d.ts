@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 export = Boom;
 
 declare namespace Boom {

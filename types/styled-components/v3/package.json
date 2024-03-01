@@ -6,7 +6,6 @@
         "https://github.com/styled-components/styled-components"
     ],
     "dependencies": {
-        "@types/node": "*",
         "@types/react": "*"
     },
     "devDependencies": {

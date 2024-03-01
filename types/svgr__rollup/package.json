@@ -6,7 +6,6 @@
         "https://github.com/smooth-code/svgr/tree/master/packages/rollup"
     ],
     "dependencies": {
-        "@types/node": "*",
         "rollup": "^1.23.1"
     },
     "devDependencies": {

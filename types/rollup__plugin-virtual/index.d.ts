@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { Plugin } from "rollup";
 
 declare namespace virtual {

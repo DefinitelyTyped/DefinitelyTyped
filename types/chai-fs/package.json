@@ -6,8 +6,7 @@
         "https://github.com/chaijs/chai-fs"
     ],
     "dependencies": {
-        "@types/chai": "*",
-        "@types/node": "*"
+        "@types/chai": "*"
     },
     "devDependencies": {
         "@types/chai-fs": "workspace:."
