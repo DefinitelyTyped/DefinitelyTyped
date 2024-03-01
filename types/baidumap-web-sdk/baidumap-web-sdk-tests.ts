@@ -26,7 +26,9 @@ class TestFixture {
     }
     addPolyline(map: BMap.Map, points: BMap.Point[]) {
         const polyline = new BMap.Polyline(points, {
-            icons: [new BMap.IconSequence(new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW), undefined, '20px')],
+            icons: [
+                new BMap.IconSequence(new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW), undefined, "20px"),
+            ],
         });
         map.addOverlay(polyline);
     }
