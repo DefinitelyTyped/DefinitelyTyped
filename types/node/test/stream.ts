@@ -688,7 +688,6 @@ async function testReadableStream() {
         value;
     }
 
-
     // ERROR: 538:31  await-promise  Invalid 'for-await-of' of a non-AsyncIterable value.
     // for await (const value of stream) {
     //     // $ExpectType number
