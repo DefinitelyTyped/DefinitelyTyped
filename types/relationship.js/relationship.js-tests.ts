@@ -1,7 +1,7 @@
 import relationship = require("relationship.js");
 import relationshipZH = require("relationship.js/zh-HK");
-import modes = require("relationship.js/mode");
-import zhModes = require("relationship.js/zh-HK/mode");
+import relationshipModes = require("relationship.js/mode");
+import relationshipZHModes = require("relationship.js/zh-HK/mode");
 
 // $ExpectType string[]
 relationship("爸爸的妈妈");
@@ -16,6 +16,6 @@ relationship.setMode("northern", { "m,f": ["姥爷"] });
 // $ExpectType string[]
 relationshipZH("爸爸的妈妈");
 // $expectType Record<string, {name: string, data: any}>
-modes;
+relationshipModes;
 // $expectType Record<string, {name: string, data: any}>
-zhModes;
+relationshipZHModes;
