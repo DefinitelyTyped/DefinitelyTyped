@@ -16,6 +16,6 @@ relationship.setMode("northern", { "m,f": ["姥爷"] });
 // $ExpectType string[]
 relationshipZH("爸爸的妈妈");
 // $expectType Record<string, {name: string, data: any}>
-modes
+modes;
 // $expectType Record<string, {name: string, data: any}>
-zhModes
+zhModes;
