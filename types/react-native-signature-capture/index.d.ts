@@ -59,7 +59,7 @@ export interface SignatureCaptureProps extends ViewProps {
     /**
      * Sets the color of the signature. Defaults to black.
      *
-     * @default #000000
+     * @default "#000000"
      */
     strokeColor?: string | undefined;
 
