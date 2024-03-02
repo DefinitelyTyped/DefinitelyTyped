@@ -61,7 +61,7 @@ export interface SignatureCaptureProps extends ViewProps {
      *
      * @default #000000
      */
-    strokeColor?: string | undefined
+    strokeColor?: string | undefined;
 
     /**
      * Triggered when saveImage() is called, which return Base64 Encoded String and image file path.
