@@ -23,10 +23,10 @@ import * as R from "ramda";
     // $ExpectType <T>(value: T) => value is Exclude<T, (null | undefined) & T>
     R.complement(R.isNil);
 
-    function fn (a: string | undefined) {
+    function fn(a: string | undefined) {
         if (R.complement(R.isNil)(a)) {
             // $ExpectType string
-            a
+            a;
         }
     }
 
