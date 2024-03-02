@@ -11,7 +11,7 @@ import * as R from "ramda";
         return x % 2 === 0;
     }
 
-    // $ExpectType (a: number) => boolean
+    // $ExpectType (x: number) => boolean
     const f = R.anyPass([gt10, even]);
 
     // $ExpectType boolean
