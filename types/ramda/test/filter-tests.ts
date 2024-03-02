@@ -35,8 +35,7 @@ import * as R from "ramda";
 (() => {
     const coll = [{ type: "BUY" }, { type: "SELL" }, { type: "BUY" }];
     const isBuy = R.propEq("BUY", "type");
-    // letting to fail to prevent merge until update to `types-ramda`
-    // R.filter(isBuy, coll); // => [{ type: 'BUY' }, { type: 'BUY' }]
+    R.filter(isBuy, coll); // => [{ type: 'BUY' }, { type: 'BUY' }]
 });
 
 (() => {
