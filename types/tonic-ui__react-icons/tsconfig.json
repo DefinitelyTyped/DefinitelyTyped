@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [
+            "node",
+            "react"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
