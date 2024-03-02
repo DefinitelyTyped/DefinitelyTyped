@@ -119,8 +119,8 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
         recycle: true,
         restart: true,
         initial: 6,
-        regular: 2
-    }
+        regular: 2,
+    };
 
     constructor(private readonly wallaby: wallabyjs.IWallaby) {}
 }

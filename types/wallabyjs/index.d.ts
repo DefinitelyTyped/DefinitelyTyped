@@ -553,7 +553,7 @@ declare module "wallabyjs" {
         /**
          * Treat this file as a binary file
          */
-        binary?: boolean | undefined
+        binary?: boolean | undefined;
     }
 
     /**
