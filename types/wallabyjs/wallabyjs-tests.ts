@@ -22,7 +22,7 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
 
     public tests: Array<string | wallabyjs.IWallabyFilePattern> = [
         "src/**/*.spec.ts",
-        { pattern: "src/**/*.css", instrument: false, load: true },
+        { pattern: "src/**/*.css", instrument: false, load: true, binary: true },
     ];
 
     public compilers: wallabyjs.IWallabyCompilers = {
@@ -114,6 +114,13 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
             },
         },
     };
+
+    public workers = {
+        recycle: true,
+        restart: true,
+        initial: 6,
+        regular: 2
+    }
 
     constructor(private readonly wallaby: wallabyjs.IWallaby) {}
 }

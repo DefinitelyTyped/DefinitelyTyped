@@ -307,6 +307,18 @@ declare module "wallabyjs" {
          * @defaultValue `false`
          */
         preservePaths?: boolean | undefined;
+
+        /**
+         * If `true`, makes node test runner symlink local node modules from
+         * Wallaby cache to correctly support ES modules resolution
+         */
+        symlinkNodeModules?: boolean | undefined;
+
+        /**
+         * If `true`, Willaby will not add new lines between test messages or
+         * test errors in Wallaby output.
+         */
+        compactMessageOutput?: boolean | undefined;
     }
 
     /**
@@ -537,6 +549,11 @@ declare module "wallabyjs" {
          * @defaultValue `true`
          */
         load?: boolean | undefined;
+
+        /**
+         * Treat this file as a binary file
+         */
+        binary?: boolean | undefined
     }
 
     /**
@@ -615,13 +632,28 @@ declare module "wallabyjs" {
     /**
      * Wallaby worker configuration.
      *
-     * recycle - Specifies the degree of parallelism used to run your tests and
-     *                                  controls the way wallaby re-uses workers.
-     *
      * @see {@link https://wallabyjs.com/docs/config/workers.html} for details.
      */
     export interface IWallabyWorkers {
+        /**
+         * May be an alias for {@link restart}
+         */
         recycle?: boolean | undefined;
+
+        /**
+         * If `true`, Wallaby will restart workers instead of reusing processes
+         */
+        restart?: boolean | undefined;
+
+        /**
+         * Initial number of parallel processes to run your tests on start
+         */
+        initial?: number;
+
+        /**
+         * Number of parallel processes to run your tests on code change
+         */
+        regular?: number;
     }
 
     /**
