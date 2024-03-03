@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node-wit",
-    "version": "6.0.9999",
+    "version": "6.1.0",
     "projects": [
         "https://github.com/wit-ai/node-wit#readme"
     ],
