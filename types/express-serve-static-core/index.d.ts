@@ -369,6 +369,12 @@ export interface RequestRanges extends RangeParserRanges {}
 
 export type Errback = (err: Error) => void;
 
+type TrimLeft<V extends string> = V extends ` ${infer R}` ? TrimLeft<R> : V;
+type TrimRight<V extends string> = V extends `${infer R} ` ? TrimRight<R> : V;
+type TrimSpaces<V extends string> = TrimLeft<TrimRight<V>>;
+type CommaSeparated<S extends string> = S extends `${infer T},${infer U}` ? [TrimSpaces<T>, ...CommaSeparated<U>]
+    : Array<TrimSpaces<S>>;
+
 /**
  * @param P  For most requests, this should be `ParamsDictionary`, but if you're
  * using this in a route handler for a route that uses a `RegExp` or a wildcard
@@ -452,10 +458,9 @@ export interface Request<
      *     // => "json"
      */
     accepts(): string[];
-    accepts(type: string): string | false;
-    accepts(type: string[]): string | false;
-    accepts(...type: string[]): string | false;
-
+    accepts<T extends string>(lang: T): CommaSeparated<T>[number] | false;
+    accepts<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
+    accepts<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
     /**
      * Returns the first accepted charset of the specified character sets,
      * based on the request's Accept-Charset HTTP header field.
@@ -464,9 +469,9 @@ export interface Request<
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsCharsets(): string[];
-    acceptsCharsets(charset: string): string | false;
-    acceptsCharsets(charset: string[]): string | false;
-    acceptsCharsets(...charset: string[]): string | false;
+    acceptsCharsets<T extends string>(lang: T): CommaSeparated<T>[number] | false;
+    acceptsCharsets<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
+    acceptsCharsets<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
 
     /**
      * Returns the first accepted encoding of the specified encodings,
@@ -476,9 +481,9 @@ export interface Request<
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsEncodings(): string[];
-    acceptsEncodings(encoding: string): string | false;
-    acceptsEncodings(encoding: string[]): string | false;
-    acceptsEncodings(...encoding: string[]): string | false;
+    acceptsEncodings<T extends string>(lang: T): CommaSeparated<T>[number] | false;
+    acceptsEncodings<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
+    acceptsEncodings<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
 
     /**
      * Returns the first accepted language of the specified languages,
@@ -488,9 +493,9 @@ export interface Request<
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsLanguages(): string[];
-    acceptsLanguages(lang: string): string | false;
-    acceptsLanguages(lang: string[]): string | false;
-    acceptsLanguages(...lang: string[]): string | false;
+    acceptsLanguages<T extends string>(lang: T): CommaSeparated<T>[number] | false;
+    acceptsLanguages<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
+    acceptsLanguages<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
 
     /**
      * Parse Range header field, capping to the given `size`.

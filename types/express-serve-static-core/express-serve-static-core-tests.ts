@@ -296,3 +296,11 @@ app.get("/file2.txt", (req, res) => {
 app.get("/:foo", req => {
     req.ip; // $ExpectType string | undefined
 });
+
+app.get("/foo", (req) => {
+    // Not testing all of the expects fields, because they all function the same.
+    req.acceptsLanguages(); // $ExpectType string[]
+    req.acceptsLanguages("en", "de", "nl"); // $ExpectType 'en' | 'de' | 'nl' | false
+    req.acceptsLanguages("en, de, nl"); // $ExpectType 'en' | 'de' | 'nl' | false
+    req.acceptsLanguages(["en", "de", "nl"]); // $ExpectType 'en' | 'de' | 'nl' | false
+});
