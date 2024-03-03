@@ -196,7 +196,7 @@ Your package should have this structure:
 | [`.npmignore`](#npmignore)                     | Specifies which files are intended to be included in the package.                                    |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
-See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
+See all options at [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
 
