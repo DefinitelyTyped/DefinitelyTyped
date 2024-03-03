@@ -458,9 +458,9 @@ export interface Request<
      *     // => "json"
      */
     accepts(): string[];
-    accepts<T extends string>(lang: T): CommaSeparated<T>[number] | false;
-    accepts<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
-    accepts<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
+    accepts<T extends string>(type: T): CommaSeparated<T>[number] | false;
+    accepts<T extends string>(type: T[]): CommaSeparated<T>[number] | false;
+    accepts<T extends string>(...type: T[]): CommaSeparated<T>[number] | false;
     /**
      * Returns the first accepted charset of the specified character sets,
      * based on the request's Accept-Charset HTTP header field.
@@ -469,9 +469,9 @@ export interface Request<
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsCharsets(): string[];
-    acceptsCharsets<T extends string>(lang: T): CommaSeparated<T>[number] | false;
-    acceptsCharsets<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
-    acceptsCharsets<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
+    acceptsCharsets<T extends string>(charset: T): CommaSeparated<T>[number] | false;
+    acceptsCharsets<T extends string>(charset: T[]): CommaSeparated<T>[number] | false;
+    acceptsCharsets<T extends string>(...charset: T[]): CommaSeparated<T>[number] | false;
 
     /**
      * Returns the first accepted encoding of the specified encodings,
@@ -481,9 +481,9 @@ export interface Request<
      * For more information, or if you have issues or concerns, see accepts.
      */
     acceptsEncodings(): string[];
-    acceptsEncodings<T extends string>(lang: T): CommaSeparated<T>[number] | false;
-    acceptsEncodings<T extends string>(lang: T[]): CommaSeparated<T>[number] | false;
-    acceptsEncodings<T extends string>(...lang: T[]): CommaSeparated<T>[number] | false;
+    acceptsEncodings<T extends string>(encoding: T): CommaSeparated<T>[number] | false;
+    acceptsEncodings<T extends string>(encoding: T[]): CommaSeparated<T>[number] | false;
+    acceptsEncodings<T extends string>(...encoding: T[]): CommaSeparated<T>[number] | false;
 
     /**
      * Returns the first accepted language of the specified languages,
