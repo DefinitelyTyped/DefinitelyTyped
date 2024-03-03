@@ -62,7 +62,7 @@ export interface MessageResponse {
     text: string;
     intents: WitIntent[];
     entities: any;
-    traits: any;
+    traits: { [key: string]: MessageResponseEntity[] };
 }
 
 export class Wit {
