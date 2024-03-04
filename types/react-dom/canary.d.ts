@@ -147,4 +147,6 @@ declare module "./client" {
     interface HydrationOptions {
         formState?: ReactFormState | null;
     }
+
+    function createRoot(container: Document, options?: RootOptions): Root;
 }

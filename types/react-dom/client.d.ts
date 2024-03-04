@@ -32,9 +32,9 @@ export interface Root {
 }
 
 /**
- * Replaces `ReactDOM.render` when the `.render` method is called and enables Concurrent Mode.
+ * createRoot lets you create a root to display React components inside a browser DOM node.
  *
- * @see https://reactjs.org/docs/concurrent-mode-reference.html#createroot
+ * @see {@link https://react.dev/reference/react-dom/client/createRoot API Reference for `createRoot`}
  */
 export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
 
