@@ -8,6 +8,11 @@ declare namespace createReactClass {
         } | undefined;
 
         displayName?: string | undefined;
+         /**
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
+         */
+        propTypes?: any;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
