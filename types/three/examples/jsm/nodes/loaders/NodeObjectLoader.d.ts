@@ -1,4 +1,4 @@
-import { Material, ObjectLoader, Texture } from "../../../../src/Three.js";
+import { Material, ObjectLoader, Texture } from "three";
 import { AnyJson } from "../core/constants.js";
 import { NodeLoaderResult } from "./NodeLoader.js";
 

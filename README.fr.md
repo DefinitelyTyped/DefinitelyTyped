@@ -176,7 +176,7 @@ Votre paquet doit avoir cette structure :
 | [`.eslintrc.json`](#linter-eslintrcjson)       | (Rarement) Nécessaire uniquement pour désactiver les règles de lint écrites pour eslint.               |
 
 Vous pouvez les générer en lançant `npx dts-gen --dt --name <mon-paquet> --template module` si vous avez npm ≥ 5.2.0, `npm install -g dts-gen` et `dts-gen --dt --name <mon-paquet> --template module` dans le cas contraire.
-Voir toutes les options à [dts-gen](https://github.com/Microsoft/dts-gen).
+Voir toutes les options à [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Si vous avez des fichiers `.d.ts` en plus de `index.d.ts`, assurez-vous qu'ils sont référencés soit dans `index.d.ts` soit dans les tests.
 

@@ -170,7 +170,7 @@ npm 上にないパッケージの型定義を追加したい場合は、その�
 | [`tsconfig.json`](#tsconfigjson)                   | パッケージ内で `tsc` を実行するのに必要。                                                              |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
-dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
+dts-gen の全オプションは[こちら](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen)で確認できます。
 
 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
 

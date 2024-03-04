@@ -43,6 +43,7 @@ export interface WebGLProgramParameters {
     batching: boolean;
     instancing: boolean;
     instancingColor: boolean;
+    instancingMorph: boolean;
 
     supportsVertexTextures: boolean;
     outputColorSpace: ColorSpace;

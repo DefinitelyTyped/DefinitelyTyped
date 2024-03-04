@@ -1,4 +1,4 @@
-import { ToneMapping } from "../../../../src/Three.js";
+import { ToneMapping } from "three";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";

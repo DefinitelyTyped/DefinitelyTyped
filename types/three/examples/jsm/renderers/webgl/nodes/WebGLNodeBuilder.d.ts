@@ -1,4 +1,4 @@
-import { Object3D, Renderer } from "../../../../../src/Three.js";
+import { Object3D, Renderer } from "three";
 import { NodeShaderStage } from "../../../nodes/core/constants.js";
 import Node from "../../../nodes/core/Node.js";
 import NodeBuilder from "../../../nodes/core/NodeBuilder.js";

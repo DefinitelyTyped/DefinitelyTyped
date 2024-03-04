@@ -9,6 +9,10 @@ import {
     ModalContent,
     ModalFooter,
     ModalHeader,
+    Popover,
+    PopoverArrow,
+    PopoverContent,
+    PopoverTrigger,
     Tab,
     TabList,
     TabPanel,
@@ -264,5 +268,23 @@ const TreeApp = () => {
                 )}
             />
         </Tree>
+    );
+};
+
+const PopoverTest = () => {
+    return (
+        <Popover>
+            <PopoverTrigger>
+                <Button>Open Popover</Button>
+            </PopoverTrigger>
+            <PopoverContent
+                PopoverArrowComponent={PopoverArrow}
+                PopoverArrowProps={{ arrowWidth: 20, arrowHeight: 20, randomProp: 123 }}
+                TransitionComponent={Box}
+                TransitionProps={{ appear: false, in: false, randomProp: 123 }}
+            >
+                <Box>Popover Content</Box>
+            </PopoverContent>
+        </Popover>
     );
 };

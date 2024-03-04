@@ -59,6 +59,10 @@ export type MathNodeMethod = MathNodeMethod1 | MathNodeMethod2 | MathNodeMethod3
 export default class MathNode extends TempNode {
     // 1 input
 
+    static ALL: "all";
+    static ANY: "any";
+    static EQUALS: "equals";
+
     static RADIANS: "radians";
     static DEGREES: "degrees";
     static EXP: "exp";
@@ -129,6 +133,10 @@ export const PI2: ShaderNodeObject<Node>;
 
 type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
+export const all: Unary;
+export const any: Unary;
+export const equals: Unary;
+
 export const radians: Unary;
 export const degrees: Unary;
 export const exp: Unary;
@@ -198,6 +206,9 @@ export const smoothstepElement: Ternary;
 
 declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
+        all: typeof all;
+        any: typeof any;
+        equals: typeof equals;
         radians: typeof radians;
         degrees: typeof degrees;
         exp: typeof exp;

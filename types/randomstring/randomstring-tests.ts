@@ -19,3 +19,5 @@ randomstring.generate({
     charset: "octal",
     capitalization: "uppercase",
 });
+
+randomstring.generate({ charset: "abcdef" });

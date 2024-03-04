@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "reveal.esm.js-tests.ts",
         "reveal.js-tests.ts"
     ]
 }

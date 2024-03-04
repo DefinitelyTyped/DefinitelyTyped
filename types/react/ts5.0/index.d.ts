@@ -186,6 +186,7 @@ declare namespace React {
      * <div ref="myRef" />
      * ```
      */
+    // TODO: Remove the string ref special case from `PropsWithRef` once we remove LegacyRef
     type LegacyRef<T> = string | Ref<T>;
 
     /**
@@ -214,9 +215,10 @@ declare namespace React {
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
         // otherwise it will infer `{}` instead of `never`
-        "ref" extends keyof ComponentPropsWithRef<C> ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends Ref<
+        "ref" extends keyof ComponentPropsWithRef<C>
+            ? NonNullable<ComponentPropsWithRef<C>["ref"]> extends RefAttributes<
                 infer Instance
-            > ? Instance
+            >["ref"] ? Instance
             : never
             : never;
 
@@ -230,30 +232,66 @@ declare namespace React {
     type Key = string | number | bigint;
 
     /**
-     * @internal You shouldn't need to use this type since you never see these attributes
-     * inside your component or have to validate them.
+     * @internal The props any component can receive.
+     * You don't have to add this type. All components automatically accept these props.
+     * ```tsx
+     * const Component = () => <div />;
+     * <Component key="one" />
+     * ```
+     *
+     * WARNING: The implementation of a component will never have access to these attributes.
+     * The following example would be incorrect usage because {@link Component} would never have access to `key`:
+     * ```tsx
+     * const Component = (props: React.Attributes) => props.key;
+     * ```
      */
     interface Attributes {
         key?: Key | null | undefined;
     }
+    /**
+     * The props any component accepting refs can receive.
+     * Class components, built-in browser components (e.g. `div`) and forwardRef components can receive refs and automatically accept these props.
+     * ```tsx
+     * const Component = forwardRef(() => <div />);
+     * <Component ref={(current) => console.log(current)} />
+     * ```
+     *
+     * You only need this type if you manually author the types of props that need to be compatible with legacy refs.
+     * ```tsx
+     * interface Props extends React.RefAttributes<HTMLDivElement> {}
+     * declare const Component: React.FunctionComponent<Props>;
+     * ```
+     *
+     * Otherwise it's simpler to directly use {@link Ref} since you can safely use the
+     * props type to describe to props that a consumer can pass to the component
+     * as well as describing the props the implementation of a component "sees".
+     * {@link RefAttributes} is generally not safe to describe both consumer and seen props.
+     *
+     * ```tsx
+     * interface Props extends {
+     *   ref?: React.Ref<HTMLDivElement> | undefined;
+     * }
+     * declare const Component: React.FunctionComponent<Props>;
+     * ```
+     *
+     * WARNING: The implementation of a component will not have access to the same type in versions of React supporting string refs.
+     * The following example would be incorrect usage because {@link Component} would never have access to a `ref` with type `string`
+     * ```tsx
+     * const Component = (props: React.RefAttributes) => props.ref;
+     * ```
+     */
     interface RefAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
          * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
          * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
          */
-        ref?: Ref<T> | undefined;
+        ref?: LegacyRef<T> | undefined;
     }
     /**
      * Represents the built-in attributes available to class components.
      */
-    interface ClassAttributes<T> extends Attributes {
-        /**
-         * Allows getting a ref to the component instance.
-         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
-         */
-        ref?: LegacyRef<T> | undefined;
+    interface ClassAttributes<T> extends RefAttributes<T> {
     }
 
     /**
@@ -280,6 +318,9 @@ declare namespace React {
         key: string | null;
     }
 
+    /**
+     * @deprecated
+     */
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
@@ -1517,6 +1558,7 @@ declare namespace React {
         P extends any ? ("ref" extends keyof P ? Omit<P, "ref"> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
+        // Note: String refs can be forwarded. We can't fix this bug without breaking a bunch of libraries now though.
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
         "ref" extends keyof P
             ? P extends { ref?: infer R | undefined }

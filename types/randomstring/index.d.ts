@@ -6,7 +6,7 @@ declare namespace Randomstring {
         | "hex"
         | "binary"
         | "octal"
-        | string;
+        | string & {};
     type Capitalization = "lowercase" | "uppercase";
     interface GenerateOptions {
         length?: number | undefined;

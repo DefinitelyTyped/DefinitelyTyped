@@ -140,6 +140,7 @@ export const CineonToneMapping: 3;
 export const ACESFilmicToneMapping: 4;
 export const CustomToneMapping: 5;
 export const AgXToneMapping: 6;
+export const NeutralToneMapping: 7;
 export type ToneMapping =
     | typeof NoToneMapping
     | typeof LinearToneMapping
@@ -147,7 +148,8 @@ export type ToneMapping =
     | typeof CineonToneMapping
     | typeof ACESFilmicToneMapping
     | typeof CustomToneMapping
-    | typeof AgXToneMapping;
+    | typeof AgXToneMapping
+    | typeof NeutralToneMapping;
 
 // Bind modes
 export const AttachedBindMode: "attached";
@@ -695,20 +697,6 @@ export const TrianglesDrawMode: 0;
 export const TriangleStripDrawMode: 1;
 export const TriangleFanDrawMode: 2;
 export type TrianglesDrawModes = typeof TrianglesDrawMode | typeof TriangleStripDrawMode | typeof TriangleFanDrawMode;
-
-///////////////////////////////////////////////////////////////////////////////
-// Texture Encodings
-
-/** @deprecated Use {@link LinearSRGBColorSpace} or {@link NoColorSpace} in three.js r152+. */
-export const LinearEncoding: 3000;
-/** @deprecated Use {@link SRGBColorSpace} in three.js r152+. */
-export const sRGBEncoding: 3001;
-/**
- * Texture Encodings.
- * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
- * @deprecated Use {@link ColorSpace} in three.js r152+.
- */
-export type TextureEncoding = typeof LinearEncoding | typeof sRGBEncoding;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Depth packing strategies

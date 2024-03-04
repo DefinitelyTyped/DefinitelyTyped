@@ -1,4 +1,4 @@
-import { MaterialLoader } from "../../../../src/Three.js";
+import { MaterialLoader } from "three";
 import { NodeLoaderResult } from "./NodeLoader.js";
 
 export default class NodeMaterialLoader extends MaterialLoader {

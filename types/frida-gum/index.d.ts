@@ -3519,6 +3519,7 @@ interface StalkerX86Iterator extends X86Writer {
     next(): X86Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerArmIterator extends ArmWriter {
@@ -3526,6 +3527,7 @@ interface StalkerArmIterator extends ArmWriter {
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerThumbIterator extends ThumbWriter {
@@ -3533,6 +3535,7 @@ interface StalkerThumbIterator extends ThumbWriter {
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 interface StalkerArm64Iterator extends Arm64Writer {
@@ -3540,6 +3543,7 @@ interface StalkerArm64Iterator extends Arm64Writer {
     next(): Arm64Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
+    putChainingReturn(): void;
 }
 
 type StalkerCallout = StalkerScriptCallout | StalkerNativeCallout;

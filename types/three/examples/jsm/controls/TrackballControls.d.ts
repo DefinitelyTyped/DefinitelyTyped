@@ -1,4 +1,4 @@
-import { Camera, EventDispatcher, MOUSE, Vector3 } from "../../../src/Three.js";
+import { Camera, EventDispatcher, MOUSE, Vector3 } from "three";
 
 export interface TrackballControlsEventMap {
     change: {};

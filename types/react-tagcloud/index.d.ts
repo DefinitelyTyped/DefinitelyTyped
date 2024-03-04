@@ -2,9 +2,8 @@ import * as React from "react";
 
 export class TagCloud extends React.Component<TagCloudProps> {}
 
-export interface TagCloudProps {
+export interface TagCloudProps extends React.RefAttributes<void> {
     children?: React.ReactNode | undefined;
-    ref?: React.LegacyRef<void> | undefined;
     className?: string | undefined;
     /** Array of objects that represent tags */
     tags: Tag[];

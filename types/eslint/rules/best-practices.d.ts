@@ -18,6 +18,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default false
                  */
                 getWithoutSet: boolean;
+                /**
+                 * @default true
+                 */
+                enforceForClassMembers: boolean;
             }>,
         ]
     >;
@@ -35,6 +39,14 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default false
                  */
                 allowImplicit: boolean;
+                /**
+                 * @default false
+                 */
+                checkForEach: boolean;
+                /**
+                 * @default false
+                 */
+                allowVoid: boolean;
             }>,
         ]
     >;
@@ -348,6 +360,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default 'falls?\s?through'
                  */
                 commentPattern: string;
+                /**
+                 * @default false
+                 */
+                allowEmptyCase: boolean;
             }>,
         ]
     >;
@@ -428,7 +444,16 @@ export interface BestPractices extends Linter.RulesRecord {
      * @since 1.0.0-rc-2
      * @see https://eslint.org/docs/rules/no-invalid-this
      */
-    "no-invalid-this": Linter.RuleEntry<[]>;
+    "no-invalid-this": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                capIsConstructor: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow the use of the `__iterator__` property.

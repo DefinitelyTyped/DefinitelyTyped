@@ -1,4 +1,4 @@
-import { CubeTexture, Mesh, PerspectiveCamera, Scene } from "../../../src/Three.js";
+import { CubeTexture, Mesh, PerspectiveCamera, Scene } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 
