@@ -4,6 +4,8 @@ import { enUS } from "date-fns/locale/en-US";
 import * as React from "react";
 import DatePicker, {
     CalendarContainer,
+    // @ts-expect-error The library is not exporting the component as a named export
+    ReactDatePicker as _MissingNamedExport,
     ReactDatePickerCustomHeaderProps,
     ReactDatePickerProps,
     registerLocale,
