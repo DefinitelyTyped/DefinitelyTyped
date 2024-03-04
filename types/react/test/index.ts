@@ -216,6 +216,11 @@ FunctionComponent2.defaultProps = {
     foo: 42,
 };
 
+// allows null as props
+const FunctionComponent4: React.FunctionComponent = props => null;
+
+const FunctionComponent5: React.FunctionComponent = () => false;
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
 const factoryElement: React.CElement<Props, ModernComponent> = factory(props);

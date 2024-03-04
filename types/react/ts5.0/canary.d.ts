@@ -95,7 +95,7 @@ declare module "." {
         /**
          * Marks all state updates inside the async function as transitions
          *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
          *
          * @param callback
          */
