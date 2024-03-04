@@ -457,7 +457,7 @@ declare module "buffer" {
              * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
-            concat(list: readonly Uint8Array[], totalLength?: number): Buffer;
+            concat(list: readonly Buffer[] | readonly Uint8Array[], totalLength?: number): Buffer;
             /**
              * Copies the underlying memory of `view` into a new `Buffer`.
              *
