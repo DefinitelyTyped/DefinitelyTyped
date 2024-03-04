@@ -32,11 +32,25 @@ export interface Root {
 }
 
 /**
+ * Different release channels declare additional types of ReactNode this particular release channel accepts.
+ * App or library types should never augment this interface.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS {}
+
+export type Container =
+    | Element
+    | DocumentFragment
+    | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS[
+        keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS
+    ];
+
+/**
  * createRoot lets you create a root to display React components inside a browser DOM node.
  *
  * @see {@link https://react.dev/reference/react-dom/client/createRoot API Reference for `createRoot`}
  */
-export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
+export function createRoot(container: Container, options?: RootOptions): Root;
 
 /**
  * Same as `createRoot()`, but is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.

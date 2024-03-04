@@ -241,6 +241,7 @@ function formTest() {
     ReactDOMClient.hydrateRoot(document.body, <Page1 />, { formState });
 }
 
-function createRoot() {
+function createRoot(validContainer: Element | DocumentFragment | Document) {
     ReactDOMClient.createRoot(document);
+    ReactDOMClient.createRoot(validContainer);
 }
