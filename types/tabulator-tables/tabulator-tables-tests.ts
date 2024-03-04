@@ -1,3 +1,5 @@
+// cspell: ignore recalc, Boberson, Jimmerson, Jillerson, hayley, Betterson, freetext, datetime
+
 import {
     CalculationComponent,
     CellComponent,
@@ -14,6 +16,7 @@ import {
     Module,
     NumberParams,
     Options,
+    type RangeComponent,
     Renderer,
     RowComponent,
     SortDirection,
@@ -427,7 +430,7 @@ colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
 
 colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
-        console.log("rendering occured");
+        console.log("rendering occurred");
     });
     return cell.getValue();
 };
@@ -470,7 +473,7 @@ options.ajaxConfig = {
         Accept: "application/json", // tell the server we need JSON back
         "X-Requested-With": "XMLHttpRequest", // fix to help some frameworks respond correctly to request
         "Content-type": "application/json; charset=utf-8", // set the character encoding of the request
-        "Access-Control-Allow-Origin": "http:// yout-site.com", // the URL origin of the site making the request
+        "Access-Control-Allow-Origin": "http:// you-site.com", // the URL origin of the site making the request
     },
 };
 options.ajaxConfig = {
@@ -598,7 +601,7 @@ column.move("age", true);
 colDef.editorParams = {
     elementAttributes: {
         "+style": "background-color:#f00;",
-        maxlength: "10",
+        maxLength: "10",
     },
 };
 
@@ -955,7 +958,7 @@ table.on("dataChanged", (data) => {
     console.log(data);
 });
 
-table.setGroupValues([["male", "female", "smizmar"]]);
+table.setGroupValues([["male", "female", "other"]]);
 table.getData("all");
 table.getDataCount("all");
 table.getRows("all");
@@ -1322,7 +1325,7 @@ table = new Tabulator("#testDataLoader", {
 
 const numberEditorParams: NumberParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     min: 0,
     max: 100,
@@ -1338,7 +1341,7 @@ const numberEditorParams: NumberParams = {
 
 const inputEditorParams: InputParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     mask: "AAA-999",
     maskAutoFill: false,
@@ -1351,7 +1354,7 @@ const inputEditorParams: InputParams = {
 
 const textAreaEditorParams: TextAreaParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     mask: "AAA-999",
     maskAutoFill: false,
@@ -1485,3 +1488,59 @@ table = new Tabulator("#TestGroupClickMenu", {
         return false;
     },
 });
+
+// Testing 5.6 features
+table = new Tabulator("#test-table", {
+    clipboardPasteAction: "range",
+    selectableRows: "highlight",
+    selectableRange: true,
+    selectableRangeColumns: true,
+    selectableRangeClearCells: false,
+    selectableRangeClearCellsValue: { a: "b" },
+    selectableRowsRangeMode: "click",
+    selectableRowsRollingSelection: true,
+    selectableRowsPersistence: undefined,
+    editTriggerEvent: "dblclick",
+});
+
+const columnDefinition1 = {
+    validator: "max:10",
+};
+
+const columnDefinition2 = {
+    validator: "alphanumeric",
+};
+
+table.getRow("range").deselect();
+const ranges = table.getRanges();
+ranges[0].setBounds(cell, cell);
+ranges[0].setStartBound(cell);
+ranges[0].setEndBound(cell);
+ranges[0].remove();
+ranges[0].getElement();
+ranges[0].getData();
+ranges[0].clearValues();
+const cells1 = ranges[0].getCells();
+cells1[0].checkHeight();
+const cells2 = ranges[0].getStructuredCells();
+cells2[0][0].checkHeight();
+const columns1 = ranges[0].getColumns();
+columns1[0].delete();
+const bounds1 = ranges[0].getBounds();
+bounds1.start.isEdited();
+bounds1.end.isEdited();
+ranges[0].getTopEdge();
+ranges[0].getBottomEdge();
+ranges[0].getLeftEdge();
+ranges[0].getRightEdge();
+
+table.on("rangeAdded", (range: RangeComponent) => {});
+table.on("rangeChanged", (range: RangeComponent) => {});
+table.on("rangeRemoved", (range: RangeComponent) => {});
+
+const range1 = table.addRange(cell, cell);
+range1.clearValues();
+table.getRanges().forEach(range => range.remove());
+
+const data1 = table.getRangeData();
+data1[0][0] = { name: "steve" };
