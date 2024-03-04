@@ -282,7 +282,8 @@ export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favo
 
 export interface BuyProviderInfo {
     name: string; // simplex
-    companyName: string; // Simplex
+    companyName: string; // UAB Invity Finance
+    brandName?: string; // Invity
     logo: string; // simplex-icon.jpg
     isActive: boolean;
     isDisabled?: boolean;

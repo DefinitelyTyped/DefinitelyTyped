@@ -7,6 +7,7 @@ import {
     SavingsTradeItem,
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
+    BuyProviderInfo,
 } from "invity-api";
 
 const bt: BuyTrade = {
@@ -68,3 +69,15 @@ const p2pTrade: P2pTradeRequest = {
 };
 
 const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: "InProgress" };
+
+const providerInfo: BuyProviderInfo = {
+    companyName: "Invity",
+    brandName: "UAB Invity Finance",
+    isActive: true,
+    logo: "logo.svg",
+    name: "invity",
+    tradedCoins: [],
+    tradedFiatCurrencies: [],
+    supportedCountries: [],
+    paymentMethods: []
+}
