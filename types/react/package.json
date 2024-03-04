@@ -62,7 +62,6 @@
     },
     "devDependencies": {
         "@types/react": "workspace:.",
-        "@types/react-dom-factories": "*",
         "@types/trusted-types": "*"
     },
     "owners": [
