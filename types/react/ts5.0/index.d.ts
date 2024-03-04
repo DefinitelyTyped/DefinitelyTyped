@@ -4150,8 +4150,9 @@ declare namespace React {
         componentStack: string;
     }
 
+    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
-        interface Element extends GlobalJSXElement {}
+        type Element = GlobalJSXElement;
         interface ElementClass extends GlobalJSXElementClass {}
         interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
         interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
@@ -4212,7 +4213,7 @@ declare global {
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
      */
     namespace JSX {
-        interface Element extends React.ReactElement<any, any> {}
+        type Element = React.ReactElement<any, any>;
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
         }
@@ -4425,7 +4426,7 @@ declare global {
 // React.JSX needs to point to global.JSX to keep global module augmentations intact.
 // But we can't access global.JSX so we need to create these aliases instead.
 // Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
-interface GlobalJSXElement extends JSX.Element {}
+type GlobalJSXElement = JSX.Element;
 interface GlobalJSXElementClass extends JSX.ElementClass {}
 interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
 interface GlobalJSXElementChildrenAttribute extends JSX.ElementChildrenAttribute {}
