@@ -1,4 +1,5 @@
 import {
+    BuyProviderInfo,
     BuyTrade,
     ExchangeTrade,
     P2pQuote,
@@ -7,7 +8,6 @@ import {
     SavingsTradeItem,
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
-    BuyProviderInfo,
 } from "invity-api";
 
 const bt: BuyTrade = {
@@ -79,5 +79,5 @@ const providerInfo: BuyProviderInfo = {
     tradedCoins: [],
     tradedFiatCurrencies: [],
     supportedCountries: [],
-    paymentMethods: []
-}
+    paymentMethods: [],
+};
