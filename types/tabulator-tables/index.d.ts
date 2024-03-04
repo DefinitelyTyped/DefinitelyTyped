@@ -1,24 +1,25 @@
-
 // cspell: ignore XLXS, alphanum, datetime, datetimediff, rownum, freetext, recalc, Monkhouse
 
-export interface Options extends
-    OptionsGeneral,
-    OptionsMenu,
-    OptionsHistory,
-    OptionsLocale,
-    OptionsDownload,
-    OptionsColumns,
-    OptionsRows,
-    OptionsData,
-    OptionsSorting,
-    OptionsFiltering,
-    OptionsRowGrouping,
-    OptionsPagination,
-    OptionsPersistentConfiguration,
-    OptionsClipboard,
-    OptionsDataTree,
-    OptionsDebug,
-    OptionsHTML { }
+export interface Options
+    extends
+        OptionsGeneral,
+        OptionsMenu,
+        OptionsHistory,
+        OptionsLocale,
+        OptionsDownload,
+        OptionsColumns,
+        OptionsRows,
+        OptionsData,
+        OptionsSorting,
+        OptionsFiltering,
+        OptionsRowGrouping,
+        OptionsPagination,
+        OptionsPersistentConfiguration,
+        OptionsClipboard,
+        OptionsDataTree,
+        OptionsDebug,
+        OptionsHTML
+{}
 
 export interface OptionsDebug {
     invalidOptionWarning?: boolean;
@@ -136,15 +137,15 @@ export interface OptionsClipboard {
 
     /** When copying to clipboard you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderClipboard?:
-    | ((value: any, count: number, data: any, group: GroupComponent) => string)
-    | Array<(value: any, count: number, data: any) => string>
-    | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
     /** When the getHtml function is called you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderHtmlOutput table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderHtmlOutput?:
-    | ((value: any, count: number, data: any, group: GroupComponent) => string)
-    | Array<(value: any, count: number, data: any) => string>
-    | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 }
 
 export interface OptionsPersistentConfiguration {
@@ -265,15 +266,15 @@ export interface OptionsPagination {
      * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
      */
     paginationCounter?:
-    | "rows"
-    | "pages"
-    | ((
-        pageSize: number,
-        currentRow: number,
-        currentPage: number,
-        totalRows: number,
-        totalPages: number,
-    ) => string | HTMLElement);
+        | "rows"
+        | "pages"
+        | ((
+            pageSize: number,
+            currentRow: number,
+            currentPage: number,
+            totalRows: number,
+            totalPages: number,
+        ) => string | HTMLElement);
 
     /**
      * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
@@ -306,15 +307,15 @@ export interface OptionsRowGrouping {
 
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
     groupHeader?:
-    | ((value: any, count: number, data: any, group: GroupComponent) => string)
-    | Array<(value: any, count: number, data: any) => string>
-    | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
     /** When printing you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderPrint table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderPrint?:
-    | ((value: any, count: number, data: any, group: GroupComponent) => string)
-    | Array<(value: any, count: number, data: any) => string>
-    | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 
     /**
      * You can set the default open state of groups using the groupStartOpen property* * This can take one of three possible values:
@@ -326,11 +327,11 @@ export interface OptionsRowGrouping {
      * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
     groupStartOpen?:
-    | boolean
-    | boolean[]
-    | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
-    | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
-    | undefined;
+        | boolean
+        | boolean[]
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
+        | undefined;
 
     /**
      * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
@@ -595,7 +596,7 @@ export interface OptionsRows {
 
     /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false.
      * @deprecated Use selectableRowsRollingSelection instead
-    */
+     */
     selectableRollingSelection?: boolean | undefined;
 
     /**
@@ -614,7 +615,7 @@ export interface OptionsRows {
 
     /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false.
      * @deprecated Use selectableRowsPersistence instead
-    */
+     */
     selectablePersistence?: boolean | undefined;
 
     /**
@@ -648,10 +649,10 @@ export interface OptionsRows {
      * You can also pass a callback to the movableRowsSender option for custom sender functionality
      */
     movableRowsSender?:
-    | false
-    | "delete"
-    | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
-    | undefined;
+        | false
+        | "delete"
+        | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
+        | undefined;
 
     /**
      * The movableRowsReceiver option should be set on the receiving tables, and sets the action that should be taken when the row is dropped into the table.
@@ -663,12 +664,12 @@ export interface OptionsRows {
      * - replace - replaces the row it is dropped on with the sent row
      */
     movableRowsReceiver?:
-    | "insert"
-    | "add"
-    | "update"
-    | "replace"
-    | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
-    | undefined;
+        | "insert"
+        | "add"
+        | "update"
+        | "replace"
+        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
+        | undefined;
     movableRowsConnectedElements?: string | HTMLElement | undefined;
 
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
@@ -727,10 +728,10 @@ export interface OptionsColumns {
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
     autoColumns?: boolean | undefined;
     autoColumnsDefinitions?:
-    | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
-    | ColumnDefinition[]
-    | Record<string, Partial<ColumnDefinition>>
-    | undefined;
+        | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
+        | ColumnDefinition[]
+        | Record<string, Partial<ColumnDefinition>>
+        | undefined;
 
     /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
     layout?: "fitData" | "fitColumns" | "fitDataFill" | "fitDataStretch" | "fitDataTable" | undefined;
@@ -931,7 +932,7 @@ export interface MenuSeparator {
 
 export type DownloadType = "csv" | "json" | "xlsx" | "pdf" | "html";
 
-export interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML { }
+export interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML {}
 
 export interface DownloadCSV {
     /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
@@ -1035,9 +1036,9 @@ export interface OptionsHTML {
     printFormatter?: ((tableHolderElement: any, tableElement: any) => any) | undefined;
 
     groupHeaderDownload?:
-    | ((value: any, count: number, data: any, group: GroupComponent) => string)
-    | Array<(value: any, count: number, data: any) => string>
-    | undefined;
+        | ((value: any, count: number, data: any, group: GroupComponent) => string)
+        | Array<(value: any, count: number, data: any) => string>
+        | undefined;
 }
 
 export type StandardStringParam = string | HTMLElement | (() => string | HTMLElement);
@@ -1141,25 +1142,25 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      * You can pass an optional additional property with sorter, sorterParams that should contain an object with additional information for configuring the sorter
      */
     sorter?:
-    | "string"
-    | "number"
-    | "alphanum"
-    | "boolean"
-    | "exists"
-    | "date"
-    | "time"
-    | "datetime"
-    | "array"
-    | ((
-        a: any,
-        b: any,
-        aRow: RowComponent,
-        bRow: RowComponent,
-        column: ColumnComponent,
-        dir: SortDirection,
-        sorterParams: {},
-    ) => number)
-    | undefined;
+        | "string"
+        | "number"
+        | "alphanum"
+        | "boolean"
+        | "exists"
+        | "date"
+        | "time"
+        | "datetime"
+        | "array"
+        | ((
+            a: any,
+            b: any,
+            aRow: RowComponent,
+            bRow: RowComponent,
+            column: ColumnComponent,
+            dir: SortDirection,
+            sorterParams: {},
+        ) => number)
+        | undefined;
 
     /** If you want to dynamically generate the sorterParams at the time the sort is called you can pass a function into the property that should return the params object. */
     sorterParams?: ColumnDefinitionSorterParams | ColumnSorterParamLookupFunction | undefined;
@@ -1347,9 +1348,9 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      * If you want to specify the type of filter used you can pass it to the headerFilterFunc option in the column definition object. This will take any of the standard filters outlined above or a custom function
      */
     headerFilterFunc?:
-    | FilterType
-    | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
-    | undefined;
+        | FilterType
+        | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
+        | undefined;
 
     /** additional parameters object passed to the headerFilterFunc function. */
     headerFilterFuncParams?: any;
@@ -1388,8 +1389,8 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
     cellPopup?:
-    | string
-    | ((e: MouseEvent, component: RowComponent | CellComponent | ColumnComponent, onRendered: () => any) => any);
+        | string
+        | ((e: MouseEvent, component: RowComponent | CellComponent | ColumnComponent, onRendered: () => any) => any);
 
     /** When copying to the clipboard you may want to apply a different formatter from the one usually used to format the cell, you can do this using the formatterClipboard column definition option. You can use the formatterClipboardParams to pass in any additional params to the formatter. */
     formatterClipboard?: Formatter | false | undefined;
@@ -1525,7 +1526,7 @@ export type ColumnCalc =
     | "unique"
     | ((values: any[], data: any[], calcParams: {}) => any);
 
-export type ColumnCalcParams = { precision: number; } | ((values: any, data: any) => any);
+export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
 
 export type Formatter =
     | "plaintext"
@@ -1924,7 +1925,7 @@ export interface KeyBinding {
 // Components-------------------------------------------------------------------
 export interface CalculationComponent {
     /** The getData function returns the data object for the row. */
-    getData: () => { [key: string]: any; };
+    getData: () => { [key: string]: any };
 
     /** The getElement function returns the DOM node for the row. */
     getElement: () => HTMLElement;
@@ -2193,7 +2194,7 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any; };
+    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any };
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
@@ -2407,7 +2408,7 @@ export interface RangeComponent {
      * }
      * ```
      */
-    getBounds(): { start: CellComponent, end: CellComponent; };
+    getBounds(): { start: CellComponent; end: CellComponent };
 
     /**
      * You can find the position number for the top row of the range by calling the getTopEdge function on the range:
@@ -3177,43 +3178,43 @@ declare class Module {
     static moduleName: string;
     constructor(table: Tabulator);
 }
-declare class AccessorModule { }
-declare class AjaxModule { }
-declare class ClipboardModule { }
-declare class ColumnCalcsModule { }
-declare class DataTreeModule { }
-declare class DownloadModule { }
-declare class EditModule { }
-declare class ExportModule { }
-declare class FilterModule { }
-declare class FormatModule { }
-declare class FrozenColumnsModule { }
-declare class FrozenRowsModule { }
-declare class GroupRowsModule { }
-declare class HistoryModule { }
-declare class HtmlTableImportModule { }
-declare class InteractionModule { }
-declare class KeybindingsModule { }
-declare class MenuModule { }
-declare class MoveColumnsModule { }
-declare class MoveRowsModule { }
-declare class MutatorModule { }
-declare class PageModule { }
-declare class PersistenceModule { }
-declare class PopupModule { }
-declare class PrintModule { }
-declare class PseudoRow { }
-declare class ReactiveDataModule { }
-declare class Renderer { }
-declare class ResizeColumnsModule { }
-declare class ResizeRowsModule { }
-declare class ResizeTableModule { }
-declare class ResponsiveLayoutModule { }
-declare class SelectRowModule { }
-declare class SortModule { }
-declare class TabulatorFull extends Tabulator { }
-declare class TooltipModule { }
-declare class ValidateModule { }
+declare class AccessorModule {}
+declare class AjaxModule {}
+declare class ClipboardModule {}
+declare class ColumnCalcsModule {}
+declare class DataTreeModule {}
+declare class DownloadModule {}
+declare class EditModule {}
+declare class ExportModule {}
+declare class FilterModule {}
+declare class FormatModule {}
+declare class FrozenColumnsModule {}
+declare class FrozenRowsModule {}
+declare class GroupRowsModule {}
+declare class HistoryModule {}
+declare class HtmlTableImportModule {}
+declare class InteractionModule {}
+declare class KeybindingsModule {}
+declare class MenuModule {}
+declare class MoveColumnsModule {}
+declare class MoveRowsModule {}
+declare class MutatorModule {}
+declare class PageModule {}
+declare class PersistenceModule {}
+declare class PopupModule {}
+declare class PrintModule {}
+declare class PseudoRow {}
+declare class ReactiveDataModule {}
+declare class Renderer {}
+declare class ResizeColumnsModule {}
+declare class ResizeRowsModule {}
+declare class ResizeTableModule {}
+declare class ResponsiveLayoutModule {}
+declare class SelectRowModule {}
+declare class SortModule {}
+declare class TabulatorFull extends Tabulator {}
+declare class TooltipModule {}
+declare class ValidateModule {}
 
 export {
     AccessorModule,
