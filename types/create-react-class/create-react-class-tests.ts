@@ -48,6 +48,8 @@ const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createRe
         return { bar: 1 };
     },
     mixins: [],
+    // deprecated. Kept for backwards compatibility.
+    propTypes: {},
     shouldComponentUpdate(this: createReactClass.ClassicComponent<Props, State>, nextProps, nextState) {
         const newFoo: string = nextProps.foo;
         const newBar: number = nextState.bar;
@@ -92,6 +94,9 @@ const ClassicComponentNoState: createReactClass.ClassicComponentClass<{ text: st
 
 const displayName: string | undefined = ClassicComponent.displayName;
 const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
+// deprecated. Kept for backwards compatibility.
+// $ExpectType any
+const propTypes = ClassicComponent.propTypes;
 
 //
 // Component API

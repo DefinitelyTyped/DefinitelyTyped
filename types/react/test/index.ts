@@ -130,6 +130,9 @@ declare const container: Element;
 }
 
 class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
+    // deprecated. Kept for backwards compatibility.
+    static propTypes = {};
+
     contextType: React.Context<Context>;
     context: Context = {};
 
@@ -383,6 +386,9 @@ const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React
     return React.createElement(RefComponent, { ref });
 };
 React.forwardRef(ForwardRefRenderFunction);
+
+// deprecated. Kept for backwards compatibility.
+ForwardingRefComponent.propTypes = {};
 
 // render function tests
 const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
@@ -725,6 +731,8 @@ React.createElement(Memoized2, { bar: "string" });
 
 const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const functionComponent: React.FunctionComponent<any> = Memoized2;
+// deprecated. Kept for backwards compatibility.
+functionComponent.propTypes = {};
 
 const propsWithChildren: React.PropsWithChildren<Props> = {
     hello: "world",

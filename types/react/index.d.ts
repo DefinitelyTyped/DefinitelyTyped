@@ -890,6 +890,12 @@ declare namespace React {
         static contextType?: Context<any> | undefined;
 
         /**
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
+         */
+        static propTypes?: any;
+
+        /**
          * If using the new style context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
@@ -1005,9 +1011,10 @@ declare namespace React {
     interface FunctionComponent<P = {}> {
         (props: P): ReactNode;
         /**
-         * propTypes are not supported on function components anymore.
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
          */
-        propTypes?: never | undefined;
+        propTypes?: any;
         /**
          * defaultProps are not supported on function components anymore.
          */
@@ -1076,12 +1083,10 @@ declare namespace React {
          */
         defaultProps?: never | undefined;
         /**
-         * propTypes are not supported on render functions passed to forwardRef.
-         *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
          */
-        propTypes?: never | undefined;
+        propTypes?: any;
     }
 
     /**
@@ -1093,6 +1098,11 @@ declare namespace React {
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         // constructor signature must match React.Component
         new(props: P): Component<P, S>;
+        /**
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
+         */
+        propTypes?: any;
         contextType?: Context<any> | undefined;
         defaultProps?: Partial<P> | undefined;
         /**
@@ -1315,6 +1325,12 @@ declare namespace React {
          * defaultProps are not supported on function components anymore.
          */
         defaultProps?: never | undefined;
+
+        /**
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
+         */
+        propTypes?: any;
     }
 
     /**
