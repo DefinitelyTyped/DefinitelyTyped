@@ -1,4 +1,4 @@
-import CountryLanguage = require('@ladjs/country-language');
+import CountryLanguage = require("@ladjs/country-language");
 
 // $ExpectType string[]
 CountryLanguage.getLanguageCodes(2);
@@ -51,28 +51,28 @@ CountryLanguage.getCountryCodes((error, data) => {
 });
 
 // @ts-expect-error
-CountryLanguage.getCountryCodes('foo');
+CountryLanguage.getCountryCodes("foo");
 
 // $ExpectType boolean
-CountryLanguage.languageCodeExists('en');
+CountryLanguage.languageCodeExists("en");
 
 // $ExpectType boolean
-CountryLanguage.countryCodeExists('US');
+CountryLanguage.countryCodeExists("US");
 
 // @ts-expect-error
 CountryLanguage.countryCodeExists(Symbol());
 
 // $ExpectType boolean
-CountryLanguage.countryCodeExists('RHB');
+CountryLanguage.countryCodeExists("RHB");
 
 // $ExpectType boolean
-CountryLanguage.countryCodeExists('test');
+CountryLanguage.countryCodeExists("test");
 
 // @ts-expect-error
 CountryLanguage.countryCodeExists(5);
 
 // $ExpectType DetailedCountryData
-const country = CountryLanguage.getCountry('US');
+const country = CountryLanguage.getCountry("US");
 
 // $ExpectType string
 country.code_2;
@@ -86,7 +86,7 @@ CountryLanguage.getCountry();
 // @ts-expect-error
 CountryLanguage.getCountry(5);
 
-CountryLanguage.getCountry('GB', function (err, country) {
+CountryLanguage.getCountry("GB", function(err, country) {
     if (err) {
         // $ExpectType Error
         err;
@@ -97,7 +97,7 @@ CountryLanguage.getCountry('GB', function (err, country) {
 });
 
 // $ExpectType DetailedLanguageData
-const language = CountryLanguage.getLanguage('en');
+const language = CountryLanguage.getLanguage("en");
 
 // $ExpectType string
 language.iso639_1;
@@ -112,7 +112,7 @@ CountryLanguage.getLanguage();
 CountryLanguage.getLanguage(5);
 
 // $ExpectType number
-CountryLanguage.getLanguage('en', (error, data) => {
+CountryLanguage.getLanguage("en", (error, data) => {
     // $ExpectType Error | null
     error;
     // $ExpectType DetailedLanguageData
@@ -122,7 +122,7 @@ CountryLanguage.getLanguage('en', (error, data) => {
 });
 
 // $ExpectType void
-CountryLanguage.getLanguage('en', function (err, language) {
+CountryLanguage.getLanguage("en", function(err, language) {
     if (err) {
         // $ExpectType Error
         err;
@@ -133,13 +133,13 @@ CountryLanguage.getLanguage('en', function (err, language) {
 });
 
 // $ExpectType LanguageData[]
-CountryLanguage.getCountryLanguages('LA');
+CountryLanguage.getCountryLanguages("LA");
 
 // $ExpectType LanguageData[]
-CountryLanguage.getCountryLanguages('GB');
+CountryLanguage.getCountryLanguages("GB");
 
 // $ExpectType void
-CountryLanguage.getCountryLanguages('GB', function (err, languages) {
+CountryLanguage.getCountryLanguages("GB", function(err, languages) {
     if (err) {
         // $ExpectType Error
         err;
@@ -158,7 +158,7 @@ CountryLanguage.getCountryLanguages();
 CountryLanguage.getCountryLanguages(5);
 
 // $ExpectType LanguageData[][]
-CountryLanguage.getCountryLanguages('US', (error, data) => {
+CountryLanguage.getCountryLanguages("US", (error, data) => {
     // $ExpectType Error | null
     error;
     // $ExpectType LanguageData[]
@@ -168,13 +168,13 @@ CountryLanguage.getCountryLanguages('US', (error, data) => {
 });
 
 // $ExpectType CountryData[]
-CountryLanguage.getLanguageCountries('en');
+CountryLanguage.getLanguageCountries("en");
 
 // $ExpectType CountryData[]
-CountryLanguage.getLanguageCountries('eng');
+CountryLanguage.getLanguageCountries("eng");
 
 // $ExpectType void
-CountryLanguage.getLanguageCountries('en', function (err, countries) {
+CountryLanguage.getLanguageCountries("en", function(err, countries) {
     if (err) {
         // $ExpectType Error
         err;
@@ -190,18 +190,18 @@ CountryLanguage.getLanguageCountries('en', function (err, countries) {
 CountryLanguage.getLanguageCountries();
 
 // $ExpectType LanguageCultureData[]
-CountryLanguage.getCountryMsLocales('US');
+CountryLanguage.getCountryMsLocales("US");
 
 // $ExpectType LanguageCultureData[]
-CountryLanguage.getCountryMsLocales('USA');
+CountryLanguage.getCountryMsLocales("USA");
 
 // $ExpectType void
-CountryLanguage.getCountryMsLocales('GB', function (err, locales) {
+CountryLanguage.getCountryMsLocales("GB", function(err, locales) {
     if (err) {
         // $ExpectType Error
         err;
     } else {
-        locales.forEach(function (locale) {
+        locales.forEach(function(locale) {
             // $ExpectType string
             locale.langCultureName;
         });
@@ -212,18 +212,18 @@ CountryLanguage.getCountryMsLocales('GB', function (err, locales) {
 CountryLanguage.getCountryMsLocales();
 
 // $ExpectType LanguageCultureData[]
-CountryLanguage.getLanguageMsLocales('en');
+CountryLanguage.getLanguageMsLocales("en");
 
 // $ExpectType LanguageCultureData[]
-CountryLanguage.getCountryMsLocales('en-US');
+CountryLanguage.getCountryMsLocales("en-US");
 
 // $ExpectType void
-CountryLanguage.getCountryMsLocales('en', function (err, locales) {
+CountryLanguage.getCountryMsLocales("en", function(err, locales) {
     if (err) {
         // $ExpectType Error
         err;
     } else {
-        locales.forEach(function (locale) {
+        locales.forEach(function(locale) {
             // $ExpectType string
             locale.langCultureName;
         });
@@ -237,19 +237,19 @@ CountryLanguage.getCountryMsLocales();
 CountryLanguage.getCountries();
 
 // @ts-expect-error
-CountryLanguage.getCountries('CA');
+CountryLanguage.getCountries("CA");
 
 // $ExpectType ExtendedLanguageData[]
 CountryLanguage.getLanguages();
 
 // @ts-expect-error
-CountryLanguage.getLanguages('en');
+CountryLanguage.getLanguages("en");
 
 // $ExpectType string[]
 CountryLanguage.getLanguageFamilies();
 
 // @ts-expect-error
-CountryLanguage.getLanguageFamilies('en');
+CountryLanguage.getLanguageFamilies("en");
 
 // $ExpectType string[]
 CountryLanguage.getLocales();
@@ -264,12 +264,12 @@ CountryLanguage.getLocales(false);
 CountryLanguage.getLocales(5);
 
 // $ExpectType void
-CountryLanguage.getLanguageFamilyMembers('Indo-European', function (err, languages) {
+CountryLanguage.getLanguageFamilyMembers("Indo-European", function(err, languages) {
     if (err) {
         // $ExpectType Error
         err;
     } else {
-        languages.forEach(function (language) {
+        languages.forEach(function(language) {
             // $ExpectType string[]
             language.name;
         });

@@ -1,7 +1,6 @@
-
 export type CountryLanguageCallback<T, R> = (error: Error | null, data: T) => R;
 export type CodeType = 1 | 2 | 3;
-export type Direction = 'LTR' | 'RTL';
+export type Direction = "LTR" | "RTL";
 
 export interface LanguageData {
     iso639_1: string;
@@ -19,9 +18,9 @@ export interface ExtendedLanguageData extends LanguageData {
     langCultureMs?: LanguageCultureData[];
 }
 
-export type DetailedLanguageData = Omit<ExtendedLanguageData, 'countries'> & {
+export type DetailedLanguageData = Omit<ExtendedLanguageData, "countries"> & {
     countries: DetailedCountryData[];
-}
+};
 
 export interface LanguageCultureData {
     langCultureName: string;
@@ -41,9 +40,9 @@ export interface ExtendedCountryData extends CountryData {
     langCultureMs?: LanguageCultureData[];
 }
 
-export type DetailedCountryData = Omit<ExtendedCountryData, 'languages'> & {
+export type DetailedCountryData = Omit<ExtendedCountryData, "languages"> & {
     languages: ExtendedLanguageData[];
-}
+};
 
 export function getLanguageCodes<T>(languageCodeType: CodeType, callback: CountryLanguageCallback<string[], T>): T;
 export function getLanguageCodes<T>(callback: CountryLanguageCallback<string[], T>): T;
@@ -69,10 +68,16 @@ export function getCountryLanguages(countryCode: string): LanguageData[];
 export function getLanguageCountries<T>(languageCode: string, callback: CountryLanguageCallback<CountryData[], T>): T;
 export function getLanguageCountries(languageCode: string): CountryData[];
 
-export function getCountryMsLocales<T>(countryCode: string, callback: CountryLanguageCallback<LanguageCultureData[], T>): T;
+export function getCountryMsLocales<T>(
+    countryCode: string,
+    callback: CountryLanguageCallback<LanguageCultureData[], T>,
+): T;
 export function getCountryMsLocales(countryCode: string): LanguageCultureData[];
 
-export function getLanguageMsLocales<T>(languageCode: string, callback: CountryLanguageCallback<LanguageCultureData[], T>): T;
+export function getLanguageMsLocales<T>(
+    languageCode: string,
+    callback: CountryLanguageCallback<LanguageCultureData[], T>,
+): T;
 export function getLanguageMsLocales(languageCode: string): LanguageCultureData[];
 
 export function getCountries(): ExtendedCountryData[];
@@ -83,5 +88,8 @@ export function getLanguageFamilies(): string[];
 
 export function getLocales(mode?: boolean): string[];
 
-export function getLanguageFamilyMembers<T>(family: string, callback: CountryLanguageCallback<DetailedLanguageData[], T>): T;
+export function getLanguageFamilyMembers<T>(
+    family: string,
+    callback: CountryLanguageCallback<DetailedLanguageData[], T>,
+): T;
 export function getLanguageFamilyMembers(family: string): DetailedLanguageData[];
