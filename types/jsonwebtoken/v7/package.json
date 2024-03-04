@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jsonwebtoken",
-    "version": "7.4.3",
+    "version": "7.4.9999",
     "projects": [
         "https://github.com/auth0/node-jsonwebtoken"
     ],
