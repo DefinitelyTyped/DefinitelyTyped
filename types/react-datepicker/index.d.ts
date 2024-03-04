@@ -143,6 +143,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
+    renderQuarterContent?(quarter: number, shortQuarterText: string): React.ReactNode;
     renderMonthContent?(monthIndex: number, shortMonthText: string, fullMonthText: string): React.ReactNode;
     renderYearContent?(year: number): React.ReactNode;
     required?: boolean | undefined;
@@ -198,7 +199,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
+declare class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
     ReactDatePickerProps<WithRange>
 > {
     readonly setBlur: () => void;

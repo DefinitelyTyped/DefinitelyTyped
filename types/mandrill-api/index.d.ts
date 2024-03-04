@@ -4,8 +4,6 @@
 
  =============================================== */
 
-/// <reference types="node" />
-
 export interface ICallback {
     (json: Object): void;
 }

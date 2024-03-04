@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.47 Extension API
+ * Type Definition for Azure Data Studio 1.48 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -746,8 +746,8 @@ declare module "azdata" {
 
     // List Databases Request ----------------------------------------------------------------------
     export interface ListDatabasesResult {
-        databaseNames: string[];
-        databases?: DatabaseInfo[] | undefined;
+        databaseNames: Array<string>;
+        databases?: Array<DatabaseInfo> | undefined;
     }
 
     /**
@@ -2125,6 +2125,7 @@ declare module "azdata" {
         dateLastModified: string;
         createDate: string;
         providerName: string;
+        secret?: string;
     }
 
     export interface GetCredentialsResult extends ResultStatus {
@@ -2207,10 +2208,10 @@ declare module "azdata" {
     export interface BackupConfigInfo {
         recoveryModel: string;
         defaultBackupFolder: string;
-        backupEncryptors: Array<{
+        backupEncryptors: {
             encryptorType: number;
             encryptorName: string;
-        }>;
+        }[];
     }
 
     export interface BackupResponse {
@@ -3186,7 +3187,7 @@ declare module "azdata" {
     > extends ComponentBuilder<TComponent, TPropertyBag> {
         withLayout(layout: TLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
         withItems(
-            components: Component[],
+            components: Array<Component>,
             itemLayout?: TItemLayout,
         ): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
         /**
@@ -3229,7 +3230,7 @@ declare module "azdata" {
          *
          * @param toolbarComponents the definitions
          */
-        addToolbarItems(toolbarComponents: ToolbarComponent[]): void;
+        addToolbarItems(toolbarComponents: Array<ToolbarComponent>): void;
 
         /**
          * Creates a child component and adds it to this container.
@@ -3250,7 +3251,7 @@ declare module "azdata" {
     export interface FormBuilder
         extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout, ContainerProperties>
     {
-        withFormItems(components: Array<FormComponent | FormComponentGroup>, itemLayout?: FormItemLayout): FormBuilder;
+        withFormItems(components: (FormComponent | FormComponentGroup)[], itemLayout?: FormItemLayout): FormBuilder;
 
         /**
          * Creates a collection of child components and adds them all to this container
@@ -3347,7 +3348,7 @@ declare module "azdata" {
         /**
          * The form components to display in the group along with optional layouts for each item
          */
-        components: Array<FormComponent & { layout?: FormItemLayout | undefined }>;
+        components: (FormComponent & { layout?: FormItemLayout | undefined })[];
 
         /**
          * The title of the group, displayed above its components
@@ -3381,7 +3382,7 @@ declare module "azdata" {
          * @param itemConfigs the definitions
          * @param [itemLayout] Optional layout for the child items
          */
-        addItems(itemConfigs: Component[], itemLayout?: TItemLayout): void;
+        addItems(itemConfigs: Array<Component>, itemLayout?: TItemLayout): void;
 
         /**
          * Creates a child component and adds it to this container.
@@ -4180,7 +4181,7 @@ declare module "azdata" {
         /**
          * commands for the menu. Use an array for a group and menu separators will be added.
          */
-        commands: Array<string | string[]>;
+        commands: (string | string[])[];
         /**
          * context that will be passed to the commands.
          */
@@ -4799,7 +4800,7 @@ declare module "azdata" {
          * update the tabs.
          * @param tabs new tabs
          */
-        updateTabs(tabs: Array<Tab | TabGroup>): void;
+        updateTabs(tabs: (Tab | TabGroup)[]): void;
 
         /**
          * Selects the tab with the specified id
@@ -4862,7 +4863,7 @@ declare module "azdata" {
          * @param tabs tabs/tab groups to be added
          */
         withTabs(
-            tabs: Array<Tab | TabGroup>,
+            tabs: (Tab | TabGroup)[],
         ): ContainerBuilder<TabbedPanelComponent, TabbedPanelLayout, any, ContainerProperties>;
     }
 
@@ -5006,7 +5007,7 @@ declare module "azdata" {
              * Registers the initial set of tabs for this dashboard
              * @param handler Callback for creating the initial set of tabs to display
              */
-            registerTabs(handler: (view: ModelView) => Thenable<Array<DashboardTab | DashboardTabGroup>>): void;
+            registerTabs(handler: (view: ModelView) => Thenable<(DashboardTab | DashboardTabGroup)[]>): void;
             /**
              * Open the dashboard
              */
@@ -5019,7 +5020,7 @@ declare module "azdata" {
              * Updates the tabs that are currently displayed
              * @param tabs The new set of tabs to display
              */
-            updateTabs(tabs: Array<DashboardTab | DashboardTabGroup>): void;
+            updateTabs(tabs: (DashboardTab | DashboardTabGroup)[]): void;
             /**
              * Selects the tab with the given ID
              * @param id The ID of the tab to select
@@ -6570,10 +6571,10 @@ declare module "azdata" {
             implementation_version: string;
             language_info: ILanguageInfo;
             banner: string;
-            help_links: Array<{
+            help_links: {
                 text: string;
                 url: string;
-            }>;
+            }[];
         }
 
         /**

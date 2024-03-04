@@ -1,4 +1,4 @@
-import { Camera, Object3D, Scene } from "../../../src/Three.js";
+import { Camera, Object3D, Scene } from "three";
 
 export class CSS3DObject extends Object3D {
     constructor(element: HTMLElement);

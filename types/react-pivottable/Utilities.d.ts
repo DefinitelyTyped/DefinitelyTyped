@@ -12,7 +12,7 @@ declare function getSort(
     attr: string,
 ): TSorterFn;
 
-declare const agregatorTemplates: unknown;
+declare const aggregatorTemplates: Record<string, (...args: any[]) => any>;
 declare const locales: object;
 declare const derivers: object;
 
@@ -104,7 +104,7 @@ declare class PivotData implements Pivot {
 
 export {
     aggregators,
-    agregatorTemplates,
+    aggregatorTemplates,
     derivers,
     getSort,
     locales,

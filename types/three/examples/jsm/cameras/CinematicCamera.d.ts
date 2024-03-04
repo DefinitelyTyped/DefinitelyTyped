@@ -1,11 +1,4 @@
-import {
-    OrthographicCamera,
-    PerspectiveCamera,
-    Scene,
-    ShaderMaterial,
-    WebGLRenderer,
-    WebGLRenderTarget,
-} from "../../../src/Three.js";
+import { OrthographicCamera, PerspectiveCamera, Scene, ShaderMaterial, WebGLRenderer, WebGLRenderTarget } from "three";
 
 import { BokehShaderUniforms } from "../shaders/BokehShader2.js";
 

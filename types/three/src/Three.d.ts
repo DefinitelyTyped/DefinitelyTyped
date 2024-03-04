@@ -207,7 +207,6 @@ export * from "./renderers/WebGL1Renderer.js";
 export * from "./renderers/WebGL3DRenderTarget.js";
 export * from "./renderers/WebGLArrayRenderTarget.js";
 export * from "./renderers/WebGLCubeRenderTarget.js";
-export * from "./renderers/WebGLMultipleRenderTargets.js";
 export * from "./renderers/WebGLRenderer.js";
 export * from "./renderers/WebGLRenderTarget.js";
 export * from "./renderers/webxr/WebXRController.js";

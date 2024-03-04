@@ -1,8 +1,9 @@
 import { Object3D } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 import { Color } from "../math/Color.js";
+import { Euler } from "../math/Euler.js";
+import { CubeTexture } from "../textures/CubeTexture.js";
 import { Texture } from "../textures/Texture.js";
-import { CubeTexture } from "../Three.js";
 import { FogBase } from "./Fog.js";
 
 /**
@@ -69,11 +70,23 @@ export class Scene extends Object3D {
     background: Color | Texture | CubeTexture | null;
 
     /**
+     * The rotation of the background in radians. Only influences environment maps assigned to {@link .background}.
+     * Default is `(0,0,0)`.
+     */
+    backgroundRotation: Euler;
+
+    /**
      * Sets the environment map for all physical materials in the scene.
      * However, it's not possible to overwrite an existing texture assigned to {@link THREE.MeshStandardMaterial.envMap | MeshStandardMaterial.envMap}.
      * @defaultValue `null`
      */
     environment: Texture | null;
+
+    /**
+     * The rotation of the environment map in radians. Only influences physical materials in the scene when
+     * {@link .environment} is used. Default is `(0,0,0)`.
+     */
+    environmentRotation: Euler;
 
     /**
      * Convert the {@link Scene} to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.

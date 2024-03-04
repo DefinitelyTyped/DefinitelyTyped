@@ -15,8 +15,25 @@ import { Layers } from "./Layers.js";
 import { Intersection, Raycaster } from "./Raycaster.js";
 
 export interface Object3DEventMap {
+    /**
+     * Fires when the object has been added to its parent object.
+     */
     added: {};
+
+    /**
+     * Fires when the object has been removed from its parent object.
+     */
     removed: {};
+
+    /**
+     * Fires when a new child object has been added.
+     */
+    childadded: { child: Object3D };
+
+    /**
+     * Fires when a new child object has been removed.
+     */
+    childremoved: { child: Object3D };
 }
 
 /**

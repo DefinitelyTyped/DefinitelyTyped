@@ -1177,6 +1177,18 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
+    // Temporarily loosen type for just flat config files (see #68232)
+    type FlatConfigParserModule =
+        & Omit<ParserModule, "parseForESLint">
+        & ({
+            parse(text: string, options?: any): unknown;
+        } | {
+            parseForESLint(text: string, options?: any): Omit<ESLintParseResult, "ast" | "scopeManager"> & {
+                ast: unknown;
+                scopeManager?: unknown;
+            };
+        });
+
     type ParserModule =
         & ESLint.ObjectMetaProperties
         & (
@@ -1250,7 +1262,7 @@ export namespace Linter {
              * An object containing a parse() or parseForESLint() method.
              * If not configured, the default ESLint parser (Espree) will be used.
              */
-            parser?: ParserModule;
+            parser?: FlatConfigParserModule;
 
             /**
              * An object specifying additional options that are passed directly to the

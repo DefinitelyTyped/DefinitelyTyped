@@ -11,6 +11,7 @@ import "./test/diagnostics_channel";
 import "./test/dns";
 import "./test/dom-events";
 import "./test/events";
+import "./test/events_generic";
 import "./test/fs";
 import "./test/globals";
 import "./test/http";

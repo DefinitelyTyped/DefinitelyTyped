@@ -1,4 +1,4 @@
-import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from "../../../src/Three.js";
+import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from "three";
 
 import { Font } from "../loaders/FontLoader.js";
 

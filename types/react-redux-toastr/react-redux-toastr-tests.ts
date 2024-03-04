@@ -1,16 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { connect, Provider } from "react-redux";
-import { actions, reducer as toastrReducer, toastr } from "react-redux-toastr";
+import { Provider } from "react-redux";
+import { reducer as toastrReducer, toastr } from "react-redux-toastr";
 import ReduxToastr from "react-redux-toastr";
-import { bindActionCreators, combineReducers, createStore } from "redux";
+import { AnyAction, combineReducers, legacy_createStore } from "redux";
 
 function test() {
-    const store = createStore(combineReducers({ toastr: toastrReducer }));
-    var toastrFactory = React.createFactory(ReduxToastr);
-    var element = toastrFactory({ timeOut: 1000, newestOnTop: false });
-    var providerFactory = React.createFactory(Provider);
-    var root = providerFactory({ store: store }, element);
+    const reducers = combineReducers({ toastr: toastrReducer });
+    const store = legacy_createStore<ReturnType<typeof reducers>, AnyAction>(reducers);
+    const element = React.createElement(ReduxToastr, { timeOut: 1000, newestOnTop: false });
+    const root = React.createElement(Provider, { store: store }, element);
 
     function callback() {}
 

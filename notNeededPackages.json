@@ -904,6 +904,10 @@
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
         },
+        "cobe": {
+            "libraryName": "cobe",
+            "asOfVersion": "0.5.0"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
@@ -3545,6 +3549,10 @@
             "libraryName": "mqtt",
             "asOfVersion": "2.5.0"
         },
+        "mri": {
+            "libraryName": "mri",
+            "asOfVersion": "1.2.0"
+        },
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
             "asOfVersion": "0.7.2"
@@ -5399,6 +5407,10 @@
             "libraryName": "rword",
             "asOfVersion": "3.0.0"
         },
+        "sade": {
+            "libraryName": "sade",
+            "asOfVersion": "1.8.0"
+        },
         "samchon": {
             "libraryName": "samchon",
             "asOfVersion": "2.0.22"
@@ -6342,6 +6354,10 @@
         "wallpaper": {
             "libraryName": "wallpaper",
             "asOfVersion": "4.3.0"
+        },
+        "wanakana": {
+            "libraryName": "wanakana",
+            "asOfVersion": "5.3.0"
         },
         "watson-developer-cloud": {
             "libraryName": "watson-developer-cloud",

@@ -4,5 +4,3 @@
 // and released in the @types/three npm package.
 
 export * from "./src/Three";
-
-export as namespace THREE;
