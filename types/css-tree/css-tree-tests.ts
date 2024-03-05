@@ -367,7 +367,7 @@ switch (ast.type) {
     case "MediaQueryList":
         ast.children; // $ExpectType List<CssNode>
         break;
-    
+
     case "NestingSelector":
         break;
 
