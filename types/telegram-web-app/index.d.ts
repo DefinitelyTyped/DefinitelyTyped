@@ -157,7 +157,7 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactCallBack['Cancelled'] | RequestContactCallBack['Sent']) => void): void;
+    onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
@@ -176,7 +176,7 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactCallBack['Cancelled'] | RequestContactCallBack['Sent']) => void): void;
+    offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -282,7 +282,7 @@ interface WebApp {
      * an object detailing the shared contact information or a cancellation response.
      */
     requestContact(
-        callback?: (success: boolean, response: RequestContactCallBack['Sent'] | RequestContactCallBack['Cancelled']) => void
+        callback?: (success: boolean, response: RequestContactResponse) => void,
     ): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
@@ -814,48 +814,41 @@ interface ScanQrPopupParams {
 }
 
 /**
- * Defines callback response structures for a contact request operation.
- * It handles user actions when prompted to share their contact information,
- * covering scenarios where the user agrees to share their contact or cancels the request.
+ * This object describes contact information shared when requestContact was approved by the user.
  */
-interface RequestContactCallBack {
-    /**
-     * Structure for response after user consents to sharing contact information.
-     * Includes detailed contact information and authentication details.
-     *
-     * - response: A status message or result as a string.
-     * - responseUnsafe: Contains sensitive information shared upon user consent.
-     *   - auth_date: Authorization date for sharing contact information.
-     *   - contact: Object holding user's contact details.
-     *     - first_name: User's first name.
-     *     - last_name: Optional, user's last name.
-     *     - phone_number: User's phone number.
-     *     - user_id: Unique identifier for the user.
-     *   - hash: Hash value for verifying data authenticity.
-     * - status: 'sent' indicates that contact information has been shared.
-     */
-    Sent: {
-        response: string;
-        responseUnsafe: {
-          auth_date: string;
-          contact: {
+interface RequestContactResponseSent {
+    /** Status 'sent' indicates that contact information has been shared. */
+    status: "sent";
+    /** A status message or result as a string. */
+    response: string;
+    /** Contains sensitive information shared upon user consent. WARNING: Data from
+     * this field should not be trusted. You should only use data from `response` on
+     * the bot's server and only after it has been validated. */
+    responseUnsafe: {
+        /** Authorization date for sharing contact information. */
+        auth_date: string;
+        /** Object holding user's contact details. */
+        contact: {
+            /** User's first name. */
             first_name: string;
+            /** Optional. User's last name. */
             last_name?: string;
+            /** User's phone number. */
             phone_number: string;
+            /** Unique identifier of the user. */
             user_id: number;
-          };
-          hash: string;
         };
-        status: 'sent';
-    };
-
-    /**
-     * Structure for response when user cancels the contact information request.
-     * Contains only a status to indicate the cancellation.
-     *
-     * - status: 'cancelled', indicating user cancellation of the contact share request.
-     */
-    Cancelled: {
-        status: 'cancelled';
+        /** Hash to verify data authenticity. */
+        hash: string;
     };
 }
+
+/**
+ * This object only contains a status to indicate the cancellation.
+ */
+interface RequestContactResponseCancelled {
+    /** Status 'cancelled', indicates that user cancelled the contact share request. */
+    status: "cancelled";
+}
+
+type RequestContactResponse = RequestContactResponseSent | RequestContactResponseCancelled;
