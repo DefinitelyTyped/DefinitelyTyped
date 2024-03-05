@@ -5,7 +5,7 @@
  */
 import { Request, Response, NextFunction } from 'express'
 
- interface IRequestExtended extends Request {
+ interface RequestExtended extends Request {
   body: { [key: string]: string | undefined }
 }
 
@@ -152,7 +152,7 @@ declare namespace goodlog {
    * @param next  - next {NextFunction}
    * @return void
    */
-   function req(req: IRequestExtended, res: Response, next: NextFunction): void
+   function req(req: RequestExtended, res: Response, next: NextFunction): void
 
   /**
    * Preset log type for connection status update in the console
