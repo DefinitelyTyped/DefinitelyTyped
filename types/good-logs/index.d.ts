@@ -5,12 +5,8 @@
  */
 import { Request, Response, NextFunction } from 'express'
 
-export interface RequestExtended extends Request {
-    body: { [key: string]: string | undefined }
-}
-
-export interface ExpressController {
-    (req: RequestExtended, res: Response, next: NextFunction): void
+ interface IRequestExtended extends Request {
+  body: { [key: string]: string | undefined }
 }
 
 /**
@@ -95,43 +91,43 @@ declare namespace goodlog {
    * @param message
    * @param color
    */
-    function custom(color: any, ...message: string[]): void
+  function custom(color: any, ...message: string[]): void
 
   /**
    * log message to console
    * @param message - message to log : default
    */
-   function log(...message: string[]): void
+  function log(...message: string[]): void
 
   /**
    * log message in type info
    * @param message - message to log : type info
    */
-   function info(...message: string[]): void
+  function info(...message: string[]): void
 
   /**
    * log message in type warn
    * @param message - message to log : type warn
    */
-   function warn(...message: string[]): void
+  function warn(...message: string[]): void
 
   /**
    * log message in type array in a table
    * @param message - message to log : type array/object
    */
-   function tbl(...message: any[]): void
+  function tbl(...message: any[]): void
 
   /**
    * log message in type error
    * @param message - message to log : type error
    */
-   function error(...message: string[]): void
+  function error(...message: string[]): void
 
   /**
    * log message in type debug
    * @param message - message to log : type debug
    */
-   function debug(...message: string[]): void
+  function debug(...message: string[]): void
 
   /**
    *
@@ -147,8 +143,7 @@ declare namespace goodlog {
   //   isProd: boolean,
   //   isConnected: boolean
   // ): void
-   function server(port: any, apiRoot: string, isProd: boolean, isConnected: boolean): void
-
+  function server(port: any, apiRoot: string, isProd: boolean, isConnected: boolean): void
 
   /**
    *
@@ -157,18 +152,17 @@ declare namespace goodlog {
    * @param next  - next {NextFunction}
    * @return void
    */
-   function req(req: RequestExtended, res: Response, next: NextFunction): void
+   function req(req: IRequestExtended, res: Response, next: NextFunction): void
 
   /**
    * Preset log type for connection status update in the console
    * @param db - connection call
    * @param isConnected - send the status of the db connection
    */
-   function db(host: any, dbName: any, isConnected: boolean): void
+  function db(host: any, dbName: any, isConnected: boolean): void
 }
 
-
-export default goodlog
+export = goodlog
 
 
 
