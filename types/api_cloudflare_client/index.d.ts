@@ -326,6 +326,9 @@ declare namespace Cloudflare {
         videoDetails(accountId: string, id: string): ResponseObjectPromise;
         deleteVideo(accountId: string, id: string): ResponseObjectPromise;
     }
+    interface FirewallRule {
+
+    }
 }
 
 declare class Cloudflare {

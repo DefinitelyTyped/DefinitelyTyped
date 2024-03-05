@@ -1,6 +1,5 @@
 // @ts-ignore
-
-import Cloudflare = require("cloudflare");
+import Cloudflare = require("api_cloudflare_client");
 
 // $ExpectType Cloudflare
 const cf = new Cloudflare({ token: "abvd" });
