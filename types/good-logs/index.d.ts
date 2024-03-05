@@ -9,87 +9,11 @@ import { Request, Response, NextFunction } from 'express'
   body: { [key: string]: string | undefined }
 }
 
-/**
- * @module colors
- * @description - imported from the colors module library
- * @see - https://www.npmjs.com/package/colors
- */
-declare module 'colors' {
-  interface String {
-    // text colors
-    magenta: string
-    black: string
-    cyan: string
-    yellow: string
-    blue: string
-    red: string
-    green: string
-    gray: string
-    grey: string
-    // bright text colors
-    brightRed: string
-    brightGreen: string
-    brightYellow: string
-    brightBlue: string
-    brightMagenta: string
-    brightCyan: string
-    brightWhite: string
-    // background colors
-    bgCyan: string
-    bgRed: string
-    bgYellow: string
-    bgMagenta: string
-    bgBlue: string
-    bgGreen: string
-    bgWhite: string
-    bgBlack: string
-    bgGray: string
-    bgGrey: string
-    // bright background colors
-    bgBrightRed: string
-    bgBrightGreen: string
-    bgBrightYellow: string
-    bgBrightBlue: string
-    bgBrightMagenta: string
-    bgBrightCyan: string
-    // styles
-    inverse: string
-    bold: string
-    italic: string
-    hidden: string
-    strikethrough: string
-    underline: string
-    dim: string
-    reset: string
-
-  }
-}
-
-declare enum Key {
-  // @error keys
-  Connected = 'CONNECTED 🟢',
-  NotConnected = 'NOT CONNECTED 🔴',
-  Environment = ' ENVIRONMENT: ',
-  Production = 'production',
-  Development = 'development',
-
-  // @logger - req
-  ReqMethod = ' Request Method: ',
-  ReqURL = ' Request URL: ',
-  ReqTime = ' Request Time: ',
-
-  // @logger - server
-  ServerPort = ' SERVER PORT: ',
-  ServerAPIVersion = ' API VERSION: ',
-  ServerStatus = ' SERVER STATUS: ',
-}
-
-
 declare namespace goodlog {
   /**
    * Custom log
    * @param message
-   * @param color
+   * @param color - @see https://www.npmjs.com/package/colors
    */
   function custom(color: any, ...message: string[]): void
 
