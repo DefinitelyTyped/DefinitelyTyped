@@ -1,5 +1,16 @@
 import { Handler } from "../handler";
 
+export type CloudWatchAlarmHandler = Handler<CloudWatchAlarmEvent, void>;
+
+export interface CloudWatchAlarmEvent {
+    source: string;
+    alarmArn: string;
+    accountId: string;
+    time: string;
+    region: string;
+    alarmData: CloudWatchAlarmData;
+}
+
 export interface CloudWatchAlarmState {
     value: string;
     reason: string;
@@ -56,14 +67,3 @@ export interface CloudWatchAlarmData {
     previousState: CloudWatchAlarmState;
     configuration: CloudWatchAlarmConfiguration | CloudWatchAlarmCompositeConfiguration;
 }
-
-export interface CloudWatchAlarmEvent {
-    source: string;
-    alarmArn: string;
-    accountId: string;
-    time: string;
-    region: string;
-    alarmData: CloudWatchAlarmData;
-}
-
-export type CloudWatchAlarmHandler = Handler<CloudWatchAlarmEvent, void>;
