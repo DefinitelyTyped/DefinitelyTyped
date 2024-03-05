@@ -278,9 +278,12 @@ interface WebApp {
      * @param callback If an optional callback parameter was passed, the
      * callback function will be called when the popup is closed and the first
      * argument will be a boolean indicating whether the user shared its
-     * phone number.
+     * phone number. The second argument, contingent upon success, will be
+     * an object detailing the shared contact information or a cancellation response.
      */
-    requestContact(callback?: (success: boolean) => void): void;
+    requestContact(
+        callback?: (success: boolean, response: RequestContactCallBack['Sent'] | RequestContactCallBack['Cancelled']) => void
+    ): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -808,4 +811,51 @@ interface ScanQrPopupParams {
      * The text to be displayed under the 'Scan QR' heading, 0-64 characters.
      */
     text?: string;
+}
+
+/**
+ * Defines callback response structures for a contact request operation.
+ * It handles user actions when prompted to share their contact information,
+ * covering scenarios where the user agrees to share their contact or cancels the request.
+ */
+interface RequestContactCallBack {
+    /**
+     * Structure for response after user consents to sharing contact information.
+     * Includes detailed contact information and authentication details.
+     *
+     * - response: A status message or result as a string.
+     * - responseUnsafe: Contains sensitive information shared upon user consent.
+     *   - auth_date: Authorization date for sharing contact information.
+     *   - contact: Object holding user's contact details.
+     *     - first_name: User's first name.
+     *     - last_name: Optional, user's last name.
+     *     - phone_number: User's phone number.
+     *     - user_id: Unique identifier for the user.
+     *   - hash: Hash value for verifying data authenticity.
+     * - status: 'sent' indicates that contact information has been shared.
+     */
+    Sent: {
+        response: string;
+        responseUnsafe: {
+          auth_date: string;
+          contact: {
+            first_name: string;
+            last_name?: string;
+            phone_number: string;
+            user_id: number;
+          };
+          hash: string;
+        };
+        status: 'sent';
+    };
+
+    /**
+     * Structure for response when user cancels the contact information request.
+     * Contains only a status to indicate the cancellation.
+     *
+     * - status: 'cancelled', indicating user cancellation of the contact share request.
+     */
+    Cancelled: {
+        status: 'cancelled';
+    };
 }
