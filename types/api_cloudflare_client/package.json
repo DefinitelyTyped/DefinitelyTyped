@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/api_cloudflare_client",
-    "version": "2.13",
+    "version": "2.14.9999",
     "projects": [
         "https://github.com/ziut3k-dev/node-cloudflare"
     ],
