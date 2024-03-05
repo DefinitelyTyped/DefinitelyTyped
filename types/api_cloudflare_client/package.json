@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/api_cloudflare_client",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/ziut3k-dev/node-cloudflare"
+    ],
+    "devDependencies": {
+        "@types/api_cloudflare_client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krzysztof Włodarski",
+            "githubUsername": "Ziut3k-dev"
+        }
+    ]
+}
