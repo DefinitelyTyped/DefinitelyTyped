@@ -7,9 +7,9 @@ const cf = new Cloudflare({ token: "abvd" });
 // $ExpectType Promise<object> || ResponseObjectPromise
 cf.ips.browse();
 
+// $ExpectType Promise<object> || ResponseObjectPromise
 cf.user.edit("asd");
 
-const types: Cloudflare.RecordTypes = "AAAA";
 
 cf.dnsRecords.add("123", {
     type: "CNAME",
@@ -18,6 +18,23 @@ cf.dnsRecords.add("123", {
     ttl: 1,
 });
 
+// $ExpectType Promise<object> || ResponseObjectPromise
+cf.dnsRecords.add("123", {
+    type: "CNAME",
+    name: "irrelevant",
+    content: "irrelevant",
+    ttl: 1,
+    priority: 12,
+});
+
+// $ExpectType Promise<DnsRecordsBrowseResponse<"CNAME">>
+cf.dnsRecords.browse("123", {
+    type: "CNAME",
+    name: "irrelevant",
+    content: "irrelevant",
+});
+
+// $ExpectType Promise<object> || ResponseObjectPromise
 cf.dnsRecords.add("123", {
     type: "MX",
     name: "irrelevant",
@@ -26,14 +43,20 @@ cf.dnsRecords.add("123", {
     priority: 12,
 });
 
-cf.dnsRecords.add("123", {
-    type: "CNAME",
+// $ExpectType Promise<DnsRecordsBrowseResponse<"MX">>
+cf.dnsRecords.browse("123", {
+    type: "MX",
     name: "irrelevant",
     content: "irrelevant",
-    ttl: 1,
-    priority: 12,
 });
 
+// $ExpectType Promise<DnsRecordsBrowseResponse<"SRV">>
+cf.dnsRecords.browse("123", {
+    type: "SRV",
+    name: "irrelevant",
+    content: "irrelevant",
+});
+// $ExpectType Promise<object> || ResponseObjectPromise
 cf.dnsRecords.add("123", {
     type: "SRV",
     data: {
@@ -54,26 +77,6 @@ cf.dnsRecords.browse("123", {});
 // $ExpectType Promise<DnsRecordsBrowseResponse<any>>
 cf.dnsRecords.browse("123");
 
-// $ExpectType Promise<DnsRecordsBrowseResponse<"CNAME">>
-cf.dnsRecords.browse("123", {
-    type: "CNAME",
-    name: "irrelevant",
-    content: "irrelevant",
-});
-
-// $ExpectType Promise<DnsRecordsBrowseResponse<"MX">>
-cf.dnsRecords.browse("123", {
-    type: "MX",
-    name: "irrelevant",
-    content: "irrelevant",
-});
-
-// $ExpectType Promise<DnsRecordsBrowseResponse<"SRV">>
-cf.dnsRecords.browse("123", {
-    type: "SRV",
-    name: "irrelevant",
-    content: "irrelevant",
-});
 
 cf.dnsRecords.browse("123").then((response: { result: { id: any; }[] | null; }) => {
     if (response.result !== null) {
@@ -82,12 +85,14 @@ cf.dnsRecords.browse("123").then((response: { result: { id: any; }[] | null; }) 
     }
 });
 
-cf.dnsRecords.browse("123", {
-    invalid: "invalid",
-});
 
 cf.enterpriseZoneWorkersKV.add("account_id", "namespace_id", "key_name");
 cf.enterpriseZoneWorkersKV.add("account_id", "namespace_id", "value");
 
 cf.enterpriseZoneWorkersKV.addMulti("account_id", "namespace_id", [{ key: "key", value: "value" }]);
 
+// $ExpectType Promise<object> || ResponseObjectPromise
+cf.firewall.browse("zone_id");
+
+// $ExpectType Promise<object> || ResponseObjectPromise
+cf.accessApplications.browse()

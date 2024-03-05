@@ -2,6 +2,14 @@
     "private": true,
     "name": "@types/api_cloudflare_client",
     "version": "2.14.9999",
+    "type": "module",
+    "types": "index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.ts"
+        }
+    },
     "projects": [
         "https://github.com/ziut3k-dev/node-cloudflare"
     ],

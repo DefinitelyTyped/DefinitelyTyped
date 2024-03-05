@@ -364,4 +364,4 @@ declare class Cloudflare {
     accessApplications: Cloudflare.AccessApplications;
 }
 
-export = Cloudflare;
+export default Cloudflare;
