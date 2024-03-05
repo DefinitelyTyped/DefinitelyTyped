@@ -553,3 +553,37 @@ new ssh2.HTTPSAgent({
 }, {
     srcIP: "127.0.0.1",
 });
+
+
+// Generate unencrypted ED25519 SSH key synchronously
+let keys = utils.generateKeyPairSync('ed25519');
+// ... use `keys.public` and `keys.private`
+
+// Generate unencrypted ECDSA SSH key synchronously with a comment set
+keys = utils.generateKeyPairSync('ecdsa', { bits: 256, comment: 'node.js rules!' });
+// ... use `keys.public` and `keys.private`
+
+// Generate encrypted RSA SSH key asynchronously
+utils.generateKeyPair(
+  'rsa',
+  { bits: 2048, passphrase: 'foobarbaz', cipher: 'aes256-cbc' },
+  (err, keys) => {
+    if (err) throw err;
+    // ... use `keys.public` and `keys.private`
+  }
+);
+
+utils.generateKeyPairSync('ed25519', {
+    comment: "test"
+})
+
+// @ts-expect-error
+utils.generateKeyPairSync('e')
+
+// @ts-expect-error
+utils.generateKeyPairSync('ecdsa')
+
+utils.generateKeyPairSync('ed25519', {
+    // @ts-expect-error
+    bits: 1024
+})
