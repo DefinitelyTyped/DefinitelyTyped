@@ -2,10 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "target": "es6",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -16,18 +13,19 @@
     },
     "files": [
         "index.d.ts",
-        "test/common/utils.ts",
-        "test/helpers/index.ts",
-        "test/rules_core/state_core.ts",
-        "test/rules_block/state_block.ts",
-        "test/rules_inline/state_inline.ts",
-        "test/index.ts",
-        "test/parser_block.ts",
-        "test/parser_core.ts",
-        "test/parser_inline.ts",
-        "test/renderer.ts",
-        "test/ruler.ts",
-        "test/token.ts",
+        "index.d.mts",
+        "test/common/utils.mts",
+        "test/helpers/index.mts",
+        "test/rules_core/state_core.mts",
+        "test/rules_block/state_block.mts",
+        "test/rules_inline/state_inline.mts",
+        "test/index.mts",
+        "test/parser_block.mts",
+        "test/parser_core.mts",
+        "test/parser_inline.mts",
+        "test/renderer.mts",
+        "test/ruler.mts",
+        "test/token.mts",
         "markdown-it-tests.ts"
     ]
 }

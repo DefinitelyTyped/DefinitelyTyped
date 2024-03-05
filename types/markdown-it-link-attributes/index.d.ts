@@ -1,5 +1,5 @@
 import { PluginWithOptions } from "markdown-it";
-import { RenderRule } from "markdown-it/lib/renderer";
+import { RenderRule } from "markdown-it/dist/renderer.js";
 
 declare namespace markdownItLinkAttributes {
     interface Config {

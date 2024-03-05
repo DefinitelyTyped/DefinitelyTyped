@@ -1,4 +1,4 @@
-import { PluginSimple, PluginWithOptions } from "markdown-it/lib";
+import { PluginSimple, PluginWithOptions } from "markdown-it";
 
 export as namespace markdownitEmoji;
 

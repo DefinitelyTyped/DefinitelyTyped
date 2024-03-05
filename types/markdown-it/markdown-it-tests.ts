@@ -1,15 +1,13 @@
 import LinkifyIt = require("linkify-it");
 import MarkdownIt = require("markdown-it");
 import MarkdownIt1 = require("markdown-it");
-import MarkdownIt2 = require("markdown-it/lib");
-import MarkdownIt3 = require("markdown-it/lib");
 
-// sstub highlight-js interaction
+// stub highlight-js interaction
 declare const hljs: {
     highlight: (
         codeOrlanguageName: string,
         optionsOrCode: string,
-        ignoreIllegals?: boolean,
+        ignoreIllegals?: boolean
     ) => {
         value: string;
     };
@@ -20,8 +18,6 @@ declare const hljs: {
     // check exports
     let md: typeof MarkdownIt;
     md = MarkdownIt1;
-    md = MarkdownIt2;
-    md = MarkdownIt3;
 }
 
 {
@@ -36,7 +32,7 @@ declare const hljs: {
     md = MarkdownIt(options);
     md = new MarkdownIt(options);
 
-    presets.forEach(p => {
+    presets.forEach((p) => {
         md = MarkdownIt(p);
         md = new MarkdownIt(p);
         md = MarkdownIt(p, options);
@@ -109,11 +105,11 @@ let md: MarkdownIt;
         highlight: (str, lang) => {
             if (lang && hljs.getLanguage(lang)) {
                 try {
-                    return "<pre class=\"hljs\"><code>" + hljs.highlight(lang, str, true).value + "</code></pre>";
+                    return '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + "</code></pre>";
                 } catch (__) {}
             }
 
-            return "<pre class=\"hljs\"><code>" + md.utils.escapeHtml(str) + "</code></pre>";
+            return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>";
         },
     });
 }

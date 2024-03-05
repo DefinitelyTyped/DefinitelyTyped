@@ -1,6 +1,5 @@
 import MarkdownIt = require("markdown-it");
-import Renderer = require("markdown-it/lib/renderer");
-import Token = require("markdown-it/lib/token");
+import Renderer = require("markdown-it/dist/renderer.js");
 
 declare namespace MarkdownItContainer {
     interface ContainerOpts {
@@ -10,10 +9,6 @@ declare namespace MarkdownItContainer {
     }
 }
 
-declare function MarkdownItContainer(
-    md: MarkdownIt,
-    name: string,
-    opts: MarkdownItContainer.ContainerOpts,
-): void;
+declare function MarkdownItContainer(md: MarkdownIt, name: string, opts: MarkdownItContainer.ContainerOpts): void;
 
 export = MarkdownItContainer;
