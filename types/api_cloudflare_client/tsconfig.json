@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "cloudflare-tests.ts"
+      "api_cloudflare_client-tests.ts"
     ]
 }

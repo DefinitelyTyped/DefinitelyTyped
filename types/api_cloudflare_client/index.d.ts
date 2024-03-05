@@ -326,8 +326,19 @@ declare namespace Cloudflare {
         videoDetails(accountId: string, id: string): ResponseObjectPromise;
         deleteVideo(accountId: string, id: string): ResponseObjectPromise;
     }
-    interface FirewallRule {
-
+    interface Firewall {
+        browse(zone_id: string): ResponseObjectPromise;
+        // add(zone_id: string, config: { mode: string; configuration: object }): ResponseObjectPromise;
+        // edit(zone_id: string, id: string, config: { mode: string; configuration: object }): ResponseObjectPromise;
+        del(zone_id: string, id: string): ResponseObjectPromise;
+        read(zone_id: string, id: string): ResponseObjectPromise;
+    }
+    interface AccessApplications{
+        browse(): ResponseObjectPromise;
+        // add(config: { name: string; domain: string; type: string }): ResponseObjectPromise;
+        // edit(id: string, config: { name: string; domain: string; type: string }): ResponseObjectPromise;
+        del(id: string): ResponseObjectPromise;
+        read(id: string): ResponseObjectPromise;
     }
 }
 
@@ -348,6 +359,9 @@ declare class Cloudflare {
     zoneWorkersRoutes: Cloudflare.ZoneWorkersRoutes;
     user: Cloudflare.User;
     stream: Cloudflare.Stream;
+    pageRules: Cloudflare.PageRules;
+    firewall: Cloudflare.Firewall;
+    accessApplications: Cloudflare.AccessApplications;
 }
 
 export = Cloudflare;

@@ -90,3 +90,4 @@ cf.enterpriseZoneWorkersKV.add("account_id", "namespace_id", "key_name");
 cf.enterpriseZoneWorkersKV.add("account_id", "namespace_id", "value");
 
 cf.enterpriseZoneWorkersKV.addMulti("account_id", "namespace_id", [{ key: "key", value: "value" }]);
+
