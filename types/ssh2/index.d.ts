@@ -151,7 +151,7 @@ export interface Header {
 export type OpenMode = "r" | "r+" | "w" | "wx" | "xw" | "w+" | "xw+" | "a" | "ax" | "xa" | "a+" | "ax+" | "xa+";
 
 export namespace utils {
-    type KeySettings = {
+    interface KeySettings {
         rsa: {
             bits: number;
         },
