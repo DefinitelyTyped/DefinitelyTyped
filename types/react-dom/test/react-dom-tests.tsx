@@ -371,8 +371,7 @@ function createRoot() {
     root.render(<div>initial render</div>);
     root.render(false);
 
-    // only makes sense for `hydrateRoot`
-    // @ts-expect-error
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     ReactDOMClient.createRoot(document);
 }
 
