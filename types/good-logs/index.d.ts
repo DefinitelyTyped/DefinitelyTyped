@@ -5,14 +5,14 @@
  */
 import { Request, Response, NextFunction } from 'express'
 
- interface IRequestExtended extends Request {
+ export interface RequestExtended extends Request {
   body: { [key: string]: string | undefined }
 }
 
   /**
-   * Custom log
+   * Custom log color to your  message to the console
    * @param message
-   * @param color - @see https://www.npmjs.com/package/colors
+   * @param color @see - https://www.npmjs.com/package/colors
    */
   export function custom(color: any, ...message: string[]): void
 
@@ -75,7 +75,7 @@ import { Request, Response, NextFunction } from 'express'
    * @param next  - next {NextFunction}
    * @return void
    */
-  export function req(req: IRequestExtended, res: Response, next: NextFunction): void
+  export function req(req: RequestExtended, res: Response, next: NextFunction): void
 
   /**
    * Preset log type for connection status update in the console
