@@ -45,7 +45,7 @@ pendo.initialize({
     },
     guides: {
         disabled: true,
-    }
+    },
 });
 
 pendo.initialize({
