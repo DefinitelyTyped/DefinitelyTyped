@@ -396,7 +396,7 @@ declare namespace Slick {
         /**
          * The editor for cell edits {TextEditor, IntegerEditor, DateEditor...} See slick.editors.js
          */
-        editor?: any; // typeof Editors.Editor<T>;
+        editor?: new (args: Editors.EditorOptions<T>) => Editors.Editor<T>; // typeof Editors.Editor<T>;
 
         /**
          * The property name in the data object to pull content from. (This is assumed to be on the root of the data object.)
