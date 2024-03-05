@@ -425,7 +425,8 @@ declare namespace React {
      */
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     /**
-     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     * WARNING: Not related to `React.Fragment`.
+     * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
     type ReactFragment = Iterable<ReactNode>;
 
@@ -755,6 +756,8 @@ declare namespace React {
      * ```
      */
     function createContext<T>(
+        // If you thought this should be optional, see
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
     ): Context<T>;
 

@@ -91,8 +91,11 @@ declare namespace React {
         | ComponentType<P>;
 
     /**
-     * Represents any user-defined component, either as a function component or
-     * a class component.
+     * Represents any user-defined component, either as a function or a class.
+     *
+     * Similar to {@link JSXElementConstructor}, but with extra properties like
+     * {@link FunctionComponent.defaultProps defaultProps } and
+     * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
      *
@@ -283,11 +286,14 @@ declare namespace React {
     interface RefAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
-         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
+         * Once the component unmounts, React will set `ref.current` to `null`
+         * (or call the ref with `null` if you passed a callback ref).
+         *
+         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
         ref?: LegacyRef<T> | undefined;
     }
+
     /**
      * Represents the built-in attributes available to class components.
      */
@@ -336,7 +342,7 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use `ComponentElement<P, ClassicComponent<P, any>>` instead.
+     * @deprecated Use {@link ComponentElement} instead.
      */
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
@@ -420,7 +426,7 @@ declare namespace React {
     interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
     /**
      * WARNING: Not related to `React.Fragment`.
-     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
+     * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
     type ReactFragment = Iterable<ReactNode>;
 
@@ -939,7 +945,6 @@ declare namespace React {
     // Base component for plain JS classes
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
     class Component<P, S> {
-        // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
          * If set, `this.context` will be set at runtime to the current value of the given Context.
          *
@@ -968,7 +973,6 @@ declare namespace React {
          * Should be used with type annotation or static contextType.
          *
          * @example
-         *
          * ```ts
          * static contextType = MyContext
          * // For TS pre-3.7:
@@ -977,14 +981,14 @@ declare namespace React {
          * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @see {@link https://react.dev/reference/react/Component#context}
+         * @see {@link https://react.dev/reference/react/Component#context React Docs}
          */
         context: unknown;
 
         constructor(props: Readonly<P> | P);
         /**
          * @deprecated
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
          */
         constructor(props: P, context: any);
 
@@ -1003,7 +1007,8 @@ declare namespace React {
         state: Readonly<S>;
         /**
          * @deprecated
-         * https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+         *
+         * @see {@link https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs Legacy React Docs}
          */
         refs: {
             [key: string]: ReactInstance;
@@ -1159,6 +1164,7 @@ declare namespace React {
      * @deprecated - Equivalent to {@link React.FunctionComponent}.
      *
      * @see {@link React.FunctionComponent}
+     * @alias {@link VoidFunctionComponent}
      */
     type VFC<P = {}> = VoidFunctionComponent<P>;
 
@@ -1386,7 +1392,7 @@ declare namespace React {
          * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
          * this from being invoked.
          *
-         * @deprecated 16.3, use componentDidMount or the constructor instead; will stop working in React 17
+         * @deprecated 16.3, use {@link ComponentLifecycle.componentDidMount componentDidMount} or the constructor instead; will stop working in React 17
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1401,7 +1407,7 @@ declare namespace React {
          * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
          * this from being invoked.
          *
-         * @deprecated 16.3, use componentDidMount or the constructor instead
+         * @deprecated 16.3, use {@link ComponentLifecycle.componentDidMount componentDidMount} or the constructor instead
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1417,7 +1423,7 @@ declare namespace React {
          * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
          * this from being invoked.
          *
-         * @deprecated 16.3, use static getDerivedStateFromProps instead; will stop working in React 17
+         * @deprecated 16.3, use static {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} instead; will stop working in React 17
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1435,7 +1441,7 @@ declare namespace React {
          * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
          * this from being invoked.
          *
-         * @deprecated 16.3, use static getDerivedStateFromProps instead
+         * @deprecated 16.3, use static {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} instead
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1473,7 +1479,9 @@ declare namespace React {
     }
 
     /**
-     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     * @deprecated
+     *
+     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
      */
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
         mixins?: Array<Mixin<P, S>> | undefined;
@@ -1712,9 +1720,11 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
-    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<CustomComponentPropsWithRef<T>> & {
+    interface LazyExoticComponent<T extends ComponentType<any>>
+        extends ExoticComponent<CustomComponentPropsWithRef<T>>
+    {
         readonly _result: T;
-    };
+    }
 
     /**
      * Lets you defer loading a component’s code until it is rendered for the first time.
@@ -1743,8 +1753,6 @@ declare namespace React {
     //
     // React Hooks
     // ----------------------------------------------------------------------
-
-    // based on the code in https://github.com/facebook/react/pull/13968
 
     /**
      * The instruction passed to a {@link Dispatch} function in {@link useState}
@@ -3177,6 +3185,7 @@ declare namespace React {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
         decoding?: "async" | "auto" | "sync" | undefined;
+        fetchPriority?: "high" | "low" | "auto";
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -4147,9 +4156,11 @@ declare namespace React {
         /**
          * Captures which component contained the exception, and its ancestors.
          */
-        componentStack: string;
+        componentStack?: string | null;
+        digest?: string | null;
     }
 
+    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         interface Element extends GlobalJSXElement {}
         interface ElementClass extends GlobalJSXElementClass {}
