@@ -476,7 +476,7 @@ declare namespace Slick {
     }
 
     export interface EditorFactory {
-        getEditor<T extends SlickData>(column: Column<T>): Editors.Editor<T>;
+        getEditor<T extends SlickData>(column: Column<T>): new (args: Editors.EditorOptions<T>) => Editors.Editor<T>;
     }
 
     export interface FormatterFactory<T extends SlickData> {
