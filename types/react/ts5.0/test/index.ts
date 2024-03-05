@@ -1,8 +1,6 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as DOM from "react-dom-factories";
-import * as ReactDOMServer from "react-dom/server";
 import "trusted-types";
 
 // NOTE: forward declarations for tests
@@ -325,23 +323,9 @@ const clonedSvgElement: React.ReactSVGElement = React.cloneElement(svgElement, {
     className: "clonedVGElement",
 });
 
-// React.render
-const component: ModernComponent = ReactDOM.render(element, container);
-const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
-
-const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
-const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-const domComponent: Element = ReactDOM.render(domElement, container);
-
 // Other Top-Level API
-const unmounted: boolean = ReactDOM.unmountComponentAtNode(container);
-const str: string = ReactDOMServer.renderToString(element);
-const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode = ReactDOM.findDOMNode(component);
-domNode = ReactDOM.findDOMNode(domNode as Element);
 const fragmentType: React.ComponentType = React.Fragment;
 
 // React.Profiler
@@ -367,6 +351,8 @@ const key = element.key;
 //
 // Component API
 // --------------------------------------------------------------------------
+
+declare const component: InstanceType<typeof ModernComponent>;
 
 // modern
 const componentState: State = component.state;
