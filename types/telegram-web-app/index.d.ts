@@ -157,7 +157,7 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    onEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
+    onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactCallBack['Cancelled'] | RequestContactCallBack['Sent']) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
@@ -176,7 +176,7 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    offEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
+    offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactCallBack['Cancelled'] | RequestContactCallBack['Sent']) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
