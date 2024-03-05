@@ -12,7 +12,7 @@ import { Request, Response, NextFunction } from 'express'
   /**
    * Custom log
    * @param message
-   * @param color
+   * @param color - @see https://www.npmjs.com/package/colors
    */
   export function custom(color: any, ...message: string[]): void
 
