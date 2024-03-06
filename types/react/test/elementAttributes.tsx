@@ -158,3 +158,19 @@ function formActionsTest() {
         </button>
     </form>;
 }
+
+function reactFragmentTest() {
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    return (
+      <div>
+        {arr.map((item) => {
+          return (
+            <React.Fragment key={item}>
+              <div>Item: {item}</div>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    );
+}
