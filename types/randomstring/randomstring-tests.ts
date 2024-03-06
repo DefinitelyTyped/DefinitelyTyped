@@ -23,5 +23,5 @@ randomstring.generate({
 randomstring.generate({ charset: "abcdef" });
 
 randomstring.generate({
-    charset: ['numeric', '!'],
-})
+    charset: ["numeric", "!"],
+});
