@@ -466,6 +466,7 @@ declare namespace React {
      * <Component customElement={<div>hello</div>} />
      * ```
      */
+    // non-thenables need to be kept in sync with AwaitedReactNode
     type ReactNode =
         | ReactElement
         | string

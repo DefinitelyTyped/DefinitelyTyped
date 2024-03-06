@@ -42,10 +42,22 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
-    // Need an interface to not cause ReactNode to be a self-referential type.
-    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
+    /**
+     * @internal Use `Awaited<ReactNode>` instead
+     */
+    // Helper type to enable `Awaited<ReactNode>`.
+    // Must be a copy of the non-thenables of `ReactNode`.
+    type AwaitedReactNode =
+        | ReactElement
+        | string
+        | number
+        | Iterable<AwaitedReactNode>
+        | ReactPortal
+        | boolean
+        | null
+        | undefined;
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
-        promises: PromiseLikeOfReactNode;
+        promises: Promise<AwaitedReactNode>;
     }
 
     export interface SuspenseProps {
