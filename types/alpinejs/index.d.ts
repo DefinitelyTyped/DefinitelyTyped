@@ -75,7 +75,7 @@ interface Binding {
 }
 
 export interface Bindings {
-    [key: string]: string | (() => unknown);
+    [key: string]: string | ((...args: any[]) => unknown);
 }
 
 export type AttrMutationCallback = (
