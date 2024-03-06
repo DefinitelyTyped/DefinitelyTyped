@@ -713,6 +713,11 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const plainObject: React.ReactNode = { dave: true };
     // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const promise: React.ReactNode = Promise.resolve("React");
+
+    const asyncTests = async function asyncTests() {
+        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+        const node: Awaited<React.ReactNode> = await Promise.resolve("React");
+    };
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {

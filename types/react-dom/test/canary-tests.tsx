@@ -1,4 +1,5 @@
 /// <reference types="../canary"/>
+import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMClient = require("react-dom/client");
 
@@ -165,6 +166,17 @@ function formTest() {
             // @ts-expect-error
             Promise.resolve(0),
         )[0];
+
+        useFormState(
+            async (state: React.ReactNode, payload: FormData): Promise<React.ReactNode> => {
+                return state;
+            },
+            (
+                <button>
+                    New Project
+                </button>
+            ),
+        );
 
         return (
             <button
