@@ -92,6 +92,7 @@ s2 = String.format("{0}, {1}", 1, true);
 
 RegExp.escape(s);
 
+$(s).ariaDisabled(true) satisfies JQuery;
 $(s).wiki(s);
 $.wiki(s);
 
