@@ -14,6 +14,10 @@
     },
     "owners": [
         {
+            "name": "Iker Pérez Brunelli",
+            "githubUsername": "kal-rein"
+        },
+        {
             "name": "Shayne Hartford",
             "githubUsername": "ShayBox"
         }
