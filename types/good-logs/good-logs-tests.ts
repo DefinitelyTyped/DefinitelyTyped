@@ -1,4 +1,4 @@
-import goodlog from 'good-logs'
+import * as goodlog from 'good-logs'
 
 /**
  * Custom log
