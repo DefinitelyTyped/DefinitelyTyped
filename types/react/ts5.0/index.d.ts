@@ -804,7 +804,10 @@ declare namespace React {
      * </>
      * ```
      */
-    const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
+    const Fragment: ExoticComponent<{ 
+        children?: ReactNode | undefined, 
+        key?: Key | null | undefined 
+    }>;
 
     /**
      * Lets you find common bugs in your components early during development.
