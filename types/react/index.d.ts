@@ -803,9 +803,9 @@ declare namespace React {
      * </>
      * ```
      */
-    const Fragment: ExoticComponent<{ 
-        children?: ReactNode | undefined, 
-        key?: Key | null | undefined 
+    const Fragment: ExoticComponent<{
+        children?: ReactNode | undefined;
+        key?: Key | null | undefined;
     }>;
 
     /**
