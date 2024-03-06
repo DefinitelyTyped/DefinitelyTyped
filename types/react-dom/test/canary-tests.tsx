@@ -7,6 +7,7 @@ function preloadTest() {
         ReactDOM.preload("foo", { as: "style", fetchPriority: "high", integrity: "sad" });
         ReactDOM.preload("bar", {
             as: "font",
+            type: "font/woff2",
             // @ts-expect-error Unknown fetch priority
             fetchPriority: "unknown",
         });

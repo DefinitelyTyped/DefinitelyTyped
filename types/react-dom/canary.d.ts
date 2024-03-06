@@ -67,6 +67,7 @@ declare module "." {
         imageSizes?: string | undefined;
         imageSrcSet?: string | undefined;
         integrity?: string | undefined;
+        type?: string | undefined;
         nonce?: string | undefined;
         referrerPolicy?: ReferrerPolicy | undefined;
     }
