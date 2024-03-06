@@ -33,8 +33,7 @@ export class Options extends webdriver.Capabilities {
     addExtensions(...paths: string[]): Options;
 
     /**
-     * Sets the initial window size when running in
-     * {@linkplain #headless headless} mode.
+     * Sets the initial window size.
      *
      * @param {{width: number, height: number}} size The desired window size.
      * @return {!Options} A self reference.
@@ -77,12 +76,6 @@ export class Options extends webdriver.Capabilities {
      * @see https://github.com/mozilla/geckodriver
      */
     useGeckoDriver(enable: boolean): Options;
-
-    /**
-     * Configures the geckodriver to start Firefox in headless mode.
-     * @return {!Options} A self reference.
-     */
-    headless(): Options;
 }
 
 /**
