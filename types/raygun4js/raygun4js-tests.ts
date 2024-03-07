@@ -7,6 +7,7 @@ rg4js("apiKey", "api-key");
 rg4js("boot");
 rg4js("enableCrashReporting", true);
 rg4js("enablePulse", true);
+rg4js("enableRum", true);
 rg4js("setUser", {
     identifier: "username",
     firstName: "Robert",

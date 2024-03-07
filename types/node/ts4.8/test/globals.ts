@@ -38,6 +38,14 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
 }
 
+// Array.prototype.at()
+{
+    const mutableArray = ["a"];
+    mutableArray.at(-1);
+    const readonlyArray: readonly string[] = ["b"];
+    readonlyArray.at(-1);
+}
+
 {
     const x = new AbortController().signal;
     x.reason; // $ExpectType any
@@ -69,4 +77,18 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
     const f: File = {} as any;
     f.name; // $ExpectType string
+}
+
+{
+    crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}` || string
+    crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
+    crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+
+    crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
+        (out) => {
+            out.algorithm; // $ExpectType KeyAlgorithm
+            out.extractable; // $ExpectType boolean
+            out.usages; // $ExpectType KeyUsage[]
+        },
+    );
 }

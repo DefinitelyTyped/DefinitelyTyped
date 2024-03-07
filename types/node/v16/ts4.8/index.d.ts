@@ -22,7 +22,7 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 4.8 and earlier
+// NOTE: These definitions support NodeJS and TypeScript 4.9+.
 
 // Reference required types from the default lib:
 /// <reference lib="es2020" />
@@ -45,7 +45,7 @@
 /// <reference path="diagnostics_channel.d.ts" />
 /// <reference path="dns.d.ts" />
 /// <reference path="dns/promises.d.ts" />
-/// <reference path="dns/promises.d.ts" />
+/// <reference path="dom-events.d.ts" />
 /// <reference path="domain.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />

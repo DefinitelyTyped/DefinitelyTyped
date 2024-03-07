@@ -42,6 +42,7 @@
 declare module "http" {
     import * as stream from "node:stream";
     import { URL } from "node:url";
+    import { EventEmitter } from "node:events";
     import { LookupFunction, Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
@@ -214,9 +215,11 @@ declare module "http" {
         _defaultAgent?: Agent | undefined;
         timeout?: number | undefined;
         setHost?: boolean | undefined;
-        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
-            | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
+            | ((
+                options: ClientRequestArgs,
+                oncreate: (err: Error | null, socket: stream.Duplex) => void,
+            ) => stream.Duplex | null | undefined)
             | undefined;
         lookup?: LookupFunction | undefined;
     }
@@ -1216,9 +1219,9 @@ declare module "http" {
      * ```
      * @since v0.3.4
      */
-    class Agent {
+    class Agent extends EventEmitter {
         /**
-         * By default set to 256\. For agents with `keepAlive` enabled, this
+         * By default set to 256. For agents with `keepAlive` enabled, this
          * sets the maximum number of sockets that will be left open in the free
          * state.
          * @since v0.11.7

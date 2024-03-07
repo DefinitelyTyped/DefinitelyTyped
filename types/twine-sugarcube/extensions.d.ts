@@ -581,7 +581,7 @@ declare global {
          * $('#so-clicky').ariaDisabled(true); // Disables the target element
          * $('#so-clicky').ariaDisabled(false); // Enables the target element
          */
-        ariaDisabled(state: boolean): boolean;
+        ariaDisabled(state: boolean): this;
         /**
          * Returns whether any of the target WAI-ARIA-compatible clickable element(s) are disabled.
          *

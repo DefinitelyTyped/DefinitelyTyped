@@ -9,7 +9,6 @@ export interface FormProps extends ViewProps {
             valueProp: string;
         };
     } | undefined;
-    ref: string;
 }
 
 export default class Form extends Component<FormProps> {}

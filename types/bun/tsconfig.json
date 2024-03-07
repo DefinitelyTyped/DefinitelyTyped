@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
-        "lib": ["ESNext"],
+        "lib": [
+            "ESNext"
+        ],
         "strict": true,
         "target": "esnext",
         "module": "node16",
@@ -9,5 +11,9 @@
         "types": [],
         "noUnusedLocals": true,
         "noEmit": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "bun-tests.ts"
+    ]
 }

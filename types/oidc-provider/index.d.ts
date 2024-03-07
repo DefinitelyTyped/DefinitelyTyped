@@ -1203,7 +1203,13 @@ export interface Configuration {
                             client: Client,
                         ) => CanBePromise<ResourceServer>)
                         | undefined;
-                    defaultResource?: ((ctx: KoaContextWithOIDC) => CanBePromise<string | string[]>) | undefined;
+                    defaultResource?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                            oneOf?: string[] | undefined,
+                        ) => CanBePromise<string | string[]>)
+                        | undefined;
                     useGrantedResource?:
                         | ((
                             ctx: KoaContextWithOIDC,

@@ -145,11 +145,35 @@ async function test() {
 }
 
 {
-    // Some event properties differ from DOM types
-    const evt = new Event("fake");
-    evt.cancelBubble();
-    // @ts-expect-error
-    evt.composedPath[2];
-    // $ExpectType 0 | 2
-    evt.eventPhase;
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: "test",
+    });
+
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
+    emitter.emitDestroy();
+}
+
+{
+    class MyEmitter extends events.EventEmitter {
+        addListener(event: string, listener: () => void): this {
+            return this;
+        }
+        listeners(event: string): Array<() => void> {
+            return [];
+        }
+        emit(event: string, ...args: any[]): boolean {
+            return true;
+        }
+        listenerCount(type: string): number {
+            return 0;
+        }
+    }
 }

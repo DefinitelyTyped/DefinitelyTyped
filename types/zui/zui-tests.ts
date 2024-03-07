@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 new $.zui.Messager();
 
 new $.zui.Messager("提示消息：成功", {

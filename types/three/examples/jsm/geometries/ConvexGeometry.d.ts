@@ -1,4 +1,4 @@
-import { BufferGeometry, Vector3 } from '../../../src/Three.js';
+import { BufferGeometry, Vector3 } from "three";
 
 export class ConvexGeometry extends BufferGeometry {
     constructor(points?: Vector3[]);

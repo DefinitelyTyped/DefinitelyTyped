@@ -1,4 +1,4 @@
-import { Camera, EventDispatcher, Vector3 } from '../../../src/Three.js';
+import { Camera, EventDispatcher, Vector3 } from "three";
 
 export class PointerLockControls extends EventDispatcher {
     constructor(camera: Camera, domElement?: HTMLElement);

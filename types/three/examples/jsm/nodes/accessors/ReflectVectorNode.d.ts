@@ -1,10 +1,10 @@
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class ReflectVectorNode extends Node {
     constructor();
 
-    getHash(): 'reflectVector';
+    getHash(): "reflectVector";
     setup(): Node;
 }
 

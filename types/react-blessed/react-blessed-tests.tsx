@@ -211,21 +211,18 @@ const boxRef = React.createRef<ReactBlessed.BoxElement>();
 
 <ForwardRef ref={boxFnRef} />;
 <ForwardRef ref={boxRef} />;
-// @ts-expect-error
 <ForwardRef ref="string" />;
 <ForwardRef2 ref={boxFnRef} />;
 <ForwardRef2 ref={boxRef} />;
-// @ts-expect-error
 <ForwardRef2 ref="string" />;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef} />;
 
-<NewContext ref="string" />;
+<NewContext ref={React.createRef<NewContext>()} />;
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
-// @ts-expect-error
 <ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(

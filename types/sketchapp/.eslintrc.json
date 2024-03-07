@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/no-type-only-packages": "off",
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

@@ -31,7 +31,6 @@ export class GUI {
      *
      * @param [options.parent]
      * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
-     *
      */
     constructor({
         parent,
@@ -288,34 +287,34 @@ export class ColorController<T = Record<string, unknown>, K extends keyof T = ke
     $display: HTMLDivElement;
     _format:
         | {
-              isPrimitive: boolean;
-              match: (v: unknown) => boolean;
-              fromHexString: typeof normalizeColorString;
-              toHexString: typeof normalizeColorString;
-          }
+            isPrimitive: boolean;
+            match: (v: unknown) => boolean;
+            fromHexString: typeof normalizeColorString;
+            toHexString: typeof normalizeColorString;
+        }
         | {
-              isPrimitive: boolean;
-              match: (arg: unknown) => arg is unknown[];
-              fromHexString(string: unknown, target: unknown, rgbScale?: number): void;
-              toHexString([r, g, b]: [unknown, unknown, unknown], rgbScale?: number): string;
-          }
+            isPrimitive: boolean;
+            match: (arg: unknown) => arg is unknown[];
+            fromHexString(string: unknown, target: unknown, rgbScale?: number): void;
+            toHexString([r, g, b]: [unknown, unknown, unknown], rgbScale?: number): string;
+        }
         | {
-              isPrimitive: boolean;
-              match: (v: unknown) => boolean;
-              fromHexString(string: unknown, target: unknown, rgbScale?: number): void;
-              toHexString(
-                  {
-                      r,
-                      g,
-                      b,
-                  }: {
-                      r: unknown;
-                      g: unknown;
-                      b: unknown;
-                  },
-                  rgbScale?: number,
-              ): string;
-          };
+            isPrimitive: boolean;
+            match: (v: unknown) => boolean;
+            fromHexString(string: unknown, target: unknown, rgbScale?: number): void;
+            toHexString(
+                {
+                    r,
+                    g,
+                    b,
+                }: {
+                    r: unknown;
+                    g: unknown;
+                    b: unknown;
+                },
+                rgbScale?: number,
+            ): string;
+        };
     _rgbScale: number;
     _initialValueHexString: string | boolean;
     _textFocused: boolean;

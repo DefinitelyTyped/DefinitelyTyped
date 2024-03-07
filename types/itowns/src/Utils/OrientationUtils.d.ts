@@ -105,4 +105,5 @@ declare namespace _default {
         target?: THREE.Quaternion,
     ): FunctionOrQuaternion;
 }
+
 export default _default;

@@ -190,6 +190,7 @@ var columns: ReactDataGrid.Column[] = [
 ];
 
 class Example extends React.Component<any, any> {
+    gridRef = React.createRef<ReactDataGrid>();
     getInitialState() {
         var fakeRows = createRows(2000);
         return { rows: fakeRows };
@@ -201,7 +202,7 @@ class Example extends React.Component<any, any> {
             onClick: (ev: React.SyntheticEvent<any>, args: { idx: number; rowIdx: number }) => {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
-                this.refs.grid as ReactDataGrid;
+                this.gridRef!;
             },
         };
 
@@ -258,7 +259,7 @@ class Example extends React.Component<any, any> {
         let selectedRows = ["id1", "id2"];
         return (
             <ReactDataGrid
-                ref="grid"
+                ref={this.gridRef}
                 enableCellSelect={true}
                 columns={this.getColumns()}
                 rowGetter={this.getRowAt}

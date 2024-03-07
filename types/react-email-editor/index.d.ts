@@ -131,6 +131,15 @@ export interface UnlayerOptions {
     readonly features?: Features | undefined;
     readonly translations?: Translations | undefined;
     readonly displayConditions?: DisplayCondition[] | undefined;
+    readonly tabs?: {
+        [tabName: string]: {
+            enabled?: boolean;
+            type?: string;
+            position?: number;
+            icon?: string;
+            active?: boolean;
+        };
+    };
 }
 
 export interface EmailEditorProps {

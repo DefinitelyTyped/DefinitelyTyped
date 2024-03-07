@@ -219,6 +219,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 // inspector-controls
 //
 <be.InspectorControls>Hello World</be.InspectorControls>;
+<be.InspectorControls group={"styles"}>Hello World</be.InspectorControls>;
 <be.InspectorControls.Slot />;
 
 //
@@ -417,7 +418,7 @@ be.transformStyles(STYLES, ".foobar");
 // Store
 // ============================================================================
 
-// $ExpectType any
+// $ExpectType BlockEditorStoreDescriptor
 be.store;
 
 // $ExpectType void

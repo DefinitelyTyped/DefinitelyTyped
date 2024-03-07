@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nanobench",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/nanobench"
+    ],
+    "devDependencies": {
+        "@types/nanobench": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

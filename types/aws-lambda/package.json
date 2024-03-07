@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/aws-lambda",
     "version": "8.10.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "AWS Lambda",
     "projects": [
         "http://docs.aws.amazon.com/lambda"
     ],
@@ -25,10 +27,6 @@
         {
             "name": "Rich Buggy",
             "githubUsername": "buggy"
-        },
-        {
-            "name": "Yoriki Yamaguchi",
-            "githubUsername": "y13i"
         },
         {
             "name": "wwwy3y3",
@@ -133,10 +131,6 @@
         {
             "name": "Marian Zange",
             "githubUsername": "marianzange"
-        },
-        {
-            "name": "Alexander Pepper",
-            "githubUsername": "apepper"
         },
         {
             "name": "Alessandro Palumbo",

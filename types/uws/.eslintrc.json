@@ -1,7 +1,6 @@
 {
     "rules": {
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/naming-convention": "off"
     }

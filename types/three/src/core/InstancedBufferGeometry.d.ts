@@ -1,4 +1,4 @@
-import { BufferGeometry } from './BufferGeometry.js';
+import { BufferGeometry } from "./BufferGeometry.js";
 
 /**
  * An instanced version of {@link THREE.BufferGeometry | BufferGeometry}.
@@ -24,7 +24,6 @@ export class InstancedBufferGeometry extends BufferGeometry {
     readonly isInstancedBufferGeometry: true;
 
     /**
-     *
      * @defaultValue `Infinity`
      */
     instanceCount: number;

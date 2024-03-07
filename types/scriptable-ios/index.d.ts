@@ -181,7 +181,7 @@ declare var args: {
     /**
      * _Parameter passed to a widget._
      *
-     * When creating a widget on the Home screen, you can define a parameter that can be read in your script using `args.widgetParameter`.
+     * When creating a widget on the Home Screen, you can define a parameter that can be read in your script using `args.widgetParameter`.
      *
      * The parameter can be used to differentiate the behavior of multiple widgets.
      * @see https://docs.scriptable.app/args/#widgetparameter
@@ -1050,6 +1050,7 @@ declare class Contact {
      *
      * For security reasons, a contact's notes cannot be accessed in Siri, the Shortcuts app and in a notification.
      * @see https://docs.scriptable.app/contact/#note
+     * @deprecated Deprecated since 1.7.5
      */
     note: string;
 
@@ -1180,6 +1181,7 @@ declare class Contact {
      *
      * The `note` property may not be available if the container does not support it. In that case any value set on the property will be ignored.
      * @see https://docs.scriptable.app/contact/#isnoteavailable
+     * @deprecated Deprecated since 1.7.5
      */
     isNoteAvailable: boolean;
 
@@ -1491,6 +1493,13 @@ declare class Data {
      * @see https://docs.scriptable.app/data/#frompng
      */
     static fromPNG(image: Image): Data;
+
+    /**
+     * _Creates data from an array of bytes._
+     * @param bytes - Array of bytes to convert to data.
+     * @see https://docs.scriptable.app/data/#frombytes
+     */
+    static fromBytes(bytes: readonly number[]): Data;
 
     /**
      * _Creates a string from the data._
@@ -2696,8 +2705,8 @@ declare class FileManager {
     /**
      * _Download file from iCloud if necessary._
      *
-     * Downloads the file from iCloud if it has not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned promise will be resolved immediately
-     * making it safe to pass in any file path.
+     * Downloads the file from iCloud if it has not already been downloaded. If you pass in a path to a file that is not stored in iCloud, the returned promise will be resolved
+     * immediately making it safe to pass in any file path.
      * @param filePath - Path of file to download from iCloud.
      * @see https://docs.scriptable.app/filemanager/#-downloadfilefromicloud
      */
@@ -3193,7 +3202,7 @@ declare class LinearGradient {
 /**
  * _Widget showing a list of elements._
  *
- * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
+ * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home Screen.
  * @see https://docs.scriptable.app/listwidget/#-new-listwidget
  */
 declare class ListWidget {
@@ -3260,7 +3269,7 @@ declare class ListWidget {
     /**
      * _Widget showing a list of elements._
      *
-     * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home screen.
+     * A widget showing a list of elements. Pass the widget to Script.setWidget() to display it on your Home Screen.
      * @see https://docs.scriptable.app/listwidget/#-new-listwidget
      */
     constructor();
@@ -3785,7 +3794,7 @@ declare class Notification {
     /**
      * _Identifier for grouping the notification._
      *
-     * Notifications are grouped by the identifier on the Home screen and in the Notification Center.
+     * Notifications are grouped by the identifier on the Home Screen and in the Notification Center.
      * @see https://docs.scriptable.app/notification/#threadidentifier
      */
     threadIdentifier: string;
@@ -5387,9 +5396,9 @@ declare class SFSymbol {
     /**
      * _Constructs an SF symbol._
      *
-     * SF symbols are Apple's configurable icons that are designed to look great with the San Francisco font.
+     * SF symbols are Apples configurable icons that are designed to look great with the San Francisco font.
      *
-     * Symbols are referenced by their name. You can find the symbol names in [Apple's SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
+     * Symbols are referenced by their name. You can find the symbol names in [Apples SF Symbols app for macOS](https://developer.apple.com/sf-symbols/). You can also browse symbol names
      * in the [SF Symbols Browser](https://apps.apple.com/us/app/sf-symbols-browser/id1491161336) and [San Fransymbols](https://apps.apple.com/us/app/san-fransymbols/id1504761986) apps
      * for iOS.
      * @param symbolName - Name of the symbol.
@@ -5932,7 +5941,7 @@ declare class UITableCell {
     /**
      * _Left aligns content._
      *
-     * Specifies that content in the cell should be left aligned.
+     * Specifies that the content in the cell should be left aligned.
      * @see https://docs.scriptable.app/uitablecell/#-leftaligned
      */
     leftAligned(): void;
@@ -5940,7 +5949,7 @@ declare class UITableCell {
     /**
      * _Center aligns content._
      *
-     * Specifies that content in the cell should be center aligned.
+     * Specifies that the content in the cell should be center aligned.
      * @see https://docs.scriptable.app/uitablecell/#-centeraligned
      */
     centerAligned(): void;
@@ -5948,7 +5957,7 @@ declare class UITableCell {
     /**
      * _Right aligns content._
      *
-     * Specifies that content in the cell should be right aligned.
+     * Specifies that the content in the cell should be right aligned.
      * @see https://docs.scriptable.app/uitablecell/#-rightaligned
      */
     rightAligned(): void;
@@ -6359,8 +6368,8 @@ declare class WidgetDate {
      *
      * Specifies that text should be left aligned. This is the default.
      *
-     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
-     * after the text.
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer after the
+     * text.
      * @see https://docs.scriptable.app/widgetdate/#-leftaligntext
      */
     leftAlignText(): void;
@@ -6635,7 +6644,7 @@ declare class WidgetStack {
      * _URL to open._
      *
      * The URL will be opened when the stack is tapped. This is only supported in medium and large widgets. Small widgets can only have a single tap target, which is specified by the `url`
-     * on the widget.
+     * property in the widget configurator.
      * @see https://docs.scriptable.app/widgetstack/#url
      */
     url: string;
@@ -6834,8 +6843,8 @@ declare class WidgetText {
      *
      * Specifies that text should be left aligned. This is the default.
      *
-     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer
-     * after the text.
+     * This does not affect texts placed in stacks. Use spacers instead when aligning text in stacks. To align the text to left in a horizontal stack, you should place a spacer after the
+     * text.
      * @see https://docs.scriptable.app/widgettext/#-leftaligntext
      */
     leftAlignText(): void;

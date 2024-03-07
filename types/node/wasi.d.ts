@@ -128,6 +128,23 @@ declare module "wasi" {
     class WASI {
         constructor(options?: WASIOptions);
         /**
+         * Return an import object that can be passed to `WebAssembly.instantiate()` if no other WASM imports are needed beyond those provided by WASI.
+         *
+         * If version `unstable` was passed into the constructor it will return:
+         *
+         * ```js
+         * { wasi_unstable: wasi.wasiImport }
+         * ```
+         *
+         * If version `preview1` was passed into the constructor or no version was specified it will return:
+         *
+         * ```js
+         * { wasi_snapshot_preview1: wasi.wasiImport }
+         * ```
+         * @since v19.8.0
+         */
+        getImportObject(): object;
+        /**
          * Attempt to begin execution of `instance` as a WASI command by invoking its`_start()` export. If `instance` does not contain a `_start()` export, or if`instance` contains an `_initialize()`
          * export, then an exception is thrown.
          *

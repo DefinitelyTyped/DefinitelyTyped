@@ -321,6 +321,9 @@ const awsServerless: Aws.Serverless = {
                 },
             },
             useProviderTags: true,
+            metrics: true,
+            disableDefaultEndpoint: true,
+            shouldStartNameWithService: true,
         },
         usagePlan: {
             quota: {
@@ -736,6 +739,7 @@ const awsServerless: Aws.Serverless = {
                             },
                         ],
                         functionResponseType: "ReportBatchItemFailures",
+                        parallelizationFactor: 2,
                     },
                 },
                 {

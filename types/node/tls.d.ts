@@ -220,7 +220,7 @@ declare module "tls" {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: TLSSocketOptions);
+        constructor(socket: net.Socket | stream.Duplex, options?: TLSSocketOptions);
         /**
          * This property is `true` if the peer certificate was signed by one of the CAs
          * specified when creating the `tls.TLSSocket` instance, otherwise `false`.

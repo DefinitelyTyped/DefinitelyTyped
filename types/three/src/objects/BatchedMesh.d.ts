@@ -1,10 +1,10 @@
-import { Mesh } from './Mesh.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Material } from '../materials/Material.js';
-import { Box3 } from '../math/Box3.js';
-import { Sphere } from '../math/Sphere.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Camera } from '../cameras/Camera.js';
+import { Camera } from "../cameras/Camera.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Sphere } from "../math/Sphere.js";
+import { Mesh } from "./Mesh.js";
 
 /**
  * A special version of {@link Mesh} with multi draw batch rendering support. Use {@link BatchedMesh} if you have to
@@ -75,7 +75,6 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     isBatchedMesh: true;
 
     /**
-     *
      * @param maxGeometryCount the max number of individual geometries planned to be added.
      * @param maxVertexCount the max number of vertices to be used by all geometries.
      * @param maxIndexCount the max number of indices to be used by all geometries.
@@ -162,8 +161,8 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      */
     deleteGeometry(index: number): this;
 
-    getBoundingBoxAt(index: number, target: Box3): Box3;
-    getBoundingSphereAt(index: number, target: Sphere): Sphere;
+    getBoundingBoxAt(index: number, target: Box3): Box3 | null;
+    getBoundingSphereAt(index: number, target: Sphere): Sphere | null;
 }
 
 export { BatchedMesh };

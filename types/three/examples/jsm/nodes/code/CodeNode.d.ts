@@ -1,7 +1,7 @@
-import Node from '../core/Node.js';
-import NodeBuilder from '../core/NodeBuilder.js';
-import { NodeTypeOption } from '../core/constants.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { NodeTypeOption } from "../core/constants.js";
+import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export interface CodeNodeInclude {
     build(builder: NodeBuilder): void;

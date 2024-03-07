@@ -1,9 +1,9 @@
 // A simple WebXR VR example that just shows a cube.
 
-import * as THREE from 'three';
-import { XRButton } from 'three/examples/jsm/webxr/XRButton';
+import * as THREE from "three";
+import { XRButton } from "three/examples/jsm/webxr/XRButton";
 
-const container = document.createElement('div');
+const container = document.createElement("div");
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 const camera = new THREE.PerspectiveCamera(50, 2, 0.1, 10);
@@ -15,7 +15,7 @@ let mesh: THREE.Mesh;
 init();
 
 async function onSessionStarted(session: XRSession): Promise<void> {
-    session.addEventListener('end', onSessionEnded);
+    session.addEventListener("end", onSessionEnded);
 
     await renderer.xr.setSession(session);
     currentSession = session;
@@ -25,14 +25,14 @@ async function onSessionEnded(): Promise<void> {
     if (currentSession == null) {
         return;
     }
-    currentSession.removeEventListener('end', onSessionEnded);
+    currentSession.removeEventListener("end", onSessionEnded);
     await renderer.xr.setSession(null);
     currentSession = null;
 }
 
 async function checkVRSupport(): Promise<XRSystem | null> {
-    if ('xr' in navigator && navigator.xr) {
-        const isSupported = await navigator.xr.isSessionSupported('immersive-vr').catch(() => false);
+    if ("xr" in navigator && navigator.xr) {
+        const isSupported = await navigator.xr.isSessionSupported("immersive-vr").catch(() => false);
         if (isSupported) {
             return navigator.xr;
         } else {

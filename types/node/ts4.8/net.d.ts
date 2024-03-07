@@ -18,8 +18,8 @@ declare module "net" {
     import * as dns from "node:dns";
     type LookupFunction = (
         hostname: string,
-        options: dns.LookupAllOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: dns.LookupAddress[]) => void,
+        options: dns.LookupOptions,
+        callback: (err: NodeJS.ErrnoException | null, address: string | dns.LookupAddress[], family?: number) => void,
     ) => void;
     interface AddressInfo {
         address: string;
@@ -628,7 +628,7 @@ declare module "net" {
          * Indicates whether or not the server is listening for connections.
          * @since v5.7.0
          */
-        listening: boolean;
+        readonly listening: boolean;
         /**
          * events.EventEmitter
          *   1. close
@@ -736,6 +736,11 @@ declare module "net" {
          */
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
+        /**
+         * The list of rules added to the blocklist.
+         * @since v15.0.0, v14.18.0
+         */
+        rules: readonly string[];
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;

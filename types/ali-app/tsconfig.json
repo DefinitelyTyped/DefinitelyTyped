@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "esnext",
             "dom"
@@ -17,8 +17,5 @@
     "files": [
         "index.d.ts",
         "ali-app-tests.ts"
-    ],
-    "exclude": [
-        ".prettierrc"
     ]
 }

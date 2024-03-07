@@ -887,6 +887,19 @@ import { promisify } from "node:util";
 }
 
 {
+    crypto.createPrivateKey({
+        key: "abc123",
+        format: "der",
+        encoding: "hex",
+    });
+    crypto.createPublicKey({
+        key: "abc123",
+        format: "der",
+        encoding: "hex",
+    });
+}
+
+{
     const keyObject = crypto.createSecretKey(Buffer.from("asdf")); // $ExpectType KeyObject
     keyObject instanceof crypto.KeyObject;
     assert.equal(keyObject.symmetricKeySize, 4);
@@ -1224,10 +1237,10 @@ import { promisify } from "node:util";
 }
 
 {
-    crypto.randomUUID({});
-    crypto.randomUUID({ disableEntropyCache: true });
-    crypto.randomUUID({ disableEntropyCache: false });
-    crypto.randomUUID();
+    crypto.randomUUID({}); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: true }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID({ disableEntropyCache: false }); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
+    crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
 }
 
 {
@@ -1416,7 +1429,7 @@ import { promisify } from "node:util";
     const a: crypto.webcrypto.Crypto = crypto.webcrypto;
     const b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error
@@ -1443,6 +1456,8 @@ import { promisify } from "node:util";
     // The lack of top level await makes it annoying to use generateKey so let's just fake it for typings.
     const key = null as unknown as crypto.webcrypto.CryptoKey;
     const buf = new Uint8Array(16);
+    // Oops, test relied on DOM `globalThis.length` before
+    const length = 123;
 
     subtle.encrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new TextEncoder().encode("hello")); // $ExpectType Promise<ArrayBuffer>
     subtle.decrypt({ name: "AES-CBC", iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/meteor-jboulhous-dev",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-jboulhous-dev",
     "projects": [
         "https://github.com/jboulhous/dev"
     ],

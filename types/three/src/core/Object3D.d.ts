@@ -1,22 +1,39 @@
-import { Vector3 } from '../math/Vector3.js';
-import { Euler } from '../math/Euler.js';
-import { Quaternion } from '../math/Quaternion.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Layers } from './Layers.js';
-import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
-import { Scene } from '../scenes/Scene.js';
-import { Camera } from '../cameras/Camera.js';
-import { Material } from '../materials/Material.js';
-import { Group } from '../objects/Group.js';
-import { Intersection, Raycaster } from './Raycaster.js';
-import { EventDispatcher } from './EventDispatcher.js';
-import { BufferGeometry } from './BufferGeometry.js';
-import { AnimationClip } from '../animation/AnimationClip.js';
+import { AnimationClip } from "../animation/AnimationClip.js";
+import { Camera } from "../cameras/Camera.js";
+import { Material } from "../materials/Material.js";
+import { Euler } from "../math/Euler.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Quaternion } from "../math/Quaternion.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Group } from "../objects/Group.js";
+import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
+import { Scene } from "../scenes/Scene.js";
+import { BufferGeometry } from "./BufferGeometry.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { Layers } from "./Layers.js";
+import { Intersection, Raycaster } from "./Raycaster.js";
 
 export interface Object3DEventMap {
+    /**
+     * Fires when the object has been added to its parent object.
+     */
     added: {};
+
+    /**
+     * Fires when the object has been removed from its parent object.
+     */
     removed: {};
+
+    /**
+     * Fires when a new child object has been added.
+     */
+    childadded: { child: Object3D };
+
+    /**
+     * Fires when a new child object has been removed.
+     */
+    childremoved: { child: Object3D };
 }
 
 /**
@@ -42,7 +59,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Unique number for this {@link Object3D} instance.
      * @remarks Note that ids are assigned in chronological order: 1, 2, 3, ..., incrementing by one for each new object.
-     * @remarks Expects a `Integer`
+     * Expects a `Integer`
      */
     readonly id: number;
 
@@ -62,10 +79,10 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * A Read-only _string_ to check `this` object type.
      * @remarks This can be used to find a specific type of Object3D in a scene.
-     * @remarks Sub-classes will update this value.
+     * Sub-classes will update this value.
      * @defaultValue `Object3D`
      */
-    readonly type: string | 'Object3D';
+    readonly type: string | "Object3D";
 
     /**
      * Object's parent in the {@link https://en.wikipedia.org/wiki/Scene_graph | scene graph}.
@@ -158,7 +175,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * The layer membership of the object.
      * @remarks The object is only visible if it has at least one layer in common with the {@link THREE.Object3DCamera | Camera} in use.
-     * @remarks This property can also be used to filter out unwanted objects in ray-intersection tests when using {@link THREE.Raycaster | Raycaster}.
+     * This property can also be used to filter out unwanted objects in ray-intersection tests when using {@link THREE.Raycaster | Raycaster}.
      * @defaultValue `new THREE.Layers()`
      */
     layers: Layers;
@@ -192,7 +209,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * This value allows the default rendering order of {@link https://en.wikipedia.org/wiki/Scene_graph | scene graph}
      * objects to be overridden although opaque and transparent objects remain sorted independently.
      * @remarks When this property is set for an instance of {@link Group | Group}, all descendants objects will be sorted and rendered together.
-     * @remarks Sorting is from lowest to highest renderOrder.
+     * Sorting is from lowest to highest renderOrder.
      * @defaultValue `0`
      */
     renderOrder: number;
@@ -213,7 +230,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Custom depth material to be used when rendering to the depth map.
      * @remarks Can only be used in context of meshes.
-     * @remarks When shadow-casting with a {@link THREE.DirectionalLight | DirectionalLight} or {@link THREE.SpotLight | SpotLight},
+     * When shadow-casting with a {@link THREE.DirectionalLight | DirectionalLight} or {@link THREE.SpotLight | SpotLight},
      * if you are modifying vertex positions in the vertex shader you must specify a customDepthMaterial for proper shadows.
      * @defaultValue `undefined`
      */
@@ -229,7 +246,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * An optional callback that is executed immediately before a 3D object is rendered to a shadow map.
      * @remarks This function is called with the following parameters: renderer, scene, camera, shadowCamera, geometry,
      * depthMaterial, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
      * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
      * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
      * and thus this callback is not executed for such objects.
@@ -247,7 +264,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * An optional callback that is executed immediately after a 3D object is rendered to a shadow map.
      * @remarks This function is called with the following parameters: renderer, scene, camera, shadowCamera, geometry,
      * depthMaterial, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
      * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
      * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
      * and thus this callback is not executed for such objects.
@@ -264,7 +281,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * An optional callback that is executed immediately before a 3D object is rendered.
      * @remarks This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
      * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
      * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
      * and thus this callback is not executed for such objects.
@@ -281,7 +298,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * An optional callback that is executed immediately after a 3D object is rendered.
      * @remarks This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
      * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
      * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
      * and thus this callback is not executed for such objects.
@@ -363,7 +380,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Rotate an object along an axis in world space.
      * @remarks The axis is assumed to be normalized
-     * @remarks Method Assumes no rotated parent.
+     * Method Assumes no rotated parent.
      * @param axis A normalized vector in world space.
      * @param angle The angle in radians. Expects a `Float`
      */
@@ -443,7 +460,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Adds another {@link Object3D} as child of this {@link Object3D}.
      * @remarks An arbitrary number of objects may be added
-     * @remarks Any current parent on an {@link object} passed in here will be removed, since an {@link Object3D} can have at most one parent.
+     * Any current parent on an {@link object} passed in here will be removed, since an {@link Object3D} can have at most one parent.
      * @see {@link attach}
      * @see {@link THREE.Group | Group} for info on manually grouping objects.
      * @param object
@@ -487,7 +504,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Searches through an object and its children, starting with the object itself, and returns the first with a matching name.
      * @remarks Note that for most objects the name is an empty string by default
-     * @remarks You will have to set it manually to make use of this method.
+     * You will have to set it manually to make use of this method.
      * @param name String to match to the children's Object3D.name property.
      */
     getObjectByName(name: string): Object3D | undefined;
@@ -555,7 +572,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * Like traverse, but the callback will only be executed for visible objects
      * @remarks Descendants of invisible objects are not traversed.
-     * @remarks Note: Modifying the scene graph inside the callback is discouraged.
+     * Note: Modifying the scene graph inside the callback is discouraged.
      * @param callback A function with as first argument an {@link Object3D} object.
      */
     traverseVisible(callback: (object: Object3D) => any): void;

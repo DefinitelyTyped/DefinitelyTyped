@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/jsen": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Vladimir Đokić",
-            "githubUsername": "vladeck"
-        }
-    ]
+    "owners": []
 }

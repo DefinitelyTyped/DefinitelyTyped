@@ -1,20 +1,19 @@
-import { Vector2 } from '../math/Vector2.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Source } from './Source.js';
-import { EventDispatcher } from '../core/EventDispatcher.js';
 import {
+    AnyMapping,
+    AnyPixelFormat,
+    ColorSpace,
+    MagnificationTextureFilter,
     Mapping,
-    Wrapping,
+    MinificationTextureFilter,
     PixelFormat,
     PixelFormatGPU,
     TextureDataType,
-    TextureEncoding,
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-    AnyPixelFormat,
-    AnyMapping,
-    ColorSpace,
-} from '../constants.js';
+    Wrapping,
+} from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Source } from "./Source.js";
 
 /** Shim for OffscreenCanvas. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -78,7 +77,6 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
         format: PixelFormat,
         type: TextureDataType,
         anisotropy: number,
-        encoding: TextureEncoding,
     );
 
     /**
@@ -323,19 +321,6 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @defaultValue `4`
      */
     unpackAlignment: number; // TODO Fix typing to only allow the expected values.
-
-    /**
-     * The {@link Textures | {@link Texture} constants} page for details of other formats.
-     * @remarks
-     * Values of {@link encoding} !== {@link THREE.LinearEncoding} are only supported on _map_, _envMap_ and _emissiveMap_.
-     * @remarks
-     * Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a {@link THREE.Material.needsUpdate} for this value to be realized in the shader.
-     * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
-     * @see {@link THREE.TextureDataType}
-     * @defaultValue {@link THREE.LinearEncoding}
-     * @deprecated Use {@link Texture.colorSpace .colorSpace} in three.js r152+.
-     */
-    encoding: TextureEncoding;
 
     /**
      * The {@link Textures | {@link Texture} constants} page for details of other color spaces.

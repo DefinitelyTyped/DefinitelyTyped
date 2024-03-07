@@ -1682,50 +1682,31 @@ declare namespace googletag {
     type SizeMappingArray = SizeMapping[];
 
     /**
-     * This is the namespace that GPT uses for enum types.
-     */
-    namespace enums {
-        /**
-         * Out-of-page formats supported by GPT.
-         *
-         * @see {@link defineOutOfPageSlot}
-         */
-        enum OutOfPageFormat {
-            /** Anchor format where slot sticks to the top of the viewport. */
-            TOP_ANCHOR,
-            /** Anchor format where slot sticks to the bottom of the viewport. */
-            BOTTOM_ANCHOR,
-            /** Web interstitial creative format. */
-            INTERSTITIAL,
-            /** Rewarded format. */
-            REWARDED,
-            /** Left side rail format. */
-            LEFT_SIDE_RAIL,
-            /** Right side rail format. */
-            RIGHT_SIDE_RAIL,
-        }
-
-        /**
-         * [Traffic sources](https://support.google.com/admanager/answer/11233407)
-         * supported by GPT.
-         *
-         * @see {@link PrivacySettingsConfig.trafficSource}
-         */
-        enum TrafficSource {
-            /**
-             * Traffic redirected from properties other than owned (acquired or otherwise
-             * incentivized activity).
-             */
-            PURCHASED,
-            /** Direct URL entry, site search, or app download. */
-            ORGANIC,
-        }
-    }
-
-    /**
      * Main configuration interface for page-level settings.
      */
     namespace config {
+        /**
+         * Settings to control ad expansion.
+         *
+         * @example
+         *   // Enable ad slot expansion across the entire page.
+         *   googletag.setConfig({
+         *     adExpansion: {enabled: true}
+         *   });
+         */
+        interface AdExpansionConfig {
+            /**
+             * Whether ad expansion is enabled or disabled.
+             *
+             * Setting this value overrides the default configured in
+             * Google Ad Manager.
+             *
+             * @see [Expand ads on desktop and tablet](https://support.google.com/admanager/answer/9384852)
+             * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
+             */
+            enabled?: boolean;
+        }
+
         /**
          * Main configuration interface for page-level settings.
          *
@@ -1789,6 +1770,16 @@ declare namespace googletag {
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
+
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
+
+            /**
+             * Settings to control publisher provided signals (PPS).
+             */
+            pps?: PublisherProvidedSignalsConfig | null;
         }
 
         /**
@@ -1812,6 +1803,116 @@ declare namespace googletag {
          */
         type PrivacyTreatment = "disablePersonalization";
 
+        /**
+         * Publisher provided signals (PPS) configuration object.
+         *
+         * @example
+         * googletag.setConfig({
+         *   pps: {
+         *     taxonomies: {
+         *       'IAB_AUDIENCE_1_1':
+         *           {values: ['6', '626']},
+         *           // '6' = 'Demographic | Age Range | 18-20'
+         *           // '626' = 'Interest | Sports | Darts'
+         *       'IAB_CONTENT_2_2':
+         *           {values: ['48', '127']},
+         *           // '48' = 'Books and Literature | Fiction'
+         *           // '127' = 'Careers | Job Search'
+         *     }
+         *   }
+         * });
+         *
+         * @see [About publisher provided signals (Beta)](https://support.google.com/admanager/answer/12451124)
+         * @see [IAB Audience Taxonomy 1.1](https://iabtechlab.com/standards/audience-taxonomy/)
+         * @see [IAB Content Taxonomy 2.2](https://iabtechlab.com/standards/content-taxonomy/)
+         */
+        interface PublisherProvidedSignalsConfig {
+            /**
+             * An object containing {@link googletag.config.Taxonomy | Taxonomy} mappings.
+             */
+            taxonomies: Partial<Record<Taxonomy, TaxonomyData>>;
+        }
+
+        /**
+         * An object containing the values for a single
+         * {@link googletag.config.Taxonomy | Taxonomy}.
+         */
+        interface TaxonomyData {
+            /**
+             * A list of {@link googletag.config.Taxonomy | Taxonomy} values.
+             */
+            values: string[];
+        }
+
+        /**
+         * Supported taxonomies for
+         * {@link googletag.config.PublisherProvidedSignalsConfig | publisher provided signals (PPS)}.
+         *
+         * @see [IAB Audience Taxonomy 1.1](https://iabtechlab.com/standards/audience-taxonomy/)
+         * @see [IAB Content Taxonomy 2.2](https://iabtechlab.com/standards/content-taxonomy/)
+         */
+        type Taxonomy = "IAB_AUDIENCE_1_1" | "IAB_CONTENT_2_2";
+
+        /**
+         * Main configuration interface for slot-level settings.
+         *
+         * Allows setting multiple features with a single API call for a single slot.
+         *
+         * All properties listed below are examples and do not reflect actual features
+         * that utilize setConfig.  For the set of features, see fields within the
+         * SlotSettingsConfig type below.
+         *
+         * Examples:
+         * - Only features specified in the {@link Slot.setConfig} call are
+         *   modified.
+         *   ```
+         *   const slot = googletag.defineSlot("/1234567/example", [160, 600]);
+         *
+         *   // Configure feature alpha.
+         *   slot.setConfig({
+         *       alpha: {...}
+         *   });
+         *
+         *   // Configure feature bravo. Feature alpha is unchanged.
+         *   slot.setConfig({
+         *      bravo: {...}
+         *   });
+         *   ```
+         * - All settings for a given feature are updated with each call to
+         *   {@link Slot.setConfig}.
+         *   ```
+         *   // Configure feature charlie to echo = 1, foxtrot = true.
+         *   slot.setConfig({
+         *       charlie: {
+         *           echo: 1,
+         *           foxtrot: true,
+         *       }
+         *   });
+         *
+         *   // Update feature charlie to echo = 2. Since foxtrot was not specified,
+         *   // the value is cleared.
+         *   slot.setConfig({
+         *       charlie: {
+         *           echo: 2
+         *       }
+         *   });
+         *   ```
+         * - All settings for a feature can be cleared by passing `null`.
+         *   ```
+         *   // Configure features delta, golf, and hotel.
+         *   slot.setConfig({
+         *       delta: {...},
+         *       golf: {...},
+         *       hotel: {...},
+         *   });
+         *
+         *   // Feature delta and hotel are cleared, but feature golf remains set.
+         *   slot.setConfig({
+         *       delta: null,
+         *       hotel: null,
+         *   });
+         *   ```
+         */
         interface SlotSettingsConfig {
             /**
              * An array of component auctions to be included in an on-device ad auction.
@@ -1822,6 +1923,11 @@ declare namespace googletag {
              * Settings that control interstitial ad slot behavior.
              */
             interstitial?: InterstitialConfig;
+
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig;
         }
 
         /**
@@ -1924,6 +2030,7 @@ declare namespace googletag {
              *  interstitialSlot.setConfig({
              *    interstitial: {
              *      triggers: {
+             *        navBar: enableTriggers,
              *        unhideWindow: enableTriggers
              *      }
              *    }
@@ -1937,7 +2044,48 @@ declare namespace googletag {
         /**
          * Supported interstitial ad triggers.
          */
-        type InterstitialTrigger = "unhideWindow";
+        type InterstitialTrigger = "unhideWindow" | "navBar";
+    }
+
+    /**
+     * This is the namespace that GPT uses for enum types.
+     */
+    namespace enums {
+        /**
+         * Out-of-page formats supported by GPT.
+         *
+         * @see {@link defineOutOfPageSlot}
+         */
+        enum OutOfPageFormat {
+            /** Anchor format where slot sticks to the top of the viewport. */
+            TOP_ANCHOR,
+            /** Anchor format where slot sticks to the bottom of the viewport. */
+            BOTTOM_ANCHOR,
+            /** Web interstitial creative format. */
+            INTERSTITIAL,
+            /** Rewarded format. */
+            REWARDED,
+            /** Left side rail format. */
+            LEFT_SIDE_RAIL,
+            /** Right side rail format. */
+            RIGHT_SIDE_RAIL,
+        }
+
+        /**
+         * [Traffic sources](https://support.google.com/admanager/answer/11233407)
+         * supported by GPT.
+         *
+         * @see {@link PrivacySettingsConfig.trafficSource}
+         */
+        enum TrafficSource {
+            /**
+             * Traffic redirected from properties other than owned (acquired or otherwise
+             * incentivized activity).
+             */
+            PURCHASED,
+            /** Direct URL entry, site search, or app download. */
+            ORGANIC,
+        }
     }
 
     /**

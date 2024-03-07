@@ -69,3 +69,27 @@ app.requestWriteAccess(success => {
 });
 
 app.onEvent("writeAccessRequested", ({ status }) => {});
+
+app.SettingsButton.show();
+
+app.requestContact((success, req) => {
+    if (req.status === "sent") {
+        // no error
+        req.response;
+    } else {
+        // @ts-expect-error
+        req.response;
+        req.status; // $ExpectType "cancelled"
+    }
+});
+
+app.onEvent("contactRequested", (req) => {
+    if (req.status === "sent") {
+        // no error
+        req.response;
+    } else {
+        // @ts-expect-error
+        req.response;
+        req.status; // $ExpectType "cancelled"
+    }
+});

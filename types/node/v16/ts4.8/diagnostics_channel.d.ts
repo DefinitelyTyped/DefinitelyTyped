@@ -57,6 +57,7 @@ declare module "diagnostics_channel" {
      * @return The named channel object
      */
     function channel(name: string | symbol): Channel;
+    type ChannelListener = (message: unknown, name: string | symbol) => void;
     /**
      * Register a message handler to subscribe to this channel. This message handler will be run synchronously
      * whenever a message is published to the channel. Any errors thrown in the message handler will
@@ -96,7 +97,6 @@ declare module "diagnostics_channel" {
      * @returns `true` if the handler was found, `false` otherwise
      */
     function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
-    type ChannelListener = (message: unknown, name: string | symbol) => void;
     /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is use to track subscribers and to publish messages when there

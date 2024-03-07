@@ -1,15 +1,19 @@
-import NodeMaterial from './NodeMaterial.js';
-import { ShaderMaterialParameters } from '../../../../src/Three.js';
-import { Node } from '../Nodes.js';
+import { Color, PointsMaterialParameters, Texture } from "three";
+import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+
+export interface PointsNodeMaterialParameters extends NodeMaterialParameters, PointsMaterialParameters {
+}
 
 export default class PointsNodeMaterial extends NodeMaterial {
-    isPointsNodeMateria: true;
-    colorNode: Node | null;
-    opacityNode: Node | null;
-    alphaTestNode: Node | null;
-    lightNode: Node | null;
-    sizeNode: Node | null;
-    positionNode: Node | null;
-    constructor(parameters?: ShaderMaterialParameters);
-    copy(source: PointsNodeMaterial): this;
+    readonly isPointsNodeMaterial: true;
+
+    // Properties from PointsMaterial
+    readonly isPointsMaterial: true;
+    color: Color;
+    map: Texture | null;
+    alphaMap: Texture | null;
+    size: number;
+    sizeAttenuation: boolean;
+
+    constructor(parameters?: PointsNodeMaterialParameters);
 }

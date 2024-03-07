@@ -27,6 +27,7 @@ slug.defaults.modes["rfc3986"] = {
     lower: true, // result in lower case
     charmap: slug.charmap, // replace special characters
     multicharmap: slug.multicharmap, // replace multi-characters
+    fallback: true, // Enable fallback mechanism
 };
 slug.defaults.modes["pretty"] = {
     replacement: "-",
@@ -35,7 +36,11 @@ slug.defaults.modes["pretty"] = {
     lower: false,
     charmap: slug.charmap,
     multicharmap: slug.multicharmap,
+    fallback: true,
 };
 
 slug.extend({ "☢": "radioactive" }); // $ExpectType void
 slug("one 1 two 2 three 3", { remove: /[0-9]/g }); // $ExpectType string
+
+slug("i ♥ unknown chars", { fallback: true }); // $ExpectType string
+slug("i ♥ unknown chars", { fallback: false }); // $ExpectType string

@@ -2,14 +2,15 @@
 
 /// <reference types="webxr" />
 
-import { Vector4 } from '../../math/Vector4.js';
-import { ArrayCamera } from '../../cameras/ArrayCamera.js';
-import { PerspectiveCamera } from '../../cameras/PerspectiveCamera.js';
-import { EventDispatcher } from '../../core/EventDispatcher.js';
-import { XRTargetRaySpace, XRGripSpace, XRHandSpace } from './WebXRController.js';
+import { ArrayCamera } from "../../cameras/ArrayCamera.js";
+import { PerspectiveCamera } from "../../cameras/PerspectiveCamera.js";
+import { EventDispatcher } from "../../core/EventDispatcher.js";
+import { Vector4 } from "../../math/Vector4.js";
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { XRGripSpace, XRHandSpace, XRTargetRaySpace } from "./WebXRController.js";
 
 export type WebXRCamera = PerspectiveCamera & { viewport: Vector4 };
-export type WebXRArrayCamera = Omit<ArrayCamera, 'cameras'> & { cameras: [WebXRCamera, WebXRCamera] };
+export type WebXRArrayCamera = Omit<ArrayCamera, "cameras"> & { cameras: [WebXRCamera, WebXRCamera] };
 
 export interface WebXRManagerEventMap {
     sessionstart: {};
@@ -21,7 +22,7 @@ export interface WebXRManagerEventMap {
 }
 
 export class WebXRManager extends EventDispatcher<WebXRManagerEventMap> {
-    constructor(renderer: any, gl: WebGLRenderingContext);
+    constructor(renderer: WebGLRenderer, gl: WebGLRenderingContext);
 
     /**
      * @default false

@@ -11,7 +11,9 @@
     },
     "devDependencies": {
         "@types/passport": "*",
-        "@types/passport-jwt": "workspace:."
+        "@types/passport-jwt": "workspace:.",
+        "@types/express": "*",
+        "fastify": "*"
     },
     "owners": [
         {

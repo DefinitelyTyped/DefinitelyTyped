@@ -223,6 +223,25 @@ app.route("/").post<never, { foo: string }, { bar: number }>((req, res) => {
 });
 
 // Cookies
+app.get("setCookie", (req, res) => {
+    res.cookie("key", "value", {
+        maxAge: 86400,
+        signed: true,
+        httpOnly: false,
+        secure: true,
+        domain: "example.com",
+        sameSite: "lax",
+        priority: "high",
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        priority: "random",
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        sameSite: "whatever",
+    });
+});
 app.get("/clearcookie", (req, res) => {
     res.clearCookie("auth"); // $ExpectType Response<any, Record<string, any>, number>
     res.clearCookie("auth", {

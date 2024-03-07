@@ -11,7 +11,7 @@ declare class FlyControls extends THREE.EventDispatcher {
 
     view: View;
     options: FlyControlsOptions;
-    moves: Set<any>; // TODO
+    moves: Set<any>; // TODO: typecheck
     moveSpeed: number;
 
     // isUserInteracting(): boolean;

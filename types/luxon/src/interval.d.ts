@@ -108,12 +108,12 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns an error code if this Interval is invalid, or null if the Interval is valid
      */
-    get invalidReason(): IfValid<string, null, IsValid>;
+    get invalidReason(): IfValid<null, string, IsValid>;
 
     /**
      * Returns an explanation of why this Interval became invalid, or null if the Interval is valid
      */
-    get invalidExplanation(): IfValid<string | null, null, IsValid>;
+    get invalidExplanation(): IfValid<null, string | null, IsValid>;
 
     /**
      * Returns the length of the Interval in the specified unit.

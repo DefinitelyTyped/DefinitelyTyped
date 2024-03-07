@@ -236,6 +236,11 @@ doc.image("path/to/image.png", {
 });
 
 doc.image("path/to/image.png", {
+    fit: [250, 300],
+    link: "http://google.com/",
+});
+
+doc.image("path/to/image.png", {
     cover: [250, 300],
 });
 

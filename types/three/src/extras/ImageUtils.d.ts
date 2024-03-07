@@ -1,5 +1,5 @@
-import { Mapping } from '../constants.js';
-import { Texture } from '../textures/Texture.js';
+import { Mapping } from "../constants.js";
+import { Texture } from "../textures/Texture.js";
 
 /**
  * A class containing utility functions for images.
@@ -26,8 +26,8 @@ export namespace ImageUtils {
      * @param image
      */
     function sRGBToLinear(image: ImageData): {
-        data: ImageData['data'];
-        width: ImageData['width'];
-        height: ImageData['height'];
+        data: ImageData["data"];
+        width: ImageData["width"];
+        height: ImageData["height"];
     };
 }

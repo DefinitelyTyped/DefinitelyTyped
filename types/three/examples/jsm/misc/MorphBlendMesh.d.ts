@@ -1,4 +1,4 @@
-import { BufferGeometry, Material, Mesh } from '../../../src/Three.js';
+import { BufferGeometry, Material, Mesh } from "three";
 
 export class MorphBlendMesh extends Mesh {
     constructor(geometry: BufferGeometry, material: Material);

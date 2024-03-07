@@ -2,9 +2,17 @@
     "private": true,
     "name": "@types/wallabyjs",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "wallabyjs",
     "projects": [
         "http://wallabyjs.com"
     ],
+    "dependencies": {
+        "@types/express": "*",
+        "typescript": "*",
+        "@types/babel__core": "*",
+        "@types/coffeescript": "*"
+    },
     "devDependencies": {
         "@types/wallabyjs": "workspace:."
     },
@@ -12,6 +20,10 @@
         {
             "name": "Andrew Connell",
             "githubUsername": "andrewconnell"
+        },
+        {
+            "name": "Christopher Hiller",
+            "githubUsername": "boneskull"
         }
     ]
 }

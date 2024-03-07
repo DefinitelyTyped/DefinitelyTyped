@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/node",
     "version": "16.18.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"
@@ -82,10 +82,6 @@
         {
             "name": "Mohsen Azimi",
             "githubUsername": "mohsen1"
-        },
-        {
-            "name": "Nicolas Even",
-            "githubUsername": "n-e"
         },
         {
             "name": "Nikita Galkin",

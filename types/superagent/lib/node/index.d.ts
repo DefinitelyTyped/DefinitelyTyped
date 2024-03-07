@@ -2,7 +2,6 @@ import * as http from "http";
 import * as http2 from "http2";
 import * as https from "https";
 import { Stream } from "stream";
-import { UrlObject } from "url";
 import methods = require("methods");
 
 import SAgent = require("./agent");
@@ -11,22 +10,25 @@ import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
-import { AgentOptions as SAgentOptions, CBHandler } from "../../types";
+import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
+import { Request as Http2Request } from "./http2wrapper";
 
 type HttpMethod<Req extends request.Request> =
-    | ((url: string, callback?: CBHandler) => Req)
-    | ((url: string, data?: string | Record<string, any>, callback?: CBHandler) => Req);
+    | ((url: URLType, callback?: CBHandler) => Req)
+    | ((url: URLType, data?: string | Record<string, any>, callback?: CBHandler) => Req);
 
 type RequestMethods<Req extends request.Request> = {
     [key in (typeof methods[number]) | "del"]: HttpMethod<Req>;
 };
 
 declare class SARequest extends Stream implements RequestBase {
-    constructor(method: string, url: string | URL | UrlObject);
+    constructor(method: string, url: URLType);
 
     method: string;
     url: string;
     cookies: string;
+    req: http.ClientRequest | Http2Request;
+    res: http.IncomingMessage | (http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader);
 
     [Symbol.toStringTag]: string;
 
@@ -40,7 +42,7 @@ declare class SARequest extends Stream implements RequestBase {
     agent(): SAgent | http.Agent | https.Agent;
     agent(agent: SAgent | http.Agent | https.Agent): this;
     auth(token: string, options: { type: "bearer" }): this;
-    auth(user: string, pass: string, options?: { type: "basic" | "auto" }): this;
+    auth(user: string, pass: string, options?: { type: "basic" | "auto"; encoder?: (str: string) => string }): this;
     buffer(val?: boolean): this;
     ca(cert: string | string[] | Buffer | Buffer[]): this;
     catch<TResult = never>(
@@ -140,12 +142,13 @@ declare namespace request {
     type SuperAgent<Req extends Request = Request> = RequestMethods<Req> & Stream;
 
     interface SuperAgentStatic<Req extends Request = Request> extends SuperAgent<Req> {
-        (url: string): Request;
-        (method: string, url: string): Request;
+        (url: URLType): Request;
+        (method: string, url: URLType): Request;
+        (url: URLType, cb: CBHandler): void;
 
         Request: typeof SARequest;
         Response: typeof ResponseBase;
-        agent: typeof SAgent;
+        agent: typeof SAgent & ((options?: SAgentOptions) => InstanceType<typeof SAgent>);
         protocols: {
             "http:": typeof http;
             "https:": typeof https;

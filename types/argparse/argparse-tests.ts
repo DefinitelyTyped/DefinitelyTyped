@@ -338,3 +338,15 @@ console.log("-----------");
 booleanOptionalActionExample.parse_args(["--no-foo"]);
 console.dir(args);
 console.log("-----------");
+
+const intermixedArgsExample = new ArgumentParser();
+intermixedArgsExample.add_argument("--foo");
+intermixedArgsExample.add_argument("cmd");
+intermixedArgsExample.add_argument("rest", { nargs: "*", type: "int" });
+args = intermixedArgsExample.parse_intermixed_args("doit 1 --foo bar 2 3".split(" "));
+console.dir(args);
+console.log("-----------");
+let [ns, remaining] = intermixedArgsExample.parse_known_intermixed_args("doit 1 --unknown --foo bar 2 3".split(" "));
+console.dir(ns);
+console.log(remaining);
+console.log("-----------");
