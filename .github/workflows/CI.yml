@@ -106,7 +106,7 @@ jobs:
       - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
         if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
 
-      - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+      - run: pnpm run test-all --selection all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
       - name: Get suggestions dir
