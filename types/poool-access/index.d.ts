@@ -302,7 +302,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        context?: string |  string[];
+        context?: string | string[];
         /**
          * Used to allocate a reader to a custom group previously created in Poool's Dashboard.
          *
