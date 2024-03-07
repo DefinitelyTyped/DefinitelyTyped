@@ -630,6 +630,24 @@ import Alpine, {
     }));
 
     // $ExpectType void
+    Alpine.bind('#my-el', () => ({
+      'x-show': 'true',
+      '@mouseenter'() {
+      },
+      '@mouseleave'(e: MouseEvent) {
+      }
+    }));
+
+    // $ExpectType void
+    Alpine.bind(null as unknown as HTMLElement, () => ({
+      'x-show': 'true',
+      '@mouseenter'() {
+      },
+      '@mouseleave'(e: MouseEvent) {
+      }
+    }));
+
+    // $ExpectType void
     Alpine.data("user", () => ({
         user: { id: 1, name: "John Doe" },
 
