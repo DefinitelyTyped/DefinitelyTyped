@@ -2,15 +2,25 @@
 
 // $ExpectType Access
 window.Access;
+
+// $ExpectType Access
+globalThis.Access
+
 // $ExpectType Access
 Access;
+
 // $ExpectType Access
 window.PooolAccess;
+
+// $ExpectType Access
+globalThis.PooolAccess
+
 // $ExpectType Access
 PooolAccess;
 
 // $ExpectType Access
 Access.noConflict();
+
 // $ExpectType AccessFactory
 Access.init("key-string");
 
@@ -32,6 +42,13 @@ access.config(
     },
     true,
 );
+
+// $ExpectType AccessFactory
+access.config(
+    {
+        context: ["context-1", "context-2"],
+    }
+)
 
 // $ExpectType AccessFactory
 access.config(
@@ -80,6 +97,16 @@ access.variables({
 });
 
 // $ExpectType AccessFactory
+access.variables("variable", false)
+
+// $ExpectType AccessFactory
+access.variables({
+    variable: "value",
+    variable2: true,
+    variable3: 4,
+})
+
+// $ExpectType AccessFactory
 access.on("subscribeClick", () => {});
 
 // $ExpectType AccessFactory
@@ -94,10 +121,19 @@ access.destroy();
 // AUDIT
 // $ExpectType Audit
 window.Audit;
+
+// $ExpectType Audit
+globalThis.Audit
+
 // $ExpectType Audit
 Audit;
+
 // $ExpectType Audit
 window.PooolAudit;
+
+// $ExpectType Audit
+globalThis.PooolAudit
+
 // $ExpectType Audit
 PooolAudit;
 
