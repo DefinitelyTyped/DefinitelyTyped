@@ -1,10 +1,13 @@
-// For Library Version: 1.120.0
+// For Library Version: 1.121.0
 
 declare module "sap/ui/support/library" {
   /**
-   * @since 1.50
-   *
    * Defines the Audiences.
+   *
+   * This enum is part of the 'sap/ui/support/library' module export and must be accessed by the property
+   * 'Audiences'.
+   *
+   * @since 1.50
    */
   export enum Audiences {
     /**
@@ -21,9 +24,12 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @since 1.50
-   *
    * Issue Categories.
+   *
+   * This enum is part of the 'sap/ui/support/library' module export and must be accessed by the property
+   * 'Categories'.
+   *
+   * @since 1.50
    */
   export enum Categories {
     /**
@@ -43,9 +49,9 @@ declare module "sap/ui/support/library" {
      */
     DataModel = "DataModel",
     /**
-     * @since 1.58
-     *
      * Fiori Guidelines issue category.
+     *
+     * @since 1.58
      */
     FioriGuidelines = "FioriGuidelines",
     /**
@@ -57,9 +63,9 @@ declare module "sap/ui/support/library" {
      */
     Memory = "Memory",
     /**
-     * @since 1.60
-     *
      * Modularization issue category.
+     *
+     * @since 1.60
      */
     Modularization = "Modularization",
     /**
@@ -80,9 +86,12 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @since 1.58
-   *
    * Analysis history formats.
+   *
+   * This enum is part of the 'sap/ui/support/library' module export and must be accessed by the property
+   * 'HistoryFormats'.
+   *
+   * @since 1.58
    */
   export enum HistoryFormats {
     /**
@@ -120,9 +129,12 @@ declare module "sap/ui/support/library" {
   };
 
   /**
-   * @since 1.50
-   *
    * Defines severity types.
+   *
+   * This enum is part of the 'sap/ui/support/library' module export and must be accessed by the property
+   * 'Severity'.
+   *
+   * @since 1.50
    */
   export enum Severity {
     /**
@@ -139,9 +151,12 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @since 1.60
-   *
    * Contains the available system presets.
+   *
+   * This enum is part of the 'sap/ui/support/library' module export and must be accessed by the property
+   * 'SystemPresets'.
+   *
+   * @since 1.60
    */
   export enum SystemPresets {
     /**
@@ -149,9 +164,9 @@ declare module "sap/ui/support/library" {
      */
     Accessibility = "undefined",
     /**
-     * @experimental (since 1.120)
-     *
      * Preset to find usages of deprecated controls, properties, aggregations and others.
+     *
+     * @experimental (since 1.120)
      */
     Deprecations = "undefined",
   }
@@ -195,8 +210,6 @@ declare module "sap/ui/support/supportRules/History" {
 
 declare module "sap/ui/support/supportRules/ExecutionScope" {
   /**
-   * @since 1.48
-   *
    * Allows to select the scope of analysis on an application.
    *
    * Overview:
@@ -209,9 +222,14 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
    *
    * When you analyze your application, available objects are collected depending on the settings passed to
    * the Support Assistant at the moment when you start it.
+   *
+   * @since 1.48
    */
   export default class ExecutionScope {
-    constructor();
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    protected constructor();
 
     /**
      *
@@ -239,6 +257,7 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
     /**
      * Gets elements by their type
      *
+     *
      * @returns Array of matched elements
      */
     getElementsByClassName(
@@ -249,6 +268,7 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
     ): any[];
     /**
      * Gets the logged objects by object type
+     *
      *
      * @returns Array of logged objects
      */
@@ -261,11 +281,13 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
     /**
      * Returns all public elements, i.e. elements that are part of public API aggregations
      *
+     *
      * @returns Array of matched elements
      */
     getPublicElements(): any[];
     /**
      * Gets the type of the execution scope
+     *
      *
      * @returns The type of the execution scope. Possible values are `global`, `subtree` or `components`.
      */
@@ -296,9 +318,9 @@ declare module "sap/ui/support/RuleAnalyzer" {
    */
   interface RuleAnalyzer {
     /**
-     * @since 1.60
-     *
      * Adds new temporary rule when in silent mode
+     *
+     * @since 1.60
      *
      * @returns Rule creation status. Possible values are "success" or description of why adding failed.
      */
@@ -313,6 +335,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
      *
      * Allows to choose a particular execution scope - desired part of the UI to be checked and a flexible way
      * to specify the list of rules to be used.
+     *
      *
      * @returns Notifies the finished state by starting the Analyzer
      */
@@ -350,12 +373,14 @@ declare module "sap/ui/support/RuleAnalyzer" {
     /**
      * Returns the history of all executed analyses.
      *
+     *
      * @returns Array of history objects in the order of analyses performed. The results of the last analysis
      * are contained in the last element in the array.
      */
     getAnalysisHistory(): AnalysisResult[];
     /**
      * Returns the history of all executed analyses into formatted output depending on the passed format.
+     *
      *
      * @returns All analysis history objects in the correct format.
      */
@@ -368,6 +393,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
     /**
      * Returns the result of the last analysis performed.
      *
+     *
      * @returns Last analysis history.
      */
     getLastAnalysisHistory(): AnalysisResult;
@@ -379,12 +405,12 @@ declare module "sap/ui/support/RuleAnalyzer" {
 declare namespace sap {
   namespace ui {
     /**
-     * @since 1.50
-     *
      * UI5 library: sap.ui.support. A library for the Support Assistant tool. Overview: The library provides
      * the Support Assistant tool. It enables application developers to check whether their applications are
      * built according to the best practices for building SAPUI5 apps. The tool uses a set of pre-defined rules
      * to check all aspects of an application.
+     *
+     * @since 1.50
      */
     namespace support {
       /**
@@ -394,7 +420,10 @@ declare namespace sap {
        * Usage: The CoreFacade is passed as second argument to all rule check functions.
        */
       class CoreFacade {
-        constructor();
+        /**
+         * @ui5-protected Do not call from applications (only from related classes in the framework)
+         */
+        protected constructor();
 
         /**
          * Gets the Components from the Core object.
@@ -419,7 +448,10 @@ declare namespace sap {
        * Usage: The IssueManagerFacade is passed as first argument to all rule check functions.
        */
       class IssueManagerFacade {
-        constructor();
+        /**
+         * @ui5-protected Do not call from applications (only from related classes in the framework)
+         */
+        protected constructor();
 
         /**
          * Adds issue
