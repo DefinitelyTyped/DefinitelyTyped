@@ -1997,7 +1997,7 @@ declare namespace OracleDB {
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsdbtype
          */
-        dbType?: number | undefined;
+        dbType?: DbType | undefined;
         /**
          * The class associated with the database type. This is only set if the database type is an object type.
          */
