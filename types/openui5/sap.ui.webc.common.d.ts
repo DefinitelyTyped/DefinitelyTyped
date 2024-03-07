@@ -1,4 +1,4 @@
-// For Library Version: 1.120.0
+// For Library Version: 1.121.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -12,14 +12,14 @@ declare module "sap/ui/webc/common/WebComponent" {
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   /**
-   * @since 1.92.0
-   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
-   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
-   *
    * Base Class for Web Components. Web Components are agnostic UI elements which can be integrated into the
    * UI5 programming model by using this wrapper control. This wrapper control takes care to propagate the
    * properties, the aggregations and the events. It also ensures to render the control and put the aggregated
    * controls in the dedicated slots of the Web Component.
+   *
+   * @since 1.92.0
+   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
   export default class WebComponent extends WebComponent1 {
     /**
@@ -86,6 +86,7 @@ declare module "sap/ui/webc/common/WebComponent" {
      * ```
      *
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -104,6 +105,7 @@ declare module "sap/ui/webc/common/WebComponent" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.common.WebComponent.
+     *
      *
      * @returns Metadata object describing this class
      */
