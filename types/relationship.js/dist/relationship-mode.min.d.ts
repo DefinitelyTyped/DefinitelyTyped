@@ -1,4 +1,4 @@
-export as namespace relationshipModes;
-export = relationshipModes;
+export as namespace relationshipMode;
+export = relationshipMode;
 
-declare const relationshipModes: Record<string, { name: string; data: any }>;
+declare const relationshipMode: Record<string, { name: string; data: any }>;
