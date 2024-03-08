@@ -87,7 +87,6 @@ async function foo() {
         digests: false,
         filters: undefined,
     });
-    volumes.length;
 
     const nodes = await docker9.listNodes({
         abortSignal: undefined,
