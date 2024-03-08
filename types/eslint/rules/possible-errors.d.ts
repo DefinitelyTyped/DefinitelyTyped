@@ -467,6 +467,26 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-unsafe-negation": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow use of optional chaining in contexts where the `undefined` value is not allowed.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.15.0
+     * @see https://eslint.org/docs/rules/no-unsafe-optional-chaining
+     */
+    "no-unsafe-optional-chaining": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                disallowArithmeticOperators: boolean;
+            }>,
+        ]
+    >;
+
+    /**
      * Rule to disallow assignments that can lead to race conditions due to usage of `await` or `yield`.
      *
      * @remarks
