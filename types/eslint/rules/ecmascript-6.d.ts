@@ -180,9 +180,9 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * Rule to disallow duplicate module imports.
      *
      * @since 2.5.0
-     * @see https://eslint.org/docs/rules/no-duplicate-import
+     * @see https://eslint.org/docs/rules/no-duplicate-imports
      */
-    "no-duplicate-import": Linter.RuleEntry<
+    "no-duplicate-imports": Linter.RuleEntry<
         [
             Partial<{
                 /**
