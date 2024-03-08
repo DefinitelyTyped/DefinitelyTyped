@@ -131,6 +131,7 @@ declare module "process" {
                 value: unknown,
             ) => void;
             type WorkerListener = (worker: Worker) => void;
+            type LoadEnvFile = (path: String | URL | Buffer | undefined) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
             }
@@ -577,6 +578,22 @@ declare module "process" {
                  * @since v0.1.27
                  */
                 env: ProcessEnv;
+                /**
+                 * The `process.loadEnvFile()` method instructs Node.js to load the environment variables from a file.
+                 * If `path` is omitted, is loaded the `./.env` file.
+                 * 
+                 * To load a specific .env file:
+                 * ```js
+                 * import { loadEnvFile } from 'node:process';
+                 * 
+                 * loadEnvFile('./.env.development')
+                 * ```
+                 * This method is in development yet
+                 * 
+                 * @since 21.7.0
+                 * @link https://nodejs.org/docs/latest/api/process.html#processloadenvfilepath
+                 */
+                loadEnvFile: LoadEnvFile;
                 /**
                  * The `process.exit()` method instructs Node.js to terminate the process
                  * synchronously with an exit status of `code`. If `code` is omitted, exit uses
