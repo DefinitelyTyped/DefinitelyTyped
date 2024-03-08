@@ -24,6 +24,7 @@ declare namespace QueryString {
         allowDots?: boolean | undefined;
         charset?: "utf-8" | "iso-8859-1" | undefined;
         charsetSentinel?: boolean | undefined;
+        encodeDotInKeys?: boolean | undefined;
     }
 
     interface IParseOptions {
@@ -45,6 +46,9 @@ declare namespace QueryString {
         charset?: "utf-8" | "iso-8859-1" | undefined;
         charsetSentinel?: boolean | undefined;
         interpretNumericEntities?: boolean | undefined;
+        allowEmptyArrays?: boolean | undefined;
+        decodeDotInKeys?: boolean | undefined;
+        duplicates?: 'combine' | 'first' | 'last' | undefined;
     }
 
     interface ParsedQs {
