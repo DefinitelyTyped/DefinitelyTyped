@@ -902,6 +902,14 @@ export interface BestPractices extends Linter.RulesRecord {
     "prefer-named-capture-group": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow use of `Object.prototype.hasOwnProperty.call()` and prefer use of `Object.hasOwn()`.
+     *
+     * @since 3.5.0
+     * @see https://eslint.org/docs/rules/prefer-object-has-own
+     */
+    "prefer-object-has-own": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to require using Error objects as Promise rejection reasons.
      *
      * @since 3.14.0
