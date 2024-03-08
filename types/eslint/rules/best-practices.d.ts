@@ -607,6 +607,14 @@ export interface BestPractices extends Linter.RulesRecord {
     "no-new-wrappers": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow `\\8` and `\\9` escape sequences in string literals.
+     *
+     * @since 7.14.0
+     * @see https://eslint.org/docs/rules/no-nonoctal-decimal-escape
+     */
+    "no-nonoctal-decimal-escape": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow octal literals.
      *
      * @remarks
