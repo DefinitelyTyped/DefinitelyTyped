@@ -139,6 +139,22 @@ export interface BestPractices extends Linter.RulesRecord {
     >;
 
     /**
+     * Rule to enforce default clauses in switch statements to be last
+     *
+     * @since 7.0.0
+     * @see https://eslint.org/docs/latest/rules/default-case-last
+     */
+    "default-case-last": Linter.RuleEntry<[]>;
+
+    /**
+     * Enforce default parameters to be last
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/default-param-last
+     */
+    "default-param-last": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to enforce consistent newlines before and after dots.
      *
      * @since 0.21.0
