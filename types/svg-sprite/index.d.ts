@@ -200,6 +200,11 @@ declare namespace sprite {
          */
         namespaceIDs?: boolean | undefined;
         /**
+         * Under some circumstances, the automatically generated ID namespaces might interfere with external scripts.
+         * In these situations it might be helpful to prefix all IDs with a custom prefix set with this option.
+         */
+        namespaceIDPrefix?: string;
+        /**
          * In order to avoid CSS class name ambiguities, the default behavior is to namespace CSS class names in the source SVGs before compiling them into a sprite.
          * Each class name is prepended with a unique string. Disable this option to keep the class names untouched.
          * @default true
