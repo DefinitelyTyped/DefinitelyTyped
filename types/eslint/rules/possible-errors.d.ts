@@ -141,6 +141,17 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-dupe-args": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow duplicate conditions in if-else-if chains.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/rules/no-dupe-else-if
+     */
+    "no-dupe-else-if": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow duplicate keys in object literals.
      *
      * @remarks
