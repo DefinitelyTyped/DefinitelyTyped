@@ -461,6 +461,14 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    interface VolumePruneOptions {
+        abortSignal?: AbortSignal;
+        /**
+         * Filters to process on the prune list, encoded as JSON (a `map[string][]string`).
+         */
+        filters?: string;
+    }
+
     interface VolumeRemoveOptions {
         abortSignal?: AbortSignal;
     }
@@ -637,6 +645,10 @@ declare namespace Dockerode {
     }
 
     interface NetworkListOptions {
+        /**
+         * JSON encoded value of the filters (a `map[string][]string`) to process on the networks list.
+         */
+        filters?: string;
         abortSignal?: AbortSignal;
     }
 
@@ -653,6 +665,27 @@ declare namespace Dockerode {
             endpoint_id?: string; // not used on linux
             instance_id?: string; // not used on linux
         };
+    }
+
+    interface VolumeListOptions {
+        abortSignal?: AbortSignal;
+        /**
+         * A JSON encoded value of the filters (a map[string][]string) to process on the images list.
+         */
+        filters?: string;
+        /**
+         * Show digest information as a RepoDigests field on each image.
+         * @default false
+         */
+        digests?: boolean;
+    }
+
+    interface NodeListOptions {
+        abortSignal?: AbortSignal;
+        /**
+         * Filters to process on the nodes list, encoded as JSON (a `map[string][]string`).
+         */
+        filters?: string;
     }
 
     interface CPUUsage {
@@ -952,6 +985,14 @@ declare namespace Dockerode {
 
     interface ImageTagOptions {
         abortSignal?: AbortSignal;
+        /**
+         * The repository to tag in. For example, someuser/someimage.
+         */
+        repo: string;
+        /**
+         * The name of the new tag.
+         */
+        tag?: string;
     }
 
     interface AuthConfig {
@@ -1502,6 +1543,24 @@ declare namespace Dockerode {
 
     interface ContainerListOptions {
         abortSignal?: AbortSignal;
+        /**
+         * Return all containers. By default, only running containers are shown
+         * @default false
+         */
+        all?: boolean;
+        /**
+         * Return this number of most recently created containers, including non-running ones.
+         */
+        limit?: number;
+        /**
+         * Return the size of container as fields `SizeRw` and `SizeRootFs`.
+         * @default false
+         */
+        size?: boolean;
+        /**
+         * Filters to process on the container list, encoded as JSON (a map[string][]string).
+         */
+        filters?: string;
     }
 
     interface ServiceListOptions {
@@ -1963,9 +2022,9 @@ declare class Dockerode {
     listServices(callback: Callback<Dockerode.Service[]>): void;
     listServices(options?: Dockerode.ServiceListOptions): Promise<Dockerode.Service[]>;
 
-    listNodes(options: {}, callback: Callback<any[]>): void;
+    listNodes(options: Dockerode.NodeListOptions, callback: Callback<any[]>): void;
     listNodes(callback: Callback<any[]>): void;
-    listNodes(options?: {}): Promise<any[]>;
+    listNodes(options?: Dockerode.NodeListOptions): Promise<any[]>;
 
     listTasks(options: {}, callback: Callback<any[]>): void;
     listTasks(callback: Callback<any[]>): void;
@@ -1980,7 +2039,7 @@ declare class Dockerode {
     listPlugins(options?: {}): Promise<Dockerode.PluginInfo[]>;
 
     listVolumes(
-        options: {},
+        options: Dockerode.VolumeListOptions,
         callback: Callback<{
             Volumes: Dockerode.VolumeInspectInfo[];
             Warnings: string[];
@@ -1992,7 +2051,7 @@ declare class Dockerode {
             Warnings: string[];
         }>,
     ): void;
-    listVolumes(options?: {}): Promise<{
+    listVolumes(options?: Dockerode.VolumeListOptions): Promise<{
         Volumes: Dockerode.VolumeInspectInfo[];
         Warnings: string[];
     }>;
@@ -2036,9 +2095,9 @@ declare class Dockerode {
     pruneContainers(callback: Callback<Dockerode.PruneContainersInfo>): void;
     pruneContainers(options?: {}): Promise<Dockerode.PruneContainersInfo>;
 
-    pruneVolumes(options: {}, callback: Callback<Dockerode.PruneVolumesInfo>): void;
+    pruneVolumes(options: Dockerode.VolumePruneOptions, callback: Callback<Dockerode.PruneVolumesInfo>): void;
     pruneVolumes(callback: Callback<Dockerode.PruneVolumesInfo>): void;
-    pruneVolumes(options?: {}): Promise<Dockerode.PruneVolumesInfo>;
+    pruneVolumes(options?: Dockerode.VolumePruneOptions): Promise<Dockerode.PruneVolumesInfo>;
 
     pruneNetworks(options: {}, callback: Callback<Dockerode.PruneNetworksInfo>): void;
     pruneNetworks(callback: Callback<Dockerode.PruneNetworksInfo>): void;
