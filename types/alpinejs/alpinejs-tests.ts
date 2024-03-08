@@ -648,6 +648,11 @@ import Alpine, {
         "@custom-event"(e: string) {},
         // does not require event
         "@keydown"() {},
+        // infers Event type
+        "@keyup"(e) {
+            // $ExpectType KeyboardEvent
+            e;
+        },
     }));
 
     // @ts-expect-error: does not allow incorrect event types
