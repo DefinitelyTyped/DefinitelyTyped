@@ -201,6 +201,14 @@ export interface BestPractices extends Linter.RulesRecord {
         | Linter.RuleEntry<["smart" | "allow-null"]>;
 
     /**
+     * Require grouped accessor pairs in object literals and classes.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/latest/rules/grouped-accessor-pairs
+     */
+    "grouped-accessor-pairs": Linter.RuleEntry<["anyOrder" | "getBeforeSet" | "setBeforeGet"]>;
+
+    /**
      * Rule to require `for-in` loops to include an `if` statement.
      *
      * @since 0.0.6
