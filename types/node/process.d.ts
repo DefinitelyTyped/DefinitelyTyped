@@ -1186,7 +1186,7 @@ declare module "process" {
                  * @since v21.7.0
                  * @param path The path to the .env file
                  */
-                loadEnvFile(path: string | URL | Buffer | undefined): void
+                loadEnvFile(path: string | URL | Buffer | undefined): void;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 /**
                  * `process.nextTick()` adds `callback` to the "next tick queue". This queue is
