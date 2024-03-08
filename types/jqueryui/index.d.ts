@@ -588,7 +588,7 @@ declare namespace JQueryUI {
         aspectRatio?: number | boolean;
         autoHide?: boolean | undefined;
         cancel?: string | undefined;
-        classes: Record<ResizableThemingClass, string>,
+        classes?: Partial<Record<ResizableThemingClass, string>>,
         containment?: any; // Selector, Element or string
         delay?: number | undefined;
         disabled?: boolean | undefined;
