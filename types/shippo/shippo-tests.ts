@@ -109,7 +109,7 @@ shippo.transaction.create({
 shippo.transaction.create({
     carrier_account: "carrier_account",
     label_file_type: "PDF",
-    metadata: 'metadata',
+    metadata: "metadata",
     servicelevel_token: "servicelevel_token",
     shipment: {
         address_to: {
@@ -142,7 +142,7 @@ shippo.transaction.create({
                 width: "1",
             },
         ],
-     }
+    },
 });
 
 // $ExpectType Promise<Transaction>
