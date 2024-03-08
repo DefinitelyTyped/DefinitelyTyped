@@ -31,13 +31,6 @@ export interface PossibleErrors extends Linter.RulesRecord {
             }>,
         ]
     >;
-    /**
-     * Rule to enforce default clauses in switch statements to be last
-     *
-     * @since 7.0.0
-     * @see https://eslint.org/docs/latest/rules/default-case-last
-     */
-    "default-case-last": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow using an async function as a `Promise` executor.
