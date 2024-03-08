@@ -389,14 +389,12 @@ docker.pruneVolumes((err, response) => {
 });
 
 docker.pruneVolumes({
-    abortSignal: new AbortController().signal
+    abortSignal: new AbortController().signal,
 }, (err, response) => {
     // NOOP
 });
 
-docker.listVolumes({
-
-})
+docker.listVolumes({});
 
 docker.createService(
     {
@@ -449,7 +447,7 @@ image.distribution({}, (err, response) => {
     // NOOP;
 });
 
-image.tag({ abortSignal: new AbortController().signal, repo: 'hello/world', tag: 'latest' });
+image.tag({ abortSignal: new AbortController().signal, repo: "hello/world", tag: "latest" });
 
 image.distribution((err, response) => {
     // NOOP;
