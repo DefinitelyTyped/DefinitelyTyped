@@ -249,6 +249,10 @@ docker.listContainers({ abortSignal: new AbortController().signal }).then(contai
     return containers.map(container => docker.getContainer(container.Id));
 });
 
+docker.listContainers({ all: true }).then(containers => {
+    return containers.map(container => docker.getContainer(container.Id));
+});
+
 docker.listImages({
     all: true,
     filters: "{\"dangling\":[\"true\"]}",

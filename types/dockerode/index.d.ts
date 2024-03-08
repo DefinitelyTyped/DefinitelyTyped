@@ -1502,6 +1502,7 @@ declare namespace Dockerode {
 
     interface ContainerListOptions {
         abortSignal?: AbortSignal;
+        all?: boolean | undefined;
     }
 
     interface ServiceListOptions {
