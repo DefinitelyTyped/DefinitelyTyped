@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/lennym/express-healthcheck"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "@types/express": "*"
     },

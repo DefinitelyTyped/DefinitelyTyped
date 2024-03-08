@@ -6,7 +6,6 @@
         "https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/editor-client",
         "https://nodered.org/"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "@types/ace": "*",
         "@types/jquery": "*",
