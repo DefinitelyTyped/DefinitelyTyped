@@ -3,7 +3,7 @@ export type ElementWithXAttributes<T extends Element = HTMLElement> = withXAttri
 export type withXAttributes<T extends Element> = T & Partial<XAttributes>;
 
 export interface XAttributes {
-    _x_virtualDirectives: Bindings;
+    _x_virtualDirectives: Bindings<{}>;
     _x_ids: Record<string, number>;
     _x_effects: Set<() => void>;
     _x_runEffects: () => void;
@@ -74,9 +74,11 @@ interface Binding {
     extract: boolean;
 }
 
-export interface Bindings {
-    [key: string]: string | ((...args: any[]) => unknown);
-}
+export type Bindings<T> = {
+    [key in keyof T]: key extends `${"x-on:" | "@"}${infer K extends keyof HTMLElementEventMap}`
+        ? string | ((e: HTMLElementEventMap[K]) => void)
+        : string | ((...args: any[]) => void);
+};
 
 export type AttrMutationCallback = (
     el: ElementWithXAttributes,
@@ -476,7 +478,14 @@ export interface Alpine {
         name: string,
         callback: (...args: A) => AlpineComponent<T>, // Needed generic to properly autotype objects
     ) => void;
-    bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;
+    /**
+     * Binds directives and attributes to an element
+     */
+    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): void;
+    /**
+     * Registers a named binding group to be exposed to `x-bind` directive expressions
+     */
+    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: unknown[]) => T)): void;
 }
 
 declare const Alpine: Alpine;
