@@ -1176,7 +1176,7 @@ declare module "process" {
                  * Loads the environment configuration from a `.env` file into `process.env`. If
                  * the file is not found, no error will be thrown.
                  *
-                 * To load a specific .env file by specifying its path.
+                 * To load a specific .env file by specifying its path, use the following code:
                  *
                  * ```js
                  * import { loadEnvFile } from 'node:process';
