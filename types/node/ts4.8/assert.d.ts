@@ -687,14 +687,22 @@ declare module "assert" {
          * // If the error message does not match, an AssertionError is thrown.
          * assert.throws(throwingFirst, /Second$/);
          * // AssertionError [ERR_ASSERTION]
+         *
+         * // If the first error message is type of Error and the message is 'First'
+         * asserts.throws(throwingFirst, { name: 'Error', message: 'First' })
          * ```
          *
          * Due to the confusing error-prone notation, avoid a string as the second
          * argument.
          * @since v0.1.21
+         * @link https://nodejs.org/docs/latest/api/assert.html#assertthrowsfn-error-message
          */
-        function throws(block: () => unknown, message?: string | Error): void;
-        function throws(block: () => unknown, error: AssertPredicate, message?: string | Error): void;
+        function throws(block: () => unknown, message?: string | Error | { name?: string; message?: string }): void;
+        function throws(
+            block: () => unknown,
+            error: AssertPredicate,
+            message?: string | Error | { name?: string; message?: string },
+        ): void;
         /**
          * Asserts that the function `fn` does not throw an error.
          *
@@ -755,10 +763,31 @@ declare module "assert" {
          * );
          * // Throws: AssertionError: Got unwanted exception: Whoops
          * ```
+         *
+         * If an `TypeError` is thrown and his error is `TypeError` and message is 'Wrong Value'
+         * assert.doesNotThrow(
+         *   () => {
+         *     throw new TypeError('Wrong value');
+         *   },
+         *   {
+         *      name: 'TypeError',
+         *      message: 'Wrong Value',
+         *   },
+         * );
+         * // Throws: TypeError: Got unwanted exception: Wrong Value
+         * ```
          * @since v0.1.21
+         * @link https://nodejs.org/docs/latest/api/assert.html#assertdoesnotthrowfn-error-message
          */
-        function doesNotThrow(block: () => unknown, message?: string | Error): void;
-        function doesNotThrow(block: () => unknown, error: AssertPredicate, message?: string | Error): void;
+        function doesNotThrow(
+            block: () => unknown,
+            message?: string | Error | { name?: string; message?: string },
+        ): void;
+        function doesNotThrow(
+            block: () => unknown,
+            error: AssertPredicate,
+            message?: string | Error | { name?: string; message?: string },
+        ): void;
         /**
          * Throws `value` if `value` is not `undefined` or `null`. This is useful when
          * testing the `error` argument in callbacks. The stack trace contains all frames

@@ -695,6 +695,7 @@ declare module "assert" {
          * Due to the confusing error-prone notation, avoid a string as the second
          * argument.
          * @since v0.1.21
+         * @link https://nodejs.org/docs/latest/api/assert.html#assertthrowsfn-error-message
          */
         function throws(block: () => unknown, message?: string | Error | { name?: string; message?: string }): void;
         function throws(
@@ -776,6 +777,7 @@ declare module "assert" {
          * // Throws: TypeError: Got unwanted exception: Wrong Value
          * ```
          * @since v0.1.21
+         * @link https://nodejs.org/docs/latest/api/assert.html#assertdoesnotthrowfn-error-message
          */
         function doesNotThrow(
             block: () => unknown,
