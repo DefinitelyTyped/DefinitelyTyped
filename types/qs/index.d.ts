@@ -29,7 +29,7 @@ declare namespace QueryString {
 
     type IStringifyDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
       ? { allowDots?: AllowDots, encodeDotInKeys?: boolean }
-      : { allowDots?: AllowDots, encodeDotInKeys?: false | undefined }
+      : { allowDots?: boolean, encodeDotInKeys?: false }
 
     type IStringifyOptions<AllowDots extends BooleanOptional = undefined> = IStringifyBaseOptions & IStringifyDynamicOptions<AllowDots>
 
@@ -57,7 +57,7 @@ declare namespace QueryString {
 
     type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
       ? { allowDots?: AllowDots, decodeDotInKeys?: boolean }
-      : { allowDots?: AllowDots, decodeDotInKeys?: false | undefined }
+      : { allowDots?: boolean, decodeDotInKeys?: false }
 
     type IParseOptions<AllowDots extends BooleanOptional = undefined> = IParseBaseOptions & IParseDynamicOptions<AllowDots>
 
