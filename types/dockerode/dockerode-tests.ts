@@ -62,7 +62,12 @@ const docker11 = new Docker({
 });
 
 async function foo() {
-    const containers = await docker7.listContainers();
+    const containers = await docker7.listContainers({
+        all: false,
+        limit: 5,
+        size: true,
+        filters: undefined,
+    });
     for (const container of containers) {
         const foo = await docker7.getContainer(container.Id);
         const inspect = await foo.inspect();
@@ -76,6 +81,17 @@ async function foo() {
         const inspect = await foo.inspect();
         await foo.remove();
     }
+
+    const volumes = await docker8.listVolumes({
+        abortSignal: new AbortController().signal,
+        digests: false,
+        filters: undefined,
+    });
+
+    const nodes = await docker9.listNodes({
+        abortSignal: undefined,
+        filters: undefined,
+    });
 }
 
 docker.getEvents(
@@ -372,6 +388,14 @@ docker.pruneVolumes((err, response) => {
     // NOOP
 });
 
+docker.pruneVolumes({
+    abortSignal: new AbortController().signal,
+}, (err, response) => {
+    // NOOP
+});
+
+docker.listVolumes({});
+
 docker.createService(
     {
         Name: "network-name",
@@ -423,7 +447,7 @@ image.distribution({}, (err, response) => {
     // NOOP;
 });
 
-image.tag({ abortSignal: new AbortController().signal });
+image.tag({ abortSignal: new AbortController().signal, repo: "hello/world", tag: "latest" });
 
 image.distribution((err, response) => {
     // NOOP;

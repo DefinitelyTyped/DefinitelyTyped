@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/CADViewer/cadviewer-testapp-react-01"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "devDependencies": {
         "@types/cadviewer": "workspace:."
     },
