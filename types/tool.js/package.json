@@ -1,5 +1,5 @@
 {
-    "name": "@types/tool-extend",
+    "name": "@types/tool.js",
     "version": "1.0.0",
     "private": true,
     "projects": [
@@ -12,6 +12,6 @@
         }
     ],
     "devDependencies": {
-        "@types/tool-types": "workspace:."
+        "@types/tool.js": "workspace:."
     }
 }
