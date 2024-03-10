@@ -2,6 +2,7 @@
     "name": "@types/tool.js",
     "version": "1.0.9999",
     "private": true,
+    "nonNpm": true,
     "projects": [
         "https://github.com/epldlnwynn/tool.js"
     ],

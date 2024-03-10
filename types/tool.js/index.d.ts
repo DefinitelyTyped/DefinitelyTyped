@@ -47,7 +47,7 @@ declare global {
     interface Object {
 
         toJSONString(): string;
-        toJSONString<T>(replacer?: Array<T> | null, space?: string | number): string;
+        toJSONString<T>(replacer?: T[] | null, space?: string | number): string;
         toJSONString(replacer?: (this: any, key: string, value: any) => any, space?: string | number): string;
 
     }
