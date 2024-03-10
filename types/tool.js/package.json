@@ -1,6 +1,6 @@
 {
     "name": "@types/tool.js",
-    "version": "1.0.0",
+    "version": "1.0.9999",
     "private": true,
     "projects": [
         "https://github.com/epldlnwynn/tool.js"
