@@ -227,10 +227,10 @@ export interface ReactiveEffect<T = any> {
     raw: () => T;
 }
 
-type GetterSetter<T> = {
+interface GetterSetter<T> {
     get(): T;
     set(value: T): void;
-};
+}
 
 export interface Alpine {
     /**
