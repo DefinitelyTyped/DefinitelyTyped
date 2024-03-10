@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "tool-types-tests.ts"
+        "tool-js-tests.ts"
     ]
 }
