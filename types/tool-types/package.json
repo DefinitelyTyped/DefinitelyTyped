@@ -10,5 +10,8 @@
             "name": "epldlnwynn",
             "githubUsername": "epldlnwynn"
         }
-    ]
+    ],
+    "devDependencies": {
+        "@types/tool-types": "workspace:."
+    }
 }
