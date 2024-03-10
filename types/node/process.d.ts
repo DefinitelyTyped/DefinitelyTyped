@@ -1045,6 +1045,21 @@ declare module "process" {
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**
+                 * Loads the environment configuration from a `.env` file into `process.env`. If
+                 * the file is not found, no error will be thrown.
+                 *
+                 * To load a specific .env file by specifying its path, use the following code:
+                 *
+                 * ```js
+                 * import { loadEnvFile } from 'node:process';
+                 *
+                 * process.loadEnvFile('./development.env')
+                 * ```
+                 * @since v21.7.0
+                 * @param path The path to the .env file
+                 */
+                loadEnvFile(path: string | URL | Buffer | undefined): void;
+                /**
                  * The `process.pid` property returns the PID of the process.
                  *
                  * ```js
@@ -1172,21 +1187,6 @@ declare module "process" {
                  * @since v6.1.0
                  * @param previousValue A previous return value from calling `process.cpuUsage()`
                  */
-                /**
-                 * Loads the environment configuration from a `.env` file into `process.env`. If
-                 * the file is not found, no error will be thrown.
-                 *
-                 * To load a specific .env file by specifying its path, use the following code:
-                 *
-                 * ```js
-                 * import { loadEnvFile } from 'node:process';
-                 *
-                 * process.loadEnvFile('./development.env')
-                 * ```
-                 * @since v21.7.0
-                 * @param path The path to the .env file
-                 */
-                loadEnvFile(path: string | URL | Buffer | undefined): void;
                 cpuUsage(previousValue?: CpuUsage): CpuUsage;
                 /**
                  * `process.nextTick()` adds `callback` to the "next tick queue". This queue is
