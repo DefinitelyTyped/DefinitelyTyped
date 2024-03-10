@@ -3,6 +3,7 @@
     "version": "1.0.9999",
     "private": true,
     "nonNpm": true,
+    "nonNpmDescription": "原生扩展",
     "projects": [
         "https://github.com/epldlnwynn/tool.js"
     ],
