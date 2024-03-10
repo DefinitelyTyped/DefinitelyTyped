@@ -1,21 +1,13 @@
 {
     "name": "@types/tool-extend",
     "version": "1.0.0",
-    "description": "tool.js is a tool class that extends many commonly used functions.",
-    "homepage": "https://github.com/epldlnwynn/tool.js/#readme",
-    "license": "MIT",
-    "contributors": [],
-    "main": "",
-    "types": "index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-        "directory": "types/tool-extend"
-    },
-    "scripts": {},
-    "dependencies": {
-        "@types/node": "*"
-    },
-    "typesPublisherContentHash": "a21ea4566c2a8061bf191cd44e995d38eaf40ffca2ae95fd65b62d23fb22bce3",
-    "typeScriptVersion": "4.5"
+    "projects": [
+        "https://github.com/epldlnwynn/tool.js"
+    ],
+    "owners": [
+        {
+            "name": "epldlnwynn",
+            "githubUsername": "epldlnwynn"
+        }
+    ]
 }
