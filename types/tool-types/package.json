@@ -1,6 +1,7 @@
 {
     "name": "@types/tool-extend",
     "version": "1.0.0",
+    "private": true,
     "projects": [
         "https://github.com/epldlnwynn/tool.js"
     ],
