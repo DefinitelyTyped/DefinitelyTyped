@@ -232,7 +232,7 @@ export interface Alpine {
     /**
      * Releases an effect from reactive to dependency changes
      *
-     * @param {ReactiveEffect} effect returned from `Alpine.effect`
+     * @param {ReactiveEffect} effect returned from {@link Alpine.effect}
      */
     readonly release: (effect: ReactiveEffect) => void;
     /**
@@ -271,7 +271,7 @@ export interface Alpine {
     disableEffectScheduling: (callback: () => void) => void;
     /**
      * Starts observing the Alpine component tree for mutations
-     * Used internally in `Alpine.start`
+     * Used internally in {@link Alpine.start}
      */
     startObservingMutations: () => void;
     /**
@@ -461,16 +461,16 @@ export interface Alpine {
      */
     destroyTree: (root: ElementWithXAttributes) => void;
     /**
-     * @private
      * Helper function for building data interceptor objects
-     * @param callback
+     * @internal
+     * @param callback to run on Interception
      * @param mutator to further mutate the Interceptor
      * @returns Interceptor Function
      */
     interceptor: interceptor;
     /**
-     * @private
      * Runs a series of transitions on an element
+     * @internal
      * @param el to apply transitions to
      * @param setFunction that applies the state
      * @param State Object with keys for start, during, and end
@@ -578,7 +578,7 @@ export interface Alpine {
     evaluate: <T_9>(el: Node, expression: string | (() => T_9), extras?: {}) => T_9;
     /**
      * Initializes the Alpine tree rooted at a particular element
-     * Used internally in `Alpine.start` and to initialize cloned templates
+     * Used internally in {@link Alpine.start} and to initialize cloned templates
      * @param el to initialize as the root
      * @param walker callback to assist in walking the tree
      * @param intercept initialization of elements
@@ -636,17 +636,17 @@ export interface Alpine {
      */
     start: () => void;
     /**
-     * @private
-     * @deprecated
      * Clones the Alpine context of an element to another element
+     * @internal
+     * @deprecated use {@link Alpine.cloneNode} instead
      * @param oldEl element to clone from
      * @param newEl element to clone to
      * @returns
      */
     clone: (oldEl: ElementWithXAttributes, newEl: ElementWithXAttributes) => void;
     /**
-     * @private
      * Clones the Alpine context of an element to another element
+     * @internal
      * @param from element to clone from
      * @param to element to clone to
      */
