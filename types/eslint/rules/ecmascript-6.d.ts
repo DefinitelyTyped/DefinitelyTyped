@@ -406,6 +406,14 @@ export interface ECMAScript6 extends Linter.RulesRecord {
     >;
 
     /**
+     * Disallow the use of `Math.pow` in favor of the `**` operator.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/latest/rules/prefer-exponentiation-operator
+     */
+    "prefer-exponentiation-operator": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals.
      *
      * @since 3.5.0
