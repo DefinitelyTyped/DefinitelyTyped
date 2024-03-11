@@ -467,6 +467,17 @@ export interface BestPractices extends Linter.RulesRecord {
     "no-implied-eval": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow assigning to imported bindings.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/no-import-assign
+     */
+    "no-import-assign": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow `this` keywords outside of classes or class-like objects.
      *
      * @since 1.0.0-rc-2
