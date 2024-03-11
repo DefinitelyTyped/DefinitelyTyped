@@ -953,6 +953,23 @@ export interface BestPractices extends Linter.RulesRecord {
     >;
 
     /**
+     * Disallow use of the `RegExp` constructor in favor of regular expression literals.
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/prefer-regex-literals
+     */
+    "prefer-regex-literals": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                disallowRedundantWrapping: boolean;
+            }>,
+        ]
+    >;
+
+    /**
      * Rule to enforce the consistent use of the radix argument when using `parseInt()`.
      *
      * @since 0.0.7
