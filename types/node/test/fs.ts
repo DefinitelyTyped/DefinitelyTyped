@@ -582,7 +582,7 @@ async function testPromisify() {
         }(),
     );
     await writeFileAsync("test", process.stdin);
-    await writeFileAsync("test", "test", { flush: true })
+    await writeFileAsync("test", "test", { flush: true });
 });
 
 {
