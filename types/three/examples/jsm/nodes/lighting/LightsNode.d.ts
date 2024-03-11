@@ -1,4 +1,4 @@
-import { Light } from "../../../../src/Three.js";
+import { Light } from "three";
 import Node from "../core/Node.js";
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 import LightingNode from "./LightingNode.js";

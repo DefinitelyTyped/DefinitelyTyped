@@ -9,7 +9,6 @@
         "source-map": "^0.6.1"
     },
     "devDependencies": {
-        "@types/node": "*",
         "@types/uglify-js": "workspace:."
     },
     "owners": [

@@ -61,15 +61,7 @@
         "csstype": "^3.0.2"
     },
     "devDependencies": {
-        "@types/create-react-class": "*",
         "@types/react": "workspace:.",
-        "@types/react-addons-create-fragment": "*",
-        "@types/react-addons-linked-state-mixin": "*",
-        "@types/react-addons-pure-render-mixin": "*",
-        "@types/react-addons-shallow-compare": "*",
-        "@types/react-addons-update": "*",
-        "@types/react-dom": "*",
-        "@types/react-dom-factories": "*",
         "@types/trusted-types": "*"
     },
     "owners": [
@@ -180,6 +172,10 @@
         {
             "name": "Dmitry Semigradsky",
             "githubUsername": "Semigradsky"
+        },
+        {
+            "name": "Matt Pocock",
+            "githubUsername": "mattpocock"
         }
     ]
 }

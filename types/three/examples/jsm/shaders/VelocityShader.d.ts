@@ -1,4 +1,4 @@
-import { IUniform, UniformsLib } from "../../../src/Three.js";
+import { IUniform, UniformsLib } from "three";
 
 export const VelocityShader: {
     name: string;

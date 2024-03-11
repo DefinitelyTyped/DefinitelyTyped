@@ -1,4 +1,4 @@
-import { Mesh, Object3D, Texture } from "../../../src/Three.js";
+import { Mesh, Object3D, Texture } from "three";
 
 export class MD2CharacterComplex {
     constructor();

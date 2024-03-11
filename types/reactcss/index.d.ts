@@ -1,8 +1,7 @@
 import * as React from "react";
 
-interface LoopableProps {
+interface LoopableProps extends React.RefAttributes<any> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<any> | undefined;
     "nth-child": number;
     "first-child"?: boolean | undefined;
     "last-child"?: boolean | undefined;
@@ -10,9 +9,8 @@ interface LoopableProps {
     odd?: boolean | undefined;
 }
 
-interface HoverProps<T> {
+interface HoverProps<T> extends React.RefAttributes<T> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<T> | undefined;
     hover?: boolean | undefined;
 }
 

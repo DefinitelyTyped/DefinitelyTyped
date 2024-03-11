@@ -187,7 +187,7 @@ declare module "libname" {
 | [`.npmignore`](#npmignore)                     | 指定哪些文件应包含在包中。                                               |
 
 通过运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件。
-可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
+可以在 [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen) 查看所有的选项。
 
 如果软件包中除了 `index.d.ts` 以外还有别的 `.d.ts` 文件，请确保它们在 `index.d.ts` 或测试文件中被引用。
 

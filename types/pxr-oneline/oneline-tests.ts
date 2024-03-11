@@ -28,6 +28,7 @@ const ndmOne: OneLine.OneLine = {
         );
     },
     buildVideoUrl: (bidder, placementID) => {},
+    adUnitInfiniteRequest: (bidder) => {},
 };
 
 // Test cases

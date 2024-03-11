@@ -11,7 +11,7 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     Wrapping,
-} from "../../../src/Three.js";
+} from "three";
 
 export interface Variable {
     name: string;

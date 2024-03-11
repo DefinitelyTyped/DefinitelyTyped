@@ -31,8 +31,25 @@ const requestHandler: CloudFrontRequestHandler = async (event, context, cb) => {
         customHeaders: {},
         domainName: "example.com",
         path: "/",
+    };
+    s3Origin = {
+        authMethod: "origin-access-identity",
+        customHeaders: {},
+        domainName: "example.com",
+        path: "/",
         region: "us-east-1",
     };
+
+    if (request.origin?.s3?.authMethod === "none") {
+        str = request.origin.s3.path;
+        // @ts-expect-error
+        str = request.origin.s3.region;
+    }
+
+    if (request.origin?.s3?.authMethod === "origin-access-identity") {
+        str = request.origin.s3.path;
+        str = request.origin.s3.region;
+    }
 
     if (request.origin && request.origin.custom) {
         request.origin.custom.domainName;

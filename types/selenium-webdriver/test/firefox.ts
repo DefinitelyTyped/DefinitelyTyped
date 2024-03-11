@@ -23,7 +23,6 @@ function TestFirefoxOptions() {
     options = options.setBinary("binary");
     options = options.setProfile("profile");
     options = options.setProxy({ proxyType: "proxy" });
-    options = options.headless();
     options = options.addArguments("argument");
     options = options.addExtensions("/dev/null");
     options = options.setPreference("key", "value");

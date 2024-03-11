@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/compulim/react-scroll-to-bottom"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "dependencies": {
         "@types/react": "*"
     },

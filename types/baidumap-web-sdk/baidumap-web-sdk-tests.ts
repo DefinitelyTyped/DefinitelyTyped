@@ -24,6 +24,14 @@ class TestFixture {
         map.addOverlay(marker);
         marker.setAnimation(BMAP_ANIMATION_BOUNCE);
     }
+    addPolyline(map: BMap.Map, points: BMap.Point[]) {
+        const polyline = new BMap.Polyline(points, {
+            icons: [
+                new BMap.IconSequence(new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW), undefined, "20px"),
+            ],
+        });
+        map.addOverlay(polyline);
+    }
     create_map(map: BMap.Map, city: string) {
         map.centerAndZoom(city);
     }
