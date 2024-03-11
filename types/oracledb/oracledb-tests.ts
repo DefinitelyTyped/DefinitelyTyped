@@ -631,7 +631,6 @@ const version6Tests = async (): Promise<void> => {
     const lob = await connection.createLob(oracledb.CLOB);
 
     const offset = 1, len = 100;
-
     await lob.getData(offset);
     await lob.getData(offset + 3, len);
 
