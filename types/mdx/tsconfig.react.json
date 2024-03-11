@@ -5,12 +5,11 @@
             "es6"
         ],
         "jsx": "react-jsx",
-        "jsxImportSource": "preact",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "types": ["mdx", "preact"],
+        "types": ["mdx", "react"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

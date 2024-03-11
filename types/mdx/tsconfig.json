@@ -4,8 +4,6 @@
         "lib": [
             "es6"
         ],
-        "jsx": "react-jsx",
-        "jsxImportSource": "preact",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
