@@ -10,7 +10,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "types": ["mdx", "preact"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
