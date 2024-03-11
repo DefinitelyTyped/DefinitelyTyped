@@ -1984,6 +1984,20 @@ declare namespace OracleDB {
         close(callback: (error: DBError) => void): void;
 
         /**
+         * Return all the LOB data. CLOBs and NCLOBs will be returned as strings. BLOBs will be returned as a Buffer.
+         *
+         * This method is usable for LOBs up to 1 GB in length.
+         *
+         * For queries returning LOB columns, it can be more efficient to use fetchAsString, fetchAsBuffer, or fetchInfo instead of lob.getData().
+         *
+         * Note it is an asynchronous method and requires a round-trip to the database.
+         *
+         * @since 4.0
+         */
+        getData(): Promise<string | Buffer>;
+        getData(callback: (error: DBError, data: string | Buffer) => void): void;
+
+        /**
          * Returns a portion (or all) of the data in the LOB object. Note that
          * the offset is in bytes for BLOB and BFILE type LOBs and
          * in UCS-2 code points for CLOB and NCLOB type LOBs. UCS-2 code points
@@ -1997,13 +2011,12 @@ declare namespace OracleDB {
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
          *
-         * @since 4.0
+         * @since 6.4.0
          *
          * @param offset The absolute offset inside LOB.
          * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
+         *
          */
-        getData(): Promise<string | Buffer>;
-        getData(callback: (error: DBError, data: string | Buffer) => void): void;
         getData(offset: number): Promise<string | Buffer>;
         getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
         getData(offset: number, amount: number): Promise<string | Buffer>;
