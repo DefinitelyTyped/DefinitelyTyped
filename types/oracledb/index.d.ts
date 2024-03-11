@@ -1109,6 +1109,27 @@ declare namespace OracleDB {
         execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
 
         /**
+         * This call executes a single SQL or PL/SQL statement.
+         *
+         * @param sql The SQL object that has statement to be executed and bindParams.
+         * The statement may contain bind parameters.
+         * The SQL object contains bind parameters if statement has it.
+         * @param options This is an optional parameter to execute() that may be used to control statement execution.
+         *
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
+         * @see https://github.com/blakeembrey/sql-template-tag
+         * @see https://github.com/oracle/node-oracledb/issues/1629
+         */
+        execute<T>(sql: object): Promise<Result<T>>;
+        execute<T>(sql: object, callback: (error: DBError, result: Result<T>) => void): void;
+        execute<T>(sql: object, options: ExecuteOptions): Promise<Result<T>>;
+        execute<T>(
+            sql: object,
+            options: ExecuteOptions,
+            callback: (error: DBError, result: Result<T>) => void,
+        ): void;
+
+        /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
          * It is like calling connection.execute() multiple times but requires fewer round-trips.
          * This is an efficient way to handle batch changes, for example when inserting or updating multiple rows.
@@ -1963,7 +1984,12 @@ declare namespace OracleDB {
         close(callback: (error: DBError) => void): void;
 
         /**
-         * Return all the LOB data. CLOBs and NCLOBs will be returned as strings. BLOBs will be returned as a Buffer.
+         * Returns a portion (or all) of the data in the LOB object. Note that
+         * the offset is in bytes for BLOB and BFILE type LOBs and
+         * in UCS-2 code points for CLOB and NCLOB type LOBs. UCS-2 code points
+         * are equivalent to characters for all but supplemental characters.
+         * If supplemental characters are in the LOB, the offset will
+         * have to be chosen carefully to avoid splitting a character.
          *
          * This method is usable for LOBs up to 1 GB in length.
          *
@@ -1972,9 +1998,16 @@ declare namespace OracleDB {
          * Note it is an asynchronous method and requires a round-trip to the database.
          *
          * @since 4.0
+         *
+         * @param offset The absolute offset inside LOB.
+         * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
          */
         getData(): Promise<string | Buffer>;
         getData(callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number): Promise<string | Buffer>;
+        getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number, amount: number): Promise<string | Buffer>;
+        getData(offset: number, amount: number, callback: (error: DBError, data: string | Buffer) => void): void;
     }
 
     /**
