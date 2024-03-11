@@ -5,6 +5,9 @@
     "projects": [
         "http://nmrugg.github.com/LZMA-JS/"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/lzma": "workspace:."
     },
