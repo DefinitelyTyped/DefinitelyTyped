@@ -7,7 +7,7 @@
     "projects": [
         "https://github.com/mdx-js/mdx"
     ],
-    "tsconfigs": ["tsconfig.frameworkless.json", "tsconfig.preact.json", "tsconfig.react.json"],
+    "tsconfigs": ["tsconfig.preact.json", "tsconfig.react.json"],
     "devDependencies": {
         "@types/mdx": "workspace:.",
         "@types/react": "*",
