@@ -1008,6 +1008,7 @@ declare module "fs/promises" {
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
                 flag?: OpenMode | undefined;
+                flush?: boolean;
             } & Abortable)
             | BufferEncoding
             | null,
