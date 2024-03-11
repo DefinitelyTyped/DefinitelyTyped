@@ -5,16 +5,17 @@
             "es6"
         ],
         "jsx": "react",
+        "jsxFactory": "jsx",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "types": ["mdx", "react"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-tests.tsx"
+        "frameworkless-tests.tsx"
     ]
 }

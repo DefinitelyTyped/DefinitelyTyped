@@ -1,5 +1,5 @@
 import { MDXComponents, MDXContent, MDXModule } from "mdx/types";
-import { Component, ComponentProps } from "preact";
+import { Component, ComponentProps, h } from "preact";
 import * as runtime from "preact/jsx-runtime";
 import MyMarkdownComponent from "./MyComponent.markdown";
 import MyMDComponent from "./MyComponent.md";
