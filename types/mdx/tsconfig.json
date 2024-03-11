@@ -1,7 +1,20 @@
 {
-    "files": [],
-    "references": [
-        { "path": "./test/preact" },
-        { "path": "./test/react" }
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts"
     ]
 }

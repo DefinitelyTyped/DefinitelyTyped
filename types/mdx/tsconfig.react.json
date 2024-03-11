@@ -13,5 +13,9 @@
         "types": ["mdx", "preact"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "react-tests.tsx"
+    ]
 }
