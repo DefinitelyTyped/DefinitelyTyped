@@ -112,19 +112,19 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * @since 8.24.0
      * @see https://eslint.org/docs/rules/logical-assignment-operators
      */
-    "logical-assignment-operators": Linter.RuleEntry<
-        [
-            'never'
-        ] | [
-            'always',
-            Partial<{
-                /**
-                 * @default false
-                 */
-                enforceForIfStatements: boolean;
-            }>,
-        ]
-    >;
+    "logical-assignment-operators":
+        | Linter.RuleEntry<
+            [
+                "always",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    enforceForIfStatements: boolean;
+                }>,
+            ]
+        >
+        | Linter.RuleEntry<["never"]>;
 
     /**
      * Rule to disallow reassigning class members.
