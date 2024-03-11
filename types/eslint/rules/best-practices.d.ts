@@ -823,6 +823,17 @@ export interface BestPractices extends Linter.RulesRecord {
     "no-unused-labels": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow useless backreferences in regular expressions
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.0.0-alpha.0
+     * @see https://eslint.org/docs/latest/rules/no-useless-backreference
+     */
+    "no-useless-backreference": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow unnecessary calls to `.call()` and `.apply()`.
      *
      * @since 1.0.0-rc-1
