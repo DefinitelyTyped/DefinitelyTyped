@@ -461,7 +461,16 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 7.3.0
      * @see https://eslint.org/docs/latest/rules/no-unreachable-loop
      */
-    "no-unreachable-loop": Linter.RuleEntry<[]>;
+    "no-unreachable-loop": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default []
+                 */
+                ignore: "WhileStatement" | "DoWhileStatement" | "ForStatement" | "ForInStatement" | "ForOfStatement";
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow control flow statements in `finally` blocks.
