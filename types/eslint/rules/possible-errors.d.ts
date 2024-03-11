@@ -456,6 +456,14 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-unreachable": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow loops with a body that allows only one iteration.
+     *
+     * @since 7.3.0
+     * @see https://eslint.org/docs/latest/rules/no-unreachable-loop
+     */
+    "no-unreachable-loop": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow control flow statements in `finally` blocks.
      *
      * @remarks
