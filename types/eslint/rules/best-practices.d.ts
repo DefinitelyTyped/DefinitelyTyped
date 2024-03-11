@@ -439,6 +439,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  */
                 string: boolean;
                 /**
+                 * @default false
+                 */
+                disallowTemplateShorthand: boolean;
+                /**
                  * @default []
                  */
                 allow: Array<"~" | "!!" | "+" | "*">;
