@@ -345,6 +345,17 @@ export interface PossibleErrors extends Linter.RulesRecord {
     >;
 
     /**
+     * Disallow literal numbers that lose precision.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.1.0
+     * @see https://eslint.org/docs/latest/rules/no-loss-of-precision
+     */
+    "no-loss-of-precision": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow characters which are made with multiple code points in character class syntax.
      *
      * @remarks
