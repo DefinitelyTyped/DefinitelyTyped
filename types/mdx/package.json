@@ -8,7 +8,9 @@
         "https://github.com/mdx-js/mdx"
     ],
     "devDependencies": {
-        "@types/mdx": "workspace:."
+        "@types/mdx": "workspace:.",
+        "@types/react": "*",
+        "preact": "*"
     },
     "owners": [
         {

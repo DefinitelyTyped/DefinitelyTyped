@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": ["mdx", "preact"],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
