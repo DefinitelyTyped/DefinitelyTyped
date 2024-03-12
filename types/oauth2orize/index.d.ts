@@ -18,8 +18,8 @@ declare global {
     }
 }
 
-export type Client = OAuth2orize.Client
-export type User = OAuth2orize.User
+export type Client = OAuth2orize.Client;
+export type User = OAuth2orize.User;
 
 export interface OAuth2 {
     client: Client;
@@ -128,7 +128,11 @@ export class TokenError extends OAuth2Error {
     constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
-export type MiddlewareFunction<TReq extends MiddlewareRequest = MiddlewareRequest> = (req: TReq, res: ServerResponse, next: MiddlewareNextFunction) => void;
+export type MiddlewareFunction<TReq extends MiddlewareRequest = MiddlewareRequest> = (
+    req: TReq,
+    res: ServerResponse,
+    next: MiddlewareNextFunction,
+) => void;
 
 export type MiddlewareErrorFunction = (
     err: Error,
@@ -165,7 +169,10 @@ export type ImmediateFunction = (
     done: (err: Error | null, allow: boolean, info: any, locals: any) => void,
 ) => void;
 
-export type DecisionParseFunction<TReq extends MiddlewareRequest> = (req: TReq, done: (err: Error | null, params?: any) => void) => void;
+export type DecisionParseFunction<TReq extends MiddlewareRequest> = (
+    req: TReq,
+    done: (err: Error | null, params?: any) => void,
+) => void;
 
 export type SerializeClientFunction = (client: Client, done: SerializeClientDoneFunction) => void;
 export type SerializeClientDoneFunction = (err: Error | null, id: string) => void;
@@ -279,7 +286,10 @@ export class OAuth2Server {
 
     authorization: OAuth2Server["authorize"];
 
-    decision<TReq extends MiddlewareRequest>(options: DecisionOptions, parse: DecisionParseFunction<TReq>): MiddlewareFunction<TReq>;
+    decision<TReq extends MiddlewareRequest>(
+        options: DecisionOptions,
+        parse: DecisionParseFunction<TReq>,
+    ): MiddlewareFunction<TReq>;
     decision<TReq extends MiddlewareRequest>(parse: DecisionParseFunction<TReq>): MiddlewareFunction<TReq>;
     decision<TReq extends MiddlewareRequest>(): MiddlewareFunction<TReq>;
 
@@ -398,7 +408,13 @@ export namespace exchange {
     // arity == 5; issue(client, username, passwd, scope, issued);
     function password(
         options: Options,
-        issue: (client: Client, username: string, password: string, scope: string[], issued: ExchangeDoneFunction) => void,
+        issue: (
+            client: Client,
+            username: string,
+            password: string,
+            scope: string[],
+            issued: ExchangeDoneFunction,
+        ) => void,
     ): MiddlewareFunction;
     // arity == 4; issue(client, username, passwd, issued);
     function password(
@@ -406,7 +422,13 @@ export namespace exchange {
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction;
     function password(
-        issue: (client: Client, username: string, password: string, scope: string[], issued: ExchangeDoneFunction) => void,
+        issue: (
+            client: Client,
+            username: string,
+            password: string,
+            scope: string[],
+            issued: ExchangeDoneFunction,
+        ) => void,
     ): MiddlewareFunction;
     function password(
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
