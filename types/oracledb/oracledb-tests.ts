@@ -2,7 +2,6 @@ import * as oracledb from "oracledb";
 
 import assert from "assert";
 import defaultOracledb from "oracledb";
-import sql = require("sql-template");
 
 /*
 
@@ -625,11 +624,8 @@ const version6Tests = async (): Promise<void> => {
     const connection = await oracledb.getConnection({
         user: "test",
     });
-    const deptno = 2;
-    const result = await connection.execute(sql`select * from emp where deptno = ${deptno} order by sal desc`);
 
     const lob = await connection.createLob(oracledb.CLOB);
-
     const offset = 1, len = 100;
     await lob.getData(offset);
     await lob.getData(offset + 3, len);
