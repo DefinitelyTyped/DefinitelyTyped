@@ -653,7 +653,7 @@ declare namespace Shippo {
     interface Transaction extends Metadata {
         object_state: ObjectState;
         status: Transaction.Status;
-        rate: Rate;
+        rate: string;
         metadata: string;
         label_file_type: LabelFileType;
         test: boolean;

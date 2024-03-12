@@ -145,7 +145,7 @@ const topLogger = {
     readOnly
     ref={(instance) => {
         if (instance !== null) {
-            // $ExpectType ReactDatePicker<true>
+            // $ExpectType ReactDatePicker<true, undefined>
             instance;
         }
     }}
@@ -288,3 +288,14 @@ const DatePickerCustomHeader = ({
 <DatePicker onChange={(date) => date?.toISOString()} />;
 
 <DatePicker {...props} ref={handleRef} />;
+
+<DatePicker
+    selectsMultiple
+    onChange={(dates) => dates?.[0].getHours()}
+    ref={(instance) => {
+        if (instance !== null) {
+            // $ExpectType ReactDatePicker<undefined, true>
+            instance;
+        }
+    }}
+/>;
