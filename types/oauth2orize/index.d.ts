@@ -206,11 +206,18 @@ export type IssueGrantCodeFunctionArity4 = (
     issued: IssueGrantCodeDoneFunction,
 ) => void;
 
-export type IssueGrantTokenFunction = (
+export type IssueGrantTokenFunctionArity5 = (
     client: Client,
     user: User,
     ares: any,
-    issued: (err: Error | null, code?: string, params?: any) => void,
+    areq: any,
+    issued: (err: Error | null, code?: string | boolean, params?: any) => void,
+) => void;
+export type IssueGrantTokenFunctionArity4 = (
+    client: Client,
+    user: User,
+    ares: any,
+    issued: (err: Error | null, code?: string | boolean, params?: any) => void,
 ) => void;
 
 export type IssueExchangeCodeFunctionArity6 = (
@@ -309,8 +316,10 @@ export namespace grant {
     function code(issue: IssueGrantCodeFunction): MiddlewareFunction;
     function code(issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
 
-    function token(options: Options, issue: IssueGrantTokenFunction): MiddlewareFunction;
-    function token(issue: IssueGrantTokenFunction): MiddlewareFunction;
+    function token(options: Options, issue: IssueGrantTokenFunctionArity5): MiddlewareFunction;
+    function token(options: Options, issue: IssueGrantTokenFunctionArity4): MiddlewareFunction;
+    function token(issue: IssueGrantTokenFunctionArity5): MiddlewareFunction;
+    function token(issue: IssueGrantTokenFunctionArity4): MiddlewareFunction;
 }
 
 export namespace exchange {
