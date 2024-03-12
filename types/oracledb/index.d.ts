@@ -2007,7 +2007,8 @@ declare namespace OracleDB {
          *
          * This method is usable for LOBs up to 1 GB in length.
          *
-         * For queries returning LOB columns, it can be more efficient to use fetchAsString, fetchAsBuffer, or fetchInfo instead of lob.getData().
+         * For queries returning LOB columns, it can be more efficient to use fetchAsString,
+         * fetchAsBuffer, or fetchInfo instead of lob.getData().
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
          *
