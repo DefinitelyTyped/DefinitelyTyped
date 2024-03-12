@@ -106,6 +106,46 @@ shippo.transaction.create({
 });
 
 // $ExpectType Promise<Transaction>
+shippo.transaction.create({
+    carrier_account: "carrier_account",
+    label_file_type: "PDF",
+    metadata: "metadata",
+    servicelevel_token: "servicelevel_token",
+    shipment: {
+        address_to: {
+            name: "Mr Hippo",
+            street1: "965 Mission St #572",
+            city: "San Francisco",
+            state: "CA",
+            zip: "94103",
+            country: "US",
+            phone: "4151234567",
+            email: "mrhippo@goshippo.com",
+        },
+        address_from: {
+            name: "Mrs Hippo",
+            street1: "1092 Indian Summer Ct",
+            city: "San Jose",
+            state: "CA",
+            zip: "95122",
+            country: "US",
+            phone: "4159876543",
+            email: "mrshippo@goshippo.com",
+        },
+        parcels: [
+            {
+                distance_unit: "yd",
+                height: "1",
+                length: "1",
+                mass_unit: "kg",
+                weight: "1",
+                width: "1",
+            },
+        ],
+    },
+});
+
+// $ExpectType Promise<Transaction>
 shippo.transaction.retrieve("transaction_id");
 
 // $ExpectType Promise<PaginatedList<Transaction>>
