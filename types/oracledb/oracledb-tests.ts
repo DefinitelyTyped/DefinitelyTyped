@@ -629,7 +629,6 @@ const version6Tests = async (): Promise<void> => {
     const offset = 1, len = 100;
     await lob.getData(offset);
     await lob.getData(offset + 3, len);
-
 };
 
 export const v5Tests = async (): Promise<void> => {
