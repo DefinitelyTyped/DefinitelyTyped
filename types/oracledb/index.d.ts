@@ -2016,7 +2016,6 @@ declare namespace OracleDB {
          *
          * @param offset The absolute offset inside LOB.
          * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
-         *
          */
         getData(offset: number): Promise<string | Buffer>;
         getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
