@@ -139,7 +139,7 @@ export type MiddlewareErrorFunction = (
 
 export type MiddlewareNextFunction = (err?: Error) => void;
 
-export type ValidateDoneFunction = (err: Error | null, client?: Client | boolean, redirectURI?: string) => void;
+export type ValidateDoneFunction = (err: Error | null, client?: Client | false, redirectURI?: string) => void;
 export type ValidateFunctionArity5 = (
     clientId: string,
     redirectURI: string,
