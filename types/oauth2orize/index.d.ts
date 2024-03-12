@@ -128,7 +128,7 @@ export class TokenError extends OAuth2Error {
     constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
-export type MiddlewareFunction = (req: MiddlewareRequest, res: ServerResponse, next: MiddlewareNextFunction) => void;
+export type MiddlewareFunction<TReq extends MiddlewareRequest> = (req: TReq, res: ServerResponse, next: MiddlewareNextFunction) => void;
 
 export type MiddlewareErrorFunction = (
     err: Error,
@@ -165,7 +165,7 @@ export type ImmediateFunction = (
     done: (err: Error | null, allow: boolean, info: any, locals: any) => void,
 ) => void;
 
-export type DecisionParseFunction = (req: MiddlewareRequest, done: (err: Error | null, params: any) => void) => void;
+export type DecisionParseFunction<TReq extends MiddlewareRequest> = (req: TReq, done: (err: Error | null, params?: any) => void) => void;
 
 export type SerializeClientFunction = (client: Client, done: SerializeClientDoneFunction) => void;
 export type SerializeClientDoneFunction = (err: Error | null, id: string) => void;
@@ -272,9 +272,9 @@ export class OAuth2Server {
 
     authorization: OAuth2Server["authorize"];
 
-    decision(options: DecisionOptions, parse: DecisionParseFunction): MiddlewareFunction;
-    decision(parse: DecisionParseFunction): MiddlewareFunction;
-    decision(): MiddlewareFunction;
+    decision<TReq>(options: DecisionOptions, parse: DecisionParseFunction<TReq>): MiddlewareFunction<TReq>;
+    decision<TReq>(parse: DecisionParseFunction<TReq>): MiddlewareFunction<TReq>;
+    decision<TReq>(): MiddlewareFunction<TReq>;
 
     token(options?: any): MiddlewareFunction;
 
