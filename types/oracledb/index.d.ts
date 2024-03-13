@@ -556,23 +556,12 @@ declare namespace OracleDB {
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
     let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB>;
-    /**
-     * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
-     * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
-     *
-     * This property may be overridden in an execute() call.
-     *
-     * To improve database efficiency, SQL queries should use a row limiting clause like OFFSET / FETCH or equivalent.
-     * The maxRows property can be used to stop badly coded queries from returning unexpectedly large numbers of rows.
-     *
-     * When the number of query rows is relatively big, or can not be predicted, it is recommended to use
-     * a ResultSet or queryStream(). This allows applications to process rows in smaller chunks or individually,
-     * preventing the Node.js memory limit being exceeded or query results being unexpectedly truncated by a
-     * maxRows limit.
-     *
-     * @default 0 (unlimited)
-     */
-    function fetchTypeHandler(metadata: Metadata<any>): Promise<void>;
+    
+    function converter<T>(arg: T): T;
+
+    type FetchTypeResponse = 
+    | { type: DbType; converter?: typeof converter }
+    | { type?: DbType; converter: typeof converter };
     /**
      * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
      * annotations: The object representing the annotations.
@@ -594,6 +583,23 @@ declare namespace OracleDB {
      * or both the type and converter attributes
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
+     */
+    function fetchTypeHandler(metadata: Metadata<any>): Promise<FetchTypeResponse>;
+    /**
+     * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
+     * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
+     *
+     * This property may be overridden in an execute() call.
+     *
+     * To improve database efficiency, SQL queries should use a row limiting clause like OFFSET / FETCH or equivalent.
+     * The maxRows property can be used to stop badly coded queries from returning unexpectedly large numbers of rows.
+     *
+     * When the number of query rows is relatively big, or can not be predicted, it is recommended to use
+     * a ResultSet or queryStream(). This allows applications to process rows in smaller chunks or individually,
+     * preventing the Node.js memory limit being exceeded or query results being unexpectedly truncated by a
+     * maxRows limit.
+     *
+     * @default 0 (unlimited)
      */
     let maxRows: number;
     /**
