@@ -2231,7 +2231,7 @@ declare namespace OracleDB {
         /**
          * The annotations object associated with the fetched column. If the column has no associated annotations, this property value is undefined. Annotations are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
          */
-        annotations?: any | undefined;
+        annotations?: any;
         /**
          * One of the Node-oracledb Type Constant values.
          *
