@@ -274,6 +274,15 @@ docker.listImages({
     return images.map(image => docker.getImage(image.Id));
 });
 
+docker.listImages({
+    all: true,
+    filters: { "dangling": ["true"] },
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
 docker.buildImage("archive.tar", { t: "imageName" }, (err, response) => {
     // NOOP
 });
