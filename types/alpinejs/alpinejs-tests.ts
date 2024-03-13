@@ -632,19 +632,32 @@ import Alpine, {
     // $ExpectType void
     Alpine.bind("#my-el", () => ({
         "x-show": "true",
-        "@mouseenter"() {
-        },
-        "@mouseleave"(e: MouseEvent) {
-        },
+        "@mouseenter"() {},
+        "@mouseleave"(e: MouseEvent) {},
     }));
 
     // $ExpectType void
-    Alpine.bind(null as unknown as HTMLElement, () => ({
+    Alpine.bind(document.createElement("div") as HTMLElement, () => ({
         "x-show": "true",
-        "@mouseenter"() {
+        // allows typed events for x-on and @ bindings
+        "x-on:keydown"(e: KeyboardEvent) {},
+        "@mouseleave"(e: MouseEvent) {},
+        // allows higher event types
+        "@click"(e: Event) {},
+        // does not limit events on custom events
+        "@custom-event"(e: string) {},
+        // does not require event
+        "@keydown"() {},
+        // infers Event type
+        "@keyup"(e) {
+            // $ExpectType KeyboardEvent
+            e;
         },
-        "@mouseleave"(e: MouseEvent) {
-        },
+    }));
+
+    // @ts-expect-error: does not allow incorrect event types
+    Alpine.bind(document.createElement("div") as HTMLElement, () => ({
+        "x-on:keydown"(e: MouseEvent) {},
     }));
 
     // $ExpectType void
