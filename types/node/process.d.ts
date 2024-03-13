@@ -1046,7 +1046,7 @@ declare module "process" {
                 kill(pid: number, signal?: string | number): true;
                 /**
                  * Loads the environment configuration from a `.env` file into `process.env`. If
-                 * the file is not found, no error will be thrown.
+                 * the file is not found, error will be thrown.
                  *
                  * To load a specific .env file by specifying its path, use the following code:
                  *
