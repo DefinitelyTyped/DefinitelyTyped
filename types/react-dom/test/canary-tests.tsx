@@ -134,6 +134,8 @@ function formTest() {
             // $ExpectType number
             state,
             dispatch,
+            // $ExpectType boolean
+            isPending,
         ] = useFormState(action, 1);
 
         function actionExpectingPromiseState(state: Promise<number>) {
@@ -168,7 +170,12 @@ function formTest() {
             Promise.resolve(0),
         )[0];
 
-        useFormState(
+        const [
+            state2,
+            action2,
+            // $ExpectType boolean
+            isPending2,
+        ] = useFormState(
             async (state: React.ReactNode, payload: FormData): Promise<React.ReactNode> => {
                 return state;
             },
