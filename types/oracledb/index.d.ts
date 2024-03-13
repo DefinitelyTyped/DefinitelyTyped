@@ -960,7 +960,14 @@ declare namespace OracleDB {
          * @since 4.1
          */
         dbOp?: string | undefined;
-
+        /**
+         * This write-only property is a string that sets the execution context identifier.
+         * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
+         * Note: This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
+         * 
+         * @since 5.3
+         */
+        ecid?: string;
         /**
          * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
          *
@@ -1995,6 +2002,12 @@ declare namespace OracleDB {
             >
             | undefined;
         /**
+         * Overrides oracledb.fetchTypeHandler.
+         * 
+         * @since 6.0
+         */
+        fetchTypeHandler: (metadata: Metadata<any>) => Promise<FetchTypeResponse>;
+        /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
          *
@@ -2216,6 +2229,10 @@ declare namespace OracleDB {
          */
         fetchType?: number | undefined;
         /**
+         * The annotations object associated with the fetched column. If the column has no associated annotations, this property value is undefined. Annotations are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        annotations?: any | undefined;
+        /**
          * One of the Node-oracledb Type Constant values.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsdbtype
@@ -2229,6 +2246,18 @@ declare namespace OracleDB {
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
         dbTypeName?: string | undefined;
+        /**
+         * The name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainName?: string | undefined;
+        /**
+         * The schema name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainSchema?: string | undefined;
+        /**
+         * Indicates if the column is known to contain JSON data. This will be true for JSON columns (from Oracle Database 21c) and for LOB and VARCHAR2 columns where “IS JSON” constraint is enabled (from Oracle Database 19c). This property will be false for all the other columns. It will also be false for any column when Oracle Client 18c or earlier is used in Thick mode or the Oracle Database version is earlier than 19c.
+         */
+        isJson?: boolean | undefined;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
