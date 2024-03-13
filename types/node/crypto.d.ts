@@ -106,7 +106,7 @@ declare module "crypto" {
         const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
         /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
         const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
-        /** Instructs OpenSSL to use Cisco's "speshul" version of DTLS_BAD_VER. */
+        /** Instructs OpenSSL to use Cisco's version identifier of DTLS_BAD_VER. */
         const SSL_OP_CISCO_ANYCONNECT: number;
         /** Instructs OpenSSL to turn on cookie exchange. */
         const SSL_OP_COOKIE_EXCHANGE: number;
