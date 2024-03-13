@@ -1,5 +1,3 @@
-// Definitions by: Khiet Tam Nguyen <https://github.com/nktnet1>
-
 /// <reference types="node"/>
 
 declare namespace Options {
