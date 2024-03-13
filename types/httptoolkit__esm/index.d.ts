@@ -1,2 +1,2 @@
-import esm = require('esm');
+import esm = require("esm");
 export = esm;
