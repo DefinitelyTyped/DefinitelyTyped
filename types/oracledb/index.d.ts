@@ -2006,7 +2006,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        fetchTypeHandler: (metadata: Metadata<any>) => Promise<FetchTypeResponse>;
+        fetchTypeHandler?: (metadata: Metadata<any>) => Promise<FetchTypeResponse>;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
