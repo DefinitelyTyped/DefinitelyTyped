@@ -561,6 +561,8 @@ declare namespace jexcel {
                 }>
             >
             | undefined;
+        /** Number of columns frozen at the top of the spreadsheet */
+        freezeColumns?: number | undefined;
         /** Break the table by pages */
         pagination?: number | undefined;
         /** Number of records per page: 25,50,75,100 for example. */
