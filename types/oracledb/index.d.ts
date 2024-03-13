@@ -556,6 +556,8 @@ declare namespace OracleDB {
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
     let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB>;
+
+    
     
     function converter<T>(arg: T): T;
 
@@ -1609,6 +1611,18 @@ declare namespace OracleDB {
         statementType?: number | undefined;
     }
 
+    type AccessToken = () => string | string | { token: string } | (() => { token: string, privateKey: string }) | { token: string, privateKey: string };
+    interface AccessTokenConfigAzure {
+        clientId: string;
+        authority: string;
+        scopes: string;
+        clientSecret?: string;
+        authType: string;
+    }
+    interface AccessTokenConfigOCI {
+        profile: string;
+        configFileLocation: string;
+    }
     /**
      * Provides connection credentials and connection-specific configuration properties.
      */
@@ -1642,14 +1656,14 @@ declare namespace OracleDB {
          * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
          * @since 5.4
          */
-        accessToken?: any;
+        accessToken?: AccessToken;
         /**
          * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
          * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
          *
          * @since 6.3
          */
-        accessTokenConfig?: any;
+        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance to connect to.
