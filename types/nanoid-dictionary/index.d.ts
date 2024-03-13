@@ -1,9 +1,3 @@
-// Type definitions for nanoid-dictionary 4.2
-// Project: https://github.com/CyberAP/nanoid-dictionary#readme
-// Definitions by: Shengjie Pan <https://github.com/kenelm007>
-//                 Kristóf Poduszló <https://github.com/kripod>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import lowercase = require("./lowercase");
 import uppercase = require("./uppercase");
 import numbers = require("./numbers");

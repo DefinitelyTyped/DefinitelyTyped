@@ -1,9 +1,3 @@
-// Type definitions for Datadog's nodejs metrics client node-dogstatsd
-// Project: https://github.com/joybro/node-dogstatsd
-// Definitions by: Chris Bobo <https://github.com/chrisbobo>
-//                 Michael Mifsud <https://github.com/xzyfer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare module "node-dogstatsd" {
@@ -30,7 +24,7 @@ declare module "node-dogstatsd" {
     export class StatsD implements StatsDClient {
         public socket: dgram.Socket;
 
-        constructor(host: string, port?: number, socket?: dgram.Socket, options?: StatsDOptions);
+        constructor(host?: string, port?: number, socket?: dgram.Socket, options?: StatsDOptions);
 
         timing(stat: string, time: number, sample_rate?: number, tags?: string[]): void;
 

@@ -1,9 +1,3 @@
-// Type definitions for react-animals 0.0
-// Project: https://github.com/arvinpoddar/react-animals
-// Definitions by: Chigozirim Chukwu <https://github.com/smac89>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 interface AnimalProps {

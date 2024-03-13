@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/gae.channel.api",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gae.channel.api",
+    "projects": [
+        "https://developers.google.com/appengine/docs/java/channel/javascript"
+    ],
+    "devDependencies": {
+        "@types/gae.channel.api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

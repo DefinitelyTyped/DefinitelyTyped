@@ -1,9 +1,3 @@
-// Type definitions for restify 5.0
-// Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Leandro Almeida <https://github.com/leanazulyoro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import http = require("http");
@@ -806,7 +800,7 @@ export namespace bunyan {
         stream?: Logger.Stream | undefined;
 
         /** The streams to which to write when dumping captured records. */
-        streams?: ReadonlyArray<Logger.Stream> | undefined;
+        streams?: readonly Logger.Stream[] | undefined;
 
         /**
          * The level at which to trigger dumping captured records. Defaults to

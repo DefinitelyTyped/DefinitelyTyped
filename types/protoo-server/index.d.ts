@@ -1,8 +1,3 @@
-// Type definitions for protoo-server 4.0
-// Project: https://protoojs.org
-// Definitions by: Antonis Balasas <https://github.com/antoniom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { IncomingMessage, Server as HttpServer } from "http";

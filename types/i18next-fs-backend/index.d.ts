@@ -1,9 +1,3 @@
-// Type definitions for i18next-fs-backend 1.1
-// Project: https://github.com/i18next/i18next-fs-backend
-// Definitions by: Nejc Drobnič <https://github.com/quantumlyy>
-//                 Jeroen "Favna" Claassens <https://github.com/favna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BackendModule, InitOptions, ReadCallback, Services } from "i18next";
 
 export namespace i18next {

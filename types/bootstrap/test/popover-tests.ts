@@ -5,6 +5,14 @@ const element = new Element();
 
 // $ExpectType Popover
 new Popover(element, { delay: 0.5, animation: true });
+new Popover(element, {
+    popperConfig: {
+        placement: "top",
+    },
+});
+new Popover(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
+});
 
 // $ExpectType Popover | null
 Popover.getInstance(element);

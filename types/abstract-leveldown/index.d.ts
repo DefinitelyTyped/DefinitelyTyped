@@ -1,11 +1,3 @@
-// Type definitions for abstract-leveldown 7.2
-// Project: https://github.com/Level/abstract-leveldown
-// Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
-//                 Daniel Byrne <https://github.com/danwbyrne>
-//                 Steffen Park <https://github.com/istherepie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface AbstractOptions {
     readonly [k: string]: any;
 }

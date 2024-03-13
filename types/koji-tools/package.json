@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/koji-tools",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/madewithkoji/koji-tools"
+    ],
+    "devDependencies": {
+        "@types/koji-tools": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Peterson",
+            "githubUsername": "bdjeffyp"
+        }
+    ]
+}

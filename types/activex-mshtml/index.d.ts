@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft HTML Object Library - MSHTML 4.0
-// Project: https://msdn.microsoft.com/en-us/library/aa741317(v=vs.85).aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 declare namespace MSHTML {
     const enum _BEHAVIOR_EVENT {
         BEHAVIOR_EVENT_Max = 2147483647,
@@ -31726,7 +31720,7 @@ declare namespace MSHTML {
         removeEventListener(type: string, listener: any, useCapture: boolean): void;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLAreasCollection {
         add(element: IHTMLElement, before?: any): void;
         item(name?: any, index?: any): any;
@@ -31753,7 +31747,7 @@ declare namespace MSHTML {
         private constructor();
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLBookmarkCollection {
         item(index: number): any;
         readonly length: number;
@@ -31778,7 +31772,7 @@ declare namespace MSHTML {
         readonly type: number;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLCSSStyleDeclaration {
         accelerator: string;
         alignmentBaseline: string;
@@ -32255,7 +32249,7 @@ declare namespace MSHTML {
         readonly version: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLDocumentCompatibleInfoCollection {
         item(index: number): IHTMLDocumentCompatibleInfo;
         readonly length: number;
@@ -32293,7 +32287,7 @@ declare namespace MSHTML {
         value: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLDOMChildrenCollection {
         item(index: number): any;
         readonly length: number;
@@ -32526,7 +32520,7 @@ declare namespace MSHTML {
         tagUrn: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLElementCollection {
         item(name?: any, index?: any): any;
         length: number;
@@ -32562,14 +32556,14 @@ declare namespace MSHTML {
         readonly y: number;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLFiltersCollection {
         item(pvarIndex: any): any;
         readonly length: number;
         (pvarIndex: any): any;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLFormElement {
         action: string;
         dir: string;
@@ -32734,7 +32728,7 @@ declare namespace MSHTML {
         top: number;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLRectCollection {
         item(pvarIndex: any): any;
         readonly length: number;
@@ -33046,7 +33040,7 @@ declare namespace MSHTML {
         readonly selector: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLStyleSheetPagesCollection {
         item(index: number): IHTMLStyleSheetPage;
         readonly length: number;
@@ -33061,7 +33055,7 @@ declare namespace MSHTML {
         readonly style: IHTMLRuleStyle;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLStyleSheetRulesAppliedCollection {
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
@@ -33071,14 +33065,14 @@ declare namespace MSHTML {
         (index: number): IHTMLStyleSheetRule;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLStyleSheetRulesCollection {
         item(index: number): IHTMLStyleSheetRule;
         readonly length: number;
         (index: number): IHTMLStyleSheetRule;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLStyleSheetsCollection {
         item(pvarIndex: any): any;
         readonly length: number;
@@ -33166,7 +33160,7 @@ declare namespace MSHTML {
         text: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IHTMLWindow2 {
         /** @param message [message=''] */
         alert(message?: string): void;

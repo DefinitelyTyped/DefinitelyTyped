@@ -1,18 +1,3 @@
-// Type definitions for chai 4.3
-// Project: http://chaijs.com/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Andrew Brown <https://github.com/AGBrown>
-//                 Olivier Chevet <https://github.com/olivr70>
-//                 Matt Wistrand <https://github.com/mwistrand>
-//                 Shaun Luttin <https://github.com/shaunluttin>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Erik Schierboom <https://github.com/ErikSchierboom>
-//                 Bogdan Paranytsia <https://github.com/bparan>
-//                 CXuesong <https://github.com/CXuesong>
-//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace Chai {
     type Message = string | (() => string);
     type ObjectProperty = string | symbol | number;
@@ -53,7 +38,7 @@ declare namespace Chai {
         addMethod(ctx: object, name: string, method: Function): void;
         addProperty(ctx: object, name: string, getter: () => any): void;
         overwriteMethod(ctx: object, name: string, method: Function): void;
-        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        overwriteProperty(ctx: object, name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         compareByInspect(a: object, b: object): -1 | 1;
         expectTypes(obj: object, types: string[]): void;
         flag(obj: object, key: string, value?: any): any;
@@ -144,7 +129,7 @@ declare namespace Chai {
             method: (this: AssertionStatic, ...args: any[]) => void,
             chainingBehavior?: () => void,
         ): void;
-        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
         overwriteChainableMethod(
             name: string,
@@ -365,7 +350,7 @@ declare namespace Chai {
     }
 
     interface OneOf {
-        (list: ReadonlyArray<unknown>, message?: string): Assertion;
+        (list: readonly unknown[], message?: string): Assertion;
     }
 
     interface Match {
@@ -374,7 +359,7 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any> | Object): Assertion;
+        (keys: readonly any[] | Object): Assertion;
     }
 
     interface Throw {
@@ -391,7 +376,7 @@ declare namespace Chai {
     }
 
     interface Members {
-        (set: ReadonlyArray<any>, message?: string): Assertion;
+        (set: readonly any[], message?: string): Assertion;
     }
 
     interface PropertyChange {
@@ -858,7 +843,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         include<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -901,7 +886,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -946,7 +931,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         deepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -981,7 +966,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -1210,7 +1195,11 @@ declare namespace Chai {
          * @param length   Potential expected length of object.
          * @param message   Message to display on error.
          */
-        lengthOf<T extends { readonly length?: number | undefined }>(object: T, length: number, message?: string): void;
+        lengthOf<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(
+            object: T,
+            length: number,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1364,6 +1353,17 @@ declare namespace Chai {
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
 
         /**
+         * Asserts that `set1` and `set2` don't have the same members in any order.
+         * Uses a deep equality check.
+         *
+         *  T   Type of set values.
+         * @param set1
+         * @param set2
+         * @param message
+         */
+        notSameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
          * Asserts that set1 and set2 have the same members in the same order.
          * Uses a strict equality check (===).
          *
@@ -1505,6 +1505,24 @@ declare namespace Chai {
         changes<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function changes the value of a property by an amount (delta).
+         *
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+        changesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        changesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not change the value of a property.
          *
          * T   Type of object.
@@ -1527,6 +1545,25 @@ declare namespace Chai {
         increases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function increases a numeric object property or a function's return value by an amount (delta).
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+        increasesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        increasesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not increase an object property.
          *
          * T   Type of object.
@@ -1536,6 +1573,26 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         doesNotIncrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
+
+        /**
+         * Asserts that a function does not increase a numeric object property or function's return value by an amount (delta).
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        increasesButNotBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        increasesButNotBy<T>(modifier: Function, object: T, change: number, message?: string): void;
 
         /**
          * Asserts that a function decreases an object property.
@@ -1549,6 +1606,26 @@ declare namespace Chai {
         decreases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
+         * Asserts that a function decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        decreasesBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        decreasesBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
          * Asserts that a function does not decrease an object property.
          *
          * T   Type of object.
@@ -1558,6 +1635,46 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         doesNotDecrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
+
+        /**
+         * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        doesNotDecreaseBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        doesNotDecreaseBy<T>(modifier: Function, object: T, change: number, message?: string): void;
+
+        /**
+         * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
+         *
+         * T   Type of object or function.
+         * @param modifier function
+         * @param object or getter function
+         * @param property name _optional_
+         * @param change amount (delta)
+         * @param message _optional_
+         */
+
+        decreasesButNotBy<T>(
+            modifier: Function,
+            object: T,
+            property: string,
+            /* keyof T */ change: number,
+            message?: string,
+        ): void;
+        decreasesButNotBy<T>(modifier: Function, object: T, change: number, message?: string): void;
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.

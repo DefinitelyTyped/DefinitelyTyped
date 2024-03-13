@@ -112,7 +112,7 @@ interface Results {
 
     function createTables(
         dbState: DbState,
-        tableDefs: { name: string; columns: string[] }[],
+        tableDefs: Array<{ name: string; columns: string[] }>,
         callback: (rec: SQLResultSet[][]) => void,
     ) {
         var res: SQLResultSet[][] = [];
@@ -200,7 +200,7 @@ interface Results {
 
     function writeRecords(
         dbState: DbState,
-        tableDefs: { name: string; data: any }[],
+        tableDefs: Array<{ name: string; data: any }>,
         callback: (rec: SQLResultSet[][]) => void,
     ) {
         var res: SQLResultSet[][] = [];

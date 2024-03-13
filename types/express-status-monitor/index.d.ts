@@ -1,10 +1,3 @@
-// Type definitions for express-status-monitor 1.3
-// Project: https://github.com/RafalWilinski/express-status-monitor#readme
-// Definitions by: Alex Anderson <https://github.com/alexanderson1993>
-//                 Prashant Sharma <https://github.com/tecxar-prashant>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import express = require("express");
 import SocketIO = require("socket.io");
 

@@ -1,8 +1,3 @@
-// Type definitions for react-alert 4.0
-// Project: https://github.com/schiehll/react-alert
-// Definitions by: Yue Yang <https://github.com/g1eny0ung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, ComponentType, Consumer, ReactNode } from "react";
 
 export type AlertPosition = "top left" | "top center" | "top right" | "bottom left" | "bottom center" | "bottom right";
@@ -89,11 +84,13 @@ export interface AlertCustomOptions extends AlertOptions {
     /**
      * Callback that will be executed after this alert open.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onOpen?: () => void | undefined;
 
     /**
      * Callback that will be executed after this alert is removed.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?: () => void | undefined;
 }
 

@@ -1,9 +1,3 @@
-// Type definitions for node-red-node-test-helper 0.3
-// Project: https://github.com/node-red/node-red-node-test-helper#readme
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { LocalSettings } from "@node-red/runtime";
 import { EventEmitter } from "events";
 import { Node, NodeCredentials, NodeDef, NodeInitializer } from "node-red";

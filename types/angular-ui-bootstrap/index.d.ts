@@ -1,12 +1,3 @@
-// Type definitions for Angular UI Bootstrap 1.0.0
-// Project: https://github.com/angular-ui/bootstrap
-// Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
-//                  Ryan Southgate <https://github.com/ry8806>
-//                  Alfie Johnson <https://github.com/alfiej>
-//                  Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 import * as angular from "angular";
@@ -740,7 +731,7 @@ declare module "angular" {
              *
              * @default ["one", "two", "three", "four", "five"]
              */
-            titles?: Array<string> | undefined;
+            titles?: string[] | undefined;
         }
 
         interface ITimepickerConfig {
@@ -777,7 +768,7 @@ declare module "angular" {
              *
              * @default null
              */
-            meridians?: Array<string> | undefined;
+            meridians?: string[] | undefined;
 
             /**
              * Whether the user can type inside the hours & minutes input.

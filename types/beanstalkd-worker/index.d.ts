@@ -1,9 +1,3 @@
-// Type definitions for beanstalkd-worker 1.2
-// Project: https://github.com/burstable/node-beanstalkd-worker
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import BeanstalkdClient, { BeanstalkdJobState, BeanstalkdJobStats } from "beanstalkd";
 
 export = BeanstalkdWorker;

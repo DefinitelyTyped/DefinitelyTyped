@@ -1,8 +1,3 @@
-// Type definitions for react-payment-inputs 1.1
-// Project: https://github.com/medipass/react-payment-inputs
-// Definitions by: Timothy Odei Yirenkyi <https://github.com/tyirenkyi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 interface ErroredInputs {

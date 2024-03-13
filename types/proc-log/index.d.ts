@@ -1,8 +1,3 @@
-// Type definitions for proc-log 3.0
-// Project: https://github.com/npm/proc-log#readme
-// Definitions by: JDB <https://github.com/legodude17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Logger {
     /**
      * Calls process.emit('log', 'error', ...args). The highest log level. For printing extremely serious errors that indicate something went wrong.

@@ -1,8 +1,3 @@
-// Type definitions for @happyguestmx/web-utilities 3.17
-// Project: https://github.com/HappyGuest/happyguestmx-web-utilities
-// Definitions by: HappyGuest <https://github.com/HappyGuest>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 // shared
 export interface QueryOutput {

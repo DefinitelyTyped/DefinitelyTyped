@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const HorizontalTiltShiftShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         h: IUniform;

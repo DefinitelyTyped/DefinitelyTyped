@@ -1,10 +1,3 @@
-// Type definitions for braintree-web-drop-in 1.39
-// Project: https://github.com/braintree/braintree-web-dropin
-// Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
-//                 Mathias Mikosch <https://github.com/elmikosch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="googlepay" />
 /// <reference types="applepayjs" />
 

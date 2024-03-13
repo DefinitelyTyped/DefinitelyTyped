@@ -1,9 +1,3 @@
-// Type definitions for cacache 17.0
-// Project: https://github.com/npm/cacache#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export interface CacheObject {

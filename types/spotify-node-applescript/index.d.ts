@@ -1,8 +1,3 @@
-// Type definitions for spotify-node-applescript 1.1
-// Project: https://github.com/andrehaveman/spotify-node-applescript#readme
-// Definitions by: Mattia Panzeri <https://github.com/panz3r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Play a track with Spotify URI.
  */

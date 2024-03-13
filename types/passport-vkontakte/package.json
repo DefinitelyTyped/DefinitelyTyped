@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-vkontakte",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/stevebest/passport-vkontakte#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-vkontakte": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anton Lobashev",
+            "githubUsername": "soulthreads"
+        }
+    ]
+}

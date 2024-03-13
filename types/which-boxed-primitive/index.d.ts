@@ -1,8 +1,3 @@
-// Type definitions for which-boxed-primitive 1.0
-// Project: https://github.com/inspect-js/which-boxed-primitive#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = whichBoxedPrimitive;
 
 /**

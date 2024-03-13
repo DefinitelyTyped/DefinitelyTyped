@@ -3,7 +3,7 @@ declare function ellipsePolygon(
     ye: number,
     rex: number,
     rey: number,
-    points: ReadonlyArray<number>,
+    points: readonly number[],
 ): boolean;
 
 export = ellipsePolygon;

@@ -1,8 +1,3 @@
-// Type definitions for httperr v1.0.0
-// Project: https://github.com/pluma/httperr
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Overall module shape, expressed as an interface. */
 interface HttpErr {
     /** The base type for all httperr error types. You probably don't want to use this directly. */
@@ -216,7 +211,7 @@ interface HttpError extends Error {
     /** The HTTP response status code for the HTTP error. */
     statusCode: number;
 
-    toObject(...skip: (string | RegExp)[]): any;
+    toObject(...skip: Array<string | RegExp>): any;
 }
 
 /** Configuration object for constructing HttpErrors. */

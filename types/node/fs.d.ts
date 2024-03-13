@@ -281,7 +281,7 @@ declare module "fs" {
          * Asynchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
          *
-         * A promise is returned that will be resolved after the resource has been
+         * A promise is returned that will be fulfilled after the resource has been
          * closed.
          * @since v12.12.0
          */
@@ -296,7 +296,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be resolved with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null`if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -355,30 +355,50 @@ declare module "fs" {
          */
         close(): void;
         /**
+         * When called, requests that the Node.js event loop _not_ exit so long as the `fs.FSWatcher` is active. Calling `watcher.ref()` multiple times will have
+         * no effect.
+         *
+         * By default, all `fs.FSWatcher` objects are "ref'ed", making it normally
+         * unnecessary to call `watcher.ref()` unless `watcher.unref()` had been
+         * called previously.
+         * @since v14.3.0, v12.20.0
+         */
+        ref(): this;
+        /**
+         * When called, the active `fs.FSWatcher` object will not require the Node.js
+         * event loop to remain active. If there is no other activity keeping the
+         * event loop running, the process may exit before the `fs.FSWatcher` object's
+         * callback is invoked. Calling `watcher.unref()` multiple times will have
+         * no effect.
+         * @since v14.3.0, v12.20.0
+         */
+        unref(): this;
+        /**
          * events.EventEmitter
          *   1. change
-         *   2. error
+         *   2. close
+         *   3. error
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
         addListener(event: "close", listener: () => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
         on(event: "close", listener: () => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
         once(event: "close", listener: () => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
         prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
     /**
      * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
@@ -2861,6 +2881,7 @@ declare module "fs" {
             & {
                 mode?: Mode | undefined;
                 flag?: string | undefined;
+                flush?: boolean | undefined;
             }
         )
         | BufferEncoding
@@ -3813,6 +3834,7 @@ declare module "fs" {
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;
+        flush?: boolean | undefined;
     }
     /**
      * Unlike the 16 KiB default `highWaterMark` for a `stream.Readable`, the stream
@@ -4029,12 +4051,12 @@ declare module "fs" {
      */
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -4045,7 +4067,7 @@ declare module "fs" {
     export namespace writev {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<WriteVResult>;
     }
@@ -4056,7 +4078,7 @@ declare module "fs" {
      * @param [position='null']
      * @return The number of bytes written.
      */
-    export function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function writevSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
     /**
      * Read from a file specified by `fd` and write to an array of `ArrayBufferView`s
      * using `readv()`.
@@ -4074,12 +4096,12 @@ declare module "fs" {
      */
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -4090,7 +4112,7 @@ declare module "fs" {
     export namespace readv {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<ReadVResult>;
     }
@@ -4101,7 +4123,7 @@ declare module "fs" {
      * @param [position='null']
      * @return The number of bytes read.
      */
-    export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function readvSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
 
     export interface OpenAsBlobOptions {
         /**

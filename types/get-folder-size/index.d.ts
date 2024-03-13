@@ -1,9 +1,3 @@
-// Type definitions for get-folder-size 3.0
-// Project: https://github.com/alessioalex/get-folder-size
-// Definitions by: Mariusz Szczepańczyk <https://github.com/mszczepanczyk>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PathLike } from "fs";

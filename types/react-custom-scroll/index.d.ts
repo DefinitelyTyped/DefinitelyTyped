@@ -1,10 +1,3 @@
-// Type definitions for react-custom-scroll 5.0
-// Project: https://github.com/rommguy/react-custom-scroll
-// Definitions by:  Guy Romm <https://github.com/rommguy>
-//                  rvdende <https://github.com/rvdende>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { ComponentClass, ReactNode } from "react";
 
 /**

@@ -1,8 +1,3 @@
-// Type definitions for WinJS 4.4
-// Project: http://try.buildwinjs.com/
-// Definitions by: TypeScript samples <https://www.typescriptlang.org/>, Adam Hewitt <https://github.com/adamhewitt627>, Craig Treasure <https://github.com/craigktreasure>, Jeff Fisher <https://github.com/xirzec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -1598,7 +1593,7 @@ declare namespace WinJS {
          * @param value An array that contains Promise objects or objects whose property values include Promise objects.
          * @returns A promise that on fulfillment yields the value of the input (complete or error).
          */
-        static any(value: IPromise<any>[]): IPromise<any>;
+        static any(value: Array<IPromise<any>>): IPromise<any>;
         static any(value: any): IPromise<any>;
 
         /**
@@ -3888,7 +3883,7 @@ declare namespace WinJS.UI {
          * Returns an array that contains the items in the selection.
          * @returns A Promise that contains an array of the requested IItem objects.
          */
-        getItems(): Promise<IItem<T>[]>;
+        getItems(): Promise<Array<IItem<T>>>;
 
         /**
          * Gets an array of the index ranges for the selected items.
@@ -8954,27 +8949,27 @@ declare namespace WinJS.UI.XYFocus {
         /**
          * The array of keycodes that cause XYFocus to accept.
          */
-        accept: Array<number>;
+        accept: number[];
         /**
          * The array of keycodes that cause XYFocus to cancel.
          */
-        cancel: Array<number>;
+        cancel: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate down.
          */
-        down: Array<number>;
+        down: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate left.
          */
-        left: Array<number>;
+        left: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate right.
          */
-        right: Array<number>;
+        right: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate up.
          */
-        up: Array<number>;
+        up: number[];
     };
 
     /**

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pi-wifi",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/matrix-io/pi-wifi"
+    ],
+    "devDependencies": {
+        "@types/pi-wifi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kent Loofbourrow",
+            "githubUsername": "loofkid"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for degit 2.8
-// Project: https://github.com/Rich-Harris/degit#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 declare class Degit extends EventEmitter {

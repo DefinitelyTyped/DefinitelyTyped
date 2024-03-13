@@ -1,9 +1,3 @@
-// Type definitions for non-npm package ShExJ 2.1
-// Project: https://github.com/shexSpec/shex
-// Definitions by: Eric Prud'hommeaux <https://github.com/ericprud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 // Conforms to <https://shex.io/shex-semantics/#shexj> and shex-test@2.2.0-alpha.1
 
 export {}; // only export specified symbols (strict-export-declare-modifiers)

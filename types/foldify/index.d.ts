@@ -1,8 +1,3 @@
-// Type definitions for foldify 0.5
-// Project: https://github.com/cellvia/foldify
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = fold;
 
 /**

@@ -5,7 +5,7 @@ import { ButtonAnchorProps, ButtonCustomComponentProps, ButtonDefaultProps, Butt
 declare function PrimaryButton(props: FCProps<ButtonDefaultProps>): FCReturn;
 // tslint:disable:unified-signatures breaks certain usages
 declare function PrimaryButton(props: FCProps<ButtonAnchorProps>): FCReturn;
-declare function PrimaryButton<T extends keyof JSX.IntrinsicElements>(
+declare function PrimaryButton<T extends keyof React.JSX.IntrinsicElements>(
     props: FCProps<ButtonIntrinsicProps<T>>,
 ): FCReturn;
 declare function PrimaryButton<T extends ReactComponentConstructor<never>>(

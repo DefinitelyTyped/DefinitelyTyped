@@ -1,8 +1,3 @@
-// Type definitions for arconnect 1.0
-// Project: https://github.com/th8ta/ArConnect
-// Definitions by: Marton Lederer <https://github.com/martonlederer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SignatureOptions } from "arweave/node/lib/crypto/crypto-interface";
 import Transaction from "arweave/node/lib/transaction";
 

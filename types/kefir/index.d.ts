@@ -1,10 +1,3 @@
-// Type definitions for Kefir 3.8.1
-// Project: http://rpominov.github.io/kefir/
-// Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-//                 Piotr Hitori Bosak <https://github.com/HitoriSensei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 export type ValueOfAnObservable<T extends Observable<any, any>> = T[""];
@@ -181,11 +174,11 @@ export function constantError<T>(error: T): Property<never, T>;
 export function fromPromise<T, S>(promise: Promise<T>): Property<T, S>;
 // Combine observables
 export function combine<T, S, U>(
-    obss: Observable<T, S>[],
-    passiveObss: Observable<T, S>[],
+    obss: Array<Observable<T, S>>,
+    passiveObss: Array<Observable<T, S>>,
     combinator?: (...values: T[]) => U,
 ): Stream<U, S>;
-export function combine<T, S, U>(obss: Observable<T, S>[], combinator: (...values: T[]) => U): Stream<U, S>;
+export function combine<T, S, U>(obss: Array<Observable<T, S>>, combinator: (...values: T[]) => U): Stream<U, S>;
 export function combine<T extends { [name: string]: Observable<any, any> }>(
     obss: T,
 ): Stream<{ [P in keyof T]: ValueOfAnObservable<T[P]> }, any>;
@@ -313,12 +306,12 @@ export function combine<T extends [Observable<any, any>], P extends [Observable<
     combinator: (a: T[0][""], b: P[0][""]) => K,
 ): Observable<K, any>;
 export function zip<T, S, U>(
-    obss: Observable<T, S>[],
-    passiveObss?: Observable<T, S>[],
+    obss: Array<Observable<T, S>>,
+    passiveObss?: Array<Observable<T, S>>,
     combinator?: (...values: T[]) => U,
 ): Observable<U, S>;
-export function merge<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
-export function concat<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
+export function merge<T, S>(obss: Array<Observable<T, S>>): Observable<T, S>;
+export function concat<T, S>(obss: Array<Observable<T, S>>): Observable<T, S>;
 export function pool<T, S>(): Pool<T, S>;
 export function repeat<T, S>(generator: (i: number) => Observable<T, S> | boolean): Observable<T, S>;
 

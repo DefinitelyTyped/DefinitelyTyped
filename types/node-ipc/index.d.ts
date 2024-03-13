@@ -1,7 +1,3 @@
-// Type definitions for node-ipc 9.2
-// Project: http://riaevangelist.github.io/node-ipc/
-// Definitions by: Arvitaly <https://github.com/arvitaly>, gjurgens <https://github.com/gjurgens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Socket } from "net";
 declare namespace NodeIPC {

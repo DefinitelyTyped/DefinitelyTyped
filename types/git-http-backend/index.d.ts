@@ -1,8 +1,3 @@
-// Type definitions for git-http-backend 1.0
-// Project: https://github.com/substack/git-http-backend
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='node' />
 
 import { Duplex, Writable } from "stream";

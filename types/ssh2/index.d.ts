@@ -1,14 +1,3 @@
-// Type definitions for ssh2 1.11
-// Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Ron Buckton <https://github.com/rbuckton>
-//                 Will Boyce <https://github.com/wrboyce>
-//                 Tom Xu <https://github.com/hengkx>
-//                 Leo Toneff <https://github.com/bragle>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Dan Hensby <https://github.com/dhensby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -162,7 +151,63 @@ export interface Header {
 export type OpenMode = "r" | "r+" | "w" | "wx" | "xw" | "w+" | "xw+" | "a" | "ax" | "xa" | "a+" | "ax+" | "xa+";
 
 export namespace utils {
+    interface KeySettings {
+        rsa: {
+            bits: number;
+        };
+        ecdsa: {
+            bits: 256 | 384 | 521;
+        };
+        ed25519: {};
+    }
+
+    type KeyPairOptions =
+        & {
+            comment?: string;
+            /**
+             * As of now, ssh2 only supports the "new" format;
+             * Specifying this won't have any effect,
+             * as it's already the default behavior.
+             */
+            format?: "new";
+        }
+        & ({
+            passphrase: string | Buffer;
+            cipher: string;
+            rounds: number;
+        } | {});
+
+    type KeyType = keyof KeySettings;
+
+    /** All optional key types where their settings are optional */
+    type OptionalKeyType = {
+        [K in keyof KeySettings]: {} extends KeySettings[K] ? K : never;
+    }[keyof KeySettings];
+
+    interface KeyPairReturn {
+        private: string;
+        public: string;
+    }
+
     function parseKey(data: Buffer | string | ParsedKey, passphrase?: Buffer | string): ParsedKey | Error;
+
+    function generateKeyPair<K extends KeyType>(
+        keyType: K,
+        opts: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair(keyType: KeyType, cb: (err: Error | null, keyPair: KeyPairReturn) => void): void;
+
+    function generateKeyPairSync<K extends KeyType>(keyType: K, opts: KeySettings[K] & KeyPairOptions): KeyPairReturn;
+    function generateKeyPairSync<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+    ): KeyPairReturn;
     namespace sftp {
         enum OPEN_MODE {
             READ = 0x00000001,
@@ -975,7 +1020,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param prompts The prompts to send to the client.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], callback: KeyboardInteractiveCallback): void;
+    prompt(prompts: string | Prompt | Array<string | Prompt>, callback: KeyboardInteractiveCallback): void;
 
     /**
      * Send prompts to the client.
@@ -983,7 +1028,11 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param title The title for the prompt.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], title: string, callback: KeyboardInteractiveCallback): void;
+    prompt(
+        prompts: string | Prompt | Array<string | Prompt>,
+        title: string,
+        callback: KeyboardInteractiveCallback,
+    ): void;
 
     /**
      * Send prompts to the client.
@@ -993,7 +1042,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param callback A callback to call with the responses from the client.
      */
     prompt(
-        prompts: string | Prompt | (string | Prompt)[],
+        prompts: string | Prompt | Array<string | Prompt>,
         title: string,
         instructions: string,
         callback: KeyboardInteractiveCallback,
@@ -1374,6 +1423,10 @@ export interface FileEntry {
     attrs: Attributes;
 }
 
+export interface FileEntryWithStats extends Omit<FileEntry, "attrs"> {
+    attrs: Stats;
+}
+
 export interface SFTPWrapper extends EventEmitter {
     /**
      * (Client-only)
@@ -1555,7 +1608,7 @@ export interface SFTPWrapper extends EventEmitter {
      * (Client-only)
      * Retrieves a directory listing.
      */
-    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntry[]) => void): void;
+    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntryWithStats[]) => void): void;
 
     /**
      * (Client-only)
@@ -1777,12 +1830,12 @@ export interface PublicKeyEntry {
         };
 }
 
-export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = (
+export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = Array<
     | T
     | PublicKeyEntry
-)[];
+>;
 
-export type PrivateKeys = (Buffer | ParsedKey | EncryptedPrivateKey | string)[];
+export type PrivateKeys = Array<Buffer | ParsedKey | EncryptedPrivateKey | string>;
 
 export type Callback = (err?: Error | null) => void;
 

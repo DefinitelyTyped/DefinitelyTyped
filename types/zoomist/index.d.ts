@@ -1,9 +1,3 @@
-// Type definitions for zoomist 1.1
-// Project: https://github.com/cotton123236/zoomist
-// Definitions by: scriptSQD <https://github.com/scriptSQD>
-//                 Wilson Wu <https://github.com/cotton123236>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.1
 
 export as namespace Zoomist;

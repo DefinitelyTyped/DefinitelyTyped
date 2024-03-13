@@ -1,8 +1,3 @@
-// Type definitions for simple-diff 1.6
-// Project: https://github.com/redexp/simple-diff#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace simpleDiff {
     type Path = Array<string | number>;
 

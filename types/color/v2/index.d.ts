@@ -1,9 +1,3 @@
-// Type definitions for color 2.0
-// Project: https://github.com/qix-/color#readme
-// Definitions by: Junyoung Clare Jang <https://github.com/Airlun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import convert = require("color-convert");
 
 type ColorParam = Color | string | ArrayLike<number> | number | { [key: string]: any };

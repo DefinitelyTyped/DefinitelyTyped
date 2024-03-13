@@ -7,7 +7,7 @@ class LeftNavArrow extends React.Component<CustomArrowProps> {
     }
 }
 
-function RightNavArrow(props: CustomArrowProps): JSX.Element {
+function RightNavArrow(props: CustomArrowProps): React.JSX.Element {
     const { className, style, onClick } = props;
     return (
         <div

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bin-pack",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bryanburgers/bin-pack"
+    ],
+    "devDependencies": {
+        "@types/bin-pack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oren Trutner",
+            "githubUsername": "orentrutner"
+        }
+    ]
+}

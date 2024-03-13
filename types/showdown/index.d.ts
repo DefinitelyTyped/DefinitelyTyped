@@ -1,12 +1,3 @@
-// Type definitions for showdown 2.0
-// Project: https://github.com/showdownjs/showdown
-// Definitions by: Hamed Baatour <https://github.com/hamedbaatour>,
-//                 cbowdon <https://github.com/cbowdon>,
-//                 Pei-Tang Huang <https://github.com/tan9>,
-//                 Ariel-Saldana <https://github.com/arielsaldana>,
-//                 Yisrael Eliav <https://github.com/yisraelx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Showdown;
 export as namespace showdown;
 
@@ -39,6 +30,7 @@ declare namespace Showdown {
             converter: Converter,
             options: ShowdownOptions,
             globals: ConverterGlobals,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): void | string;
     }
 
@@ -54,7 +46,7 @@ declare namespace Showdown {
         gListLevel?: number | undefined;
         gTitles?: { [key: string]: string } | undefined;
         gUrls?: { [key: string]: string } | undefined;
-        ghCodeBlocks?: { codeblock?: string | undefined; text?: string | undefined }[] | undefined;
+        ghCodeBlocks?: Array<{ codeblock?: string | undefined; text?: string | undefined }> | undefined;
         hashLinkCounts?: { [key: string]: number } | undefined;
         langExtensions?: ShowdownExtension[] | undefined;
         metadata?: {
@@ -876,7 +868,7 @@ declare namespace Showdown {
          * Add extensions to the new converter can be showdown extensions or "global" extensions name.
          */
         extensions?:
-            | ((() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension | string)[]
+            | Array<(() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension | string>
             | undefined;
     }
 

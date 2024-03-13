@@ -1,9 +1,3 @@
-// Type definitions for @emartech/cls-adapter 1.3
-// Project: https://github.com/emartech/cls-adapter
-// Definitions by: Lex Webb <https://github.com/lexwebb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as CLS from "cls-hooked";
 import * as Express from "express";
 import * as Koa from "koa";

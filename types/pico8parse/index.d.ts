@@ -1,8 +1,3 @@
-// Type definitions for pico8parse 0.4
-// Project: https://pictelm.github.io/pico8parse/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type LuaVersion =
     | "5.1"
     | "5.2"

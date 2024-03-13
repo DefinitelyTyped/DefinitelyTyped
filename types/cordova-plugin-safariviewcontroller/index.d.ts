@@ -1,8 +1,3 @@
-// Type definitions for cordova-plugin-safariviewcontroller 2.0
-// Project: https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Options that may be passed to `SafariViewController.show()`.
  */

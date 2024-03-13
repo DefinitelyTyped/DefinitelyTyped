@@ -1,8 +1,3 @@
-// Type definitions for jsonexport 3.0
-// Project: https://github.com/kaue/jsonexport
-// Definitions by: Guillaume Ongenae <https://github.com/g-ongenae>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform } from "stream";
 

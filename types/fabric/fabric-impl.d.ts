@@ -5333,6 +5333,18 @@ interface IAllFilters {
          */
         fromObject(object: any): IConvoluteFilter;
     };
+    Gamma: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { gamma?: [number, number, number] | undefined }): IGammaFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IGammaFilter;
+    };
     GradientTransparency: {
         new(options?: {
             /** @default 100 */
@@ -5492,6 +5504,18 @@ interface IAllFilters {
          */
         fromObject(object: any): ITintFilter;
     };
+    Vibrance: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { vibrance?: number | undefined }): IVibranceFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IVibranceFilter;
+    };
 }
 interface IBaseFilter {
     /**
@@ -5562,6 +5586,18 @@ interface IContrastFilter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IGammaFilter extends IBaseFilter {
+    /**
+     * Gamma array value
+     */
+    gamma: [number, number, number];
+
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
@@ -5679,6 +5715,13 @@ interface ISepia2Filter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ITintFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IVibranceFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to

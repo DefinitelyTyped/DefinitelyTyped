@@ -1,8 +1,3 @@
-// Type definitions for gl-fbo 2.0
-// Project: https://github.com/stackgl/gl-fbo
-// Definitions by: Nick Krichevsky <https://github.com/ollien>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import texture2D = require("gl-texture2d");
 
 type Texture = ReturnType<typeof texture2D>;

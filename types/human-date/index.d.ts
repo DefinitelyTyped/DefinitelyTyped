@@ -1,8 +1,3 @@
-// Type definitions for human-date 1.4
-// Project: https://github.com/montanaflynn/human-date
-// Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PrettyPrintOptions {
     showTime?: boolean;
 }

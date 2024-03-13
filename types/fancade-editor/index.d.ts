@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Fancade Editor Script 1.13
-// Project: https://www.fancade.com/wiki/fancade-web#editor-scripting
-// Definitions by: Bricked <https://github.com/brckd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Find block by name.
  * @param blockName The name of the block to find

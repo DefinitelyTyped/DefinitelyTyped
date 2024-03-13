@@ -1,8 +1,3 @@
-// Type definitions for webpack-assets-manifest 5.1
-// Project: https://github.com/webdeveric/webpack-assets-manifest
-// Definitions by: Franklin Tse <https://github.com/FranklinWhale>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
@@ -75,7 +70,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
 
     /** Process compilation assets */
     processAssetsByChunkName(
-        assets: Record<string, string | ReadonlyArray<string>>,
+        assets: Record<string, string | readonly string[]>,
         hmrFiles?: Set<string>,
     ): this["assetNames"];
 
@@ -99,7 +94,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
      * get called and so the asset names are not recorded. To work around this, lets
      * loops over the stats.assets and record the asset names.
      */
-    processStatsAssets(assets: ReadonlyArray<Asset>): void;
+    processStatsAssets(assets: readonly Asset[]): void;
 
     /** Get assets and hot module replacement files from a compilation object */
     getCompilationAssets(compilation: Compilation): { assets: Asset[]; hmrFiles: Set<string> };
@@ -231,7 +226,7 @@ declare namespace WebpackAssetsManifest {
         integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string> | undefined;
+        integrityHashes?: readonly string[] | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;

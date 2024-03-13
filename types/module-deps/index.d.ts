@@ -1,8 +1,3 @@
-// Type definitions for module-deps 6.2
-// Project: https://github.com/browserify/module-deps
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -56,7 +51,7 @@ declare namespace moduleDeps {
          * A function (id, file, pkg) that gets called after id has been resolved.
          * Return false to skip this file
          */
-        postFilter?: ((id: string, file: string, pkg: PackageObject) => void | boolean) | undefined; // tslint:disable-line:void-return
+        postFilter?: ((id: string, file: string, pkg: PackageObject) => void | boolean) | undefined; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
         /**
          * Transform the parsed package.json contents before using the values.

@@ -1,10 +1,3 @@
-// Type definitions for async-redis 1.1
-// Project: https://github.com/moaxaca/async-redis
-// Definitions by: philipp-sapronov <https://github.com/philipp-sapronov>
-//                 Carson McManus <https://github.com/dyc3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 import { ClientOpts, RedisClient, ServerInfo } from "redis";
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

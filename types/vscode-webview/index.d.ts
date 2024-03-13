@@ -1,9 +1,3 @@
-// Type definitions for non-npm package vscode-webview 1.57
-// Project: https://code.visualstudio.com/api/extension-guides/webview
-// Definitions by: Matt Bierner <https://github.com/mjbvz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /**
  * API exposed to webviews.
  *

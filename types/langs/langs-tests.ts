@@ -9,6 +9,12 @@ langs.all();
 // $ExpectType boolean
 langs.has("2B", "he");
 
+// $ExpectType boolean
+langs.has("name", "English");
+
+// $ExpectType boolean
+langs.has("local", "English");
+
 // $ExpectType string[]
 langs.codes("1");
 
@@ -33,8 +39,20 @@ langs.names();
 // $ExpectType Language | undefined
 langs.where("1", "he");
 
+// $ExpectType Language | undefined
+langs.where("name", "English");
+
+// $ExpectType Language | undefined
+langs.where("local", "English");
+
 // @ts-expect-error
 langs.codes(5);
 
 // @ts-expect-error
 langs.codes("foo");
+
+// @ts-expect-error
+langs.codes("name");
+
+// @ts-expect-error
+langs.codes("local");

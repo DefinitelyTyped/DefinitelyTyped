@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/amplify-deferred",
+    "version": "1.1.9999",
+    "projects": [
+        "http://amplifyjs.com/",
+        "https://github.com/laurentiustamate94/amplify-deferred"
+    ],
+    "dependencies": {
+        "@types/amplify": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/amplify-deferred": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Eriksson",
+            "githubUsername": "joeriks"
+        },
+        {
+            "name": "Laurentiu Stamate",
+            "githubUsername": "laurentiustamate94"
+        }
+    ]
+}

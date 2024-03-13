@@ -7,6 +7,9 @@ const selector = "a[href=\"http://example.com\"]";
 // browser tests
 //
 
+// $ExpectType void
+browser.closeContext();
+
 // $ExpectType BrowserContext
 browser.context();
 
@@ -123,23 +126,32 @@ browserContext.addCookies();
 browserContext.addCookies([{
     name: "foo",
     value: "bar",
+    domain: "test.k6.io",
+    path: "/browser.php",
     url: "https://test.k6.io",
     expires: 60,
     httpOnly: false,
     secure: true,
-    sameSite: "Strict",
-}]);
-// $ExpectType void
-browserContext.addCookies([{
+    sameSite: "Lax",
+}, {
     name: "foo",
     value: "bar",
-    domain: "test.k6.io",
-    path: "/browser.php",
-    expires: 60,
-    httpOnly: false,
-    secure: true,
-    sameSite: "Lax",
+    sameSite: "Strict",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "None",
 }]);
+// @ts-expect-error
+browserContext.cookies()[0].sameSite = "NotAllowed";
+// @ts-expect-error
+browserContext.addCookies([{ /* without value */ name: "foo" }]);
+// @ts-expect-error
+browserContext.addCookies([{ /* without name */ value: "bar" }]);
+// $ExpectType Cookie[]
+browserContext.cookies();
+// $ExpectType Cookie[]
+browserContext.cookies("https://test.k6.io", "https://k6.io");
 // $ExpectType void
 browserContext.clearCookies();
 // $ExpectType void
@@ -164,8 +176,16 @@ browserContext.setDefaultTimeout(30000);
 browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
 // $ExpectType void
 browserContext.setOffline(true);
-// $ExpectType Page | null
-browserContext.waitForEvent("", { predicate: () => true, timeout: 30000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page");
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", () => true);
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true, timeout: 10000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { timeout: 10000 });
 
 //
 // Create a page
@@ -484,8 +504,6 @@ page.isHidden();
 page.isHidden(selector);
 // $ExpectType boolean
 page.isHidden(selector, { strict: true });
-// $ExpectType boolean
-page.isHidden(selector, { timeout: 10000 });
 
 // @ts-expect-error
 page.isVisible();
@@ -493,8 +511,6 @@ page.isVisible();
 page.isVisible(selector);
 // $ExpectType boolean
 page.isVisible(selector, { strict: true });
-// $ExpectType boolean
-page.isVisible(selector, { timeout: 10000 });
 
 // $ExpectType Keyboard
 page.keyboard;
@@ -509,6 +525,24 @@ page.mainFrame();
 
 // $ExpectType Mouse
 page.mouse;
+
+// @ts-expect-error
+page.on();
+// @ts-expect-error
+page.on("invalid");
+// @ts-expect-error
+page.on("console");
+// $ExpectType void
+page.on("console", msg => {
+    // $ExpectType JSHandle<any>[]
+    msg.args();
+    // $ExpectType Page | null
+    msg.page();
+    // $ExpectType string
+    msg.text();
+    // $ExpectType string
+    msg.type();
+});
 
 // $ExpectType Page | null
 page.opener();
@@ -630,6 +664,16 @@ page.tap(selector, { timeout: 10000 });
 page.tap(selector, { trial: true });
 
 // @ts-expect-error
+page.throttleCPU();
+// $ExpectType void
+page.throttleCPU({ rate: 2 });
+
+// @ts-expect-error
+page.throttleNetwork();
+// $ExpectType void
+page.throttleNetwork({ latency: 500, download: 200, upload: 100 });
+
+// @ts-expect-error
 page.textContent();
 // $ExpectType string
 page.textContent(selector);
@@ -744,7 +788,7 @@ page.workers();
 
 // @ts-expect-error
 page.$();
-// $ExpectType ElementHandle
+// $ExpectType ElementHandle | null
 page.$(selector);
 
 // @ts-expect-error
@@ -844,6 +888,11 @@ mouse.up({ clickCount: 2 });
 //
 const locator = page.locator(selector);
 
+// $ExpectType void
+locator.clear();
+// $ExpectType void
+locator.clear({ noWaitAfter: true, timeout: 10000 });
+
 // $ExpectType Promise<void>
 locator.click();
 // $ExpectType Promise<void>
@@ -866,8 +915,6 @@ locator.click({ position: { x: 0, y: 0 } });
 locator.click({ timeout: 10000 });
 // $ExpectType Promise<void>
 locator.click({ trial: true });
-// $ExpectType Promise<void>
-locator.click({ strict: true });
 
 // $ExpectType void
 locator.dblclick();
@@ -891,8 +938,6 @@ locator.dblclick({ position: { x: 0, y: 0 } });
 locator.dblclick({ timeout: 10000 });
 // $ExpectType void
 locator.dblclick({ trial: true });
-// $ExpectType void
-locator.dblclick({ strict: true });
 
 // $ExpectType void
 locator.check();
@@ -906,8 +951,6 @@ locator.check({ position: { x: 0, y: 0 } });
 locator.check({ timeout: 10000 });
 // $ExpectType void
 locator.check({ trial: true });
-// $ExpectType void
-locator.check({ strict: true });
 
 // $ExpectType void
 locator.uncheck();
@@ -921,43 +964,27 @@ locator.uncheck({ position: { x: 0, y: 0 } });
 locator.uncheck({ timeout: 10000 });
 // $ExpectType void
 locator.uncheck({ trial: true });
-// $ExpectType void
-locator.uncheck({ strict: true });
 
 // $ExpectType boolean
 locator.isChecked();
 // $ExpectType boolean
 locator.isChecked({ timeout: 10000 });
-// $ExpectType boolean
-locator.isChecked({ strict: true });
 
 // $ExpectType boolean
 locator.isEnabled();
 // $ExpectType boolean
 locator.isEnabled({ timeout: 10000 });
-// $ExpectType boolean
-locator.isEnabled({ strict: true });
 
 // $ExpectType boolean
 locator.isDisabled();
 // $ExpectType boolean
 locator.isDisabled({ timeout: 10000 });
-// $ExpectType boolean
-locator.isDisabled({ strict: true });
 
 // $ExpectType boolean
 locator.isVisible();
-// $ExpectType boolean
-locator.isVisible({ timeout: 10000 });
-// $ExpectType boolean
-locator.isVisible({ strict: true });
 
 // $ExpectType boolean
 locator.isHidden();
-// $ExpectType boolean
-locator.isHidden({ timeout: 10000 });
-// $ExpectType boolean
-locator.isHidden({ strict: true });
 
 // @ts-expect-error
 locator.fill();
@@ -969,15 +996,11 @@ locator.fill("text", { force: true });
 locator.fill("text", { noWaitAfter: true });
 // $ExpectType void
 locator.fill("text", { timeout: 10000 });
-// $ExpectType void
-locator.fill("text", { strict: true });
 
 // $ExpectType void
 locator.focus();
 // $ExpectType void
 locator.focus({ timeout: 10000 });
-// $ExpectType void
-locator.focus({ strict: true });
 
 // @ts-expect-error
 locator.getAttribute();
@@ -985,36 +1008,26 @@ locator.getAttribute();
 locator.getAttribute("attr");
 // $ExpectType string | null
 locator.getAttribute("attr", { timeout: 10000 });
-// $ExpectType string | null
-locator.getAttribute("attr", { strict: true });
 
 // $ExpectType string
 locator.innerHTML();
 // $ExpectType string
 locator.innerHTML({ timeout: 10000 });
-// $ExpectType string
-locator.innerHTML({ strict: true });
 
 // $ExpectType string
 locator.innerText();
 // $ExpectType string
 locator.innerText({ timeout: 10000 });
-// $ExpectType string
-locator.innerText({ strict: true });
 
 // $ExpectType string
 locator.textContent();
 // $ExpectType string
 locator.textContent({ timeout: 10000 });
-// $ExpectType string
-locator.textContent({ strict: true });
 
 // $ExpectType string
 locator.inputValue();
 // $ExpectType string
 locator.inputValue({ timeout: 10000 });
-// $ExpectType string
-locator.inputValue({ strict: true });
 
 // @ts-expect-error
 locator.selectOption();
@@ -1036,8 +1049,6 @@ locator.selectOption("value", { force: true });
 locator.selectOption("value", { noWaitAfter: true });
 // $ExpectType string[]
 locator.selectOption("value", { timeout: 10000 });
-// $ExpectType string[]
-locator.selectOption("value", { strict: true });
 
 // @ts-expect-error
 locator.type();
@@ -1066,8 +1077,6 @@ locator.hover({ position: { x: 0, y: 0 } });
 locator.hover({ timeout: 10000 });
 // $ExpectType void
 locator.hover({ trial: true });
-// $ExpectType void
-locator.hover({ strict: true });
 
 // $ExpectType void
 locator.tap();
@@ -1081,8 +1090,6 @@ locator.tap({ position: { x: 0, y: 0 } });
 locator.tap({ timeout: 10000 });
 // $ExpectType void
 locator.tap({ trial: true });
-// $ExpectType void
-locator.tap({ strict: true });
 
 // @ts-expect-error
 locator.dispatchEvent();
@@ -1093,7 +1100,7 @@ locator.dispatchEvent("click", { buttons: 2 & 4 });
 // $ExpectType void
 locator.dispatchEvent("click", { buttons: 2 & 4 }, { timeout: 10000 });
 // $ExpectType void
-locator.dispatchEvent("click", { buttons: 2 & 4 }, { strict: true });
+locator.dispatchEvent("click", { buttons: 2 & 4 });
 
 // $ExpectType void
 locator.waitFor();
@@ -1103,8 +1110,6 @@ for (const state of ["attached", "detached", "visible", "hidden"]) {
 }
 // $ExpectType void
 locator.waitFor({ timeout: 10000 });
-// $ExpectType void
-locator.waitFor({ strict: true });
 
 //
 // JSHandle
@@ -1268,7 +1273,7 @@ response.then(r => r?.url());
 // ElementHandle
 //
 
-const elementHandle = page.$(selector);
+const elementHandle = page.waitForSelector(selector);
 
 // @ts-expect-error
 elementHandle.$();
@@ -1470,13 +1475,13 @@ elementHandle.waitForElementState("visible", { timeout: 10000 });
 
 // @ts-expect-error
 elementHandle.waitForSelector();
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div");
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { timeout: 10000 });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { state: "attached" });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { strict: true });
 
 //
@@ -1876,16 +1881,12 @@ frame.isHidden();
 // $ExpectType boolean
 frame.isHidden("input");
 // $ExpectType boolean
-frame.isHidden("input", { timeout: 10000 });
-// $ExpectType boolean
 frame.isHidden("input", { strict: true });
 
 // @ts-expect-error
 frame.isVisible();
 // $ExpectType boolean
 frame.isVisible("input");
-// $ExpectType boolean
-frame.isVisible("input", { timeout: 10000 });
 // $ExpectType boolean
 frame.isVisible("input", { strict: true });
 

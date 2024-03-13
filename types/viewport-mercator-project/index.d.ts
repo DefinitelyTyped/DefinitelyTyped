@@ -1,9 +1,3 @@
-// Type definitions for viewport-mercator-project 6.1
-// Project: https://github.com/uber-common/viewport-mercator-project#readme
-// Definitions by: Fabio Berta <https://github.com/fnberta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import { mat4 } from "gl-matrix";
 
 export interface ProjectOptions {

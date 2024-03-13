@@ -1,8 +1,3 @@
-// Type definitions for formulon 6.25
-// Project: https://github.com/leifg/formulon#readme
-// Definitions by: Tom Sellek <https://github.com/tomsellek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TypeInfoNumber {
     dataType: "number";
     options: {

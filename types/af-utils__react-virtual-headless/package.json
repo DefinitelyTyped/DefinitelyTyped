@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/af-utils__react-virtual-headless",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nowaalex/af-utils"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/af-utils__react-virtual-headless": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hunter Ross",
+            "githubUsername": "huner2"
+        }
+    ]
+}

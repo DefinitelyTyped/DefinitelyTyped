@@ -1,9 +1,3 @@
-// Type definitions for svelte-leafletjs 0.8
-// Project: https://github.com/ngyewch/svelte-leaflet
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 import * as L from "leaflet";
 import type { SvelteComponentTyped } from "svelte";
 
@@ -215,6 +209,17 @@ export class Icon extends SvelteComponentTyped<
     never
 > {
     getIcon(): L.Icon;
+}
+
+export class DivIcon extends SvelteComponentTyped<
+    {
+        options?: L.DivIconOptions;
+        getDivIcon?(): L.DivIcon;
+    },
+    never,
+    never
+> {
+    getDivIcon(): L.DivIcon;
 }
 
 export class ImageOverlay extends SvelteComponentTyped<

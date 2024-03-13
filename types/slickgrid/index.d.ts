@@ -1,9 +1,3 @@
-// Type definitions for SlickGrid 2.1.0
-// Project: https://github.com/mleibman/SlickGrid
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
 
@@ -261,7 +255,7 @@ declare namespace Slick {
         /**
          * Sub-groups that are part of the group.
          */
-        public groups: Group<T>[];
+        public groups: Array<Group<T>>;
 
         /**
          * A unique key used to identify the group.  This key can be used in calls to DataView
@@ -774,7 +768,7 @@ declare namespace Slick {
         constructor(
             container: string | HTMLElement | JQuery,
             data: T[] | DataProvider<T>,
-            columns: Column<T>[],
+            columns: Array<Column<T>>,
             options: GridOptions<T>,
         );
 
@@ -887,13 +881,13 @@ declare namespace Slick {
          * Returns an array of column definitions, containing the option settings for each individual column.
          * @return
          */
-        public getColumns(): Column<T>[];
+        public getColumns(): Array<Column<T>>;
 
         /**
          * Sets grid columns. Column headers will be recreated and all rendered rows will be removed. To rerender the grid (if necessary), call render().
          * @param columnDefinitions An array of column definitions.
          */
-        public setColumns(columnDefinitions: Column<T>[]): void;
+        public setColumns(columnDefinitions: Array<Column<T>>): void;
 
         /**
          * Accepts a columnId string and an ascending boolean. Applies a sort glyph in either ascending or descending form to the header of the column. Note that this does not actually sort the column. It only adds the sort glyph to the header.
@@ -906,13 +900,13 @@ declare namespace Slick {
          * Accepts an array of objects in the form [ { columnId: [string], sortAsc: [boolean] }, ... ]. When called, this will apply a sort glyph in either ascending or descending form to the header of each column specified in the array. Note that this does not actually sort the column. It only adds the sort glyph to the header
          * @param cols
          */
-        public setSortColumns(cols: { columnId: string; sortAsc: boolean }[]): void;
+        public setSortColumns(cols: Array<{ columnId: string; sortAsc: boolean }>): void;
 
         /**
          * todo: no docs or comments available
          * @return
          */
-        public getSortColumns(): { columnId: string; sortAsc: boolean }[];
+        public getSortColumns(): Array<{ columnId: string; sortAsc: boolean }>;
 
         /**
          * Updates an existing column definition and a corresponding header DOM element with the new title and tooltip.
@@ -1371,7 +1365,7 @@ declare namespace Slick {
         sortAsc: boolean;
 
         // Multiple columns returned
-        sortCols?: SortColumn<T>[] | undefined;
+        sortCols?: Array<SortColumn<T>> | undefined;
     }
 
     export interface OnScrollEventArgs<T extends SlickData> extends GridEventArgs<T> {
@@ -1536,8 +1530,8 @@ declare namespace Slick {
             public fastSort(field: string, ascending: boolean): void;
             public fastSort(field: Function, ascending: boolean): void; // todo: typeof(field), should be the same callback as Array.sort
             public reSort(): void;
-            public setGrouping(groupingInfos: GroupingOptions<T> | GroupingOptions<T>[]): void;
-            public getGrouping(): GroupingOptions<T>[];
+            public setGrouping(groupingInfos: GroupingOptions<T> | Array<GroupingOptions<T>>): void;
+            public getGrouping(): Array<GroupingOptions<T>>;
 
             /**
              * @deprecated
@@ -1574,7 +1568,7 @@ declare namespace Slick {
              *     the 'high' setGrouping.
              */
             public expandGroup(...varArgs: string[]): void;
-            public getGroups(): Group<T>[];
+            public getGroups(): Array<Group<T>>;
             public getIdxById(id: string): number;
             public getRowById(id: string): number;
             public getItemById(id: any): T;
@@ -1604,7 +1598,7 @@ declare namespace Slick {
             formatter?: ((item?: T) => string) | undefined;
             comparer?: ((a: Group<T>, b: Group<T>) => number) | undefined;
             predefinedValues?: any[] | undefined; // todo
-            aggregators?: Aggregators.Aggregator<T>[] | undefined;
+            aggregators?: Array<Aggregators.Aggregator<T>> | undefined;
             aggregateEmpty?: boolean | undefined;
             aggregateCollapsed?: boolean | undefined;
             aggregateChildGroups?: boolean | undefined;

@@ -1,10 +1,3 @@
-// Type definitions for non-npm package nlcst 2.0
-// Project: https://github.com/syntax-tree/nlcst
-// Definitions by: Titus Wormer <https://github.com/wooorm>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces

@@ -1,9 +1,3 @@
-// Type definitions for webpack-clean 1.2
-// Project: https://github.com/allexcd/webpack-clean#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Plugin } from "webpack";
 
 declare namespace WebpackCleanPlugin {

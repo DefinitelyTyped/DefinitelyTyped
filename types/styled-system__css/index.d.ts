@@ -1,11 +1,3 @@
-// Type definitions for @styled-system/css 5.0
-// Project: https://github.com/styled-system/styled-system
-// Definitions by: Sebastian Sebald <https://github.com/sebald>
-//                 Bartosz Szewczyk <https://github.com/sztobar>
-//                 Ryan Dowling <https://github.com/RyanTheAllmighty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import * as CSS from "csstype";
 
 export {};

@@ -1,8 +1,3 @@
-// Type definitions for iamport-react-native 1.5
-// Project: https://github.com/iamport/iamport-react-native#readme
-// Definitions by: seongjoojin <https://github.com/seongjoojin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export type IMP_CARRIERS = "SKT" | "KTF" | "LGT" | "MVNO";

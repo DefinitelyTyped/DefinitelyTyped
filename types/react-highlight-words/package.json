@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-highlight-words",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/bvaughn/react-highlight-words#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-highlight-words": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        },
+        {
+            "name": "Kelly Milligan",
+            "githubUsername": "kellyrmilligan"
+        }
+    ]
+}

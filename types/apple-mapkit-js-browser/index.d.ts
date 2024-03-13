@@ -1,13 +1,3 @@
-// Type definitions for non-npm package MapKit JS 5.65
-// Project: https://developer.apple.com/reference/mapkitjs
-// Definitions by: Philipp Jean-Jacques <https://github.com/kilghaz>
-//                 Waseem Dahman <https://github.com/wsmd>
-//                 Chris Drackett <https://github.com/chrisdrackett>
-//                 Moritz Sternemann <https://github.com/moritzsternemann>
-//                 Vinayak Kulkarni <https://github.com/vinayakkulkarni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * The JavaScript API for embedding Apple maps on your website.
  */
@@ -70,6 +60,11 @@ declare namespace mapkit {
          * labels, controls, directions, and other text.
          */
         language?: string | undefined;
+
+        /**
+         * An array of strings specifying the MapKit JS libraries to load at initialization.
+         */
+        libraries?: readonly string[] | undefined;
     }
 
     /**
@@ -586,6 +581,17 @@ declare namespace mapkit {
          * A Boolean value that determines whether the user location control is visible.
          */
         showsUserLocationControl?: boolean | undefined;
+
+        /**
+         * A value used to control how MapKit JS prioritizes loading map features. This
+         * can be used to optimize the user's initial map loading experience.
+         *
+         * Valid values include:
+         *  * `mapkit.Map.LoadPriorities.LandCover`: Prioritizes map tiles, land cover, and borders.
+         *  * `mapkit.Map.LoadPriorities.PointsOfInterest`: Prioritizes points of interest (POIs).
+         *  * `mapkit.Map.LoadPriorities.None`: No special prioritization.
+         */
+        loadPriority?: string | null;
     }
 
     /**

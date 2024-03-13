@@ -1,18 +1,3 @@
-// Type definitions for fs-extra 11.0
-// Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>,
-//                 midknight41 <https://github.com/midknight41>,
-//                 Brendan Forster <https://github.com/shiftkey>,
-//                 Mees van Dijk <https://github.com/mees->,
-//                 Justin Rockwood <https://github.com/jrockwood>,
-//                 Sang Dang <https://github.com/sangdth>,
-//                 Florian Keller <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Tiger Oakes <https://github.com/NotWoods>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 /// <reference types="node" />
 
 import * as fs from "fs";

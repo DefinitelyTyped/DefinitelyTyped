@@ -1,8 +1,3 @@
-// Type definitions for ya-disk 4.0
-// Project: https://github.com/RomiC/ya-disk#readme
-// Definitions by: Vladislav Veluga <https://github.com/vladislav805>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type MediaType =
     | "audio"
     | "backup"

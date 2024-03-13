@@ -1,9 +1,3 @@
-// Type definitions for @carbon/elements 0.8
-// Project: https://github.com/carbon-design-system/carbon/tree/master/packages/feature-flags
-// Definitions by: Eric Liu <https://github.com/metonym>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 export type FeatureFlagName =
     | "enable-css-custom-properties"
     | "enable-use-controlled-state-with-value"

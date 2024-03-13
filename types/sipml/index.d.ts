@@ -1,8 +1,3 @@
-// Type definitions for SIPml5
-// Project: http://sipml5.org/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SIPml {
     class Event {
         public description: string;

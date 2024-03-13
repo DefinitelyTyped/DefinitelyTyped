@@ -1,8 +1,3 @@
-// Type definitions for nyaapi 2.4
-// Project: https://github.com/Kylart/Nyaapi#readme
-// Definitions by: Christopher Schreiner <https://github.com/infanf>, Totto16 <https://github.com/Totto16>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace si {
     type UserStatus = number;
 

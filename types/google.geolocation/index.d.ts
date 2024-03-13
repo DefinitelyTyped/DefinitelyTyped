@@ -1,9 +1,3 @@
-// Type definitions for Google Geolocation 0.4.8
-// Project: https://code.google.com/p/geo-location-javascript/
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 interface GeolocationStatic {
     init(): boolean;
     getCurrentPosition(

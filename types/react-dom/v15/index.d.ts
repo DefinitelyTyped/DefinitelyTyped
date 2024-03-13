@@ -1,12 +1,3 @@
-// Type definitions for React (react-dom) 15.5
-// Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export as namespace ReactDOM;
 
 import {
@@ -42,6 +33,7 @@ export function render<P>(
     element: ReactElement<P>,
     container: Element | null,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;
 export function render<P>(
     parentComponent: Component<any>,
@@ -74,4 +66,5 @@ export function unstable_renderSubtreeIntoContainer<P>(
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;

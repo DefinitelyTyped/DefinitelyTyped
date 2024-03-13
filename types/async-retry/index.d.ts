@@ -1,11 +1,3 @@
-// Type definitions for async-retry 1.4
-// Project: https://github.com/vercel/async-retry
-// Definitions by: Albert Wu <https://github.com/albertywu>
-//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
-//                 Rafał Sawicki <https://github.com/rafsawicki>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { WrapOptions } from "retry";
 
 /**

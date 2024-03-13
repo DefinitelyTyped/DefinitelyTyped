@@ -3,10 +3,7 @@
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types='react-dom' />
-
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import ReactUserTour from "react-user-tour";
 
@@ -52,5 +49,3 @@ class TestApp extends React.Component<{}, State> {
         );
     }
 }
-
-ReactDOM.render(React.createElement(TestApp, {}), document.getElementById("test-app"));

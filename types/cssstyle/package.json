@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cssstyle",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/jsdom/cssstyle"
+    ],
+    "devDependencies": {
+        "@types/cssstyle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

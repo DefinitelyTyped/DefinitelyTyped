@@ -2,6 +2,8 @@ import React = require("react");
 
 import { CustomEmoji, EmojiData, EmojiSkin } from "./emoji-index/nimble-emoji-index";
 
+import { JSX } from "react";
+
 export type BackgroundImageFn = (set: EmojiSet, sheetSize: EmojiSheetSize) => string;
 export type EmojiSet = "apple" | "google" | "twitter" | "emojione" | "messenger" | "facebook";
 export type EmojiSheetSize = 16 | 20 | 32 | 64;
@@ -45,7 +47,7 @@ export type CategoryName =
     | "flags"
     | "custom";
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18n {
     search: string;
     categories: Record<CategoryName, string>;

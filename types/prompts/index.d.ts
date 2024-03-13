@@ -1,15 +1,3 @@
-// Type definitions for prompts 2.4
-// Project: https://github.com/terkelg/prompts
-// Definitions by: Berkay GURSOY <https://github.com/Berkays>
-//                 Daniel Perez Alvarez <https://github.com/unindented>
-//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
-//                 theweirdone <https://github.com/theweirdone>
-//                 whoaa512 <https://github.com/whoaa512>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Christopher Hiller <https://github.com/boneskull>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 export = prompts;
@@ -26,7 +14,7 @@ declare namespace prompts {
     // Circular reference from prompts
     const prompt: any;
 
-    function inject(arr: ReadonlyArray<any>): void;
+    function inject(arr: readonly any[]): void;
 
     namespace inject {
         const prototype: {};

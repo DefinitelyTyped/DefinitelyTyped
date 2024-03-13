@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-geojson-schema",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/rideamigoscorp/mongoose-geojson-schema#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongoose-geojson-schema": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bond",
+            "githubUsername": "bondz"
+        }
+    ]
 }

@@ -16,7 +16,7 @@ declare namespace URITemplate {
     interface URITemplateExpression {
         expression: string;
         operator: string;
-        variables: ReadonlyArray<URITemplateVariable>;
+        variables: readonly URITemplateVariable[];
     }
 
     type URITemplatePart = URITemplateLiteral | URITemplateExpression;
@@ -29,7 +29,7 @@ declare namespace URITemplate {
          * @description The parsed parts of the URI Template. Only present after calling
          *              `parse()` first.
          */
-        parts?: ReadonlyArray<URITemplatePart> | undefined;
+        parts?: readonly URITemplatePart[] | undefined;
     }
 
     interface URITemplateStatic {
@@ -38,7 +38,7 @@ declare namespace URITemplate {
         new(template: string): URITemplate;
     }
 
-    type URITemplateValue = string | ReadonlyArray<string> | { [key: string]: string } | undefined | null;
+    type URITemplateValue = string | readonly string[] | { [key: string]: string } | undefined | null;
     type URITemplateCallback = (keyName: string) => URITemplateValue;
     type URITemplateInput = { [key: string]: URITemplateValue | URITemplateCallback } | URITemplateCallback;
 }

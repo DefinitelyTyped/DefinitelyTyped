@@ -1,9 +1,3 @@
-// Type definitions for body-parser-xml 2.0
-// Project: https://github.com/fiznool/body-parser-xml
-// Definitions by: tbounsiar <https://github.com/tbounsiar>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // import bodyParser = require('body-parser');

@@ -1,8 +1,3 @@
-// Type definitions for date-fp 5.0
-// Project: https://github.com/cullophid/date-fp#readme
-// Definitions by: Eric Crosson <https://github.com/EricCrosson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function of(dateParts: number[]): Date;
 export function fromTime(time: number): Date;
 export function add(

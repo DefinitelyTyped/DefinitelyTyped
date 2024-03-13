@@ -1,10 +1,3 @@
-// Type definitions for non-npm package BetterDiscord 1.8
-// Project: https://github.com/BetterDiscord/BetterDiscord
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-// Documentation: https://docs.betterdiscord.app/api/
-
 import * as _ from "lodash";
 import * as ReactInstance from "react";
 import * as ReactDOMInstance from "react-dom";

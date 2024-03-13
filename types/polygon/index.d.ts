@@ -1,8 +1,3 @@
-// Type definitions for polygon 1.0
-// Project: https://github.com/tmpvar/polygon.js#readme
-// Definitions by: Konrad Klockgether <https://github.com/Nielio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* tslint:disable:array-type */
 // cause contradictory error messages
 
@@ -34,7 +29,7 @@ declare class Polygon {
      */
     readonly length: number;
 
-    constructor(points: Vec2[] | number[][] | { x: number; y: number }[]);
+    constructor(points: Vec2[] | number[][] | Array<{ x: number; y: number }>);
 
     /**
      * Something like Array.forEach on points

@@ -1,8 +1,3 @@
-// Type definitions for jsreport-chrome-pdf 1.6
-// Project: https://github.com/jsreport/jsreport-chrome-pdf
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportChromePdf {

@@ -1,9 +1,3 @@
-// Type definitions for @ledgerhq/hw-app-btc 5.19
-// Project: https://github.com/LedgerHQ/ledgerjs/tree/master/packages/hw-app-btc, https://github.com/ledgerhq/ledgerjs
-// Definitions by: Gregory Hill <https://github.com/gregdhill>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 import Transport from "@ledgerhq/hw-transport";
 

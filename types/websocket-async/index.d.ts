@@ -1,9 +1,3 @@
-// Type definitions for websocket-async 1.3
-// Project: https://github.com/jcao219/websocket-async
-// Definitions by: Ben O'Sullivan <https://github.com/bigbeno37>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 2.7
-
 /**
  * An asynchronous WebSocket client.
  * @example

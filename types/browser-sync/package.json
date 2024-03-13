@@ -1,6 +1,43 @@
 {
-  "private": true,
-  "dependencies": {
-    "chokidar": "^3.0.0"
-  }
+    "private": true,
+    "name": "@types/browser-sync",
+    "version": "2.29.9999",
+    "projects": [
+        "http://www.browsersync.io/"
+    ],
+    "dependencies": {
+        "@types/micromatch": "^2",
+        "@types/node": "*",
+        "@types/serve-static": "*",
+        "chokidar": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/browser-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        },
+        {
+            "name": "Thomas \"Thasmo\" Deinhamer",
+            "url": "https://thasmo.com/"
+        },
+        {
+            "name": "Kiyotoshi Ichikawa",
+            "githubUsername": "aznnomness"
+        },
+        {
+            "name": "Yuma Hashimoto",
+            "githubUsername": "yuma84"
+        },
+        {
+            "name": "Andreas Bomholtz",
+            "githubUsername": "seluxit"
+        }
+    ]
 }

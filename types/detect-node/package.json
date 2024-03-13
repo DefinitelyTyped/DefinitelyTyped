@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detect-node",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/iliakan/detect-node"
+    ],
+    "devDependencies": {
+        "@types/detect-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        }
+    ]
+}

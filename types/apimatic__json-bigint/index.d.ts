@@ -1,8 +1,3 @@
-// Type definitions for @apimatic/json-bigint 1.0
-// Project: https://github.com/apimatic/json-bigint#readme
-// Definitions by: Wajahat <https://github.com/wajahatiqbal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const stringify: typeof JSON.stringify;
 declare const parse: typeof JSON.parse;
 

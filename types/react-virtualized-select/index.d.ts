@@ -1,9 +1,3 @@
-// Type definitions for react-virtualized-select 3.0
-// Project: https://github.com/bvaughn/react-virtualized-select
-// Definitions by: Sean Kelley <https://github.com/seansfkelley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import {
     LoadOptionsHandler,
@@ -31,7 +25,7 @@ export interface VirtualizedOptionRenderOptions<T> {
 export interface AdditionalVirtualizedSelectProps<TValue> {
     maxHeight?: number | undefined;
     optionHeight?: number | ((options: { option: TValue }) => number) | undefined;
-    optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): JSX.Element;
+    optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): React.JSX.Element;
     selectComponent?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined;
 }
 

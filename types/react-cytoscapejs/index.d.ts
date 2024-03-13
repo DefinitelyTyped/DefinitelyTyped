@@ -1,9 +1,3 @@
-// Type definitions for react-cytoscapejs 1.2
-// Project: https://github.com/plotly/react-cytoscapejs
-// Definitions by:  Emmanuel Counasse <https://github.com/manuc66/>
-//                  newraina <https://github.com/newraina/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 import { Component, CSSProperties } from "react";
 

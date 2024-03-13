@@ -1,16 +1,3 @@
-// Type definitions for Cytoscape.js 3.19
-// Project: http://js.cytoscape.org/
-// Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
-//                  Shenghan Gao <https://github.com/wy193777>
-//                  Yuri Pereira Constante <https://github.com/ypconstante>
-//                  Jan-Niclas Struewer <https://github.com/janniclas>
-//                  Andrej Kirejeŭ <https://github.com/gsbelarus>
-//                  Peter Ferrarotto <https://github.com/peterjferrarotto>
-//                  Xavier Ho <https://github.com/spaxe>
-//                  Fredrik Sandström <https://github.com/Veckodag>
-//                  Johan Svensson <https://github.com/jsve>
-//                  Roger Dubbs <https://github.com/rogerdubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
@@ -111,6 +98,10 @@ declare namespace cytoscape {
          * Wether the node can be grabbed and moved by the user
          */
         grabbable?: boolean | undefined;
+        /**
+         * Whether the element has passthrough panning enabled.
+         */
+        pannable?: boolean | undefined;
         /**
          * a space separated list of class names that the element has
          */
@@ -1407,7 +1398,7 @@ declare namespace cytoscape {
         edges: EdgeDefinition[];
     }
 
-    type EventHandler = (event: EventObject, extraParams?: any) => void;
+    type EventHandler = (event: EventObject, ...extraParams: any) => void;
 
     /**
      * The output is a collection of node and edge elements OR single element.
@@ -2523,7 +2514,9 @@ declare namespace cytoscape {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
 
         /**
@@ -3109,6 +3102,7 @@ declare namespace cytoscape {
         u: NodeSingular | undefined,
         i: number,
         depth: number,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => boolean | void;
     interface SearchFirstOptionsBase {
         /**
@@ -4948,8 +4942,8 @@ declare namespace cytoscape {
         cy: Core;
         /** indicates the element or core that first caused the event */
         target: any;
-        /** the event type string (e.g. "tap") */
-        type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
+        /** the event type string (e.g. "tap", "select") */
+        type: UserInputDeviceEventName | UserInputDeviceEventNameExt | CollectionEventName | GraphEventName;
         /** the event namespace string (e.g. "foo" for "foo.tap") */
         namespace: string;
         /** Unix epoch time of event in milliseconds */

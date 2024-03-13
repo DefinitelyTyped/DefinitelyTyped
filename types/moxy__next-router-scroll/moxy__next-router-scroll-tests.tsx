@@ -1,17 +1,9 @@
 import { RouterScrollProvider, useRouterScroll, withRouterScroll } from "moxy__next-router-scroll";
 import * as React from "react";
-import { render } from "react-dom";
 
-declare function beforeAll(f: () => void): void;
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 declare const expect: any;
-
-declare let reactRoot: any;
-
-beforeAll(() => {
-    reactRoot = document.createElement("div");
-});
 
 describe("useRouterScroll", () => {
     it("should return three funcitons", () => {
@@ -36,7 +28,6 @@ describe("useRouterScroll", () => {
                 );
             }
         }
-        render(<Component />, reactRoot);
     });
 });
 
@@ -58,7 +49,5 @@ describe("withRouterScroll", () => {
                 );
             }
         }
-
-        render(<Component />, reactRoot);
     });
 });

@@ -1,8 +1,3 @@
-// Type definitions for notp 2.0
-// Project: https://github.com/guyht/notp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

@@ -1,10 +1,3 @@
-// Type definitions for @node-red/registry 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { LocalSettings } from "@node-red/runtime";
 import * as util from "@node-red/util";
 import { EventEmitter } from "events";
@@ -16,7 +9,7 @@ declare const registry: registry.RegistryModule;
 export = registry;
 
 declare namespace registry {
-    interface RegistryModule {} // tslint:disable-line:no-empty-interface
+    interface RegistryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;

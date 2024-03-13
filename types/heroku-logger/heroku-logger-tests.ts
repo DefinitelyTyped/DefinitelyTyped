@@ -1,5 +1,5 @@
 import * as logger from "heroku-logger";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { Logger, LoggerConfig } from "heroku-logger";
 
 logger.trace(""); // $ExpectType void

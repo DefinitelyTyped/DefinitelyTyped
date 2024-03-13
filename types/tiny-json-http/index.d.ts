@@ -1,8 +1,3 @@
-// Type definitions for tiny-json-http 7.3
-// Project: https://github.com/brianleroux/tiny-json-http
-// Definitions by: Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace TinyJsonHttp {
     interface Options {
         url: string;

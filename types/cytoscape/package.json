@@ -1,0 +1,53 @@
+{
+    "private": true,
+    "name": "@types/cytoscape",
+    "version": "3.19.9999",
+    "projects": [
+        "http://js.cytoscape.org/"
+    ],
+    "devDependencies": {
+        "@types/cytoscape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Fabian Schmidt and Fred Eisele",
+            "githubUsername": "phreed"
+        },
+        {
+            "name": "Shenghan Gao",
+            "githubUsername": "wy193777"
+        },
+        {
+            "name": "Yuri Pereira Constante",
+            "githubUsername": "ypconstante"
+        },
+        {
+            "name": "Jan-Niclas Struewer",
+            "githubUsername": "janniclas"
+        },
+        {
+            "name": "Andrej Kirejeŭ",
+            "githubUsername": "gsbelarus"
+        },
+        {
+            "name": "Peter Ferrarotto",
+            "githubUsername": "peterjferrarotto"
+        },
+        {
+            "name": "Xavier Ho",
+            "githubUsername": "spaxe"
+        },
+        {
+            "name": "Fredrik Sandström",
+            "githubUsername": "Veckodag"
+        },
+        {
+            "name": "Johan Svensson",
+            "githubUsername": "jsve"
+        },
+        {
+            "name": "Roger Dubbs",
+            "githubUsername": "rogerdubbs"
+        }
+    ]
+}

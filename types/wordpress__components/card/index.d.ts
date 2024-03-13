@@ -1,3 +1,4 @@
+import { JSX } from "react";
 declare namespace Card {
     type CardSize = "large" | "medium" | "small" | "extraSmall";
     type Props<T extends keyof JSX.IntrinsicElements> = {

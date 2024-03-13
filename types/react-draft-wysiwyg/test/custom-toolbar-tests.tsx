@@ -2,7 +2,6 @@
 
 import { RichUtils } from "draft-js";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor } from "react-draft-wysiwyg";
 
 class CustomOption extends React.Component<any, any> {
@@ -30,5 +29,3 @@ const CustomToolbar = () => (
         />
     </div>
 );
-
-ReactDOM.render(<CustomToolbar />, document.getElementById("target"));

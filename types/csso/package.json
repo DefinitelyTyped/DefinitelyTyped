@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/csso",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/css/csso"
+    ],
+    "dependencies": {
+        "@types/css-tree": "*"
+    },
+    "devDependencies": {
+        "@types/csso": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Erik Källén",
+            "githubUsername": "erik-kallen"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

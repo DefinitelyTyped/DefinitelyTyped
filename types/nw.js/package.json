@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nw.js",
+    "version": "0.13.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "nw.js",
+    "projects": [
+        "http://nwjs.io"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/nw.js": "workspace:."
+    },
+    "owners": []
+}

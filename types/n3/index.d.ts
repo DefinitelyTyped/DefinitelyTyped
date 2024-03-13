@@ -1,14 +1,3 @@
-// Type definitions for N3 1.16
-// Project: https://github.com/rdfjs/n3.js
-// Definitions by: Fred Eisele <https://github.com/phreed>
-//                 Ruben Taelman <https://github.com/rubensworks>
-//                 Laurens Rietveld <https://github.com/LaurensRietveld>
-//                 Joachim Van Herwegen <https://github.com/joachimvh>
-//                 Alexey Morozov <https://github.com/AlexeyMz>
-//                 Jesse Wright <https://github.com/jeswr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="node" />
 
 import * as RDF from "@rdfjs/types";

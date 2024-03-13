@@ -1,8 +1,3 @@
-// Type definitions for twitter_cldr 2.2
-// Project: https://github.com/twitter/twitter-cldr-npm/
-// Definitions by: Lionel Rowe <https://github.com/lionel-rowe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type CldrData = Record<string, any>;
 
 export type TimeUnit = "second" | "minute" | "hour" | "day" | "week" | "month" | "year";

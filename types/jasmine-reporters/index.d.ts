@@ -1,8 +1,3 @@
-// Type definitions for Jasmine Reporters 2.5
-// Project: https://github.com/larrymyers/jasmine-reporters
-// Definitions by: Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import jasmine = require("jasmine");
 
 // tslint:disable-next-line:no-unnecessary-class

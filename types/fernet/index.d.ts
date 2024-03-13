@@ -1,8 +1,3 @@
-// Type definitions for fernet 0.4
-// Project: https://github.com/csquared/fernet.js
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Hex = require("crypto-js/enc-hex");
 import Base64 = require("crypto-js/enc-base64");
 

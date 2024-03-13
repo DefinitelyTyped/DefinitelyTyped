@@ -1,10 +1,3 @@
-// Type definitions for touch 3.1
-// Project: https://github.com/isaacs/node-touch
-// Definitions by: Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 declare function touch<T = void>(filename: string, cb?: (err?: NodeJS.ErrnoException) => T): Promise<T>;

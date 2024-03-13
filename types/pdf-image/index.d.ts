@@ -1,9 +1,3 @@
-// Type definitions for pdf-image 2.0
-// Project: https://github.com/mooz/node-pdf-image#readme
-// Definitions by: NickLatkovich <https://github.com/nicklatkovich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 export type ConvertOptionKey =
     | "-adaptive-blur"
     | "-adaptive-resize"

@@ -1,9 +1,3 @@
-// Type definitions for react-highlight 0.12
-// Project: https://github.com/akiran/react-highlight
-// Definitions by: JP Lew <https://github.com/jplew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 /**

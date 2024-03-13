@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jasmine-ajax",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/jasmine/jasmine-ajax"
+    ],
+    "devDependencies": {
+        "@types/jasmine": "*",
+        "@types/jasmine-ajax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Louis Grignon",
+            "githubUsername": "lgrignon"
+        },
+        {
+            "name": "Julian Gonggrijp",
+            "githubUsername": "jgonggrijp"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for prepper 1.2
-// Project: https://github.com/guidesmiths/prepper
-// Definitions by: Teun Mooij <https://github.com/teunmooij>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 export interface LogFn {

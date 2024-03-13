@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/encoding-japanese",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/polygonplanet/encoding.js"
+    ],
+    "devDependencies": {
+        "@types/encoding-japanese": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

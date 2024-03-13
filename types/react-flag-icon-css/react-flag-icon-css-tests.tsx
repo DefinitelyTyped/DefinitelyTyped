@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import FlagIconFactory, { CustomFlagIconFactory, FlagIconSize } from "react-flag-icon-css";
 
 const FlagIcon = FlagIconFactory(React, { useCssModules: false });
@@ -24,7 +23,7 @@ const appProps: SimpleFlagComponentProps = {
     code: "it",
     size: "3x",
 };
-ReactDOM.render(<SimpleFlagComponent {...appProps} />, rootEL);
+<SimpleFlagComponent {...appProps} />;
 
 /**
  * based on https://github.com/matteocng/react-flag-icon-css#exampleCustomFlagsIndex
@@ -55,7 +54,7 @@ const appCustomProps: SimpleFlagComponentProps = {
     code: "ex1",
     size: "lg",
 };
-ReactDOM.render(<CustomFlagComponent {...appCustomProps} />, rootEL);
+<CustomFlagComponent {...appCustomProps} />;
 
 /**
  * based on 'props:children' test
@@ -77,4 +76,4 @@ const appChildrenProps: ChildrenFlagComponentProps = {
     size: "lg",
     children: <FlagIcon code="it" />,
 };
-ReactDOM.render(<ChildrenFlagComponent {...appChildrenProps} />, rootEL);
+<ChildrenFlagComponent {...appChildrenProps} />;

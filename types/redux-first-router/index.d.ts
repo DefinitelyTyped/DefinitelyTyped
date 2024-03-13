@@ -1,18 +1,3 @@
-// Type definitions for redux-first-router 2.1
-// Project: https://github.com/faceyspacey/redux-first-router#readme
-// Definitions by: Valbrand <https://github.com/Valbrand>
-//                 viggyfresh <https://github.com/viggyfresh>
-//                 janb87 <https://github.com/janb87>
-//                 corydeppen <https://github.com/corydeppen>
-//                 jscinoz <https://github.com/jscinoz>
-//                 surgeboris <https://github.com/surgeboris>
-//                 geirsagberg <https://github.com/geirsagberg>
-//                 Harry Hedger <https://github.com/hedgerh>
-//                 Adam Rich <https://github.com/adam1658>
-//                 Karl-Aksel Puulmann <https://github.com/macobo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { History } from "history";
 import { Dispatch, Middleware, Reducer, Store, StoreEnhancer } from "redux";
 
@@ -337,6 +322,7 @@ export function isLocationAction(action: any): boolean;
 
 export function next(): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function nextPath(): string | void;
 
 export function pathToAction<TKeys = {}, TState = any>(
@@ -345,6 +331,7 @@ export function pathToAction<TKeys = {}, TState = any>(
     querySerializer?: QuerySerializer,
 ): ReceivedAction;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function prevPath(): string | void;
 
 export function push(pathname: string): void;
@@ -353,6 +340,7 @@ export function redirect(action: Action): Action;
 
 export function replace(pathname: string): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function scrollBehavior(): ScrollBehavior | void;
 
 export function setKind(action: Action, kind: string): Action;

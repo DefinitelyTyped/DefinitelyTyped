@@ -1,4 +1,4 @@
-import { Object3D, Plane, Vector3 } from '../../../src/Three.js';
+import { Object3D, Plane, Vector3 } from "three";
 
 export interface CutByPlaneOutput {
     object1: Object3D;

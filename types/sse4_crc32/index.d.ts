@@ -1,8 +1,3 @@
-// Type definitions for sse4_crc32 7.0
-// Project: https://github.com/anandsuresh/sse4_crc32#readme
-// Definitions by: naeemy <https://github.com/naeemy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ReadStream } from "fs";

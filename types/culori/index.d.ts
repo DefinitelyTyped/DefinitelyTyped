@@ -1,8 +1,3 @@
-// Type definitions for culori 2.0
-// Project: https://github.com/Evercoder/culori
-// Definitions by: Bijela Gora <https://github.com/bijela-gora>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import modeA98 from "./src/a98/definition";
 import { ConvertFn } from "./src/converter";
 import modeCubehelix from "./src/cubehelix/definition";
@@ -250,7 +245,7 @@ export const yiq: ConvertFn<"yiq">;
 /* Types */
 
 export type { A98 } from "./src/a98/types";
-export { Color, Mode } from "./src/common";
+export { Color, Gamut, GamutMode, Mode } from "./src/common";
 export type { Cubehelix } from "./src/cubehelix/types";
 export type { Dlab } from "./src/dlab/types";
 export type { Dlch } from "./src/dlch/types";

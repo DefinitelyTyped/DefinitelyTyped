@@ -1,10 +1,3 @@
-// Type definitions for steam-user 4.26
-// Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-// Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
-
 // check out PR#54998 for the possibility of a rewrite (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54998)
 // as well as this branch: https://github.com/joshuajeschek/DefinitelyTyped/tree/steam-user-rewrite
 
@@ -334,7 +327,7 @@ declare class SteamUser extends EventEmitter {
         sinceChangenumber: number,
         callback?: (
             err: Error | null,
-            currentChangenumber: number,
+            currentChangeNumber: number,
             appChanges: AppChanges,
             packageChanges: PackageChanges,
         ) => void,
@@ -1420,7 +1413,7 @@ interface Server {
 }
 
 interface ProductChanges {
-    currentChangenumber: number;
+    currentChangeNumber: number;
     appChanges: AppChanges;
     packageChanges: PackageChanges;
 }

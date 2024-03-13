@@ -1,8 +1,3 @@
-// Type definitions for html-pdf v3.0.1
-// Project: https://github.com/marcbachmann/node-html-pdf
-// Definitions by: Seth Westphal <https://github.com/westy92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare module "html-pdf" {

@@ -1,10 +1,3 @@
-// Type definitions for whatwg-url 11.0
-// Project: https://github.com/jsdom/whatwg-url#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="es2020"/>
 /** https://url.spec.whatwg.org/#url-representation */
 export interface URLRecord {
@@ -95,13 +88,13 @@ export class URLSearchParams {
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(input: string, options?: { readonly baseURL?: string | undefined }): URLRecord | null;
+export function parseURL(input: string, options?: { readonly baseURL?: URLRecord | undefined }): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
-        baseURL?: string | undefined;
+        baseURL?: URLRecord | undefined;
         url?: URLRecord | undefined;
         stateOverride?: StateOverride | undefined;
     },

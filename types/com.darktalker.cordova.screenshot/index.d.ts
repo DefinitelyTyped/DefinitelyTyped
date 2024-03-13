@@ -1,8 +1,3 @@
-// Type definitions for com.darktalker.cordova.screenshot v0.1.5
-// Project: https://github.com/gitawego/cordova-screenshot
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace com.darktalker.cordova.screenshot {
     interface Plugin {
         /**

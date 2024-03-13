@@ -1,10 +1,3 @@
-// Type definitions for lusca 1.7
-// Project: https://github.com/krakenjs/lusca#readme
-// Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
-//                 Naoto Yokoyama <https://github.com/builtinnya>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 declare function lusca(options?: lusca.LuscaOptions): express.RequestHandler;

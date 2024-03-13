@@ -1,15 +1,3 @@
-// Type definitions for ws 8.5
-// Project: https://github.com/websockets/ws
-// Definitions by: Paul Loyd <https://github.com/loyd>
-//                 Margus Lamp <https://github.com/mlamp>
-//                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 reduckted <https://github.com/reduckted>
-//                 teidesu <https://github.com/teidesu>
-//                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Samuel Skeen <https://github.com/cwadrupldijjit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -38,12 +26,12 @@ type BufferLike =
     | Uint8Array
     | ArrayBuffer
     | SharedArrayBuffer
-    | ReadonlyArray<any>
-    | ReadonlyArray<number>
+    | readonly any[]
+    | readonly number[]
     | { valueOf(): ArrayBuffer }
     | { valueOf(): SharedArrayBuffer }
     | { valueOf(): Uint8Array }
-    | { valueOf(): ReadonlyArray<number> }
+    | { valueOf(): readonly number[] }
     | { valueOf(): string }
     | { [Symbol.toPrimitive](hint: string): string };
 
@@ -213,7 +201,7 @@ declare class WebSocket extends EventEmitter {
 }
 
 declare const WebSocketAlias: typeof WebSocket;
-interface WebSocketAlias extends WebSocket {} // tslint:disable-line no-empty-interface
+interface WebSocketAlias extends WebSocket {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 declare namespace WebSocket {
     /**
@@ -411,9 +399,9 @@ declare namespace WebSocket {
     }
 
     const WebSocketServer: typeof Server;
-    interface WebSocketServer extends Server {} // tslint:disable-line no-empty-interface
+    interface WebSocketServer extends Server {} // eslint-disable-line @typescript-eslint/no-empty-interface
     const WebSocket: typeof WebSocketAlias;
-    interface WebSocket extends WebSocketAlias {} // tslint:disable-line no-empty-interface
+    interface WebSocket extends WebSocketAlias {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     // WebSocket stream
     function createWebSocketStream(websocket: WebSocket, options?: DuplexOptions): Duplex;

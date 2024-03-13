@@ -1,8 +1,3 @@
-// Type definitions for get-size 3.0
-// Project: https://github.com/desandro/get-size
-// Definitions by: Leon Si <https://github.com/leondreamed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Size {
     width: number;
     height: number;

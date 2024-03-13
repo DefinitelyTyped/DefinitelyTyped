@@ -1,8 +1,3 @@
-// Type definitions for @glidejs/glide 3.6
-// Project: https://glidejs.com/
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import ComponentFunction from "./components";
 // eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals

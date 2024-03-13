@@ -1,16 +1,10 @@
-// Type definitions for non-npm package meteor-astronomy 2.6
-// Project: https://github.com/jagi/meteor-astronomy/
-// Definitions by: Igor Golovin <https://github.com/Deadly0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
     type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
     type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // eslint-disable-line @typescript-eslint/ban-types
     type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
 
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;

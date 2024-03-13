@@ -90,6 +90,7 @@ declare namespace OO.ui {
              * @param e Key down event
              * @return false to stop the operation
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onKeyDown(e: JQuery.Event): boolean | void;
 
             /**
@@ -148,14 +149,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }

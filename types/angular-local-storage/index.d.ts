@@ -1,10 +1,3 @@
-// Type definitions for angular-local-storage 0.7
-// Project: https://github.com/grevory/angular-local-storage#readme
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
-//                 Davide Donadello <https://github.com/dona278>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as angular from "angular";
 
 export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
@@ -13,7 +6,7 @@ export type ICookie = angular.local.storage.ICookie;
 
 declare module "angular" {
     namespace local.storage {
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface ILocalStorageServiceProvider extends IServiceProvider {
             /**
              * Setter for the prefix
@@ -59,7 +52,7 @@ declare module "angular" {
             setNotify(setItem: boolean, removeItem: boolean): ILocalStorageServiceProvider;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface ICookie {
             /**
              * Checks if cookies are enabled in the browser.
@@ -87,7 +80,7 @@ declare module "angular" {
 
         type StorageType = "localStorage" | "sessionStorage";
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface ILocalStorageService {
             /**
              * Change the local storage prefix during execution

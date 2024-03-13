@@ -1,9 +1,3 @@
-// Type definitions for Powerbi-visuals-tools 1.11
-// Project: https://github.com/Microsoft/PowerBI-visuals-tools
-// Definitions by:  Ilfat Galiev <https://github.com/zBritva>
-//                  Microsoft <https://github.com/Microsoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace powerbi {
     enum VisualDataRoleKind {
         /** Indicates that the role should be bound to something that evaluates to a grouping of values. */

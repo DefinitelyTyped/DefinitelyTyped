@@ -1,8 +1,3 @@
-// Type definitions for es6template 1.0
-// Project: https://github.com/zalmoxisus/es6-template
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Default {
     render: (str: string, locals: Record<string, unknown>) => string;
 

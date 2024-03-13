@@ -1,8 +1,3 @@
-// Type definitions for dayjs-precise-range 1.0
-// Project: https://github.com/huangjinlin/dayjs-precise-range
-// Definitions by: Eugene Shangin <https://github.com/fessracha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import dayjs = require("dayjs");
 
 export as namespace preciseDiff;

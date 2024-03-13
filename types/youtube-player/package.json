@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/youtube-player",
+    "version": "5.5.9999",
+    "projects": [
+        "https://github.com/gajus/youtube-player#readme"
+    ],
+    "devDependencies": {
+        "@types/youtube-player": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Jurča",
+            "githubUsername": "jurca"
+        }
+    ]
+}

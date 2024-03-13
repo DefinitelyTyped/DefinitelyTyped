@@ -1,9 +1,3 @@
-// Type definitions for @mapbox/sphericalmercator 1.2
-// Project: https://github.com/mapbox/sphericalmercator, https://github.com/mapbox/node-sphericalmercator
-// Definitions by: Nicholas Husher <https://github.com/nhusher>
-//                 Michael Bullington <https://github.com/mbullington>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace SphericalMercator;
 
 interface XYBounds {

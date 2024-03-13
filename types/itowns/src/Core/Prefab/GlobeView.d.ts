@@ -1,9 +1,11 @@
+import * as THREE from "three";
+
+import GlobeControls, { GlobeControlsOptions } from "../../Controls/GlobeControls";
 import Layer from "../../Layer/Layer";
-import Extent from "../Geographic/Extent";
-import View, { VIEW_EVENTS } from "../View";
-// import GlobeLayer from "./Globe/GlobeLayer";
-import GlobeControls from "../../Controls/GlobeControls";
 import CameraUtils from "../../Utils/CameraUtils";
+import Extent from "../Geographic/Extent";
+import View, { VIEW_EVENTS, ViewOptions } from "../View";
+import GlobeLayer from "./Globe/GlobeLayer";
 
 export enum GLOBE_VIEW_EVENTS {
     GLOBE_INITIALIZED = "initialized",
@@ -12,15 +14,15 @@ export enum GLOBE_VIEW_EVENTS {
     COLOR_LAYERS_ORDER_CHANGED = "layers-order-changed",
 }
 
-// TODO GlobeViewOptions
-// -> View options
-// object3d: THREE.Object3D
-// -> GlobeLayer options
-// noControls: boolean
-// -> GlobeControls options
-// handleCollision: boolean
-// -> Atmosphere options
-export type GlobeViewOptions = any;
+export interface GlobeViewOptions extends ViewOptions {
+    // object3d?: THREE.Object3D; // TODO: Not documented
+    // TODO: options passed to GlobeLayer
+    // noControls?: boolean; // TODO: Not documented
+    controls?: GlobeControlsOptions;
+    handleCollision?: boolean; // TODO: Not documented
+    // atmosphere?: any; TODO: options passed to Atmosphere
+    // diffuse?: THREE.Color; // TODO: documented but still used?
+}
 
 declare class GlobeView extends View {
     constructor(
@@ -29,8 +31,9 @@ declare class GlobeView extends View {
         options?: GlobeViewOptions,
     );
 
-    readonly isGlobeView: boolean;
-    tileLayer: /* GlobeLayer */ any; // TODO
+    readonly isGlobeView: true;
+
+    tileLayer: /* GlobeLayer */ any;
     controls?: GlobeControls;
 
     addLayer<L extends Layer>(layer: L): Promise<L>;

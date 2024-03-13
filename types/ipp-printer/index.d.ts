@@ -1,8 +1,3 @@
-// Type definitions for ipp-printer 1.0
-// Project: https://github.com/watson/ipp-printer
-// Definitions by: Matt Smith <https://github.com/mattsmithcode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";
@@ -44,7 +39,7 @@ declare namespace Printer {
         uri: string;
         userName: string;
 
-        attributes(filter?: ReadonlyArray<string>): Attribute[];
+        attributes(filter?: readonly string[]): Attribute[];
         pause(): this;
         resume(): this;
         setEncoding(encoding: BufferEncoding): this;

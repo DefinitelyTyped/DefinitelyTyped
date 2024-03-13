@@ -1,7 +1,3 @@
-// Type definitions for sync-storage 0.4
-// Project: https://github.com/raphaelpor/sync-storage
-// Definitions by: Dannomac <https://github.com/Dannomac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /*
  *  Init prepares the SyncStorage to work synchronously, by getting all values for all keys previously saved on RN AsyncStorage.
  */

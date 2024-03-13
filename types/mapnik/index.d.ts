@@ -1,9 +1,3 @@
-// Type definitions for mapnik 3.x
-// Project: http://mapnik.org
-// Definitions by: Loli <https://github.com/ipv4sec>
-//                 EdgarJeremy <https://github.com/edgarjeremy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 export const settings: any;
 export function register_default_fonts(): void;

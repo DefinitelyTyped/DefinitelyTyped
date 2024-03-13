@@ -1,8 +1,3 @@
-// Type definitions for service-worker-updater 0.0
-// Project: https://github.com/cactoo/service-worker-updater#readme
-// Definitions by: mike castleman <https://github.com/mlc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.0
 
 import * as React from "react";

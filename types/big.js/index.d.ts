@@ -1,9 +1,3 @@
-// Type definitions for big.js 6.2
-// Project: https://github.com/MikeMcl/big.js/
-// Definitions by: Steve Ognibene <https://github.com/nycdotnet>
-//                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Big {
     type BigSource = number | string | Big;
 

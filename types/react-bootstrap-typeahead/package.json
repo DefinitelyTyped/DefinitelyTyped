@@ -1,0 +1,45 @@
+{
+    "private": true,
+    "name": "@types/react-bootstrap-typeahead",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/ericgio/react-bootstrap-typeahead",
+        "http://ericgio.github.io/react-bootstrap-typeahead"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bootstrap-typeahead": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guymestef",
+            "githubUsername": "Guymestef"
+        },
+        {
+            "name": "Rajab Shakirov",
+            "githubUsername": "radziksh"
+        },
+        {
+            "name": "Paito Anderson",
+            "githubUsername": "PaitoAnderson"
+        },
+        {
+            "name": "Andreas Richter",
+            "githubUsername": "arichter83"
+        },
+        {
+            "name": "Dale Fenton",
+            "githubUsername": "dalevfenton"
+        },
+        {
+            "name": "Håkon Holhjem",
+            "githubUsername": "KngHawkon"
+        },
+        {
+            "name": "Christian Dornbusch",
+            "githubUsername": "Chrisdo82"
+        }
+    ]
+}

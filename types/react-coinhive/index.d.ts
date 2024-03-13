@@ -1,9 +1,3 @@
-// Type definitions for react-coinhive 1.0
-// Project: https://github.com/dragma/react-coinhive
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface CoinHiveProps {

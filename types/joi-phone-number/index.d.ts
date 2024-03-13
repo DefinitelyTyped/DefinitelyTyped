@@ -1,9 +1,3 @@
-// Type definitions for joi-phone-number 5.0
-// Project: https://github.com/Salesflare/joi-phone-number
-// Definitions by: Marvin Witt <https://github.com/NurMarvin/>
-//                 James Lismore <https://github.com/jlismore/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Extension, Reference, Root, StringSchema } from "joi";
 

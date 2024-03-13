@@ -1,8 +1,3 @@
-// Type definitions for react-native-image-gallery 2.1
-// Project: https://github.com/archriss/react-native-image-gallery#readme
-// Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PureComponent, ReactNode } from "react";
 import { FlatListProps as _FlatListProps, ImageProps, StyleProp, ViewProps, ViewStyle } from "react-native";
 

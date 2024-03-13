@@ -1,9 +1,3 @@
-// Type definitions for D3JS d3-selection-multi module 1.0
-// Project: https://github.com/d3/d3-selection-multi/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 1.0.1
 
 import { ArrayLike, BaseType, Selection, ValueFn } from "d3-selection";
@@ -17,7 +11,7 @@ import { Transition } from "d3-transition";
  * The second generic corresponds to the type of the data on the selected element.
  */
 // Retained ValueMap as type as it works better with IDE support for its intended purpose. It is not meant to be extended. So type is o.k.
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type ValueMap<T extends BaseType, Datum> = {
     [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null>;
 };

@@ -1,8 +1,3 @@
-// Type definitions for pg 6.1
-// Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import events = require("events");
@@ -57,6 +52,8 @@ export interface QueryConfig {
     name?: string | undefined;
     text: string;
     values?: any[] | undefined;
+    rowMode?: string | undefined;
+    types?: typeof types | undefined;
 }
 
 export interface QueryResult {

@@ -1,9 +1,3 @@
-// Type definitions for elasticlunr 0.9
-// Project: http://weixsong.github.io
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export = elasticlunr;
 
 declare function elasticlunr<T extends {}>(
@@ -247,6 +241,7 @@ declare namespace elasticlunr {
 
     type SerialisedPipeline = string[];
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PipelineFunction = (token: string, i: number, tokens: string[]) => string | undefined | null | void;
 
     class Pipeline {

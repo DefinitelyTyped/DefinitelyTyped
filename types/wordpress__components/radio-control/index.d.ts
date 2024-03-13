@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { ComponentType, JSX } from "react";
 
 import BaseControl from "../base-control";
 

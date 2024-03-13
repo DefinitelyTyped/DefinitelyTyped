@@ -1,9 +1,3 @@
-// Type definitions for react-native-easy-upgrade 0.0
-// Project: https://github.com/react-native-org/react-native-easy-upgrade#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 interface Options {
     iOSAppId: string;
     iOSAppLookupUrl: string;

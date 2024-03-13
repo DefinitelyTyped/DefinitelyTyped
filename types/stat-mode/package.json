@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/stat-mode",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/TooTallNate/stat-mode"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/stat-mode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

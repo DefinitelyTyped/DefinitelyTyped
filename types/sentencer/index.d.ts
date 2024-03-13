@@ -1,8 +1,3 @@
-// Type definitions for sentencer 0.2
-// Project: https://www.npmjs.com/package/sentencer (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Julien <https://github.com/JLambertazzo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type action = () => string;
 interface actions {
     [key: string]: action;

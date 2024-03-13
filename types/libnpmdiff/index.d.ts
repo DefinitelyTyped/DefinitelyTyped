@@ -1,8 +1,3 @@
-// Type definitions for libnpmdiff 2.0
-// Project: https://github.com/npm/libnpmdiff#readme
-// Definitions by: Oscar Busk <https://github.com/oBusk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as pacote from "pacote";
 
 declare namespace libnpmdiff {

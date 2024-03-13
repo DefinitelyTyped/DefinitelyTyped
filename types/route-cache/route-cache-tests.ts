@@ -22,9 +22,11 @@ routeCache.config(configRedisStore); // $ExpectType RouteCache
 routeCache.config(configLruStore); // $ExpectType RouteCache
 
 routeCache.config({ max: 100 }).cacheSeconds(10, "foo"); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
+routeCache.config({ max: 100 }).cacheSeconds(10); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 routeCache.cacheSeconds(10, cacheKeyFunc); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 routeCache.cacheSeconds(10, cacheKeyFuncNull); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 routeCache.cacheSeconds(10, "foo"); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
+routeCache.cacheSeconds(10); // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 
 routeCache.removeCache("foo"); // $ExpectType void
 routeCache.config({ max: 100 }).removeCache("foo"); // $ExpectType void

@@ -1,9 +1,3 @@
-// Type definitions for Desmos 1.6
-// Project: https://www.desmos.com/api/v1.6/docs/
-// Definitions by: ysulyma <https://github.com/ysulyma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 declare namespace Desmos {
     /**
      * Which features are enabled for your API key.

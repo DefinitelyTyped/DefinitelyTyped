@@ -23,6 +23,7 @@ import HmacRIPEMD160 = require("crypto-js/hmac-ripemd160");
 import PBKDF2 = require("crypto-js/pbkdf2");
 // ---
 import AES = require("crypto-js/aes");
+import Blowfish = require("crypto-js/blowfish");
 import TripleDES = require("crypto-js/tripledes");
 import RC4 = require("crypto-js/rc4");
 import Rabbit = require("crypto-js/rabbit");

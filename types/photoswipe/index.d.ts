@@ -1,10 +1,3 @@
-// Type definitions for PhotoSwipe 4.1.3
-// Project: http://photoswipe.com/
-// Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-//                 PikachuEXE <https://github.com/PikachuEXE>
-//                 RazDva122 <https://github.com/Razdva122>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PhotoSwipe {
     /**
      * A specific slide in the PhotoSwipe gallery. The terms "item", "slide", and "slide object" are used interchangeably.

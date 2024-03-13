@@ -1,9 +1,3 @@
-// Type definitions for localtunnel 2.0
-// Project: https://github.com/localtunnel/localtunnel
-// Definitions by: Vladyslav Khrapov <https://github.com/vladhrapov>
-//                 Noam Alffasy <https://github.com/noamalffasy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,8 +1,3 @@
-// Type definitions for react-longpressable 1.1
-// Project: https://github.com/stardust66/react-longpressable#readme
-// Definitions by: VingeRay <https://github.com/vingeraycn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface LongPressProps {

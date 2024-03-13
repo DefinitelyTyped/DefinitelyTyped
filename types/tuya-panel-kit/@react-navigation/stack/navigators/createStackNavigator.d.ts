@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { JSX } from "react";
 import { DefaultNavigatorOptions, StackNavigationState, StackRouterOptions } from "../../native";
 import type { StackNavigationConfig, StackNavigationEventMap, StackNavigationOptions } from "../types";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers

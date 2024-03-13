@@ -1,9 +1,3 @@
-// Type definitions for react-final-form-listeners 1.0
-// Project: https://github.com/final-form/react-final-form-listeners
-// Definitions by: Yuri Drabik <https://github.com/yurist38>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as React from "react";
 
 export interface ExternallyChangedProps {

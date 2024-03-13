@@ -1,9 +1,3 @@
-// Type definitions for aria-query 5.0
-// Project: https://github.com/A11yance/aria-query#readme
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Disable automatic exports.
 export {};
 

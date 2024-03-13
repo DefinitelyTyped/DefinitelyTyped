@@ -1,10 +1,3 @@
-// Type definitions for workerb-api 1.0
-// Project: https://workerb.io/
-// Definitions by: workerB <https://github.com/workerb-io>
-//                Saurabh Garg <https://github.com/s-garg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 type QueryMethods = "text" | "regex" | "id" | "xpath" | "query_selector";
 
 declare type clickQueryMethods = `by_${QueryMethods}`;

@@ -1,4 +1,4 @@
-import { ComponentClass, ElementType, FocusEvent, KeyboardEvent, ReactElement } from "react";
+import { ComponentClass, ElementType, FocusEvent, JSX, KeyboardEvent, ReactElement } from "react";
 import { AutoFocus, ReactWidgetsCommonDropdownProps } from "./CommonProps";
 
 declare namespace DateTimePicker {

@@ -1,9 +1,3 @@
-// Type definitions for typeahead.js 0.11.1
-// Project: http://twitter.github.io/typeahead.js/
-// Definitions by: Ivaylo Gochkov <https://github.com/igochkov>, Gidon Junge <https://github.com/gjunge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface JQuery {
@@ -13,7 +7,7 @@ interface JQuery {
      * @param options Options hash that's used for configuration
      * @param datasets Array of datasets
      */
-    typeahead<T>(options: Twitter.Typeahead.Options, datasets: Twitter.Typeahead.Dataset<T>[]): JQuery;
+    typeahead<T>(options: Twitter.Typeahead.Options, datasets: Array<Twitter.Typeahead.Dataset<T>>): JQuery;
 
     /**
      * For a given input[type="text"], enables typeahead functionality.
@@ -25,7 +19,7 @@ interface JQuery {
     typeahead<T>(
         options: Twitter.Typeahead.Options,
         dataset: Twitter.Typeahead.Dataset<T>,
-        ...datasets: Twitter.Typeahead.Dataset<T>[]
+        ...datasets: Array<Twitter.Typeahead.Dataset<T>>
     ): JQuery;
 
     /**

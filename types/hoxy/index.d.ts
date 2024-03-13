@@ -1,8 +1,3 @@
-// Type definitions for hoxy 3.3
-// Project: https://github.com/greim/hoxy#readme
-// Definitions by: _TrueLecter_ <https://github.com/TrueLecter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Writable } from "stream";
 import cheerio = require("cheerio");
 

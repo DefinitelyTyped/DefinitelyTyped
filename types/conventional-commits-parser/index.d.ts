@@ -1,8 +1,3 @@
-// Type definitions for conventional-commits-parser 3.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -276,6 +271,14 @@ declare namespace conventionalCommitsParser {
          * null
          */
         commentChar?: string | null | undefined;
+
+        /**
+         * Breaking changes header pattern.
+         *
+         * @default
+         * undefined
+         */
+        breakingHeaderPattern?: RegExp | undefined;
 
         /**
          * What warn function to use. For example, `console.warn.bind(console)` or

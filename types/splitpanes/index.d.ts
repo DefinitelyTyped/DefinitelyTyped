@@ -1,8 +1,3 @@
-// Type definitions for splitPanes 2.2
-// Project: https://github.com/antoniandre/splitpanes
-// Definitions by: n0k0 <https://github.com/n0k0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
 import { VueConstructor } from "vue";
 
 // Misc
@@ -107,6 +102,7 @@ export interface SplitPaneMethods {
     onMouseMove: (event: Event) => void;
     onMouseUp: () => void;
     onSplitterClick: (event: Event, splitterIndex: number) => void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSplitterDblClick: (event: Event, splitterIndex: number) => Pane | void;
     onPaneClick: (event: Event, splitterIndex: number) => void;
     getCurrentMouseDrag: (event: Event) => CoordinateType;

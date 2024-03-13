@@ -1,9 +1,3 @@
-// Type definitions for gaze 1.1
-// Project: https://github.com/shama/gaze
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 type Mode = "auto" | "watch" | "poll";
 
 interface Options {

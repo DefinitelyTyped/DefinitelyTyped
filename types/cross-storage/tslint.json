@@ -1,7 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-class": false,
-        "no-void-expression": false
-    }
-}

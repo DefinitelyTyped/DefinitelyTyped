@@ -124,7 +124,7 @@ const customMode: CustomMode = {
         // $ExpectType boolean
         lib.CommonSelectors.isVertex(e);
 
-        // $ExpectType number
+        // $ExpectType { lng: number; lat: number; }
         lib.constrainFeatureMovement([drawFeature], { lng: e.lngLat.lng, lat: e.lngLat.lat });
 
         // $ExpectType Feature<Point, GeoJsonProperties> | null

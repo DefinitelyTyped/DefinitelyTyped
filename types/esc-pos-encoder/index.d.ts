@@ -1,9 +1,3 @@
-// Type definitions for esc-pos-encoder 1.3
-// Project: https://github.com/NielsLeenheer/EscPosEncoder#readme
-// Definitions by: dlimkin <https://github.com/dlimkin>, dberri <https://github.com/dberri>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 type codepageType =
     | "cp437"
     | "cp737"
@@ -82,7 +76,7 @@ declare class EscPosEncoder {
 
     qrcode(value: string, model?: 1 | 2, size?: qrSizeType, errorLevel?: qrErrorLevelType): EscPosEncoder;
 
-    raw(data: ReadonlyArray<number> | Uint8Array): EscPosEncoder;
+    raw(data: readonly number[] | Uint8Array): EscPosEncoder;
 
     size(value: sizeType): EscPosEncoder;
 

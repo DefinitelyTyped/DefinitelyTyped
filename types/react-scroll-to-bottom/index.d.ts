@@ -1,9 +1,3 @@
-// Type definitions for react-scroll-to-bottom 4.2
-// Project: https://github.com/compulim/react-scroll-to-bottom
-// Definitions by: Zechariah Tan <https://github.com/zS1L3NT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
-
 import { Context, PropsWithChildren } from "react";
 
 export default function ScrollToBottom(

@@ -1,8 +1,3 @@
-// Type definitions for qbittorrent-api-v2 1.2
-// Project: https://github.com/TheFlow95/node-qbittorrent-api-v2#readme
-// Definitions by: Totto16 <https://github.com/Totto16>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Login to qBittorrent
  * @async

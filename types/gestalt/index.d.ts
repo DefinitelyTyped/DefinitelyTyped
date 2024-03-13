@@ -1,18 +1,3 @@
-// Type definitions for gestalt 101.0
-// Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
-// Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
-//                 Josh Gachnang <https://github.com/joshgachnang>
-//                 Calvin Chhour <https://github.com/calvinchhour>
-//                 Muhammed Hafiz <https://github.com/zifahm>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Francisco Jimenez <https://github.com/jimenezff>
-//                 Charlie Gu <https://github.com/czgu>
-//                 Jay Kim <https://github.com/keyworks>
-//                 Vaibhav Sharma <https://github.com/v4iv>
-//                 Juan Alvarez <https://github.com/juanjalvarez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import React = require("react");
 
 /**
@@ -607,7 +592,7 @@ export interface DropdownItemProps {
      * Either the selected item info or an array of selected items,
      * used to determine when the "selected" icon appears on an item
      */
-    selected?: DropdownOption | ReadonlyArray<DropdownOption> | undefined;
+    selected?: DropdownOption | readonly DropdownOption[] | undefined;
 }
 
 export interface DropdownLinkProps {
@@ -1206,7 +1191,7 @@ export interface MasonryCache<K, V> {
 export interface MasonryProps<T = any> {
     columnWidth?: number | undefined;
     gutterWidth?: number | undefined;
-    items: ReadonlyArray<T>;
+    items: readonly T[];
     loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
     measurementStore?: MasonryCache<T, any>;
     layout?: "basic" | "basicCentered" | "flexible" | "serverRenderedFlexible" | "uniformRow" | undefined;
@@ -1300,7 +1285,7 @@ export interface ModuleExpandableProps {
         title: string;
         icon?: Icons | undefined;
         iconButton?: React.ReactElement<typeof IconButton> | undefined;
-        summary?: ReadonlyArray<string> | undefined;
+        summary?: readonly string[] | undefined;
         type?: "info" | "error" | undefined;
         iconAccessibilityLabel?: string | undefined;
         children?: React.ReactNode | undefined;
@@ -1446,9 +1431,10 @@ export interface PageHeaderProps {
         onClick?: (args: {
             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
             dangerouslyDisableOnNavigation: () => void;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         }) => void | undefined;
     };
-    items?: ReadonlyArray<React.ReactNode> | undefined;
+    items?: readonly React.ReactNode[] | undefined;
     dropdownAccessibilityLabel?: string | undefined;
     maxWidth?: number | string | undefined;
     primaryAction?: PageHeaderAction | undefined;

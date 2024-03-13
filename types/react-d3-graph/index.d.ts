@@ -1,10 +1,3 @@
-// Type definitions for react-d3-graph 2.6
-// Project: https://github.com/danielcaldas/react-d3-graph#readme
-// Definitions by: Adina Todoran <https://github.com/adina-todoran>
-//                 Robin Leclerc <https://github.com/BreadAndRoses95>
-//                 Nate Moore <https://github.com/TranquilMarmot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, MouseEvent } from "react";
 
 export type NodeLabelProperty<N extends GraphNode> = ((node: N) => string) | keyof N;

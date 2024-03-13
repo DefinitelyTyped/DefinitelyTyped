@@ -1,9 +1,3 @@
-// Type definitions for @pager/jackrabbit 4.8
-// Project: https://github.com/pagerinc/jackrabbit
-// Definitions by: Benjamin Schuster-Boeckler <https://github.com/dagams>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as amqplib from "amqplib";
 
 export = jackrabbit;
@@ -51,7 +45,7 @@ declare namespace jackrabbit {
     type QueueOptions = amqplib.Options.AssertQueue & {
         name?: string | undefined;
         key?: string | undefined;
-        keys?: ReadonlyArray<string> | undefined;
+        keys?: readonly string[] | undefined;
         prefetch?: number | undefined;
     };
 

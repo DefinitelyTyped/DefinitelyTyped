@@ -1,8 +1,3 @@
-// Type definitions for react-nepal-map 1.0
-// Project: https://github.com/keyrunpay/react-nepal-map#readme
-// Definitions by: Ashish Yadav <https://github.com/ashiishme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export as namespace ReactNepalMap;

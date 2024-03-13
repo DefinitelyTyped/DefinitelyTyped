@@ -1,9 +1,3 @@
-// Type definitions for angular-google-analytics v1.1.8
-// Project: https://github.com/revolunet/angular-google-analytics
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Thomas Fuchs <https://github.com/Toxantron>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 import * as angular from "angular";
 
@@ -18,13 +12,13 @@ declare module "angular" {
              * @summary If logging is enabled then all outbound calls are accessible via an in-memory array.
              * This is useful for troubleshooting and seeing the order of outbound calls with parameters.
              */
-            log: Array<Object>;
+            log: Object[];
 
             /**
              * @summary If in offline mode then all calls are queued to an in-memory array for future processing.
              * All calls queued to the offlineQueue are not outbound calls yet and hence do not show up in the log.
              */
-            offlineQueue: Array<Object>;
+            offlineQueue: Object[];
 
             /**
              * @summary If delayScriptTag(true) was set during configuration then manual script tag injection is required.
@@ -129,7 +123,7 @@ declare module "angular" {
              * @param {Object} tracker The account identifier(s).
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setAccount(tracker: string | Object | Array<Object>): AnalyticsProvider;
+            setAccount(tracker: string | Object | Object[]): AnalyticsProvider;
 
             /**
              * @summary Set Cookie Configuration.
@@ -144,7 +138,7 @@ declare module "angular" {
              * @param {Array<string>} domains The domains.
              * @return {angular.google.analytics.IAnalyticsProvider} The object instance.
              */
-            setCrossLinkDomains(domains: Array<string>): AnalyticsProvider;
+            setCrossLinkDomains(domains: string[]): AnalyticsProvider;
 
             /**
              * @summary Set currency.

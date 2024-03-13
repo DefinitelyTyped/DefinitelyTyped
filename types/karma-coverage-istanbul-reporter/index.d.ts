@@ -1,9 +1,3 @@
-// Type definitions for karma-coverage-istanbul-reporter 2.1
-// Project: https://github.com/mattlewis92/karma-coverage-istanbul-reporter#readme
-// Definitions by: Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 export interface Threshold {
     /** @default 0 */
     readonly statements?: number | undefined;

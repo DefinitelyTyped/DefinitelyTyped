@@ -1,9 +1,3 @@
-// Type definitions for cloudflare 2.7
-// Project: https://github.com/cloudflare/node-cloudflare
-// Definitions by: Samuel Corsi-House <https://github.com/Xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 declare namespace Cloudflare {
     type RecordTypes =
         | "A"
@@ -67,10 +61,12 @@ declare namespace Cloudflare {
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
-    type DnsRecordByType<RecordType extends RecordTypes> = RecordType extends "MX" | "URI" ? DnsRecordWithPriority
-        : RecordType extends "SRV" ? SrvDnsRecord
-        : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
-        : DnsRecord;
+    type ExistingDnsRecordByType<RecordType extends RecordTypes> =
+        & (RecordType extends "MX" | "URI" ? DnsRecordWithPriority
+            : RecordType extends "SRV" ? SrvDnsRecord
+            : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
+            : DnsRecord)
+        & { id: string };
 
     interface DNSRecords {
         edit(zone_id: string, id: string, record: DnsRecord): ResponseObjectPromise;
@@ -101,7 +97,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordsBrowseResponse<RecordType extends RecordTypes> {
-        result: Array<DnsRecordByType<RecordType>> | null;
+        result: Array<ExistingDnsRecordByType<RecordType>> | null;
         result_info: {
             page: number;
             per_page: number;

@@ -1,8 +1,3 @@
-// Type definitions for wx-server-sdk 0.8
-// Project: https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-server-api/
-// Definitions by: WangWei <https://github.com/vonweb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="node" />
 import * as fs from "fs";
 

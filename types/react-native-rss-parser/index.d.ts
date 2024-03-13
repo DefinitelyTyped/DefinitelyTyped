@@ -1,9 +1,3 @@
-// Type definitions for react-native-rss-parser 1.4
-// Project: https://github.com/jameslawler/react-native-rss-parser
-// Definitions by: Emiliano Leite <https://github.com/emilianoLeite>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 export {};
 
 type Maybe<T> = T | undefined;

@@ -490,9 +490,9 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
             className?: string | undefined;
             showLoadingIndicator?: boolean | undefined;
 
-            submit?: JSX.Element | undefined;
-            reset?: JSX.Element | undefined;
-            loadingIndicator?: JSX.Element | undefined;
+            submit?: React.JSX.Element | undefined;
+            reset?: React.JSX.Element | undefined;
+            loadingIndicator?: React.JSX.Element | undefined;
 
             onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
             onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
@@ -709,7 +709,7 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
 });
 
 (() => {
-    function getAttribute(component: React.ReactChild): string | undefined {
+    function getAttribute(component: React.ReactElement | number | string): string | undefined {
         if (typeof component !== "object") {
             return undefined;
         }
@@ -735,7 +735,7 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
         const widgets = new Map();
 
         React.Children.forEach(children, child => {
-            const attribute = getAttribute(child as React.ReactChild);
+            const attribute = getAttribute(child as React.ReactElement | number | string);
             if (!attribute) {
                 throw new Error("Could not find \"attribute\" prop");
             }

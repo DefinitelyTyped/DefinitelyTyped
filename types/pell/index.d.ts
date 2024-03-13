@@ -1,8 +1,3 @@
-// Type definitions for pell 1.0
-// Project: https://jaredreich.com/pell
-// Definitions by: Gabriel Soicher <https://github.com/Lunrtick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace pell;
 
 export interface PellElement {

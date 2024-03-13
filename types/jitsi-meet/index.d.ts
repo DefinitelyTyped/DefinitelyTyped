@@ -1,10 +1,3 @@
-// Type definitions for non-npm package jitsi-meet 2.0
-// Project: https://github.com/jitsi/jitsi-meet
-// Definitions by: Tom Price <https://github.com/tomtom5152>
-//                 Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 export interface ConfigHosts {
     domain?: string | undefined;
     anonymousdomain?: string | undefined;

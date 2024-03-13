@@ -1,8 +1,3 @@
-// Type definitions for rx.wamp 0.5.0
-// Project: https://github.com/paulpdaniels/rx.wamp/
-// Definitions by: Elad Zelingher <https://github.com/darkl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import autobahn = require("autobahn");
 import * as Rx from "rx";
 

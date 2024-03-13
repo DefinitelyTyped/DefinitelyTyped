@@ -1,9 +1,3 @@
-// Type definitions for motor-hat 2.0
-// Project: http://www.github.com/jcane86/motor-hat
-// Definitions by: Yevgen Muntyan <https://github.com/muntyan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export type Direction = "fwd" | "back";
 
 type Callback = (err?: Error, result?: any) => void;
@@ -451,17 +445,17 @@ export interface MotorHat {
     /**
      * Array of initialized Servo controllers
      */
-    readonly servos: ReadonlyArray<Servo>;
+    readonly servos: readonly Servo[];
 
     /**
      * Array of initialized Stepper controllers
      */
-    readonly steppers: ReadonlyArray<Stepper>;
+    readonly steppers: readonly Stepper[];
 
     /**
      * Array of initialized DC controllers
      */
-    readonly dcs: ReadonlyArray<DC>;
+    readonly dcs: readonly DC[];
 
     /**
      * Creates a servo motor controller.
@@ -535,13 +529,13 @@ export interface MotorHatOptions {
      * At most 4 DCs, each should be one of following: 'M1', 'M2', 'M3', 'M4' depending on
      * port the motor is connected to.
      */
-    dcs?: ReadonlyArray<Motor> | undefined;
+    dcs?: readonly Motor[] | undefined;
 
     /**
      * Definition of the servos connected to the HAT.
      * List of the channels that have servos connected to them. 0 to 15.
      */
-    servos?: ReadonlyArray<number> | undefined;
+    servos?: readonly number[] | undefined;
 }
 
 /**

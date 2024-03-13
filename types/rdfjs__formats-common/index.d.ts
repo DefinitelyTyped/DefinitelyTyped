@@ -1,11 +1,6 @@
-// Type definitions for @rdfjs/formats-common 3.1
-// Project: https://github.com/rdfjs-base/formats-common
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SinkMap } from "@rdfjs/sink-map";
+import { Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Stream } from "rdf-js";
 
 export const parsers: SinkMap<EventEmitter, Stream>;
 export const serializers: SinkMap<Stream, EventEmitter>;

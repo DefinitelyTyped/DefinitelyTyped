@@ -82,7 +82,7 @@ declare module "." {
         defaultValue: T,
     ): ServerContext<T>;
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
@@ -95,7 +95,7 @@ declare module "." {
         /**
          * Marks all state updates inside the async function as transitions
          *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
          *
          * @param callback
          */

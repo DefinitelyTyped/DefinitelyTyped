@@ -1,12 +1,3 @@
-// Type definitions for react-tag-autocomplete 6.3
-// Project: https://github.com/i-like-robots/react-tags#readme
-// Definitions by: James Lismore <https://github.com/jlismore>
-//                 Rahul Sagore <https://github.com/Rahul-Sagore>
-//                 Max Cilauro <https://github.com/MaxCilauro>
-//                 Aleksandr Kondratsky <https://github.com/akondratsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component } from "react";
 
 export default class ReactTags extends Component<ReactTagsProps> {}

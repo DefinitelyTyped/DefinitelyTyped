@@ -36,4 +36,4 @@ export interface MenuItemProps extends FlexboxPropTypes, React.HTMLAttributes<HT
  * @param {Object} props
  * @returns {XML}
  */
-export declare const MenuText: (props: MenuItemProps) => JSX.Element;
+export declare const MenuText: (props: MenuItemProps) => React.JSX.Element;

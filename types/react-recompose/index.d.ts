@@ -1,15 +1,3 @@
-// Type definitions for react-recompose 0.33
-// Project: https://github.com/react-recompose/react-recompose
-// Definitions by: Iskander Sierra <https://github.com/iskandersierra>
-//                 Curtis Layne <https://github.com/clayne11>
-//                 Rasmus Eneman <https://github.com/Pajn>
-//                 Lucas Terra <https://github.com/lucasterra>
-//                 Mathieu Masy <https://github.com/TiuSh>
-//                 Chris Brody <https://github.com/brodybits>
-//                 Jeremy Daley <https://github.com/daleyjem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare module "react-recompose" {
@@ -210,7 +198,7 @@ declare module "react-recompose" {
 
     // onlyUpdateForKeys: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -400,7 +388,7 @@ declare module "react-recompose" {
 
     // nest: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#hoistStatics

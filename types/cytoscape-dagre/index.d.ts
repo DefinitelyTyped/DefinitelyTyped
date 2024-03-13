@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-dagre 2.3
-// Project: https://github.com/cytoscape/cytoscape.js-dagre
-// Definitions by: Felix Barczewicz <https://github.com/DieserFelix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cytoscapeDagre: cytoscape.Ext;

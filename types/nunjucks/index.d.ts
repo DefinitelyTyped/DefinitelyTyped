@@ -1,9 +1,3 @@
-// Type definitions for nunjucks 3.2
-// Project: http://mozilla.github.io/nunjucks/, https://github.com/mozilla/nunjucks
-// Definitions by: Matthew Burstein <https://github.com/MatthewBurstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export type TemplateCallback<T> = (err: lib.TemplateError | null, res: T | null) => void;
 export type Callback<E, T> = (err: E | null, res: T | null) => void;
 

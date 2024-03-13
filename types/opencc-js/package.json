@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/opencc-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nk2028/opencc-js"
+    ],
+    "devDependencies": {
+        "@types/opencc-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pig Fang",
+            "githubUsername": "g-plane"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for kavenegar 1.1
-// Project: https://github.com/kavenegar/kavenegar-node
-// Definitions by: Nima Ebrazeh <https://github.com/nimaebra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace kavenegar {
     interface Options {
         apikey: string;

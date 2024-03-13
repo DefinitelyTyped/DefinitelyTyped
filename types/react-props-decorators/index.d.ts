@@ -1,14 +1,9 @@
-// Type definitions for react-props-decorators 0.1.0
-// Project: https://github.com/popkirby/react-props-decorators
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 import * as React from "react";
 
 export interface ClassDecorator {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     <TFunction extends Function>(target: TFunction): TFunction | void;
 }
 

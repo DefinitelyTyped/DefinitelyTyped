@@ -1,9 +1,3 @@
-// Type definitions for vinyl-fs 0.3
-// Project: https://github.com/wearefractal/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 remisery <https://github.com/remisery>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare global {

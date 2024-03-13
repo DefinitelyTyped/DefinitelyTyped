@@ -1,9 +1,3 @@
-// Type definitions for react-is-deprecated v0.1.2
-// Project: https://github.com/Aweary/react-is-deprecated
-// Definitions by: Sean Kelley <https://github.com/seansfkelley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare module "react-is-deprecated" {
     import { ReactPropTypes, Requireable, ValidationMap, Validator } from "react";
 
@@ -27,7 +21,7 @@ declare module "react-is-deprecated" {
         element: Requireable<any> & Deprecatable<any>;
         instanceOf(expectedClass: {}): Requireable<any> & Deprecatable<any>;
         oneOf(types: any[]): Requireable<any> & Deprecatable<any>;
-        oneOfType(types: Validator<any>[]): Requireable<any> & Deprecatable<any>;
+        oneOfType(types: Array<Validator<any>>): Requireable<any> & Deprecatable<any>;
         arrayOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
         objectOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
         shape(type: ValidationMap<any>): Requireable<any> & Deprecatable<any>;

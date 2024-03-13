@@ -1,8 +1,3 @@
-// Type definitions for eslint-utils 3.0
-// Project: https://github.com/mysticatea/eslint-utils#readme
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AST, Scope, SourceCode } from "eslint";
 import * as ESTree from "estree";
 

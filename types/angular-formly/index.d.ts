@@ -1,9 +1,3 @@
-// Type definitions for angular-formly 7.2.4
-// Project: https://github.com/formly-js/angular-formly
-// Definitions by: Scott Hatcher <https://github.com/scatcher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 declare module "AngularFormly" {
@@ -42,7 +36,7 @@ declare namespace AngularFormly {
         data?: {
             [key: string]: any;
         } | undefined;
-        fieldTransform?: Function | Array<Function> | undefined;
+        fieldTransform?: Function | Function[] | undefined;
         formState?: Object | undefined;
         removeChromeAutoComplete?: boolean | undefined;
         resetModel?: Function | undefined;
@@ -115,7 +109,7 @@ declare namespace AngularFormly {
         [key: string]: any;
 
         // types for select/radio fields
-        options?: Array<ISelectOption> | undefined;
+        options?: ISelectOption[] | undefined;
         groupProp?: string | undefined; // default: group
         valueProp?: string | undefined; // default: value
         labelProp?: string | undefined; // default: name
@@ -548,7 +542,7 @@ declare namespace AngularFormly {
         defaultHideDirective: string;
         errorExistsAndShouldBeVisibleExpression: any;
         getFieldId: Function;
-        fieldTransform: Function | Array<Function>;
+        fieldTransform: Function | Function[];
         explicitAsync: boolean;
     }
 
@@ -556,7 +550,7 @@ declare namespace AngularFormly {
         disableWarnings: boolean;
         extras: IFormlyConfigExtras;
         setType(typeOptions: ITypeOptions): void;
-        setWrapper(wrapperOptions: IWrapperOptions | Array<IWrapperOptions>): void;
+        setWrapper(wrapperOptions: IWrapperOptions | IWrapperOptions[]): void;
         templateManipulators: ITemplateManipulators;
     }
 

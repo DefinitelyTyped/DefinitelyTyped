@@ -1,8 +1,3 @@
-// Type definitions for markdown-escape 1.1
-// Project: https://github.com/kemitchell/markdown-escape.js
-// Definitions by: Christoph Thiede <https://github.com/LinqLover>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type CharacterSets = [
     "asterisks",
     "number signs",

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/dialog-node",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/bat-tomr/dialog-node"
+    ],
+    "devDependencies": {
+        "@types/dialog-node": "workspace:."
+    },
+    "owners": []
+}

@@ -1,8 +1,3 @@
-// Type definitions for pause-me 1.1
-// Project: https://github.com/jpehman/pause-mejs#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace pauseMe {

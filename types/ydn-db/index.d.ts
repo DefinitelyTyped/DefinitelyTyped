@@ -1,8 +1,3 @@
-// Type definitions for YDN-DB 1.0
-// Project: http://dev.yathit.com/ydn-db/index.html
-// Definitions by: Kyaw Tun <https://github.com/yathit>, Gabriel Monteagudo <https://github.com/gabrielmaldi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface FullTextSource {
     storeName: string;
     keyPath: string;
@@ -238,8 +233,8 @@ declare namespace ydn.db {
             offset?: number,
             reverse?: boolean,
         ): Request;
-        values(store_name: string, ids?: Array<any>): Request;
-        values(keys?: Array<any>): Request;
+        values(store_name: string, ids?: any[]): Request;
+        values(keys?: any[]): Request;
     }
 
     export class Storage extends DbOperator {

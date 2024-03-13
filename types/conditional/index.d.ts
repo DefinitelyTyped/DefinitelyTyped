@@ -1,8 +1,3 @@
-// Type definitions for conditional 5.3
-// Project: https://github.com/anshulverma/conditional
-// Definitions by: Richard Wang <https://github.com/rzhw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace preconditions;
 
 // Turn off automatic exporting since this type alias shouldn't get exported.

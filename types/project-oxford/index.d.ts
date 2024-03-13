@@ -1,9 +1,3 @@
-// Type definitions for project-oxford v0.1.3
-// Project: https://github.com/felixrieseberg/project-oxford
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import Promise = require("bluebird");

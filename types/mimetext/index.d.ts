@@ -1,8 +1,3 @@
-// Type definitions for mimetext 2.0
-// Project: https://github.com/muratgozel/MIMEText
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface MailLocationData {
     addr: string;
     name?: string;

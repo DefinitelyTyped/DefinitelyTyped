@@ -1,12 +1,3 @@
-// Type definitions for non-npm package wx-app 2.9
-// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 AlexStacker <https://github.com/AlexStacker>
-//                 Jimexist <https://github.com/Jimexist>
-//                 ChenKS12138 <https://github.com/ChenKS12138>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace wx {
     // #region 基本参数
     interface DataResponse {

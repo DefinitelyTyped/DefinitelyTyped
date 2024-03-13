@@ -1,4 +1,4 @@
-import metascraper = require("metascraper");
+import metascraper from "metascraper";
 import metascraperReadability = require("metascraper-readability");
 
 const html = "example";

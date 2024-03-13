@@ -1,8 +1,3 @@
-// Type definitions for lz4 0.6
-// Project: https://github.com/pierrec/node-lz4
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform } from "stream";
 

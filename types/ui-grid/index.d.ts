@@ -1,11 +1,3 @@
-// Type definitions for ui-grid
-// Project: http://www.ui-grid.info/
-// Definitions by: Ben Tesser <https://github.com/btesser>
-//                 Joe Skeen <https://github.com/joeskeen>
-//                 Peter Bojanczyk <https://github.com/pbojanczyk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // These are very definitely preliminary. Please feel free to improve.
 
 // Changelog:
@@ -116,7 +108,7 @@ declare namespace uiGrid {
             min: number;
             max: number;
         };
-        CURRENCY_SYMBOLS: Array<string>;
+        CURRENCY_SYMBOLS: string[];
         dataChange: {
             ALL: string;
             EDIT: string;
@@ -331,7 +323,7 @@ declare namespace uiGrid {
          * @param newRawData The new grid data
          * @return Promise which resolves when the rows have been created or removed
          */
-        modifyRows(newRawData: Array<TEntity>): ng.IPromise<any>;
+        modifyRows(newRawData: TEntity[]): ng.IPromise<any>;
         /**
          * Notify the grid that a data or config change has occurred,
          * where that change isn't something the grid was otherwise noticing.  This
@@ -440,7 +432,7 @@ declare namespace uiGrid {
          * ALL
          * @returns deregister function - a function that can be called to deregister this callback
          */
-        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: Array<string>): Function;
+        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: string[]): Function;
         /**
          * When the build creates rows from gridOptions.data, the rowBuilders will be called to add
          * additional properties to the row.
@@ -530,7 +522,7 @@ declare namespace uiGrid {
         /**
          * returns an array of columns in the grid
          */
-        columns: Array<IGridColumn>;
+        columns: IGridColumn[];
         /**
          * returns the total column footer height
          */
@@ -659,7 +651,7 @@ declare namespace uiGrid {
          * Where you do this, you need to take care in updating the data - you can't just update `$scope.myData` to some
          * other array, you need to update $scope.gridOptions.data to point to that new array as well.
          */
-        data?: Array<TEntity> | string | undefined;
+        data?: TEntity[] | string | undefined;
         /**
          * True by default. When enabled, this setting displays a column
          * menu within each column.
@@ -740,7 +732,7 @@ declare namespace uiGrid {
          *
          * Defaults to ['$$hashKey']
          */
-        excludeProperties?: Array<string> | undefined;
+        excludeProperties?: string[] | undefined;
         /**
          * Set to true if your columns are all related directly to fields in a flat object structure - i.e.
          * each of your columns associate directly with a propery one each of the entities in your data array.
@@ -955,7 +947,7 @@ declare namespace uiGrid {
          * the added note that if you want to use remove you must also specify an `id` field,
          * which is provided when you want to remove an item.  The id should be unique.
          */
-        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: Array<IMenuItem>): void;
+        addToGridMenu(grid: IGridInstanceOf<TEntity>, items: IMenuItem[]): void;
         /**
          * Clears all filters and optionally refreshes the visible rows.
          * @param [refreshRows=true] Defaults to true.
@@ -1381,7 +1373,7 @@ declare namespace uiGrid {
             /** the label for the "id" field in the editDropdownOptionsArray. Defaults to 'id' */
             editDropdownIdLabel?: string | undefined;
             /** an array of values in the format [ {id: xxx, value: xxx} ], which is populated into the edit dropdown */
-            editDropdownOptionsArray?: Array<IEditDropdown> | undefined;
+            editDropdownOptionsArray?: IEditDropdown[] | undefined;
             /**
              * a path to a property on row.entity containing an array of values in the format `[{id: xxx, value:
              * xxx}]`,
@@ -1682,7 +1674,7 @@ declare namespace uiGrid {
              * @default null
              * @returns A promise to load all data from server
              */
-            exporterAllDataFn?: (() => ng.IPromise<Array<TEntity>>) | undefined;
+            exporterAllDataFn?: (() => ng.IPromise<TEntity[]>) | undefined;
             /**
              * @deprecated
              * DEPRECATED - exporterAllDataFn used to be called this, but it wasn't a promise,
@@ -1690,7 +1682,7 @@ declare namespace uiGrid {
              * use exporterAllDataFn instead.
              * @returns A promise to load all data from server
              */
-            exporterAllDataPromise?: (() => ng.IPromise<Array<TEntity>>) | undefined;
+            exporterAllDataPromise?: (() => ng.IPromise<TEntity[]>) | undefined;
             /**
              * The character to use as column separator link
              * Defaults to ','
@@ -1859,7 +1851,7 @@ declare namespace uiGrid {
              * Defaults to: []
              * @default []
              */
-            exporterSuppressColumns?: Array<string> | undefined;
+            exporterSuppressColumns?: string[] | undefined;
             /**
              * Don't show the export menu button, implying the user will roll their own UI for calling the exporter
              * Defaults to false
@@ -2075,11 +2067,11 @@ declare namespace uiGrid {
             /**
              * GroupArray.  Sorted by groupPriority
              */
-            grouping: Array<IGripGroup>;
+            grouping: IGripGroup[];
             /**
              * Array of aggregation objects
              */
-            treeAggregations: Array<IGridTreeAggregations>;
+            treeAggregations: IGridTreeAggregations[];
             /**
              * Hash of currently expanded nodes
              */
@@ -2145,7 +2137,7 @@ declare namespace uiGrid {
              * @param newObjects An array of new objects that you should add to your data
              */
             importerDataAddCallback?:
-                | ((grid: IGridInstanceOf<TEntity>, newObjects: Array<TEntity>) => void)
+                | ((grid: IGridInstanceOf<TEntity>, newObjects: TEntity[]) => void)
                 | undefined;
             /**
              * A callback function that provides custom error handling,
@@ -2205,7 +2197,7 @@ declare namespace uiGrid {
              * @returns array of matching column names, in the same order as the headerArray
              */
             importerProcessHeaders?:
-                | ((grid: IGridInstanceOf<TEntity>, headerArray: Array<string>) => Array<string>)
+                | ((grid: IGridInstanceOf<TEntity>, headerArray: string[]) => string[])
                 | undefined;
             /**
              * Whether or not importer is enabled.  Automatically set
@@ -2438,7 +2430,7 @@ declare namespace uiGrid {
              * Array of page sizes, defaults to [250, 500, 1000]
              * @default [250, 500, 1000]
              */
-            paginationPageSizes?: Array<number> | undefined;
+            paginationPageSizes?: number[] | undefined;
             /**
              * A custom template for the pager, defaults to ui-grid/pagination
              * @default 'ui-grid/pagination'
@@ -2646,7 +2638,7 @@ declare namespace uiGrid {
              * @returns a promise that represents the aggregate of all of the individual save
              *          promises.  i.e. it will be resolved when all the individual save promises have been resolved.
              */
-            flushDirtyRows(grid?: IGridInstanceOf<TEntity>): ng.IPromise<Array<any>>;
+            flushDirtyRows(grid?: IGridInstanceOf<TEntity>): ng.IPromise<any[]>;
             /**
              * Returns all currently dirty rows
              * @param grid The target grid
@@ -2665,7 +2657,7 @@ declare namespace uiGrid {
              * and clearing the error flag and the dirty flag
              * @param dataRows the data entities for which the gridRows should be set clean
              */
-            setRowsClean(dataRows: Array<TEntity>): void;
+            setRowsClean(dataRows: TEntity[]): void;
             /**
              * Sets each of the rows passed in dataRows to be dirty,
              * Note that if you have only just inserted the rows into your data,
@@ -2673,7 +2665,7 @@ declare namespace uiGrid {
              * wrapped with $interval or $timeout.
              * @param dataRows the data entities for which the gridRows should be set dirty
              */
-            setRowsDirty(dataRows: Array<TEntity>): void;
+            setRowsDirty(dataRows: TEntity[]): void;
             /**
              * Sets the promise associated with the row save, mandatory that the saveRow event handler calls this method
              * somewhere before returning
@@ -2850,9 +2842,9 @@ declare namespace uiGrid {
         }
 
         export interface IGridSavedState {
-            columns?: Array<ISavedColumn> | undefined;
+            columns?: ISavedColumn[] | undefined;
             scrollFocus?: ISavedScrollFocus | undefined;
-            selection: Array<IRowVal>;
+            selection: IRowVal[];
             grouping: grouping.IGridGroupingConfiguration;
             treeView: treeBase.ITreeState;
         }
@@ -2862,7 +2854,7 @@ declare namespace uiGrid {
             visible?: boolean | undefined;
             width?: number | undefined;
             sort?: ISortInfo | undefined;
-            filters?: Array<IFilterOptions> | undefined;
+            filters?: IFilterOptions[] | undefined;
             pinned?: string | undefined;
         }
 
@@ -3008,7 +3000,7 @@ declare namespace uiGrid {
              * Gets selected rows as entities
              * @returns Selected row entities
              */
-            getSelectedRows(): Array<TEntity>;
+            getSelectedRows(): TEntity[];
             /**
              * Selects all rows.  Does nothing if multiselect = false
              * @param event object if raised from event
@@ -3486,7 +3478,7 @@ declare namespace uiGrid {
          *                      These must be the same functions that were used in the .on.eventName method
          * @param callBackFn function to execute
          */
-        suppressEvents(listenerFuncs: Function | Array<Function>, callBackFn: Function): void;
+        suppressEvents(listenerFuncs: Function | Function[], callBackFn: Function): void;
 
         /**
          * Core Api
@@ -3695,7 +3687,7 @@ declare namespace uiGrid {
         /** Filter on this column */
         filter?: IFilterOptions | undefined;
         /** Filters for this column. Includes 'term' property bound to filter input elements */
-        filters?: Array<IFilterOptions> | undefined;
+        filters?: IFilterOptions[] | undefined;
         /** Reference to grid containing the column */
         grid: IGridInstanceOf<TEntity>;
         name?: string | undefined;
@@ -3890,7 +3882,7 @@ declare namespace uiGrid {
          */
         filterHeaderTemplate?: string | undefined;
         /** Specify multiple filter fields */
-        filters?: Array<IFilterOptions> | undefined;
+        filters?: IFilterOptions[] | undefined;
         /**
          * footerCellClass can be a string specifying the class to append to a cell or it can be
          * a function(row,rowRenderIndex, col, colRenderIndex) that returns a class name
@@ -3923,7 +3915,7 @@ declare namespace uiGrid {
         /** sets the maximum column width */
         maxWidth?: number | undefined;
         /** used to add menu items to a column. Refer to the tutorial on this functionality */
-        menuItems?: Array<IMenuItem> | undefined;
+        menuItems?: IMenuItem[] | undefined;
         /** Sets the minimum column width */
         minWidth?: number | undefined;
         /**
@@ -4073,7 +4065,7 @@ declare namespace uiGrid {
          * options in the format [{ value: 1, label: 'male' }]. No i18n filter is provided, you need to perform the i18n
          * on the values before you provide them
          */
-        selectOptions?: Array<ISelectOption> | undefined;
+        selectOptions?: ISelectOption[] | undefined;
         /**
          * If set to true then the 'x' button that cancels/clears the filter will not be shown.
          * @default false

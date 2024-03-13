@@ -1,8 +1,3 @@
-// Type definitions for Glider.js 1.7
-// Project: https://nickpiscitelli.github.io/Glider.js
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Glider {
     // Selectors are either results of querying document DOM or a string
     // Let's default to nullable Element to allow friction free migration

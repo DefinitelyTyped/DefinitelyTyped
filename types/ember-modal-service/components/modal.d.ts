@@ -38,10 +38,10 @@ export default class ModalComponent extends Component {
     /**
      * Resolve current promise and close modal.
      */
-    resolve: (data?: unknown) => void;
+    resolve(data?: unknown): void;
 
     /**
      * Reject current promise and close modal.
      */
-    reject: (error?: unknown) => void;
+    reject(error?: unknown): void;
 }

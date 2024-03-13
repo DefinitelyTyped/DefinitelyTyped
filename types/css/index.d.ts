@@ -1,8 +1,3 @@
-// Type definitions for css
-// Project: https://github.com/reworkcss/css
-// Definitions by: Ilya Verbitskiy <https://github.com/ilich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * CSS parser / stringifier for Node.js
  */
@@ -89,7 +84,7 @@ export interface Node {
 
 export interface Rule extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
-    selectors?: Array<string> | undefined;
+    selectors?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment> | undefined;
 }
@@ -176,7 +171,7 @@ export interface KeyFrames extends Node {
 
 export interface KeyFrame extends Node {
     /** The list of "selectors" of the keyframe rule, split on commas. Each “selector” is trimmed from whitespace. */
-    values?: Array<string> | undefined;
+    values?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment> | undefined;
 }
@@ -204,7 +199,7 @@ export interface Namespace extends Node {
  */
 export interface Page extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
-    selectors?: Array<string> | undefined;
+    selectors?: string[] | undefined;
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment> | undefined;
 }
@@ -240,7 +235,7 @@ export interface StyleRules {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules: Array<Rule | Comment | AtRule>;
     /** Array of Errors. Errors collected during parsing when option silent is true. */
-    parsingErrors?: Array<ParserError> | undefined;
+    parsingErrors?: ParserError[] | undefined;
 }
 
 /**

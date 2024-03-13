@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/plurals-cldr",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nodeca/plurals-cldr"
+    ],
+    "devDependencies": {
+        "@types/plurals-cldr": "workspace:."
+    },
+    "owners": []
+}

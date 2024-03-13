@@ -1,8 +1,3 @@
-// Type definitions for @af-utils/react-virtual-headless 0.0
-// Project: https://github.com/nowaalex/af-utils
-// Definitions by: Hunter Ross <https://github.com/huner2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 /**

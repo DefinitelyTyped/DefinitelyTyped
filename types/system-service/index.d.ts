@@ -1,9 +1,3 @@
-// Type definitions for system-service 1.3
-// Project: https://github.com/leocwlam/system-service
-// Definitions by: Leo Lam <https://github.com/leocwlam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 import { FileConfiguration, Logger, LoggerConfiguration, SourcesConfiguration } from "system-logger";
 
 export {

@@ -1,9 +1,3 @@
-// Type definitions for datatables.net-keytable 2.5
-// Project: https://datatables.net
-// Definitions by: Konstantin Kuznetsov <https://github.com/Arik-neKrol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 

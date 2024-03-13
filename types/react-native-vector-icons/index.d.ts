@@ -1,13 +1,3 @@
-// Type definitions for react-native-vector-icons 6.4
-// Project: https://github.com/oblador/react-native-vector-icons
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-//                 Tim Wang <https://github.com/timwangdev>
-//                 Robert Ying <https://github.com/robertying>
-//                 Jesse Katsumata <https://github.com/Naturalclar>
-//                 Cambo <https://github.com/indentedspace>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { TextProps } from "react-native";
 import { Icon } from "./Icon";

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/luxon",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/moment/luxon#readme"
+    ],
+    "devDependencies": {
+        "@types/luxon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carson Full",
+            "githubUsername": "carsonf"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

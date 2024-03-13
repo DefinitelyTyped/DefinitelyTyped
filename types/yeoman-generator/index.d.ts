@@ -1,14 +1,3 @@
-// Type definitions for yeoman-generator 5.2
-// Project: https://github.com/yeoman/generator, http://yeoman.io
-// Definitions by: Jay Anslow <https://github.com/janslow>
-//                 Ika <https://github.com/ikatyang>
-//                 Joshua Cherry <https://github.com/tasadar2>
-//                 Arthur Corenzan <https://github.com/haggen>
-//                 Richard Lea <https://github.com/chigix>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 import { spawn, SpawnOptions, SpawnSyncOptions } from "child_process";
 import { Debugger } from "debug";
 import { Data as TemplateData, Options as TemplateOptions } from "ejs";

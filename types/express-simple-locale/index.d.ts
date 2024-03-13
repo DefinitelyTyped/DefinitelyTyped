@@ -1,7 +1,3 @@
-// Type definitions for express-simple-locale 0.3
-// Project: https://github.com/n26/express-simple-locale#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import express = require("express");
 import { RequestHandler } from "express";
 

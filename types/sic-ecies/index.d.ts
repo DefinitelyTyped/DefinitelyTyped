@@ -1,8 +1,3 @@
-// Type definitions for sic-ecies 1.0
-// Project: sic-ecies
-// Definitions by: Methrat0n <https://github.com/Methrat0n>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 import { PrivateKey, PublicKey } from "bitcore-lib";

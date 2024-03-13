@@ -1,9 +1,3 @@
-// Type definitions for non-npm package amap-js-api-geocoder 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/lnglat-to-address#m_AMap.Geocoder
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {

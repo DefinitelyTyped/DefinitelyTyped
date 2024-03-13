@@ -1,9 +1,3 @@
-// Type definitions for aws4 1.11
-// Project: https://github.com/mhart/aws4
-// Definitions by: Andrew Crites <https://github.com/ajcrites>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 import { OutgoingHttpHeaders, RequestOptions } from "http";

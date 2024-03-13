@@ -1,8 +1,3 @@
-// Type definitions for react-curved-text 2.0
-// Project: https://obss.github.io/react-curved-text
-// Definitions by: Sam Gaus <https://github.com/gausie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export default class ReactCurvedText extends React.Component<

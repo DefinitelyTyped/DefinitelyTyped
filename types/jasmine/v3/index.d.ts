@@ -1,22 +1,3 @@
-// Type definitions for Jasmine 3.10
-// Project: http://jasmine.github.io
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Theodore Brown <https://github.com/theodorejb>
-//                 David Pärsson <https://github.com/davidparsson>
-//                 Lukas Zech <https://github.com/lukas-zech-software>
-//                 Boris Breuer <https://github.com/Engineer2B>
-//                 Chris Yungmann <https://github.com/cyungmann>
-//                 Giles Roadnight <https://github.com/Roaders>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Domas Trijonis <https://github.com/fdim>
-//                 Moshe Kolodny <https://github.com/kolodny>
-//                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Dominik Ehrenberg <https://github.com/djungowski>
-//                 Chives <https://github.com/chivesrs>
-//                 kirjs <https://github.com/kirjs>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -234,7 +215,7 @@ declare namespace jasmine {
         | {
             [K in keyof T]: ExpectedRecursive<T[K]>;
         };
-    type SpyObjMethodNames<T = undefined> = T extends undefined ? ReadonlyArray<string> | { [methodName: string]: any }
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? readonly string[] | { [methodName: string]: any }
         : (
             | ReadonlyArray<keyof T>
             | {
@@ -244,8 +225,7 @@ declare namespace jasmine {
             }
         );
 
-    type SpyObjPropertyNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [propertyName: string]: any }
+    type SpyObjPropertyNames<T = undefined> = T extends undefined ? readonly string[] | { [propertyName: string]: any }
         : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**
@@ -423,7 +403,7 @@ declare namespace jasmine {
         /**
          * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
-        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
+        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | readonly CustomEqualityTester[]): boolean;
         jasmineToString?(prettyPrint: typeof pp): string;
     }
 
@@ -453,6 +433,7 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     type CustomObjectFormatter = (value: unknown) => string | undefined;
@@ -473,12 +454,12 @@ declare namespace jasmine {
 
     type CustomMatcherFactory = (
         util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+        customEqualityTesters: readonly CustomEqualityTester[],
     ) => CustomMatcher;
 
     type CustomAsyncMatcherFactory = (
         util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+        customEqualityTesters: readonly CustomEqualityTester[],
     ) => CustomAsyncMatcher;
 
     interface CustomMatcherFactories {
@@ -502,12 +483,12 @@ declare namespace jasmine {
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
+        equals(a: any, b: any, customTesters?: readonly CustomEqualityTester[], diffBuilder?: DiffBuilder): boolean;
         equals(a: any, b: any, diffBuilder?: DiffBuilder): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
             needle: any,
-            customTesters?: ReadonlyArray<CustomEqualityTester>,
+            customTesters?: readonly CustomEqualityTester[],
         ): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 

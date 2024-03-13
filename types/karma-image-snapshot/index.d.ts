@@ -1,8 +1,3 @@
-// Type definitions for karma-image-snapshot 0.0
-// Project: https://github.com/maksimr/karma-image-snapshot
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import "karma";

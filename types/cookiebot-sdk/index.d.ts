@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Cookiebot SDK 2.43
-// Project: https://www.cookiebot.com/en/developer/
-// Definitions by: Liam Martens <https://github.com/LiamMartens>
-//                 Patric Eberle <https://github.com/patric-eberle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const Cookiebot: {
     consented: boolean;
     declined: boolean;
@@ -29,6 +23,8 @@ declare const Cookiebot: {
     runScripts(): void;
     withdraw(): void;
     submitCustomConsent(optinPreferences: boolean, optinStatistics: boolean, optinMarketing: boolean): void;
+    getDomainUrlParam(param: string): string;
+    setOutOfRegion(): void;
 };
 
 interface Window {

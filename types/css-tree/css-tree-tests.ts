@@ -16,6 +16,8 @@ csstree.walk(ast, {});
 
 csstree.walk(ast, {
     enter(node, item, list) {
+        this.break; // $ExpectType symbol
+        this.skip; // $ExpectType symbol
         this.root; // $ExpectType CssNode
         this.stylesheet; // $ExpectType StyleSheet | null
         node; // $ExpectType ClassSelector
@@ -24,6 +26,8 @@ csstree.walk(ast, {
         this.atrule; // $ExpectType Atrule | null
     },
     leave(node, item, list) {
+        this.break; // $ExpectType symbol
+        this.skip; // $ExpectType symbol
         this.root; // $ExpectType CssNode
         this.stylesheet; // $ExpectType StyleSheet | null
         node; // $ExpectType ClassSelector
@@ -34,6 +38,9 @@ csstree.walk(ast, {
     visit: "ClassSelector",
     reverse: false,
 });
+
+csstree.walk.break; // $ExpectType symbol
+csstree.walk.skip; // $ExpectType symbol
 
 const findResult = csstree.find(ast, (node, item, list) => {
     node; // $ExpectType CssNode
@@ -359,6 +366,9 @@ switch (ast.type) {
 
     case "MediaQueryList":
         ast.children; // $ExpectType List<CssNode>
+        break;
+
+    case "NestingSelector":
         break;
 
     case "Nth":
@@ -699,6 +709,13 @@ csstree.parse(".selector { /* comment */ }", {
     onComment(value, loc) {
         value; // $ExpectType string
         loc; // $ExpectType CssLocation
+    },
+});
+
+csstree.parse(".a { ::: invalid css ::: }", {
+    onParseError(error, fallbackNode) {
+        error; // $ExpectType SyntaxParseError
+        fallbackNode; // $ExpectType CssNode
     },
 });
 

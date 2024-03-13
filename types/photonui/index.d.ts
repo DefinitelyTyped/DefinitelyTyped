@@ -1,8 +1,3 @@
-// Type definitions for PhotonUI v1.0.0
-// Project: https://github.com/wanadev/PhotonUI
-// Definitions by: Florent Poujol <https://github.com/florentpoujol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace photonui {
     // Base
     namespace Helpers {
@@ -235,10 +230,10 @@ declare namespace photonui {
 
     class ColorPalette extends Widget {
         color: Color;
-        palette: Array<string[]>;
+        palette: string[][];
         value: string;
 
-        static palette: Array<string[]>;
+        static palette: string[][];
     }
 
     class ColorPicker extends Widget {

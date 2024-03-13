@@ -1,15 +1,8 @@
-// Type definitions for react-imageloader 2.1.0
-// Project: https://github.com/hzdg/react-imageloader
-// Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare module "react-imageloader" {
-    interface ImageLoaderProps {
+    interface ImageLoaderProps extends React.RefAttributes<ImageLoader> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ImageLoader> | undefined;
         /** An optional class name for the wrapper component. */
         className?: string | undefined;
 

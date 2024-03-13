@@ -1,9 +1,3 @@
-// Type definitions for Sdk.Soap.js
-// Project: https://code.msdn.microsoft.com/SdkSoapjs-9b51b99a
-// Definitions by: Markus Mauch <https://github.com/markusmauch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Q from "q";
 
 declare global {
@@ -18,7 +12,7 @@ declare global {
 
         interface IEntityCollectionView {
             entityName: string;
-            entities: Array<IEntityView>;
+            entities: IEntityView[];
             minActiveRowVersion: string;
             moreRecords: boolean;
             pagingCookie: string;
@@ -150,7 +144,7 @@ declare global {
              * Adds a string array of column names.
              * @param columns A string array of column names.
              */
-            addColumns(columns: Array<string>): void;
+            addColumns(columns: string[]): void;
 
             /**
              * Sets the AllColumns property.
@@ -197,7 +191,7 @@ declare global {
              * @param type The function that specifies the type.
              * @param items An array of items to add to the collection.
              */
-            constructor(type: T, items?: Array<T>);
+            constructor(type: T, items?: T[]);
 
             /**
              * Gets the type defined for the collection.
@@ -260,7 +254,7 @@ declare global {
             /**
              * Gets a copy of the array of items in the collection.
              */
-            toArray(): Array<T>;
+            toArray(): T[];
 
             /**
              * Returns the number of items in the collection.
@@ -484,7 +478,7 @@ declare global {
             /**
              * Gets an array of the names of attributes in a collection.
              */
-            getNames(): Array<string>;
+            getNames(): string[];
             /**
              * The XML for an attribute collection.
              */
@@ -1133,7 +1127,7 @@ declare global {
 
             /***
              */
-            public getEntityMetadata(): Array<Mdq.IEntityMetadata>;
+            public getEntityMetadata(): Mdq.IEntityMetadata[];
 
             /***
              */
@@ -1203,7 +1197,7 @@ declare global {
              * Sets the columns to include.
              * @param columns An array of attribute logical names for the columns to return.
              */
-            setColumnSet(columns: Array<string>): void;
+            setColumnSet(columns: string[]): void;
 
             /**
              * Sets the columns to include.
@@ -2322,7 +2316,7 @@ declare global {
          * @param languages An array of LCID number values.
          */
         export class LabelQueryExpression {
-            constructor(languages: Array<number>);
+            constructor(languages: number[]);
         }
 
         /**

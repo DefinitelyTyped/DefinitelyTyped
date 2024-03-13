@@ -1,8 +1,3 @@
-// Type definitions for scroll-lock 2.1
-// Project: https://github.com/FL3NKEY/scroll-lock#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Cross-browser JavaScript library to disable scrolling page
  */

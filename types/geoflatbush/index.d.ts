@@ -1,9 +1,3 @@
-// Type definitions for geoflatbush 1.0
-// Project: https://github.com/mourner/geoflatbush
-// Definitions by: Matt Fedderly <https://github.com/mfedderly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import Flatbush from "flatbush";
 
 /**

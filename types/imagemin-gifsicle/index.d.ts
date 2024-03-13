@@ -1,9 +1,3 @@
-// Type definitions for imagemin-gifsicle 7.0
-// Project: https://github.com/imagemin/imagemin-gifsicle#readme
-// Definitions by: Romain Faust <https://github.com/romain-faust>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Plugin } from "imagemin";
 
 /**

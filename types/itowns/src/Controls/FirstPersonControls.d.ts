@@ -2,6 +2,8 @@ import * as THREE from "three";
 
 import View from "../Core/View";
 
+// TODO: Define public API
+
 export interface FirstPersonControlsOptions {
     focusOnClick?: boolean;
     focusOnMouseOver?: boolean;
@@ -29,7 +31,7 @@ declare class FirstPersonControls extends THREE.EventDispatcher {
 
     reset(preserveRotationOnX?: boolean): void;
 
-    update(dt: number, updateLoopRestarted: boolean, force: boolean): void;
+    // update(dt: number, updateLoopRestarted: boolean, force: boolean): void;
 
     // onMouseDown(event: any): void;
 

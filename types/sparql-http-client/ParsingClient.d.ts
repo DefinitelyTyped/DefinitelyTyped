@@ -1,4 +1,4 @@
-import { BaseQuad, Quad } from "rdf-js";
+import { BaseQuad, Quad } from "@rdfjs/types";
 import BaseClient = require("./BaseClient");
 import { Client, ClientOptions } from ".";
 import { EndpointOptions } from "./Endpoint";

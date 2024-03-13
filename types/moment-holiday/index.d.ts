@@ -1,8 +1,3 @@
-// Type definitions for moment-holiday 1.5
-// Project: https://github.com/kodie/moment-holiday
-// Definitions by: Robert Winslow Dalpe <https://github.com/rwdalpe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as moment from "moment";
 
 declare module "moment" {
@@ -68,6 +63,7 @@ declare module "moment" {
 
         load(locales: string | string[]): HolidayModifier;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         extendParser(parserFunc: (m: Moment, date: string) => Moment | Moment[] | false | void): HolidayModifier;
     }
 

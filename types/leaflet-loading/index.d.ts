@@ -1,9 +1,3 @@
-// Type definitions for leaflet-loading 0.1
-// Project: https://github.com/ebrelsford/Leaflet.loading
-// Definitions by: BePo <https://github.com/BePo65>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

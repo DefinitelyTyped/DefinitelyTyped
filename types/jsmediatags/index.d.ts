@@ -1,8 +1,3 @@
-// Type definitions for jsmediatags 3.9
-// Project: https://github.com/aadsm/jsmediatags#readme
-// Definitions by: Gunnar Már Óttarsson <https://github.com/gunnim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import MediaFileReader from "./build2/MediaFileReader";
 import MediaTagReader from "./build2/MediaTagReader";
 import { CallbackType, LoadCallbackType } from "./types";

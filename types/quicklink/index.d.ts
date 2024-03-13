@@ -1,14 +1,9 @@
-// Type definitions for quicklink 2.3
-// Project: https://getquick.link/
-// Definitions by: Pimm Hogeling <https://github.com/Pimm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 /**
  * A type union of the passed type and an `ReadonlyArray` of that type.
  */
-type MaybeReadonlyArray<T> = T | ReadonlyArray<T>;
+type MaybeReadonlyArray<T> = T | readonly T[];
 
 interface ListenOptions {
     /**
@@ -85,7 +80,7 @@ interface ListenOptions {
      *
      * **Important:** An empty array (`[]`) allows ***all origins*** to be prefetched.
      */
-    origins: ReadonlyArray<string> | true;
+    origins: readonly string[] | true;
     /**
      * Determine if a URL should be prefetched.
      *

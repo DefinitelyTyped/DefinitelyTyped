@@ -1,4 +1,5 @@
 import { connect } from "net";
+import * as pg from "pg";
 import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages";
@@ -22,6 +23,8 @@ const client = new Client({
     application_name: "DefinitelyTyped",
     keepAlive: true,
 });
+client.setTypeParser(20, val => Number(val));
+client.getTypeParser(20);
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
@@ -29,6 +32,9 @@ const port: number = client.port;
 const host: string = client.host;
 const password: string | undefined = client.password;
 const ssl: boolean = client.ssl;
+
+const escapeIdentifier: (str: string) => string = pg.escapeIdentifier;
+const escapeLiteral: (str: string) => string = pg.escapeLiteral;
 
 client.on("notice", (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {
@@ -81,6 +87,7 @@ const query = {
     name: "get-name",
     text: "SELECT $1::text",
     values: ["brianc"],
+    rowMode: ["array"],
 };
 client.query(query, (err, res) => {
     if (err) {
@@ -201,7 +208,7 @@ const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
-// https://node-postgres.com/api/pool
+// https://node-postgres.com/apis/pool
 
 // no params ctor
 const poolParameterlessCtor = new Pool();
@@ -229,7 +236,9 @@ pool.connect((err, client, done) => {
         console.error("error fetching client from pool", err);
         return;
     }
-    client.query("SELECT $1::int AS number", ["1"], (err, result) => {
+    // @ts-expect-error
+    client.query("SELECT");
+    client?.query("SELECT $1::int AS number", ["1"], (err, result) => {
         done();
 
         if (err) {

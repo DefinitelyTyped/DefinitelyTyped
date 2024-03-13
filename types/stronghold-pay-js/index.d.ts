@@ -1,10 +1,3 @@
-// Type definitions for non-npm package stronghold-pay-js-browser 2.0
-// Project: https://docs.strongholdpay.com/stronghold-pay-js/
-// Definitions by: Adrien Etienne <https://github.com/AdrienEtienne>
-//                Sean Bennett <https://github.com/itsseanbennett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="jquery" />
 
 export = Stronghold;

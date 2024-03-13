@@ -1,8 +1,3 @@
-// Type definitions for vue-cropperjs 4.1
-// Project: https://github.com/Agontuk/vue-cropperjs
-// Definitions by: Dylan Kidd <https://github.com/Dylkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { VueConstructor } from "vue";
 
 export type previewPropType = string | string[] | Element | NodeList;

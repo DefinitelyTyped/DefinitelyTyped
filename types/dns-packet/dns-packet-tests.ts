@@ -1,6 +1,7 @@
 import {
     Answer,
     decode,
+    DecodedPacket,
     encode,
     encodingLength,
     Packet,
@@ -38,7 +39,16 @@ const inPacket: Packet = {
 const inputBuf = Buffer.alloc(0);
 const length: number = encodingLength(inPacket);
 const out: Buffer = encode(inPacket, inputBuf, length - length);
-const outPacket: Packet = decode(out, 0);
+const outPacket: DecodedPacket = decode(out, 0);
+const flag_qr: boolean = outPacket.flag_qr;
+const flag_aa: boolean = outPacket.flag_aa;
+const flag_tc: boolean = outPacket.flag_tc;
+const flag_rd: boolean = outPacket.flag_rd;
+const flag_ra: boolean = outPacket.flag_ra;
+const flag_z: boolean = outPacket.flag_z;
+const flag_ad: boolean = outPacket.flag_ad;
+const flag_cd: boolean = outPacket.flag_cd;
+
 encode(outPacket);
 
 const records: Answer[] = [

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package growing-io-browser 2.1
-// Project: https://docs.growingio.com/docs/dashboard/homepage
-// Definitions by: Forzoom <https://github.com/Forzoom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // growingIO
 interface GIOObjectVariables {
     [key: string]: string;

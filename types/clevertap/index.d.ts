@@ -1,8 +1,3 @@
-// Type definitions for clevertap 1.2
-// Project: https://github.com/CleverTap/clevertap-node
-// Definitions by: Royson <https://github.com/droyson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
     & Pick<T, Exclude<keyof T, Keys>>
     & {

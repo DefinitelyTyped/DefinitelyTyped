@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from "react";
+import { ComponentType, HTMLProps, JSX } from "react";
 
 import BaseControl from "../base-control";
 
@@ -39,8 +39,8 @@ declare namespace SelectControl {
         }
         & (T extends readonly string[] ? { multiple: true } : { multiple?: false | undefined });
 }
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function SelectControl<T extends string | readonly string[]>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     props: SelectControl.Props<T>,
 ): JSX.Element;
 

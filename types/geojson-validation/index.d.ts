@@ -1,10 +1,6 @@
-// Type definitions for geojson-validation 1.0
-// Project: https://gitlab.com/mjbecze/GeoJSON-Validation
-// Definitions by: Liam A. Clarke <https://github.com/LiamAttClarke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface GeoJSONValidator {
-    (geoJSONObject: unknown, trace?: boolean | undefined): string[];
+    (geoJSONObject: unknown, trace?: false | undefined): boolean;
+    (geoJSONObject: unknown, trace: true): string[];
 }
 
 export const allTypes: {

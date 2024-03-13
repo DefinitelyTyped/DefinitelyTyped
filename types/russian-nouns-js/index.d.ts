@@ -1,8 +1,3 @@
-// Type definitions for russian-nouns-js 1.2
-// Project: https://github.com/georgy7/RussianNounsJS
-// Definitions by: RusAnonym <https://github.com/RusAnonym>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* tslint:disable:no-redundant-jsdoc-2 */
 
 import { Case as CaseEnum } from "./src/Case";

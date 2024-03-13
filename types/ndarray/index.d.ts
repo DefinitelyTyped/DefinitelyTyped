@@ -1,11 +1,3 @@
-// Type definitions for ndarray 1.0
-// Project: https://github.com/scijs/ndarray, https://github.com/mikolalysenko/ndarray
-// Definitions by: Giff Song <https://github.com/pawsong>,
-//                 taoqf <https://github.com/taoqf>
-//                 Axel Bocciarelli <https://github.com/axelboc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare function ndarray<D extends ndarray.Data = ndarray.Data<number>>(
     data: D,
     shape?: number[],

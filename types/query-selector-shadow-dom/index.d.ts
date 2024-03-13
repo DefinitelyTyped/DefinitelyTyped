@@ -1,8 +1,3 @@
-// Type definitions for query-selector-shadow-dom 1.0
-// Project: https://github.com/Georgegriff/query-selector-shadow-dom#readme
-// Definitions by: David Alvarez Restrepo <https://github.com/davidalvarezr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Finds first matching elements on the page that may be in a shadow root using a complex selector of n-depth
  * Don't have to specify all shadow roots to button, tree is travered to find the correct element

@@ -1,9 +1,3 @@
-// Type definitions for webidl-conversions 7.0
-// Project: https://github.com/jsdom/webidl-conversions#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace WebIDLConversions {
     interface Globals {
         [key: string]: unknown;

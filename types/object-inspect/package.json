@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/object-inspect",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/substack/object-inspect"
+    ],
+    "devDependencies": {
+        "@types/object-inspect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Charles Samborski",
+            "githubUsername": "demurgos"
+        },
+        {
+            "name": "Akuukis",
+            "githubUsername": "Akuukis"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for child-process-promise 2.2
-// Project: https://github.com/patrick-steele-idem/child-process-promise
-// Definitions by: Luis Paulo <https://github.com/TheDSCPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import {
@@ -70,7 +64,7 @@ export function execFile(
 ): ChildProcessPromise<PromiseResult<Buffer>>;
 export function execFile(
     file: Readonly<string>,
-    args: ReadonlyArray<string> | null,
+    args: readonly string[] | null,
     options: Readonly<Options & ExecFileOptionsWithBufferEncoding>,
 ): ChildProcessPromise<PromiseResult<Buffer>>;
 export function execFile(
@@ -83,23 +77,23 @@ export function execFile(
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
 export function execFile(
     file: Readonly<string>,
-    args: ReadonlyArray<string> | null,
+    args: readonly string[] | null,
     options: Readonly<Options & ExecFileOptionsWithOtherEncoding>,
 ): ChildProcessPromise<PromiseResult<string | Buffer>>;
 export function execFile(
     file: Readonly<string>,
-    args?: ReadonlyArray<string> | null,
+    args?: readonly string[] | null,
     options?: Readonly<Options & ExecFileOptionsWithStringEncoding>,
 ): ChildProcessPromise<PromiseResult<string>>;
 
 export function spawn(
     command: Readonly<string>,
-    args?: ReadonlyArray<string> | null,
+    args?: readonly string[] | null,
     options?: Readonly<Options & SpawnOptions>,
 ): ChildProcessPromise<SpawnPromiseResult>;
 
 export function fork(
     modulePath: string,
-    args?: ReadonlyArray<string>,
+    args?: readonly string[],
     options?: Readonly<Options & ForkOptions>,
 ): ChildProcessPromise<SpawnPromiseResult>;

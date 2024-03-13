@@ -1,10 +1,3 @@
-// Type definitions for express-slow-down 1.3
-// Project: https://github.com/nfriedly/express-slow-down
-// Definitions by: Jeremy Forsythe <https://github.com/jdforsythe>
-//                 Josh Henderson <https://github.com/joshhendo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import express = require("express");
 
 declare namespace SlowDown {

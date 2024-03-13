@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "member-access": false,
-        "no-inferrable-types": false,
-        "prefer-const": false
-    }
-}

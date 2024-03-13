@@ -1,9 +1,3 @@
-// Type definitions for jquery.jsonrpc 0.7.0
-// Project: https://github.com/Textalk/jquery.jsonrpcclient.js
-// Definitions by: Maksim Karelov <https://github.com/Ty3uK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JsonRpcClientOptions extends JQueryAjaxSettings {
@@ -34,7 +28,7 @@ interface JsonRpcClient {
      */
     call(
         method: string,
-        params: Object | Array<any>,
+        params: Object | any[],
         successCb: (result: any) => void,
         errorCb: (result: any) => void,
     ): JQueryDeferred<JQueryXHR>;
@@ -50,7 +44,7 @@ interface JsonRpcClient {
      *
      * @return {object} Returns the deferred object that $.ajax returns or {null} for websockets
      */
-    notify(method: string, params: Object | Array<any>): JQueryDeferred<JQueryXHR>;
+    notify(method: string, params: Object | any[]): JQueryDeferred<JQueryXHR>;
 
     /**
      * Make a batch-call by using a callback.

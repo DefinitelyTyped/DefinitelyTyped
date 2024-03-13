@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/giraffe",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/barc/backbone.giraffe"
+    ],
+    "dependencies": {
+        "@types/backbone": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/giraffe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julian Gonggrijp",
+            "githubUsername": "jgonggrijp"
+        }
+    ]
+}

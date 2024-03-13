@@ -1015,6 +1015,7 @@ painter.onFreeTransformCornerPosChange = function(){
     |  |  |  |
     | callback * (optional) * | `function(boolean bSuccess)` | |
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     grabVideo(isAutoAdd?: boolean, callback?: () => void): HTMLCanvasElement | void;
 
     /**

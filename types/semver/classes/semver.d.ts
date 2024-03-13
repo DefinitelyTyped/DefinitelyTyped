@@ -13,7 +13,7 @@ declare class SemVer {
     minor: number;
     patch: number;
     version: string;
-    build: ReadonlyArray<string>;
+    build: readonly string[];
     prerelease: ReadonlyArray<string | number>;
 
     /**
@@ -57,6 +57,8 @@ declare class SemVer {
     compareBuild(other: string | SemVer): 1 | 0 | -1;
 
     inc(release: semver.ReleaseType, identifier?: string): SemVer;
+
+    toString(): string;
 }
 
 export = SemVer;

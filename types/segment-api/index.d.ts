@@ -1,9 +1,3 @@
-// Type definitions for segment-api 4.13
-// Project: https://github.com/padcom/segment-api
-// Definitions by: Matthias Hryniszak <https://github.com/padcom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 export interface Address {
     city?: string | undefined;
     country?: string | undefined;

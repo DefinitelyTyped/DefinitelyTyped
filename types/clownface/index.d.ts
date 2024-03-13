@@ -1,11 +1,14 @@
-// Type definitions for clownface 2.0
-// Project: https://github.com/rdf-ext/clownface
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
+import { Environment } from "@rdfjs/environment/Environment.js";
+import {
+    BlankNode,
+    DataFactory,
+    DatasetCore,
+    DatasetCoreFactory,
+    Literal,
+    NamedNode,
+    Quad_Graph,
+    Term,
+} from "@rdfjs/types";
 import Context from "./lib/Context.js";
 
 export type AnyContext = Term | Term[] | undefined;
@@ -27,7 +30,10 @@ interface NodeOptions {
 }
 
 export type ClownfaceInit<D extends DatasetCore = DatasetCore> = Partial<
-    Pick<AnyPointer<AnyContext, D>, "dataset" | "_context"> & { graph: Quad_Graph }
+    Pick<AnyPointer<AnyContext, D>, "dataset" | "_context"> & {
+        graph: Quad_Graph;
+        factory: Environment<DatasetCoreFactory | DataFactory>;
+    }
 >;
 
 type Iteratee<T extends AnyContext = undefined, D extends DatasetCore = DatasetCore> = T extends undefined ? never
@@ -91,7 +97,7 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
 
-    node(values: Array<null> | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
+    node(values: null[] | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(
         values: Array<boolean | string | number | Term | null> | Iterable<Term>,

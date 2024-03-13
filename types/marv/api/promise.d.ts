@@ -4,7 +4,7 @@ import type { Driver, EmptyObject, ParsedMigration, ScanOptions } from "../index
 export function drop(driver: Driver): Promise<void>;
 
 export function migrate(
-    migrations: ReadonlyArray<ParsedMigration>,
+    migrations: readonly ParsedMigration[],
     driver: Driver,
     options?: { quiet?: boolean },
 ): Promise<void>;

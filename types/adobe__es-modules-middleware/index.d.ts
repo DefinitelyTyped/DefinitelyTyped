@@ -1,9 +1,3 @@
-// Type definitions for @adobe/es-modules-middleware 1.1
-// Project: https://github.com/adobe/es-modules-middleware#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 import { NextHandleFunction } from "connect";
 

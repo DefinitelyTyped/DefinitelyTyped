@@ -1,9 +1,4 @@
-// Type definitions for video-react 0.15
-// Project: https://github.com/video-react/video-react
-// Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { LegacyRef } from "react";
+import { JSX, RefAttributes } from "react";
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
@@ -194,8 +189,7 @@ export interface PlayerActions {
     subscribeToStateChange: (listener: StateListener) => void;
 }
 
-export interface PlayerProps {
-    ref?: LegacyRef<PlayerReference> | undefined;
+export interface PlayerProps extends RefAttributes<PlayerReference> {
     /**
      * In fluid mode, it’s 100% wide all the time, the height will be
      * calculated by the video's ratio.

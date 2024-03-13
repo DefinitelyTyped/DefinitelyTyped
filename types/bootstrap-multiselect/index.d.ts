@@ -1,9 +1,3 @@
-// Type definitions for bootstrap-multiselect 0.9
-// Project: https://github.com/davidstutz/bootstrap-multiselect
-// Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface Templates {

@@ -1,8 +1,3 @@
-// Type definitions for d3-dsv 0.4
-// Project: https://www.npmjs.com/package/d3-dsv
-// Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** A parser and formatter for DSV (CSV and TSV) files. Extracted from D3. */
 declare function loader(
     /** the symbol used to separate cells in the row. */

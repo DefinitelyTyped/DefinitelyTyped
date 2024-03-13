@@ -1,9 +1,3 @@
-// Type definitions for numjs 0.16
-// Project: https://github.com/nicolaspanel/numjs#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 matt <https://github.com/mattmm3d>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace nj;
 import { Data, DataType, NdArray as BaseNdArray } from "ndarray";
 
@@ -282,7 +276,7 @@ export function min<T = number>(x: NjParam<T>): T;
 /**
  * Return element-wise remainder of division.
  */
-export function mod<T = number>(x: NjParam<T>, copy?: boolean): NdArray[];
+export function mod<T = number>(x1: NjParam<T>, x2: NjParam<T>): NdArray<T>;
 
 /**
  * Multiply arguments, element-wise.

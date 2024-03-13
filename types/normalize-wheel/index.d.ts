@@ -1,8 +1,3 @@
-// Type definitions for normalize-wheel 1.0
-// Project: https://github.com/basilfx/normalize-wheel
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Mouse wheel (and 2-finger trackpad) support on the web sucks.  It is
  * complicated, thus this doc is long and (hopefully) detailed enough to answer

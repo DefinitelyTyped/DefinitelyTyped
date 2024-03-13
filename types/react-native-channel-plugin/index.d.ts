@@ -1,8 +1,3 @@
-// Type definitions for react-native-channel-plugin 0.7
-// Project: https://developers.channel.io/docs/react-native-quickstart
-// Definitions by: Han Lee <https://github.com/hahnlee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @see https://developers.channel.io/docs/react-native-models#bootconfig
  */

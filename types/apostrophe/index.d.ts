@@ -1,9 +1,3 @@
-// Type definitions for apostrophe 2.67
-// Project: https://github.com/apostrophecms/apostrophe#readme
-// Definitions by: Aaron Holderman <https://github.com/afholderman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = apostrophe;
 export as namespace apos;
 
@@ -312,11 +306,13 @@ declare namespace apostrophe {
         scene?: "user" | undefined;
         addFields?: Field[] | undefined;
         removeFields?: Field[] | undefined;
-        arrangeFields?: {
-            name: string;
-            label: string;
-            fields: string[];
-        }[] | undefined;
+        arrangeFields?:
+            | Array<{
+                name: string;
+                label: string;
+                fields: string[];
+            }>
+            | undefined;
         beforeConstruct?: ((self: any, options: any) => any) | undefined;
         defer?: boolean | undefined;
         filters?: {

@@ -1,15 +1,3 @@
-// Type definitions for node-xml2js 0.4
-// Project: https://github.com/Leonidas-from-XIV/node-xml2js
-// Definitions by: Michel Salib <https://github.com/michelsalib>
-//                 Jason McNeil <https://github.com/jasonrm>
-//                 Christopher Currens <https://github.com/ccurrens>
-//                 Edward Hinkle <https://github.com/edwardhinkle>
-//                 Claas Ahlrichs <https://github.com/claasahl>
-//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
-//                 Ryan Ling <https://github.com/72636c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="node"/>
 import { EventEmitter } from "events";
 import * as processors from "./lib/processors";

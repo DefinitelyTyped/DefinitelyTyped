@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/error 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/error
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Element } from "@xmpp/xml";
 
 export = XMPPError;

@@ -1,8 +1,3 @@
-// Type definitions for json-mask 2.0
-// Project: https://github.com/nemtsov/json-mask#readme
-// Definitions by: Simon Dean <https://github.com/simondean>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type DeepPartial<T> = T extends any[] ? Array<T[number]>
     : T extends Record<string, any> ? {
             [P in keyof T]?: DeepPartial<T[P]>;

@@ -1,10 +1,3 @@
-// Type definitions for bull-arena 3.0
-// Project: https://github.com/bee-queue/arena/
-// Definitions by: Levi Bostian <https://github.com/levibostian>
-//                 Gaurav Sharma <https://github.com/gtpan77>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 import { RequestHandler } from "express";
 import { Redis } from "ioredis";
 import { ClientOpts } from "redis";

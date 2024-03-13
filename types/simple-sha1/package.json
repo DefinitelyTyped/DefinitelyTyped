@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/simple-sha1",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/michaelrhodes/simple-sha1"
+    ],
+    "devDependencies": {
+        "@types/simple-sha1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

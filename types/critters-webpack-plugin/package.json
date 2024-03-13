@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/critters-webpack-plugin",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/GoogleChromeLabs/critters"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/critters-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Juan José González Giraldo",
+            "githubUsername": "JuanJoseGonGi"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -7,10 +7,10 @@ declare class Controller {
     createUniqueId(location: Location): string;
     private locationFromId_;
     sendMessage(targetId: string, message: any): void;
-    initSlaveComponent(
+    initClientComponent(
         ownerId: string | null,
         componentName: string,
-        masterId: string | null,
+        pairId: string | null,
         props: any,
     ): string;
     registerComponent(component: any): void;

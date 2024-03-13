@@ -1,9 +1,3 @@
-// Type definitions for sinon-chai 3.2.0
-// Project: https://github.com/domenic/sinon-chai
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 /// <reference types="sinon" />
 

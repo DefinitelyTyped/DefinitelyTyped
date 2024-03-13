@@ -1,9 +1,3 @@
-// Type definitions for d3-flextree 2.1
-// Project: https://github.com/klortho/d3-flextree
-// Definitions by: Matteo Gallesio <https://github.com/m-gallesio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 import { HierarchyNode } from "d3-hierarchy";
 
 export interface NodeExtents {

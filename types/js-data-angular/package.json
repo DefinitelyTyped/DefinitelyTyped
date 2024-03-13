@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/js-data-angular",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/js-data/js-data-angular"
+    ],
     "dependencies": {
+        "@types/angular": "*",
         "@types/js-data": "^2.8.31"
-    }
+    },
+    "devDependencies": {
+        "@types/js-data-angular": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Steinhart",
+            "githubUsername": "reppners"
+        }
+    ]
 }

@@ -1,10 +1,3 @@
-// Type definitions for react-native-material-dropdown 0.11
-// Project: https://github.com/n4kz/react-native-material-dropdown
-// Definitions by: Jaydeep <https://github.com/jaydeep987>
-//                 Michael <https://github.com/mchappell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { LayoutChangeEvent, StyleProp, TextStyle, TouchableWithoutFeedbackProps, ViewStyle } from "react-native";
 
@@ -98,9 +91,9 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
     onChangeText?(value: string, index: number, data: DropDownData[]): void;
 
     /** Render base component */
-    renderBase?(props: RenderBaseProps): JSX.Element;
+    renderBase?(props: RenderBaseProps): React.JSX.Element;
     /** Render text field accessory */
-    renderAccessory?(): JSX.Element;
+    renderAccessory?(): React.JSX.Element;
 }
 
 /**

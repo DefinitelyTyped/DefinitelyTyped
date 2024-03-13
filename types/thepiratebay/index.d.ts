@@ -1,8 +1,3 @@
-// Type definitions for thepiratebay 1.4
-// Project: https://github.com/t3chnoboy/thepiratebay
-// Definitions by: Jack Sorrell <https://github.com/jsorrell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function search(query?: string, options?: SearchOptions): Promise<TorrentSearchResult[]>;
 export function getTorrent(id: string | number | { link: string; [propName: string]: any }): Promise<TorrentDetails>;
 export function getComments(id: string | number): Promise<Comment[]>;

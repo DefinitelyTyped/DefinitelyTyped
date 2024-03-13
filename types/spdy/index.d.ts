@@ -1,9 +1,3 @@
-// Type definitions for node-spdy 3.4
-// Project: https://github.com/indutny/node-spdy
-// Definitions by: Anthony Trinh <https://github.com/tony19>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import * as http from "http";
@@ -102,7 +96,7 @@ export namespace server {
 
 // lib/spdy/socket.js
 export namespace socket {
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Socket {} // net.Socket
 }
 

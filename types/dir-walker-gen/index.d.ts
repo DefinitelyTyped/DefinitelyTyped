@@ -1,8 +1,3 @@
-// Type definitions for dir-walker-gen 1.0
-// Project: https://github.com/vsoneji/dir-walker-gen
-// Definitions by: Shavkat Aynurin <https://github.com/aynurin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function DirGen(
     options: {
         /**

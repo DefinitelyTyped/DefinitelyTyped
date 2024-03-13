@@ -1,10 +1,3 @@
-// Type definitions for hellosign-embedded 2.0
-// Project: https://github.com/hellosign/hellosign-embedded
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
-//                 Ali Zhdanov <https://github.com/alizhdanov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 export declare namespace HelloSign {
     interface ClassNames {
         BASE: "x-hellosign-embedded";

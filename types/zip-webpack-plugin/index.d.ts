@@ -1,10 +1,3 @@
-// Type definitions for zip-webpack-plugin 3.0
-// Project: https://github.com/erikdesjardins/zip-webpack-plugin
-// Definitions by: Blaise Kal <https://github.com/blaise-io>
-//                 Chuah Chee Shian <https://github.com/shian15810>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Compiler } from "webpack";
 
 export = ZipPlugin;

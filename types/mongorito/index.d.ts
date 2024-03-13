@@ -1,9 +1,3 @@
-// Type definitions for mongorito 3.0
-// Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
-// Definitions by: Pinguet62 <https://github.com/pinguet62>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import {
     Collection,
     CreateIndexesOptions,

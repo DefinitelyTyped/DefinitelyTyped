@@ -1,8 +1,3 @@
-// Type definitions for proxy 1.0
-// Project: https://github.com/TooTallNate/proxy#readme
-// Definitions by: Nicolas Le Cam <https://github.com/KuSh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { IncomingMessage, Server } from "http";

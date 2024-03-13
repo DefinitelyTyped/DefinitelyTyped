@@ -1,8 +1,3 @@
-// Type definitions for domtagger 0.5
-// Project: https://github.com/WebReflection/domtagger
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace domtagger;
 
 declare namespace domtagger {

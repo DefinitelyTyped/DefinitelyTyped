@@ -1,8 +1,3 @@
-// Type definitions for swipl-stdio 1.0
-// Project: https://github.com/rla/node-swipl-stdio
-// Definitions by: Elias Skogevall <https://github.com/tscpp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ChildProcessWithoutNullStreams } from "node:child_process";

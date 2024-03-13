@@ -17,7 +17,7 @@ var str: string = regKey.parent.key;
 var par: Winreg.Registry = regKey.parent;
 
 regKey.values((err, items) => {
-    var itemsC: Array<Winreg.RegistryItem> = items;
+    var itemsC: Winreg.RegistryItem[] = items;
     var errorC: Error = err;
 
     items.forEach((item) => {
@@ -26,7 +26,7 @@ regKey.values((err, items) => {
 });
 
 regKey.keys((err, items) => {
-    var itemsC: Array<Winreg.Registry> = items;
+    var itemsC: Winreg.Registry[] = items;
     var errorC: Error = err;
 
     items.forEach((item) => {

@@ -1,8 +1,3 @@
-// Type definitions for inline-critical 5.3
-// Project: https://github.com/bezoerb/inline-critical#readme
-// Definitions by: cherryblossom <https://github.com/cherryblossom000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = inline;
 
 /**

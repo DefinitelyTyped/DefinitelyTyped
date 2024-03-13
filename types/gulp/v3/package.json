@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/gulp",
+    "version": "3.8.9999",
+    "projects": [
+        "http://gulpjs.com"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/orchestrator": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/browser-sync": "*",
+        "@types/gulp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Drew Noakes",
+            "url": "https://drewnoakes.com"
+        }
+    ]
+}

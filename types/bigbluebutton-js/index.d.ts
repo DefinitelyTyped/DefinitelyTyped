@@ -1,8 +1,3 @@
-// Type definitions for bigbluebutton-js 0.2
-// Project: https://github.com/aakatev/bigbluebutton-js
-// Definitions by: Marcos Kintschner <https://github.com/mktn87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface AdministrationType {
     create(name: string, id: string, kwparams: {}): string;
     join(fullName: string, meetingID: string, password: string, kwparams: {}): string;

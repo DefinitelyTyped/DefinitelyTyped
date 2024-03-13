@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-numeric-range",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/euank/node-parse-numeric-range"
+    ],
+    "devDependencies": {
+        "@types/parse-numeric-range": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eoin O'Brien",
+            "githubUsername": "eoin-obrien"
+        }
+    ]
+}

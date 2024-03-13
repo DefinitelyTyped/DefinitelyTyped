@@ -1,9 +1,3 @@
-// Type definitions for cornerstone-core 2.3
-// Project: https://github.com/cornerstonejs/cornerstone
-// Definitions by: SangYeob Yu <https://github.com/deminoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /**
  * Calculate the transform for a Cornerstone enabled element
  *

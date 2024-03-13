@@ -1,11 +1,3 @@
-// Type definitions for lambda-tester 4.0
-// Project: https://github.com/vandium-io/lambda-tester#readme
-// Definitions by: Ivan Kerin <https://github.com/ivank>
-//                 Hajo Aho-Mantila <https://github.com/HajoAhoMantila>
-//                 Suntharesan Mohan <https://github.com/msuntharesan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { Callback, ClientContext, CognitoIdentity, Context, Handler } from "aws-lambda";
 
 declare namespace lambdaTester {

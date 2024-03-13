@@ -1,11 +1,3 @@
-// Type definitions for Lazy.js 0.5.1
-// Project: https://github.com/dtao/lazy.js/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Gabriel Lorquet <https://github.com/gablorquet>
-//                 Alexey Gerasimov <https://github.com/fan-tom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 declare namespace LazyJS {
     interface LazyStatic {
         (value: string): StringLikeSequence;
@@ -137,7 +129,7 @@ declare namespace LazyJS {
                 : T extends ReadonlyArray<infer U> ? Flatten<U, Shallow>
                 : never;
             1: T;
-        }[T extends Sequence<any> ? 0 : T extends any[] ? 0 : T extends ReadonlyArray<any> ? 0 : 1];
+        }[T extends Sequence<any> ? 0 : T extends any[] ? 0 : T extends readonly any[] ? 0 : 1];
 
     type PushFront<TailT extends any[], FrontT> = ((front: FrontT, ...rest: TailT) => any) extends
         ((...tuple: infer TupleT) => any) ? TupleT

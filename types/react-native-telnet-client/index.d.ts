@@ -1,8 +1,3 @@
-// Type definitions for react-native-telnet-client 1.0
-// Project: https://github.com/itgou/react-native-telnet-client
-// Definitions by: Robin Vanden Berghe <https://github.com/robinvandenb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

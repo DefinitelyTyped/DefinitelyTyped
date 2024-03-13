@@ -1,10 +1,3 @@
-// Type definitions for transducers-js 0.4
-// Project: https://github.com/cognitect-labs/transducers-js
-// Definitions by: Colin Kahn <https://github.com/colinkahn>
-//                 David Philipson <https://github.com/dphilipson>
-//                 Adrian Leonhard <https://github.com/NaridaL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Reduced<TResult> {
     ["@@transducer/reduced"]: boolean;
     ["@@transducer/value"]: TResult;
@@ -22,6 +15,7 @@ export interface Transducer<TInput, TOutput> {
 }
 
 export interface CompletingTransformer<TResult, TCompleteResult, TInput> {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ["@@transducer/init"](): TResult | void;
     ["@@transducer/step"](result: TResult, input: TInput): TResult | Reduced<TResult>;
     ["@@transducer/result"](result: TResult): TCompleteResult;

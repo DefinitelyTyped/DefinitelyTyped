@@ -3,14 +3,14 @@ import { WASI } from "node:wasi";
 
 {
     const wasi = new WASI({
+        version: "preview1",
         args: process.argv,
         env: process.env,
         preopens: {
             "/sandbox": "/some/real/path/that/wasm/can/access",
         },
     });
-    const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
-
+    const importObject = wasi.getImportObject();
     (async () => {
         // TODO: Global WebAssembly types are not currently declared.; uncomment below when added.
 
@@ -18,6 +18,6 @@ import { WASI } from "node:wasi";
         // const instance = await WebAssembly.instantiate(wasm, importObject);
         const instance = {};
 
-        wasi.start(instance);
+        const exitCode: number = wasi.start(instance);
     })();
 }

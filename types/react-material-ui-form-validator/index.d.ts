@@ -1,11 +1,3 @@
-// Type definitions for react-material-ui-form-validator 2.1
-// Project: https://github.com/NewOldMax/react-material-ui-form-validator
-// Definitions by: Frank Brullo <https://github.com/FrankBrullo>
-//                 Ivan Siacho <https://github.com/Ivansiach0>
-//                 J.R <https://github.com/jrguenin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { SelectFieldProps, TextFieldProps } from "material-ui";
 import * as React from "react";
 

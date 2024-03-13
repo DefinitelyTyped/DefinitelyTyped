@@ -314,6 +314,18 @@ export interface ApplePay {
      */
     tokenize(options: { token: any }, callback: callback<ApplePayPayload>): void;
     tokenize(options: { token: any }): Promise<ApplePayPayload>;
+
+    /**
+     * Cleanly tear down anything set up by {@link module:braintree-web/apple-pay.create|create}.
+     * @example
+     * applePayInstance.teardown();
+     * @example <caption>With callback</caption>
+     * applePayInstance.teardown(function () {
+     *   // teardown is complete
+     * });
+     */
+    teardown(callback: () => void): void;
+    teardown(): Promise<void>;
 }
 
 export function create(options: { client: Client }): Promise<ApplePay>;

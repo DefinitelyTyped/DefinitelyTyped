@@ -1,10 +1,3 @@
-// Type definitions for haversine 1.1
-// Project: https://github.com/njj/haversine, https://github.com/niix/haversine
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Dan Vanderkam <https://github.com/danvk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare namespace haversine {
     interface CoordinateLongitudeLatitude {
         longitude: number;

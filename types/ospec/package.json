@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ospec",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/MithrilJS/mithril.js/tree/next/ospec"
+    ],
+    "devDependencies": {
+        "@types/ospec": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Már Örlygsson",
+            "githubUsername": "maranomynet"
+        },
+        {
+            "name": "Mike Linkovich",
+            "githubUsername": "spacejack"
+        },
+        {
+            "name": "Claudia Meadows",
+            "githubUsername": "dead-claudia"
+        }
+    ]
+}

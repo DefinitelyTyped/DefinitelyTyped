@@ -1,8 +1,3 @@
-// Type definitions for linkedin dustjs 1.2.1
-// Project: https://github.com/linkedin/dustjs
-// Definitions by: Marcelo Dezem <https://github.com/mdezem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 //
 // Due to a lack of documentation it's not possible
 // to know which methods are intended to be public and which

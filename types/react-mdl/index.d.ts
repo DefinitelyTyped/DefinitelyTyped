@@ -1,9 +1,3 @@
-// Type definitions for react-mdl 1.7.0
-// Project: https://github.com/tleunen/react-mdl
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export = __ReactMDL;
@@ -21,7 +15,7 @@ declare namespace __ReactMDL {
         ripple?: boolean | undefined;
     }
     interface CustomRenderedComponent {
-        component?: string | JSX.Element | Function | undefined;
+        component?: string | React.JSX.Element | Function | undefined;
     }
 
     // HTMLAttributes (minus the 'data', 'icon', 'label', 'name', 'rows', 'size', 'title', 'value' attributes)
@@ -327,7 +321,7 @@ declare namespace __ReactMDL {
     interface UndecoratedTableProps
         extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<UndecoratedTable>, ShadowedComponent
     {
-        rows: Array<any>;
+        rows: any[];
         rowKeyColumn?: string | undefined;
 
         name?: string | undefined;
@@ -467,8 +461,8 @@ declare namespace __ReactMDL {
         info?: string | undefined;
     }
     interface ListItemContentProps extends MDLHTMLAttributes, React.DOMAttributes<ListItemContent> {
-        avatar?: string | JSX.Element | undefined;
-        icon?: string | JSX.Element | undefined;
+        avatar?: string | React.JSX.Element | undefined;
+        icon?: string | React.JSX.Element | undefined;
         subtitle?: React.ReactNode | undefined;
         useBodyClass?: boolean | undefined;
     }

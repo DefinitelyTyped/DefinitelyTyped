@@ -23,7 +23,7 @@ export interface dvtTimeComponentEventMap<
 > extends dvtBaseComponentEventMap<SP> {
 }
 // These interfaces are empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface dvtTimeComponentSettableProperties extends dvtBaseComponentSettableProperties {
 }
 export interface dvtTimeComponentSettablePropertiesLenient extends Partial<dvtTimeComponentSettableProperties> {

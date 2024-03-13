@@ -1,8 +1,3 @@
-// Type definitions for streamjs 1.5.0
-// Project: http://winterbe.github.io/streamjs/
-// Definitions by: Bence Eros <https://github.com/erosb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Stream<T> {
     static from<T>(elems: T[]): Stream<T>;
     static from(str: string): Stream<string>;

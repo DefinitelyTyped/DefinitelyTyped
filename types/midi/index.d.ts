@@ -1,8 +1,3 @@
-// Type definitions for midi 2.0
-// Project: https://github.com/justinlatimer/node-midi
-// Definitions by: Matthew Soulanille <https://github.com/mattsoulanille>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as EventEmitter from "events";

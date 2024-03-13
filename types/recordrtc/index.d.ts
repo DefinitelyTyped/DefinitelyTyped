@@ -1,9 +1,3 @@
-// Type definitions for recordrtc 5.6
-// Project: http://RecordRTC.org/
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-//                 moonrailgun <https://github.com/moonrailgun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace RecordRTC {
     type State = "inactive" | "recording" | "stopped" | "paused" | "destroyed";
 

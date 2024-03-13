@@ -1,11 +1,6 @@
-// Type definitions for javascript-astar
-// Project: https://github.com/bgrins/javascript-astar
-// Definitions by: brian ridley <https://github.com/ptlis>, Mike Lazer-Walker <https://github.com/lazerwalker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Graph {
-    grid: Array<Array<GridNode>>;
-    constructor(grid: Array<Array<number>>, options?: { diagonal?: boolean | undefined });
+    grid: GridNode[][];
+    constructor(grid: number[][], options?: { diagonal?: boolean | undefined });
 }
 
 declare class GridNode {
@@ -31,6 +26,6 @@ declare namespace astar {
             closest?: boolean | undefined;
             heuristic?: Heuristic | undefined;
         },
-    ): Array<GridNode>;
+    ): GridNode[];
     var heuristics: Heuristics;
 }

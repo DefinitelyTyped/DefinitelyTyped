@@ -4,6 +4,16 @@ import * as ShareDBClient from "sharedb/lib/client";
 import { Duplex } from "stream";
 import * as WebSocket from "ws";
 import Agent = require("sharedb/lib/agent");
+import * as ClientESM from "sharedb/lib/client/index.js";
+
+ClientESM.Connection;
+
+const { Connection, Doc, Query, types, logger } = ShareDBClient;
+Connection.prototype;
+Doc.prototype;
+Query.prototype;
+types.register({} as any);
+logger.info();
 
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
@@ -48,7 +58,7 @@ class CustomExtraDb {
 
 class MyMilestoneDB extends ShareDB.MilestoneDB {}
 
-const backend = new ShareDB({
+const options: ShareDB.ShareDBOptions = {
     extraDbs: { myDb: new CustomExtraDb() },
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
@@ -56,7 +66,9 @@ const backend = new ShareDB({
     errorHandler: (error, context) => {
         console.log(error, context.agent.custom);
     },
-});
+};
+
+const backend = new ShareDB(options);
 console.log(backend.db);
 backend.on("error", (error) => console.error(error));
 backend.on("send", (agent, context) => console.log(agent, context));
@@ -355,6 +367,9 @@ function startClient(callback) {
         bar: "abc",
     });
 
+    // @ts-expect-error :: invalid payload
+    typedDoc.create({ bad: true });
+
     typedDoc.ingestSnapshot({
         v: 10,
         type: "json0",
@@ -418,6 +433,12 @@ function startClient(callback) {
     doc.on("error", (error: ShareDB.Error) => {});
     doc.on("destroy", () => {});
 
+    doc.del();
+    doc.del({ source: true });
+    doc.del((error) => {
+        console.log(error);
+    });
+
     connection.fetchSnapshot("examples", "foo", 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
@@ -480,3 +501,7 @@ class SocketLike {
 
 const socketLike = new SocketLike();
 new ShareDBClient.Connection(socketLike);
+
+const handWrittenMessage = {
+    a: ShareDB.MESSAGE_ACTIONS.bulkFetch,
+};

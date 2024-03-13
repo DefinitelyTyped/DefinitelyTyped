@@ -1,8 +1,3 @@
-// Type definitions for create-test-server 3.0
-// Project: https://github.com/lukechilds/create-test-server
-// Definitions by: Chris Midgley <https://github.com/midgleyc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
 /// <reference types="node" />
 
 import { OptionsJson, OptionsText, OptionsUrlencoded } from "body-parser";

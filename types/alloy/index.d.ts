@@ -1,11 +1,3 @@
-// Type definitions for npm package Alloy 1.14
-// Project: https://github.com/appcelerator/alloy
-// Definitions by: Axway Appcelerator <https://github.com/appcelerator>
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-//                 Jan Vennemann <https://github.com/janvennemann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="backbone" />
 /// <reference types="titanium" />
 

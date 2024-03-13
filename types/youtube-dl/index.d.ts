@@ -1,11 +1,3 @@
-// Type definitions for youtube-dl 3.0
-// Project: https://github.com/przemyslawpluta/node-youtube-dl
-// Definitions by: Bogdan Surai <https://github.com/bsurai>
-//                 Moshe Feuchtwanger <https://github.com/moshfeu>
-//                 Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 import { Readable } from "stream";
 
@@ -14,7 +6,7 @@ declare function youtubedl(url: string, arg: string[], opt: { [key: string]: str
 declare namespace youtubedl {
     interface Youtubedl extends Readable {
         on(event: "info" | "complete", listener: (info: Info) => void): this;
-        on(event: "next", listener: (data: Info | ReadonlyArray<Info>) => void): this;
+        on(event: "next", listener: (data: Info | readonly Info[]) => void): this;
         on(event: "error", listener: (err: any) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
     }

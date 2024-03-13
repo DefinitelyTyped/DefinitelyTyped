@@ -1,8 +1,3 @@
-// Type definitions for promise-inflight 1.0
-// Project: https://github.com/iarna/promise-inflight#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = inflight;
 
 type Resolvable<T> = PromiseLike<T> | T;

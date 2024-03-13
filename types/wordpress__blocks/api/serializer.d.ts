@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { ReactElement } from "react";
 
 import { Block, BlockInstance } from "../";
 
@@ -43,7 +43,7 @@ export function getSaveElement<T extends Record<string, any>>(
     blockTypeOrName: Block<T> | string,
     attributes: T,
     innerBlocks?: BlockInstance[],
-): ReactChild;
+): ReactElement | number | string;
 
 /**
  * Takes a block or set of blocks and returns the serialized post content.

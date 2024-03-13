@@ -24,9 +24,9 @@ declare function decode(
     encoding?: string,
     decodeFormat?: number
 ): string | ArrayBuffer;
-declare var STRING_DECODING: number;
-declare var ARRAY_BUFFER_DECODING: number;
-declare var Z85: string;
+declare let STRING_DECODING: number;
+declare let ARRAY_BUFFER_DECODING: number;
+declare let Z85: string;
 declare function decodeStream(
     input: File | MemoryStream,
     output: File | MemoryStream,

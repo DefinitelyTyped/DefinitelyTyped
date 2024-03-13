@@ -1,8 +1,3 @@
-// Type definitions for gremlin 3.6
-// Project: https://tinkerpop.apache.org/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export { driver, process, structure };
 
 import RemoteConnection = driver.RemoteConnection;
@@ -92,8 +87,8 @@ declare namespace driver {
 declare namespace process {
     class Bytecode {
         constructor(toClone?: Bytecode);
-        addSource(name: string, values?: ReadonlyArray<any>): Bytecode;
-        addStep(name: string, values?: ReadonlyArray<any>): Bytecode;
+        addSource(name: string, values?: readonly any[]): Bytecode;
+        addStep(name: string, values?: readonly any[]): Bytecode;
         toString(): string;
     }
 

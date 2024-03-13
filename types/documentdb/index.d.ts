@@ -1,8 +1,3 @@
-// Type definitions for DocumentDB 1.10
-// Project: https://github.com/Azure/azure-documentdb-node
-// Definitions by: Noel Abrahams <https://github.com/NoelAbrahams>, Brett Gutstein <https://github.com/brettferdosi>, Chris Stone <https://github.com/ctstone>, Yifan Wu <https://github.com/yifanwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** The feed options and query methods. */
@@ -155,7 +150,7 @@ export interface RetrievedDocument extends NewDocument, AbstractMeta {
 }
 
 /** Represents the meta data for a database. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DatabaseMeta extends AbstractMeta {
 }
 
@@ -169,7 +164,7 @@ export interface ProcedureMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a user-defined function. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserDefinedFunctionMeta extends AbstractMeta {
 }
 
@@ -204,7 +199,7 @@ export interface AuthOptions {
 }
 
 /** Represents a DocumentDB stored procecedure. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Procedure extends UserScriptable {
 }
 

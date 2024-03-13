@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Apple Music API 0.4
-// Project: https://developer.apple.com/documentation/applemusicapi/
-// Definitions by: Noah Chase <https://github.com/nchase>
-//                 Useff Chase <https://github.com/useffc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AppleMusicApi {
     // https://developer.apple.com/documentation/applemusicapi/songresponse
     interface SongResponse {

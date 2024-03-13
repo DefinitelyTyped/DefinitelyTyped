@@ -1,9 +1,3 @@
-// Type definitions for ServiceNow Javascript Scoped API 10.x
-// Project: https://docs.servicenow.com/bundle/jakarta-application-development/page/build/applications/concept/api-javascript.html, https://github.com/wa-ocio/servicenowrest
-// Definitions by: Bryce Godfrey <https://github.com/bryceg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare const email: servicenow.GlideEmailOutbound;
 declare const g_processor: servicenow.GlideScriptedProcessor;
 declare const g_request: servicenow.GlideServletRequest;

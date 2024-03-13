@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/fetch-mock",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/wheresrhys/fetch-mock"
+    ],
+    "devDependencies": {
+        "@types/fetch-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        },
+        {
+            "name": "Tamir Duberstein",
+            "githubUsername": "tamird"
+        },
+        {
+            "name": "Risto Keravuori",
+            "githubUsername": "merrywhether"
+        },
+        {
+            "name": "Chris Sinclair",
+            "githubUsername": "chrissinclair"
+        },
+        {
+            "name": "Matt Tennison",
+            "githubUsername": "matttennison"
+        },
+        {
+            "name": "Quentin Bouygues",
+            "githubUsername": "quentinbouygues"
+        },
+        {
+            "name": "Fumiaki Matsushima",
+            "githubUsername": "mtsmfm"
+        }
+    ]
+}

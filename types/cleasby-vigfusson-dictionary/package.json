@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cleasby-vigfusson-dictionary",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/stscoundrel/cleasby-vigfusson-dictionary"
+    ],
+    "devDependencies": {
+        "@types/cleasby-vigfusson-dictionary": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "StScoundrel",
+            "githubUsername": "stscoundrel"
+        }
+    ]
+}

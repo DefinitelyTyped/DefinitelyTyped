@@ -1,9 +1,3 @@
-// Type definitions for crocks 0.12
-// Project: https://crocks.dev/
-// Definitions by: Jakub Barczyk <https://github.com/jakubbarczyk/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 export * from "./All";
 export * from "./Any";
 export * from "./Arrow";

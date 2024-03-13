@@ -1,8 +1,3 @@
-// Type definitions for node-livereload 0.9
-// Project: https://github.com/napcs/node-livereload
-// Definitions by: Hector Osuna <https://github.com/FanGoH/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import { FSWatcher } from "fs";
 import { Server as httpServer } from "http";

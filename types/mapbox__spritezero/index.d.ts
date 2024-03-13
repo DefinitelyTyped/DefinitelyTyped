@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/spritezero 6.3
-// Project: https://github.com/mapbox/spritezero#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Small opinionated sprites.
  */

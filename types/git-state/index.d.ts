@@ -1,8 +1,3 @@
-// Type definitions for git-state 4.1
-// Project: https://github.com/watson/git-state
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ExecException } from "node:child_process";

@@ -1,13 +1,3 @@
-// Type definitions for sharedb 3.3
-// Project: https://github.com/share/sharedb
-// Definitions by: Steve Oney <https://github.com/soney>
-//                 Eric Hwang <https://github.com/ericyhwang>
-//                 Peter Xu <https://github.com/pxpeterxu>
-//                 Alec Gibson <https://github.com/alecgibson>
-//                 Christina Burger <https://github.com/pypmannetjies>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference path="lib/sharedb.d.ts" />
 
 import { EventEmitter } from "events";
@@ -36,26 +26,7 @@ declare class sharedb extends EventEmitter {
         readonly [name: string]: ReadonlyProjection;
     };
 
-    constructor(options?: {
-        db?: any;
-        pubsub?: sharedb.PubSub;
-        extraDbs?: { [extraDbName: string]: sharedb.ExtraDB };
-        milestoneDb?: sharedb.MilestoneDB;
-        suppressPublish?: boolean;
-        maxSubmitRetries?: number;
-        doNotForwardSendPresenceErrorsToClient?: boolean;
-        errorHandler?: ErrorHandler;
-
-        presence?: boolean;
-        /**
-         * @deprecated disableDocAction was removed in v1.0
-         */
-        disableDocAction?: boolean;
-        /**
-         * @deprecated disableSpaceDelimitedActions was removed in v1.0
-         */
-        disableSpaceDelimitedActions?: boolean;
-    });
+    constructor(options?: sharedb.ShareDBOptions);
     /**
      * Creates a server-side connection to ShareDB.
      *
@@ -130,6 +101,27 @@ declare class sharedb extends EventEmitter {
 }
 
 declare namespace sharedb {
+    interface ShareDBOptions {
+        db?: any;
+        pubsub?: sharedb.PubSub;
+        extraDbs?: { [extraDbName: string]: sharedb.ExtraDB };
+        milestoneDb?: sharedb.MilestoneDB;
+        suppressPublish?: boolean;
+        maxSubmitRetries?: number;
+        doNotForwardSendPresenceErrorsToClient?: boolean;
+        errorHandler?: ErrorHandler;
+
+        presence?: boolean;
+        /**
+         * @deprecated disableDocAction was removed in v1.0
+         */
+        disableDocAction?: boolean;
+        /**
+         * @deprecated disableSpaceDelimitedActions was removed in v1.0
+         */
+        disableSpaceDelimitedActions?: boolean;
+    }
+
     abstract class DB {
         projectsSnapshots: boolean;
         disableSubscribe: boolean;
@@ -289,6 +281,7 @@ declare namespace sharedb {
 
     type Path = ShareDB.Path;
     type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
+    const MESSAGE_ACTIONS: ShareDB.RequestActions;
 
     namespace middleware {
         interface ActionContextMap {

@@ -1,9 +1,3 @@
-// Type definitions for db-migrate-pg
-// Project: https://github.com/db-migrate/pg
-// Definitions by: nickiannone <https://github.com/nickiannone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import * as pg from "pg";
 import DbMigrateBase = require("db-migrate-base");
 import * as Promise from "bluebird";

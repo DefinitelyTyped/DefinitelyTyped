@@ -1,9 +1,3 @@
-// Type definitions for dogapi 2.8
-// Project: https://github.com/brettlangdon/node-dogapi#readme
-// Definitions by: olebedev <https://github.com/olebedev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 export function initialize(opts: { api_key: string; app_key: string; api_host?: string | undefined }): void;
 
 interface event {
@@ -15,7 +9,7 @@ interface event {
             date_happened?: number | undefined;
             priority?: "normal" | "low" | undefined;
             host?: string | undefined;
-            tags?: ReadonlyArray<string> | undefined;
+            tags?: readonly string[] | undefined;
             alert_type?: "error" | "warning" | "info" | "success" | undefined;
             aggregation_key?: string | undefined;
             source_type_name?:
@@ -48,7 +42,7 @@ interface metric {
             type?: "gauge" | "rate" | "count" | undefined;
             metric_type?: "gauge" | "count" | undefined;
             host?: string | undefined;
-            tags?: ReadonlyArray<string> | undefined;
+            tags?: readonly string[] | undefined;
         },
         callback: (err: Error | null, res: "ok") => void,
     ): void;
@@ -74,7 +68,7 @@ export interface EventCreateResponse {
         id: bigint;
         priority: "normal" | "low";
         related_event_id: number | null;
-        tags: ReadonlyArray<string>;
+        tags: readonly string[];
         text: string;
         title: string;
         url: string;

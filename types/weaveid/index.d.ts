@@ -1,8 +1,3 @@
-// Type definitions for weaveid 1.0
-// Project: https://github.com/instawallet/weaveid-js
-// Definitions by: Marton Lederer <https://github.com/martonlederer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { JWKInterface } from "arweave/node/lib/wallet";
 
 declare global {

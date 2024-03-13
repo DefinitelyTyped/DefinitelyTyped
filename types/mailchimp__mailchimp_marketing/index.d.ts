@@ -1,12 +1,3 @@
-// Type definitions for @mailchimp/mailchimp_marketing 3.0
-// Project: https://github.com/mailchimp/mailchimp-client-lib-codegen
-// Definitions by: Jan Müller <https://github.com/rattkin>
-//                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Daniel Castro <https://github.com/odanieldcs>
-//                 Edwin Finch <https://github.com/edwinfinch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// API Documentation: https://mailchimp.com/developer/marketing/api/
-
 /*
 These type definitions are missing many of the actual definitions within the Mailchimp marketing API.
 
@@ -1364,6 +1355,13 @@ export namespace lists {
         _links: Link[];
     }
 
+    interface ListMembersInfoSuccessResponse {
+        list_id: string;
+        members: MembersSuccessResponse[];
+        total_items: number;
+        _links: Link[];
+    }
+
     type ListStatusTag = "active" | "inactive";
 
     interface AddListMemberBody extends Body {
@@ -1580,6 +1578,28 @@ export namespace lists {
         _links: Link[];
     }
 
+    interface ListMemberTagsOptions {
+        /** A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation. */
+        fields?: string[];
+        /** A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation. */
+        excludeFields?: string[];
+        /** The number of records to return. */
+        count?: number;
+        /** The number of records from a collection to skip. Iterating over large collections with this parameter can be slow. */
+        offset?: number;
+    }
+
+    interface ListMemberTag extends Tags {
+        /** The date and time the tag was added to the list member in ISO 8601 format. */
+        date_added: string;
+    }
+
+    interface ListMemberTagsResponse {
+        tags: ListMemberTag[];
+        total_items: number;
+        _links: Link[];
+    }
+
     /**
      * Batch subscribe or unsubscribe
      * https://mailchimp.com/developer/marketing/api/lists/batch-subscribe-or-unsubscribe//
@@ -1608,6 +1628,19 @@ export namespace lists {
         body: SetListMemberBody,
         opts?: ListOptions,
     ): Promise<MembersSuccessResponse | ErrorResponse>;
+
+    /**
+     * Get information about members in a specific Mailchimp list.
+     * @param listId The unique ID for the list.
+     * @param opts Optional parameters
+     * @param opts.fields A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+     * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+     * @return A {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMembers2}
+     */
+    function getListMembersInfo(
+        listId: string,
+        opts?: ListOptions,
+    ): Promise<ListMembersInfoSuccessResponse | ErrorResponse>;
 
     /**
      * Get information about a specific list member, including a currently subscribed, unsubscribed, or bounced member.
@@ -1671,6 +1704,23 @@ export namespace lists {
      * @return A {@link https://www.promisejs.org/|Promise}
      */
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<{} | ErrorResponse>;
+
+    /**
+     * Get the tags on a list member.
+     * @see https://mailchimp.com/developer/marketing/api/list-member-tags/list-member-tags/
+     * @param listId The unique ID for the list.
+     * @param subscriberHash The MD5 hash of the lowercase version of the list member's email address.
+     * @param opts Optional parameters
+     * @param opts.fields A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+     * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+     * @param opts.count The number of records to return. Default value is 10. Maximum value is 1000 (default to 10)
+     * @param opts.offset Used for [pagination](https://mailchimp.com/developer/marketing/docs/methods-parameters/#pagination),
+     */
+    function getListMemberTags(
+        listId: string,
+        subscriberHash: string,
+        opts?: ListMemberTagsOptions,
+    ): Promise<ListMemberTagsResponse | ErrorResponse>;
 
     /**
      * Add or remove member tags
@@ -1752,6 +1802,112 @@ export namespace lists {
         listId: string,
         interestCategoryId: string,
     ): Promise<ListInterestCategoryInterestsResponse | ErrorResponse>;
+}
+
+/**
+ * CampaignFoldersApi
+ */
+export namespace campaignFolders {
+    interface CampaignFolder {
+        /**
+         * The name of the campaign folder.
+         */
+        name: string;
+
+        /**
+         * A string that uniquely identifies this campaign folder.
+         */
+        id: string;
+
+        /**
+         * The number of campaigns in the folder.
+         */
+        count: number;
+
+        /**
+         * A list of link types and descriptions for the API schema documents.
+         */
+        _links: Link[];
+    }
+
+    interface CampaignFolderOptions {
+        /**
+         * A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+         */
+        fields?: string[];
+
+        /**
+         * A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+         */
+        exclude_fields?: string[];
+    }
+
+    interface CampaignFoldersOptions extends CampaignFolderOptions {
+        /**
+         * The number of records to return. Default value is 10. Maximum value is 1000.
+         */
+        count?: number;
+
+        /**
+         * Used for pagination, this is the number of records from a collection to skip. Default value is 0.
+         */
+        offset?: number;
+    }
+
+    interface CampaignFoldersSuccessResponse {
+        /**
+         * An array of objects representing campaign folders.
+         */
+        folders: CampaignFolder[];
+
+        /**
+         * The total number of items matching the query regardless of pagination.
+         */
+        total_items: number;
+
+        /**
+         * A list of link types and descriptions for the API schema documents.
+         */
+        _links: Link[];
+    }
+
+    /**
+     * Get all folders used to organize campaigns.
+     * @param opts Optional parameters, see {@link CampaignFoldersOptions}
+     * @return A {@link https://www.promisejs.org/ | Promise}, with data of type {@link CampaignFoldersSuccessResponse}
+     */
+    function list(opts?: CampaignFoldersOptions): Promise<CampaignFoldersSuccessResponse | ErrorResponse>;
+
+    /**
+     * Create a new campaign folder.
+     * @param params The parameters to create a new campaign folder
+     * @param params.name Name to associate with the folder.
+     * @return A {@link https://www.promisejs.org/ | Promise}, with data of type {@link CampaignFolder}
+     */
+    function create(params: { name: string }): Promise<CampaignFolder | ErrorResponse>;
+
+    /**
+     * Get information about a specific folder used to organize campaigns.
+     * @param folder_id The unique id for the campaign folder.
+     * @param opts Optional parameter, see {@link CampaignFolderOptions}
+     * @return A {@link https://www.promisejs.org/ | Promise}, with data of type {@link CampaignFolder}
+     */
+    function get(folder_id: string, opts?: CampaignFolderOptions): Promise<CampaignFolder | ErrorResponse>;
+
+    /**
+     * Update a specific folder used to organize campaigns.
+     * @param folder_id The unique id for the campaign folder.
+     * @param params The parameters to create a new campaign folder
+     * @param params.name Name to associate with the folder.
+     * @return A {@link https://www.promisejs.org/ | Promise}, with data of type {@link CampaignFolder}
+     */
+    function update(folder_id: string, params: { name: string }): Promise<CampaignFolder | ErrorResponse>;
+
+    /**
+     * Delete a specific campaign folder, and mark all the campaigns in the folder as 'unfiled'.
+     * @param folder_id The unique id for the campaign folder.
+     */
+    function remove(folder_id: string): Promise<{} | ErrorResponse>;
 }
 
 /**
@@ -2512,6 +2668,476 @@ export namespace campaigns {
         _links: Link[];
     }
 
+    interface CreateCampaignParameters {
+        /**
+         * There are four types of campaigns you can create in Mailchimp. A/B Split campaigns have been deprecated and variate campaigns should be used instead. Possible values: "regular", "plaintext", "absplit", "rss", or "variate".
+         */
+        type: "regular" | "plaintext" | "absplit" | "rss" | "variate";
+
+        /**
+         * [RSS](https://mailchimp.com/help/share-your-blog-posts-with-mailchimp/) options for a campaign.
+         */
+        rss_opts?: {
+            /**
+             * The schedule for sending the RSS Campaign.
+             */
+            schedule?: {
+                /**
+                 * The hour to send the campaign in local time. Acceptable hours are 0-23. For example, '4' would be 4am in your account's default time zone.
+                 */
+                hour?: number;
+
+                /**
+                 * The days of the week to send a daily RSS Campaign.
+                 */
+                daily_send?: {
+                    /**
+                     * Sends the daily RSS Campaign on Sundays.
+                     */
+                    sunday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Mondays.
+                     */
+                    monday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Tuesdays.
+                     */
+                    tuesday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Wednesdays.
+                     */
+                    wednesday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Thursdays.
+                     */
+                    thursday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Fridays.
+                     */
+                    friday?: boolean;
+
+                    /**
+                     * Sends the daily RSS Campaign on Saturdays.
+                     */
+                    saturday?: boolean;
+                };
+
+                /**
+                 * The day of the week to send a weekly RSS Campaign. Possible values: "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", or "saturday".
+                 */
+                weekly_send_day?: "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday";
+
+                /**
+                 * The day of the month to send a monthly RSS Campaign. Acceptable days are 0-31, where '0' is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. For example, RSS Campaigns set to send on the 30th will not go out in February.
+                 */
+                monthly_send_date?: number;
+            };
+
+            /**
+             * Whether to add CSS to images in the RSS feed to constrain their width in campaigns.
+             */
+            constrain_rss_img?: boolean;
+
+            /**
+             * The URL for the RSS feed.
+             */
+            feed_url: string;
+
+            /**
+             * The frequency of the RSS Campaign. Possible values: "daily", "weekly", or "monthly".
+             */
+            frequency: "daily" | "monthly" | "weekly";
+        };
+
+        recipients?: {
+            /**
+             * The list id.
+             */
+            list_id: string;
+
+            /**
+             * An object representing all segmentation options. This object should contain a saved_segment_id to use an existing segment, or you can create a new segment by including both match and conditions options.
+             */
+            segment_opts?: {
+                /**
+                 * The id for an existing saved segment.
+                 */
+                saved_segment_id?: number;
+
+                /**
+                 * Segment match type. Possible values: "any" or "all".
+                 */
+                match?: "any" | "all";
+
+                /**
+                 * Segment match conditions. There are multiple possible types, see the [condition types documentation](https://mailchimp.com/developer/marketing/docs/alternative-schemas/#segment-condition-schemas).
+                 */
+                conditions?: AnySegmentCondition[];
+            };
+        };
+
+        variate_settings?: {
+            /**
+             * The number of minutes to wait before choosing the winning campaign. The value of wait_time must be greater than 0 and in whole hours, specified in minutes.
+             */
+            wait_time?: number;
+
+            /**
+             * The percentage of recipients to send the test combinations to, must be a value between 10 and 100.
+             */
+            test_size?: number;
+
+            /**
+             * The possible subject lines to test. If no subject lines are provided, settings.subject_line will be used.
+             */
+            subject_lines?: string[];
+
+            /**
+             * The possible send times to test. The times provided should be in the format YYYY-MM-DD HH:MM:SS. If send_times are provided to test, the test_size will be set to 100% and winner_criteria will be ignored.
+             */
+            send_times?: TimeString[];
+
+            /**
+             * The possible from names. The number of from_names provided must match the number of reply_to_addresses. If no from_names are provided, settings.from_name will be used.
+             */
+            from_names?: string[];
+
+            /**
+             * The possible reply-to addresses. The number of reply_to_addresses provided must match the number of from_names. If no reply_to_addresses are provided, settings.reply_to will be used.
+             */
+            reply_to_addresses?: string[];
+
+            /**
+             * The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue -- or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_criteria is ignored. For Multivariate Campaigns with 'manual' as the winner_criteria, the winner must be chosen in the Mailchimp web application. Possible values: "opens", "clicks", "manual", or "total_revenue".
+             */
+            winner_criteria: "opens" | "clicks" | "manual" | "total_revenue";
+        };
+
+        /**
+         * The settings for your campaign, including subject, from name, reply-to address, and more.
+         */
+        settings?: {
+            /**
+             * The subject line for the campaign.
+             */
+            subject_line?: string;
+
+            /**
+             * The preview text for the campaign.
+             */
+            preview_text?: string;
+
+            /**
+             * The title of the campaign.
+             */
+            title?: string;
+
+            /**
+             * The 'from' name on the campaign (not an email address).
+             */
+            from_name?: string;
+
+            /**
+             * The reply-to email address for the campaign.
+             */
+            reply_to?: string;
+
+            /**
+             * Use Mailchimp Conversation feature to manage out-of-office replies.
+             */
+            use_conversation?: boolean;
+
+            /**
+             * The campaign's custom 'To' name. Typically the first name [audience field](https://mailchimp.com/help/getting-started-with-merge-tags/).
+             */
+            to_name?: string;
+
+            /**
+             * If the campaign is listed in a folder, the id for that folder.
+             */
+            folder_id?: string;
+
+            /**
+             * Whether Mailchimp [authenticated](https://mailchimp.com/help/about-email-authentication/) the campaign. Defaults to true.
+             */
+            authenticate?: boolean;
+
+            /**
+             * Automatically append Mailchimp's [default footer](https://mailchimp.com/help/about-campaign-footers/) to the campaign.
+             */
+            auto_footer?: boolean;
+
+            /**
+             * Automatically inline the CSS included with the campaign content.
+             */
+            inline_css?: boolean;
+
+            /**
+             * Automatically tweet a link to the [campaign archive](https://mailchimp.com/help/about-email-campaign-archives-and-pages/) page when the campaign is sent.
+             */
+            auto_tweet?: boolean;
+
+            /**
+             * An array of [Facebook](https://mailchimp.com/help/connect-or-disconnect-the-facebook-integration/) page ids to auto-post to.
+             */
+            auto_fb_post?: string[];
+
+            /**
+             * Allows Facebook comments on the campaign (also force-enables the Campaign Archive toolbar). Defaults to true.
+             */
+            fb_comments?: boolean;
+
+            /**
+             * The id for the template used in this campaign.
+             */
+            template_id?: number;
+        };
+
+        /**
+         * The tracking options for a campaign.
+         */
+        tracking?: {
+            /**
+             * Whether to [track opens](https://mailchimp.com/help/about-open-tracking/). Defaults to true. Cannot be set to false for variate campaigns.
+             */
+            opens?: boolean;
+
+            /**
+             * Whether to [track clicks](https://mailchimp.com/help/enable-and-view-click-tracking/) in the HTML version of the campaign. Defaults to true. Cannot be set to false for variate campaigns.
+             */
+            html_clicks?: boolean;
+
+            /**
+             * Whether to [track clicks](https://mailchimp.com/help/enable-and-view-click-tracking/) in the plain-text version of the campaign. Defaults to true. Cannot be set to false for variate campaigns.
+             */
+            text_clicks?: boolean;
+
+            /**
+             * @deprecated No longer used, according to Mailchimp API documentation: https://mailchimp.com/developer/marketing/api/campaigns/list-campaigns/
+             */
+            goal_tracking?: boolean;
+
+            /**
+             * Whether to enable e-commerce tracking.
+             */
+            ecomm360?: boolean;
+
+            /**
+             * The custom slug for [Google Analytics](https://mailchimp.com/help/integrate-google-analytics-with-mailchimp/) tracking (max of 50 bytes).
+             */
+            google_analytics?: string;
+
+            /**
+             * The custom slug for [ClickTale](https://mailchimp.com/help/additional-tracking-options-for-campaigns/) tracking (max of 50 bytes).
+             */
+            clicktale?: string;
+
+            /**
+             * @deprecated No longer used, according to Mailchimp API documentation: https://mailchimp.com/developer/marketing/api/campaigns/list-campaigns/
+             */
+            salesforce?: {
+                /**
+                 * Create a campaign in a connected Salesforce account.
+                 */
+                campaign?: boolean;
+
+                /**
+                 * Update contact notes for a campaign based on subscriber email addresses.
+                 */
+                notes?: boolean;
+            };
+
+            /**
+             * @deprecated No longer used, according to Mailchimp API documentation: https://mailchimp.com/developer/marketing/api/campaigns/list-campaigns/
+             */
+            capsule?: {
+                /**
+                 * Update contact notes for a campaign based on subscriber email addresses.
+                 */
+                notes?: boolean;
+            };
+
+            /**
+             * The preview for the campaign, rendered by social networks like Facebook and Twitter. [Learn more](https://mailchimp.com/help/enable-and-customize-social-cards/).
+             */
+            social_card?: {
+                /**
+                 * The url for the header image for the card.
+                 */
+                image_url?: string;
+
+                /**
+                 * A short summary of the campaign to display.
+                 */
+                description?: string;
+
+                /**
+                 * The title for the card. Typically the subject line of the campaign.
+                 */
+                title?: string;
+            };
+
+            /**
+             * How the campaign's content is put together. The old drag and drop editor uses 'template' while the new editor uses 'multichannel'. Defaults to template. Possible values: "template" or "multichannel".
+             */
+            content_type?: "template" | "multichannel";
+        };
+    }
+
+    interface SetContentParams {
+        /**
+         * Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
+         * [Learn more](https://mailchimp.com/help/import-a-custom-html-template/)
+         */
+        archive?: {
+            /**
+             * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
+             */
+            archive_type?: "zip" | "tar.gz" | "tar.bz2" | "tar" | "tgz" | "tbz";
+
+            /**
+             * The base64-encoded representation of the archive file.
+             */
+            archive_content: string;
+        };
+
+        /**
+         * Use this template to generate the HTML content of the campaign
+         */
+        template?: {
+            /**
+             * Content for the sections of the template. Each key should be the unique [mc:edit area](https://mailchimp.com/help/create-editable-content-areas-with-mailchimps-template-language/) name from the template.
+             */
+            sections?: object;
+
+            /**
+             * The id of the template to use.
+             */
+            id: string;
+        };
+
+        /**
+         * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
+         */
+        plain_text?: string;
+
+        /**
+         * The raw HTML for the campaign.
+         */
+        html?: string;
+
+        /**
+         * When importing a campaign, the URL where the HTML lives.
+         */
+        url?: string;
+
+        /**
+         * Content options for [Multivariate Campaigns](https://mailchimp.com/help/about-multivariate-campaigns/). Each content option must provide HTML content and may optionally provide plain text. For campaigns not testing content, only one object should be provided.
+         */
+        variate_contents?: Array<{
+            /**
+             * Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
+             * [Learn more](https://mailchimp.com/help/import-a-custom-html-template/)
+             */
+            archive?: {
+                /**
+                 * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
+                 */
+                archive_type?: "zip" | "tar.gz" | "tar.bz2" | "tar" | "tgz" | "tbz";
+
+                /**
+                 * The base64-encoded representation of the archive file.
+                 */
+                archive_content?: string;
+            };
+
+            /**
+             * Use this template to generate the HTML content of the campaign
+             */
+            template?: {
+                /**
+                 * Content for the sections of the template. Each key should be the unique [mc:edit area](https://mailchimp.com/help/create-editable-content-areas-with-mailchimps-template-language/) name from the template.
+                 */
+                sections?: object;
+
+                /**
+                 * The id of the template to use.
+                 */
+                id?: string;
+            };
+
+            /**
+             * The label used to identify the content option.
+             */
+            content_label?: string;
+
+            /**
+             * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
+             */
+            plain_text?: string;
+
+            /**
+             * The raw HTML for the campaign.
+             */
+            html?: string;
+
+            /**
+             * When importing a campaign, the URL where the HTML lives.
+             */
+            url?: string;
+        }>;
+    }
+
+    interface ChecklistItem {
+        /**
+         * The item type. Possible values: "success", "warning", or "error".
+         */
+        type: "success" | "warning" | "error";
+
+        /**
+         * The ID for the specific item.
+         */
+        id: number;
+
+        /**
+         * The heading for the specific item.
+         */
+        heading: string;
+
+        /**
+         * Details about the specific feedback item.
+         */
+        details: string;
+    }
+
+    interface SendChecklist {
+        /**The ID for the specific item. */
+        is_ready: boolean;
+
+        /**A list of feedback items to review before sending your campaign. */
+        items: ChecklistItem[];
+
+        /**A list of link types and descriptions for the API schema documents. */
+        _links: Link[];
+    }
+
+    interface GetSendChecklistOptions {
+        /**
+         * A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+         */
+        fields?: string[];
+
+        /**
+         * A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+         */
+        excludeFields?: string[];
+    }
+
     /**
      * Get all campaigns in an account
      * @param opts Optional parameters, see {@link CampaignsOptions}
@@ -2528,6 +3154,38 @@ export namespace campaigns {
         campaign_id: string,
         opts?: GetCampaignContentOptions,
     ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
+
+    /**
+     * Create a new Mailchimp campaign.
+     * @param params The paramaters to set for the campaign.
+     */
+    function create(params: CreateCampaignParameters): Promise<Campaigns | ErrorResponse>;
+
+    /**
+     * Set the content for a campaign.
+     * @param campaign_id The unique id for the campaign.
+     * @param params The parameters to set as the campaign's content.
+     */
+    function setContent(
+        campaign_id: string,
+        params: SetContentParams,
+    ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
+
+    /**
+     * Send a Mailchimp campaign. For RSS Campaigns, the campaign will send according to its schedule. All other campaigns will send immediately.
+     * @param campaign_id The unique id for the campaign.
+     */
+    function send(campaign_id: string): Promise<{} | ErrorResponse>;
+
+    /**
+     * Review the send checklist for a campaign, and resolve any issues before sending.
+     * @param campaign_id The unique id for the campaign.
+     * @param opts Optional parameters see {@link GetCampaignContentOptions}
+     */
+    function getSendChecklist(
+        campaign_id: string,
+        opts?: GetSendChecklistOptions,
+    ): Promise<SendChecklist | ErrorResponse>;
 }
 
 /**

@@ -1,8 +1,3 @@
-// Type definitions for marv 6.0
-// Project: https://github.com/guidesmiths/marv
-// Definitions by: Joonas Rouhiainen <https://github.com/rjoonas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export type EmptyObject = {

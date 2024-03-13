@@ -1,9 +1,3 @@
-// Type definitions for rellax 1.7
-// Project: https://github.com/dixonandmoe/rellax, https://dixonandmoe.com/rellax
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
-//                 Tomas Achmedovas <https://github.com/minvs1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Rellax {
     interface Rellax {
         /**

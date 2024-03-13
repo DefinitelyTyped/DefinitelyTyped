@@ -1,10 +1,3 @@
-// Type definitions for chessboardjs 0.3
-// Project: https://github.com/oakmac/chessboardjs/, https://github.com/deanius/chessboardjs
-// Definitions by: Bayo Olatunji <https://github.com/sliverb>
-//                 David Paz <https://github.com/davidmpaz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export enum Square {
     a8 = "a8",
     b8 = "b8",

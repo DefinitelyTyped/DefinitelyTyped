@@ -1,8 +1,3 @@
-// Type definitions for hsl-to-rgb-for-reals 1.1
-// Project: https://github.com/davidmarkclements/hsl_rgb_converter/
-// Definitions by: jorenbroekema <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert hue, saturation and luminosity to rgb
  *

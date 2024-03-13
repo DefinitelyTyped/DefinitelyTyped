@@ -1,15 +1,7 @@
-// Type definitions for react-router-redux 5.0
-// Project: https://github.com/reactjs/react-router-redux
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
-//                 Shoya Tanaka <https://github.com/8398a7>
-//                 Mykolas <https://github.com/mykolas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { History, Location, LocationDescriptor, LocationState, Path } from "history";
 import * as React from "react";
 import { match } from "react-router";
-import { Dispatch, Middleware, Reducer, Store } from "redux";
+import { Action, Dispatch, Middleware, Reducer, Store } from "redux";
 
 export interface ConnectedRouterProps<State> {
     children?: React.ReactNode;
@@ -24,7 +16,7 @@ export interface RouterState {
     location: Location | null;
 }
 
-export const routerReducer: Reducer<RouterState>;
+export const routerReducer: Reducer<RouterState, Action>;
 
 export const CALL_HISTORY_METHOD = "@@router/CALL_HISTORY_METHOD";
 

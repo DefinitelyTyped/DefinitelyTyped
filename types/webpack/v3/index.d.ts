@@ -1,19 +1,3 @@
-// Type definitions for webpack 3.8
-// Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Benjamin Lim <https://github.com/bumbleblym>
-//                 Boris Cherny <https://github.com/bcherny>
-//                 Tommy Troy Lin <https://github.com/tommytroylin>
-//                 Mohsen Azimi <https://github.com/mohsen1>
-//                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Alan Agius <https://github.com/alan-agius4>
-//                 Spencer Elliott <https://github.com/elliottsj>
-//                 Christophe Hurpeau <https://github.com/christophehurpeau>
-//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
-//                 Kyle Uehlein <https://github.com/kuehlein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import Tapable = require("tapable");
@@ -575,7 +559,7 @@ declare namespace webpack {
         type WatchOptions = ICompiler.WatchOptions;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ICompiler {
         run(handler: ICompiler.Handler): void;
         watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;
@@ -1118,6 +1102,7 @@ declare namespace webpack {
                 this: LoaderContext,
                 source: string | Buffer,
                 sourceMap?: RawSourceMap,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ): string | Buffer | void | undefined;
 
             /**

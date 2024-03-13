@@ -1,8 +1,3 @@
-// Type definitions for videojs-hls-quality-selector 1.1
-// Project: https://github.com/chrisboustead/videojs-hls-quality-selector#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import ConcreteMenuItem from "./src/ConcreteMenuItem";
 

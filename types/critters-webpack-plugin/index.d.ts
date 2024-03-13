@@ -1,10 +1,3 @@
-// Type definitions for critters-webpack-plugin 2.5
-// Project: https://github.com/GoogleChromeLabs/critters
-// Definitions by: Juan José González Giraldo <https://github.com/JuanJoseGonGi>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Plugin } from "webpack";
 
 export default Critters;

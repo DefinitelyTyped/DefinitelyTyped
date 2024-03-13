@@ -39,3 +39,10 @@ passport.use(
         },
     ),
 );
+
+declare const profile: discord.Profile;
+
+profile.avatar_decoration_data; // $ExpectType AvatarDecorationData | null
+profile.public_flags; // $ExpectType number
+profile.global_name; // $ExpectType string | null
+profile.premium_type; // $ExpectType 0 | 1 | 2 | 3

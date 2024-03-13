@@ -1,8 +1,3 @@
-// Type definitions for nodepub 3.0
-// Project: https://github.com/kcartlidge/nodepub
-// Definitions by: Dylan Armstrong <https://github.com/dylanarmstrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Link {
     itemType: "front" | "contents" | "main";
     link: string;

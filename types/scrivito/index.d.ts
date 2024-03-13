@@ -1,10 +1,3 @@
-// Type definitions for scrivito 1.22
-// Project: https://www.scrivito.com/
-// Definitions by:  Julian Krieger <https://github.com/juliankrieger>
-//                  Eric Eifler <https://github.com/eric-the-viking>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import * as React from "react";
 
 /**
@@ -232,6 +225,7 @@ interface EditingConfig {
     title?: string | undefined;
     thumbnail?: string | undefined;
     description?: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     titleForContent?: ((instance: Obj | Widget) => string | void) | undefined;
     descriptionForContent?: ((instance: Obj | Widget) => string) | undefined;
     attributes?: EditingConfigAttributes | undefined;

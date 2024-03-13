@@ -1,17 +1,4 @@
-// Type definitions for react-color 3.0
-// Project: https://github.com/casesandberg/react-color/, http://casesandberg.github.io/react-color
-// Definitions by:  Karol Janyst <https://github.com/LKay>,
-//                  Marks Polakovs <https://github.com/markspolakovs>,
-//                  Matthieu Montaudouin <https://github.com/mntdn>,
-//                  Nokogiri <https://github.com/nkgrnkgr>,
-//                  0815Strohhut <https://github.com/0815Strohhut>,
-//                  Daniel Fürst <https://github.com/dnlfrst>,
-//                  Erick Tamayo <https://github.com/ericktamayo>,
-//                  Alexander P. Cerutti <https://github.com/alexandercerutti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ClassAttributes, ReactNode } from "react";
+import { ClassAttributes, ComponentType } from "react";
 import { Classes } from "reactcss";
 
 export interface HSLColor {
@@ -48,7 +35,7 @@ export interface ColorPickerProps<A> extends ClassAttributes<A> {
 
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
     color?: Color | undefined;
-    pointer?: ReactNode | undefined;
+    pointer?: ComponentType<{ direction?: "vertical" }> | undefined;
     className?: string | undefined;
     styles?: Partial<Classes<any>> | undefined;
     onChange: ColorChangeHandler;

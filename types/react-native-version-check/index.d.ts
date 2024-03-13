@@ -1,9 +1,3 @@
-// Type definitions for react-native-version-check 3.4
-// Project: https://github.com/kimxogus/react-native-version-check
-// Definitions by: DELACOURT Vincent <https://github.com/vdelacou>
-//                 Krishan <https://github.com/KrishyV>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { RequestInit } from "node-fetch";
 declare namespace VersionCheck {
     /**

@@ -1,8 +1,3 @@
-// Type definitions for popoto 3.0
-// Project: https://popotojs.com/
-// Definitions by: Omar Almalol <https://github.com/alma3lol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { CypherViewer } from "./cypherviewer";
 import { DataModel } from "./dataModel";
 import { Graph, GraphSchema } from "./graph";

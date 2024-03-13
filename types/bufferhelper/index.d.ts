@@ -1,9 +1,3 @@
-// Type definitions for bufferhelper 0.2
-// Project: https://github.com/JacksonTian/bufferhelper
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 declare namespace BufferHelper {

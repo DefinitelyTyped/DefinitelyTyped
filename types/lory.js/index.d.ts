@@ -1,8 +1,3 @@
-// Type definitions for lory 2.5.3
-// Project: https://github.com/meandmax/lory/
-// Definitions by: kubosho <https://github.com/kubosho>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export declare var lory: LoryStatic;
 
 interface LoryStatic {

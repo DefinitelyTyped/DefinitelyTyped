@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const UnpackDepthRGBAShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         opacity: IUniform;

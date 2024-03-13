@@ -1,14 +1,3 @@
-// Type definitions for Express 4.17
-// Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Sami Jaber <https://github.com/samijaber>
-//                 Jose Luis Leon <https://github.com/JoseLion>
-//                 David Stephens <https://github.com/dwrss>
-//                 Shin Ando <https://github.com/andoshin11>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
 
@@ -119,6 +108,7 @@ export type RouteParameters<Route extends string> = string extends Route ? Param
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
     : {};
 
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 export interface IRouterMatcher<
     T,
     Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
@@ -132,10 +122,8 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Route,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -147,10 +135,8 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Path,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -162,7 +148,6 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -174,7 +159,6 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     (path: PathParams, subApplication: Application): T;
@@ -228,6 +212,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
 }
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 export interface IRouter extends RequestHandler {
     /**
@@ -342,16 +327,37 @@ export interface IRoute<Route extends string = string> {
 
 export interface Router extends IRouter {}
 
+/**
+ * Options passed down into `res.cookie`
+ * @link https://expressjs.com/en/api.html#res.cookie
+ */
 export interface CookieOptions {
+    /** Convenient option for setting the expiry time relative to the current time in **milliseconds**. */
     maxAge?: number | undefined;
+    /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
+    /** Expiry date of the cookie in GMT. If not specified or set to 0, creates a session cookie. */
     expires?: Date | undefined;
+    /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;
+    /** Path for the cookie. Defaults to “/”. */
     path?: string | undefined;
+    /** Domain name for the cookie. Defaults to the domain name of the app. */
     domain?: string | undefined;
+    /** Marks the cookie to be used with HTTPS only. */
     secure?: boolean | undefined;
+    /** A synchronous function used for cookie value encoding. Defaults to encodeURIComponent. */
     encode?: ((val: string) => string) | undefined;
+    /**
+     * Value of the “SameSite” Set-Cookie attribute.
+     * @link https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00#section-4.1.1.
+     */
     sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+    /**
+     * Value of the “Priority” Set-Cookie attribute.
+     * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
+     */
+    priority?: "low" | "medium" | "high";
 }
 
 export interface ByteRange {
@@ -438,7 +444,7 @@ export interface Request<
      *     // Accept: text/*, application/json
      *     req.accepts('image/png');
      *     req.accepts('png');
-     *     // => undefined
+     *     // => false
      *
      *     // Accept: text/*;q=.5, application/json
      *     req.accepts(['html', 'json']);
@@ -565,8 +571,11 @@ export interface Request<
      * Return the remote address, or when
      * "trust proxy" is `true` return
      * the upstream addr.
+     *
+     * Value may be undefined if the `req.socket` is destroyed
+     * (for example, if the client disconnected).
      */
-    ip: string;
+    ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse

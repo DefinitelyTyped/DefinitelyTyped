@@ -1,8 +1,3 @@
-// Type definitions for omit 1.0
-// Project: https://github.com/DamonOehlman/omit#readme
-// Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Key = string | readonly string[];
 type KeyAsStringType<K extends Key> = K extends readonly string[] ? K[number] : K;
 type Rule<K extends Key, V> = Key | ((key: K, value: V, target: Record<KeyAsStringType<K>, V>) => boolean);

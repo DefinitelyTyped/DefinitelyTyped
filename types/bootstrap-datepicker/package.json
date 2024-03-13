@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-datepicker",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/eternicode/bootstrap-datepicker"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-datepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Jannik Keye",
+            "githubUsername": "jannikkeye"
+        }
+    ]
+}

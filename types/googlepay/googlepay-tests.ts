@@ -40,6 +40,8 @@ allowedPaymentMethods[0].tokenizationSpecification = {
     },
 };
 
+const shippingAddressParametersEmptyObjectIsValid: google.payments.api.ShippingAddressParameters = {};
+
 const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
     return new google.payments.api.PaymentsClient({
         environment: env,

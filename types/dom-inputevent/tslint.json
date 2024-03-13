@@ -1,6 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-boolean-literal-compare": false
-    }
-}

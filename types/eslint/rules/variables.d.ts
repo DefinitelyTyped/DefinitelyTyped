@@ -135,7 +135,9 @@ export interface Variables extends Linter.RulesRecord {
      */
     "no-unused-vars": Linter.RuleEntry<
         [
-            Partial<{
+            | "all"
+            | "local"
+            | Partial<{
                 /**
                  * @default 'all'
                  */
@@ -155,6 +157,7 @@ export interface Variables extends Linter.RulesRecord {
                  */
                 caughtErrors: "none" | "all";
                 caughtErrorsIgnorePattern: string;
+                destructuredArrayIgnorePattern: string;
             }>,
         ]
     >;
@@ -180,6 +183,10 @@ export interface Variables extends Linter.RulesRecord {
                  * @default true
                  */
                 variables: boolean;
+                /**
+                 * @default false
+                 */
+                allowNamedExports: boolean;
             }>
             | "nofunc",
         ]

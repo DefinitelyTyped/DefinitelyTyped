@@ -1,8 +1,3 @@
-// Type definitions for @babel/helper-module-imports 7.18
-// Project: https://babel.dev/docs/en/next/babel-helper-module-imports
-// Definitions by: Oleksandr Fediashov <https://github.com/layershifter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { types as t } from "@babel/core";
 import type { NodePath } from "@babel/traverse";
 

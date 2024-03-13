@@ -1,9 +1,3 @@
-// Type definitions for d3Kit v1.1.0
-// Project: https://www.npmjs.com/package/d3kit
-// Definitions by: Morgan Benton <https://github.com/morphatic/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as d3 from "d3";
 
 declare namespace d3kit {
@@ -27,10 +21,10 @@ declare namespace d3kit {
     }
 
     export class Skeleton {
-        constructor(selector: string | Element, options?: ChartOptions, customEvents?: Array<string>);
+        constructor(selector: string | Element, options?: ChartOptions, customEvents?: string[]);
 
         // Getters
-        getCustomEventNames(): Array<string>;
+        getCustomEventNames(): string[];
         getDispatcher(): any; // should be d3.Dispatch but this throws error for user-created events
         getInnerWidth(): number;
         getInnerHeight(): number;
@@ -46,19 +40,22 @@ declare namespace d3kit {
         margin(): ChartMargin;
         margin(margin: ChartMargin, doNotDispatch?: boolean): Skeleton;
         offset(): [number, number];
-        offset(offset: Array<number>, doNotDispatch?: boolean): Skeleton;
+        offset(offset: number[], doNotDispatch?: boolean): Skeleton;
         width(): number;
         width(value: number | string, doNotDispatch?: boolean): Skeleton;
         height(): number;
         height(value: number | string, doNotDispatch?: boolean): Skeleton;
         dimension(): [number, number];
         dimension(dimension: [number | string, number | string], doNotDispatch?: boolean): Skeleton;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResize(mode?: string | boolean): string | boolean | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResizeDetection(method?: string): string | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResizeToAspectRatio(ratio?: number | boolean): number | boolean | void;
 
         // Other functions
-        on(eventName: string, listener: (...args: Array<any>) => void): void;
+        on(eventName: string, listener: (...args: any[]) => void): void;
         hasData(): boolean;
         hasNonZeroArea(): boolean;
         mixin(fn: ChartMixin): void;
@@ -79,12 +76,12 @@ declare namespace d3kit {
             enterFunction?: ChartletEventFunction,
             updateFunction?: ChartletEventFunction,
             exitFunction?: ChartletEventFunction,
-            customEventName?: Array<string>,
+            customEventName?: string[],
         );
 
         // Getter functions
         getDispatcher(): d3.Dispatch;
-        getCustomEventNames(): Array<string>;
+        getCustomEventNames(): string[];
         getPropertyValue(name: string, datum: any, datum_index: number): any;
 
         // Getter/Setter functions
@@ -104,8 +101,8 @@ declare namespace d3kit {
         ): void;
         inheritPropertiesFrom(
             parent_chartlet: Chartlet,
-            parent_property_names: Array<string>,
-            child_property_names?: Array<string>,
+            parent_property_names: string[],
+            child_property_names?: string[],
         ): void;
         publishEventsTo(dispatcher: d3.Dispatch): Chartlet;
 
@@ -115,7 +112,7 @@ declare namespace d3kit {
 
     interface LayerConfig {
         name?: string | undefined;
-        names?: Array<string> | undefined;
+        names?: string[] | undefined;
         sublayers?: LayerConfig | undefined;
     }
 
@@ -123,7 +120,7 @@ declare namespace d3kit {
         constructor(container: d3.Selection<any>, tag?: string);
 
         create(
-            config: string | Array<string> | LayerConfig | Array<LayerConfig> | any,
+            config: string | string[] | LayerConfig | LayerConfig[] | any,
         ): d3.Selection<any> | Array<d3.Selection<any>>;
         get(name: string): d3.Selection<any>;
         has(name: string): boolean;
@@ -132,17 +129,17 @@ declare namespace d3kit {
     export namespace factory {
         export function createChart(
             defaultOptions: ChartOptions,
-            customEvents: Array<string>,
+            customEvents: string[],
             constructor: (skeleton: Skeleton) => void,
-        ): (selector: string | Element, options?: ChartOptions, customEvents?: Array<string>) => Skeleton;
+        ): (selector: string | Element, options?: ChartOptions, customEvents?: string[]) => Skeleton;
     }
 
     export namespace helper {
         export function debounce(
-            fn: (...args: Array<any>) => void,
+            fn: (...args: any[]) => void,
             wait: number,
             immediate: boolean,
-        ): (...args: Array<any>) => void;
+        ): (...args: any[]) => void;
         export function extend(target: Object, ...args: Object[]): Object;
         export function deepExtend(target: Object, ...args: Object[]): Object;
         export function bindMouseEventsToDispatcher(
@@ -151,12 +148,12 @@ declare namespace d3kit {
             prefix: string,
         ): void;
         export function removeAllChildren(selection: d3.Selection<any>, noTransition: boolean): d3.Selection<any>;
-        export function on(element: Element, type: string, listener: (...args: Array<any>) => void): void;
-        export function off(element: Element, type: string, listener: (...args: Array<any>) => void): void;
+        export function on(element: Element, type: string, listener: (...args: any[]) => void): void;
+        export function off(element: Element, type: string, listener: (...args: any[]) => void): void;
         export function trim(str: string, characters: string): string;
         export function dasherize(str: string): string;
         export function $(s: Element | string): Element;
-        export function $$(s: Array<Node> | NodeList): Array<Element>;
+        export function $$(s: Node[] | NodeList): Element[];
         export function isArray(value: any): boolean;
         export function isNumber(value: any): boolean;
         export function isObject(value: any): boolean;

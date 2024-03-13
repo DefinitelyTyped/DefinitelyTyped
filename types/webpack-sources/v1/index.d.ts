@@ -1,10 +1,3 @@
-// Type definitions for webpack-sources 1.4
-// Project: https://github.com/webpack/webpack-sources
-// Definitions by: e-cloud <https://github.com/e-cloud>
-//                 Chris Eppstein <https://github.com/chriseppstein>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Hash } from "crypto";

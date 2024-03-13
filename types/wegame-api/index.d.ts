@@ -1,9 +1,3 @@
-// Type definitions for non-npm package wegame 2.8
-// Project: https://developers.weixin.qq.com/minigame/dev/index.html
-// Definitions by: J.C <https://github.com/jcyuan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * IOS及安卓不支持：
  *     globalCompositeOperation不支持以下值：source-in source-out destination-atop lighter copy
@@ -168,7 +162,7 @@ declare class FileSystemManager {
      * @throws dirPath 不是目录
      * @throws 指定的 filePath 路径没有读权限
      */
-    readdirSync(dirPath: string): ReadonlyArray<string>;
+    readdirSync(dirPath: string): readonly string[];
 
     /**
      * 创建目录
@@ -508,7 +502,7 @@ declare class UserGameData {
     /**
      * 用户的托管 KV 数据列表
      */
-    KVDataList: ReadonlyArray<KVData>;
+    KVDataList: readonly KVData[];
 }
 
 declare class CreatedButton {
@@ -1443,7 +1437,7 @@ declare namespace wx {
 
         interface ReaddirParams {
             dirPath: string;
-            success?: ((res: { files: ReadonlyArray<string> }) => void) | undefined;
+            success?: ((res: { files: readonly string[] }) => void) | undefined;
             fail?: ((res: { errMsg: string }) => void) | undefined;
             complete?: (() => void) | undefined;
         }
@@ -1701,11 +1695,11 @@ declare namespace wx {
             /**
              * 当前所有触摸点的列表
              */
-            touches: ReadonlyArray<Touch>;
+            touches: readonly Touch[];
             /**
              * 触发此次事件的触摸点列表
              */
-            changedTouches: ReadonlyArray<Touch>;
+            changedTouches: readonly Touch[];
             /**
              * 事件触发时的时间戳
              */
@@ -2016,7 +2010,7 @@ declare namespace wx {
              * 显示用户信息的语言
              */
             lang?: "en" | "zh_CN" | "zh_TW" | undefined;
-            success?: ((res: { data: ReadonlyArray<UserInfo> }) => void) | undefined;
+            success?: ((res: { data: readonly UserInfo[] }) => void) | undefined;
             fail?: (() => void) | undefined;
             complete?: (() => void) | undefined;
         }
@@ -2117,7 +2111,7 @@ declare namespace wx {
             /**
              * 当前 storage 中所有的 key
              */
-            keys: ReadonlyArray<string>;
+            keys: readonly string[];
             /**
              * 当前占用的空间大小, 单位 KB
              */
@@ -2799,7 +2793,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[];
-        success?: ((res: { data: ReadonlyArray<UserGameData> }) => void) | undefined;
+        success?: ((res: { data: readonly UserGameData[] }) => void) | undefined;
         fail?: (() => void) | undefined;
         complete?: (() => void) | undefined;
     }): void;
@@ -2811,7 +2805,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[];
-        success?: ((res: { KVDataList: ReadonlyArray<KVData> }) => void) | undefined;
+        success?: ((res: { KVDataList: readonly KVData[] }) => void) | undefined;
         fail?: (() => void) | undefined;
         complete?: (() => void) | undefined;
     }): void;
@@ -2834,7 +2828,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[];
-        success?: ((res: { data: ReadonlyArray<UserGameData> }) => void) | undefined;
+        success?: ((res: { data: readonly UserGameData[] }) => void) | undefined;
         fail?: (() => void) | undefined;
         complete?: (() => void) | undefined;
     }): void;
@@ -2861,7 +2855,7 @@ declare namespace wx {
         /**
          * 要修改的 KV 数据列表
          */
-        KVDataList: ReadonlyArray<KVData>;
+        KVDataList: readonly KVData[];
         success?: (() => void) | undefined;
         fail?: (() => void) | undefined;
         complete?: (() => void) | undefined;
@@ -3472,7 +3466,7 @@ declare namespace wx {
                  * 需要订阅的消息模板的id的集合（注意：iOS客户端7.0.6版本、Android客户端7.0.7版本之后的一次订阅才支持多个模板消息，iOS客户端7.0.5版本、Android客户端7.0.6版本之前的一次订阅
                  * 只支持一个模板消息）消息模板id在[微信公众平台(mp.weixin.qq.com)-功能-订阅消息]中配置
                  */
-                tmplIds: ReadonlyArray<string>;
+                tmplIds: readonly string[];
             }
             & types.CallbacksWithType2<{
                 /**
@@ -3814,7 +3808,7 @@ declare namespace wx {
             /**
              * 音频输入源，每一项对应一种音频输入源
              */
-            audioSources: ReadonlyArray<types.AudioSourceType>;
+            audioSources: readonly types.AudioSourceType[];
         }>,
     ): void;
 
@@ -3836,7 +3830,7 @@ declare namespace wx {
          */
         sourceType: ["album"] | ["camera"] | ["album", "camera"];
         success?:
-            | ((res: { tempFilePaths: ReadonlyArray<string>; tempFiles: ReadonlyArray<ImageFile> }) => void)
+            | ((res: { tempFilePaths: readonly string[]; tempFiles: readonly ImageFile[] }) => void)
             | undefined;
         fail?: (() => void) | undefined;
         complete?: (() => void) | undefined;
@@ -4002,7 +3996,7 @@ declare namespace wx {
             /**
              * 还在实时语音通话中的成员 openId 名单
              */
-            openIdList: ReadonlyArray<string>;
+            openIdList: readonly string[];
             /**
              * 错误码
              */
@@ -4027,7 +4021,7 @@ declare namespace wx {
             /**
              * 还在实时语音通话中的成员 openId 名单
              */
-            openIdList: ReadonlyArray<string>;
+            openIdList: readonly string[];
             /**
              * 错误码
              */
@@ -4079,7 +4073,7 @@ declare namespace wx {
                 /**
                  * 在此通话中的成员 openId 名单
                  */
-                openIdList: ReadonlyArray<string>;
+                openIdList: readonly string[];
                 /**
                  * 错误码
                  */

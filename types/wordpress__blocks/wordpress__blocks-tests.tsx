@@ -82,10 +82,10 @@ blocks.updateCategory("foo", { title: "Foobar" });
 // children
 // ----------------------------------------------------------------------------
 
-// $ExpectType ReactChild[]
+// $ExpectType (string | number | ReactElement<any, string | JSXElementConstructor<any>>)[]
 blocks.children.fromDOM(document.querySelectorAll("div"));
 
-// $ExpectType (domNode: Node & ParentNode) => ReactChild[]
+// $ExpectType (domNode: Node & ParentNode) => (string | number | ReactElement<any, string | JSXElementConstructor<any>>)[]
 blocks.children.matcher(".foo");
 
 //
@@ -187,13 +187,13 @@ blocks.parseWithAttributeSchema(TEST_HTML, {
     selector: "#root",
 });
 
-// $ExpectType ReactChild[]
+// $ExpectType (string | number | ReactElement<any, string | JSXElementConstructor<any>>)[]
 blocks.parseWithAttributeSchema(TEST_HTML, {
     source: "children",
     selector: "#root",
 });
 
-// $ExpectType ReactChild[]
+// $ExpectType (string | number | ReactElement<any, string | JSXElementConstructor<any>>)[]
 blocks.parseWithAttributeSchema(TEST_HTML, {
     source: "children",
 });
@@ -586,10 +586,10 @@ blocks.getSaveContent(BLOCK, { foo: "bar" }, []);
 // @ts-expect-error
 blocks.getSavecontent(BLOCK, false, []);
 
-// $ExpectType ReactChild
+// $ExpectType string | number | ReactElement<any, string | JSXElementConstructor<any>>
 blocks.getSaveElement("my/foo", { foo: "bar" });
 
-// $ExpectType ReactChild
+// $ExpectType string | number | ReactElement<any, string | JSXElementConstructor<any>>
 blocks.getSaveElement(BLOCK, { foo: "bar" });
 
 // @ts-expect-error

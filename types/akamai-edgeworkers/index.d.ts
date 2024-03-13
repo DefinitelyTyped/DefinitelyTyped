@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
-// Project: https://developer.akamai.com/akamai-edgeworkers-overview
-// Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>
-//                 Swathi Bala <https://github.com/swathimr>
-//                 Aman Nanner <https://github.com/ananner>
-//                 Ben Matthews <https://github.com/bmatthew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Modifyed by: Shige Fukushima <sfukushi@akamai.com>
 //
@@ -1143,6 +1135,116 @@ declare module "log" {
          * @param values Zero or more values to record in the log.
          */
         log(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the debug level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        debug(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the error level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        error(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the info level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        info(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the trace level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        trace(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the warn level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        warn(format: string, ...values: any): void;
     }
 
     const logger: Logger;
@@ -1236,6 +1338,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64: Base64;
@@ -1246,6 +1355,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64url string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64url: Base64url;
@@ -1256,6 +1372,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base16 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base16: Base16;

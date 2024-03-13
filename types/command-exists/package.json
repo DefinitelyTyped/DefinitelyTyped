@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/command-exists",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/mathisonian/command-exists"
+    ],
+    "devDependencies": {
+        "@types/command-exists": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for multistream 4.1
-// Project: https://github.com/feross/multistream
-// Definitions by: mrmlnc <https://github.com/mrmlnc>, mpvharmelen <https://github.com/mpvharmelen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable as ReadableStream, ReadableOptions, Stream } from "stream";

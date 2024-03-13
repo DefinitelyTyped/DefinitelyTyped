@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/parcel__watcher",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/parcel-bundler/watcher#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/parcel__watcher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Kane",
+            "githubUsername": "ascorbic"
+        }
+    ]
+}

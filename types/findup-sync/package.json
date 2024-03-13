@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/findup-sync",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/gulpjs/findup-sync"
+    ],
+    "dependencies": {
+        "@types/micromatch": "*"
+    },
+    "devDependencies": {
+        "@types/findup-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Nathan Brown",
+            "githubUsername": "ngbrown"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Kotaro Sugawara",
+            "githubUsername": "kotarella1110"
+        }
+    ]
+}

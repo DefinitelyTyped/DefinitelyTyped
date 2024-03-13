@@ -1,9 +1,3 @@
-// Type definitions for tablesorter 2.31
-// Project: https://mottie.github.io/tablesorter/
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "jqueryui";
 import { CoreTheme } from "./Design/CoreTheme";
 import { Theme } from "./Design/Theme";

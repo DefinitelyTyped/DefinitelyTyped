@@ -1,9 +1,3 @@
-// Type definitions for sailthru-client 3.0
-// Project: https://github.com/sailthru/sailthru-node-client
-// Definitions by: Sergey Smolnikov <https://github.com/smolnikov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import * as http from "http";
 import * as Restler from "restler";
 
@@ -110,6 +104,7 @@ export interface SailthruClient {
         data: object,
         binary_data_params: string[],
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -246,6 +241,7 @@ export interface SailthruClient {
         sid: string,
         options: object,
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -260,6 +256,7 @@ export interface SailthruClient {
         key: string,
         options: object,
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**

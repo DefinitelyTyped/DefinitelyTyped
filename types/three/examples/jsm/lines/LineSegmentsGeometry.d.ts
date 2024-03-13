@@ -1,11 +1,4 @@
-import {
-    EdgesGeometry,
-    InstancedBufferGeometry,
-    LineSegments,
-    Matrix4,
-    Mesh,
-    WireframeGeometry,
-} from '../../../src/Three.js';
+import { EdgesGeometry, InstancedBufferGeometry, LineSegments, Matrix4, Mesh, WireframeGeometry } from "three";
 
 export class LineSegmentsGeometry extends InstancedBufferGeometry {
     constructor();

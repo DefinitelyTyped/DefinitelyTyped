@@ -10,7 +10,7 @@ const utf8Array_5 = new Uint32Array([1, 2, 3]);
 const utf8Array_6 = new Int16Array([1, 2, 3]);
 const utf8Array_7 = new Int32Array([1, 2, 3]);
 const utf8Array_8 = new Int8Array([1, 2, 3]);
-const utf8Array_9: ReadonlyArray<number> = [1, 2, 3];
+const utf8Array_9: readonly number[] = [1, 2, 3];
 Encoding.convert(utf8Array_1, "SJIS", "UTF8"); // $ExpectType number[]
 Encoding.convert(utf8Array_2, "UTF16", "UTF8"); // $ExpectType number[]
 Encoding.convert(utf8Array_3, "UTF16LE", "UTF8"); // $ExpectType number[]

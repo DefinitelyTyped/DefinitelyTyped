@@ -1,8 +1,3 @@
-// Type definitions for express-cache-response-directive 1.1
-// Project: https://github.com/dantman/express-cache-response-directive
-// Definitions by: yutak23 <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as express from "express";
 
 declare global {

@@ -1,8 +1,3 @@
-// Type definitions for Geometry Format Specification
-// Project: http://www.w3.org/TR/geometry-1/
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace GeometryDom {
     export interface DOMPointReadOnly {
         /**
@@ -194,8 +189,8 @@ declare namespace GeometryDom {
 
         transformPoint(point?: DOMPointInit): DOMPoint;
 
-        toFloat32Array(): Array<number>;
-        toFloat64Array(): Array<number>;
+        toFloat32Array(): number[];
+        toFloat64Array(): number[];
     }
 
     interface DOMMatrix extends DOMMatrixReadOnly {
@@ -326,7 +321,7 @@ declare var DOMQuad: {
 
 declare var DOMMatrixReadOnly: {
     prototype: GeometryDom.DOMMatrixReadOnly;
-    new(numberSequence: Array<number>): GeometryDom.DOMMatrixReadOnly;
+    new(numberSequence: number[]): GeometryDom.DOMMatrixReadOnly;
 };
 
 declare var DOMMatrix: {
@@ -334,6 +329,6 @@ declare var DOMMatrix: {
     new(): GeometryDom.DOMMatrix;
     new(transformList: string): GeometryDom.DOMMatrix;
     new(other: GeometryDom.DOMMatrixReadOnly): GeometryDom.DOMMatrix;
-    new(array: Array<number>): GeometryDom.DOMMatrix;
+    new(array: number[]): GeometryDom.DOMMatrix;
     new(a: number, b: number, c: number, d: number, e: number, f: number): GeometryDom.DOMMatrix;
 };

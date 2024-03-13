@@ -1,8 +1,3 @@
-// Type definitions for command-shell-lib 1.0
-// Project: https://github.com/telefonicaid/command-shell-lib
-// Definitions by: Fabian Bäumer <https://github.com/TrueSkrillor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** A single command specifying parameters, description and the corresponding handler. */
 export interface Command {
     /**
@@ -32,7 +27,7 @@ export function showHelp(commands: CommandsObject): void;
  * Executes the given command (the list of words parsed from the command line input) in the context of the commands
  * describe by the object Commands.
  */
-export function executeCommander(command: ReadonlyArray<string>, commands: CommandsObject): void;
+export function executeCommander(command: readonly string[], commands: CommandsObject): void;
 /** Creates a function that shows the selected branch (attribute) of the config, formatted with the correct indentation. */
 export function showConfig(config: { [name: string]: any }, branch: string): () => void;
 /**

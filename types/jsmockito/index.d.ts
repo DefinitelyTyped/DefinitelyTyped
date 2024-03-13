@@ -1,8 +1,3 @@
-// Type definitions for JsMockito 1.0.4
-// Project: https://github.com/chrisleishman/jsmockito
-// Definitions by: Karl Bennett <https://github.com/shiver-me-timbers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top-level module for the JsMockito mocking library.
  *
@@ -328,7 +323,7 @@ declare namespace JsMockito {
          * @param func Functions to be run in order of execution.
          * @return Itself for method chaining
          */
-        then(...func: ((obj: any) => any)[]): JsMockitoStubBuilder;
+        then(...func: Array<(obj: any) => any>): JsMockitoStubBuilder;
 
         /**
          * Provide values to be returned by the mocked function.

@@ -1,9 +1,3 @@
-// Type definitions for redux-ui 0.0
-// Project: https://github.com/tonyhb/redux-ui
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 import * as Redux from "redux";
 

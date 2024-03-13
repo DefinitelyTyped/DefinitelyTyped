@@ -1,9 +1,3 @@
-// Type definitions for webpack-assets-manifest 4.0
-// Project: https://github.com/webdeveric/webpack-assets-manifest
-// Definitions by: Franklin Tse <https://github.com/FranklinWhale>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
 import { compilation, Compiler, loader, Plugin, Stats } from "webpack";
 
@@ -75,7 +69,7 @@ declare class WebpackAssetsManifest extends Plugin {
 
     /** Process compilation assets */
     processAssetsByChunkName(
-        assets: Record<string, string | ReadonlyArray<string>>,
+        assets: Record<string, string | readonly string[]>,
         hmrFiles?: Set<string>,
     ): this["assetNames"];
 
@@ -227,7 +221,7 @@ declare namespace WebpackAssetsManifest {
         integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string> | undefined;
+        integrityHashes?: readonly string[] | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;

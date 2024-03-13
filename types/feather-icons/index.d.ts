@@ -1,8 +1,3 @@
-// Type definitions for feather-icons 4.29
-// Project: https://github.com/feathericons/feather#readme
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
-//                 Matt Sutton <https://github.com/freethewhat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { icons as genIcons } from "./generated/feather-icons";
 
 export {};

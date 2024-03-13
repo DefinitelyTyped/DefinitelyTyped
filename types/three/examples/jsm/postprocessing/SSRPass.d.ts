@@ -1,18 +1,18 @@
 import {
-    Color,
-    MeshNormalMaterial,
-    MeshBasicMaterial,
-    ShaderMaterial,
-    WebGLRenderTarget,
-    Scene,
-    WebGLRenderer,
     Camera,
-    Mesh,
-    Material,
+    Color,
     ColorRepresentation,
-} from '../../../src/Three.js';
-import { Pass, FullScreenQuad } from '../postprocessing/Pass.js';
-import { ReflectorForSSRPass } from '../objects/ReflectorForSSRPass.js';
+    Material,
+    Mesh,
+    MeshBasicMaterial,
+    MeshNormalMaterial,
+    Scene,
+    ShaderMaterial,
+    WebGLRenderer,
+    WebGLRenderTarget,
+} from "three";
+import { ReflectorForSSRPass } from "../objects/ReflectorForSSRPass.js";
+import { FullScreenQuad, Pass } from "../postprocessing/Pass.js";
 
 export interface SSRPassParams {
     renderer: WebGLRenderer;

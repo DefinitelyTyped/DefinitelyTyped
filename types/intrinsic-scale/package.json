@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/intrinsic-scale",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bfred-it/intrinsic-scale#readme"
+    ],
+    "devDependencies": {
+        "@types/intrinsic-scale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "shalomdotnet",
+            "githubUsername": "shalomdotnet"
+        }
+    ]
+}

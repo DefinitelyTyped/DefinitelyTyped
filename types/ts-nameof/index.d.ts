@@ -1,8 +1,3 @@
-// Type definitions for ts-nameof 4.2
-// Project: https://github.com/dsherret/ts-nameof#readme
-// Definitions by: David Sherret <https://github.com/dsherret>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Gets a string representation of the final identifier of the given expression.
  *

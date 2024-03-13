@@ -1,9 +1,3 @@
-// Type definitions for rox-browser 5.0
-// Project: https://rollout.io
-// Definitions by: AsafRollout: <https://github.com/asafRollout>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Official documentation for rox-browser is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api
@@ -173,7 +167,7 @@ declare namespace Rox {
      * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_roxstring
      */
     class RoxString {
-        constructor(defaultValue: string, options?: ReadonlyArray<string>);
+        constructor(defaultValue: string, options?: readonly string[]);
 
         // The name of the RoxString
         readonly name: string;
@@ -194,7 +188,7 @@ declare namespace Rox {
      * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/javascript-browser-api#_rox_roxnumber
      */
     class RoxNumber {
-        constructor(defaultValue: number, options?: ReadonlyArray<number>);
+        constructor(defaultValue: number, options?: readonly number[]);
 
         // The name of the RoxNumber
         readonly name: string;
@@ -277,5 +271,5 @@ declare namespace Rox {
         function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
     }
 
-    const flags: ReadonlyArray<Flag>;
+    const flags: readonly Flag[];
 }

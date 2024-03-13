@@ -1,9 +1,3 @@
-// Type definitions for brotli-webpack-plugin 1.1
-// Project: https://github.com/mynameiswhm/brotli-webpack-plugin
-// Definitions by: Karol Majewski <https://github.com/karol-majewski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as webpack from "webpack";
 
 declare class BrotliWebpackPlugin extends webpack.Plugin {

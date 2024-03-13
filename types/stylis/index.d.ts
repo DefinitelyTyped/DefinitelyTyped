@@ -1,8 +1,3 @@
-// Type definitions for stylis 4.2
-// Project: https://github.com/thysultan/stylis.js
-// Definitions by: Gen Hames <https://github.com/heyheyhello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace stylis;
 
 export interface Element {
@@ -19,6 +14,7 @@ export interface Element {
 }
 
 export type ArrayMapCallback = (value: string, index: number, array: string[]) => string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Middleware = (element: Element, index: number, children: Element[], callback: Middleware) => string | void;
 
 // Enum.js
@@ -145,6 +141,8 @@ export function middleware(collection: Middleware[]): Middleware;
 export function rulesheet(callback: (ret: string) => void): Middleware;
 
 // @type {Middleware}
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function prefixer(element: Element, index: number, children: Element[], callback: Middleware): string | void;
 // @type {Middleware}
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function namespace(element: Element): string | void;

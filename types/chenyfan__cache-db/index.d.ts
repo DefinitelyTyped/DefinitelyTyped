@@ -1,8 +1,3 @@
-// Type definitions for @chenyfan/cache-db 0.0
-// Project: https://www.npmjs.com/package/@chenyfan/cache-db
-// Definitions by: AHdark <https://github.com/AH-dark>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CacheDB {
     interface Config {
         type: "json" | "arrayBuffer" | "blob" | "text" | string;

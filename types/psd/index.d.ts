@@ -1,8 +1,3 @@
-// Type definitions for psd 3.4
-// Project: https://github.com/meltingice/psd.js#readme
-// Definitions by: Yehyoung Kang <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This file provides type definitions for PSD.js when it is used as a CommonJS
 // package for Node.js.
 // See browser.d.ts if you need to use the browser bundle of PSD.js.

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/test-console",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jamesshore/test-console"
+    ],
+    "devDependencies": {
+        "@types/test-console": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Roberto Soares",
+            "githubUsername": "roberto"
+        },
+        {
+            "name": "Pedro Guidoux",
+            "githubUsername": "guidoux"
+        },
+        {
+            "name": "Guilherme Moretti",
+            "githubUsername": "gbmoretti"
+        }
+    ]
+}

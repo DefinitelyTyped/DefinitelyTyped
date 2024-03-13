@@ -1,8 +1,3 @@
-// Type definitions for prompt 1.1
-// Project: https://github.com/flatiron/prompt#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>, Matthew Berryman <https://github.com/matthewberryman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

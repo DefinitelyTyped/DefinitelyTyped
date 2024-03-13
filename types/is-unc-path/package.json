@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-unc-path",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-unc-path"
+    ],
+    "devDependencies": {
+        "@types/is-unc-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

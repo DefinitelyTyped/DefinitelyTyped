@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rx-jquery",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS-jQuery/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/rx": "*"
+    },
+    "devDependencies": {
+        "@types/rx-jquery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

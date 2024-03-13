@@ -1,8 +1,3 @@
-// Type definitions for page-flip 2.0
-// Project: https://nodlik.github.io/StPageFlip/
-// Definitions by: Thibault-Pierre Gouin <https://github.com/lethyb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PageRect, Point, Rect, RectPoints, Segment } from "./dist/BasicTypes";
 import { HTMLPageCollection } from "./dist/Collection/HTMLPageCollection";
 import { ImagePageCollection } from "./dist/Collection/ImagePageCollection";

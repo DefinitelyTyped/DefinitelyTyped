@@ -1,6 +1,25 @@
 {
-  "private": true,
-  "dependencies": {
-    "source-map": "^0.6.0"
-  }
+    "private": true,
+    "name": "@types/clean-css",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/clean-css/clean-css"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "source-map": "^0.6.0"
+    },
+    "devDependencies": {
+        "@types/clean-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "Andrew Potter",
+            "githubUsername": "GolaWaya"
+        }
+    ]
 }

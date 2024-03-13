@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jxon",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/jxon"
+    ],
+    "devDependencies": {
+        "@types/jxon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

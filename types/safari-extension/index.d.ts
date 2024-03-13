@@ -1,8 +1,3 @@
-// Type definitions for Safari extension development
-// Project: https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009977-CH1-SW1
-// Definitions by: Luuk <https://github.com/luukd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     safari: typeof safari;
 }
@@ -81,7 +76,7 @@ interface SafariEventTarget {
 }
 
 interface SafariBrowserWindow extends SafariEventTarget {
-    tabs: Array<SafariBrowserTab>;
+    tabs: SafariBrowserTab[];
     visible: boolean;
     activeTab: SafariBrowserTab;
 
@@ -154,7 +149,7 @@ interface SafariExtensionPopover extends SafariEventTarget {
 
 interface SafariExtensionMenu {
     identifier: string;
-    menuItems: Array<SafariExtensionMenuItem>;
+    menuItems: SafariExtensionMenuItem[];
     visible: boolean;
 
     appendMenuItem(identifier: string, title: string, command?: string): SafariExtensionMenuItem;
@@ -249,26 +244,26 @@ interface SafariPrivateBrowsing {
 }
 
 interface SafariExtension {
-    bars: Array<SafariExtensionBar>;
+    bars: SafariExtensionBar[];
     baseURI: string;
     globalPage: SafariExtensionGlobalPage;
-    toolbarItems: Array<SafariExtensionToolbarItem>;
+    toolbarItems: SafariExtensionToolbarItem[];
 
     displayVersion: string;
     bundleVersion: string;
 
-    menus: Array<SafariExtensionMenu>;
+    menus: SafariExtensionMenu[];
     createMenu(identifier: string): SafariExtensionMenu;
     removeMenu(identifier: string): void;
 
-    popovers: Array<SafariExtensionPopover>;
+    popovers: SafariExtensionPopover[];
     createPopover(identifier: string, url: string, width?: number, height?: number): SafariExtensionPopover;
     removePopover(identifier: string): void;
 
-    addContentScript(source: string, whitelist: Array<string>, blacklist: Array<string>, runAtEnd: boolean): string;
-    addContentScriptFromURL(url: string, whitelist: Array<string>, blacklist: Array<string>, runAtEnd: boolean): string;
-    addContentStyleSheet(source: string, whitelist: Array<string>, blacklist: Array<string>): string;
-    addContentStyleSheetFromURL(url: string, whitelist: Array<string>, blacklist: Array<string>): string;
+    addContentScript(source: string, whitelist: string[], blacklist: string[], runAtEnd: boolean): string;
+    addContentScriptFromURL(url: string, whitelist: string[], blacklist: string[], runAtEnd: boolean): string;
+    addContentStyleSheet(source: string, whitelist: string[], blacklist: string[]): string;
+    addContentStyleSheetFromURL(url: string, whitelist: string[], blacklist: string[]): string;
     removeContentScript(url: string): void;
     removeContentScripts(): void;
     removeContentStyleSheet(url: string): void;
@@ -280,7 +275,7 @@ interface SafariExtension {
 
 interface SafariApplication extends SafariEventTarget {
     activeBrowserWindow: SafariBrowserWindow;
-    browserWindows: Array<SafariBrowserWindow>;
+    browserWindows: SafariBrowserWindow[];
     privateBrowsing: SafariPrivateBrowsing;
     openBrowserWindow(): SafariBrowserWindow;
 }

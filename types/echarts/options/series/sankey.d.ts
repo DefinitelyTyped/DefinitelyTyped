@@ -2093,7 +2093,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-sankey.data
              */
-            data?: (number | SeriesSankey.DataObject)[] | (number | SeriesSankey.DataObject)[][] | undefined;
+            data?: Array<number | SeriesSankey.DataObject> | Array<Array<number | SeriesSankey.DataObject>> | undefined;
 
             /**
              * Equals to

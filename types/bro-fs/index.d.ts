@@ -1,8 +1,3 @@
-// Type definitions for bro-fs 0.6
-// Project: https://github.com/vitalets/bro-fs#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="filesystem" />
 
 export type TextType = "Text" | "BinaryString" | "DataURL";

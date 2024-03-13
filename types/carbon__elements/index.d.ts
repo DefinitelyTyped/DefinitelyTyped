@@ -1,9 +1,3 @@
-// Type definitions for @carbon/elements 11.10
-// Project: https://github.com/carbon-design-system/carbon/tree/master/packages/elements
-// Definitions by: Eric Liu <https://github.com/metonym>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 export const black: "#000000";
 export const black100: "#000000";
 export const blue: {

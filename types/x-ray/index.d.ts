@@ -1,9 +1,3 @@
-// Type definitions for x-ray 2.3
-// Project: https://github.com/lapwinglabs/x-ray#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="node" />
 
 import Bluebird = require("bluebird");

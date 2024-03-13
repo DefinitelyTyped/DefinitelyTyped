@@ -6,6 +6,12 @@ const testCases = [
     <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
+    <span
+        contentEditable
+        // @ts-expect-error -- Use data-placeholder instead.
+        placeholder="foo"
+    />,
+    <span contentEditable="plaintext-only" />,
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
@@ -30,8 +36,8 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={["one", "two"] as ReadonlyArray<string>} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,
     <input value={["one", "two"]} />,
     <input enterKeyHint="done" />,
@@ -58,6 +64,18 @@ const testCases = [
     <picture>
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="high" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="low" />
+    </picture>,
+    <picture>
+        <source media="test" srcSet="test" width={50} height={50} />
+        <img alt="test" src="test" width={100} height={100} fetchPriority="auto" />
     </picture>,
     <dialog
         onCancel={event => {

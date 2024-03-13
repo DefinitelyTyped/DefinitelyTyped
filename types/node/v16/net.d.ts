@@ -84,6 +84,12 @@ declare module "net" {
     class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
         /**
+         * Destroys the socket after all data is written. If the `finish` event was already emitted the socket is destroyed immediately.
+         * If the socket is still writable it implicitly calls `socket.end()`.
+         * @since v0.3.4
+         */
+        destroySoon(): void;
+        /**
          * Sends data on the socket. The second parameter specifies the encoding in the
          * case of a string. It defaults to UTF8 encoding.
          *
@@ -677,6 +683,11 @@ declare module "net" {
          */
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
+        /**
+         * The list of rules added to the blocklist.
+         * @since v15.0.0, v14.18.0
+         */
+        rules: readonly string[];
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;

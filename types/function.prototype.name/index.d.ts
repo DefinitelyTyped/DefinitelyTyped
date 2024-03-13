@@ -1,8 +1,3 @@
-// Type definitions for function.prototype.name 1.1
-// Project: https://github.com/es-shims/Function.prototype.name#readme
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import impl = require("./implementation");
 
 type Impl = typeof impl;

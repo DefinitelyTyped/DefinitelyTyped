@@ -1,8 +1,3 @@
-// Type definitions for react-masonry-layout 0.4
-// Project: https://github.com/scarletsky/react-masonry-layout#readme
-// Definitions by: moonrailgun <https://github.com/moonrailgun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 declare namespace ReactMasonryLayoutExport {

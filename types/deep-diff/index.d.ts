@@ -1,9 +1,3 @@
-// Type definitions for deep-diff 1.0
-// Project: https://github.com/flitbit/diff/
-// Definitions by: ZauberNerd <https://github.com/ZauberNerd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 declare function deepDiff<LHS, RHS = LHS>(
     lhs: LHS,
     rhs: RHS,

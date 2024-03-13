@@ -1,9 +1,3 @@
-// Type definitions for utm 1.1
-// Project: https://github.com/timothygu/utm#readme
-// Definitions by: Hyeonsoo David Lee <https://github.com/civilizeddev>
-//                 Jonas Triki <https://github.com/JonasTriki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function fromLatLon(
     latitude: number,
     longitude: number,

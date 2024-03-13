@@ -1,11 +1,3 @@
-// Type definitions for pkgcloud 1.7
-// Project: https://github.com/pkgcloud/pkgcloud#readme
-// Definitions by: Daniel Friesen <https://github.com/dantman>
-//                 Adam Smith <https://github.com/ScriptSmith>
-//                 Cornelis Heuperman <https://github.com/heuperman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 export const version: string;

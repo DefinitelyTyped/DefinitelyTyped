@@ -1,6 +1,6 @@
 import { Handler } from "../handler";
 
-// tslint:disable-next-line:void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
 
 // SQS

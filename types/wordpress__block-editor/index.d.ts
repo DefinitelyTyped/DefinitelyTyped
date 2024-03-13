@@ -1,12 +1,5 @@
-// Type definitions for @wordpress/block-editor 11.5
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-//                 Dennis Snell <https://github.com/dmsnell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
 import { BlockIconNormalized } from "@wordpress/blocks";
-import { dispatch, select } from "@wordpress/data";
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 
 export * from "./components";
 export * from "./hooks";
@@ -19,7 +12,11 @@ declare module "@wordpress/data" {
     function select(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
-export const store: any;
+export interface BlockEditorStoreDescriptor extends StoreDescriptor {
+    name: "core/block-editor";
+}
+
+export const store: BlockEditorStoreDescriptor;
 
 export type EditorBlockMode = "html" | "visual";
 export type EditorMode = "text" | "visual";

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dotenv-parse-variables",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/niftylettuce/dotenv-parse-variables"
+    ],
+    "devDependencies": {
+        "@types/dotenv-parse-variables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gary King",
+            "githubUsername": "garyking"
+        }
+    ]
+}

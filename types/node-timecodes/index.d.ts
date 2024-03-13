@@ -1,8 +1,3 @@
-// Type definitions for node-timecodes 2.5
-// Project: https://github.com/Synchronized-TV/node-timecodes
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TimecodeOptions {
     frameRate?: number | undefined;
     ms?: boolean | undefined;

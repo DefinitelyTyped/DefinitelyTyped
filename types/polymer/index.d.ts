@@ -1,9 +1,3 @@
-// Type definitions for polymer v1.2.6
-// Project: https://github.com/Polymer/polymer
-// Definitions by: Louis Grignon <https://github.com/lgrignon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 import { CustomElementConstructor } from "webcomponents.js";
 
 declare global {
@@ -122,9 +116,9 @@ declare global {
 
             notifyPath?(path: string, value: any, fromAbove: any): void;
 
-            set?<Value>(path: string | (string | number)[], value: Value, root?: Object): void;
+            set?<Value>(path: string | Array<string | number>, value: Value, root?: Object): void;
 
-            get?(path: string | (string | number)[], root?: Object): any;
+            get?(path: string | Array<string | number>, root?: Object): any;
 
             linkPaths?(to: string, from?: string): void;
 
@@ -140,7 +134,7 @@ declare global {
 
             unshift?(path: string, ...item: any[]): number;
 
-            notifySplices?(path: string, splices: ReadonlyArray<polymer.PolymerSplice>): void;
+            notifySplices?(path: string, splices: readonly polymer.PolymerSplice[]): void;
 
             // ResolveUrl
 
@@ -350,7 +344,7 @@ declare global {
         }
 
         interface ArraySplice {
-            calculateSplices<T>(current: ReadonlyArray<T>, previous: ReadonlyArray<T>): PolymerSplice[];
+            calculateSplices<T>(current: readonly T[], previous: readonly T[]): PolymerSplice[];
         }
 
         interface ImportStatus extends RenderStatus {

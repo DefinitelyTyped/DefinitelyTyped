@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
-        ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
         ],
         "types": [],
         "noImplicitAny": true,
@@ -14,12 +10,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@selrond/*": [
-                "selrond__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

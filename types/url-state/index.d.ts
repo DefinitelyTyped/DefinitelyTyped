@@ -1,8 +1,3 @@
-// Type definitions for url-state 3.0
-// Project: https://github.com/jessetane/url-state
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { parse } from "qs";
 
 interface ReplaceHref {

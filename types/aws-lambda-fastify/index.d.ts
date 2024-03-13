@@ -1,8 +1,3 @@
-// Type definitions for aws-lambda-fastify 1.4
-// Project: https://github.com/fastify/aws-lambda-fastify
-// Definitions by: Kang Chan <https://github.com/kentakang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Callback, Context } from "aws-lambda";
@@ -17,6 +12,7 @@ type Handler<TEvent = FastifyRequest, TResult = FastifyReply> = (
     event: TEvent,
     context: Context,
     callback?: Callback<TResult>,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | Promise<TResult>;
 
 declare function awsLambdaFastify(app: FastifyInstance, options?: AwsLambdaFastifyOptions): Handler;

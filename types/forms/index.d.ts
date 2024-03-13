@@ -1,11 +1,3 @@
-// Type definitions for forms 1.3
-// Project: https://github.com/caolan/forms
-// Definitions by: suXin <https://github.com/suXinjke>
-//                 Pelle Wessman <https://github.com/voxpelli>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /// <reference types="node"/>
 
 import { IncomingMessage } from "http";

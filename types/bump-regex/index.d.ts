@@ -1,8 +1,3 @@
-// Type definitions for bump-regex 4.1
-// Project: https://github.com/stevelacy/bump-regex
-// Definitions by: silkentrance <https://github.com/silkentrance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function bump(opts: string | bump.Options, cb: bump.Callback): any;
 
 declare namespace bump {

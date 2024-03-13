@@ -1,9 +1,3 @@
-// Type definitions for simple-mock v0.8.0
-// Project: https://github.com/jupiter/simple-mock
-// Definitions by: Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace Simple {
     type Fn<T> = {
         (...args: any[]): T;
@@ -95,7 +89,7 @@ declare namespace Simple {
          * Number of times the function was called.
          */
         callCount: number;
-        calls: Calls<T>[];
+        calls: Array<Calls<T>>;
         firstCall: Calls<T>;
         /**
          * The last call object. (This is often also the first and only call.)
@@ -183,7 +177,7 @@ declare namespace Simple {
         /**
          * Configures this stub to use the specified array of actions.
          */
-        withActions(actions?: Action<T>[]): Stub<T>;
+        withActions(actions?: Array<Action<T>>): Stub<T>;
 
         /**
          * Configures the stub to enable looping.
@@ -199,7 +193,7 @@ declare namespace Simple {
          * An array of behaviours.
          * Note: modifying this array directly is not supported, rather use stub.withActions(actions) if you need to add actions.
          */
-        actions: Action<T>[];
+        actions: Array<Action<T>>;
 
         /**
          * setting whether the queue of actions for this stub should repeat.

@@ -1,8 +1,3 @@
-// Type definitions for diskspace 2.0
-// Project: https://github.com/keverw/diskspace.js
-// Definitions by: Vladislav <https://github.com/swedesjs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @param err RU: Ошибка при выполнении  EN: Runtime error
  * @param result RU: Результат проверки дискового пространства   EN: The result of the diskspace check

@@ -1,8 +1,3 @@
-// Type definitions for react-native-fetch-blob 0.10
-// Project: https://github.com/wkh237/react-native-fetch-blob#readme
-// Definitions by: MNB <https://github.com/MNBuyskih>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const RNFetchBlob: RNFetchBlobStatic;
 export type RNFetchBlob = RNFetchBlobStatic;
 export default RNFetchBlob;
@@ -444,7 +439,7 @@ export interface RNFetchBlobReadStream {
 
 type Encoding = "utf8" | "ascii" | "base64";
 
-/* tslint:disable-next-line interface-name*/
+/* eslint-disable-next-line @typescript-eslint/naming-convention*/
 export interface IOSApi {
     /**
      * Open a file in {@link https://developer.apple.com/reference/uikit/uidocumentinteractioncontroller UIDocumentInteractionController},

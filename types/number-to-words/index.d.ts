@@ -1,8 +1,3 @@
-// Type definitions for number-to-words 1.2
-// Project: https://github.com/marlun78/number-to-words
-// Definitions by: Frederick Fogerty <https://github.com/frederickfogerty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace numberToWords;
 
 /**

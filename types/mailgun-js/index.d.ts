@@ -1,12 +1,3 @@
-// Type definitions for mailgun-js 0.22
-// Project: https://github.com/bojand/mailgun-js
-// Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
-//                 Andi Pätzold <https://github.com/andipaetzold>
-//                 Jiri Balcar <https://github.com/JiriBalcar>
-//                 Ryan Leonard <https://github.com/CodeLenny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import * as FormData from "form-data";
@@ -92,8 +83,8 @@ declare namespace Mailgun {
             text?: string | undefined;
             html?: string | undefined;
             "amp-html"?: string | undefined;
-            attachment?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
-            inline?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
+            attachment?: AttachmentData | readonly AttachmentData[] | undefined;
+            inline?: AttachmentData | readonly AttachmentData[] | undefined;
 
             // Mailgun options
             "o:testmode"?: "yes" | "no" | "true" | "false" | "True" | "False" | undefined;

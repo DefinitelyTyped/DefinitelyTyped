@@ -1,8 +1,3 @@
-// Type definitions for react-responsive-spritesheet 1.0
-// Project: https://github.com/danilosetra/react-responsive-spritesheet
-// Definitions by: Michael Liu <https://github.com/triangularcube>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as CSS from "csstype";
 import * as React from "react";
 

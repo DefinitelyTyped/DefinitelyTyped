@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/fs-extra",
+    "version": "11.0.9999",
+    "projects": [
+        "https://github.com/jprichardson/node-fs-extra"
+    ],
     "exports": {
         ".": {
             "types": "./index.d.ts"
@@ -9,5 +14,54 @@
                 "import": "./esm.d.mts"
             }
         }
-    }
+    },
+    "dependencies": {
+        "@types/jsonfile": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Agius",
+            "githubUsername": "alan-agius4"
+        },
+        {
+            "name": "midknight41",
+            "githubUsername": "midknight41"
+        },
+        {
+            "name": "Brendan Forster",
+            "githubUsername": "shiftkey"
+        },
+        {
+            "name": "Mees van Dijk",
+            "githubUsername": "mees-"
+        },
+        {
+            "name": "Justin Rockwood",
+            "githubUsername": "jrockwood"
+        },
+        {
+            "name": "Sang Dang",
+            "githubUsername": "sangdth"
+        },
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Tiger Oakes",
+            "githubUsername": "NotWoods"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

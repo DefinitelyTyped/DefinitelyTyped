@@ -1,8 +1,3 @@
-// Type definitions for @creativebulma/bulma-tagsinput 1.0
-// Project: https://github.com/CreativeBulma/bulma-tagsinput
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace BulmaTagsInput {
     interface BulmaTagsInputItem {
         value: string;

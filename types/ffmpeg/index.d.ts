@@ -1,9 +1,3 @@
-// Type definitions for node-ffmpeg 1.0
-// Project: https://github.com/damianociarla/node-ffmpeg
-// Definitions by: Prasad Nayak <https://github.com/Buzzertech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 type WatermarkSettings = Partial<{
     position: "NE" | "NC" | "NW" | "SE" | "SC" | "SW" | "C" | "CE" | "CW";
     margin_nord: number;

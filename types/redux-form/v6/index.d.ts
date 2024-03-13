@@ -1,13 +1,3 @@
-// Type definitions for redux-form 6.6
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>
-//                 Daniel Lytkin <https://github.com/aikoven>
-//                 Karol Janyst <https://github.com/LKay>
-//                 Luka Zakrajsek <https://github.com/bancek>
-//                 Mohamed Shaaban <https://github.com/mshaaban088>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { ComponentClass, FunctionComponent, ReactElement } from "react";
 
 export type FieldValue = any;

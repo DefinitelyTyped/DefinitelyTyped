@@ -1,9 +1,3 @@
-// Type definitions for newman 5.3
-// Project: https://github.com/postmanlabs/newman
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { EventEmitter } from "events";
 import * as http from "http";
 import {

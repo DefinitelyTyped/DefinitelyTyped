@@ -122,7 +122,9 @@ declare module "module" {
              */
             findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
-        interface ImportAssertions extends NodeJS.Dict<string> {
+        /** @deprecated Use `ImportAttributes` instead */
+        interface ImportAssertions extends ImportAttributes {}
+        interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
         type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
@@ -155,9 +157,13 @@ declare module "module" {
              */
             conditions: string[];
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
             /**
              * The module importing this one, or undefined if this is the Node.js entry point
              */
@@ -169,9 +175,13 @@ declare module "module" {
              */
             format?: ModuleFormat | null | undefined;
             /**
-             * The import assertions to use when caching the module (optional; if excluded the input will be used)
+             * @deprecated Use `importAttributes` instead
              */
-            importAssertions?: ImportAssertions | undefined;
+            importAssertions?: ImportAttributes | undefined;
+            /**
+             * The import attributes to use when caching the module (optional; if excluded the input will be used)
+             */
+            importAttributes?: ImportAttributes | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -209,9 +219,13 @@ declare module "module" {
              */
             format: ModuleFormat;
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
             format: ModuleFormat;
@@ -262,27 +276,35 @@ declare module "module" {
     }
     global {
         interface ImportMeta {
+            /**
+             * The directory name of the current module. This is the same as the `path.dirname()` of the `import.meta.filename`.
+             * **Caveat:** only present on `file:` modules.
+             */
+            dirname: string;
+            /**
+             * The full absolute path and filename of the current module, with symlinks resolved.
+             * This is the same as the `url.fileURLToPath()` of the `import.meta.url`.
+             * **Caveat:** only local modules support this property. Modules not using the `file:` protocol will not provide it.
+             */
+            filename: string;
+            /**
+             * The absolute `file:` URL of the module.
+             */
             url: string;
             /**
              * Provides a module-relative resolution function scoped to each module, returning
              * the URL string.
              *
-             * @param specified The module specifier to resolve relative to the current module.
-             * @returns The absolute (`file:`) URL string for the resolved module.
-             */
-            resolve(specified: string): string;
-            /**
-             * This feature is only available with the `--experimental-import-meta-resolve`
+             * Second `parent` parameter is only used when the `--experimental-import-meta-resolve`
              * command flag enabled.
              *
-             * Provides a module-relative resolution function scoped to each module, returning
-             * the URL string.
+             * @since v20.6.0
              *
-             * @param specified The module specifier to resolve relative to `parent`.
+             * @param specifier The module specifier to resolve relative to `parent`.
              * @param parent The absolute parent module URL to resolve from.
              * @returns The absolute (`file:`) URL string for the resolved module.
              */
-            resolve(specified: string, parent: string | URL): string;
+            resolve(specifier: string, parent?: string | URL | undefined): string;
         }
     }
     export = Module;

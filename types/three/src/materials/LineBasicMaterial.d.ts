@@ -1,6 +1,6 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Texture } from '../textures/Texture.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -12,6 +12,13 @@ export interface LineBasicMaterialParameters extends MaterialParameters {
 
 export class LineBasicMaterial extends Material {
     constructor(parameters?: LineBasicMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link LineBasicMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isLineBasicMaterial: true;
 
     /**
      * @default 'LineBasicMaterial'

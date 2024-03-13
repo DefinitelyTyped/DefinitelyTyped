@@ -1,9 +1,3 @@
-// Type definitions for es6-collections v0.5.1
-// Project: https://github.com/WebReflection/es6-collections/
-// Definitions by: Ron Buckton <https://github.com/rbuckton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use

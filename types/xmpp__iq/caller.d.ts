@@ -16,7 +16,7 @@ declare namespace iqCaller {
     /**
      * Implements the caller side of iq semantics.
      */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IQCaller<TEntity extends Entity> {
         handlers: Map<string, Deferred<Element>>;
         entity: TEntity;

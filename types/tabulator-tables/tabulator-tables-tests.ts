@@ -1,3 +1,5 @@
+// cspell: ignore recalc, Boberson, Jimmerson, Jillerson, hayley, Betterson, freetext, datetime
+
 import {
     CalculationComponent,
     CellComponent,
@@ -14,6 +16,7 @@ import {
     Module,
     NumberParams,
     Options,
+    type RangeComponent,
     Renderer,
     RowComponent,
     SortDirection,
@@ -66,7 +69,25 @@ table
 
 table.setGroupBy("gender");
 table.setGroupBy(["gender", "age"]);
+table.setGroupBy((data) => {
+    return "";
+});
+table.setGroupBy(["gender", "age", (data) => {
+    return "";
+}, (data) => {
+    return "";
+}]);
+
 table.setGroupStartOpen(true);
+table.setGroupStartOpen([true, false]);
+table.setGroupStartOpen((value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+});
+table.setGroupStartOpen([true, false, (value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+}, (value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+}]);
 
 table.setGroupHeader((value, count, data, group) => {
     return "";
@@ -409,7 +430,7 @@ colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
 
 colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
-        console.log("rendering occured");
+        console.log("rendering occurred");
     });
     return cell.getValue();
 };
@@ -452,7 +473,7 @@ options.ajaxConfig = {
         Accept: "application/json", // tell the server we need JSON back
         "X-Requested-With": "XMLHttpRequest", // fix to help some frameworks respond correctly to request
         "Content-type": "application/json; charset=utf-8", // set the character encoding of the request
-        "Access-Control-Allow-Origin": "http:// yout-site.com", // the URL origin of the site making the request
+        "Access-Control-Allow-Origin": "http:// you-site.com", // the URL origin of the site making the request
     },
 };
 options.ajaxConfig = {
@@ -520,9 +541,9 @@ options.clipboardPasteParser = clipboard => {
     return []; // return array
 };
 
-options.cellEditing = cell => {
+table.on("cellEdited", (cell) => {
     console.log(cell);
-};
+});
 
 // 4.3 updates
 table = new Tabulator("#test", {
@@ -580,7 +601,7 @@ column.move("age", true);
 colDef.editorParams = {
     elementAttributes: {
         "+style": "background-color:#f00;",
-        maxlength: "10",
+        maxLength: "10",
     },
 };
 
@@ -688,6 +709,14 @@ table
 
 column.updateDefinition({ title: "Updated" });
 table.selectRow("visible");
+table.selectRow(1);
+table.selectRow([1]);
+table.selectRow(table.getRow(1));
+table.selectRow([table.getRow(1)]);
+table.deselectRow(1);
+table.deselectRow([1]);
+table.deselectRow(table.getRow(1));
+table.deselectRow([table.getRow(1)]);
 table.download("csv", "data.csv", { delimiter: "." }, "visible");
 table.download("html", "data.html");
 table.download("html", "data.html", { style: true });
@@ -697,10 +726,10 @@ table.download("xlsx", "data.xlsx", {
     },
 });
 
-table = new Tabulator("#example-table", {
-    scrollVertical: () => {},
-    scrollHorizontal: () => {},
-});
+table = new Tabulator("#example-table", {});
+
+table.on("scrollVertical", () => {});
+table.on("scrollHorizontal", () => {});
 
 // 4.6 updates
 const rowContextMenu: Array<MenuObject<RowComponent> | MenuSeparator> = [
@@ -809,7 +838,6 @@ columns.forEach(col => col.getDefinition());
 // 4.7 updates
 
 table = new Tabulator("#example-table", {
-    movableRowsElementDrop: (e, element, row) => {},
     downloadRowRange: "selected",
     layout: "fitDataTable",
     validationMode: "highlight",
@@ -843,6 +871,7 @@ table = new Tabulator("#example-table", {
         },
     ],
 });
+table.on("movableRowsElementDrop", (e, element, row) => {});
 table.clearCellEdited();
 cell.clearEdited();
 table.getEditedCells();
@@ -923,10 +952,13 @@ table = new Tabulator("#example-table", {
     dataTreeFilter: false,
     dataTreeSort: false,
     groupUpdateOnCellEdit: true,
-    dataChanged: data => {},
 });
 
-table.setGroupValues([["male", "female", "smizmar"]]);
+table.on("dataChanged", (data) => {
+    console.log(data);
+});
+
+table.setGroupValues([["male", "female", "other"]]);
 table.getData("all");
 table.getDataCount("all");
 table.getRows("all");
@@ -1069,11 +1101,7 @@ class CustomModule extends Module {
 CustomModule.moduleName = "custom";
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
-const sortHandler = {} as (sorters: SorterFromTable[]) => void;
-table = new Tabulator("#test", {
-    dataSorting: sortHandler,
-    dataSorted: sortHandler,
-});
+table = new Tabulator("#test", {});
 table.on("dataSorting", ([sorter]) => sorter.field);
 table.on("dataSorted", ([sorter]) => sorter.field);
 
@@ -1297,7 +1325,7 @@ table = new Tabulator("#testDataLoader", {
 
 const numberEditorParams: NumberParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     min: 0,
     max: 100,
@@ -1313,7 +1341,7 @@ const numberEditorParams: NumberParams = {
 
 const inputEditorParams: InputParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     mask: "AAA-999",
     maskAutoFill: false,
@@ -1326,7 +1354,7 @@ const inputEditorParams: InputParams = {
 
 const textAreaEditorParams: TextAreaParams = {
     elementAttributes: {
-        maxlength: "10",
+        maxLength: "10",
     },
     mask: "AAA-999",
     maskAutoFill: false,
@@ -1442,3 +1470,77 @@ table.on("rowSelectionChanged", (_data, rows, selected, deselected) => {
         ?.scrollTo("bottom", false)
         .then(() => console.log(cellType, cellData));
 });
+
+// Testing download callbacks
+table = new Tabulator("#testDownloadCallbacks", {
+    downloadReady: (fileContents, blob) => {
+        return blob;
+    },
+    downloadDataFormatter: (data) => {
+        return data;
+    },
+});
+
+// Test groupClickMenu parameter type
+table = new Tabulator("#TestGroupClickMenu", {
+    groupClickMenu(e, component) {
+        component.toggle();
+        return false;
+    },
+});
+
+// Testing 5.6 features
+table = new Tabulator("#test-table", {
+    clipboardPasteAction: "range",
+    selectableRows: "highlight",
+    selectableRange: true,
+    selectableRangeColumns: true,
+    selectableRangeClearCells: false,
+    selectableRangeClearCellsValue: { a: "b" },
+    selectableRowsRangeMode: "click",
+    selectableRowsRollingSelection: true,
+    selectableRowsPersistence: undefined,
+    editTriggerEvent: "dblclick",
+});
+
+const columnDefinition1 = {
+    validator: "max:10",
+};
+
+const columnDefinition2 = {
+    validator: "alphanumeric",
+};
+
+table.getRow("range").deselect();
+const ranges = table.getRanges();
+ranges[0].setBounds(cell, cell);
+ranges[0].setStartBound(cell);
+ranges[0].setEndBound(cell);
+ranges[0].remove();
+ranges[0].getElement();
+ranges[0].getData();
+ranges[0].clearValues();
+const cells1 = ranges[0].getCells();
+cells1[0].checkHeight();
+const cells2 = ranges[0].getStructuredCells();
+cells2[0][0].checkHeight();
+const columns1 = ranges[0].getColumns();
+columns1[0].delete();
+const bounds1 = ranges[0].getBounds();
+bounds1.start.isEdited();
+bounds1.end.isEdited();
+ranges[0].getTopEdge();
+ranges[0].getBottomEdge();
+ranges[0].getLeftEdge();
+ranges[0].getRightEdge();
+
+table.on("rangeAdded", (range: RangeComponent) => {});
+table.on("rangeChanged", (range: RangeComponent) => {});
+table.on("rangeRemoved", (range: RangeComponent) => {});
+
+const range1 = table.addRange(cell, cell);
+range1.clearValues();
+table.getRanges().forEach(range => range.remove());
+
+const data1 = table.getRangeData();
+data1[0][0] = { name: "steve" };

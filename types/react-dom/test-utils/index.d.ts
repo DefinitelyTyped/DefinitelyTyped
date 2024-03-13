@@ -358,7 +358,7 @@ export function createRenderer(): ShallowRenderer;
 //   `strictNullChecks: false`.
 // - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
 declare const UNDEFINED_VOID_ONLY: unique symbol;
-// tslint:disable-next-line: void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
 export function act(callback: () => VoidOrUndefinedOnly): void;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/epub-gen",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/cyrilis/epub-gen"
+    ],
+    "devDependencies": {
+        "@types/epub-gen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Tyler",
+            "githubUsername": "styler3"
+        }
+    ]
+}

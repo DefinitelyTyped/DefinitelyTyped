@@ -1,12 +1,3 @@
-// Type definitions for eventsource 1.1
-// Project: https://github.com/EventSource/eventsource
-// Definitions by: Scott Lee Davis <https://github.com/scottleedavis>
-//                 Ali Afroozeh <https://github.com/afroozeh>
-//                 Pedro Gámez <https://github.com/snakedrak>
-//                 Akuukis <https://github.com/Akuukis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
-
 // eventsource uses DOM dependencies which are absent in a browserless environment like node.js.
 // to avoid compiler errors this monkey patch is used. See more details in:
 // - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351

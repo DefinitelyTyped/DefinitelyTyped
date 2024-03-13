@@ -1,8 +1,3 @@
-// Type definitions for simpleheat 0.4
-// Project: https://github.com/mourner/simpleheat
-// Definitions by: Tristan de Guillebon <https://github.com/tristangbn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace simpleheat {
     interface Instance {
         /**

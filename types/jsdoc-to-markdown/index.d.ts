@@ -1,8 +1,3 @@
-// Type definitions for jsdoc-to-markdown 7.0
-// Project: https://github.com/jsdoc2md/jsdoc-to-markdown
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type StyleListFormat = "none" | "grouped" | "table" | "dl";
 export type RenderListFormat = "list" | "table";
 export type MemberIndexFormat = "grouped" | "list";

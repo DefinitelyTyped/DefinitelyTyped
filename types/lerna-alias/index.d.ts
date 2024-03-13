@@ -1,8 +1,3 @@
-// Type definitions for lerna-alias 3.0
-// Project: https://github.com/Andarist/lerna-alias#readme
-// Definitions by: Elizabeth Craig <https://github.com/ecraig12345>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Aliases {
     /**
      * Key is the package name or an appropriate mapping for the tool.
@@ -23,7 +18,7 @@ export interface Options {
      * similar to https://webpack.js.org/configuration/resolve/#resolve-mainfields .
      * Using this takes precedence over default `sourceDirectory` option.
      */
-    mainFields?: ReadonlyArray<string> | undefined;
+    mainFields?: readonly string[] | undefined;
     /**
      * Which directory should be considered as containing source files of a package.
      * If specified as false it will use package's root.

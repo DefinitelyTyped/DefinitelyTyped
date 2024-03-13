@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cached",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/groupon/node-cached"
+    ],
+    "dependencies": {
+        "@types/memcached": "*"
+    },
+    "devDependencies": {
+        "@types/cached": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Juraj Mäsiar",
+            "githubUsername": "Juraj-Masiar"
+        }
+    ]
+}

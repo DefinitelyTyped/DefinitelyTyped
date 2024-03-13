@@ -1,6 +1,6 @@
-import * as THREE from 'three';
-import TWEEN from 'three/examples/jsm/libs/tween.module';
-import { CSS3DObject, CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer';
+import * as THREE from "three";
+import TWEEN from "three/examples/jsm/libs/tween.module";
+import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer";
 
 declare const camera: THREE.PerspectiveCamera;
 declare const scene: THREE.Scene;

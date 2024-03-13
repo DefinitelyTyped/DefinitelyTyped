@@ -1,8 +1,3 @@
-// Type definitions for hawk 9.0
-// Project: https://github.com/mozilla/hawk/
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as client from "./lib/client";

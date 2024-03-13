@@ -1,8 +1,3 @@
-// Type definitions for PleaseJS
-// Project: https://github.com/Fooidge/PleaseJS
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Please: PleaseJS.Please;
 
 declare namespace PleaseJS {

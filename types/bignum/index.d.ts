@@ -1,8 +1,3 @@
-// Type definitions for BigNum
-// Project: https://github.com/justmoon/node-BigNum
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = BigNum;

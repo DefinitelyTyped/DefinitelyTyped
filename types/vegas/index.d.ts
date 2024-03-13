@@ -1,7 +1,3 @@
-// Type definitions for vegas 2.5
-// Project: http://vegas.jaysalvat.com
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="jquery" />
 
 /**

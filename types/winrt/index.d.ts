@@ -1,8 +1,3 @@
-// Type definitions for WinRT
-// Project: http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx
-// Definitions by: TypeScript samples <https://www.typescriptlang.org/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -2676,10 +2671,12 @@ declare namespace Windows {
                     hasCurrent: boolean;
                     moveNext(): boolean;
                     getMany(): {
-                        items: Windows.Foundation.Collections.IKeyValuePair<
-                            string,
-                            Windows.ApplicationModel.Resources.Core.NamedResource
-                        >[];
+                        items: Array<
+                            Windows.Foundation.Collections.IKeyValuePair<
+                                string,
+                                Windows.ApplicationModel.Resources.Core.NamedResource
+                            >
+                        >;
                         returnValue: number;
                     };
                 }
@@ -2730,10 +2727,12 @@ declare namespace Windows {
                     hasCurrent: boolean;
                     moveNext(): boolean;
                     getMany(): {
-                        items: Windows.Foundation.Collections.IKeyValuePair<
-                            string,
-                            Windows.ApplicationModel.Resources.Core.ResourceMap
-                        >[];
+                        items: Array<
+                            Windows.Foundation.Collections.IKeyValuePair<
+                                string,
+                                Windows.ApplicationModel.Resources.Core.ResourceMap
+                            >
+                        >;
                         returnValue: number;
                     };
                 }

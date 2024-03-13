@@ -1,11 +1,3 @@
-// Type definitions for delaunator 5.0
-// Project: https://github.com/mapbox/delaunator#readme
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-//                 Bradley Odell <https://github.com/BTOdell>
-//                 Tobias Kraus <https://github.com/tobiaskraus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare class Delaunator<P> {
     /**
      * A Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle).

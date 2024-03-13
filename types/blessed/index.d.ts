@@ -1,14 +1,3 @@
-// Type definitions for blessed 0.1
-// Project: https://github.com/chjj/blessed
-// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
-//                 Steve Kellock <https://github.com/skellock>
-//                 Max Brauer <https://github.com/mamachanko>
-//                 Nathan Rajlich <https://github.com/TooTallNate>
-//                 Daniel Berlanga <https://github.com/danikaze>
-//                 Jeff Huijsmans <https://github.com/jeffhuys>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import * as child_process from "child_process";

@@ -1,8 +1,3 @@
-// Type definitions for inputmask 5.0
-// Project: https://github.com/RobinHerbots/Inputmask
-// Definitions by: Daniel Mester Pirttijarvi <https://github.com/dmester>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // The documentation is mainly copied from the source repo README.
 
 declare namespace Inputmask {
@@ -527,6 +522,18 @@ declare namespace Inputmask {
          * @default "isoDateTime"
          */
         inputFormat?: string | undefined;
+        /**
+         * Strip leading zeroes
+         *
+         * @default true
+         */
+        stripLeadingZeroes?: boolean | undefined;
+        /**
+         * Substitude the radixpoint to allow , for . and vice versa
+         *
+         * @default true
+         */
+        substituteRadixPoint?: boolean | undefined;
         /**
          * Format of the unmasked value. This is only effective when used with the datetime alias.
          */

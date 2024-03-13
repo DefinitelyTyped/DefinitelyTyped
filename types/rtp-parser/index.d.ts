@@ -1,8 +1,3 @@
-// Type definitions for rtp-parser 1.0
-// Project: https://github.com/fleg/rtp-parser#readme
-// Definitions by: Matthew Smith <https://github.com/matthew-smith>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface ParsedRTPPacket {

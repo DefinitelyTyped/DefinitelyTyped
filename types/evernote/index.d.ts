@@ -1,10 +1,3 @@
-// Type definitions for evernote 2.0
-// Project: https://www.npmjs.com/package/evernote
-// Definitions by: Zachary Collins <https://github.com/corps>
-//                 Felipe Castillo <https://github.com/fcastilloec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-//              https://dev.evernote.com/doc/reference/
-
 import { OAuth, oauth1tokenCallback } from "oauth";
 
 /* NoteStore: Data types and Constants */

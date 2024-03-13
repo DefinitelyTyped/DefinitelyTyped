@@ -1,13 +1,3 @@
-// Type definitions for simple-oauth2 4.1
-// Project: https://github.com/lelylan/simple-oauth2
-// Definitions by: Michael Müller <https://github.com/mad-mike>,
-//                 Troy Lamerton <https://github.com/troy-lamerton>
-//                 Martín Rodriguez <https://github.com/netux>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Do Nam <https://github.com/namdien177>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. Required. */

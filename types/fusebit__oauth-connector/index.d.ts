@@ -1,10 +1,3 @@
-// Type definitions for @fusebit/oauth-connector 1.3
-// Project: http://fusebit.io/
-// Definitions by: Andrew Miller <https://github.com/andrewrmiller>
-//                 Trent Hashimoto <https://github.com/hashiphoto>
-//                 Andy Dam <https://github.com/andydam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FusebitContext } from "@fusebit/add-on-sdk";
 import * as express from "express";
 

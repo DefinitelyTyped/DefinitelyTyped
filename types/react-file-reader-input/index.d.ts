@@ -1,11 +1,3 @@
-// Type definitions for react-file-reader-input 2.0
-// Project: https://github.com/ngokevin/react-file-reader-input
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>,
-//                 Ali Taheri <https://github.com/alitaheri>,
-//                 bjoluc <https://github.com/bjoluc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as React from "react";
 
 declare class FileInput extends React.Component<FileInput.Props> {

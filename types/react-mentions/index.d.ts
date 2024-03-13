@@ -1,9 +1,3 @@
-// Type definitions for react-mentions 4.1
-// Project: https://github.com/signavio/react-mentions
-// Definitions by: Scott Willeke <https://github.com/activescott>
-//                 Eugene Fedorenko <https://github.com/efedorenko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
 import * as React from "react";
 
 export {};
@@ -152,4 +146,5 @@ export type OnChangeHandlerFunc = (
 export type DataFunc = (
     query: string,
     callback: (data: SuggestionDataItem[]) => void,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => Promise<void> | void | Promise<SuggestionDataItem[]> | SuggestionDataItem[];

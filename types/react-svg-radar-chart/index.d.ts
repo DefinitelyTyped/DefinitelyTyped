@@ -1,10 +1,3 @@
-// Type definitions for react-svg-radar-chart 1.2
-// Project: https://github.com/Spyna/react-svg-radar-chart
-// Definitions by: Lukas Tutkus <https://github.com/luksys5>
-//                 Alberto Francesco Motta <https://github.com/afmotta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 import * as React from "react";
 
 export interface ChartData {

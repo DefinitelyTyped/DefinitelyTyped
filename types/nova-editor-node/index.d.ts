@@ -1,9 +1,3 @@
-// Type definitions for non-npm package nova-editor-node 5.1
-// Project: https://docs.nova.app/api-reference/
-// Definitions by: Cameron Little <https://github.com/apexskier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 /// https://docs.nova.app/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
@@ -14,7 +8,7 @@
 
 /// https://docs.nova.app/api-reference/assistants-registry/
 
-type AssistantsRegistrySelector = string | string[] | { syntax: string } | { syntax: string }[];
+type AssistantsRegistrySelector = string | string[] | { syntax: string } | Array<{ syntax: string }>;
 
 interface AssistantsRegistry {
     registerColorAssistant(
@@ -34,7 +28,7 @@ interface AssistantsRegistry {
     registerTaskAssistant(object: TaskAssistant, options?: { identifier: string; name: string }): Disposable;
 }
 
-type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>;
+type AssistantArray<T> = readonly T[] | Promise<readonly T[]>;
 
 interface ColorAssistant {
     provideColors(editor: TextEditor, context: ColorInformationContext): AssistantArray<ColorInformation>;
@@ -77,8 +71,8 @@ declare class Charset {
     static whitespace: Charset;
     static whitespaceAndNewlines: Charset;
 
-    concat(...charsets: Array<Charset>): Charset;
-    intersect(...charsets: Array<Charset>): Charset;
+    concat(...charsets: Charset[]): Charset;
+    intersect(...charsets: Charset[]): Charset;
 }
 
 /// https://docs.nova.app/api-reference/clipboard/
@@ -115,7 +109,7 @@ declare class Color {
 
 type Transferrable =
     | Transferrable[]
-    | ReadonlyArray<Transferrable>
+    | readonly Transferrable[]
     | Date
     | null
     | number
@@ -531,7 +525,7 @@ declare class IssueCollection {
     dispose(): void;
     clear(): void;
     has(uri: string): boolean;
-    get(uri: string): ReadonlyArray<Issue>;
+    get(uri: string): readonly Issue[];
     set(uri: string, issues: Issue[]): void;
     remove(uri: string): void;
 }
@@ -539,9 +533,9 @@ declare class IssueCollection {
 /// https://docs.nova.app/api-reference/issue-parser/
 
 declare class IssueParser {
-    constructor(matcherNames?: string | Array<string>);
+    constructor(matcherNames?: string | string[]);
 
-    readonly issues: ReadonlyArray<Issue>;
+    readonly issues: readonly Issue[];
 
     pushLine(line: string): void;
     clear(): void;
@@ -844,7 +838,7 @@ declare class TaskProcessAction {
             env?: { [key: string]: string };
             cwd?: string;
             stdio?: ["pipe" | "ignore", "pipe" | "ignore", "pipe" | "ignore"] | "pipe" | "ignore" | "jsonrpc" | number;
-            matchers?: ReadonlyArray<string>;
+            matchers?: readonly string[];
             shell?: boolean | string;
         },
     );
@@ -1009,8 +1003,8 @@ declare type FileLocation =
 interface Workspace {
     readonly path: string | null;
     readonly config: Configuration;
-    readonly textDocuments: ReadonlyArray<TextDocument>;
-    readonly textEditors: ReadonlyArray<TextEditor>;
+    readonly textDocuments: readonly TextDocument[];
+    readonly textEditors: readonly TextEditor[];
     readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;

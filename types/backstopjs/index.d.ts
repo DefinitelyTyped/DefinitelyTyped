@@ -1,8 +1,3 @@
-// Type definitions for backstopjs 6.1
-// Project: https://github.com/garris/backstopjs#readme
-// Definitions by: Darío Blanco <https://github.com/darioblanco>, MindDoc <https://github.com/minddocdev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CommonConfig {
     asyncCaptureLimit?: number | undefined;
     asyncCompareLimit?: number | undefined;

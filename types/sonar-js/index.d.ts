@@ -1,8 +1,3 @@
-// Type definitions for sonar-js 1.1
-// Project: https://github.com/brandonweiss/sonar-js
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Sonar;
 
 /**

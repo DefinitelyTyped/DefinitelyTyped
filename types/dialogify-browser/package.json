@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/dialogify-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dialogify-browser",
+    "projects": [
+        "https://github.com/OneupNetwork/dialogify"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/dialogify-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "moontai0724",
+            "githubUsername": "moontai0724"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for react-inspector 4.0
-// Project: http://formatjs.io/react/, https://github.com/yahoo/react-intl
-// Definitions by: Roger Clotet <https://github.com/rogerclotet>
-//                 Xinyan Chen <https://github.com/chenxinyanc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as CSS from "csstype";
 import * as React from "react";
 
@@ -87,12 +80,12 @@ interface TreeViewProps {
     /**
      * An array containing all the paths that should be expanded when the component is initialized, or a string of just one path.
      */
-    expandPaths?: string | ReadonlyArray<string> | undefined;
+    expandPaths?: string | readonly string[] | undefined;
 }
 
 export interface TableInspectorProps extends ThemedComponentProps {
     data?: any;
-    columns?: ReadonlyArray<string> | undefined;
+    columns?: readonly string[] | undefined;
 }
 
 export interface ObjectInspectorProps extends TreeViewProps, ThemedComponentProps {

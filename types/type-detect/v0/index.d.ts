@@ -1,8 +1,3 @@
-// Type definitions for type-detect v0.1.2
-// Project: https://github.com/chaijs/type-detect
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function type(val: any): string;
 
 declare namespace type {

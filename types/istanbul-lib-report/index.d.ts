@@ -1,10 +1,3 @@
-// Type definitions for istanbul-lib-report 3.0
-// Project: https://istanbul.js.org, https://github.com/istanbuljs/istanbuljs
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Zacharias Björngren <https://github.com/zache>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { CoverageMap, CoverageSummary, FileCoverage } from "istanbul-lib-coverage";
 
 /**

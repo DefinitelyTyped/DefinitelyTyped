@@ -1,8 +1,3 @@
-// Type definitions for node-calendar v0.1.4
-// Project: https://www.npmjs.com/package/node-calendar
-// Definitions by: Luzian Zagadinow <https://github.com/luzianz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface IWeekRow<T> extends Array<T> {
     [dayIndex: number]: T;
 }
@@ -177,7 +172,7 @@ declare module "node-calendar" {
          * @param {number} month
          *  Month for which the calendar should be generated.
          */
-        itermonthdays2(year: number, month: number): [number, number][];
+        itermonthdays2(year: number, month: number): Array<[number, number]>;
 
         /**
          * A matrix (array of array) representing a month's calendar.

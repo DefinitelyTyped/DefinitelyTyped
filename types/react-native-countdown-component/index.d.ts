@@ -1,8 +1,3 @@
-// Type definitions for react-native-countdown-component 2.7
-// Project: https://github.com/talalmajali/react-native-countdown-component
-// Definitions by: Tamir Kfir <https://github.com/ktamir>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component } from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 

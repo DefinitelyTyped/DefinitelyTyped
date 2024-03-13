@@ -34,7 +34,7 @@ declare class _RequestSigner {
 
     /** Adds a header to be signed alongside its value */
     writeHeader(header: string, value: string): string;
-    writeDataHeader(): string;
+    writeDateHeader(): string;
     /**
      * Add the request target to be signed
      * @param method HTTP mehod (i.e. `"get"`, `"post"`, `"put"`)

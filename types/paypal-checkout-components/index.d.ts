@@ -1,9 +1,3 @@
-// Type definitions for paypal-checkout-components 4.0
-// Project: https://github.com/paypal/paypal-checkout-components/
-// Definitions by: Jason Buckner <https://github.com/jbuckner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { ButtonRenderer, ButtonsRenderer, FundingOption } from "./modules/button";
 
 import {

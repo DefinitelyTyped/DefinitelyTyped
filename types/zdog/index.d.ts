@@ -1,9 +1,3 @@
-// Type definitions for zdog 1.1
-// Project: https://zzz.dog
-// Definitions by: Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export as namespace Zdog;
 
 /** @see {@link Anchor} */

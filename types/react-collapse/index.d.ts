@@ -1,9 +1,3 @@
-// Type definitions for react-collapse 5.0
-// Project: https://github.com/nkbt/react-collapse
-// Definitions by:  Adam Binford <https://github.com/Kimahriman>
-//                  Kristofer Giltvedt Selbekk <https://github.com/selbekk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as React from "react";
 
 export interface CollapseCallbackArgs {

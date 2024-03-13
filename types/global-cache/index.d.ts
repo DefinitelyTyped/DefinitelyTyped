@@ -1,8 +1,3 @@
-// Type definitions for global-cache 1.2
-// Project: https://github.com/ljharb/global-cache#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function clear(): void;
 /**
  * @example

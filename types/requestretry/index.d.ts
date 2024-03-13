@@ -1,12 +1,3 @@
-// Type definitions for requestretry 1.13
-// Project: https://github.com/FGRibreau/node-request-retry
-// Definitions by:     Eric Byers <https://github.com/EricByers>
-//                                    Andrew Throener <https://github.com/trainerbill>
-//                                     Aniket Patel <https://github.com/baaka-ani>
-//                                      Aram Elchyan <https://github.com/elch-yan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import request = require("request");

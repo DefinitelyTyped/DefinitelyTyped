@@ -1,10 +1,3 @@
-// Type definitions for preact-i18n 2.3
-// Project: https://github.com/synacor/preact-i18n
-// Definitions by:  Lukas Tetzlaff <https://github.com/ltetzlaff>
-//                  Sascha Zarhuber <https://github.com/saschazar21>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { Component, ComponentChild, Context, h, JSX, VNode } from "preact";
 
 interface IntlContext {

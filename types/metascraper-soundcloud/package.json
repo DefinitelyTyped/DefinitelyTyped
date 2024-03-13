@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/metascraper-soundcloud",
+    "version": "5.14.9999",
+    "projects": [
+        "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-soundcloud"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/metascraper-soundcloud": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

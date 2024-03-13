@@ -1,9 +1,3 @@
-// Type definitions for fast-redact 3.0
-// Project: https://github.com/davidmarkclements/fast-redact#readme
-// Definitions by: asciidisco <https://github.com/asciidisco>, nazmariam <https://github.com/nazmariam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export = F;
 
 /**

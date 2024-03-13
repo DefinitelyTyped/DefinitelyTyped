@@ -1,9 +1,3 @@
-// Type definitions for memjs 1.3
-// Project: https://github.com/memcachier/memjs
-// Definitions by: Zongmin Lei <https://github.com/leizongmin>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import EventEmitter = require("node:events");

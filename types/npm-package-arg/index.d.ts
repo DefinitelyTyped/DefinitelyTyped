@@ -1,10 +1,3 @@
-// Type definitions for npm-package-arg 6.1
-// Project: https://github.com/npm/npm-package-arg
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Jason <https://github.com/OiYouYeahYou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Throws if the package name is invalid, a dist-tag is invalid or a URL's protocol is not supported.
  * @param arg a string that you might pass to npm install, like:

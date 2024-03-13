@@ -1,9 +1,3 @@
-// Type definitions for subscribe-ui-event 1.1
-// Project: https://github.com/yahoo/subscribe-ui-event#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export type UIEventType =
     | "resize"
     | "resizeEnd"

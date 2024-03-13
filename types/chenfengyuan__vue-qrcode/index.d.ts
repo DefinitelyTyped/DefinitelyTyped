@@ -1,8 +1,3 @@
-// Type definitions for @chenfengyuan/vue-qrcode 1.0
-// Project: https://github.com/fengyuanchen/vue-qrcode
-// Definitions by: gaoming13 <https://github.com/gaoming13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
 import { VueConstructor } from "vue";
 
 declare const VueQrCode: QrCodeConstructor;

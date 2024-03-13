@@ -1,8 +1,3 @@
-// Type definitions for @cyberblast/webserver 0.2
-// Project: https://github.com/cyberblast/WebServer
-// Definitions by: cyberblast <https://github.com/cyberblast>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Logger } from "@cyberblast/logger";
 import { IncomingMessage, ServerResponse } from "http";

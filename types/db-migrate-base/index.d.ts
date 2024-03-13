@@ -1,9 +1,3 @@
-// Type definitions for db-migrate-base
-// Project: https://github.com/db-migrate/db-migrate-base
-// Definitions by: nickiannone <https://github.com/nickiannone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node"/>
 
 import * as Promise from "bluebird";
@@ -56,7 +50,7 @@ declare namespace Base {
     }
 
     interface CreateTableOptions {
-        columns?: Array<ColumnSpec> | undefined;
+        columns?: ColumnSpec[] | undefined;
         ifNotExists?: boolean | undefined;
     }
 
@@ -75,7 +69,7 @@ declare class Base {
     createDatabase(...options: any[]): void;
     switchDatabase(...options: any[]): void;
     dropDatabase(...options: any[]): void;
-    recurseCallbackArray(foreignKeys: Array<string>, callback: Base.CallbackFunction): void;
+    recurseCallbackArray(foreignKeys: string[], callback: Base.CallbackFunction): void;
     bindForeignKey(
         tableName: string,
         columnName: string,
@@ -111,12 +105,12 @@ declare class Base {
         columnSpec: Base.ColumnSpec,
         callback: Base.CallbackFunction,
     ): void;
-    quoteDDLArr(arr: Array<string>): Array<string>;
-    quoteArr(arr: Array<string>): Array<string>;
+    quoteDDLArr(arr: string[]): string[];
+    quoteArr(arr: string[]): string[];
     addIndex(
         tableName: string,
         indexName: string,
-        columns: string | Array<string>,
+        columns: string | string[],
         uniqueOrCb?: boolean | Base.CallbackFunction,
         callback?: Base.CallbackFunction,
     ): void;
@@ -158,14 +152,14 @@ declare class Base {
     addSeedRecord(name: string, callback: Base.CallbackFunction): void;
     startMigration(callback: Base.CallbackFunction): void;
     endMigration(callback: Base.CallbackFunction): void;
-    runSql(sql?: string, paramsOrCb?: Array<any> | Base.CallbackFunction, callback?: Base.CallbackFunction): void;
+    runSql(sql?: string, paramsOrCb?: any[] | Base.CallbackFunction, callback?: Base.CallbackFunction): void;
     allLoadedMigrations(callback: Base.CallbackFunction): void;
     allLoadedSeeds(callback: Base.CallbackFunction): void;
     deleteMigration(migrationName: string, callback: Base.CallbackFunction): void;
     remove(table: string, ids: any, callback: Base.CallbackFunction): void; // TODO Make ids match the type of ids in buildWhereClause(ids);
     buildWhereClause(ids: any): string;
     deleteSeed(seedName: string, callback: Base.CallbackFunction): void;
-    all(sql: string, paramsOrCb?: Array<any> | Base.CallbackFunction, callback?: Base.CallbackFunction): void;
+    all(sql: string, paramsOrCb?: any[] | Base.CallbackFunction, callback?: Base.CallbackFunction): void;
     escape(str: string): string;
     escapeString(str: string): string;
     escapeDDL(str: string): string;
@@ -177,7 +171,7 @@ declare class Base {
     createDatabaseAsync(...options: any[]): Promise<any>;
     switchDatabaseAsync(...options: any[]): Promise<any>;
     dropDatabaseAsync(...options: any[]): Promise<any>;
-    recurseCallbackArrayAsync(foreignKeys: Array<string>): Promise<any>;
+    recurseCallbackArrayAsync(foreignKeys: string[]): Promise<any>;
     createMigrationsTableAsync(): Promise<any>;
     createSeedsTableAsync(): Promise<any>;
     createTableAsync(tableName: string, options: any | Base.CreateTableOptions): Promise<any>;
@@ -190,7 +184,7 @@ declare class Base {
     addIndexAsync(
         tableName: string,
         indexName: string,
-        columns: string | Array<string>,
+        columns: string | string[],
         unique?: boolean,
     ): Promise<any>;
     insertAsync(
@@ -220,13 +214,13 @@ declare class Base {
     addSeedRecordAsync(name: string): Promise<any>;
     startMigrationAsync(): Promise<any>;
     endMigrationAsync(callback: Base.CallbackFunction): Promise<any>;
-    runSqlAsync(sql?: string, params?: Array<any>): Promise<any>;
+    runSqlAsync(sql?: string, params?: any[]): Promise<any>;
     allLoadedMigrationsAsync(): Promise<any>;
     allLoadedSeedsAsync(): Promise<any>;
     deleteMigrationAsync(migrationName: string): Promise<any>;
     removeAsync(table: string, ids: any): Promise<any>;
     deleteSeedAsync(seedName: string): Promise<any>;
-    allAsync(sql: string, params?: Array<any>): Promise<any>;
+    allAsync(sql: string, params?: any[]): Promise<any>;
 }
 
 export = Base;

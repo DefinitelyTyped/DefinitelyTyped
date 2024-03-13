@@ -1,14 +1,8 @@
-// Type definitions for react-user-tour
-// Project: https://github.com/socialtables/react-user-tour
-// Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types='react' />
 
 declare module "react-user-tour" {
     // Import React
-    import { ComponentClass, HTMLAttributes } from "react";
+    import { ComponentClass, HTMLAttributes, JSX } from "react";
 
     interface TourStep {
         /**

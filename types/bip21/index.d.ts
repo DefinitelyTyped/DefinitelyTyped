@@ -1,8 +1,3 @@
-// Type definitions for bip21 v2.0.0
-// Project: https://github.com/bitcoinjs/bip21
-// Definitions by: Stefan Huber <https://github.com/stefanhuber>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Options =
     | {
         amount?: number;

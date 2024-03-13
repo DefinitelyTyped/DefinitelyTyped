@@ -1,9 +1,3 @@
-// Type definitions for @accedo/accedo-one 4.0
-// Project: https://www.accedo.tv/one
-// Definitions by: Alexander P. Cerutti <https://github.com/alexandercerutti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * @example
  * ~ import accedoOne from "@accedo/accedo-one"; // ESM Syntax
@@ -266,7 +260,7 @@ declare class AccedoClient {
      * @returns A promise of the success of the operation
      */
 
-    sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>): Promise<boolean>;
+    sendLogs(logs: readonly AccedoLog.Logobject[]): Promise<boolean>;
 }
 
 declare namespace AccedoLog {

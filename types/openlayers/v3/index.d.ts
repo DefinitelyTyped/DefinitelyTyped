@@ -1,9 +1,3 @@
-// Type definitions for OpenLayers v3.20.0
-// Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
-
 declare type GlobalObject = Object;
 
 /**
@@ -11389,7 +11383,7 @@ declare namespace olx {
 
         /** */
         interface DragAndDropOptions {
-            formatConstructors?: ((n: ol.format.Feature) => any)[] | undefined;
+            formatConstructors?: Array<(n: ol.format.Feature) => any> | undefined;
             projection: ol.ProjectionLike;
             target?: Element | undefined;
         }
@@ -12129,7 +12123,7 @@ declare namespace olx {
             origins?: ol.Coordinate[] | undefined;
             resolutions: number[];
             tileSize?: (number | ol.Size) | undefined;
-            tileSizes?: ((number | ol.Size)[]) | undefined;
+            tileSizes?: (Array<number | ol.Size>) | undefined;
         }
 
         /** */
@@ -12141,7 +12135,7 @@ declare namespace olx {
             matrixIds: string[];
             sizes?: ol.Size[] | undefined;
             tileSize?: (number | ol.Size) | undefined;
-            tileSizes?: ((number | ol.Size)[]) | undefined;
+            tileSizes?: (Array<number | ol.Size>) | undefined;
             widths?: number[] | undefined;
         }
 
@@ -12200,7 +12194,7 @@ declare namespace olx {
         loadTilesWhileInteracting?: boolean | undefined;
         logo?: (boolean | string | olx.LogoOptions | Element) | undefined;
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]) | undefined;
-        renderer?: (ol.RendererType | (ol.RendererType | string)[] | string) | undefined;
+        renderer?: (ol.RendererType | Array<ol.RendererType | string> | string) | undefined;
         target?: (Element | string) | undefined;
         view?: ol.View | undefined;
     }

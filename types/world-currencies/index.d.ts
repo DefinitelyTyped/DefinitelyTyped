@@ -1,8 +1,3 @@
-// Type definitions for world-currencies 0.0
-// Project: https://github.com/wiredmax/world-currencies
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = worldCurrencies;
 
 declare const worldCurrencies: Record<string, worldCurrencies.Currency>;

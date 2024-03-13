@@ -33,16 +33,16 @@ const data = [
 ];
 
 export class TestComponent extends React.Component {
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         return <PersonTable data={data} />;
     }
 }
 
 export class FullblownReactableTestComponent extends React.Component {
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const displayedColumns = ["name"];
         // custom table Th-elements
-        const columns: JSX.Element[] = [];
+        const columns: React.JSX.Element[] = [];
         for (const colName of displayedColumns) {
             columns.push(
                 <PersonTableTh column={colName} key={colName}>
@@ -50,9 +50,9 @@ export class FullblownReactableTestComponent extends React.Component {
                 </PersonTableTh>,
             );
         }
-        const rows: JSX.Element[] = [];
+        const rows: React.JSX.Element[] = [];
         for (const d of data) {
-            const tds: JSX.Element[] = [];
+            const tds: React.JSX.Element[] = [];
             displayedColumns.forEach(col =>
                 tds.push(
                     <PersonTableTd column={col}>

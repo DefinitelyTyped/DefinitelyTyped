@@ -1,9 +1,3 @@
-// Type definitions for stompjs 2.3
-// Project: https://github.com/jmesnil/stomp-websocket
-// Definitions by: Jimi Charalampidis <https://github.com/jimic>
-//                 Stefan Erichsen <https://github.com/Dr4k4n>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export const VERSIONS: {
@@ -75,7 +69,7 @@ export class Frame {
     static marshall(command: string, headers?: {}, body?: string): any;
 }
 
-export function client(url: string, protocols?: string | Array<string>): Client;
+export function client(url: string, protocols?: string | string[]): Client;
 export function over(ws: WebSocket): Client;
 export function overTCP(host: string, port: number): Client;
 export function overWS(url: string): Client;

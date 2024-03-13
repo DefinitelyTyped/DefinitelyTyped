@@ -1,14 +1,3 @@
-// Type definitions for Chance 1.1
-// Project: http://chancejs.com
-// Definitions by: Chris Bowdon <https://github.com/cbowdon>
-//                 Brice BERNARD <https://github.com/brikou>
-//                 Carlos Sanchez <https://github.com/cafesanu>
-//                 Colby M. White <https://github.com/colbywhite>
-//                 Zachary Dow <https://github.com/NewDark90>
-//                 Jacob Easley <https://github.com/jacobez>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Chance {
     type Seed = number | string;
 

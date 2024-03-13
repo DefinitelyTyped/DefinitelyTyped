@@ -1,10 +1,3 @@
-// Type definitions for @nulogy/components 3.1
-// Project: http://nulogy.design
-// Definitions by:  Evan Brodie <https://github.com/ecbrodie>
-//                  Marianne Borowiak <https://github.com/marboro92>
-//                  Matt Dunn <https://github.com/matthewlyle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export { Alert } from "./src/Alert";
 export { Box } from "./src/Box";
 export { BrandedNavBar } from "./src/BrandedNavBar";

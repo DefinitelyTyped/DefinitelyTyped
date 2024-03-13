@@ -1,8 +1,3 @@
-// Type definitions for cluster-hub 0.1
-// Project: https://github.com/sirian/node-cluster-hub#readme
-// Definitions by: Chun-Kai Wang <https://github.com/chunkai1312>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Worker } from "cluster";

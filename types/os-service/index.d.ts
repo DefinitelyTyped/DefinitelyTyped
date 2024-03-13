@@ -1,8 +1,3 @@
-// Type definitions for os-service 2.2
-// Project: https://github.com/nospaceships/node-os-service
-// Definitions by: Magginichi <https://github.com/magginichi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Options for the add() function.
  */

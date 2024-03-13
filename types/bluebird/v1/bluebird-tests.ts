@@ -106,27 +106,27 @@ var barArrThen: Promise.Thenable<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-var numPromArr: Promise<number>[];
-var strPromArr: Promise<string>[];
-var anyPromArr: Promise<any>[];
+var numPromArr: Array<Promise<number>>;
+var strPromArr: Array<Promise<string>>;
+var anyPromArr: Array<Promise<any>>;
 
-var fooPromArr: Promise<Foo>[];
-var barPromArr: Promise<Bar>[];
+var fooPromArr: Array<Promise<Foo>>;
+var barPromArr: Array<Promise<Bar>>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numThenArr: Promise.Thenable<number>[];
-var strThenArr: Promise.Thenable<string>[];
-var anyThenArr: Promise.Thenable<any>[];
+var numThenArr: Array<Promise.Thenable<number>>;
+var strThenArr: Array<Promise.Thenable<string>>;
+var anyThenArr: Array<Promise.Thenable<any>>;
 
-var fooThenArr: Promise.Thenable<Foo>[];
-var barThenArr: Promise.Thenable<Bar>[];
+var fooThenArr: Array<Promise.Thenable<Foo>>;
+var barThenArr: Array<Promise.Thenable<Bar>>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-var fooThenArrThen: Promise.Thenable<Promise.Thenable<Foo>[]>;
-var barThenArrThen: Promise.Thenable<Promise.Thenable<Bar>[]>;
+var fooThenArrThen: Promise.Thenable<Array<Promise.Thenable<Foo>>>;
+var barThenArrThen: Promise.Thenable<Array<Promise.Thenable<Bar>>>;
 
 var fooResolver: Promise.Resolver<Foo>;
 var barResolver: Promise.Resolver<Bar>;
@@ -134,8 +134,8 @@ var barResolver: Promise.Resolver<Bar>;
 var fooInspection: Promise.Inspection<Foo>;
 var barInspection: Promise.Inspection<Bar>;
 
-var fooInspectionArrProm: Promise<Promise.Inspection<Foo>[]>;
-var barInspectionArrProm: Promise<Promise.Inspection<Bar>[]>;
+var fooInspectionArrProm: Promise<Array<Promise.Inspection<Foo>>>;
+var barInspectionArrProm: Promise<Array<Promise.Inspection<Bar>>>;
 
 var BlueBird: typeof Promise;
 

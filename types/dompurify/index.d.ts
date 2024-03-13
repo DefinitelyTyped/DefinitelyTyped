@@ -1,13 +1,3 @@
-// Type definitions for DOM Purify 3.0
-// Project: https://github.com/cure53/DOMPurify
-// Definitions by: Dave Taylor https://github.com/davetayls
-//                 Samira Bazuzi <https://github.com/bazuzi>
-//                 FlowCrypt <https://github.com/FlowCrypt>
-//                 Exigerr <https://github.com/Exigerr>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Nicholas Ellul <https://github.com/NicholasEllul>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;

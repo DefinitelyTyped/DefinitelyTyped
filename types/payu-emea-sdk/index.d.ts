@@ -1,8 +1,3 @@
-// Type definitions for payu-emea-sdk 1.0
-// Project: https://developers.payu.com/en/card_tokenization.html#secureform
-// Definitions by: Tomasz Regdos <https://github.com/regdos/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var PayU: payu.PayuEntry;
 
 declare namespace payu {
@@ -22,8 +17,11 @@ declare namespace payu {
         extractRefReqId(input: string): string;
     }
 
+    type lang = "pl" | "en" | "cs" | "sk";
+
     interface SecureFormsOptions {
         fonts?: FontOptions[] | undefined;
+        lang?: lang | undefined;
     }
 
     type fontWeightNumber = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -34,7 +32,6 @@ declare namespace payu {
         display?: "auto" | "block" | "swap" | "fallback" | "optional" | undefined;
         style?: "normal" | "italic" | "oblique" | undefined;
         weight?: "normal" | "bold" | fontWeightNumber | undefined;
-        unicodeRange?: string | undefined;
     }
 
     type secureFormType = "card" | "number" | "date" | "cvv";
@@ -42,10 +39,21 @@ declare namespace payu {
         add(type?: secureFormType, options?: SecureFormOptions): SecureForm;
     }
 
+    interface LabelOptions {
+        number?: string;
+        date?: string;
+        cvv?: string;
+    }
+
     interface SecureFormOptions {
         style?: StyleOptions | undefined;
+        label?: LabelOptions | undefined;
         placeholder?: PlaceHolderOptions | undefined;
-        lang?: "pl" | "en" | "cs" | "sk" | undefined;
+        frameTitle?: string | undefined;
+        /**
+         * @deprecated Set lang in secureForms options.
+         */
+        lang?: lang | undefined;
         disabled?: boolean | undefined;
         cardIcon?: boolean | undefined;
     }

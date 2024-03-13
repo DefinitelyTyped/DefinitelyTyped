@@ -1,8 +1,3 @@
-// Type definitions for non-npm package dom-chromium-installation-events 101.0
-// Project: https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
-// Definitions by: Sergey Kozlov <https://github.com/dartess>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type AppBannerPromptOutcome = "accepted" | "dismissed";
 
 interface PromptResponseObject {
@@ -21,7 +16,8 @@ type BeforeInstallPromptEventPlatform =
     | "amazon";
 
 interface BeforeInstallPromptEvent extends Event {
-    prompt(): Promise<void>;
+    // https://wicg.github.io/manifest-incubations/#prompt-method
+    prompt(): Promise<PromptResponseObject>;
 
     readonly platforms: BeforeInstallPromptEventPlatform[];
     readonly userChoice: Promise<PromptResponseObject>;

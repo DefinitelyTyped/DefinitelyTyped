@@ -1,8 +1,3 @@
-// Type definitions for async-csv 2.1
-// Project: https://github.com/anton-bot/async-csv#readme
-// Definitions by: Moritz Friedrich <https://github.com/Radiergummi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare const CsvAsync: {

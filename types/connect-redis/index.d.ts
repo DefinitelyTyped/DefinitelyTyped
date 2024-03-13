@@ -1,11 +1,3 @@
-// Type definitions for connect-redis
-// Project: https://npmjs.com/package/connect-redis
-// Definitions by: Xavier Stouder <https://github.com/xstoudi>
-//                   Seth Butler <https://github.com/sbutler2901>
-//                 Jip Sterk <https://github.com/JipSterk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express" />
 /// <reference types="express-session" />
 /// <reference types="redis" />

@@ -1,8 +1,3 @@
-// Type definitions for color 1.0
-// Project: https://www.npmjs.com/package/color
-// Definitions by: Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Color {
     type ColorParam = string | { [param: string]: number } | number;
 

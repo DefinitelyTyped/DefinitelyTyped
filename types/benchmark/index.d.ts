@@ -1,10 +1,3 @@
-// Type definitions for Benchmark v2.1.4
-// Project: https://benchmarkjs.com
-// Definitions by: Asana <https://asana.com>
-//                 Charlie Fish <https://github.com/fishcharlie>
-//                 Blair Zajac <https://github.com/blair>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Benchmark {
     static filter<T>(arr: T[], callback: (value: T) => any, thisArg?: any): T[];
     static filter<T>(arr: T[], filter: string, thisArg?: any): T[];

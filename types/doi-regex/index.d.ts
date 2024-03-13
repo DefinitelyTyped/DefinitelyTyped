@@ -1,8 +1,3 @@
-// Type definitions for doi-regex 0.1
-// Project: https://github.com/regexhq/doi-regex
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     exact?: boolean;
 }

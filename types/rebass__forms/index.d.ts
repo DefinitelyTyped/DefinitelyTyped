@@ -1,10 +1,3 @@
-// Type definitions for @rebass/forms 4.0
-// Project: https://github.com/rebassjs/rebass#readme
-// Definitions by: zinozzino <https://github.com/zinozzino>
-//                 trumanshuck <https://github.com/trumanshuck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import * as React from "react";
 import * as Rebass from "rebass";
 import * as StyledSystem from "styled-system";

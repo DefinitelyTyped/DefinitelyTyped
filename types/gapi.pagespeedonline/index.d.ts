@@ -1,9 +1,3 @@
-// Type definitions for Google Page Speed Online Api
-// Project: https://developers.google.com/speed/pagespeed/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.pagespeedonline {
@@ -195,7 +189,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
     /**
      * List of blocks of URLs. Each block may contain a heading and a list of URLs. Each URL may optionally include additional details.
      */
-    urlBlocks: {
+    urlBlocks: Array<{
         /**
          * Heading to be displayed with the list of URLs.
          */
@@ -207,7 +201,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
             /**
              * List of arguments for the format string.
              */
-            args: {
+            args: Array<{
                 /**
                  * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                  */
@@ -216,12 +210,12 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                  * Argument value, as a localized string.
                  */
                 value: string;
-            }[];
+            }>;
         };
         /**
          * List of entries that provide information about URLs in the URL block. Optional.
          */
-        urls: {
+        urls: Array<{
             /**
              * A format string that gives information about the URL, and a list of arguments for that format string.
              */
@@ -233,7 +227,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                 /**
                  * List of arguments for the format string.
                  */
-                args: {
+                args: Array<{
                     /**
                      * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                      */
@@ -242,12 +236,12 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                      * Argument value, as a localized string.
                      */
                     value: string;
-                }[];
+                }>;
             };
             /**
              * List of entries that provide additional details about a single URL. Optional.
              */
-            details: {
+            details: Array<{
                 /**
                  * A localized format string with $N placeholders, where N is the 1-indexed argument number.
                  */
@@ -255,7 +249,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                 /**
                  * List of arguments for the format string.
                  */
-                args: {
+                args: Array<{
                     /**
                      * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                      */
@@ -264,10 +258,10 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                      * Argument value, as a localized string.
                      */
                     value: string;
-                }[];
-            }[];
-        }[];
-    }[];
+                }>;
+            }>;
+        }>;
+    }>;
 }
 
 /** */

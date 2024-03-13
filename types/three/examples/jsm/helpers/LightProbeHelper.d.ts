@@ -1,4 +1,4 @@
-import { LightProbe, Mesh } from '../../../src/Three.js';
+import { LightProbe, Mesh } from "three";
 
 export class LightProbeHelper extends Mesh {
     constructor(lightProbe: LightProbe, size: number);

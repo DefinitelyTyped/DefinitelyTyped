@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/docker-events",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/deoxxa/docker-events"
+    ],
+    "dependencies": {
+        "@types/dockerode": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/docker-events": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ciffelia",
+            "githubUsername": "ciffelia"
+        }
+    ]
+}

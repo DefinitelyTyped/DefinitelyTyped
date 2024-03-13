@@ -1,8 +1,3 @@
-// Type definitions for react-native-global-props 1.1
-// Project: https://github.com/Ajackster/react-native-global-props#readme
-// Definitions by: Liam Jones <https://github.com/liamjones/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import {
     ActivityIndicatorProps,
     ImageProps,

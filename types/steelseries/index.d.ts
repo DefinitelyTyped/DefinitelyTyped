@@ -1,8 +1,3 @@
-// Type definitions for steelseries 1.0
-// Project: https://github.com/nicolas-van/steelseries#readme
-// Definitions by: Riccardo Rebottini <https://github.com/ricky-rebo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace steelseries;
 
 /* Tools */

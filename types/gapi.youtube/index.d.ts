@@ -1,9 +1,3 @@
-// Type definitions for YouTube Data API 3.0
-// Project: https://developers.google.com/youtube/v3/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.youtube {
@@ -1228,7 +1222,7 @@ interface GoogleApiYouTubeChannelResource {
                 /**
                  * A list of objects that specify language-specific values for the property.
                  */
-                localized: {
+                localized: Array<{
                     /**
                      * The property value for a specified language.
                      */
@@ -1237,7 +1231,7 @@ interface GoogleApiYouTubeChannelResource {
                      * The language associated with the value.
                      */
                     language: string;
-                }[];
+                }>;
             };
             /**
              * The largeBrandedBannerImageImapScript object encapsulates information about the image map script for the banner image shown on the channel page.
@@ -1250,7 +1244,7 @@ interface GoogleApiYouTubeChannelResource {
                 /**
                  * A list of objects that specify language-specific values for the property.
                  */
-                localized: {
+                localized: Array<{
                     /**
                      * The property value for a specified language.
                      */
@@ -1259,7 +1253,7 @@ interface GoogleApiYouTubeChannelResource {
                      * The language associated with the value.
                      */
                     language: string;
-                }[];
+                }>;
             };
             /**
              * The URL for the 854px by 70px image that appears below the video player in the expanded video view of the video watch page.
@@ -1272,7 +1266,7 @@ interface GoogleApiYouTubeChannelResource {
                 /**
                  * A list of objects that specify language-specific values for the property.
                  */
-                localized: {
+                localized: Array<{
                     /**
                      * The property value for a specified language.
                      */
@@ -1281,7 +1275,7 @@ interface GoogleApiYouTubeChannelResource {
                      * The language associated with the value.
                      */
                     language: string;
-                }[];
+                }>;
             };
             /**
              * The image map script for the small banner image. The largeBrandedBannerImageImapScript object encapsulates information about the image map script for the banner image shown on the channel page in mobile applications.
@@ -1294,7 +1288,7 @@ interface GoogleApiYouTubeChannelResource {
                 /**
                  * A list of objects that specify language-specific values for the property.
                  */
-                localized: {
+                localized: Array<{
                     /**
                      * The property value for a specified language.
                      */
@@ -1303,7 +1297,7 @@ interface GoogleApiYouTubeChannelResource {
                      * The language associated with the value.
                      */
                     language: string;
-                }[];
+                }>;
             };
             /**
              * The URL for the 640px by 70px banner image that appears below the video player in the default view of the video watch page.
@@ -1316,7 +1310,7 @@ interface GoogleApiYouTubeChannelResource {
                 /**
                  * A list of objects that specify language-specific values for the property.
                  */
-                localized: {
+                localized: Array<{
                     /**
                      * The property value for a specified language.
                      */
@@ -1325,7 +1319,7 @@ interface GoogleApiYouTubeChannelResource {
                      * The language associated with the value.
                      */
                     language: string;
-                }[];
+                }>;
             };
             /**
              * The URL for the image that appears above the video player. This is a 25-pixel-high image with a flexible width that cannot exceed 170 pixels. If you do not provide this image, your channel name will appear instead of an image.
@@ -1379,7 +1373,7 @@ interface GoogleApiYouTubeChannelResource {
         /**
          * The hints object encapsulates additional branding properties
          */
-        hints: {
+        hints: Array<{
             /**
              * A property.
              */
@@ -1388,7 +1382,7 @@ interface GoogleApiYouTubeChannelResource {
              * The propertys value.
              */
             value: string;
-        }[];
+        }>;
     };
     /**
      * The invideoPromotion object encapsulates information about a promotional campaign associated with the channel. A channel can use an in-video promotional campaign to display the thumbnail image of a promoted video in the video player during playback of the channels videos
@@ -1423,7 +1417,7 @@ interface GoogleApiYouTubeChannelResource {
         /**
          * The list of promoted items in the order that they will display across different playbacks to the same viewer.
          */
-        items: {
+        items: Array<{
             /**
              * The promoted items type.
              */
@@ -1432,7 +1426,7 @@ interface GoogleApiYouTubeChannelResource {
              * If the promoted item represents a video, then this value is present and identifies the YouTube ID that YouTube assigned to identify that video. This field is only present if the type propertys value is video.
              */
             videoId: string;
-        }[];
+        }>;
     };
 }
 
@@ -2114,7 +2108,7 @@ interface GoogleApiYouTubeVideoResource {
         /**
          * A list of video streams contained in the uploaded video file. Each item in the list contains detailed metadata about a video stream.
          */
-        videoStreams: {
+        videoStreams: Array<{
             /**
              * The encoded video contents width in pixels.
              */
@@ -2147,11 +2141,11 @@ interface GoogleApiYouTubeVideoResource {
              * A value that uniquely identifies a video vendor. Typically, the value is a four-letter vendor code.
              */
             vender: string;
-        }[];
+        }>;
         /**
          * A list of audio streams contained in the uploaded video file. Each item in the list contains detailed metadata about an audio stream.
          */
-        audioStreams: {
+        audioStreams: Array<{
             /**
              * The number of audio channels that the stream contains.
              */
@@ -2168,7 +2162,7 @@ interface GoogleApiYouTubeVideoResource {
              * A value that uniquely identifies a video vendor. Typically, the value is a four-letter vendor code.
              */
             vendor: string;
-        }[];
+        }>;
         /**
          * The length of the uploaded video in milliseconds.
          */
@@ -2266,7 +2260,7 @@ interface GoogleApiYouTubeVideoResource {
         /**
          * A list of keyword tags that could be added to the videos metadata to increase the likelihood that users will locate your video when searching or browsing on YouTube.
          */
-        tagSuggestions: {
+        tagSuggestions: Array<{
             /**
              * The keyword tag suggested for the video.
              */
@@ -2275,7 +2269,7 @@ interface GoogleApiYouTubeVideoResource {
              * A set of video categories for which the tag is relevant. You can use this information to display appropriate tag suggestions based on the video category that the video uploader associates with the video. By default, tag suggestions are relevant for all categories if there are no restricts defined for the keyword.
              */
             categoryRestricts: string[];
-        }[];
+        }>;
         /**
          * A list of video editing operations that might improve the video quality or playback experience of the uploaded video.
          */
@@ -2295,7 +2289,7 @@ interface GoogleApiYouTubeVideoGetRatingResponse {
     /**
      * A list of ratings that match the request criteria.
      */
-    items: {
+    items: Array<{
         /**
          * The ID that YouTube uses to uniquely identify the video.
          */
@@ -2304,5 +2298,5 @@ interface GoogleApiYouTubeVideoGetRatingResponse {
          * The rating that the authorized user gave to the video.
          */
         rating: string;
-    }[];
+    }>;
 }

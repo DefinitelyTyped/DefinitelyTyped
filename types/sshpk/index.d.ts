@@ -1,10 +1,3 @@
-// Type definitions for sshpk 1.17
-// Project: https://github.com/joyent/node-sshpk
-// Definitions by: Meno Abels <https://github.com/mabels>
-//                 Alexander Lavallee <https://github.com/lavalleeale>
-//                 Lukáš Cezner <https://github.com/coalzombik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { BerReader, BerWriter } from "asn1";

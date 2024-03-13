@@ -1,12 +1,3 @@
-// Type definitions for Mustache 4.2
-// Project: https://github.com/janl/mustache.js
-// Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
-//                 Manuel Thalmann <https://github.com/manuth>,
-//                 Phillip Johnsen <https://github.com/phillipj>
-//                 Steve Dignam <https://github.com/sbdchd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /**
  * The name of the module.
  */

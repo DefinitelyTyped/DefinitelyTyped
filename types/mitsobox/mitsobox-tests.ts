@@ -1,5 +1,5 @@
 import { abortRetryIgnore, ok, okCancel } from "mitsobox";
-// tslint:disable-next-line: no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import * as mitsobox from "mitsobox";
 
 // member import tests

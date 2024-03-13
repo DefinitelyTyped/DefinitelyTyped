@@ -1,8 +1,3 @@
-// Type definitions for cadviewer 7.0
-// Project: https://github.com/CADViewer/cadviewer-testapp-react-01
-// Definitions by: Casper Harnung <https://github.com/cadviewer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.7
 export function cvjs_CADViewerPro(cadviewerpro: boolean): void;
 export function cvjs_setHandlerSettings(handlerType: string, f_div: string, controllerPath: string): void;
 export function cvjs_setAngular(mode: boolean): void;

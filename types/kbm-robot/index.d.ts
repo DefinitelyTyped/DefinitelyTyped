@@ -1,9 +1,3 @@
-// Type definitions for kbm-robot 0.0
-// Project: https://github.com/kylepaulsen/kbm-robot
-// Definitions by: Usama Ahsan <https://github.com/usama8800>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 interface KBMRobot {
     startJar(jre_version?: 6 | 7): void;
     stopJar(): void;

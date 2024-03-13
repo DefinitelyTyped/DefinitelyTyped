@@ -1,9 +1,3 @@
-// Type definitions for spected 0.7
-// Project: https://github.com/25th-floor/spected
-// Definitions by: Benjamin Makus <https://github.com/benneq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare function spected<ROOTINPUT, SPEC extends SpecValue<ROOTINPUT, ROOTINPUT> = SpecValue<ROOTINPUT, ROOTINPUT>>(
     spec: SPEC,
     input: ROOTINPUT,
@@ -26,7 +20,7 @@ export type SpecFunction<INPUT, ROOTINPUT = any> = [INPUT] extends [ReadonlyArra
 
 export type SpecObject<INPUT, ROOTINPUT = any> = Partial<{ [key in keyof INPUT]: SpecValue<INPUT[key], ROOTINPUT> }>;
 
-export type SpecValue<INPUT, ROOTINPUT = any> = [INPUT] extends [ReadonlyArray<any>]
+export type SpecValue<INPUT, ROOTINPUT = any> = [INPUT] extends [readonly any[]]
     ? SpecArray<INPUT, ROOTINPUT> | SpecFunction<INPUT, ROOTINPUT>
     : [INPUT] extends [object]
         ? SpecArray<INPUT, ROOTINPUT> | SpecFunction<INPUT, ROOTINPUT> | SpecObject<INPUT, ROOTINPUT>

@@ -1,4 +1,4 @@
-import NodeFunctionInput from './NodeFunctionInput.js';
+import NodeFunctionInput from "./NodeFunctionInput.js";
 
 export default abstract class NodeFunction {
     isNodeFunction: true;

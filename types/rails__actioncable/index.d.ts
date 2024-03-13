@@ -1,9 +1,3 @@
-// Type definitions for @rails/actioncable 6.1
-// Project: https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 export as namespace ActionCable;
 
 export enum MessageTypes {
@@ -76,6 +70,7 @@ export class Connection<C = Consumer> {
 
     reopen(): void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getProtocol(): void | string;
 
     isOpen(): boolean;
@@ -150,6 +145,7 @@ export class Consumer {
 
     disconnect(): any;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ensureActiveConnection(): void | boolean;
 }
 
@@ -230,4 +226,5 @@ export const logger: {
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/index.js
  */
 export function createConsumer(url?: string): Consumer;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getConfig(name: string): string | void;

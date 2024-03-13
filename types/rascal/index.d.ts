@@ -1,11 +1,3 @@
-// Type definitions for rascal 10.0
-// Project: https://guidesmiths.github.io/rascal/
-// Definitions by: ethan <https://github.com/zijin-m>
-//                 MartinTechy <https://github.com/MartinTechy>
-//                 Nikita Volodin <https://github.com/qlonik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 import { Channel, Connection, Message, Options } from "amqplib";

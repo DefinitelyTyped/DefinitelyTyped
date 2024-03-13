@@ -1,9 +1,3 @@
-// Type definitions for ng-facebook
-// Project: https://github.com/GoDisco/ngFacebook
-// Definitions by: Crevil <https://github.com/Crevil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 /// <reference types="facebook-js-sdk" />
 
@@ -18,7 +12,7 @@ declare module "angular" {
             setVersion(version: string): IFacebookProvider;
             getVersion(): string;
 
-            setPermissions(permissions: string | Array<string>): IFacebookProvider;
+            setPermissions(permissions: string | string[]): IFacebookProvider;
             getPermissions(): string;
 
             setCustomInit(customInit: Partial<facebook.InitParams>): IFacebookProvider;

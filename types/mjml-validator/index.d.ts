@@ -1,8 +1,3 @@
-// Type definitions for mjml-validator 4.13
-// Project: https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, MJMLJsonObject, MJMLParseError } from "mjml-core";
 
 export interface MJMLDependenciesObject {
@@ -28,6 +23,7 @@ export interface MJMLValidatorOptions {
 export type MJMLValidationRule = (
     element: MJMLJsonObject,
     options: MJMLValidatorOptions,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => MJMLParseError | MJMLParseError[] | void | undefined;
 
 export function formatValidationError(message: string, element: MJMLJsonObject): MJMLParseError;

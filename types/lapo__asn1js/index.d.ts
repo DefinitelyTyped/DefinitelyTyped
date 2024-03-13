@@ -1,8 +1,3 @@
-// Type definitions for @lapo/asn1js 1.2
-// Project: https://github.com/lapo-luchini/asn1js
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ASN1 {
     type Binary = string | number[] | Uint8Array;
     type StreamOrBinary = Stream | Binary;

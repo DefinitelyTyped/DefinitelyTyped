@@ -1,9 +1,3 @@
-// Type definitions for catbox 7.1
-// Project: https://github.com/hapijs/catbox
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as Boom from "boom";
 
 export type CallBackNoResult = (err?: Boom.BoomError) => void;

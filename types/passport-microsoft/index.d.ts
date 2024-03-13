@@ -1,9 +1,3 @@
-// Type definitions for passport-microsoft 1.0
-// Project: https://github.com/seanfisher/passport-microsoft#readme
-// Definitions by: Eitan Levi <https://github.com/skrud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as oauth2 from "passport-oauth2";
 
 // Disable automatic exporting

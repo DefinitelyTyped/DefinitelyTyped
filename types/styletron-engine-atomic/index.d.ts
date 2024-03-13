@@ -1,9 +1,3 @@
-// Type definitions for styletron-engine-atomic 1.1
-// Project: https://github.com/styletron/styletron
-// Definitions by: Jhey Tompkins <https://github.com/jh3y>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { FontFace as FontFaceObject, KeyframesObject, StandardEngine, StyleObject } from "styletron-standard";
 
 export class SequentialIDGenerator {

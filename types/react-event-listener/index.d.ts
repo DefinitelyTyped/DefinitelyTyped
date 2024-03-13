@@ -1,8 +1,3 @@
-// Type definitions for react-event-listener 0.4
-// Project: https://github.com/oliviertassinari/react-event-listener
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import React = require("react");
 
 export interface EventOptions extends Pick<AddEventListenerOptions, "capture" | "passive"> {}

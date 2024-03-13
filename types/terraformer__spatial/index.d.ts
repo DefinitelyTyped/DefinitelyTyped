@@ -1,9 +1,3 @@
-// Type definitions for @terraformer/spatial 2.0
-// Project: https://github.com/terraformer-js/terraformer
-// Definitions by: Jan Zak <https://github.com/zakjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as GeoJSON from "geojson";
 
 export const MercatorCRS: { type: string; properties: { href: string; type: string } };

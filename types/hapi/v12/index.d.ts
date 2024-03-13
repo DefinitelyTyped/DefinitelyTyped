@@ -1,8 +1,3 @@
-// Type definitions for hapi 12.0.1
-// Project: https://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Note/Disclaimer:
 // Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
 // be the last author to work on v12.0
@@ -142,7 +137,7 @@ declare module "hapi" {
         sharedif true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.
         other options passed to the catbox strategy used.
         an array of the above object for configuring multiple cache instances, each with a unique name. When an array of objects is provided, multiple cache connections are established and each array item (except one) must include a name.  */
-        cache?: string | ICatBoxCacheOptions | Array<ICatBoxCacheOptions> | any | undefined;
+        cache?: string | ICatBoxCacheOptions | ICatBoxCacheOptions[] | any | undefined;
         /**  sets the default connections configuration which can be overridden by each connection where:  */
         connections?: IConnectionConfigurationServerDefaults | undefined;
         /** determines which logged events are sent to the console (this should only be used for development and does not affect which events are actually logged internally and recorded). Set to false to disable all console logging, or to an object*/
@@ -431,14 +426,14 @@ declare module "hapi" {
             'try'same as 'optional' but allows for invalid authentication. */
             mode?: string | undefined;
             /**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-            strategies?: string | Array<string> | undefined;
+            strategies?: string | string[] | undefined;
             /**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
             falseno payload authentication.This is the default value.
             'required'payload authentication required.This is the default value when the scheme sets options.payload to true.
             'optional'payload authentication performed only when the client includes payload authentication information (e.g.hash attribute in Hawk). */
             payload?: string | undefined;
             /**  the application scope required to access the route.Value can be a scope string or an array of scope strings.The authenticated credentials object scope property must contain at least one of the scopes defined to access the route.Set to false to remove scope requirements.Defaults to no scope required.  */
-            scope?: string | Array<string> | boolean | undefined;
+            scope?: string | string[] | boolean | undefined;
             /** the required authenticated entity type.If set, must match the entity value of the authentication credentials.Available values:
             anythe authentication can be on behalf of a user or application.This is the default value.
             userthe authentication must be on behalf of a user.
@@ -467,7 +462,7 @@ declare module "hapi" {
         /** the Cross- Origin Resource Sharing protocol allows browsers to make cross- origin API calls.CORS is required by web applications running inside a browser which are loaded from a different domain than the API server.CORS headers are disabled by default. To enable, set cors to true, or to an object with the following options: */
         cors?: {
             /** a strings array of allowed origin servers ('Access-Control-Allow-Origin').The array can contain any combination of fully qualified origins along with origin strings containing a wildcard '' character, or a single `''origin string. Defaults to any origin['*']`. */
-            origin?: Array<string> | undefined;
+            origin?: string[] | undefined;
             /** if true, matches the value of the incoming 'Origin' header to the list of origin values ('*' matches anything) and if a match is found, uses that as the value of the 'Access-Control-Allow-Origin' response header.When false, the origin config is returned as- is.Defaults to true.  */
             matchOrigin?: boolean | undefined;
             /** if false, prevents the connection from returning the full list of non- wildcard origin values if the incoming origin header does not match any of the values.Has no impact if matchOrigin is set to false.Defaults to true. */
@@ -699,7 +694,7 @@ declare module "hapi" {
          * on the request object (query and params} to populate a dynamic scope by using {} characters around the property name,
          * such as 'user-{params.id}'. Defaults to false (no scope requirements).
          */
-        scope?: string | Array<string> | boolean | undefined;
+        scope?: string | string[] | boolean | undefined;
         /** the required authenticated entity type. If set, must match the entity value of the authentication credentials. Available values:
          * any - the authentication can be on behalf of a user or application. This is the default value.
          * user - the authentication must be on behalf of a user which is identified by the presence of a user attribute in the credentials object returned by the authentication strategy.
@@ -816,7 +811,7 @@ declare module "hapi" {
         lookupCompressed - optional boolean, instructs the file processor to look for the same filename with the '.gz' suffix for a pre-compressed version of the file to serve if the request supports content encoding. Defaults to false.
         defaultExtension - optional string, appended to file requests if the requested file is not found. Defaults to no extension.*/
         directory?: {
-            path: string | Array<string> | IRequestHandler<string> | IRequestHandler<Array<string>>;
+            path: string | string[] | IRequestHandler<string> | IRequestHandler<string[]>;
             index?: boolean | string | string[] | undefined;
             listing?: boolean | undefined;
             showHidden?: boolean | undefined;
@@ -857,7 +852,7 @@ declare module "hapi" {
                     file: any;
                 };
                 parse?: any;
-                allow?: string | Array<string> | undefined;
+                allow?: string | string[] | undefined;
                 override?: string | undefined;
                 maxBytes?: number | undefined;
                 uploads?: number | undefined;
@@ -875,17 +870,17 @@ declare module "hapi" {
             };
             auth: string | boolean | {
                 mode: string;
-                strategies: Array<string>;
+                strategies: string[];
                 payload?: boolean | string | undefined;
                 tos?: boolean | string | undefined;
-                scope?: string | Array<string> | undefined;
+                scope?: string | string[] | undefined;
                 entity: string;
             };
             cors?: boolean | undefined;
             jsonp?: string | undefined;
             description?: string | undefined;
-            notes?: string | Array<string> | undefined;
-            tags?: Array<string> | undefined;
+            notes?: string | string[] | undefined;
+            tags?: string[] | undefined;
         } | undefined;
     }
     /** Route configuration
@@ -910,7 +905,7 @@ declare module "hapi" {
         /** the route path. */
         path: string;
         /** the route vhost option if configured. */
-        vhost?: string | Array<string> | undefined;
+        vhost?: string | string[] | undefined;
         /** the [active realm] associated with the route.*/
         realm: IServerRealm;
         /** the [route options]  object with all defaults applied. */
@@ -1493,7 +1488,7 @@ declare module "hapi" {
 
         /** replacer(method) - sets the JSON.stringify() replacer argument where:
         method - the replacer function or array. Defaults to none.*/
-        replacer(method: Function | Array<Function>): Response;
+        replacer(method: Function | Function[]): Response;
 
         /** spaces(count) - sets the JSON.stringify() space argument where:
         count - the number of spaces to indent nested object keys. Defaults to no indentation. */
@@ -1631,7 +1626,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         // server.connections.length === 2
         var a = server.select('a');
         // a.connections.length === 1*/
-        connections: Array<ServerConnection>;
+        connections: ServerConnection[];
         /** When the server contains exactly one connection, info is an object containing information about the sole connection.
         * When the server contains more than one connection, each server.connections array member provides its own connection.info.
         var server = new Hapi.Server();

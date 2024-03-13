@@ -1,8 +1,3 @@
-// Type definitions for react-google-recaptcha-enterprise 1.0
-// Project: https://github.com/ashwin-achar-tm/react-google-recaptcha
-// Definitions by: Lucas Akira Uehara <https://github.com/KsAkira10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export default ReCAPTCHA;

@@ -1,9 +1,3 @@
-// Type definitions for Google Calendar API 3.0
-// Project: https://developers.google.com/google-apps/calendar/
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.calendar {
@@ -17,7 +11,7 @@ declare namespace gapi.client.calendar {
         timeZone?: string | undefined;
         groupExpansionMax?: integer | undefined;
         calendarExpansionMax?: integer | undefined;
-        items: { id: string }[];
+        items: Array<{ id: string }>;
     }
 
     interface FreeBusy {
@@ -26,23 +20,27 @@ declare namespace gapi.client.calendar {
         timeMax: datetime;
         groups: {
             [key: string]: {
-                errors?: {
-                    domain: string;
-                    reason: string;
-                }[] | undefined;
+                errors?:
+                    | Array<{
+                        domain: string;
+                        reason: string;
+                    }>
+                    | undefined;
                 calendars: string[];
             };
         };
         calendars: {
             [key: string]: {
-                errors?: {
-                    domain: string;
-                    reason: string;
-                }[] | undefined;
-                busy: {
+                errors?:
+                    | Array<{
+                        domain: string;
+                        reason: string;
+                    }>
+                    | undefined;
+                busy: Array<{
                     start: datetime;
                     end: datetime;
-                }[];
+                }>;
             };
         };
     }
@@ -147,17 +145,19 @@ declare namespace gapi.client.calendar {
         // Optional Properties
         backgroundColor?: string | undefined;
         colorId?: string | undefined;
-        defaultReminders?: {
-            method: ReminderMethod;
-            minutes: integer;
-        }[] | undefined;
+        defaultReminders?:
+            | Array<{
+                method: ReminderMethod;
+                minutes: integer;
+            }>
+            | undefined;
         foregroundColor?: string | undefined;
         hidden?: boolean | undefined;
         notificationSettings?: {
-            notifications: {
+            notifications: Array<{
                 type: NotificationType;
                 method: string;
-            }[];
+            }>;
         } | undefined;
         selected?: boolean | undefined;
         summaryOverride?: string | undefined;
@@ -211,15 +211,15 @@ declare namespace gapi.client.calendar {
         selected?: boolean | undefined;
         // The effective access role that the authenticated user has on the calendar. Read-only.
         accessRole: AccessRoleWithoutNone;
-        defaultReminders: {
+        defaultReminders: Array<{
             method: ReminderMethod;
             minutes: integer;
-        }[];
+        }>;
         notificationSettings?: {
-            notifications: {
+            notifications: Array<{
                 type: NotificationType;
                 method: string;
-            }[];
+            }>;
         } | undefined;
         primary?: boolean | undefined;
         deleted?: boolean | undefined;
@@ -320,27 +320,31 @@ declare namespace gapi.client.calendar {
 
     interface EventInput {
         // Required Properties
-        attachments?: {
-            fileUrl: string;
-        }[] | undefined;
-        attendees?: {
-            email: string;
-            displayName?: string | undefined;
-            optional?: boolean | undefined;
-            responseStatus?: AttendeeResponseStatus | undefined;
-            comment?: string | undefined;
-            additionalGuests?: integer | undefined;
-        }[] | undefined;
+        attachments?:
+            | Array<{
+                fileUrl: string;
+            }>
+            | undefined;
+        attendees?:
+            | Array<{
+                email: string;
+                displayName?: string | undefined;
+                optional?: boolean | undefined;
+                responseStatus?: AttendeeResponseStatus | undefined;
+                comment?: string | undefined;
+                additionalGuests?: integer | undefined;
+            }>
+            | undefined;
         end: {
             date?: date | undefined;
             dateTime?: datetime | undefined;
             timeZone?: string | undefined;
         };
         reminders?: {
-            overrides: {
+            overrides: Array<{
                 method: string;
                 minutes: integer;
-            }[];
+            }>;
             useDefault: boolean;
         } | undefined;
         start: {
@@ -447,10 +451,10 @@ declare namespace gapi.client.calendar {
         timeZone: string;
         // The user's access role for this calendar. Read-only. Possible values are:
         accessRole: AccessRole;
-        defaultReminders: {
+        defaultReminders: Array<{
             method: ReminderMethod;
             minutes: integer;
-        }[];
+        }>;
         nextPageToken?: string | undefined;
         nextSyncToken?: string | undefined;
         items: Event[];
@@ -610,18 +614,20 @@ declare namespace gapi.client.calendar {
         sequence: integer;
 
         // The attendees of the event.
-        attendees?: {
-            id: string;
-            email: string;
-            displayName?: string | undefined;
-            organizer: boolean;
-            self: boolean;
-            resource: boolean;
-            optional?: boolean | undefined;
-            responseStatus: AttendeeResponseStatus;
-            comment?: string | undefined;
-            additionalGuests?: integer | undefined;
-        }[] | undefined;
+        attendees?:
+            | Array<{
+                id: string;
+                email: string;
+                displayName?: string | undefined;
+                organizer: boolean;
+                self: boolean;
+                resource: boolean;
+                optional?: boolean | undefined;
+                responseStatus: AttendeeResponseStatus;
+                comment?: string | undefined;
+                additionalGuests?: integer | undefined;
+            }>
+            | undefined;
 
         attendeesOmitted?: boolean | undefined;
 
@@ -663,10 +669,12 @@ declare namespace gapi.client.calendar {
 
         reminders: {
             useDefault: boolean;
-            overrides?: {
-                method: ReminderMethod;
-                minutes: integer;
-            }[] | undefined;
+            overrides?:
+                | Array<{
+                    method: ReminderMethod;
+                    minutes: integer;
+                }>
+                | undefined;
         };
 
         // Source from which the event was created. For example, a web page, an email message or any document identifiable by an URL with HTTP or HTTPS scheme.
@@ -677,12 +685,14 @@ declare namespace gapi.client.calendar {
         } | undefined;
 
         // File attachments for the event. Currently only Google Drive attachments are supported.
-        attachments?: {
-            fileUrl: string;
-            title: string;
-            mimeType: string;
-            iconLink: string;
-            fileId: string;
-        }[] | undefined;
+        attachments?:
+            | Array<{
+                fileUrl: string;
+                title: string;
+                mimeType: string;
+                iconLink: string;
+                fileId: string;
+            }>
+            | undefined;
     }
 }

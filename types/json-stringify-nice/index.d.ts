@@ -1,8 +1,3 @@
-// Type definitions for json-stringify-nice 1.1
-// Project: https://github.com/isaacs/json-stringify-nice
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = jsonStringify;
 
 /**

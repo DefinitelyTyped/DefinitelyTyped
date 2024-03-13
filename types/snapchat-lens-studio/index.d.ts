@@ -1,11 +1,3 @@
-// Type definitions for non-npm package snapchat-lens-studio 3.2
-// Project: https://lensstudio.snapchat.com/api/
-// Definitions by: Olen Davis <https://github.com/OlenDavis>
-//                 Matt Winkler <https://github.com/mhwinkler>
-//                 Julien Chaumond <https://github.com/julien-c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 // This doesn't work when `@types/node` is present:
 declare const global: SnapchatLensStudio.Global;
 
@@ -4279,6 +4271,6 @@ declare namespace SnapchatLensStudio {
         "Component.SpriteVisual": Component.SpriteVisual;
     }
 
-    interface ScriptInputs {} // tslint:disable-line no-empty-interface
-    interface ScriptApi {} // tslint:disable-line no-empty-interface
+    interface ScriptInputs {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface ScriptApi {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }

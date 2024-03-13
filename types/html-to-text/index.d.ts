@@ -1,10 +1,3 @@
-// Type definitions for html-to-text 9.0
-// Project: https://github.com/html-to-text/node-html-to-text
-// Definitions by: Eryk Warren <https://github.com/erykwarren>
-//                 Carson Full <https://github.com/CarsonF>
-//                 Chris. Webster <https://github.com/webstech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BlockTextBuilder } from "./lib/block-text-builder";
 
 export type compiledFunction = (str: string) => string;

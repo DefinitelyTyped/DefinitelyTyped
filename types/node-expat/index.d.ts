@@ -1,9 +1,3 @@
-// Type definitions for node-expat 2.3
-// Project: https://github.com/astro/node-expat
-// Definitions by: winston01 <https://github.com/winston01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 import { Stream } from "stream";
 

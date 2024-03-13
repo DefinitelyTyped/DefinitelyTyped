@@ -1,10 +1,3 @@
-// Type definitions for vue-ls 3.2
-// Project: https://github.com/RobinCK/vue-ls#readme
-// Definitions by: Prateek Malhotra <https://github.com/someone1>
-//                 Oleg Spakov <https://github.com/lexasss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import _Vue, { PluginObject } from "vue";
 
 declare module "vue/types/vue" {

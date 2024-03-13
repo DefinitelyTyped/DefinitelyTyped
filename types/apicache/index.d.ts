@@ -1,8 +1,3 @@
-// Type definitions for apicache 1.6
-// Project: https://github.com/kwhitley/apicache
-// Definitions by: Daniel Sogl <https://github.com/danielsogl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as express from "express";
 import { RedisClient } from "redis";
 
@@ -90,6 +85,7 @@ export interface Options {
     /** Event callbacks */
     events?: {
         /** Expire callback triggered by redis client is used. Defaults to empty function */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         expire: (err: Error | null, reply: number) => void | undefined;
     } | undefined;
     /**

@@ -1,12 +1,12 @@
-import { RecurlyError } from "./error";
+import { RecurlyError } from './error';
 
 export type GiftCardOptions = {
-    code: string;
+  code: string;
 };
 
 export type GiftCardResult = {
-    currency: string;
-    unit_amount: number;
+  currency: string;
+  unit_amount: number;
 };
 
 export type Done = (error: RecurlyError, result: GiftCardResult) => void;

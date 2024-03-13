@@ -1,8 +1,3 @@
-// Type definitions for mute-stream 0.0
-// Project: https://github.com/isaacs/mute-stream#readme
-// Definitions by: Adam Jarret <https://github.com/adamjarret>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Duplex } from "stream";

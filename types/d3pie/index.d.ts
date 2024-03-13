@@ -1,8 +1,3 @@
-// Type definitions for d3pie 0.1.9
-// Project: https://github.com/benkeen/d3pie
-// Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace d3pie {
     interface ID3PieChart {
         redraw(): void;
@@ -59,11 +54,11 @@ declare namespace d3pie {
                 label?: string | undefined;
                 color?: string | undefined;
             } | undefined;
-            content: {
+            content: Array<{
                 label: string;
                 value: number;
                 color?: string | undefined;
-            }[];
+            }>;
         };
         labels?: {
             outer?: { pieDistance?: number | undefined } & ID3PieLabelsOptions | undefined;

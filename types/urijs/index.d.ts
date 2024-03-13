@@ -1,18 +1,3 @@
-// Type definitions for URI.js 1.19
-// Project: http://medialize.github.io/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>
-//                 Brian Surowiec <https://github.com/xt0rted>
-//                 Pete Johanson <https://github.com/petejohanson>
-//                 Zhibin Liu <https://github.com/ljqx>
-//                 TeamworkGuy2 <https://github.com/teamworkguy2>
-//                 Akuukis <https://github.com/Akuukis>
-//                 Marcell Toth <https://github.com/marcelltoth>
-//                 Vincenzo Chianese <https://github.com/XVincentX>
-//                 Andree Hagelstein <https://github.com/ahagelstein>
-//                 Alexander Pepper <https://github.com/apepper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // urijs uses DOM dependencies which are absent in browserless envoronment like node.js.
 // to avoid compiler errors this monkey patch is used. See more details in:
 // - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
@@ -20,7 +5,7 @@
 /// <reference path="./dom-monkeypatch.d.ts" />
 
 // Compatability with node.js
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface HTMLElement {}
 
 export = URI;
@@ -284,7 +269,7 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     query(v: boolean): URI.QueryDataMap;
 
@@ -300,7 +285,7 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     search(v: boolean): URI.QueryDataMap;
     segment(): string[];

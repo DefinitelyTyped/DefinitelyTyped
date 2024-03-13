@@ -1,15 +1,3 @@
-// Type definitions for Microsoft Dynamics xRM API 9.0
-// Project: https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview
-// Definitions by:  Matt Ngan <https://github.com/mattngan>
-//                  Markus Mauch <https://github.com/markusmauch>
-//                  Daryl LaBar <https://github.com/daryllabar>
-//                  Tully H <https://github.com/clownwilleatme>
-//                  Scott Durow <https://github.com/scottdurow>
-//                  Phil Cole <https://github.com/filcole>
-//                  Danish Naglekar <https://github.com/power-maverick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare var Xrm: Xrm.XrmStatic;
 
 /**
@@ -3086,6 +3074,22 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for UI elements which can have their available option values read.
+         */
+        interface UiCanGetOptionsElement {
+            /**
+             * Returns an array of option objects representing valid options available for a control,
+             * including a blank option and excluding any options that have been removed from the control
+             * using removeOption.
+             *
+             * @returns The array of option objects representing valid options where each option object has the following attributes:
+             *          text: String. Label of the option.
+             *          value: Number. Enumeration value of the option.
+             */
+            getOptions(): OptionSetValue[];
+        }
+
+        /**
          * Interface for UI elements which can have the visibility value read.
          */
         interface UiCanGetVisibleElement {
@@ -3564,7 +3568,7 @@ declare namespace Xrm {
          *
          * @see {@link StandardControl}
          */
-        interface OptionSetControl extends StandardControl {
+        interface OptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -3596,7 +3600,7 @@ declare namespace Xrm {
             removeOption(value: number): void;
         }
 
-        interface MultiSelectOptionSetControl extends StandardControl {
+        interface MultiSelectOptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *

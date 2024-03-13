@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/secure-json-parse",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/fastify/secure-json-parse#readme"
+    ],
+    "devDependencies": {
+        "@types/secure-json-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sjoerd Diepen",
+            "githubUsername": "OSjoerdWie"
+        },
+        {
+            "name": "Mike MacCana",
+            "githubUsername": "mikemaccana"
+        }
+    ]
+}

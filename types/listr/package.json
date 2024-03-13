@@ -1,6 +1,29 @@
 {
-  "dependencies": {
-    "rxjs": "^6.5.1"
-  },
-  "private": true
+    "private": true,
+    "name": "@types/listr",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/samverschueren/listr#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "rxjs": "^6.5.1"
+    },
+    "devDependencies": {
+        "@types/listr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dusan Radovanovic",
+            "githubUsername": "durad"
+        },
+        {
+            "name": "Vladislav Polyakov",
+            "githubUsername": "polRk"
+        },
+        {
+            "name": "Jason Zukewich",
+            "githubUsername": "jgzuke"
+        }
+    ]
 }

@@ -1,9 +1,3 @@
-// Type definitions for vue-select 3.16
-// Project: https://github.com/sagalbot/vue-select#readme
-// Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import { ComponentOptions, VueConstructor } from "vue";
 import { ExtendedVue } from "vue/types/vue";
 
@@ -77,6 +71,7 @@ export interface VueSelectProps {
         dropdownList: HTMLUListElement,
         component: VueSelectInstance,
         position: CalculatedPosition,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | UnbindPositionCallback;
 
     // in pointerScroll mixin:

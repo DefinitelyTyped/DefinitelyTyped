@@ -1,8 +1,3 @@
-// Type definitions for node-validator
-// Project: https://www.npmjs.com/package/node-validator
-// Definitions by: Ken Gorab <https://github.com/kengorab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ValidatorOptions {
     interface IsStringOptions {
         regex?: RegExp | undefined;
@@ -43,7 +38,7 @@ declare namespace Validator {
     function expressQuery(validator: Validatable): any;
     function queryValidator(validator: Validatable): any;
 
-    function run(validator: Validatable, value: any, callback: (errorCount: Number, errors: Array<any>) => void): void;
+    function run(validator: Validatable, value: any, callback: (errorCount: Number, errors: any[]) => void): void;
 
     function isObject(): IsObjectValidator;
     function isString(options?: ValidatorOptions.IsStringOptions): Validatable;

@@ -1,8 +1,3 @@
-// Type definitions for style-search 0.1
-// Project: https://github.com/davidtheclark/style-search#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function styleSearch(options: styleSearch.Options, callback: styleSearch.StyleSearchCallback): void;
 
 declare namespace styleSearch {

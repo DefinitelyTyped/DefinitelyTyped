@@ -1,12 +1,3 @@
-// Type definitions for non-npm package xast 2.0
-// Project: https://github.com/syntax-tree/xast
-// Definitions by: stefanprobst <https://github.com/stefanprobst>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces

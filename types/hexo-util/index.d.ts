@@ -1,10 +1,3 @@
-// Type definitions for hexo-util 0.6
-// Project: https://hexo.io/
-// Definitions by: sega yuu <https://github.com/segayuu>
-//                 KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { SpawnOptions, StdioOptions } from "child_process";

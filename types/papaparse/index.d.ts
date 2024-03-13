@@ -1,17 +1,3 @@
-// Type definitions for PapaParse 5.3
-// Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>
-//                 Rain Shen <https://github.com/rainshen49>
-//                 João Loff <https://github.com/jfloff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Alberto Restifo <https://github.com/albertorestifo>
-//                 Janne Liuhtonen <https://github.com/jliuhtonen>
-//                 Raphaël Barbazza <https://github.com/rbarbazz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-//                 Opportunity Liu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Duplex } from "stream";
@@ -94,7 +80,7 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
  */
 
 /** An array of characters that are not allowed as delimiters. `\r`, `\n`, `"`, `\ufeff` */
-export const BAD_DELIMITERS: ReadonlyArray<string>;
+export const BAD_DELIMITERS: readonly string[];
 
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
 export const RECORD_SEP: "\x1E";
@@ -266,6 +252,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The function receives as an argument the chunk about to be parsed, and it may return a modified chunk to parse.
      * This is useful for stripping header lines (as long as the header fits in a single chunk).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
 }
 
@@ -441,7 +428,9 @@ export interface ParseError {
     /** Human-readable details */
     message: string;
     /** Row index of parsed data where error is */
-    row: number;
+    row?: number | undefined;
+    /** Index within the row where error is */
+    index?: number | undefined;
 }
 
 export interface ParseMeta {

@@ -1,9 +1,3 @@
-// Type definitions for Bootbox 5.2.0
-// Project: https://github.com/makeusabrew/bootbox
-// Definitions by: Vincent Bortone <https://github.com/vbortone>, Kon Pik <https://github.com/konpikwastaken>, Anup Kattel <https://github.com/kanup>, Dominik Schroeter <https://github.com/icereed>, Troy McKinnon <https://github.com/trodi>, Stanny Nuytkens <https://github.com/stannynuytkens>, Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 /** Bootbox options shared by all modal types */
@@ -77,7 +71,7 @@ interface BootboxPromptOptions extends BootboxBaseOptions<string> {
     inputType?: BootboxInputType | undefined;
     callback: (result: string) => any;
     buttons?: BootboxConfirmPromptButtonMap | undefined;
-    inputOptions?: { text: string; value: string; group?: string | undefined }[] | undefined;
+    inputOptions?: Array<{ text: string; value: string; group?: string | undefined }> | undefined;
 }
 
 /** Bootbox options available when setting defaults for modals */
@@ -89,7 +83,7 @@ interface BootboxDefaultOptions {
     animate?: boolean | undefined;
     className?: string | undefined;
     container?: string | Element | JQuery | undefined;
-    value?: string | number | Array<string> | undefined;
+    value?: string | number | string[] | undefined;
     inputType?: BootboxInputType | undefined;
     swapButtonOrder?: boolean | undefined;
     centerVertical?: boolean | undefined;

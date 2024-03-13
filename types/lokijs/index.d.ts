@@ -1,10 +1,3 @@
-// Type definitions for lokijs v1.5.9
-// Project: https://github.com/techfort/LokiJS
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-//                 Thomas Conner <https://github.com/thomasconner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // NOTE: definition last updated (2021-09-08) based on the changes in v1.5.9 (https://github.com/techfort/LokiJS/tree/6a8f453d5075e8637970b71afeb46ee37c161909)
 /**
  * LokiJS
@@ -99,7 +92,7 @@ declare class LokiEventEmitter {
     /**
      * events - a hashmap, with each property being an array of callbacks
      */
-    public events: { [eventName: string]: ((...args: any[]) => any)[] };
+    public events: { [eventName: string]: Array<(...args: any[]) => any> };
 
     /**
      * asyncListeners - boolean determines whether or not the callbacks associated with each event
@@ -209,7 +202,7 @@ interface Transform {
  * Loki: The main database class
  */
 declare class Loki extends LokiEventEmitter {
-    collections: Collection<any>[];
+    collections: Array<Collection<any>>;
     options: Partial<LokiConstructorOptions> & LokiConfigOptions & Partial<ThrottledSaveDrainOptions>;
     filename: string;
     name?: string | undefined;
@@ -220,7 +213,7 @@ declare class Loki extends LokiEventEmitter {
     autosaveHandle: number | null;
     persistenceAdapter: LokiPersistenceAdapter | null | undefined;
     persistenceMethod: "fs" | "localStorage" | "memory" | "adapter" | null | undefined;
-    throttledCallbacks: ((err?: any) => void)[];
+    throttledCallbacks: Array<(err?: any) => void>;
     throttledSavePending: boolean;
     throttledSaves: boolean;
     verbose: boolean;
@@ -312,7 +305,7 @@ declare class Loki extends LokiEventEmitter {
      */
     public renameCollection(oldName: string, newName: string): Collection<any>;
 
-    public listCollections(): Collection<any>[];
+    public listCollections(): Array<Collection<any>>;
 
     /**
      * Removes a collection from the database.
@@ -455,7 +448,7 @@ declare class Loki extends LokiEventEmitter {
         dbObject: {
             name?: string | undefined;
             throttledSaves: boolean;
-            collections: Collection<any>[];
+            collections: Array<Collection<any>>;
             databaseVersion: number;
         },
         options?: {
@@ -945,7 +938,7 @@ declare class Resultset<E extends object> {
      * @param properties - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
      * @returns Reference to this resultset, sorted, for future chain operations.
      */
-    public compoundsort(properties: [keyof E, boolean][]): this;
+    public compoundsort(properties: Array<[keyof E, boolean]>): this;
 
     /**
      * findOr() - oversee the operation of OR'ed query expressions.
@@ -956,7 +949,7 @@ declare class Resultset<E extends object> {
      * @param expressionArray - array of expressions
      * @returns this resultset for further chain ops.
      */
-    public findOr(expressionArray: LokiQuery<E>[]): this;
+    public findOr(expressionArray: Array<LokiQuery<E>>): this;
 
     public $or: Resultset<E>["findOr"];
 
@@ -969,7 +962,7 @@ declare class Resultset<E extends object> {
      * @param expressionArray - array of expressions
      * @returns this resultset for further chain ops.
      */
-    public findAnd(expressionArray: LokiQuery<E>[]): this;
+    public findAnd(expressionArray: Array<LokiQuery<E>>): this;
 
     public $and: Resultset<E>["findAnd"];
 
@@ -1009,7 +1002,7 @@ declare class Resultset<E extends object> {
      *
      * @returns Array of documents in the resultset
      */
-    public data(options?: Partial<GetDataOptions>): (E & LokiObj)[];
+    public data(options?: Partial<GetDataOptions>): Array<E & LokiObj>;
 
     /**
      * Used to run an update operation on all documents currently in the resultset.
@@ -1092,12 +1085,12 @@ declare class DynamicView<E extends object> extends LokiEventEmitter {
     collection: Collection<E>;
     rebuildPending: boolean;
     resultset: Resultset<E>;
-    resultdata: (E & LokiObj)[];
+    resultdata: Array<E & LokiObj>;
     resultsdirty: boolean;
     cachedresultset: Resultset<E> | null;
-    filterPipeline: { type: "find" | "where"; val: any; uid?: string | number | undefined }[];
+    filterPipeline: Array<{ type: "find" | "where"; val: any; uid?: string | number | undefined }>;
     sortFunction: ((a: E & LokiObj, b: E & LokiObj) => number) | null;
-    sortCriteria: [keyof E, boolean][] | null;
+    sortCriteria: Array<[keyof E, boolean]> | null;
     sortDirty: boolean;
     options: Partial<DynamicViewOptions>;
 
@@ -1190,7 +1183,7 @@ declare class DynamicView<E extends object> extends LokiEventEmitter {
      * @param criteria - array of property names or subarray of [propertyname, isdesc] used evaluate sort order
      * @returns Reference to this DynamicView, sorted, for future chain operations.
      */
-    public applySortCriteria(criteria: [keyof E, boolean][]): this;
+    public applySortCriteria(criteria: Array<[keyof E, boolean]>): this;
 
     /**
      * startTransaction() - marks the beginning of a transaction.
@@ -1290,7 +1283,7 @@ declare class DynamicView<E extends object> extends LokiEventEmitter {
      * @param [options.removeMeta] - Will force clones and strip $loki and meta properties from documents
      * @returns An array of documents representing the current DynamicView contents.
      */
-    public data(options?: Partial<GetDataOptions>): (E & LokiObj)[];
+    public data(options?: Partial<GetDataOptions>): Array<E & LokiObj>;
 
     /**
      * queueRebuildEvent() - When the view is not sorted we may still wish to be notified of rebuild events.
@@ -1356,9 +1349,9 @@ interface CollectionOptions<E> {
     transactional: boolean;
     ttl: number;
     ttlInterval: number;
-    exact: (keyof E)[];
-    unique: (keyof E)[];
-    indices: (keyof E) | (keyof E)[];
+    exact: Array<keyof E>;
+    unique: Array<keyof E>;
+    indices: (keyof E) | Array<keyof E>;
 }
 
 interface CollectionChange {
@@ -1401,15 +1394,15 @@ declare class Collection<E extends object> extends LokiEventEmitter {
     disableChangesApi: boolean;
     disableDeltaChangesApi: boolean;
     disableFreeze: boolean;
-    DynamicViews: DynamicView<object>[];
+    DynamicViews: Array<DynamicView<object>>;
     idIndex: number[];
     ttl: { age: any; ttlInterval: any; daemon: any };
     maxId: number;
-    uniqueNames: (keyof E)[];
+    uniqueNames: Array<keyof E>;
     transforms: { [name: string]: Transform[] };
     serializableIndices: boolean;
     transactional: boolean;
-    observerCallback: (changes: { object: any }[]) => void;
+    observerCallback: (changes: Array<{ object: any }>) => void;
     getChanges: () => CollectionChange[];
     flushChanges: () => void;
     getChangeDelta: (obj: any, old?: any) => any;
@@ -1660,7 +1653,9 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      */
     public update(doc: E): E;
     public update(doc: E[]): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public update(doc: E | E[]): E | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public update(doc: E | E[]): E | void;
 
     /**
@@ -1692,7 +1687,9 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      */
     public remove(doc: number | E): E | null;
     public remove(doc: number[] | E[]): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public remove(doc: number | E | number[] | E[]): E | null | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public remove(doc: number | E | number[] | E[]): E | null | void;
 
     /*---------------------+
@@ -1818,7 +1815,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param query - 'mongo-like' query object
      * @returns Array of matching documents
      */
-    public find(query?: LokiQuery<E & LokiObj>): (E & LokiObj)[];
+    public find(query?: LokiQuery<E & LokiObj>): Array<E & LokiObj>;
 
     /**
      * Find object by unindexed field by property equal to value,
@@ -1852,7 +1849,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      * @param fun - filter function to run against all collection docs
      * @returns all documents which pass your filter function
      */
-    public where(fun: (data: E) => boolean): (E & LokiObj)[];
+    public where(fun: (data: E) => boolean): Array<E & LokiObj>;
 
     /**
      * Map Reduce operation
@@ -1899,7 +1896,7 @@ declare class Collection<E extends object> extends LokiEventEmitter {
     /**
      * a collection of objects recording the changes applied through a commmitStage
      */
-    public commitLog: { timestamp: number; message: string; data: any }[];
+    public commitLog: Array<{ timestamp: number; message: string; data: any }>;
 
     /**
      * (Staging API) create a copy of an object and insert it into a stage

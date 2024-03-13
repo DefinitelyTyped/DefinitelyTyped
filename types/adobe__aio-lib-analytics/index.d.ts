@@ -1,9 +1,3 @@
-// Type definitions for @adobe/aio-lib-analytics 3.0
-// Project: https://github.com/adobe/aio-lib-analytics
-// Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export interface Report {
     body: {
         firstPage?: boolean;

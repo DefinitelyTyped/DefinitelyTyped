@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/unique-slug",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/npm/unique-slug#readme"
+    ],
+    "devDependencies": {
+        "@types/unique-slug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

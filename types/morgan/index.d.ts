@@ -1,10 +1,3 @@
-// Type definitions for morgan 1.9
-// Project: https://github.com/expressjs/morgan
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-//                 Paolo Scanferla <https://github.com/pscanf>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import http = require("http");
@@ -140,10 +133,11 @@ declare namespace morgan {
      * notation.
      */
     function format<
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Request extends http.IncomingMessage = http.IncomingMessage,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Response extends http.ServerResponse = http.ServerResponse,
-    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    (name: string, fmt: string): Morgan<Request, Response>;
+    >(name: string, fmt: string): Morgan<Request, Response>;
 
     /**
      * Define a named custom format by specifying a format function.
@@ -160,10 +154,11 @@ declare namespace morgan {
      * Compile a format string in token notation into a format function.
      */
     function compile<
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Request extends http.IncomingMessage = http.IncomingMessage,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Response extends http.ServerResponse = http.ServerResponse,
-    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    (format: string): FormatFn<Request, Response>;
+    >(format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {
         /**

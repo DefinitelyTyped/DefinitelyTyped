@@ -1,9 +1,3 @@
-// Type definitions for jQuery.Address 1.5
-// Project: https://github.com/asual/jquery-address
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Tim Klingeleers <https://github.com/mardaneus86>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryAddressStatic {
@@ -83,7 +77,7 @@ interface JQueryAddressStatic {
     /**
      * Provides a list of all the query parameter names.
      */
-    parameterNames(): Array<string>;
+    parameterNames(): string[];
     /**
      * Provides the deep linking value without the query string and the hash fragment.
      */
@@ -95,7 +89,7 @@ interface JQueryAddressStatic {
     /**
      * Provides a list of all the folders in the deep linking path.
      */
-    pathNames(): Array<string>;
+    pathNames(): string[];
     /**
      * Provides the query string part of the deep linking value.
      */

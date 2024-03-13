@@ -1,11 +1,3 @@
-// Type definitions for braintree 3.3
-// Project: https://github.com/braintree/braintree_node
-// Definitions by: Sam Rubin <https://github.com/smrubin>
-//                 Aaron Rose <https://github.com/acdr>
-//                 Sanders DeNardi <https://github.com/sedenardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 export = braintree;

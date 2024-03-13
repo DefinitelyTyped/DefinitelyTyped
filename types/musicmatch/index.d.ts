@@ -1,8 +1,3 @@
-// Type definitions for musicmatch 0.3
-// Project: https://github.com/c0b41/musixmatch, https://www.npmjs.com/package/musicmatch
-// Definitions by: Aleksei Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type TFormat = "json" | "xml";
 export type TSort = "asc" | "desc";
 export type TBoolean = 0 | 1;

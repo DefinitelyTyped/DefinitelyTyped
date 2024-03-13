@@ -1,8 +1,3 @@
-// Type definitions for passport-lastfm 1.0
-// Project: https://github.com/kizzlebot/passport-lastfm#readme
-// Definitions by: anyo <https://github.com/nyo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Request } from "express";
 
 declare class Strategy {

@@ -1,9 +1,3 @@
-// Type definitions for ibm-openapi-validator 0.15
-// Project: https://github.com/IBM/openapi-validator#readme
-// Definitions by: Rifa Achrinza <https://github.com/achrinza>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 interface validatorResultItem {
     path: string;
     message: string;

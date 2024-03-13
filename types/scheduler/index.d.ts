@@ -1,10 +1,4 @@
-// Type definitions for scheduler 0.16
-// Project: https://reactjs.org/
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type FrameCallbackType = (didTimeout: boolean) => FrameCallbackType | void;
 export interface CallbackNode {
     callback: FrameCallbackType;

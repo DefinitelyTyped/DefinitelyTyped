@@ -1,8 +1,3 @@
-// Type definitions for node-ssh 7.0
-// Project: https://github.com/steelbrain/node-ssh
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from "ssh2";
@@ -18,6 +13,7 @@ declare namespace SSH {
         username: string;
         password?: string | undefined;
         privateKey?: string | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onKeyboardInteractive?: (() => void | boolean) | undefined;
     }
 
@@ -67,13 +63,13 @@ declare class SSH {
 
     exec(
         command: string,
-        parameters?: ReadonlyArray<string>,
+        parameters?: readonly string[],
         options?: SSH.ExecOptions & { stream?: "stdout" | "stderr" | undefined },
     ): Promise<string>;
 
     exec(
         command: string,
-        parameters?: ReadonlyArray<string>,
+        parameters?: readonly string[],
         options?: SSH.ExecOptions & { stream: "both" },
     ): Promise<SSH.ExecResult>;
 

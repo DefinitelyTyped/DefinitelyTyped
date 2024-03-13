@@ -1,12 +1,3 @@
-// Type definitions for react-instantsearch 6.12
-// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
-// Definitions by: Gordon Burgett <https://github.com/gburgett>
-//                 Justin Powell <https://github.com/jpowell>
-//                 Haroen Viaene <https://github.com/haroenv>
-//                 Samuel Vaillant <https://github.com/samouss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 
 import { BasicDoc, DynamicWidgetsExposed, Hit } from "react-instantsearch-core";
@@ -128,9 +119,9 @@ export interface SearchBoxProps extends CommonWidgetProps {
     searchAsYouType?: boolean | undefined;
     showLoadingIndicator?: boolean | undefined;
 
-    submit?: JSX.Element | undefined;
-    reset?: JSX.Element | undefined;
-    loadingIndicator?: JSX.Element | undefined;
+    submit?: React.JSX.Element | undefined;
+    reset?: React.JSX.Element | undefined;
+    loadingIndicator?: React.JSX.Element | undefined;
 
     onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
     onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;

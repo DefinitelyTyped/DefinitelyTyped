@@ -1,11 +1,3 @@
-// Type definitions for ejs 3.1
-// Project: http://ejs.co/, https://github.com/mde/ejs
-// Definitions by: Ben Liddicott <https://github.com/benliddicott>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export as namespace ejs;
 
 /**

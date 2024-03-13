@@ -1,9 +1,3 @@
-// Type definitions for cote 0.19
-// Project: https://github.com/dashersw/cote#readme
-// Definitions by: makepost <https://github.com/makepost>
-//                 Labat Robin <https://github.com/roblabat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter2 } from "eventemitter2";
 import { Server } from "http";
 import * as SocketIO from "socket.io";

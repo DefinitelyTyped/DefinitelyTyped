@@ -1,9 +1,3 @@
-// Type definitions for applest-atem 0.2
-// Project: https://github.com/applest/node-applest-atem
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,12 +1,3 @@
-// Type definitions for twig 1.12
-// Project: https://github.com/twigjs/twig.js
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
-//                 Tim Schumacher <https://github.com/enko>
-//                 Maik Tizziani <https://github.com/mtizziani>
-//                 Chris Frewin <https://github.com/princefishthrower>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
 
 interface Exports {
@@ -94,7 +85,7 @@ declare namespace Twig {
         output: RawOutput[];
     }
 
-    interface ExtendableParseContext {} // tslint:disable-line:no-empty-interface
+    interface ExtendableParseContext {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface ParseLoopContext {
         index: number;

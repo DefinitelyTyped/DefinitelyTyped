@@ -1,9 +1,3 @@
-// Type definitions for unl-core 3.0
-// Project: https://github.com/u-n-l/core-js
-// Definitions by: UNL Network B.V. <https://github.com/u-n-l>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type Direction = "N" | "S" | "E" | "W";
 
 export type ElevationType = "floor" | "heightincm";

@@ -28,9 +28,9 @@ declare namespace Adapter {
 }
 import Emitter = require('./Emitter.js');
 import AdapterDescriptor = require('./AdapterDescriptor.js');
-type Event = import('./Event');
 declare function adaptEvent(
     obj: any,
     name: string,
     adapterDescriptor: AdapterDescriptor | Record<any, any>
 ): void;
+type Event = import('./Event');

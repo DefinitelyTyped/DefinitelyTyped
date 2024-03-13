@@ -1,8 +1,3 @@
-// Type definitions for tile-reduce 3.1.1
-// Project: https://github.com/mapbox/tile-reduce
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare var mapOptions: Options;
@@ -67,14 +62,14 @@ interface Events {
 interface Options {
     map: string;
     zoom: number;
-    sources: Array<TileReduce.Source>;
+    sources: TileReduce.Source[];
     bbox?: TileReduce.BBox | undefined;
     geojson?: any;
     log?: boolean | undefined;
     mapOptions?: any;
     maxWorkers?: number | undefined;
     output?: any;
-    tiles?: Array<TileReduce.Tile> | undefined;
+    tiles?: TileReduce.Tile[] | undefined;
     tileStream?: any;
     sourceCover?: string | undefined;
 }
@@ -112,7 +107,7 @@ declare namespace TileReduce {
         name: string;
         mbtiles?: string | undefined;
         url?: string | undefined;
-        layers?: Array<string> | undefined;
+        layers?: string[] | undefined;
         maxrate?: number | undefined;
         raw?: boolean | undefined;
     }

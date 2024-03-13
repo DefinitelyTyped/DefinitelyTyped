@@ -1,8 +1,3 @@
-// Type definitions for HashMap 2.3
-// Project: https://github.com/flesler/hashmap
-// Definitions by: Rafał Wrzeszcz <https://github.com/rafalwrzeszcz>, Vasya Aksyonov <https://github.com/outring>, Edoardo Morandi <https://github.com/dodomorandi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class HashMap<TKey, TValue> {
     /**
      * Creates an empty hashmap.

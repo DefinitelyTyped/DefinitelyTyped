@@ -1,8 +1,3 @@
-// Type definitions for dialog-node 0.2
-// Project: https://github.com/bat-tomr/dialog-node
-// Definitions by: Ian MacLeod <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Information dialog with text and title and an OK button.
  *

@@ -1,9 +1,3 @@
-// Type definitions for algebra.js 0.2
-// Project: http://algebra.js.org
-// Definitions by: Federico Caselli <https://github.com/CaselIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare class Term {
     coefficients: algebra.js.Fraction[];
     variables: Variable[];

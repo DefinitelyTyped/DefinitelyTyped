@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * A class for generating plane geometries.
@@ -30,7 +30,7 @@ export class PlaneGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `PlaneGeometry`
      */
-    override readonly type: string | 'PlaneGeometry';
+    override readonly type: string | "PlaneGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

@@ -1,15 +1,11 @@
-// Type definitions for google-protobuf 3.15
-// Project: https://github.com/google/google-protobuf
-// Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
-//                 Chaitanya Kamatham <https://github.com/kamthamc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];
 type AnyFieldType = ScalarFieldType | RepeatedFieldType | Uint8Array;
 type FieldValue = string | number | boolean | Uint8Array | FieldValueArray | undefined;
 interface FieldValueArray extends Array<FieldValue> {}
+type ReadonlyFieldValue = string | number | boolean | Uint8Array | ReadonlyFieldValueArray | undefined;
+interface ReadonlyFieldValueArray extends ReadonlyArray<FieldValue> {}
 
 export abstract class Message {
     getJsPbMessageId(): string | undefined;
@@ -62,7 +58,7 @@ export abstract class Message {
     static setField(
         msg: Message,
         fieldNumber: number,
-        value: FieldValue,
+        value: ReadonlyFieldValue,
     ): void;
     static addToRepeatedField(
         msg: Message,
@@ -74,7 +70,7 @@ export abstract class Message {
         msg: Message,
         fieldNumber: number,
         oneof: number[],
-        value: FieldValue,
+        value: ReadonlyFieldValue,
     ): void;
     static computeOneofCase(msg: Message, oneof: number[]): number;
     static getWrapperField<T extends Message>(
@@ -102,7 +98,7 @@ export abstract class Message {
     static setRepeatedWrapperField<T extends Message>(
         msg: Message,
         fieldNumber: number,
-        value?: T[],
+        value?: readonly T[],
     ): void;
     static addToRepeatedWrapperField<T extends Message>(
         msg: Message,
@@ -372,56 +368,56 @@ export class BinaryWriter {
     writeGroup(field: number, value: any, writeCallback: BinaryWriteCallback): void;
     writeFixedHash64(field: number, value?: string): void;
     writeVarintHash64(field: number, value?: string): void;
-    writeRepeatedInt32(field: number, value?: number[]): void;
-    writeRepeatedInt32String(field: number, value?: string[]): void;
-    writeRepeatedInt64(field: number, value?: number[]): void;
-    writeRepeatedInt64String(field: number, value?: string[]): void;
-    writeRepeatedUint32(field: number, value?: number[]): void;
-    writeRepeatedUint32String(field: number, value?: string[]): void;
-    writeRepeatedUint64(field: number, value?: number[]): void;
-    writeRepeatedUint64String(field: number, value?: string[]): void;
-    writeRepeatedSint32(field: number, value?: number[]): void;
-    writeRepeatedSint64(field: number, value?: number[]): void;
-    writeRepeatedSint64String(field: number, value?: string[]): void;
-    writeRepeatedFixed32(field: number, value?: number[]): void;
-    writeRepeatedFixed64(field: number, value?: number[]): void;
-    writeRepeatedFixed64String(field: number, value?: string[]): void;
-    writeRepeatedSfixed32(field: number, value?: number[]): void;
-    writeRepeatedSfixed64(field: number, value?: number[]): void;
-    writeRepeatedSfixed64String(field: number, value?: string[]): void;
-    writeRepeatedFloat(field: number, value?: number[]): void;
-    writeRepeatedDouble(field: number, value?: number[]): void;
-    writeRepeatedBool(field: number, value?: boolean[]): void;
-    writeRepeatedEnum(field: number, value?: number[]): void;
-    writeRepeatedString(field: number, value?: string[]): void;
-    writeRepeatedBytes(field: number, value?: ByteSource[]): void;
-    writeRepeatedMessage(field: number, value: Message[], writerCallback: BinaryWriteCallback): void;
-    writeRepeatedGroup(field: number, value: Message[], writerCallback: BinaryWriteCallback): void;
-    writeRepeatedFixedHash64(field: number, value?: string[]): void;
-    writeRepeatedVarintHash64(field: number, value?: string[]): void;
-    writePackedInt32(field: number, value?: number[]): void;
-    writePackedInt32String(field: number, value?: string[]): void;
-    writePackedInt64(field: number, value?: number[]): void;
-    writePackedInt64String(field: number, value?: string[]): void;
-    writePackedUint32(field: number, value?: number[]): void;
-    writePackedUint32String(field: number, value?: string[]): void;
-    writePackedUint64(field: number, value?: number[]): void;
-    writePackedUint64String(field: number, value?: string[]): void;
-    writePackedSint32(field: number, value?: number[]): void;
-    writePackedSint64(field: number, value?: number[]): void;
-    writePackedSint64String(field: number, value?: string[]): void;
-    writePackedFixed32(field: number, value?: number[]): void;
-    writePackedFixed64(field: number, value?: number[]): void;
-    writePackedFixed64String(field: number, value?: string[]): void;
-    writePackedSfixed32(field: number, value?: number[]): void;
-    writePackedSfixed64(field: number, value?: number[]): void;
-    writePackedSfixed64String(field: number, value?: string[]): void;
-    writePackedFloat(field: number, value?: number[]): void;
-    writePackedDouble(field: number, value?: number[]): void;
-    writePackedBool(field: number, value?: boolean[]): void;
-    writePackedEnum(field: number, value?: number[]): void;
-    writePackedFixedHash64(field: number, value?: string[]): void;
-    writePackedVarintHash64(field: number, value?: string[]): void;
+    writeRepeatedInt32(field: number, value?: readonly number[]): void;
+    writeRepeatedInt32String(field: number, value?: readonly string[]): void;
+    writeRepeatedInt64(field: number, value?: readonly number[]): void;
+    writeRepeatedInt64String(field: number, value?: readonly string[]): void;
+    writeRepeatedUint32(field: number, value?: readonly number[]): void;
+    writeRepeatedUint32String(field: number, value?: readonly string[]): void;
+    writeRepeatedUint64(field: number, value?: readonly number[]): void;
+    writeRepeatedUint64String(field: number, value?: readonly string[]): void;
+    writeRepeatedSint32(field: number, value?: readonly number[]): void;
+    writeRepeatedSint64(field: number, value?: readonly number[]): void;
+    writeRepeatedSint64String(field: number, value?: readonly string[]): void;
+    writeRepeatedFixed32(field: number, value?: readonly number[]): void;
+    writeRepeatedFixed64(field: number, value?: readonly number[]): void;
+    writeRepeatedFixed64String(field: number, value?: readonly string[]): void;
+    writeRepeatedSfixed32(field: number, value?: readonly number[]): void;
+    writeRepeatedSfixed64(field: number, value?: readonly number[]): void;
+    writeRepeatedSfixed64String(field: number, value?: readonly string[]): void;
+    writeRepeatedFloat(field: number, value?: readonly number[]): void;
+    writeRepeatedDouble(field: number, value?: readonly number[]): void;
+    writeRepeatedBool(field: number, value?: readonly boolean[]): void;
+    writeRepeatedEnum(field: number, value?: readonly number[]): void;
+    writeRepeatedString(field: number, value?: readonly string[]): void;
+    writeRepeatedBytes(field: number, value?: readonly ByteSource[]): void;
+    writeRepeatedMessage(field: number, value: readonly Message[], writerCallback: BinaryWriteCallback): void;
+    writeRepeatedGroup(field: number, value: readonly Message[], writerCallback: BinaryWriteCallback): void;
+    writeRepeatedFixedHash64(field: number, value?: readonly string[]): void;
+    writeRepeatedVarintHash64(field: number, value?: readonly string[]): void;
+    writePackedInt32(field: number, value?: readonly number[]): void;
+    writePackedInt32String(field: number, value?: readonly string[]): void;
+    writePackedInt64(field: number, value?: readonly number[]): void;
+    writePackedInt64String(field: number, value?: readonly string[]): void;
+    writePackedUint32(field: number, value?: readonly number[]): void;
+    writePackedUint32String(field: number, value?: readonly string[]): void;
+    writePackedUint64(field: number, value?: readonly number[]): void;
+    writePackedUint64String(field: number, value?: readonly string[]): void;
+    writePackedSint32(field: number, value?: readonly number[]): void;
+    writePackedSint64(field: number, value?: readonly number[]): void;
+    writePackedSint64String(field: number, value?: readonly string[]): void;
+    writePackedFixed32(field: number, value?: readonly number[]): void;
+    writePackedFixed64(field: number, value?: readonly number[]): void;
+    writePackedFixed64String(field: number, value?: readonly string[]): void;
+    writePackedSfixed32(field: number, value?: readonly number[]): void;
+    writePackedSfixed64(field: number, value?: readonly number[]): void;
+    writePackedSfixed64String(field: number, value?: readonly string[]): void;
+    writePackedFloat(field: number, value?: readonly number[]): void;
+    writePackedDouble(field: number, value?: readonly number[]): void;
+    writePackedBool(field: number, value?: readonly boolean[]): void;
+    writePackedEnum(field: number, value?: readonly number[]): void;
+    writePackedFixedHash64(field: number, value?: readonly string[]): void;
+    writePackedVarintHash64(field: number, value?: readonly string[]): void;
 }
 
 export class BinaryEncoder {

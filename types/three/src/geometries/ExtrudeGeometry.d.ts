@@ -1,8 +1,8 @@
-import { Curve } from './../extras/core/Curve.js';
-import { Vector2 } from './../math/Vector2.js';
-import { Vector3 } from './../math/Vector3.js';
-import { Shape } from './../extras/core/Shape.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Curve } from "../extras/core/Curve.js";
+import { Shape } from "../extras/core/Shape.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
 
 export interface ExtrudeGeometryOptions {
     /**
@@ -134,7 +134,7 @@ export class ExtrudeGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `ExtrudeGeometry`
      */
-    override readonly type: string | 'ExtrudeGeometry';
+    override readonly type: string | "ExtrudeGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

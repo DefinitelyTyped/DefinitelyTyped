@@ -22,8 +22,7 @@ entity.persist(); // $ExpectType number
 entity.toJSONString(); // $ExpectType string
 entity.toJSONSchema(); // $ExpectType any
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.124";
 }
-
-testMajorVersions(70, 71); // $ExpectType boolean
+getVersion(); // $ExpectType string

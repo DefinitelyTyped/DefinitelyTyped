@@ -1,9 +1,3 @@
-// Type definitions for non-npm package MediaStreamTrack Insertable Media Processing using Streams 0.1
-// Project: https://w3c.github.io/mediacapture-transform/
-// Definitions by: Ben Wagner <https://github.com/dogben>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.2
-
 // In general, these types are only available behind a command line flag or an origin trial in
 // Chrome 90+.
 

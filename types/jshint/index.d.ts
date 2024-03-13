@@ -1,8 +1,3 @@
-// Type definitions for jshint 2.12
-// Project: https://github.com/jshint/jshint
-// Definitions by: Amin Yahyaabadi <https://github.com/aminya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface LintError {
     id: string;
     raw: string;

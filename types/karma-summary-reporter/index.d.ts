@@ -1,10 +1,3 @@
-// Type definitions for karma-summary-reporter 3.1
-// Project: https://github.com/sth/karma-summary-reporter#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-//                 Stephan Hohe <https://github.com/sth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

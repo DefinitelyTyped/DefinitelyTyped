@@ -1,9 +1,3 @@
-// Type definitions for @iarna/toml 2.0
-// Project: https://github.com/iarna/iarna-toml#readme
-// Definitions by: Klaus Meinhardt <https://github.com/ajafff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import parseAsync = require("./parse-async");
 import parseStream = require("./parse-stream");
 

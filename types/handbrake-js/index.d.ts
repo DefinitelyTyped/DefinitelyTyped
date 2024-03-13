@@ -1,8 +1,3 @@
-// Type definitions for handbrake-js 5.0
-// Project: https://github.com/75lb/handbrake-js#readme
-// Definitions by: Rémy Jeancolas <https://github.com/RemyJeancolas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,9 +1,3 @@
-// Type definitions for lambda-wrapper 0.3
-// Project: https://github.com/nordcloud/lambda-wrapper
-// Definitions by: Gaelan Steele <https://github.com/Gaelan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 import { Callback, Context, Handler } from "aws-lambda";
 
 export interface Wrapped<TEvent, TResult> {

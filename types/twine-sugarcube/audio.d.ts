@@ -839,7 +839,7 @@ export interface SimpleAudioAPI {
          *
          * @since 2.28.0
          */
-        add(trackId: string, ...sources: ReadonlyArray<string>): void;
+        add(trackId: string, ...sources: readonly string[]): void;
         /**
          * Deletes all audio tracks.
          * NOTE: Cannot delete tracks solely under the control of a playlist.
@@ -893,7 +893,7 @@ export interface SimpleAudioAPI {
          * // Set up a group ":ui" with the tracks: "ui_beep", "ui_boop", and "ui_swish"
          * SimpleAudio.groups.add(":ui", "ui_beep", "ui_boop", "ui_swish");
          */
-        add(groupId: string, ...trackIds: ReadonlyArray<string>): void;
+        add(groupId: string, ...trackIds: readonly string[]): void;
 
         /**
          * Deletes all audio groups.

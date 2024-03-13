@@ -1,9 +1,3 @@
-// Type definitions for watchify 3.11
-// Project: https://github.com/substack/watchify
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Browserify = require("browserify");
 
 declare module "browserify" {

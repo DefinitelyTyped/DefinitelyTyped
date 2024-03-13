@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { ViewHelper } from 'three/examples/jsm/helpers/ViewHelper';
+import { ViewHelper } from "three/examples/jsm/helpers/ViewHelper";
 
 const camera = new THREE.PerspectiveCamera();
 const viewHelper = new ViewHelper(camera, document.body); // $ExpectType ViewHelper
@@ -19,4 +19,4 @@ const renderer = new THREE.WebGLRenderer();
 viewHelper.render(renderer); // $ExpectType void
 viewHelper.update(0); // $ExpectType void
 viewHelper.dispose(); // $ExpectType void
-viewHelper.handleClick(new MouseEvent('click')); // $ExpectType boolean
+viewHelper.handleClick(new MouseEvent("click")); // $ExpectType boolean

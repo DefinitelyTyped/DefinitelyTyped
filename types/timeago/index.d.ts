@@ -1,9 +1,3 @@
-// Type definitions for timeago 1.6
-// Project: http://timeago.yarp.com/
-// Definitions by: Christophe Coevoet <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace Timeago {

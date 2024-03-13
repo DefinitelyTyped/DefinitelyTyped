@@ -1,12 +1,3 @@
-// Type definitions for pino-http 5.8
-// Project: https://github.com/pinojs/pino-http#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-//                 Griffin Yourick <https://github.com/tough-griff>
-//                 Jorge Barnaby <https://github.com/yorch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 import { IncomingMessage, ServerResponse } from "http";
 import { DestinationStream, Level, Logger, LoggerOptions } from "pino";
 

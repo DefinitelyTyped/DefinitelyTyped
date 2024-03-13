@@ -1,4 +1,4 @@
-import Commerce = require("@chec/commerce.js");
+import Commerce = require("../");
 import { CheckoutCapture } from "../types/checkout-capture";
 import { CheckoutCaptureResponse } from "../types/checkout-capture-response";
 import { CheckoutToken } from "../types/checkout-token";

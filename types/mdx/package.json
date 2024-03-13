@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/mdx",
+    "version": "2.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "mdx",
+    "projects": [
+        "https://github.com/mdx-js/mdx"
+    ],
+    "devDependencies": {
+        "@types/mdx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        },
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
+        }
+    ]
+}

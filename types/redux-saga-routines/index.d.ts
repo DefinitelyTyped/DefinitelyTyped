@@ -1,9 +1,3 @@
-// Type definitions for redux-saga-routines 3.1
-// Project: https://github.com/afitiskin/redux-saga-routines
-// Definitions by: Alexey Pelykh <https://github.com/alexey-pelykh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Dispatch } from "redux";
 import {
     Action,
@@ -158,17 +152,17 @@ export type PromiseCreator<TPayload = {}> = (
 
 export function promisifyRoutine<
     TTriggerActionCreator = ActionCreatorFunction,
-    TRequestActionCreator = ActionCreatorFunction,
-    TSuccessActionCreator = ActionCreatorFunction,
-    TFailureActionCreator = ActionCreatorFunction,
-    TFulfillActionCreator = ActionCreatorFunction,
+    TRequestActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TSuccessActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TFailureActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    TFulfillActionCreator = ActionCreatorFunction, // eslint-disable-line @definitelytyped/no-unnecessary-generics
 >(
     routine: Routine<
         TTriggerActionCreator,
-        TRequestActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        TSuccessActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        TFailureActionCreator, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        TFulfillActionCreator // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        TRequestActionCreator,
+        TSuccessActionCreator,
+        TFailureActionCreator,
+        TFulfillActionCreator
     >,
 ): PromiseCreator<ResolvePayloadByActionCreator<TTriggerActionCreator>>;
 

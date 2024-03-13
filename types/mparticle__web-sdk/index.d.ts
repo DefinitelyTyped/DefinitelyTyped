@@ -1,9 +1,3 @@
-// Type definitions for mParticle/web-sdk SDK 2.20
-// Project: https://github.com/mParticle/mparticle-web-sdk
-// Definitions by: Alex Sapountzis <https://github.com/asap>
-//                 Robert Ing <https://github.com/rmi22186>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
 import { Batch } from "@mparticle/event-models";
 
 // Placeholder for Dictionary-like Types

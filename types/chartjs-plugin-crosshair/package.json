@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chartjs-plugin-crosshair",
+    "version": "1.1.9999",
+    "projects": [
+        "https://chartjs-plugin-crosshair.netlify.com"
+    ],
+    "dependencies": {
+        "@types/chart.js": "*"
+    },
+    "devDependencies": {
+        "@types/chartjs-plugin-crosshair": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        }
+    ]
+}

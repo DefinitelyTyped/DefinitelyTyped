@@ -1,16 +1,3 @@
-// Type definitions for openpgp v4.4.10
-// Project: https://openpgpjs.org
-// Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Daniel Montesinos <https://github.com/damonpam>
-//                 Carlos Villavicencio <https://github.com/po5i>
-//                 Eric Camellini <https://github.com/ecamellini>
-//                 SardineFish <https://github.com/SardineFish>
-//                 Ryo Ota <https://github.com/nwtgck>
-//                 Sergey Bakulin <https://github.com/vansergen>
-//                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
-//                 Ugo Sangiorgi <https://github.com/ugosan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import BN = require("bn.js");
 import stream = require("stream");
 
@@ -2203,11 +2190,11 @@ export namespace key {
      * @param data to be parsed
      * @returns result object with key and error arrays
      */
-    function read(data: Uint8Array): Promise<{ keys: Array<Key>; err: Array<Error> | null }>;
+    function read(data: Uint8Array): Promise<{ keys: Key[]; err: Error[] | null }>;
 
     interface KeyResult {
-        keys: Array<Key>;
-        err: Array<Error> | null;
+        keys: Key[];
+        err: Error[] | null;
     }
 
     /**
@@ -4941,7 +4928,7 @@ export namespace wkd {
          */
         lookup(
             options: { email: string; rawBytes?: boolean | undefined },
-        ): Promise<Uint8Array | { keys: Array<key.Key>; err: Array<Error> | null }>;
+        ): Promise<Uint8Array | { keys: key.Key[]; err: Error[] | null }>;
     }
 }
 
@@ -5106,7 +5093,7 @@ export interface KeyOptions {
      * (optional) options for each subkey, default to main key options. e.g. [ {sign: true, passphrase: '123'}]
      *            sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
      */
-    subkeys?: { sign: true; passphrase: string }[] | undefined;
+    subkeys?: Array<{ sign: true; passphrase: string }> | undefined;
 }
 
 /**
@@ -5300,7 +5287,7 @@ export interface DecryptOptions {
     /**
      * (optional) session keys in the form: { data:Uint8Array, algorithm:String }
      */
-    sessionKeys?: { data: Uint8Array; algorithm: string } | { data: Uint8Array; algorithm: string }[] | undefined;
+    sessionKeys?: { data: Uint8Array; algorithm: string } | Array<{ data: Uint8Array; algorithm: string }> | undefined;
     /**
      * (optional) array of public keys or single key, to verify signatures
      */
@@ -5326,11 +5313,11 @@ export interface DecryptOptions {
 export interface DecryptResult {
     data: string | ReadableStream<String> | NodeStream | Uint8Array | ReadableStream<Uint8Array>;
     filename: string;
-    signatures: {
+    signatures: Array<{
         keyid: type.keyid.Keyid;
         verified: Promise<Boolean>;
         valid: boolean;
-    }[];
+    }>;
 }
 
 /**
@@ -5449,11 +5436,11 @@ export interface VerifyOptions {
 
 export interface VerifyResult {
     data: string | ReadableStream<String> | NodeStream | Uint8Array | ReadableStream<Uint8Array> | NodeStream;
-    signatures: {
+    signatures: Array<{
         keyid: type.keyid.Keyid;
         verified: Promise<Boolean>;
         valid: boolean;
-    }[];
+    }>;
 }
 
 /**
@@ -5512,7 +5499,7 @@ export function decryptSessionKeys(
     message: message.Message,
     privateKeys?: key.Key | key.Key[],
     passwords?: string | string[],
-): Promise<{ data: Uint8Array; algorithm: string }[] | undefined>;
+): Promise<Array<{ data: Uint8Array; algorithm: string }> | undefined>;
 
 /**
  * Input validation

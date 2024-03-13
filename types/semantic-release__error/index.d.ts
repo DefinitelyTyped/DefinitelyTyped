@@ -1,9 +1,3 @@
-// Type definitions for @semantic-release/error 3.0
-// Project: https://github.com/semantic-release/error
-// Definitions by: Alex Mendes <https://github.com/alexandermendes>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Error type used by all [semantic-release](https://github.com/semantic-release/semantic-release) packages.
  *

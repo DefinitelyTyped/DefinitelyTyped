@@ -1,8 +1,3 @@
-// Type definitions for ffbinaries 1.1
-// Project: https://ffbinaries.com
-// Definitions by: Andrew Branch <https://github.com/andrewbranch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Component = "ffmpeg" | "ffprobe" | "ffserver" | "ffplay";
 export interface LocateResultFound {
     found: true;

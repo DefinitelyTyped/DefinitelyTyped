@@ -1,7 +1,3 @@
-// Type definitions for react-native-typewriter 0.7
-// Project: https://github.com/TaylorBriggs/react-native-typewriter
-// Definitions by: Andréas "ScreamZ" HANSS <https://github.com/ScreamZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import React = require("react");
 import { TextProps } from "react-native";
 

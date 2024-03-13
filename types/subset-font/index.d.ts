@@ -1,8 +1,3 @@
-// Type definitions for subset-font 1.4
-// Project: https://github.com/papandreou/subset-font
-// Definitions by: Logan Graham <https://github.com/omacranger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

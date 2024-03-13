@@ -1,9 +1,3 @@
-// Type definitions for leaflet.pattern 0.1
-// Project: https://github.com/pixelizedPeanut/Leaflet.pattern#leafletpattern
-// Definitions by: Maarten Paauw <https://github.com/maartenpaauw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

@@ -1,9 +1,3 @@
-// Type definitions for write 2.0
-// Project: https://github.com/jonschlinkert/write
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 import * as fs from "fs";
 

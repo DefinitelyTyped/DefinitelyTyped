@@ -1,8 +1,3 @@
-// Type definitions for dkim-signer 0.2
-// Project: https://github.com/andris9/dkim-signer
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as crypto from "crypto";

@@ -1,7 +1,3 @@
-// Type definitions for node-isbn 1.6
-// Project: https://github.com/palmerabollo/node-isbn#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { AxiosRequestConfig } from "axios";
 

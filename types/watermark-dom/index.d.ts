@@ -1,8 +1,3 @@
-// Type definitions for watermark-dom 2.3
-// Project: https://github.com/saucxs/watermark-dom
-// Definitions by: shenhaoliang <https://github.com/shlroland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace watermark;
 export interface Settings {
     /**

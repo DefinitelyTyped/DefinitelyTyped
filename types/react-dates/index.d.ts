@@ -1,13 +1,3 @@
-// Type definitions for react-dates 21.8
-// Project: https://github.com/airbnb/react-dates
-// Definitions by: Artur Ampilogov <https://github.com/ArturAmpilogov>
-//                 Nathan Holland <https://github.com/NathanNZ>
-//                 Chris Griebel <https://github.com/cgriebel>
-//                 Jason Unger <https://github.com/jsonunger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// Required fields are made according to 'minimum REQUIRED setup' in https://github.com/airbnb/react-dates/blob/master/README.md
-
 import * as moment from "moment";
 import * as React from "react";
 import { Props as ReactOutsideClickHandlerProps } from "react-outside-click-handler";

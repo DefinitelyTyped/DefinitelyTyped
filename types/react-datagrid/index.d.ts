@@ -1,9 +1,3 @@
-// Type definitions for react-datagrid 1.2.15
-// Project: https://github.com/zippyui/react-datagrid.git
-// Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react"/>
 
 import * as React from "react";
@@ -11,9 +5,8 @@ import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 
 declare namespace ReactDataGrid {
-    interface DataGridProps {
+    interface DataGridProps extends React.RefAttributes<DataGrid> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<DataGrid> | undefined;
 
         /**
          * Array/String/Function/Promise - for local data, an array of object

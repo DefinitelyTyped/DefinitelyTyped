@@ -1,9 +1,3 @@
-// Type definitions for @feathersjs/authentication-oauth1 1.0
-// Project: https://feathersjs.com
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Application, Paginated } from "@feathersjs/feathers";
 import { Request } from "express";
 // eslint-disable-next-line @definitelytyped/no-self-import

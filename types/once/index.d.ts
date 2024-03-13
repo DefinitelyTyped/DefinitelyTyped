@@ -1,9 +1,3 @@
-// Type definitions for once 1.4
-// Project: https://github.com/isaacs/once
-// Definitions by: Denis Sokolov <https://github.com/denis-sokolov>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = once;
 
 declare const once: Once;
@@ -51,7 +45,7 @@ declare namespace once {
 
 declare global {
     interface Function {
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         once(): Function & once.FnProps<any>;
     }
 }

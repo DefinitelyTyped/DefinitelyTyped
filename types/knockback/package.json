@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/knockback",
+    "version": "0.0.9999",
+    "projects": [
+        "http://kmalakoff.github.com/knockback"
+    ],
+    "dependencies": {
+        "@types/backbone": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockback": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

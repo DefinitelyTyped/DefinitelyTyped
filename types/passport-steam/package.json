@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-steam",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/liamcurry/passport-steam"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-steam": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas D.",
+            "githubUsername": "nordowl"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/chai-as-promised",
+    "version": "7.1.9999",
+    "projects": [
+        "https://github.com/domenic/chai-as-promised/"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-as-promised": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        },
+        {
+            "name": "Yuki Kokubun",
+            "githubUsername": "Kuniwak"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Mike Lazer-Walker",
+            "githubUsername": "lazerwalker"
+        },
+        {
+            "name": "Matt Bishop",
+            "githubUsername": "mattbishop"
+        },
+        {
+            "name": "William Orr",
+            "githubUsername": "worr"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/component-core 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/component-core
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import ComponentCls = require("./lib/Component");
 import xmppXml = require("@xmpp/xml");
 import xmppJid = require("@xmpp/jid");

@@ -32,22 +32,22 @@ declare function flat<U>(receiver: U[][][][][][], depth: 5): U[];
  */
 declare function flat<U>(
     receiver:
-        | ReadonlyArray<U[][][][]>
-        | ReadonlyArray<ReadonlyArray<U[][][]>>
-        | ReadonlyArray<Array<ReadonlyArray<U[][]>>>
-        | ReadonlyArray<Array<Array<ReadonlyArray<U[]>>>>
-        | ReadonlyArray<Array<Array<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<U[][]>>>
-        | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U[]>>>>
-        | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U[]>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U[]>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>>
-        | ReadonlyArray<Array<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>>,
+        | readonly U[][][][][]
+        | ReadonlyArray<readonly U[][][][]>
+        | ReadonlyArray<Array<readonly U[][][]>>
+        | ReadonlyArray<Array<Array<readonly U[][]>>>
+        | ReadonlyArray<Array<Array<Array<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<readonly U[][][]>>
+        | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<Array<readonly U[][]>>>
+        | ReadonlyArray<ReadonlyArray<Array<readonly U[][]>>>
+        | ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[][]>>>
+        | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>>
+        | ReadonlyArray<Array<ReadonlyArray<ReadonlyArray<readonly U[]>>>>
+        | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[]>>>>,
     depth: 4,
 ): U[];
 
@@ -59,14 +59,14 @@ declare function flat<U>(
  */
 declare function flat<U>(
     receiver:
-        | ReadonlyArray<U[][][]>
-        | ReadonlyArray<Array<Array<ReadonlyArray<U>>>>
-        | ReadonlyArray<Array<ReadonlyArray<U[]>>>
-        | ReadonlyArray<ReadonlyArray<U[][]>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<U[]>>>
-        | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>
-        | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>,
+        | readonly U[][][][]
+        | ReadonlyArray<Array<Array<readonly U[]>>>
+        | ReadonlyArray<Array<readonly U[][]>>
+        | ReadonlyArray<readonly U[][][]>
+        | ReadonlyArray<ReadonlyArray<readonly U[][]>>
+        | ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>
+        | ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>
+        | ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[]>>>,
     depth: 3,
 ): U[];
 
@@ -78,10 +78,10 @@ declare function flat<U>(
  */
 declare function flat<U>(
     receiver:
-        | ReadonlyArray<U[][]>
-        | ReadonlyArray<ReadonlyArray<U[]>>
-        | ReadonlyArray<Array<ReadonlyArray<U>>>
-        | ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>,
+        | readonly U[][][]
+        | ReadonlyArray<readonly U[][]>
+        | ReadonlyArray<Array<readonly U[]>>
+        | ReadonlyArray<ReadonlyArray<readonly U[]>>,
     depth: 2,
 ): U[];
 
@@ -91,7 +91,7 @@ declare function flat<U>(
  *
  * @param depth The maximum recursion depth
  */
-declare function flat<U>(receiver: ReadonlyArray<U[]> | ReadonlyArray<ReadonlyArray<U>>, depth?: 1): U[];
+declare function flat<U>(receiver: readonly U[][] | ReadonlyArray<readonly U[]>, depth?: 1): U[];
 
 /**
  * Returns a new array with all sub-array elements concatenated into it recursively up to the
@@ -99,7 +99,7 @@ declare function flat<U>(receiver: ReadonlyArray<U[]> | ReadonlyArray<ReadonlyAr
  *
  * @param depth The maximum recursion depth
  */
-declare function flat<U>(receiver: ReadonlyArray<U>, depth: 0): U[];
+declare function flat<U>(receiver: readonly U[], depth: 0): U[];
 
 /**
  * Returns a new array with all sub-array elements concatenated into it recursively up to the
@@ -107,6 +107,6 @@ declare function flat<U>(receiver: ReadonlyArray<U>, depth: 0): U[];
  *
  * @param depth The maximum recursion depth
  */
-declare function flat(receiver: ReadonlyArray<any>, depth?: number): any[];
+declare function flat(receiver: readonly any[], depth?: number): any[];
 
 export = flat;

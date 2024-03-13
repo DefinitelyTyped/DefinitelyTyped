@@ -1,8 +1,3 @@
-// Type definitions for contrast-color 1.0
-// Project: https://github.com/busterc/contrast-color#readme
-// Definitions by: Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A hex color code
  * @example "#ff0000"

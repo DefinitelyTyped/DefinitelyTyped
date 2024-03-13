@@ -1,8 +1,3 @@
-// Type definitions for iterate-object 1.3
-// Project: https://github.com/IonicaBizau/node-iterate-object
-// Definitions by: Jimmy Cuadra <https://github.com/jimmycuadra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = iterateObject;
 
 type ArrayEntries<T extends unknown[], N extends 1 | 2 | 3> = {

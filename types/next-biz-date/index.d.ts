@@ -1,8 +1,3 @@
-// Type definitions for next-biz-date 2.1
-// Project: https://github.com/janunezc/next-biz-date#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Moment } from "moment";
 /**
  * Returns the next applicable business day for a given candidate day.

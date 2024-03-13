@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-currency-formatter",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/xdae/react-currency-formatter"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-currency-formatter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yury Pastushenko",
+            "githubUsername": "pastushenkoy"
+        },
+        {
+            "name": "Evgeniy Vasiliev",
+            "githubUsername": "Jeka-Vasiliev"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for node-gettext 3.0
-// Project: https://github.com/alexanderwallin/node-gettext
-// Definitions by: Sameer K.C. <https://github.com/sameercaresu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 export = GetText;
 declare class GetText {
     static getLanguageCode(locale: string): string;

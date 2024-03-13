@@ -1,11 +1,5 @@
-// Type definitions for @rdfjs/serializer-jsonld 2.0
-// Project: https://github.com/rdfjs-base/serializer-jsonld
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-//                 tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { BaseQuad, Quad, Sink, Stream } from "rdf-js";
 
 export interface SerializerOptions {
     encoding?: "string" | "object" | undefined;

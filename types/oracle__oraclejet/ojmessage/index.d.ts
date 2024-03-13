@@ -55,11 +55,11 @@ export namespace ojMessage {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DisplayOptions = {
         category?: "header" | "none" | "auto" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Message = {
         icon?: string | undefined;
         category?: string | undefined;

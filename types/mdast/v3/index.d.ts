@@ -1,12 +1,3 @@
-// Type definitions for Mdast 3.0
-// Project: https://github.com/syntax-tree/mdast, https://github.com/wooorm/mdast
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-//                 Jun Lu <https://github.com/lujun2>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Titus Wormer <https://github.com/wooorm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Literal as UnistLiteral, Node, Parent as UnistParent } from "unist";
 
 export type AlignType = "left" | "right" | "center" | null;

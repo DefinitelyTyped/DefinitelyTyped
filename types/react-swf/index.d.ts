@@ -1,9 +1,3 @@
-// Type definitions for react-swf
-// Project: https://github.com/syranide/react-swf
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 export as namespace ReactSWF;
 declare const self: typeof rswf.ReactSWF;

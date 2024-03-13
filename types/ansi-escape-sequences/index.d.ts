@@ -1,9 +1,3 @@
-// Type definitions for ansi-escape-sequences 4.0
-// Project: https://github.com/75lb/ansi-escape-sequences#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export type Style =
     | "reset"
     | "bold"
@@ -58,7 +52,7 @@ export const style: { [K in Style]: string };
  * > ansi.styles([ 'green', 'underline' ])
  * '\u001b[32;4m'
  */
-export function styles(styles: Style | ReadonlyArray<Style>): string;
+export function styles(styles: Style | readonly Style[]): string;
 
 /**
  * A convenience function, applying the provided styles to the input string and
@@ -84,7 +78,7 @@ export function styles(styles: Style | ReadonlyArray<Style>): string;
  */
 export function format(
     str: string,
-    styles?: Style | ReadonlyArray<Style>,
+    styles?: Style | readonly Style[],
 ): string;
 
 /**

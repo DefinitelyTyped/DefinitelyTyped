@@ -1,9 +1,3 @@
-// Type definitions for shevyjs 1.1
-// Project: https://github.com/kyleshevlin/shevyjs#readme
-// Definitions by: nonAlgebraic <https://github.com/nonAlgebraic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Factor, Options, RhythmProperties } from "./types";
 import { getFontScale, getFontUnit } from "./utils";
 

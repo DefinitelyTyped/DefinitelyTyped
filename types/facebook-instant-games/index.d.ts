@@ -1,10 +1,3 @@
-// Type definitions for non-npm package facebook-instant-games 7.1
-// Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
-//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>
-//                 Alex A. Yermoshenko <https://github.com/doterax>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top level namespace for the Instant Games SDK.
  */
@@ -797,6 +790,7 @@ declare namespace FBInstant {
          * @throws INVALID_PARAM
          * @throws NETWORK_FAILURE
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         getStatsAsync(keys?: string[]): Promise<StatsObject>;
 
@@ -811,6 +805,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         setStatsAsync(stats: StatsObject): Promise<void>;
 
@@ -826,6 +821,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         incrementStatsAsync(increments: IncrementObject): Promise<StatsObject>;
 
@@ -2140,22 +2136,34 @@ declare namespace FBInstant {
 
     type ErrorCodeType =
         | "ADS_FREQUENT_LOAD"
-        | "ADS_NO_FILL"
         | "ADS_NOT_LOADED"
+        | "ADS_NO_FILL"
         | "ADS_TOO_MANY_INSTANCES"
+        | "ARENAS_NOT_FOUND"
         | "ANALYTICS_POST_EXCEPTION"
+        | "CAMERA_EFFECT_NOT_FOUND"
         | "CLIENT_REQUIRES_UPDATE"
         | "CLIENT_UNSUPPORTED_OPERATION"
+        | "DUPLICATE_POST"
+        | "GAMING_SQUAD_NOT_FOUND"
+        | "GROUP_NOT_LINKED"
         | "INVALID_OPERATION"
         | "INVALID_PARAM"
         | "LEADERBOARD_NOT_FOUND"
         | "LEADERBOARD_WRONG_CONTEXT"
+        | "LIVE_MATCH_NOT_FOUND"
+        | "LIVE_STREAMS_NOT_FOUND"
         | "NETWORK_FAILURE"
+        | "PAGE_NOT_LINKED"
+        | "PAYMENTS_NOT_INITIALIZED"
+        | "PAYMENTS_OPERATION_FAILURE"
         | "PENDING_REQUEST"
         | "RATE_LIMITED"
         | "SAME_CONTEXT"
+        | "TOURNAMENT_NOT_FOUND"
         | "UNKNOWN"
-        | "USER_INPUT";
+        | "USER_INPUT"
+        | "VIDEO_NOT_FOUND";
 
     /**
      * A function that will get called when user requested to capture a screenshot.

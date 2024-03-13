@@ -1,8 +1,3 @@
-// Type definitions for css-selector-tokenizer 0.7
-// Project: https://github.com/css-modules/css-selector-tokenizer
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BaseNode {
     name?: string | undefined;
     before?: string | undefined;

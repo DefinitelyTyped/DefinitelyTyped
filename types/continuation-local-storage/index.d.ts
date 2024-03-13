@@ -1,11 +1,3 @@
-// Type definitions for continuation-local-storage 3.2
-// Project: https://github.com/othiym23/node-continuation-local-storage
-// Definitions by: Jang-Ho Hwang <https://github.com/rath>
-//                 Kei Son <https://github.com/heycalmdown>
-//                 Dmitry Kudryavtsev <https://github.com/skwee357>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export type Context = {

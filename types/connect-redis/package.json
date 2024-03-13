@@ -1,7 +1,32 @@
 {
     "private": true,
+    "name": "@types/connect-redis",
+    "version": "0.0.9999",
+    "projects": [
+        "https://npmjs.com/package/connect-redis"
+    ],
     "dependencies": {
-        "ioredis": "^5.3.0",
-        "@types/redis": "^2.8.0"
-    }
+        "@types/express": "*",
+        "@types/express-session": "*",
+        "@types/node": "*",
+        "@types/redis": "^2.8.0",
+        "ioredis": "^5.3.0"
+    },
+    "devDependencies": {
+        "@types/connect-redis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xavier Stouder",
+            "githubUsername": "xstoudi"
+        },
+        {
+            "name": "Seth Butler",
+            "githubUsername": "sbutler2901"
+        },
+        {
+            "name": "Jip Sterk",
+            "githubUsername": "JipSterk"
+        }
+    ]
 }

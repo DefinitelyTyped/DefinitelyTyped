@@ -1,8 +1,3 @@
-// Type definitions for imagemin-zopfli 7.0
-// Project: https://github.com/imagemin/imagemin-zopfli
-// Definitions by: Marius Metzger <https://github.com/crushedpixel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Plugin } from "imagemin";
 
 declare function imageminZopfli(options?: imageminZopfli.Options): Plugin;

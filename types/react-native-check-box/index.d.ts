@@ -1,8 +1,3 @@
-// Type definitions for react-native-check-box 2.1
-// Project: https://github.com/crazycodeboy/react-native-check-box#readme
-// Definitions by: Rodolphe Lemasquerier <https://github.com/rlemasquerier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 

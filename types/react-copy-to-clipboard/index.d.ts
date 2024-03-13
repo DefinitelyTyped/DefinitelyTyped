@@ -1,10 +1,3 @@
-// Type definitions for react-copy-to-clipboard 5.0
-// Project: https://github.com/nkbt/react-copy-to-clipboard
-// Definitions by: Meno Abels <https://github.com/mabels>
-//                 Bernabe <https://github.com/BernabeFelix>
-//                 Ward Delabastita <https://github.com/wdlb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export as namespace CopyToClipboard;

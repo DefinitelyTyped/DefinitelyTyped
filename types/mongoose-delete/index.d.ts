@@ -1,9 +1,3 @@
-// Type definitions for mongoose-delete 1.0
-// Project: https://github.com/dsanel/mongoose-delete
-// Definitions by: Mochamad Arifin <https://github.com/ndunks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import mongoose = require("mongoose");
 
 /**
@@ -14,7 +8,6 @@ declare namespace MongooseDelete {
         (this: THIS, err: any, doc: T): void;
     }
     type overridableMethods =
-        | "count"
         | "countDocuments"
         | "find"
         | "findOne"
@@ -26,10 +19,6 @@ declare namespace MongooseDelete {
     interface SoftDeleteModel<T extends Omit<mongoose.Document, "delete">, QueryHelpers = {}>
         extends mongoose.Model<T, QueryHelpers>
     {
-        /** Count only deleted documents */
-        countDeleted: this["count"];
-        /** Count all documents including deleted */
-        countWithDeleted: this["count"];
         /** Count only deleted documents */
         countDocumentsDeleted: this["countDocuments"];
         /** Count all documents including deleted */

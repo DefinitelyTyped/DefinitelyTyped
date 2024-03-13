@@ -1,13 +1,3 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9.5
-// Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>,
-//                 Salim <https://github.com/salim7>,
-//                 Jemmyw <https://github.com/jemmyw>
-//                 Yuji Tabata <https://github.com/uztbt>
-//                 LBLZR_ <https://github.com/LaBlazer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
@@ -135,7 +125,7 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(route: any, navigator?: Navigator): JSX.Element;
+    renderPage(route: any, navigator?: Navigator): React.JSX.Element;
     initialRouteStack?: string[] | undefined;
     initialRoute?: any;
     onPrePush?(): void;
@@ -156,7 +146,7 @@ export class Navigator extends Component<{
 // Still incomplete, see https://onsen.io/v2/api/react/RouterNavigator.html
 export class RouterNavigator extends Component<{
     routeConfig: any;
-    renderPage(route: any, navigator?: Navigator): JSX.Element;
+    renderPage(route: any, navigator?: Navigator): React.JSX.Element;
     swipeable?: boolean | "force" | undefined;
     swipePop?: (() => void) | undefined;
     swipeTargetWidth?: number | undefined;
@@ -446,8 +436,8 @@ export class TabActive extends Component {}
 export class TabInactive extends Component {}
 
 export interface TabbarRenderTab {
-    content: JSX.Element;
-    tab: JSX.Element;
+    content: React.JSX.Element;
+    tab: React.JSX.Element;
 }
 
 export class Tabbar extends Component<{
@@ -479,9 +469,9 @@ export class LazyList extends Component<{
 export class List<T> extends Component<{
     modifier?: string | undefined;
     dataSource?: T[] | undefined;
-    renderRow?(row: T, index?: number): JSX.Element | undefined;
-    renderFooter?(): JSX.Element | undefined;
-    renderHeader?(): JSX.Element | undefined;
+    renderRow?(row: T, index?: number): React.JSX.Element | undefined;
+    renderFooter?(): React.JSX.Element | undefined;
+    renderHeader?(): React.JSX.Element | undefined;
 }, any> {}
 
 export class ListHeader extends Component<{

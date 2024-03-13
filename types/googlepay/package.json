@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "name": "@types/googlepay",
+    "version": "0.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Pay API",
+    "projects": [
+        "https://developers.google.com/pay/api/web/"
+    ],
+    "devDependencies": {
+        "@types/googlepay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Luccioni",
+            "githubUsername": "Fluccioni"
+        },
+        {
+            "name": "Radu Raicea",
+            "githubUsername": "Radu-Raicea"
+        },
+        {
+            "name": "Filip Stanis",
+            "githubUsername": "fstanis"
+        },
+        {
+            "name": "Sergi Ferriz",
+            "githubUsername": "mumpo"
+        },
+        {
+            "name": "Soc Sieng",
+            "githubUsername": "socsieng"
+        },
+        {
+            "name": "Jose L Ugia",
+            "githubUsername": "JlUgia"
+        },
+        {
+            "name": "Dominik Mengelt",
+            "githubUsername": "dmengelt"
+        }
+    ]
+}

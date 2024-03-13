@@ -1,11 +1,3 @@
-// Type definitions for convert-units 2.3
-// Project: https://github.com/ben-ng/convert-units#readme
-// Definitions by: vladkampov <https://github.com/vladkampov>
-//                 ben-ng <https://github.com/ben-ng>
-//                 Toby Bell <https://github.com/tobybell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare namespace convert {
     type Distance = "mm" | "cm" | "m" | "km" | "in" | "ft-us" | "ft" | "yd" | "mi"; // Distance
     type Area = "mm2" | "cm2" | "m2" | "ha" | "km2" | "in2" | "ft2" | "ac" | "mi2"; // Area

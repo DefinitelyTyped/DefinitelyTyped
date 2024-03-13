@@ -1,8 +1,3 @@
-// Type definitions for json-api-serializer 2.6
-// Project: https://github.com/danivek/json-api-serializer#readme
-// Definitions by: Emric <https://github.com/Istanful>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace JSONAPISerializer {
     type TypeCallback = (
         relationshipData: { [key: string]: RelationshipOptions },

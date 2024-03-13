@@ -1,26 +1,8 @@
-// Type definitions for Enzyme 3.10
-// Project: https://github.com/airbnb/enzyme
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>
-//                 Cap3 <http://www.cap3.de>
-//                 Ivo Stratev <https://github.com/NoHomey>
-//                 jwbay <https://github.com/jwbay>
-//                 huhuanming <https://github.com/huhuanming>
-//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
-//                 Torgeir Hovden <https://github.com/thovden>
-//                 Martin Hochel <https://github.com/hotell>
-//                 Christian Rackerseder <https://github.com/screendriver>
-//                 Mateusz Sokoła <https://github.com/mateuszsokola>
-//                 Braiden Cutforth <https://github.com/braidencutforth>
-//                 Erick Zhao <https://github.com/erickzhao>
-//                 Jack Tomaszewski <https://github.com/jtomaszewski>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="cheerio" />
 import {
     AllHTMLAttributes as ReactHTMLAttributes,
     Component,
+    JSX,
     ReactElement,
     SVGAttributes as ReactSVGAttributes,
 } from "react";
@@ -108,7 +90,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     invoke<
         K extends NonNullable<
             {
-                [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
+                [K in keyof P]-?: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
             }[keyof P]
         >,
     >(

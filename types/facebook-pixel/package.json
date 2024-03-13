@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/facebook-pixel",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "facebook-pixel",
+    "projects": [
+        "https://developers.facebook.com/docs/ads-for-websites/tag-api/"
+    ],
+    "devDependencies": {
+        "@types/facebook-pixel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Noctis Hsu",
+            "githubUsername": "noctishsu"
+        },
+        {
+            "name": "Victor Hom",
+            "githubUsername": "VictorHom"
+        },
+        {
+            "name": "BC Choi",
+            "githubUsername": "ninpeng"
+        }
+    ]
+}

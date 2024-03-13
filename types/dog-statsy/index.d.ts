@@ -1,8 +1,3 @@
-// Type definitions for dog-statsy 1.3
-// Project: https://github.com/segmentio/dog-statsy#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as dgram from "node:dgram";

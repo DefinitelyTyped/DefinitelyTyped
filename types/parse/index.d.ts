@@ -1,27 +1,3 @@
-// Type definitions for parse 3.0
-// Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                 David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                 Cedric Kemp <https://github.com/jaeggerr>
-//                 Flavio Negrão <https://github.com/flavionegrao>
-//                 Wes Grimes <https://github.com/wesleygrimes>
-//                 Otherwise SAS <https://github.com/owsas>
-//                 Andrew Goldis <https://github.com/agoldis>
-//                 Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                 Diamond Lewis <https://github.com/dplewis>
-//                 Jong Eun Lee <https://github.com/yomybaby>
-//                 Colin Ulin <https://github.com/pocketcolin>
-//                 Robert Helms <https://github.com/rdhelms>
-//                 Julien Quere <https://github.com/jlnquere>
-//                 Thibault MOCELLIN <https://github.com/tybi>
-//                 Jeff Gu Kang <https://github.com/jeffgukang>
-//                 Bui Tan Loc <https://github.com/buitanloc>
-//                 Jerome De Leon <https://github.com/JeromeDeLeon>
-//                 Kent Robin Haugen <https://github.com/kentrh>
-//                 Switt Kongdachalert <https://github.com/swittk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
 /// <reference path="react-native.d.ts" />
@@ -1571,8 +1547,8 @@ declare global {
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
-            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
-            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
+            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
@@ -1625,6 +1601,7 @@ declare global {
             ): void;
             function beforeFind<T extends Object = Object>(
                 arg1: { new(): T } | string,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1645,6 +1622,7 @@ declare global {
             ): void;
 
             function beforeSaveFile(
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: FileTriggerRequest) => PromiseLike<File> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;

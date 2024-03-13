@@ -1,8 +1,3 @@
-// Type definitions for better-curry
-// Project: https://github.com/pocesar/js-bettercurry
-// Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var BetterCurry: BetterCurryModule.BetterCurry;
 
 declare namespace BetterCurryModule {
@@ -46,7 +41,7 @@ declare namespace BetterCurryModule {
             len?: number,
             checkArguments?: boolean,
         ) => OriginalFunctionReminder<T>;
-        flatten: (...args: Array<Array<any> | any>) => any[];
+        flatten: (...args: Array<any[] | any>) => any[];
         delegate: <T>(proto: T, target: string) => Delegate<T>;
         MAX_OPTIMIZED: number;
     }

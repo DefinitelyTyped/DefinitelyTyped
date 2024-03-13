@@ -1,20 +1,3 @@
-// Type definitions for pubnub 7.3
-// Project: https://github.com/pubnub/javascript
-// Definitions by:  bitbankinc <https://github.com/bitbankinc>,
-//                  rollymaduk <https://github.com/rollymaduk>,
-//                  vitosamson <https://github.com/vitosamson>,
-//                  FlorianDr <https://github.com/FlorianDr>,
-//                  danduh <https://github.com/danduh>,
-//                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
-//                  divyun <https://github.com/divyun>
-//                  elviswolcott <https://github.com/elviswolcott>
-//                  mohitpubnub <https://github.com/mohitpubnub>
-//                  Salet <https://github.com/Salet>
-//                  elvis-pn <https://github.com/elvis-pn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
-// TypeScript Version: 3.5
-
 // SDK callbacks all accept Pubnub.PubnubStatus as the first argument
 type Callback<ResponseType> = (status: Pubnub.PubnubStatus, response: ResponseType) => void;
 type StatusCallback = (status: Pubnub.PubnubStatus) => void;
@@ -40,6 +23,10 @@ declare class Pubnub {
     static OPERATIONS: Pubnub.Operations;
 
     static generateUUID(): string;
+
+    static LinearRetryPolicy: typeof Pubnub.RetryPolicy.LinearRetryPolicy;
+
+    static ExponentialRetryPolicy: typeof Pubnub.RetryPolicy.ExponentialRetryPolicy;
 
     static notificationPayload(title: string, body: string): Pubnub.NotificationsPayload;
 
@@ -353,13 +340,15 @@ declare namespace Pubnub {
         heartbeatInterval?: number | undefined;
         restore?: boolean | undefined;
         keepAlive?: boolean | undefined;
-        keepAliveSettings?: {
-            keepAliveMsecs?: number | undefined;
-            freeSocketKeepAliveTimeout?: number | undefined;
-            timeout?: number | undefined;
-            maxSockets?: number | undefined;
-            maxFreeSockets?: number | undefined;
-        } | undefined;
+        keepAliveSettings?:
+            | {
+                keepAliveMsecs?: number | undefined;
+                freeSocketKeepAliveTimeout?: number | undefined;
+                timeout?: number | undefined;
+                maxSockets?: number | undefined;
+                maxFreeSockets?: number | undefined;
+            }
+            | undefined;
         subscribeRequestTimeout?: number | undefined;
         suppressLeaveEvents?: boolean | undefined;
         secretKey?: string | undefined;
@@ -368,7 +357,10 @@ declare namespace Pubnub {
         listenToBrowserNetworkEvents?: boolean | undefined;
         useRandomIVs?: boolean | undefined;
         dedupeOnSubscribe?: boolean | undefined;
-        enableSubscribeBeta?: boolean | undefined;
+        cryptoModule?: CryptoModule | undefined;
+        retryConfiguration?: RetryPolicyConfiguration | undefined;
+        enableEventEngine?: boolean | undefined;
+        maintainPresenceState?: boolean | undefined;
     };
 
     interface MessageEvent {
@@ -377,6 +369,7 @@ declare namespace Pubnub {
         timetoken: string;
         message: any;
         publisher: string;
+        error?: string | undefined;
 
         /**
          * deprecated:
@@ -613,9 +606,12 @@ declare namespace Pubnub {
                 timetoken: string | number;
                 messageType?: string | number | undefined;
                 uuid?: string | undefined;
-                meta?: {
-                    [key: string]: any;
-                } | undefined;
+                error?: string | undefined;
+                meta?:
+                    | {
+                        [key: string]: any;
+                    }
+                    | undefined;
                 actions: {
                     [type: string]: {
                         [value: string]: Array<{
@@ -672,11 +668,15 @@ declare namespace Pubnub {
         channels: string[];
         device: string;
         pushGateway: string;
+        environment?: string;
+        topic?: string;
     }
 
     interface PushDeviceParameters {
         device: string;
         pushGateway: string;
+        environment?: string;
+        topic?: string;
     }
 
     interface PushListChannelsResponse {
@@ -857,30 +857,44 @@ declare namespace Pubnub {
         ttl: number;
         authorized_uuid?: string | undefined;
         resources?: {
-            channels?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
-            groups?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
-            uuids?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
+            channels?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
+            groups?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
+            uuids?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
         };
         patterns?: {
-            channels?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
-            groups?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
-            uuids?: {
-                [key: string]: GrantTokenPermissions;
-            } | undefined;
+            channels?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
+            groups?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
+            uuids?:
+                | {
+                    [key: string]: GrantTokenPermissions;
+                }
+                | undefined;
         };
-        meta?: {
-            [key: string]: any;
-        } | undefined;
+        meta?:
+            | {
+                [key: string]: any;
+            }
+            | undefined;
     }
 
     interface ParsedGrantToken extends GrantTokenParameters {
@@ -1060,9 +1074,11 @@ declare namespace Pubnub {
     interface SetUUIDMetadataParameters<Custom extends ObjectCustom> {
         uuid?: string | undefined;
         data: UUIDMetadata<Custom>;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                customFields?: boolean | undefined;
+            }
+            | undefined;
     }
 
     type SetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
@@ -1074,26 +1090,32 @@ declare namespace Pubnub {
     type RemoveUUIDMetadataResponse = ObjectsResponse<{}>;
 
     interface GetAllMetadataParameters {
-        include?: {
-            totalCount?: boolean | undefined;
-            customFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                totalCount?: boolean | undefined;
+                customFields?: boolean | undefined;
+            }
+            | undefined;
         filter?: string | undefined;
         sort?: object | undefined;
         limit?: number | undefined;
-        page?: {
-            next?: string | undefined;
-            prev?: string | undefined;
-        } | undefined;
+        page?:
+            | {
+                next?: string | undefined;
+                prev?: string | undefined;
+            }
+            | undefined;
     }
 
     type GetAllUUIDMetadataResponse<Custom extends ObjectCustom> = PagedObjectsResponse<UUIDMetadataObject<Custom>>;
 
     interface GetUUIDMetadataParameters {
         uuid?: string | undefined;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                customFields?: boolean | undefined;
+            }
+            | undefined;
     }
 
     type GetUUIDMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<UUIDMetadataObject<Custom>>;
@@ -1118,9 +1140,11 @@ declare namespace Pubnub {
     interface SetChannelMetadataParameters<Custom extends ObjectCustom> {
         channel: string;
         data: ChannelMetadata<Custom>;
-        include?: {
-            customFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                customFields?: boolean | undefined;
+            }
+            | undefined;
     }
 
     type SetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
@@ -1137,9 +1161,11 @@ declare namespace Pubnub {
 
     interface GetChannelMetadataParameters {
         channel: string;
-        include?: {
-            customFields: boolean;
-        } | undefined;
+        include?:
+            | {
+                customFields: boolean;
+            }
+            | undefined;
     }
 
     type GetChannelMetadataResponse<Custom extends ObjectCustom> = ObjectsResponse<ChannelMetadataObject<Custom>>;
@@ -1150,44 +1176,60 @@ declare namespace Pubnub {
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
         uuid: (UUIDMetadataObject<UUIDCustom> & { status?: string }) | { id: string };
+        status?: string | null | undefined;
     }
 
     interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom>
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
         channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
+        status?: string | null | undefined;
     }
 
     interface UUIDMembersParameters {
-        include?: {
-            totalCount?: boolean | undefined;
-            customFields?: boolean | undefined;
-            UUIDFields?: boolean | undefined;
-            customUUIDFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                totalCount?: boolean | undefined;
+                customFields?: boolean | undefined;
+                UUIDFields?: boolean | undefined;
+                customUUIDFields?: boolean | undefined;
+                statusField?: boolean | undefined;
+                UUIDStatusField?: boolean | undefined;
+                UUIDTypeField?: boolean | undefined;
+            }
+            | undefined;
         filter?: string | undefined;
         sort?: object | undefined;
         limit?: number | undefined;
-        page?: {
-            next?: string | undefined;
-            prev?: string | undefined;
-        } | undefined;
+        page?:
+            | {
+                next?: string | undefined;
+                prev?: string | undefined;
+            }
+            | undefined;
     }
 
     interface ChannelMembersParameters {
-        include?: {
-            totalCount?: boolean | undefined;
-            customFields?: boolean | undefined;
-            channelFields?: boolean | undefined;
-            customChannelFields?: boolean | undefined;
-        } | undefined;
+        include?:
+            | {
+                totalCount?: boolean | undefined;
+                customFields?: boolean | undefined;
+                channelFields?: boolean | undefined;
+                customChannelFields?: boolean | undefined;
+                statusField?: boolean | undefined;
+                channelStatusField?: boolean | undefined;
+                channelTypeField?: boolean | undefined;
+            }
+            | undefined;
         filter?: string | undefined;
         sort?: object | undefined;
         limit?: number | undefined;
-        page?: {
-            next?: string | undefined;
-            prev?: string | undefined;
-        } | undefined;
+        page?:
+            | {
+                next?: string | undefined;
+                prev?: string | undefined;
+            }
+            | undefined;
     }
 
     interface GetChannelMembersParameters extends UUIDMembersParameters {
@@ -1302,6 +1344,72 @@ declare namespace Pubnub {
         buildPayload(platforms: string[]): object;
     }
 
+    class CryptoModule {
+        constructor(configuration: CryptoModuleConfiguration);
+
+        static legacyCryptoModule(configuration: CryptorConfiguration): CryptoModule;
+        static aesCbcCryptoModule(configuration: CryptorConfiguration): CryptoModule;
+        static withDefaultCryptor(defaultCryptor: CryptorType): CryptoModule;
+
+        defaultCryptor: CryptorType;
+        cryptors: CryptorType[];
+
+        encrypt(data: ArrayBuffer | string): ArrayBufferLike;
+        decrypt(data: ArrayBuffer | string): ArrayBuffer | string;
+
+        encryptFile(file: PubNubFileType, fd: PubNubFileType): Promise<PubNubFileType>;
+        decryptFile(file: PubNubFileType, fd: PubNubFileType): Promise<PubNubFileType>;
+    }
+
+    interface PubNubFileType {
+        data: File | Blob;
+        name: string;
+        mimeType: string;
+
+        create(config: any): PubNubFileType;
+
+        toArrayBuffer(): ArrayBuffer;
+        toBlob(): Blob;
+        toString(): string;
+        toFile(): File;
+    }
+
+    interface CryptorConfiguration {
+        cipherKey: string;
+        useRandomIVs?: boolean;
+    }
+
+    interface CryptoModuleConfiguration {
+        default: CryptorType;
+        cryptors?: CryptorType[];
+    }
+
+    type CryptorType = Cryptor | LegacyCryptor<PubNubFileType>;
+
+    interface EncryptedDataType {
+        data: ArrayBuffer;
+        metadata: ArrayBuffer | null;
+    }
+
+    interface LegacyCryptor<T> {
+        get identifier(): string;
+
+        encrypt(data: ArrayBuffer | string): EncryptedDataType;
+        decrypt(data: EncryptedDataType): ArrayBuffer | string;
+
+        encryptFile(file: T, File: T): Promise<T>;
+        decryptFile(file: T, File: T): Promise<T>;
+    }
+
+    interface Cryptor {
+        get identifier(): string;
+        encrypt(data: ArrayBuffer | string): EncryptedDataType;
+        decrypt(data: EncryptedDataType): ArrayBuffer;
+
+        encryptFileData(data: ArrayBuffer): Promise<EncryptedDataType>;
+        decryptFileData(data: EncryptedDataType): Promise<ArrayBuffer>;
+    }
+
     interface Categories {
         PNNetworkUpCategory: string;
         PNNetworkDownCategory: string;
@@ -1314,6 +1422,8 @@ declare namespace Pubnub {
         PNConnectedCategory: string;
         PNRequestMessageCountExceedCategory: string;
         PNMalformedResponseCategory: string;
+        PNDisconnectedUnexpectedlyCategory: string;
+        PNConnectionErrorCategory: string;
     }
 
     interface Operations {
@@ -1353,6 +1463,43 @@ declare namespace Pubnub {
         PNAddMessageActionOperation: string;
         PNRemoveMessageActionOperation: string;
         PNGetMessageActionsOperation: string;
+    }
+
+    type RetryPolicyConfiguration = LinearRetryPolicyConfiguration | ExponentialRetryPolicyConfiguration;
+
+    interface LinearRetryPolicyConfiguration {
+        delay: number;
+        maximumRetry: number;
+    }
+    interface ExponentialRetryPolicyConfiguration {
+        minimumDelay: number;
+        maximumDelay: number;
+        maximumRetry: number;
+    }
+
+    class RetryPolicy {
+        static excludedErrorCodes: number[];
+        static LinearRetryPolicy(configuration: LinearRetryPolicyConfiguration): {
+            delay: number;
+            maximumRetry: number;
+            shouldRetry(error: any, attempt: number): boolean;
+            getDelay(_: number): number;
+            getGiveupReason(
+                error: any,
+                attempt: number,
+            ): string;
+        };
+        static ExponentialRetryPolicy(configuration: ExponentialRetryPolicyConfiguration): {
+            minimumDelay: number;
+            maximumDelay: number;
+            maximumRetry: number;
+            shouldRetry(error: any, attempt: number): boolean;
+            getDelay(attempt: number): number;
+            getGiveupReason(
+                error: any,
+                attempt: number,
+            ): string;
+        };
     }
 }
 

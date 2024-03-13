@@ -1,9 +1,3 @@
-// Type definitions for @novnc/novnc 1.3
-// Project: https://github.com/novnc/noVNC
-// Definitions by: Jake Jarvis <https://github.com/jakejarvis>
-//                 Maksim Ovcharik <https://github.com/ovcharik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@novnc/novnc/core/rfb" {
     /**

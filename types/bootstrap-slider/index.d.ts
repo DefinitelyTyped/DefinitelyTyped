@@ -1,10 +1,3 @@
-// Type definitions for bootstrap-slider.js 11.0
-// Project: https://github.com/seiyria/bootstrap-slider
-// Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface RangeHighlight {
@@ -177,6 +170,7 @@ declare global {
         slider: SliderPlugin<this>;
         bootstrapSlider: SliderPlugin<this>;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         on(event: "slide", handler: (slideEvt: SliderEvent) => false | void): this;
     }
 }

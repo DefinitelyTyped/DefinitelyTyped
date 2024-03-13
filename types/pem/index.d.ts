@@ -1,7 +1,3 @@
-// Type definitions for pem 1.14
-// Project: https://github.com/Dexus/pem
-// Definitions by: Aurelia Fenderson-Peters <https://github.com/PopeFelix>, Anthony Trinh <https://github.com/tony19>, Ruslan Arkhipau <https://github.com/DethAriel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 export {};

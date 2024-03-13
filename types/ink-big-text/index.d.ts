@@ -1,8 +1,3 @@
-// Type definitions for ink-big-text 1.2
-// Project: https://github.com/sindresorhus/ink-big-text
-// Definitions by: aaronleopold <https://github.com/aaronleopold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 // note: BigTextProps.colors are based on cfonts (https://github.com/dominikwilkowski/cfonts). I will have commented out

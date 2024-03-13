@@ -1,8 +1,3 @@
-// Type definitions for capture-console 1.0
-// Project: https://github.com/zackehh/capture-console
-// Definitions by: Auston Zahrt <https://github.com/AustonZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 /**
@@ -20,7 +15,7 @@ export interface CaptureOptions {
  * on the provided streams.
  */
 export function capture(
-    streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
+    streams: readonly NodeJS.WritableStream[] | NodeJS.WritableStream,
     exec: () => void,
 ): string[];
 
@@ -30,7 +25,7 @@ export function capture(
  * the output going to the console.
  */
 export function capture(
-    streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
+    streams: readonly NodeJS.WritableStream[] | NodeJS.WritableStream,
     opts: CaptureOptions,
     exec: () => void,
 ): string[];

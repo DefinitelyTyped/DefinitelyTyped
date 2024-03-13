@@ -1,9 +1,3 @@
-// Type definitions for react-offcanvas 0.4
-// Project: https://github.com/vutran/react-offcanvas#readme
-// Definitions by: Alex Bukurov <https://github.com/abukurov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface OffCanvasProps {

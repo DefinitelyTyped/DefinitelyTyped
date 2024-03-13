@@ -1,10 +1,3 @@
-// Type definitions for koa-ratelimit 5.0
-// Project: https://github.com/koajs/ratelimit#readme
-// Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
-//                 Patrick Muff <https://github.com/dislick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 import { Redis } from "ioredis";
 import { Context, Middleware } from "koa";
 

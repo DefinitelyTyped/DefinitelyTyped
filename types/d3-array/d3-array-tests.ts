@@ -82,12 +82,12 @@ const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
 const mixedObjectArrayLike = mixedObjectArray as Iterable<MixedObject>;
 
 let typedArray = Uint8Array.from(numbersArray);
-let readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
-const readonlyNumbersOrUndefinedArray = numbersOrUndefinedArray as ReadonlyArray<number>;
-const readonlyStringyNumbersArray = stringyNumbersArray as ReadonlyArray<string>;
-const readonlyNumericArray = numericArray as ReadonlyArray<NumCoercible>;
-const readonlyDateArray = dateArray as ReadonlyArray<Date>;
-const readonlyMixedObjectArray = mixedObjectArray as ReadonlyArray<MixedObject>;
+let readonlyNumbersArray = numbersArray as readonly number[];
+const readonlyNumbersOrUndefinedArray = numbersOrUndefinedArray as readonly number[];
+const readonlyStringyNumbersArray = stringyNumbersArray as readonly string[];
+const readonlyNumericArray = numericArray as readonly NumCoercible[];
+const readonlyDateArray = dateArray as readonly Date[];
+const readonlyMixedObjectArray = mixedObjectArray as readonly MixedObject[];
 const readonlyMixedObjectOrUndefinedArray = mixedObjectOrUndefinedArray as ReadonlyArray<MixedObject | undefined>;
 
 function accessorMixedObjectToNum(datum: MixedObject, index: number, array: Iterable<MixedObject>): number {
@@ -323,6 +323,21 @@ numOrUndefined = d3Array.median(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.median(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.median(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// medianIndex() --------------------------------------------------------------------
+
+numOrUndefined = d3Array.medianIndex(numbersArray);
+numOrUndefined = d3Array.medianIndex(numericArray);
+numOrUndefined = d3Array.medianIndex(numbersOrUndefinedArray);
+
+numOrUndefined = d3Array.medianIndex(typedArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumbersArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumericArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumbersOrUndefinedArray);
+
+numOrUndefined = d3Array.medianIndex(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.medianIndex(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.medianIndex(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // cumsum() --------------------------------------------------------------------
 
 let float64Array: Float64Array;
@@ -353,6 +368,25 @@ numOrUndefined = d3Array.quantile(readonlyNumbersOrUndefinedArray, 0.5);
 numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNum);
 numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.quantile(
+    readonlyMixedObjectOrUndefinedArray,
+    0.5,
+    accessorReadOnlyMixedObjectToNumOrUndefined,
+);
+
+// quantileIndex() ------------------------------------------------------------------
+
+numOrUndefined = d3Array.quantileIndex(numbersArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(numericArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(numbersOrUndefinedArray, 0.5);
+
+numOrUndefined = d3Array.quantileIndex(typedArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumbersArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumericArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumbersOrUndefinedArray, 0.5);
+
+numOrUndefined = d3Array.quantileIndex(mixedObjectArray, 0.5, accessorMixedObjectToNum);
+numOrUndefined = d3Array.quantileIndex(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.quantileIndex(
     readonlyMixedObjectOrUndefinedArray,
     0.5,
     accessorReadOnlyMixedObjectToNumOrUndefined,
@@ -807,9 +841,9 @@ const testArray2 = [
 
 let testArrays: MixedObject[][] = [testArray1, testArray2];
 
-const readonlyTestArray1 = testArray1 as ReadonlyArray<MixedObject>;
-const readonlyTestArray2 = testArray2 as ReadonlyArray<MixedObject>;
-const readonlyTestArrays = [testArray1, testArray2] as ReadonlyArray<ReadonlyArray<MixedObject>>;
+const readonlyTestArray1 = testArray1 as readonly MixedObject[];
+const readonlyTestArray2 = testArray2 as readonly MixedObject[];
+const readonlyTestArrays = [testArray1, testArray2] as ReadonlyArray<readonly MixedObject[]>;
 
 let mergedArray: MixedObject[];
 
@@ -2505,18 +2539,18 @@ strArray = d3Array.cross([2, 3], [5, 6], (a, b) => {
     return (aa + bb) + "px";
 });
 
-const readonlyChars = chars as ReadonlyArray<string>;
+const readonlyChars = chars as readonly string[];
 const readonlyNums = new Uint8Array(nums);
 
 crossed = d3Array.cross(readonlyChars, readonlyNums);
 crossed = d3Array.cross<string, number>(readonlyChars, readonlyNums);
 
 strArray = d3Array.cross<number, number, string>(
-    [2, 3] as ReadonlyArray<number>,
+    [2, 3] as readonly number[],
     new Uint8ClampedArray([5, 6]),
     (a, b) => (a + b) + "px",
 );
-strArray = d3Array.cross([2, 3] as ReadonlyArray<number>, new Uint8ClampedArray([5, 6]), (a, b) => {
+strArray = d3Array.cross([2, 3] as readonly number[], new Uint8ClampedArray([5, 6]), (a, b) => {
     const aa: number = a;
     const bb: number = b;
     return (aa + bb) + "px";
@@ -2537,7 +2571,7 @@ numbersArray = d3Array.pairs(mergedArray, (a, b) => {
     return bb.num - aa.num;
 });
 
-const readonlyMergedArray = mergedArray as ReadonlyArray<MixedObject>;
+const readonlyMergedArray = mergedArray as readonly MixedObject[];
 pairs = d3Array.pairs(readonlyMergedArray);
 
 numbersArray = d3Array.pairs<MixedObject, number>(readonlyMergedArray, (a, b) => b.num - a.num);
@@ -2628,12 +2662,44 @@ const [start, stop]: [number, number] = d3Array.nice(1, 10, 5);
 // transpose() -----------------------------------------------------------------
 
 testArrays = d3Array.transpose([testArray1, testArray2]);
-testArrays = d3Array.transpose([readonlyTestArray1, readonlyTestArray2] as ReadonlyArray<ReadonlyArray<MixedObject>>);
+testArrays = d3Array.transpose([readonlyTestArray1, readonlyTestArray2] as ReadonlyArray<readonly MixedObject[]>);
 
 // zip() -----------------------------------------------------------------------
 
 testArrays = d3Array.zip(testArray1, testArray2);
 testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
+
+// -----------------------------------------------------------------------------
+// Test Blur
+// -----------------------------------------------------------------------------
+const randomWalk = d3Array.cumsum(numbersArray, () => Math.random() - 0.5);
+let blurredWalk: ArrayLike<number>;
+blurredWalk = d3Array.blur(randomWalk, 3);
+
+const matrix: d3Array.Matrix = {
+    width: 4,
+    height: 3,
+    data: [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+    ],
+};
+let blurredMatrix: d3Array.Matrix;
+blurredMatrix = d3Array.blur2(matrix, 3, 5);
+
+const imageData: ImageData = new ImageData(100, 100);
+let blurredImageData: ImageData;
+blurredImageData = d3Array.blurImage(imageData, 5);
 
 // -----------------------------------------------------------------------------
 // Test Iterables
@@ -2994,7 +3060,7 @@ dateOrUndefined = binMixedObject_DateOrUndefined.x1;
 
 numbersArray = [-1, 0, 1, 1, 3, 20, 234];
 typedArray = new Uint8Array(numbersArray);
-readonlyNumbersArray = numbersArray as ReadonlyArray<number>;
+readonlyNumbersArray = numbersArray as readonly number[];
 
 num = d3Array.thresholdFreedmanDiaconis(numbersArray, -1, 234);
 num = d3Array.thresholdFreedmanDiaconis(typedArray, -1, 234);

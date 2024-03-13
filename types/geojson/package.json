@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/geojson",
+    "version": "7946.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "geojson",
+    "projects": [
+        "https://geojson.org/"
+    ],
+    "devDependencies": {
+        "@types/geojson": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Bruun",
+            "githubUsername": "cobster"
+        },
+        {
+            "name": "Arne Schubert",
+            "githubUsername": "atd-schubert"
+        },
+        {
+            "name": "Jeff Jacobson",
+            "githubUsername": "JeffJacobson"
+        },
+        {
+            "name": "Ilia Choly",
+            "githubUsername": "icholy"
+        },
+        {
+            "name": "Dan Vanderkam",
+            "githubUsername": "danvk"
+        }
+    ]
+}

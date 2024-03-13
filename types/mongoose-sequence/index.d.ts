@@ -1,16 +1,10 @@
-// Type definitions for mongoose-sequence 3.0.2
-// Project: https://github.com/ramiel/mongoose-sequence
-// Definitions by: Linus Brolin <https://github.com/linusbrolin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /// <reference types="mongoose" />
 
 declare module "mongoose" {
     export interface SequenceOptions {
         inc_field: string; // The name of the field to increment. Mandatory, default is _id
         id?: string | undefined; // Id of the sequence. Is mandatory only for scoped sequences but its use is strongly encouraged.
-        reference_fields?: Array<string> | undefined; // The field to reference for a scoped counter. Optional
+        reference_fields?: string[] | undefined; // The field to reference for a scoped counter. Optional
         disable_hooks?: boolean | undefined; // If true, the counter will not be incremented on saving a new document. Default to false
         collection_name?: string | undefined; // By default the collection name to mantain the status of the counters is counters. You can override it using this option
     }

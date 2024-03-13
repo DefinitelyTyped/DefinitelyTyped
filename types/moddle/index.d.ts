@@ -1,9 +1,3 @@
-// Type definitions for moddle 5.0
-// Project: https://github.com/bpmn-io/moddle#readme
-// Definitions by: Mikhail Demin <https://github.com/MikhailTSE>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 export as namespace Moddle;
 
 export {};

@@ -1,9 +1,3 @@
-// Type definitions for karma-detect-browsers 2.3
-// Project: https://github.com/litixsoft/karma-detect-browsers
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

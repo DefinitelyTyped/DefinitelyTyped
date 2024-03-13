@@ -1,12 +1,3 @@
-// Type definitions for boom 7.3
-// Project: https://github.com/hapijs/boom
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-//                 Jinesh Shah <https://github.com/jineshshah36>
-//                 Timon van Spronsen <https://github.com/TimonVS>
-//                 Daniel Machado <https://github.com/danielmachado>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export = Boom;
 /**
  * boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:

@@ -1,8 +1,3 @@
-// Type definitions for react-cookies 0.1
-// Project: https://github.com/bukinoshita/react-cookies/
-// Definitions by: Nikolai Lopin <https://github.com/nlopin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { CookieSerializeOptions } from "cookie";
 import { Request, Response } from "express";
 

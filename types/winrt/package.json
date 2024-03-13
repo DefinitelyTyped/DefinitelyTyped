@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/winrt",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "winrt",
+    "projects": [
+        "http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx"
+    ],
+    "devDependencies": {
+        "@types/winrt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TypeScript samples",
+            "url": "https://www.typescriptlang.org/"
+        }
+    ]
+}

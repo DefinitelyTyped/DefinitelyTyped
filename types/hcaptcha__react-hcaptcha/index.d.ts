@@ -1,9 +1,3 @@
-// Type definitions for @hcaptcha/react-hcaptcha 0.1
-// Project: https://github.com/hCaptcha/react-hcaptcha
-// Definitions by: Matt Sutkowski <https://github.com/msutkowski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface HCaptchaState {

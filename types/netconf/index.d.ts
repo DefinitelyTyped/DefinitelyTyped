@@ -1,8 +1,3 @@
-// Type definitions for netconf 2.0
-// Project: https://github.com/darylturner/node-netconf
-// Definitions by: Leodinas Hao <https://github.com/leodinas-hao>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Client {
     /**
      * Creates a new Client object by passing in the connection parameters. Both password and private key authentication methods are supported

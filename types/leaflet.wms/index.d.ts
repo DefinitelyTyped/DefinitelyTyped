@@ -1,8 +1,3 @@
-// Type definitions for leaflet.wms 0.2
-// Project: https://github.com/heigeo/leaflet.wms
-// Definitions by: Antonio Vida <https://github.com/antoniovlx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 //// <reference types="leaflet" />
 
 import * as L from "leaflet";

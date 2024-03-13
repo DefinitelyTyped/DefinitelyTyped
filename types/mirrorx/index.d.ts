@@ -1,9 +1,3 @@
-// Type definitions for mirrorx 0.2
-// Project: https://github.com/mirrorjs/mirror
-// Definitions by: Aaronphy <https://github.com/aaronphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as H from "history";
 
 import * as React from "react";
@@ -147,12 +141,14 @@ export interface Renderer {
         element: React.ReactElement<P>,
         container: Element | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): React.Component<P, React.ComponentState> | Element | void;
 
     (
         element: React.ReactElement[],
         container: Element | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): React.Component<any, React.ComponentState> | Element | void;
 
     (

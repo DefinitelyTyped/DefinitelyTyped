@@ -1,8 +1,3 @@
-// Type definitions for lockr 0.8.3
-// Project: https://github.com/tsironis/lockr
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Lockr: lockr.LockrStatic;
 
 declare namespace lockr {
@@ -24,7 +19,7 @@ declare namespace lockr {
          * @param key
          * @param value
          */
-        set<T>(key: string, value: Array<T>): void;
+        set<T>(key: string, value: T[]): void;
 
         /**
          * Removes all data associated to a key.
@@ -52,19 +47,19 @@ declare namespace lockr {
          * @param key
          * @param value
          */
-        sadd<T>(key: string, value: Array<T>): void;
+        sadd<T>(key: string, value: T[]): void;
 
         /**
          * Returns the values of a particular set under a hash key.
          * @param key
          */
-        smembers(key: string): (string | number | Object)[];
+        smembers(key: string): Array<string | number | Object>;
 
         /**
          * Returns the values of a particular set under a hash key.
          * @param key
          */
-        smembers<T>(key: string): Array<T>;
+        smembers<T>(key: string): T[];
 
         /**
          * Returns whether the value exists in a particular set under a hash key.
@@ -78,7 +73,7 @@ declare namespace lockr {
          * @param key
          * @param value
          */
-        sismember<T>(key: string, value: Array<T>): boolean;
+        sismember<T>(key: string, value: T[]): boolean;
 
         /**
          * Removes a value from a particular set under a hash key.
@@ -92,12 +87,12 @@ declare namespace lockr {
          * @param key
          * @param value
          */
-        srem<T>(key: string, value: Array<T>): void;
+        srem<T>(key: string, value: T[]): void;
 
         /**
          * Returns all saved values & objects, in an Array.
          */
-        getAll(): (string | number | Object)[];
+        getAll(): Array<string | number | Object>;
 
         /**
          * Empties localStorage.
@@ -107,7 +102,7 @@ declare namespace lockr {
         /**
          * Returns all keys without (if set) prefix
          */
-        keys(): Array<string>;
+        keys(): string[];
     }
 }
 

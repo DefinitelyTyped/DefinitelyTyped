@@ -1,9 +1,3 @@
-// Type definitions for node-mysql-wrapper
-// Project: https://github.com/nodets/node-mysql-wrapper
-// Definitions by: Makis Maropoulos <https://github.com/kataras>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference path="./my-meteor.d.ts" />
 
 import * as Promise from "bluebird";
@@ -330,34 +324,34 @@ declare enum CollectionChangedAction {
 
 declare class CollectionChangedEventArgs<T> {
     action: CollectionChangedAction;
-    oldItems: (T | (T & ObservableObject))[];
-    newItems: (T | (T & ObservableObject))[];
+    oldItems: Array<T | (T & ObservableObject)>;
+    newItems: Array<T | (T & ObservableObject)>;
     oldStartingIndex: number;
     newStartingIndex: number;
 
     constructor(
         action: CollectionChangedAction,
-        oldItems?: (T | (T & ObservableObject))[],
-        newItems?: (T | (T & ObservableObject))[],
+        oldItems?: Array<T | (T & ObservableObject)>,
+        newItems?: Array<T | (T & ObservableObject)>,
         oldStartingIndex?: number,
         newStartingIndex?: number,
     );
 }
 
 declare class BaseCollection<T> { // T=result type of Table
-    private list: (T | (T & ObservableObject))[];
-    listeners: ((eventArgs: CollectionChangedEventArgs<T>) => void)[];
+    private list: Array<T | (T & ObservableObject)>;
+    listeners: Array<(eventArgs: CollectionChangedEventArgs<T>) => void>;
     constructor(table: Table<T>);
     length: number;
-    items: (T | (T & ObservableObject))[];
+    items: Array<T | (T & ObservableObject)>;
     indexOf(item: T | string | number): number;
     findItem(itemId: string | number): T;
     getItem(index: number): T;
     getItemObservable(index: number): T & ObservableObject;
-    addItem(...items: (T | (T & ObservableObject))[]): T | (T & ObservableObject);
-    removeItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+    addItem(...items: Array<T | (T & ObservableObject)>): T | (T & ObservableObject);
+    removeItem(...items: Array<T | (T & ObservableObject)>): BaseCollection<T>;
     removeItemById(id: number | string): BaseCollection<T>;
-    forgetItem(...items: (T | (T & ObservableObject))[]): BaseCollection<T>;
+    forgetItem(...items: Array<T | (T & ObservableObject)>): BaseCollection<T>;
     reset(): BaseCollection<T>;
     notifyCollectionChanged(evtArgs: CollectionChangedEventArgs<T>): void;
     onCollectionChanged(callback: (eventArgs: CollectionChangedEventArgs<T>) => void): void;
@@ -365,11 +359,11 @@ declare class BaseCollection<T> { // T=result type of Table
 
 declare class ObservableCollection<T> { // auti i klasi 9a xrisimopoieite ws Collection me kapoies paralages mesa sto index.ts.
     local: BaseCollection<T>;
-    private _items: (T & ObservableObject)[];
+    private _items: Array<T & ObservableObject>;
 
     constructor(table: Table<T>, fetchAllFromDatabase?: boolean, callbackWhenReady?: Function);
 
-    items: (T & ObservableObject)[];
+    items: Array<T & ObservableObject>;
 
     onCollectionChanged(callback: (eventArgs: CollectionChangedEventArgs<T>) => void): void;
 
@@ -472,7 +466,7 @@ declare class Connection extends EventEmitter {
     /**
      * All tables {MysqlTable} inside this connection's database.
      */
-    tables: Table<any>[];
+    tables: Array<Table<any>>;
 
     constructor(connection: string | Mysql.Connection | Mysql.ConnectionConfig);
 
@@ -706,7 +700,7 @@ declare class Table<T> {
      * @returnType {array}
      * @return {array}
      */
-    getRowAsArray(jsObject: any): Array<any>;
+    getRowAsArray(jsObject: any): any[];
 
     /**
      * Returns the primary key's value from an object.
@@ -759,7 +753,7 @@ declare class Database {
     isReady: boolean;
     readyListenerCallbacks: Function[];
     constructor(connection?: Connection);
-    static when(..._promises: Promise<any>[]): Promise<any>;
+    static when(..._promises: Array<Promise<any>>): Promise<any>;
     setConnection(connection: Connection): void;
 
     /**

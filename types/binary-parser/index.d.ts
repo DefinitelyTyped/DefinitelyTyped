@@ -1,12 +1,3 @@
-// Type definitions for binary-parser 1.5
-// Project: https://github.com/keichi/binary-parser
-// Definitions by: Benjamin Riggs <https://github.com/riggs>,
-//                 Dolan Miu <https://github.com/dolanmiu>,
-//                 Yu Shimura <https://github.com/yuhr>,
-//                 John Mark Gabriel Caguicla <https://github.com/caguiclajmg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 export interface Parser<O extends object | undefined = undefined> {

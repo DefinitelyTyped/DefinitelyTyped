@@ -1,8 +1,3 @@
-// Type definitions for mpesa-node 0.1
-// Project: https://github.com/safaricom/mpesa-node-library#readme
-// Definitions by: Peter Munyao <https://github.com/petekmunz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AxiosPromise } from "axios";
 
 declare class Mpesa {

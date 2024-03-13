@@ -1,9 +1,3 @@
-// Type definitions for keycloak-connect-roles 1.0
-// Project: https://github.com/osvaldo2627/keycloak-connect-roles#readme
-// Definitions by: Arian Meidow <https://github.com/sPaCeMoNk3yIam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { RequestHandler } from "express";
 
 declare enum ROLES {

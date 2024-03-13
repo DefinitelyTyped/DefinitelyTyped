@@ -1,8 +1,4 @@
-// Type definitions for formdata 0.10
-// Project: https://github.com/node-file-api/FormData
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 declare class FormData {

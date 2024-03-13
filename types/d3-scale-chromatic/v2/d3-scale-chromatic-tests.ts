@@ -13,8 +13,8 @@ import * as d3ScaleChromatic from "d3-scale-chromatic";
 // -----------------------------------------------------------------------
 
 let colorInterpolator: (t: number) => string;
-let simpleScheme: ReadonlyArray<string>;
-let nestedScheme: ReadonlyArray<ReadonlyArray<string>>;
+let simpleScheme: readonly string[];
+let nestedScheme: ReadonlyArray<readonly string[]>;
 
 // -----------------------------------------------------------------------
 // Categorical

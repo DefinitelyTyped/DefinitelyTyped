@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/swagger-ui-react",
+    "version": "4.18.9999",
+    "projects": [
+        "https://github.com/swagger-api/swagger-ui#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/swagger-ui-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "viki.green",
+            "githubUsername": "VictoriaGreen93"
+        },
+        {
+            "name": "afrkorsakow",
+            "githubUsername": "afrkorsakow"
+        }
+    ]
+}

@@ -65,7 +65,7 @@ declare namespace Ix {
         min<TResult>(selector: EnumerableFunc<T, TResult>): TResult;
         sum(selector?: EnumerableFunc<T, number>): number;
 
-        concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
+        concat<T>(...sources: Array<Enumerable<T>>): Enumerable<T>;
 
         contains<TValue>(value: TValue, comparer: EqualityComparer<T, TValue>): boolean;
         contains(value: T): boolean;
@@ -265,7 +265,7 @@ declare namespace Ix {
         new<T>(getEnumerator: () => Enumerator<T>): Enumerable<T>;
         create<T>(getEnumerator: () => Enumerator<T>): Enumerable<T>;
 
-        concat<T>(...sources: Enumerable<T>[]): Enumerable<T>;
+        concat<T>(...sources: Array<Enumerable<T>>): Enumerable<T>;
         empty<T>(): Enumerable<T>;
         fromArray<T>(array: T[]): Enumerable<T>;
         return<T>(value: T): Enumerable<T>;

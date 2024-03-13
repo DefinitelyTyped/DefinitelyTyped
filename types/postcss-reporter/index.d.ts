@@ -1,9 +1,3 @@
-// Type definitions for postcss-reporter 7.0
-// Project: https://github.com/postcss/postcss-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import { Message, PluginCreator } from "postcss";
 
 declare namespace postcssReporter {

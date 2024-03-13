@@ -1,8 +1,3 @@
-// Type definitions for jsprim 2.0
-// Project: https://github.com/joyent/node-jsprim#readme
-// Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { JSONSchema4, JSONSchema6, JSONSchema7, ValidationError } from "json-schema";
 import { WError } from "verror";
 
@@ -35,7 +30,7 @@ export function endsWith(str: string, suffix: string): boolean;
  * If no properties other than those
  * in the allowed list are present on the object, the returned array will be of zero length.
  */
-export function extraProperties(obj: Readonly<{ [key: string]: unknown }>, allowed: ReadonlyArray<string>): string[];
+export function extraProperties(obj: Readonly<{ [key: string]: unknown }>, allowed: readonly string[]): string[];
 
 /**
  * This is similar to ```flattenObject``` except that instead of returning an array, this function invokes
@@ -258,7 +253,7 @@ export function pluck(obj: Readonly<{ [key: string]: unknown }>, key: string): u
  *
  * If ```arr``` is empty, throws an Error.
  */
-export function randElt<T>(arr: ReadonlyArray<T>): T | never;
+export function randElt<T>(arr: readonly T[]): T | never;
 
 /**
  * Converts a Date object to an RFC1123 date string of the form "ddd, dd MMM yyyy HH:mm:ss GMT".

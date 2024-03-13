@@ -1,9 +1,3 @@
-// Type definitions for hexo 3.8
-// Project: https://hexo.io/
-// Definitions by: KentarouTakeda <https://github.com/kentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { EventEmitter } from "events";
 import moment = require("moment");
 import { ParsedArgs } from "minimist";
@@ -573,6 +567,7 @@ declare namespace Hexo {
              */
             register(
                 type: "before_post_render",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (data: { content: string; [key: string]: any }) => { content: string; [key: string]: any } | void,
                 priority?: number,
             ): void;
@@ -582,6 +577,7 @@ declare namespace Hexo {
              */
             register(
                 type: "after_post_render",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (data: { content: string; [key: string]: any }) => { content: string; [key: string]: any } | void,
                 priority?: number,
             ): void;
@@ -606,6 +602,7 @@ declare namespace Hexo {
              */
             register(
                 type: "template_locals",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (locals: TemplateLocals) => TemplateLocals | void,
                 priority?: number,
             ): void;
@@ -634,6 +631,7 @@ declare namespace Hexo {
              */
             register(
                 type: "after_render:html",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (result: string, data: { path: string; text: string; [key: string]: any }) => string | void,
                 priority?: number,
             ): void;
@@ -648,6 +646,7 @@ declare namespace Hexo {
              */
             register(
                 type: "server_middleware",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (app: connect.Server) => connect.Server | void,
                 priority?: number,
             ): void;

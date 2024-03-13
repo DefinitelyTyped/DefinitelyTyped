@@ -1,8 +1,3 @@
-// Type definitions for pretty-proptypes 1.1
-// Project: https://github.com/atlassian/extract-react-types#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface Components {

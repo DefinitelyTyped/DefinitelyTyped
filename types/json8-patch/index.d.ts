@@ -1,10 +1,3 @@
-// Type definitions for json8-patch 1.0
-// Project: https://github.com/sonnyp/JSON8/tree/master/packages/patch
-// Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
-//                 Paweł Uchida-Psztyć <https://github.com/jarrodek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 2.9
-
 export interface BaseOperation {
     path: string;
 }

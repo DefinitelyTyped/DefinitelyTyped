@@ -1,9 +1,3 @@
-// Type definitions for express-sitemap-xml 3.0
-// Project: https://github.com/feross/express-sitemap-xml
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 /**

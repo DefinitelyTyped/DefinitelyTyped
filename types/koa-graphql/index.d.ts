@@ -1,8 +1,3 @@
-// Type definitions for koa-graphql 0.8
-// Project: https://github.com/chentsulin/koa-graphql
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 /// <reference types="node" />
 
 import { RequestInfo } from "express-graphql";

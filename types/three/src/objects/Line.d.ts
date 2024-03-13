@@ -1,8 +1,6 @@
-import { Material } from './../materials/Material.js';
-import { Raycaster } from './../core/Raycaster.js';
-import { Object3D } from './../core/Object3D.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Intersection } from '../core/Raycaster.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
 
 /**
  * A continuous line.
@@ -29,7 +27,8 @@ import { Intersection } from '../core/Raycaster.js';
 export class Line<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Object3D {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Object3D<TEventMap> {
     /**
      * Create a new instance of {@link Line}
      * @param geometry Vertices representing the {@link Line} segment(s). Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.
@@ -48,7 +47,7 @@ export class Line<
      * @override
      * @defaultValue `Line`
      */
-    override readonly type: string | 'Line';
+    override readonly type: string | "Line";
 
     /**
      * Vertices representing the {@link Line} segment(s).

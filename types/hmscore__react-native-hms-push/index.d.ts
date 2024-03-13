@@ -1,8 +1,3 @@
-// Type definitions for @hmscore/react-native-hms-push 5.3
-// Project: https://github.com/HMS-Core/hms-react-native-plugin/tree/master/react-native-hms-push
-// Definitions by: Pedro Medeiros <https://github.com/despotes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { HmsPushEventType } from "./src/HmsPushEvent";
 import { ProfileType, ProfileTypeEnum } from "./src/HmsPushProfileTypes";
 import { HmsPushResultCodeInterface } from "./src/HmsPushResultCode";

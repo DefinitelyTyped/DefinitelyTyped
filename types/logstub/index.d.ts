@@ -1,8 +1,3 @@
-// Type definitions for logstub 1.3
-// Project: https://github.com/OutOfSyncStudios/logstub#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = LogStub;
 
 declare class LogStub {

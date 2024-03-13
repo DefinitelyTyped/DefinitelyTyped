@@ -1,8 +1,3 @@
-// Type definitions for teslajs 4.9
-// Project: https://github.com/mseminatore/TeslaJS#readme
-// Definitions by: Felipe Castillo <https://github.com/fcastilloec>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Vehicle {
     id: string;
     vehicleID: number;

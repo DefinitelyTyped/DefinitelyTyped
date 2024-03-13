@@ -1,15 +1,3 @@
-// Type definitions for React (react-dom) 18.2
-// Project: https://reactjs.org
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
-//                 Josh Rutherford <https://github.com/theruther4d>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
 // for reference and documentation on how exactly to do it.
@@ -65,6 +53,7 @@ export function unstable_renderSubtreeIntoContainer<P>(
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;
 
 export type Container = Element | Document | DocumentFragment;
@@ -107,11 +96,13 @@ export interface Renderer {
         element: ReactElement<P>,
         container: Container | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<P, ComponentState> | Element | void;
 
     (
         element: ReactElement[],
         container: Container | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<any, ComponentState> | Element | void;
 }

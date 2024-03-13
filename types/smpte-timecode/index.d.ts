@@ -1,8 +1,3 @@
-// Type definitions for smpte-timecode 1.2
-// Project: https://github.com/CrystalComputerCorp/smpte-timecode
-// Definitions by: DoYoung Ha <https://github.com/hados99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const Timecode: {
     (timecode?: Timecode.TIMECODE, frameRate?: Timecode.FRAMERATE, dropFrame?: boolean): Timecode.TimecodeInstance;
     new(timecode?: Timecode.TIMECODE, frameRate?: Timecode.FRAMERATE, dropFrame?: boolean): Timecode.TimecodeInstance;

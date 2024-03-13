@@ -1,11 +1,3 @@
-// Type definitions for react-onclickoutside 6.7
-// Project: https://github.com/Pomax/react-onclickoutside
-// Definitions by: Karol Janyst <https://github.com/LKay>
-//                 Boris Sergeyev <https://github.com/surgeboris>
-//                 Thomas Levy <https://github.com/NilSet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export {};
@@ -45,8 +37,10 @@ export interface WrapperClass<P, C> {
     new(): WrapperInstance<P, C>;
 }
 
-export interface WrapperInstance<P, C> extends React.Component<OnClickOutProps<JSX.LibraryManagedAttributes<C, P>>> {
-    getInstance(): C extends typeof React.Component ? InstanceType<C> : never;
+export interface WrapperInstance<P, C>
+    extends React.Component<OnClickOutProps<React.JSX.LibraryManagedAttributes<C, P>>>
+{
+    getInstance(): C extends React.ComponentClass<any> ? InstanceType<C> : never;
 }
 
 type PropsOf<T> = T extends (

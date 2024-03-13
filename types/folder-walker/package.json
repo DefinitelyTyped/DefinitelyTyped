@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/folder-walker",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/okdistribute/folder-walker (Does not have to be to GitHub",
+        "but prefer linking to a source code repository rather than to a project website.)"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/folder-walker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bfsgr",
+            "githubUsername": "bfsgr"
+        }
+    ]
+}

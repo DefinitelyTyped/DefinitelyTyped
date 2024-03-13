@@ -1,8 +1,3 @@
-// Type definitions for teen_process 2.0
-// Project: https://github.com/appium/node-teen_process
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ChildProcess, SpawnOptions } from "child_process";
@@ -92,12 +87,12 @@ export interface TeenProcessExecResult<T extends string | Buffer> {
  */
 export function exec(
     cmd: string,
-    args: ReadonlyArray<string> | undefined,
+    args: readonly string[] | undefined,
     opts: TeenProcessExecOptions & { isBuffer: true },
 ): Promise<TeenProcessExecResult<Buffer>>;
 export function exec(
     cmd: string,
-    args?: ReadonlyArray<string>,
+    args?: readonly string[],
     opts?: TeenProcessExecOptions,
 ): Promise<TeenProcessExecResult<string>>;
 
@@ -118,17 +113,17 @@ export interface SubProcessOptions extends SpawnOptions {
  */
 export class SubProcess extends EventEmitter {
     cmd: string;
-    args: ReadonlyArray<string>;
+    args: readonly string[];
     proc: ChildProcess | null;
     opts: SubProcessOptions;
     expectingExit: boolean;
     rep: string;
 
-    constructor(cmd: string, args?: ReadonlyArray<string>, opts?: SubProcessOptions);
+    constructor(cmd: string, args?: readonly string[], opts?: SubProcessOptions);
 
     readonly isRunning: boolean;
 
-    emitLines(stream: string, lines: ReadonlyArray<string>): void;
+    emitLines(stream: string, lines: readonly string[]): void;
 
     /**
      * spawn the subprocess and return control whenever we deem that it has fully "started".
@@ -165,7 +160,7 @@ export class SubProcess extends EventEmitter {
      * await proc.join(); // will throw on exitcode not 0
      * await proc.join([0, 1]); // will throw on exitcode not 0 or 1
      */
-    join(allowedExitCodes?: ReadonlyArray<number>): Promise<number>;
+    join(allowedExitCodes?: readonly number[]): Promise<number>;
 
     /*
      * This will only work if the process is created with the `detached` option

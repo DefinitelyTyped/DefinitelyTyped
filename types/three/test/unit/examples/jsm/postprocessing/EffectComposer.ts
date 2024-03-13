@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { EffectComposer, Pass, FullScreenQuad } from 'three/examples/jsm/postprocessing/EffectComposer';
+import * as THREE from "three";
+import { EffectComposer, FullScreenQuad, Pass } from "three/examples/jsm/postprocessing/EffectComposer";
 
 class FooPass extends Pass {
     fsQuad: FullScreenQuad;
@@ -39,6 +39,6 @@ function resize(w = 0, h = 0, dpr = devicePixelRatio) {
     composer.setPixelRatio(dpr);
     composer.setSize(w, h);
 }
-addEventListener('resize', () => resize(innerWidth, innerHeight));
-dispatchEvent(new Event('resize'));
+addEventListener("resize", () => resize(innerWidth, innerHeight));
+dispatchEvent(new Event("resize"));
 document.body.prepend(renderer.domElement);

@@ -1,8 +1,3 @@
-// Type definitions for k-bucket 5.0
-// Project: https://github.com/tristanls/k-bucket#readme
-// Definitions by: tomonari-t <https://github.com/tomonari-t>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { EventEmitter } from "events";
 

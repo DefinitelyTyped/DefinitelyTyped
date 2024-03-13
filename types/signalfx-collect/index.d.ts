@@ -1,8 +1,3 @@
-// Type definitions for signalfx-collect 2.0
-// Project: https://signalfx.com
-// Definitions by: Valentin VĂLCIU <https://github.com/axiac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* =================== USAGE ===================
 
     import * as SignalFxCollect from 'signalfx-collect';

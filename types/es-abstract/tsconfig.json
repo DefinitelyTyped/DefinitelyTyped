@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "lib": ["ESNext"],
+        "module": "node16",
+        "lib": [
+            "ESNext"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

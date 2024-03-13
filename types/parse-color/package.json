@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-color",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/parse-color"
+    ],
+    "devDependencies": {
+        "@types/parse-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Crites",
+            "githubUsername": "ajcrites"
+        }
+    ]
+}

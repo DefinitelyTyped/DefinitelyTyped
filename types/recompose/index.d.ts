@@ -1,13 +1,3 @@
-// Type definitions for Recompose 0.30
-// Project: https://github.com/acdlite/recompose
-// Definitions by: Iskander Sierra <https://github.com/iskandersierra>
-//                 Curtis Layne <https://github.com/clayne11>
-//                 Rasmus Eneman <https://github.com/Pajn>
-//                 Lucas Terra <https://github.com/lucasterra>
-//                 Mathieu Masy <https://github.com/TiuSh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare module "recompose" {
@@ -208,7 +198,7 @@ declare module "recompose" {
 
     // onlyUpdateForKeys: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -398,7 +388,7 @@ declare module "recompose" {
 
     // nest: https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics

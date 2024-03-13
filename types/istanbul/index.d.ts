@@ -1,8 +1,3 @@
-// Type definitions for Istanbul v0.4.0
-// Project: https://github.com/gotwarlost/istanbul
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace istanbul {
     interface Istanbul {
         new(options?: any): Istanbul;
@@ -53,7 +48,7 @@ declare namespace istanbul {
     interface Reporter {
         new(cfg?: Configuration, dir?: string): Reporter;
         add(fmt: string): void;
-        addAll(fmts: Array<string>): void;
+        addAll(fmts: string[]): void;
         write(collector: Collector, sync: boolean, callback: Function): void;
     }
 

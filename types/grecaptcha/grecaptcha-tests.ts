@@ -2,6 +2,7 @@ const params: ReCaptchaV2.Parameters = {
     sitekey: "mySuperSecretKey",
     theme: "light",
     type: "image",
+    hl: "en-US",
     size: "normal",
     tabindex: 5,
     isolated: false,

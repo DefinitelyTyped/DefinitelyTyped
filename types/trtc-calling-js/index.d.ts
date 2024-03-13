@@ -1,8 +1,3 @@
-// Type definitions for trtc-calling-js 0.6
-// Project: https://github.com/tencentyun/TRTCSDK#readme
-// Definitions by: Wang KaiLing <https://github.com/wkl007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace TRTCCalling;
 
 export = TRTCCalling;

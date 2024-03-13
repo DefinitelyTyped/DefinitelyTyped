@@ -1,8 +1,3 @@
-// Type definitions for dynamodb-lock-client 0.7
-// Project: https://github.com/tristanls/dynamodb-lock-client#readme
-// Definitions by: RyoshiKayo <https://github.com/RyoshiKayo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

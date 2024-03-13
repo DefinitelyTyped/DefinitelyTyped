@@ -1,8 +1,3 @@
-// Type definitions for electron-progressbar 1.2
-// Project: https://github.com/AndersonMamede/electron-progressbar
-// Definitions by: Samuel Corsi-House <https://github.com/xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { app, BrowserWindowConstructorOptions } from "electron";
 
 declare class ProgressBar {

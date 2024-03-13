@@ -1,8 +1,3 @@
-// Type definitions for osmtogeojson 2.2.5
-// Project: https://github.com/tyrasd/osmtogeojson.git
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface OsmToGeoJSON {
     (data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
     toGeojson(data: Document | OsmJSON.OsmJSONObject, options?: Options): GeoJSON.GeoJSONObject;
@@ -54,7 +49,7 @@ export declare namespace GeoJSON {
 
 export declare namespace OsmJSON {
     export interface OsmJSONObject {
-        elements: (Node | Way | Relationship)[];
+        elements: Array<Node | Way | Relationship>;
     }
 
     export interface Element {

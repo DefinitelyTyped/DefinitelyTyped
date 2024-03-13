@@ -1,8 +1,3 @@
-// Type definitions for cabarc 0.4
-// Project: https://github.com/jhermsmeier/node-cabarc
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export namespace Cabinet {

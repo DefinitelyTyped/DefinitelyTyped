@@ -1,8 +1,3 @@
-// Type definitions for cashaddrjs 0.3
-// Project: https://github.com/bitcoincashjs/cashaddrjs#readme
-// Definitions by: Emilio Almansi <https://github.com/ealmansi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace cashaddr;
 
 /**

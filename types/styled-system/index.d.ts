@@ -1,26 +1,3 @@
-// Type definitions for styled-system 5.1
-// Project: https://github.com/jxnblk/styled-system#readme
-// Definitions by: Ben McCormick <https://github.com/phobon>
-//                 Justin Bennett <https://github.com/zephraph>
-//                 Christopher Pappas <https://github.com/damassi>
-//                 Eloy Durán <https://github.com/alloy>
-//                 Matthieu Vachon <https://github.com/maoueh>
-//                 Joachim Schuler <https://github.com/jschuler>
-//                 Adam Misiorny <https://github.com/adam187>
-//                 Sara F-P <https://github.com/gretzky>
-//                 Chris LoPresto <https://github.com/chrislopresto>
-//                 Pedro Duarte <https://github.com/peduarte>
-//                 Dhalton Huber <https://github.com/Dhalton>
-//                 Elliot Bonneville <https://github.com/elliotbonneville>
-//                 Jack Caldwell <https://github.com/jackcaldwell>
-//                 Eliseu Monar dos Santos <https://github.com/eliseumds>
-//                 Craig Michael Thompson <https://github.com/craga89>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Dhruv Jain <https://github.com/maddhruv>
-//                 Jeffrey Cherewaty <https://github.com/cherewaty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as CSS from "csstype";
 
 export function get(obj: any, ...paths: Array<string | number>): any;
@@ -137,8 +114,8 @@ export interface LowLevelStyleFunctionArguments<N, S> {
     properties?: string[] | undefined;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function style<N = string | number, S = Scale>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     args: LowLevelStyleFunctionArguments<N, S>,
 ): styleFn;
 
@@ -206,11 +183,13 @@ export interface VariantArgs<
 }
 
 export function variant<
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     TStyle = object,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     K extends string = string,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     TPropName = string,
 >(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     props: VariantArgs<TStyle, K, TPropName>,
 ): (...args: any[]) => any;
 /**

@@ -1,8 +1,3 @@
-// Type definitions for uslug 1.0
-// Project: https://github.com/jeremys/uslug
-// Definitions by: Junyoung Choi <https://github.com/rokt33r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Generate a slug for the string passed.
  * @param value The string you want to slugify

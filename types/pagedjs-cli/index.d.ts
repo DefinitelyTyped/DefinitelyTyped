@@ -1,8 +1,3 @@
-// Type definitions for pagedjs-cli 0.3
-// Project: https://pagedjs.org
-// Definitions by: Valentin Schabschneider <https://github.com/valentinschabschneider>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { EventEmitter } from "events";
 import type { Page } from "puppeteer";
 

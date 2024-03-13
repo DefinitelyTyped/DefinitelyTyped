@@ -1,8 +1,3 @@
-// Type definitions for redux-react-session 2.6
-// Project: https://github.com/bernabe9/redux-react-session
-// Definitions by: João Neto <https://github.com/joaomlneto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Action, Reducer, Store } from "redux";
 import {
     GetSessionErrorAction,

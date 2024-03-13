@@ -1,6 +1,41 @@
 {
     "private": true,
+    "name": "@types/koa-joi-router",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/koajs/joi-router"
+    ],
     "dependencies": {
+        "@types/busboy": "*",
+        "@types/co-body": "*",
+        "@types/koa": "*",
+        "@types/koa-router": "*",
+        "@types/node": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/koa-joi-router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Bull",
+            "githubUsername": "wingsbob"
+        },
+        {
+            "name": "Dave Welsh",
+            "githubUsername": "move-zig"
+        },
+        {
+            "name": "Hiroshi Ioka",
+            "githubUsername": "hirochachacha"
+        },
+        {
+            "name": "Tiger Oakes",
+            "githubUsername": "NotWoods"
+        },
+        {
+            "name": "Jeremy Hull",
+            "githubUsername": "sourrust"
+        }
+    ]
 }

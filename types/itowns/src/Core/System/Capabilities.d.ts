@@ -8,4 +8,5 @@ declare namespace _default {
     function getMaxTextureSize(): number;
     function updateCapabilities(renderer: THREE.WebGLRenderer): void;
 }
+
 export default _default;

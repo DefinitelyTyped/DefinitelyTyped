@@ -1,8 +1,3 @@
-// Type definitions for netgear 4.3
-// Project: https://github.com/gruijter/netgear.js#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace NetgearRouter {
     enum LoginMethod {
         Heritage = 1,

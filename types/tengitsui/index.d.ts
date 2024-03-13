@@ -1,7 +1,3 @@
-// Type definitions for tengitsui 4.3
-// Project: https://github.com/1026385513/tengitsui
-// Definitions by: 1026385513 <https://github.com/1026385513>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from "react";
 export type voidFunc = () => void;
 export type onChange = (value: any) => void;
@@ -276,7 +272,7 @@ export interface ProgressProps {
 export type RangePickerProps =
     | BaseProps
     | {
-        value: undefined | null | Array<null> | string[];
+        value: undefined | null | null[] | string[];
     };
 
 export interface TableEditorRef {

@@ -1,9 +1,3 @@
-// Type definitions for hellosign-sdk 1.6
-// Project: https://github.com/HelloFax/hellosign-nodejs-sdk
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
 import { IncomingMessage } from "http";
 

@@ -1,9 +1,3 @@
-// Type definitions for Gijgo v1.9.12
-// Project: http://gijgo.com
-// Definitions by: Atanas Atanasov <https://github.com/atatanasov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare module "gijgo" {
     export = Types;
 }
@@ -12,9 +6,9 @@ declare namespace Types {
     // Grid
     interface GridPager {
         limit?: number | undefined;
-        sizes?: Array<number> | undefined;
-        leftControls?: Array<any> | undefined;
-        rightControls?: Array<any> | undefined;
+        sizes?: number[] | undefined;
+        leftControls?: any[] | undefined;
+        rightControls?: any[] | undefined;
     }
 
     interface GridColumn {
@@ -79,8 +73,8 @@ declare namespace Types {
     }
 
     interface GridOptimisticPersistence {
-        localStorage: Array<string>;
-        sessionStorage: Array<string>;
+        localStorage: string[];
+        sessionStorage: string[];
     }
 
     interface GridSettings<Entity> {
@@ -89,7 +83,7 @@ declare namespace Types {
         autoLoad?: boolean | undefined;
         bodyRowHeight?: string | undefined;
         columnReorder?: boolean | undefined;
-        columns?: Array<GridColumn> | undefined;
+        columns?: GridColumn[] | undefined;
         dataSource?: any;
         defaultColumnSettings?: GridColumn | undefined;
         detailTemplate?: string | undefined;
@@ -133,9 +127,9 @@ declare namespace Types {
             | undefined;
         columnHide?: ((e: any, column: GridColumn) => any) | undefined;
         columnShow?: ((e: any, column: GridColumn) => any) | undefined;
-        dataBinding?: ((e: any, records: Array<Entity>) => any) | undefined;
-        dataBound?: ((e: any, records: Array<Entity>, totalRecords: number) => any) | undefined;
-        dataFiltered?: ((e: any, records: Array<Entity>) => any) | undefined;
+        dataBinding?: ((e: any, records: Entity[]) => any) | undefined;
+        dataBound?: ((e: any, records: Entity[], totalRecords: number) => any) | undefined;
+        dataFiltered?: ((e: any, records: Entity[]) => any) | undefined;
         destroying?: ((e: any) => any) | undefined;
         detailCollapse?: ((e: any, detailWrapper: JQuery, id: string) => any) | undefined;
         detailExpand?: ((e: any, detailWrapper: JQuery, id: string) => any) | undefined;
@@ -161,12 +155,12 @@ declare namespace Types {
         edit(id: string): Grid<Entity, Params>;
         expandAll(): Grid<Entity, Params>;
         // get(position: number): Entity; //TODO: rename to getByPosition to avoid conflicts with jquery.get
-        getAll(includeAllRecords?: boolean): Array<Entity>;
+        getAll(includeAllRecords?: boolean): Entity[];
         getById(id: string): Entity;
-        getChanges(): Array<Entity>;
+        getChanges(): Entity[];
         getCSV(includeAllRecords?: boolean): string;
         getSelected(): string;
-        getSelections(): Array<string>;
+        getSelections(): string[];
         hideColumn(field: string): Grid<Entity, Params>;
         makeResponsive(): Grid<Entity, Params>;
         reload(params?: Params): Grid<Entity, Params>;
@@ -253,8 +247,8 @@ declare namespace Types {
         uiLibrary?: string | undefined;
         iconsLibrary?: string | undefined;
         weekStartDay?: number | undefined;
-        disableDates?: Array<any> | Function | undefined;
-        disableDaysOfWeek?: Array<number> | undefined;
+        disableDates?: any[] | Function | undefined;
+        disableDaysOfWeek?: number[] | undefined;
         calendarWeeks?: boolean | undefined;
         keyboardNavigation?: boolean | undefined;
         locale?: string | undefined;
@@ -458,20 +452,20 @@ declare namespace Types {
         getDataByText(text: string): any;
         getNodeById(id: string): any;
         getNodeByText(id: string): any;
-        getAll(): Array<any>;
+        getAll(): any[];
         // select(node: any) : Tree;
         unselect(node: any): Tree;
         selectAll(): Tree;
         unselectAll(): Tree;
-        getSelections(): Array<string>;
-        getChildren(node: any, cascade?: boolean): Array<any>;
+        getSelections(): string[];
+        getChildren(node: any, cascade?: boolean): any[];
         enable(node: any, cascade?: boolean): Tree;
         disable(node: any, cascade?: boolean): Tree;
         enableAll(): Tree;
         disableAll(): Tree;
         // parents(id: string): Array<string>;
 
-        getCheckedNodes(): Array<string>;
+        getCheckedNodes(): string[];
         checkAll(): Tree;
         uncheckAll(): Tree;
         check(node: any): Tree;

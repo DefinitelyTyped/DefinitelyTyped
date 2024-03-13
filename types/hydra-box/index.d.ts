@@ -1,9 +1,3 @@
-// Type definitions for hydra-box 0.6
-// Project: https://github.com/zazuko/hydra-box
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="absolute-url" />
 /// <reference types="set-link" />
 

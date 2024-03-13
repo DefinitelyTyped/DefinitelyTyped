@@ -1,8 +1,3 @@
-// Type definitions for steam-tradeoffer-manager 2.10
-// Project: https://github.com/DoctorMcKay/node-steam-tradeoffer-manager
-// Definitions by: kldzj <https://github.com/kldzj>, Kyle Smith <https://github.com/kjsmita6>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { EventEmitter } from "events";
 import Steam = require("steam");
 import SteamID = require("steamid");
@@ -245,333 +240,346 @@ declare namespace TradeOfferManager {
         rollback_new_contextid?: number;
     }
 
-    interface ETradeOfferState extends Record<string | number, string | number> {
-        /** 1 - Invalid. */
-        Invalid: number;
-        /** 2 - This trade offer has been sent, neither party has acted on it yet. */
-        Active: number;
-        /** 3 - The trade offer was accepted by the recipient and items were exchanged. */
-        Accepted: number;
-        /** 4 - The recipient made a counter offer. */
-        Countered: number;
-        /** 5 - The trade offer was not accepted before the expiration date. */
-        Expired: number;
-        /** 6 - The sender cancelled the offer. */
-        Canceled: number;
-        /** 7 - The recipient declined the offer. */
-        Declined: number;
-        /** 8 - Some of the items in the offer are no longer available (indicated by the missing flag in the output). */
-        InvalidItems: number;
-        /** 9 - The offer hasn't been sent yet and is awaiting email/mobile confirmation. The offer is only visible to the sender. */
-        CreatedNeedsConfirmation: number;
-        /** 10 - Either party canceled the offer via email/mobile. The offer is visible to both parties, even if the sender canceled it before it was sent. */
-        CanceledBySecondFactor: number;
-        /** 11 - The trade has been placed on hold. The items involved in the trade have all been removed from both parties' inventories and will be automatically delivered in the future. */
-        InEscrow: number;
-        "1": string;
-        "2": string;
-        "3": string;
-        "4": string;
-        "5": string;
-        "6": string;
-        "7": string;
-        "8": string;
-        "9": string;
-        "10": string;
-        "11": string;
+    interface ETradeOfferState {
+        /* Invalid. */
+        "Invalid": 1;
+        /* This trade offer has been sent, neither party has acted on it yet. */
+        "Active": 2;
+        /* The trade offer was accepted by the recipient and items were exchanged. */
+        "Accepted": 3;
+        /* The recipient made a counter offer */
+        "Countered": 4;
+        /* The trade offer was not accepted before the expiration date */
+        "Expired": 5;
+        /* The sender cancelled the offer */
+        "Canceled": 6;
+        /* The recipient declined the offer */
+        "Declined": 7;
+        /* Some of the items in the offer are no longer available (indicated by the missing flag in the output) */
+        "InvalidItems": 8;
+        /* The offer hasn't been sent yet and is awaiting further confirmation */
+        "CreatedNeedsConfirmation": 9;
+        /* Either party canceled the offer via email/mobile confirmation */
+        "CanceledBySecondFactor": 10;
+        /* The trade has been placed on hold */
+        "InEscrow": 11;
+
+        "1": "Invalid";
+        "2": "Active";
+        "3": "Accepted";
+        "4": "Countered";
+        "5": "Expired";
+        "6": "Canceled";
+        "7": "Declined";
+        "8": "InvalidItems";
+        "9": "CreatedNeedsConfirmation";
+        "10": "CanceledBySecondFactor";
+        "11": "InEscrow";
     }
 
     interface EOfferFilter {
-        ActiveOnly: number;
-        HistoricalOnly: number;
-        All: number;
+        ActiveOnly: 1;
+        HistoricalOnly: 2;
+        All: 3;
     }
 
-    interface EResult extends Record<string | number, string | number> {
-        Invalid: number;
-        OK: number;
-        Fail: number;
-        NoConnection: number;
-        InvalidPassword: number;
-        LoggedInElsewhere: number;
-        InvalidProtocolVer: number;
-        InvalidParam: number;
-        FileNotFound: number;
-        Busy: number;
-        InvalidState: number;
-        InvalidName: number;
-        InvalidEmail: number;
-        DuplicateName: number;
-        AccessDenied: number;
-        Timeout: number;
-        Banned: number;
-        AccountNotFound: number;
-        InvalidSteamID: number;
-        ServiceUnavailable: number;
-        NotLoggedOn: number;
-        Pending: number;
-        EncryptionFailure: number;
-        InsufficientPrivilege: number;
-        LimitExceeded: number;
-        Revoked: number;
-        Expired: number;
-        AlreadyRedeemed: number;
-        DuplicateRequest: number;
-        AlreadyOwned: number;
-        IPNotFound: number;
-        PersistFailed: number;
-        LockingFailed: number;
-        LogonSessionReplaced: number;
-        ConnectFailed: number;
-        HandshakeFailed: number;
-        IOFailure: number;
-        RemoteDisconnect: number;
-        ShoppingCartNotFound: number;
-        Blocked: number;
-        Ignored: number;
-        NoMatch: number;
-        AccountDisabled: number;
-        ServiceReadOnly: number;
-        AccountNotFeatured: number;
-        AdministratorOK: number;
-        ContentVersion: number;
-        TryAnotherCM: number;
-        PasswordRequiredToKickSession: number;
-        AlreadyLoggedInElsewhere: number;
-        Suspended: number;
-        Cancelled: number;
-        DataCorruption: number;
-        DiskFull: number;
-        RemoteCallFailed: number;
-        PasswordNotSet: number;
-        PasswordUnset: number;
-        ExternalAccountUnlinked: number;
-        PSNTicketInvalid: number;
-        ExternalAccountAlreadyLinked: number;
-        RemoteFileConflict: number;
-        IllegalPassword: number;
-        SameAsPreviousValue: number;
-        AccountLogonDenied: number;
-        CannotUseOldPassword: number;
-        InvalidLoginAuthCode: number;
-        AccountLogonDeniedNoMailSent: number;
-        AccountLogonDeniedNoMail: number;
-        HardwareNotCapableOfIPT: number;
-        IPTInitError: number;
-        ParentalControlRestricted: number;
-        FacebookQueryError: number;
-        ExpiredLoginAuthCode: number;
-        IPLoginRestrictionFailed: number;
-        AccountLocked: number;
-        AccountLockedDown: number;
-        AccountLogonDeniedVerifiedEmailRequired: number;
-        NoMatchingURL: number;
-        BadResponse: number;
-        RequirePasswordReEntry: number;
-        ValueOutOfRange: number;
-        UnexpectedError: number;
-        Disabled: number;
-        InvalidCEGSubmission: number;
-        RestrictedDevice: number;
-        RegionLocked: number;
-        RateLimitExceeded: number;
-        AccountLogonDeniedNeedTwoFactorCode: number;
-        AccountLoginDeniedNeedTwoFactor: number;
-        ItemOrEntryHasBeenDeleted: number;
-        ItemDeleted: number;
-        AccountLoginDeniedThrottle: number;
-        TwoFactorCodeMismatch: number;
-        TwoFactorActivationCodeMismatch: number;
-        AccountAssociatedToMultiplePlayers: number;
-        AccountAssociatedToMultiplePartners: number;
-        NotModified: number;
-        NoMobileDeviceAvailable: number;
-        NoMobileDevice: number;
-        TimeIsOutOfSync: number;
-        TimeNotSynced: number;
-        SMSCodeFailed: number;
-        TooManyAccountsAccessThisResource: number;
-        AccountLimitExceeded: number;
-        AccountActivityLimitExceeded: number;
-        PhoneActivityLimitExceeded: number;
-        RefundToWallet: number;
-        EmailSendFailure: number;
-        NotSettled: number;
-        NeedCaptcha: number;
-        GSLTDenied: number;
-        GSOwnerDenied: number;
-        InvalidItemType: number;
-        IPBanned: number;
-        GSLTExpired: number;
-        InsufficientFunds: number;
-        TooManyPending: number;
-        NoSiteLicensesFound: number;
-        WGNetworkSendExceeded: number;
-        AccountNotFriends: number;
-        LimitedUserAccount: number;
-        "0": string;
-        "1": string;
-        "2": string;
-        "3": string;
-        "5": string;
-        "6": string;
-        "7": string;
-        "8": string;
-        "9": string;
-        "10": string;
-        "11": string;
-        "12": string;
-        "13": string;
-        "14": string;
-        "15": string;
-        "16": string;
-        "17": string;
-        "18": string;
-        "19": string;
-        "20": string;
-        "21": string;
-        "22": string;
-        "23": string;
-        "24": string;
-        "25": string;
-        "26": string;
-        "27": string;
-        "28": string;
-        "29": string;
-        "30": string;
-        "31": string;
-        "32": string;
-        "33": string;
-        "34": string;
-        "35": string;
-        "36": string;
-        "37": string;
-        "38": string;
-        "39": string;
-        "40": string;
-        "41": string;
-        "42": string;
-        "43": string;
-        "44": string;
-        "45": string;
-        "46": string;
-        "47": string;
-        "48": string;
-        "49": string;
-        "50": string;
-        "51": string;
-        "52": string;
-        "53": string;
-        "54": string;
-        "55": string;
-        "56": string;
-        "57": string;
-        "58": string;
-        "59": string;
-        "60": string;
-        "61": string;
-        "62": string;
-        "63": string;
-        "64": string;
-        "65": string;
-        "66": string;
-        "67": string;
-        "68": string;
-        "69": string;
-        "70": string;
-        "71": string;
-        "72": string;
-        "73": string;
-        "74": string;
-        "75": string;
-        "76": string;
-        "77": string;
-        "78": string;
-        "79": string;
-        "80": string;
-        "81": string;
-        "82": string;
-        "83": string;
-        "84": string;
-        "85": string;
-        "86": string;
-        "87": string;
-        "88": string;
-        "89": string;
-        "90": string;
-        "91": string;
-        "92": string;
-        "93": string;
-        "94": string;
-        "95": string;
-        "96": string;
-        "97": string;
-        "98": string;
-        "99": string;
-        "100": string;
-        "101": string;
-        "102": string;
-        "103": string;
-        "104": string;
-        "105": string;
-        "106": string;
-        "107": string;
-        "108": string;
-        "109": string;
-        "110": string;
-        "111": string;
-        "112": string;
+    interface EResult {
+        Invalid: 0;
+        OK: 1;
+        Fail: 2;
+        NoConnection: 3;
+        InvalidPassword: 5;
+        LoggedInElsewhere: 6;
+        InvalidProtocolVer: 7;
+        InvalidParam: 8;
+        FileNotFound: 9;
+        Busy: 10;
+        InvalidState: 11;
+        InvalidName: 12;
+        InvalidEmail: 13;
+        DuplicateName: 14;
+        AccessDenied: 15;
+        Timeout: 16;
+        Banned: 17;
+        AccountNotFound: 18;
+        InvalidSteamID: 19;
+        ServiceUnavailable: 20;
+        NotLoggedOn: 21;
+        Pending: 22;
+        EncryptionFailure: 23;
+        InsufficientPrivilege: 24;
+        LimitExceeded: 25;
+        Revoked: 26;
+        Expired: 27;
+        AlreadyRedeemed: 28;
+        DuplicateRequest: 29;
+        AlreadyOwned: 30;
+        IPNotFound: 31;
+        PersistFailed: 32;
+        LockingFailed: 33;
+        LogonSessionReplaced: 34;
+        ConnectFailed: 35;
+        HandshakeFailed: 36;
+        IOFailure: 37;
+        RemoteDisconnect: 38;
+        ShoppingCartNotFound: 39;
+        Blocked: 40;
+        Ignored: 41;
+        NoMatch: 42;
+        AccountDisabled: 43;
+        ServiceReadOnly: 44;
+        AccountNotFeatured: 45;
+        AdministratorOK: 46;
+        ContentVersion: 47;
+        TryAnotherCM: 48;
+        PasswordRequiredToKickSession: 49;
+        AlreadyLoggedInElsewhere: 50;
+        Suspended: 51;
+        Cancelled: 52;
+        DataCorruption: 53;
+        DiskFull: 54;
+        RemoteCallFailed: 55;
+        PasswordNotSet: 56;
+        PasswordUnset: 56;
+        ExternalAccountUnlinked: 57;
+        PSNTicketInvalid: 58;
+        ExternalAccountAlreadyLinked: 59;
+        RemoteFileConflict: 60;
+        IllegalPassword: 61;
+        SameAsPreviousValue: 62;
+        AccountLogonDenied: 63;
+        CannotUseOldPassword: 64;
+        InvalidLoginAuthCode: 65;
+        AccountLogonDeniedNoMailSent: 66;
+        AccountLogonDeniedNoMail: 66;
+        HardwareNotCapableOfIPT: 67;
+        IPTInitError: 68;
+        ParentalControlRestricted: 69;
+        FacebookQueryError: 70;
+        ExpiredLoginAuthCode: 71;
+        IPLoginRestrictionFailed: 72;
+        AccountLocked: 73;
+        AccountLockedDown: 73;
+        AccountLogonDeniedVerifiedEmailRequired: 74;
+        NoMatchingURL: 75;
+        BadResponse: 76;
+        RequirePasswordReEntry: 77;
+        ValueOutOfRange: 78;
+        UnexpectedError: 79;
+        Disabled: 80;
+        InvalidCEGSubmission: 81;
+        RestrictedDevice: 82;
+        RegionLocked: 83;
+        RateLimitExceeded: 84;
+        AccountLogonDeniedNeedTwoFactorCode: 85;
+        AccountLoginDeniedNeedTwoFactor: 85;
+        ItemOrEntryHasBeenDeleted: 86;
+        ItemDeleted: 86;
+        AccountLoginDeniedThrottle: 87;
+        TwoFactorCodeMismatch: 88;
+        TwoFactorActivationCodeMismatch: 89;
+        AccountAssociatedToMultiplePlayers: 90;
+        AccountAssociatedToMultiplePartners: 90;
+        NotModified: 91;
+        NoMobileDeviceAvailable: 92;
+        NoMobileDevice: 92;
+        TimeIsOutOfSync: 93;
+        TimeNotSynced: 93;
+        SMSCodeFailed: 94;
+        TooManyAccountsAccessThisResource: 95;
+        AccountLimitExceeded: 95;
+        AccountActivityLimitExceeded: 96;
+        PhoneActivityLimitExceeded: 97;
+        RefundToWallet: 98;
+        EmailSendFailure: 99;
+        NotSettled: 100;
+        NeedCaptcha: 101;
+        GSLTDenied: 102;
+        GSOwnerDenied: 103;
+        InvalidItemType: 104;
+        IPBanned: 105;
+        GSLTExpired: 106;
+        InsufficientFunds: 107;
+        TooManyPending: 108;
+        NoSiteLicensesFound: 109;
+        WGNetworkSendExceeded: 110;
+        AccountNotFriends: 111;
+        LimitedUserAccount: 112;
+        CantRemoveItem: 113;
+        AccountHasBeenDeleted: 114;
+        AccountHasAnExistingUserCancelledLicense: 115;
+        DeniedDueToCommunityCooldown: 116;
+        NoLauncherSpecified: 117;
+        MustAgreeToSSA: 118;
+        ClientNoLongerSupported: 119;
+        LauncherMigrated: 119;
+        "0": "Invalid";
+        "1": "OK";
+        "2": "Fail";
+        "3": "NoConnection";
+        "5": "InvalidPassword";
+        "6": "LoggedInElsewhere";
+        "7": "InvalidProtocolVer";
+        "8": "InvalidParam";
+        "9": "FileNotFound";
+        "10": "Busy";
+        "11": "InvalidState";
+        "12": "InvalidName";
+        "13": "InvalidEmail";
+        "14": "DuplicateName";
+        "15": "AccessDenied";
+        "16": "Timeout";
+        "17": "Banned";
+        "18": "AccountNotFound";
+        "19": "InvalidSteamID";
+        "20": "ServiceUnavailable";
+        "21": "NotLoggedOn";
+        "22": "Pending";
+        "23": "EncryptionFailure";
+        "24": "InsufficientPrivilege";
+        "25": "LimitExceeded";
+        "26": "Revoked";
+        "27": "Expired";
+        "28": "AlreadyRedeemed";
+        "29": "DuplicateRequest";
+        "30": "AlreadyOwned";
+        "31": "IPNotFound";
+        "32": "PersistFailed";
+        "33": "LockingFailed";
+        "34": "LogonSessionReplaced";
+        "35": "ConnectFailed";
+        "36": "HandshakeFailed";
+        "37": "IOFailure";
+        "38": "RemoteDisconnect";
+        "39": "ShoppingCartNotFound";
+        "40": "Blocked";
+        "41": "Ignored";
+        "42": "NoMatch";
+        "43": "AccountDisabled";
+        "44": "ServiceReadOnly";
+        "45": "AccountNotFeatured";
+        "46": "AdministratorOK";
+        "47": "ContentVersion";
+        "48": "TryAnotherCM";
+        "49": "PasswordRequiredToKickSession";
+        "50": "AlreadyLoggedInElsewhere";
+        "51": "Suspended";
+        "52": "Cancelled";
+        "53": "DataCorruption";
+        "54": "DiskFull";
+        "55": "RemoteCallFailed";
+        "56": "PasswordUnset";
+        "57": "ExternalAccountUnlinked";
+        "58": "PSNTicketInvalid";
+        "59": "ExternalAccountAlreadyLinked";
+        "60": "RemoteFileConflict";
+        "61": "IllegalPassword";
+        "62": "SameAsPreviousValue";
+        "63": "AccountLogonDenied";
+        "64": "CannotUseOldPassword";
+        "65": "InvalidLoginAuthCode";
+        "66": "AccountLogonDeniedNoMail";
+        "67": "HardwareNotCapableOfIPT";
+        "68": "IPTInitError";
+        "69": "ParentalControlRestricted";
+        "70": "FacebookQueryError";
+        "71": "ExpiredLoginAuthCode";
+        "72": "IPLoginRestrictionFailed";
+        "73": "AccountLockedDown";
+        "74": "AccountLogonDeniedVerifiedEmailRequired";
+        "75": "NoMatchingURL";
+        "76": "BadResponse";
+        "77": "RequirePasswordReEntry";
+        "78": "ValueOutOfRange";
+        "79": "UnexpectedError";
+        "80": "Disabled";
+        "81": "InvalidCEGSubmission";
+        "82": "RestrictedDevice";
+        "83": "RegionLocked";
+        "84": "RateLimitExceeded";
+        "85": "AccountLoginDeniedNeedTwoFactor";
+        "86": "ItemDeleted";
+        "87": "AccountLoginDeniedThrottle";
+        "88": "TwoFactorCodeMismatch";
+        "89": "TwoFactorActivationCodeMismatch";
+        "90": "AccountAssociatedToMultiplePartners";
+        "91": "NotModified";
+        "92": "NoMobileDevice";
+        "93": "TimeNotSynced";
+        "94": "SMSCodeFailed";
+        "95": "AccountLimitExceeded";
+        "96": "AccountActivityLimitExceeded";
+        "97": "PhoneActivityLimitExceeded";
+        "98": "RefundToWallet";
+        "99": "EmailSendFailure";
+        "100": "NotSettled";
+        "101": "NeedCaptcha";
+        "102": "GSLTDenied";
+        "103": "GSOwnerDenied";
+        "104": "InvalidItemType";
+        "105": "IPBanned";
+        "106": "GSLTExpired";
+        "107": "InsufficientFunds";
+        "108": "TooManyPending";
+        "109": "NoSiteLicensesFound";
+        "110": "WGNetworkSendExceeded";
+        "111": "AccountNotFriends";
+        "112": "LimitedUserAccount";
     }
 
-    interface EConfirmationMethod extends Record<string | number, string | number> {
-        None: number;
-        Email: number;
-        MobileApp: number;
-        "0": string;
-        "1": string;
-        "2": string;
+    interface EConfirmationMethod {
+        None: 0;
+        Email: 1;
+        MobileApp: 2;
+
+        "0": "None";
+        "1": "Email";
+        "2": "MobileApp";
     }
 
-    interface ETradeStatus extends Record<string | number, string | number> {
-        /** 0 - Trade has just been accepted/confirmed, but no work has been done yet. */
-        Init: number;
-        /** 1 - Steam is about to start committing the trade. */
-        PreCommitted: number;
-        /** 2 - The items have been exchanged. */
-        Committed: number;
-        /** 3 - All work is finished. */
-        Complete: number;
-        /** 4 - Something went wrong after Init, but before Committed, and the trade has been rolled back. */
-        Failed: number;
-        /** 5 - A support person rolled back the trade for one side. */
-        PartialSupportRollback: number;
-        /** 6 - A support person rolled back the trade for both sides. */
-        FullSupportRollback: number;
-        /** 7 - A support person rolled back the trade for some set of items. */
-        SupportRollback_Selective: number;
-        /** 8 - We tried to roll back the trade when it failed, but haven't managed to do that for all items yet. */
-        RollbackFailed: number;
-        /** 9 - We tried to roll back the trade, but some failure didn't go away and we gave up. */
-        RollbackAbandoned: number;
-        /** 10 - Trade is in escrow. */
-        InEscrow: number;
-        /** 11 - A trade in escrow was rolled back  */
-        EscrowRollback: number;
-        "0": string;
-        "1": string;
-        "2": string;
-        "3": string;
-        "4": string;
-        "5": string;
-        "6": string;
-        "7": string;
-        "8": string;
-        "9": string;
-        "10": string;
-        "11": string;
+    interface ETradeStatus {
+        /* Trade has just been accepted/confirmed, but no work has been done yet */
+        Init: 0;
+        /* Steam is about to start committing the trade */
+        PreCommitted: 1;
+        /* The items have been exchanged */
+        Committed: 2;
+        /* All work is finished */
+        Complete: 3;
+        /* Something went wrong after Init, but before Committed, and the trade has been rolled back */
+        Failed: 4;
+        /* A support person rolled back the trade for one side */
+        PartialSupportRollback: 5;
+        /* A support person rolled back the trade for both sides */
+        FullSupportRollback: 6;
+        /* A support person rolled back the trade for some set of items */
+        SupportRollback_Selective: 7;
+        /* We tried to roll back the trade when it failed, but haven't managed to do that for all items yet */
+        RollbackFailed: 8;
+        /* We tried to roll back the trade, but some failure didn't go away and we gave up */
+        RollbackAbandoned: 9;
+        /* Trade is in escrow */
+        InEscrow: 10;
+        /* A trade in escrow was rolled back */
+        EscrowRollback: 11;
+
+        "0": "Init";
+        "1": "PreCommitted";
+        "2": "Committed";
+        "3": "Complete";
+        "4": "Failed";
+        "5": "PartialSupportRollback";
+        "6": "FullSupportRollback";
+        "7": "SupportRollback_Selective";
+        "8": "RollbackFailed";
+        "9": "RollbackAbandoned";
+        "10": "InEscrow";
+        "11": "EscrowRollback";
     }
 
-    type EResultError = Error & { eresult?: EResult };
+    type EResultError = Error & {
+        eresult?: EResult;
+    };
 
     type InventoryCallback = (
         err: Error | null,

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-dagre",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/cytoscape/cytoscape.js-dagre"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-dagre": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felix Barczewicz",
+            "githubUsername": "DieserFelix"
+        }
+    ]
+}

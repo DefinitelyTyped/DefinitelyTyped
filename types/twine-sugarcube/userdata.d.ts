@@ -16,7 +16,7 @@ interface VariablesMapBase {
  *
  * export { };
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SugarCubeSetupObject {
 }
 
@@ -34,11 +34,11 @@ export interface SugarCubeSetupObject {
  *
  * export { };
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SugarCubeStoryVariables {
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SugarCubeTemporaryVariables extends VariablesMapBase {
 }
 
@@ -56,7 +56,7 @@ export interface SugarCubeTemporaryVariables extends VariablesMapBase {
  *
  * export { };
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SugarCubeSettingVariables {
 }
 

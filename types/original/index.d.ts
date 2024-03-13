@@ -1,9 +1,3 @@
-// Type definitions for original 1.0
-// Project: https://github.com/unshiftio/original
-// Definitions by: Wayne Carson <https://github.com/wcarson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Transform an URL to a valid origin value.
  *

@@ -1,8 +1,3 @@
-// Type definitions for win-ca 3.5
-// Project: https://github.com/ukoloff/win-ca
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { pki } from "node-forge";
@@ -11,6 +6,7 @@ export = api;
 
 declare function api(params: api.Options & { generator: true; async: true }): AsyncGenerator<api.Certificate>;
 declare function api(params: api.Options & { generator: true }): Generator<api.Certificate>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function api(params: api.Options): AsyncGenerator<api.Certificate> | Generator<api.Certificate> | void;
 
 declare namespace api {

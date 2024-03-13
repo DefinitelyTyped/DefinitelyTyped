@@ -1,8 +1,3 @@
-// Type definitions for mraid 1.0
-// Project: https://github.com/sumn2u/mraid-type-definitions#readme
-// Definitions by: Suman Kunwar <https://github.com/sumn2u>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface MRAID1 {
     getVersion(): MRAIDVersion;
     addEventListener(name: string, eventHandler: MRAIDEventHandlers): void;

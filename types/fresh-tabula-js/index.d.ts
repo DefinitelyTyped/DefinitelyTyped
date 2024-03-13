@@ -1,8 +1,3 @@
-// Type definitions for fresh-tabula-js 2.0
-// Project: https://github.com/cdtinney/fresh-tabula-js
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Highland = require("highland");

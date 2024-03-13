@@ -1,10 +1,3 @@
-// Type definitions for handlebars-webpack-plugin 2.2
-// Project: https://github.com/sagold/handlebars-webpack-plugin
-// Definitions by: odas0R <https://github.com/Odas0R>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-// Minimum TypeScript Version: 3.7
-
 import { HelperDeclareSpec } from "handlebars";
 import { Options } from "html-webpack-plugin";
 import { Compiler, WebpackPluginInstance } from "webpack";

@@ -1,10 +1,3 @@
-// Type definitions for parameter 3.6
-// Project: https://github.com/node-modules/parameter#readme
-// Definitions by: Innpaul Zhang <https://github.com/zhyupe>
-//                 Runtu <https://github.com/Runtu4378>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 export = Parameter;
 
 declare class Parameter {
@@ -25,6 +18,7 @@ declare class Parameter {
      * @param rule
      * @param value
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(rule: Parameter.ParameterRules, value: unknown): Parameter.ValidateError[] | void;
 
     static CONVERT_MAP: Record<string, Parameter.ParameterConvertType | undefined>;
@@ -109,7 +103,7 @@ declare namespace Parameter {
         | "object?"
         | "array"
         | "array?"
-        | ReadonlyArray<any>
+        | readonly any[]
         | RegExp;
 
     interface ParameterRuleBase {
@@ -204,7 +198,7 @@ declare namespace Parameter {
 
     interface ParameterRuleEnum extends ParameterRuleBase {
         type: "enum" | "enum?";
-        values: ReadonlyArray<any>;
+        values: readonly any[];
     }
 
     interface ParameterRuleObject extends ParameterRuleBase {
@@ -248,6 +242,7 @@ declare namespace Parameter {
     type ParameterCheckFunction<T extends string> = (
         rule: ParameterRuleCustom & { type: T },
         value: unknown,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => string | ValidateError[] | void;
 
     const TYPE_MAP: Record<string, ParameterCheckFunction<string> | undefined>;

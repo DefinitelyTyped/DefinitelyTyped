@@ -1,9 +1,3 @@
-// Type definitions for redux-duck 1.0
-// Project: https://github.com/PlatziDev/redux-duck/
-// Definitions by: Toni Ruottu <https://github.com/cyberixae>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 // See redux-duck-tests.ts for an example application!
 
 import { Action, AnyAction, Reducer } from "redux";

@@ -2,7 +2,7 @@
 import BN_require = require("bn.js");
 // test that it works as module import
 import * as BN_esm from "bn.js";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { Endianness, IPrimeName } from "bn.js";
 
 function runTests(BN: typeof BN_esm) {
@@ -10,6 +10,8 @@ function runTests(BN: typeof BN_esm) {
     bn = bn.add(bn);
     bn.isZero();
     bn.byteLength;
+    bn.setn(0, 1);
+    bn.setn(0, false);
 
     const endian: Endianness = "le";
     bn.toArrayLike(Buffer, endian, 2);

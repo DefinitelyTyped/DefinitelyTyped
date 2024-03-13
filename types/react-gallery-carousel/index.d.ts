@@ -1,9 +1,3 @@
-// Type definitions for react-gallery-carousel 0.2
-// Project: https://github.com/yifaneye/react-gallery-carousel#readme
-// Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import * as React from "react";
 
 declare namespace Carousel {
@@ -179,5 +173,5 @@ declare namespace Carousel {
  * The carousel component.
  * @see {@link https://github.com/yifaneye/react-gallery-carousel#props}
  */
-declare function Carousel(props: Carousel.CarouselProps): JSX.Element;
+declare function Carousel(props: Carousel.CarouselProps): React.JSX.Element;
 export = Carousel;

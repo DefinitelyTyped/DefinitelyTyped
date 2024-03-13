@@ -1,8 +1,3 @@
-// Type definitions for request-stats 3.0
-// Project: https://github.com/watson/request-stats
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server as HttpServer, ServerResponse } from "http";

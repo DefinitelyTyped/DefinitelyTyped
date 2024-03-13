@@ -1,9 +1,3 @@
-// Type definitions for matomo-tracker-react-native 0.3
-// Project: https://github.com/donni106/matomo-tracker-react-native
-// Definitions by: Zeynep Ece Ergin <https://github.com/zecergin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 import * as React from "react";
 
 export interface AppStart {
@@ -84,7 +78,7 @@ export interface MatomoProviderProps {
     children: React.ReactElement;
 }
 
-export function MatomoProvider(props: MatomoProviderProps): JSX.Element;
+export function MatomoProvider(props: MatomoProviderProps): React.JSX.Element;
 
 export const MatomoContext: React.Context<{}>;
 export interface InstanceProps {

@@ -1,8 +1,3 @@
-// Type definitions for gulp-minify-html v1.0.2
-// Project: https://github.com/murphydanger/gulp-minify-html
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // This package has been deprecated in favor of gulp-htmlmin, which should be faster and more comprehensive.

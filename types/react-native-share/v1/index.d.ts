@@ -1,12 +1,4 @@
-// Type definitions for react-native-share 1.1
-// Project: https://github.com/react-native-community/react-native-share#readme
-// Definitions by: Mark Nelissen <https://github.com/marknelissen>
-//                 pera <https://github.com/santiagofm>
-//                 MateusAndrade <https://github.com/MateusAndrade>
-//                 Jesse Katsumata <https://github.com/Naturalclar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-import { Component, ReactNode } from "react";
+import { Component, JSX, ReactNode } from "react";
 import { StyleProp, ViewProps } from "react-native";
 declare namespace Share {
     function open(options: Options | MultipleOptions): Promise<OpenReturn>;

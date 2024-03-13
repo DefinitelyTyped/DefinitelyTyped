@@ -1,5 +1,5 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { MaterialParameters, Material } from './Material.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface ShadowMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -8,6 +8,13 @@ export interface ShadowMaterialParameters extends MaterialParameters {
 
 export class ShadowMaterial extends Material {
     constructor(parameters?: ShadowMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link ShadowMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isShadowMaterial: true;
 
     /**
      * @default 'ShadowMaterial'

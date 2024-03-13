@@ -115,10 +115,10 @@ function weather_station_monitor(session: autobahn.Session) {
     }
 
     interface IWeatherReadings {
-        warnings: {
+        warnings: Array<{
             type: string;
             severity: string;
-        }[];
+        }>;
         temperature: {
             average: number;
         };

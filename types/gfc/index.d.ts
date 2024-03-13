@@ -1,9 +1,3 @@
-// Type definitions for gfc 2.0
-// Project: https://github.com/jonschlinkert/gfc
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { ExecException, ExecOptions, ExecSyncOptions } from "child_process";

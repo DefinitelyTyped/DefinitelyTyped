@@ -1,10 +1,4 @@
-// Type definitions for tabulator-tables 5.5
-// Project: http://tabulator.info
-// Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-// tslint:disable:no-unnecessary-class
-// tslint:disable:no-empty-interface
+// cspell: ignore XLXS, alphanum, datetime, datetimediff, rownum, freetext, recalc, Monkhouse
 
 export interface Options
     extends
@@ -23,8 +17,6 @@ export interface Options
         OptionsPersistentConfiguration,
         OptionsClipboard,
         OptionsDataTree,
-        OptionsCell,
-        OptionsCells,
         OptionsDebug,
         OptionsHTML
 {}
@@ -45,13 +37,6 @@ export interface OptionsDebug {
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;
-}
-
-export interface OptionsCells extends CellCallbacks {
-    /** The validationFailed event is triggered when the value entered into a cell during an edit fails to pass validation. */
-    validationFailed?:
-        | ((cell: CellComponent, value: any, validators: Validator[] | StandardValidatorType[]) => void)
-        | undefined;
 }
 
 export interface OptionsDataTree {
@@ -123,6 +108,7 @@ export interface OptionsClipboard {
      * The inbuilt parser will reject any clipboard data that does not contain at least one row and two columns, in that case the clipboardPasteError will be triggered.
      *
      * If you extend the clipboard module to add your own parser, you can set it to be used as default with the clipboardPasteParser property.
+     * Built-in parsers are "table" and "range".
      */
     clipboardPasteParser?: string | ((clipboard: any) => any[]) | undefined;
 
@@ -133,7 +119,7 @@ export interface OptionsClipboard {
      * update - Updates data in the table using the updateOrAddData function
      * replace - replaces all data in the table using the setData function
      */
-    clipboardPasteAction?: "insert" | "update" | "replace" | undefined;
+    clipboardPasteAction?: "insert" | "update" | "replace" | "range";
 
     /**
      * By default Tabulator will copy some of the tables styling along with the data to give a better visual appearance when pasted into other documents.
@@ -148,15 +134,6 @@ export interface OptionsClipboard {
      * You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the clipboardCopyConfig option in the table definition:
      */
     clipboardCopyConfig?: AdditionalExportOptions | boolean | undefined;
-
-    /** The clipboardCopied event is triggered whenever data is copied to the clipboard. */
-    clipboardCopied?: (() => void) | undefined;
-
-    /** The clipboardPasted event is triggered whenever data is successfully pasted into the table. */
-    clipboardPasted?: (() => void) | undefined;
-
-    /** The clipboardPasteError event is triggered whenever an attempt to paste data into the table has failed because it was rejected by the paste parser. */
-    clipboardPasteError?: (() => void) | undefined;
 
     /** When copying to clipboard you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderClipboard?:
@@ -311,7 +288,11 @@ export interface OptionsPagination {
     paginationInitialPage?: number | undefined;
 }
 
-export type GroupArg = string | string[] | ((data: any) => any);
+export type GroupArg =
+    | string
+    | string[]
+    | ((data: any) => any)
+    | Array<string | ((data: any) => any)>;
 
 export interface OptionsRowGrouping {
     /** String/function to select field to group rows by */
@@ -345,7 +326,12 @@ export interface OptionsRowGrouping {
      * Group Open Function
      * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
-    groupStartOpen?: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean) | undefined;
+    groupStartOpen?:
+        | boolean
+        | boolean[]
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
+        | undefined;
 
     /**
      * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
@@ -358,36 +344,6 @@ export interface OptionsRowGrouping {
     /** show/hide column calculations when group is closed. */
     groupClosedShowCalcs?: boolean | undefined;
 
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
-    dataGrouping?: (() => void) | undefined;
-
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, after grouping happens. */
-    dataGrouped?: (() => void) | undefined;
-
-    /** The groupVisibilityChanged callback is triggered whenever a group changes between hidden and visible states. */
-    groupVisibilityChanged?: ((group: GroupComponent, visible: boolean) => void) | undefined;
-
-    /** The groupClick callback is triggered when a user clicks on a group header. */
-    groupClick?: GroupEventCallback | undefined;
-
-    /** The groupDblClick callback is triggered when a user double clicks on a group header. */
-    groupDblClick?: GroupEventCallback | undefined;
-
-    /**
-     * The groupContext callback is triggered when a user right clicks on a group header.
-     *
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    groupContext?: GroupEventCallback | undefined;
-
-    /** The groupTap callback is triggered when a user taps on a group header on a touch display. */
-    groupTap?: GroupEventCallback | undefined;
-
-    /** The groupDblTap callback is triggered when a user taps on a group header on a touch display twice in under 300ms. */
-    groupDblTap?: GroupEventCallback | undefined;
-
-    /** The groupTapHold callback is triggered when a user taps on a group header on a touch display and holds their finger down for over 1 second. */
-    groupTapHold?: GroupEventCallback | undefined;
     groupUpdateOnCellEdit?: boolean | undefined;
 }
 
@@ -408,12 +364,6 @@ export interface OptionsFiltering {
 
     /** array of initial values for header filters. */
     initialHeaderFilter?: Array<Pick<Filter, "field" | "value">> | undefined;
-
-    /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
-    dataFiltering?: ((filters: Filter[]) => void) | undefined;
-
-    /** The dataFiltered callback is triggered after the table dataset is filtered. */
-    dataFiltered?: ((filters: Filter[], rows: RowComponent[]) => void) | undefined;
 
     /** When using real time header filtering, Tabulator will wait 300 milliseconds after a keystroke before triggering the filter. You can customize this delay by using the headerFilterLiveFilterDelay table setup option. */
     headerFilterLiveFilterDelay?: number | undefined;
@@ -520,8 +470,6 @@ export interface OptionsData {
     /** The ajaxResponse callback is triggered when a successful ajax request has been made. This callback can also be used to modify the received data before it is parsed by the table. If you use this callback it must return the data to be parsed by Tabulator, otherwise no data will be rendered. */
     ajaxResponse?: ((url: string, params: any, response: any) => any) | undefined;
 
-    /** The ajaxError callback is triggered there is an error response to an ajax request. */
-    ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
     dataLoader?: boolean;
     dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
@@ -571,21 +519,117 @@ export interface OptionsRows {
      * true - selectable rows are enabled, and you can select as many as you want
      * integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exceeded, the first selected row will be deselected to allow the next row to be selected).
      * "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
+     * @deprecated Use selectableRows instead
      */
     selectable?: boolean | number | "highlight" | undefined;
+
+    /**
+     * The selectableRows option can take one of a several values:
+     *
+     * - false - selectable rows are disabled
+     * - true - selectable rows are enabled, and you can select as many as you want
+     * - integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exceeded, the first selected row will be deselected to allow the next row to be selected).
+     * - "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
+     */
+    selectableRows?: boolean | number | "highlight" | undefined;
+
+    /**
+     * The selectableRange option can take one of a several values:
+     *
+     * - false - range selection is disabled
+     * - true - range selection is enabled, and you can add as many ranges as you want
+     * - integer - any integer value, this sets the maximum number of ranges that can be selected (when the maximum
+     *           number of ranges is exceeded, the first selected range will be deselected to allow the next range to be selected).
+     */
+    selectableRange?: boolean | number;
+
+    /**
+     * By default you can only select ranges by selecting cells on the table. If you would like to allow the user to
+     * select all cells in a column by clicking on the column header, then you can set the selectableRangeColumns option to true
+     */
+    selectableRangeColumns?: boolean;
+
+    /**
+     * If you want the user to be able to clear the values for all cells in the active range by pressing the backspace
+     * or delete keys, then you can enable this behavior using the selectableRangeClearCells option:
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRangeClearCells:true,
+     * });
+     */
+    selectableRangeClearCells?: boolean;
+
+    /**
+     * By default the value of each cell in the range is set to undefined when this option is enabled and the user
+     * presses the backspace or delete keys. You can change the value the cells are set to using the
+     * selectableRangeClearCellsValue option
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRangeClearCellsValue: "", //clear cells by setting value to an empty string
+     * });
+     */
+    selectableRangeClearCellsValue?: unknown;
 
     /**
      * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows to toggle the selected state state of all rows the cursor passes over.
      *
      * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can achieve this by setting the selectableRangeMode to click
+     * @deprecated Use selectableRowsRangeMode instead
      */
     selectableRangeMode?: "click" | undefined;
 
-    /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false. */
+    /**
+     * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows
+     * to toggle the selected state state of all rows the cursor passes over.
+     *
+     * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking
+     * on the end row then you can achieve this by setting the selectableRowsRangeMode to click.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRowsRangeMode:"click",
+     * });
+     */
+    selectableRowsRangeMode?: "click";
+
+    /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false.
+     * @deprecated Use selectableRowsRollingSelection instead
+     */
     selectableRollingSelection?: boolean | undefined;
 
-    /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false. */
+    /**
+     * By default, row selection works on a rolling basis, if you set the selectableRows option to a numeric value then
+     * when you select past this number of rows, the first row to be selected will be deselected. If you want to
+     * disable this behavior and instead prevent selection of new rows once the limit is reached you can set the
+     * selectableRowsRollingSelection option to false.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRows: 5,
+     *     selectableRowsRollingSelection:false, // disable rolling selection
+     * });
+     */
+    selectableRowsRollingSelection?: boolean;
+
+    /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false.
+     * @deprecated Use selectableRowsPersistence instead
+     */
     selectablePersistence?: boolean | undefined;
+
+    /**
+     * By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when
+     * the setData function is used). If you want the selected rows to be cleared whenever the table view is updated
+     * then set the selectableRowsPersistence option to false.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRows: true,
+     *     selectableRowsPersistence: false, // disable selection persistence
+     * });
+     */
+    selectableRowsPersistence?: boolean;
 
     /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
     selectableCheck?: ((row: RowComponent) => boolean) | undefined;
@@ -628,9 +672,6 @@ export interface OptionsRows {
         | undefined;
     movableRowsConnectedElements?: string | HTMLElement | undefined;
 
-    /** When a row is dropped on element from from the movableRowsConnectedElements option the movableRowsElementDrop callback will be triggered. You can use this callback to trigger any changes as a result of the drop */
-    movableRowsElementDrop?: ((e: MouseEvent, element: HTMLElement, row: RowComponent) => any) | undefined;
-
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
     resizableRows?: boolean | undefined;
 
@@ -652,98 +693,6 @@ export interface OptionsRows {
      */
     scrollToRowIfVisible?: boolean | undefined;
 
-    /** The dataTreeRowExpanded callback is triggered when a row with child rows is expanded to reveal the children. */
-    dataTreeRowExpanded?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The dataTreeRowCollapsed callback is triggered when a row with child rows is collapsed to hide its children. */
-    dataTreeRowCollapsed?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The movableRowsSendingStart callback is triggered on the sending table when a row is picked up from a sending table. */
-    movableRowsSendingStart?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsSent callback is triggered on the sending table when a row has been successfully received by a receiving table. */
-    movableRowsSent?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSentFailed callback is triggered on the sending table when a row has failed to be received by the receiving table. */
-    movableRowsSentFailed?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSendingStop callback is triggered on the sending table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsSendingStop?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsReceivingStart callback is triggered on a receiving table when a connection is established with a sending table. */
-    movableRowsReceivingStart?: ((fromRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceived callback is triggered on a receiving table when a row has been successfully received. */
-    movableRowsReceived?: ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceivedFailed callback is triggered on a receiving table when a row receiver has returned false. */
-    movableRowsReceivedFailed?:
-        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
-        | undefined;
-
-    /** The movableRowsReceivingStop callback is triggered on a receiving table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsReceivingStop?: ((fromTable: Tabulator) => void) | undefined;
-
-    /** The rowClick callback is triggered when a user clicks on a row. */
-    rowClick?: RowEventCallback | undefined;
-
-    /** The rowDblClick callback is triggered when a user double clicks on a row. */
-    rowDblClick?: RowEventCallback | undefined;
-
-    /**
-     * The rowContext callback is triggered when a user right clicks on a row.
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    rowContext?: RowEventCallback | undefined;
-
-    /** The rowTap callback is triggered when a user taps on a row on a touch display. */
-    rowTap?: RowEventCallback | undefined;
-
-    /** The rowDblTap callback is triggered when a user taps on a row on a touch display twice in under 300ms. */
-    rowDblTap?: RowEventCallback | undefined;
-
-    /** The rowTapHold callback is triggered when a user taps on a row on a touch display and holds their finger down for over 1 second. */
-    rowTapHold?: RowEventCallback | undefined;
-
-    /** The rowMouseEnter callback is triggered when the mouse pointer enters a row. */
-    rowMouseEnter?: RowEventCallback | undefined;
-
-    /** The rowMouseLeave callback is triggered when the mouse pointer leaves a row. */
-    rowMouseLeave?: RowEventCallback | undefined;
-
-    /** The rowMouseOver callback is triggered when the mouse pointer enters a row or any of its child elements. */
-    rowMouseOver?: RowEventCallback | undefined;
-
-    /** The rowMouseOut callback is triggered when the mouse pointer leaves a row or any of its child elements. */
-    rowMouseOut?: RowEventCallback | undefined;
-
-    /** The rowMouseMove callback is triggered when the mouse pointer moves over a row. */
-    rowMouseMove?: RowEventCallback | undefined;
-
-    /** The rowAdded callback is triggered when a row is added to the table by the addRow and updateOrAddRow functions. */
-    rowAdded?: RowChangedCallback | undefined;
-
-    /** The rowUpdated callback is triggered when a row is updated by the updateRow, updateOrAddRow, updateData or updateOrAddData, functions. */
-    rowUpdated?: RowChangedCallback | undefined;
-
-    /** The rowDeleted callback is triggered when a row is deleted from the table by the deleteRow function. */
-    rowDeleted?: RowChangedCallback | undefined;
-
-    /** The rowMoved callback will be triggered when a row has been successfully moved. */
-    rowMoved?: RowChangedCallback | undefined;
-
-    /** The rowResized callback will be triggered when a row has been resized by the user. */
-    rowResized?: RowChangedCallback | undefined;
-
-    /** Whenever the number of selected rows changes, through selection or deselection, the rowSelectionChanged event is triggered. This passes an array of the data objects for each row in the order they were selected as the first argument, and an array of row components for each of the rows in order of selection as the second argument. */
-    rowSelectionChanged?: ((data: any[], rows: RowComponent[]) => void) | undefined;
-
-    /** The rowSelected event is triggered when a row is selected, either by the user or programmatically. */
-    rowSelected?: RowChangedCallback | undefined;
-
-    /** The rowDeselected event is triggered when a row is deselected, either by the user or programmatically. */
-    rowDeselected?: RowChangedCallback | undefined;
-
     /** Allows you to specify the behavior when the user tabs from the last editable cell on the last row of the table. */
     tabEndNewRow?: boolean | JSONRecord | ((row: RowComponent) => any) | undefined;
 
@@ -751,6 +700,25 @@ export interface OptionsRows {
 
     /** Freeze rows of data */
     frozenRows?: number | string[] | ((row: RowComponent) => boolean);
+
+    /**
+     * The editTriggerEvent option lets you choose which type of interaction event will trigger an edit on a cell.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     editTriggerEvent:"dblclick", // trigger edit on double click
+     * });
+     *
+     * This option can take one of three values:
+     *
+     * - focus - trigger edit when the cell has focus (default)
+     * - click - trigger edit on single click on cell
+     * - dblclick - trigger edit on double click on cell
+     *
+     * This option does not affect navigation behavior, cells edits will still be triggered when they are navigated to
+     * through arrow keys or tabs.
+     */
+    editTriggerEvent?: "click" | "dblclick" | "focus";
 }
 
 export interface OptionsColumns {
@@ -855,16 +823,6 @@ export interface OptionsColumns {
     /** multiple or single column sorting */
     columnHeaderSortMulti?: boolean | undefined;
 
-    /** The columnMoved callback will be triggered when a column has been successfully moved. */
-    columnMoved?: ((column: ColumnComponent, columns: any[]) => void) | undefined;
-    columnResized?: ((column: ColumnComponent) => void) | undefined;
-
-    /** The columnVisibilityChanged callback is triggered whenever a column changes between hidden and visible states. */
-    columnVisibilityChanged?: ((column: ColumnComponent, visible: boolean) => void) | undefined;
-
-    /** The columnTitleChanged callback is triggered whenever a user edits a column title when the editableTitle parameter has been enabled in the column definition array. */
-    columnTitleChanged?: ((column: ColumnComponent) => void) | undefined;
-
     /** By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
     headerVisible?: boolean | undefined;
 
@@ -872,26 +830,9 @@ export interface OptionsColumns {
     headerSort?: boolean | undefined;
     headerSortElement?: string | undefined | ((column: ColumnComponent, dir: "asc" | "desc" | "none") => any);
     columnDefaults?: Partial<ColumnDefinition>;
-    /** If the resizableColumnFit table definition option is set to true, then when you resize a column its neighbouring column has the opposite resize applied to keep to total width of columns the same. */
-    resizableColumnFit?: boolean | undefined;
-}
 
-export interface OptionsCell {
-    /** The cellClick callback is triggered when a user left clicks on a cell, it can be set on a per column basis using the option in the columns definition object. */
-    cellClick?: CellEventCallback | undefined;
-    cellDblClick?: CellEventCallback | undefined;
-    cellContext?: CellEventCallback | undefined;
-    cellTap?: CellEventCallback | undefined;
-    cellDblTap?: CellEventCallback | undefined;
-    cellTapHold?: CellEventCallback | undefined;
-    cellMouseEnter?: CellEventCallback | undefined;
-    cellMouseLeave?: CellEventCallback | undefined;
-    cellMouseOver?: CellEventCallback | undefined;
-    cellMouseOut?: CellEventCallback | undefined;
-    cellMouseMove?: CellEventCallback | undefined;
-    cellEditing?: CellEditEventCallback | undefined;
-    cellEdited?: CellEditEventCallback | undefined;
-    cellEditCancelled?: CellEditEventCallback | undefined;
+    /** When the resizableColumnFit table definition option is set to true, when you resize a column, its adjacent column is resized in the opposite direction to keep the total width of the columns the same. */
+    resizableColumnFit?: boolean | undefined;
 }
 
 export interface OptionsGeneral {
@@ -935,53 +876,8 @@ export interface OptionsGeneral {
     /** Tabulator will automatically attempt to redraw the data contained in the table if the containing element for the table is resized. To disable this functionality, set the autoResize property to false. */
     autoResize?: boolean | undefined;
 
-    /** When a the tabulator constructor is called, the tableBuilding callback will triggered. */
-    tableBuilding?: (() => void) | undefined;
-
-    /** When a the tabulator constructor is called and the table has finished being rendered, the tableBuilt callback will triggered: */
-    tableBuilt?: (() => void) | undefined;
-
-    /**
-     * The renderStarted callback is triggered whenever all the rows in the table are about to be rendered. This can include:
-     * - Data is loaded into the table when setData is called
-     * - A page is loaded through any form of pagination
-     * - Rows are added to the table during progressive rendering
-     * - Columns are changed by setColumns
-     * - The data is filtered
-     * - The data is sorted
-     * - The redraw function is called
-     */
-    renderStarted?: (() => void) | undefined;
-
-    /** The renderComplete callback is triggered after the table has been rendered. */
-    renderComplete?: (() => void) | undefined;
-
-    /** The htmlImporting callback is triggered when Tabulator starts importing data from an HTML table. */
-    htmlImporting?: EmptyCallback | undefined;
-
-    /** The htmlImported callback is triggered when Tabulator finishes importing data from an HTML table. */
-    htmlImported?: EmptyCallback | undefined;
-
-    /** The dataChanged callback is triggered whenever the table data is changed by the user. Triggers for this include editing any cell in the table, adding a row and deleting a row. */
-    dataChanged?: ((data: any) => void) | undefined;
-
-    /** Whenever a page has been loaded, the pageLoaded callback is called, passing the current page number as an argument. */
-    pageLoaded?: ((pageno: number) => void) | undefined;
-
-    /** The dataSorting callback is triggered whenever a sort event occurs, before sorting happens. */
-    dataSorting?: ((sorters: SorterFromTable[]) => void) | undefined;
-
-    /** The dataSorted callback is triggered after the table dataset is sorted. */
-    dataSorted?: ((sorters: SorterFromTable[], rows: RowComponent[]) => void) | undefined;
-
     /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object. */
     invalidOptionWarnings?: boolean | undefined;
-
-    /** Callback is triggered when the table is vertically scrolled. */
-    scrollVertical?: ((top: any) => void) | undefined;
-
-    /** Callback is triggered when the table is horizontally scrolled. */
-    scrollHorizontal?: ((left: any) => void) | undefined;
 
     /**
      * There are now three different validation modes available to customize the validation experience:
@@ -1021,7 +917,7 @@ export type RowContextMenuSignature =
 
 export type GroupContextMenuSignature =
     | Array<MenuObject<GroupComponent> | MenuSeparator>
-    | ((component: GroupComponent, e: MouseEvent) => MenuObject<GroupComponent> | false | any[]);
+    | ((e: MouseEvent, component: GroupComponent) => MenuObject<GroupComponent> | false | any[]);
 
 export interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
     label: string | HTMLElement | ((component: T) => string | HTMLElement);
@@ -1074,16 +970,11 @@ export interface DownloadPDF {
 
 export interface OptionsDownload {
     /**
-     * Allows you to intercept the download file data before the users is prompted to save the file.
+     * The downloadEncoder callback allows you to intercept the download file data before the users is prompted to save the file.
      *
-     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
-     *
-     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     * The first argument of the function is the file contents returned from the downloader, the second argument is the suggested mime type for the output. The function is should return a blob of the file to be downloaded.
      */
     downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
-
-    /** The downloadComplete callback is triggered when the user has been prompted to download the file. */
-    downloadComplete?: (() => void) | undefined;
 
     /**
      * By default Tabulator includes column headers, row groups and column calculations in the download output.
@@ -1094,6 +985,18 @@ export interface OptionsDownload {
 
     /** By default, only the active rows (rows that have passed filtering) will be included in the download the downloadRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the download output. */
     downloadRowRange?: RowRangeLookup | undefined;
+
+    /** If you want to make any changes to the table data before it is parsed into the download file you can pass a mutator function to the downloadDataFormatter callback. */
+    downloadDataFormatter?: (data: any) => any;
+
+    /**
+     * The downloadReady callback allows you to intercept the download file data before the users is prompted to save the file.
+     *
+     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
+     *
+     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     */
+    downloadReady?: (fileContents: any, blob: Blob) => Blob | false;
 }
 
 export interface OptionsHTML {
@@ -1163,9 +1066,6 @@ export interface OptionsLocale {
      * If you wish you can also localize column titles by adding a columns property to your language object. You should store a property of the field name of the column you wish to change, with a value of its title. Any fields that match this will use this title instead of the one provided by the column definition array.
      */
     langs?: any;
-
-    /** When a localization event has occurred , the localized callback will triggered, passing the current locale code and language object: */
-    localized?: ((locale: string, lang: any) => void) | undefined;
 }
 
 type HistoryAction = "cellEdit" | "rowAdd" | "rowDelete" | "rowMoved";
@@ -1173,12 +1073,6 @@ type HistoryAction = "cellEdit" | "rowAdd" | "rowDelete" | "rowMoved";
 export interface OptionsHistory {
     /** Enable user interaction history functionality */
     history?: boolean | undefined;
-
-    /** The historyUndo event is triggered when the undo action is triggered. */
-    historyUndo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
-
-    /** The historyRedo event is triggered when the redo action is triggered. */
-    historyRedo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
 }
 
 export interface ColumnLayout {
@@ -1455,7 +1349,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      */
     headerFilterFunc?:
         | FilterType
-        | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
+        | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
         | undefined;
 
     /** additional parameters object passed to the headerFilterFunc function. */
@@ -1479,7 +1373,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
     headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
 
-    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This funtion is passed the column component as its first argument. */
+    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multiple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This function is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
 
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
@@ -1929,7 +1823,75 @@ export type Align = "center" | "left" | "right" | "justify";
 
 export type JSONRecord = Record<string, string | number | boolean>;
 
-export type StandardValidatorType = "required" | "unique" | "integer" | "float" | "numeric" | "string";
+/**
+ * Tabulator has a wide variety of built in validators:
+ * Note: For a guide to adding your own validators to this list, have a look at the "Extending Tabulator" section.
+ *
+ * Note By default all validators, except the `required` validator will approve any empty value (ie. empty string,
+ * null or undefined). to ensure empty values are rejected you should use the required validator.
+ *
+ * - Required, The required validator allows values that are not null or an empty string
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"required"}
+ * ```
+ * - Unique, The unique validator allows values that do not match the value of any other cell in this column
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"unique"}
+ * ```
+ * - Integer, The integer validator allows values that are valid integers
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"integer"}
+ * ```
+ * - Float, The float validator allows values that are valid floats
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"float"}
+ * ```
+ * - Numeric, The numeric validator allows values that are valid numbers
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"numeric"}
+ * ```
+ * - String, The string validator allows values that are a non-numeric string
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"string"}
+ * ```
+ * - Alphanumeric, The alphanumeric validator allows values that are explicitly numbers and letters with no symbols or spaces
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"alphanumeric"}
+ * ```
+ * - Minimum Numeric Value, The min validator allows numeric values that are greater than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"min:5"} \\value must be greater than or equal to 5
+ * ```
+ * - Maximum Numeric Value, The max validator allows numeric values that are less than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"max:5"} \\value must be less than or equal to 5
+ * ```
+ * - Minimum String Length, The minLength validator allows string values that have a length greater than or equal to parameter
+ * ```javascript
+ *     {title:"minLength", field:"example", validator:"minLength:5"} \\value must have a length greater than or equal to 5
+ * ```
+ * - Maximum String Length, The maxLength validator allows string values that have a length less than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"maxLength:5"} \\value must have a length less than or equal to 5
+ * ```
+ * - In List, The in validator allows values that match a value from the | delimited string in the parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"in:red|green|blue"} \\value must be 'red', 'green' or 'blue'
+ * ```
+ * - Starts With, The starts validator allows string values that start with the parameter (case insensitive)
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"starts:bob"} \\value must start with 'bob'
+ * ```
+ * - Ends With, The ends validator allows string values that start with the parameter (case insensitive)
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"ends:green"} \\value must end with 'green'
+ * ```
+ * - Regular Expression, The regex validator allows values that match the supplied regex
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"regex:\\.com$"} \\allow strings that end in '.com'
+ * ```
+ */
+export type StandardValidatorType = "required" | "unique" | "integer" | "float" | "numeric" | "string" | "alphanumeric";
 
 export interface Validator {
     type: StandardValidatorType | ((cell: CellComponent, value: any, parameters?: any) => boolean);
@@ -1940,9 +1902,9 @@ export type ColumnSorterParamLookupFunction = (column: ColumnComponent, dir: Sor
 
 export type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
 
-export type RowLookup = RowComponent | HTMLElement | string | number | number[] | string[];
+export type RowLookup = RowComponent | HTMLElement | string | number;
 
-export type RowRangeLookup = "visible" | "active" | "selected" | "all";
+export type RowRangeLookup = "visible" | "active" | "selected" | "all" | "range";
 
 export interface KeyBinding {
     navPrev?: string | boolean | undefined;
@@ -1963,7 +1925,7 @@ export interface KeyBinding {
 // Components-------------------------------------------------------------------
 export interface CalculationComponent {
     /** The getData function returns the data object for the row. */
-    getData: () => any;
+    getData: () => { [key: string]: any };
 
     /** The getElement function returns the DOM node for the row. */
     getElement: () => HTMLElement;
@@ -2232,7 +2194,7 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: (transformType?: "data" | "download" | "clipboard") => {};
+    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any };
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
@@ -2287,6 +2249,198 @@ export interface CellComponent {
     /** You can validate a cell by calling the validate method on any Cell Component. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
     validate: () => boolean | Validator[];
     popup: (contents: string, position: PopupPosition) => void;
+
+    /**
+     * You can retrieve all ranges that overlap a cell by calling the getRanges function:
+     *
+     * ```javascript
+     *     var ranges = cell.getRanges();
+     * ```
+     * This will return an array of Range Components for any ranges that overlap the cell. If no ranges overlap the
+     * cell, an empty array will be returned.
+     */
+    getRanges(): RangeComponent[];
+}
+
+export interface RangeComponent {
+    /**
+     * You can update the bounds for an existing range using the setBounds function, passing in the Cell Components
+     * for the top-left and bottom-right bounds of the selection:
+     *
+     * @example
+     * var topLeft = table.getRows()[2].getCells()[1];
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * range.setBounds(topLeft, bottomRight);
+     */
+    setBounds: (topLeft: CellComponent, bottomRight: CellComponent) => void;
+
+    /**
+     * You can change the top left start edge of an existing range using the setStartBound function, passing in the
+     * Cell Component for the top left bound of the selection:
+     *
+     * @example
+     * var topLeft = table.getRows()[2].getCells()[1];
+     *
+     * range.setStartBound(topLeft);
+     */
+    setStartBound: (cell: CellComponent) => void;
+
+    /**
+     * You can change the bottom right ending edge of an existing range using the setEndBound function, passing in the
+     * Cell Component for the bottom right bound of the selection:
+     *
+     * @example
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * range.setEndBound(bottomRight);
+     */
+    setEndBound: (cell: CellComponent) => void;
+
+    /**
+     * You can remove a range by calling the remove function on the range:
+     *
+     * @example
+     * range.remove();
+     */
+    remove(): void;
+
+    /**
+     * You can retrieve the bounding rectangle element for a range by calling the getElement function on the range:
+     *
+     * @example
+     * var element = range.getElement();
+     */
+    getElement(): unknown;
+
+    /**
+     * You can retrieve the cell data for a range by calling the getData function on the range:
+     *
+     * ```javascript
+     * var data = range.getData();
+     * ```
+     *
+     * This will return a range data array, which is structured as a series of row data objects with only the props for
+     * cells in that range:
+     *
+     * ```json
+     * [
+     *     {color:"green", country:"England", driver:true}, //data for selected cells in first row in range
+     *     {color:"red", country:"USA", driver:false}, //data for selected cells in second row in range
+     *     {color:"blue", country:"France", driver:true}, //data for selected cells in third row in range
+     * ]
+     * ```
+     */
+    getData(): unknown;
+
+    /**
+     * You can clear the value of every cell in a range by calling the clearValues function on the range:
+     *
+     * ```javascript
+     * var data = range.clearValues();
+     * ```
+     * This will set the value of every cell in the range to the value of the selectableRangeClearCellsValue table
+     * option, which is set to undefined by default.
+     */
+    clearValues(): void;
+
+    /**
+     * You can retrieve all the Cell Components in a range by calling the getCells function on the range:
+     *
+     * ```javascript
+     * var cells = range.getCells();
+     * ```
+     * This will return a array of Cell Components
+     */
+    getCells(): CellComponent[];
+
+    /**
+     * You can retrieve a structured map of all the Cell Components in a range by calling the getStructuredCells
+     * function on the range:
+     *
+     * ```javascript
+     * var cells = range.getStructuredCells();
+     * ```
+     * This will return a array of row arrays, with each row array containing the Cell Components in order for that row:
+     *
+     * ```json
+     * [
+     *     [Component, Component, Component], //first row
+     *     [Component, Component, Component], //second row
+     *     [Component, Component, Component], //third row
+     * ]
+     * ```
+     */
+    getStructuredCells(): CellComponent[][];
+
+    /**
+     * You can retrieve all the Row Components in a range by calling the getRows function on the range:
+     *
+     * ```javascript
+     * var rows = range.getRows();
+     * ```
+     * This will return a array of Row Components
+     */
+    getRows(): RowComponent[];
+
+    /**
+     * You can retrieve all the Column Components in a range by calling the getColumns function on the range:
+     *
+     * ```javascript
+     * var columns = range.getColumns();
+     * ```
+     * This will return a array of Column Components
+     */
+    getColumns(): ColumnComponent[];
+
+    /**
+     * You can retrieve the bounds of a range by calling the getBounds function on the range:
+     *
+     * ```javascript
+     * var bounds = range.getBounds();
+     * ```
+     * This will return an object containing two Cell Components, for the two bounds of the range
+     *
+     * ```json
+     * {
+     *     start:Component, //the cell component at the top left of the range
+     *     end:Component, //the cell component at the bottom right of the range
+     * }
+     * ```
+     */
+    getBounds(): { start: CellComponent; end: CellComponent };
+
+    /**
+     * You can find the position number for the top row of the range by calling the getTopEdge function on the range:
+     *
+     * @example
+     * var topPosition = range.getTopEdge();
+     */
+    getTopEdge(): number;
+
+    /**
+     * You can find the position number for the bottom row of the range by calling the getBottomEdge function on the range:
+     *
+     * @example
+     * var bottomPosition = range.getBottomEdge();
+     */
+    getBottomEdge(): number;
+
+    /**
+     * You can find the position number for the left column of the range by calling the getLeftEdge function on the range:
+     *
+     * @example
+     * var leftPosition = range.getLeftEdge();
+     */
+    getLeftEdge(): number;
+
+    /**
+     * You can find the position number for the right column of the range by calling the getRightEdge function on the range:
+     *
+     * @example
+     * var rightPosition = range.getRightEdge();
+     */
+    getRightEdge(): number;
 }
 
 export interface EventCallBackMethods {
@@ -2405,6 +2559,39 @@ export interface EventCallBackMethods {
     menuOpened: (cell: CellComponent) => void;
     TooltipClosed: (cell: CellComponent) => void;
     TooltipOpened: (cell: CellComponent) => void;
+
+    /**
+     * The range component provides access to a selected range of cells. The example below shows how it is passed to
+     * the rangeAdded callback
+     *
+     * ```javascript
+     * table.on("rangeAdded", function(range) {
+     *     // range - range component for the selected range
+     *     alert("The user has selected a new range containing " + range.getCells().length + " cells");
+     * });
+     * ```
+     */
+    rangeAdded: (range: RangeComponent) => void;
+
+    /**
+     * The rangeChanged event is triggered when a the bounds of an existing range are changed.
+     * ```javascript
+     * table.on("rangeChanged", function(range){
+     *     // range - range component for the selected range
+     * });
+     * ```
+     */
+    rangeChanged: (range: RangeComponent) => void;
+
+    /**
+     * The rangeRemoved event is triggered when a range is removed from the table.
+     * ```javascript
+     * table.on("rangeRemoved", function(range){
+     *     // range - range component for the selected range
+     * });
+     * ```
+     */
+    rangeRemoved: (range: RangeComponent) => void;
 }
 
 declare class Tabulator {
@@ -2764,10 +2951,10 @@ declare class Tabulator {
     /**
      * To programmatically select a row you can use the selectRow function.
      *
-     * To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.
+     * To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectableRow option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.
      */
-    selectRow: (lookup?: RowLookup[] | RowRangeLookup | true) => void;
-    deselectRow: (row?: RowLookup) => void;
+    selectRow: (lookup?: RowLookup[] | RowLookup | RowRangeLookup | true) => void;
+    deselectRow: (row?: RowLookup[] | RowLookup) => void;
     toggleSelectRow: (row?: RowLookup) => void;
 
     /**
@@ -2832,7 +3019,11 @@ declare class Tabulator {
      * Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
     setGroupStartOpen: (
-        values: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean),
+        values:
+            | boolean
+            | boolean[]
+            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+            | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>,
     ) => void;
 
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
@@ -2924,10 +3115,65 @@ declare class Tabulator {
 
     /** The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;
+
+    /**
+     * To programmatically select a range of cells you can use the addRange function.
+     *
+     * To select a range of cells you should call the addRange function, passing in the Cell Components for the
+     * top-left and bottom-right bounds of the selection:
+     *
+     * ```javascript
+     * var topLeft = table.getRows()[2].getCells()[1];
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * var range = table.addRange(topLeft, bottomRight);
+     * ```
+     *
+     * This will then return the Range Component for the new range.
+     */
+    addRange: (topLeft: CellComponent, bottomRight: CellComponent) => RangeComponent;
+
+    /**
+     * To get the Range Component's for all the current ranges you can use the getRanges function.
+     *
+     * ```javascript
+     * var ranges = table.getRanges(); //get array of currently selected range components.
+     * ```
+     *
+     * This will return an array of Range Components for all the current ranges.
+     */
+    getRanges: () => RangeComponent[];
+
+    /**
+     * To get the data objects for all the selected cell ranges you can use the getRangesData function.
+     *
+     * ```javascript
+     *     var rangeData = table.getRangesData(); //get array of currently selected data.
+     * ```
+     * This will return an array of range data arrays, with data array per range. Each range data array will contain a
+     * series of row data objects with only the props for cells in that range:
+     *
+     * ```json
+     * [
+     *     [ //range 1
+     *         {name:"Bob Monkhouse", age:83}, //data for selected cells in first row in range
+     *         {name:"Mary May", age:22}, //data for selected cells in second row in range
+     *     ],
+     *     [ //range 2
+     *         {color:"green", country:"England", driver:true}, //data for selected cells in first row in range
+     *         {color:"red", country:"USA", driver:false}, //data for selected cells in second row in range
+     *         {color:"blue", country:"France", driver:true}, //data for selected cells in third row in range
+     *     ],
+     * ]
+     * ```
+     */
+    getRangeData: () => unknown[][];
+
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class Module {
     static moduleName: string;
     constructor(table: Tabulator);

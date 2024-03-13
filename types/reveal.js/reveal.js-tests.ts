@@ -300,6 +300,36 @@ deck.initialize({
     parallaxBackgroundHorizontal: null,
     parallaxBackgroundVertical: null,
 
+    // Can be used to initialize reveal.js in one of the following views:
+    // - print:   Render the presentation so that it can be printed to PDF
+    // - scroll:  Show the presentation as a tall scrollable page with scroll
+    //            triggered animations
+    view: null,
+
+    // Adjusts the height of each slide in the scroll view.
+    // - full:       Each slide is as tall as the viewport
+    // - compact:    Slides are as small as possible, allowing multiple slides
+    //               to be visible in parallel on tall devices
+    scrollLayout: "full",
+
+    // Control how scroll snapping works in the scroll view.
+    // - false:   	No snapping, scrolling is continuous
+    // - proximity:  Snap when close to a slide
+    // - mandatory:  Always snap to the closest slide
+    //
+    // Only applies to presentations in scroll view.
+    scrollSnap: "mandatory",
+
+    // Enables and configure the scroll view progress bar.
+    // - 'auto':    Show the scrollbar while scrolling, hide while idle
+    // - true:      Always show the scrollbar
+    // - false:     Never show the scrollbar
+    scrollProgress: "auto",
+
+    // Automatically activate the scroll view when we the viewport falls
+    // below the given width.
+    scrollActivationWidth: 435,
+
     // The maximum number of pages a single slide can expand onto when printing
     // to PDF, unlimited by default
     pdfMaxPagesPerSlide: Number.POSITIVE_INFINITY,
@@ -367,6 +397,8 @@ deck.initialize({
         tokenizer: { key: "value" },
         walkTokens: () => {},
         xhtml: true,
+        separator: "^\r?\\n---\r?\n$",
+        verticalSeparator: "^\r?\n--\r?\n$",
     },
 
     // katex.
@@ -454,6 +486,8 @@ deck.configure({});
 // $ExpectType void
 deck.configure({ slideNumber: true, width: 20, height: 20 });
 
+deck.configure({ view: "scroll" });
+
 // -------------- //
 // destroy method //
 // -------------- //
@@ -475,7 +509,7 @@ deck.sync();
 // $ExpectType void
 deck.syncSlide(el);
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.syncFragments(el);
 
 // ------------------ //
@@ -688,7 +722,7 @@ deck.dispatchEvent({ type: "resize", data: {} });
 
 // Facility for persisting and restoring the presentation state
 
-// $ExpectType { indexh: number; indexv: number; indexf: number; paused: boolean; overview: boolean; }
+// $ExpectType RevealState
 deck.getState();
 
 // $ExpectType void
@@ -723,6 +757,9 @@ deck.getTotalSlides();
 // Returns the slide element at the specified index
 
 // $ExpectType HTMLElement
+deck.getSlide(1);
+
+// $ExpectType HTMLElement
 deck.getSlide(1, 2);
 
 // Returns the previous slide element, may be null
@@ -738,7 +775,10 @@ deck.getCurrentSlide();
 // Returns the slide background element at the specified index
 
 // $ExpectType HTMLElement | undefined
-deck.getSlideBackground(el, 2);
+deck.getSlideBackground(el);
+
+// $ExpectType HTMLElement | undefined
+deck.getSlideBackground(1);
 
 // $ExpectType HTMLElement | undefined
 deck.getSlideBackground(1, 2);
@@ -750,15 +790,15 @@ deck.getSlideNotes(el);
 
 // Returns an Array of all slides
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getSlides();
 
 // Returns an array with all horizontal/vertical slides in the deck
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getHorizontalSlides();
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getVerticalSlides();
 
 // Checks if the presentation contains two or more horizontal
@@ -824,10 +864,10 @@ deck.getSlidePath(el);
 
 // Returns reveal.js DOM elements
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getRevealElement();
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getSlidesElement();
 
 // $ExpectType HTMLElement | null
@@ -845,7 +885,7 @@ deck.registerPlugin(RevealMarkdown());
 deck.hasPlugin("markdown");
 
 // $ExpectType Plugin
-deck.getPlugin("markdwon");
+deck.getPlugin("markdown");
 
 // $ExpectType { [id: string]: Plugin; }
 deck.getPlugins();

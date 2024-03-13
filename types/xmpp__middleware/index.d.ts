@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/middleware 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/middleware
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as koaCompose from "koa-compose";
 import Connection = require("@xmpp/connection");
 import { Element } from "@xmpp/xml";

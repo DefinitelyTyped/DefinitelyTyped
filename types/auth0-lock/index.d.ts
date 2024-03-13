@@ -1,13 +1,3 @@
-// Type definitions for auth0-lock 11.27
-// Project: http://auth0.com, https://github.com/auth0/lock
-// Definitions by: Brian Caruso <https://github.com/carusology>
-//                 Dan Caddigan <https://github.com/goldcaddy77>
-//                 Larry Faudree <https://github.com/lfaudreejr>
-//                 Will Caulfield <https://github.com/willcaul>
-//                 Thomas Pearson <https://github.com/xsv24>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /// <reference types="auth0-js" />
 
 interface Auth0LockAdditionalSignUpFieldOption {

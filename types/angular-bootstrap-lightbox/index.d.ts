@@ -1,8 +1,3 @@
-// Type definitions for angular-bootstrap-lightbox 0.12
-// Project: https://github.com/compact/angular-bootstrap-lightbox
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace angular.bootstrap.lightbox {
     export interface ILightboxImageInfo {
         url: string;

@@ -1,9 +1,3 @@
-// Type definitions for conventional-changelog-core 4.2
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -154,7 +148,7 @@ declare namespace conventionalChangelogCore {
             /**
              * All git semver tags found in the repository. You can't overwrite this value.
              */
-            readonly gitSemverTags?: ReadonlyArray<string> | undefined;
+            readonly gitSemverTags?: readonly string[] | undefined;
 
             /**
              * Your `package.json` data. You can't overwrite this value.

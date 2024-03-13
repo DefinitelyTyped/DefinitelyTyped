@@ -1,8 +1,3 @@
-// Type definitions for non-npm package cloudinary-uploadwidget-browser 2.3
-// Project: https://cloudinary.com/documentation/upload_widget_reference
-// Definitions by: Jeremy Liberman <https://github.com/mrleebo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var cloudinary: CloudinaryBase;
 
 interface CloudinaryBase {
@@ -131,8 +126,8 @@ interface CustomizationParameters {
 interface AdvancedParameters {
     showPoweredBy?: boolean | undefined;
     autoMinimize?: boolean | undefined;
-    getTags?: ((cb: (tags: ReadonlyArray<string>) => void, prefix: string) => void) | undefined;
-    getUploadPresets?: ((cb: (presets: ReadonlyArray<string>) => void) => void) | undefined;
+    getTags?: ((cb: (tags: readonly string[]) => void, prefix: string) => void) | undefined;
+    getUploadPresets?: ((cb: (presets: readonly string[]) => void) => void) | undefined;
     preBatch?: ((cb: (options?: { cancel: boolean }) => void, data: { [key: string]: any }) => void) | undefined;
     prepareUploadParams?: ((cb: (results: any) => void, params: any) => void) | undefined;
     language?: string | undefined;

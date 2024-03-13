@@ -1,9 +1,3 @@
-// Type definitions for useragent 2.3
-// Project: https://github.com/3rd-Eden/useragent
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Small nifty thick that allows us to download a fresh set regexs from t3h
  * Int3rNetz when we want to. We will be using the compiled version by default

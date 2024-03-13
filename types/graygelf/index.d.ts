@@ -1,9 +1,3 @@
-// Type definitions for graygelf 2.0
-// Project: https://github.com/wavded/graygelf
-// Definitions by: David Lima <https://github.com/DavidProf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 import { Socket } from "dgram";
 import { ThroughStream } from "through";
 

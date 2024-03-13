@@ -1,9 +1,3 @@
-// Type definitions for non-npm package xelib 0.6
-// Project: https://github.com/z-edit/xelib
-// Definitions by: Alex Layton <https://github.com/awlayton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /**
  * xelib instance
  */
@@ -1165,7 +1159,7 @@ export interface XELib
      * Finds the first item in the `FormIDs` array on `record` matching `value`.
      * @returns Handle to the element if found, else returns 0.
      */
-    // tslint:disable-next-line adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     GetFormID(record: RecordHandle, value: string): Zeroable<ElementHandle>;
     /**
      * Adds an item to the `FormIDs` array on `record`.

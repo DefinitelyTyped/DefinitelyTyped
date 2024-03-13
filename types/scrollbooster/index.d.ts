@@ -1,9 +1,3 @@
-// Type definitions for scrollbooster 3.0
-// Project: https://github.com/ilyashubin/scrollbooster
-// Definitions by: Chris <https://github.com/chrisneven>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Position {
     x?: number | undefined;
     y?: number | undefined;

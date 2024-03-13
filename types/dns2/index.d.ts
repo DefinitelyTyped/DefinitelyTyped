@@ -1,8 +1,3 @@
-// Type definitions for dns2 2.0
-// Project: https://github.com/song940/node-dns#readme
-// Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as udp from "dgram";
@@ -89,6 +84,12 @@ declare namespace DNS {
         type: "udp4" | "udp6";
     }
 
+    interface DnsServerListenOptions {
+        udp?: ListenOptions;
+        tcp?: ListenOptions;
+        doh?: ListenOptions;
+    }
+
     type DnsHandler = (
         request: DnsRequest,
         sendResponse: (response: DnsResponse) => void,
@@ -97,6 +98,10 @@ declare namespace DNS {
 
     type PacketClass = typeof Packet.CLASS[keyof typeof Packet.CLASS];
     type PacketQuestion = keyof typeof Packet.TYPE;
+    type ListenOptions = number | {
+        port: number;
+        address: string;
+    };
 }
 
 declare class DnsServer extends EventEmitter {
@@ -106,7 +111,7 @@ declare class DnsServer extends EventEmitter {
         doh?: net.AddressInfo;
     };
 
-    listen(ports: { udp?: number; tcp?: number; doh?: number }): Promise<void>;
+    listen(options: DNS.DnsServerListenOptions): Promise<void>;
 
     close(): Promise<void>;
 }

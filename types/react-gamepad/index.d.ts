@@ -1,9 +1,3 @@
-// Type definitions for react-gamepad 1.0
-// Project: https://github.com/SBRK/react-gamepad
-// Definitions by: Brian Donovan <https://github.com/eventualbuddha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type Button =

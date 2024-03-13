@@ -4,7 +4,7 @@ import { Disposable, Variables } from "../util/RelayRuntimeTypes";
 import { DeclarativeMutationConfig } from "./RelayDeclarativeMutationConfig";
 
 export interface OptimisticMutationConfig {
-    configs?: ReadonlyArray<DeclarativeMutationConfig> | null | undefined;
+    configs?: readonly DeclarativeMutationConfig[] | null | undefined;
     mutation: GraphQLTaggedNode;
     variables: Variables;
     optimisticUpdater?: SelectorStoreUpdater | null | undefined;

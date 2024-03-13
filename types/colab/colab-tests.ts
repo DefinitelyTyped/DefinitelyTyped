@@ -33,5 +33,8 @@ google.colab.output.getDefaultOutputArea().appendChild(div);
 
 google.colab.output.pauseOutputUntil(fetch("http://example.com"));
 
+declare const someEmptyPromise: Promise<void>;
+google.colab.output.pauseOutputUntil(someEmptyPromise);
+
 google.colab.output.setIframeHeight(100, true, { interactive: true });
 google.colab.output.resizeIframeToContent();

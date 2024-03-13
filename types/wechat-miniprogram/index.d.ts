@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Wechat Mini Program - wechat-miniprogram 3.4
-// Project: https://developers.weixin.qq.com/miniprogram/dev/api/
-// Definitions by: Wechat Miniprogram <https://github.com/wechat-miniprogram>,
-//                SgLy <https://github.com/SgLy>,
-//                TtTRz <https://github.com/TtTRz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference path="./lib.wx.app.d.ts" />
 /// <reference path="./lib.wx.page.d.ts" />
 /// <reference path="./lib.wx.api.d.ts" />

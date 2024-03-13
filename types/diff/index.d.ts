@@ -1,11 +1,3 @@
-// Type definitions for diff 5.0
-// Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 szdc <https://github.com/szdc>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Diff;
 
 export type Callback = (err: undefined, value?: Change[]) => void;
@@ -149,7 +141,7 @@ export interface Hunk {
 
 export interface BestPath {
     newPos: number;
-    componenets: Change[];
+    components: Change[];
 }
 
 export class Diff {
@@ -366,7 +358,7 @@ export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
     options?: ApplyPatchOptions,
-): string;
+): string | false;
 
 /**
  * Applies one or more patches.

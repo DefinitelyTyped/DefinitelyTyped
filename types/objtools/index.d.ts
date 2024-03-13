@@ -1,9 +1,3 @@
-// Type definitions for objtools 2.0
-// Project: https://github.com/zipscene/objtools#readme
-// Definitions by: Steve Ripberger <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Plain object or boolean data for an ObjectMask instance.
  */

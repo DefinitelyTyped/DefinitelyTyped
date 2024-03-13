@@ -1,6 +1,5 @@
 // region Imports
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import Autosuggest = require("react-autosuggest");
 // endregion
 
@@ -82,7 +81,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     };
     // endregion region Rendering methods
     inputRef = React.createRef<HTMLInputElement>();
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         const theme = {
@@ -126,7 +125,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
         const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
@@ -228,7 +227,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         suggestions: this.getSuggestions(""),
     };
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         const theme = {
@@ -263,7 +262,7 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
         const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
@@ -295,8 +294,6 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     }
     // endregion
 }
-
-ReactDOM.render(<ReactAutosuggestBasicTest />, document.getElementById("app"));
 
 interface LanguageGroup {
     title: string;
@@ -401,7 +398,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         };
     }
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         return (
@@ -435,16 +432,16 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
         const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
 
-    protected renderSectionTitle(section: LanguageGroup): JSX.Element {
+    protected renderSectionTitle(section: LanguageGroup): React.JSX.Element {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): React.JSX.Element {
         return (
             <div>
                 <input {...inputProps} />
@@ -456,7 +453,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         containerProps,
         children,
         query,
-    }: Autosuggest.RenderSuggestionsContainerParams): JSX.Element {
+    }: Autosuggest.RenderSuggestionsContainerParams): React.JSX.Element {
         return (
             <div {...containerProps}>
                 <span>{children}</span>
@@ -509,8 +506,6 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestMultipleTest />, document.getElementById("app"));
-
 interface Person {
     first: string;
     last: string;
@@ -549,7 +544,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         suggestions: this.getSuggestions(""),
     };
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         return (
@@ -567,7 +562,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         );
     }
 
-    protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+    protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
         const query = params.query.trim();
         const parts = suggestionText.split(" ").map((part: string) => {
@@ -621,8 +616,6 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     }
     // endregion
 }
-
-ReactDOM.render(<ReactAutosuggestCustomTest />, document.getElementById("app"));
 
 const test: Autosuggest.InputProps<{ foo: string }> = {
     onChange: () => {},

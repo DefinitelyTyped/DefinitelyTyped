@@ -1,15 +1,14 @@
-// Type definitions for kebabcase-keys 1.0
-// Project: https://github.com/mattii/kebabcase-keys#readme
-// Definitions by: Yuta Katayama <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /**
  * Return a default type if input type is nil.
  * @template T - Input type.
  * @template U - Default type.
  */
 type WithDefault<T, U> = T extends undefined ? U : T;
+
+/**
+ * Allow union with, for example, `undefined` and `null`.
+ */
+type ObjectUnion = Record<string, unknown> | unknown;
 
 type CamelToKebab<S extends string> = S extends `${infer T}${infer U}`
     ? `${T extends Capitalize<T> ? "-" : ""}${Lowercase<T>}${CamelToKebab<U>}`
@@ -36,34 +35,38 @@ type KebabCase<S extends string | number | symbol> = S extends number ? `${S}`
     : S extends string ? AnyCaseToKebab<S>
     : S;
 
-type KebabCasedProperties<
-    T,
-    Deep extends boolean,
-    Exclude extends ReadonlyArray<string | RegExp>,
-> = T extends readonly CustomJsonObject[] ? {
-        [Key in keyof T]: KebabCasedProperties<T[Key], Deep, Exclude>;
-    }
-    : T extends CustomJsonObject ? {
-            [Key in keyof T as Array<Includes<Exclude, Key>> extends Array<true> ? Key : KebabCase<Key>]: T[Key] extends
-                | CustomJsonObject
-                | CustomJsonObject[] ? Deep[] extends Array<true> ? KebabCasedProperties<T[Key], Deep, Exclude>
-                : T[Key]
-                : T[Key];
+declare namespace kebabcaseKeys {
+    type KebabCasedProperties<
+        T extends ObjectUnion | ReadonlyArray<Record<string, unknown>>,
+        Deep extends boolean = false,
+        Exclude extends ReadonlyArray<string | RegExp> = [],
+    > = T extends ReadonlyArray<Record<string, unknown>> ? {
+            [Key in keyof T]: KebabCasedProperties<T[Key], Deep, Exclude>;
         }
-    : T;
+        : T extends ObjectUnion ? {
+                [Key in keyof T as Array<Includes<Exclude, Key>> extends Array<true> ? Key : KebabCase<Key>]:
+                    T[Key] extends
+                        | ObjectUnion
+                        | ReadonlyArray<Record<string, unknown>>
+                        ? Deep[] extends Array<true> ? KebabCasedProperties<T[Key], Deep, Exclude>
+                        : T[Key]
+                        : T[Key];
+            }
+        : T;
 
-interface Options {
-    /**
-     * Recurse nested objects and objects in arrays.
-     * @default false
-     */
-    readonly deep?: boolean;
+    interface Options {
+        /**
+         * Recurse nested objects and objects in arrays.
+         * @default false
+         */
+        readonly deep?: boolean;
 
-    /**
-     * Exclude keys from being kebab-cased.
-     * @default []
-     */
-    readonly exclude?: ReadonlyArray<string | RegExp>;
+        /**
+         * Exclude keys from being kebab-cased.
+         * @default []
+         */
+        readonly exclude?: ReadonlyArray<string | RegExp>;
+    }
 }
 
 /**
@@ -71,25 +74,22 @@ interface Options {
  * @param input - Object or array of objects to snake-case.
  * @param options - Options of conversion.
  */
-declare function kebabcaseKeys<T extends CustomJsonObject | CustomJsonObject[], OptionsType extends Options>(
+declare function kebabcaseKeys<
+    T extends Record<string, unknown> | ReadonlyArray<Record<string, unknown>>,
+    OptionsType extends kebabcaseKeys.Options,
+>(
     input: T,
     options?: OptionsType,
-): KebabCasedProperties<T, WithDefault<OptionsType["deep"], false>, WithDefault<OptionsType["exclude"], []>>;
+): kebabcaseKeys.KebabCasedProperties<
+    T,
+    WithDefault<OptionsType["deep"], false>,
+    WithDefault<OptionsType["exclude"], []>
+>;
 
 export = kebabcaseKeys;
 
-// Extended versions of https://github.com/sindresorhus/type-fest#json
-type CustomJsonObject =
-    & { [Key in string]: CustomJsonValue }
-    & {
-        [Key in string]?: CustomJsonValue | undefined;
-    };
-type CustomJsonValue = JsonPrimitive | object | CustomJsonObject | CustomJsonArray;
-type CustomJsonArray = CustomJsonValue[] | readonly CustomJsonValue[];
-
 // based on https://github.com/DefinitelyTyped/DefinitelyTyped/pull/59806#pullrequestreview-942584759
 // Copied from https://github.com/sindresorhus/type-fest
-type JsonPrimitive = string | number | boolean | null;
 type WordSeparators = "-" | "_" | Whitespace;
 type Whitespace =
     | "\u{9}" // '\t'

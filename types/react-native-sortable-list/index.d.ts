@@ -1,11 +1,3 @@
-// Type definitions for react-native-sortable-list 0.0
-// Project: https://github.com/gitim/react-native-sortable-list
-// Definitions by: Michael Sivolobov <https://github.com/sivolobov>
-//                 Vince Maiuri <https://github.com/RookY2K>
-//                 Soner Köksal <https://github.com/renjfk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, ReactElement } from "react";
 import { GestureResponderEvent, PanResponderGestureState, StyleProp, ViewStyle } from "react-native";
 

@@ -1,9 +1,3 @@
-// Type definitions for crawler 1.2
-// Project: https://github.com/bda-research/node-crawler
-// Definitions by: Paweł Zmarzły <https://github.com/pzmarzly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 // Based on https://github.com/bda-research/node-crawler/issues/297
 
 /// <reference types="cheerio" />
@@ -22,9 +16,9 @@ declare class Crawler extends EventEmitter {
     queue(
         urisOrOptions:
             | string
-            | ReadonlyArray<string>
+            | readonly string[]
             | Crawler.CrawlerRequestOptions
-            | ReadonlyArray<Crawler.CrawlerRequestOptions>,
+            | readonly Crawler.CrawlerRequestOptions[],
     ): void;
 
     direct(
@@ -97,7 +91,7 @@ declare namespace Crawler {
         http2?: boolean | undefined;
         debug?: boolean | undefined;
         logger?: {
-            log: (level: string, ...args: ReadonlyArray<any>) => void;
+            log: (level: string, ...args: readonly any[]) => void;
         } | undefined;
         seenreq?: any;
         headers?: Headers | undefined;

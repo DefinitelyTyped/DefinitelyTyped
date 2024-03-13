@@ -1,8 +1,4 @@
-// Type definitions for sfdx-faye 1.0
-// Project: https://www.npmjs.com/package/sfdx-faye
-// Definitions by: Mike Donnalley <https://github.com/mdonnalley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+/// <reference types="node" />
 import { EventEmitter } from "events";
 
 /**

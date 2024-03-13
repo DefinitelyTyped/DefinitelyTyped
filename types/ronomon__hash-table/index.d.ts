@@ -1,8 +1,3 @@
-// Type definitions for @ronomon/hash-table 2.0
-// Project: https://github.com/ronomon/hash-table#readme
-// Definitions by: airglow923 <https://github.com/airglow923>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /* eslint-disable @definitelytyped/no-declare-current-package */

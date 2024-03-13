@@ -1,8 +1,3 @@
-// Type definitions for @ceddl/ceddl-polyfill 0.9
-// Project: https://www.ceddlbyexample.com/
-// Definitions by: Roland Broekema <https://github.com/broekema41>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const ceddl: {
     /**
      * The initialize function makes it possible to do async loading of the model

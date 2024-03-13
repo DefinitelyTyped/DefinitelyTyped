@@ -1,12 +1,3 @@
-// Type definitions for dagre 0.7
-// Project: https://github.com/dagrejs/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-//                 Pete Vilter <https://github.com/vilterp>
-//                 David Newell <https://github.com/rustedgrail>
-//                 Graham Lea <https://github.com/GrahamLea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace dagre;
 
 export namespace graphlib {

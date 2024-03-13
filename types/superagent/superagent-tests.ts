@@ -204,21 +204,6 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
     req.pipe(stream);
 })();
 
-// Multipart requests
-(() => {
-    const req = request.post("/upload");
-
-    req.part()
-        .set("Content-Type", "image/png")
-        .set("Content-Disposition", "attachment; filename=\"myimage.png\"")
-        .write("some image data");
-    req.write("some more image data");
-
-    req.part().set("Content-Disposition", "form-data; name=\"name\"").set("Content-Type", "text/plain").write("tobi");
-
-    req.end(callback);
-})();
-
 // Attaching files
 const blob = new Blob([]);
 request
@@ -352,7 +337,7 @@ request
 
 // Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
 // which has additional properties.
-const echoPlugin = (request: request.SuperAgentRequest) => {
+let echoPlugin: request.Plugin = (request) => {
     req.url = "" + req.url;
     req.cookies = "" + req.cookies;
     if (req.method) {
@@ -360,11 +345,21 @@ const echoPlugin = (request: request.SuperAgentRequest) => {
     }
 };
 
+if (1) {
+    echoPlugin = (request: request.SuperAgentRequest) => {
+        req.url = "" + req.url;
+        req.cookies = "" + req.cookies;
+        if (req.method) {
+            req.url = "/echo";
+        }
+    };
+}
+
 request.get("/echo").use(echoPlugin).end();
 
 async function testDefaultOptions() {
     // Default options for multiple requests
-    const agentWithDefaultOptions = request
+    const agentWithDefaultOptions = new request
         .agent()
         .use(() => null)
         .auth("digest", "secret", { type: "auto" });
@@ -376,6 +371,5 @@ async function testDefaultOptions() {
 request.get("/").http2().end(callback);
 request("POST", "/").http2().end(callback);
 agent.get("/").http2().end(callback);
-agent("/").http2().end(callback);
 
-testDefaultOptions();
+void testDefaultOptions();

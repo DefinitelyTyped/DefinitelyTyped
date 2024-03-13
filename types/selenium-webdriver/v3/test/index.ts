@@ -654,6 +654,7 @@ function TestWebDriver() {
     driver.setFileDetector(fileDetector);
 
     voidPromise = driver.quit();
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = driver.schedule<void>(new webdriver.Command(webdriver.CommandName.CLICK), "ABC");
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
@@ -862,6 +863,7 @@ function TestPromiseModule() {
 
     voidPromise = webdriver.promise.delayed(123);
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = webdriver.promise.fulfilled<void>();
     stringPromise = webdriver.promise.fulfilled("abc");
 
@@ -944,8 +946,11 @@ function TestControlFlow() {
 
     stringPromise = flow.wait(stringPromise);
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => true);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => true, 123);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => stringPromise, 123, "Timeout Message");
 }
 
@@ -977,7 +982,7 @@ function TestPromiseClass() {
 
     promise = promise.then<string>();
     promise = promise.then((a: string) => "cde");
-    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- (need `--strictNullChecks` to change `void` to `undefined`)
     const promiseOrVoid: webdriver.promise.Promise<string | void> = promise.then((a: string) => "cde", (e: any) => {});
     const promiseOrNumber: webdriver.promise.Promise<string | number> = promise.then(
         (a: string) => "cde",
@@ -992,7 +997,7 @@ function TestThenableClass() {
     });
 
     thenable = thenable.then((a: string) => "cde");
-    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- (need `--strictNullChecks` to change `void` to `undefined`)
     const thenableOrVoid: webdriver.promise.Promise<string | void> = thenable.then(
         (a: string) => "cde",
         (e: any) => {},

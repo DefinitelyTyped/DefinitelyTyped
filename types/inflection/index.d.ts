@@ -1,8 +1,3 @@
-// Type definitions for inflection 1.13.0
-// Project: https://github.com/dreamerslab/node.inflection
-// Definitions by: Shogo Iwano <https://github.com/shiwano>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Inflection {
     indexOf<T, T2>(arr: T[], item: T2, from_index?: number, compare_func?: (arr_item: T, item: T2) => boolean): number;
     pluralize(str: string, plural?: string): string;

@@ -1,9 +1,3 @@
-// Type definitions for fs-ext 2.0.0
-// Project: https://github.com/baudehlo/node-fs-ext
-// Definitions by: Oguzhan Ergin <https://github.com/OguzhanE>
-//                 Konstantin Ikonnikov <https://github.com/ikokostya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 /**

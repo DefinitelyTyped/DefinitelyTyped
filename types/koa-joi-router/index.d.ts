@@ -1,13 +1,3 @@
-// Type definitions for koa-joi-router 8.0
-// Project: https://github.com/koajs/joi-router
-// Definitions by: Matthew Bull <https://github.com/wingsbob>
-//                 Dave Welsh <https://github.com/move-zig>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-//                 Tiger Oakes <https://github.com/NotWoods>
-//                 Jeremy Hull <https://github.com/sourrust>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 import { BusboyConfig } from "busboy";

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/buffer-json",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jprichardson/buffer-json"
+    ],
+    "devDependencies": {
+        "@types/buffer-json": "workspace:."
+    },
+    "owners": []
+}

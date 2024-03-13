@@ -1,12 +1,3 @@
-// Type definitions for VexFlow v3.0.9, compatible with v1.2.93
-// Project: http://vexflow.com
-// Definitions by: Roman Quiring <https://github.com/rquiring>
-//                 Sebastian Haas <https://github.com/sebastianhaas>
-//                 Basti Hoffmann <https://github.com/bohoffi>
-//                 Simon Schmid <https://github.com/sschmidTU>
-//                 Benjamin Giesinger <https://github.com/bneumann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
 declare function sanitizeDuration(duration: string): string;
 
@@ -88,7 +79,7 @@ declare namespace Vex {
      * Helper interface for handling the Vex.Flow.Font object in Vex.Flow.Glyph. Not part of VexFlow!
      */
     interface IFont {
-        glyphs: { x_min: number; x_max: number; ha: number; o: string[] }[];
+        glyphs: Array<{ x_min: number; x_max: number; ha: number; o: string[] }>;
         cssFontWeight: string;
         ascender: number;
         underlinePosition: number;
@@ -167,7 +158,7 @@ declare namespace Vex {
         function ornamentCodes(
             acc: string,
         ): { code: string; shift_right: number; shift_up: number; shift_down: number; width: number };
-        function keySignature(spec: string): { type: string; line: number }[];
+        function keySignature(spec: string): Array<{ type: string; line: number }>;
         function parseNoteDurationString(durationString: string): { duration: string; dots: number; type: string };
         function parseNoteData(noteData: {
             duration: string;
@@ -211,7 +202,7 @@ declare namespace Vex {
 
         // from vexflow_font.js / gonville_original.js / gonville_all.js
         var Font: {
-            glyphs: { x_min: number; x_max: number; ha: number; o: string[] }[];
+            glyphs: Array<{ x_min: number; x_max: number; ha: number; o: string[] }>;
             cssFontWeight: string;
             ascender: number;
             underlinePosition: number;
@@ -356,7 +347,7 @@ declare namespace Vex {
             getSlopeY(): number;
             calculateSlope(): void;
             applyStemExtensions(): void;
-            getBeamLines(duration: string): { start: number; end: number }[];
+            getBeamLines(duration: string): Array<{ start: number; end: number }>;
             drawStems(): void;
             drawBeamLines(): void;
             preFormat(): Beam;
@@ -379,7 +370,7 @@ declare namespace Vex {
         }
 
         class Bend extends Modifier {
-            constructor(text: string, release?: boolean, phrase?: { type: number; text: string; width: number }[]);
+            constructor(text: string, release?: boolean, phrase?: Array<{ type: number; text: string; width: number }>);
             static UP: number;
             static DOWN: number;
             static format(
@@ -534,7 +525,7 @@ declare namespace Vex {
                     y_shift: number;
                     position: Curve.Position;
                     invert: boolean;
-                    cps?: { x: number; y: number }[] | undefined;
+                    cps?: Array<{ x: number; y: number }> | undefined;
                 },
             );
             static DEBUG: boolean;
@@ -1209,7 +1200,7 @@ declare namespace Vex {
                 num_lines?: number | undefined;
                 fill_style?: string | undefined;
                 left_bar?: boolean | undefined;
-                line_config?: { visible: boolean }[];
+                line_config?: Array<{ visible: boolean }>;
                 right_bar?: boolean | undefined;
                 spacing_between_lines_px?: number | undefined;
                 space_above_staff_ln?: number | undefined;
@@ -1279,9 +1270,9 @@ declare namespace Vex {
             drawVerticalFixed(x: number, isDouble: boolean): void;
             drawVerticalBar(x: number): void;
             drawVerticalBarFixed(x: number): void;
-            getConfigForLines(): { visible: boolean }[];
+            getConfigForLines(): Array<{ visible: boolean }>;
             setConfigForLine(line_number: number, line_config: { visible: boolean }): Stave;
-            setConfigForLines(lines_configuration: { visible: boolean }[]): Stave;
+            setConfigForLines(lines_configuration: Array<{ visible: boolean }>): Stave;
             getModifiers(position?: number, category?: string): StaveModifier[];
         }
 
@@ -1486,7 +1477,7 @@ declare namespace Vex {
             getYForBottomText(text_line: number): number;
             setStave(stave: Stave): StaveNote;
             getKeys(): string[];
-            getKeyProps(): {
+            getKeyProps(): Array<{
                 key: string;
                 octave: number;
                 line: number;
@@ -1496,7 +1487,7 @@ declare namespace Vex {
                 stroke: number;
                 shift_right: number;
                 displaced: boolean;
-            }[];
+            }>;
             isDisplaced(): boolean;
             setNoteDisplaced(displaced: boolean): StaveNote;
             getTieRightX(): number;
@@ -1854,7 +1845,7 @@ declare namespace Vex {
 
             constructor(
                 tab_struct: {
-                    positions: { str: number; fret: number }[];
+                    positions: Array<{ str: number; fret: number }>;
                     type?: string | undefined;
                     dots?: number | undefined;
                     duration: string;
@@ -1869,7 +1860,7 @@ declare namespace Vex {
             addDot(): TabNote;
             updateWidth(): void;
             setStave(stave: Stave): TabNote;
-            getPositions(): { str: number; fret: number }[];
+            getPositions(): Array<{ str: number; fret: number }>;
             addToModifierContext(mc: ModifierContext): TabNote;
             getTieRightX(): number;
             getTieLeftX(): number;

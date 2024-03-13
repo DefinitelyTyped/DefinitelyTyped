@@ -1,8 +1,3 @@
-// Type definitions for secret-box 0.1
-// Project: https://github.com/jprichardson/secret-box
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { BinaryLike } from "node:crypto";

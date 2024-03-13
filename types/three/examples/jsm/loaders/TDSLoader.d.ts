@@ -1,4 +1,4 @@
-import { Color, Group, Loader, LoadingManager, Material, Mesh, Texture } from '../../../src/Three.js';
+import { Color, Group, Loader, LoadingManager, Material, Mesh, Texture } from "three";
 
 export class TDSLoader extends Loader<Group> {
     constructor(manager?: LoadingManager);

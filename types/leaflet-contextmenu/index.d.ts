@@ -1,8 +1,3 @@
-// Type definitions for leaflet-contextmenu 1.4
-// Project: https://github.com/aratcliffe/Leaflet.contextmenu
-// Definitions by: Antonio Vida <https://github.com/antoniovlx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { LatLng, Marker, Path, Point } from "leaflet";
 
 declare module "leaflet" {

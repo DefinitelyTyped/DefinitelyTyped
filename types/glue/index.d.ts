@@ -1,9 +1,3 @@
-// Type definitions for glue 5.0
-// Project: https://github.com/hapijs/glue
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Server, ServerOptions } from "hapi";
 
 export interface Options {

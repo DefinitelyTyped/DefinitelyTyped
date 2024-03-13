@@ -1,8 +1,3 @@
-// Type definitions for blake2b-wasm 2.4
-// Project: https://github.com/mafintosh/blake2b-wasm
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 
 export = Blake2b;

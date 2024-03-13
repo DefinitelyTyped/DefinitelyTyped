@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/postcss-resolve-nested-selector",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/davidtheclark/postcss-resolve-nested-selector"
+    ],
     "dependencies": {
         "postcss": "^8.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/postcss-resolve-nested-selector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        },
+        {
+            "name": "Masafumi Koba",
+            "githubUsername": "ybiquitous"
+        }
+    ]
 }

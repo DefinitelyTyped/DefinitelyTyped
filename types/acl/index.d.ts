@@ -1,9 +1,3 @@
-// Type definitions for acl 0.4
-// Project: https://github.com/optimalbits/node_acl
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="node"/>
 
 import http = require("http");

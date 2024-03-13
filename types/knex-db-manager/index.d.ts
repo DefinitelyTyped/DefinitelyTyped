@@ -1,10 +1,3 @@
-// Type definitions for knex-db-manager 0.7
-// Project: https://github.com/Vincit/knex-db-manager#readme
-// Definitions by: Dmitrii Solovev <https://github.com/dimonnwc3>
-//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { Knex } from "knex";
 
 export interface KnexDbManager {

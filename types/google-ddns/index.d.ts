@@ -1,9 +1,3 @@
-// Type definitions for google-ddns 1.1
-// Project: https://github.com/DEDAjs/google-ddns#readme
-// Definitions by: Mick Dekkers <https://github.com/mickdekkers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * The options for the DynamicDNS class
  */

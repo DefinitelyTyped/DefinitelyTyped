@@ -1,8 +1,3 @@
-// Type definitions for source-list-map v0.1.6
-// Project: https://github.com/webpack/source-list-map.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class CodeNode {
     generatedCode: string;
 
@@ -49,9 +44,9 @@ export class SourceNode {
 }
 
 export class SourceListMap {
-    children: (SourceNode | CodeNode)[];
+    children: Array<SourceNode | CodeNode>;
 
-    constructor(generatedCode: (SourceNode | CodeNode)[]);
+    constructor(generatedCode: Array<SourceNode | CodeNode>);
     constructor(
         generatedCode?: string | SourceNode | CodeNode | SourceListMap,
         source?: string,
@@ -85,7 +80,7 @@ export class SourceListMap {
 export function fromStringWithSourceMap(
     code: string,
     map: {
-        sources: (string | SourceNode | CodeNode)[];
+        sources: Array<string | SourceNode | CodeNode>;
         sourcesContent: string[];
         mappings: string;
     },

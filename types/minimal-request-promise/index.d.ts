@@ -1,9 +1,3 @@
-// Type definitions for minimal-request-promise 1.5
-// Project: https://github.com/gojko/minimal-request-promise
-// Definitions by: Slobodan Stojanovic <https://github.com/stojanovic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import * as http from "http";

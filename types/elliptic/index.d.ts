@@ -1,17 +1,11 @@
-// Type definitions for elliptic 6.4
-// Project: https://github.com/indutny/elliptic
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gaylor Bosson <https://github.com/Gilthoniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import BN = require("bn.js");
 
 // incomplete typings
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
-export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
+export type BNInput = string | BN | number | Buffer | Uint8Array | readonly number[];
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | readonly number[] | string;
 
 export const version: number;
 

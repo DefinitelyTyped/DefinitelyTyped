@@ -1,8 +1,3 @@
-// Type definitions for Hasura GraphQL Engine API types 0.1
-// Project: https://github.com/hasura/graphql-engine
-// Definitions by: Toan Nguyen <https://github.com/hgiasac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const XHasuraAdminSecret = "x-hasura-admin-secret";
 export const XHasuraClientName = "hasura-client-name";
 export const XHasuraRole = "x-hasura-role";

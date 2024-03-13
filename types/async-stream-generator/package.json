@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/async-stream-generator",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/MattMorgis/async-stream-generator#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/async-stream-generator": "workspace:."
+    },
+    "owners": []
+}

@@ -1,8 +1,3 @@
-// Type definitions for gh-pages 3.2
-// Project: https://github.com/tschaub/gh-pages
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface Git {
     exec: (command: string) => Promise<this>;
     init: () => Promise<this>;
@@ -23,6 +18,7 @@ export interface PublishOptions {
     beforeAdd?: ((git: Git) => Promise<Git | undefined>) | null | undefined;
     add?: boolean | undefined;
     branch?: string | undefined;
+    cname?: string | undefined;
     dest?: string | undefined;
     dotfiles?: boolean | undefined;
     git?: string | undefined;
@@ -32,6 +28,8 @@ export interface PublishOptions {
      */
     history?: boolean | undefined;
     message?: string | undefined;
+    /** @default false */
+    nojekyll?: boolean | undefined;
     only?: string | undefined;
     push?: boolean | undefined;
     remote?: string | undefined;
@@ -58,8 +56,8 @@ export interface PublishOptions {
  *  Get the cache directory.
  */
 export function getCacheDir(optPath?: string): string;
-export function publish(basePath: string, callback: (err: any) => void): void;
-export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;
+export function publish(basePath: string, callback: (err: any) => void): Promise<void>;
+export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): Promise<void>;
 
 export function clean(): void;
 

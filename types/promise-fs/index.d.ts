@@ -1,8 +1,3 @@
-// Type definitions for promise-fs 2.1
-// Project: https://github.com/octet-stream/promise-fs#readme
-// Definitions by: Daniel Cassidy <https://github.com/djcsdy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Dirent, MakeDirectoryOptions, PathLike, RmDirOptions, Stats, WriteFileOptions } from "fs";

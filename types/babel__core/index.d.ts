@@ -1,12 +1,3 @@
-// Type definitions for @babel/core 7.20
-// Project: https://github.com/babel/babel/tree/master/packages/babel-core, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { GeneratorOptions } from "@babel/generator";
 import { ParserOptions } from "@babel/parser";
 import template from "@babel/template";
@@ -828,7 +819,7 @@ export interface EnvFunction {
     /**
      * @returns `true` if the `envName` is `===` any of the given strings
      */
-    (envName: string | ReadonlyArray<string>): boolean;
+    (envName: string | readonly string[]): boolean;
     // the official documentation is misleading for this one...
     // this just passes the callback to `cache.using` but with an additional argument.
     // it returns its result instead of necessarily returning a boolean.

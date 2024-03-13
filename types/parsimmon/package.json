@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/parsimmon",
+    "version": "1.10.9999",
+    "projects": [
+        "https://github.com/jneen/parsimmon"
+    ],
+    "devDependencies": {
+        "@types/parsimmon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Mizunashi Mana",
+            "githubUsername": "mizunashi-mana"
+        },
+        {
+            "name": "Boris Cherny",
+            "githubUsername": "bcherny"
+        },
+        {
+            "name": "Benny van Reeven",
+            "githubUsername": "bvanreeven"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Jonathan Frere",
+            "githubUsername": "MrJohz"
+        },
+        {
+            "name": "Isaac Huang",
+            "githubUsername": "caasi"
+        }
+    ]
+}

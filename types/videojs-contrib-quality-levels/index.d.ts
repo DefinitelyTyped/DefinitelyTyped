@@ -1,9 +1,3 @@
-// Type definitions for videojs-contrib-quality-levels 2.0
-// Project: https://github.com/videojs/videojs-contrib-quality-levels#readme
-// Definitions by: Nathan Hardy <https://github.com/nhardy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import { VideoJsPlayer } from "video.js";
 import QualityLevelList from "./src/quality-level-list";
 

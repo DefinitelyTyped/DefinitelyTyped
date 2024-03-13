@@ -1,8 +1,3 @@
-// Type definitions for pi-wifi 1.2
-// Project: https://github.com/matrix-io/pi-wifi
-// Definitions by: Kent Loofbourrow <https://github.com/loofkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ScanNetwork {
     bssid: string;
     frequency: number;

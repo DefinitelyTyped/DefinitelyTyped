@@ -1,7 +1,3 @@
-// Type definitions for geobuf 3.0
-// Project: https://github.com/mapbox/geobuf
-// Definitions by: Chad Burt <https://github.com/underbluewaters>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import Pbf = require("pbf");
 import { GeoJSON } from "geojson";
 

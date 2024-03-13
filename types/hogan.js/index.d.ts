@@ -1,9 +1,3 @@
-// Type definitions for hogan.js 3.0
-// Project: http://twitter.github.com/hogan.js/
-// Definitions by: Andrew Leedham <https://github.com/AndrewLeedham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface Context {
     [key: string]: any;
 }
@@ -15,7 +9,7 @@ export interface SectionTags {
 
 export interface HoganOptions {
     asString?: boolean | undefined;
-    sectionTags?: ReadonlyArray<SectionTags> | undefined;
+    sectionTags?: readonly SectionTags[] | undefined;
     delimiters?: string | undefined;
     disableLambda?: boolean | undefined;
 }
@@ -89,7 +83,7 @@ export function scan(text: string, delimiters?: string): Token[];
  * @returns The tree structure of the given tokens.
  */
 export function parse(
-    tokens: ReadonlyArray<Token>,
+    tokens: readonly Token[],
     text?: undefined,
     options?: HoganOptions,
 ): Tree;

@@ -5,10 +5,6 @@
             "es6"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,9 +1,3 @@
-// Type definitions for cypress-cdp 1.3
-// Project: https://github.com/bahmutov/cypress-cdp#readme
-// Definitions by: Anthony Froissant <https://github.com/froissant>
-//                 Louis Loiseau-Billon <https://github.com/LouisLoiseau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="cypress" />
 
 import type Protocol from "devtools-protocol/types/protocol";

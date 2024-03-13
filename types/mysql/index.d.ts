@@ -1,12 +1,3 @@
-// Type definitions for mysql 2.15
-// Project: https://github.com/mysqljs/mysql
-// Definitions by:  William Johnston <https://github.com/wjohnsto>
-//                 Krittanan Pingclasai <https://github.com/kpping>
-//                 James Munro <https://github.com/jdmunro>
-//                 Sanders DeNardi <https://github.com/sedenardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import stream = require("stream");
@@ -39,7 +30,7 @@ export interface EscapeFunctions {
      * @param stringifyObjects If true, don't convert objects into SQL lists
      * @param timeZone Convert dates from UTC to the given timezone.
      */
-    format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
+    format(sql: string, values?: any[], stringifyObjects?: boolean, timeZone?: string): string;
 }
 
 /**
@@ -67,7 +58,7 @@ export function escapeId(value: string, forbidQualified?: boolean): string;
  * @param stringifyObjects If true, don't convert objects into SQL lists
  * @param timeZone Convert dates from UTC to the given timezone.
  */
-export function format(sql: string, values: any[], stringifyObjects?: boolean, timeZone?: string): string;
+export function format(sql: string, values?: any[], stringifyObjects?: boolean, timeZone?: string): string;
 
 export function createConnection(connectionUri: string | ConnectionConfig): Connection;
 
@@ -88,7 +79,7 @@ export function raw(sql: string): {
 export interface Connection extends EscapeFunctions, events.EventEmitter {
     config: ConnectionConfig;
 
-    state: "connected" | "authenticated" | "disconnected" | "protocol_error" | string;
+    state: "connected" | "authenticated" | "disconnected" | "protocol_error" | (string & {});
 
     threadId: number | null;
 

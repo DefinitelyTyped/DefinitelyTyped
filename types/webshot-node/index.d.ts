@@ -1,7 +1,3 @@
-// Type definitions for webshot-node 0.18
-// Project: https://github.com/architjn/node-webshot#readme
-// Definitions by: Logan Kearsley <https://github.com/gliese1337>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node"/>
 
 export = webshot;

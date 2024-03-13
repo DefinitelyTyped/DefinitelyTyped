@@ -1,8 +1,3 @@
-// Type definitions for ncom 1.0
-// Project: https://github.com/SocketCluster/ncom
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

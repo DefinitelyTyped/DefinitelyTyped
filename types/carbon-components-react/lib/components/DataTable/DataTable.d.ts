@@ -41,7 +41,7 @@ export interface SortRowData {
 
 export interface FilterRowsData<R extends DataTableRow = DataTableRow, H extends DataTableHeader = DataTableHeader> {
     cellsById: { [cellId: string]: DataTableCell };
-    headers: ReadonlyArray<H>;
+    headers: readonly H[];
     inputValue: string;
     rowIds: ReadonlyArray<R["id"]>;
 }
@@ -159,9 +159,9 @@ export interface DataTableCustomRenderProps<
     headers: DataTableProps<R, H>["headers"];
     onInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
     radio?: DataTableProps<R, H>["radio"] | undefined;
-    rows: ReadonlyArray<DenormalizedRow>;
+    rows: readonly DenormalizedRow[];
     selectAll(): void;
-    selectedRows: ReadonlyArray<DenormalizedRow>;
+    selectedRows: readonly DenormalizedRow[];
     selectRow(rowId: R["id"]): void;
     sortBy(headerKey: H["key"]): void;
 }
@@ -194,7 +194,7 @@ declare class DataTable<
     R extends DataTableRow = DataTableRow,
     H extends DataTableHeader = DataTableHeader,
 > extends React.Component<DataTableProps<R, H>> {
-    static readonly translationKeys: ReadonlyArray<DataTableTranslationKey>;
+    static readonly translationKeys: readonly DataTableTranslationKey[];
     static readonly Table: typeof Table;
     static readonly TableActionList: typeof TableActionList;
     static readonly TableBatchAction: typeof TableBatchAction;

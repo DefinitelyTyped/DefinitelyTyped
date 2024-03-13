@@ -25,6 +25,15 @@ encoded = ini.encode(decoded, "Section");
 encoded = ini.encode(decoded, { whitespace: true });
 encoded = ini.encode(decoded, { section: "Section" });
 encoded = ini.encode(decoded, { whitespace: true, section: "Section" });
+encoded = ini.encode(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
 // @ts-expect-error
 let badEncoded = ini.encode();
@@ -36,6 +45,15 @@ encoded = ini.stringify(decoded, "Section");
 encoded = ini.stringify(decoded, { whitespace: true });
 encoded = ini.stringify(decoded, { section: "Section" });
 encoded = ini.stringify(decoded, { whitespace: true, section: "Section" });
+encoded = ini.stringify(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
 // @ts-expect-error
 badEncoded = ini.stringify();

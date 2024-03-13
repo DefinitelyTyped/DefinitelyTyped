@@ -1,9 +1,3 @@
-// Type definitions for json-schema-md-doc 1.0
-// Project: https://brianwendt.github.io/json-schema-md-doc
-// Definitions by: Alexander Prentki <https://github.com/DJAlPee>
-//                 Brian Wendt <https://github.com/brianwendt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = JSONSchemaMarkdown;
 
 declare class JSONSchemaMarkdown {

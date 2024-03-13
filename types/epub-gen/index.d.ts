@@ -1,8 +1,3 @@
-// Type definitions for epub-gen 0.1
-// Project: https://github.com/cyrilis/epub-gen
-// Definitions by: Sam Tyler <https://github.com/styler3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Epub {
     interface Chapter {
         /** Chapter title */

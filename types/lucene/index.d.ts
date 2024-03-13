@@ -1,9 +1,3 @@
-// Type definitions for lucene 2.1
-// Project: https://github.com/bripkens/lucene#readme
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-//                 Hugo Muller <https://github.com/HugoMuller>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TermLocation {
     column: number;
     line: number;

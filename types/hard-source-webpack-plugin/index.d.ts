@@ -1,9 +1,3 @@
-// Type definitions for hard-source-webpack-plugin 1.0
-// Project: https://github.com/mzgoddard/hard-source-webpack-plugin#readme
-// Definitions by: Yama-Tomo <https://github.com/Yama-Tomo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { ChildProcess, ForkOptions } from "child_process";
 import * as webpack from "webpack";
 
@@ -79,7 +73,7 @@ declare namespace hard_source_webpack_plugin {
         // NOTE: not using `Parameters` and `ReturnType` on purpose to compatibility. better of code this below.
         //     type forkFn = (...args: Parameters<typeof fork>) => ReturnType<typeof fork>
         // this code working on supported versions of `infer` keyword (version 2.8 higher.
-        type forkFn = (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess;
+        type forkFn = (modulePath: string, args?: readonly string[], options?: ForkOptions) => ChildProcess;
         interface Options {
             fork?: ((fork: forkFn, compiler: webpack.Compiler, webpackBin: string) => void) | undefined;
             numWorkers?: number | (() => number) | undefined;

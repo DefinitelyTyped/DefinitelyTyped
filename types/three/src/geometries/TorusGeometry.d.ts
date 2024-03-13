@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * A class for generating torus geometries.
@@ -30,7 +30,7 @@ export class TorusGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `TorusGeometry`
      */
-    override readonly type: string | 'TorusGeometry';
+    override readonly type: string | "TorusGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

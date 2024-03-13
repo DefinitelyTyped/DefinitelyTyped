@@ -8,6 +8,7 @@ export const ShaderChunk: {
     alphatest_pars_fragment: string;
     aomap_fragment: string;
     aomap_pars_fragment: string;
+    batching_pars_vertex: string;
     begin_vertex: string;
     beginnormal_vertex: string;
     bsdfs: string;

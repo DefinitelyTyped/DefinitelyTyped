@@ -1,9 +1,3 @@
-// Type definitions for Google Drive API v2
-// Project: https://developers.google.com/drive/
-// Definitions by: Sam Baxter <https://github.com/baxtersa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client {
@@ -192,7 +186,7 @@ declare namespace gapi.client {
             fileSize: number;
             quotaBytesUsed: number;
             ownerNames: string[];
-            owners: {
+            owners: Array<{
                 kind: "drive#user";
                 displayName: string;
                 picture: {
@@ -201,7 +195,7 @@ declare namespace gapi.client {
                 isAuthenticatedUser: boolean;
                 permissionId: string;
                 emailAddress: string;
-            }[];
+            }>;
             teamDriveId: string;
             lastModifyingUserName: string;
             lastModifyingUser: {
@@ -327,13 +321,13 @@ declare namespace gapi.client {
             withLink: boolean;
             photoLink: string;
             expirationDate: Date;
-            teamDrivePermissionDetails: {
+            teamDrivePermissionDetails: Array<{
                 teamDrivePermissionType: string;
                 role: string;
                 additionalRoles: string[];
                 inheritedFrom: string;
                 inherited: boolean;
-            }[];
+            }>;
             deleted: boolean;
         }
 

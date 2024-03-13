@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/connection-tcp 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/connection-tcp
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Connection = require("@xmpp/connection");
 import { Element } from "@xmpp/xml";
 import { Socket } from "net";

@@ -1,8 +1,3 @@
-// Type definitions for merge-deep 3.0
-// Project: https://github.com/jonschlinkert/merge-deep
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = mergeDeep;
 
 /** Recursively merge values in a javascript object. */

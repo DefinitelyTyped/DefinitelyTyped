@@ -1,5 +1,5 @@
-import { Vector2 } from './../../math/Vector2.js';
-import { Curve } from './../core/Curve.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Curve } from "../core/Curve.js";
 
 /**
  * A curve representing a **2D** line segment.
@@ -26,7 +26,7 @@ export class LineCurve extends Curve<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `LineCurve`
      */
-    override readonly type: string | 'LineCurve';
+    override readonly type: string | "LineCurve";
 
     /**
      * The start point.

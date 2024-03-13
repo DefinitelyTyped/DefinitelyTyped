@@ -1,9 +1,3 @@
-// Type definitions for styletron-standard 2.0
-// Project: https://github.com/styletron/styletron
-// Definitions by: Eric Taylor <https://github.com/erictaylor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as CSS from "csstype";
 
 export type Properties = CSS.Properties<string | number>;

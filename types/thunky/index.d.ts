@@ -1,8 +1,3 @@
-// Type definitions for thunky 1.1
-// Project: https://github.com/mafintosh/thunky
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = thunky;
 
 /**

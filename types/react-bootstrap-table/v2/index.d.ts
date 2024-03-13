@@ -1,16 +1,9 @@
-// Type definitions for react-bootstrap-table 2.6
-// Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>
-//                 Aleksander Lode <https://github.com/alelode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
 import { EventEmitter } from "events";
-import { ComponentClass, ReactElement } from "react";
+import { ComponentClass, JSX, ReactElement, RefAttributes } from "react";
 
 /**
  * Interface spec for sepcifying functionality to handle remotely
@@ -53,9 +46,8 @@ export interface RemoteObjSpec {
     pagination?: boolean | undefined;
 }
 
-export interface BootstrapTableProps {
+export interface BootstrapTableProps extends RefAttributes<BootstrapTable> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<BootstrapTable> | undefined;
 
     /**
      * Set version='4' to use bootstrap@4, else bootstrap@3 is used.
@@ -519,9 +511,8 @@ interface BootstrapTable extends ComponentClass<BootstrapTableProps> {}
 declare const BootstrapTable: BootstrapTable;
 export type DataAlignType = "left" | "center" | "right" | "start" | "end";
 
-export interface TableHeaderColumnProps {
+export interface TableHeaderColumnProps extends RefAttributes<TableHeaderColumn> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<TableHeaderColumn> | undefined;
     /**
      * The field of data you want to show on column.
      */

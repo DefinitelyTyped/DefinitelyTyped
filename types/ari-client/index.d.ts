@@ -1,8 +1,3 @@
-// Type definitions for ari-client 2.2
-// Project: https://github.com/asterisk/node-ari-client
-// Definitions by: Dioris Moreno <https://github.com/dioris-moreno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

@@ -1,11 +1,3 @@
-// Type definitions for universal-analytics 0.4
-// Project: https://github.com/peaksandpies/universal-analytics
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Iker Pérez Brunelli <https://github.com/DarkerTV>
-//                 Martin Trobäck <https://github.com/lekoaf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace ua {
     type Callback = (error: Error | null, count: number) => void;
 

@@ -1,8 +1,3 @@
-// Type definitions for seedrandom 2.4.2
-// Project: https://github.com/davidbau/seedrandom
-// Definitions by: Kern Handa <https://github.com/kernhanda>, Eugene Zaretskiy <https://github.com/EugeneZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace seedrandom {
     export type State = {};
 
@@ -39,6 +34,12 @@ declare namespace seedrandom {
 }
 
 declare var seedrandom: seedrandom.seedrandom_prng;
+
+declare global {
+    interface Math {
+        seedrandom: seedrandom.prng;
+    }
+}
 
 export = seedrandom;
 export as namespace seedrandom;

@@ -1,8 +1,3 @@
-// Type definitions for infobox-parser 3.3
-// Project: https://github.com/dijs/infobox-parser#readme
-// Definitions by: Jeff Held <https://github.com/solkaz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ParseOptions {
     simplifyDataValues?: boolean | undefined;
 }

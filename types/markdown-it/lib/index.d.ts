@@ -9,7 +9,7 @@ import Renderer = require("./renderer");
 import Token = require("./token");
 
 declare namespace MarkdownIt {
-    type Token = typeof import("./token");
+    type Token = import("./token");
 
     /**
      * MarkdownIt provides named presets as a convenience to quickly

@@ -1,9 +1,3 @@
-// Type definitions for webostvjs 1.2
-// Project: https://webostv.developer.lge.com/api/webostvjs/intro-webostvjs/
-// Definitions by: Denis Seleznev <https://github.com/hcodes>
-//                 Ilya Istomin <https://github.com/procot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Window {
         webOS: WebOS;

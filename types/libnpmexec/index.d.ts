@@ -1,12 +1,7 @@
-// Type definitions for libnpmexec 2.0
-// Project: https://github.com/npm/libnpmexec#readme
-// Definitions by: jameswilddev <https://github.com/jameswilddev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function libnpmexec(opts: {
-    readonly args: ReadonlyArray<string>;
+    readonly args: readonly string[];
     readonly call?: string;
     readonly cache?: string;
     readonly npxCache?: string;
@@ -20,7 +15,7 @@ declare function libnpmexec(opts: {
     };
     readonly globalBin?: string;
     readonly output?: (message: string) => void;
-    readonly packages?: ReadonlyArray<string>;
+    readonly packages?: readonly string[];
     readonly path?: string;
     readonly runPath?: string;
     readonly scriptShell?: string;

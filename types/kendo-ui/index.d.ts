@@ -1,8 +1,3 @@
-// Type definitions for Kendo UI Professional v2023.2.606
-// Project: http://www.telerik.com/kendo-ui
-// Definitions by: Telerik <https://github.com/telerik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="jquery" />
 /*
  * Please, submit Pull Requests in the telerik/kendo-ui-core repo at
@@ -2631,7 +2626,7 @@ declare namespace kendo.ui {
         enable(enable: boolean): void;
         select(li: JQuery): void;
         select(li: number): void;
-        selectedIndices: Array<number>;
+        selectedIndices: number[];
     }
 
     interface ButtonGroupItem {
@@ -6564,7 +6559,7 @@ declare namespace kendo.ui {
         selectable?: boolean | string | undefined;
         size?: string | undefined;
         sortable?: boolean | GridSortable | undefined;
-        toolbar?: string | Function | (string | GridToolbarItem)[] | ToolBarItem[] | undefined;
+        toolbar?: string | Function | Array<string | GridToolbarItem> | ToolBarItem[] | undefined;
         width?: number | string | undefined;
         beforeEdit?(e: GridBeforeEditEvent): void;
         cancel?(e: GridCancelEvent): void;

@@ -356,6 +356,21 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-obj-calls": Linter.RuleEntry<[]>;
 
     /**
+     * Rule to disallow returning values from Promise executor functions.
+     *
+     * @since 7.3.0
+     * @see https://eslint.org/docs/rules/no-promise-executor-return
+     */
+    "no-promise-executor-return": Linter.RuleEntry<[
+        {
+            /**
+             * @default false
+             */
+            allowVoid?: boolean;
+        },
+    ]>;
+
+    /**
      * Rule to disallow use of `Object.prototypes` builtins directly.
      *
      * @remarks
@@ -460,7 +475,20 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @since 0.0.6
      * @see https://eslint.org/docs/rules/use-isnan
      */
-    "use-isnan": Linter.RuleEntry<[]>;
+    "use-isnan": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default true
+                 */
+                enforceForSwitchCase: boolean;
+                /**
+                 * @default true
+                 */
+                enforceForIndexOf: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to enforce comparing `typeof` expressions against valid strings.

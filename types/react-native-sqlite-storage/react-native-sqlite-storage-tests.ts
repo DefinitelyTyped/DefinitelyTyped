@@ -2,8 +2,8 @@ import * as sqlite from "react-native-sqlite-storage";
 
 const db = sqlite.openDatabase(
     { name: "test.db", location: "default" },
-    () => {
-        db.transaction(tx => {
+    (dbArgs) => {
+        dbArgs.transaction(tx => {
             tx.executeSql(
                 "SELECT * FROM Employees a, Departments b WHERE a.department = b.department_id",
                 [],
@@ -45,7 +45,7 @@ sqlite.openDatabase({ name: "test.db", location: "default" }).then(db => {
 });
 
 sqlite.openDatabase({ name: "test.db", location: "default" }).then(async db => {
-    await db.attach(db.dbName, "alias");
+    await db.attach(db.dbname, "alias");
     await db.detach("alias");
 
     db.readTransaction(async tx => {

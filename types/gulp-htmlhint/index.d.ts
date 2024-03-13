@@ -1,8 +1,3 @@
-// Type definitions for gulp-htmlhint 4.0
-// Project: https://github.com/bezoerb/gulp-htmlhint
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Rule } from "htmlhint/types";

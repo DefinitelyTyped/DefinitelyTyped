@@ -1,8 +1,3 @@
-// Type definitions for @shakacode/recompose 0.30
-// Project: https://github.com/shakacode/recompose
-// Definitions by: Brian Dombrowski <https://github.com/bdombro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // @shakacode/recompose is a fork of `recompose`, and these types are based on work done in `@types/recompose`.
 
 /// <reference types="react" />
@@ -205,7 +200,7 @@ declare module "@shakacode/recompose" {
 
     // onlyUpdateForKeys: https://github.com/shakacode/recompose/blob/master/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -395,7 +390,7 @@ declare module "@shakacode/recompose" {
 
     // nest: https://github.com/shakacode/recompose/blob/master/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/shakacode/recompose/blob/master/docs/API.md#hoistStatics

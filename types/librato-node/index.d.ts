@@ -1,9 +1,3 @@
-// Type definitions for librato-node 5.0
-// Project: https://github.com/goodeggs/librato-node
-// Definitions by: Jim Geurts <https://github.com/jgeurts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface CustomSource {
     source: string;
 }

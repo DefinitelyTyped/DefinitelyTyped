@@ -1,12 +1,3 @@
-// Type definitions for opentok 2.14
-// Project: https://github.com/opentok/opentok-node
-// Definitions by: Seth Westphal <https://github.com/westy92>
-//                 Anthony Messerschmidt <https://github.com/CatGuardian>
-//                 Andrej Mihajlov <https://github.com/pronebird>
-//                 Victor Alencar <https://github.com/valencar>
-//                 Luis Felipe Zaguini <https://github.com/zaguiini>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "opentok" {
     namespace OpenTok {
         export type OutputMode = "composed" | "individual";

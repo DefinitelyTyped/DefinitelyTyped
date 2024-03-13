@@ -45,7 +45,7 @@ export type Animations =
     | "revealEnd"
     | "zoomIn"
     | "zoomOut";
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type SwitcherCallBackParam = {
     node: Element;
     valueAccessor: () => any;

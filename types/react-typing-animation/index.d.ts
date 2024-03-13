@@ -1,9 +1,3 @@
-// Type definitions for react-typing-animation 1.6
-// Project: https://github.com/notadamking/react-typing-animation#readme
-// Definitions by: Haseeb Majid <https://github.com/hmajid2301>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component } from "react";
 
 export interface TypingProps {

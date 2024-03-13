@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-navbar",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/react-native-community/react-native-navbar"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-navbar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ryo Kikuchi",
+            "githubUsername": "ryokik"
+        }
+    ]
+}

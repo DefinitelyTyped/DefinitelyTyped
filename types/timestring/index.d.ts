@@ -1,8 +1,3 @@
-// Type definitions for timestring 6.0
-// Project: https://github.com/mike182uk/timestring
-// Definitions by: Devin Spikowski <https://github.com/vegeta897>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function timestring(input: string, returnUnit?: timestring.ReturnUnit, opts?: timestring.Options): number;
 
 declare namespace timestring {

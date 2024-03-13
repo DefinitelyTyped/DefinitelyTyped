@@ -1,8 +1,3 @@
-// Type definitions for react-netlify-form 2.1
-// Project: https://github.com/escaladesports/react-netlify-form#readme
-// Definitions by: Zhijiang Li <https://github.com/zhjngli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import Recaptcha, { ReCAPTCHAProps } from "react-google-recaptcha";
 

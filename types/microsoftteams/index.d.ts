@@ -1,11 +1,3 @@
-// Type definitions for non-npm package microsoftteams 1.9
-// Project: https://github.com/OfficeDev/microsoft-teams-library-js
-// Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
-//                 Yuri Dogandjiev <https://github.com/ydogandjiev>
-//                 Serge Aradj <https://github.com/orty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 interface MessageEvent {
     originalEvent: MessageEvent;
 }
@@ -1255,12 +1247,12 @@ declare namespace microsoftTeams {
             Offline = "Offline",
             Other = "Other",
         }
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IFailedRequest {
             reason: FailedReason;
             message?: string | undefined;
         }
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IExpectedFailureRequest {
             reason: ExpectedFailureReason;
             message?: string | undefined;
@@ -1282,7 +1274,7 @@ declare namespace microsoftTeams {
          */
         function notifyExpectedFailure(expectedFailureRequest: IExpectedFailureRequest): void;
     }
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IAppWindow {
         postMessage(message: any): void;
         addEventListener(type: string, listener: () => void): void;
@@ -2209,7 +2201,7 @@ declare namespace microsoftTeams {
         /**
          *  All properties in ImageProps are optional and have default values in the platform
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface ImageProps {
             /**
              * Optional; Lets the developer specify the image source, more than one can be specified.
@@ -2278,7 +2270,7 @@ declare namespace microsoftTeams {
         /**
          * Input for view images API
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface ImageUri {
             value: string;
             type: ImageUriType;
@@ -2346,7 +2338,7 @@ declare namespace microsoftTeams {
          * Hide from docs
          * Data structure to represent a meeting details.
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IMeetingDetails {
             /**
              * details object
@@ -2365,7 +2357,7 @@ declare namespace microsoftTeams {
          * Hide from docs
          * Data structure to represent details.
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDetails {
             /**
              * Scheduled start time of the meeting
@@ -2392,7 +2384,7 @@ declare namespace microsoftTeams {
          * Hide from docs
          * Data structure to represent a conversation object.
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IConversation {
             /**
              * conversation id of the meeting
@@ -2403,7 +2395,7 @@ declare namespace microsoftTeams {
          * Hide from docs
          * Data structure to represent an organizer object.
          */
-        // tslint:disable-next-line:interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IOrganizer {
             /**
              * organizer id of the meeting
@@ -2626,7 +2618,7 @@ declare namespace microsoftTeams {
      * Only one handler can be registered at a time. A subsequent registration replaces an existing registration.
      * @param handler The handler to invoke when the user changes their theme.
      */
-    // tslint:disable-next-line:adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     function registerOnThemeChangeHandler(handler: (theme: string) => void): void;
     /**
      * Registers a handler for changes from or to full-screen view for a tab.
@@ -2659,20 +2651,20 @@ declare namespace microsoftTeams {
      * method to ask the Teams client to handle it instead.
      * @param handler The handler to invoke when the user presses their Team client's back button.
      */
-    // tslint:disable-next-line:adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     function registerBackButtonHandler(handler: () => boolean): void;
     /**
      * Registers a handler to be called when the page has been requested to load.
      * @param handler The handler to invoke when the page is loaded.
      */
-    // tslint:disable-next-line:adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     function registerOnLoadHandler(handler: (context: LoadContext) => void): void;
     /**
      * Registers a handler to be called before the page is unloaded.
      * @param handler The handler to invoke before the page is unloaded. If this handler returns true the page should
      * invoke the readyToUnload function provided to it once it's ready to be unloaded.
      */
-    // tslint:disable-next-line:adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     function registerBeforeUnloadHandler(handler: (readyToUnload: () => void) => boolean): void;
     /**
      * Registers a handler for when the user reconfigurated tab

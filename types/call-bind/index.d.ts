@@ -1,10 +1,3 @@
-// Type definitions for call-bind 1.0
-// Project: https://github.com/ljharb/call-bind#readme
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 // This is necessary to disallow import of `call-bind/index` or `call-bind/index.js`:
 declare module "call-bind" {
     export = callBind;

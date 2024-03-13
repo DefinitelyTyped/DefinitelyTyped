@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/ember",
+    "version": "2.8.9999",
+    "projects": [
+        "http://emberjs.com/"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
+        "@types/rsvp": "*",
         "handlebars": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/ember": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
 }

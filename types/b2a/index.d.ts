@@ -1,9 +1,3 @@
-// Type definitions for b2a 1.1
-// Project: https://github.com/kaelzhang/b2a#readme
-// Definitions by: PatPL <https://github.com/PatPL>
-//                 Merlinio <https://github.com/Merlinio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts base64 string back into original text
  */

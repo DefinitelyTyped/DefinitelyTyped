@@ -1,8 +1,3 @@
-// Type definitions for scriptjs
-// Project: https://github.com/ded/script.js
-// Definitions by: Steve Lam <https://github.com/ssttevee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface $script {
     (paths: string | string[], idOrDone: string | (() => void), optDone?: () => void): $script;
     get(path: string, fn: () => void): void;

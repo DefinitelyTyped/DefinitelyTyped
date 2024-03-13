@@ -1,18 +1,9 @@
-// Type definitions for non-npm package Titanium 12.0
-// Project: https://github.com/appcelerator/titanium_mobile
-// Definitions by: Axway Appcelerator <https://github.com/appcelerator>
-//                 Jan Vennemann <https://github.com/janvennemann>
-//                 Sergey Volkov <https://github.com/drauggres>
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Base definitions that can't be generated yet
 /// <reference path="base.d.ts" />
 
 type _Omit<T, K extends keyof any | undefined> = Pick<T, Exclude<keyof T, K>>;
 type FunctionPropertyNames<T> = {
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
 type Dictionary<T> = Partial<_Omit<T, FunctionPropertyNames<Ti.Proxy>>>;
@@ -6509,7 +6500,7 @@ declare namespace Titanium {
                  * Adds an array of Titanium.App.iOS.SearchableItem objects to the default search index.
                  */
                 addToDefaultSearchableIndex(
-                    Array: ReadonlyArray<Titanium.App.iOS.SearchableItem>,
+                    Array: readonly Titanium.App.iOS.SearchableItem[],
                     callback: (param0: any) => void,
                 ): void;
 
@@ -6517,7 +6508,7 @@ declare namespace Titanium {
                  * Removes search items based on an array of domain identifiers.
                  */
                 deleteAllSearchableItemByDomainIdenifiers(
-                    Array: ReadonlyArray<string>,
+                    Array: readonly string[],
                     callback: (param0: any) => void,
                 ): void;
 
@@ -6529,7 +6520,7 @@ declare namespace Titanium {
                 /**
                  * Removes search items based on an array of identifiers.
                  */
-                deleteSearchableItemsByIdentifiers(Array: ReadonlyArray<string>, callback: (param0: any) => void): void;
+                deleteSearchableItemsByIdentifiers(Array: readonly string[], callback: (param0: any) => void): void;
 
                 /**
                  * Fires a synthesized event to any registered listeners.
@@ -7254,7 +7245,7 @@ declare namespace Titanium {
                 /**
                  * Deletes user activities created by your app that have the specified persistent identifiers.
                  */
-                deleteSavedUserActivitiesForPersistentIdentifiers(persistentIdentifiers: ReadonlyArray<string>): void;
+                deleteSavedUserActivitiesForPersistentIdentifiers(persistentIdentifiers: readonly string[]): void;
 
                 /**
                  * Fires a synthesized event to any registered listeners.
@@ -7525,7 +7516,7 @@ declare namespace Titanium {
                  * Removes the specified delivered notifications from the notification-center.
                  * If no notifications are specified, all delivered notifications will be removed.
                  */
-                static removeDeliveredNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
+                static removeDeliveredNotifications(notifications: readonly UserNotificationDictionary[]): void;
 
                 /**
                  * Removes the specified callback as an event listener for the named event.
@@ -7536,7 +7527,7 @@ declare namespace Titanium {
                  * Removes the specified pending notifications to prevent them from being triggered.
                  * If no notifications are specified, all pending notifications will be removed.
                  */
-                static removePendingNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
+                static removePendingNotifications(notifications: readonly UserNotificationDictionary[]): void;
 
                 /**
                  * Notification types and user notification categories the application is registered to use.
@@ -7728,7 +7719,7 @@ declare namespace Titanium {
             /**
              * Returns the value of a property as an array data type.
              */
-            static getList(property: string, defaultValue?: ReadonlyArray<any>): any[];
+            static getList(property: string, defaultValue?: readonly any[]): any[];
 
             /**
              * Returns the value of a property as an object.
@@ -7795,7 +7786,7 @@ declare namespace Titanium {
              * Sets the value of a property as an array data type. The property will be created if it
              * does not exist.
              */
-            static setList(property: string, value: ReadonlyArray<any>): void;
+            static setList(property: string, value: readonly any[]): void;
 
             /**
              * Sets the value of a property as an object data type. The property will be created if it
@@ -9568,7 +9559,7 @@ declare namespace Titanium {
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
              */
-            execute(sql: string, vararg?: ReadonlyArray<string>): Titanium.Database.ResultSet;
+            execute(sql: string, vararg?: readonly string[]): Titanium.Database.ResultSet;
 
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
@@ -9578,20 +9569,20 @@ declare namespace Titanium {
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
              */
-            execute(sql: string, vararg?: ReadonlyArray<any>): Titanium.Database.ResultSet;
+            execute(sql: string, vararg?: readonly any[]): Titanium.Database.ResultSet;
 
             /**
              * Synchronously executes an array of SQL statements against the database and returns an array of `ResultSet`.
              * On failure, this will throw an [Error](BatchQueryError) that reports the failed index and partial results
              */
-            executeAll(queries: ReadonlyArray<string>): Titanium.Database.ResultSet[];
+            executeAll(queries: readonly string[]): Titanium.Database.ResultSet[];
 
             /**
              * Asynchronously executes an array of SQL statements against the database and fires a callback with a possible Error, and an array of `ResultSet`.
              * On failure, this will call the callback with an [Error](PossibleBatchQueryError) that reports the failed `index`, and a second argument with the partial `results`.
              */
             executeAllAsync(
-                queries: ReadonlyArray<string>,
+                queries: readonly string[],
                 callback?: (param0: PossibleBatchQueryError, param1: Titanium.Database.ResultSet[]) => void,
             ): Promise<Titanium.Database.ResultSet[]>;
 
@@ -11050,8 +11041,8 @@ declare namespace Titanium {
              * Android media providers, such as the Gallery.
              */
             static scanMediaFiles(
-                paths: ReadonlyArray<string>,
-                mimeTypes: ReadonlyArray<string>,
+                paths: readonly string[],
+                mimeTypes: readonly string[],
                 callback: (param0: MediaScannerResponse) => void,
             ): void;
 
@@ -12939,7 +12930,7 @@ declare namespace Titanium {
              * Asynchronously request thumbnail images for one or more points in time in the video.
              */
             requestThumbnailImagesAtTimes(
-                times: ReadonlyArray<number>,
+                times: readonly number[],
                 option: number,
                 callback: (param0: ThumbnailResponse) => void,
             ): void;
@@ -34007,7 +33998,7 @@ declare namespace Titanium {
             /**
              * Appends the data entries to the end of the list section.
              */
-            appendItems(dataItems: ReadonlyArray<ListDataItem>, animation?: ListViewAnimationProperties): void;
+            appendItems(dataItems: readonly ListDataItem[], animation?: ListViewAnimationProperties): void;
 
             /**
              * Removes count entries from the list section at the specified index.
@@ -34029,7 +34020,7 @@ declare namespace Titanium {
              */
             insertItemsAt(
                 itemIndex: number,
-                dataItems: ReadonlyArray<ListDataItem>,
+                dataItems: readonly ListDataItem[],
                 animation?: ListViewAnimationProperties,
             ): void;
 
@@ -34045,14 +34036,14 @@ declare namespace Titanium {
             replaceItemsAt(
                 index: number,
                 count: number,
-                dataItems: ReadonlyArray<ListDataItem>,
+                dataItems: readonly ListDataItem[],
                 animation?: ListViewAnimationProperties,
             ): void;
 
             /**
              * Sets the data entries in the list section.
              */
-            setItems(dataItems: ReadonlyArray<ListDataItem>, animation?: ListViewAnimationProperties): void;
+            setItems(dataItems: readonly ListDataItem[], animation?: ListViewAnimationProperties): void;
 
             /**
              * Updates an item at the specified index.
@@ -43462,7 +43453,7 @@ declare namespace Titanium {
             /**
              * Inserts views at the specified position in the [views](Titanium.UI.ScrollableView.views) array.
              */
-            insertViewsAt(position: number, views: ReadonlyArray<Titanium.UI.View>): void;
+            insertViewsAt(position: number, views: readonly Titanium.UI.View[]): void;
 
             /**
              * Sets the current page to the next consecutive page in <Titanium.UI.ScrollableView.views>.
@@ -55371,12 +55362,12 @@ declare namespace Titanium {
             /**
              * Add native properties for observing for change.
              */
-            startListeningToProperties(propertyList: ReadonlyArray<string>): void;
+            startListeningToProperties(propertyList: readonly string[]): void;
 
             /**
              * Remove native properties from observing.
              */
-            stopListeningToProperties(propertyList: ReadonlyArray<string>): void;
+            stopListeningToProperties(propertyList: readonly string[]): void;
 
             /**
              * Stops loading a currently loading page.
@@ -56444,7 +56435,7 @@ declare namespace Titanium {
             /**
              * Sets the array of items to show in the window's toolbar.
              */
-            setToolbar(items: ReadonlyArray<any>, params?: windowToolbarParam): void;
+            setToolbar(items: readonly any[], params?: windowToolbarParam): void;
 
             /**
              * Makes the navigation bar visible.
@@ -57958,7 +57949,7 @@ declare namespace Titanium {
          */
         static registerBroadcastReceiver(
             broadcastReceiver: Titanium.Android.BroadcastReceiver,
-            actions: ReadonlyArray<string>,
+            actions: readonly string[],
         ): void;
 
         /**
@@ -59029,7 +59020,7 @@ declare namespace Titanium {
         /**
          * Commits all pending changes to the underlying contacts database.
          */
-        static save(contacts: ReadonlyArray<Titanium.Contacts.Person>): void;
+        static save(contacts: readonly Titanium.Contacts.Person[]): void;
 
         /**
          * Displays a picker that allows a person to be selected.
@@ -59227,7 +59218,7 @@ declare namespace Titanium {
         /**
          * Returns a `File` object representing the file identified by the path arguments.
          */
-        static getFile(path: ReadonlyArray<string>): Titanium.Filesystem.File;
+        static getFile(path: readonly string[]): Titanium.Filesystem.File;
 
         /**
          * Returns `true` if the app has storage permissions.
@@ -59667,7 +59658,7 @@ declare namespace Titanium {
     /**
      * IOStream is the interface that all stream types implement.
      */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     class IOStream extends Titanium.Proxy {
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -60223,7 +60214,7 @@ declare namespace Titanium {
         /**
          * Makes the device vibrate.
          */
-        static vibrate(pattern?: ReadonlyArray<number>): void;
+        static vibrate(pattern?: readonly number[]): void;
     }
     /**
      * Base type for all Titanium modules.
@@ -60897,6 +60888,7 @@ declare namespace Titanium {
             sourceStream: Titanium.IOStream,
             buffer?: Titanium.Buffer,
             resultsCallback?: (param0: ReadCallbackArgs) => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Titanium.Buffer | void;
 
         /**

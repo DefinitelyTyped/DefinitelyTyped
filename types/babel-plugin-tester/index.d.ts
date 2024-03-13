@@ -1,10 +1,3 @@
-// Type definitions for babel-plugin-tester 9.0
-// Project: https://github.com/babel-utils/babel-plugin-tester#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Mathieu TUDISCO <https://github.com/mathieutu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 import * as Babel from "@babel/core";
 import { Options } from "prettier";
 
@@ -103,11 +96,11 @@ export interface TestObject {
      * be treated as a teardown function.
      */
     setup?:
-        | (() =>
-            | void
-            | NonNullable<TestObject["teardown"]>
-            | Promise<void>
-            | Promise<NonNullable<TestObject["teardown"]>>)
+        | (() => // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        | void
+        | NonNullable<TestObject["teardown"]>
+        | Promise<void>
+        | Promise<NonNullable<TestObject["teardown"]>>)
         | undefined;
 
     /**

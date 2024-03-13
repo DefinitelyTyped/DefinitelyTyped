@@ -1,8 +1,3 @@
-// Type definitions for express-processimage 10.1
-// Project: https://github.com/papandreou/express-processimage#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { NextFunction } from "express";
 
 /**

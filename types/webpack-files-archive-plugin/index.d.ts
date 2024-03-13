@@ -1,8 +1,3 @@
-// Type definitions for webpack-files-archive-plugin 1.0
-// Project: https://github.com/himanshuapril1/webpack-files-archive-plugin
-// Definitions by: Yusuf Ades <https://github.com/yusufades>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import type { Compiler } from "webpack";
 

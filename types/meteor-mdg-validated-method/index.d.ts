@@ -1,10 +1,3 @@
-// Type definitions for non-npm package Atmosphere package mdg:validated-method 1.2
-// Project: https://github.com/meteor/validated-method
-// Definitions by: Artemis Kearney <https://github.com/artemiswkearney>
-//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 // Inspiration taken from https://github.com/nicu-chiciuc/typed-meteor-methods,
 // which was based on https://github.com/meteor-typings/validated-method/blob/master/main.d.ts by Dave Allen
 
@@ -54,7 +47,7 @@ declare module "meteor/mdg:validated-method" {
     /**
      * When declaring a mixin that adds fields to ValidatedMethodOptions, augment this to add them
      */
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface ValidatedMethodOptionsMixinFields<TRunArg, TRunReturn> {}
 
     export type NoArguments = undefined;

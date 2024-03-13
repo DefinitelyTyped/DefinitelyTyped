@@ -1,8 +1,3 @@
-// Type definitions for social-logos 2.3
-// Project: https://github.com/Automattic/social-logos#readme
-// Definitions by: Todd Dukart <https://github.com/tdukart>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export type SocialIcon =

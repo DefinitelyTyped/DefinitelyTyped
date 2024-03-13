@@ -1,7 +1,7 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
     }
 }

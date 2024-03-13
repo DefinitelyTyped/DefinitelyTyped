@@ -1,9 +1,3 @@
-// Type definitions for color-convert 2.0
-// Project: https://github.com/qix-/color-convert#readme
-// Definitions by: Junyoung Clare Jang <https://github.com/Airlun>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import conversions = require("./conversions");
 import route = require("./route");
 

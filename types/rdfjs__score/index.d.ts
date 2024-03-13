@@ -1,8 +1,3 @@
-// Type definitions for @rdfjs/score 0.1
-// Project: https://github.com/rdfjs-base/score
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 Jesse Wright <https://github.com/jeswr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { DatasetCore, Quad_Graph, Term } from "@rdfjs/types";
 
 export { default as combine } from "./combine.js";

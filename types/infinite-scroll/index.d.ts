@@ -1,9 +1,3 @@
-// Type definitions for infinite-scroll 4.0
-// Project: https://github.com/metafizzy/infinite-scroll
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="jquery" />
 
 import Isotope = require("isotope-layout");
@@ -30,7 +24,7 @@ declare namespace InfiniteScroll {
          * `last` event will be triggered when last page is reached
          * @default true
          */
-        checkLastPage?: boolean | undefined;
+        checkLastPage?: boolean | string | undefined;
         /**
          * Sets the Response body interface method,
          * on the response returned from fetch request

@@ -1,11 +1,3 @@
-// Type definitions for react-calendar-timeline v0.28.0
-// Project: https://github.com/namespace-ee/react-calendar-timeline
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//                 Andrii Los <https://github.com/rip21>
-//                 Jon Caruana <https://github.com/joncar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { Moment } from "moment";
 import * as React from "react";
 
@@ -347,7 +339,7 @@ declare module "react-calendar-timeline" {
         endTime: Moment;
     }
     export interface HeaderContext {
-        intervals: { startTime: Moment; endTime: Moment }[];
+        intervals: Array<{ startTime: Moment; endTime: Moment }>;
         unit: string;
     }
     export interface CustomHeaderPropsChildrenFnProps<Data> {

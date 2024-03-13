@@ -63,19 +63,19 @@ export namespace ojCheckboxset {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Option = {
         disabled?: boolean | undefined;
         label?: string | undefined;
         value: any;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionContext<D> = {
         component: Element;
         index: number;
         data: D;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionsKeys = {
         label?: string | undefined;
         value?: string | undefined;

@@ -1,8 +1,50 @@
 {
     "private": true,
+    "name": "@types/wordpress__components",
+    "version": "23.0.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/trunk/packages/components"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "@types/tinycolor2": "*",
+        "@types/wordpress__notices": "*",
+        "@types/wordpress__rich-text": "*",
         "@wordpress/element": "^5.0.0",
         "downshift": "^6.0.15",
         "re-resizable": "^6.4.0"
-    }
+    },
+    "devDependencies": {
+        "@types/wordpress__components": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        },
+        {
+            "name": "Jon Surrell",
+            "githubUsername": "sirreal"
+        },
+        {
+            "name": "Philip Jackson",
+            "githubUsername": "p-jackson"
+        },
+        {
+            "name": "Sara Marcondes",
+            "githubUsername": "sarayourfriend"
+        },
+        {
+            "name": "Michael Thomas",
+            "githubUsername": "michaelhthomas"
+        },
+        {
+            "name": "Manzoor Wani",
+            "githubUsername": "manzoorwanijk"
+        },
+        {
+            "name": "Bas Tolen",
+            "githubUsername": "bastolen"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package web-ie11-browser 0.0
-// Project: https://docs.microsoft.com/en-us/lifecycle/announcements/internet-explorer-11-end-of-support
-// Definitions by: Kagami Sascha Rosylight <https://github.com/saschanaz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Document {
     /**
      * Creates a TreeWalker object that you can use to traverse filtered lists of nodes or elements in a document.

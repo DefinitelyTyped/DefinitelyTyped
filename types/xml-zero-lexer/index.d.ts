@@ -1,8 +1,3 @@
-// Type definitions for xml-zero-lexer 2.1
-// Project: https://github.com/holloway/xml-zero.js/tree/master/packages/xml-zero-lexer
-// Definitions by: 宁倬 <https://github.com/943297456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const NodeTypes: {
     /**
      * unofficial

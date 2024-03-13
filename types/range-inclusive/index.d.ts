@@ -1,8 +1,3 @@
-// Type definitions for range-inclusive 1.0
-// Project: https://github.com/emilbayes/range-inclusive
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = rangeInclusive;
 
 /**

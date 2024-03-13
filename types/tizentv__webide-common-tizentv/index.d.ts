@@ -1,8 +1,3 @@
-// Type definitions for @tizentv/webide-common-tizentv 1.0
-// Project: https://github.com/Samsung/webIDE-common-tizentv
-// Definitions by: Bart van den Ende <https://github.com/bartvandenende-wm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface AuthorInfo {
     keyFileName: string;
     authorName: string;

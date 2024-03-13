@@ -1,9 +1,3 @@
-// Type definitions for ml-classify-text 2.0
-// Project: https://github.com/andreekeberg/ml-classify-text-js
-// Definitions by: Glenn <https://github.com/promise>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 interface ModelOptions {
     nGramMin: number;
     nGramMax: number;

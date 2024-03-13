@@ -1,8 +1,3 @@
-// Type definitions for static-kdtree 1.0
-// Project: https://github.com/mikolalysenko/static-kdtree
-// Definitions by: Zheyang Song <https://github.com/ZheyangSong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import ndarray = require("ndarray");
 
 // ref: https://github.com/microsoft/TypeScript/pull/40002

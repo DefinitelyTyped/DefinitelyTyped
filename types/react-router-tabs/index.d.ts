@@ -1,8 +1,3 @@
-// Type definitions for react-router-tabs 1.3
-// Project: https://github.com/chacestew/react-router-tabs#readme
-// Definitions by: Joakim Unge <https://github.com/joakimunge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ComponentType, ReactNode } from "react";
 import { Link, LinkProps, NavLinkProps, Route, RouteProps } from "react-router-dom";
 

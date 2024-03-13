@@ -1,11 +1,3 @@
-// Type definitions for hello.js 1.19
-// Project: https://adodson.com/hello.js
-// Definitions by: Pavel Zika <https://github.com/PavelPZ>
-//                 Mikko Vuorinen <https://github.com/vuorinem>
-//                 Vincent Biret <https://github.com/baywet>
-//                 Batuhan Wilhelm <https://github.com/batuhanw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hello;
 export as namespace hello;
 
@@ -195,6 +187,7 @@ declare namespace hello {
         jsonp?: ((p: any, query: any) => void) | boolean | undefined;
         form?: ((p: any, query: any) => void) | boolean | undefined;
         login?(p: any): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         logout?: ((callback: () => void | string) => void) | string | undefined;
     }
 }

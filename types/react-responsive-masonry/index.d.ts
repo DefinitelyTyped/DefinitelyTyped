@@ -1,8 +1,3 @@
-// Type definitions for react-responsive-masonry 2.1
-// Project: https://github.com/cedricdelpoux/react-responsive-masonry#readme
-// Definitions by: themashcodee <https://github.com/themashcodee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { CSSProperties, ReactElement, ReactNode } from "react";
 
 export interface MasonryProps {

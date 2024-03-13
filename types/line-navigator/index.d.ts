@@ -1,8 +1,3 @@
-// Type definitions for line-navigator 2.1
-// Project: https://github.com/anpur/client-line-navigator
-// Definitions by: Vladimir Poluch <https://github.com/vlapo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace LineNavigator {
     interface Options {
         /**

@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/wordpress__plugins",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/plugins/README.md"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "@types/wordpress__components": "*",
         "@wordpress/element": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/wordpress__plugins": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
 }

@@ -1,10 +1,3 @@
-// Type definitions for animejs 3.1
-// Project: http://animejs.com
-// Definitions by: Andrew Babin     <https://github.com/A-Babin>
-//                 southrock         <https://github.com/southrock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 type FunctionBasedParameter = (element: HTMLElement, index: number, length: number) => number;
 type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
 type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => (time: number) => number;
@@ -64,14 +57,14 @@ declare namespace anime {
     }
 
     interface AnimeAnimParams extends AnimeCallBack {
-        targets?: AnimeTarget | ReadonlyArray<AnimeTarget> | undefined;
+        targets?: AnimeTarget | readonly AnimeTarget[] | undefined;
 
         duration?: number | FunctionBasedParameter | undefined;
         delay?: number | FunctionBasedParameter | undefined;
         endDelay?: number | FunctionBasedParameter | undefined;
         elasticity?: number | FunctionBasedParameter | undefined;
         round?: number | boolean | FunctionBasedParameter | undefined;
-        keyframes?: ReadonlyArray<AnimeAnimParams> | undefined;
+        keyframes?: readonly AnimeAnimParams[] | undefined;
 
         easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string) | undefined;
 
@@ -96,7 +89,7 @@ declare namespace anime {
         duration: number;
         endDelay: number;
         property: string;
-        tweens: ReadonlyArray<object>;
+        tweens: readonly object[];
         type: string;
     }
 
@@ -124,8 +117,8 @@ declare namespace anime {
         remaining: number;
         reversed: boolean;
 
-        animatables: ReadonlyArray<Animatable>;
-        animations: ReadonlyArray<Animation>;
+        animatables: readonly Animatable[];
+        animations: readonly Animation[];
     }
 
     interface AnimeTimelineAnimParams extends AnimeAnimParams {
@@ -140,7 +133,7 @@ declare namespace anime {
         start?: number | string | undefined;
         direction?: "normal" | "reverse" | undefined;
         easing?: CustomEasingFunction | string | EasingOptions | undefined;
-        grid?: ReadonlyArray<number> | undefined;
+        grid?: readonly number[] | undefined;
         axis?: "x" | "y" | undefined;
         from?: "first" | "last" | "center" | number | undefined;
     }
@@ -150,7 +143,7 @@ declare namespace anime {
     const speed: number;
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
-    function remove(targets: AnimeTarget | ReadonlyArray<AnimeTarget>): void;
+    function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;
     function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
     function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
         el: HTMLElement | SVGElement;
@@ -165,7 +158,7 @@ declare namespace anime {
     ): FunctionBasedParameter;
     function set(targets: AnimeTarget, value: { [AnyAnimatedProperty: string]: any }): void;
     // Timeline
-    function timeline(params?: AnimeParams | ReadonlyArray<AnimeInstance>): AnimeTimelineInstance;
+    function timeline(params?: AnimeParams | readonly AnimeInstance[]): AnimeTimelineInstance;
     function random(min: number, max: number): number;
 }
 

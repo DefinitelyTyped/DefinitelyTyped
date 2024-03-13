@@ -1,36 +1,28 @@
-import { Scene } from '../scenes/Scene.js';
-import { Camera } from '../cameras/Camera.js';
-import { WebGLExtensions } from './webgl/WebGLExtensions.js';
-import { WebGLInfo } from './webgl/WebGLInfo.js';
-import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
-import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
-import { WebGLProperties } from './webgl/WebGLProperties.js';
-import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
-import { WebGLState } from './webgl/WebGLState.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector4 } from '../math/Vector4.js';
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { WebGLRenderTarget } from './WebGLRenderTarget.js';
-import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets.js';
-import { Object3D } from '../core/Object3D.js';
-import { Material } from '../materials/Material.js';
-import {
-    ToneMapping,
-    ShadowMapType,
-    CullFace,
-    TextureEncoding,
-    ColorSpace,
-    WebGLCoordinateSystem,
-} from '../constants.js';
-import { WebXRManager } from './webxr/WebXRManager.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { OffscreenCanvas, Texture } from '../textures/Texture.js';
-import { Data3DTexture } from '../textures/Data3DTexture.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Box3 } from '../math/Box3.js';
-import { DataArrayTexture } from '../textures/DataArrayTexture.js';
-import { WebGLProgram } from './webgl/WebGLProgram.js';
-import { Plane } from '../math/Plane.js';
+import { Camera } from "../cameras/Camera.js";
+import { ColorSpace, CullFace, ShadowMapType, ToneMapping, WebGLCoordinateSystem } from "../constants.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Plane } from "../math/Plane.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Vector4 } from "../math/Vector4.js";
+import { Scene } from "../scenes/Scene.js";
+import { Data3DTexture } from "../textures/Data3DTexture.js";
+import { DataArrayTexture } from "../textures/DataArrayTexture.js";
+import { OffscreenCanvas, Texture } from "../textures/Texture.js";
+import { WebGLCapabilities } from "./webgl/WebGLCapabilities.js";
+import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
+import { WebGLInfo } from "./webgl/WebGLInfo.js";
+import { WebGLProgram } from "./webgl/WebGLProgram.js";
+import { WebGLProperties } from "./webgl/WebGLProperties.js";
+import { WebGLRenderLists } from "./webgl/WebGLRenderLists.js";
+import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
+import { WebGLState } from "./webgl/WebGLState.js";
+import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
+import { WebXRManager } from "./webxr/WebXRManager.js";
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -117,11 +109,11 @@ export interface WebGLDebug {
      */
     onShaderError:
         | ((
-              gl: WebGLRenderingContext,
-              program: WebGLProgram,
-              glVertexShader: WebGLShader,
-              glFragmentShader: WebGLShader,
-          ) => void)
+            gl: WebGLRenderingContext,
+            program: WebGLProgram,
+            glVertexShader: WebGLShader,
+            glFragmentShader: WebGLShader,
+        ) => void)
         | null;
 }
 
@@ -195,18 +187,12 @@ export class WebGLRenderer implements Renderer {
     extensions: WebGLExtensions;
 
     /**
-     * Default is LinearEncoding.
-     * @default THREE.LinearEncoding
-     * @deprecated Use {@link WebGLRenderer.outputColorSpace .outputColorSpace} in three.js r152+.
-     */
-    outputEncoding: TextureEncoding;
-
-    /**
      * Color space used for output to HTMLCanvasElement. Supported values are
      * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
      * @default THREE.SRGBColorSpace.
      */
-    outputColorSpace: ColorSpace;
+    get outputColorSpace(): ColorSpace;
+    set outputColorSpace(colorSpace: ColorSpace);
 
     get coordinateSystem(): typeof WebGLCoordinateSystem;
 
@@ -369,9 +355,19 @@ export class WebGLRenderer implements Renderer {
     animate(callback: () => void): void;
 
     /**
-     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.
+     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
+     * rendering. If you want to add a 3D object to an existing scene, use the third optional parameter for applying the
+     * target scene.
+     * Note that the (target) scene's lighting should be configured before calling this method.
      */
-    compile(scene: Object3D, camera: Camera): void;
+    compile: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Set<Material>;
+
+    /**
+     * Asynchronous version of {@link compile}(). The method returns a Promise that resolves when the given scene can be
+     * rendered without unnecessary stalling due to shader compilation.
+     * This method makes use of the KHR_parallel_shader_compile WebGL extension.
+     */
+    compileAsync: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<Object3D>;
 
     /**
      * Render a scene or an object using a camera.
@@ -414,13 +410,13 @@ export class WebGLRenderer implements Renderer {
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
     setRenderTarget(
-        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets | null,
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]> | null,
         activeCubeFace?: number,
         activeMipmapLevel?: number,
     ): void;
 
     readRenderTargetPixels(
-        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets,
+        renderTarget: WebGLRenderTarget | WebGLRenderTarget<Texture[]>,
         x: number,
         y: number,
         width: number,

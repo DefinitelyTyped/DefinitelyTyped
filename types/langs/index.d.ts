@@ -1,10 +1,5 @@
-// Type definitions for langs 2.0
-// Project: https://github.com/adlawson/langs.js#readme
-// Definitions by: Orgad Shaneh <https://github.com/orgads>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace langs {
-    type Type = 1 | 2 | 3 | "1" | "2" | "2T" | "2B" | "3";
+    type Type = 1 | 2 | 3 | "1" | "2" | "2T" | "2B" | "3" | "name" | "local";
 
     interface Language {
         name: string;
@@ -19,7 +14,7 @@ declare namespace langs {
     interface Langs {
         all: () => Language[];
         has: (type: Type, val: string) => boolean;
-        codes: (type: Type) => string[];
+        codes: (type: Exclude<Type, "name" | "local">) => string[];
         names: (local?: boolean) => string[];
         where: (type: Type, val: string) => Language | undefined;
     }

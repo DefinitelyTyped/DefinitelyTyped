@@ -1,9 +1,3 @@
-// Type definitions for promise-abortable 1.2
-// Project: https://github.com/dondevi/promise-abortable
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 interface AbortSignal {
     readonly aborted: boolean;
 
@@ -110,7 +104,7 @@ declare class AbortablePromise<T> extends Promise<T> {
 
     static all<T>(values: ReadonlyArray<T | PromiseLike<T>>): AbortablePromise<T[]>;
 
-    static race<T>(values: ReadonlyArray<T>): AbortablePromise<T extends PromiseLike<infer U> ? U : T>;
+    static race<T>(values: readonly T[]): AbortablePromise<T extends PromiseLike<infer U> ? U : T>;
 }
 
 export = AbortablePromise;

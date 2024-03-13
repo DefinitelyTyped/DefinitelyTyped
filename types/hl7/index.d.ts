@@ -1,8 +1,3 @@
-// Type definitions for non-npm package hl7 2.5
-// Project: https://github.com/MinaroShikuchi/hl7
-// Definitions by: Minaro <https://github.com/MinaroShikuchi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // import './segments';
 // import './events';
 import { ADT, OMG, ORM, ORU, SIU } from "./events";

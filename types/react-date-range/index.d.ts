@@ -1,13 +1,6 @@
-// Type definitions for react-date-range 1.4
-// Project: https://github.com/hypeserver/react-date-range
-// Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 Minseok Choi <https://github.com/Curzy>
-//                 John Demetriou <https://github.com/DemetriouJohn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Locale } from "date-fns";
 import * as React from "react";
+import { Optional } from "./_util";
 
 // =============================================================================
 // Helper Types/Interfaces
@@ -206,7 +199,7 @@ export interface CalendarProps {
                 mode?: "set" | "setYear" | "setMonth" | "monthOffset",
             ) => void,
             props: CalendarProps,
-        ) => JSX.Element)
+        ) => React.JSX.Element)
         | undefined;
     /** default: none */
     onChange?: ((date: Date) => void) | undefined;
@@ -323,7 +316,7 @@ export class DefinedRange extends React.Component<DefinedRangeProps> {}
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
 
-export function createStaticRanges(ranges: StaticRange[]): StaticRange[];
+export function createStaticRanges(ranges: Array<Optional<StaticRange, "isSelected">>): StaticRange[];
 
 // =============================================================================
 // DateRangePicker Component

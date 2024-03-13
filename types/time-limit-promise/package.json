@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/time-limit-promise",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/inikulin/time-limit-promise"
+    ],
+    "devDependencies": {
+        "@types/time-limit-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Wassink",
+            "githubUsername": "jameswassink"
+        }
+    ]
+}

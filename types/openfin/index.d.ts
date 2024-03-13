@@ -1,13 +1,3 @@
-// Type definitions for non-npm package OpenFin API 51.0
-// Project: https://openfin.co/
-// Definitions by: Chris Barker <https://github.com/chrisbarker>
-//                 Ricardo de Pena <https://github.com/rdepena>
-//                 Roma <https://github.com/whyn07m3>
-//                 Li Cui <https://github.com/licui3936>
-//                 Tomer Sharon <https://github.com/tomer-openfin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 // based on v16.83.51.26
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 

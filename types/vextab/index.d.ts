@@ -1,8 +1,3 @@
-// Type definitions for vextab 3.0
-// Project: http://www.vexflow.com/vextab/
-// Definitions by: Franco Speziali <https://github.com/WeMakeMachines>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Vex = require("vexflow");
 
 export { Vex };

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/permit",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/permit#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/permit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jannik Keye",
+            "githubUsername": "jannikkeye"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
-import { Object3D } from './../core/Object3D.js';
-import { AudioContext } from './AudioContext.js';
+import { Object3D } from "../core/Object3D.js";
+import { AudioContext } from "./AudioContext.js";
 
 /**
  * The {@link AudioListener} represents a virtual {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioListener | listener} of the all positional and non-positional audio effects in the scene.
@@ -40,7 +40,7 @@ export class AudioListener extends Object3D {
      * @remarks Sub-classes will update this value.
      * @defaultValue `AudioListener`
      */
-    readonly type: string | 'AudioListener';
+    readonly type: string | "AudioListener";
 
     /**
      * The {@link https://developer.mozilla.org/en-US/docs/Web/API/AudioContext | AudioContext} of the {@link {@link AudioListener} | listener} given in the constructor.

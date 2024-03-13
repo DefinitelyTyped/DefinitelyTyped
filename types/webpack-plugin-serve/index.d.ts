@@ -1,8 +1,3 @@
-// Type definitions for webpack-plugin-serve 1.4
-// Project: https://github.com/shellscape/webpack-plugin-serve
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
 /// <reference types="node" />
 
 import { Options as HistoryApiFallbackOptions } from "connect-history-api-fallback";
@@ -51,7 +46,7 @@ export interface WebpackPluginServeOptions {
         | boolean
         | {
             wait?: boolean | undefined;
-            app?: string | ReadonlyArray<string> | undefined;
+            app?: string | readonly string[] | undefined;
         }
         | undefined;
     port?: number | Promise<number> | undefined;

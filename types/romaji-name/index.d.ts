@@ -1,8 +1,3 @@
-// Type definitions for romaji-name 0.1
-// Project: https://github.com/jeresig/node-romaji-name#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Location of the default settings file
  * @default __dirname + "/settings.json"

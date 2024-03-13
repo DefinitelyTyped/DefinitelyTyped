@@ -1,9 +1,3 @@
-// Type definitions for Durandal 2.1.0
-// Project: http://durandaljs.com
-// Definitions by: Blue Spire <https://github.com/BlueSpire>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
@@ -1611,7 +1605,7 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
     /**
      * The route handlers that are registered. Each handler consists of a `routePattern` and a `callback`.
      */
-    handlers: { routePattern: RegExp; callback: (fragment: string) => void }[];
+    handlers: Array<{ routePattern: RegExp; callback: (fragment: string) => void }>;
 
     /**
      * The route configs that are registered.

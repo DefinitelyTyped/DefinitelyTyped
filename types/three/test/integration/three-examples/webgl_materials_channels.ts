@@ -1,8 +1,8 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { VelocityShader } from 'three/examples/jsm/shaders/VelocityShader';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { VelocityShader } from "three/examples/jsm/shaders/VelocityShader";
 
 let camera: THREE.PerspectiveCamera | THREE.OrthographicCamera;
 let scene: THREE.Scene;
@@ -13,9 +13,9 @@ const params: {
     camera: string;
     side: keyof typeof sides;
 } = {
-    material: 'normal',
-    camera: 'perspective',
-    side: 'double',
+    material: "normal",
+    camera: "perspective",
+    side: "double",
 };
 
 const sides = {
@@ -46,7 +46,7 @@ init();
 animate();
 
 function init() {
-    const container = document.createElement('div');
+    const container = document.createElement("div");
     document.body.appendChild(container);
 
     renderer = new THREE.WebGLRenderer();
@@ -102,9 +102,9 @@ function init() {
     // textures
 
     const textureLoader = new THREE.TextureLoader();
-    const normalMap = textureLoader.load('models/obj/ninja/normal.png');
-    const aoMap = textureLoader.load('models/obj/ninja/ao.jpg');
-    const displacementMap = textureLoader.load('models/obj/ninja/displacement.jpg');
+    const normalMap = textureLoader.load("models/obj/ninja/normal.png");
+    const aoMap = textureLoader.load("models/obj/ninja/ao.jpg");
+    const displacementMap = textureLoader.load("models/obj/ninja/displacement.jpg");
 
     // material
 
@@ -171,7 +171,7 @@ function init() {
     //
 
     const loader = new OBJLoader();
-    loader.load('models/obj/ninja/ninjaHead_Low.obj', group => {
+    loader.load("models/obj/ninja/ninjaHead_Low.obj", group => {
         const geometry = (group.children[0] as THREE.Mesh).geometry;
         geometry.attributes.uv2 = geometry.attributes.uv;
         geometry.center();
@@ -184,7 +184,7 @@ function init() {
 
     //
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {
@@ -217,32 +217,32 @@ function render() {
         let material = mesh.material;
 
         switch (params.material) {
-            case 'standard':
+            case "standard":
                 material = materialStandard;
                 break;
-            case 'depthBasic':
+            case "depthBasic":
                 material = materialDepthBasic;
                 break;
-            case 'depthRGBA':
+            case "depthRGBA":
                 material = materialDepthRGBA;
                 break;
-            case 'normal':
+            case "normal":
                 material = materialNormal;
                 break;
-            case 'velocity':
+            case "velocity":
                 material = materialVelocity;
                 break;
         }
 
         if (sides[params.side] !== material.side) {
             switch (params.side) {
-                case 'front':
+                case "front":
                     material.side = THREE.FrontSide;
                     break;
-                case 'back':
+                case "back":
                     material.side = THREE.BackSide;
                     break;
-                case 'double':
+                case "double":
                     material.side = THREE.DoubleSide;
                     break;
             }
@@ -254,10 +254,10 @@ function render() {
     }
 
     switch (params.camera) {
-        case 'perspective':
+        case "perspective":
             camera = cameraPerspective;
             break;
-        case 'ortho':
+        case "ortho":
             camera = cameraOrtho;
             break;
     }

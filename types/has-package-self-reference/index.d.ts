@@ -1,9 +1,3 @@
-// Type definitions for has-package-self-reference 1.0
-// Project: https://github.com/inspect-js/has-package-self-reference#readme
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This is necessary to disallow import of `has-package-self-reference/index` or `has-package-self-reference/index.js`:
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "has-package-self-reference" {

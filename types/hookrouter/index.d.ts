@@ -1,9 +1,3 @@
-// Type definitions for hookrouter 2.2
-// Project: https://github.com/Paratron/hookrouter
-// Definitions by: Mete Can Eris <https://github.com/mcaneris>
-//                 Sam Calvert <https://github.com/sam-outschool>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
 import * as React from "react";
 export namespace HookRouter {
     type InterceptedPath = string | null;

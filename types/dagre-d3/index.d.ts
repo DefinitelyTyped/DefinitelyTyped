@@ -1,10 +1,3 @@
-// Type definitions for dagre-d3.core.js 0.6
-// Project: https://github.com/dagrejs/dagre-d3
-// Definitions by: Matthew Simmons <https://github.com/simmonmt>
-//                 Mark Wong Siang Kai <https://github.com/markwongsk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import { BaseType, Selection, SelectionOrTransition, ValueFn } from "d3";
 import * as dagre from "dagre";
 import * as graphlib from "graphlib";

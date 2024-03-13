@@ -1,8 +1,3 @@
-// Type definitions for downscale 1.0
-// Project: https://github.com/ytiurin/downscale
-// Definitions by: Gabriel Soicher <https://github.com/Lunrtick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ImageSource = File | HTMLImageElement | HTMLVideoElement | string;
 
 interface DownscaleOptions {

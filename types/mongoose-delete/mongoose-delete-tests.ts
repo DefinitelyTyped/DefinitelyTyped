@@ -14,14 +14,14 @@ PetSchema.plugin(MongooseDelete, { overrideMethods: true });
 
 // Overide only specific methods
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ["count", "find", "findOne", "findOneAndUpdate", "update"],
+    overrideMethods: ["find", "findOne", "findOneAndUpdate", "update"],
 });
 // or
 PetSchema.plugin(MongooseDelete, {
-    overrideMethods: ["count", "countDocuments", "find"],
+    overrideMethods: ["countDocuments", "find"],
 });
 // @ts-expect-error (unrecognized method names are disallowed)
-PetSchema.plugin(MongooseDelete, { overrideMethods: ["count", "find", "errorXyz"] });
+PetSchema.plugin(MongooseDelete, { overrideMethods: ["find", "errorXyz"] });
 
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedAt: true });
 PetSchema.plugin(MongooseDelete, { overrideMethods: "all", deletedBy: true });
@@ -86,8 +86,6 @@ type deletedType = PetDocument["deleted"];
 type deletedAtType = PetDocument["deletedAt"];
 
 // Additional Methods for overrides
-Pet.countDeleted({ age: 10 });
-Pet.countWithDeleted({ age: 10 });
 Pet.countDocumentsDeleted({ age: 10 });
 Pet.countDocumentsWithDeleted({ age: 10 });
 Pet.findDeleted({ age: 10 });

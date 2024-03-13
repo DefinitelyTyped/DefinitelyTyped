@@ -1,8 +1,3 @@
-// Type definitions for promise-nodeify 3.0
-// Project: https://github.com/kevinoid/promise-nodeify
-// Definitions by: jgeth <https://github.com/jgeth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace promiseNodeify;
 
 declare const promiseNodeify: {

@@ -1,10 +1,3 @@
-// Type definitions for angular-hotkeys 1.7
-// Project: https://github.com/chieffancypants/angular-hotkeys, https://chieffancypants.github.io/angular-hotkeys
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-//                 Cyril Gandon <https://github.com/cyrilgandon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as ng from "angular";
 
 export type HotkeysProvider = ng.hotkeys.HotkeysProvider;

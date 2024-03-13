@@ -1,8 +1,3 @@
-// Type definitions for history-events 1.0
-// Project: https://github.com/xpepermint/history-events
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace HistoryEvents;
 
 /** Event fired by history changes */

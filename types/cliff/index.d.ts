@@ -1,8 +1,3 @@
-// Type definitions for cliff 0.1.10
-// Project: https://github.com/flatiron/cliff
-// Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function inspect(obj: any): string;
 export function stringifyRows(rows: string[][], colors?: string[]): string;
 export function stringifyObjectRows(rows: Array<{}>, keys: string[], colors?: string[]): string;

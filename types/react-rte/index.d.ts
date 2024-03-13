@@ -1,10 +1,3 @@
-// Type definitions for react-rte 0.16
-// Project: https://github.com/sstur/react-rte
-// Definitions by: jclyons52 <https://github.com/jclyons52>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { ContentBlock, EditorState } from "draft-js";
 import { Component, ReactNode } from "react";
 import draftjs = require("draft-js");

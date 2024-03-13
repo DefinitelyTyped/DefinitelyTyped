@@ -1,7 +1,3 @@
-// Type definitions for non-npm package leaflet-offline 1.1
-// Project: https://github.com/robertomlsoares/leaflet-offline#readme
-// Definitions by: BETOXL <https://github.com/BETOXL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as L from "leaflet";
 declare module "leaflet" {
     class TileLayerOffline {

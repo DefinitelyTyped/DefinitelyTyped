@@ -1,8 +1,3 @@
-// Type definitions for react-native-material-ripple 0.9
-// Project: https://github.com/n4kz/react-native-material-ripple
-// Definitions by: Serhiy Zhelizniak <https://github.com/SerhiyZheliznjak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import { Animated, TouchableWithoutFeedback, ViewProps } from "react-native";
 

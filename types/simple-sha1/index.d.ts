@@ -1,8 +1,3 @@
-// Type definitions for simple-sha1 3.0
-// Project: https://github.com/michaelrhodes/simple-sha1
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = sha1;
 
 declare function sha1(buf: string | sha1.ArrayBufferView, cb: (data: string) => void): void;

@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { TableFilter } from "react-table-filter";
 
 interface TestTableFilterProps extends TableFilter {}
@@ -15,4 +14,4 @@ class TestApp extends React.Component {
     }
 }
 
-ReactDOM.render(React.createElement(TestApp, {}), document.getElementById("test-app"));
+React.createElement(TestApp, {});

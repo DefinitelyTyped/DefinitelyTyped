@@ -1,8 +1,3 @@
-// Type definitions for @pkgjs/parseargs 0.10
-// Project: https://github.com/pkgjs/parseargs
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Provides a high-level API for command-line argument parsing. Takes a
  * specification for the expected arguments and returns a structured object

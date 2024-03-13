@@ -1,15 +1,22 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
-import { Object3D } from '../core/Object3D.js';
-import { Texture } from '../textures/Texture.js';
-import { Material } from '../materials/Material.js';
-import { AnimationClip } from '../animation/AnimationClip.js';
-import { InstancedBufferGeometry } from '../core/InstancedBufferGeometry.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Source } from '../textures/Source.js';
+import { AnimationClip } from "../animation/AnimationClip.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { InstancedBufferGeometry } from "../core/InstancedBufferGeometry.js";
+import { Object3D } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Source } from "../textures/Source.js";
+import { Texture } from "../textures/Texture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 export class ObjectLoader extends Loader<Object3D> {
     constructor(manager?: LoadingManager);
+
+    load(
+        url: string,
+        onLoad?: (data: Object3D) => void,
+        onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): void;
 
     parse(json: unknown, onLoad?: (object: Object3D) => void): Object3D;
     parseAsync(json: unknown): Promise<Object3D>;

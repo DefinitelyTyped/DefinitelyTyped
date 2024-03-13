@@ -1,8 +1,3 @@
-// Type definitions for Firefox Addon SDK
-// Project: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/Add-on_SDK
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "sdk/base64" {
     /**
      * Creates a base-64 encoded ASCII string from a string of binary data

@@ -1,9 +1,3 @@
-// Type definitions for bicubic-interpolate 1.0
-// Project: https://github.com/david-boles/bicubic-interpolate
-// Definitions by: Bjarne Undheim Jr. <https://github.com/BrUSomania>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export interface Options {
     extrapolate?: boolean | undefined;
     scaleX?: number | undefined;

@@ -35,7 +35,6 @@ import {
     TableHeaderColumn,
     ToolBarProps,
 } from "react-bootstrap-table";
-import { render } from "react-dom";
 
 interface Product {
     id: number;
@@ -92,16 +91,13 @@ function priceFormatter(cell: number, row: Product) {
     return "<i class=\"glyphicon glyphicon-usd\"></i> " + cell;
 }
 
-render(
-    <BootstrapTable data={products} striped={true} hover={true} ignoreSinglePage>
-        <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField="name" dataSort={true} editable={{ type: "textarea", rows: 10 }}>
-            Product Name
-        </TableHeaderColumn>
-        <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
-    </BootstrapTable>,
-    document.getElementById("app"),
-);
+<BootstrapTable data={products} striped={true} hover={true} ignoreSinglePage>
+    <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
+    <TableHeaderColumn dataField="name" dataSort={true} editable={{ type: "textarea", rows: 10 }}>
+        Product Name
+    </TableHeaderColumn>
+    <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
+</BootstrapTable>;
 
 const qualityType = {
     0: "good",
@@ -579,7 +575,7 @@ class MultiSortAndFiltering extends React.Component {
         this.idRef.cleanFiltered();
     };
 
-    afterColumnFilter = (filterConds: ReadonlyArray<FilterData>, result: ReadonlyArray<Product>) => {
+    afterColumnFilter = (filterConds: readonly FilterData[], result: readonly Product[]) => {
         console.log("Filter Conditions: ");
         filterConds.forEach((filterCond: FilterData) => {
             Object.keys(filterCond).forEach((fieldName: string) =>
@@ -600,7 +596,7 @@ class MultiSortAndFiltering extends React.Component {
         this.setState({ data: products.filter((product) => product.name = searchText) });
     };
 
-    afterSearch = (searchText: string, result: ReadonlyArray<Product>) => {
+    afterSearch = (searchText: string, result: readonly Product[]) => {
         console.log(`Your search text is ${searchText}`);
         console.log("Result is:");
         for (const resultItem of result) {
@@ -762,13 +758,14 @@ class CustomPagination extends React.Component {
  * Adapted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/custom/insert-modal/custom-insert-modal.js
  */
 class CustomModal extends React.Component {
+    fields: Record<string, React.RefObject<HTMLInputElement | null>> = {};
     handleSaveBtnClick = (
         columns: ReadonlyArray<InsertModalColumnDescription<Product>>,
         onSave: (row: any) => void,
     ) => {
         const newRow: { [field: string]: string } = {};
         columns.forEach((column, i) => {
-            newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
+            newRow[column.field] = (this.fields[column.field].current!).value;
         }, this);
         onSave(newRow);
     };
@@ -798,10 +795,13 @@ class CustomModal extends React.Component {
                     const error = validateState[field]
                         ? <span className="help-block bg-danger">{validateState[field]}</span>
                         : null;
+                    if (!(field in this.fields)) {
+                        this.fields[field] = React.createRef();
+                    }
                     return (
                         <div className="form-group" key={field}>
                             <label>{name} :</label>
-                            <input ref={field} type="text" defaultValue={""} />
+                            <input ref={this.fields[field]} type="text" defaultValue={""} />
                             {error}
                         </div>
                     );
@@ -907,7 +907,7 @@ class CustomInsertModalFieldTable extends React.Component {
 
     render() {
         return (
-            <BootstrapTable ref="table" data={products} insertRow={true}>
+            <BootstrapTable ref={React.createRef<BootstrapTable>()} data={products} insertRow={true}>
                 <TableHeaderColumn dataField="id" isKey={true} customInsertEditor={{ getElement: this.customKeyField }}>
                     Product ID
                 </TableHeaderColumn>
@@ -935,10 +935,11 @@ interface MyCustomBodyProps {
     ignoreEditable: boolean;
 }
 class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBodyInterface<Product> {
+    fields: Record<keyof Product, React.RefObject<HTMLInputElement | null>>;
     getFieldValue() {
         const newRow: Partial<Product> = {};
         this.props.columns.forEach((column, i) => {
-            newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value as number & string;
+            newRow[column.field] = (this.fields[column.field].current!).value as number & string;
         }, this);
         return newRow as Product;
     }
@@ -964,10 +965,14 @@ class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBo
                         const error = validateState[field]
                             ? <span className="help-block bg-danger">{validateState[field]}</span>
                             : null;
+                        if (!(field in this.fields)) {
+                            this.fields[field] = React.createRef<HTMLInputElement>();
+                        }
+
                         return (
                             <div className="form-group" key={field}>
                                 <label>{name}</label>
-                                <input ref={field} type="text" defaultValue={""} />
+                                <input ref={this.fields[field]} type="text" defaultValue={""} />
                                 {error}
                             </div>
                         );
@@ -1167,7 +1172,7 @@ class CustomButtonGroup extends React.Component {
         );
     };
 
-    customConfirm = (next: () => void, dropRowKeys: ReadonlyArray<number>) => {
+    customConfirm = (next: () => void, dropRowKeys: readonly number[]) => {
         const dropRowKeysStr = dropRowKeys.join(",");
         if (confirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
             next();
@@ -1677,7 +1682,7 @@ class TrClassFunctionTable extends React.Component {
     columnClassNameFormat = (fieldValue: string | number, row: Product, rowIdx: number, colIdx: number) =>
         rowIdx % 2 === 0 ? "td-column-function-even-example" : "td-column-function-odd-example";
 
-    trClassFormat = (rowData: ReadonlyArray<Product>, rIndex: number) => rIndex % 3 === 0 ? "tr-function-example" : "";
+    trClassFormat = (rowData: readonly Product[], rIndex: number) => rIndex % 3 === 0 ? "tr-function-example" : "";
 
     trStyle = (row: Product, rowIndex: number) => ({ backgroundColor: "#FFFAFA" });
 
@@ -1751,7 +1756,7 @@ class AllFilters extends React.Component {
     render() {
         const satisfaction = [0, 1, 2, 3, 4, 5];
         return (
-            <BootstrapTable ref="table" data={products}>
+            <BootstrapTable ref={React.createRef<BootstrapTable>()} data={products}>
                 <TableHeaderColumn dataField="id" isKey={true}>
                     Product ID
                     <br />

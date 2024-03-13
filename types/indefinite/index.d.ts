@@ -1,8 +1,3 @@
-// Type definitions for indefinite 2.3
-// Project: https://github.com/tandrewnichols/indefinite
-// Definitions by: omaishar <https://github.com/omaishar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     articleOnly?: boolean | undefined;
     capitalize?: boolean | undefined;

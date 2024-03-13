@@ -1,9 +1,3 @@
-// Type definitions for angular-notifications
-// Project: https://github.com/DerekRies/angular-notifications
-// Definitions by: Tomasz Ducin <https://github.com/ducin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 import * as angular from "angular";
@@ -52,8 +46,8 @@ declare module "angular" {
 
             /* ============ QUERYING RELATED METHODS ============*/
 
-            getAll(): Array<INotification>;
-            getQueue(): Array<INotification>;
+            getAll(): INotification[];
+            getQueue(): INotification[];
 
             /* ============== NOTIFICATION METHODS ==============*/
 

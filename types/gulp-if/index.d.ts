@@ -1,8 +1,3 @@
-// Type definitions for gulp-if 3.0
-// Project: https://github.com/robrich/gulp-if
-// Definitions by: Asana <https://asana.com>, Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import gulpMatch = require("gulp-match");

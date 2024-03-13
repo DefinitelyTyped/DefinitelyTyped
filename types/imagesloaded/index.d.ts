@@ -1,13 +1,7 @@
-// Type definitions for imagesLoaded 4.1.1
-// Project: https://github.com/desandro/imagesloaded
-// Definitions by: Chris Charabaruk <https://github.com/coldacid>, Cameron Little <https://github.com/apexskier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace ImagesLoaded {
-    type ElementSelector = Element | NodeList | Array<Element> | string;
+    type ElementSelector = Element | NodeList | Element[] | string;
 
     /** interface for an image currently loading or completed */
     interface LoadingImage {
@@ -26,7 +20,7 @@ declare namespace ImagesLoaded {
     interface ImagesLoaded {
         new(elem: ElementSelector, callback: ImagesLoadedCallback): ImagesLoaded;
 
-        images: Array<LoadingImage>;
+        images: LoadingImage[];
 
         // event listeners
         on(event: string, listener: ImagesLoadedListener): void;

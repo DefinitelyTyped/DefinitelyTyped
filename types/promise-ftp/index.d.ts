@@ -1,10 +1,3 @@
-// Type definitions for promise-ftp 1.3
-// Project: https://github.com/realtymaps/promise-ftp
-// Definitions by: coolreader18 <https://github.com/coolreader18>
-//                 Rolands Jegorovs <https://github.com/Rolandisimo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import * as Promise from "bluebird";

@@ -1,8 +1,3 @@
-// Type definitions for simmerjs 0.5
-// Project: https://github.com/gmmorris/simmerjs#readme
-// Definitions by: Felix Becker <https://github.com/felixfbecker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Simmer {
     /**
      * Analyze an element and produce a unique CSS selector for it.

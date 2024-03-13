@@ -1,11 +1,3 @@
-// Type definitions for mark.js 8.11
-// Project: https://markjs.io/
-// Definitions by: Soner Köksal <https://github.com/renjfk>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Joao Lourenco <https://github.com/blackstarzes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace Mark {
@@ -110,7 +102,7 @@ declare namespace Mark {
 
 declare class Mark {
     constructor(
-        context: string | HTMLElement | ReadonlyArray<HTMLElement> | NodeList,
+        context: string | HTMLElement | readonly HTMLElement[] | NodeList,
     );
 
     /**
@@ -121,7 +113,7 @@ declare class Mark {
      * @param options Optional options
      */
     mark(
-        keyword: string | ReadonlyArray<string>,
+        keyword: string | readonly string[],
         options?: Mark.MarkOptions,
     ): void;
 
@@ -141,7 +133,7 @@ declare class Mark {
      * @param options Optional options
      */
     markRanges(
-        ranges: ReadonlyArray<Mark.Range>,
+        ranges: readonly Mark.Range[],
         options?: Mark.MarkRangesOptions,
     ): void;
 
@@ -158,7 +150,7 @@ export = Mark;
 declare global {
     interface JQuery {
         mark(
-            term: string | ReadonlyArray<string>,
+            term: string | readonly string[],
             options?: Mark.MarkOptions,
         ): void;
 
@@ -167,7 +159,7 @@ declare global {
 
     interface JQueryStatic {
         mark(
-            term: string | ReadonlyArray<string>,
+            term: string | readonly string[],
             options?: Mark.MarkOptions,
         ): void;
 

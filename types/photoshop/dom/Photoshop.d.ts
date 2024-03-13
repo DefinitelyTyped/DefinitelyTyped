@@ -193,7 +193,7 @@ export declare class Photoshop {
      * without updating the UI. This API is subject to change and may be accessible in other ways in the future.
      * @minVersion 23.0
      */
-    batchPlay(commands: any, options: any): Promise<import("./CoreModules").ActionDescriptor[]>;
+    batchPlay(commands: any, options: any): Promise<Array<import("./CoreModules").ActionDescriptor>>;
     /**
      * Brings application to focus, useful when your script ends, or requires an input.
      * @minVersion 23.0

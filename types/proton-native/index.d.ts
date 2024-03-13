@@ -1,10 +1,3 @@
-// Type definitions for proton-native 1.1
-// Project: https://github.com/kusti8/proton-native, https://proton-native.js.org
-// Definitions by: Nguyen Xuan Khanh <https://github.com/khanhas>
-//                 Lukas Tetzlaff <https://github.com/ltetzlaff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface AppProps {
@@ -230,7 +223,7 @@ export interface AreaProps extends AreaBaseProps {
      */
     onMouseMove?:
         | ((event: {
-            buttons: ReadonlyArray<string>;
+            buttons: readonly string[];
             height: number;
             width: number;
             x: number;
@@ -464,7 +457,7 @@ export interface GroupProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Group can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element | undefined;
+    children?: React.JSX.Element | undefined;
     /**
      * Whether the Group is enabled.
      */
@@ -894,7 +887,7 @@ export interface WindowProps {
     /**
      * Window can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element | undefined;
+    children?: React.JSX.Element | undefined;
     /**
      * Whether the window is closed. If set to closed, then the window will be closed.
      */
@@ -951,7 +944,7 @@ export class Window extends React.Component<WindowProps> {}
 /**
  * Renders the input component
  */
-export function render(element: JSX.Element): void;
+export function render(element: React.JSX.Element): void;
 
 /**
  * A method to display an alert.

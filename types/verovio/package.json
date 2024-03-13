@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/verovio",
+    "version": "3.13.9999",
+    "projects": [
+        "http://www.verovio.org"
+    ],
+    "devDependencies": {
+        "@types/verovio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Bloomfield",
+            "githubUsername": "bbloomf"
+        }
+    ]
+}

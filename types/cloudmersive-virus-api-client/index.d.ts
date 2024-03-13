@@ -1,8 +1,3 @@
-// Type definitions for cloudmersive-virus-api-client 1.1
-// Project: https://github.com/Cloudmersive/Cloudmersive.APIClient.NodeJS.Virus
-// Definitions by: Jason Luboff <https://github.com/JLuboff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";

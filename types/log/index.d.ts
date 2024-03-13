@@ -1,8 +1,3 @@
-// Type definitions for log 6.3
-// Project: https://github.com/medikoo/log#readme
-// Definitions by: Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface LogFunction {
     /**
      * log doesn't force any specific arguments handling.

@@ -1,8 +1,3 @@
-// Type definitions for wreck 7.0.0
-// Project: https://github.com/hapijs/wreck
-// Definitions by: Marcin Porębski <https://github.com/marcinporebski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import http = require("http");

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/natural-drag-animation-rbdnd",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/rokborf/natural-drag-animation-rbdnd#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-beautiful-dnd": "*"
+    },
+    "devDependencies": {
+        "@types/natural-drag-animation-rbdnd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Prajwal Kulkarni",
+            "githubUsername": "prajwalkulkarni"
+        }
+    ]
+}

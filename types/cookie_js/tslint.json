@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "new-parens": false,
-        "no-var-keyword": false,
-        "unified-signatures": false
-    }
-}

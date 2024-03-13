@@ -1,4 +1,5 @@
 import {
+    BuyProviderInfo,
     BuyTrade,
     ExchangeTrade,
     P2pQuote,
@@ -13,7 +14,10 @@ const bt: BuyTrade = {
     paymentMethodName: "Test",
 };
 
-const et: ExchangeTrade = {};
+const et: ExchangeTrade = {
+    send: "BTC",
+    receive: "USDT@ETH",
+};
 
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
@@ -65,3 +69,15 @@ const p2pTrade: P2pTradeRequest = {
 };
 
 const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: "InProgress" };
+
+const providerInfo: BuyProviderInfo = {
+    companyName: "Invity",
+    brandName: "UAB Invity Finance",
+    isActive: true,
+    logo: "logo.svg",
+    name: "invity",
+    tradedCoins: [],
+    tradedFiatCurrencies: [],
+    supportedCountries: [],
+    paymentMethods: [],
+};

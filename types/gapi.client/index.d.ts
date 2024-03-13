@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google API client 1.0
-// Project: https://developers.google.com
-// Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace gapi {
     /**
      * Pragmatically initialize gapi class member.

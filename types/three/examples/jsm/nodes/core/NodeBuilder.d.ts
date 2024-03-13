@@ -1,26 +1,17 @@
-import {
-    BufferGeometry,
-    Material,
-    Object3D,
-    Renderer,
-    Scene,
-    Texture,
-    TextureEncoding,
-    WebGLRenderTarget,
-} from '../../../../src/Three.js';
-import FogNode from '../fog/FogNode.js';
-import LightsNode from '../lighting/LightsNode.js';
-import { nodeObject } from '../Nodes.js';
-import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants.js';
-import Node from './Node.js';
-import NodeAttribute from './NodeAttribute.js';
-import NodeCache from './NodeCache.js';
-import NodeParser from './NodeParser.js';
-import NodeUniform from './NodeUniform.js';
-import NodeVar from './NodeVar.js';
-import NodeVarying from './NodeVarying.js';
+import { BufferGeometry, Material, Object3D, Renderer } from "three";
+import FogNode from "../fog/FogNode.js";
+import LightsNode from "../lighting/LightsNode.js";
+import { AnyObject, NodeShaderStage, NodeTypeOption } from "./constants.js";
+import Node from "./Node.js";
+import NodeAttribute from "./NodeAttribute.js";
+import NodeCache from "./NodeCache.js";
+import NodeParser from "./NodeParser.js";
+import NodeUniform from "./NodeUniform.js";
+import NodeVar from "./NodeVar.js";
+import NodeVarying from "./NodeVarying.js";
+import StackNode from "./StackNode.js";
 
-export type BuildStageOption = 'construct' | 'analyze' | 'generate';
+export type BuildStageOption = "construct" | "analyze" | "generate";
 
 export interface FlowData {
     code: string;
@@ -60,9 +51,9 @@ export default abstract class NodeBuilder {
      */
     flowsData: any;
 
-    shaderStage: NodeShaderStageOption | null;
+    shaderStage: NodeShaderStage | null;
     buildStage: BuildStageOption | null;
-    stack: Node[];
+    stack: StackNode;
 
     setHashNode(node: Node, hash: string): void;
     addNode(node: Node): void;
@@ -70,7 +61,7 @@ export default abstract class NodeBuilder {
     getMethod(method: string): string;
     getNodeFromHash(hash: string): Node;
 
-    addFlow(shaderStage: NodeShaderStageOption, node: Node): Node;
+    addFlow(shaderStage: NodeShaderStage, node: Node): Node;
 
     setContext(context: NodeBuilderContext): void;
     getContext(): NodeBuilderContext;
@@ -92,47 +83,51 @@ export default abstract class NodeBuilder {
 
     getAttribute(name: string, type: NodeTypeOption): NodeAttribute;
 
-    getPropertyName(node: Node, shaderStage: NodeShaderStageOption): string;
+    getPropertyName(node: Node, shaderStage: NodeShaderStage): string;
     isVector(type: NodeTypeOption): boolean;
 
     isMatrix(type: NodeTypeOption): boolean;
     isReference(type: NodeTypeOption): boolean;
-    isShaderStage(shaderStage: NodeShaderStageOption): boolean;
-    getTextureEncodingFromMap(map: Texture | WebGLRenderTarget | unknown): TextureEncoding;
+    isShaderStage(shaderStage: NodeShaderStage): boolean;
     getComponentType(type: NodeTypeOption): NodeTypeOption;
     getVectorType(type: NodeTypeOption): NodeTypeOption;
     getTypeFromLength(length: number): NodeTypeOption;
     getTypeLength(type: NodeTypeOption): number;
     getVectorFromMatrix(type: NodeTypeOption): NodeTypeOption;
-    getDataFromNode(node: Node, shaderStage?: NodeShaderStageOption): NodeData;
-    getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
-    getUniformFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeUniform;
-    getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
+    getDataFromNode(node: Node, shaderStage?: NodeShaderStage): NodeData;
+    getNodeProperties(node: Node, shaderStage?: NodeShaderStage): AnyObject;
+    getUniformFromNode(
+        node: Node,
+        type: NodeTypeOption,
+        shaderStage?: NodeShaderStage,
+        name?: string | null,
+    ): NodeUniform<string>;
+    getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStage): NodeVar;
     getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
-    getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;
+    getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStage): string;
     addFlowCode(code: string): void;
-    getFlowData(node: Node, shaderStage: NodeShaderStageOption): FlowData;
+    getFlowData(node: Node, shaderStage: NodeShaderStage): FlowData;
     flowNode(node: Node): FlowData;
     flowChildNode(node: Node, output?: string | null): FlowData;
     flowNodeFromShaderStage(
-        shaderStage: NodeShaderStageOption,
+        shaderStage: NodeShaderStage,
         node: Node,
         output?: string | null,
         propertyName?: string,
     ): FlowData;
     hasGeometryAttribute(name: string): boolean;
-    abstract getAttributes(shaderStage: NodeShaderStageOption): string;
-    abstract getVarys(shaderStage: NodeShaderStageOption): string;
-    getVars(shaderStage: NodeShaderStageOption): string;
-    abstract getUniforms(stage: NodeShaderStageOption): string;
-    getCodes(shaderStage: NodeShaderStageOption): string;
+    abstract getAttributes(shaderStage: NodeShaderStage): string;
+    abstract getVarys(shaderStage: NodeShaderStage): string;
+    getVars(shaderStage: NodeShaderStage): string;
+    abstract getUniforms(stage: NodeShaderStage): string;
+    getCodes(shaderStage: NodeShaderStage): string;
     getHash(): string;
-    setShaderStage(shaderStage: NodeShaderStageOption): void;
-    getShaderStage(): NodeShaderStageOption;
+    setShaderStage(shaderStage: NodeShaderStage): void;
+    getShaderStage(): NodeShaderStage;
     setBuildStage(buildStage: BuildStageOption): void;
     getBuildStage(): BuildStageOption;
     abstract buildCode(): void;
-    build(): this;
+    build(createMaterial?: boolean): this;
     format(snippet: string, fromType: NodeTypeOption, toType: NodeTypeOption): string;
     getSignature(): string;
 }

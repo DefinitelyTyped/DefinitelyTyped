@@ -1,9 +1,3 @@
-// Type definitions for react-sticky-el 1.0
-// Project: https://github.com/gm0t/react-sticky-el
-// Definitions by: Justin Braithwaite <https://github.com/jbraithwaite>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export default Sticky;
@@ -40,7 +34,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        wrapperCmp?: keyof React.ReactHTML | React.ReactElement | undefined;
+        wrapperCmp?: keyof React.JSX.IntrinsicElements | React.ReactElement | undefined;
 
         /**
          * Anything that can be used by React.createElement. Used for holder
@@ -49,7 +43,7 @@ declare namespace Sticky {
          *
          * Defaults to 'div'.
          */
-        holderCmp?: keyof React.ReactHTML | React.ReactElement<HolderProps> | undefined;
+        holderCmp?: keyof React.JSX.IntrinsicElements | React.ReactElement<HolderProps> | undefined;
 
         /**
          * These props will be used to create `holderElement`.

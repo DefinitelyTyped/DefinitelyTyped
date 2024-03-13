@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/webpack-stream",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/shama/webpack-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Clanton-Thuon",
+            "githubUsername": "iclanton"
+        },
+        {
+            "name": "Benjamin Lim",
+            "githubUsername": "bumbleblym"
+        }
+    ]
+}

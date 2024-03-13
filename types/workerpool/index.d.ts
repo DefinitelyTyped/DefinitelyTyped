@@ -1,11 +1,3 @@
-// Type definitions for workerpool 6.4
-// Project: https://github.com/josdejong/workerpool
-// Definitions by: Alorel <https://github.com/Alorel>
-//                 Seulgi Kim <https://github.com/sgkim126>
-//                 Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="node" />
 
 import * as cp from "child_process";
@@ -162,6 +154,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * Optionally, this callback can return an object containing one or more of the above properties.
      * The provided properties will be used to override the Pool properties for the worker being created.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onCreateWorker?: ((options: WorkerHandlerOptions) => WorkerHandlerOptions | void) | undefined;
     /**
      * A callback that is called whenever a worker is being terminated.

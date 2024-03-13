@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clone-deep",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/clone-deep"
+    ],
+    "devDependencies": {
+        "@types/clone-deep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanfonto",
+            "githubUsername": "tanfonto"
+        }
+    ]
+}

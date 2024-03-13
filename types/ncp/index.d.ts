@@ -1,10 +1,3 @@
-// Type definitions for ncp 2.0
-// Project: https://github.com/AvianFlu/ncp
-// Definitions by: Bart van der Schoor <https://github.com/bartvds>
-//                 Benoit Lemaire <https://github.com/belemaire>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import * as fs from "fs";
 

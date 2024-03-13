@@ -1,11 +1,3 @@
-// Type definitions for rox-react-native 4.8
-// Project: https://rollout.io
-// Definitions by: ahanriat <https://github.com/ahanriat>
-//                 g-guirado <https://github.com/g-guirado>
-//                 glenna <https://github.com/glenna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Official documentation for rox-react-native is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/4.9/api-reference/react-native-api
@@ -258,4 +250,4 @@ export namespace dynamicApi {
     function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

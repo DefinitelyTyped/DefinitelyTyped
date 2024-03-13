@@ -1,11 +1,3 @@
-// Type definitions for massive 4.6
-// Project: https://github.com/dmfay/massive-js.git
-// Definitions by: Pascal Birchler <https://github.com/swissspidy>
-//                 Clarence Ho <https://github.com/clarenceh>
-//                 Felix Faust <https://github.com/AmazingTurtle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 export = massive;

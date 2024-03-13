@@ -34,12 +34,14 @@ httpSignature.sign(request, {
 // @ts-expect-error No options passed
 httpSignature.createSigner();
 // $ExpectType _RequestSigner
-httpSignature.createSigner({
+const signer = httpSignature.createSigner({
     keyId: "foo",
     key: "bar",
     algorithm: "foobar",
     keyPassphrase: "baz",
 });
+
+signer.writeDateHeader(); // $ExpectType string
 
 // --- utils.d.ts ---
 httpSignature.sshKeyToPEM("key"); // $ExpectType string

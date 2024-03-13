@@ -1,9 +1,3 @@
-// Type definitions for karma-snapshot 0.6
-// Project: https://github.com/localvoid/karma-snapshot
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

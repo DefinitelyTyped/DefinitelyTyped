@@ -1,11 +1,3 @@
-// Type definitions for compression 1.7
-// Project: https://github.com/expressjs/compression
-// Definitions by: Santi Albo <https://github.com/santialbo>
-//                 Rob van der Burgt <https://github.com/rburgt>
-//                 Neil Bryson Cargamento <https://github.com/neilbryson>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.

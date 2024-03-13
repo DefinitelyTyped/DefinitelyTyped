@@ -1,10 +1,3 @@
-// Type definitions for google-one-tap 1.2
-// Project: https://developers.google.com/identity/one-tap/web
-// Definitions by: voidpumpkin <https://github.com/voidpumpkin>
-//                 kostasmanionis <https://github.com/kostasmanionis>
-//                 cmgt <https://github.com/cmgt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace google;
 
 export const accounts: accounts;
@@ -61,6 +54,7 @@ export interface IdConfiguration {
     allowed_parent_origin?: string | string[];
     intermediate_iframe_close_callback?: () => void;
     itp_support?: boolean;
+    use_fedcm_for_prompt?: boolean;
 
     // Undocumented, but extraordinarily helpful: https://stackoverflow.com/a/72883451/229792
     log_level?: "debug" | "info" | "warn";

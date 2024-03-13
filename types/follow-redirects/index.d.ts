@@ -1,10 +1,3 @@
-// Type definitions for follow-redirects 1.14
-// Project: https://github.com/follow-redirects/follow-redirects
-// Definitions by: Emily Klassen <https://github.com/forivall>
-//                 Claas Ahlrichs <https://github.com/claasahl>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as coreHttp from "http";

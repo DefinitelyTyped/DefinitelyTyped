@@ -1,15 +1,3 @@
-// Type definitions for react-test-renderer 18.0
-// Project: https://facebook.github.io/react/
-// Definitions by: Arvitaly <https://github.com/arvitaly>
-//                 Lochbrunner <https://github.com/lochbrunner>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 John Gozde <https://github.com/jgoz>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Dhruv Jain <https://github.com/maddhruv>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { ElementType, ReactElement } from "react";
 export {};
 
@@ -59,7 +47,7 @@ export function create(nextElement: ReactElement, options?: TestRendererOptions)
 // VoidOrUndefinedOnly is here to forbid any sneaky "Promise" returns.
 // the actual return value is always a "DebugPromiseLike".
 declare const UNDEFINED_VOID_ONLY: unique symbol;
-// tslint:disable-next-line: void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 /**
  * Wrap any code rendering and triggering updates to your components into `act()` calls.

@@ -1,8 +1,3 @@
-// Type definitions for classificator 0.3
-// Project: https://github.com/Wozacosta/classificator
-// Definitions by: Nixinova <https://github.com/Nixinova>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Classificator;
 
 declare function Classificator(options?: Classificator.Options): Classificator.NaiveBayes;

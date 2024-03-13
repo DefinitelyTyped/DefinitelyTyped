@@ -1,8 +1,3 @@
-// Type definitions for Dock Spawn
-// Project: https://github.com/coderespawn/dock-spawn
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace dockspawn {
     /**
      * Dock manager manages all the dock panels in a hierarchy, similar to Visual Studio.

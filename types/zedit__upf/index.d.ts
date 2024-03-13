@@ -1,9 +1,3 @@
-// Type definitions for non-npm package zedit__upf 2.0
-// Project: https://github.com/zedit/zedit-unified-patching-framework
-// Definitions by: Alex Layton <https://github.com/awlayton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import type { FileHandle, GameMode, RecordHandle, XELib } from "xelib";
 
 import type { FileFilter } from "electron";

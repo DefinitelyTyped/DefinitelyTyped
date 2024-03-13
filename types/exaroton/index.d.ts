@@ -1,8 +1,3 @@
-// Type definitions for exaroton 1.8
-// Project: https://github.com/exaroton/node-exaroton-api
-// Definitions by: Maximilian Hofmann <https://github.com/hofmmaxi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import { WebSocket } from "ws";
 import FormData = require("form-data");

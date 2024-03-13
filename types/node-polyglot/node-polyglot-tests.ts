@@ -39,6 +39,16 @@ function instantiatePolyglot(): void {
             },
         },
     });
+    function replacer(
+        this: string,
+        interpolationRegex: RegExp,
+        replacer: (substring: string, ...args: any[]) => string,
+    ) {
+        return "Hello";
+    }
+    var replacePolyglot = new Polyglot({
+        replace: replacer,
+    });
 }
 
 function translate(): void {

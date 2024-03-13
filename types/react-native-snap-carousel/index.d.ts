@@ -1,14 +1,3 @@
-// Type definitions for react-native-snap-carousel 3.8
-// Project: https://github.com/archriss/react-native-snap-carousel
-// Definitions by: jnbt <https://github.com/jnbt>
-//                 Jacob Froman <https://github.com/j-fro>
-//                 Nikolay Polukhin <https://github.com/gazaret>
-//                 Guillaume Amat <https://github.com/GuillaumeAmat>
-//                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
-//                 Lemon Garrett <https://github.com/egarrett94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import {
     Animated,
@@ -38,7 +27,7 @@ export interface CarouselProps<T> {
     /**
      * Array of items to loop over
      */
-    data: ReadonlyArray<T>;
+    data: readonly T[];
     /**
      * Function that takes an item from the `data` array and returns a React
      * Element. See `react-native`'s `FlatList`
@@ -305,9 +294,8 @@ export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps 
 
 export type ParallaxImageStatic = React.ComponentClass<ParallaxImageProps>;
 
-export type ParallaxImageProperties = ParallaxImageProps & {
+export type ParallaxImageProperties = ParallaxImageProps & React.RefAttributes<ParallaxImageStatic> & {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<ParallaxImageStatic> | undefined;
 };
 
 export class ParallaxImage extends React.Component<ParallaxImageProperties> {}
@@ -411,9 +399,8 @@ export interface PaginationProps {
 
 export type PaginationStatic = React.ComponentClass<PaginationProps>;
 
-export type PaginationProperties = PaginationProps & {
+export type PaginationProperties = PaginationProps & React.RefAttributes<PaginationStatic> & {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<PaginationStatic> | undefined;
 };
 
 export class Pagination extends React.Component<PaginationProperties> {}

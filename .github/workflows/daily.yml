@@ -2,7 +2,7 @@ name: Daily Open PR sync
 
 on:
   schedule:
-    - cron: "37 */6 * * *"
+    - cron: '37 */6 * * *'
 
 jobs:
   trigger_bot:

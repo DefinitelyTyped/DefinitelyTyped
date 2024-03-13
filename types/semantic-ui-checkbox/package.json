@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/semantic-ui-checkbox",
+    "version": "2.2.9999",
+    "projects": [
+        "http://www.semantic-ui.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/semantic-ui-checkbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        }
+    ]
+}

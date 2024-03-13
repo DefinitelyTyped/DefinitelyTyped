@@ -1,9 +1,3 @@
-// Type definitions for react-native-phone-input 0.2
-// Project: https://github.com/thegamenicorus/react-native-phone-input
-// Definitions by: Matthew Elphick <https://github.com/maael>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 import {
     ImageRequireSource,
@@ -21,7 +15,7 @@ export interface CountriesListItem {
     iso2: string;
     dialCode: string;
     priority: number;
-    areaCodes: ReadonlyArray<string> | null;
+    areaCodes: readonly string[] | null;
 }
 
 export interface PickerData {
@@ -112,7 +106,7 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
     /**
      * Custom countries list
      */
-    countriesList?: ReadonlyArray<CountriesListItem> | undefined;
+    countriesList?: readonly CountriesListItem[] | undefined;
     /**
      * Function to be invoked when cancelling country picker selection
      */

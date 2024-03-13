@@ -1,8 +1,3 @@
-// Type definitions for crypto-ld 7.0
-// Project: https://github.com/digitalbazaar/crypto-ld
-// Definitions by: behruzrahimov <https://github.com/behruzrahimov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class CryptoLD {
     constructor(params?: { suites: Map<string, unknown> });
 

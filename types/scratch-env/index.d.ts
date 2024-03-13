@@ -1,9 +1,3 @@
-// Type definitions for scratch-vm (extension environment) 3.0
-// Project: https://github.com/LLK/scratch-vm#readme
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 type ValueOf<ObjectType> = ObjectType[keyof ObjectType];
 
 /** All the metadata needed to register an extension. */

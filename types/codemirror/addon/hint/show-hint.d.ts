@@ -93,7 +93,7 @@ declare module "../../" {
         scrollMargin?: number | undefined;
         paddingForScrollbar?: boolean | undefined;
         moveOnOverlap?: boolean | undefined;
-        words?: ReadonlyArray<string> | undefined; // used by fromList
+        words?: readonly string[] | undefined; // used by fromList
     }
 
     /** The Handle used to interact with the autocomplete dialog box. */

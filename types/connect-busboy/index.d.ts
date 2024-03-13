@@ -1,9 +1,3 @@
-// Type definitions for connect-busboy 1.0
-// Project: https://github.com/mscdex/connect-busboy
-// Definitions by: Pinguet62 <https://github.com/pinguet62>
-//                 Chris Gedrim <https://github.com/chrisgedrim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Busboy, BusboyConfig } from "busboy";

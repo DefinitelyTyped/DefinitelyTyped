@@ -38,7 +38,7 @@ declare module "stream" {
             highWaterMark?: number | undefined;
             objectMode?: boolean | undefined;
             construct?(this: T, callback: (error?: Error | null) => void): void;
-            destroy?(this: T, error: Error | null, callback: (error: Error | null) => void): void;
+            destroy?(this: T, error: Error | null, callback: (error?: Error | null) => void): void;
             autoDestroy?: boolean | undefined;
         }
         interface ReadableOptions extends StreamOptions<Readable> {
@@ -829,7 +829,7 @@ declare module "stream" {
                 callback: (error?: Error | null) => void,
             ): void;
             final?(this: Duplex, callback: (error?: Error | null) => void): void;
-            destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
+            destroy?(this: Duplex, error: Error | null, callback: (error?: Error | null) => void): void;
         }
         /**
          * Duplex streams are streams that implement both the `Readable` and `Writable` interfaces.
@@ -901,7 +901,7 @@ declare module "stream" {
                 }>,
                 callback: (error?: Error | null) => void,
             ): void;
-            _destroy(error: Error | null, callback: (error: Error | null) => void): void;
+            _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
             _final(callback: (error?: Error | null) => void): void;
             write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
@@ -1030,7 +1030,7 @@ declare module "stream" {
                 callback: (error?: Error | null) => void,
             ): void;
             final?(this: Transform, callback: (error?: Error | null) => void): void;
-            destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
+            destroy?(this: Transform, error: Error | null, callback: (error?: Error | null) => void): void;
             transform?(this: Transform, chunk: any, encoding: BufferEncoding, callback: TransformCallback): void;
             flush?(this: Transform, callback: TransformCallback): void;
         }

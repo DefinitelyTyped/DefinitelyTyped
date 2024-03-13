@@ -1,8 +1,3 @@
-// Type definitions for react-expand-animated 1.0
-// Project: https://github.com/sonybinhle/react-expand-animated
-// Definitions by: Ben Langlois <https://github.com/BenLanglois>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as CSS from "csstype";
 import * as React from "react";
 

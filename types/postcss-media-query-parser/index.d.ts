@@ -1,9 +1,4 @@
-// Type definitions for postcss-media-query-parser 0.2
-// Project: https://github.com/dryoma/postcss-media-query-parser
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-//                 Masafumi Koba <https://github.com/ybiquitous>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type WalkerCallback = (node: Child, index: number, nodes: Child[]) => boolean | void;
 
 export interface Node {

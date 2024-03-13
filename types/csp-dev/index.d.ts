@@ -1,8 +1,3 @@
-// Type definitions for csp-dev 1.0
-// Project: https://github.com/muratgozel/csp-dev
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = ContentSecurityPolicy;
 
 /**

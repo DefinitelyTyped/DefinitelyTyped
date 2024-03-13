@@ -1,6 +1,7 @@
-import { IUniform, Vector2, Material } from '../../../src/Three.js';
+import { IUniform, Material, Vector2 } from "three";
 
 export const DepthLimitedBlurShader: {
+    name: string;
     defines: {
         KERNEL_RADIUS: number;
         DEPTH_PACKING: number;

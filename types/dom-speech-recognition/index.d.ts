@@ -1,11 +1,3 @@
-// Type definitions for non-npm package dom-speech-recognition-browser 0.0
-// Project: https://wicg.github.io/speech-api/
-// Definitions by: Hana Joo <https://github.com/h-joo>
-//                 Jan Kuehle <https://github.com/frigus02>
-//                 Martin Probst <https://github.com/mprobst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#events
 interface SpeechRecognitionEventMap {
     audioend: Event;

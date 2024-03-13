@@ -1,10 +1,3 @@
-// Type definitions for conventional-recommended-bump 9.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-recommended-bump#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-//                 Jeroen "Favna" Claassens <https://github.com/favna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { Options as CoreOptions } from "conventional-changelog-core";
 import { Context as WriterContext } from "conventional-changelog-writer";
 import { Commit, Options as ParserOptions } from "conventional-commits-parser";

@@ -1,9 +1,3 @@
-// Type definitions for eth-sig-util 2.1
-// Project: https://github.com/MetaMask/eth-sig-util#readme
-// Definitions by: Artur Kozak <https://github.com/quezak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 /**
@@ -43,7 +37,7 @@ export interface EIP712LegacyField {
     value: any;
 }
 
-export type EIP712LegacyData = ReadonlyArray<EIP712LegacyField>;
+export type EIP712LegacyData = readonly EIP712LegacyField[];
 
 export function typedSignatureHash(data: EIP712LegacyData): string;
 
@@ -125,7 +119,7 @@ export interface EIP712TypeProperty {
  * Should include the `EIP712Domain` struct description.
  */
 export interface EIP712Types {
-    [name: string]: ReadonlyArray<EIP712TypeProperty>;
+    [name: string]: readonly EIP712TypeProperty[];
 }
 
 export interface EIP712Message {

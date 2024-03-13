@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/karma-image-snapshot",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/maksimr/karma-image-snapshot"
+    ],
     "dependencies": {
+        "@types/jasmine": "*",
+        "@types/karma": "*",
+        "@types/node": "*",
+        "@types/pixelmatch": "*",
         "ssim.js": "^3.1.1"
-    }
+    },
+    "devDependencies": {
+        "@types/karma-image-snapshot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/xml2js",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/Leonidas-from-XIV/node-xml2js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/xml2js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michel Salib",
+            "githubUsername": "michelsalib"
+        },
+        {
+            "name": "Jason McNeil",
+            "githubUsername": "jasonrm"
+        },
+        {
+            "name": "Christopher Currens",
+            "githubUsername": "ccurrens"
+        },
+        {
+            "name": "Edward Hinkle",
+            "githubUsername": "edwardhinkle"
+        },
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        },
+        {
+            "name": "Grzegorz Redlicki",
+            "githubUsername": "redlickigrzegorz"
+        },
+        {
+            "name": "Ryan Ling",
+            "githubUsername": "72636c"
+        }
+    ]
+}

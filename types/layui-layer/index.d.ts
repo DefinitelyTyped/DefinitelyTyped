@@ -1,9 +1,3 @@
-// Type definitions for layui-layer 1.0
-// Project: https://github.com/sentsin/layer
-// Definitions by: Zhuo Ning <https://github.com/943297456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="jquery" />
 
 /**
@@ -246,13 +240,21 @@ declare namespace layer {
          */
         yes?(index: Index, layero: JQuery): void;
         // #region 按钮1的回调是yes，而从按钮2开始，则回调为btn2: function(){}，以此类推。
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn2?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn3?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn4?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn5?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn6?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn7?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn8?(index: Index, layero: JQuery): false | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         btn9?(index: Index, layero: JQuery): false | void;
         // #endregion
         /**
@@ -261,6 +263,7 @@ declare namespace layer {
          * @param layero 当前层的DOM对象
          * @description 默认会自动触发关闭。如果不想关闭，`return false`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         cancel?(index: Index, layero: JQuery): false | void;
         /**
          * 层销毁后触发的回调
@@ -277,6 +280,7 @@ declare namespace layer {
          * @param layero 当前层DOM
          * @description `return false` 不执行默认最小化。
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         min?(layero: JQuery): false | void;
         /**
          * 还原后触发的回调

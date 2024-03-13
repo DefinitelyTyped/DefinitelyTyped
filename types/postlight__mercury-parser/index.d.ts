@@ -1,9 +1,3 @@
-// Type definitions for @postlight/mercury-parser 2.2
-// Project: https://github.com/postlight/mercury-parser
-// Definitions by: Malo Bourgon <https://github.com/malob>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 export interface ParseResult {

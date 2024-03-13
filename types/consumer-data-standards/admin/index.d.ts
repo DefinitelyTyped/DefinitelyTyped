@@ -372,7 +372,7 @@ export interface AuthorisationMetricsV2 {
          * Number of amended authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
         previousDays?:
-            | {
+            | Array<{
                 /**
                  * Amended authorisation count for individual customers
                  */
@@ -382,7 +382,7 @@ export interface AuthorisationMetricsV2 {
                  */
                 nonIndividual: number;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -408,7 +408,7 @@ export interface AuthorisationMetricsV2 {
          * Number of expired authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
         previousDays?:
-            | {
+            | Array<{
                 /**
                  * Expired authorisation count for individual customers
                  */
@@ -418,7 +418,7 @@ export interface AuthorisationMetricsV2 {
                  */
                 nonIndividual: number;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -464,7 +464,7 @@ export interface AuthorisationMetricsV2 {
          * Number of new authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
         previousDays?:
-            | {
+            | Array<{
                 /**
                  * New authorisation count for once-off authorisations
                  */
@@ -494,7 +494,7 @@ export interface AuthorisationMetricsV2 {
                     [k: string]: unknown;
                 };
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -520,7 +520,7 @@ export interface AuthorisationMetricsV2 {
          * Number of revoked authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
         previousDays?:
-            | {
+            | Array<{
                 /**
                  * Revoked authorisation count for individual customers
                  */
@@ -530,7 +530,7 @@ export interface AuthorisationMetricsV2 {
                  */
                 nonIndividual: number;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -591,16 +591,18 @@ export interface ErrorMetricsV2 {
         /**
          * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
-        previousDays?: {
-            /**
-             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
-             */
-            "500"?: number;
-            /**
-             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
-             */
-            [k: string]: unknown;
-        }[] | null;
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
         [k: string]: unknown;
     };
     /**
@@ -624,7 +626,7 @@ export interface ErrorMetricsV2 {
          * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
         previousDays?:
-            | {
+            | Array<{
                 /**
                  * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
                  */
@@ -633,7 +635,7 @@ export interface ErrorMetricsV2 {
                  * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
                  */
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -1207,7 +1209,7 @@ export interface RequestMetaDataUpdate {
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -1231,7 +1233,7 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
@@ -1812,7 +1814,7 @@ export interface ResponseMetricsListV5 {
                  * Number of amended authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * Amended authorisation count for individual customers
                          */
@@ -1822,7 +1824,7 @@ export interface ResponseMetricsListV5 {
                          */
                         nonIndividual: number;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };
@@ -1848,7 +1850,7 @@ export interface ResponseMetricsListV5 {
                  * Number of expired authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * Expired authorisation count for individual customers
                          */
@@ -1858,7 +1860,7 @@ export interface ResponseMetricsListV5 {
                          */
                         nonIndividual: number;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };
@@ -1904,7 +1906,7 @@ export interface ResponseMetricsListV5 {
                  * Number of new authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * New authorisation count for once-off authorisations
                          */
@@ -1934,7 +1936,7 @@ export interface ResponseMetricsListV5 {
                             [k: string]: unknown;
                         };
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };
@@ -1960,7 +1962,7 @@ export interface ResponseMetricsListV5 {
                  * Number of revoked authorisations for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * Revoked authorisation count for individual customers
                          */
@@ -1970,7 +1972,7 @@ export interface ResponseMetricsListV5 {
                          */
                         nonIndividual: number;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };
@@ -2259,7 +2261,7 @@ export interface ResponseMetricsListV5 {
                  * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
                          */
@@ -2268,7 +2270,7 @@ export interface ResponseMetricsListV5 {
                          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
                          */
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };
@@ -2293,7 +2295,7 @@ export interface ResponseMetricsListV5 {
                  * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
                  */
                 previousDays?:
-                    | {
+                    | Array<{
                         /**
                          * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
                          */
@@ -2302,7 +2304,7 @@ export interface ResponseMetricsListV5 {
                          * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
                          */
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
             };

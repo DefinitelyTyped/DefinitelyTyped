@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/rich-text 6.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/rich-text/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 import { ComponentType } from "react";
 import { create, Format, Value } from "./create";

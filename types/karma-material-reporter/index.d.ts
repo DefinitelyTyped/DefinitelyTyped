@@ -1,9 +1,3 @@
-// Type definitions for karma-material-reporter 1.1
-// Project: https://github.com/ameerthehacker/karma-material-reporter#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

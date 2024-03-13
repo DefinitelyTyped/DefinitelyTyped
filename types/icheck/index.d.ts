@@ -1,10 +1,3 @@
-// Type definitions for icheck 1.0
-// Project: http://fronteed.com/iCheck/
-// Definitions by: Dániel Tar <https://github.com/qcz>
-//                 宁倬 <https://github.com/943297456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 /**

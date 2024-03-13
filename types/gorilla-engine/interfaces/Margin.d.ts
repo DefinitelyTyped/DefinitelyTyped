@@ -1,6 +1,6 @@
 declare namespace GorillaEngine.UI {
     interface Margin {
-        margin: {
+        margin: number | {
             other: number;
             left: number;
             top: number;

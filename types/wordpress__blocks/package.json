@@ -1,7 +1,44 @@
 {
     "private": true,
+    "name": "@types/wordpress__blocks",
+    "version": "12.5.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "@types/wordpress__components": "*",
+        "@types/wordpress__shortcode": "*",
         "@wordpress/data": "^9.13.0",
         "@wordpress/element": "^5.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/wordpress__blocks": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        },
+        {
+            "name": "Jon Surrell",
+            "githubUsername": "sirreal"
+        },
+        {
+            "name": "Dennis Snell",
+            "githubUsername": "dmsnell"
+        },
+        {
+            "name": "Tomasz Tunik",
+            "githubUsername": "tomasztunik"
+        },
+        {
+            "name": "Lucio Giannotta",
+            "githubUsername": "sunyatasattva"
+        },
+        {
+            "name": "Bas Tolen",
+            "githubUsername": "bastolen"
+        }
+    ]
 }

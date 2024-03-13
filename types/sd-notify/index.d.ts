@@ -1,9 +1,3 @@
-// Type definitions for sd-notify 2.8
-// Project: https://github.com/systemd/node-sd-notify#readme
-// Definitions by: Jan Beseda <https://github.com/Cheprer>
-//                 Rory Bradford <https://github.com/roryrjb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type JournalPrint = (args: string[]) => void;
 
 export function ready(): void;

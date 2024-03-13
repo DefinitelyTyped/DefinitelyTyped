@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { TabContent, TabContentProps, TabLink, TabLinkProps, Tabs, TabsProps } from "react-tabs-redux";
 
 interface TestTabsProps extends TabsProps {
@@ -36,8 +35,3 @@ class TestApp extends React.Component {
         );
     }
 }
-
-ReactDOM.render(
-    <TestApp />,
-    document.getElementById("test-app"),
-);

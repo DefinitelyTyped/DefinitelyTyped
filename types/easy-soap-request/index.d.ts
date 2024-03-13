@@ -1,8 +1,3 @@
-// Type definitions for easy-soap-request 4.1
-// Project: https://github.com/circa10a/easy-soap-request
-// Definitions by: Steven Snoeijen <https://github.com/stevensnoeijen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AxiosError, AxiosProxyConfig, AxiosRequestConfig, AxiosResponse } from "axios";
 
 interface Options {
