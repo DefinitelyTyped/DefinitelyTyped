@@ -1743,6 +1743,82 @@ declare namespace OracleDB {
          */
         sslAllowWeakDNMatch?: boolean | undefined;
         /**
+         * The name or IP address of a proxy host to use for tunneling secure connections.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        httpsProxy?: string;
+        /**
+         * The port to be used to communicate with the proxy host.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        httpsProxyPort?: number;
+        /**
+         * Specifies the host and port of the PL/SQL debugger with the format host=<host>;port=<port>. This allows using the Java Debug Wire Protocol (JDWP) to debug PL/SQL code called by node-oracledb.
+         * The default value is the value of environment variable ORA_DEBUG_JDWP.
+         * For node-oracledb Thick mode, set the ORA_DEBUG_JDWP environment variable with the same syntax instead. See Application Tracing.
+         * 
+         * @since 6.0
+         */
+        debugJdwp?: string;
+        /**
+         * The number of times that a connection attempt should be retried before the attempt is terminated.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        retryCount?: number;
+        /**
+         * The number of seconds to wait before making a new connection attempt.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        retryDelay?: number;
+        /**
+         * The timeout duration in seconds for an application to establish an Oracle Net connection.
+         * There is no timeout by default.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        connectTimeout?: number;
+        /**
+         * The maximum number of seconds to wait to establish a connection to the database host.
+         * The default value is 60.0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        transportConnectTimeout?: number;
+        /**
+         * The number of minutes between the sending of keepalive probes. If this property is set to a value greater than zero, it enables the keepalive probes.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        expireTime?: number;
+        /**
+         * The Oracle Net Session Data Unit (SDU) packet size in bytes. The database server configuration should also set this parameter.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        sdu?: number;
+        /**
+         * The application specific prefix parameter that is added to the connection identifier.
+         * 
+         * @since 6.0
+         */
+        connectionIdPrefix?: string;
+        /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
         configDir?: string | undefined;
@@ -1752,6 +1828,23 @@ declare namespace OracleDB {
          * @since 6.0
          */
         sourceRoute?: string | undefined;
+        /**
+         * The distinguished name (DN) that should be matched with the certificate DN. If not specified, a partial match is performed instead. A partial match matches the hostname that the client connected to against the common name (CN) of the certificate DN or the Subject Alternate Names (SAN) of the certificate.
+         * This value is ignored if the sslServerDNMatch property is not set to the value True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        sslServerCertDN?: string;
+        /**
+         * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
+         * If the sslServerCertDN property is not provided, a partial DN match is performed instead. A partial match matches the hostname that the client connected to against the CN of the certificate DN or the SAN of the certificate.
+         * The default value is True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        sslServerDNMatch?: boolean;
         /**
          * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
          *  The default value is ON.
@@ -1798,6 +1891,11 @@ declare namespace OracleDB {
          * The database user name. Can be a simple user name or a proxy of the form alison[fred].
          */
         user?: string | undefined;
+        /**
+         * The two properties are aliases for each other. Use only one of the properties.
+         * The database user name. Can be a simple user name or a proxy of the form alison[fred]. See the Client Access Through a Proxy section in the Oracle Call Interface manual for more details about proxy authentication.
+         */
+        username?: string | undefined;
     }
 
     interface DBError extends Error {
@@ -2418,14 +2516,14 @@ declare namespace OracleDB {
          * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
          * @since 5.4
          */
-        accessToken?: any;
+        accessToken?: AccessToken;
         /**
          * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
          * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
          *
          * @since 6.3
          */
-        accessTokenConfig?: any;
+        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.
@@ -2441,6 +2539,20 @@ declare namespace OracleDB {
          */
         connectionString?: string | undefined;
         /**
+         * The password to decrypt the Privacy Enhanced Mail (PEM)-encoded private certificate, if it is encrypted.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * 
+         * @since 6.0
+         */
+        walletPassword?: string;
+        /**
+         * The directory where the wallet can be found. In node-oracledb Thin mode, this must be the directory that contains the PEM-encoded wallet file.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead. 
+         * 
+         * @since 6.0
+         */
+        walletLocation?: string;
+        /**
          * Sets the name used for Edition-Based Redefinition by connections in the pool.
          * This optional property overrides the oracledb.edition property.
          *
@@ -2453,7 +2565,7 @@ declare namespace OracleDB {
          *
          * @default false
          * @since 2.2
-         */
+         */        
         events?: boolean | undefined;
         /**
          * Indicate whether pooled connections should be established using External Authentication.
@@ -2688,6 +2800,17 @@ declare namespace OracleDB {
             | string
             | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
             | undefined;
+        /**
+         * Indicates whether the pool’s connections should share a cache of SODA metadata. This improves SODA performance by reducing round-trips to the database when opening collections. It has no effect on non-SODA operations.
+         * The default is false.
+         * There is no global equivalent for setting this attribute. SODA metadata caching is restricted to pooled connections only.
+         * Note that if the metadata of a collection is changed externally, the cache can get out of sync. If this happens, the cache can be cleared by calling pool.reconfigure({sodaMetadataCache: false}). See pool.reconfigure().
+         * A second call to reconfigure() should then be made to re-enable the cache.
+         * It requires Oracle Client 21.3 (or later). The feature is also available in Oracle Client 19c from 19.11 onward.
+         *
+         * @since 5.2
+         */
+        sodaMetaDataCache?: boolean;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
