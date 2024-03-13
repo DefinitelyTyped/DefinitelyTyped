@@ -6,7 +6,7 @@
         "https://github.com/httptoolkit/esm#readme"
     ],
     "dependencies": {
-        "@types/node": "^20.11.26"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/httptoolkit__esm": "workspace:."
