@@ -1,6 +1,60 @@
 declare namespace GoogleAppsScript {
     namespace Drive_V3 {
         namespace Collection {
+            interface TeamdrivesCollection {
+                create(
+                    resource: Drive_V3.Schema.TeamDrive,
+                    requestId: string,
+                ): Drive_V3.Schema.TeamDrive;
+                get(
+                    teamDriveId: string,
+                ): Drive_V3.Schema.TeamDrive;
+                get(
+                    teamDriveId: string,
+                    optionalArgs: Object,
+                ): Drive_V3.Schema.TeamDrive;
+                list(): Drive_V3.Schema.TeamDriveList;
+                list(
+                    optionalArgs: Object,
+                ): Drive_V3.Schema.TeamDriveList;
+                remove(teamDriveId: string): void;
+                update(
+                    resource: Drive_V3.Schema.TeamDrive,
+                    teamDriveId: string,
+                ): Drive_V3.Schema.TeamDrive;
+                update(
+                    resource: Drive_V3.Schema.TeamDrive,
+                    teamDriveId: string,
+                    optionalArgs: Object,
+                ): Drive_V3.Schema.TeamDrive;
+            }
+            interface RevisionsCollection {
+                get(
+                    fileId: string,
+                    revisionId: string,
+                ): Drive_V3.Schema.Revision;
+                get(
+                    fileId: string,
+                    revisionId: string,
+                    optionalArgs: Object,
+                ): Drive_V3.Schema.Revision;
+                list(
+                    fileId: string,
+                ): Drive_V3.Schema.RevisionList;
+                list(
+                    fileId: string,
+                    optionalArgs: Object,
+                ): Drive_V3.Schema.RevisionList;
+                remove(
+                    fileId: string,
+                    revisionId: string,
+                ): void;
+                update(
+                    resource: Drive_V3.Schema.Revision,
+                    fileId: string,
+                    revisionId: string,
+                ): Drive_V3.Schema.Revision;
+            }
             interface RepliesCollection {
                 create(
                     resource: Drive_V3.Schema.Reply,
@@ -828,4 +882,19 @@ declare namespace GoogleAppsScript {
             }
         }
     }
+    interface Drive_V3 {
+        About?: Drive_V3.Collection.AboutCollection;
+        Apps?: Drive_V3.Collection.AppsCollection;
+        Changes?: Drive_V3.Collection.ChangesCollection;
+        Channels?: Drive_V3.Collection.ChannelsCollection;
+        Comments?: Drive_V3.Collection.CommentsCollection;
+        Drives?: Drive_V3.Collection.DrivesCollection;
+        Files?: Drive_V3.Collection.FilesCollection;
+        Permissions?: Drive_V3.Collection.PermissionsCollection;
+        Replies?: Drive_V3.Collection.RepliesCollection;
+        Revisions?: Drive_V3.Collection.RevisionsCollection;
+        Teamdrives?: Drive_V3.Collection.TeamdrivesCollection;
+    }
 }
+
+declare var Drive_V3: GoogleAppsScript.Drive_V3;
