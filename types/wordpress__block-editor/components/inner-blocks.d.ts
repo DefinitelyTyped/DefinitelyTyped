@@ -46,7 +46,14 @@ declare namespace InnerBlocks {
          * Specifying this prop does not affect the layout of the inner blocks, but results in the block mover icons in the child blocks
          * being displayed horizontally, and also ensures that drag and drop works correctly.
          */
-        orientation?: 'vertical' | 'horizontal';
+        orientation?: "vertical" | "horizontal";
+
+        /**
+         * Determines which block types should be shown in the block inserter. For example, when inserting a block within the Navigation
+         * block we specify `core/navigation-link` and `core/navigation-link/page` as these are the most commonly used inner blocks.
+         * `prioritizedInserterBlocks` takes an array of the form {blockName}/{variationName}, where {variationName} is optional.
+         */
+        prioritizedInserterBlocks?: string[];
     }
 }
 declare const InnerBlocks: {
