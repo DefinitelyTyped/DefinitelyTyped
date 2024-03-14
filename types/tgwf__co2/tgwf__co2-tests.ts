@@ -21,7 +21,7 @@ const swdCO2PerVisit = swd.perVisit(1000, true);
 // Test the SWD class with segment results
 const swdSegment = new co2({ model: "swd", results: "segment" });
 const swdSegmentCO2PerByte = swdSegment.perByte(1000, true);
-if (typeof swdSegmentCO2PerByte === 'number') {
+if (typeof swdSegmentCO2PerByte === "number") {
     throw new Error("perByte should return CO2EstimateComponents for segment results");
 }
 const swdSegmentNetworkCO2PerByte = swdSegmentCO2PerByte.networkCO2;
@@ -31,7 +31,7 @@ const swdSegmentProductionCO2PerByte = swdSegmentCO2PerByte.productionCO2;
 const swdSegmentTotalCO2PerByte = swdSegmentCO2PerByte.total;
 
 const swdSegmentCO2PerVisit = swdSegment.perVisit(1000, true);
-if (typeof swdSegmentCO2PerVisit === 'number') {
+if (typeof swdSegmentCO2PerVisit === "number") {
     throw new Error("perVisit should return CO2EstimateComponents for segment results");
 }
 const swdSegmentNetworkCO2PerVisit = swdSegmentCO2PerVisit.networkCO2;

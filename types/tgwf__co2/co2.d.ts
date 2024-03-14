@@ -4,7 +4,7 @@ interface CO2EstimateTraceResultPerByte {
     /**
      * - The CO2 estimate in grams or its separate components
      */
-    co2: number|CO2EstimateComponents;
+    co2: number | CO2EstimateComponents;
     /**
      * - Whether the domain is green or not
      */
@@ -18,7 +18,7 @@ interface CO2EstimateTraceResultPerVisit {
     /**
      * - The CO2 estimate in grams or its separate components
      */
-    co2: number|CO2EstimateComponents;
+    co2: number | CO2EstimateComponents;
     /**
      * - Whether the domain is green or not
      */
@@ -109,7 +109,7 @@ declare class CO2 {
      * @param {boolean} green
      * @return {number|CO2EstimateComponents} the amount of CO2 in grammes or its separate components
      */
-    perByte(bytes: number, green?: boolean): number|CO2EstimateComponents;
+    perByte(bytes: number, green?: boolean): number | CO2EstimateComponents;
     /**
      * Accept a figure in bytes for data transfer, and a boolean for whether
      * the domain shows as 'green', and return a CO2 figure for energy used to shift the corresponding
@@ -119,7 +119,7 @@ declare class CO2 {
      * @param {boolean} green
      * @return {number|CO2EstimateComponents} the amount of CO2 in grammes or its separate components
      */
-    perVisit(bytes: number, green?: boolean): number|CO2EstimateComponents;
+    perVisit(bytes: number, green?: boolean): number | CO2EstimateComponents;
     /**
      * Accept a figure in bytes for data transfer, a boolean for whether
      * the domain shows as 'green', and an options object.
