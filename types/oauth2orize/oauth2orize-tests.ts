@@ -157,6 +157,15 @@ server.deserializeClient((id, done) => {
     });
 });
 
+// Decision Middleware
+server.decision({ loadTransaction: false }, (req, done) => {
+    done(null, { allow: true });
+});
+
+server.decision((req, done) => {
+    done(null, { allow: true });
+});
+
 // Implement Token Endpoint
 // app.post('/token',
 // passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
