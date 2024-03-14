@@ -894,6 +894,38 @@ declare namespace GoogleAppsScript {
         Replies: Drive_V3.Collection.RepliesCollection;
         Revisions: Drive_V3.Collection.RevisionsCollection;
         Teamdrives: Drive_V3.Collection.TeamdrivesCollection;
+        newChannel(): Drive_V3.Schema.Channel;
+        newComment(): Drive_V3.Schema.Comment;
+        newCommentQuotedFileContent(): Drive_V3.Schema.CommentQuotedFileContent;
+        newContentRestriction(): Drive_V3.Schema.ContentRestriction;
+        newDrive(): Drive_V3.Schema.Drive;
+        newDriveBackgroundImageFile(): Drive_V3.Schema.DriveBackgroundImageFile;
+        newDriveCapabilities(): Drive_V3.Schema.DriveCapabilities;
+        newDriveRestrictions(): Drive_V3.Schema.DriveRestrictions;
+        newFile(): Drive_V3.Schema.File;
+        newFileCapabilities(): Drive_V3.Schema.FileCapabilities;
+        newFileContentHints(): Drive_V3.Schema.FileContentHints;
+        newFileContentHintsThumbnail(): Drive_V3.Schema.FileContentHintsThumbnail;
+        newFileImageMediaMetadata(): Drive_V3.Schema.FileImageMediaMetadata;
+        newFileImageMediaMetadataLocation(): Drive_V3.Schema.FileImageMediaMetadataLocation;
+        newFileLabelInfo(): Drive_V3.Schema.FileLabelInfo;
+        newFileLinkShareMetadata(): Drive_V3.Schema.FileLinkShareMetadata;
+        newFileShortcutDetails(): Drive_V3.Schema.FileShortcutDetails;
+        newFileVideoMediaMetadata(): Drive_V3.Schema.FileVideoMediaMetadata;
+        newLabel(): Drive_V3.Schema.Label;
+        newLabelFieldModification(): Drive_V3.Schema.LabelFieldModification;
+        newLabelModification(): Drive_V3.Schema.LabelModification;
+        newModifyLabelsRequest(): Drive_V3.Schema.ModifyLabelsRequest;
+        newPermission(): Drive_V3.Schema.Permission;
+        newPermissionPermissionDetails(): Drive_V3.Schema.PermissionPermissionDetails;
+        newPermissionTeamDrivePermissionDetails(): Drive_V3.Schema.PermissionTeamDrivePermissionDetails;
+        newReply(): Drive_V3.Schema.Reply;
+        newRevision(): Drive_V3.Schema.Revision;
+        newTeamDrive(): Drive_V3.Schema.TeamDrive;
+        newTeamDriveBackgroundImageFile(): Drive_V3.Schema.TeamDriveBackgroundImageFile;
+        newTeamDriveCapabilities(): Drive_V3.Schema.TeamDriveCapabilities;
+        newTeamDriveRestrictions(): Drive_V3.Schema.TeamDriveRestrictions;
+        newUser(): Drive_V3.Schema.User;
     }
 }
 
