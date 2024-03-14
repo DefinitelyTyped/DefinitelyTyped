@@ -944,14 +944,14 @@ declare namespace OracleDB {
          * 
          * @since 6.3
          */
-        readonly dbDomain?: string;
+        readonly dbDomain?: string | undefined;
         /**
          * This read-only property is a string that specifies the name of the Oracle Database associated with the connection. This property returns the same value as the SQL expression:
          * SELECT UPPER(NAME) FROM V$DATABASE;
          * 
          * @since 6.3
          */
-        readonly dbName?: string;
+        readonly dbName?: string | undefined;
         /**
          * The database operation information for end-to-end application tracing.
          * This is a write-only property. Displaying connection.dbOp will show a value of null.
@@ -967,7 +967,7 @@ declare namespace OracleDB {
          * 
          * @since 5.3
          */
-        ecid?: string;
+        ecid?: string | undefined;
         /**
          * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
          *
@@ -981,7 +981,7 @@ declare namespace OracleDB {
          * 
          * @since 6.3
          */
-        readonly maxOpenCursors?: number;
+        readonly maxOpenCursors?: number | undefined;
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -1010,7 +1010,7 @@ declare namespace OracleDB {
          * 
          * @since 6.3
          */
-        readonly serviceName?: string;
+        readonly serviceName?: string  | undefined;
         /**
          * The number of statements to be cached in the statement cache of the connection.
          * The default value is the stmtCacheSize property in effect in the Pool object when the connection is created in the pool.
@@ -1035,25 +1035,25 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        readonly thin?: boolean; 
+        readonly thin?: boolean | undefined; 
         /**
          * This read/write attribute is a string that specifies the internal name that is used by the connection when logging two-phase commit transactions.
          * This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
          * 
          * @since 5.3
          */
-        tpcInternalName?: string;
+        tpcInternalName?: string| undefined;
         /**
          * This read/write attribute is a string that specifies the external name that is used by the connection when logging two-phase commit transactions.
          * This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
          */
-        tpcExternalName?: string;
+        tpcExternalName?: string | undefined;
         /**
          * This read-only property is a boolean that indicates whether a transaction is currently in progress in the connection. If the value is True, then it indicates that the specified connection has an active transaction. If the value is False, then the specified connection does not have an active transaction.
          * 
          * @since 6.3
          */
-        readonly transactionInProgress?: boolean;
+        readonly transactionInProgress?: boolean | undefined;
         /**
          * This read-only property provides an error object that gives information about any database warnings (such as password being in the grace period) that were generated during connection establishment (both standalone connections and pooled connections). This attribute is present if a warning is thrown by the database but the operation is otherwise completed successfully. The connection will be usable despite the warning.
          * For standalone connections, the error object returned by connection.warning will be present for the lifetime of the connection.
@@ -1062,7 +1062,7 @@ declare namespace OracleDB {
          *
          * @since 6.3
          */
-        readonly warning?: DBError;
+        readonly warning?: DBError | undefined;
         /**
          * Stops the currently running operation on the connection.
          *
@@ -1623,7 +1623,7 @@ declare namespace OracleDB {
         clientId: string;
         authority: string;
         scopes: string;
-        clientSecret?: string;
+        clientSecret?: string | undefined;
         authType: string;
     }
     interface AccessTokenConfigOCI {
@@ -1663,7 +1663,7 @@ declare namespace OracleDB {
          * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
          * @since 5.4
          */
-        accessToken?: AccessToken;
+        accessToken?: AccessToken | undefined;
         /**
          * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
          * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
@@ -1755,7 +1755,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        httpsProxy?: string;
+        httpsProxy?: string | undefined;
         /**
          * The port to be used to communicate with the proxy host.
          * The default value is 0.
@@ -1763,7 +1763,7 @@ declare namespace OracleDB {
          *
          * @since 6.0
          */
-        httpsProxyPort?: number;
+        httpsProxyPort?: number | undefined;
         /**
          * Specifies the host and port of the PL/SQL debugger with the format host=<host>;port=<port>. This allows using the Java Debug Wire Protocol (JDWP) to debug PL/SQL code called by node-oracledb.
          * The default value is the value of environment variable ORA_DEBUG_JDWP.
@@ -1771,7 +1771,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        debugJdwp?: string;
+        debugJdwp?: string | undefined;
         /**
          * The number of times that a connection attempt should be retried before the attempt is terminated.
          * The default value is 0.
@@ -1779,7 +1779,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        retryCount?: number;
+        retryCount?: number | undefined;
         /**
          * The number of seconds to wait before making a new connection attempt.
          * The default value is 0.
@@ -1787,7 +1787,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        retryDelay?: number;
+        retryDelay?: number | undefined;
         /**
          * The timeout duration in seconds for an application to establish an Oracle Net connection.
          * There is no timeout by default.
@@ -1795,7 +1795,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        connectTimeout?: number;
+        connectTimeout?: number | undefined;
         /**
          * The maximum number of seconds to wait to establish a connection to the database host.
          * The default value is 60.0.
@@ -1803,7 +1803,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        transportConnectTimeout?: number;
+        transportConnectTimeout?: number | undefined;
         /**
          * The number of minutes between the sending of keepalive probes. If this property is set to a value greater than zero, it enables the keepalive probes.
          * The default value is 0.
@@ -1811,20 +1811,20 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        expireTime?: number;
+        expireTime?: number | undefined;
         /**
          * The Oracle Net Session Data Unit (SDU) packet size in bytes. The database server configuration should also set this parameter.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
          * 
          * @since 6.0
          */
-        sdu?: number;
+        sdu?: number | undefined;
         /**
          * The application specific prefix parameter that is added to the connection identifier.
          * 
          * @since 6.0
          */
-        connectionIdPrefix?: string;
+        connectionIdPrefix?: string | undefined;
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
@@ -1842,7 +1842,7 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        sslServerCertDN?: string;
+        sslServerCertDN?: string | undefined;
         /**
          * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
          * If the sslServerCertDN property is not provided, a partial DN match is performed instead. A partial match matches the hostname that the client connected to against the CN of the certificate DN or the SAN of the certificate.
@@ -1851,7 +1851,7 @@ declare namespace OracleDB {
          *
          * @since 6.0
          */
-        sslServerDNMatch?: boolean;
+        sslServerDNMatch?: boolean | undefined;
         /**
          * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
          *  The default value is ON.
@@ -2545,14 +2545,14 @@ declare namespace OracleDB {
          * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
          * @since 5.4
          */
-        accessToken?: AccessToken;
+        accessToken?: AccessToken | undefined;
         /**
          * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
          * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
          *
          * @since 6.3
          */
-        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
+        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI | undefined;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.
@@ -2573,14 +2573,14 @@ declare namespace OracleDB {
          * 
          * @since 6.0
          */
-        walletPassword?: string;
+        walletPassword?: string | undefined;
         /**
          * The directory where the wallet can be found. In node-oracledb Thin mode, this must be the directory that contains the PEM-encoded wallet file.
          * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead. 
          * 
          * @since 6.0
          */
-        walletLocation?: string;
+        walletLocation?: string | undefined;
         /**
          * Sets the name used for Edition-Based Redefinition by connections in the pool.
          * This optional property overrides the oracledb.edition property.
@@ -2839,7 +2839,7 @@ declare namespace OracleDB {
          *
          * @since 5.2
          */
-        sodaMetaDataCache?: boolean;
+        sodaMetaDataCache?: boolean | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -4403,7 +4403,7 @@ declare namespace OracleDB {
          * 
          * @since 6.3
          */
-        oldJsonColumnAsObj?: boolean; 
+        oldJsonColumnAsObj?: boolean | undefined; 
     }
 
     /**
