@@ -136,6 +136,9 @@ interface HighlandStatic {
     <R>(source: Iterable<R>): Highland.Stream<R>;
     <R>(source: Iterator<R>): Highland.Stream<R>;
 
+    <R>(source: AsyncIterable<R>): Highland.Stream<R>;
+    <R>(source: AsyncIterator<R>): Highland.Stream<R>;
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // UTILS
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
