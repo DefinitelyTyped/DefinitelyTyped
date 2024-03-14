@@ -5249,7 +5249,7 @@ declare namespace Xrm {
              * If you do not specify this parameter, by default 1 (open) is passed.
              * This parameter is only supported on Unified Interface
              */
-            openMode?: XrmEnum.OpenFileOptions
+            openMode?: XrmEnum.OpenFileOptions;
         }
 
         interface DialogSizeOptions {
