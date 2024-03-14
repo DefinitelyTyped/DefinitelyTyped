@@ -50,6 +50,7 @@
 /// <reference path="apis/directory_v1.d.ts"/>
 /// <reference path="apis/docs_v1.d.ts"/>
 /// <reference path="apis/drive_v2.d.ts"/>
+/// <reference path="apis/drive_v3.d.ts"/>
 /// <reference path="apis/driveactivity_v2.d.ts"/>
 /// <reference path="apis/gmail_v1.d.ts"/>
 /// <reference path="apis/groupsmigration_v1.d.ts"/>
