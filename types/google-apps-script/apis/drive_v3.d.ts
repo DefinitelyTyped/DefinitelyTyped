@@ -883,17 +883,17 @@ declare namespace GoogleAppsScript {
         }
     }
     interface Drive_V3 {
-        About?: Drive_V3.Collection.AboutCollection;
-        Apps?: Drive_V3.Collection.AppsCollection;
-        Changes?: Drive_V3.Collection.ChangesCollection;
-        Channels?: Drive_V3.Collection.ChannelsCollection;
-        Comments?: Drive_V3.Collection.CommentsCollection;
-        Drives?: Drive_V3.Collection.DrivesCollection;
-        Files?: Drive_V3.Collection.FilesCollection;
-        Permissions?: Drive_V3.Collection.PermissionsCollection;
-        Replies?: Drive_V3.Collection.RepliesCollection;
-        Revisions?: Drive_V3.Collection.RevisionsCollection;
-        Teamdrives?: Drive_V3.Collection.TeamdrivesCollection;
+        About: Drive_V3.Collection.AboutCollection;
+        Apps: Drive_V3.Collection.AppsCollection;
+        Changes: Drive_V3.Collection.ChangesCollection;
+        Channels: Drive_V3.Collection.ChannelsCollection;
+        Comments: Drive_V3.Collection.CommentsCollection;
+        Drives: Drive_V3.Collection.DrivesCollection;
+        Files: Drive_V3.Collection.FilesCollection;
+        Permissions: Drive_V3.Collection.PermissionsCollection;
+        Replies: Drive_V3.Collection.RepliesCollection;
+        Revisions: Drive_V3.Collection.RevisionsCollection;
+        Teamdrives: Drive_V3.Collection.TeamdrivesCollection;
     }
 }
 
