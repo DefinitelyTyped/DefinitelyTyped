@@ -109,6 +109,17 @@ interface HighlandStatic {
      * i.e., contains a method that returns an object that conforms to the iterator protocol. The stream will use the
      * iterator defined in the `Symbol.iterator` property of the iterable object to generate emitted values.
      *
+     * **Asynchronous Iterator -** Accepts an iterator produced by an ES8 [async generator function](https://github.com/tc39/proposal-async-iteration#async-generator-functions),
+     * yields all the values from the iterator by resolving its `next()` method and terminates when the
+     * iterator's done value returns true. If the iterator's `next()` method throws or rejects, the exception will be emitted as an error,
+     * and the stream will be ended with no further calls to `next()`.
+     *
+     * **Asynchronous Iterable -** Accepts an object with a `Symbol.asyncIterator`
+     * property that conforms to the [async iteration
+     * spec](https://github.com/tc39/proposal-async-iteration#async-iterators-and-async-iterables).
+     * The constructor will create a async iterator and use it to generator emitted
+     * values.
+     *
      * @id _(source)
      * @section Stream Objects
      * @name _(source)
