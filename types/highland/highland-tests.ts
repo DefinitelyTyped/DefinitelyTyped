@@ -115,6 +115,9 @@ var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 var fooIterable: Iterable<Foo>;
 var fooIterator: Iterator<Foo>;
 
+var fooAsyncIterable: AsyncIterable<Foo>;
+var fooAsyncIterator: AsyncIterator<Foo>;
+
 var maybeFooStream: Highland.Stream<Foo | undefined>;
 
 var isBaz: (obj: Foo) => obj is Baz;
@@ -186,6 +189,9 @@ fooArrStream = _(fooArrThen);
 
 fooStream = _(fooIterable);
 fooStream = _(fooIterator);
+
+fooStream = _(fooAsyncIterable);
+fooStream = _(fooAsyncIterator);
 
 // $ExpectType Stream<Stream<Foo>>
 _([fooStream]);
