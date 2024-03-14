@@ -79,10 +79,10 @@ import Alpine, {
     // Alpine.setReactivityEngine
     // $ExpectType void
     Alpine.setReactivityEngine({
-        reactive: val => val,
-        effect: cb => 1,
+        reactive: (val) => val,
+        effect: (cb) => 1,
         release: (id: number) => undefined,
-        raw: val => val,
+        raw: (val) => val,
     });
 }
 
@@ -195,7 +195,7 @@ import Alpine, {
     // $resultType (resultCallback: (result: unknown) => void) => void
     const getThingToLog = Alpine.evaluateLater(el, expression);
 
-    getThingToLog(thingToLog => {
+    getThingToLog((thingToLog) => {
         console.log(thingToLog);
     });
 }
@@ -249,11 +249,15 @@ import Alpine, {
     Alpine.interceptor;
 
     // This uses the generics as older versions of TypeScript don't properly infer the argument types
-    Alpine.data<{
-        intercepted: InterceptorObject<"foo">;
-        init(): void;
-        hello: "world";
-    }, [hello: "world"]>("user", (hello: "world") => ({ // checks argument support
+    Alpine.data<
+        {
+            intercepted: InterceptorObject<"foo">;
+            init(): void;
+            hello: "world";
+        },
+        [hello: "world"]
+    >("user", (hello: "world") => ({
+        // checks argument support
         intercepted: Alpine.interceptor((initialValue: "foo") => initialValue)("foo"),
         init() {
             // $ExpectType "foo"
@@ -534,6 +538,9 @@ import Alpine, {
     // $ExpectType void
     Alpine.store("darkModeState", false);
 
+    // $ExpectType boolean
+    Alpine.store("darkModeState");
+
     // $ExpectType void
     Alpine.store("tabs", {
         current: "first",
@@ -546,6 +553,9 @@ import Alpine, {
     Alpine.store("untypedKey", {
         foo: "bar",
     });
+
+    // $ExpectType unknown
+    Alpine.store("untypedKey");
 }
 
 {
