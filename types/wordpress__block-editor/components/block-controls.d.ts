@@ -11,7 +11,7 @@ declare namespace BlockControls {
 
     interface Props extends Pick<Toolbar.Props, "controls"> {
         children: ReactNode;
-        group?: BlockControlGroup;
+        group?: BlockControlGroup | undefined;
     }
 }
 declare const BlockControls: {
