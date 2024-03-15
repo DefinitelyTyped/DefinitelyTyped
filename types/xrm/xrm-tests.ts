@@ -626,3 +626,12 @@ optionSetControl.getOptions();
 // Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
 // $ExpectType OptionSetValue[]
 multiSelectOptionSetControl.getOptions();
+
+const openFileSave = Xrm.Navigation.openFile({
+    fileContent: "",
+    fileName: "test.txt",
+    fileSize: 0,
+    mimeType: "text/plain",
+}, {
+    openMode: XrmEnum.OpenFileOptions.Save,
+});
