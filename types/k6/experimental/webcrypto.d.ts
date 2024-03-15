@@ -91,14 +91,14 @@ export interface SubtleCrypto {
      *
      * To export a key, the key must have `CryptoKey.extractable` set to `true`.
      *
-     * @param format the format in which to export the key. Currently, only "raw" is supported.
+     * @param format the format in which to export the key. Currently, only "raw" and "jwk" are supported.
      * @param key the key to export.
      * @throws {InvalidAccessError} - if the key is not extractable.
      * @throws {NotSupportedError} - if the format is not supported.
      * @throws {TypeError} - when trying to use an invalid format.
      * @returns A promise that resolves with the exported key.
      */
-    exportKey(format: "raw", key: CryptoKey): Promise<ArrayBuffer>;
+    exportKey(format: "raw" | "jwk", key: CryptoKey): Promise<ArrayBuffer | JWK>;
 
     /**
      * Use the `generateKey()` method to generate a new key (for symmetric
@@ -121,7 +121,7 @@ export interface SubtleCrypto {
      * It takes as input a key in an external, portable format and gives you
      * a `CryptoKey` object that can be used in the Web Crypto API.
      *
-     * @param format the format of the key to import. Currently, only "raw" is supported.
+     * @param format the format of the key to import. Currently, only "raw" and "jwk" are supported.
      * @param keyData the key data to import.
      * @param algorithm defines the algorithm to use and any extra-parameters.
      * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
@@ -131,8 +131,8 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the imported `CryptoKey`.
      */
     importKey(
-        format: "raw",
-        keyData: ArrayBuffer | ArrayBufferView | DataView,
+        format: "raw" | "jwk",
+        keyData: ArrayBuffer | ArrayBufferView | DataView | JWK,
         algorithm: "AES-CBC" | "AES-CTR" | "AES-GCM" | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM"> | HmacImportParams,
         extractable: boolean,
         keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">,
@@ -395,3 +395,16 @@ export type TypedArray =
     | Uint16Array
     | Int32Array
     | Uint32Array;
+
+/**
+ * JSON Web Key Value.
+ * JWKs are not supported for now, since webcrypto doesn't support exporting key/pairs
+ */
+export type JWKValue = null | boolean | number | string | JWK;
+
+/**
+ * Object representable with JSON Web Key.
+ */
+export interface JWK {
+    [key: string]: JWKValue;
+}
