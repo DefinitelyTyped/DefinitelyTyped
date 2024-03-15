@@ -1,7 +1,11 @@
 import * as React from 'react';
 import {
-  Component, ComponentClass, CSSProperties,
-  FunctionComponent, ReactElement, ReactInstance, ValidationMap
+  Component,
+  ComponentClass,
+  CSSProperties,
+  FunctionComponent,
+  ReactElement,
+  ReactInstance,
 } from 'react';
 import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -2270,7 +2274,7 @@ const lightBaseTheme = {
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 class DeepDownTheTree extends Component<{} & {muiTheme: MuiTheme}> {
-  static propTypes: ValidationMap<any> = {
+  static propTypes: PropTypes.ValidationMap<any> = {
     muiTheme: PropTypes.object.isRequired,
   };
 

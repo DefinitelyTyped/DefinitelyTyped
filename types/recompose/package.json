@@ -6,10 +6,10 @@
         "https://github.com/acdlite/recompose"
     ],
     "dependencies": {
+        "@types/prop-types": "*",
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/prop-types": "*",
         "@types/recompose": "workspace:."
     },
     "owners": [

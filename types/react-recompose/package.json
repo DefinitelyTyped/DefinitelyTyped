@@ -6,10 +6,10 @@
         "https://github.com/react-recompose/react-recompose"
     ],
     "dependencies": {
+        "@types/prop-types": "*",
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/prop-types": "*",
         "@types/react-recompose": "workspace:."
     },
     "owners": [
