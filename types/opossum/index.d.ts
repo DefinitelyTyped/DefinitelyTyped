@@ -297,7 +297,7 @@ declare namespace CircuitBreaker {
          * @param {string} key Cache key
          * @returns Response from cache
          */
-        get<T>(key: string): T | undefined;
+        get(key: string): unknown | undefined;
 
         /**
          * Set cache key with value and ttl
