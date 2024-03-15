@@ -18,7 +18,7 @@ export type ClientRegistration = {
      */
     jti: string;
     /**
-     * 'Contains the Data Holder issuer value as described in the OIDC Discovery Document
+     * Contains the Data Holder issuer value as described in the OIDC Discovery Document
      */
     aud: string;
     [k: string]: unknown;
