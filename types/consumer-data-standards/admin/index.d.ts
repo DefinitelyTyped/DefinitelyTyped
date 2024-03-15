@@ -554,7 +554,7 @@ export interface ErrorMetrics {
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
 /**
- * Number of calls resulting in error due to server execution over time
+ * Number of calls resulting in error, over time
  */
 export interface ErrorMetricsV2 {
     /**
@@ -572,7 +572,7 @@ export interface ErrorMetricsV2 {
         [k: string]: unknown;
     } | null;
     /**
-     * Number of calls resulting in error due to server execution over time for authenticated endpoints
+     * Number of calls resulting in error for authenticated endpoints
      */
     authenticated: {
         /**
@@ -606,7 +606,7 @@ export interface ErrorMetricsV2 {
         [k: string]: unknown;
     };
     /**
-     * Number of calls resulting in error due to server execution over time for unauthenticated endpoints
+     * Number of calls resulting in error for unauthenticated endpoints
      */
     unauthenticated: {
         /**
@@ -966,7 +966,7 @@ export interface PerformanceMetrics {
  */
 export interface PerformanceMetricsV3 {
     /**
-     * Percentage of calls within the performance thresholds
+     * Percentage of calls within Primary Data Holder performance thresholds. Note that Secondary Data Holder performance <b>MUST</b> be excluded from this metric.
      */
     aggregate?: {
         /**
