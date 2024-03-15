@@ -20,8 +20,9 @@ function isImg<T>(
         formats: ["avif", "webp", "svg", null],
         urlPath: "/img/",
         outputDir: "./img/",
-        svgShortCircuit: true,
+        svgShortCircuit: "size",
         svgAllowUpscale: false,
+        svgCompressionSize: "br",
         cacheOptions: {
             duration: "1d",
             directory: ".cache",
@@ -57,6 +58,26 @@ function isImg<T>(
             console.log(isImg(source) ? source.img : source.source);
         }
     }
+
+    Image.eleventyImagePlugin({});
+
+    Image.eleventyImagePlugin({}, {
+        formats: ["webp", "jpeg"],
+        urlPath: "/img/",
+        defaultAttributes: {
+            loading: "lazy",
+            decoding: "async",
+        },
+    });
+
+    Image.eleventyImageTransformPlugin({}, {
+        extensions: "html",
+        formats: ["webp", "jpeg"],
+        defaultAttributes: {
+            loading: "lazy",
+            decoding: "async",
+        },
+    });
 
     return Image.generateHTML(
         stats,
