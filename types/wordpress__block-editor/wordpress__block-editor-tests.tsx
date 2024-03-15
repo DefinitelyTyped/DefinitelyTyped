@@ -64,6 +64,7 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 >
     Hello World
 </be.BlockControls>;
+<be.BlockControls group="default">Hello World</be.BlockControls>;
 <be.BlockControls.Slot />;
 
 //
@@ -202,6 +203,8 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
+<be.InnerBlocks orientation="vertical" />;
+<be.InnerBlocks prioritizedInserterBlocks={["core/navigation-link/page"]} />;
 
 //
 // inserter
