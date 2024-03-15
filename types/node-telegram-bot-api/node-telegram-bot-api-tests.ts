@@ -83,7 +83,7 @@ MyTelegramBot.sendPhoto(1234, "photo/path");
 MyTelegramBot.sendPhoto(1234, "photo/path", { caption: "Foo" });
 MyTelegramBot.sendPhoto(1234, "photo/path", {
     caption: "Foo",
-    caption_entities: [{ type: "bold", offset: 0, length: 2 }]
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
 });
 MyTelegramBot.sendPhoto(
     1234,
@@ -105,7 +105,7 @@ MyTelegramBot.sendAudio(
 MyTelegramBot.sendAudio(1234, "audio/path", { filename: "filename", contentType: "application/octet-stream" });
 MyTelegramBot.sendAudio(1234, "audio/path", {
     caption: "Foo",
-    caption_entities: [{ type: "bold", offset: 0, length: 2 }]
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
 });
 MyTelegramBot.sendDocument(1234, "doc/path");
 MyTelegramBot.sendDocument(1234, "doc/path", { caption: "Foo" });
@@ -117,7 +117,7 @@ MyTelegramBot.sendDocument(
 );
 MyTelegramBot.sendDocument(1234, "doc/path", {
     caption: "Foo",
-    caption_entities: [{ type: "bold", offset: 0, length: 2 }]
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
 });
 // @ts-expect-error
 MyTelegramBot.sendDocument(1234, "doc/path", { filename: "filename", contentType: "application/octet-stream" });
@@ -142,7 +142,7 @@ MyTelegramBot.sendVideo(
 );
 MyTelegramBot.sendVideo(1234, "video/path", {
     caption: "Foo",
-    caption_entities: [{ type: "bold", offset: 0, length: 2 }]
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
 });
 // @ts-expect-error
 MyTelegramBot.sendVideo(1234, "video/path", { filename: "filename", contentType: "application/octet-stream" });
@@ -168,10 +168,16 @@ MyTelegramBot.sendVoice(
 MyTelegramBot.sendVoice(1234, "voice/path", { filename: "filename", contentType: "application/octet-stream" });
 MyTelegramBot.sendVoice(1234, "voice/path", {
     caption: "Foo",
-    caption_entities: [{ type: "bold", offset: 0, length: 2 }]
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
 });
 MyTelegramBot.sendAnimation(1234, "animation/path", { caption: "Foo", duration: 100, width: 200, height: 300 });
-MyTelegramBot.sendAnimation(1234, "animation/path", { caption: "Foo", caption_entities: [{ type: "bold", offset: 0, length: 2 }], duration: 100, width: 200, height: 300 });
+MyTelegramBot.sendAnimation(1234, "animation/path", {
+    caption: "Foo",
+    caption_entities: [{ type: "bold", offset: 0, length: 2 }],
+    duration: 100,
+    width: 200,
+    height: 300,
+});
 MyTelegramBot.sendChatAction(1234, "typing");
 MyTelegramBot.banChatMember(1234, 5678);
 MyTelegramBot.banChatMember(1234, 5678, {
