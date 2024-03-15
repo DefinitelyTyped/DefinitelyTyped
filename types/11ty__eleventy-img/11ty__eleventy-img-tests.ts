@@ -39,6 +39,8 @@ function isImg<T>(
             height: 300,
         },
         hashLength: 8,
+        fixOrientation: true,
+        minimumThreshold: 2,
     });
 
     stats = Image.statsSync(url, {

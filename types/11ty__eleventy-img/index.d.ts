@@ -220,6 +220,18 @@ declare namespace EleventyImage {
          * @default true
          */
         useCacheValidityInHash?: true;
+
+        /**
+         * Rotate images to ensure correct orientation.
+         * @default false
+         */
+        fixOrientation?: boolean;
+
+        /**
+         * Ensures original size is included if smaller than largest specified width by threshold amount.
+         * @default 1.25
+         */
+        minimumThreshold?: number;
     }
 
     interface StatsOnlyImageOptions extends BaseImageOptions {
