@@ -90,6 +90,10 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    <div inert={true} />,
+    <div inert={false} />,
+    <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+     inert="" />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
@@ -131,7 +135,6 @@ const eventCallbacksTestCases = [
 
 function formActionsTest() {
     <form
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         action={formData => {
             // $ExpectType FormData
             formData;
@@ -140,7 +143,6 @@ function formActionsTest() {
         <input type="text" name="title" defaultValue="Hello" />
         <input
             type="submit"
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
@@ -148,7 +150,6 @@ function formActionsTest() {
             value="Save"
         />
         <button
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
