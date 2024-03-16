@@ -202,6 +202,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
+<be.InnerBlocks templateLock="all" />;
 
 //
 // inserter
