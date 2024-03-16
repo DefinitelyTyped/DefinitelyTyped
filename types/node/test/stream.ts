@@ -481,6 +481,11 @@ async function streamPipelineAsyncPromiseOptions() {
 
     // options with undefined properties
     pipelinePromise(process.stdin, process.stdout, { signal: undefined, end: undefined });
+
+    pipelinePromise(
+     (await fetch("https://example.com")).body,
+     fs.createWriteStream("example.html"),
+    );
 }
 
 async function testConsumers() {
