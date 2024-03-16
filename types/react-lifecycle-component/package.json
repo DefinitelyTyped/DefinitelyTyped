@@ -6,7 +6,7 @@
         "https://github.com/JamieDixon/react-lifecycle-component"
     ],
     "dependencies": {
-        "@types/react": "^17",
+        "@types/react": "*",
         "@types/react-redux": "*",
         "redux": "^4.0.0"
     },
