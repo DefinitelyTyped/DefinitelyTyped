@@ -1017,10 +1017,6 @@ declare namespace React {
          */
         propTypes?: any;
         /**
-         * defaultProps are not supported on function components anymore.
-         */
-        defaultProps?: never | undefined;
-        /**
          * Used in debugging messages. You might want to set it
          * explicitly if you want to display a different name for
          * debugging purposes.
@@ -1076,13 +1072,6 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
          */
         displayName?: string | undefined;
-        /**
-         * defaultProps are not supported on render functions passed to forwardRef.
-         *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
-         */
-        defaultProps?: never | undefined;
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
@@ -1322,11 +1311,6 @@ declare namespace React {
      * @see {@link ExoticComponent}
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
-        /**
-         * defaultProps are not supported on function components anymore.
-         */
-        defaultProps?: never | undefined;
-
         /**
          * Ignored by React.
          * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.

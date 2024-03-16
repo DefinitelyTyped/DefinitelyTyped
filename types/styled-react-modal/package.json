@@ -6,7 +6,7 @@
         "https://github.com/AlexanderRichey/styled-react-modal"
     ],
     "dependencies": {
-        "@types/react": "^18",
+        "@types/react": "*",
         "@types/styled-components": "*"
     },
     "devDependencies": {

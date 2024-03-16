@@ -6,7 +6,7 @@
         "https://github.com/mridgway/hoist-non-react-statics#readme"
     ],
     "dependencies": {
-        "@types/react": "^18",
+        "@types/react": "*",
         "hoist-non-react-statics": "^3.3.0"
     },
     "devDependencies": {
