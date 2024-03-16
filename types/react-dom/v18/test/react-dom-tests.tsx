@@ -371,7 +371,7 @@ function createRoot() {
     root.render(<div>initial render</div>);
     root.render(false);
 
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
+    // @ts-expect-error React 19 feature
     ReactDOMClient.createRoot(document);
 }
 
