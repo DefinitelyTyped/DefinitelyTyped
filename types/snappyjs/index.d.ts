@@ -16,5 +16,5 @@ export function compress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint
  */
 export function decompress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint8Array>(
     input: T,
-    maxLength?: number
+    maxLength?: number,
 ): T;
