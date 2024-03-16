@@ -428,7 +428,8 @@ ForwardingRefComponent.propTypes = {};
 // render function tests
 const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
+// Ideally this would error but since `defaultProps` is removed, it becomes an excess property.
+// Excess properties are generally allowed in TypeScript.
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
 
 function RefCarryingComponent() {
