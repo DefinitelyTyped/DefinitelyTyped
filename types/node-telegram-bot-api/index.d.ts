@@ -638,6 +638,7 @@ declare namespace TelegramBot {
         media: string;
         has_spoiler?: boolean | undefined;
         caption?: string | undefined;
+        caption_entities?: MessageEntity[] | undefined;
         parse_mode?: ParseMode | undefined;
     }
 
