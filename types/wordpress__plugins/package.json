@@ -6,7 +6,7 @@
         "https://github.com/WordPress/gutenberg/tree/master/packages/plugins/README.md"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/wordpress__components": "*",
         "@wordpress/element": "^3.0.0"
     },
