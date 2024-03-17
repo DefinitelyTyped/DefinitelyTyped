@@ -1,6 +1,8 @@
 // Note: Although the library does specify that Node.js Buffers are allowed,
 // they extend Uint8Array and therefore do not need to be mentioned explicitly in the types
 
+export as namespace SnappyJS;
+
 /**
  * @param input The byte stream to compress
  * @returns The compressed byte stream, of the same type as the input
