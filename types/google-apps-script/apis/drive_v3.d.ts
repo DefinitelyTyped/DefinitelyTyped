@@ -11,11 +11,11 @@ declare namespace GoogleAppsScript {
                 ): Drive_V3.Schema.TeamDrive;
                 get(
                     teamDriveId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.TeamDrive;
                 list(): Drive_V3.Schema.TeamDriveList;
                 list(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.TeamDriveList;
                 remove(teamDriveId: string): void;
                 update(
@@ -25,7 +25,7 @@ declare namespace GoogleAppsScript {
                 update(
                     resource: Drive_V3.Schema.TeamDrive,
                     teamDriveId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.TeamDrive;
             }
             interface RevisionsCollection {
@@ -36,14 +36,14 @@ declare namespace GoogleAppsScript {
                 get(
                     fileId: string,
                     revisionId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Revision;
                 list(
                     fileId: string,
                 ): Drive_V3.Schema.RevisionList;
                 list(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.RevisionList;
                 remove(
                     fileId: string,
@@ -70,7 +70,7 @@ declare namespace GoogleAppsScript {
                     fileId: string,
                     commentId: string,
                     replyId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Reply;
                 list(
                     fileId: string,
@@ -79,7 +79,7 @@ declare namespace GoogleAppsScript {
                 list(
                     fileId: string,
                     commentId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.ReplyList;
                 remove(
                     fileId: string,
@@ -101,7 +101,7 @@ declare namespace GoogleAppsScript {
                 create(
                     resource: Drive_V3.Schema.Permission,
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Permission;
                 get(
                     fileId: string,
@@ -110,14 +110,14 @@ declare namespace GoogleAppsScript {
                 get(
                     fileId: string,
                     permissionId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Permission;
                 list(
                     fileId: string,
                 ): Drive_V3.Schema.PermissionList;
                 list(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.PermissionList;
                 remove(
                     fileId: string,
@@ -126,7 +126,7 @@ declare namespace GoogleAppsScript {
                 remove(
                     fileId: string,
                     permissionId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): void;
                 update(
                     resource: Drive_V3.Schema.Permission,
@@ -137,7 +137,7 @@ declare namespace GoogleAppsScript {
                     resource: Drive_V3.Schema.Permission,
                     fileId: string,
                     permissionId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Permission;
             }
             interface FilesCollection {
@@ -148,7 +148,7 @@ declare namespace GoogleAppsScript {
                 copy(
                     resource: Drive_V3.Schema.File,
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.File;
                 create(
                     resource: Drive_V3.Schema.File,
@@ -160,11 +160,11 @@ declare namespace GoogleAppsScript {
                 create(
                     resource: Drive_V3.Schema.File,
                     mediaData: Base.Blob,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.File;
                 emptyTrash(): void;
                 emptyTrash(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): void;
                 export(
                     fileId: string,
@@ -172,25 +172,25 @@ declare namespace GoogleAppsScript {
                 ): void;
                 generateIds(): Drive_V3.Schema.GeneratedIds;
                 generateIds(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.GeneratedIds;
                 get(
                     fileId: string,
                 ): Drive_V3.Schema.File;
                 get(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.File;
                 list(): Drive_V3.Schema.FileList;
                 list(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.FileList;
                 listLabels(
                     fileId: string,
                 ): Drive_V3.Schema.LabelList;
                 listLabels(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.LabelList;
                 modifyLabels(
                     resource: Drive_V3.Schema.ModifyLabelsRequest,
@@ -201,7 +201,7 @@ declare namespace GoogleAppsScript {
                 ): void;
                 remove(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): void;
                 update(
                     resource: Drive_V3.Schema.File,
@@ -216,7 +216,7 @@ declare namespace GoogleAppsScript {
                     resource: Drive_V3.Schema.File,
                     fileId: string,
                     mediaData: Base.Blob,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.File;
                 watch(
                     resource: Drive_V3.Schema.Channel,
@@ -225,7 +225,7 @@ declare namespace GoogleAppsScript {
                 watch(
                     resource: Drive_V3.Schema.Channel,
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Channel;
             }
             interface DrivesCollection {
@@ -238,21 +238,21 @@ declare namespace GoogleAppsScript {
                 ): Drive_V3.Schema.Drive;
                 get(
                     driveId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Drive;
                 hide(
                     driveId: string,
                 ): Drive_V3.Schema.Drive;
                 list(): Drive_V3.Schema.DriveList;
                 list(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.DriveList;
                 remove(
                     driveId: string,
                 ): void;
                 remove(
                     driveId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): void;
                 unhide(
                     driveId: string,
@@ -264,7 +264,7 @@ declare namespace GoogleAppsScript {
                 update(
                     resource: Drive_V3.Schema.Drive,
                     driveId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Drive;
             }
             interface CommentsCollection {
@@ -279,14 +279,14 @@ declare namespace GoogleAppsScript {
                 get(
                     fileId: string,
                     commentId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Comment;
                 list(
                     fileId: string,
                 ): Drive_V3.Schema.CommentList;
                 list(
                     fileId: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.CommentList;
                 remove(
                     fileId: string,
@@ -304,14 +304,14 @@ declare namespace GoogleAppsScript {
             interface ChangesCollection {
                 getStartPageToken(): Drive_V3.Schema.StartPageToken;
                 getStartPageToken(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.StartPageToken;
                 list(
                     pageToken: string,
                 ): Drive_V3.Schema.ChangeList;
                 list(
                     pageToken: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.ChangeList;
                 watch(
                     resource: Drive_V3.Schema.Channel,
@@ -320,7 +320,7 @@ declare namespace GoogleAppsScript {
                 watch(
                     resource: Drive_V3.Schema.Channel,
                     pageToken: string,
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.Channel;
             }
             interface AppsCollection {
@@ -329,7 +329,7 @@ declare namespace GoogleAppsScript {
                 ): Drive_V3.Schema.App;
                 list(): Drive_V3.Schema.AppList;
                 list(
-                    optionalArgs: Object,
+                    optionalArgs: object,
                 ): Drive_V3.Schema.AppList;
             }
             interface AboutCollection {
@@ -409,7 +409,7 @@ declare namespace GoogleAppsScript {
                 revisions?: Drive_V3.Schema.Revision[];
             }
             interface Revision {
-                exportLinks?: Object;
+                exportLinks?: object;
                 id?: string;
                 keepForever?: boolean;
                 kind?: string;
@@ -519,7 +519,7 @@ declare namespace GoogleAppsScript {
                 valueType?: string;
             }
             interface Label {
-                fields?: Object;
+                fields?: object;
                 id?: string;
                 kind?: string;
                 revisionId?: string;
@@ -632,7 +632,7 @@ declare namespace GoogleAppsScript {
                 canUntrash?: boolean;
             }
             interface File {
-                appProperties?: Object;
+                appProperties?: object;
                 capabilities?: Drive_V3.Schema.FileCapabilities;
                 contentHints?: Drive_V3.Schema.FileContentHints;
                 contentRestrictions?: Drive_V3.Schema.ContentRestriction[];
@@ -641,7 +641,7 @@ declare namespace GoogleAppsScript {
                 description?: string;
                 driveId?: string;
                 explicitlyTrashed?: boolean;
-                exportLinks?: Object;
+                exportLinks?: object;
                 fileExtension?: string;
                 folderColorRgb?: string;
                 fullFileExtension?: string;
@@ -668,7 +668,7 @@ declare namespace GoogleAppsScript {
                 parents?: string[];
                 permissionIds?: string[];
                 permissions?: Drive_V3.Schema.Permission[];
-                properties?: Object;
+                properties?: object;
                 quotaBytesUsed?: string;
                 resourceKey?: string;
                 sha1Checksum?: string;
@@ -786,7 +786,7 @@ declare namespace GoogleAppsScript {
                 expiration?: string;
                 id?: string;
                 kind?: string;
-                params?: Object;
+                params?: object;
                 payload?: boolean;
                 resourceId?: string;
                 resourceUri?: string;
@@ -870,11 +870,11 @@ declare namespace GoogleAppsScript {
                 canCreateDrives?: boolean;
                 canCreateTeamDrives?: boolean;
                 driveThemes?: Drive_V3.Schema.AboutDriveThemes[];
-                exportFormats?: Object;
+                exportFormats?: object;
                 folderColorPalette?: string[];
-                importFormats?: Object;
+                importFormats?: object;
                 kind?: string;
-                maxImportSizes?: Object;
+                maxImportSizes?: object;
                 maxUploadSize?: string;
                 storageQuota?: Drive_V3.Schema.AboutStorageQuota;
                 teamDriveThemes?: Drive_V3.Schema.AboutTeamDriveThemes[];
