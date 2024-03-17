@@ -9,7 +9,7 @@ export function compress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint
 
 /**
  * @param input The compressed input
- * @param maxLength If provided, throws an exception if the data length in the header
+ * @param [maxLength] If provided, throws an exception if the data length in the header
  * exceeds the specified value
  * @returns The decmopressed byte stream, of the same type as the input
  * @throws {Error} If `maxLength` is provided and the length exceeds it
