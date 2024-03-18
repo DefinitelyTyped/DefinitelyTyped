@@ -1202,34 +1202,19 @@ declare namespace React {
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      * @see {@link forwardRef}
      */
-    interface ForwardRefRenderFunction<T, P = {}> {
-        (props: P, ref: ForwardedRef<T>): ReactElement | null;
-        /**
-         * Used in debugging messages. You might want to set it
-         * explicitly if you want to display a different name for
-         * debugging purposes.
-         *
-         * Will show `ForwardRef(${Component.displayName || Component.name})`
-         * in devtools by default, but can be given its own specific name.
-         *
-         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
-         */
-        displayName?: string | undefined;
-        /**
-         * defaultProps are not supported on render functions passed to forwardRef.
-         *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
-         */
-        defaultProps?: never | undefined;
-        /**
-         * propTypes are not supported on render functions passed to forwardRef.
-         *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
-         */
-        propTypes?: never | undefined;
-    }
+    function ForwardRefRenderFunction<T, P = {}>(props: P, ref: ForwardedRef<T>): ReactNode;
+    /**
+     * Used in debugging messages. You might want to set it
+     * explicitly if you want to display a different name for
+     * debugging purposes.
+     *
+     * Will show `ForwardRef(${Component.displayName || Component.name})`
+     * in devtools by default, but can be given its own specific name.
+     *
+     * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+     * @see {@link hhttps://legacy.reactjs.org/docs/forwarding-refs.html#displaying-a-custom-name-in-devtools Legacy React Docs}
+     */
+    ForwardRefRenderFunction.displayName as string | undefined;
 
     /**
      * Represents a component class in React.
@@ -1513,18 +1498,6 @@ declare namespace React {
     function createRef<T>(): RefObject<T>;
 
     /**
-     * The type of the component returned from {@link forwardRef}.
-     *
-     * @template P The props the component accepts, if any.
-     *
-     * @see {@link ExoticComponent}
-     */
-    interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
-        defaultProps?: Partial<P> | undefined;
-        propTypes?: WeakValidationMap<P> | undefined;
-    }
-
-    /**
      * Lets your component expose a DOM node to a parent component
      * using a ref.
      *
@@ -1553,7 +1526,7 @@ declare namespace React {
      */
     function forwardRef<T, P = {}>(
         render: ForwardRefRenderFunction<T, P>,
-    ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    ): NamedExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /**
      * Omits the 'ref' attribute from the given props object.

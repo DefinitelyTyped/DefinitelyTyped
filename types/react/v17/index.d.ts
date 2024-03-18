@@ -560,20 +560,8 @@ declare namespace React {
 
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
-    interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
-        displayName?: string | undefined;
-        // explicit rejected with `never` required due to
-        // https://github.com/microsoft/TypeScript/issues/36826
-        /**
-         * defaultProps are not supported on render functions
-         */
-        defaultProps?: never | undefined;
-        /**
-         * propTypes are not supported on render functions
-         */
-        propTypes?: never | undefined;
-    }
+    function ForwardRefRenderFunction<T, P = {}>(props: P, ref: ForwardedRef<T>): ReactNode;
+    ForwardRefRenderFunction.displayName as string | undefined;
 
     /**
      * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
@@ -794,16 +782,9 @@ declare namespace React {
 
     function createRef<T>(): RefObject<T>;
 
-    // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
-    // but can be given its own specific name
-    interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
-        defaultProps?: Partial<P> | undefined;
-        propTypes?: WeakValidationMap<P> | undefined;
-    }
-
     function forwardRef<T, P = {}>(
         render: ForwardRefRenderFunction<T, P>,
-    ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    ): NamedExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
