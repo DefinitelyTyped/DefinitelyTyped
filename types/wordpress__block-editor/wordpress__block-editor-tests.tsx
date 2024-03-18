@@ -588,7 +588,7 @@ be.useBlockProps.save({ foo: "bar" });
 
 {
     const { children } = be.useInnerBlocksProps();
-    // $ExpectType ReactNode
+    // $ExpectType ReactElement
     children;
 }
 
