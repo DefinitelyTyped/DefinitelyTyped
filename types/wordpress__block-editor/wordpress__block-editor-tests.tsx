@@ -1,6 +1,6 @@
 import * as be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
-import { BlockInstance } from "@wordpress/blocks";
+import { BlockInstance, createBlock } from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
 import { useRef } from "react";
 
@@ -331,6 +331,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     onChange={nextContent => console.log(nextContent.toUpperCase())}
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
     allowedFormats={["core/bold", "core/italic"]}
+    onSplit={(value, isOriginal) => createBlock("core/paragraph", { content: value })}
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
@@ -583,6 +584,12 @@ be.useBlockProps.save({ foo: "bar" });
     const innerBlocksProps = be.useInnerBlocksProps({ ref: useRef("test") });
 
     innerBlocksProps.ref((current: unknown) => {});
+}
+
+{
+    const { children } = be.useInnerBlocksProps();
+    // $ExpectType ReactNode
+    children;
 }
 
 // $ExpectType Record<string, unknown>
