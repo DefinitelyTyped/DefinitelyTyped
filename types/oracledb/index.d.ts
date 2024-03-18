@@ -559,7 +559,8 @@ declare namespace OracleDB {
 
     function converter<T>(arg: T): T;
 
-    type FetchTypeResponse = undefined
+    type FetchTypeResponse =
+        | undefined
         | { type: DbType; converter?: typeof converter }
         | { type?: DbType; converter: typeof converter };
     /**
