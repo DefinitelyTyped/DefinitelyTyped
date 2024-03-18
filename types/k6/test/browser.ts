@@ -1420,6 +1420,20 @@ elementHandle.selectText({ force: true });
 // $ExpectType void
 elementHandle.selectText({ noWaitAfter: true });
 
+// @ts-expect-error
+elementHandle.setInputFiles();
+// @ts-expect-error
+elementHandle.setInputFiles({});
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt" });
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
+                             { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+
 // $ExpectType void
 elementHandle.tap();
 // $ExpectType void
