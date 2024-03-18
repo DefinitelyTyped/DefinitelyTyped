@@ -3,25 +3,7 @@
 
 import { IncomingMessage, ServerResponse } from "http";
 
-declare global {
-    namespace OAuth2orize {
-        // These open interfaces may be extended in an application-specific manner via declaration merging.
-        // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
-        interface Client {}
-        interface User {}
-    }
-
-    namespace Express {
-        interface Request {
-            oauth2?: OAuth2 | undefined;
-        }
-    }
-}
-
-export type Client = OAuth2orize.Client;
-export type User = OAuth2orize.User;
-
-export interface OAuth2 {
+export interface OAuth2<Client = any, User = any> {
     client: Client;
     user: User;
     transactionID: string;
@@ -43,8 +25,8 @@ export interface OAuth2Info {
     scope: string;
 }
 
-export interface MiddlewareRequest extends IncomingMessage {
-    oauth2?: OAuth2 | undefined;
+export interface MiddlewareRequest<Client = any, User = any> extends IncomingMessage {
+    oauth2?: OAuth2<Client, User> | undefined;
     user?: User;
 }
 
@@ -52,7 +34,7 @@ export interface ServerOptions {
     store: any;
 }
 
-export function createServer(options?: ServerOptions): OAuth2Server;
+export function createServer<Client = any, User = any>(options?: ServerOptions): OAuth2Server<Client, User>;
 
 export interface AuthorizeOptions {
     idLength?: number | undefined;
@@ -60,10 +42,10 @@ export interface AuthorizeOptions {
 }
 
 export interface DecisionOptions {
-    cancelField: string;
-    userProperty: string;
-    sessionKey: string;
-    loadTransaction: boolean;
+    cancelField?: string;
+    userProperty?: string;
+    sessionKey?: string;
+    loadTransaction?: boolean;
 }
 
 export interface ErrorHandlerOptions {
@@ -128,39 +110,39 @@ export class TokenError extends OAuth2Error {
     constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
-export type MiddlewareFunction<TReq extends MiddlewareRequest = MiddlewareRequest> = (
+export type MiddlewareFunction<Client = any, User = any, TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<Client, User>> = (
     req: TReq,
     res: ServerResponse,
     next: MiddlewareNextFunction,
 ) => void;
 
-export type MiddlewareErrorFunction = (
+export type MiddlewareErrorFunction<Client = any, User = any> = (
     err: Error,
-    req: MiddlewareRequest,
+    req: MiddlewareRequest<Client, User>,
     res: ServerResponse,
     next: MiddlewareNextFunction,
 ) => void;
 
 export type MiddlewareNextFunction = (err?: Error) => void;
 
-export type ValidateDoneFunction = (err: Error | null, client?: Client | false, redirectURI?: string) => void;
-export type ValidateFunctionArity5 = (
+export type ValidateDoneFunction<Client = any> = (err: Error | null, client?: Client | false, redirectURI?: string) => void;
+export type ValidateFunctionArity5<Client = any> = (
     clientId: string,
     redirectURI: string,
     scope: string[],
     type: string,
-    validated: ValidateDoneFunction,
+    validated: ValidateDoneFunction<Client>,
 ) => void;
-export type ValidateFunctionArity4 = (
+export type ValidateFunctionArity4<Client> = (
     clientId: string,
     redirectURI: string,
     scope: string[],
-    validated: ValidateDoneFunction,
+    validated: ValidateDoneFunction<Client>,
 ) => void;
-export type ValidateFunction = (clientId: string, redirectURI: string, validated: ValidateDoneFunction) => void;
-export type ValidateFunctionArity2 = (areq: OAuth2Req, validated: ValidateDoneFunction) => void;
+export type ValidateFunction<Client = any> = (clientId: string, redirectURI: string, validated: ValidateDoneFunction<Client>) => void;
+export type ValidateFunctionArity2<Client = any> = (areq: OAuth2Req, validated: ValidateDoneFunction<Client>) => void;
 
-export type ImmediateFunction = (
+export type ImmediateFunction<Client = any, User = any> = (
     client: Client,
     user: User,
     scope: string[],
@@ -169,20 +151,20 @@ export type ImmediateFunction = (
     done: (err: Error | null, allow: boolean, info: any, locals: any) => void,
 ) => void;
 
-export type DecisionParseFunction<TReq extends MiddlewareRequest> = (
+export type DecisionParseFunction<Client = any, User = any, TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<any, any>> = (
     req: TReq,
     done: (err: Error | null, params?: any) => void,
 ) => void;
 
-export type SerializeClientFunction = (client: Client, done: SerializeClientDoneFunction) => void;
+export type SerializeClientFunction<Client = any> = (client: Client, done: SerializeClientDoneFunction) => void;
 export type SerializeClientDoneFunction = (err: Error | null, id: string) => void;
 
-export type DeserializeClientFunction = (id: string, done: DeserializeClientDoneFunction) => void;
-export type DeserializeClientDoneFunction = (err: Error | null, client?: Client | boolean) => void;
+export type DeserializeClientFunction<Client = any> = (id: string, done: DeserializeClientDoneFunction<Client>) => void;
+export type DeserializeClientDoneFunction<Client = any> = (err: Error | null, client?: Client | boolean) => void;
 
 export type IssueGrantCodeDoneFunction = (err: Error | null, code?: string) => void;
 
-export type IssueGrantCodeFunctionArity7 = (
+export type IssueGrantCodeFunctionArity7<Client = any, User = any> = (
     client: Client,
     redirectUri: string,
     user: User,
@@ -191,7 +173,7 @@ export type IssueGrantCodeFunctionArity7 = (
     locals: any,
     issued: IssueGrantCodeDoneFunction,
 ) => void;
-export type IssueGrantCodeFunctionArity6 = (
+export type IssueGrantCodeFunctionArity6<Client = any, User = any> = (
     client: Client,
     redirectUri: string,
     user: User,
@@ -199,35 +181,35 @@ export type IssueGrantCodeFunctionArity6 = (
     req: OAuth2Req,
     issued: IssueGrantCodeDoneFunction,
 ) => void;
-export type IssueGrantCodeFunction = (
+export type IssueGrantCodeFunction<Client = any, User = any> = (
     client: Client,
     redirectUri: string,
     user: User,
     res: any,
     issued: IssueGrantCodeDoneFunction,
 ) => void;
-export type IssueGrantCodeFunctionArity4 = (
+export type IssueGrantCodeFunctionArity4<Client = any, User = any> = (
     client: Client,
     redirectUri: string,
     user: User,
     issued: IssueGrantCodeDoneFunction,
 ) => void;
 
-export type IssueGrantTokenFunctionArity5 = (
+export type IssueGrantTokenFunctionArity5<Client = any, User = any> = (
     client: Client,
     user: User,
     ares: any,
     areq: any,
     issued: (err: Error | null, code?: string | boolean, params?: any) => void,
 ) => void;
-export type IssueGrantTokenFunctionArity4 = (
+export type IssueGrantTokenFunctionArity4<Client = any, User = any> = (
     client: Client,
     user: User,
     ares: any,
     issued: (err: Error | null, code?: string | boolean, params?: any) => void,
 ) => void;
 
-export type IssueExchangeCodeFunctionArity6 = (
+export type IssueExchangeCodeFunctionArity6<Client = any> = (
     client: Client,
     code: string,
     redirectURI: string,
@@ -235,14 +217,14 @@ export type IssueExchangeCodeFunctionArity6 = (
     authInfo: any,
     issued: ExchangeDoneFunction,
 ) => void;
-export type IssueExchangeCodeFunctionArity5 = (
+export type IssueExchangeCodeFunctionArity5<Client = any> = (
     client: Client,
     code: string,
     redirectURI: string,
     body: Record<string, unknown>,
     issued: ExchangeDoneFunction,
 ) => void;
-export type IssueExchangeCodeFunction = (
+export type IssueExchangeCodeFunction<Client = any> = (
     client: Client,
     code: string,
     redirectURI: string,
@@ -256,58 +238,58 @@ export type ExchangeDoneFunction = (
     params?: any,
 ) => void;
 
-export class OAuth2Server {
-    grant(type: string, fn: MiddlewareFunction): OAuth2Server;
-    grant(fn: MiddlewareFunction): OAuth2Server;
+export class OAuth2Server<Client = any, User = any>{
+    grant(type: string, fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
+    grant(fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
 
-    exchange(type: string, fn: MiddlewareFunction): OAuth2Server;
-    exchange(fn: MiddlewareFunction): OAuth2Server;
+    exchange(type: string, fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
+    exchange(fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
 
     authorize(
         options: AuthorizeOptions,
-        validate: ValidateFunctionArity5,
-        immediate?: ImmediateFunction,
-    ): MiddlewareFunction;
+        validate: ValidateFunctionArity5<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
     authorize(
         options: AuthorizeOptions,
-        validate: ValidateFunctionArity4,
-        immediate?: ImmediateFunction,
-    ): MiddlewareFunction;
-    authorize(options: AuthorizeOptions, validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
+        validate: ValidateFunctionArity4<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    authorize(options: AuthorizeOptions, validate: ValidateFunction<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
     authorize(
         options: AuthorizeOptions,
-        validate: ValidateFunctionArity2,
-        immediate?: ImmediateFunction,
-    ): MiddlewareFunction;
-    authorize(validate: ValidateFunctionArity5, immediate?: ImmediateFunction): MiddlewareFunction;
-    authorize(validate: ValidateFunctionArity4, immediate?: ImmediateFunction): MiddlewareFunction;
-    authorize(validate: ValidateFunction, immediate?: ImmediateFunction): MiddlewareFunction;
-    authorize(validate: ValidateFunctionArity2, immediate?: ImmediateFunction): MiddlewareFunction;
+        validate: ValidateFunctionArity2<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    authorize(validate: ValidateFunctionArity5<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
+    authorize(validate: ValidateFunctionArity4<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
+    authorize(validate: ValidateFunction<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
+    authorize(validate: ValidateFunctionArity2<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
 
-    authorization: OAuth2Server["authorize"];
+    authorization: OAuth2Server<Client, User>["authorize"];
 
-    decision<TReq extends MiddlewareRequest>(
+    decision<TReq extends MiddlewareRequest<Client, User>>(
         options: DecisionOptions,
-        parse: DecisionParseFunction<TReq>,
-    ): MiddlewareFunction<TReq>;
-    decision<TReq extends MiddlewareRequest>(parse: DecisionParseFunction<TReq>): MiddlewareFunction<TReq>;
-    decision<TReq extends MiddlewareRequest>(): MiddlewareFunction<TReq>;
+        parse: DecisionParseFunction<Client, User, TReq>,
+    ): MiddlewareFunction<Client, User, TReq>;
+    decision<TReq extends MiddlewareRequest<Client, User>>(parse: DecisionParseFunction<Client, User, TReq>): MiddlewareFunction<Client, User, TReq>;
+    decision<TReq extends MiddlewareRequest<Client, User>>(): MiddlewareFunction<Client, User, TReq>;
 
-    token(options?: any): MiddlewareFunction;
+    token(options?: any): MiddlewareFunction<Client, User>;
 
-    errorHandler(options?: any): MiddlewareErrorFunction;
+    errorHandler(options?: any): MiddlewareErrorFunction<Client, User>;
 
-    serializeClient(fn: SerializeClientFunction): void;
+    serializeClient(fn: SerializeClientFunction<Client>): void;
     serializeClient(client: Client, done: SerializeClientDoneFunction): void;
 
-    deserializeClient(fn: DeserializeClientFunction): void;
-    deserializeClient(obj: any, done: DeserializeClientDoneFunction): void;
+    deserializeClient(fn: DeserializeClientFunction<Client>): void;
+    deserializeClient(obj: any, done: DeserializeClientDoneFunction<Client>): void;
 }
 
 export namespace grant {
-    interface Options {
+    interface Options<Client = any, User = any> {
         modes?: {
-            query?: (txn: OAuth2, res: ServerResponse, params: Record<string, unknown>) => void;
+            query?: (txn: OAuth2<Client, User>, res: ServerResponse, params: Record<string, unknown>) => void;
         };
         // For maximum flexibility, multiple scope separators can optionally be
         // allowed.  This allows the server to accept clients that separate scope
@@ -317,19 +299,19 @@ export namespace grant {
         scopeSeparator?: string | undefined;
     }
 
-    function code(options: Options, issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
-    function code(options: Options, issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
-    function code(options: Options, issue: IssueGrantCodeFunction): MiddlewareFunction;
-    function code(options: Options, issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
-    function code(issue: IssueGrantCodeFunctionArity7): MiddlewareFunction;
-    function code(issue: IssueGrantCodeFunctionArity6): MiddlewareFunction;
-    function code(issue: IssueGrantCodeFunction): MiddlewareFunction;
-    function code(issue: IssueGrantCodeFunctionArity4): MiddlewareFunction;
+    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity7<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity6<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunction<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity7<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity6<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(issue: IssueGrantCodeFunction<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
 
-    function token(options: Options, issue: IssueGrantTokenFunctionArity5): MiddlewareFunction;
-    function token(options: Options, issue: IssueGrantTokenFunctionArity4): MiddlewareFunction;
-    function token(issue: IssueGrantTokenFunctionArity5): MiddlewareFunction;
-    function token(issue: IssueGrantTokenFunctionArity4): MiddlewareFunction;
+    function token<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantTokenFunctionArity5<Client, User>): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantTokenFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(issue: IssueGrantTokenFunctionArity5<Client, User>): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(issue: IssueGrantTokenFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
 }
 
 export namespace exchange {
@@ -346,42 +328,42 @@ export namespace exchange {
         scopeSeparator?: string | undefined;
     }
 
-    function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
-    function authorizationCode(options: Options, issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
-    function authorizationCode(options: Options, issue: IssueExchangeCodeFunction): MiddlewareFunction;
-    function authorizationCode(issue: IssueExchangeCodeFunctionArity6): MiddlewareFunction;
-    function authorizationCode(issue: IssueExchangeCodeFunctionArity5): MiddlewareFunction;
-    function authorizationCode(issue: IssueExchangeCodeFunction): MiddlewareFunction;
+    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunctionArity6<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunctionArity5<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunction<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunctionArity6<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunctionArity5<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunction<Client>): MiddlewareFunction<Client, User>;
 
     const code: typeof authorizationCode;
 
     // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
-    function clientCredentials(
+    function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], body: any, authInfo: any, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, scope, req.body, issued);
-    function clientCredentials(
+    function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], body: any, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 3; issue(client, scope, issued);
-    function clientCredentials(
+    function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 2; issue(client, issued);
-    function clientCredentials(
+    function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
-    function clientCredentials(
+    ): MiddlewareFunction<Client, User>;
+    function clientCredentials<Client = any, User = any>(
         issue: (client: Client, scope: string[], issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
-    function clientCredentials(issue: (client: Client, issued: ExchangeDoneFunction) => void): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
+    function clientCredentials<Client = any, User = any>(issue: (client: Client, issued: ExchangeDoneFunction) => void): MiddlewareFunction<Client, User>;
 
     // arity == 7; issue(client, username, passwd, scope, req.body, req.authInfo, issued);
-    function password(
+    function password<Client = any, User = any>(
         options: Options,
         issue: (
             client: Client,
@@ -392,9 +374,9 @@ export namespace exchange {
             authInfo: any,
             issued: ExchangeDoneFunction,
         ) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 6; issue(client, username, passwd, scope, req.body, issued);
-    function password(
+    function password<Client = any, User = any>(
         options: Options,
         issue: (
             client: Client,
@@ -404,9 +386,9 @@ export namespace exchange {
             body: any,
             issued: ExchangeDoneFunction,
         ) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 5; issue(client, username, passwd, scope, issued);
-    function password(
+    function password<Client = any, User = any>(
         options: Options,
         issue: (
             client: Client,
@@ -415,13 +397,13 @@ export namespace exchange {
             scope: string[],
             issued: ExchangeDoneFunction,
         ) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, username, passwd, issued);
-    function password(
+    function password<Client = any, User = any>(
         options: Options,
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
-    function password(
+    ): MiddlewareFunction<Client, User>;
+    function password<Client = any, User = any>(
         issue: (
             client: Client,
             username: string,
@@ -429,13 +411,13 @@ export namespace exchange {
             scope: string[],
             issued: ExchangeDoneFunction,
         ) => void,
-    ): MiddlewareFunction;
-    function password(
+    ): MiddlewareFunction<Client, User>;
+    function password<Client = any, User = any>(
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
 
     // arity == 6; issue(client, refreshToken, scope, req.body, req.authInfo, issued);
-    function refreshToken(
+    function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (
             client: Client,
@@ -445,26 +427,26 @@ export namespace exchange {
             authInfo: any,
             issued: ExchangeDoneFunction,
         ) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 5; issue(client, refreshToken, scope, req.body, issued);
-    function refreshToken(
+    function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, scope: string[], body: any, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, refreshToken, scope, issued);
-    function refreshToken(
+    function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, scope: string[], issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
     // arity == 3; issue(client, refreshToken, issued);
-    function refreshToken(
+    function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
-    function refreshToken(
+    ): MiddlewareFunction<Client, User>;
+    function refreshToken<Client = any, User = any>(
         issue: (client: Client, refreshToken: string, scope: string[], issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
-    function refreshToken(
+    ): MiddlewareFunction<Client, User>;
+    function refreshToken<Client = any, User = any>(
         issue: (client: Client, refreshToken: string, issued: ExchangeDoneFunction) => void,
-    ): MiddlewareFunction;
+    ): MiddlewareFunction<Client, User>;
 }

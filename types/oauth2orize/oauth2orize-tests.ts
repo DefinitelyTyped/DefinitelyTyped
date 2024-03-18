@@ -105,10 +105,12 @@ class Clients {
 }
 
 declare global {
-    namespace OAuth2orize {
-        interface Client {
-            id: string;
-            redirectURI: string;
+    namespace Express {
+        interface Request {
+            oauth2: oauth2orize.OAuth2<{
+                id: string;
+                redirectURI: string;
+            }>
         }
     }
 }
@@ -137,17 +139,17 @@ server.authorize(
 // );
 
 server.authorize((clientID, redirectURI, scope, type, done) => {
-    done; // $ExpectType ValidateDoneFunction
+    done; // $ExpectType ValidateDoneFunction<any>
 });
 server.authorize(
     ((clientID, redirectURI, scope, done) => {
-        done; // $ExpectType ValidateDoneFunction
-    }) as oauth2orize.ValidateFunctionArity4,
+        done; // $ExpectType ValidateDoneFunction<any>
+    }) as oauth2orize.ValidateFunctionArity4<any>,
 );
 server.authorize(
     ((areq, done) => {
-        done; // $ExpectType ValidateDoneFunction
-    }) as oauth2orize.ValidateFunctionArity2,
+        done; // $ExpectType ValidateDoneFunction<any>
+    }) as oauth2orize.ValidateFunctionArity2<any>,
 );
 
 server.authorization((clientId, redirectURI, done) => {});
@@ -179,3 +181,30 @@ const tokenError = new oauth2orize.TokenError("Incorrect token", "invalid_grant"
 const code: string = tokenError.code;
 new oauth2orize.AuthorizationError("Incorrect token", "access_denied");
 new oauth2orize.OAuth2Error();
+
+// Typed server
+interface Client {
+    id: string;
+    redirectURI: string;
+};
+interface User {
+    id: string;
+};
+const typedServer = oauth2orize.createServer<Client, User>();
+
+typedServer.grant(
+    oauth2orize.grant.token(async function grantToken(
+      client,
+      user,
+      _res,
+      req,
+      done: (
+        err: Error | null,
+        token?: string | false,
+        params?: { expires_in: number }
+      ) => void
+    ) {
+        client; // $ExpectType Client
+        user; // $ExpectType User
+    })
+);
