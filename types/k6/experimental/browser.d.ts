@@ -115,6 +115,23 @@ export interface EventSequenceOptions {
     delay?: number;
 }
 
+export interface File {
+    /**
+     * File name
+     */
+    name: string;
+
+    /**
+     * File type
+     */
+    mimeType: string;
+
+    /**
+     * File content
+     */
+    buffer: ArrayBuffer;
+}
+
 export type ElementHandleOptions = {
     /**
      * Setting this to `true` will bypass the actionability checks (visible,
@@ -1130,6 +1147,31 @@ export interface ElementHandle extends JSHandle {
      * @param options Element handle options.
      */
     selectText(options?: ElementHandleOptions): void;
+
+    /**
+     * Sets the value of the file input to these files.
+     *
+     * To work with local file on the file system, work with the experimental
+     * fs module to load and read the file's content.
+     *
+     * The elementHandle must an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param files
+     * @param options
+     */
+    setInputFiles(files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on `BrowserContext` or
+         * `Page`. Defaults to 30000.
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete. Defaults to `false`.
+         */
+        noWaitAfter?: boolean;
+    }): void;
 
     /**
      * Scrolls element into view if needed, and then uses `page.tapscreen` to tap in the center of the element
