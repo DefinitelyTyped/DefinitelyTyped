@@ -110,7 +110,11 @@ export class TokenError extends OAuth2Error {
     constructor(message?: string, code?: TokenErrorCode | string, uri?: string, status?: number);
 }
 
-export type MiddlewareFunction<Client = any, User = any, TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<Client, User>> = (
+export type MiddlewareFunction<
+    Client = any,
+    User = any,
+    TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<Client, User>,
+> = (
     req: TReq,
     res: ServerResponse,
     next: MiddlewareNextFunction,
@@ -125,7 +129,11 @@ export type MiddlewareErrorFunction<Client = any, User = any> = (
 
 export type MiddlewareNextFunction = (err?: Error) => void;
 
-export type ValidateDoneFunction<Client = any> = (err: Error | null, client?: Client | false, redirectURI?: string) => void;
+export type ValidateDoneFunction<Client = any> = (
+    err: Error | null,
+    client?: Client | false,
+    redirectURI?: string,
+) => void;
 export type ValidateFunctionArity5<Client = any> = (
     clientId: string,
     redirectURI: string,
@@ -139,7 +147,11 @@ export type ValidateFunctionArity4<Client> = (
     scope: string[],
     validated: ValidateDoneFunction<Client>,
 ) => void;
-export type ValidateFunction<Client = any> = (clientId: string, redirectURI: string, validated: ValidateDoneFunction<Client>) => void;
+export type ValidateFunction<Client = any> = (
+    clientId: string,
+    redirectURI: string,
+    validated: ValidateDoneFunction<Client>,
+) => void;
 export type ValidateFunctionArity2<Client = any> = (areq: OAuth2Req, validated: ValidateDoneFunction<Client>) => void;
 
 export type ImmediateFunction<Client = any, User = any> = (
@@ -151,7 +163,11 @@ export type ImmediateFunction<Client = any, User = any> = (
     done: (err: Error | null, allow: boolean, info: any, locals: any) => void,
 ) => void;
 
-export type DecisionParseFunction<Client = any, User = any, TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<any, any>> = (
+export type DecisionParseFunction<
+    Client = any,
+    User = any,
+    TReq extends MiddlewareRequest<Client, User> = MiddlewareRequest<any, any>,
+> = (
     req: TReq,
     done: (err: Error | null, params?: any) => void,
 ) => void;
@@ -238,7 +254,7 @@ export type ExchangeDoneFunction = (
     params?: any,
 ) => void;
 
-export class OAuth2Server<Client = any, User = any>{
+export class OAuth2Server<Client = any, User = any> {
     grant(type: string, fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
     grant(fn: MiddlewareFunction<Client, User>): OAuth2Server<Client, User>;
 
@@ -255,16 +271,32 @@ export class OAuth2Server<Client = any, User = any>{
         validate: ValidateFunctionArity4<Client>,
         immediate?: ImmediateFunction<Client, User>,
     ): MiddlewareFunction<Client, User>;
-    authorize(options: AuthorizeOptions, validate: ValidateFunction<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
+    authorize(
+        options: AuthorizeOptions,
+        validate: ValidateFunction<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
     authorize(
         options: AuthorizeOptions,
         validate: ValidateFunctionArity2<Client>,
         immediate?: ImmediateFunction<Client, User>,
     ): MiddlewareFunction<Client, User>;
-    authorize(validate: ValidateFunctionArity5<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
-    authorize(validate: ValidateFunctionArity4<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
-    authorize(validate: ValidateFunction<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
-    authorize(validate: ValidateFunctionArity2<Client>, immediate?: ImmediateFunction<Client, User>): MiddlewareFunction<Client, User>;
+    authorize(
+        validate: ValidateFunctionArity5<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    authorize(
+        validate: ValidateFunctionArity4<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    authorize(
+        validate: ValidateFunction<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    authorize(
+        validate: ValidateFunctionArity2<Client>,
+        immediate?: ImmediateFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
 
     authorization: OAuth2Server<Client, User>["authorize"];
 
@@ -272,7 +304,9 @@ export class OAuth2Server<Client = any, User = any>{
         options: DecisionOptions,
         parse: DecisionParseFunction<Client, User, TReq>,
     ): MiddlewareFunction<Client, User, TReq>;
-    decision<TReq extends MiddlewareRequest<Client, User>>(parse: DecisionParseFunction<Client, User, TReq>): MiddlewareFunction<Client, User, TReq>;
+    decision<TReq extends MiddlewareRequest<Client, User>>(
+        parse: DecisionParseFunction<Client, User, TReq>,
+    ): MiddlewareFunction<Client, User, TReq>;
     decision<TReq extends MiddlewareRequest<Client, User>>(): MiddlewareFunction<Client, User, TReq>;
 
     token(options?: any): MiddlewareFunction<Client, User>;
@@ -299,19 +333,49 @@ export namespace grant {
         scopeSeparator?: string | undefined;
     }
 
-    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity7<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity6<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunction<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantCodeFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity7<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity6<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(issue: IssueGrantCodeFunction<Client, User>): MiddlewareFunction<Client, User>;
-    function code<Client = any, User = any>(issue: IssueGrantCodeFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantCodeFunctionArity7<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantCodeFunctionArity6<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantCodeFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantCodeFunctionArity4<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        issue: IssueGrantCodeFunctionArity7<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        issue: IssueGrantCodeFunctionArity6<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        issue: IssueGrantCodeFunction<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function code<Client = any, User = any>(
+        issue: IssueGrantCodeFunctionArity4<Client, User>,
+    ): MiddlewareFunction<Client, User>;
 
-    function token<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantTokenFunctionArity5<Client, User>): MiddlewareFunction<Client, User>;
-    function token<Client = any, User = any>(options: Options<Client, User>, issue: IssueGrantTokenFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
-    function token<Client = any, User = any>(issue: IssueGrantTokenFunctionArity5<Client, User>): MiddlewareFunction<Client, User>;
-    function token<Client = any, User = any>(issue: IssueGrantTokenFunctionArity4<Client, User>): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantTokenFunctionArity5<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(
+        options: Options<Client, User>,
+        issue: IssueGrantTokenFunctionArity4<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(
+        issue: IssueGrantTokenFunctionArity5<Client, User>,
+    ): MiddlewareFunction<Client, User>;
+    function token<Client = any, User = any>(
+        issue: IssueGrantTokenFunctionArity4<Client, User>,
+    ): MiddlewareFunction<Client, User>;
 }
 
 export namespace exchange {
@@ -328,12 +392,27 @@ export namespace exchange {
         scopeSeparator?: string | undefined;
     }
 
-    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunctionArity6<Client>): MiddlewareFunction<Client, User>;
-    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunctionArity5<Client>): MiddlewareFunction<Client, User>;
-    function authorizationCode<Client = any, User = any>(options: Options, issue: IssueExchangeCodeFunction<Client>): MiddlewareFunction<Client, User>;
-    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunctionArity6<Client>): MiddlewareFunction<Client, User>;
-    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunctionArity5<Client>): MiddlewareFunction<Client, User>;
-    function authorizationCode<Client = any, User = any>(issue: IssueExchangeCodeFunction<Client>): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        options: Options,
+        issue: IssueExchangeCodeFunctionArity6<Client>,
+    ): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        options: Options,
+        issue: IssueExchangeCodeFunctionArity5<Client>,
+    ): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        options: Options,
+        issue: IssueExchangeCodeFunction<Client>,
+    ): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        issue: IssueExchangeCodeFunctionArity6<Client>,
+    ): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        issue: IssueExchangeCodeFunctionArity5<Client>,
+    ): MiddlewareFunction<Client, User>;
+    function authorizationCode<Client = any, User = any>(
+        issue: IssueExchangeCodeFunction<Client>,
+    ): MiddlewareFunction<Client, User>;
 
     const code: typeof authorizationCode;
 
@@ -360,7 +439,9 @@ export namespace exchange {
     function clientCredentials<Client = any, User = any>(
         issue: (client: Client, scope: string[], issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
-    function clientCredentials<Client = any, User = any>(issue: (client: Client, issued: ExchangeDoneFunction) => void): MiddlewareFunction<Client, User>;
+    function clientCredentials<Client = any, User = any>(
+        issue: (client: Client, issued: ExchangeDoneFunction) => void,
+    ): MiddlewareFunction<Client, User>;
 
     // arity == 7; issue(client, username, passwd, scope, req.body, req.authInfo, issued);
     function password<Client = any, User = any>(

@@ -110,7 +110,7 @@ declare global {
             oauth2: oauth2orize.OAuth2<{
                 id: string;
                 redirectURI: string;
-            }>
+            }>;
         }
     }
 }
@@ -186,25 +186,25 @@ new oauth2orize.OAuth2Error();
 interface Client {
     id: string;
     redirectURI: string;
-};
+}
 interface User {
     id: string;
-};
+}
 const typedServer = oauth2orize.createServer<Client, User>();
 
 typedServer.grant(
     oauth2orize.grant.token(async function grantToken(
-      client,
-      user,
-      _res,
-      req,
-      done: (
-        err: Error | null,
-        token?: string | false,
-        params?: { expires_in: number }
-      ) => void
+        client,
+        user,
+        _res,
+        req,
+        done: (
+            err: Error | null,
+            token?: string | false,
+            params?: { expires_in: number },
+        ) => void,
     ) {
         client; // $ExpectType Client
         user; // $ExpectType User
-    })
+    }),
 );
