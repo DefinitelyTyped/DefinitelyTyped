@@ -1905,6 +1905,22 @@ frame.isVisible("input");
 frame.isVisible("input", { strict: true });
 
 // @ts-expect-error
+frame.setInputFiles();
+// @ts-expect-error
+frame.setInputFiles("foo");
+// @ts-expect-error
+frame.setInputFiles("foo", {});
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+frame.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
+                                    { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+
+// @ts-expect-error
 frame.waitForFunction();
 // $ExpectType Promise<JSHandle<boolean>>
 frame.waitForFunction(() => true);
