@@ -320,6 +320,7 @@
 /types/array-rearrange/                                   @BendingBender
 /types/array-same/                                        @BendingBender
 /types/array-sort/                                        @DanielMSchmidt
+/types/array-to-sentence/                                 @e6nlaq
 /types/array-unique/                                      @CSLTech
 /types/array.from/                                        @ExE-Boss
 /types/array.prototype.every/                             @ljharb
@@ -3286,6 +3287,7 @@
 /types/http-terminator/                                   @sripberger
 /types/httperr/                                           @yortus
 /types/httpsnippet/                                       @marcelltoth
+/types/httptoolkit__esm/                                  @nktnet1 @pimterry
 /types/hubot/                                             @dirk @KeesCBakker @eeemil @jphenow
 /types/hubspot-pace/                                      @borislavjivkov
 /types/human-crypto-keys/                                 @jackHedaya
@@ -4693,6 +4695,7 @@
 /types/lyricist/                                          @DadUndead
 /types/lz4/                                               @bendingbender
 /types/lzbase62/                                          @ArthurKa
+/types/lzma/                                              @Goldsmith42
 /types/lzma-native/                                       @leshow
 /types/macaca-circular-json/                              @jpevarnek
 /types/macrotask/                                         @BendingBender
@@ -6739,7 +6742,6 @@
 /types/react-sticky-el/                                   @jbraithwaite
 /types/react-stickynode/                                  @tstirrat @ksocha @mciastek @yanickdi
 /types/react-stonecutter/                                 @jzipfler @Iswenzz
-/types/react-stripe-elements/                             @dan-j @santiagodoldan @sonnysangha @9y5 @thchia @yhnavein @virzak @remotealex @bombek92 @hirochachacha @paustint @mastacheata
 /types/react-svg-inline/                                  @kiyopikko
 /types/react-svg-map/                                     @nickglazer
 /types/react-svg-morph/                                   @hmajid2301
@@ -7743,9 +7745,7 @@
 /types/strip-bom-string/                                  @pwall2222
 /types/strip-color/                                       @BendingBender
 /types/strip-comments/                                    @peterblazejewicz
-/types/stripe-checkout/                                   @cgwrench
 /types/stripe-v2/                                         @ejsmith @amritk @adamcmiel @jleider @galuszkak
-/types/stripe-v3/                                         @ejsmith @amritk @adamcmiel @jleider @galuszkak @slangeder @marlosin @ttmarek @kimehrenpohl @KrishnaPravin @hirochachacha @paustint @ksol @matsuby @kaznovac @hartleyrobertson @qqilihq
 /types/stripejs/                                          @RobinvanTienhoven @mattferderer
 /types/strman/                                            @adambrgmn
 /types/strong-cluster-control/                            @shuntksh
@@ -8018,6 +8018,7 @@
 /types/tiny-async-pool/v1/                                @krlwlfrt
 /types/tiny-human-time/                                   @jimmycuadra
 /types/tiny-json-http/                                    @levibostian
+/types/tiny-segmenter/                                    @e6nlaq
 /types/tiny-slider-react/                                 @screendriver
 /types/tiny-templater/                                    @jimmycuadra
 /types/tinycolor2/                                        @M-Zuber @geertjansen @nvh
@@ -8438,6 +8439,7 @@
 /types/vue-tel-input/                                     @suryadana
 /types/vue-template-es2015-compiler/                      @iam-medvedev
 /types/vue-the-mask/                                      @domschmidt
+/types/vue-writer/                                        @BekYahia
 /types/vue2-datepicker/                                   @ChristianStornowski
 /types/vue2-editor/                                       @suryadana
 /types/vue2-hammer/                                       @ptandler
