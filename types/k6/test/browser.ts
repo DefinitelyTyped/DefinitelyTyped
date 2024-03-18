@@ -640,6 +640,22 @@ page.setExtraHTTPHeaders();
 page.setExtraHTTPHeaders({ Accept: "text/html" });
 
 // @ts-expect-error
+page.setInputFiles();
+// @ts-expect-error
+page.setInputFiles("foo");
+// @ts-expect-error
+page.setInputFiles("foo", {});
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+page.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
+                                    { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+
+// @ts-expect-error
 page.setViewportSize();
 // $ExpectType void
 page.setViewportSize({ width: 800, height: 600 });
