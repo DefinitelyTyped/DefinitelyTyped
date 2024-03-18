@@ -64,7 +64,7 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 >
     Hello World
 </be.BlockControls>;
-<be.BlockControls group="default">Hello World</be.BlockControls>;
+<be.BlockControls group="block">Hello World</be.BlockControls>;
 <be.BlockControls.Slot />;
 
 //
