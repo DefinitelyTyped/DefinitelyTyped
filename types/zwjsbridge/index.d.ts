@@ -388,6 +388,15 @@ interface ZWJSBridge {
      */
     downloadFile(options: DownloadFileOptions): Promise<DownloadFileResult>;
 
+    /**
+     * 语音转文本
+     * - 仅支持“浙里办”APP（v7.9.0 及以后版本）中调用此功能，小程序暂不支持。
+     */
+    voicedictation(): Promise<{
+        /** 识别到的内容 */
+        result: string;
+    }>;
+
     /***********    UI界面类     ***********/
     /**
      * 确认框
