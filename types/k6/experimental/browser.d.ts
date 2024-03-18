@@ -146,6 +146,8 @@ export type ElementHandleOptions = {
     noWaitAfter?: boolean;
 } & TimeoutOptions;
 
+export type PageOptions = ElementHandleOptions;
+
 export type ElementHandlePointerOptions = ElementHandleOptions & {
     /**
      * Setting this to `true` will perform the actionability checks without
@@ -2995,6 +2997,39 @@ export interface Page {
      * All header values must be strings.
      */
     setExtraHTTPHeaders(headers: { [key: string]: string }): void;
+
+    /**
+     * Sets the value of the file input to these files.
+     *
+     * To work with local file on the file system, work with the experimental
+     * fs module to load and read the file's content.
+     *
+     * This method expects `selector` to point to an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param selector A selector to search for an element. If there are multiple
+     * elements satisfying the selector, the first will be used.
+     * @param files
+     * @param options
+     */
+    setInputFiles(selector: string, files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on `BrowserContext` or
+         * `Page`. Defaults to 30000.
+         */
+        timeout?: number;
+
+        /**
+         * Setting this to `true` will bypass the actionability checks (visible,
+         * stable, enabled). Defaults to `false`.
+         */
+        force?: boolean;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete. Defaults to `false`.
+         */
+        noWaitAfter?: boolean;
+    }): void;
 
     /**
      * This will update the page's width and height.
