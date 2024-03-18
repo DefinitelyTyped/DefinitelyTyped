@@ -483,7 +483,7 @@ async function streamPipelineAsyncPromiseOptions() {
     pipelinePromise(process.stdin, process.stdout, { signal: undefined, end: undefined });
 
     pipelinePromise(
-     (await fetch("https://example.com")).body,
+     (await fetch("https://example.com")).body!,
      fs.createWriteStream("example.html"),
     );
 }
