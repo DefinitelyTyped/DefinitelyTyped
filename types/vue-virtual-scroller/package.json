@@ -11,7 +11,6 @@
     "devDependencies": {
         "@types/vue-virtual-scroller": "workspace:."
     },
-    "types": "index.d.ts",
     "owners": [
         {
             "name": "Charlie Harding",
