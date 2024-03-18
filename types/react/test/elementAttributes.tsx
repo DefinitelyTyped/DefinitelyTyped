@@ -90,6 +90,10 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    <div inert={true} />,
+    <div inert={false} />,
+    <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+     inert="" />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
