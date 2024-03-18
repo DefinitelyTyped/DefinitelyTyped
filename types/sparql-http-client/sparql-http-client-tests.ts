@@ -1,5 +1,5 @@
 import { Environment } from "@rdfjs/environment/Environment.js";
-import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Quad, Stream, Term } from "@rdfjs/types";
+import { DataFactory, DatasetCore, DatasetCoreFactory, Quad, Quad_Graph, Stream, Term } from "@rdfjs/types";
 import StreamClient from "sparql-http-client";
 import ParsingClient from "sparql-http-client/ParsingClient.js";
 import RawQuery from "sparql-http-client/RawQuery.js";
@@ -19,7 +19,7 @@ const password: string = <any> {};
 const user: string = <any> {};
 const storeUrl: string = <any> {};
 const updateUrl: string = <any> {};
-const graph: NamedNode = <any> {};
+const graph: Quad_Graph = <any> {};
 const stream: Stream = <any> {};
 
 async function streamingClient() {

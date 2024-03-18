@@ -1,4 +1,4 @@
-import { BaseQuad, NamedNode, Quad, Quad_Graph, Stream } from "@rdfjs/types";
+import { BaseQuad, Quad, Quad_Graph, Stream } from "@rdfjs/types";
 import SimpleClient from "./SimpleClient.js";
 
 type HTTPMethod = "POST" | "PUT" | "DELETE";
@@ -6,7 +6,7 @@ type HTTPMethod = "POST" | "PUT" | "DELETE";
 declare class StreamStore<Q extends BaseQuad = Quad> {
     constructor(options: { client: SimpleClient });
 
-    get(graph: NamedNode): Stream<Q>;
+    get(graph: Quad_Graph): Stream<Q>;
     post(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
     put(stream: Stream, options?: { graph?: Quad_Graph }): Promise<void>;
 
