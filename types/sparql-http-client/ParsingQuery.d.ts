@@ -1,16 +1,13 @@
-import { BaseQuad, Quad } from "@rdfjs/types";
-import { Query, QueryInit } from ".";
-import { ResultRow } from "./ResultParser";
+import { DatasetCore } from "@rdfjs/types";
+import { Query } from "./index.js";
+import { ResultRow } from "./ResultParser.js";
+import SimpleClient from "./SimpleClient.js";
 
-declare namespace ParsingQuery {
-    type ParsingQuery<Q extends BaseQuad = Quad> = Query<boolean, Q[], ResultRow[], void>;
-}
-
-interface ParsingQuery<Q extends BaseQuad = Quad> extends ParsingQuery.ParsingQuery<Q> {}
+interface ParsingQuery<D extends DatasetCore = DatasetCore> extends Query<boolean, D, ResultRow[], void> {}
 
 // tslint:disable-next-line no-unnecessary-class
-declare class ParsingQuery<Q extends BaseQuad = Quad> {
-    constructor(options: QueryInit);
+declare class ParsingQuery<D extends DatasetCore = DatasetCore> {
+    constructor(options: { client: SimpleClient });
 }
 
-export = ParsingQuery;
+export default ParsingQuery;

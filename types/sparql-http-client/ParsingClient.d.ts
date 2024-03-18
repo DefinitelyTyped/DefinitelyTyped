@@ -1,21 +1,34 @@
-import { BaseQuad, Quad } from "@rdfjs/types";
-import BaseClient = require("./BaseClient");
-import { Client, ClientOptions } from ".";
-import { EndpointOptions } from "./Endpoint";
-import { ParsingQuery } from "./ParsingQuery";
+import { Environment } from "@rdfjs/environment/Environment.js";
+import { DatasetCore, DatasetCoreFactory, Quad } from "@rdfjs/types";
+import { SimpleClient } from "./index.js";
+import ParsingQuery from "./ParsingQuery.js";
 
-declare namespace ParsingClient {
-    type ParsingClientOptions<Q extends BaseQuad = Quad> =
-        & EndpointOptions
-        & Pick<ClientOptions<ParsingQuery, Q>, "factory">;
-
-    type ParsingClient<Q extends BaseQuad = Quad> = Client<ParsingQuery<Q>, Q>;
+interface Options<Q extends Quad, D extends DatasetCore<Q>> {
+    factory: Environment<DatasetCoreFactory<Q, Q, D>>;
+    fetch?: typeof fetch;
+    headers?: HeadersInit;
+    password?: string;
+    user?: string;
 }
 
-declare class ParsingClient<Q extends BaseQuad = Quad> extends BaseClient<ParsingQuery<Q>, Q>
-    implements ParsingClient.ParsingClient<Q>
+interface OptionWithQueryEndpoint<Q extends Quad, D extends DatasetCore<Q>> extends Options<Q, D> {
+    endpointUrl: string;
+}
+
+interface OptionWithStoreEndpoint<Q extends Quad, D extends DatasetCore<Q>> extends Options<Q, D> {
+    storeUrl: string;
+}
+
+interface OptionWithUpdateEndpoint<Q extends Quad, D extends DatasetCore<Q>> extends Options<Q, D> {
+    updateUrl: string;
+}
+
+declare class ParsingClient<Q extends Quad = Quad, D extends DatasetCore<Q> = DatasetCore<Q>>
+    extends SimpleClient<ParsingQuery<D>>
 {
-    constructor(options: ParsingClient.ParsingClientOptions<Q>);
+    constructor(
+        options: OptionWithQueryEndpoint<Q, D> | OptionWithStoreEndpoint<Q, D> | OptionWithUpdateEndpoint<Q, D>,
+    );
 }
 
-export = ParsingClient;
+export default ParsingClient;
