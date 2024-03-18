@@ -16,8 +16,8 @@ declare namespace Saturn {
             identifier: string,
             user: {
                 email: string;
-                name?: string;
-                identifierHash?: string;
+                name?: string | undefined;
+                identifierHash?: string | undefined;
             },
         ) => void;
         trackEvent: (eventName: string, eventData: Record<string, string>) => void;
