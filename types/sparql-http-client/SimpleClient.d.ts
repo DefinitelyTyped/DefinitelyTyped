@@ -11,7 +11,7 @@ interface StoreConstructor {
     new<Q extends BaseQuad = Quad>(options: { client: SimpleClient }): Store<Q>;
 }
 
-interface Options {
+interface BaseOptions {
     factory?: Environment<DataFactory | DatasetCoreFactory>;
     fetch?: typeof fetch;
     headers?: HeadersInit;
@@ -21,17 +21,19 @@ interface Options {
     Store?: StoreConstructor;
 }
 
-interface OptionWithQueryEndpoint extends Options {
+interface OptionWithQueryEndpoint extends BaseOptions {
     endpointUrl: string;
 }
 
-interface OptionWithStoreEndpoint extends Options {
+interface OptionWithStoreEndpoint extends BaseOptions {
     storeUrl: string;
 }
 
-interface OptionWithUpdateEndpoint extends Options {
+interface OptionWithUpdateEndpoint extends BaseOptions {
     updateUrl: string;
 }
+
+export type Options = OptionWithQueryEndpoint | OptionWithStoreEndpoint | OptionWithUpdateEndpoint;
 
 interface QueryOptions {
     headers?: HeadersInit;
@@ -57,7 +59,7 @@ declare class SimpleClient<
     storeUrl?: string;
     updateUrl?: string;
 
-    constructor(options: OptionWithQueryEndpoint | OptionWithStoreEndpoint | OptionWithUpdateEndpoint);
+    constructor(options: Options);
 
     /**
      * Sends a GET request as defined in the
