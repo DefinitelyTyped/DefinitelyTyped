@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,11 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "index.d.mts",
-        "auto.d.ts",
-        "polyfill.d.ts",
-        "implementation.d.ts",
-        "shim.d.ts",
-        "object.groupby-tests.ts"
+        "vue-writer-tests.ts"
     ]
 }

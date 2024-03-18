@@ -2484,9 +2484,7 @@ declare namespace React {
         onPointerCancel?: PointerEventHandler<T> | undefined;
         onPointerCancelCapture?: PointerEventHandler<T> | undefined;
         onPointerEnter?: PointerEventHandler<T> | undefined;
-        onPointerEnterCapture?: PointerEventHandler<T> | undefined;
         onPointerLeave?: PointerEventHandler<T> | undefined;
-        onPointerLeaveCapture?: PointerEventHandler<T> | undefined;
         onPointerOver?: PointerEventHandler<T> | undefined;
         onPointerOverCapture?: PointerEventHandler<T> | undefined;
         onPointerOut?: PointerEventHandler<T> | undefined;

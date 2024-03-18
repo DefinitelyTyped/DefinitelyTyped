@@ -50,10 +50,10 @@ export interface AuthorizeOptions {
 }
 
 export interface DecisionOptions {
-    cancelField: string;
-    userProperty: string;
-    sessionKey: string;
-    loadTransaction: boolean;
+    cancelField?: string;
+    userProperty?: string;
+    sessionKey?: string;
+    loadTransaction?: boolean;
 }
 
 export interface ErrorHandlerOptions {

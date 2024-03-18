@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array-to-sentence",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/shinnn/array-to-sentence#readme"
+    ],
+    "devDependencies": {
+        "@types/array-to-sentence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e6nlaq",
+            "githubUsername": "e6nlaq"
+        }
+    ]
+}

@@ -156,6 +156,7 @@ declare module "stream/web" {
     }
     const ReadableStream: {
         prototype: ReadableStream;
+        from<T>(iterable: Iterable<T> | AsyncIterable<T>): ReadableStream<T>;
         new(underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
         new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };

@@ -205,6 +205,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InnerBlocks.DefaultBlockAppender />;
 <be.InnerBlocks orientation="vertical" />;
 <be.InnerBlocks prioritizedInserterBlocks={["core/navigation-link/page"]} />;
+<be.InnerBlocks templateLock="all" />;
 
 //
 // inserter
