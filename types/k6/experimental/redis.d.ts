@@ -238,7 +238,7 @@ export class Client {
      * @param values - values to prepend to the list
      * @returns a promise that resolves to the number of elements in the list after the prepend operation.
      */
-    lpsuh(key: string, ...values: Array<string | number | boolean>): Promise<number>;
+    lpush(key: string, ...values: Array<string | number | boolean>): Promise<number>;
 
     /**
      * Appends values to a list, creating the list if it does not already exist.
