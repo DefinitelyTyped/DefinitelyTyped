@@ -2,9 +2,9 @@ import OneByte = require("./1byte.js");
 import SustainableWebDesign = require("./sustainable-web-design.js");
 interface CO2EstimateTraceResultPerByte {
     /**
-     * - The CO2 estimate in grams/kilowatt-hour
+     * - The CO2 estimate in grams or its separate components
      */
-    co2: number;
+    co2: number | CO2EstimateComponents;
     /**
      * - Whether the domain is green or not
      */
@@ -16,9 +16,9 @@ interface CO2EstimateTraceResultPerByte {
 }
 interface CO2EstimateTraceResultPerVisit {
     /**
-     * - The CO2 estimate in grams/kilowatt-hour
+     * - The CO2 estimate in grams or its separate components
      */
-    co2: number;
+    co2: number | CO2EstimateComponents;
     /**
      * - Whether the domain is green or not
      */
@@ -74,6 +74,28 @@ interface GridIntensityVariables {
      */
     production: number;
 }
+interface CO2EstimateComponents {
+    /**
+     * - The CO2 estimate for networking in grams
+     */
+    networkCO2: number;
+    /**
+     * - The CO2 estimate for data centers in grams
+     */
+    dataCenterCO2: number;
+    /**
+     * - The CO2 estimate for consumer devices in grams
+     */
+    consumerDeviceCO2: number;
+    /**
+     *  - The CO2 estimate for device production in grams
+     */
+    productionCO2: number;
+    /**
+     * - The total CO2 estimate in grams
+     */
+    total: number;
+}
 declare class CO2 {
     constructor(options: any);
     model: OneByte | SustainableWebDesign;
@@ -85,9 +107,9 @@ declare class CO2 {
      *
      * @param {number} bytes
      * @param {boolean} green
-     * @return {number} the amount of CO2 in grammes
+     * @return {number|CO2EstimateComponents} the amount of CO2 in grammes or its separate components
      */
-    perByte(bytes: number, green?: boolean): number;
+    perByte(bytes: number, green?: boolean): number | CO2EstimateComponents;
     /**
      * Accept a figure in bytes for data transfer, and a boolean for whether
      * the domain shows as 'green', and return a CO2 figure for energy used to shift the corresponding
@@ -95,9 +117,9 @@ declare class CO2 {
      *
      * @param {number} bytes
      * @param {boolean} green
-     * @return {number} the amount of CO2 in grammes
+     * @return {number|CO2EstimateComponents} the amount of CO2 in grammes or its separate components
      */
-    perVisit(bytes: number, green?: boolean): number;
+    perVisit(bytes: number, green?: boolean): number | CO2EstimateComponents;
     /**
      * Accept a figure in bytes for data transfer, a boolean for whether
      * the domain shows as 'green', and an options object.
