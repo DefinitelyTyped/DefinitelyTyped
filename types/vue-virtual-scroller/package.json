@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/vue-virtual-scroller",
-    "version": "^2.0.0-beta.8",
+    "version": "2.0.0-beta.8",
     "projects": [
         "https://github.com/Akryum/vue-virtual-scroller"
     ],
