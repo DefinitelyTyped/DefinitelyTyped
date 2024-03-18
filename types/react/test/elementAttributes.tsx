@@ -97,6 +97,10 @@ const testCases = [
         <link href="https://foo.bar" precedence="medium" rel="canonical" />
         <style href="unique-style-hash" precedence="anything">{` p { color: red; } `}</style>
     </>,
+    <div inert={true} />,
+    <div inert={false} />,
+    <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+     inert="" />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
