@@ -26,10 +26,10 @@ export interface QueryOptions {
 }
 
 export interface Query<RAsk = unknown, RConstruct = unknown, RSelect = unknown, RUpdate = unknown> {
-    ask(query: string, options?: QueryOptions): Promise<RAsk>;
-    construct(query: string, options?: QueryOptions): Promise<RConstruct>;
-    select(query: string, options?: QueryOptions): Promise<RSelect>;
-    update(query: string, options?: QueryOptions): Promise<RUpdate>;
+    ask(query: string, options?: QueryOptions): RAsk;
+    construct(query: string, options?: QueryOptions): RConstruct;
+    select(query: string, options?: QueryOptions): RSelect;
+    update(query: string, options?: QueryOptions): RUpdate;
 }
 
 export interface Store<Q extends BaseQuad> {
