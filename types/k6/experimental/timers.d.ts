@@ -3,7 +3,7 @@
  */
 
 /**
- * Set a timer which execution a function once the timer expires.
+ * Set a timer that executes a function once the timer expires.
  *
  * @param functionRef - The function to be executed.
  * @param delay - The delay in milliseconds.
@@ -13,7 +13,7 @@
 export function setTimeout(functionRef: (...args: any[]) => void, delay: number, ...args: any[]): TimeoutID;
 
 /**
- * Cancels a timeout previously set with setTimeout().
+ * Cancels a timer previously set with setTimeout().
  *
  * @param timeoutID - The timer id to be cancelled.
  */
@@ -30,7 +30,7 @@ export function clearTimeout(timeoutID: TimeoutID): void;
 export function setInterval(functionRef: (...args: any[]) => void, delay: number, ...args: any[]): IntervalID;
 
 /**
- * Cancels a interval previously set with setInterval().
+ * Cancels an interval previously set with setInterval().
  *
  * @param intervalID - The interval id to be cancelled.
  */
