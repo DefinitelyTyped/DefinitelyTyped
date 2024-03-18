@@ -73,6 +73,13 @@ DynamicScroller({
     minItemSize: 12,
 });
 
+// Dynamic scroller item, with all required props
+DynamicScrollerItem({
+    item: { id: 12 },
+    active: false,
+    sizeDependencies: [223, "that"],
+});
+
 // IdState
 defineComponent({
     props: {},
