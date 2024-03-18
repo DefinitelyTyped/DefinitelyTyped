@@ -1,6 +1,6 @@
 (async () => {
     ZWJSBridge.onReady(() => {
-        ZWJSBridge.ssoTicket()
+        ZWJSBridge.ssoTicket();
         
         ZWJSBridge.setLocalStorage({
             key: "key",
@@ -91,6 +91,8 @@
         ZWJSBridge.downloadFile({
             url: "https://www.google.com",
         });
+
+        ZWJSBridge.voicedictation();
 
         ZWJSBridge.confirm({
             title: "title",
