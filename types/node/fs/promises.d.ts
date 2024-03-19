@@ -10,6 +10,8 @@
  */
 declare module "fs/promises" {
     import { Abortable } from "node:events";
+    import { Stream } from "node:stream";
+    import { ReadableStream } from "node:stream/web";
     import {
         BigIntStats,
         BigIntStatsFs,
@@ -39,8 +41,6 @@ declare module "fs/promises" {
         WriteVResult,
     } from "node:fs";
     import { Interface as ReadlineInterface } from "node:readline";
-    import { Stream } from "node:stream";
-    import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T | null;
