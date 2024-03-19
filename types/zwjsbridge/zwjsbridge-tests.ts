@@ -143,6 +143,11 @@
 
         ZWJSBridge.getUiStyle();
 
+        ZWJSBridge.authentication({
+            accessKey: "szzj",
+            requestId: "req_9ca87969175445ec902cf4496a7f18ed",
+        });
+
         ZWJSBridge.egop({
             appKey: "appkey",
         });
