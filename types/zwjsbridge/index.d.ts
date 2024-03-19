@@ -154,7 +154,6 @@ interface ZWJSBridge {
     }>;
 
     /**
-     * 
      * 支付宝扫脸认证 (于 2023-09-07 废弃)
      * @deprecated 1.3.5 服务内涉及用户 二次身份认证需申请使用身份核验组件，不再支持通过 ZWJSBridge.zmAuthentication 调用支付宝扫脸认证能力。
      */
@@ -571,29 +570,29 @@ interface ZWJSBridge {
          * normal: 常规版
          * elder: 长辈版
          */
-        uiStyle: 'normal' | 'elder';
+        uiStyle: "normal" | "elder";
     }>;
 
-     /**
+    /**
      * 统一身份认证
      * - 需要在 IRS 系统申请“浙里办”身份认证中心-身份核验组件，调用 authentication 接口启用“浙里办”统一身份认证功能。
-     * @param options 请求参数 
+     * @param options 请求参数
      * @returns 异步返回认证结果
      */
     authentication(options: {
-        /** 
-         * ak,对应统一身份认证组件申请使用后返回的 
+        /**
+         * ak,对应统一身份认证组件申请使用后返回的
          * @example szzj
-        */
+         */
         accessKey: string;
-        /** 
+        /**
          * 参照统一身份认证组件中身份核验认证使用规范调用信息接收接口（第三方需在后端进行调用）获得
          * @example req_9ca87969175445ec902cf4496a7f18ed
-        */
+         */
         requestId: string;
     }): Promise<{
         /** 认证结果 */
-        pass: 'true'|'false';
+        pass: "true" | "false";
         /** 查询标识号 */
         bizNo: string;
         /** 认证结果描述 */
