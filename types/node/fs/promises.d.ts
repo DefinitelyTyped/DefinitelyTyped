@@ -14,6 +14,7 @@ declare module "fs/promises" {
         BigIntStats,
         BigIntStatsFs,
         BufferEncodingOption,
+        constants as fsConstants,
         CopyOptions,
         Dir,
         Dirent,
@@ -36,7 +37,6 @@ declare module "fs/promises" {
         WatchOptions,
         WriteStream,
         WriteVResult,
-        constants as fsConstants,
     } from "node:fs";
     import { Interface as ReadlineInterface } from "node:readline";
     import { Stream } from "node:stream";
@@ -1010,8 +1010,8 @@ declare module "fs/promises" {
                 flag?: OpenMode | undefined;
                 /**
                  * If all data is successfully written to the file, and `flush`
-                 * is `true`, `filehandle.sync()` is used to flush the data. 
-                 * @default false  
+                 * is `true`, `filehandle.sync()` is used to flush the data.
+                 * @default false
                  */
                 flush?: boolean;
             } & Abortable)
