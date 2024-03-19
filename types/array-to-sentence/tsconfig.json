@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "is-map-tests.ts"
+        "array-to-sentence-tests.ts"
     ]
 }

@@ -139,6 +139,22 @@ export interface BestPractices extends Linter.RulesRecord {
     >;
 
     /**
+     * Rule to enforce default clauses in switch statements to be last
+     *
+     * @since 7.0.0
+     * @see https://eslint.org/docs/latest/rules/default-case-last
+     */
+    "default-case-last": Linter.RuleEntry<[]>;
+
+    /**
+     * Enforce default parameters to be last
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/default-param-last
+     */
+    "default-param-last": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to enforce consistent newlines before and after dots.
      *
      * @since 0.21.0
@@ -183,6 +199,14 @@ export interface BestPractices extends Linter.RulesRecord {
             ]
         >
         | Linter.RuleEntry<["smart" | "allow-null"]>;
+
+    /**
+     * Require grouped accessor pairs in object literals and classes.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/latest/rules/grouped-accessor-pairs
+     */
+    "grouped-accessor-pairs": Linter.RuleEntry<["anyOrder" | "getBeforeSet" | "setBeforeGet"]>;
 
     /**
      * Rule to require `for-in` loops to include an `if` statement.
@@ -415,6 +439,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  */
                 string: boolean;
                 /**
+                 * @default false
+                 */
+                disallowTemplateShorthand: boolean;
+                /**
                  * @default []
                  */
                 allow: Array<"~" | "!!" | "+" | "*">;
@@ -437,6 +465,17 @@ export interface BestPractices extends Linter.RulesRecord {
      * @see https://eslint.org/docs/rules/no-implied-eval
      */
     "no-implied-eval": Linter.RuleEntry<[]>;
+
+    /**
+     * Disallow assigning to imported bindings.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/no-import-assign
+     */
+    "no-import-assign": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow `this` keywords outside of classes or class-like objects.
@@ -581,6 +620,14 @@ export interface BestPractices extends Linter.RulesRecord {
      * @see https://eslint.org/docs/rules/no-new-wrappers
      */
     "no-new-wrappers": Linter.RuleEntry<[]>;
+
+    /**
+     * Disallow `\\8` and `\\9` escape sequences in string literals.
+     *
+     * @since 7.14.0
+     * @see https://eslint.org/docs/rules/no-nonoctal-decimal-escape
+     */
+    "no-nonoctal-decimal-escape": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow octal literals.
@@ -776,6 +823,17 @@ export interface BestPractices extends Linter.RulesRecord {
     "no-unused-labels": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow useless backreferences in regular expressions
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.0.0-alpha.0
+     * @see https://eslint.org/docs/latest/rules/no-useless-backreference
+     */
+    "no-useless-backreference": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow unnecessary calls to `.call()` and `.apply()`.
      *
      * @since 1.0.0-rc-1
@@ -870,6 +928,14 @@ export interface BestPractices extends Linter.RulesRecord {
     "prefer-named-capture-group": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow use of `Object.prototype.hasOwnProperty.call()` and prefer use of `Object.hasOwn()`.
+     *
+     * @since 3.5.0
+     * @see https://eslint.org/docs/rules/prefer-object-has-own
+     */
+    "prefer-object-has-own": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to require using Error objects as Promise rejection reasons.
      *
      * @since 3.14.0
@@ -882,6 +948,23 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default false
                  */
                 allowEmptyReject: boolean;
+            }>,
+        ]
+    >;
+
+    /**
+     * Disallow use of the `RegExp` constructor in favor of regular expression literals.
+     *
+     * @since 6.4.0
+     * @see https://eslint.org/docs/latest/rules/prefer-regex-literals
+     */
+    "prefer-regex-literals": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                disallowRedundantWrapping: boolean;
             }>,
         ]
     >;

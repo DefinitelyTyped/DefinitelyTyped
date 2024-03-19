@@ -1,19 +1,83 @@
-import { BaseQuad, Quad } from "@rdfjs/types";
-import BaseClient = require("./BaseClient");
-import RawQuery = require("./RawQuery");
-import { Client, ClientOptions } from ".";
-import { EndpointOptions } from "./Endpoint";
+import { Environment } from "@rdfjs/environment/Environment.js";
+import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from "@rdfjs/types";
+import { Client, Query, Store } from "./index.js";
+import RawQuery from "./RawQuery.js";
 
-declare namespace SimpleClient {
-    type SimpleClientOptions<Q extends BaseQuad = Quad> = EndpointOptions & Pick<ClientOptions<RawQuery, Q>, "factory">;
-
-    type SimpleClient<Q extends BaseQuad = Quad> = Client<RawQuery, Q>;
+interface QueryConstructor {
+    new(options: { client: SimpleClient }): Query;
 }
 
-declare class SimpleClient<Q extends BaseQuad = Quad> extends BaseClient<RawQuery>
-    implements SimpleClient.SimpleClient<Q>
-{
-    constructor(options: SimpleClient.SimpleClientOptions<Q>);
+interface StoreConstructor {
+    new<Q extends BaseQuad = Quad>(options: { client: SimpleClient }): Store<Q>;
 }
 
-export = SimpleClient;
+interface BaseOptions {
+    factory?: Environment<DataFactory | DatasetCoreFactory>;
+    fetch?: typeof fetch;
+    headers?: HeadersInit;
+    password?: string;
+    user?: string;
+    Query?: QueryConstructor;
+    Store?: StoreConstructor;
+}
+
+interface OptionWithQueryEndpoint extends BaseOptions {
+    endpointUrl: string;
+}
+
+interface OptionWithStoreEndpoint extends BaseOptions {
+    storeUrl: string;
+}
+
+interface OptionWithUpdateEndpoint extends BaseOptions {
+    updateUrl: string;
+}
+
+export type Options = OptionWithQueryEndpoint | OptionWithStoreEndpoint | OptionWithUpdateEndpoint;
+
+interface QueryOptions {
+    headers?: HeadersInit;
+    /**
+     * send the request to the updateUrl
+     */
+    update?: boolean;
+}
+
+declare class SimpleClient<
+    TQuery extends Query = RawQuery,
+    TStore extends Store<BaseQuad> = never,
+    TFactory = Environment<DataFactory | DatasetCoreFactory> | undefined,
+> implements Client<TQuery, TStore> {
+    query: TQuery;
+    store: TStore;
+    factory: TFactory;
+    fetch: typeof fetch;
+    headers?: Headers;
+    password?: string;
+    user?: string;
+    endpointUrl?: string;
+    storeUrl?: string;
+    updateUrl?: string;
+
+    constructor(options: Options);
+
+    /**
+     * Sends a GET request as defined in the
+     * {@link https://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-get SPARQL Protocol specification}.
+     */
+    get(query: string, options?: QueryOptions): Promise<Response>;
+
+    /**
+     * Sends a POST directly request as defined in the
+     * {@link https://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-direct SPARQL Protocol specification}.
+     */
+    postDirect(query: string, options?: QueryOptions): Promise<Response>;
+
+    /**
+     * Sends a POST URL-encoded request as defined in the
+     * {@link https://www.w3.org/TR/2013/REC-sparql11-protocol-20130321/#query-via-post-urlencoded SPARQL Protocol specification}.
+     */
+    postUrlencoded(query: string, options?: QueryOptions): Promise<Response>;
+}
+
+export default SimpleClient;

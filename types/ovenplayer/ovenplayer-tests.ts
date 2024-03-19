@@ -171,6 +171,13 @@ player.on("ready", () => {});
 // once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
 player.once("stateChanged", data => {});
 
+player.on("volumeChanged", data => {
+    // $ExpectType number
+    data.volume;
+    // $ExpectType boolean
+    data.mute;
+});
+
 // off(eventName: keyof OvenPlayerEvents): void;
 player.off("ready");
 
