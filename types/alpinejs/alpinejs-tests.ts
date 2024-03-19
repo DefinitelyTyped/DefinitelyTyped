@@ -115,7 +115,7 @@ import Alpine, {
         }) as DirectiveCallback,
         (el, { expression, modifiers }, { evaluate }) => {
             // do something
-        }
+        },
     );
     Alpine.directive("trap", directiveHandler);
 }
@@ -208,7 +208,7 @@ import Alpine, {
     const justExpressionEvaluator =
         <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
             el: ElementWithXAttributes,
-            expression?: string | (() => T)
+            expression?: string | (() => T),
         ) =>
         (resultCallback: (result: T) => void) =>
             resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));
@@ -292,7 +292,7 @@ import Alpine, {
                 storage = target;
                 return func;
             };
-        }
+        },
     );
 }
 
@@ -315,7 +315,7 @@ import Alpine, {
             end: { height: "200px" },
         },
         () => (transitioning = true),
-        () => (transitioning = false)
+        () => (transitioning = false),
     );
 }
 
@@ -442,7 +442,7 @@ import Alpine, {
 
     const shallowWalker = (
         el: ElementWithXAttributes,
-        callback: (el: ElementWithXAttributes, skip: () => void) => void
+        callback: (el: ElementWithXAttributes, skip: () => void) => void,
     ) => {
         // do walking
     };
@@ -672,6 +672,27 @@ import Alpine, {
         "x-on:keydown"(e: MouseEvent) {},
     }));
 
+    // allows arguments in bindings functions
+    Alpine.bind("bindings", (arg: string) => ({
+        disabled() {
+            return true;
+        },
+    }));
+
+    // allows named binding objects
+    Alpine.bind("comp", {
+        control: {
+            disabled() {
+                return true;
+            },
+        },
+        button: {
+            "@click"(e: MouseEvent) {
+                // do something
+            },
+        },
+    });
+
     // $ExpectType void
     Alpine.data("user", () => ({
         user: { id: 1, name: "John Doe" },
@@ -717,8 +738,8 @@ import Alpine, {
                 "user",
                 (
                     // $ExpectType { id: number; name: string; }
-                    newValue
-                ) => {}
+                    newValue,
+                ) => {},
             );
         },
     }));
@@ -742,8 +763,8 @@ import Alpine, {
                         // $ExpectType { id: number; name: string; }
                         newValue,
                         // $ExpectType { id: number; name: string; }
-                        oldValue
-                    ) => {}
+                        oldValue,
+                    ) => {},
                 );
 
                 // $ExpectType void
@@ -751,11 +772,11 @@ import Alpine, {
                     "user.id",
                     (
                         // $ExpectType any
-                        newValue
-                    ) => {}
+                        newValue,
+                    ) => {},
                 );
             },
-        })
+        }),
     );
 }
 

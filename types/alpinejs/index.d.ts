@@ -36,7 +36,7 @@ export interface XAttributes {
         el: ElementWithXAttributes,
         val: boolean,
         show: () => void,
-        hide: () => void
+        hide: () => void,
     ) => void;
     _x_teleport: ElementWithXAttributes;
     _x_transition: Transitions;
@@ -77,12 +77,16 @@ export type Bindings<T> = {
         : string | ((...args: any[]) => void);
 };
 
+export type BindingsObject<T> = {
+    [key in keyof T]: Bindings<T[key]>;
+};
+
 export type AttrMutationCallback = (
     el: ElementWithXAttributes,
     attrs: Array<{
         name: string;
         value: string;
-    }>
+    }>,
 ) => void;
 
 export interface DirectiveData {
@@ -106,15 +110,16 @@ export interface InterceptorObject<T> {
  * Otherwise, it returns the original type
  * Limits the depth to 3 to improve performance and avoid failures on complex types
  */
-type InferInterceptor<T, D extends 3 | 2 | 1 = 1> = T extends InterceptorObject<infer U>
-    ? U
-    : keyof T extends never
-    ? T
-    : D extends 3
-    ? T
-    : {
-          [K in keyof T]: InferInterceptor<T[K], D extends 1 ? 2 : D extends 2 ? 3 : D>;
-      };
+type InferInterceptor<T, D extends 3 | 2 | 1 = 1> =
+    T extends InterceptorObject<infer U>
+        ? U
+        : keyof T extends never
+          ? T
+          : D extends 3
+            ? T
+            : {
+                  [K in keyof T]: InferInterceptor<T[K], D extends 1 ? 2 : D extends 2 ? 3 : D>;
+              };
 
 export type InferInterceptors<T> = {
     [K in keyof T]: InferInterceptor<T[K]>;
@@ -122,7 +127,7 @@ export type InferInterceptors<T> = {
 
 type interceptor = <T>(
     callback: InterceptorCallback<T>,
-    mutateObj?: (obj: InterceptorObject<T>) => void
+    mutateObj?: (obj: InterceptorObject<T>) => void,
 ) => (initialValue: T) => InterceptorObject<T>;
 
 export interface DirectiveUtilities {
@@ -221,7 +226,7 @@ export interface Magics<T> {
      */
     $watch: <K extends keyof T | string, V extends K extends keyof T ? T[K] : any>(
         property: K,
-        callback: (newValue: V, oldValue: V) => void
+        callback: (newValue: V, oldValue: V) => void,
     ) => void;
 }
 
@@ -369,7 +374,7 @@ export interface Alpine {
     addScopeToNode: (
         node: Element,
         data: Record<string, unknown>,
-        referenceNode?: ElementWithXAttributes
+        referenceNode?: ElementWithXAttributes,
     ) => () => void;
     /**
      * Begins deferring mutation handling to allow for a set of changes to be made
@@ -386,7 +391,7 @@ export interface Alpine {
         callback: (attribute: { name: string; value: string | (() => unknown) }) => {
             name: string;
             value: string | (() => unknown);
-        }
+        },
     ) => void;
     /**
      * Provides a function that can be called to evaluate an expression
@@ -394,13 +399,13 @@ export interface Alpine {
      */
     evaluateLater: <T_1>(
         el: Element,
-        expression?: string | (() => T_1)
+        expression?: string | (() => T_1),
     ) => (
         callback?: (value: T_1) => void,
         extras?: {
             scope?: object;
             params?: unknown[];
-        }
+        },
     ) => void;
     /**
      * Registers a callback to preprocess elements before they are initialized
@@ -416,14 +421,14 @@ export interface Alpine {
     setEvaluator: (
         newEvaluator: <T_2>(
             el: ElementWithXAttributes,
-            expression?: string | (() => T_2)
+            expression?: string | (() => T_2),
         ) => (
             callback: (value: T_2) => void,
             extras?: {
                 scope?: object;
                 params?: unknown[];
-            }
-        ) => void
+            },
+        ) => void,
     ) => void;
     /**
      * "Flattens" an array of objects into a single Proxy object
@@ -444,7 +449,7 @@ export interface Alpine {
         el: ElementWithXAttributes,
         name: string,
         fallback: T_3 | (() => T_3),
-        extract?: boolean
+        extract?: boolean,
     ) => unknown;
     /**
      * Finds closest Node that satisfies the provided test function
@@ -501,7 +506,11 @@ export interface Alpine {
         setFunction:
             | ((
                   el: ElementWithXAttributes,
-                  value: string | boolean | Record<string, boolean> | (() => string | boolean | Record<string, boolean>)
+                  value:
+                      | string
+                      | boolean
+                      | Record<string, boolean>
+                      | (() => string | boolean | Record<string, boolean>),
               ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         states: Partial<{
@@ -510,7 +519,7 @@ export interface Alpine {
             end: string | Partial<CSSStyleDeclaration>;
         }>,
         before?: () => void,
-        after?: () => void
+        after?: () => void,
     ): void;
     /**
      * Sets styles to an element, from a string or object
@@ -533,7 +542,7 @@ export interface Alpine {
      */
     directive(
         name: string,
-        callback: DirectiveCallback
+        callback: DirectiveCallback,
     ): {
         before(directive: string): void;
     };
@@ -557,7 +566,7 @@ export interface Alpine {
      */
     throttle<T_7 extends (...args: Parameters<T_7>) => void>(
         func: T_7,
-        limit?: number
+        limit?: number,
     ): (...args: Parameters<T_7>) => void;
     /**
      * Provides a debounced version of the passed in function.
@@ -588,7 +597,7 @@ export interface Alpine {
     initTree(
         el: ElementWithXAttributes,
         walker?: (el: ElementWithXAttributes, callback: WalkerCallback) => any,
-        intercept?: WalkerCallback
+        intercept?: WalkerCallback,
     ): void;
     /**
      * Waits until after a frame is painted to continue execution
@@ -685,7 +694,7 @@ export interface Alpine {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     data<T extends { [key in keyof T]: T[key] }, A extends unknown[]>(
         name: string,
-        callback: (...args: A) => AlpineComponent<T> // Needed generic to properly autotype objects
+        callback: (...args: A) => AlpineComponent<T>, // Needed generic to properly autotype objects
     ): void;
 
     /**
@@ -699,7 +708,13 @@ export interface Alpine {
      * @param name of binding group
      * @param bindings to apply to an element that uses the group
      */
-    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: unknown[]) => T)): void;
+    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: any[]) => T)): void;
+    /**
+     * Registers a named collection of binding group to be exposed to `x-bind` directive expressions
+     * @param name of binding group namespace
+     * @param bindings object of binding groups
+     */
+    bind<T extends Record<string, Bindings<T[keyof T]>>>(name: string, bindings: BindingsObject<T>): void;
 }
 
 declare const Alpine: Alpine;
