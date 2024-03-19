@@ -118,6 +118,13 @@ browser.version();
 //
 const browserContext = browser.newContext();
 
+// @ts-expect-error
+browserContext.addInitScript();
+// $ExpectType void
+browserContext.addInitScript("Math.random = function(){return 0}");
+// $ExpectType void
+browserContext.addInitScript({ content: "Math.random = function(){return 0}" });
+
 // $ExpectType Browser
 browserContext.browser();
 // @ts-expect-error

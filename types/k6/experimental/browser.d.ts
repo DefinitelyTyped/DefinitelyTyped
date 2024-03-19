@@ -655,6 +655,33 @@ export interface Browser {
  */
 export interface BrowserContext {
     /**
+     * Adds a script which will be evaluated in one of the following scenarios:
+     * - Whenever a page is created in the browser context or is navigated.
+     * - Whenever a child frame is attached or navigated in any page in the
+     *   browser context. In this case, the script is evaluated in the context
+     *   of the newly attached frame.
+     *
+     * The script is evaluated after the document is created but before any of
+     * its scripts were run. This is useful to amend the JavaScript environment,
+     * e.g. to override `Math.random`.
+     *
+     * **Usage**
+     *
+     * An example of overriding `Math.random` before the page loads:
+     *
+     * ```js
+     * const browserContext = browser.newContext();
+     * browserContext.addInitScript("Math.random = function(){return 0}");
+     *
+     * const page = browserContext.newPage();
+     * await page.goto(url);
+     * ```
+     *
+     * @param script Script to be evaluated in all pages in the browser context.
+     */
+    addInitScript(script: string | { content?: string }): void;
+
+    /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
     browser(): Browser;
