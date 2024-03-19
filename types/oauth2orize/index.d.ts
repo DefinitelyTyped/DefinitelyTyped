@@ -34,6 +34,7 @@ export interface ServerOptions {
     store: any;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function createServer<Client = any, User = any>(options?: ServerOptions): OAuth2Server<Client, User>;
 
 export interface AuthorizeOptions {
@@ -392,24 +393,30 @@ export namespace exchange {
         scopeSeparator?: string | undefined;
     }
 
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         options: Options,
         issue: IssueExchangeCodeFunctionArity6<Client>,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         options: Options,
         issue: IssueExchangeCodeFunctionArity5<Client>,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         options: Options,
         issue: IssueExchangeCodeFunction<Client>,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         issue: IssueExchangeCodeFunctionArity6<Client>,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         issue: IssueExchangeCodeFunctionArity5<Client>,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function authorizationCode<Client = any, User = any>(
         issue: IssueExchangeCodeFunction<Client>,
     ): MiddlewareFunction<Client, User>;
@@ -417,33 +424,40 @@ export namespace exchange {
     const code: typeof authorizationCode;
 
     // arity == 5; issue(client, scope, req.body, req.authInfo, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], body: any, authInfo: any, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, scope, req.body, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], body: any, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 3; issue(client, scope, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, scope: string[], issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 2; issue(client, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         options: Options,
         issue: (client: Client, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         issue: (client: Client, scope: string[], issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function clientCredentials<Client = any, User = any>(
         issue: (client: Client, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
 
     // arity == 7; issue(client, username, passwd, scope, req.body, req.authInfo, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         options: Options,
         issue: (
@@ -457,6 +471,7 @@ export namespace exchange {
         ) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 6; issue(client, username, passwd, scope, req.body, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         options: Options,
         issue: (
@@ -469,6 +484,7 @@ export namespace exchange {
         ) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 5; issue(client, username, passwd, scope, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         options: Options,
         issue: (
@@ -480,10 +496,12 @@ export namespace exchange {
         ) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, username, passwd, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         options: Options,
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         issue: (
             client: Client,
@@ -493,11 +511,13 @@ export namespace exchange {
             issued: ExchangeDoneFunction,
         ) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function password<Client = any, User = any>(
         issue: (client: Client, username: string, password: string, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
 
     // arity == 6; issue(client, refreshToken, scope, req.body, req.authInfo, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (
@@ -510,23 +530,28 @@ export namespace exchange {
         ) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 5; issue(client, refreshToken, scope, req.body, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, scope: string[], body: any, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 4; issue(client, refreshToken, scope, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, scope: string[], issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
     // arity == 3; issue(client, refreshToken, issued);
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         options: Options,
         issue: (client: Client, refreshToken: string, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         issue: (client: Client, refreshToken: string, scope: string[], issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function refreshToken<Client = any, User = any>(
         issue: (client: Client, refreshToken: string, issued: ExchangeDoneFunction) => void,
     ): MiddlewareFunction<Client, User>;
