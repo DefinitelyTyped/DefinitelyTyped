@@ -10,13 +10,10 @@
  */
 declare module "fs/promises" {
     import { Abortable } from "node:events";
-    import { Stream } from "node:stream";
-    import { ReadableStream } from "node:stream/web";
     import {
         BigIntStats,
         BigIntStatsFs,
         BufferEncodingOption,
-        constants as fsConstants,
         CopyOptions,
         Dir,
         Dirent,
@@ -39,8 +36,11 @@ declare module "fs/promises" {
         WatchOptions,
         WriteStream,
         WriteVResult,
+        constants as fsConstants,
     } from "node:fs";
     import { Interface as ReadlineInterface } from "node:readline";
+    import { Stream } from "node:stream";
+    import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T | null;
@@ -1008,6 +1008,11 @@ declare module "fs/promises" {
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
                 flag?: OpenMode | undefined;
+                /**
+                 * If all data is successfully written to the file, and `flush`
+                 * is `true`, `filehandle.sync()` is used to flush the data. 
+                 * @default false  
+                 */
                 flush?: boolean;
             } & Abortable)
             | BufferEncoding
