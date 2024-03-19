@@ -1,5 +1,3 @@
 import { NamedNode } from "@rdfjs/types";
 
-declare function namedNode(namedNode: NamedNode): string;
-
-export = namedNode;
+export default function namedNode(namedNode: NamedNode): string;

@@ -116,7 +116,7 @@ client
         console.error(e.stack);
     });
 
-const queryArrMode: QueryArrayConfig = {
+const queryArrMode: QueryArrayConfig<[string]> = {
     name: "get-name-array",
     text: "SELECT $1::text",
     values: ["brianc"],
@@ -150,7 +150,7 @@ const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
 };
 
-const queryCustomTypes = {
+const queryCustomTypes: pg.QueryConfig<[string]> = {
     name: "get-name",
     text: "SELECT $1::text",
     values: ["brianc"],
