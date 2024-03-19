@@ -15,7 +15,12 @@
     "owners": [
         {
             "name": "Evan Martin",
+            "githubUsername": "evmar",
             "url": "http://neugierig.org"
+        },
+        {
+            "name": "Danielle Church",
+            "githubUsername": "dmchurch"
         }
     ]
 }
