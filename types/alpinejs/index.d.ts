@@ -110,16 +110,12 @@ export interface InterceptorObject<T> {
  * Otherwise, it returns the original type
  * Limits the depth to 3 to improve performance and avoid failures on complex types
  */
-type InferInterceptor<T, D extends 3 | 2 | 1 = 1> =
-    T extends InterceptorObject<infer U>
-        ? U
-        : keyof T extends never
-          ? T
-          : D extends 3
-            ? T
-            : {
-                  [K in keyof T]: InferInterceptor<T[K], D extends 1 ? 2 : D extends 2 ? 3 : D>;
-              };
+type InferInterceptor<T, D extends 3 | 2 | 1 = 1> = T extends InterceptorObject<infer U> ? U
+    : keyof T extends never ? T
+    : D extends 3 ? T
+    : {
+        [K in keyof T]: InferInterceptor<T[K], D extends 1 ? 2 : D extends 2 ? 3 : D>;
+    };
 
 export type InferInterceptors<T> = {
     [K in keyof T]: InferInterceptor<T[K]>;
@@ -505,13 +501,13 @@ export interface Alpine {
         el: ElementWithXAttributes,
         setFunction:
             | ((
-                  el: ElementWithXAttributes,
-                  value:
-                      | string
-                      | boolean
-                      | Record<string, boolean>
-                      | (() => string | boolean | Record<string, boolean>),
-              ) => () => void)
+                el: ElementWithXAttributes,
+                value:
+                    | string
+                    | boolean
+                    | Record<string, boolean>
+                    | (() => string | boolean | Record<string, boolean>),
+            ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         states: Partial<{
             start: string | Partial<CSSStyleDeclaration>;
