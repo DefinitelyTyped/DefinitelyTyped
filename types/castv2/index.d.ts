@@ -5,9 +5,9 @@ import { TlsOptions } from "tls";
 
 // To start a new client.
 export interface ClientOptions {
-    port: number;
     host: string;
-    rejectUnauthorized: boolean;
+    port?: number;
+    rejectUnauthorized?: boolean;
 }
 
 // A general message in either direction.
@@ -85,7 +85,7 @@ export interface ReceiverLaunchErrorMessage extends ReceiverMessage {
     reason: string;
 }
 
-export interface ReceiverLaunchStatus extends ReceiverMessage {
+export interface ReceiverLaunchStatusMessage extends ReceiverMessage {
     type: "LAUNCH_STATUS";
     status: "USER_PENDING_AUTHORIZATION" | "USER_ALLOWED";
 }
