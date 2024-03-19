@@ -77,10 +77,6 @@ export type Bindings<T> = {
         : string | ((...args: any[]) => void);
 };
 
-export type BindingsObject<T> = {
-    [key in keyof T]: Bindings<T[key]>;
-};
-
 export type AttrMutationCallback = (
     el: ElementWithXAttributes,
     attrs: Array<{
@@ -697,20 +693,16 @@ export interface Alpine {
      * Binds directives and attributes to an element
      * @param element to bind
      * @param bindings to apply to the element
+     * @returns cleanup function
      */
-    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): void;
+    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): () => void;
     /**
      * Registers a named binding group to be exposed to `x-bind` directive expressions
      * @param name of binding group
      * @param bindings to apply to an element that uses the group
+     * @returns cleanup function
      */
-    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: any[]) => T)): void;
-    /**
-     * Registers a named collection of binding group to be exposed to `x-bind` directive expressions
-     * @param name of binding group namespace
-     * @param bindings object of binding groups
-     */
-    bind<T extends Record<string, Bindings<T[keyof T]>>>(name: string, bindings: BindingsObject<T>): void;
+    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: any[]) => T)): () => void;
 }
 
 declare const Alpine: Alpine;

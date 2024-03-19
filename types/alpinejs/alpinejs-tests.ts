@@ -639,14 +639,14 @@ import Alpine, {
         },
     }));
 
-    // $ExpectType void
+    // $ExpectType () => void
     Alpine.bind("#my-el", () => ({
         "x-show": "true",
         "@mouseenter"() {},
         "@mouseleave"(e: MouseEvent) {},
     }));
 
-    // $ExpectType void
+    // $ExpectType () => void
     Alpine.bind(document.createElement("div") as HTMLElement, () => ({
         "x-show": "true",
         // allows typed events for x-on and @ bindings
@@ -671,25 +671,14 @@ import Alpine, {
     }));
 
     // allows arguments in bindings functions
-    Alpine.bind("bindings", (arg: string) => ({
+    const undo = Alpine.bind("bindings", (arg: string) => ({
         disabled() {
             return true;
         },
     }));
 
-    // allows named binding objects
-    Alpine.bind("comp", {
-        control: {
-            disabled() {
-                return true;
-            },
-        },
-        button: {
-            "@click"(e: MouseEvent) {
-                // do something
-            },
-        },
-    });
+    // $ExpectType () => void
+    undo;
 
     // $ExpectType void
     Alpine.data("user", () => ({
