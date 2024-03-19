@@ -107,7 +107,7 @@ class Clients {
 declare global {
     namespace Express {
         interface Request {
-            oauth2: oauth2orize.OAuth2<{
+            oauth2?: oauth2orize.OAuth2<{
                 id: string;
                 redirectURI: string;
             }>;
@@ -137,6 +137,27 @@ server.authorize(
     //                        user: req.user, client: req.oauth2.client });
 });
 // );
+
+server.authorize(
+    ((clientID, redirectURI, done) => {
+        Clients.findOne(clientID, (err, client) => {
+            if (err) {
+                done(err);
+            } else if (!client) {
+                done(null, false);
+            } else if (client.redirectURI !== redirectURI) {
+                done(null, false);
+            } else {
+                done(null, client, client.redirectURI);
+            }
+        });
+    }) as oauth2orize.ValidateFunction,
+);
+((req: Express.Request, res: http.ServerResponse) => {
+    req.oauth2!.transactionID; // $ExpectType string
+    req.oauth2!.client; // $ExpectType { id: string; redirectURI: string; }
+    req.oauth2!.user; // $ExpectType any
+});
 
 server.authorize((clientID, redirectURI, scope, type, done) => {
     done; // $ExpectType ValidateDoneFunction<any>
