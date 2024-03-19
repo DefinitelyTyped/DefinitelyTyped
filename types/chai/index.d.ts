@@ -9,6 +9,10 @@ declare namespace Chai {
         exists: boolean;
     }
 
+    interface Constructor<T> {
+        new(...args: any[]): T;
+    }
+
     interface ErrorConstructor {
         new(...args: any[]): Error;
     }
@@ -595,11 +599,10 @@ declare namespace Chai {
         /**
          * Asserts that value is null.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNull<T>(value: T, message?: string): void;
+        isNull(value: unknown, message?: string): asserts value is null;
 
         /**
          * Asserts that value is not null.
@@ -608,7 +611,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNull<T>(value: T, message?: string): void;
+        isNotNull<T>(value: T, message?: string): asserts value is Exclude<T, null>;
 
         /**
          * Asserts that value is NaN.
@@ -653,7 +656,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isUndefined<T>(value: T, message?: string): void;
+        isUndefined<T>(value: T | undefined, message?: string): asserts value is undefined;
 
         /**
          * Asserts that value is not undefined.
@@ -662,7 +665,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isDefined<T>(value: T, message?: string): void;
+        isDefined<T>(value: T, message?: string): asserts value is Exclude<T, undefined>;
 
         /**
          * Asserts that value is a function.
@@ -770,11 +773,10 @@ declare namespace Chai {
         /**
          * Asserts that value is a boolean.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isBoolean<T>(value: T, message?: string): void;
+        isBoolean(value: unknown, message?: string): asserts value is boolean;
 
         /**
          * Asserts that value is not a boolean.
@@ -783,7 +785,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotBoolean<T>(value: T, message?: string): void;
+        isNotBoolean<T>(value: T, message?: string): asserts value is Exclude<T, boolean>;
 
         /**
          * Asserts that value's type is name, as determined by Object.prototype.toString.
@@ -808,12 +810,12 @@ declare namespace Chai {
         /**
          * Asserts that value is an instance of constructor.
          *
-         * T   Type of value.
+         * T   Expected type of value.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        instanceOf<T>(value: T, constructor: Function, message?: string): void;
+        instanceOf<T>(value: unknown, constructor: Constructor<T>, message?: string): asserts value is T;
 
         /**
          * Asserts that value is not an instance of constructor.

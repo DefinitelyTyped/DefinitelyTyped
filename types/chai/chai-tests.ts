@@ -1465,6 +1465,8 @@ class CrashyObject {
     }
 }
 
+declare function foobar<T>(): T;
+
 suite("assert", () => {
     test("assert", () => {
         const foo = "bar" as string;
@@ -1537,6 +1539,10 @@ suite("assert", () => {
         assert.instanceOf(new Foo(), Foo);
         assert.instanceOf(5, Foo);
         assert.instanceOf(new CrashyObject(), CrashyObject);
+
+        const value = foobar<Foo | null>();
+        assert.instanceOf(value, Foo);
+        const fooValue: Foo = value;
     });
 
     test("notInstanceOf", () => {
@@ -1656,21 +1662,37 @@ suite("assert", () => {
     test("isNull", () => {
         assert.isNull(null);
         assert.isNull(undefined);
+
+        const value = foobar<string | null>();
+        assert.isNull(value);
+        const nullValue: null = value;
     });
 
     test("isNotNull", () => {
         assert.isNotNull(undefined);
         assert.isNotNull(null);
+
+        const value = foobar<number | null>();
+        assert.isNotNull(value);
+        const numberValue: number = value;
     });
 
     test("isUndefined", () => {
         assert.isUndefined(undefined);
         assert.isUndefined(null);
+
+        const value = foobar<undefined | number>();
+        assert.isUndefined(value);
+        const undefinedValue: undefined = value;
     });
 
     test("isDefined", () => {
         assert.isDefined(null);
         assert.isDefined(undefined);
+
+        const value = foobar<undefined | number>();
+        assert.isDefined(value);
+        const definedValue: number = value;
     });
 
     test("isNaN", () => {
@@ -1737,12 +1759,20 @@ suite("assert", () => {
         assert.isBoolean(true);
         assert.isBoolean(false);
         assert.isBoolean("1");
+
+        const value = foobar<boolean | string>();
+        assert.isBoolean(value);
+        const booleanValue: boolean = value;
     });
 
     test("isNotBoolean", () => {
         assert.isNotBoolean("true");
         assert.isNotBoolean(true);
         assert.isNotBoolean(false);
+
+        const value = foobar<boolean | string>();
+        assert.isNotBoolean(value);
+        const stringValue: string = value;
     });
 
     test("include", () => {
