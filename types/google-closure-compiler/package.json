@@ -14,9 +14,8 @@
     },
     "owners": [
         {
-            "name": "Evan Martin",
-            "githubUsername": "evmar",
-            "url": "http://neugierig.org"
+            "name": "Evan Martin (http://neugierig.org)",
+            "githubUsername": "evmar"
         },
         {
             "name": "Danielle Church",
