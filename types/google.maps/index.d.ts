@@ -4481,10 +4481,17 @@ declare namespace google.maps {
    * google.maps.importLibrary("marker")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    * @deprecated As of February 21st, 2024, google.maps.Marker is deprecated.
-   *     Please use google.maps.marker.AdvancedMarkerElement instead. Please see
-   *     <a
+   *     Please use {@link google.maps.marker.AdvancedMarkerElement} instead. At
+   *     this time, google.maps.Marker is not scheduled to be discontinued,
+   *     but {@link google.maps.marker.AdvancedMarkerElement} is recommended
+   *     over google.maps.Marker. While google.maps.Marker will continue to
+   *     receive bug fixes for any major regressions, existing bugs in
+   *     google.maps.Marker will not be addressed. At least 12 months notice
+   *     will be given before support is discontinued. Please see <a
    *     href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>
-   *     for deprecation details.
+   *     for additional details and <a
+   *     href="https://developers.google.com/maps/documentation/javascript/advanced-markers/migration">https://developers.google.com/maps/documentation/javascript/advanced-markers/migration</a>
+   *     for the migration guide.
    */
   export class Marker extends google.maps.MVCObject {
     /**
@@ -4493,10 +4500,17 @@ declare namespace google.maps {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      * @param opts Named optional arguments
      * @deprecated As of February 21st, 2024, google.maps.Marker is deprecated.
-     *     Please use google.maps.marker.AdvancedMarkerElement instead. Please
-     *     see <a
+     *     Please use {@link google.maps.marker.AdvancedMarkerElement} instead.
+     *     At this time, google.maps.Marker is not scheduled to be discontinued,
+     *     but {@link google.maps.marker.AdvancedMarkerElement} is recommended
+     *     over google.maps.Marker. While google.maps.Marker will continue to
+     *     receive bug fixes for any major regressions, existing bugs in
+     *     google.maps.Marker will not be addressed. At least 12 months notice
+     *     will be given before support is discontinued. Please see <a
      *     href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>
-     *     for deprecation details.
+     *     for additional details and <a
+     *     href="https://developers.google.com/maps/documentation/javascript/advanced-markers/migration">https://developers.google.com/maps/documentation/javascript/advanced-markers/migration</a>
+     *     for the migration guide.
      */
     constructor(opts?: google.maps.MarkerOptions | null);
     /**
@@ -4705,7 +4719,9 @@ declare namespace google.maps {
    *     Please use google.maps.marker.AdvancedMarkerElement instead. Please see
    *     <a
    *     href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>
-   *     for deprecation details.
+   *     for deprecation details and <a
+   *     href="https://developers.google.com/maps/documentation/javascript/advanced-markers/migration">https://developers.google.com/maps/documentation/javascript/advanced-markers/migration</a>
+   *     for the migration guide.
    */
   export interface MarkerOptions {
     /**
