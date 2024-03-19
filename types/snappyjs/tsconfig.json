@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
         "module": "node16",
-        "lib": [
-            "es6"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -12,8 +10,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "is-set-tests.ts"
-    ]
+    "files": ["index.d.ts", "snappyjs-tests.ts"]
 }
