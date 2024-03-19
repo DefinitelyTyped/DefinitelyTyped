@@ -1149,26 +1149,26 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): void;
 
     /**
-     * Sets the value of the file input to these files.
+     * Sets the file input element's value to the specified files.
      *
-     * To work with local file on the file system, work with the experimental
-     * fs module to load and read the file's content.
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
      *
-     * The elementHandle must an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * The {@link ElementHandle | element handle} must be an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
      * @param files
      * @param options
      */
     setInputFiles(files: File | File[], options?: {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
-         * is overridden by the setDefaultTimeout option on `BrowserContext` or
-         * `Page`. Defaults to 30000.
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}. Defaults to 30000.
          */
         timeout?: number;
 
         /**
          * If set to `true` and a navigation occurs from performing this action, it
-         * will not wait for it to complete. Defaults to `false`.
+         * does not wait for it to complete. Defaults to `false`.
          */
         noWaitAfter?: boolean;
     }): void;
@@ -1522,12 +1522,12 @@ export interface Frame {
     isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
-     * Sets the value of the file input to these files.
+     * Sets the file input element's value to the specified files.
      *
-     * To work with local file on the file system, work with the experimental
-     * fs module to load and read the file's content.
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
      *
-     * This method expects `selector` to point to an
+     * This method expects a `selector` to point to an
      * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
@@ -1537,8 +1537,8 @@ export interface Frame {
     setInputFiles(selector: string, files: File | File[], options?: {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
-         * is overridden by the setDefaultTimeout option on `BrowserContext` or
-         * `Page`. Defaults to 30000.
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}. Defaults to 30000.
          */
         timeout?: number;
 
@@ -2985,12 +2985,13 @@ export interface Page {
     setExtraHTTPHeaders(headers: { [key: string]: string }): void;
 
     /**
-     * Sets the value of the file input to these files.
+     * Sets the file input element's value to the specified files.
      *
-     * To work with local file on the file system, work with the experimental
-     * fs module to load and read the file's content.
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
      *
-     * This method expects `selector` to point to an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * This method expects a `selector` to point to an
+     * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
      * @param selector A selector to search for an element. If there are multiple
      * elements satisfying the selector, the first will be used.
      * @param files
@@ -2999,8 +3000,8 @@ export interface Page {
     setInputFiles(selector: string, files: File | File[], options?: {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
-         * is overridden by the setDefaultTimeout option on `BrowserContext` or
-         * `Page`. Defaults to 30000.
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}. Defaults to 30000.
          */
         timeout?: number;
 
