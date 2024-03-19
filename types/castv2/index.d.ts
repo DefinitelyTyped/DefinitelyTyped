@@ -1,97 +1,96 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { TlsOptions} from "tls";
+import { TlsOptions } from "tls";
 
 // To start a new client.
 export interface ClientOptions {
-    port: number,
-    host: string,
-    rejectUnauthorized: boolean,
+    port: number;
+    host: string;
+    rejectUnauthorized: boolean;
 }
 
 // A general message in either direction.
 export interface Message {
-    type: string,
+    type: string;
 }
 
 // A specific connection message sent to the receiver.
 export interface ConnectMessage extends Message {
-    type: "CONNECT",
+    type: "CONNECT";
 }
 
 // A general request sent to the receiver.
 export interface RequestMessage extends Message {
-    requestId: number,
+    requestId: number;
 }
 
 // A specific request sent to the receiver to launch an application.
 export interface LaunchRequestMessage extends RequestMessage {
-    type: "LAUNCH",
-    appId: string,
-    commandParameters?: string,
+    type: "LAUNCH";
+    appId: string;
+    commandParameters?: string;
 }
 
 // A specific request sent to the receiver to stop the current application.
 export interface StopRequestMessage extends RequestMessage {
-    type: "STOP",
+    type: "STOP";
 }
 
 // A general response from the receiver.
 export interface ReceiverMessage extends Message {
-    requestId: number,
+    requestId: number;
 }
 
 export interface ApplicationNamespace {
-    name: string,
+    name: string;
 }
 
 export interface ApplicationInfo {
-    appId: string,
-    appType: string,
-    displayName: string,
-    iconUrl: string,
-    isIdleScreen: boolean,
-    launchedFromCloud: boolean,
-    namespaces: ApplicationNamespace[],
-    sessionId: string,
-    statusText: string,
-    transportId: string,
-    universalAppId: string,
+    appId: string;
+    appType: string;
+    displayName: string;
+    iconUrl: string;
+    isIdleScreen: boolean;
+    launchedFromCloud: boolean;
+    namespaces: ApplicationNamespace[];
+    sessionId: string;
+    statusText: string;
+    transportId: string;
+    universalAppId: string;
 }
 
 export interface VolumeInfo {
-    controlType: string,
-    level: number,
-    muted: boolean,
-    stepInterval: number,
+    controlType: string;
+    level: number;
+    muted: boolean;
+    stepInterval: number;
 }
 
 // A status message from the receiver.
 export interface ReceiverStatusMessage extends ReceiverMessage {
-    type: "RECEIVER_STATUS",
+    type: "RECEIVER_STATUS";
     status: {
-        applications?: ApplicationInfo[],
-        volume?: VolumeInfo,
-        isActiveInput?: boolean,
-        isStandBy?: boolean,
-        userEq?: unknown,  // Exact format undocumented
-    },
+        applications?: ApplicationInfo[];
+        volume?: VolumeInfo;
+        isActiveInput?: boolean;
+        isStandBy?: boolean;
+        userEq?: unknown; // Exact format undocumented
+    };
 }
 
 // A launch error message from the receiver.
 export interface ReceiverLaunchErrorMessage extends ReceiverMessage {
-    type: "LAUNCH_ERROR",
-    reason: string,
+    type: "LAUNCH_ERROR";
+    reason: string;
 }
 
 export interface ReceiverLaunchStatus extends ReceiverMessage {
-    type: "LAUNCH_STATUS",
-    status: "USER_PENDING_AUTHORIZATION"|"USER_ALLOWED",
+    type: "LAUNCH_STATUS";
+    status: "USER_PENDING_AUTHORIZATION" | "USER_ALLOWED";
 }
 
-export type MessageHandler = (data: ReceiverMessage,
-                              broadcast: boolean) => void;
+export type MessageHandler = (data: ReceiverMessage, broadcast: boolean) => void;
 
 export type ErrorHandler = (error: Error) => void;
 
@@ -99,7 +98,7 @@ export class Channel extends EventEmitter {
     // Do not construct directly.  Use Client's createChannel().
     private constructor();
 
-    send(data: string|Buffer): void;
+    send(data: string | Buffer): void;
     send<T extends Message>(data: T): void;
 
     close(): void;
@@ -112,10 +111,9 @@ export class Client extends EventEmitter {
 
     close(): void;
 
-    connect(options: ClientOptions|string, callback: ()=>void): void;
+    connect(options: ClientOptions | string, callback: () => void): void;
 
-    createChannel(sourceId: string, destinationId: string, namespace: string,
-                  encoding: string): Channel;
+    createChannel(sourceId: string, destinationId: string, namespace: string, encoding: string): Channel;
 
     on(eventName: "error", callback: ErrorHandler): this;
 }
