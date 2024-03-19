@@ -45,6 +45,12 @@ interface UploadFileResult {
 interface DownloadFileOptions {
     /** 文件下载地址 */
     url: string;
+    /**
+     * 文件下载类型
+     * - 示例: .pdf
+     * - 仅浙里办APPv7.9.0 及以后版本，该参数生效
+     */
+    fileType?: string;
 }
 
 /**
