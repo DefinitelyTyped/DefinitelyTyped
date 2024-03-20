@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -14,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "is-map-tests.ts"
+        "vue-writer-tests.ts"
     ]
 }

@@ -622,32 +622,32 @@ interface CheckHash {
 }
 
 interface AttachmentsHash {
-    AttachmentsA?: AttachmentsData | undefined;
-    AttachmentsB?: AttachmentsData | undefined;
-    AttachmentsC?: AttachmentsData | undefined;
-    AttachmentsD?: AttachmentsData | undefined;
-    AttachmentsE?: AttachmentsData | undefined;
-    AttachmentsF?: AttachmentsData | undefined;
-    AttachmentsG?: AttachmentsData | undefined;
-    AttachmentsH?: AttachmentsData | undefined;
-    AttachmentsI?: AttachmentsData | undefined;
-    AttachmentsJ?: AttachmentsData | undefined;
-    AttachmentsK?: AttachmentsData | undefined;
-    AttachmentsL?: AttachmentsData | undefined;
-    AttachmentsM?: AttachmentsData | undefined;
-    AttachmentsN?: AttachmentsData | undefined;
-    AttachmentsO?: AttachmentsData | undefined;
-    AttachmentsP?: AttachmentsData | undefined;
-    AttachmentsQ?: AttachmentsData | undefined;
-    AttachmentsR?: AttachmentsData | undefined;
-    AttachmentsS?: AttachmentsData | undefined;
-    AttachmentsT?: AttachmentsData | undefined;
-    AttachmentsU?: AttachmentsData | undefined;
-    AttachmentsV?: AttachmentsData | undefined;
-    AttachmentsW?: AttachmentsData | undefined;
-    AttachmentsX?: AttachmentsData | undefined;
-    AttachmentsY?: AttachmentsData | undefined;
-    AttachmentsZ?: AttachmentsData | undefined;
+    AttachmentsA?: AttachmentsData[] | undefined;
+    AttachmentsB?: AttachmentsData[] | undefined;
+    AttachmentsC?: AttachmentsData[] | undefined;
+    AttachmentsD?: AttachmentsData[] | undefined;
+    AttachmentsE?: AttachmentsData[] | undefined;
+    AttachmentsF?: AttachmentsData[] | undefined;
+    AttachmentsG?: AttachmentsData[] | undefined;
+    AttachmentsH?: AttachmentsData[] | undefined;
+    AttachmentsI?: AttachmentsData[] | undefined;
+    AttachmentsJ?: AttachmentsData[] | undefined;
+    AttachmentsK?: AttachmentsData[] | undefined;
+    AttachmentsL?: AttachmentsData[] | undefined;
+    AttachmentsM?: AttachmentsData[] | undefined;
+    AttachmentsN?: AttachmentsData[] | undefined;
+    AttachmentsO?: AttachmentsData[] | undefined;
+    AttachmentsP?: AttachmentsData[] | undefined;
+    AttachmentsQ?: AttachmentsData[] | undefined;
+    AttachmentsR?: AttachmentsData[] | undefined;
+    AttachmentsS?: AttachmentsData[] | undefined;
+    AttachmentsT?: AttachmentsData[] | undefined;
+    AttachmentsU?: AttachmentsData[] | undefined;
+    AttachmentsV?: AttachmentsData[] | undefined;
+    AttachmentsW?: AttachmentsData[] | undefined;
+    AttachmentsX?: AttachmentsData[] | undefined;
+    AttachmentsY?: AttachmentsData[] | undefined;
+    AttachmentsZ?: AttachmentsData[] | undefined;
 }
 interface AttachmentsData {
     Guid: string | undefined;
@@ -696,6 +696,7 @@ interface RecordDataItems {
     DateHash?: DateHash | undefined;
     DescriptionHash?: DescriptionHash | undefined;
     CheckHash?: CheckHash | undefined;
+    AttachmentsHash?: AttachmentsHash | undefined;
 }
 
 // #region APIの呼び出しに失敗した時のデータ型

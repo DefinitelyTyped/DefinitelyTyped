@@ -302,7 +302,12 @@ interface OvenPlayerEvents {
     /** New volume percentage (0-100) */
     mute: number;
     /** New volume percentage (0-100) */
-    volumeChanged: number;
+    volumeChanged: {
+        /** New volume percentage (0-100) */
+        volume: number;
+        /** True if the volume is muted, false otherwise. */
+        mute: boolean;
+    };
     /** index of the new playlist index */
     playlistChanged: number;
     /** index of the new quality level in the getSources() array */

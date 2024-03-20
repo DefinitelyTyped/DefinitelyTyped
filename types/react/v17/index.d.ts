@@ -1522,8 +1522,16 @@ declare namespace React {
         onPointerCancel?: PointerEventHandler<T> | undefined;
         onPointerCancelCapture?: PointerEventHandler<T> | undefined;
         onPointerEnter?: PointerEventHandler<T> | undefined;
+        /**
+         * @deprecated This event handler was always ignored by React. It was added by mistake to the types.
+         */
+        // Removing this breaks too many libraries to be worth it.
         onPointerEnterCapture?: PointerEventHandler<T> | undefined;
         onPointerLeave?: PointerEventHandler<T> | undefined;
+        /**
+         * @deprecated This event handler was always ignored by React. It was added by mistake to the types.
+         */
+        // Removing this breaks too many libraries to be worth it.
         onPointerLeaveCapture?: PointerEventHandler<T> | undefined;
         onPointerOver?: PointerEventHandler<T> | undefined;
         onPointerOverCapture?: PointerEventHandler<T> | undefined;
