@@ -179,26 +179,3 @@ function Optimistic() {
         setStateDefaultAction("4");
     };
 }
-
-// ref cleanup
-<div
-    ref={current => {
-        return function refCleanup() {
-        };
-    }}
-/>;
-<div
-    // @ts-expect-error ref cleanup does not accept arguments
-    ref={current => {
-        // @ts-expect-error
-        return function refCleanup(implicitAny) {
-        };
-    }}
-/>;
-<div
-    // @ts-expect-error ref cleanup does not accept arguments
-    ref={current => {
-        return function refCleanup(neverPassed: string) {
-        };
-    }}
-/>;
