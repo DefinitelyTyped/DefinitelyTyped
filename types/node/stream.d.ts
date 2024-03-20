@@ -1445,8 +1445,8 @@ declare module "stream" {
                 options?: FinishedOptions,
             ): Promise<void>;
         }
-        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T>;
-        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | Readable<T> | NodeJS.ReadableStream | PipelineSourceFunction<T>;
+        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T> | Readable;
+        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | Readable | NodeJS.ReadableStream | PipelineSourceFunction<T>;
         type PipelineTransform<S extends PipelineTransformSource<any>, U> =
             | NodeJS.ReadWriteStream
             | ((
