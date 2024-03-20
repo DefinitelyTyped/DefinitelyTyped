@@ -546,7 +546,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -909,4 +909,26 @@ function managingRefs() {
     // `inputRef.current` will contain `Element | null` at runtime
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
+    // ref cleanup
+    <div
+        ref={current => {
+            return function refCleanup() {
+            };
+        }}
+    />;
+    <div
+        // @ts-expect-error ref cleanup does not accept arguments
+        ref={current => {
+            // @ts-expect-error
+            return function refCleanup(implicitAny) {
+            };
+        }}
+    />;
+    <div
+        // @ts-expect-error ref cleanup does not accept arguments
+        ref={current => {
+            return function refCleanup(neverPassed: string) {
+            };
+        }}
+    />;
 }
