@@ -1,5 +1,4 @@
-
-import { rrdir, rrdirAsync, rrdirSync } from 'rrdir';
+import { rrdir, rrdirAsync, rrdirSync } from "rrdir";
 
 async function exercise(): Promise<void> {
     // string version
