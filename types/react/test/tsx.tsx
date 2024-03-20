@@ -909,4 +909,28 @@ function managingRefs() {
     // `inputRef.current` will contain `Element | null` at runtime
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
+    // ref cleanup
+    <div
+        ref={current => {
+            return function refCleanup() {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            // @ts-expect-error
+            return function refCleanup(implicitAny) {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            return function refCleanup(neverPassed: string) {
+            };
+        }}
+    />;
 }
