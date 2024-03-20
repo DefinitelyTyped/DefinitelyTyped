@@ -109,4 +109,8 @@ declare module "." {
         passthrough: State,
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+        cleanup: () => VoidOrUndefinedOnly;
+    }
 }

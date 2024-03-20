@@ -155,6 +155,8 @@ declare namespace React {
         readonly current: T | null;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+    }
     /**
      * A callback fired whenever the ref's value changes.
      *
@@ -168,7 +170,15 @@ declare namespace React {
      * <div ref={(node) => console.log(node)} />
      * ```
      */
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = {
+        bivarianceHack(
+            instance: T | null,
+        ):
+            | void
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
+            ];
+    }["bivarianceHack"];
 
     /**
      * A union type of all possible shapes for React refs.
