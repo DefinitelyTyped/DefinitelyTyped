@@ -1,8 +1,9 @@
+
 import rrdir = require("rrdir");
 
 async function exercise(): Promise<void> {
     // string version
-    for await (const entry of rrdir("dir")) {
+    for await (const entry of rrdir.rrdir("dir")) {
         // $ExpectType Entry<string>
         entry;
         // $ExpectType string
@@ -14,10 +15,10 @@ async function exercise(): Promise<void> {
     }
 
     // Buffer version
-    for await (const entry of rrdir(Buffer.from("dir"))) {
-        // $ExpectType Entry<Buffer>
+    for await (const entry of rrdir.rrdir(Buffer.from("dir"))) {
+        // $ExpectType Entry<Uint8Array>
         entry;
-        // $ExpectType Buffer
+        // $ExpectType Uint8Array
         entry.path;
         // $ExpectType boolean | undefined
         entry.directory;
@@ -26,14 +27,14 @@ async function exercise(): Promise<void> {
     }
 
     // $ExpectType Entry<string>[]
-    await rrdir.async("dir");
+    await rrdir.rrdirAsync("dir");
 
-    // $ExpectType Entry<Buffer>[]
-    await rrdir.async(Buffer.from("dir"));
+    // $ExpectType Entry<Uint8Array>[]
+    await rrdir.rrdirAsync(Buffer.from("dir"));
 }
 
 // $ExpectType Entry<string>[]
-rrdir.sync("dir");
+rrdir.rrdirSync("dir");
 
-// $ExpectType Entry<Buffer>[]
-rrdir.sync(Buffer.from("dir"));
+// $ExpectType Entry<Uint8Array>[]
+rrdir.rrdirSync(Buffer.from("dir"));
