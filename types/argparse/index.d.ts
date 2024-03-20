@@ -57,6 +57,7 @@ export interface ArgumentParserOptions {
     argument_default?: any;
     parents?: ArgumentParser[] | undefined;
     prefix_chars?: string | undefined;
+    fromfile_prefix_chars?: string | undefined;
     formatter_class?: {
         new(): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
     } | undefined;
