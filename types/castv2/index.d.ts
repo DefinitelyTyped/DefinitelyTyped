@@ -93,9 +93,7 @@ export type MessageHandler = (data: ReceiverMessage, broadcast: boolean) => void
 
 export type ErrorHandler = (error: Error) => void;
 
-export class Channel extends EventEmitter {
-    // Do not construct directly.  Use Client's createChannel().
-    private constructor();
+export interface Channel extends EventEmitter {
 
     send(data: string | Buffer): void;
     send<T extends Message>(data: T): void;
