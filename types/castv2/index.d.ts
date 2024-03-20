@@ -1,7 +1,6 @@
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { TlsOptions } from "tls";
 
 // To start a new client.
 export interface ClientOptions {
