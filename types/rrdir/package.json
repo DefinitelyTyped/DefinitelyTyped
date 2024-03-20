@@ -1,5 +1,6 @@
 {
     "private": true,
+    "type": "module",
     "name": "@types/rrdir",
     "version": "13.0.9999",
     "projects": [
