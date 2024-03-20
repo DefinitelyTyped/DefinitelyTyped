@@ -107,8 +107,6 @@ export class Channel extends EventEmitter {
 }
 
 export class Client extends EventEmitter {
-    constructor();
-
     close(): void;
 
     connect(options: ClientOptions | string, callback: () => void): void;
