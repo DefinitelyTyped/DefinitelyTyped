@@ -9,12 +9,16 @@
     "dependencies": {
         "@types/node": "*",
         "@types/react": "*",
-        "@types/react-dom": "*",
-        "next": "^12.2.5 || ^13.0.0",
-        "workbox-build": "^6.5.4"
+        "@types/react-dom": "*"
     },
     "devDependencies": {
-        "@types/next-pwa": "workspace:."
+        "@types/next-pwa": "workspace:.",
+        "next": "^12.2.5 || ^13.0.0 || ^14.0.0",
+        "workbox-build": "^6.5.4"
+    },
+    "peerDependencies": {
+        "next": "^12.2.5 || ^13.0.0 || ^14.0.0",
+        "workbox-build": "^6.5.4"        
     },
     "owners": [
         {
