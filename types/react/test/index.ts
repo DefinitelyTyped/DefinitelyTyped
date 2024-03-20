@@ -297,7 +297,9 @@ React.cloneElement(element, {}, null);
 React.cloneElement(myElement);
 
 const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
-    ref: c => c && c.reset(),
+    ref: c => {
+        c && c.reset();
+    },
 });
 const clonedElement3: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
     key: "8eac7",
@@ -377,7 +379,11 @@ class RefComponent extends React.Component<RCProps> {
 let componentRef: RefComponent | null = new RefComponent({});
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
-RefComponent.create({ ref: c => componentRef = c });
+RefComponent.create({
+    ref: c => {
+        componentRef = c;
+    },
+});
 componentRef.refMethod();
 
 let domNodeRef: Element | null;
