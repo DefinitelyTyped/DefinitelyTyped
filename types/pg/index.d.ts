@@ -7,7 +7,7 @@ import { NoticeMessage } from "pg-protocol/dist/messages";
 
 import { ConnectionOptions } from "tls";
 
-export type QueryConfigValues<T> = T extends Array<infer U> ? (U extends never ? never : T) : never
+export type QueryConfigValues<T> = T extends Array<infer U> ? (U extends never ? never : T) : never;
 
 export interface ClientConfig {
     user?: string | undefined;
@@ -190,15 +190,15 @@ export class Pool extends events.EventEmitter {
     query<R extends QueryResultRow = any, I = any[]>(
         queryConfig: QueryConfig<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends QueryResultRow = any, I  = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         values?: QueryConfigValues<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends any[] = any[], I  = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
         callback: (err: Error, result: QueryArrayResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I  = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;

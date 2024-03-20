@@ -13,8 +13,8 @@ declare namespace QueryString {
         skipNulls?: boolean | undefined;
         encode?: boolean | undefined;
         encoder?:
-          | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value") => string)
-          | undefined;
+            | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value") => string)
+            | undefined;
         filter?: Array<string | number> | ((prefix: string, value: any) => any) | undefined;
         arrayFormat?: "indices" | "brackets" | "repeat" | "comma" | undefined;
         indices?: boolean | undefined;
@@ -28,18 +28,20 @@ declare namespace QueryString {
     }
 
     type IStringifyDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
-      ? { allowDots?: AllowDots, encodeDotInKeys?: boolean }
-      : { allowDots?: boolean, encodeDotInKeys?: false }
+        ? { allowDots?: AllowDots; encodeDotInKeys?: boolean }
+        : { allowDots?: boolean; encodeDotInKeys?: false };
 
-    type IStringifyOptions<AllowDots extends BooleanOptional = undefined> = IStringifyBaseOptions & IStringifyDynamicOptions<AllowDots>
+    type IStringifyOptions<AllowDots extends BooleanOptional = undefined> =
+        & IStringifyBaseOptions
+        & IStringifyDynamicOptions<AllowDots>;
 
     interface IParseBaseOptions {
         comma?: boolean | undefined;
         delimiter?: string | RegExp | undefined;
         depth?: number | false | undefined;
         decoder?:
-          | ((str: string, defaultDecoder: defaultDecoder, charset: string, type: "key" | "value") => any)
-          | undefined;
+            | ((str: string, defaultDecoder: defaultDecoder, charset: string, type: "key" | "value") => any)
+            | undefined;
         arrayLimit?: number | undefined;
         parseArrays?: boolean | undefined;
         plainObjects?: boolean | undefined;
@@ -52,14 +54,16 @@ declare namespace QueryString {
         charsetSentinel?: boolean | undefined;
         interpretNumericEntities?: boolean | undefined;
         allowEmptyArrays?: boolean | undefined;
-        duplicates?: 'combine' | 'first' | 'last' | undefined;
+        duplicates?: "combine" | "first" | "last" | undefined;
     }
 
     type IParseDynamicOptions<AllowDots extends BooleanOptional> = AllowDots extends true
-      ? { allowDots?: AllowDots, decodeDotInKeys?: boolean }
-      : { allowDots?: boolean, decodeDotInKeys?: false }
+        ? { allowDots?: AllowDots; decodeDotInKeys?: boolean }
+        : { allowDots?: boolean; decodeDotInKeys?: false };
 
-    type IParseOptions<AllowDots extends BooleanOptional = undefined> = IParseBaseOptions & IParseDynamicOptions<AllowDots>
+    type IParseOptions<AllowDots extends BooleanOptional = undefined> =
+        & IParseBaseOptions
+        & IParseDynamicOptions<AllowDots>;
 
     interface ParsedQs {
         [key: string]: undefined | string | string[] | ParsedQs | ParsedQs[];
@@ -67,5 +71,8 @@ declare namespace QueryString {
 
     function stringify(obj: any, options?: IStringifyOptions<BooleanOptional>): string;
     function parse(str: string, options?: IParseOptions<BooleanOptional> & { decoder?: never | undefined }): ParsedQs;
-    function parse(str: string | Record<string, string>, options?: IParseOptions<BooleanOptional>): { [key: string]: unknown };
+    function parse(
+        str: string | Record<string, string>,
+        options?: IParseOptions<BooleanOptional>,
+    ): { [key: string]: unknown };
 }
