@@ -68,7 +68,9 @@ const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createRe
         return DOM.div(
             null,
             DOM.input({
-                ref: input => this._input = input,
+                ref: input => {
+                    this._input = input;
+                },
                 value: this.state.bar,
             }),
         );
