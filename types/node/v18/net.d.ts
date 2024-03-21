@@ -16,10 +16,14 @@ declare module "net" {
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import * as dns from "node:dns";
+
+    type LookupOneCallback = (err: null, address: string, family: number) => void;
+    type LookupAllCallback = (err: null, addresses: dns.LookupAddress[]) => void;
+    type LookupErrorCallback = (err: NodeJS.ErrnoException) => void;
     type LookupFunction = (
         hostname: string,
         options: dns.LookupOptions,
-        callback: (err: NodeJS.ErrnoException | null, address: string | dns.LookupAddress[], family?: number) => void,
+        callback: LookupOneCallback | LookupAllCallback | LookupErrorCallback,
     ) => void;
     interface AddressInfo {
         address: string;
