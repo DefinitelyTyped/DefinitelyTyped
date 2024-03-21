@@ -835,6 +835,7 @@ function propsInferenceHelpersTests() {
         ref: divRef,
         value: "string",
     };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
     interface ExtendedFunctionComponentProps extends React.ComponentPropsWithRef<typeof FunctionComponent> {
         ref: React.Ref<HTMLDivElement>;
         optional?: number;
@@ -868,6 +869,7 @@ function propsInferenceHelpersTests() {
         ref: divRef,
         value: "string",
     };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
     interface ExtendedClassComponentProps extends React.ComponentPropsWithRef<typeof ClassComponent> {
         ref: React.Ref<InstanceType<typeof ClassComponent>>;
         optional?: number;
@@ -898,6 +900,7 @@ function propsInferenceHelpersTests() {
         ref: divRef,
         value: "string",
     };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
     interface ExtendedForwardRefComponentProps extends React.ComponentPropsWithRef<typeof ForwardRefComponent> {
         ref: React.Ref<InstanceType<typeof ClassComponent>>;
         optional?: number;
