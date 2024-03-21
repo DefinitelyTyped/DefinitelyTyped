@@ -67,3 +67,13 @@ MathJax.Hub.Config({
 });
 
 MathJax.Hub.processSectionDelay = 5;
+
+// Importing from module
+import { Config as MathJaxConfig } from "mathjax"
+
+// Module augmentation
+declare module "mathjax" {
+    interface Test {
+        something: number;
+    }
+}
