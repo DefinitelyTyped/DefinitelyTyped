@@ -40,7 +40,7 @@ export interface TypesetInput {
      *
      * @defaultValue `'TeX'`
      */
-    format: 'TeX' | 'inline-TeX' | 'MathML';
+    format: "TeX" | "inline-TeX" | "MathML";
 
     /**
      * The namespace to use for MathML.
@@ -121,7 +121,6 @@ export interface TypesetInput {
     svgNode?: boolean;
 
     /**
-     *
      * Add textual alternatives to the output.
      *
      * @remarks
@@ -178,7 +177,7 @@ export interface TypesetInput {
      *
      * @defaultValue `'none'`
      */
-    equationNumbers?: 'none' | 'AMS' | 'all';
+    equationNumbers?: "none" | "AMS" | "all";
 
     /**
      * Controls the width (in pixels) of CJK characters.
@@ -610,7 +609,7 @@ export function typeset(
      *     html: true
      * }
      */
-    input: TypesetInput
+    input: TypesetInput,
 ): Promise<TypesetResult>;
 
 /**
@@ -628,7 +627,6 @@ export function typeset(
      * }
      */
     input: TypesetInput,
-    
     /**
      * Callback function to be executed after the typesetting operation is
      * complete.
@@ -644,7 +642,8 @@ export function typeset(
         /**
          * The input that was passed to the typesetting operation.
          */
-        input: TypesetInput) => void,
+        input: TypesetInput,
+    ) => void,
 ): void;
 
 /**
@@ -664,4 +663,3 @@ export function start(): void;
  * {@link start | `start`} method.
  */
 export function config(options: MathjaxNodeConfig): void;
-
