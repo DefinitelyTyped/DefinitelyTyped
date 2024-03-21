@@ -9,7 +9,8 @@ export interface AvailabilityMetrics {
      */
     currentMonth?: number | null;
     /**
-     * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. 0.0 means 0%. 1.0 means 100%.
+     * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. 0.0 means 0%. 1.0 means 100%.clear
+     * 
      */
     previousMonths?: number[] | null;
     [k: string]: unknown;
@@ -554,7 +555,7 @@ export interface ErrorMetrics {
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
 
 /**
- * Number of calls resulting in error, over time
+ * Number of calls resulting in error due to server execution over time
  */
 export interface ErrorMetricsV2 {
     /**
@@ -572,7 +573,7 @@ export interface ErrorMetricsV2 {
         [k: string]: unknown;
     } | null;
     /**
-     * Number of calls resulting in error for authenticated endpoints
+     * Number of calls resulting in error due to server execution over time for authenticated endpoints
      */
     authenticated: {
         /**
@@ -606,7 +607,7 @@ export interface ErrorMetricsV2 {
         [k: string]: unknown;
     };
     /**
-     * Number of calls resulting in error for unauthenticated endpoints
+     * Number of calls resulting in error due to server execution over time for unauthenticated endpoints
      */
     unauthenticated: {
         /**
@@ -966,7 +967,7 @@ export interface PerformanceMetrics {
  */
 export interface PerformanceMetricsV3 {
     /**
-     * Percentage of calls within Primary Data Holder performance thresholds. Note that Secondary Data Holder performance <b>MUST</b> be excluded from this metric.
+     * Percentage of calls within the performance thresholds
      */
     aggregate?: {
         /**

@@ -2102,7 +2102,7 @@ export interface EnergyBillingDemandTransactionV3 {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-      | {
+      | Array<{
           /**
            * The amount of the adjustment
            */
@@ -2112,7 +2112,7 @@ export interface EnergyBillingDemandTransactionV3 {
            */
           description: string;
           [k: string]: unknown;
-        }[]
+        }>
       | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
@@ -2122,7 +2122,7 @@ export interface EnergyBillingDemandTransactionV3 {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-      | {
+      | Array<{
           /**
            * The type of the calculation factor
            */
@@ -2132,7 +2132,7 @@ export interface EnergyBillingDemandTransactionV3 {
            */
           value: number;
           [k: string]: unknown;
-        }[]
+        }>
       | null;
     /**
      * Optional description of the transaction that can be used for display purposes
