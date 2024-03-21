@@ -94,8 +94,12 @@ export type MessageHandler = (data: ReceiverMessage, broadcast: boolean) => void
 export type ErrorHandler = (error: Error) => void;
 
 export interface Channel extends EventEmitter {
-
+    // Send a pre-encoded string or Buffer.
     send(data: string | Buffer): void;
+
+    // Send any type or object literal that matches any subclass of Message.
+    // This requires use of the generic, which tslint doesn't like.
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     send<T extends Message>(data: T): void;
 
     close(): void;
