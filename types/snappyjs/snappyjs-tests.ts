@@ -1,4 +1,4 @@
-import { compress, decompress } from "snappyjs";
+import { compress, uncompress } from "snappyjs";
 
 const buffer1 = new ArrayBuffer(100);
 const buffer2 = new Uint8Array(100);
