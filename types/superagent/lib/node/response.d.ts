@@ -20,8 +20,8 @@ declare class Response extends Stream implements Pick<IncomingMessage, "setEncod
     error: false | HTTPError;
     files: any;
     forbidden: boolean;
-    get(header: string): string;
-    get(header: "Set-Cookie"): string[];
+    get(header: string): string | undefined;
+    get(header: "Set-Cookie"): string[] | undefined;
     header: { [index: string]: string };
     headers: { [index: string]: string };
     info: boolean;

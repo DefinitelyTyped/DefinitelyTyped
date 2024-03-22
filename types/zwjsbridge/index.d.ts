@@ -45,6 +45,12 @@ interface UploadFileResult {
 interface DownloadFileOptions {
     /** 文件下载地址 */
     url: string;
+    /**
+     * 文件下载类型
+     * - 示例: .pdf
+     * - 仅浙里办APPv7.9.0 及以后版本，该参数生效
+     */
+    fileType?: string;
 }
 
 /**
@@ -148,12 +154,8 @@ interface ZWJSBridge {
     }>;
 
     /**
-     * 支付宝扫脸认证
-     * 该接口涉及业务签约，一旦服务到期后，将改变相应接口的调用方式，请及时按照本文档进行进行适配。
-     *
-     * 错误码
-     * 1001 支付宝认证失败
-     * 1003 姓名或身份证号错误
+     * 支付宝扫脸认证 (于 2023-09-07 废弃)
+     * @deprecated 1.3.5 服务内涉及用户 二次身份认证需申请使用身份核验组件，不再支持通过 ZWJSBridge.zmAuthentication 调用支付宝扫脸认证能力。
      */
     zmAuthentication(parasm: {
         /** 身份证号，默认值为当前登录账号所属身份证号码 */
@@ -388,6 +390,15 @@ interface ZWJSBridge {
      */
     downloadFile(options: DownloadFileOptions): Promise<DownloadFileResult>;
 
+    /**
+     * 语音转文本
+     * - 仅支持“浙里办”APP（v7.9.0 及以后版本）中调用此功能，小程序暂不支持。
+     */
+    voicedictation(): Promise<{
+        /** 识别到的内容 */
+        result: string;
+    }>;
+
     /***********    UI界面类     ***********/
     /**
      * 确认框
@@ -551,14 +562,41 @@ interface ZWJSBridge {
     }): Promise<any>;
 
     /**
-     * 获取ui样式
+     * 获取用户当前 UI 风格
      */
     getUiStyle(): Promise<{
         /**
+         * UI风格
          * normal: 常规版
          * elder: 长辈版
          */
-        uiStyle: string;
+        uiStyle: "normal" | "elder";
+    }>;
+
+    /**
+     * 统一身份认证
+     * - 需要在 IRS 系统申请“浙里办”身份认证中心-身份核验组件，调用 authentication 接口启用“浙里办”统一身份认证功能。
+     * @param options 请求参数
+     * @returns 异步返回认证结果
+     */
+    authentication(options: {
+        /**
+         * ak,对应统一身份认证组件申请使用后返回的
+         * @example szzj
+         */
+        accessKey: string;
+        /**
+         * 参照统一身份认证组件中身份核验认证使用规范调用信息接收接口（第三方需在后端进行调用）获得
+         * @example req_9ca87969175445ec902cf4496a7f18ed
+         */
+        requestId: string;
+    }): Promise<{
+        /** 认证结果 */
+        pass: "true" | "false";
+        /** 查询标识号 */
+        bizNo: string;
+        /** 认证结果描述 */
+        msg: string;
     }>;
 
     /***********    请求类     ***********/

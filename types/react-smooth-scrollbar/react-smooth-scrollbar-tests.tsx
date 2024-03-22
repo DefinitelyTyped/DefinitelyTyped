@@ -20,7 +20,13 @@ class Test extends React.Component {
     }
 
     render() {
-        return <SmoothScrollbar ref={ref => this.ref = ref} />;
+        return (
+            <SmoothScrollbar
+                ref={ref => {
+                    this.ref = ref;
+                }}
+            />
+        );
     }
 }
 

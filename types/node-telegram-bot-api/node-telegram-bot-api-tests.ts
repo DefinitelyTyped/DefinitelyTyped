@@ -219,6 +219,14 @@ MyTelegramBot.editChatInviteLink(1234, "", {
     member_limit: 1234,
     creates_join_request: true,
 });
+MyTelegramBot.sendMediaGroup(1234, [
+    {
+        type: "photo",
+        media: "My/File/ID",
+        caption: "Media Group",
+        caption_entities: [{ type: "custom_emoji", offset: 0, length: 2, custom_emoji_id: "test_emoji" }],
+    },
+]);
 MyTelegramBot.revokeChatInviteLink(1234, "");
 MyTelegramBot.approveChatJoinRequest(1234, 5678);
 MyTelegramBot.approveChatJoinRequest(1234, 5678, {});

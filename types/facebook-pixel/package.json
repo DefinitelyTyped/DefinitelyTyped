@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/facebook-pixel",
     "version": "0.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "facebook-pixel",
     "projects": [
         "https://developers.facebook.com/docs/ads-for-websites/tag-api/"
