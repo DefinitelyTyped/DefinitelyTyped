@@ -107,6 +107,26 @@ export interface ECMAScript6 extends Linter.RulesRecord {
     >;
 
     /**
+     * Require or disallow logical assignment operator shorthand.
+     *
+     * @since 8.24.0
+     * @see https://eslint.org/docs/rules/logical-assignment-operators
+     */
+    "logical-assignment-operators":
+        | Linter.RuleEntry<
+            [
+                "always",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    enforceForIfStatements: boolean;
+                }>,
+            ]
+        >
+        | Linter.RuleEntry<["never"]>;
+
+    /**
      * Rule to disallow reassigning class members.
      *
      * @remarks
@@ -160,9 +180,9 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * Rule to disallow duplicate module imports.
      *
      * @since 2.5.0
-     * @see https://eslint.org/docs/rules/no-duplicate-import
+     * @see https://eslint.org/docs/rules/no-duplicate-imports
      */
-    "no-duplicate-import": Linter.RuleEntry<
+    "no-duplicate-imports": Linter.RuleEntry<
         [
             Partial<{
                 /**
@@ -384,6 +404,14 @@ export interface ECMAScript6 extends Linter.RulesRecord {
             }>,
         ]
     >;
+
+    /**
+     * Disallow the use of `Math.pow` in favor of the `**` operator.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/latest/rules/prefer-exponentiation-operator
+     */
+    "prefer-exponentiation-operator": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals.

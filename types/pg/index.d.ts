@@ -7,6 +7,8 @@ import { NoticeMessage } from "pg-protocol/dist/messages";
 
 import { ConnectionOptions } from "tls";
 
+export type QueryConfigValues<T> = T extends Array<infer U> ? (U extends never ? never : T) : never;
+
 export interface ClientConfig {
     user?: string | undefined;
     database?: string | undefined;
@@ -49,10 +51,10 @@ export interface PoolConfig extends ClientConfig {
     maxUses?: number | undefined;
 }
 
-export interface QueryConfig<I extends any[] = any[]> {
+export interface QueryConfig<I = any[]> {
     name?: string | undefined;
     text: string;
-    values?: I | undefined;
+    values?: QueryConfigValues<I>;
     types?: CustomTypesConfig | undefined;
 }
 
@@ -64,7 +66,7 @@ export interface Submittable {
     submit: (connection: Connection) => void;
 }
 
-export interface QueryArrayConfig<I extends any[] = any[]> extends QueryConfig<I> {
+export interface QueryArrayConfig<I = any[]> extends QueryConfig<I> {
     rowMode: "array";
 }
 
@@ -181,28 +183,28 @@ export class Pool extends events.EventEmitter {
 
     query<T extends Submittable>(queryStream: T): T;
     // tslint:disable:no-unnecessary-generics
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryArrayResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryConfig: QueryConfig<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
         callback: (err: Error, result: QueryArrayResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryText: string,
-        values: I,
+        values: QueryConfigValues<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
     // tslint:enable:no-unnecessary-generics
@@ -219,28 +221,28 @@ export class ClientBase extends events.EventEmitter {
 
     query<T extends Submittable>(queryStream: T): T;
     // tslint:disable:no-unnecessary-generics
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryArrayResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any>(
         queryConfig: QueryConfig<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
-        values?: I,
+        values?: QueryConfigValues<I>,
     ): Promise<QueryResult<R>>;
-    query<R extends any[] = any[], I extends any[] = any[]>(
+    query<R extends any[] = any[], I = any[]>(
         queryConfig: QueryArrayConfig<I>,
         callback: (err: Error, result: QueryArrayResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryTextOrConfig: string | QueryConfig<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
-    query<R extends QueryResultRow = any, I extends any[] = any[]>(
+    query<R extends QueryResultRow = any, I = any[]>(
         queryText: string,
-        values: any[],
+        values: QueryConfigValues<I>,
         callback: (err: Error, result: QueryResult<R>) => void,
     ): void;
     // tslint:enable:no-unnecessary-generics
@@ -285,7 +287,7 @@ export interface PoolClient extends ClientBase {
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
     implements Submittable
 {
-    constructor(queryTextOrConfig?: string | QueryConfig<I>, values?: I);
+    constructor(queryTextOrConfig?: string | QueryConfig<I>, values?: QueryConfigValues<I>);
     submit: (connection: Connection) => void;
     on(event: "row", listener: (row: R, result?: ResultBuilder<R>) => void): this;
     on(event: "error", listener: (err: Error) => void): this;

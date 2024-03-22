@@ -55,6 +55,30 @@ export interface HierarchyNode<Datum> {
     readonly id?: string | undefined;
 
     /**
+     * The x position of this node. Set after a tree has been laid out by `tree` or `cluster`.
+     *
+     * ```
+     * const root = d3.hierarchy(datum);
+     * const treeLayout = d3.tree();
+     * treeLayout(root);
+     * // x and y are now set on root and its descendants
+     * ```
+     */
+    x?: number | undefined;
+
+    /**
+     * The y position of this node. Set after a tree has been laid out by `tree` or `cluster`.
+     *
+     * ```
+     * const root = d3.hierarchy(datum);
+     * const treeLayout = d3.tree();
+     * treeLayout(root);
+     * // x and y are now set on root and its descendants
+     * ```
+     */
+    y?: number | undefined;
+
+    /**
      * Returns the array of ancestors nodes, starting with this node, then followed by each parent up to the root.
      */
     ancestors(): this[];

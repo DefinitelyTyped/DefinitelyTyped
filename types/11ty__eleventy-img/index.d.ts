@@ -81,9 +81,12 @@ declare namespace EleventyImage {
          * If using SVG output (the input format is SVG and svg is added to your formats array),
          * we will skip all of the raster formats even if they’re in formats.
          * This may be useful in a CMS-driven workflow when the input could be vector or raster.
+         *
+         * Use "size" to skip raster formats only if they are larger than the SVG input.
+         *
          * @default false
          */
-        svgShortCircuit?: boolean;
+        svgShortCircuit?: boolean | "size";
         /**
          * Allow SVG to upscale
          *
@@ -92,6 +95,11 @@ declare namespace EleventyImage {
          * @default true
          */
         svgAllowUpscale?: boolean;
+        /**
+         * "br" to report SVG `size` property in metadata as Brotli compressed
+         * @default ""
+         */
+        svgCompressionSize?: "" | "br";
 
         /** options passed to the Sharp constructor */
         sharpOptions?: sharp.SharpOptions;
@@ -212,6 +220,18 @@ declare namespace EleventyImage {
          * @default true
          */
         useCacheValidityInHash?: true;
+
+        /**
+         * Rotate images to ensure correct orientation.
+         * @default false
+         */
+        fixOrientation?: boolean;
+
+        /**
+         * Ensures original size is included if smaller than largest specified width by threshold amount.
+         * @default 1.25
+         */
+        minimumThreshold?: number;
     }
 
     interface StatsOnlyImageOptions extends BaseImageOptions {
@@ -225,6 +245,16 @@ declare namespace EleventyImage {
     }
 
     type ImageOptions = StatsOnlyImageOptions | BaseImageOptions;
+
+    interface PluginOptions extends BaseImageOptions {
+        packages?: {
+            image: (
+                src: ImageSource,
+                opts?: ImageOptions,
+            ) => Promise<EleventyImage.Metadata>;
+        };
+        defaultAttributes?: Partial<Record<string, unknown>>;
+    }
 
     interface Stats {
         format: ImageFormat;
@@ -359,6 +389,84 @@ declare namespace EleventyImage {
 
     const generateHTML: typeof generateImageHTML;
     const generateObject: typeof generateImageHTML.generateObject;
+
+    /**
+     * Pass to `eleventyConfig.addPlugin`
+     * @example
+     * const eleventyWebcPlugin = require("@11ty/eleventy-plugin-webc");
+     * const { eleventyImagePlugin } = require("@11ty/eleventy-img");
+     *
+     * // Only one module.exports per configuration file, please!
+     * module.exports = function(eleventyConfig) {
+     *
+     * 	// WebC
+     * 	eleventyConfig.addPlugin(eleventyWebcPlugin, {
+     * 		components: [
+     * 			// …
+     * 			// Add as a global WebC component
+     * 			"npm:@11ty/eleventy-img/*.webc",
+     * 		]
+     * 	});
+     *
+     * 	// Image plugin
+     * 	eleventyConfig.addPlugin(eleventyImagePlugin, {
+     * 		// Set global default options
+     * 		formats: ["webp", "jpeg"],
+     * 		urlPath: "/img/",
+     *
+     * 		// Notably `outputDir` is resolved automatically
+     * 		// to the project output directory
+     *
+     * 		defaultAttributes: {
+     * 			loading: "lazy",
+     * 			decoding: "async"
+     * 		}
+     * 	});
+     * };
+     */
+    function eleventyImagePlugin(
+        eleventyConfig: object,
+        options?: PluginOptions,
+    ): void;
+
+    /**
+     * A plugin to transform html output. Pass to `eleventyConfig.addPlugin`
+     * @see {@link https://www.11ty.dev/docs/plugins/image/#eleventy-transform}
+     * @example
+     * const { eleventyImageTransformPlugin } = require("@11ty/eleventy-img");
+     *
+     * module.exports = function(eleventyConfig) {
+     * 	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+     * 		// which file extensions to process
+     * 		extensions: "html",
+     *
+     * 		// Add any other Image utility options here:
+     *
+     * 		// optional, output image formats
+     * 		formats: ["webp", "jpeg"],
+     * 		// formats: ["auto"],
+     *
+     * 		// optional, output image widths
+     * 		// widths: ["auto"],
+     *
+     * 		// optional, attributes assigned on <img> override these values.
+     * 		defaultAttributes: {
+     * 			loading: "lazy",
+     * 			decoding: "async"
+     * 		}
+     * 	});
+     * };
+     */
+    function eleventyImageTransformPlugin(
+        eleventyConfig: object,
+        options?: PluginOptions & {
+            /**
+             * Which file extensions to process (comma separated list).
+             * @default "html"
+             */
+            extensions?: string;
+        },
+    ): void;
 }
 
 /**

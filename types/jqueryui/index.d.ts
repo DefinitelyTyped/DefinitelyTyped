@@ -585,9 +585,10 @@ declare namespace JQueryUI {
         animate?: boolean | undefined;
         animateDuration?: any; // number or string
         animateEasing?: string | undefined;
-        aspectRatio?: any; // boolean or number
+        aspectRatio?: number | boolean;
         autoHide?: boolean | undefined;
         cancel?: string | undefined;
+        classes?: Partial<Record<ResizableThemingClass, string>>;
         containment?: any; // Selector, Element or string
         delay?: number | undefined;
         disabled?: boolean | undefined;
@@ -625,6 +626,25 @@ declare namespace JQueryUI {
 
     interface Resizable extends Widget, ResizableOptions {
     }
+
+    type ResizableHandleDirection =
+        | "n"
+        | "e"
+        | "s"
+        | "w"
+        | "ne"
+        | "se"
+        | "sw"
+        | "nw"
+        | "all";
+    type ResizableThemingClass =
+        | "ui-resizable"
+        | "ui-resizable-resizing"
+        | "ui-resizable-autohide"
+        | "ui-resizable-handle"
+        | `ui-resizable-${ResizableHandleDirection}`
+        | "ui-resizable-ghost"
+        | "ui-resizable-helper";
 
     // Selectable //////////////////////////////////////////////////
 

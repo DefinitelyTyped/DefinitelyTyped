@@ -3,7 +3,7 @@ export type ElementWithXAttributes<T extends Element = HTMLElement> = withXAttri
 export type withXAttributes<T extends Element> = T & Partial<XAttributes>;
 
 export interface XAttributes {
-    _x_virtualDirectives: Bindings;
+    _x_virtualDirectives: Bindings<{}>;
     _x_ids: Record<string, number>;
     _x_effects: Set<() => void>;
     _x_runEffects: () => void;
@@ -27,10 +27,7 @@ export interface XAttributes {
     _x_currentIfEl: ElementWithXAttributes;
     _x_undoIf: () => void;
     _x_removeModelListeners: Record<string, () => void>;
-    _x_model: {
-        get: () => unknown;
-        set: (value: unknown) => void;
-    };
+    _x_model: GetterSetter<unknown>;
     _x_forceModelUpdate: (value: unknown) => void;
     _x_forwardEvents: string[];
     _x_doHide: () => void;
@@ -74,9 +71,11 @@ interface Binding {
     extract: boolean;
 }
 
-export interface Bindings {
-    [key: string]: string | (() => unknown);
-}
+export type Bindings<T> = {
+    [key in keyof T]: key extends `${"x-on:" | "@"}${infer K extends keyof HTMLElementEventMap}`
+        ? string | ((e: HTMLElementEventMap[K]) => void)
+        : string | ((...args: any[]) => void);
+};
 
 export type AttrMutationCallback = (
     el: ElementWithXAttributes,
@@ -140,11 +139,14 @@ export type AlpineComponent<T> = T & XDataContext & ThisType<InferInterceptors<T
 
 interface XDataContext {
     /**
-     * Will be executed before Alpine initializes the rest of the component.
+     * Will be executed immediately upon Alpine initializing the component.
+     * This will run before `x-init` directives on even the root element.
+     * Interceptors ($persist, etc) will be initialized before this.
      */
     init?(): void;
     /**
-     * Will be executed when the component is destroyed.
+     * Will be executed upon destruction/unmount of the component tree.
+     * This will run intermingled with other cleanup operations.
      */
     destroy?(): void;
 }
@@ -155,48 +157,55 @@ export interface Stores {
 
 export interface Magics<T> {
     /**
-     * Access to current Alpine data.
+     * Provides access to the element's current Alpine scope
+     * This is a flattened Proxy object over the datastack
+     * Use to avoid errors from accessing undefined properties
      */
     $data: InferInterceptors<T>;
     /**
      * Dispatches a CustomEvent on the current DOM node.
-     * Event automatically bubbles up.
+     * Event automatically bubbles up the DOM tree.
      *
      * @param event the event name
-     * @param detail an event-dependent value associated with the event, the value is then available to the handler using the CustomEvent.detail property
+     * @param detail an event-dependent value associated with the event
      */
     $dispatch: (event: string, detail?: any) => void;
     /**
-     * Retrieve the current DOM node.
+     * The current HTMLElement that triggered this expression.
      */
     $el: HTMLElement;
     /**
-     * Generate an element's ID and ensure that it won't conflict with other IDs of the same name on the same page.
+     * Generate a unique ID within the current `x-id` scope.
+     * Name is required to allow reuse in related contexts.
      *
      * @param name the name of the id
      * @param key suffix on the end of the generated ID, usually helpful for the purpose of identifying id in a loop
      */
     $id: (name: string, key?: number | string | null) => string;
     /**
-     * Execute a given expression AFTER Alpine has made its reactive DOM updates.
+     * Triggers callback at the beginning of the next event loop.
+     * Use to evaluate AFTER Alpine has made reactive DOM updates.
      *
-     * @param callback a callback that will be fired after Alpine finishes updating the DOM
+     * @param callback a callback that will be fired on next tick
      */
     $nextTick: (callback?: () => void) => Promise<void>;
     /**
-     * Retrieve DOM elements marked with x-ref inside the component.
+     * Record of DOM elements marked with `x-ref` inside the component.
      */
     $refs: Record<string, HTMLElement>;
     /**
-     * Accesses the root element of the current component context.
+     * The root element of the current component context.
+     * Roots are typically defined by `x-data` directive.
      */
     $root: ElementWithXAttributes;
     /**
-     * Access registered global Alpine stores.
+     * Record of global reactive Alpine stores.
      */
     $store: Stores;
     /**
-     * Fire the given callback when the value in the property is changed.
+     * Evaluate the given callback when the property is changed.
+     * Deeply watches for changes on object and array types.
+     * Property can be a dot notated nested property.
      *
      * @param property the component property
      * @param callback a callback that will fire when a given property is changed
@@ -216,59 +225,154 @@ export interface ReactiveEffect<T = any> {
     raw: () => T;
 }
 
+interface GetterSetter<T> {
+    get(): T;
+    set(value: T): void;
+}
+
 export interface Alpine {
     /**
-     * Wraps an object in a reactive proxy
+     * Wraps an object in a reactive proxy that can track access
+     * Returns the same Proxy object given the same input
      *
      * @param obj an object to be wrapped
      * @returns a reactive proxy
      */
     readonly reactive: <T>(obj: T) => T;
     /**
-     * Stops an effect from re-evaluating on dependency change
+     * Releases an effect from reactive to dependency changes
      *
-     * @param effect reactive operation
+     * @param {ReactiveEffect} effect returned from {@link Alpine.effect}
      */
     readonly release: (effect: ReactiveEffect) => void;
     /**
-     * Creates a reactive effect
+     * Creates a reactive effect from the passed in callback
+     * Effects tracks access of reactive proxies and re-evaluates when dependencies change
      *
      * @param fn callback to be executed when dependencies change
-     * @returns effect
+     * @returns {ReactiveEffect} an effect object
      */
     readonly effect: <T>(fn: () => T) => ReactiveEffect<T>;
     /**
-     * Returns the raw value of a reactive proxy
+     * Returns the raw value of a reactive proxy that will not track access
+     * This would be the original object that was wrapped
      *
      * @param obj reactive proxy
      * @returns raw object
      */
     readonly raw: <T>(obj: T) => T;
     version: string;
-    flushAndStopDeferringMutations: () => void;
-    dontAutoEvaluateFunctions: (callback: () => void) => void;
-    disableEffectScheduling: (callback: () => void) => void;
-    startObservingMutations: () => void;
-    stopObservingMutations: () => void;
+    /**
+     * Handles all deferred mutation entries
+     * Resumes immediate handling of mutations
+     */
+    flushAndStopDeferringMutations(): void;
+    /**
+     * Prevents `evaluate` from automatically calling functions
+     * returned by the expression
+     *
+     * @param callback
+     */
+    dontAutoEvaluateFunctions(callback: () => void): void;
+    /**
+     * Disables the scheduling of triggered Effects
+     * @param callback
+     */
+    disableEffectScheduling(callback: () => void): void;
+    /**
+     * Starts observing the Alpine component tree for mutations
+     * Used internally in {@link Alpine.start}
+     */
+    startObservingMutations(): void;
+    /**
+     * Stops observing the Alpine component tree for mutations
+     * Used internally to control handling of cloned templates
+     */
+    stopObservingMutations(): void;
+    /**
+     * Sets the reactivity engine for Alpine
+     * @param engine
+     * @default @vue/reactivity
+     */
     setReactivityEngine: <E>(engine: {
         reactive: <T>(obj: T) => T;
         release: (effect: E) => void;
         effect: (fn: () => any) => E;
         raw: <T>(obj: T) => T;
     }) => void;
-    onAttributeRemoved: (el: ElementWithXAttributes, name: string, callback: () => void) => void;
-    onAttributesAdded: (callback: AttrMutationCallback) => void;
+    /**
+     * Registers a listener for when a specific attribute is removed from an element
+     * @param el
+     * @param name
+     * @param callback
+     */
+    onAttributeRemoved(el: ElementWithXAttributes, name: string, callback: () => void): void;
+    /**
+     * Registers a listener for when any attribute is added to any element
+     * @param callback
+     * @returns
+     */
+    onAttributesAdded(callback: AttrMutationCallback): void;
+    /**
+     * Retrieves the list of Contexts that build the Alpine Context for the element
+     * from most local to least
+     * @param node
+     */
     closestDataStack: (node: ElementWithXAttributes) => Array<Record<string | symbol, unknown>>;
-    skipDuringClone: <T extends (...args: Parameters<T>) => ReturnType<T>>(callback: T, fallback?: T) => T;
-    onlyDuringClone: (callback: DirectiveCallback) => DirectiveCallback;
-    addRootSelector: (selectorCallback: () => string) => void;
-    addInitSelector: (selectorCallback: () => string) => void;
+    /**
+     * Returns a conditional function that will not execute
+     * during the cloning of an element
+     * @param callback will run when not cloning
+     * @param fallback will run when cloning (optional)
+     * @returns wrapped function
+     */
+    skipDuringClone<T extends (...args: Parameters<T>) => ReturnType<T>>(callback: T, fallback?: T): T;
+    /**
+     * Returns a conditional function that will only execute
+     * during the cloning of an element
+     * @param callback will run when cloning
+     * @returns wrapped function
+     */
+    onlyDuringClone(callback: DirectiveCallback): DirectiveCallback;
+    /**
+     * Adds a root selector from which Alpine builds an Alpine Tree
+     * @param selectorCallback
+     */
+    addRootSelector(selectorCallback: () => string): void;
+    /**
+     * Adds an init selector where Alpine will evaluate the element without a context
+     * @param selectorCallback
+     */
+    addInitSelector(selectorCallback: () => string): void;
+    /**
+     * Registers a callback to pre-process elements being cloned
+     * @param callback
+     */
+    interceptClone(callback: (from: ElementWithXAttributes, to: ElementWithXAttributes) => void): void;
+    /**
+     * Adds an Record to the Element's data stack
+     * It does not make the object reactive if it isn't already
+     * @param node
+     * @param data
+     * @param referenceNode
+     * @returns function for removing the scope
+     */
     addScopeToNode: (
         node: Element,
         data: Record<string, unknown>,
         referenceNode?: ElementWithXAttributes,
     ) => () => void;
-    deferMutations: () => void;
+    /**
+     * Begins deferring mutation handling to allow for a set of changes to be made
+     * call `flushAndStopDeferringMutations` to resume handling
+     */
+    deferMutations(): void;
+    /**
+     * Registers a callback to preprocess attributes/directives before they are evaluated
+     * Allows transforming custom syntaxes into known directives
+     *
+     * @param callback
+     */
     mapAttributes: (
         callback: (attribute: { name: string; value: string | (() => unknown) }) => {
             name: string;
@@ -289,7 +393,17 @@ export interface Alpine {
             params?: unknown[];
         },
     ) => void;
-    interceptInit: (callback: WalkerCallback) => void;
+    /**
+     * Registers a callback to preprocess elements before they are initialized
+     * Call the `skip` function to prevent the element from being initialized
+     * @param callback
+     */
+    interceptInit(callback: WalkerCallback): void;
+    /**
+     * Registers an evaluator to be used
+     * Used internally by Alpine CSP to use a CSP safe evaluator
+     * @param newEvaluator
+     */
     setEvaluator: (
         newEvaluator: <T_2>(
             el: ElementWithXAttributes,
@@ -308,6 +422,15 @@ export interface Alpine {
      * @returns flattened object
      */
     mergeProxies: (objects: Array<Record<string, unknown>>) => Record<string, unknown>;
+    /**
+     * Gets the value of a property from an element
+     * Checks Alpine bindings first, and then falls back to the DOM
+     * @param el to check
+     * @param name of attribute
+     * @param fallback value if not present
+     * @param extract whether to indicate that the value is being extracted
+     * @returns
+     */
     extractProp: <T_3 extends string | boolean>(
         el: ElementWithXAttributes,
         name: string,
@@ -320,151 +443,230 @@ export interface Alpine {
      * @param callback
      * @returns {Node}
      */
-    findClosest: (el: Element, callback: (el: ElementWithXAttributes) => boolean) => Element;
+    findClosest(el: Element, callback: (el: ElementWithXAttributes) => boolean): Element;
+    /**
+     * Registers a callback to run when any element is removed from the DOM
+     * @param callback to run when an element is removed removed
+     */
+    onElRemoved(callback: (node: ElementWithXAttributes) => void): void;
+    /**
+     * Registers a callback to run when the element is removed from the DOM
+     * @param el to watch for
+     * @param callback to run when removed
+     */
+    onElRemoved(el: ElementWithXAttributes, callback: () => void): void;
+
+    /**
+     * Finds the closest root element for the provided element
+     * A root element is an element that matches root selectors
+     * @param el
+     * @param includeInitSelectors
+     * @returns {HTMLElement | undefined} the root if found
+     */
     closestRoot: (el: ElementWithXAttributes, includeInitSelectors?: boolean) => ElementWithXAttributes | undefined;
-    destroyTree: (root: ElementWithXAttributes) => void;
+    /**
+     * Recursively destroys all bindings on a tree of elements
+     * Used to cleanup removed elements or disable Alpine
+     * @param root
+     */
+    destroyTree(root: ElementWithXAttributes): void;
+    /**
+     * Helper function for building data interceptor objects
+     * @internal
+     * @param callback to run on Interception
+     * @param mutator to further mutate the Interceptor
+     * @returns Interceptor Function
+     */
     interceptor: interceptor;
-    transition: (
+    /**
+     * Runs a series of transitions on an element
+     * @internal
+     * @param el to apply transitions to
+     * @param setFunction that applies the state
+     * @param states Object with keys for start, during, and end
+     * @param before callback to run before transitions
+     * @param after callback to run after transitions
+     */
+    transition(
         el: ElementWithXAttributes,
         setFunction:
             | ((
                 el: ElementWithXAttributes,
-                value:
-                    | string
-                    | boolean
-                    | Record<string, boolean>
-                    | (() => string | boolean | Record<string, boolean>),
+                value: string | boolean | Record<string, boolean> | (() => string | boolean | Record<string, boolean>),
             ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
-        {
-            during,
-            start,
-            end,
-        }: Partial<{
+        states: Partial<{
             start: string | Partial<CSSStyleDeclaration>;
             during: string | Partial<CSSStyleDeclaration>;
             end: string | Partial<CSSStyleDeclaration>;
         }>,
         before?: () => void,
         after?: () => void,
-    ) => void;
-    setStyles: (el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void;
+    ): void;
+    /**
+     * Sets styles to an element, from a string or object
+     * Provides a function to undo the changes
+     * @param el
+     * @param {string | CSSStyleDeclaration} styles
+     * @returns undo function
+     */
+    setStyles(el: ElementWithXAttributes, styles: string | Partial<CSSStyleDeclaration>): () => void;
     /**
      * Runs an operation without having Alpine react to changes in the DOM caused by the function
      * Useful for making a set of changes to the DOM and manually handling initialization
-     * @param {function} callback
+     * @param callback that mutates the DOM
      */
-    mutateDom: <T_5>(callback: () => T_5) => T_5;
+    mutateDom<T_5>(callback: () => T_5): T_5;
     /**
      * Registers a new directive that can be used in markup (ex. `x-directive`)
-     * @param {string} name
-     * @param {function} callback
+     * @param name of directive (without the `x-` prefix)
+     * @param callback to handle the directive
      */
-    directive: (
+    directive(
         name: string,
         callback: DirectiveCallback,
-    ) => {
+    ): {
         before(directive: string): void;
     };
     /**
-     * Entangles two objects
-     * Creates a reactive effect that bidirectionally bings the getters and setters on each object
+     * Entangles two values, through getter/setter pairs.
+     * When one value changes, the other is updated.
+     * On entanglement, the outer is pushed onto the inner
      *
-     * @param outer
-     * @param inner
+     * @param outer getter and setter pair
+     * @param inner getter and setter pair
      */
-    entangle: <T_6>(
-        {
-            get: outerGet,
-            set: outerSet,
-        }: {
-            get: () => T_6;
-            set: (value: T_6) => void;
-        },
-        {
-            get: innerGet,
-            set: innerSet,
-        }: {
-            get: () => T_6;
-            set: (value: T_6) => void;
-        },
-    ) => () => void;
+    entangle<T_6>(outer: GetterSetter<T_6>, inner: GetterSetter<T_6>): () => void;
     /**
-     * Provides a throttled version of the passed in function
-     * Can be called multiple times and only executes once per specified time
+     * Provides a throttled version of the passed in function.
+     * Throttled Function can be called multiple times
+     * and only executes once per specified limit.
      *
-     * @param {function} func
-     * @param {number} wait time to throttle
-     * @returns {function} throttled function
+     * @param func to apply throttle to
+     * @param limit time in ms
+     * @returns throttled function
      */
-    throttle: <T_7 extends (...args: Parameters<T_7>) => void>(
+    throttle<T_7 extends (...args: Parameters<T_7>) => void>(
         func: T_7,
         limit?: number,
-    ) => (...args: Parameters<T_7>) => void;
+    ): (...args: Parameters<T_7>) => void;
     /**
-     * Provides a debounced version of the passed in function
-     * Can be called multiple times and only executes after specified delay
-     * since last call
+     * Provides a debounced version of the passed in function.
+     * Can be called multiple times and only executes
+     * only after specified delay since last call
      *
-     * @param {function} func
-     * @param {number} wait time to debounce
-     * @returns {function} debounced function
+     * @param func to apply debounce to
+     * @param wait time in ms
+     * @returns debounced function
      */
-    debounce: <T_8 extends (...args: Parameters<T_8>) => void>(func: T_8, wait?: number) => T_8;
+    debounce<T_8 extends (...args: Parameters<T_8>) => void>(func: T_8, wait?: number): T_8;
     /**
      * Evaluates a string expression within the Alpine context of a particular Node
      *
-     * @param {Node} el element in Alpine Context
-     * @param {string} expression function or string expression
-     * @param {object} extras additional values to expose to the expression
+     * @param el element in Alpine Context
+     * @param expression function or string expression
+     * @param extras additional values to expose to the expression
      * @returns whatever the expression returns
      */
-    evaluate: <T_9>(el: Node, expression: string | (() => T_9), extras?: {}) => T_9;
-    initTree: (
+    evaluate<T_9>(el: Node, expression: string | (() => T_9), extras?: {}): T_9;
+    /**
+     * Initializes the Alpine tree rooted at a particular element
+     * Used internally in {@link Alpine.start} and to initialize cloned templates
+     * @param el to initialize as the root
+     * @param walker callback to assist in walking the tree
+     * @param intercept initialization of elements
+     */
+    initTree(
         el: ElementWithXAttributes,
         walker?: (el: ElementWithXAttributes, callback: WalkerCallback) => any,
         intercept?: WalkerCallback,
-    ) => void;
+    ): void;
     /**
      * Waits until after a frame is painted to continue execution
-     * @param callback
+     * @param callback to run at the start of the next frame
      * @returns Promise that resolves on the next frame
      */
-    nextTick: (callback?: () => void) => Promise<unknown>;
-    prefixed: (subject?: string) => string;
-    prefix: (newPrefix: string) => void;
+    nextTick(callback?: () => void): Promise<unknown>;
+    /**
+     * Applies the current Alpine Prefix to a string
+     * Default prefix is `x-`
+     *
+     * @param subject to prefix
+     * @returns prefixed subject
+     */
+    prefixed(subject?: string): string;
+    /**
+     * Changes the prefix Alpine uses to identify directives
+     * Commonly, `data-x` is used to make the directives in spec
+     * @param newPrefix to use
+     */
+    prefix(newPrefix: string): void;
     /**
      * Registers Plugins onto Alpine
      */
-    plugin: (callbacks: PluginCallback | PluginCallback[]) => void;
+    plugin(callbacks: PluginCallback | PluginCallback[]): void;
     /**
      * Registers a magic accessible at $name in Alpine contexts
      * @param name name of Magic
      * @param callback Method that builds the magic's value
      */
-    magic: (name: string, callback: (el: ElementWithXAttributes, options: MagicUtilities) => unknown) => void;
+    magic(name: string, callback: (el: ElementWithXAttributes, options: MagicUtilities) => unknown): void;
     /**
      * Registers a global reactive store to a name
-     * or accesses a global reactive store by name
+     * Store is made Reactive if not already
+     *
+     * @param name of store
+     * @param value to store
      */
-    store: {
-        <T extends keyof Stores>(name: T): Stores[T];
-        <T extends keyof Stores>(name: T, value: Stores[T]): void;
-    };
+    store<T extends keyof Stores>(name: T, value: Stores[T]): void;
+    /**
+     * Accesses a global reactive store by name
+     * Used to access and modify stores from outside of Alpine components
+     */
+    store<T extends keyof Stores>(name: T): Stores[T];
     /**
      * Starts Alpine on the current document
      */
-    start: () => void;
-    clone: (oldEl: ElementWithXAttributes, newEl: ElementWithXAttributes) => void;
-    bound: (el: ElementWithXAttributes, name: string, fallback?: unknown) => unknown;
+    start(): void;
+    /**
+     * Clones the Alpine context of an element to another element
+     * @internal
+     * @deprecated use {@link Alpine.cloneNode} instead
+     * @param oldEl element to clone from
+     * @param newEl element to clone to
+     * @returns
+     */
+    clone(oldEl: ElementWithXAttributes, newEl: ElementWithXAttributes): void;
+    /**
+     * Clones the Alpine context of an element to another element
+     * @internal
+     * @param from element to clone from
+     * @param to element to clone to
+     */
+    cloneNode(from: ElementWithXAttributes, to: ElementWithXAttributes): void;
+    /**
+     * Gets current binding or value of a prop from an element
+     * Similar to `extractProp` but does not access inline bindings
+     * @param el to check
+     * @param name of attribute
+     * @param fallback value if not present
+     * @returns value of attribute
+     */
+    bound(el: ElementWithXAttributes, name: string, fallback?: unknown): unknown;
     /**
      * Gets the data context of a particular Node
-     * This is a "flattened" object of all the components that element is within
+     * This is a "flattened" object of all the scopes that element is within
      * @param node Element inside an Alpine Component
      * @returns Object
      */
-    $data: (node: ElementWithXAttributes) => {};
-    walk: (el: ElementWithXAttributes, callback: WalkerCallback) => any;
+    $data(node: ElementWithXAttributes): {};
+    /**
+     * Walks the DOM tree from the provided root element
+     * Runs the callback on each element
+     * @param el to start walking from
+     * @param callback to run on found elements
+     */
+    walk(el: ElementWithXAttributes, callback: WalkerCallback): any;
     /**
      * Registers a component constructor a name referenceable inside `x-data` expressions
      *
@@ -472,11 +674,23 @@ export interface Alpine {
      * @param callback Data context constructor function
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    data: <T extends { [key in keyof T]: T[key] }, A extends unknown[]>(
+    data<T extends { [key in keyof T]: T[key] }, A extends unknown[]>(
         name: string,
         callback: (...args: A) => AlpineComponent<T>, // Needed generic to properly autotype objects
-    ) => void;
-    bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;
+    ): void;
+
+    /**
+     * Binds directives and attributes to an element
+     * @param element to bind
+     * @param bindings to apply to the element
+     */
+    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): void;
+    /**
+     * Registers a named binding group to be exposed to `x-bind` directive expressions
+     * @param name of binding group
+     * @param bindings to apply to an element that uses the group
+     */
+    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: unknown[]) => T)): void;
 }
 
 declare const Alpine: Alpine;

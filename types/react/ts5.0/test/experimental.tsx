@@ -154,3 +154,8 @@ function taintTests() {
         true,
     );
 }
+
+<div inert={true} />;
+<div inert={false} />;
+<div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+ inert="" />;

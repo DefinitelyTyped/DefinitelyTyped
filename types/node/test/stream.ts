@@ -20,7 +20,7 @@ import { stdout } from "node:process";
 import { arrayBuffer, blob, buffer, json, text } from "node:stream/consumers";
 import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
-import { setInterval as every } from "node:timers/promises";
+import { setInterval as every, setTimeout as wait } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
 
 // Simplified constructors
@@ -665,6 +665,25 @@ async function testReadableStream() {
     });
 
     for await (const value of stream.values()) {
+        // $ExpectType number
+        value;
+    }
+
+    const streamFromIterable = ReadableStream.from([1, 2, 3, 4]);
+    for await (const value of streamFromIterable) {
+        // $ExpectType number
+        value;
+    }
+
+    const streamFromAsyncIterable = ReadableStream.from({
+        async *[Symbol.asyncIterator]() {
+            for (let i = 0; i < 10; i++) {
+                await wait(100);
+                yield i;
+            }
+        },
+    });
+    for await (const value of streamFromAsyncIterable) {
         // $ExpectType number
         value;
     }
