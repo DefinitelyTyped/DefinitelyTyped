@@ -659,10 +659,16 @@ page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
 // $ExpectType void
 page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
 // $ExpectType void
-page.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
-                                    { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+page.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
 // $ExpectType void
-page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, { noWaitAfter: true, timeout: 1000 });
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // @ts-expect-error
 page.setViewportSize();
@@ -1456,10 +1462,16 @@ elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain" });
 // $ExpectType void
 elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
 // $ExpectType void
-elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
-                             { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
 // $ExpectType void
-elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, { noWaitAfter: true, timeout: 1000 });
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // $ExpectType void
 elementHandle.tap();
@@ -1944,10 +1956,16 @@ frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
 // $ExpectType void
 frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
 // $ExpectType void
-frame.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) },
-                                    { name: "file2.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }]);
+frame.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
 // $ExpectType void
-frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, { noWaitAfter: true, timeout: 1000 });
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // @ts-expect-error
 frame.waitForFunction();
