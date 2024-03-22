@@ -858,15 +858,24 @@ function managingRefs() {
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
     // ref cleanup
+    const ref: React.RefCallback<HTMLDivElement> = current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
+        return function refCleanup() {
+        };
+    };
     <div
         ref={current => {
+            // Should be non-nullable
+            // $ExpectType HTMLDivElement | null
+            current;
             return function refCleanup() {
             };
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             // @ts-expect-error
             return function refCleanup(implicitAny) {
@@ -874,8 +883,7 @@ function managingRefs() {
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             return function refCleanup(neverPassed: string) {
             };
