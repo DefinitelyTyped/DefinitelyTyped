@@ -48,7 +48,7 @@ export interface Options {
     ext?: { [name: string]: CollectorOptions };
 
     /** Cloud options */
-    options?: CloudOptions;
+    cloud?: CloudOptions;
 
     /** Static hostname mapping. */
     hosts?: { [name: string]: string };

@@ -1,6 +1,6 @@
-import { crypto } from "k6/experimental/webcrypto";
+import { crypto, CryptoKey, JWKValue } from "k6/experimental/webcrypto";
 
-const aesCryptoKey = crypto.subtle.generateKey(
+const aesCryptoKeyPromise = crypto.subtle.generateKey(
     {
         name: "AES-CBC",
         length: 256,
@@ -72,8 +72,10 @@ crypto.subtle.encrypt({ name: "AES-CBC" }, aesCryptoKey, null);
 // crypto.subtle.exportKey
 //
 
-crypto.subtle.exportKey("raw", aesCryptoKey);
-crypto.subtle.exportKey("jwk", aesCryptoKey);
+aesCryptoKeyPromise.then((aesCryptoKey: CryptoKey) => {
+  crypto.subtle.exportKey("raw", aesCryptoKey);
+  crypto.subtle.exportKey("jwk", aesCryptoKey);
+});
 
 // @ts-expect-error
 crypto.subtle.exportKey();
@@ -98,7 +100,7 @@ crypto.subtle.generateKey(8);
 crypto.subtle.importKey("raw", new Uint8Array([
     109, 151, 76, 33, 232, 253, 176, 90, 94, 40, 146, 227, 139, 208, 245, 139,
     69, 215, 55, 197, 43, 122, 160, 178, 228, 104, 4, 115, 138, 159, 119, 49,
-  ]), { name: "AES-GCM", length: "256" }, true, ["decrypt"]);
+  ]), { name: "AES-GCM" }, true, ["decrypt"]);
 
 crypto.subtle.importKey("jwk", {
     kty: "oct",
@@ -106,7 +108,7 @@ crypto.subtle.importKey("jwk", {
     key_ops: ["decrypt", "encrypt"],
     alg: "A256GCM",
     k: "9Id_8iG6FkGOWmc1S203vGVnTExtpDGxdQN7v7OV9Uc",
-  }, { name: "AES-GCM", length: "256" }, true, ["decrypt"]);
+  }, { name: "AES-GCM" }, true, ["decrypt"]);
 
 // @ts-expect-error
 crypto.subtle.importKey();

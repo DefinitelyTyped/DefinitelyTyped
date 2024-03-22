@@ -400,7 +400,7 @@ export type TypedArray =
  * JSON Web Key Value.
  * JWKs are not supported for now, since webcrypto doesn't support exporting key/pairs
  */
-export type JWKValue = null | boolean | number | string | JWK;
+export type JWKValue = null | boolean | number | string | string[] | JWK;
 
 /**
  * Object representable with JSON Web Key.
