@@ -829,8 +829,7 @@ function managingRefs() {
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             // @ts-expect-error
             return function refCleanup(implicitAny) {
@@ -838,8 +837,7 @@ function managingRefs() {
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             return function refCleanup(neverPassed: string) {
             };
