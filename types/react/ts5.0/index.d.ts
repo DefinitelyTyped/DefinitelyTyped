@@ -4070,18 +4070,33 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated Use `Validator` from the ´prop-types` instead.
+     */
     type Validator<T> = PropTypes.Validator<T>;
 
+    /**
+     * @deprecated Use `Requireable` from the ´prop-types` instead.
+     */
     type Requireable<T> = PropTypes.Requireable<T>;
 
+    /**
+     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
+     */
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
+    /**
+     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
+     */
     type WeakValidationMap<T> = {
         [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
             : undefined extends T[K] ? Validator<T[K] | null | undefined>
             : Validator<T[K]>;
     };
 
+    /**
+     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
+     */
     interface ReactPropTypes {
         any: typeof PropTypes.any;
         array: typeof PropTypes.array;
