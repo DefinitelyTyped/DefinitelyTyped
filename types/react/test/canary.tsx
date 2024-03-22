@@ -40,39 +40,6 @@ function useCacheTest() {
     }
 }
 
-// ref cleanup
-const ref: React.RefCallback<HTMLDivElement> = current => {
-    // Should be non-nullable
-    // $ExpectType HTMLDivElement | null
-    current;
-    return function refCleanup() {
-    };
-};
-<div
-    ref={current => {
-        // Should be non-nullable
-        // $ExpectType HTMLDivElement | null
-        current;
-        return function refCleanup() {
-        };
-    }}
-/>;
-<div
-    // @ts-expect-error ref cleanup does not accept arguments
-    ref={current => {
-        // @ts-expect-error
-        return function refCleanup(implicitAny) {
-        };
-    }}
-/>;
-<div
-    // @ts-expect-error ref cleanup does not accept arguments
-    ref={current => {
-        return function refCleanup(neverPassed: string) {
-        };
-    }}
-/>;
-
 // New transition events
 <div
     onTransitionStart={event => {
