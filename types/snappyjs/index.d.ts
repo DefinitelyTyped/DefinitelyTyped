@@ -16,7 +16,7 @@ export function compress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint
  * @returns The decmopressed byte stream, of the same type as the input
  * @throws {Error} If `maxLength` is provided and the length exceeds it
  */
-export function decompress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint8Array>(
+export function uncompress<T extends ArrayBuffer | Uint8Array = ArrayBuffer | Uint8Array>(
     input: T,
     maxLength?: number,
 ): T;
