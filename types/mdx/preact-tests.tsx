@@ -1,4 +1,6 @@
 import { MDXComponents, MDXContent, MDXModule } from "mdx/types";
+import { Component, ComponentProps, h } from "preact";
+import * as runtime from "preact/jsx-runtime";
 import MyMarkdownComponent from "./MyComponent.markdown";
 import MyMDComponent from "./MyComponent.md";
 import MyMDownComponent from "./MyComponent.mdown";
@@ -8,79 +10,21 @@ import MyMKDNComponent from "./MyComponent.mkdn";
 import MyMKDownComponent from "./MyComponent.mkdown";
 import MyRonComponent from "./MyComponent.ron";
 
-// Test setup — A minimal JSX framework.
+// Test setup — User code
 
-interface TestElementType {
-    type: string;
-    props: unknown;
-    children: TestElementType[];
-}
-
-interface AnchorProps {
-    className?: string;
-}
-
-interface DivProps {
-    className?: string;
-}
-
-interface ImgProps {
-    className?: string;
-    src?: string;
-}
-
-interface H1Props {
-    className?: string;
-}
-
-interface SpanProps {
-    className?: string;
-}
-
-interface VideoProps {
-    controls?: boolean;
-}
-
-// A JSX implementation stub
-declare function jsx(): TestElementType;
-
-// A JSX test implementation type
-declare global {
+declare module "mdx/types" {
     namespace JSX {
-        // Note: The below code  and variations on it need to be tested manually.
-        // It is not possible to run this test with multiple TypeScript configurations in DefinitelyTyped.
-        //
-        // type ElementType =
-        //     | 'a'
-        //     | 'div'
-        //     | 'h1'
-        //     | 'img'
-        //     | 'span'
-        //     | 'video'
-        //     | ((props: Record<string, any>) => Element | null)
-        //     | (new (props: Record<string, any>) => ElementClass);
-
-        type Element = TestElementType;
-
-        interface IntrinsicElements {
-            a: AnchorProps;
-            div: DivProps;
-            img: ImgProps;
-            h1: H1Props;
-            span: SpanProps;
-            video: VideoProps;
-        }
-
-        interface ElementClass {
-            render(): Element;
-        }
+        type Element = runtime.JSX.Element;
+        type ElementClass = runtime.JSX.ElementClass;
+        type ElementType = runtime.JSX.ElementType;
+        type IntrinsicElements = runtime.JSX.IntrinsicElements;
     }
 }
 
-// Test setup — User code
-
-class CustomImageComponent {
-    constructor(props: ImgProps) {}
+class CustomImageComponent extends Component {
+    constructor(props: ComponentProps<"img">) {
+        super(props);
+    }
 
     render() {
         return <div />;
@@ -114,10 +58,10 @@ const Div = customComponents.div!;
 
 // Tests — All mdx file exports.
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDXComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDXComponent
     the="answer"
     to={{ life: "the" }}
@@ -125,18 +69,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -178,10 +122,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDComponent
     the="answer"
     to={{ life: "the" }}
@@ -189,18 +133,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -242,10 +186,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMarkdownComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMarkdownComponent
     the="answer"
     to={{ life: "the" }}
@@ -253,18 +197,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -306,10 +250,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDownComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMDownComponent
     the="answer"
     to={{ life: "the" }}
@@ -317,18 +261,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -370,10 +314,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDNComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDNComponent
     the="answer"
     to={{ life: "the" }}
@@ -381,18 +325,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -434,10 +378,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDComponent
     the="answer"
     to={{ life: "the" }}
@@ -445,18 +389,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -498,10 +442,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDownComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyMKDownComponent
     the="answer"
     to={{ life: "the" }}
@@ -509,18 +453,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;
@@ -562,10 +506,10 @@ const Div = customComponents.div!;
     }}
 />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyRonComponent />;
 
-// $ExpectType TestElementType
+// $ExpectType Element
 <MyRonComponent
     the="answer"
     to={{ life: "the" }}
@@ -573,18 +517,18 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType AnchorProps
+            // $ExpectType HTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
         div(props) {
-            // $ExpectType DivProps
+            // $ExpectType HTMLAttributes<HTMLDivElement>
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
         // @ts-expect-error
-        video: CustomImageComponent,
+        input: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
             props;

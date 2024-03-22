@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "preact-tests.tsx",
         "react-tests.tsx"
     ]
 }
