@@ -6523,6 +6523,10 @@
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
             "asOfVersion": "2.7.0"
         },
+        "wordpress__dom": {
+            "libraryName": "@wordpress/dom",
+            "asOfVersion": "2.18.0"
+        },
         "wordpress__dom-ready": {
             "libraryName": "@wordpress/dom-ready",
             "asOfVersion": "2.9.0"
