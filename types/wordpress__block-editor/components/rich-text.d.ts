@@ -1,11 +1,11 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { BlockInstance } from "@wordpress/blocks";
-import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
-import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
-import { ToolbarButtonProps } from "@wordpress/components/build-types/toolbar/toolbar-button/types";
-import { ComponentType, HTMLProps, JSX } from "react";
 import { Button, IconType } from "@wordpress/components";
+import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
 import { WordPressComponentProps } from "@wordpress/components/build-types/context";
+import { ToolbarButtonProps } from "@wordpress/components/build-types/toolbar/toolbar-button/types";
+import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
+import { ComponentType, HTMLProps, JSX } from "react";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {

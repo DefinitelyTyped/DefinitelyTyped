@@ -1,6 +1,6 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { DropZoneProps } from "@wordpress/components/build-types/drop-zone/types";
 import { IconType } from "@wordpress/components";
+import { DropZoneProps } from "@wordpress/components/build-types/drop-zone/types";
 import { JSX, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {

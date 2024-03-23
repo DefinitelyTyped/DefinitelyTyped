@@ -2,9 +2,11 @@ import { ToolbarGroup } from "@wordpress/components";
 import { SlotComponentProps } from "@wordpress/components/build-types/slot-fill/types";
 import { FC, JSX, ReactNode } from "react";
 
-type GetArrayTypeFromPossibleNestedArray<TestType extends Record<string,unknown> | Array<Record<string,unknown>>> = TestType extends Array<Record<string,unknown>> ? TestType[number] : TestType;
-type BlockControlControlsType = GetArrayTypeFromPossibleNestedArray<NonNullable<Parameters<typeof ToolbarGroup>[0]["controls"]>[number]>;
-
+type GetArrayTypeFromPossibleNestedArray<TestType extends Record<string, unknown> | Array<Record<string, unknown>>> =
+    TestType extends Array<Record<string, unknown>> ? TestType[number] : TestType;
+type BlockControlControlsType = GetArrayTypeFromPossibleNestedArray<
+    NonNullable<Parameters<typeof ToolbarGroup>[0]["controls"]>[number]
+>;
 
 declare namespace BlockControls {
     type BlockControlGroup =

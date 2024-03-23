@@ -1,5 +1,5 @@
 import { IconType } from "@wordpress/components";
-import { ComponentType} from "react";
+import { ComponentType } from "react";
 
 declare namespace AlignmentToolbar {
     interface Props {
