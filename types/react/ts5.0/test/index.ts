@@ -912,4 +912,36 @@ function propsInferenceHelpersTests() {
         optional?: number;
         value: string;
     }
+
+    type UnionProps = { type: string } & ({ value: string } | { children: string });
+    class UnionPropsClassComponent extends React.Component<UnionProps> {
+        render() {
+            return null;
+        }
+    }
+    function UnionPropsFunctionComponent(props: UnionProps) {
+        return null;
+    }
+    const UnionPropsForwardRefComponent = React.forwardRef<HTMLDivElement, UnionProps>((props, ref) => {
+        return null;
+    });
+
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentProps = React.ComponentProps<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps & RefAttributes<UnionPropsClassComponent>
+    type UnionPropsClassComponentPropsWithRef = React.ComponentPropsWithRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentPropsWithoutRef = React.ComponentPropsWithoutRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentProps = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentProps = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
 }
