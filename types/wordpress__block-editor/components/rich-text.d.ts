@@ -4,6 +4,8 @@ import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
 import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
 import { ToolbarButtonProps } from "@wordpress/components/build-types/toolbar/toolbar-button/types";
 import { ComponentType, HTMLProps, JSX } from "react";
+import { Button, IconType } from "@wordpress/components";
+import { WordPressComponentProps } from "@wordpress/components/build-types/context";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
@@ -95,7 +97,7 @@ export namespace RichTextShortcut {
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
-    interface Props extends ToolbarButtonProps {
+    interface Props extends WordPressComponentProps<ToolbarButtonProps, typeof Button, false> {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;
