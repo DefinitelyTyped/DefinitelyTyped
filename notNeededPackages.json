@@ -6495,6 +6495,10 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__components": {
+            "libraryName": "@wordpress/components",
+            "asOfVersion": "23.8.0"
+        },
         "wordpress__compose": {
             "libraryName": "@wordpress/compose",
             "asOfVersion": "6.1.0"
