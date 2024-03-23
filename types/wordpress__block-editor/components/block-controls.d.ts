@@ -1,4 +1,4 @@
-import { Slot, Toolbar } from "@wordpress/components";
+import { Slot, ToolbarGroup } from "@wordpress/components";
 import { FC, JSX, ReactNode } from "react";
 
 declare namespace BlockControls {
@@ -9,7 +9,7 @@ declare namespace BlockControls {
         | "other"
         | "parent";
 
-    interface Props extends Pick<Toolbar.Props, "controls"> {
+    interface Props extends Pick<Parameters<typeof ToolbarGroup>[0], "controls"> {
         children: ReactNode;
         group?: BlockControlGroup | undefined;
     }
