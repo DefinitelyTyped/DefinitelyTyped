@@ -5,7 +5,6 @@ import {
   ApplePaySelectionUpdate,
 } from '@recurly/recurly-js';
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 function getTaxes ({ paymentMethod: { billingContact } }: ApplePayPaymentMethodSelectedEvent): ApplePaySelectionUpdate | void {
   if (billingContact?.postalCode === '12345') {
     return { newLineItems: [{ label: 'Tax', amount: '1.00' }] };
