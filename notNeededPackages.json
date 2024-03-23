@@ -6559,6 +6559,10 @@
             "libraryName": "@wordpress/jest-console",
             "asOfVersion": "5.2.0"
         },
+        "wordpress__notices": {
+            "libraryName": "@wordpress/notices",
+            "asOfVersion": "4.0.0"
+        },
         "wordpress__plugins": {
             "libraryName": "@wordpress/plugins",
             "asOfVersion": "6.0.0"
