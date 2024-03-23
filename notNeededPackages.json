@@ -6575,6 +6575,10 @@
             "libraryName": "@wordpress/priority-queue",
             "asOfVersion": "1.6.0"
         },
+        "wordpress__rich-text": {
+            "libraryName": "@wordpress/rich-text",
+            "asOfVersion": "6.10.0"
+        },
         "wordpress__token-list": {
             "libraryName": "@wordpress/token-list",
             "asOfVersion": "1.10.0"
