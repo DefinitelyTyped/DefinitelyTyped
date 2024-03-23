@@ -119,13 +119,13 @@ export class Vimeo {
         params: object,
         completeCallback: UriCallback,
         progressCallback: ProgressCallback | undefined,
-        errorCallback: ErrorCallback
+        errorCallback: ErrorCallback,
     ): void;
     upload(
         file: string | File,
         completeCallback: UriCallback,
         progressCallback: ProgressCallback | undefined,
-        errorCallback: ErrorCallback
+        errorCallback: ErrorCallback,
     ): void;
 
     /**
@@ -148,6 +148,6 @@ export class Vimeo {
         params: object,
         completeCallback: UriCallback,
         progressCallback: ProgressCallback | undefined,
-        errorCallback: ErrorCallback
+        errorCallback: ErrorCallback,
     ): void;
 }
