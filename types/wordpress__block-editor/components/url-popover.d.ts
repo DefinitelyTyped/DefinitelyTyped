@@ -1,8 +1,8 @@
-import { Popover } from "@wordpress/components";
+import { PopoverProps } from "@wordpress/components/build-types/popover/types";
 import { ComponentType, JSX, ReactNode } from "react";
 
 declare namespace URLPopover {
-    interface Props extends Popover.Props {
+    interface Props extends PopoverProps {
         additionalControls?: ReactNode | undefined;
         /**
          * Callback used to return the React Elements that will be rendered inside the settings

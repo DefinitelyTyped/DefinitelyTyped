@@ -1,5 +1,6 @@
-import { Slot, Toolbar } from "@wordpress/components";
-import { FC, JSX, ReactNode } from "react";
+import {SlotComponentProps} from "@wordpress/components/build-types/slot-fill/types";
+import {ToolbarGroupCollapsedProps} from "@wordpress/components/build-types/toolbar/toolbar-group/types";
+import {FC, JSX, ReactNode} from "react";
 
 declare namespace BlockControls {
     type BlockControlGroup =
@@ -9,14 +10,14 @@ declare namespace BlockControls {
         | "other"
         | "parent";
 
-    interface Props extends Pick<Toolbar.Props, "controls"> {
+    interface Props extends Pick<ToolbarGroupCollapsedProps, "controls"> {
         children: ReactNode;
         group?: BlockControlGroup | undefined;
     }
 }
 declare const BlockControls: {
     (props: BlockControls.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, "name">>;
+    Slot: FC<Omit<SlotComponentProps, "name">>;
 };
 
 export default BlockControls;

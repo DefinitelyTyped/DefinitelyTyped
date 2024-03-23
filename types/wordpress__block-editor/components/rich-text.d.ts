@@ -1,8 +1,9 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { BlockInstance } from "@wordpress/blocks";
-import { Autocomplete, ToolbarButton } from "@wordpress/components";
 import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
-import { ComponentType, HTMLProps, JSX, ReactNode } from "react";
+import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
+import { ToolbarButtonProps } from "@wordpress/components/build-types/toolbar/toolbar-button/types";
+import { ComponentType, HTMLProps, JSX } from "react";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
@@ -14,7 +15,7 @@ declare namespace RichText {
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: Array<Autocomplete.Completer<any>> | undefined;
+        autocompleters?: WPCompleter[] | undefined;
         children?: never | undefined;
         className?: string | undefined;
         identifier?: string | undefined;
@@ -94,7 +95,7 @@ export namespace RichTextShortcut {
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
-    interface Props extends ToolbarButton.Props {
+    interface Props extends ToolbarButtonProps {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;
