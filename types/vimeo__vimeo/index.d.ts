@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 export type CompleteCallback = (err: Error | null, result: any, statusCode?: number, headers?: object) => void;
 
 export type ProgressCallback = (bytesUploaded: number, bytesTotal: number) => void;
