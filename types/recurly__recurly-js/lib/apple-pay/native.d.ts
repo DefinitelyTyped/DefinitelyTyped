@@ -362,6 +362,7 @@ export type ApplePayPayment = {
    * The shipping contact selected by the user for this transaction.
    */
   shippingContact: ApplePayPaymentContact;
+  recurlyToken: TokenPayload;
 };
 
 /**
@@ -374,5 +375,4 @@ export type ApplePayPaymentAuthorizedEvent = {
   payment: ApplePayPayment;
 
   gatewayToken?: string;
-  recurlyToken: TokenPayload;
 };
