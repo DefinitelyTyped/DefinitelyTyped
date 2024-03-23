@@ -357,8 +357,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
 <be.RichTextShortcut type="primary" character="b" onUse={() => console.log("Hello World")} />;
-<be.RichTextToolbarButton
-/>;
+<be.RichTextToolbarButton />;
 <be.RichTextToolbarButton
     isActive
     name="bold"
