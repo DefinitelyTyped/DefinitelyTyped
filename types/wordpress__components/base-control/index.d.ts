@@ -31,7 +31,7 @@ declare namespace BaseControl {
          *
          * The recommended way is to use the `useBaseControlProps` hook, which takes care of generating a unique `id` for you. Otherwise, if you choose to pass an explicit `id` to this prop, you are responsible for ensuring the uniqueness of the `id`.
          */
-        id?: string | undefined;
+        id?: string;
         /**
          * The content to be displayed within the BaseControl.
          */
