@@ -8,7 +8,7 @@ declare namespace BlockFormatControls {
 }
 declare const BlockFormatControls: {
     (props: BlockFormatControls.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, "name">>;
+    Slot: FC<Omit<Parameters<typeof Slot>[0], "name">>;
 };
 
 export default BlockFormatControls;

@@ -3,10 +3,10 @@ import { ComponentType } from "react";
 
 declare namespace PanelColorSettings {
     type ColorSetting =
-        & Partial<ColorPalette.Props>
-        & Pick<ColorPalette.Props, "onChange" | "value">
+        & Partial<Parameters<typeof ColorPalette>[0]>
+        & Pick<Parameters<typeof ColorPalette>[0], "onChange" | "value">
         & { label: string };
-    interface Props extends Omit<PanelBody.Props, "children"> {
+    interface Props extends Omit<Parameters<typeof PanelBody>[0], "children"> {
         colorSettings: ColorSetting[];
         disableCustomColors?: boolean | undefined;
     }

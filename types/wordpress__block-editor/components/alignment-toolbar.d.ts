@@ -6,7 +6,7 @@ declare namespace AlignmentToolbar {
         alignmentControls?:
             | Array<{
                 align: string;
-                icon: Dashicon.Icon | JSX.Element;
+                icon: Parameters<typeof Dashicon>[0]["icon"] | JSX.Element;
                 title: string;
             }>
             | undefined;

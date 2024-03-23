@@ -44,23 +44,44 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 <be.BlockControls
     controls={[
         {
-            icon: "yes",
+            icon: "admin-appearance",
             title: "Yes",
+            subscript: "Yes",
             onClick() {},
-            shortcut: {
-                display: "Yes",
-            },
+            isActive: false,
             isDisabled: false,
         },
         {
-            icon: "no",
+            icon: null,
             title: "No",
             onClick() {},
             subscript: "no",
             isActive: false,
-            shortcut: "No",
+            isDisabled: false,
         },
     ]}
+>
+    Hello World
+</be.BlockControls>;
+<be.BlockControls
+    controls={[[
+        {
+            icon: "admin-appearance",
+            title: "Yes",
+            subscript: "Yes",
+            onClick() {},
+            isActive: false,
+            isDisabled: false,
+        },
+        {
+            icon: null,
+            title: "No",
+            onClick() {},
+            subscript: "no",
+            isActive: false,
+            isDisabled: false,
+        },
+    ]]}
 >
     Hello World
 </be.BlockControls>;
@@ -336,6 +357,8 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
 <be.RichTextShortcut type="primary" character="b" onUse={() => console.log("Hello World")} />;
+<be.RichTextToolbarButton
+/>;
 <be.RichTextToolbarButton
     isActive
     name="bold"

@@ -4,7 +4,7 @@ import { ComponentType } from "react";
 import { EditorFontSize } from "../";
 
 export namespace FontSizePicker {
-    type Props = Omit<FSP.Props, "disableCustomFontSizes" | "fontSizes">;
+    type Props = Omit<Parameters<typeof FSP>[0], "disableCustomFontSizes" | "fontSizes">;
 }
 export const FontSizePicker: ComponentType<FontSizePicker.Props>;
 

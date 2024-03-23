@@ -14,7 +14,7 @@ declare namespace RichText {
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: Array<Autocomplete.Completer<any>> | undefined;
+        autocompleters?: Parameters<typeof Autocomplete>[0]["completers"] | undefined;
         children?: never | undefined;
         className?: string | undefined;
         identifier?: string | undefined;
@@ -93,8 +93,9 @@ export namespace RichTextShortcut {
 }
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
+type ToolbarButtonProps = Partial<Parameters<typeof ToolbarButton>[0]>;
 export namespace RichTextToolbarButton {
-    interface Props extends ToolbarButton.Props {
+    interface Props extends ToolbarButtonProps {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;

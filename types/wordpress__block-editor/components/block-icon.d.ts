@@ -4,7 +4,7 @@ import { ComponentType } from "react";
 declare namespace BlockIcon {
     interface Props {
         className?: string | undefined;
-        icon: Icon.Props<any>["icon"];
+        icon: Parameters<typeof Icon>[0]["icon"];
         showColors?: boolean | undefined;
     }
 }

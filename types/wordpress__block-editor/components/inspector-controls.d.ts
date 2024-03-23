@@ -9,7 +9,7 @@ declare namespace InspectorControls {
 }
 declare const InspectorControls: {
     (props: InspectorControls.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, "name">>;
+    Slot: FC<Omit<Parameters<typeof Slot>[0], "name">>;
 };
 
 export default InspectorControls;
