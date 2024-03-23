@@ -6575,6 +6575,10 @@
             "libraryName": "@wordpress/priority-queue",
             "asOfVersion": "1.6.0"
         },
+        "wordpress__redux-routine": {
+            "libraryName": "@wordpress/redux-routine",
+            "asOfVersion": "4.2.0"
+        },
         "wordpress__rich-text": {
             "libraryName": "@wordpress/rich-text",
             "asOfVersion": "6.10.0"
