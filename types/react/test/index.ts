@@ -82,6 +82,14 @@ declare const container: Element;
         }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        constructor(props: Props) {
+            super(props);
+            // This should ideally error since `props` should not be mutated, but it doesn't.
+            props.foo = 2;
+            // @ts-expect-error
+            this.props = { type: "foo" };
+        }
+
         render() {
             return null;
         }
@@ -115,6 +123,13 @@ declare const container: Element;
                 hello: "world",
                 foo: 42,
             };
+        }
+    }
+
+    class InferredConstructorProps extends React.Component<{ value: string }> {
+        // @ts-expect-error ts(7006) Ideally, this would infer the props type from the type parameter but has implicit any.
+        constructor(props) {
+            super(props);
         }
     }
 }
