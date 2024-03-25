@@ -41,10 +41,15 @@ const ndOne: OneLine.OneLine = {
             "adUnitRequest - should allow reload when specified in the arguments",
         );
     },
-    buildVideoUrl: (bidder: BidderConfig[], placementID: string) => {},
+    buildVideoUrl: (bidder: BidderConfig[], placementID: string): string => {
+        // Example implementation that concatenates placementID with bidder info to form a URL
+        // This is a mock implementation and should be replaced with your actual logic
+        return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(',')}`;
+    },
 };
 
 // Test cases
 ndOne.adUnitRequest();
 ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
 ndOne.adUnitRequest(["push-up-all"], true);
+ndOne.buildVideoUrl([{ bidder: 'testBidder', params: { placementId: 'testPlacementId' } }], 'testPlacementId');
