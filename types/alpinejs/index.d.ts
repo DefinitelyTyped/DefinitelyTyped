@@ -101,10 +101,16 @@ export interface InterceptorObject<T> {
     initialize: (data: Record<string, unknown>, path: string, key: string) => T;
 }
 
-type InferInterceptor<T> = T extends InterceptorObject<infer U> ? U
+/**
+ * Infers the type of the interceptor object if it is an interceptor
+ * Otherwise, it returns the original type
+ * Limits the depth to 3 to improve performance and avoid failures on complex types
+ */
+type InferInterceptor<T, D extends 3 | 2 | 1 = 1> = T extends InterceptorObject<infer U> ? U
     : keyof T extends never ? T
+    : D extends 3 ? T
     : {
-        [K in keyof T]: InferInterceptor<T[K]>;
+        [K in keyof T]: InferInterceptor<T[K], D extends 1 ? 2 : D extends 2 ? 3 : D>;
     };
 
 export type InferInterceptors<T> = {
@@ -492,7 +498,11 @@ export interface Alpine {
         setFunction:
             | ((
                 el: ElementWithXAttributes,
-                value: string | boolean | Record<string, boolean> | (() => string | boolean | Record<string, boolean>),
+                value:
+                    | string
+                    | boolean
+                    | Record<string, boolean>
+                    | (() => string | boolean | Record<string, boolean>),
             ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         states: Partial<{
@@ -683,14 +693,16 @@ export interface Alpine {
      * Binds directives and attributes to an element
      * @param element to bind
      * @param bindings to apply to the element
+     * @returns cleanup function
      */
-    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): void;
+    bind<T extends Bindings<T>>(element: HTMLElement, bindings: T | (() => T)): () => void;
     /**
      * Registers a named binding group to be exposed to `x-bind` directive expressions
      * @param name of binding group
      * @param bindings to apply to an element that uses the group
+     * @returns cleanup function
      */
-    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: unknown[]) => T)): void;
+    bind<T extends Bindings<T>>(name: string, bindings: T | ((...args: any[]) => T)): () => void;
 }
 
 declare const Alpine: Alpine;

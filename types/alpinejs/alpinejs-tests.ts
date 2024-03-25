@@ -7,12 +7,12 @@
  */
 
 import Alpine, {
-    AlpineComponent,
-    DirectiveCallback,
-    DirectiveData,
-    DirectiveUtilities,
-    ElementWithXAttributes,
-    InterceptorObject,
+    type AlpineComponent,
+    type DirectiveCallback,
+    type DirectiveData,
+    type DirectiveUtilities,
+    type ElementWithXAttributes,
+    type InterceptorObject,
 } from "alpinejs";
 
 {
@@ -639,14 +639,14 @@ import Alpine, {
         },
     }));
 
-    // $ExpectType void
+    // $ExpectType () => void
     Alpine.bind("#my-el", () => ({
         "x-show": "true",
         "@mouseenter"() {},
         "@mouseleave"(e: MouseEvent) {},
     }));
 
-    // $ExpectType void
+    // $ExpectType () => void
     Alpine.bind(document.createElement("div") as HTMLElement, () => ({
         "x-show": "true",
         // allows typed events for x-on and @ bindings
@@ -669,6 +669,16 @@ import Alpine, {
     Alpine.bind(document.createElement("div") as HTMLElement, () => ({
         "x-on:keydown"(e: MouseEvent) {},
     }));
+
+    // allows arguments in bindings functions
+    const unbind = Alpine.bind("bindings", (arg: string) => ({
+        disabled() {
+            return true;
+        },
+    }));
+
+    // $ExpectType () => void
+    unbind;
 
     // $ExpectType void
     Alpine.data("user", () => ({
