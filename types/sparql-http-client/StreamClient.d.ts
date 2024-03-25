@@ -5,7 +5,7 @@ import StreamQuery from "./StreamQuery.js";
 import StreamStore from "./StreamStore.js";
 
 interface BaseOptions<Q extends BaseQuad> {
-    factory: Environment<DataFactory<Q> | DatasetCoreFactory>;
+    factory?: Environment<DataFactory<Q> | DatasetCoreFactory>;
     fetch?: typeof fetch;
     headers?: HeadersInit;
     password?: string;

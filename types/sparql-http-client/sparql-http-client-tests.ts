@@ -24,6 +24,9 @@ const stream: Stream = <any> {};
 
 async function streamingClient() {
     // construct
+    const usingDefaultFactory: StreamClient = new StreamClient({
+        endpointUrl,
+    });
     const minimalOptions: StreamClient = new StreamClient({
         endpointUrl,
         factory,
