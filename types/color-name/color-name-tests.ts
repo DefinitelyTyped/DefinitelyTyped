@@ -1,4 +1,4 @@
-import * as colorname from "color-name";
+import colorname from "color-name";
 
 let color: [number, number, number] = colorname.aliceblue;
 color = colorname.darkkhaki;
