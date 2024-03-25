@@ -671,14 +671,14 @@ import Alpine, {
     }));
 
     // allows arguments in bindings functions
-    const undo = Alpine.bind("bindings", (arg: string) => ({
+    const unbind = Alpine.bind("bindings", (arg: string) => ({
         disabled() {
             return true;
         },
     }));
 
     // $ExpectType () => void
-    undo;
+    unbind;
 
     // $ExpectType void
     Alpine.data("user", () => ({
