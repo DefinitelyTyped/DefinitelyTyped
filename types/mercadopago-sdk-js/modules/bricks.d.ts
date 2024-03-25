@@ -149,7 +149,9 @@ declare namespace bricks {
             | "security_details"
             | "security_safety"
             | "convenience_credits"
-            | "smart_option";
+            | "smart_option"
+            | "payment_methods_logos";
+        actionComplement?: "brand" | "amount";
     }
 
     interface StatusBrickBackUrls {
@@ -499,7 +501,40 @@ declare namespace bricks {
         | "tarshop"
         | "cmr"
         | "rapipago"
-        | "pagofacil";
+        | "pagofacil"
+        | "pix"
+        | "elo"
+        | "bolbradesco"
+        | "hipercard"
+        | "pec"
+        | "caixa"
+        | "redcompra"
+        | "magna"
+        | "presto"
+        | "pse"
+        | "efecty"
+        | "codensa"
+        | "atm_offline"
+        | "atm_online"
+        | "oca"
+        | "abitab"
+        | "redpagos"
+        | "lider"
+        | "creditel"
+        | "oxxo"
+        | "clabe"
+        | "bancomer"
+        | "banamex"
+        | "serfin"
+        | "7_eleven"
+        | "circle_k"
+        | "soriana"
+        | "extra"
+        | "calimax"
+        | "chedraui"
+        | "telecomm"
+        | "farmacias_del_ahorro"
+        | "casa_ley";
 
     type BrandBrickExcludedPaymentTypes = "credit_card" | "debit_card" | "ticket";
 
