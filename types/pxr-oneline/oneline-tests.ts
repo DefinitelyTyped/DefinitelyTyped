@@ -25,7 +25,7 @@ const ndOne: OneLine.OneLine = {
         cons: {
             OneTime: "OneTime",
         },
-        
+
         subscribe: (topic: string, fn: NoParamFunction) => {},
         broadcast: (oneTime: boolean, topic: string, data?: any) => {},
     },
@@ -44,7 +44,7 @@ const ndOne: OneLine.OneLine = {
     buildVideoUrl: (bidder: BidderConfig[], placementID: string): string => {
         // Example implementation that concatenates placementID with bidder info to form a URL
         // This is a mock implementation and should be replaced with your actual logic
-        return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(',')}`;
+        return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(",")}`;
     },
 };
 
@@ -52,4 +52,4 @@ const ndOne: OneLine.OneLine = {
 ndOne.adUnitRequest();
 ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
 ndOne.adUnitRequest(["push-up-all"], true);
-ndOne.buildVideoUrl([{ bidder: 'testBidder', params: { placementId: 'testPlacementId' } }], 'testPlacementId');
+ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlacementId" } }], "testPlacementId");
