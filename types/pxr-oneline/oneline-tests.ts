@@ -8,6 +8,10 @@ interface BidderConfig {
     bidder: string;
     params: BidderParams;
 }
+
+type NoParamFunction = () => void;
+type ParamFunction = (arg: any) => void;
+
 const ndOne: OneLine.OneLine = {
     event: {
         o: {},
@@ -21,6 +25,9 @@ const ndOne: OneLine.OneLine = {
         cons: {
             OneTime: "OneTime",
         },
+        
+        subscribe: (topic: string, fn: NoParamFunction) => {},
+        broadcast: (oneTime: boolean, topic: string, data?: any) => {},
     },
     adUnitRequest: (arrFoAdIds: string[], allowReload: boolean) => {
         // Mock implementation for testing
