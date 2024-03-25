@@ -3245,7 +3245,7 @@ declare namespace cytoscape {
          * Indicating whether the algorithm should find and return
          * negative weight cycles (default true).
          */
-        findNegativeWeightCycles?: boolean;
+        findNegativeWeightCycles?: boolean | undefined;
     }
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
