@@ -19,7 +19,7 @@ export as namespace PCX;
 
 }
 declare namespace PCX{
-  export interface Header{
+   interface Header{
     version: number,
     bpp: number,
     xmin: number,
@@ -31,7 +31,7 @@ declare namespace PCX{
     palette: null|Uint8Array,
     bitplanes: number
   }
-  export interface DecodeType{
+   interface DecodeType{
     pixelArray: Uint8ClampedArray,
     palette: Uint8Array
     width: number,
