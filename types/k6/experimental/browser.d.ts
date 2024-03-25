@@ -1189,13 +1189,15 @@ export interface ElementHandle extends JSHandle {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
-         * {@link Page}. Defaults to 30000.
+         * {@link Page}.
+         * @default 30000
          */
         timeout?: number;
 
         /**
          * If set to `true` and a navigation occurs from performing this action, it
-         * does not wait for it to complete. Defaults to `false`.
+         * does not wait for it to complete.
+         * @default false
          */
         noWaitAfter?: boolean;
     }): void;
@@ -1568,13 +1570,15 @@ export interface Frame {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
-         * {@link Page}. Defaults to 30000.
+         * {@link Page}
+         * @default 30000
          */
         timeout?: number;
 
         /**
          * If set to `true` and a navigation occurs from performing this action, it
-         * will not wait for it to complete. Defaults to `false`.
+         * will not wait for it to complete.
+         * @default false
          */
         noWaitAfter?: boolean;
     }): void;
@@ -3031,13 +3035,15 @@ export interface Page {
         /**
          * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
          * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
-         * {@link Page}. Defaults to 30000.
+         * {@link Page}
+         * @default 30000
          */
         timeout?: number;
 
         /**
          * If set to `true` and a navigation occurs from performing this action, it
-         * will not wait for it to complete. Defaults to `false`.
+         * will not wait for it to complete.
+         * @default false
          */
         noWaitAfter?: boolean;
     }): void;
