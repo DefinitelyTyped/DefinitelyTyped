@@ -1,4 +1,13 @@
 import * as OneLine from "pxr-oneline";
+
+interface BidderParams {
+    placementId: string;
+}
+
+interface BidderConfig {
+    bidder: string;
+    params: BidderParams;
+}
 const ndOne: OneLine.OneLine = {
     event: {
         o: {},
@@ -12,10 +21,8 @@ const ndOne: OneLine.OneLine = {
         cons: {
             OneTime: "OneTime",
         },
-        subscribe: (topic, fn) => {},
-        broadcast: (oneTime, topic, data) => {},
     },
-    adUnitRequest: (arrFoAdIds, allowReload) => {
+    adUnitRequest: (arrFoAdIds: string[], allowReload: boolean) => {
         // Mock implementation for testing
         console.assert(
             !arrFoAdIds && !allowReload,
@@ -27,8 +34,7 @@ const ndOne: OneLine.OneLine = {
             "adUnitRequest - should allow reload when specified in the arguments",
         );
     },
-    buildVideoUrl: (bidder, placementID: string) => {},
-    adUnitInfiniteRequest: (bidder) => {},
+    buildVideoUrl: (bidder: BidderConfig[], placementID: string) => {},
 };
 
 // Test cases
