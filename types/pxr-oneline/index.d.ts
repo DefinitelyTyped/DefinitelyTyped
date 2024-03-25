@@ -2,14 +2,24 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        buildVideoUrl(bidder: BidderConfig[], placementID: string): void;
-        adUnitInfiniteRequest(arrOfOb: ArrOfOb[]): void;
+        buildVideoUrl(bidder: BidderConfig[], placementID?: string, videoTitle?: string): string;
+        preBidAdUnit(prebidBids: PrebidBids, prebidAdUnit: AdUnit, isDebug: boolean): void;
     }
 
-    interface ArrOfOb {
-        infiniteId: string;
-        divId: string;
-    }
+    interface PrebidBids {
+        [key: string]: {
+          bidder: string;
+          params: {
+            placementId: string;
+          };
+        };
+      }
+      
+      interface AdUnit {
+        code: string;
+        mediaTypes: any;
+        bids?: any[];
+      }
 
     interface BidderParams {
         placementId: string;

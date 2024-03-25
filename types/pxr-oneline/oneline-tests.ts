@@ -1,5 +1,5 @@
 import * as OneLine from "pxr-oneline";
-const ndmOne: OneLine.OneLine = {
+const ndOne: OneLine.OneLine = {
     event: {
         o: {},
         topic: {
@@ -27,11 +27,11 @@ const ndmOne: OneLine.OneLine = {
             "adUnitRequest - should allow reload when specified in the arguments",
         );
     },
-    buildVideoUrl: (bidder, placementID) => {},
+    buildVideoUrl: (bidder, placementID: string) => {},
     adUnitInfiniteRequest: (bidder) => {},
 };
 
 // Test cases
-ndmOne.adUnitRequest();
-ndmOne.adUnitRequest(["ndm-1", "ndm-2"]);
-ndmOne.adUnitRequest(["push-up-all"], true);
+ndOne.adUnitRequest();
+ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
+ndOne.adUnitRequest(["push-up-all"], true);
