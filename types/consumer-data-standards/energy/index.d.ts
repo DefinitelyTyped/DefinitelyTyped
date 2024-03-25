@@ -2102,18 +2102,18 @@ export interface EnergyBillingDemandTransactionV3 {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-      | Array<{
-          /**
-           * The amount of the adjustment
-           */
-          amount: string;
-          /**
-           * A free text description of the adjustment
-           */
-          description: string;
-          [k: string]: unknown;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
         }>
-      | null;
+        | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
      */
@@ -2122,18 +2122,18 @@ export interface EnergyBillingDemandTransactionV3 {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-      | Array<{
-          /**
-           * The type of the calculation factor
-           */
-          type: "DLF" | "MLF";
-          /**
-           * The value of the calculation factor
-           */
-          value: number;
-          [k: string]: unknown;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
         }>
-      | null;
+        | null;
     /**
      * Optional description of the transaction that can be used for display purposes
      */
@@ -2170,28 +2170,28 @@ export interface EnergyBillingDemandTransactionV3 {
      * The time of use type that the transaction applies to
      */
     timeOfUseType:
-      | "PEAK"
-      | "OFF_PEAK"
-      | "OFF_PEAK_DEMAND_CHARGE"
-      | "SHOULDER"
-      | "SHOULDER1"
-      | "SHOULDER2"
-      | "CONTROLLED_LOAD"
-      | "SOLAR"
-      | "AGGREGATE"
-      | "ALL_DAY"
-      | "EXCESS";
+        | "PEAK"
+        | "OFF_PEAK"
+        | "OFF_PEAK_DEMAND_CHARGE"
+        | "SHOULDER"
+        | "SHOULDER1"
+        | "SHOULDER2"
+        | "CONTROLLED_LOAD"
+        | "SOLAR"
+        | "AGGREGATE"
+        | "ALL_DAY"
+        | "EXCESS";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyBillingListResponseV3 {
     data: {
-      /**
-       * Array of transactions sorted by date and time in descending order
-       */
-      transactions: EnergyBillingTransactionV3[];
-      [k: string]: unknown;
+        /**
+         * Array of transactions sorted by date and time in descending order
+         */
+        transactions: EnergyBillingTransactionV3[];
+        [k: string]: unknown;
     };
     links: LinksPaginated;
     meta: MetaPaginated;

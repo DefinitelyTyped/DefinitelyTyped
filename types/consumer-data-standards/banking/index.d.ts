@@ -1,4 +1,3 @@
-
 /* This structure is used in the BankingAccountDetailV3.features property */
 export interface accV3DetailFeatureObj extends BankingProductFeatureV2 {
     isActivated?: boolean;
