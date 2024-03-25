@@ -1,4 +1,4 @@
-// Type definitions for UtilCode 2.0.0
+// Type definitions for time-ampm 2.0.0
 // Project: https://github.com/ipostol/time-ampm
 export = timeAmpm;
 export as namespace timeAmpm;
