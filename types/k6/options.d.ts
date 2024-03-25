@@ -47,6 +47,9 @@ export interface Options {
     /** Third party collector configuration. */
     ext?: { [name: string]: CollectorOptions };
 
+    /** Cloud options */
+    cloud?: CloudOptions;
+
     /** Static hostname mapping. */
     hosts?: { [name: string]: string };
 
@@ -136,6 +139,13 @@ export interface Options {
  * Third party collector configuration.
  */
 export interface CollectorOptions {
+    [name: string]: any;
+}
+
+/**
+ * Options for the cloud.
+ */
+export interface CloudOptions {
     [name: string]: any;
 }
 

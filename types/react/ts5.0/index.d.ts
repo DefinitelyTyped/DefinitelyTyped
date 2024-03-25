@@ -155,6 +155,8 @@ declare namespace React {
         readonly current: T | null;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+    }
     /**
      * A callback fired whenever the ref's value changes.
      *
@@ -168,7 +170,15 @@ declare namespace React {
      * <div ref={(node) => console.log(node)} />
      * ```
      */
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = {
+        bivarianceHack(
+            instance: T | null,
+        ):
+            | void
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
+            ];
+    }["bivarianceHack"];
 
     /**
      * A union type of all possible shapes for React refs.
@@ -986,7 +996,7 @@ declare namespace React {
          */
         context: unknown;
 
-        constructor(props: Readonly<P> | P);
+        constructor(props: P);
         /**
          * @deprecated
          * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
@@ -4070,18 +4080,33 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated Use `Validator` from the ´prop-types` instead.
+     */
     type Validator<T> = PropTypes.Validator<T>;
 
+    /**
+     * @deprecated Use `Requireable` from the ´prop-types` instead.
+     */
     type Requireable<T> = PropTypes.Requireable<T>;
 
+    /**
+     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
+     */
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
+    /**
+     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
+     */
     type WeakValidationMap<T> = {
         [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
             : undefined extends T[K] ? Validator<T[K] | null | undefined>
             : Validator<T[K]>;
     };
 
+    /**
+     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
+     */
     interface ReactPropTypes {
         any: typeof PropTypes.any;
         array: typeof PropTypes.array;

@@ -41,7 +41,14 @@ function Test() {
                 value=""
                 placeholderChar="#"
                 render={(setRef, props) => {
-                    return <input {...props} ref={ref => ref && setRef(ref)} />;
+                    return (
+                        <input
+                            {...props}
+                            ref={ref => {
+                                ref && setRef(ref);
+                            }}
+                        />
+                    );
                 }}
             />
             <MaskedInput

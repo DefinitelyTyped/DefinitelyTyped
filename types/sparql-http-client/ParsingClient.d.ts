@@ -4,7 +4,7 @@ import { SimpleClient } from "./index.js";
 import ParsingQuery from "./ParsingQuery.js";
 
 interface BaseOptions<Q extends Quad, D extends DatasetCore<Q>> {
-    factory: Environment<DatasetCoreFactory<Q, Q, D>>;
+    factory?: Environment<DatasetCoreFactory<Q, Q, D>>;
     fetch?: typeof fetch;
     headers?: HeadersInit;
     password?: string;

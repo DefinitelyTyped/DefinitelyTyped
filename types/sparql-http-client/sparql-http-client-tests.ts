@@ -24,6 +24,9 @@ const stream: Stream = <any> {};
 
 async function streamingClient() {
     // construct
+    const usingDefaultFactory: StreamClient = new StreamClient({
+        endpointUrl,
+    });
     const minimalOptions: StreamClient = new StreamClient({
         endpointUrl,
         factory,
@@ -87,6 +90,9 @@ async function streamingClient() {
 
 async function parsingClient() {
     // construct
+    const usingDefaultFactory: ParsingClient = new ParsingClient({
+        endpointUrl,
+    });
     const minimalOptions: ParsingClient = new ParsingClient({
         endpointUrl,
         factory,

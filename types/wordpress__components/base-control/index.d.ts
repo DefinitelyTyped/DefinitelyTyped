@@ -27,10 +27,11 @@ declare namespace BaseControl {
     }
     interface Props extends ControlProps {
         /**
-         * The id of the element to which labels and help text are being
-         * generated. That element should be passed as a child.
+         * The HTML `id` of the control element (passed in as a child to `BaseControl`) to which labels and help text are being generated. This is necessary to accessibly associate the label with that element.
+         *
+         * The recommended way is to use the `useBaseControlProps` hook, which takes care of generating a unique `id` for you. Otherwise, if you choose to pass an explicit `id` to this prop, you are responsible for ensuring the uniqueness of the `id`.
          */
-        id: string;
+        id?: string;
         /**
          * The content to be displayed within the BaseControl.
          */
