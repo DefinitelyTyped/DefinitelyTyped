@@ -1013,7 +1013,7 @@ declare module "fs/promises" {
                  * is `true`, `filehandle.sync()` is used to flush the data.
                  * @default false
                  */
-                flush?: boolean;
+                flush?: boolean | undefined;
             } & Abortable)
             | BufferEncoding
             | null,
