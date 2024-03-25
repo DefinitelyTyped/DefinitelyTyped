@@ -18,7 +18,7 @@ export type ClientRegistration = {
      */
     jti: string;
     /**
-     * 'Contains the Data Holder issuer value as described in the OIDC Discovery Document
+     * Contains the Data Holder issuer value as described in the OIDC Discovery Document
      */
     aud: string;
     [k: string]: unknown;
@@ -146,6 +146,8 @@ export type ClientRegistration = {
     [k: string]: unknown;
 };
 /* These are the schema definitions stipulated by the Data Standards Body for the dcr api. */
+
+
 
 /**
  * The registration request JWT to be used to register with a Data Holder.
