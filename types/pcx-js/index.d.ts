@@ -1,8 +1,8 @@
 // Type definitions for pcx-js 1.1.0
 // Project: https://github.com/warpdesign/pcx-js
-
-
-export declare class PCX{
+export = PCX;
+export as namespace PCX;
+ declare class PCX{
   constructor();
   constructor(buffer:ArrayBuffer)
   decode():PCX.DecodeType;
