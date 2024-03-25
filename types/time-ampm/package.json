@@ -1,9 +1,9 @@
 {
   "private": true,
   "name": "@types/time-ampm",
-  "version": "0.1.9999",
+  "version": "2.0.0.9999",
   "projects": [
-    "https://github.com/Blankj/AndroidUtilCode"
+    "https://github.com/ipostol/time-ampm"
   ],
   "devDependencies": {
     "@types/time-ampm": "workspace:."

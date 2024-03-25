@@ -1,5 +1,5 @@
-// Type definitions for UtilCode 0.1.0
-// Project: https://github.com/Blankj/AndroidUtilCode
+// Type definitions for UtilCode 2.0.0
+// Project: https://github.com/ipostol/time-ampm
 export = timeAmpm;
 export as namespace timeAmpm;
 declare namespace timeAmpm{
