@@ -6,11 +6,11 @@ declare global {
 
 export interface ZAFClient {
     /**
-         * Requests context for the app, such as the host and location.
-         * Depending on the location, the context may provide additional
-         * identifiers that you can use with the REST API to request additional data.
-         * @returns A JavaScript Promise object.
-         */
+     * Requests context for the app, such as the host and location.
+     * Depending on the location, the context may provide additional
+     * identifiers that you can use with the REST API to request additional data.
+     * @returns A JavaScript Promise object.
+     */
     context(): Promise<ZAFContext>;
     /**
      * Gets data from the UI asynchronously. For a complete list of supported paths, see:
@@ -18,7 +18,7 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
+
      * Some path segments can take arguments that you can specify using a colon syntax.
      * For example, to retrieve information about the options available to the type ticket field,
      * you could call client.get('ticketField:type.options').
@@ -34,8 +34,8 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
-     * Some path segments can take arguments that you can specify using a colon syntax. 
+
+     * Some path segments can take arguments that you can specify using a colon syntax.
      * For example, to hide the priority ticket field, call client.invoke('ticketFields:priority.hide').
      * @param name the path to call
      * @param args (optional) arguments to be passed to the call, or
@@ -50,8 +50,8 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
-     * Some path segments can take arguments that you can specify using a colon syntax. 
+
+     * Some path segments can take arguments that you can specify using a colon syntax.
      * For example, to hide the priority ticket field, call client.invoke('ticketFields:priority.hide').
      * @param obj an object containing invoke paths as keys and arrays of arguments as values
      * @returns A JavaScript Promise object with the value returned from the method call(s).
@@ -66,7 +66,7 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
+
      * See also Working with framework events.
      * @param event the name of the framework event you want to listen to. This can be framework, request, or custom events
      * @param callback a function to be called when this event fires
@@ -95,7 +95,7 @@ export interface ZAFClient {
      * Initialize a ZAFClient for another location.
      * @param guid the GUID for the desired instance of the app
      * @returns An instance of ZAFClient for the requested instance GUID
-   
+
      * Note that instances are transient in some locations (like ticket sidebar), so if the ticket tab is closed that instance is destroyed.
      */
     instance(guid: string): ZAFClient;
@@ -105,7 +105,7 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
+
      * Some path segments can take arguments that you can specify using a colon syntax. For example, to set the due date of a task, you could call client.set('ticket.customField:due_date', new Date()).
      * @param key the path to which to set the value val
      * @param value the value to set
@@ -118,7 +118,7 @@ export interface ZAFClient {
      * - Support Apps API
      * - Chat Apps API
      * - Sell Apps API
-   
+
      * Some path segments can take arguments that you can specify using a colon syntax. For example, to set the due date of a task, you could call client.set('ticket.customField:due_date', new Date()).
      * @param obj an object containing the keys and values to update
      * @returns A JavaScript Promise object.
@@ -142,8 +142,8 @@ export interface ZAFContext {
     instanceGuid: string;
     product: string;
     account: {
-        [key: string]: string
-    }
+        [key: string]: string;
+    };
     location: string;
     ticketId?: string;
 }
@@ -181,7 +181,7 @@ export interface ZAFRequestOptions {
     dataType?: string;
     headers?: {
         [key: string]: string;
-    }
+    };
     httpCompleteResponse?: boolean;
     ifModified?: boolean;
     jwt?: any;
@@ -189,7 +189,7 @@ export interface ZAFRequestOptions {
     secure?: boolean;
     timeout?: number;
     traditional?: boolean;
-    type?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+    type?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     url: string;
     xhrFields?: XHRProperties;
 }
