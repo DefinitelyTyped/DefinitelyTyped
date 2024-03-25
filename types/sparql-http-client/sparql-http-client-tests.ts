@@ -87,6 +87,9 @@ async function streamingClient() {
 
 async function parsingClient() {
     // construct
+    const usingDefaultFactory: ParsingClient = new ParsingClient({
+        endpointUrl,
+    });
     const minimalOptions: ParsingClient = new ParsingClient({
         endpointUrl,
         factory,
