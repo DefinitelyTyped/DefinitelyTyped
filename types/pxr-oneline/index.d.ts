@@ -3,23 +3,7 @@ declare namespace OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
         buildVideoUrl(bidder: BidderConfig[], placementID?: string, videoTitle?: string): string;
-        preBidAdUnit(prebidBids: PrebidBids, prebidAdUnit: AdUnit, isDebug: boolean): void;
     }
-
-    interface PrebidBids {
-        [key: string]: {
-          bidder: string;
-          params: {
-            placementId: string;
-          };
-        };
-      }
-      
-      interface AdUnit {
-        code: string;
-        mediaTypes: any;
-        bids?: any[];
-      }
 
     interface BidderParams {
         placementId: string;
