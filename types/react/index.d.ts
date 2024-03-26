@@ -6,7 +6,6 @@
 
 import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
-import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -917,7 +916,6 @@ declare namespace React {
          * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
          */
         commitTime: number,
-        interactions: Set<SchedulerInteraction>,
     ) => void;
 
     /**

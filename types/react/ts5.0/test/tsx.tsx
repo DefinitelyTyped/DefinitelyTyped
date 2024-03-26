@@ -515,18 +515,10 @@ const { Profiler } = React;
         baseDuration,
         startTime,
         commitTime,
-        interactions,
     ) => {
         const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
         const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
-
-        const interactionsSummary = Array.from(interactions)
-            .map(interaction => {
-                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-            })
-            .join("\n");
-        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
     }}
 >
     <div />
