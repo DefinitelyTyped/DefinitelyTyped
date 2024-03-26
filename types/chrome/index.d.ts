@@ -3245,13 +3245,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      * Type of key to generate.
      */
-    type Algorithm = 'RSA' | 'ECDSA';
+    type Algorithm = "RSA" | "ECDSA";
 
     /**
      * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
      */
-    type Scope = 'USER' | 'MACHINE';
+    type Scope = "USER" | "MACHINE";
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
