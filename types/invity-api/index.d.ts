@@ -36,7 +36,7 @@ export const cryptoSymbols: readonly [
     "XLM",
     "XMR",
     "XRP",
-    'TXRP',
+    "TXRP",
     "XTZ",
     "AE",
     "ALGO",
@@ -260,7 +260,7 @@ export type BuyCryptoPaymentMethod =
     | "eps"
     | "bankTransfer"
     | "creditCard"
-    | 'debitCard'
+    | "debitCard"
     | "giropay"
     | "iDeal"
     | "sofort"
@@ -269,7 +269,7 @@ export type BuyCryptoPaymentMethod =
     | "poli"
     | "dcinterac"
     | "applePay"
-    | 'googlePay'
+    | "googlePay"
     | "paynow"
     | "fps"
     | "promptpay"
