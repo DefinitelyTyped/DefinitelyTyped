@@ -82,7 +82,7 @@ const getAuthorizationUri = (): string => {
     const client = apiClient();
 
     return client.getAuthorizationUri(apiClientId, scopes, redirectUri, responseType);
-}
+};
 
 const getAccessToken = async (): Promise<AccessToken> => {
     const privateKey: Buffer = Buffer.from("read private key file");
