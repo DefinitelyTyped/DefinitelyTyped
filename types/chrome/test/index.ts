@@ -2270,11 +2270,11 @@ function testUserScripts() {
 }
 
 function testPlatformKeys() {
-    chrome.enterprise.platformKeys.challengeKey({
+    chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
         scope: "MACHINE",
         challenge: new ArrayBuffer(0),
         registerKey: { algorithm: "ECDSA" },
-    }, () => {}); // $ExpectType void
+    }, () => {});
 
     chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
     chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void

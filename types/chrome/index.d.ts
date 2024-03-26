@@ -3245,13 +3245,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      * Type of key to generate.
      */
-    type Algorithm = "RSA" | "ECDSA";
+    type Algorithm = 'RSA' | 'ECDSA';
 
     /**
      * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
      */
-    type Scope = "USER" | "MACHINE";
+    type Scope = 'USER' | 'MACHINE';
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
@@ -3292,6 +3292,7 @@ declare namespace chrome.enterprise.platformKeys {
      * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
      * @param options Object containing the fields defined in ChallengeKeyOptions.
      * @param callback Called back with the challenge response.
+     * @since Chrome 110
      */
     export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
     /**
