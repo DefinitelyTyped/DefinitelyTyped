@@ -14,7 +14,7 @@
         "https://github.com/eslint/espree"
     ],
     "dependencies": {
-        "acorn":"^8.11.3",
+        "acorn": "^8.11.3",
         "eslint-visitor-keys": "^4.0.0"
     },
     "devDependencies": {
