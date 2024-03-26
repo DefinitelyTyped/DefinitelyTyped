@@ -10,7 +10,7 @@ import {
 } from "invity-api";
 
 const bt: BuyTrade = {
-    paymentMethodName: "Test",
+    paymentMethodName: "TestPay",
 };
 
 const et: ExchangeTrade = {
