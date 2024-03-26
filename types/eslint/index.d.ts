@@ -1222,7 +1222,7 @@ export namespace Linter {
          * An string to identify the configuration object. Used in error messages and
          * inspection tools.
          */
-        name?: string
+        name?: string;
 
         /**
          * An array of glob patterns indicating the files that the configuration
