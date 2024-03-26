@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/cytoscape",
-    "version": "3.19.9999",
+    "version": "3.21.9999",
     "projects": [
         "http://js.cytoscape.org/"
     ],
