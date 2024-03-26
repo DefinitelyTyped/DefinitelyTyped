@@ -74,6 +74,16 @@ const getDsRequestParams = async (): Promise<RequestParams> => {
     };
 };
 
+const getAuthorizationUri = (): string => {
+    const apiClientId = "api client id";
+    const redirectUri = "http://example.com";
+    const responseType = "token";
+
+    const client = apiClient();
+
+    return client.getAuthorizationUri(apiClientId, scopes, redirectUri, responseType);
+}
+
 const getAccessToken = async (): Promise<AccessToken> => {
     const privateKey: Buffer = Buffer.from("read private key file");
     const integratorKey = "integrator key";
