@@ -3213,7 +3213,7 @@ declare namespace chrome.enterprise.platformKeys {
          */
         softwareBackedSubtleCrypto: SubtleCrypto;
     }
-    
+
     /** @since Chrome 110 */
     export interface ChallengeKeyOptions {
         /**
@@ -3231,8 +3231,6 @@ declare namespace chrome.enterprise.platformKeys {
          * Subsequent calls to this function will then generate a new Enterprise Key in the specified scope.
          */
         registerKey?: RegisterKeyOptions | undefined;
-
-        
     }
 
     /** @since Chrome 110 */
@@ -3247,13 +3245,13 @@ declare namespace chrome.enterprise.platformKeys {
      * @since Chrome 110
      * Type of key to generate.
      */
-    type Algorithm = 'RSA' | 'ECDSA';
+    type Algorithm = "RSA" | "ECDSA";
 
     /**
      * @since Chrome 110
      * Whether to use the Enterprise User Key or the Enterprise Machine Key.
      */
-    type Scope = 'USER' | 'MACHINE';
+    type Scope = "USER" | "MACHINE";
 
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
@@ -3298,7 +3296,7 @@ declare namespace chrome.enterprise.platformKeys {
     export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
-     * 
+     *
      * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
      * * The current device is a legitimate Chrome OS device.
@@ -3321,7 +3319,7 @@ declare namespace chrome.enterprise.platformKeys {
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
      * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
-     * 
+     *
      * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
      * * The current device is a legitimate Chrome OS device.
