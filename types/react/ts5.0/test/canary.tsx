@@ -204,8 +204,9 @@ function Optimistic() {
 />;
 
 const useActionState = React.useActionState;
+// Keep in sync with ReactDOM.useFormState tests
 function formTest() {
-    function usePage1() {
+    function Page1() {
         async function action(state: number) {
             return state + 1;
         }
@@ -266,9 +267,6 @@ function formTest() {
             ),
         );
 
-        return function handleClick() {
-            dispatch();
-        };
         return (
             <button
                 onClick={() => {
@@ -280,7 +278,7 @@ function formTest() {
         );
     }
 
-    function usePage2() {
+    function Page2() {
         async function action(state: number) {
             return state + 1;
         }
@@ -290,11 +288,15 @@ function formTest() {
             state,
             dispatch,
         ] = useActionState(action, 1, "/permalink");
-
-        return dispatch;
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
+        );
     }
 
-    function usePage3() {
+    function Page3() {
         function actionSync(state: number, type: "increment" | "decrement") {
             return state + (type === "increment" ? 1 : -1);
         }
@@ -304,12 +306,18 @@ function formTest() {
             state,
             dispatch,
         ] = useActionState(actionSync, 1, "/permalink");
-        return function handleClick() {
-            dispatch("decrement");
-        };
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
     }
 
-    function usePage4() {
+    function Page4() {
         async function action(state: number, type: "increment" | "decrement") {
             return state + (type === "increment" ? 1 : -1);
         }
@@ -319,8 +327,14 @@ function formTest() {
             state,
             dispatch,
         ] = useActionState(action, 1, "/permalink");
-        return function handleClick() {
-            dispatch("decrement");
-        };
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
     }
 }
