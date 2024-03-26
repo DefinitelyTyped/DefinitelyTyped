@@ -9,7 +9,7 @@ declare namespace RuleEngine {
     ruleRef?: string | undefined;
   }
 
-  type Rule = {
+  interface Rule {
     id?: string;
     index?: number;
     name?: string;
@@ -17,18 +17,18 @@ declare namespace RuleEngine {
     priority?: number;
     condition: (API: API, fact?: Fact) => void;
     consequence: Consequence;
-  };
-  type Fact = {
+  }
+  interface Fact {
     uerIP?: string,
     name?: string,
     application?: string,
     userLoggedIn?: boolean,
     transactionTotal?: number,
     cardType?: string,
-  };
-  type Options = {
+  }
+  interface Options {
     ignoreFactChanges?: boolean;
-  };
+  }
 
   interface API {
     rule: () => Rule;
