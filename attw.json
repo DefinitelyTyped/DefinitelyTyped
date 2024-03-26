@@ -1507,6 +1507,7 @@
         "react-document-meta",
         "react-document-title",
         "react-dom",
+        "react-dom/v18",
         "react-dual-listbox",
         "react-dynamic-number",
         "react-email-editor",
