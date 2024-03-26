@@ -112,7 +112,7 @@ export namespace JSPM {
     enum WSStatus {
         Open = 0,
         Closed = 1,
-        BlackListed = 2,
+        Blocked = 2,
         WaitingForUserResponse = 3,
     }
     enum PrintRotation {
