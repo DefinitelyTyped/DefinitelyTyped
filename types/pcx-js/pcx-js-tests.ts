@@ -1,6 +1,6 @@
 import PCX from 'pcx-js'
 
-let data = new Uint8Array([137,80,90,32,32,3,24,3,4,346,547,65,86,78,8,678,23])
+let data = new Uint8Array([137, 80, 90, 32, 32, 3, 24, 3, 4, 346, 547, 65, 86, 78, 8, 678, 23])
 
 let pcx = new PCX(data.buffer);
 
