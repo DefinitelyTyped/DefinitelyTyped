@@ -1055,10 +1055,10 @@ declare module "process" {
                  *
                  * process.loadEnvFile('./development.env')
                  * ```
-                 * @since v21.7.0
+                 * @since v20.12.0
                  * @param path The path to the .env file
                  */
-                loadEnvFile(path: string | URL | Buffer | undefined): void;
+                loadEnvFile(path?: string | URL | Buffer): void;
                 /**
                  * The `process.pid` property returns the PID of the process.
                  *
