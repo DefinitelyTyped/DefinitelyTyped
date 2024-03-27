@@ -202,3 +202,139 @@ function Optimistic() {
         };
     }}
 />;
+
+const useActionState = React.useActionState;
+// Keep in sync with ReactDOM.useFormState tests
+function formTest() {
+    function Page1() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+            // $ExpectType boolean
+            isPending,
+        ] = useActionState(action, 1);
+
+        function actionExpectingPromiseState(state: Promise<number>) {
+            return state.then((s) => s + 1);
+        }
+
+        useActionState(
+            // @ts-expect-error
+            actionExpectingPromiseState,
+            Promise.resolve(1),
+        );
+        useActionState(
+            action,
+            // @ts-expect-error
+            Promise.resolve(1),
+        );
+        // $ExpectType number
+        useActionState<Promise<number>>(action, 1)[0];
+
+        useActionState(
+            async (
+                prevState: // only needed in TypeScript 4.9
+                    // 5.0 infers `number` whereas 4.9 infers `0`
+                    number,
+            ) => prevState + 1,
+            0,
+        )[0];
+        // $ExpectType number
+        useActionState(
+            async (prevState) => prevState + 1,
+            // @ts-expect-error
+            Promise.resolve(0),
+        )[0];
+
+        const [
+            state2,
+            action2,
+            // $ExpectType boolean
+            isPending2,
+        ] = useActionState(
+            async (state: React.ReactNode, payload: FormData): Promise<React.ReactNode> => {
+                return state;
+            },
+            (
+                <button>
+                    New Project
+                </button>
+            ),
+        );
+
+        return (
+            <button
+                onClick={() => {
+                    dispatch();
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
+    function Page2() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(action, 1, "/permalink");
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
+        );
+    }
+
+    function Page3() {
+        function actionSync(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(actionSync, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
+    function Page4() {
+        async function action(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(action, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+}

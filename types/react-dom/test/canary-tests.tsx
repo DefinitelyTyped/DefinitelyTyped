@@ -124,6 +124,7 @@ function Status() {
     }
 }
 
+// Keep in sync with React.useActionState tests
 function formTest() {
     function Page1() {
         async function action(state: number) {
