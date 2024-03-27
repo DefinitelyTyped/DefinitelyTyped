@@ -1,7 +1,11 @@
 // Type definitions for Drools 7.2.0
 // Project: https://github.com/mithunsatheesh/node-rules
-export = RuleEngine;
-export as namespace RuleEngine;
+export = RuleEngine
+
+
+export as namespace RuleEngine
+
+
 declare namespace RuleEngine {
   interface Consequence {
     (API: API, fact?: Fact): void;
@@ -18,6 +22,7 @@ declare namespace RuleEngine {
     condition: (API: API, fact?: Fact) => void;
     consequence: Consequence;
   }
+
   interface Fact {
     uerIP?: string,
     name?: string,
@@ -26,6 +31,7 @@ declare namespace RuleEngine {
     transactionTotal?: number,
     cardType?: string,
   }
+
   interface Options {
     ignoreFactChanges?: boolean;
   }
@@ -40,16 +46,14 @@ declare namespace RuleEngine {
 
 }
 
-
-
 declare class RuleEngine {
   constructor();
+
   constructor(rules?: RuleEngine.Rule | RuleEngine.Rule[], options?: RuleEngine.Options);
+
   rules: RuleEngine.Rule[];
   activeRules: RuleEngine.Rule[];
   private ignoreFactChanges;
-
-
 
   init(): void;
 
