@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jwplayer",
-    "version": "8.28.9999",
+    "version": "8.31.0",
     "projects": [
         "https://github.com/jwplayer/jwplayer"
     ],
