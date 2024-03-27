@@ -1738,3 +1738,7 @@ declare namespace MathJax {
         needsUpdate(): boolean;
     }
 }
+
+declare module "mathjax" {
+    export = MathJax;
+}
