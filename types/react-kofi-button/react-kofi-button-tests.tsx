@@ -10,4 +10,4 @@ const TestObject = {
     animation: false
 };
 
-<KofiButton value={TestObject}/>;
+<KofiButton {...TestObject}/>;
