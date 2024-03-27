@@ -8,7 +8,7 @@ const compat = new FlatCompat({
     resolvePluginsRelativeTo: __dirname,
 });
 
-const config: Array<Linter.FlatConfig<Linter.RulesRecord>> = [
+const config: Linter.FlatConfig[] = [
     // $ExpectType FlatConfig
     ...compat.extends("standard", "example"),
 
