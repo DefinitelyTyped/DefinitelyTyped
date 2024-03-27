@@ -6,7 +6,6 @@
 
 import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
-import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -155,6 +154,8 @@ declare namespace React {
         readonly current: T | null;
     }
 
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+    }
     /**
      * A callback fired whenever the ref's value changes.
      *
@@ -168,7 +169,15 @@ declare namespace React {
      * <div ref={(node) => console.log(node)} />
      * ```
      */
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type RefCallback<T> = {
+        bivarianceHack(
+            instance: T | null,
+        ):
+            | void
+            | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES[
+                keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES
+            ];
+    }["bivarianceHack"];
 
     /**
      * A union type of all possible shapes for React refs.
@@ -908,7 +917,6 @@ declare namespace React {
          * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
          */
         commitTime: number,
-        interactions: Set<SchedulerInteraction>,
     ) => void;
 
     /**
@@ -986,7 +994,7 @@ declare namespace React {
          */
         context: unknown;
 
-        constructor(props: Readonly<P> | P);
+        constructor(props: P);
         /**
          * @deprecated
          * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
@@ -2485,9 +2493,7 @@ declare namespace React {
         onPointerCancel?: PointerEventHandler<T> | undefined;
         onPointerCancelCapture?: PointerEventHandler<T> | undefined;
         onPointerEnter?: PointerEventHandler<T> | undefined;
-        onPointerEnterCapture?: PointerEventHandler<T> | undefined;
         onPointerLeave?: PointerEventHandler<T> | undefined;
-        onPointerLeaveCapture?: PointerEventHandler<T> | undefined;
         onPointerOver?: PointerEventHandler<T> | undefined;
         onPointerOverCapture?: PointerEventHandler<T> | undefined;
         onPointerOut?: PointerEventHandler<T> | undefined;
@@ -4072,18 +4078,33 @@ declare namespace React {
     // React.PropTypes
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated Use `Validator` from the ´prop-types` instead.
+     */
     type Validator<T> = PropTypes.Validator<T>;
 
+    /**
+     * @deprecated Use `Requireable` from the ´prop-types` instead.
+     */
     type Requireable<T> = PropTypes.Requireable<T>;
 
+    /**
+     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
+     */
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
+    /**
+     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
+     */
     type WeakValidationMap<T> = {
         [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
             : undefined extends T[K] ? Validator<T[K] | null | undefined>
             : Validator<T[K]>;
     };
 
+    /**
+     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
+     */
     interface ReactPropTypes {
         any: typeof PropTypes.any;
         array: typeof PropTypes.array;

@@ -88,7 +88,7 @@ declare class SARequest extends Stream implements RequestBase {
     send(data?: string | object): this;
     serialize(serializer: (obj: any) => string): this;
     set(field: "Cookie", val: string[]): this;
-    set(field: Record<string, string>): this;
+    set(field: http.IncomingHttpHeaders): this;
     set(field: string, val: string): this;
     sortQuery(sort?: boolean | ((a: string, b: string) => number)): this;
     then<TResult1 = ResponseBase, TResult2 = never>(

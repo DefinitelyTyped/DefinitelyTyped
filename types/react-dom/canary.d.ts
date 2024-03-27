@@ -132,12 +132,12 @@ declare module "." {
         action: (state: Awaited<State>) => State | Promise<State>,
         initialState: Awaited<State>,
         permalink?: string,
-    ): [state: Awaited<State>, dispatch: () => void];
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
     function useFormState<State, Payload>(
         action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
         initialState: Awaited<State>,
         permalink?: string,
-    ): [state: Awaited<State>, dispatch: (payload: Payload) => void];
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 }
 
 declare module "./client" {

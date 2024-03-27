@@ -5241,6 +5241,17 @@ declare namespace Xrm {
             text: string;
         }
 
+        /**
+         * An object describing whether to open or save the file
+         */
+        interface OpenFileOptions {
+            /**
+             * If you do not specify this parameter, by default 1 (open) is passed.
+             * This parameter is only supported on Unified Interface
+             */
+            openMode?: XrmEnum.OpenFileOptions;
+        }
+
         interface DialogSizeOptions {
             /**
              * Height of the alert dialog in pixels.
@@ -5615,7 +5626,7 @@ declare namespace Xrm {
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: Navigation.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.

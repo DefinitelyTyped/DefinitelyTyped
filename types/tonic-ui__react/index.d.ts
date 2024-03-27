@@ -596,7 +596,7 @@ export interface RadioGroupProps<T extends string | number | undefined>
     children: ReactNode | ((context: unknown) => ReactNode);
     defaultValue?: T;
     disabled?: boolean;
-    name: string;
+    name?: string;
     onChange?: (value: T) => void;
     size?: "sm" | "md" | "lg" | number;
     value?: T;

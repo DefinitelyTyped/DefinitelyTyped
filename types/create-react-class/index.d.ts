@@ -1,4 +1,5 @@
-import { Component, ComponentClass, ComponentLifecycle, ReactNode, ValidationMap } from "react";
+import type * as PropTypes from "prop-types";
+import { Component, ComponentClass, ComponentLifecycle, ReactNode } from "react";
 
 declare namespace createReactClass {
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
@@ -8,9 +9,9 @@ declare namespace createReactClass {
         } | undefined;
 
         displayName?: string | undefined;
-        propTypes?: ValidationMap<any> | undefined;
-        contextTypes?: ValidationMap<any> | undefined;
-        childContextTypes?: ValidationMap<any> | undefined;
+        propTypes?: PropTypes.ValidationMap<any> | undefined;
+        contextTypes?: PropTypes.ValidationMap<any> | undefined;
+        childContextTypes?: PropTypes.ValidationMap<any> | undefined;
 
         getDefaultProps?(): P;
         getInitialState?(): S;

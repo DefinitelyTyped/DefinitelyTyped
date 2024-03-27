@@ -48,7 +48,7 @@ declare namespace RichText {
          * off. Here you should create a new block with that content and return it. Note that you
          * also need to provide `onReplace` in order for this to take any effect.
          */
-        onSplit?(value: string): void;
+        onSplit?(value: string, isOriginal?: boolean): void;
         onTagNameChange?(tagName: keyof HTMLElementTagNameMap): void;
         /**
          * Placeholder text to show when the field is empty, similar to the `input` and `textarea`

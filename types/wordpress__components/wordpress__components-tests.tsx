@@ -93,6 +93,10 @@ let record: Value = {
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
+<C.BaseControl label="hello world">
+    Text
+</C.BaseControl>;
+
 //
 // button
 //

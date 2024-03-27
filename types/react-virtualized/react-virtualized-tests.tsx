@@ -194,6 +194,7 @@ import { List } from "react-virtualized";
 
 export class AutoSizerExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -230,6 +231,7 @@ import ListCJS from "react-virtualized/dist/commonjs/List";
 
 export class AutoSizerCJSExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -266,6 +268,7 @@ import ListESM from "react-virtualized/dist/commonjs/List";
 
 export class AutoSizerESMExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -304,8 +307,8 @@ import { CellMeasurer, CellMeasurerCache, ListRowProps } from "react-virtualized
 export class DynamicHeightList extends PureComponent<any> {
     _cache: CellMeasurerCache;
 
-    constructor(props: any, context: any) {
-        super(props, context);
+    constructor(props: any) {
+        super(props);
 
         this._cache = new CellMeasurerCache({
             fixedWidth: true,
@@ -368,17 +371,16 @@ const CELL_WIDTH = 75;
 
 export class CollectionExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     state: any;
     _columnYMap: any;
 
-    constructor(props: any, context: any) {
-        super(props, context);
-
-        this.context = context;
+    constructor(props: any) {
+        super(props);
 
         this.state = {
-            cellCount: context.list.size,
-            columnCount: this._getColumnCount(context.list.size),
+            cellCount: this.context.list.size,
+            columnCount: this._getColumnCount(this.context.list.size),
             height: 300,
             horizontalOverscanSize: 0,
             scrollToCell: undefined,
@@ -526,6 +528,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
 
 export class GridExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     state = {
         columnCount: 1000,
         height: 300,
@@ -659,6 +662,7 @@ export class GridExample extends PureComponent<any, any> {
 
 export class GridCJSExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     state = {
         columnCount: 1000,
         height: 300,
@@ -797,6 +801,7 @@ const STATUS_LOADED = 2;
 
 export class InfiniteLoaderExample extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     _timeoutIds = new Set<number>();
 
     componentWillUnmount() {
@@ -891,14 +896,16 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 
 export class ListExample extends PureComponent<any, any> {
     context: any;
-    constructor(props: any, context: any) {
-        super(props, context);
+    contextType: any;
+    listRef = React.createRef<List>();
+    constructor(props: any) {
+        super(props);
 
         this.state = {
             listHeight: 300,
             listRowHeight: 50,
             overscanRowCount: 10,
-            rowCount: context.list.size,
+            rowCount: this.context.list.size,
             scrollToIndex: undefined,
             showScrollingPlaceholder: false,
             useDynamicRowHeight: false,
@@ -920,7 +927,7 @@ export class ListExample extends PureComponent<any, any> {
             <AutoSizer disableHeight>
                 {({ width }) => (
                     <List
-                        ref="List"
+                        ref={this.listRef}
                         className={"styles.List"}
                         height={listHeight}
                         overscanRowCount={overscanRowCount}
@@ -1013,6 +1020,7 @@ import {
 
 export class GridExample2 extends PureComponent<any, any> {
     context: any;
+    contextType: any;
     _columnCount: number;
     _cache: CellMeasurerCache;
     _columnHeights: any;
@@ -1022,8 +1030,8 @@ export class GridExample2 extends PureComponent<any, any> {
     _cellPositioner: Positioner;
     _masonry: Masonry;
 
-    constructor(props: any, context: any) {
-        super(props, context);
+    constructor(props: any) {
+        super(props);
 
         this._columnCount = 0;
 
@@ -1443,6 +1451,8 @@ import { Column, SortDirection, SortIndicator, Table } from "react-virtualized";
 
 export class TableExample extends PureComponent<{}, any> {
     context: any;
+    contextType: any;
+    tableRef = React.createRef<Table>();
     state = {
         disableHeader: false,
         headerHeight: 30,
@@ -1482,7 +1492,7 @@ export class TableExample extends PureComponent<{}, any> {
                 <AutoSizer disableHeight>
                     {({ width }) => (
                         <Table
-                            ref="Table"
+                            ref={this.tableRef}
                             disableHeader={disableHeader}
                             headerClassName={"styles.headerColumn"}
                             headerHeight={headerHeight}
@@ -1645,6 +1655,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
 
 export class WindowScrollerExample extends PureComponent<{}, any> {
     context: any;
+    contextType: any;
     _windowScroller: WindowScroller;
     state = {
         showHeaderText: true,
