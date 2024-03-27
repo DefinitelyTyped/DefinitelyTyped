@@ -1,4 +1,4 @@
-import RuleEngine from 'RuleEngine'; // 导入 RuleEngine 模块
+import RuleEngine from 'node-rules'; // 导入 RuleEngine 模块
 
 // 创建一个规则引擎实例
 let ruleEngine = new RuleEngine();
