@@ -11,4 +11,4 @@ interface KofiArgs {
 
 declare function KofiButton(input: KofiArgs): React.ReactElement<KofiArgs>;
 
-export { KofiButton };    
+export { KofiButton };
