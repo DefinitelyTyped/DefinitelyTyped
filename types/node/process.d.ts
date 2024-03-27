@@ -1053,7 +1053,7 @@ declare module "process" {
                  * ```js
                  * import { loadEnvFile } from 'node:process';
                  *
-                 * process.loadEnvFile('./development.env')
+                 * loadEnvFile('./development.env')
                  * ```
                  * @since v20.12.0
                  * @param path The path to the .env file
