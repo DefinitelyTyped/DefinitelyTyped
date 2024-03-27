@@ -9,7 +9,19 @@ ruleEngine.init();
 // 定义API接口对象
 let API: RuleEngine.API = {
   rule: () => {
-    // 返回一个规则对象
+    let APIRules: RuleEngine.Rule = {
+      id: '1',
+      name: 'API Rule',
+      on: true,
+      condition: (API: RuleEngine.API) => {
+
+      },
+      consequence: (API: RuleEngine.API) => {
+
+      }
+
+    };
+    return APIRules
   },
   when: (outcome: any) => {
     // 规则条件逻辑
@@ -27,13 +39,14 @@ let API: RuleEngine.API = {
 
 // 定义Fact对象
 let sampleFact: RuleEngine.Fact = {
-  userIP: '127.0.0.1',
+  useIP: '127.0.0.1',
   name: 'John Doe',
   application: 'TestApp',
   userLoggedIn: true,
   transactionTotal: 100,
   cardType: 'Credit'
 };
+
 
 // 创建一个规则
 let sampleRule: RuleEngine.Rule = {
