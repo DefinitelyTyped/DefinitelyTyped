@@ -39,7 +39,7 @@ let API: RuleEngine.API = {
 
 // 定义Fact对象
 let sampleFact: RuleEngine.Fact = {
-  useIP: '127.0.0.1',
+  uerIP: '127.0.0.1',
   name: 'John Doe',
   application: 'TestApp',
   userLoggedIn: true,
