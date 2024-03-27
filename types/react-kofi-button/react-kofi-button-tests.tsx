@@ -1,5 +1,5 @@
 import * as React from "react";
-import KofiButton = require("react-kofi-button");
+import { KofiButton } from "react-kofi-button";
 
 const TestObject = {
     username: "abcdef",
