@@ -1,6 +1,6 @@
 declare global {
     const ZAFClient: {
-        init(): ZAFClient;
+        init(callback?: (context: ZAFContext) => void): ZAFClient;
     };
 }
 
@@ -184,17 +184,21 @@ export interface ZAFRequestOptions {
     };
     httpCompleteResponse?: boolean;
     ifModified?: boolean;
-    jwt?: any;
+    jwt?: ZAFRequestJWT;
     mimeType?: string;
     secure?: boolean;
     timeout?: number;
     traditional?: boolean;
     type?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     url: string;
-    xhrFields?: XHRProperties;
+    xhrFields?: Partial<XMLHttpRequest>;
 }
 
-export interface XHRProperties {
-    withCredentials?: boolean;
-    timeout?: number;
+export interface ZAFRequestJWT {
+    algorithm: string;
+    secret_key: string;
+    expiry?: number;
+    claims?: {
+        [key: string]: any;
+    };
 }

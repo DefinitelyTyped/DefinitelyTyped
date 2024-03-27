@@ -6,7 +6,8 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6"
+            "DOM",
+            "ES6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
