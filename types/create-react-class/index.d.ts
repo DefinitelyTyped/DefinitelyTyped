@@ -1,4 +1,3 @@
-import type * as PropTypes from "prop-types";
 import { Component, ComponentClass, ComponentLifecycle, ReactNode } from "react";
 
 declare namespace createReactClass {
@@ -9,9 +8,11 @@ declare namespace createReactClass {
         } | undefined;
 
         displayName?: string | undefined;
-        propTypes?: PropTypes.ValidationMap<any> | undefined;
-        contextTypes?: PropTypes.ValidationMap<any> | undefined;
-        childContextTypes?: PropTypes.ValidationMap<any> | undefined;
+         /**
+         * Ignored by React.
+         * @deprecated Only kept in types for backwards compatibility. Will be removed in a futre major release.
+         */
+        propTypes?: any;
 
         getDefaultProps?(): P;
         getInitialState?(): S;

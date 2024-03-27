@@ -116,6 +116,29 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
     const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
 
+    // Infer reducer state type
+    React.useReducer(
+        v => {
+            // $ExpectType { name: string; }
+            const s = v;
+            return s;
+        },
+        { name: "asdf" },
+    );
+
+    // @ts-expect-error reducer should have at most 2 arguments
+    React.useReducer((v, a: any, b: any) => v, 0);
+
+    // useReducer should handle optional action
+    const reducerWithOptionalAction = (state: boolean, next?: boolean) => {
+        return next !== undefined ? next : !state;
+    };
+    const useToggle = (initialState: boolean) => React.useReducer(reducerWithOptionalAction, initialState);
+
+    const [isTooltipVisible, toggleTooltipVisibility] = useToggle(false);
+    toggleTooltipVisibility();
+    toggleTooltipVisibility(false);
+
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: "The Answer" });
 
@@ -155,45 +178,39 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     }, []));
 
     // test useRef and its convenience overloads
-    // $ExpectType MutableRefObject<number>
+    // $ExpectType RefObject<number>
     React.useRef(0);
 
     // these are not very useful (can't assign anything else to .current)
     // but it's the only safe way to resolve them
-    // $ExpectType MutableRefObject<null>
+    // $ExpectType RefObject<null>
     React.useRef(null);
-    // $ExpectType MutableRefObject<undefined>
+    // $ExpectType RefObject<undefined>
     React.useRef(undefined);
 
     // |null convenience overload
-    // it should _not_ be mutable if the generic argument doesn't include null
-    // $ExpectType RefObject<number>
+    // $ExpectType RefObject<number | null>
     React.useRef<number>(null);
-    // but it should be mutable if it does (i.e. is not the convenience overload)
-    // $ExpectType MutableRefObject<number | null>
+    // $ExpectType RefObject<number | null>
     React.useRef<number | null>(null);
 
     // |undefined convenience overload
     // with no contextual type or generic argument it should default to undefined only (not {} or unknown!)
-    // $ExpectType MutableRefObject<undefined>
-    React.useRef();
-    // $ExpectType MutableRefObject<number | undefined>
-    React.useRef<number>();
-    // don't just accept a potential undefined if there is a generic argument
-    // @ts-expect-error
+    // $ExpectType RefObject<undefined>
+    React.useRef(undefined);
+    // $ExpectType RefObject<number | undefined>
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
-    // $ExpectType MutableRefObject<number>
+    // $ExpectType RefObject<number>
     React.useRef<number>(1);
     // and also that it is not getting erased if the parameter is wider
-    // $ExpectType MutableRefObject<number | undefined>
+    // $ExpectType RefObject<number | undefined>
     React.useRef<number | undefined>(1);
 
     // should be contextually typed
-    const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
-    const b: React.MutableRefObject<number | undefined> = React.useRef();
-    const c: React.MutableRefObject<number | null> = React.useRef(null);
-    const d: React.RefObject<number> = React.useRef(null);
+    const a: React.RefObject<number | undefined | null> = React.useRef(undefined);
+    const b: React.RefObject<number | undefined | null> = React.useRef(null);
+    const c: React.RefObject<number | null> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
@@ -202,7 +219,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
-    // $ExpectType MutableRefObject<boolean>
+    // $ExpectType RefObject<boolean>
     const didLayout = React.useRef(false);
 
     React.useLayoutEffect(() => {
@@ -445,4 +462,81 @@ function useUsers(): string[] {
         () => objectStore.getState().users,
         () => objectStore.getServerState().users,
     );
+}
+
+const contextUsers = React.createContext(["HAL"]);
+const promisedUsers = Promise.resolve(["Dave"]);
+
+function useUse() {
+    // @ts-expect-error Missing value
+    React.use();
+
+    // $ExpectType string[]
+    const users = React.use(promisedUsers);
+    // @ts-expect-error incompatible type. Mainly to potentially inspect TypeScript error message
+    React.use({});
+
+    // $ExpectType string[]
+    const contextValue = React.use(contextUsers);
+}
+
+function useAsyncAction() {
+    const [isPending, startTransition] = React.useTransition();
+
+    function handleClick() {
+        // $ExpectType void
+        startTransition(async () => {});
+    }
+}
+
+const useOptimistic = React.useOptimistic;
+function Optimistic() {
+    const savedCartSize = 0;
+    const [optimisticCartSize, addToOptimisticCart] = useOptimistic(savedCartSize, (prevSize, newItem) => {
+        // This is the default type for un-inferrable generics in TypeScript.
+        // To have a concrete type either type the second parameter in the reducer (see addToOptimisticCartTyped)
+        // or declare the type of the generic (see addToOptimisticCartTyped2)
+        // $ExpectType unknown
+        newItem;
+        console.log("Increment optimistic cart size for " + newItem);
+        return prevSize + 1;
+    });
+    // $ExpectType number
+    optimisticCartSize;
+
+    const [, addToOptimisticCartTyped] = useOptimistic(savedCartSize, (prevSize, newItem: string) => {
+        // $ExpectType string
+        newItem;
+        console.log("Increment optimistic cart size for " + newItem);
+        return prevSize + 1;
+    });
+    const [, addToOptimisticCartTyped2] = useOptimistic<number, string>(savedCartSize, (prevSize, newItem) => {
+        // $ExpectType string
+        newItem;
+        console.log("Increment optimistic cart size for " + newItem);
+        return prevSize + 1;
+    });
+
+    const addItemToCart = (item: unknown) => {
+        addToOptimisticCart(item);
+        addToOptimisticCartTyped(
+            // @ts-expect-error unknown is not assignable to string
+            item,
+        );
+        addToOptimisticCartTyped(String(item));
+        addToOptimisticCartTyped2(
+            // @ts-expect-error unknown is not assignable to string
+            item,
+        );
+        addToOptimisticCartTyped2(String(item));
+    };
+
+    const [state, setStateDefaultAction] = useOptimistic(1);
+    const handleClick = () => {
+        setStateDefaultAction(2);
+        setStateDefaultAction(() => 3);
+        setStateDefaultAction(n => n + 1);
+        // @ts-expect-error string is not assignable to number
+        setStateDefaultAction("4");
+    };
 }

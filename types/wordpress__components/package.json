@@ -6,7 +6,7 @@
         "https://github.com/WordPress/gutenberg/tree/trunk/packages/components"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/tinycolor2": "*",
         "@types/wordpress__notices": "*",
         "@types/wordpress__rich-text": "*",

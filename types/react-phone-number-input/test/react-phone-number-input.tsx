@@ -55,7 +55,12 @@ const test2 = (
     />
 );
 
-const CountrySelect = ({ value, onChange, labels, ...rest }: CountrySelectComponentProps) => (
+const defaultLabels = {
+    AU: "Australie",
+    CA: "Canada",
+    US: "États-Unis d'Amérique",
+}
+const CountrySelect = ({ value, onChange, labels = defaultLabels, ...rest }: CountrySelectComponentProps) => (
     <select
         {...rest}
         value={value}
@@ -72,14 +77,6 @@ const CountrySelect = ({ value, onChange, labels, ...rest }: CountrySelectCompon
         ))}
     </select>
 );
-
-CountrySelect.defaultProps = {
-    labels: {
-        AU: "Australie",
-        CA: "Canada",
-        US: "États-Unis d'Amérique",
-    },
-};
 
 const test3 = (
     <PhoneInput

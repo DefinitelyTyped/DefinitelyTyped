@@ -5,7 +5,16 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
 import React = require("react");
+
+export {};
+
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+export interface ReactFormState {
+    [REACT_FORM_STATE_SIGIL]: never;
+}
+
 export interface HydrationOptions {
+    formState?: ReactFormState | null;
     /**
      * Prefix for `useId`.
      */
@@ -22,7 +31,6 @@ export interface RootOptions {
 }
 
 export interface ErrorInfo {
-    digest?: string;
     componentStack?: string;
 }
 
@@ -41,6 +49,7 @@ export interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAI
 export type Container =
     | Element
     | DocumentFragment
+    | Document
     | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS[
         keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS
     ];

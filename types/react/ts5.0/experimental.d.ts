@@ -135,11 +135,4 @@ declare module "." {
         value: TaintableUniqueValue,
     ): void;
     function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
-
-    export interface HTMLAttributes<T> {
-        /**
-         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
-         */
-        inert?: boolean | undefined;
-    }
 }
