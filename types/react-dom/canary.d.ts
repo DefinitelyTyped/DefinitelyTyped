@@ -145,8 +145,35 @@ declare module "./client" {
         [REACT_FORM_STATE_SIGIL]: never;
     }
 
+    interface RootOptions {
+        onUncaughtError?:
+            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+            | undefined;
+        onCaughtError?:
+            | ((
+                error: unknown,
+                errorInfo: {
+                    componentStack?: string | undefined;
+                    errorBoundary?: React.Component<unknown> | undefined;
+                },
+            ) => void)
+            | undefined;
+    }
+
     interface HydrationOptions {
         formState?: ReactFormState | null;
+        onUncaughtError?:
+            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+            | undefined;
+        onCaughtError?:
+            | ((
+                error: unknown,
+                errorInfo: {
+                    componentStack?: string | undefined;
+                    errorBoundary?: React.Component<unknown> | undefined;
+                },
+            ) => void)
+            | undefined;
     }
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS {
