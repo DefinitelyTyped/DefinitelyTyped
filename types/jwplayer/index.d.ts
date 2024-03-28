@@ -1482,7 +1482,7 @@ declare namespace jwplayer {
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;
         playlistIndex?: number;
-        plugins: {
+        plugins?: {
             [pluginUrl: string]: any;
         };
         preload?: Preload;
