@@ -149,7 +149,9 @@ declare namespace bricks {
             | "security_details"
             | "security_safety"
             | "convenience_credits"
-            | "smart_option";
+            | "smart_option"
+            | "payment_methods_logos";
+        actionComplement?: "brand" | "amount";
     }
 
     interface StatusBrickBackUrls {
