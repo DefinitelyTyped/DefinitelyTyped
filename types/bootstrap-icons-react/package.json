@@ -1,0 +1,20 @@
+{
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-icons-react": "workspace:."
+    },
+    "name": "@types/bootstrap-icons-react",
+    "owners": [
+        {
+            "githubUsername": "ms0503",
+            "name": "Sora Tonami"
+        }
+    ],
+    "private": true,
+    "projects": [
+        "https://github.com/paullaros/bootstrap-icons-react#readme"
+    ],
+    "version": "1.0.9999"
+}
