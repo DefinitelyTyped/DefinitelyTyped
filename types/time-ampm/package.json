@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/time-ampm",
+  "version": "2.0.9999",
+  "projects": [
+    "https://github.com/ipostol/time-ampm"
+  ],
+  "devDependencies": {
+    "@types/time-ampm": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "zhu18",
+      "githubUsername": "zhuzhuzu1"
+    }
+  ]
+}
