@@ -1,5 +1,5 @@
 import MarkdownIt = require("markdown-it");
-import Renderer = require("markdown-it/lib/renderer");
+import Renderer = require("markdown-it/dist/renderer.js");
 
 declare namespace markdownItPlantuml {
     interface Options {
