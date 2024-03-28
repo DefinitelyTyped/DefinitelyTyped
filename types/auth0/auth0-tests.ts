@@ -1772,6 +1772,12 @@ management.getDeviceCredentials({ user_id: "user_id" }).then(deviceCredentials =
 management.getDeviceCredentials({ user_id: "user_id" }, (err, deviceCredentials) => {
     deviceCredentials; // $ExpectType DeviceCredential[]
 });
+management.getDeviceCredentials({ user_id: "user_id", include_totals: true }).then(deviceCredentials => {
+    deviceCredentials; // $ExpectType DeviceCredentialsPaged
+});
+management.getDeviceCredentials({ user_id: "user_id", include_totals: true }, (err, deviceCredentials) => {
+    deviceCredentials; // $ExpectType DeviceCredentialsPaged
+});
 
 management.deleteDeviceCredential({ id: "id" }).then(() => {});
 management.deleteDeviceCredential({ id: "id" }, err => {});

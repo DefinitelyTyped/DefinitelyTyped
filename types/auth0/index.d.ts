@@ -1627,11 +1627,14 @@ export interface GetDeviceCredentialsParams {
     user_id: string;
     page?: number;
     per_page?: number;
-    include_totals?: boolean;
     fields?: string;
     include_fields?: boolean;
     client_id?: string;
     type?: "public_key" | "refresh_token" | "rotating_refresh_token";
+}
+
+export interface GetDeviceCredentialsPaged extends GetDeviceCredentialsParams {
+    include_totals: boolean;
 }
 
 export interface DeviceCredential {
@@ -1642,6 +1645,10 @@ export interface DeviceCredential {
     user_id?: string;
     client_id?: string;
     last_used?: string;
+}
+
+export interface DeviceCredentialsPaged extends Omit<Page, "length"> {
+    device_credentials: DeviceCredential[];
 }
 
 export interface SendEnrollmentTicketData {
@@ -1910,6 +1917,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     // Device Keys
     getDeviceCredentials(params: GetDeviceCredentialsParams): Promise<DeviceCredential[]>;
     getDeviceCredentials(params: GetDeviceCredentialsParams, cb: (err: Error, data: DeviceCredential[]) => void): void;
+    getDeviceCredentials(params: GetDeviceCredentialsPaged): Promise<DeviceCredentialsPaged>;
+    getDeviceCredentials(params: GetDeviceCredentialsPaged, cb: (err: Error, data: DeviceCredentialsPaged) => void): void;
 
     createDevicePublicKey(data: Data): Promise<User<A, U>>;
     createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
