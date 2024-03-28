@@ -7,7 +7,8 @@
     ],
     "dependencies": {
         "@types/docker-modem": "*",
-        "@types/node": "*"
+        "@types/node": "*",
+        "@types/ssh2": "*"
     },
     "devDependencies": {
         "@types/dockerode": "workspace:."

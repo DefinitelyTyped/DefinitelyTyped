@@ -61,6 +61,15 @@ const docker11 = new Docker({
     },
 });
 
+const docker12 = new Docker({
+    sshOptions: {
+        host: "192.168.1.10",
+        port: 3000,
+        forceIPv4: true,
+        forceIPv6: true,
+    },
+});
+
 async function foo() {
     const containers = await docker7.listContainers({
         all: false,
