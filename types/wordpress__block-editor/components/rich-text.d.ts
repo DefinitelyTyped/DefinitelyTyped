@@ -1,7 +1,6 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { BlockInstance } from "@wordpress/blocks";
-import { ToolbarButton } from "@wordpress/components";
-import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
+import { Autocomplete, ToolbarButton } from "@wordpress/components";
 import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
 import { ComponentProps, ComponentType, HTMLProps, JSX } from "react";
 
@@ -15,7 +14,7 @@ declare namespace RichText {
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: WPCompleter[] | undefined;
+        autocompleters?: ComponentProps<typeof Autocomplete>["completers"] | undefined;
         children?: never | undefined;
         className?: string | undefined;
         identifier?: string | undefined;
