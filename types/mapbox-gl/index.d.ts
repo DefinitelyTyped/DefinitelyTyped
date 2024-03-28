@@ -2306,6 +2306,7 @@ declare namespace mapboxgl {
         source?: string | AnySourceData | undefined;
 
         "source-layer"?: string | undefined;
+        sourceLayer?: string | undefined;
 
         minzoom?: number | undefined;
         maxzoom?: number | undefined;
