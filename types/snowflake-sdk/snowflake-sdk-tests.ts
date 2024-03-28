@@ -4,6 +4,9 @@ snowflake.configure({
     insecureConnect: true,
     logLevel: "ERROR",
     ocspFailOpen: true,
+    keepAlive: true,
+    jsonColumnVariantParser: undefined,
+    xmlColumnVariantParser: undefined
 });
 
 const connection = snowflake.createConnection({
