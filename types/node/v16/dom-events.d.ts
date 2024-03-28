@@ -89,6 +89,8 @@ interface AddEventListenerOptions extends EventListenerOptions {
     once?: boolean;
     /** When `true`, serves as a hint that the listener will not call the `Event` object's `preventDefault()` method. Default: false. */
     passive?: boolean;
+    /** The listener will be removed when the given AbortSignal object's `abort()` method is called. */
+    signal?: AbortSignal;
 }
 
 interface EventListener {
