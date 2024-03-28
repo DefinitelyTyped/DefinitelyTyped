@@ -43,22 +43,22 @@ bcrypt.hash(Buffer.from("password"), "123"); // ExpectType Promise<string>
 bcrypt.hash("password", 10); // ExpectType Promise<string>
 bcrypt.hash(Buffer.from("password"), 10); // ExpectType Promise<string>
 
-// $ExpectType void
+// $ExpectType Promise<string>
 bcrypt.hash("password", "123", (err, encrypted) => {
     err; // $ExpectType Error | undefined
     encrypted; // $ExpectType string
 });
-// $ExpectType void
+// $ExpectType Promise<string>
 bcrypt.hash(Buffer.from("password"), "123", (err, encrypted) => {
     err; // $ExpectType Error | undefined
     encrypted; // $ExpectType string
 });
-// $ExpectType void
+// $ExpectType Promise<string>
 bcrypt.hash("password", 10, (err, encrypted) => {
     err; // $ExpectType Error | undefined
     encrypted; // $ExpectType string
 });
-// $ExpectType void
+// $ExpectType Promise<string>
 bcrypt.hash(Buffer.from("password"), 10, (err, encrypted) => {
     err; // $ExpectType Error | undefined
     encrypted; // $ExpectType string
