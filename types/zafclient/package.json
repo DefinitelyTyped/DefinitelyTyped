@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/zafclient",
+    "version": "2.0.9999",
+    "projects": [
+        "https://developer.zendesk.com/api-reference/apps/apps-core-api/client_api/"
+    ],
+    "devDependencies": {
+        "@types/zafclient": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kay Hennig",
+            "githubUsername": "thefusion21"
+        }
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "Type definitions for the Zendesk Apps Framework client"
+}
