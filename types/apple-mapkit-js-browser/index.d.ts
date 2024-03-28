@@ -2876,7 +2876,7 @@ declare namespace mapkit {
         /**
          * A flattened array of items that include annotations or overlays.
          */
-        getFlattenedItemList: Array<Annotation | Overlay>;
+        getFlattenedItemList: () => Array<Annotation | Overlay>;
         /**
          * A nested list of annotations, overlays, or other item collections.
          */
