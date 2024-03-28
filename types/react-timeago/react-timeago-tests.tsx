@@ -56,7 +56,7 @@ const ReactTimeagoCustomComponent: React.JSX.Element = (
 
 const CustomJSXElement = ({ myProp }: { myProp: string }) => <div>{myProp}</div>;
 
-const ReactTimeagoCustomJSXElement: JSX.Element = (
+const ReactTimeagoCustomJSXElement: React.JSX.Element = (
     <ReactTimeago
         date={new Date()}
         component={CustomJSXElement}
