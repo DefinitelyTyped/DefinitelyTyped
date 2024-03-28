@@ -620,6 +620,17 @@ const test4point1 = async (): Promise<void> => {
     connection.dbOp = "12345";
 };
 
+const version6Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    const offset = 1, len = 100;
+    await lob.getData(offset);
+    await lob.getData(offset + 3, len);
+};
+
 export const v5Tests = async (): Promise<void> => {
     console.log(oracledb.SYSPRELIM);
     defaultOracledb.queueRequests = 0;
