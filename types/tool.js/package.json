@@ -1,0 +1,19 @@
+{
+    "name": "@types/tool.js",
+    "version": "1.0.9999",
+    "private": true,
+    "nonNpm": true,
+    "nonNpmDescription": "原生扩展",
+    "projects": [
+        "https://github.com/epldlnwynn/tool.js"
+    ],
+    "owners": [
+        {
+            "name": "epldlnwynn",
+            "githubUsername": "epldlnwynn"
+        }
+    ],
+    "devDependencies": {
+        "@types/tool.js": "workspace:."
+    }
+}
