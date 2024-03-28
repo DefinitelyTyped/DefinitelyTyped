@@ -14,7 +14,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.11.1/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -41,7 +41,9 @@ declare module "stream" {
     import Readable = internal.Readable;
     import ReadableOptions = internal.ReadableOptions;
     interface ArrayOptions {
-        /** the maximum concurrent invocations of `fn` to call on the stream at once. **Default: 1**. */
+        /** the maximum concurrent invocations of `fn` to call on the stream at once. 
+         * @default 1
+         */
         concurrency?: number;
         /** allows destroying the stream if the signal is aborted. */
         signal?: AbortSignal;
@@ -75,7 +77,7 @@ declare module "stream" {
          */
         readonly readableDidRead: boolean;
         /**
-         * Getter for the property `encoding` of a given `Readable` stream. The `encoding`property can be set using the `readable.setEncoding()` method.
+         * Getter for the property `encoding` of a given `Readable` stream. The `encoding` property can be set using the `readable.setEncoding()` method.
          * @since v12.7.0
          */
         readonly readableEncoding: BufferEncoding | null;
@@ -132,7 +134,7 @@ declare module "stream" {
          * specified using the `readable.setEncoding()` method or the stream is operating
          * in object mode.
          *
-         * The optional `size` argument specifies a specific number of bytes to read. If`size` bytes are not available to be read, `null` will be returned _unless_the stream has ended, in which
+         * The optional `size` argument specifies a specific number of bytes to read. If `size` bytes are not available to be read, `null` will be returned _unless_the stream has ended, in which
          * case all of the data remaining in the internal
          * buffer will be returned.
          *
@@ -206,9 +208,9 @@ declare module "stream" {
          * The `readable.setEncoding()` method sets the character encoding for
          * data read from the `Readable` stream.
          *
-         * By default, no encoding is assigned and stream data will be returned as`Buffer` objects. Setting an encoding causes the stream data
-         * to be returned as strings of the specified encoding rather than as `Buffer`objects. For instance, calling `readable.setEncoding('utf8')` will cause the
-         * output data to be interpreted as UTF-8 data, and passed as strings. Calling`readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
+         * By default, no encoding is assigned and stream data will be returned as `Buffer` objects. Setting an encoding causes the stream data
+         * to be returned as strings of the specified encoding rather than as `Buffer` objects. For instance, calling `readable.setEncoding('utf8')` will cause the
+         * output data to be interpreted as UTF-8 data, and passed as strings. Calling `readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
          * string format.
          *
          * The `Readable` stream will properly handle multi-byte characters delivered
@@ -1445,8 +1447,8 @@ declare module "stream" {
                 options?: FinishedOptions,
             ): Promise<void>;
         }
-        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T>;
-        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | NodeJS.ReadableStream | PipelineSourceFunction<T>;
+        type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T> | Readable;
+        type PipelineSource<T> = Iterable<T> | AsyncIterable<T> | Readable | NodeJS.ReadableStream | PipelineSourceFunction<T>;
         type PipelineTransform<S extends PipelineTransformSource<any>, U> =
             | NodeJS.ReadWriteStream
             | ((
