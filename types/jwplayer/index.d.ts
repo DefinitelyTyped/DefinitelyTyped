@@ -1482,6 +1482,9 @@ declare namespace jwplayer {
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;
         playlistIndex?: number;
+        plugins?: {
+            [pluginUrl: string]: any;
+        };
         preload?: Preload;
         qualityLabels?: {
             [bandwidth: number]: string;
@@ -1664,7 +1667,12 @@ declare namespace jwplayer {
         playlistNext(): JWPlayer;
         playlistPrev(): JWPlayer;
         playToggle(): JWPlayer;
-        registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
+        registerPlugin(
+            id: string,
+            target: string,
+            jsPlugin: (pluginName: string, playerMinimumVersion: string, pluginClassOrFunction: any) => void,
+            swfURL?: string
+        ): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
         removePlaylistItemCallback(): void;
