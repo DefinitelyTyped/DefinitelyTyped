@@ -18,7 +18,7 @@ export interface GUIParams {
     closeOnTop?: boolean | undefined;
     /**
      * If true, GUI is closed by the "h" keypress.
-     * @default false
+     * @default true
      */
     hideable?: boolean | undefined;
     /**
