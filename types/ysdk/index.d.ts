@@ -68,7 +68,7 @@ export interface SDK {
         showRewardedVideo(opts?: {
             callbacks?: {
                 onOpen?: () => void;
-                onClose?: (wasShown: boolean) => void;
+                onClose?: () => void;
                 onError?: (error: string) => void;
                 onRewarded?: () => void;
             };
