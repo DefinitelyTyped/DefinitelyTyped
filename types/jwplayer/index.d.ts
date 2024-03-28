@@ -1482,6 +1482,9 @@ declare namespace jwplayer {
         playbackRates?: number[];
         playlist?: PlaylistItem[] | string;
         playlistIndex?: number;
+        plugins: {
+            [pluginUrl: string]: any;
+        };
         preload?: Preload;
         qualityLabels?: {
             [bandwidth: number]: string;
