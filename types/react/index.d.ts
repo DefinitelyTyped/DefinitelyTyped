@@ -1583,6 +1583,10 @@ declare namespace React {
             : P
             : P;
 
+    /**
+     * Merges the Prop types with an optional children prop
+     * @template P The props object type
+     */
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
     /**
@@ -1793,9 +1797,17 @@ declare namespace React {
      * A {@link Dispatch} function can sometimes be called without any arguments.
      */
     type DispatchWithoutAction = () => void;
-    // Unlike redux, the actions _can_ be anything
+    /**
+     * A function to manage the state updates {@link useReducer} hook
+     * Unlike redux, the actions _can_ be anything
+     * @template S - The type of the state
+     * @template A - The type of the action
+     */
     type Reducer<S, A> = (prevState: S, action: A) => S;
-    // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
+    /**
+     * A {@link Reducer} function can sometimes be defined without any actions
+     * @template S - The type of the state
+     */
     type ReducerWithoutAction<S> = (prevState: S) => S;
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
@@ -1809,6 +1821,19 @@ declare namespace React {
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
 
+    /**
+     * A mutable ref container where {@link current} can be mutated.
+     *
+     * @template T The type of the ref's value.
+     *
+     * @example
+     *
+     * ```tsx
+     * const ref = useRef<number>(5);
+     *
+     * ref.current = 10;
+     * ```
+     */
     interface MutableRefObject<T> {
         current: T;
     }
