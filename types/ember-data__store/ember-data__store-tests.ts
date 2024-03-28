@@ -1,5 +1,5 @@
 import Model, { attr, belongsTo, hasMany } from "@ember-data/model";
-import Store, { normalizeModelName, Snapshot } from "@ember-data/store";
+import Store, { normalizeModelName, recordIdentifierFor, Snapshot } from "@ember-data/store";
 import EmberArray from "@ember/array";
 import DS from "ember-data";
 import ModelRegistry from "ember-data/types/registries/model";
@@ -30,3 +30,4 @@ Store; // $ExpectType<DS.Store>
 Snapshot; // $ExpectType<DS.Snapshot>
 normalizeModelName("post"); // $ExpectType<string>
 normalizeModelName("post-comment"); // $ExpectType<string>
+// recordIdentifierFor(Store.createRecord("post", { title: "title" })); // $ExpectType<RecordIdentifier<"post">>
