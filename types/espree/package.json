@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/espree",
+    "version": "10.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./package.json": "./package.json"
+    },
+    "projects": [
+        "https://github.com/eslint/espree"
+    ],
+    "dependencies": {
+        "acorn": "^8.11.3",
+        "eslint-visitor-keys": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/espree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e6nlaq",
+            "githubUsername": "e6nlaq"
+        }
+    ]
+}
