@@ -358,6 +358,8 @@ export interface CookieOptions {
      * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
      */
     priority?: "low" | "medium" | "high";
+    /** Marks the cookie to use partioned storage. */
+    partitioned?: boolean | undefined;
 }
 
 export interface ByteRange {
