@@ -584,7 +584,7 @@ declare namespace OracleDB {
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
      */
-    function fetchTypeHandler(metadata: Metadata<any>): Promise<FetchTypeResponse>;
+    function fetchTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
     /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -2007,7 +2007,7 @@ declare namespace OracleDB {
          *
          * @since 6.0
          */
-        fetchTypeHandler?: (metadata: Metadata<any>) => Promise<FetchTypeResponse>;
+        fetchTypeHandler?: (metadata: Metadata<any>) => FetchTypeResponse | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
