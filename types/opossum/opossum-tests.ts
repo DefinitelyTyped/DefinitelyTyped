@@ -23,6 +23,12 @@ breaker = new CircuitBreaker(async () => true, {
     volumeThreshold: 1,
     cache: true,
     cacheTTL: 100,
+    cacheGetKey: (...args) => JSON.stringify(args),
+    cacheTransport: {
+        get: (key) => key,
+        set: (key, value, ttl) => {},
+        flush: () => {},
+    },
     errorFilter: (err) => {
         err; // $ExpectType any
         return true;
