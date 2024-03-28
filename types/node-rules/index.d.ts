@@ -1,10 +1,8 @@
 // Type definitions for Drools 7.2.0
 // Project: https://github.com/mithunsatheesh/node-rules
-export = RuleEngine
+export = RuleEngine;
 
-
-export as namespace RuleEngine
-
+export as namespace RuleEngine;
 
 declare namespace RuleEngine {
   interface Consequence {
@@ -24,12 +22,12 @@ declare namespace RuleEngine {
   }
 
   interface Fact {
-    uerIP?: string,
-    name?: string,
-    application?: string,
-    userLoggedIn?: boolean,
-    transactionTotal?: number,
-    cardType?: string,
+    uerIP?: string;
+    name?: string;
+    application?: string;
+    userLoggedIn?: boolean;
+    transactionTotal?: number;
+    cardType?: string;
   }
 
   interface Options {
@@ -43,7 +41,6 @@ declare namespace RuleEngine {
     stop: () => void;
     next: () => void;
   }
-
 }
 
 declare class RuleEngine {
@@ -71,6 +68,3 @@ declare class RuleEngine {
 
   prioritize(priority: number, filter?: Record<string, unknown>): void;
 }
-
-
-

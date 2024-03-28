@@ -1,4 +1,4 @@
-import RuleEngine from 'node-rules'; // 导入 RuleEngine 模块
+import RuleEngine from "node-rules"; // 导入 RuleEngine 模块
 
 // 创建一个规则引擎实例
 let ruleEngine = new RuleEngine();
@@ -10,18 +10,15 @@ ruleEngine.init();
 let API: RuleEngine.API = {
   rule: () => {
     let APIRules: RuleEngine.Rule = {
-      id: '1',
-      name: 'API Rule',
+      id: "1",
+      name: "API Rule",
       on: true,
       condition: (API: RuleEngine.API) => {
-
       },
       consequence: (API: RuleEngine.API) => {
-
-      }
-
+      },
     };
-    return APIRules
+    return APIRules;
   },
   when: (outcome: any) => {
     // 规则条件逻辑
@@ -34,31 +31,30 @@ let API: RuleEngine.API = {
   },
   next: () => {
     // 执行下一个规则
-  }
+  },
 };
 
 // 定义Fact对象
 let sampleFact: RuleEngine.Fact = {
-  uerIP: '127.0.0.1',
-  name: 'John Doe',
-  application: 'TestApp',
+  uerIP: "127.0.0.1",
+  name: "John Doe",
+  application: "TestApp",
   userLoggedIn: true,
   transactionTotal: 100,
-  cardType: 'Credit'
+  cardType: "Credit",
 };
-
 
 // 创建一个规则
 let sampleRule: RuleEngine.Rule = {
-  id: '1',
-  name: 'Sample Rule',
+  id: "1",
+  name: "Sample Rule",
   on: true,
   condition: (API: RuleEngine.API) => {
     // 规则条件逻辑，可以使用传入的fact对象进行判断
   },
   consequence: (API: RuleEngine.API) => {
     // 规则执行逻辑，可以使用传入的fact对象进行操作
-  }
+  },
 };
 
 // 注册规则
@@ -71,13 +67,12 @@ ruleEngine.execute(sampleFact, (result: any) => {
 
 // 其他接口方法的测试
 ruleEngine.nextTick(() => {
-  let nextTick_test = 'Next tick executed';
+  let nextTick_test = "Next tick executed";
 });
 
-let foundRules = ruleEngine.findRules({ id: '1' });
+let foundRules = ruleEngine.findRules({ id: "1" });
 let foundRules_test = foundRules;
 
-ruleEngine.turn('on', { id: '1' });
+ruleEngine.turn("on", { id: "1" });
 
-ruleEngine.prioritize(1, { name: 'Sample Rule' });
-
+ruleEngine.prioritize(1, { name: "Sample Rule" });
