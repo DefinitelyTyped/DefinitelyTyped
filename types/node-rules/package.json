@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/node-rules",
+  "version": "7.2.9999",
+  "projects": [
+    "https://github.com/mithunsatheesh/node-rules"
+  ],
+  "devDependencies": {
+    "@types/node-rules": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "zhu18",
+      "githubUsername": "zhuzhuzu1"
+    }
+  ]
+}
