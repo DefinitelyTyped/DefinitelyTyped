@@ -1,4 +1,4 @@
-import { Dashicon } from "@wordpress/components";
+import { IconType } from "@wordpress/components";
 import { StoreDescriptor } from "@wordpress/data";
 import { ShortcodeMatch } from "@wordpress/shortcode";
 import { ComponentType, ReactElement } from "react";
@@ -37,7 +37,7 @@ export interface BlockIconNormalized {
     background?: string | undefined;
     foreground?: string | undefined;
     shadowColor?: string | undefined;
-    src: Dashicon.Icon | ReactElement | ComponentType;
+    src: IconType | ReactElement | ComponentType;
 }
 
 export type BlockIcon = BlockIconNormalized["src"] | BlockIconNormalized;

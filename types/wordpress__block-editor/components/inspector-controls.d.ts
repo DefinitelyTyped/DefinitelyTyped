@@ -1,4 +1,4 @@
-import { Slot } from "@wordpress/components";
+import { SlotComponentProps } from "@wordpress/components/build-types/slot-fill/types";
 import { FC, JSX, ReactNode } from "react";
 
 declare namespace InspectorControls {
@@ -9,7 +9,7 @@ declare namespace InspectorControls {
 }
 declare const InspectorControls: {
     (props: InspectorControls.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, "name">>;
+    Slot: FC<Omit<SlotComponentProps, "name">>;
 };
 
 export default InspectorControls;

@@ -1,11 +1,11 @@
-import { Dashicon } from "@wordpress/components";
+import { IconType } from "@wordpress/components";
 
 import { JSX } from "react";
 
 export interface Category {
     slug: string;
     title: string;
-    icon?: JSX.Element | Dashicon.Icon | null | undefined;
+    icon?: JSX.Element | IconType | null | undefined;
 }
 
 /**

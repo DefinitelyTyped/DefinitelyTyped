@@ -10,9 +10,9 @@
         "@types/react": "*",
         "@types/wordpress__block-editor": "*",
         "@types/wordpress__blocks": "*",
-        "@types/wordpress__components": "*",
         "@types/wordpress__media-utils": "*",
         "@wordpress/core-data": "^6.0.0",
+        "@wordpress/components": "^27.2.0",
         "@wordpress/data": "^9.0.0",
         "@wordpress/element": "^5.0.0"
     },

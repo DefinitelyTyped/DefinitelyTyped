@@ -1,5 +1,12 @@
-import { Slot, Toolbar } from "@wordpress/components";
+import { ToolbarGroup } from "@wordpress/components";
+import { SlotComponentProps } from "@wordpress/components/build-types/slot-fill/types";
 import { FC, JSX, ReactNode } from "react";
+
+type GetArrayTypeFromPossibleNestedArray<TestType extends Record<string, unknown> | Array<Record<string, unknown>>> =
+    TestType extends Array<Record<string, unknown>> ? TestType[number] : TestType;
+type BlockControlControlsType = GetArrayTypeFromPossibleNestedArray<
+    NonNullable<Parameters<typeof ToolbarGroup>[0]["controls"]>[number]
+>;
 
 declare namespace BlockControls {
     type BlockControlGroup =
@@ -9,14 +16,15 @@ declare namespace BlockControls {
         | "other"
         | "parent";
 
-    interface Props extends Pick<Toolbar.Props, "controls"> {
+    interface Props {
+        controls?: Array<BlockControlControlsType | BlockControlControlsType[]>;
         children: ReactNode;
         group?: BlockControlGroup | undefined;
     }
 }
 declare const BlockControls: {
     (props: BlockControls.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, "name">>;
+    Slot: FC<Omit<SlotComponentProps, "name">>;
 };
 
 export default BlockControls;

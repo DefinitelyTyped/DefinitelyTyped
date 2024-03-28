@@ -1,8 +1,8 @@
-import { NavigableMenu } from "@wordpress/components";
+import { NavigableMenuProps } from "@wordpress/components/build-types/navigable-container/types";
 import { ComponentType } from "react";
 
 declare namespace NavigableToolbar {
-    interface Props extends NavigableMenu.Props {
+    interface Props extends NavigableMenuProps {
         focusOnMount?: boolean | undefined;
     }
 }
