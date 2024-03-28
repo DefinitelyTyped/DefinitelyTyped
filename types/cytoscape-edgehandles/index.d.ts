@@ -61,7 +61,7 @@ declare namespace cytoscapeEdgehandles {
         /**
          * Manually start the gesture (as if the handle were already held)
          */
-        start: (sourceNode: string) => void;
+        start: (sourceNode: cytoscape.NodeSingular) => void;
         /**
          * Manually completes or cancels the gesture
          */
