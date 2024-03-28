@@ -265,4 +265,50 @@ function formTest() {
 function createRoot(validContainer: Element | DocumentFragment | Document) {
     ReactDOMClient.createRoot(document);
     ReactDOMClient.createRoot(validContainer);
+
+    ReactDOMClient.createRoot(document, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
+
+    ReactDOMClient.hydrateRoot(document.body, null, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
 }
