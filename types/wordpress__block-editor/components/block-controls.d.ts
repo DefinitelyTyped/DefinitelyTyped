@@ -1,6 +1,5 @@
-import { ToolbarGroup } from "@wordpress/components";
-import { SlotComponentProps } from "@wordpress/components/build-types/slot-fill/types";
-import { FC, JSX, ReactNode } from "react";
+import { Slot, ToolbarGroup } from "@wordpress/components";
+import { ComponentProps, FC, JSX, ReactNode } from "react";
 
 type GetArrayTypeFromPossibleNestedArray<TestType extends Record<string, unknown> | Array<Record<string, unknown>>> =
     TestType extends Array<Record<string, unknown>> ? TestType[number] : TestType;
@@ -24,7 +23,7 @@ declare namespace BlockControls {
 }
 declare const BlockControls: {
     (props: BlockControls.Props): JSX.Element;
-    Slot: FC<Omit<SlotComponentProps, "name">>;
+    Slot: FC<Omit<ComponentProps<typeof Slot>, "name">>;
 };
 
 export default BlockControls;

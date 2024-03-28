@@ -1,8 +1,8 @@
-import { DropdownProps } from "@wordpress/components/build-types/dropdown/types";
-import { ComponentType } from "react";
+import { Dropdown } from "@wordpress/components";
+import { ComponentProps, ComponentType } from "react";
 
 declare namespace Inserter {
-    interface Props extends Partial<Pick<DropdownProps, "position" | "renderToggle">> {
+    interface Props extends Partial<Pick<ComponentProps<typeof Dropdown>, "position" | "renderToggle">> {
         clientId?: string | undefined;
         disabled?: boolean | undefined;
         isAppender?: boolean | undefined;

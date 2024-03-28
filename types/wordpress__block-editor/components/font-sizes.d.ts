@@ -1,10 +1,10 @@
-import { FontSizePickerProps } from "@wordpress/components/build-types/font-size-picker/types";
-import { ComponentType } from "react";
+import { FontSizePicker as FSP } from "@wordpress/components/";
+import { ComponentProps, ComponentType } from "react";
 
 import { EditorFontSize } from "../";
 
 export namespace FontSizePicker {
-    type Props = Omit<FontSizePickerProps, "disableCustomFontSizes" | "fontSizes">;
+    type Props = Omit<ComponentProps<typeof FSP>, "disableCustomFontSizes" | "fontSizes">;
 }
 export const FontSizePicker: ComponentType<FontSizePicker.Props>;
 

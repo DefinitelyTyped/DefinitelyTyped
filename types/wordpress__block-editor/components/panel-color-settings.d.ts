@@ -1,13 +1,12 @@
-import { ColorPaletteProps } from "@wordpress/components/build-types/color-palette/types";
-import { PanelBodyProps } from "@wordpress/components/build-types/panel/types";
-import { ComponentType } from "react";
+import { ColorPalette, PanelBody } from "@wordpress/components";
+import { ComponentProps, ComponentType } from "react";
 
 declare namespace PanelColorSettings {
     type ColorSetting =
-        & Partial<ColorPaletteProps>
-        & Pick<ColorPaletteProps, "onChange" | "value">
+        & Partial<ComponentProps<typeof ColorPalette>>
+        & Pick<ComponentProps<typeof ColorPalette>, "onChange" | "value">
         & { label: string };
-    interface Props extends Omit<PanelBodyProps, "children"> {
+    interface Props extends Omit<ComponentProps<typeof PanelBody>, "children"> {
         colorSettings: ColorSetting[];
         disableCustomColors?: boolean | undefined;
     }

@@ -1,12 +1,11 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { IconType } from "@wordpress/components";
-import { DropZoneProps } from "@wordpress/components/build-types/drop-zone/types";
-import { JSX, MouseEventHandler } from "react";
+import { DropZone, IconType } from "@wordpress/components";
+import { ComponentProps, JSX, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {
     type MediaPlaceholderMultipleAction = "add";
 
-    interface Props<T extends boolean> extends Pick<DropZoneProps, "onHTMLDrop"> {
+    interface Props<T extends boolean> extends Pick<ComponentProps<typeof DropZone>, "onHTMLDrop"> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
          * to the upload window the browser use e.g: `image#<{(|,video#<{(|`.

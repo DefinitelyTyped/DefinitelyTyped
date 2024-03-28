@@ -364,6 +364,9 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     shortcutType="primary"
     shortcutCharacter="b"
     onClick={() => console.log("Hello World")}
+    placeholder="Hello World"
+    onPointerEnterCapture={() => console.log("Hello World")}
+    onPointerLeaveCapture={() => console.log("Hello World")}
 />;
 
 //

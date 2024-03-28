@@ -1,11 +1,9 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { BlockInstance } from "@wordpress/blocks";
-import { Button, IconType } from "@wordpress/components";
+import { ToolbarButton } from "@wordpress/components";
 import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
-import { WordPressComponentProps } from "@wordpress/components/build-types/context";
-import { ToolbarButtonProps } from "@wordpress/components/build-types/toolbar/toolbar-button/types";
 import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
-import { ComponentType, HTMLProps, JSX } from "react";
+import { ComponentProps, ComponentType, HTMLProps, JSX } from "react";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
@@ -97,7 +95,7 @@ export namespace RichTextShortcut {
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
-    interface Props extends WordPressComponentProps<ToolbarButtonProps, typeof Button, false> {
+    interface Props extends ComponentProps<typeof ToolbarButton> {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;
