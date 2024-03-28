@@ -16,7 +16,7 @@ declare namespace objectInspect {
          */
         maxStringLength?: number | null | undefined;
         /**
-         * When true, a custom inspect method function will be invoked (either undere the util.inspect.custom symbol, or the inspect property). When the string 'symbol', only the symbol method will be invoked. Default true.
+         * When true, a custom inspect method function will be invoked (either under the util.inspect.custom symbol, or the inspect property). When the string 'symbol', only the symbol method will be invoked. Default true.
          */
         customInspect?: boolean | "symbol" | undefined;
         /**
