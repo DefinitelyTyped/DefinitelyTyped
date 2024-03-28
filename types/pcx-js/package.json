@@ -1,17 +1,19 @@
 {
-  "private": true,
-  "name": "@types/pcx-js",
-  "version": "1.1.9999",
-  "projects": [
-    "https://github.com/warpdesign/pcx-js"
-  ],
-  "devDependencies": {
-    "@types/pcx-js": "workspace:."
+  "compilerOptions": {
+    "module": "Node16",
+    "lib": [
+      "ES6"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "types": [],
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "owners": [
-    {
-      "name": "zhu18",
-      "githubUsername": "zhuzhuzu1"
-    }
+  "files": [
+    "index.d.ts",
+    "node-rules-tests.ts"
   ]
 }

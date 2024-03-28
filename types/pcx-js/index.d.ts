@@ -1,15 +1,13 @@
 // Type definitions for pcx-js 1.1.0
 // Project: https://github.com/warpdesign/pcx-js
-export = PCX
+export = PCX;
 
-
-export as namespace PCX
-
+export as namespace PCX;
 
 declare class PCX {
   constructor();
 
-  constructor(buffer: ArrayBuffer)
+  constructor(buffer: ArrayBuffer);
 
   decode(): PCX.DecodeType;
 
@@ -34,23 +32,23 @@ declare class PCX {
 
 declare namespace PCX {
   interface Header {
-    version: number,
-    bpp: number,
-    xmin: number,
-    xmax: number,
-    ymin: number,
-    ymax: number,
-    hdpi: number,
-    vdpi: number,
-    palette: null | Uint8Array,
-    bitplanes: number
+    version: number;
+    bpp: number;
+    xmin: number;
+    xmax: number;
+    ymin: number;
+    ymax: number;
+    hdpi: number;
+    vdpi: number;
+    palette: null | Uint8Array;
+    bitplanes: number;
   }
 
   interface DecodeType {
-    pixelArray: Uint8ClampedArray,
-    palette: Uint8Array
-    width: number,
-    height: number,
-    header: Header
+    pixelArray: Uint8ClampedArray;
+    palette: Uint8Array;
+    width: number;
+    height: number;
+    header: Header;
   }
 }
