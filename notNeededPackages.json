@@ -1221,6 +1221,50 @@
             "libraryName": "datastore-level",
             "asOfVersion": "3.0.0"
         },
+        "datatables.net": {
+            "libraryName": "datatables.net",
+            "asOfVersion": "1.12.0"
+        },
+        "datatables.net-autofill": {
+            "libraryName": "datatables.net-autofill",
+            "asOfVersion": "2.4.0"
+        },
+        "datatables.net-buttons": {
+            "libraryName": "datatables.net-buttons",
+            "asOfVersion": "2.2.0"
+        },
+        "datatables.net-colreorder": {
+            "libraryName": "datatables.net-colreorder",
+            "asOfVersion": "1.6.0"
+        },
+        "datatables.net-fixedcolumns": {
+            "libraryName": "datatables.net-fixedcolumns",
+            "asOfVersion": "4.0.0"
+        },
+        "datatables.net-fixedheader": {
+            "libraryName": "datatables.net-fixedheader",
+            "asOfVersion": "3.3.0"
+        },
+        "datatables.net-keytable": {
+            "libraryName": "datatables.net-keytable",
+            "asOfVersion": "2.7.0"
+        },
+        "datatables.net-rowgroup": {
+            "libraryName": "datatables.net-rowgroup",
+            "asOfVersion": "1.2.0"
+        },
+        "datatables.net-rowreorder": {
+            "libraryName": "datatables.net-rowreorder",
+            "asOfVersion": "1.3.0"
+        },
+        "datatables.net-scroller": {
+            "libraryName": "datatables.net-scroller",
+            "asOfVersion": "2.3.0"
+        },
+        "datatables.net-select": {
+            "libraryName": "datatables.net-select",
+            "asOfVersion": "1.4.0"
+        },
         "date-and-time": {
             "libraryName": "date-and-time",
             "asOfVersion": "3.0.3"
