@@ -2,6 +2,9 @@ function mixpanel_base() {
     mixpanel.init("new token");
     mixpanel.init("new token", { persistence_name: "config" });
     mixpanel.init("new token", { persistence_name: "config" }, "library_name");
+    mixpanel.init("new token", { track_pageview: "url-with-path" });
+    mixpanel.init("new token", { track_pageview: "url-with-path-and-query-string" });
+    mixpanel.init("new token", { track_pageview: "full-url" });
 
     mixpanel.push(["register", { a: "b" }]);
 
