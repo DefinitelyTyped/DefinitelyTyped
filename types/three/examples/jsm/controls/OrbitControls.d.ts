@@ -14,7 +14,7 @@ export interface OrbitControlsEventMap {
  * event listeners.
  */
 export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
-    constructor(object: Camera, domElement?: HTMLElement);
+    constructor(object: Camera, domElement: HTMLElement);
 
     /**
      * The camera being controlled.
