@@ -15,11 +15,18 @@
   },
   "main": "",
   "types": "index.d.ts",
+  "contributors": [
+    {
+      "name": "ce",
+      "url": "https://github.com/cehub-app",
+      "githubUsername": "cehub-app"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
     "directory": "types/cehub"
-},
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
