@@ -20,5 +20,8 @@
             "name": "ce",
             "githubUsername": "cehub-app"
         }
-    ]
+   ],
+        "projects": [
+        "https://github.com/cehub-app"
+    ],
 }
