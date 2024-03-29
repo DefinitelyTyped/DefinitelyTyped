@@ -3,8 +3,8 @@
 
 declare namespace percentageRegex {
     interface RegexOptions {
-        exact?: boolean | undefined
+        exact?: boolean | undefined;
     }
 }
 declare function percentageRegex(opts?: percentageRegex.RegexOptions): RegExp;
-export = percentageRegex
+export = percentageRegex;
