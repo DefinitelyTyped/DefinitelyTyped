@@ -6,19 +6,15 @@ export default class Info {
     frame: number;
     calls: number;
 
-    render: { calls: number; drawCalls: number; triangles: number; points: number; lines: number };
+    render: { calls: number; drawCalls: number; triangles: number; points: number; lines: number; timestamp: number };
 
-    compute: { calls: number; computeCalls: number };
+    compute: { calls: number; computeCalls: number; timestamp: number };
 
     memory: { geometries: number; textures: number };
 
-    timestamp: { compute: number; render: number };
-
     update(object: Object3D, count: number, instanceCount: number): void;
 
-    updateTimestamp(type: keyof typeof this.timestamp, time: number): void;
-
-    resetCompute(): void;
+    updateTimestamp(type: "render" | "compute", time: number): void;
 
     reset(): void;
 

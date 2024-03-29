@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { VRButton } from "three/examples/jsm/webxr/VRButton";
-import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
-import { XRHandModelFactory } from "three/examples/jsm/webxr/XRHandModelFactory";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { VRButton } from "three/addons/webxr/VRButton.js";
+import { XRControllerModelFactory } from "three/addons/webxr/XRControllerModelFactory.js";
+import { XRHandModelFactory } from "three/addons/webxr/XRHandModelFactory.js";
 
 interface Hand extends THREE.Group {
     joints: { [key: string]: any };
