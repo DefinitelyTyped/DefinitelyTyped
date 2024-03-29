@@ -207,7 +207,7 @@ export interface Parse extends ParseStream {
 }
 
 export const Parse: {
-    new (opt?: ParseOptions): Parse;
+    new(opt?: ParseOptions): Parse;
 };
 // #endregion
 
@@ -808,17 +808,17 @@ export interface FileOptions {
 
 export type RequiredFileOptions =
     | {
-          /**
-           * Uses the given file as the input or output of this function.
-           */
-          file: string;
-      }
+        /**
+         * Uses the given file as the input or output of this function.
+         */
+        file: string;
+    }
     | {
-          /**
-           * Alias for file.
-           */
-          f: string;
-      };
+        /**
+         * Alias for file.
+         */
+        f: string;
+    };
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
