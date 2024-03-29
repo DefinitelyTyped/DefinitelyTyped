@@ -44,5 +44,4 @@ declare namespace Cehub {
 
   const version: string;
 }
- export = Cehub;
 
