@@ -14,5 +14,11 @@
   "main": "",
   "types": "index.d.ts",
   "dependencies": {},
-  "typeScriptVersion": "4.3"
+  "typeScriptVersion": "4.3",
+  "owners": [
+        {
+            "name": "ce",
+            "githubUsername": "cehub-app"
+        }
+    ]
 }
