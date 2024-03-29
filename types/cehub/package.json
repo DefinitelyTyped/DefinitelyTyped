@@ -4,7 +4,9 @@
   "description": "TypeScript definitions for ce",
   "main": "",
   "types": "index.d.ts",
-  "dependencies": {},
+  "devDependencies": {
+    "@types/cehub": "workspace:."
+  },
   "typeScriptVersion": "4.3",
   "owners": [
     {
