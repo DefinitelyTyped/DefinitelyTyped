@@ -8,7 +8,6 @@
   "devDependencies": {
     "@types/cehub": "workspace:."
   },
-  "typeScriptVersion": "4.3",
   "owners": [
     {
       "name": "ce",
