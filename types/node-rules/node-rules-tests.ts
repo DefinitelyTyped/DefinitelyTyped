@@ -71,6 +71,7 @@ ruleEngine.nextTick(() => {
 });
 
 let foundRules = ruleEngine.findRules({ id: "1" });
+
 let foundRules_test = foundRules;
 
 ruleEngine.turn("on", { id: "1" });
