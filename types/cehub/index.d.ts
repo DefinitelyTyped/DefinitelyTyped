@@ -1,4 +1,4 @@
-
+/// <reference types="node" />
 
 declare namespace Cehub {
 
@@ -39,9 +39,14 @@ declare namespace Cehub {
     log (...params: any[]): void;
   }
 
-  const log: Log
-  type Log = Cehub.LogFunctions;
-
-  const version: string;
+  namespace CrossProcessExports {
+    const log: Log
+    type Log = Cehub.LogFunctions;
+    const version: string;
+  }
 }
 
+
+declare module 'cehub' {
+  export = Cehub.CrossProcessExports;
+}
