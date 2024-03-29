@@ -4,7 +4,6 @@
   "private": true,
   "description": "TypeScript definitions for ce",
   "main": "",
-  "types": "index.d.ts",
   "devDependencies": {
     "@types/cehub": "workspace:."
   },
