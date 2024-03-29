@@ -3,7 +3,6 @@
   "version": "0.1.9999",
   "private": true,
   "description": "TypeScript definitions for ce",
-  "main": "",
   "devDependencies": {
     "@types/cehub": "workspace:."
   },
