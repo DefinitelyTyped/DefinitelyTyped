@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "TypeScript definitions for ce",
   "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/cehub",
-  "license": "MIT",
   "scripts": {
     "serve": "node index",
     "build": "npm run build:webpack && npm run pkg",
