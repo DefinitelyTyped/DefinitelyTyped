@@ -223,7 +223,7 @@ export interface GhostContentAPIOptions {
     /**
      * Version of GhostContentAPI
      * Should be in 'v{major}.{minor}' format.
-     * 
+     *
      * Deprecated options: 'v2', 'v3', 'v4', 'v5', 'canary'
      */
     version: string;
