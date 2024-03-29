@@ -14,6 +14,7 @@ import { Color, ColorRepresentation } from "../math/Color.js";
 import { Plane } from "../math/Plane.js";
 import { WebGLProgramParametersWithUniforms } from "../renderers/webgl/WebGLPrograms.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
+import { BufferGeometry, Camera, Group, Object3D, Scene } from "../Three.js";
 
 export interface MaterialParameters {
     alphaHash?: boolean | undefined;
@@ -413,6 +414,18 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @param renderer WebGLRenderer context that is initializing the material
      */
     onBeforeCompile(parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
+
+    /**
+     * An optional callback that is executed immediately before a material is rendered.
+     */
+    onBeforeRender(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        camera: Camera,
+        geometry: BufferGeometry,
+        object: Object3D,
+        group: Group,
+    ): void;
 
     /**
      * In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.
