@@ -7,12 +7,12 @@
   "dependencies": {},
   "typeScriptVersion": "4.3",
   "owners": [
-        {
-            "name": "ce",
-            "githubUsername": "cehub-app"
-        }
-   ],
-        "projects": [
-        "https://github.com/cehub-app"
-    ],
+    {
+      "name": "ce",
+      "githubUsername": "cehub-app"
+    }
+  ],
+  "projects": [
+    "https://github.com/cehub-app"
+  ]
 }
