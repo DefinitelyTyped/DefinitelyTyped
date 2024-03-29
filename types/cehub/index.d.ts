@@ -1,4 +1,3 @@
-
 export const version: string;
 
 export interface log {
