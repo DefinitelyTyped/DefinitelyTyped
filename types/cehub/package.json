@@ -1,6 +1,6 @@
 {
   "name": "@types/cehub",
-  "version": "0.0.1.9999",
+  "version": "0.1.9999",
   "description": "TypeScript definitions for ce",
   "main": "",
   "types": "index.d.ts",
