@@ -43,28 +43,20 @@ declare namespace Cehub {
   const version: string;
 
 
-  // namespace CrossProcessExports {
+  namespace CrossProcessExports {
 
-  //   type Log = LogFunctions;
+    type Log = LogFunctions;
 
-  //   const log: Log;
+    const log: Log;
 
-  //   const version: string;
-  // }
-  export { log, version };
+    const version: string;
+  }
+  // export { log, version };
+}
+
+declare class Cehub {
+  version: string
 }
 
 
-
-
-// Export the namespace as a CommonJS module
-declare const _default: typeof Cehub;
-export = _default;
-
-// Declare the global variable _cehub and extend the Window interface
-// declare global {
-//   const _cehub: Cehub;
-//   interface Window {
-//     _cehub: Cehub;
-//   }
-// }
+export = Cehub;
