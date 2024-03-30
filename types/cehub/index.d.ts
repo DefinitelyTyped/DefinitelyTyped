@@ -43,13 +43,18 @@ declare namespace Cehub {
   const version: string;
 
 
+  // namespace CrossProcessExports {
+
+  //   type Log = LogFunctions;
+
+  //   const log: Log;
+
+  //   const version: string;
+  // }
+  export { log, version };
 }
 
+
+
+// Merge namespace with interface
 export = Cehub;
-
-declare global {
-  const _cehub: Cehub.LogFunctions;
-  interface Window {
-    _cehub: Cehub.LogFunctions;
-  }
-}
