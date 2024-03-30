@@ -938,30 +938,30 @@ declare module "util" {
      */
     export function stripVTControlCharacters(str: string): string;
     /**
-    * Formats the given text with the specified format.
-    *
-    * ```js
-    * import util from 'node:util';
-    *
-    * const errorText = util.styleText('red', 'Error');
-    * console.log(errorText);
-    * ```
-    *
-    * Multiple formatting options such as `italic` and `underline` can be applied.
-    *
-    * ```js
-    * console.log(
-    *   util.styleText('underline', util.styleText('italic', 'My italic underlined message')),
-    * );
-    * ```
-    *
-    * The full list of supported formats can be found in the [Node.js documentation](https://nodejs.org/docs/latest-v20.x/api/util.html#modifiers).
-    *
-    * @param {string} format - The text format defined in `util.inspect.colors`.
-    * @param {string} text - The text to be formatted.
-    * @returns {string} The formatted string.
-    * @since v20.12.0
-    */
+     * Formats the given text with the specified format.
+     *
+     * ```js
+     * import util from 'node:util';
+     *
+     * const errorText = util.styleText('red', 'Error');
+     * console.log(errorText);
+     * ```
+     *
+     * Multiple formatting options such as `italic` and `underline` can be applied.
+     *
+     * ```js
+     * console.log(
+     *   util.styleText('underline', util.styleText('italic', 'My italic underlined message')),
+     * );
+     * ```
+     *
+     * The full list of supported formats can be found in the [Node.js documentation](https://nodejs.org/docs/latest-v20.x/api/util.html#modifiers).
+     *
+     * @param {string} format - The text format defined in `util.inspect.colors`.
+     * @param {string} text - The text to be formatted.
+     * @returns {string} The formatted string.
+     * @since v20.12.0
+     */
     export function styleText(format: string, text: string): string;
     /**
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
