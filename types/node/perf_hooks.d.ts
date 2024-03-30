@@ -27,14 +27,14 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/perf_hooks.js)
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
     type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns" | "net";
     interface NodeGCPerformanceDetail {
         /**
-         * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
+         * When `performanceEntry.entryType` is equal to 'gc', the `performance.kind` property identifies
          * the type of garbage collection operation that occurred.
          * See perf_hooks.constants for valid values.
          */
@@ -392,7 +392,7 @@ declare module "perf_hooks" {
         getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
         /**
          * Returns a list of `PerformanceEntry` objects in chronological order
-         * with respect to `performanceEntry.startTime` whose `performanceEntry.entryType`is equal to `type`.
+         * with respect to `performanceEntry.startTime` whose `performanceEntry.entryType` is equal to `type`.
          *
          * ```js
          * const {

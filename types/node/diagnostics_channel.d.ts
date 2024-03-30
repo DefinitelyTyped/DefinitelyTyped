@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/diagnostics_channel.js)
  */
 declare module "diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
@@ -98,7 +98,7 @@ declare module "diagnostics_channel" {
     function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
     /**
      * Creates a `TracingChannel` wrapper for the given `TracingChannel Channels`. If a name is given, the corresponding tracing
-     * channels will be created in the form of `tracing:${name}:${eventType}` where`eventType` corresponds to the types of `TracingChannel Channels`.
+     * channels will be created in the form of `tracing:${name}:${eventType}` where `eventType` corresponds to the types of `TracingChannel Channels`.
      *
      * ```js
      * import diagnostics_channel from 'node:diagnostics_channel';
@@ -335,7 +335,7 @@ declare module "diagnostics_channel" {
     /**
      * The class `TracingChannel` is a collection of `TracingChannel Channels` which
      * together express a single traceable action. It is used to formalize and
-     * simplify the process of producing events for tracing application flow.{@link tracingChannel} is used to construct a`TracingChannel`. As with `Channel` it is recommended to create and reuse a
+     * simplify the process of producing events for tracing application flow. {@link tracingChannel} is used to construct a `TracingChannel`. As with `Channel` it is recommended to create and reuse a
      * single `TracingChannel` at the top-level of the file rather than creating them
      * dynamically.
      * @since v19.9.0

@@ -19,6 +19,7 @@ import {
     IncomingHttpHeaders,
     IncomingHttpStatusHeader,
     OutgoingHttpHeaders,
+    performServerHandshake,
     SecureClientSessionOptions,
     SecureServerOptions,
     ServerHttp2Session,
@@ -450,6 +451,41 @@ import { URL } from "node:url";
     }, reqListener);
     server = createSecureServer({ Http2ServerRequest: MyHttp2ServerRequest });
     server = createSecureServer({ Http2ServerResponse: MyHttp2ServerResponse }, reqListener);
+}
+
+{
+    const http2Server: Http2Server = createServer((req, res) => {
+        res.setHeader("set-cookie", "a");
+        res.appendHeader("set-cookie", "b");
+        res.writeHead(200);
+        res.end("ok");
+    });
+
+    const http2SecureServer: Http2SecureServer = createSecureServer((req, res) => {
+        res.setHeader("set-cookie", "a");
+        res.appendHeader("set-cookie", "b");
+        res.writeHead(200);
+        res.end("ok");
+    });
+}
+
+{
+    let settings: Settings = {};
+
+    const serverOptions: ServerOptions = {
+        maxDeflateDynamicTableSize: 0,
+        maxSendHeaderBlockLength: 0,
+        paddingStrategy: 0,
+        peerMaxConcurrentStreams: 0,
+        selectPadding: (frameLen: number, maxFrameLen: number) => 0,
+        settings,
+        unknownProtocolTimeout: 123,
+    };
+
+    const http2Stream: Http2Stream = {} as any;
+    const duplex: Duplex = http2Stream;
+
+    performServerHandshake(duplex, serverOptions); // $ExpectType ServerHttp2Session
 }
 
 // constants

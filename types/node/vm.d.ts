@@ -34,7 +34,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/vm.js)
  */
 declare module "vm" {
     import { ImportAttributes } from "node:module";
@@ -42,12 +42,12 @@ declare module "vm" {
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
-         * Default: `''`.
+         * @default ''
          */
         filename?: string | undefined;
         /**
          * Specifies the line number offset that is displayed in stack traces produced by this script.
-         * Default: `0`.
+         * @default 0
          */
         lineOffset?: number | undefined;
         /**
@@ -64,17 +64,19 @@ declare module "vm" {
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
-         * Called during evaluation of this module when `import()` is called.
-         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
             | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
             | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
          * When `true`, if an `Error` occurs while compiling the `code`, the line of code causing the error is attached to the stack trace.
-         * Default: `true`.
+         * @default true
          */
         displayErrors?: boolean | undefined;
         /**
@@ -86,7 +88,7 @@ declare module "vm" {
          * If `true`, the execution will be terminated when `SIGINT` (Ctrl+C) is received.
          * Existing handlers for the event that have been attached via `process.on('SIGINT')` will be disabled during script execution, but will continue to work after that.
          * If execution is terminated, an `Error` will be thrown.
-         * Default: `false`.
+         * @default false
          */
         breakOnSigint?: boolean | undefined;
     }
@@ -122,7 +124,7 @@ declare module "vm" {
         cachedData?: Buffer | undefined;
         /**
          * Specifies whether to produce new cache data.
-         * Default: `false`,
+         * @default false
          */
         produceCachedData?: boolean | undefined;
         /**
@@ -193,7 +195,7 @@ declare module "vm" {
     class Script {
         constructor(code: string, options?: ScriptOptions | string);
         /**
-         * Runs the compiled code contained by the `vm.Script` object within the given`contextifiedObject` and returns the result. Running code does not have access
+         * Runs the compiled code contained by the `vm.Script` object within the given `contextifiedObject` and returns the result. Running code does not have access
          * to local scope.
          *
          * The following example compiles code that increments a global variable, sets
@@ -281,7 +283,7 @@ declare module "vm" {
          */
         runInThisContext(options?: RunningScriptOptions): any;
         /**
-         * Creates a code cache that can be used with the `Script` constructor's`cachedData` option. Returns a `Buffer`. This method may be called at any
+         * Creates a code cache that can be used with the `Script` constructor's `cachedData` option. Returns a `Buffer`. This method may be called at any
          * time and any number of times.
          *
          * The code cache of the `Script` doesn't contain any JavaScript observable
@@ -319,7 +321,7 @@ declare module "vm" {
         cachedDataProduced?: boolean | undefined;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
-         * to either `true` or `false` depending on acceptance of the data by V8\.
+         * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
@@ -472,9 +474,9 @@ declare module "vm" {
      * // Prints: evalResult: 'eval', localVar: 'eval'
      * ```
      *
-     * Because `vm.runInThisContext()` does not have access to the local scope,`localVar` is unchanged. In contrast,
+     * Because `vm.runInThisContext()` does not have access to the local scope, `localVar` is unchanged. In contrast,
      * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
-     * local scope, so the value `localVar` is changed. In this way`vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
+     * local scope, so the value `localVar` is changed. In this way `vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
      *
      * ## Example: Running an HTTP server within a VM
      *
@@ -536,7 +538,7 @@ declare module "vm" {
      * The format of the object that the returned Promise may resolve with is
      * specific to the V8 engine and may change from one version of V8 to the next.
      *
-     * The returned result is different from the statistics returned by`v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
+     * The returned result is different from the statistics returned by `v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
      * memory reachable by each V8 specific contexts in the current instance of
      * the V8 engine, while the result of `v8.getHeapSpaceStatistics()` measure
      * the memory occupied by each heap space in the current V8 instance.
@@ -604,7 +606,7 @@ declare module "vm" {
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script` class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
      * defined in the ECMAScript
      * specification.
      *
@@ -742,7 +744,7 @@ declare module "vm" {
          * * `'errored'`: The module has been evaluated, but an exception was thrown.
          *
          * Other than `'errored'`, this status string corresponds to the specification's [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)'s `[[Status]]` field. `'errored'`
-         * corresponds to`'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
+         * corresponds to `'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
          * value that is not `undefined`.
          */
         status: ModuleStatus;
@@ -775,7 +777,7 @@ declare module "vm" {
          * * Its `status` must not be `'errored'`.
          *
          * If the returned `Module`'s `status` is `'unlinked'`, this method will be
-         * recursively called on the returned `Module` with the same provided `linker`function.
+         * recursively called on the returned `Module` with the same provided `linker` function.
          *
          * `link()` returns a `Promise` that will either get resolved when all linking
          * instances resolve to a valid `Module`, or rejected if the linker function either
@@ -896,6 +898,22 @@ declare module "vm" {
          * @param value The value to set the export to.
          */
         setExport(name: string, value: any): void;
+    }
+    /**
+     * Returns an object containing commonly used constants for VM operations.
+     * @since v20.12.0
+     */
+    namespace constants {
+        /**
+         * Stability: 1.1 - Active development
+         *
+         * A constant that can be used as the `importModuleDynamically` option to `vm.Script`
+         * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
+         * context to load the requested module.
+         *
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
     }
 }
 declare module "node:vm" {
