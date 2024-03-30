@@ -1,5 +1,5 @@
 export class WebGLIndexedBufferRenderer {
-    constructor(gl: WebGLRenderingContext, extensions: any, info: any, capabilities: any);
+    constructor(gl: WebGLRenderingContext, extensions: any, info: any);
 
     setMode: (value: any) => void;
     setIndex: (index: any) => void;

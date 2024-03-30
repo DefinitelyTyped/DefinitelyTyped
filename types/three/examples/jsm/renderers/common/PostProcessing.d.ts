@@ -7,5 +7,7 @@ export default class PostProcessing {
 
     constructor(renderer: Renderer, outputNode?: Node);
 
-    render(): Promise<void>;
+    render(): void;
+
+    renderAsync(): Promise<void>;
 }

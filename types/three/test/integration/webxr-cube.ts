@@ -1,7 +1,6 @@
 // A simple WebXR VR example that just shows a cube.
 
 import * as THREE from "three";
-import { XRButton } from "three/examples/jsm/webxr/XRButton";
 
 const container = document.createElement("div");
 

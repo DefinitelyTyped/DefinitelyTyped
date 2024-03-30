@@ -169,7 +169,6 @@ export { default as ReflectorNode, reflector, ReflectorNodeParameters } from "./
 export { default as RemapNode, remap, remapClamp } from "./utils/RemapNode.js";
 export { default as RotateNode, rotate } from "./utils/RotateNode.js";
 export { default as RotateUVNode, rotateUV } from "./utils/RotateUVNode.js";
-export { default as SpecularMIPLevelNode, specularMIPLevel } from "./utils/SpecularMIPLevelNode.js";
 export { default as SplitNode } from "./utils/SplitNode.js";
 export { default as SpriteSheetUVNode, spritesheetUV } from "./utils/SpriteSheetUVNode.js";
 export { default as StorageArrayElementNode } from "./utils/SpriteSheetUVNode.js";
@@ -192,6 +191,7 @@ export * from "./shadernode/ShaderNode.js";
 
 // accessors
 export { parallaxDirection, parallaxUV, TBNViewMatrix } from "./accessors/AccessorsUtils.js";
+export { batch, default as BatchNode } from "./accessors/BatchNode.js";
 export {
     bitangentGeometry,
     bitangentLocal,
@@ -275,6 +275,7 @@ export {
 } from "./accessors/PositionNode.js";
 export { default as ReferenceNode, reference, referenceBuffer } from "./accessors/ReferenceNode.js";
 export { default as ReflectVectorNode, reflectVector } from "./accessors/ReflectVectorNode.js";
+export { default as RendererReferenceNode, rendererReference } from "./accessors/RendererReferenceNode.js";
 export { default as SkinningNode, skinning } from "./accessors/SkinningNode.js";
 export { default as StorageBufferNode, storage, storageObject } from "./accessors/StorageBufferNode.js";
 export {
@@ -374,6 +375,9 @@ export { default as LightingNode } from "./lighting/LightingNode.js";
 export { default as LightsNode, lights } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
 export { default as SpotLightNode } from "./lighting/SpotLightNode.js";
+
+// pmrem
+export { default as PMREMNode, pmremTexture } from "./pmrem/PMREMNode.js";
 
 // procedural
 export { checker, default as CheckerNode } from "./procedural/CheckerNode.js";

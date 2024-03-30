@@ -340,13 +340,6 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     isRenderTargetTexture: boolean;
 
     /**
-     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
-     * @remarks Only relevant for render target textures.
-     * @defaultValue `false`
-     */
-    needsPMREMUpdate: boolean;
-
-    /**
      * An object that can be used to store custom data about the texture.
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
@@ -361,9 +354,22 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
     version: number;
 
     /**
+     * Indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target
+     * textures)
+     */
+    pmremVersion: number;
+
+    /**
      * Set this to `true` to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
      */
     set needsUpdate(value: boolean);
+
+    /**
+     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
+     * @remarks Only relevant for render target textures.
+     * @defaultValue `false`
+     */
+    set needsPMREMUpdate(value: boolean);
 
     /**
      * The Global default value for {@link anisotropy | .anisotropy}.
