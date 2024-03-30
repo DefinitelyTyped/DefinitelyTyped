@@ -75,10 +75,6 @@ declare module "events" {
          */
         captureRejections?: boolean | undefined;
     }
-    // Any EventTarget with a Node-style `once` function
-    interface _NodeEventTarget {
-        once(eventName: string | symbol, listener: (...args: any[]) => void): this;
-    }
     // Any EventTarget with a DOM-style `addEventListener`
     interface _DOMEventTarget {
         addEventListener(
@@ -208,7 +204,7 @@ declare module "events" {
          * @since v11.13.0, v10.16.0
          */
         static once(
-            emitter: _NodeEventTarget,
+            emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
             options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
@@ -720,7 +716,7 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeAllListeners(event?: Key<unknown, T>): this;
+                removeAllListeners(eventName?: Key<unknown, T>): this;
                 /**
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
                  * added for a particular event. This is a useful default that helps finding
