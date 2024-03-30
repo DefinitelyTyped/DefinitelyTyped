@@ -1,8 +1,6 @@
-/// <reference types="node" />
-
 declare namespace Cehub {
 
-  export interface LogFunctions {
+  interface LogFunctions {
     /**
      * Log an error message
      */
@@ -39,14 +37,19 @@ declare namespace Cehub {
     log (...params: any[]): void;
   }
 
-  export namespace CrossProcessExports {
-    export const log: LogFunctions;
-    export type Log = Cehub.LogFunctions;
-    export const version: string;
-  }
+  type Log = LogFunctions;
+  const log: Log;
+
+  const version: string;
+
+
 }
 
+export = Cehub;
 
-declare module 'cehub' {
-  export = Cehub.CrossProcessExports;
+declare global {
+  const _cehub: Cehub.LogFunctions;
+  interface Window {
+    _cehub: Cehub.LogFunctions;
+  }
 }
