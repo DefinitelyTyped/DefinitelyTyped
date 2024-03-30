@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 300);
 const scene = new THREE.Scene();

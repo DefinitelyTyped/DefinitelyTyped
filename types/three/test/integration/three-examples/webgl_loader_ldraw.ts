@@ -1,10 +1,9 @@
 import * as THREE from "three";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-import { LDrawLoader } from "three/examples/jsm/loaders/LDrawLoader";
-import { LDrawUtils } from "three/examples/jsm/utils/LDrawUtils";
+import { LDrawLoader } from "three/addons/loaders/LDrawLoader.js";
 
 let container: HTMLDivElement;
 let progressBarDiv: HTMLDivElement;

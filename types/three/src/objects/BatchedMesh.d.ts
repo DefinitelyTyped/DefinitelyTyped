@@ -156,9 +156,6 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      */
     setGeometryAt(index: number, geometry: BufferGeometry): number;
 
-    /**
-     * Marks the geometry at the given index as deleted and to not be rendered anymore.
-     */
     deleteGeometry(index: number): this;
 
     getBoundingBoxAt(index: number, target: Box3): Box3 | null;

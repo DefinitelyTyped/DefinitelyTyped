@@ -162,5 +162,5 @@ export class InstancedMesh<
      * @remarks
      * Call this method whenever this instance is no longer used in your app.
      */
-    dispose(): void;
+    dispose(): this;
 }
