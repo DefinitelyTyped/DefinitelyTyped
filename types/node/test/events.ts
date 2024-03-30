@@ -80,8 +80,12 @@ declare const any: any;
 
 {
     class CustomEventTarget extends EventTarget {
-        override addEventListener(name: string, listener: EventListener, opts: AddEventListenerOptions) {
-            setTimeout(() => listener(new Event(name)), 100);
+        override addEventListener(...args: Parameters<EventTarget["addEventListener"]>) {
+            const [name, listener] = args
+
+            if (typeof listener === "function") {
+                setTimeout(() => listener(new Event(name)), 100);
+            }
         }
     }
 
