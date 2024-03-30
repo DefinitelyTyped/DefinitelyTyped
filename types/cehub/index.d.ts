@@ -55,10 +55,7 @@ declare namespace Cehub {
 }
 
 
-// Export the namespace directly for ESM
-declare module 'cehub' {
-  export = Cehub;
-}
+
 
 // Export the namespace as a CommonJS module
 declare const _default: typeof Cehub;
