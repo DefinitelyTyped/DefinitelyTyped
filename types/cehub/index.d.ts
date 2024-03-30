@@ -1,3 +1,10 @@
+
+
+export as namespace Cehub;
+
+
+
+
 declare namespace Cehub {
 
   interface LogFunctions {
