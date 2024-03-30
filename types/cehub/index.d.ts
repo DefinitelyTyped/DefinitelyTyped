@@ -55,6 +55,19 @@ declare namespace Cehub {
 }
 
 
+// Export the namespace directly for ESM
+declare module 'cehub' {
+  export = Cehub;
+}
 
-// Merge namespace with interface
-export = Cehub;
+// Export the namespace as a CommonJS module
+declare const _default: typeof Cehub;
+export = _default;
+
+// Declare the global variable _cehub and extend the Window interface
+// declare global {
+//   const _cehub: Cehub;
+//   interface Window {
+//     _cehub: Cehub;
+//   }
+// }
