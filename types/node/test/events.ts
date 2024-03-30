@@ -79,12 +79,14 @@ declare const any: any;
 }
 
 {
+    class CustomEventTarget extends EventTarget {
+        override addEventListener(name: string, listener: EventListener, opts: AddEventListenerOptions) {
+            setTimeout(() => listener(new Event(name)), 100);
+        }
+    }
+
     events.once(
-        {
-            addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
-                setTimeout(() => listener(123), 100);
-            },
-        },
+        new CustomEventTarget(),
         "name",
     );
 }
