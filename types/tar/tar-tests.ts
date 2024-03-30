@@ -136,6 +136,8 @@ tar.t({
     onentry: (entry) => console.log(entry.path, "was", entry.size),
 });
 
+tar.x({ preservePaths: true });
+
 fs.createReadStream("my-tarball.tgz")
     .pipe(tar.t())
     .on("entry", entry => console.log(entry.size));
