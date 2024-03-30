@@ -6,10 +6,10 @@
  */
 export type RGB = [number, number, number];
 
-const colorname {
+export default {
    const aliceblue: RGB;
-   const antiquewhite: RGB;
-   const aqua: RGB;
+  const antiquewhite: RGB;
+ const  aqua: RGB;
    const aquamarine: RGB;
    const azure: RGB;
    const beige: RGB;
