@@ -115,6 +115,10 @@
  */
 declare module "node:sea" {
     type AssetKey = string;
+    /**
+     * @since v20.12.0
+     * @return Whether this script is running inside a single-executable application.
+     */
     export function isSea(): boolean;
     /**
      * This method can be used to retrieve the assets configured to be bundled into the
