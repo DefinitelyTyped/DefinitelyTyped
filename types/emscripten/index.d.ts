@@ -116,7 +116,7 @@ declare namespace FS {
         path: string;
         node: FSNode;
     }
-    
+
     interface Mount {
         type: Emscripten.FileSystemType;
         opts: object;
@@ -124,7 +124,7 @@ declare namespace FS {
         mounts: Mount[];
         root: FSNode;
     }
-    
+
     class FSStream {
         shared?: {
             flags: number;
@@ -156,7 +156,7 @@ declare namespace FS {
         readonly isFolder: boolean;
         readonly isDevice: boolean;
     }
-    
+
     class ErrnoError extends Error {
         errno: number;
         code: string;
