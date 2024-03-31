@@ -210,7 +210,6 @@ function fixupModuleStructure(node: DocRoot): void {
     // yet another rename
     renameModule("performance_measurement_apis", "perf_hooks");
     renameModule("http/2", "http2");
-    renameModule("single_executable_applications", "node:sea");
     renameModule("test_runner", "node:test");
     renameModule("tls_(ssl)", "tls");
     renameModule("webassembly_system_interface_(wasi)", "wasi");
@@ -220,7 +219,9 @@ function fixupModuleStructure(node: DocRoot): void {
 
     unnestSubmodule("http2", [["core_api"], ["compatibility_api"]]);
 
-    unnestSubmodule("node:sea", [["in_the_injected_main_script"]]);
+    // sea
+    renameModule("single_executable_applications", "node:sea");
+    unnestSubmodule("node:sea", [["in_the_injected_main_script"], ["in_the_injected_main_script", "single-executable_application_api"]]);
 
     // some of the methods of Http2ServerResponse are incorrectly nested under the `req` property.
     const http2Module = getModule(node, "http2");
