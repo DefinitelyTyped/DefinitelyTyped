@@ -10,11 +10,5 @@
     },
     "devDependencies": {
         "@types/gradient-string": "workspace:."
-    },
-    "owners": [
-        {
-            "name": "Junyoung Clare Jang",
-            "githubUsername": "Ailrun"
-        }
-    ]
+    }
 }
