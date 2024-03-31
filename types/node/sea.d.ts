@@ -119,21 +119,21 @@ declare module "node:sea" {
      * @since v20.12.0
      * @return Whether this script is running inside a single-executable application.
      */
-    export function isSea(): boolean;
+    function isSea(): boolean;
     /**
      * This method can be used to retrieve the assets configured to be bundled into the
      * single-executable application at build time.
      * An error is thrown when no matching asset can be found.
      * @since v20.12.0
      */
-    export function getAsset(key: AssetKey): ArrayBuffer;
-    export function getAsset(key: AssetKey, encoding: string): string;
+    function getAsset(key: AssetKey): ArrayBuffer;
+    function getAsset(key: AssetKey, encoding: string): string;
     /**
      * Similar to `sea.getAsset()`, but returns the result in a [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
      * An error is thrown when no matching asset can be found.
      * @since v20.12.0
      */
-    export function getAssetAsBlob(key: AssetKey, options?: {
+    function getAssetAsBlob(key: AssetKey, options?: {
         type: string;
     }): Blob;
     /**
@@ -149,5 +149,5 @@ declare module "node:sea" {
      * writes to the returned array buffer is likely to result in a crash.
      * @since v20.12.0
      */
-    export function getRawAsset(key: AssetKey): string | ArrayBuffer;
+    function getRawAsset(key: AssetKey): string | ArrayBuffer;
 }
