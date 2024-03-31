@@ -10,5 +10,6 @@
     },
     "devDependencies": {
         "@types/gradient-string": "workspace:."
-    }
+    },
+    "owners": []
 }
