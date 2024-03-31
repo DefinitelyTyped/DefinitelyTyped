@@ -3441,6 +3441,10 @@
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
         },
+        "mime": {
+            "libraryName": "mime",
+            "asOfVersion": "4.0.0"
+        },
         "mini-css-extract-plugin": {
             "libraryName": "mini-css-extract-plugin",
             "asOfVersion": "2.5.0"
