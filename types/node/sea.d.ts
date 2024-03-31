@@ -1,13 +1,13 @@
 declare module "node:sea" {
     type AssetKey = string
 
-    function isSea(): boolean
+    export function isSea(): boolean
 
-    function getAsset(key: AssetKey): ArrayBuffer
+    export function getAsset(key: AssetKey): ArrayBuffer
 
-    function getAsset(key: AssetKey, encoding: string): string
+    export function getAsset(key: AssetKey, encoding: string): string
 
-    function getAssetAsBlob(key: AssetKey, options?: { type: string }): Blob
+    export function getAssetAsBlob(key: AssetKey, options?: { type: string }): Blob
 
-    function getRawAsset(key: AssetKey): string | ArrayBuffer
+    export function getRawAsset(key: AssetKey): string | ArrayBuffer
 }
