@@ -118,7 +118,7 @@ function shout(x: number): string {
     const getMemberName: (email: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
         makeQuery,
         fetchMember,
-        R.andThen(R.pick(["firstName", "lastName"])),
+        R.andThen(R.pick(["firstName", "lastName"] as const)),
     );
 
     const getMemberTitle: (email: string) => Promise<string> = R.pipe(makeQuery, fetchMember, R.andThen(getTitleAsync));
@@ -136,7 +136,7 @@ function shout(x: number): string {
     const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string }> = R.pipe(
         failedFetch,
         R.otherwise(useDefault),
-        R.andThen(R.pick(["firstName", "lastName"])),
+        R.andThen(R.pick(["firstName", "lastName"] as const)),
     );
 
     const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
