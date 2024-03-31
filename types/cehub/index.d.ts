@@ -1,8 +1,13 @@
 
-
 export as namespace Cehub;
+export = Cehub;
+// export default Cehub
 
-
+declare class Cehub {
+  log: Cehub.LogFunctions
+  version: string
+  createBrowserView (options?: Cehub.BrowserViewConstructorOptions): Cehub.BrowserView;
+}
 
 
 declare namespace Cehub {
@@ -44,26 +49,52 @@ declare namespace Cehub {
     log (...params: any[]): void;
   }
 
+  interface BrowserView {
+    log: Log;
+    version: string;
+  }
+
+
+  interface BrowserViewConstructorOptions {
+    width?: number
+    height?: number
+    loadFile?: string
+    loadURL?: string
+    preload?: string
+    startType?: string | 'applet'
+    webPreferences?: {
+      preload?: string
+    }
+    webContents?: {
+      ipc?: {
+        handle?: any
+      }
+    }
+  }
+
   type Log = LogFunctions;
+
+  /**
+   * cehub-log 
+   */
   const log: Log;
 
   const version: string;
 
+  function createBrowserView (options?: BrowserViewConstructorOptions): BrowserView
+
+  // const createBrowserView: createBrowserViewOptions
+
+
 
   namespace CrossProcessExports {
-
     type Log = LogFunctions;
-
     const log: Log;
-
     const version: string;
   }
-  // export { log, version };
-}
 
-declare class Cehub {
-  version: string
 }
 
 
-export = Cehub;
+
+
