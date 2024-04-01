@@ -1120,6 +1120,8 @@ ruleTester.run("simple-valid-test", rule, {
 // @ts-expect-error
 ((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
 
+((): Linter.FlatConfig => ({ name: "eslint:js" }));
+
 // The following _should_ be an error, but we can't enforce on consumers
 // as it requires exactOptionalPropertyTypes: true
 // (): Linter.FlatConfig => ({ files: undefined });
