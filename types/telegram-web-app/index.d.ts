@@ -746,7 +746,7 @@ interface BiometricManager {
      * the object's first use. If an optional callback parameter was passed, the callback
      * function will be called when the object is initialized.
      */
-    init: (callback?: (isAccessGranted: boolean) => void) => BiometricManager;
+    init: (callback?: () => void) => BiometricManager;
     /**
      * A method that requests permission to use biometrics according to the params
      * argument of type BiometricRequestAccessParams. If an optional callback

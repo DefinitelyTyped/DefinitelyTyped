@@ -94,4 +94,5 @@ app.onEvent("contactRequested", (req) => {
     }
 });
 
+app.BiometricManager.init(() => console.log("init"));
 app.BiometricManager.openSettings();
