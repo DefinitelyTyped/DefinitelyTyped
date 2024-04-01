@@ -18,7 +18,8 @@ export interface Options
         OptionsClipboard,
         OptionsDataTree,
         OptionsDebug,
-        OptionsHTML
+        OptionsHTML,
+        OptionsSpreadsheet
 {}
 
 export interface OptionsDebug {
@@ -550,6 +551,12 @@ export interface OptionsRows {
     selectableRangeColumns?: boolean;
 
     /**
+     * By default you can only select ranges by selecting cells on the table. If you would like to allow the user to
+     * select all cells in row by clicking on the row header, then you can set the selectableRangeColumns option to true
+     */
+    selectableRangeRows?: boolean;
+
+    /**
      * If you want the user to be able to clear the values for all cells in the active range by pressing the backspace
      * or delete keys, then you can enable this behavior using the selectableRangeClearCells option:
      *
@@ -674,6 +681,19 @@ export interface OptionsRows {
 
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
     resizableRows?: boolean | undefined;
+
+
+    /**
+     * Allows the user to control the height of rows in the table by dragging the bottom border of the row.
+     * These guides will only appear on columns with the `resizable` option enabled in their column definition.
+     */
+    resizableRowGuide?: boolean | undefined;
+
+    /**
+     * Allows the user to control the height of columns in the table by dragging the border of the column.
+     * These guides will only appear if the `resizableRows` option is enabled.
+     */
+    resizableColumnGuide?: boolean | undefined;
 
     /**
      * The default ScrollTo position can be set using the scrollToRowPosition option. It can take one of four possible values:
@@ -890,6 +910,73 @@ export interface OptionsGeneral {
      */
     validationMode?: "blocking" | "highlight" | "manual" | undefined;
     textDirection?: TextDirection | undefined;
+
+    /**
+     * Sometimes it can be useful to add a visual header to the start of a row.
+     * The `rowHeader` option allows you to define a column definition for a stylized header column at the start of the row.
+     *
+     * This can be great for adding row number, movable row handles or row selections, and keeps the controls visually separated from the table data.
+     */
+    rowHeader?: boolean | {
+        formatter?: string;
+        field?: string;
+        headerSort?: boolean;
+        hozAlign?: ColumnDefinitionAlign;
+        headerHozAlign?: ColumnDefinitionAlign;
+        resizable?: boolean;
+        frozen?: boolean;
+        titleFormatter?: string;
+        cellClick?: (e: MouseEvent, cell: CellComponent) => void;
+        minWidth?: number;
+        width?: number;
+        rowHandle?: boolean;
+    } | undefined,
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
+}
+
+export interface OptionsSpreadsheet {
+    /**
+     * Enables the spreadsheet mode on the table.
+     *
+     * The SpreadsheetModule must be installed to use this functionality.
+     */
+    spreadsheet?: boolean | undefined;
+    spreadsheetRows?: number;
+    spreadsheetColumns?: number;
+    spreadsheetColumnDefinition?: { editor: string, resizable: string };
+    spreadsheetSheets?: SpreadsheetSheet[] | undefined;
+    spreadsheetSheetTabs?: boolean | undefined;
+    spreadsheetOutputFull?: boolean | undefined;
+}
+
+export interface SpreadsheetSheet {
+    title: string;
+    key: string;
+    rows?: number;
+    columns?: number;
+    data: unknown[][];
+}
+
+export interface SpreadsheetComponent {
+    getTitle(): string;
+    setTitle(title: string): void;
+    getKey(): string;
+    getDefinition(): SpreadsheetSheet;
+    setRows(rows: number): void;
+    setColumns(columns: number): void;
+    getData(): unknown[][];
+    setData(data: unknown[][]): void;
+    clear(): void;
+    remove(): void;
+    active(): void;
 }
 
 export type RenderMode = "virtual" | "basic" | Renderer;
@@ -1049,6 +1136,7 @@ export interface AdditionalExportOptions {
     rowGroups?: boolean | undefined;
     columnCalcs?: boolean | undefined;
     dataTree?: boolean | undefined;
+    rowHeaders?: boolean | undefined;
 
     /** Show only raw unformatted cell values in the clipboard output. */
     formatCells?: boolean | undefined;
@@ -1423,6 +1511,15 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     titlePrint?: string | undefined;
     maxWidth?: number | false | undefined;
     headerWordWrap?: boolean;
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
 }
 
 export interface CellCallbacks {
@@ -2592,6 +2689,31 @@ export interface EventCallBackMethods {
      * ```
      */
     rangeRemoved: (range: RangeComponent) => void;
+
+    /**
+     * The rowHeight event will be triggered when the width of a row is set or changed.
+     */
+    rowHeight: (row: RowComponent) => void;
+
+    /**
+     * The rowResizing event will be triggered when a row has started to be resized by the user.
+     */
+    rowResizing: (row: RowComponent) => void;
+
+    /**
+     * The columnWidth event will be triggered when the width of a column is set or changed.
+     */
+    columnWidth: (column: ColumnComponent) => void;
+
+    /**
+     * The columnResizing event will be triggered when a column has started to be resized by the user.
+     */
+    columnResizing: (column: ColumnComponent) => void;
+
+    sheetAdded: (sheet: SpreadsheetComponent) => void;
+    sheetLoaded: (sheet: SpreadsheetComponent) => void;
+    sheetUpdated: (sheet: SpreadsheetComponent) => void;
+    sheetRemoved: (sheet: SpreadsheetComponent) => void;
 }
 
 declare class Tabulator {
@@ -3169,6 +3291,17 @@ declare class Tabulator {
      */
     getRangeData: () => unknown[][];
 
+    setSheets: (data: SpreadsheetSheet[]) => void;
+    addSheet: (data: SpreadsheetSheet) => void;
+    getSheetDefinitions: () => SpreadsheetSheet[];
+    getSheets: () => SpreadsheetComponent[];
+    getSheet: (lookup: string | SpreadsheetComponent) => SpreadsheetComponent;
+    setSheetData: (lookup: string | SpreadsheetComponent, data: unknown[][]) => void;
+    getSheetData: (lookup: string | SpreadsheetComponent) => unknown[][];
+    clearSheet: (lookup: string | SpreadsheetComponent ) => void;
+    activeSheet: (lookup: string | SpreadsheetComponent) => void;
+    removeSheet: (lookup: string | SpreadsheetComponent) => void;
+
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
@@ -3295,7 +3428,9 @@ declare class ResizeRowsModule extends Module {}
 declare class ResizeTableModule extends Module {}
 declare class ResponsiveLayoutModule extends Module {}
 declare class SelectRowModule extends Module {}
+declare class SelectRangeModule extends Module {}
 declare class SortModule extends Module {}
+declare class SpreadsheetModule extends Module {}
 declare class TabulatorFull extends Tabulator {}
 declare class TooltipModule extends Module {}
 declare class ValidateModule extends Module {}
@@ -3335,7 +3470,9 @@ export {
     ResizeTableModule,
     ResponsiveLayoutModule,
     SelectRowModule,
+    SelectRangeModule,
     SortModule,
+    SpreadsheetModule,
     Tabulator,
     TabulatorFull,
     TooltipModule,
