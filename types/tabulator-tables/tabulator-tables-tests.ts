@@ -1687,3 +1687,31 @@ table.on("columnResizing", function(column){
 // Testing 6.1 features
 table.import("xlsx", ".xlsx", "buffer");
 table.import("xlsx", [".xlsx", ".csv", ".ods"], "buffer");
+
+// Testing 6.2 features
+table = new Tabulator("#example-table", {
+    autoColumns:"full",
+});
+table.on("columnsLoaded", function(columns){
+    //columns - All columns in the table
+});
+table.on("headerClick", function(e, column){
+    //e - the click event object
+    //column - column component
+});
+
+table.on("importChoose", function(){
+
+});
+
+table.on("importImporting", function(files){
+    //files - the files array returned from the file picker
+});
+
+table.on("importError", function(err){
+    //err - the import error
+});
+
+table.on("importImported", function(data){
+    //data - array of row data
+});

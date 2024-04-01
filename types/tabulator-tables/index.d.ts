@@ -746,7 +746,7 @@ export interface OptionsColumns {
     columns?: ColumnDefinition[] | undefined;
 
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
-    autoColumns?: boolean | undefined;
+    autoColumns?: boolean | undefined | 'full';
     autoColumnsDefinitions?:
         | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
         | ColumnDefinition[]
@@ -2714,6 +2714,34 @@ export interface EventCallBackMethods {
     sheetLoaded: (sheet: SpreadsheetComponent) => void;
     sheetUpdated: (sheet: SpreadsheetComponent) => void;
     sheetRemoved: (sheet: SpreadsheetComponent) => void;
+
+    /**
+     * The columnsLoaded event is triggered when the replacement of the columns is complete.
+     * An array of column components is passed as the first argument of the callback.
+     */
+    columnsLoaded: (columns: ColumnComponent[]) => void;
+
+    /**
+     * The importChoose event is triggered the import function is called and the file picker modal opens.
+     */
+    importChoose: () => void;
+
+    /**
+     * The importImporting event is triggered after the user has chosen the file to import, but before it has been processed.
+     * The file array returned from the file pickers is passed as the first argument of the callback.
+     */
+    importImporting: (files: File[]) => void;
+
+    /**
+     * The importError event is triggered if there is an error importing the data from the file.
+     * The thrown error is passes as the first argument of the callback.
+     */
+    importError: (err: unknown) => void;
+    /**
+     * The importImported event is triggered when the data has been successfully parsed from the file, just before it is then loaded into the table.
+     * The parsed array of row data objects is passed as the first argument of the callback..
+     */
+    importImported: (data: unknown) => void;
 }
 
 declare class Tabulator {
