@@ -3377,13 +3377,20 @@ declare class Module {
      * @param propName Property name to add
      * @param defaultValue Default value of the property
      */
-    registerTableOption(propName: string, defaultValue: unknown): void;
+    registerTableOption(propName: string, defaultValue?: unknown): void;
     /**
      * Make a function available on the table object
      * @param functionName Function to add
      * @param callback Function to be called when the method is invoked on the grid
      */
     registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Register an option for the column component
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerColumnOption(propName: string, defaultValue?: unknown): void;
 
     /**
      * Subscribe to an event in the Tabulator Event bus.
