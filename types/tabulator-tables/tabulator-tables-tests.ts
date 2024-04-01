@@ -1091,14 +1091,17 @@ Tabulator.bindModules([Renderer]);
 cell.navigateDown();
 
 class CustomModule extends Module {
+    static moduleName = "custom";
     constructor(table: Tabulator) {
         super(table);
+        this.subscribe("dataLoading", () => {});
+        this.registerTableOption("testOption", true);
+        this.registerTableFunction("testFunction", () => {});
     }
 
     initialize() {}
 }
 
-CustomModule.moduleName = "custom";
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
 table = new Tabulator("#test", {});
@@ -1544,3 +1547,174 @@ table.getRanges().forEach(range => range.remove());
 
 const data1 = table.getRangeData();
 data1[0][0] = { name: "steve" };
+
+// Testing 6.0 features
+var sheets = [
+    {
+        title: "First Sheet",
+        key: "first",
+        rows: 20,
+        columns: 20,
+        data: [
+            [9937, "", "", 7749, 9816, 4355, 8279, "", ""],
+            [2380, "", 6977, 8896, 4012, 3803, 5408, 3415, 3056],
+            [9180, "", 39, 9445, 3917, "", 18, 5239, 2516],
+            [1924, 8734, 1819, 1838, 2330, 7921, 9219, "", 3537],
+        ],
+    },
+    {
+        title: "Second Sheet",
+        key: "second",
+        data: [
+            [2380, "", 6977, 8896, 4012, 3803, 5408, 3415, 3056],
+            [9180, "", 39, 9445, 3917, "", 18, 5239, 2516],
+            [1924, 8734, 1819, 1838, 2330, 7921, 9219, "", 3537],
+            ["", 8665, 5875, 9732, 1926, "", 9743, 8388, ""],
+            [7040, 4861, 2988, 5584, 2344, 9749, 8872, 9177, 6246],
+            [6334, 1674, 2967, "", 9353, 396, 6006, 8572, ""],
+            [6359, "", 2580, 5723, 9801, 554, 1044, 5266, 8532],
+        ],
+    },
+    {
+        title: "Third Sheet",
+        key: "third",
+        rows: 5,
+        columns: 5,
+        data: [
+            [1924, 8734, 1819, 1838, 2330, 7921, 9219, "", 3537],
+            ["", 8665, 5875, 9732, 1926, "", 9743, 8388, ""],
+            [7040, 4861, 2988, 5584, 2344, 9749, 8872, 9177, 6246],
+            [6334, 1674, 2967, "", 9353, 396, 6006, 8572, ""],
+            [6359, "", 2580, 5723, 9801, 554, 1044, 5266, 8532],
+            [7278, 6971, 2232, 5720, 5665, 7231, 1165, "", 168],
+        ],
+    },
+];
+
+// Build Tabulator
+table = new Tabulator("#example-table", {
+    height: "311px",
+
+    spreadsheet: true,
+    spreadsheetRows: 50,
+    spreadsheetColumns: 50,
+    spreadsheetColumnDefinition: { editor: "input", resizable: "header" },
+    spreadsheetSheets: sheets,
+    spreadsheetSheetTabs: true,
+
+    rowHeader: { field: "_id", hozAlign: "center", headerSort: false, frozen: true },
+
+    editTriggerEvent: "dblclick", // change edit trigger mode to make cell navigation smoother
+    editorEmptyValue: undefined, // ensure empty values are set to undefined so they arent included in spreadsheet output data
+
+    // enable range selection
+    selectableRange: 1,
+    selectableRangeColumns: true,
+    selectableRangeRows: true,
+    selectableRangeClearCells: true,
+
+    // configure clipboard to allow copy and paste of range format data
+    clipboard: true,
+    clipboardCopyStyled: false,
+    clipboardCopyConfig: {
+        rowHeaders: false,
+        columnHeaders: false,
+    },
+    clipboardCopyRowRange: "range",
+    clipboardPasteParser: "range",
+    clipboardPasteAction: "range",
+});
+table.activeSheet("info");
+table.addSheet({
+    title: "New Sheet",
+    key: "new",
+    data: [
+        [2380, "", 6977, 8896, 4012, 3803, 5408, 3415, 3056],
+        [9180, "", 39, 9445, 3917, "", 18, 5239, 2516],
+        [1924, 8734, 1819, 1838, 2330, 7921, 9219, "", 3537],
+    ],
+});
+table.removeSheet("new");
+table.setSheets(sheets);
+table.getSheetDefinitions();
+table.getSheet("first");
+table.setSheetData("first", sheets[0].data);
+table.clearSheet("first");
+table.activeSheet("first");
+
+table.on("sheetUpdated", function(sheet) {
+    // sheet - sheet component for the affected sheet
+    alert("The user has updated a sheet: " + sheet.getTitle());
+});
+
+table = new Tabulator("#example-table", {
+    rowHeader: { formatter: "rownum", headerSort: false, hozAlign: "center", resizable: false, frozen: true },
+});
+table = new Tabulator("#example-table", {
+    rowHeader: true,
+});
+
+table = new Tabulator("#example-table", {
+    resizableRows: true,
+    resizableRowGuide: true,
+    resizableColumnGuide: true,
+});
+table = new Tabulator("#example-table", {
+    editorEmptyValue: undefined, // set empty cell values to undefined after edit
+    editorEmptyValueFunc: (value) => {
+        return value === ""; // only consider empty strings as empty
+    },
+    columnDefaults: {
+        title: "Name",
+        field: "name",
+        editor: "input",
+        editorEmptyValue: undefined,
+        editorEmptyValueFunc: (value) => {
+            return value === ""; // only consider empty strings as empty
+        },
+    },
+});
+
+table.on("rowHeight", function(row) {
+    // row - row component of the resized row
+});
+table.on("rowResizing", function(row) {
+    // row - row component of the resizing row
+});
+table.on("columnWidth", function(column) {
+    // column - column component of the resized column
+});
+table.on("columnResizing", function(column) {
+    // column - column component of the resizing column
+});
+
+// Testing 6.1 features
+table.import("xlsx", ".xlsx", "buffer");
+table.import("xlsx", [".xlsx", ".csv", ".ods"], "buffer");
+
+// Testing 6.2 features
+table = new Tabulator("#example-table", {
+    autoColumns: "full",
+});
+table.on("columnsLoaded", function(columns) {
+    // columns - All columns in the table
+});
+table.on("headerClick", function(e, column) {
+    // e - the click event object
+    // column - column component
+});
+
+table.on("importChoose", function() {
+});
+
+table.on("importImporting", function(files) {
+    // files - the files array returned from the file picker
+});
+
+table.on("importError", function(err) {
+    // err - the import error
+});
+
+table.on("importImported", function(data) {
+    // data - array of row data
+});

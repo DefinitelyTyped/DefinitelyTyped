@@ -18,7 +18,8 @@ export interface Options
         OptionsClipboard,
         OptionsDataTree,
         OptionsDebug,
-        OptionsHTML
+        OptionsHTML,
+        OptionsSpreadsheet
 {}
 
 export interface OptionsDebug {
@@ -550,6 +551,12 @@ export interface OptionsRows {
     selectableRangeColumns?: boolean;
 
     /**
+     * By default you can only select ranges by selecting cells on the table. If you would like to allow the user to
+     * select all cells in row by clicking on the row header, then you can set the selectableRangeColumns option to true
+     */
+    selectableRangeRows?: boolean;
+
+    /**
      * If you want the user to be able to clear the values for all cells in the active range by pressing the backspace
      * or delete keys, then you can enable this behavior using the selectableRangeClearCells option:
      *
@@ -676,6 +683,18 @@ export interface OptionsRows {
     resizableRows?: boolean | undefined;
 
     /**
+     * Allows the user to control the height of rows in the table by dragging the bottom border of the row.
+     * These guides will only appear on columns with the `resizable` option enabled in their column definition.
+     */
+    resizableRowGuide?: boolean | undefined;
+
+    /**
+     * Allows the user to control the height of columns in the table by dragging the border of the column.
+     * These guides will only appear if the `resizableRows` option is enabled.
+     */
+    resizableColumnGuide?: boolean | undefined;
+
+    /**
      * The default ScrollTo position can be set using the scrollToRowPosition option. It can take one of four possible values:
      *
      * top - position row with its top edge at the top of the table (default)
@@ -726,7 +745,7 @@ export interface OptionsColumns {
     columns?: ColumnDefinition[] | undefined;
 
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
-    autoColumns?: boolean | undefined;
+    autoColumns?: boolean | undefined | "full";
     autoColumnsDefinitions?:
         | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
         | ColumnDefinition[]
@@ -890,6 +909,73 @@ export interface OptionsGeneral {
      */
     validationMode?: "blocking" | "highlight" | "manual" | undefined;
     textDirection?: TextDirection | undefined;
+
+    /**
+     * Sometimes it can be useful to add a visual header to the start of a row.
+     * The `rowHeader` option allows you to define a column definition for a stylized header column at the start of the row.
+     *
+     * This can be great for adding row number, movable row handles or row selections, and keeps the controls visually separated from the table data.
+     */
+    rowHeader?: boolean | {
+        formatter?: string;
+        field?: string;
+        headerSort?: boolean;
+        hozAlign?: ColumnDefinitionAlign;
+        headerHozAlign?: ColumnDefinitionAlign;
+        resizable?: boolean;
+        frozen?: boolean;
+        titleFormatter?: string;
+        cellClick?: (e: MouseEvent, cell: CellComponent) => void;
+        minWidth?: number;
+        width?: number;
+        rowHandle?: boolean;
+    } | undefined;
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
+}
+
+export interface OptionsSpreadsheet {
+    /**
+     * Enables the spreadsheet mode on the table.
+     *
+     * The SpreadsheetModule must be installed to use this functionality.
+     */
+    spreadsheet?: boolean | undefined;
+    spreadsheetRows?: number;
+    spreadsheetColumns?: number;
+    spreadsheetColumnDefinition?: { editor: string; resizable: string };
+    spreadsheetSheets?: SpreadsheetSheet[] | undefined;
+    spreadsheetSheetTabs?: boolean | undefined;
+    spreadsheetOutputFull?: boolean | undefined;
+}
+
+export interface SpreadsheetSheet {
+    title: string;
+    key: string;
+    rows?: number;
+    columns?: number;
+    data: unknown[][];
+}
+
+export interface SpreadsheetComponent {
+    getTitle(): string;
+    setTitle(title: string): void;
+    getKey(): string;
+    getDefinition(): SpreadsheetSheet;
+    setRows(rows: number): void;
+    setColumns(columns: number): void;
+    getData(): unknown[][];
+    setData(data: unknown[][]): void;
+    clear(): void;
+    remove(): void;
+    active(): void;
 }
 
 export type RenderMode = "virtual" | "basic" | Renderer;
@@ -1049,6 +1135,7 @@ export interface AdditionalExportOptions {
     rowGroups?: boolean | undefined;
     columnCalcs?: boolean | undefined;
     dataTree?: boolean | undefined;
+    rowHeaders?: boolean | undefined;
 
     /** Show only raw unformatted cell values in the clipboard output. */
     formatCells?: boolean | undefined;
@@ -1371,7 +1458,10 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     columns?: ColumnDefinition[] | undefined;
 
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
+    headerMenu?:
+        | Array<MenuObject<ColumnComponent> | MenuSeparator>
+        | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>)
+        | undefined;
 
     /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multiple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This function is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
@@ -1423,6 +1513,15 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     titlePrint?: string | undefined;
     maxWidth?: number | false | undefined;
     headerWordWrap?: boolean;
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
 }
 
 export interface CellCallbacks {
@@ -2592,6 +2691,59 @@ export interface EventCallBackMethods {
      * ```
      */
     rangeRemoved: (range: RangeComponent) => void;
+
+    /**
+     * The rowHeight event will be triggered when the width of a row is set or changed.
+     */
+    rowHeight: (row: RowComponent) => void;
+
+    /**
+     * The rowResizing event will be triggered when a row has started to be resized by the user.
+     */
+    rowResizing: (row: RowComponent) => void;
+
+    /**
+     * The columnWidth event will be triggered when the width of a column is set or changed.
+     */
+    columnWidth: (column: ColumnComponent) => void;
+
+    /**
+     * The columnResizing event will be triggered when a column has started to be resized by the user.
+     */
+    columnResizing: (column: ColumnComponent) => void;
+
+    sheetAdded: (sheet: SpreadsheetComponent) => void;
+    sheetLoaded: (sheet: SpreadsheetComponent) => void;
+    sheetUpdated: (sheet: SpreadsheetComponent) => void;
+    sheetRemoved: (sheet: SpreadsheetComponent) => void;
+
+    /**
+     * The columnsLoaded event is triggered when the replacement of the columns is complete.
+     * An array of column components is passed as the first argument of the callback.
+     */
+    columnsLoaded: (columns: ColumnComponent[]) => void;
+
+    /**
+     * The importChoose event is triggered the import function is called and the file picker modal opens.
+     */
+    importChoose: () => void;
+
+    /**
+     * The importImporting event is triggered after the user has chosen the file to import, but before it has been processed.
+     * The file array returned from the file pickers is passed as the first argument of the callback.
+     */
+    importImporting: (files: File[]) => void;
+
+    /**
+     * The importError event is triggered if there is an error importing the data from the file.
+     * The thrown error is passes as the first argument of the callback.
+     */
+    importError: (err: unknown) => void;
+    /**
+     * The importImported event is triggered when the data has been successfully parsed from the file, just before it is then loaded into the table.
+     * The parsed array of row data objects is passed as the first argument of the callback..
+     */
+    importImported: (data: unknown) => void;
 }
 
 declare class Tabulator {
@@ -2610,7 +2762,9 @@ declare class Tabulator {
 
     /** Lookup table objects for any existing table using the element they were created on. */
     static findTable: (query: string) => Tabulator[];
-    static registerModule: (module: Module) => void;
+    static registerModule: (
+        modules: { new(tabulator: Tabulator): Module } | Array<{ new(tabulator: Tabulator): Module }>,
+    ) => void;
     static bindModules: ([]) => void;
     constructor(selector: string | HTMLElement, options?: Options);
     columnManager: any;
@@ -2646,8 +2800,13 @@ declare class Tabulator {
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
     downloadToTab: (downloadType: DownloadType, fileName: string, params?: DownloadOptions) => void;
 
-    /** Load data from a local file */
-    import: (data: any, fileName: string) => any;
+    /**
+     * Load data from a local file
+     * @param data - The data to be loaded into the table
+     * @param extension - The extensions for files that can be selected
+     * @param format - The format of the data. Defaults to 'text'
+     */
+    import: (data: any, extension: string | string[], format?: "buffer" | "binary" | "url" | "text") => any;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
@@ -3169,52 +3328,156 @@ declare class Tabulator {
      */
     getRangeData: () => unknown[][];
 
+    setSheets: (data: SpreadsheetSheet[]) => void;
+    addSheet: (data: SpreadsheetSheet) => void;
+    getSheetDefinitions: () => SpreadsheetSheet[];
+    getSheets: () => SpreadsheetComponent[];
+    getSheet: (lookup: string | SpreadsheetComponent) => SpreadsheetComponent;
+    setSheetData: (lookup: string | SpreadsheetComponent, data: unknown[][]) => void;
+    getSheetData: (lookup: string | SpreadsheetComponent) => unknown[][];
+    clearSheet: (lookup: string | SpreadsheetComponent) => void;
+    activeSheet: (lookup: string | SpreadsheetComponent) => void;
+    removeSheet: (lookup: string | SpreadsheetComponent) => void;
+
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
 
 // tslint:disable-next-line:no-unnecessary-class
 declare class Module {
+    /**
+     * The static `moduleName` property must be declared on the class (not an instance of the class),
+     * and be a camelCase name for the module, this is used internally by the table to act as a unique identifier for the module.
+     */
     static moduleName: string;
+    /**
+     * The optional static `moduleInitOrder` property can be used to determine the order in which the module is initialized,
+     * by default modules are initialized with a value of 0.
+     * If you want your module to be initialized before other modules use a minus number, if you want it initialized after use a positive number.
+     */
+    static moduleInitOrder?: number;
+    /**
+     * The constructor is called as the module is being instantiated and is where your module should start to tell tabulator a little about itself.
+     * The constructor takes one argument, the table the module is being bound to, it should pass this to the super function so that it is available for the module to bind to its internal helper functions.
+     * It is very important that you do not try any access any parts of the table, any events or other modules when the constructor is called.
+     * At this point the table is in the process of being built and is not ready to respond to anything.
+     * The constructor should be used to register any external functionality that may be called on the module and to register andy setup options that may be set on the table or column definitions.
+     *
+     * @param table The Tabulator object the module is being initialized for
+     */
     constructor(table: Tabulator);
+
+    /**
+     * Reference to the table this module is in
+     */
+    table: Tabulator;
+
+    /**
+     * Adds an option to the table constructor
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerTableOption(propName: string, defaultValue?: unknown): void;
+    /**
+     * Make a function available on the table object
+     * @param functionName Function to add
+     * @param callback Function to be called when the method is invoked on the grid
+     */
+    registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Register an option for the column component
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerColumnOption(propName: string, defaultValue?: unknown): void;
+
+    /**
+     * Subscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     * @param order The order for initialization. By default, it's 10000. See https://tabulator.info/docs/5.5/module-build#events-internal
+     */
+    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
+
+    /**
+     * Unsubscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     */
+    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Updates the configuration of the grid.
+     * It should be noted that changing an option will not automatically update the table to reflect that change,
+     * you will likely need to call the refreshData function to trigger the update.
+     * @param key Key to update
+     * @param value value to set
+     */
+    setOption(key: keyof Options, value: unknown): void;
+
+    /**
+     * Uses the data loader to reload the data in the grid
+     * @param data New grid data
+     * @param silent Do not trigger any events
+     * @param columnsChanged If the column configuration has changed
+     * @returns a promise that resolves when the data update is competed
+     */
+    reloadData(data: unknown[] | string, silent: boolean, columnsChanged: boolean): Promise<void>;
+
+    /**
+     * Fire an forget an event that can be consumed by external consumers
+     * @param eventName Event name, must follow the `camelCase` convention
+     * @param args Arguments for the event
+     */
+    dispatchExternal(eventName: string, ...args: unknown[]): void;
+
+    /**
+     * Called by the table when it is ready for module integrations
+     */
+    initialize(): void;
 }
-declare class AccessorModule {}
-declare class AjaxModule {}
-declare class ClipboardModule {}
-declare class ColumnCalcsModule {}
-declare class DataTreeModule {}
-declare class DownloadModule {}
-declare class EditModule {}
-declare class ExportModule {}
-declare class FilterModule {}
-declare class FormatModule {}
-declare class FrozenColumnsModule {}
-declare class FrozenRowsModule {}
-declare class GroupRowsModule {}
-declare class HistoryModule {}
-declare class HtmlTableImportModule {}
-declare class InteractionModule {}
-declare class KeybindingsModule {}
-declare class MenuModule {}
-declare class MoveColumnsModule {}
-declare class MoveRowsModule {}
-declare class MutatorModule {}
-declare class PageModule {}
-declare class PersistenceModule {}
-declare class PopupModule {}
-declare class PrintModule {}
+declare class AccessorModule extends Module {}
+declare class AjaxModule extends Module {}
+declare class ClipboardModule extends Module {}
+declare class ColumnCalcsModule extends Module {}
+declare class DataTreeModule extends Module {}
+declare class DownloadModule extends Module {}
+declare class EditModule extends Module {}
+declare class ExportModule extends Module {}
+declare class FilterModule extends Module {}
+declare class FormatModule extends Module {}
+declare class FrozenColumnsModule extends Module {}
+declare class FrozenRowsModule extends Module {}
+declare class GroupRowsModule extends Module {}
+declare class HistoryModule extends Module {}
+declare class HtmlTableImportModule extends Module {}
+declare class InteractionModule extends Module {}
+declare class KeybindingsModule extends Module {}
+declare class MenuModule extends Module {}
+declare class MoveColumnsModule extends Module {}
+declare class MoveRowsModule extends Module {}
+declare class MutatorModule extends Module {}
+declare class PageModule extends Module {}
+declare class PersistenceModule extends Module {}
+declare class PopupModule extends Module {}
+declare class PrintModule extends Module {}
 declare class PseudoRow {}
-declare class ReactiveDataModule {}
+declare class ReactiveDataModule extends Module {}
 declare class Renderer {}
-declare class ResizeColumnsModule {}
-declare class ResizeRowsModule {}
-declare class ResizeTableModule {}
-declare class ResponsiveLayoutModule {}
-declare class SelectRowModule {}
-declare class SortModule {}
+declare class ResizeColumnsModule extends Module {}
+declare class ResizeRowsModule extends Module {}
+declare class ResizeTableModule extends Module {}
+declare class ResponsiveLayoutModule extends Module {}
+declare class SelectRowModule extends Module {}
+declare class SelectRangeModule extends Module {}
+declare class SortModule extends Module {}
+declare class SpreadsheetModule extends Module {}
 declare class TabulatorFull extends Tabulator {}
-declare class TooltipModule {}
-declare class ValidateModule {}
+declare class TooltipModule extends Module {}
+declare class ValidateModule extends Module {}
 
 export {
     AccessorModule,
@@ -3250,8 +3513,10 @@ export {
     ResizeRowsModule,
     ResizeTableModule,
     ResponsiveLayoutModule,
+    SelectRangeModule,
     SelectRowModule,
     SortModule,
+    SpreadsheetModule,
     Tabulator,
     TabulatorFull,
     TooltipModule,
