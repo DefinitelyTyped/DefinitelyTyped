@@ -689,8 +689,7 @@ interface CloudStorage {
  * This object controls biometrics on the device. Before the first use
  * of this object, it needs to be initialized using the init method.
  */
-interface BiometricManager
-{
+interface BiometricManager {
     /**
      * Shows whether biometrics object is initialized.
      */
@@ -705,7 +704,7 @@ interface BiometricManager
      * - face, face-based biometrics,
      * - unknown, biometrics of an unknown type.
      */
-    biometricType: 'finger' | 'face' | 'unkown';
+    biometricType: "finger" | "face" | "unkown";
     /**
      * Shows whether permission to use biometrics has been requested.
      */
@@ -734,7 +733,10 @@ interface BiometricManager
      * parameter was passed, the callback function will be called and the first argument
      * will be a boolean indicating whether the user granted access.
      */
-    requestAccess: (params: BiometricRequestAccessParams, callback?: (isAccessGranted: boolean) => void) => BiometricManager;
+    requestAccess: (
+        params: BiometricRequestAccessParams,
+        callback?: (isAccessGranted: boolean) => void,
+    ) => BiometricManager;
     /**
      * A method that authenticates the user using biometrics according to the params
      * argument of type BiometricAuthenticateParams. If an optional callback parameter
@@ -743,7 +745,10 @@ interface BiometricManager
      *
      * If so, the second argument will be a biometric token.
      */
-    authenticate: (params: BiometricAuthenticateParams, callback?: (isAuthenticated: boolean, biometricToken?: string) => void) => BiometricManager;
+    authenticate: (
+        params: BiometricAuthenticateParams,
+        callback?: (isAuthenticated: boolean, biometricToken?: string) => void,
+    ) => BiometricManager;
     /**
      * A method that updates the biometric token in secure storage on the device.
      * To remove the token, pass an empty string. If an optional callback parameter
