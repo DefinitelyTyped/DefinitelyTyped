@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@types/cehub": "workspace:.",
-    "@types/node": "workspace:."
+    "@types/node": "^20.9.0"
   },
   "owners": [
     {
