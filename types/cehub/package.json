@@ -3,7 +3,8 @@
   "version": "0.1.9999",
   "private": true,
   "devDependencies": {
-    "@types/cehub": "workspace:."
+    "@types/cehub": "workspace:.",
+    "@types/node": "workspace:."
   },
   "owners": [
     {
