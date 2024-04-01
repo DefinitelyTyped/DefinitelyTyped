@@ -682,7 +682,6 @@ export interface OptionsRows {
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
     resizableRows?: boolean | undefined;
 
-
     /**
      * Allows the user to control the height of rows in the table by dragging the bottom border of the row.
      * These guides will only appear on columns with the `resizable` option enabled in their column definition.
@@ -746,7 +745,7 @@ export interface OptionsColumns {
     columns?: ColumnDefinition[] | undefined;
 
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
-    autoColumns?: boolean | undefined | 'full';
+    autoColumns?: boolean | undefined | "full";
     autoColumnsDefinitions?:
         | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
         | ColumnDefinition[]
@@ -930,7 +929,7 @@ export interface OptionsGeneral {
         minWidth?: number;
         width?: number;
         rowHandle?: boolean;
-    } | undefined,
+    } | undefined;
 
     /**
      * The value to set in the cell after the user has finished editing the cell.
@@ -951,7 +950,7 @@ export interface OptionsSpreadsheet {
     spreadsheet?: boolean | undefined;
     spreadsheetRows?: number;
     spreadsheetColumns?: number;
-    spreadsheetColumnDefinition?: { editor: string, resizable: string };
+    spreadsheetColumnDefinition?: { editor: string; resizable: string };
     spreadsheetSheets?: SpreadsheetSheet[] | undefined;
     spreadsheetSheetTabs?: boolean | undefined;
     spreadsheetOutputFull?: boolean | undefined;
@@ -1459,7 +1458,10 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     columns?: ColumnDefinition[] | undefined;
 
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>) | undefined;
+    headerMenu?:
+        | Array<MenuObject<ColumnComponent> | MenuSeparator>
+        | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>)
+        | undefined;
 
     /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multiple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This function is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
@@ -2760,7 +2762,9 @@ declare class Tabulator {
 
     /** Lookup table objects for any existing table using the element they were created on. */
     static findTable: (query: string) => Tabulator[];
-    static registerModule: (modules: { new(tabulator: Tabulator): Module; } | Array<{ new(tabulator: Tabulator): Module; }>) => void;
+    static registerModule: (
+        modules: { new(tabulator: Tabulator): Module } | Array<{ new(tabulator: Tabulator): Module }>,
+    ) => void;
     static bindModules: ([]) => void;
     constructor(selector: string | HTMLElement, options?: Options);
     columnManager: any;
@@ -2802,7 +2806,7 @@ declare class Tabulator {
      * @param extension - The extensions for files that can be selected
      * @param format - The format of the data. Defaults to 'text'
      */
-    import: (data: any, extension: string | string[], format: 'buffer' | 'binary' | 'url' | 'text') => any;
+    import: (data: any, extension: string | string[], format?: "buffer" | "binary" | "url" | "text") => any;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
@@ -3331,7 +3335,7 @@ declare class Tabulator {
     getSheet: (lookup: string | SpreadsheetComponent) => SpreadsheetComponent;
     setSheetData: (lookup: string | SpreadsheetComponent, data: unknown[][]) => void;
     getSheetData: (lookup: string | SpreadsheetComponent) => unknown[][];
-    clearSheet: (lookup: string | SpreadsheetComponent ) => void;
+    clearSheet: (lookup: string | SpreadsheetComponent) => void;
     activeSheet: (lookup: string | SpreadsheetComponent) => void;
     removeSheet: (lookup: string | SpreadsheetComponent) => void;
 
@@ -3502,8 +3506,8 @@ export {
     ResizeRowsModule,
     ResizeTableModule,
     ResponsiveLayoutModule,
-    SelectRowModule,
     SelectRangeModule,
+    SelectRowModule,
     SortModule,
     SpreadsheetModule,
     Tabulator,
