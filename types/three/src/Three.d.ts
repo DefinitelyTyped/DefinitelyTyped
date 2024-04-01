@@ -203,7 +203,6 @@ export * from "./renderers/webgl/WebGLTextures.js";
 export * from "./renderers/webgl/WebGLUniforms.js";
 export * from "./renderers/webgl/WebGLUniformsGroups.js";
 export { WebGLUtils } from "./renderers/webgl/WebGLUtils.js";
-export * from "./renderers/WebGL1Renderer.js";
 export * from "./renderers/WebGL3DRenderTarget.js";
 export * from "./renderers/WebGLArrayRenderTarget.js";
 export * from "./renderers/WebGLCubeRenderTarget.js";

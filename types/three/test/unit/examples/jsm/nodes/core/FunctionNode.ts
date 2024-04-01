@@ -2,19 +2,9 @@
  * Various tests of func, fn and call
  */
 
-import {
-    call,
-    code,
-    fn,
-    func,
-    FunctionCallNode,
-    FunctionNode,
-    Node,
-    Swizzable,
-    uv,
-} from "three/examples/jsm/nodes/Nodes";
+import { call, code, fn, func, FunctionCallNode, FunctionNode, Node, Swizzable, uv } from "three/addons/nodes/Nodes.js";
 
-import { ProxiedObject } from "three/examples/jsm/nodes/shadernode/ShaderNode";
+import { ProxiedObject } from "three/addons/nodes/shadernode/ShaderNode.js";
 
 export const mx_noise = code("whatever");
 const includes = [mx_noise];

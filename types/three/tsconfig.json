@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -24,7 +24,6 @@
         "test/integration/nodes-webgl.ts",
         "test/integration/objects-reflector.ts",
         "test/integration/three-examples/webgl2_rendertarget_texture2darray.ts",
-        "test/integration/three-examples/webgl_camera_array.ts",
         "test/integration/three-examples/webgl_camera_cinematic.ts",
         "test/integration/three-examples/webgl_loader_ldraw.ts",
         "test/integration/three-examples/webgl_loader_mmd.ts",

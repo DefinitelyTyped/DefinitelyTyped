@@ -1120,6 +1120,8 @@ ruleTester.run("simple-valid-test", rule, {
 // @ts-expect-error
 ((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
 
+((): Linter.FlatConfig => ({ name: "eslint:js" }));
+
 // @ts-expect-error // Generic passed in does not match the RuleEntry schema
 ((): Linter.FlatConfig<{ foo?: "bar" }> => ({
     rules: {},

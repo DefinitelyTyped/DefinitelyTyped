@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-import WEBGL from "three/examples/jsm/capabilities/WebGL";
-import { unzipSync } from "three/examples/jsm/libs/fflate.module";
+import WEBGL from "three/addons/capabilities/WebGL.js";
+import { unzipSync } from "three/addons/libs/fflate.module.js";
 
 const vertextPostProcessingShader = /* glsl */ `
 	out vec2 vUv;

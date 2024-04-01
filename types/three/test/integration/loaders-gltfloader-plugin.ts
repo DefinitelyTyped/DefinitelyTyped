@@ -1,7 +1,7 @@
 // An example that uses plugin system in GLTFLoader.
 
 import * as THREE from "three";
-import { GLTF, GLTFLoader, GLTFLoaderPlugin, GLTFParser } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTF, GLTFLoader, GLTFLoaderPlugin, GLTFParser } from "three/addons/loaders/GLTFLoader.js";
 
 // Assuming we are using duck.gltf
 // https://github.com/KhronosGroup/glTF-Sample-Models/blob/master/2.0/Duck/glTF-Binary/Duck.glb
