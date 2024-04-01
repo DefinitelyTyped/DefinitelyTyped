@@ -12,6 +12,14 @@ const sliderCue: jwplayer.SliderCue = {
 const config: jwplayer.SetupConfig = {
     aspectratio: "16:9",
     autostart: true,
+    plugins: {
+        "//myexample.com/jwplayer/scripts/sampleScript.js": {
+            sampleFunction: () => {
+                console.log('from plugin: hello world');
+            },
+            name: 'Dan Woon Acorn'
+        },
+    },
 };
 
 // $ExpectType JWPlayer
