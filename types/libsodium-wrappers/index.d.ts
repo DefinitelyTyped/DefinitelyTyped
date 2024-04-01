@@ -92,6 +92,16 @@ export const crypto_aead_xchacha20poly1305_ietf_NPUBBYTES: number;
 export const crypto_aead_xchacha20poly1305_IETF_NPUBBYTES: number;
 export const crypto_aead_xchacha20poly1305_ietf_NSECBYTES: number;
 export const crypto_aead_xchacha20poly1305_IETF_NSECBYTES: number;
+export const crypto_aead_aegis128l_ABYTES: number;
+export const crypto_aead_aegis128l_KEYBYTES: number;
+export const crypto_aead_aegis128l_MESSAGEBYTES_MAX: number;
+export const crypto_aead_aegis128l_NPUBBYTES: number;
+export const crypto_aead_aegis128l_NSECBYTES: number;
+export const crypto_aead_aegis256_ABYTES: number;
+export const crypto_aead_aegis256_KEYBYTES: number;
+export const crypto_aead_aegis256_MESSAGEBYTES_MAX: number;
+export const crypto_aead_aegis256_NPUBBYTES: number;
+export const crypto_aead_aegis256_NSECBYTES: number;
 export const crypto_auth_BYTES: number;
 export const crypto_auth_KEYBYTES: number;
 export const crypto_box_BEFORENMBYTES: number;
@@ -386,6 +396,152 @@ export function crypto_aead_xchacha20poly1305_ietf_encrypt_detached(
 
 export function crypto_aead_xchacha20poly1305_ietf_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
 export function crypto_aead_xchacha20poly1305_ietf_keygen(outputFormat: StringOutputFormat): string;
+
+export function crypto_aead_aegis128l_decrypt(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis128l_decrypt(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis128l_decrypt_detached(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    mac: Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis128l_decrypt_detached(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    mac: Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis128l_encrypt(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis128l_encrypt(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis128l_encrypt_detached(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): CryptoBox;
+export function crypto_aead_aegis128l_encrypt_detached(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): StringCryptoBox;
+
+export function crypto_aead_aegis128l_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_aead_aegis128l_keygen(outputFormat: StringOutputFormat): string;
+
+export function crypto_aead_aegis256_decrypt(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis256_decrypt(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis256_decrypt_detached(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    mac: Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis256_decrypt_detached(
+    secret_nonce: string | Uint8Array | null,
+    ciphertext: string | Uint8Array,
+    mac: Uint8Array,
+    additional_data: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis256_encrypt(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): Uint8Array;
+export function crypto_aead_aegis256_encrypt(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): string;
+
+export function crypto_aead_aegis256_encrypt_detached(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat?: Uint8ArrayOutputFormat | null,
+): CryptoBox;
+export function crypto_aead_aegis256_encrypt_detached(
+    message: string | Uint8Array,
+    additional_data: string | Uint8Array | null,
+    secret_nonce: string | Uint8Array | null,
+    public_nonce: Uint8Array,
+    key: Uint8Array,
+    outputFormat: StringOutputFormat,
+): StringCryptoBox;
+
+export function crypto_aead_aegis256_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
+export function crypto_aead_aegis256_keygen(outputFormat: StringOutputFormat): string;
 
 export function crypto_auth(
     message: string | Uint8Array,
