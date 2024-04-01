@@ -1683,3 +1683,7 @@ table.on("columnWidth", function(column){
 table.on("columnResizing", function(column){
     //column - column component of the resizing column
 });
+
+// Testing 6.1 features
+table.import("xlsx", ".xlsx", "buffer");
+table.import("xlsx", [".xlsx", ".csv", ".ods"], "buffer");

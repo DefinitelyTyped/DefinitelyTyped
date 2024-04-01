@@ -2768,8 +2768,13 @@ declare class Tabulator {
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
     downloadToTab: (downloadType: DownloadType, fileName: string, params?: DownloadOptions) => void;
 
-    /** Load data from a local file */
-    import: (data: any, fileName: string) => any;
+    /**
+     * Load data from a local file
+     * @param data - The data to be loaded into the table
+     * @param extension - The extensions for files that can be selected
+     * @param format - The format of the data. Defaults to 'text'
+     */
+    import: (data: any, extension: string | string[], format: 'buffer' | 'binary' | 'url' | 'text') => any;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
