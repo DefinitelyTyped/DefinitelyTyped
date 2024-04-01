@@ -1091,14 +1091,19 @@ Tabulator.bindModules([Renderer]);
 cell.navigateDown();
 
 class CustomModule extends Module {
+    static moduleName = "custom";
     constructor(table: Tabulator) {
         super(table);
+        this.subscribe('dataLoading', () => {});
+        this.registerTableOption("testOption", true);
+        this.registerTableFunction("testFunction", () => {});
     }
 
     initialize() {}
+
+
 }
 
-CustomModule.moduleName = "custom";
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
 table = new Tabulator("#test", {});

@@ -1371,7 +1371,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     columns?: ColumnDefinition[] | undefined;
 
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
+    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>) | undefined;
 
     /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multiple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This function is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
@@ -2610,7 +2610,7 @@ declare class Tabulator {
 
     /** Lookup table objects for any existing table using the element they were created on. */
     static findTable: (query: string) => Tabulator[];
-    static registerModule: (module: Module) => void;
+    static registerModule: (modules: { new(tabulator: Tabulator): Module; } | Array<{ new(tabulator: Tabulator): Module; }>) => void;
     static bindModules: ([]) => void;
     constructor(selector: string | HTMLElement, options?: Options);
     columnManager: any;
@@ -3175,46 +3175,130 @@ declare class Tabulator {
 
 // tslint:disable-next-line:no-unnecessary-class
 declare class Module {
+    /**
+     * The static `moduleName` property must be declared on the class (not an instance of the class),
+     * and be a camelCase name for the module, this is used internally by the table to act as a unique identifier for the module.
+     */
     static moduleName: string;
+    /**
+     * The optional static `moduleInitOrder` property can be used to determine the order in which the module is initialized,
+     * by default modules are initialized with a value of 0.
+     * If you want your module to be initialized before other modules use a minus number, if you want it initialized after use a positive number.
+     */
+    static moduleInitOrder?: number;
+    /**
+     * The constructor is called as the module is being instantiated and is where your module should start to tell tabulator a little about itself.
+     * The constructor takes one argument, the table the module is being bound to, it should pass this to the super function so that it is available for the module to bind to its internal helper functions.
+     * It is very important that you do not try any access any parts of the table, any events or other modules when the constructor is called.
+     * At this point the table is in the process of being built and is not ready to respond to anything.
+     * The constructor should be used to register any external functionality that may be called on the module and to register andy setup options that may be set on the table or column definitions.
+     *
+     * @param table The Tabulator object the module is being initialized for
+     */
     constructor(table: Tabulator);
+
+    /**
+     * Reference to the table this module is in
+     */
+    table: Tabulator;
+
+    /**
+     * Adds an option to the table constructor
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerTableOption(propName: string, defaultValue: unknown): void;
+    /**
+     * Make a function available on the table object
+     * @param functionName Function to add
+     * @param callback Function to be called when the method is invoked on the grid
+     */
+    registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Subscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     * @param order The order for initialization. By default, it's 10000. See https://tabulator.info/docs/5.5/module-build#events-internal
+     */
+    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
+
+    /**
+     * Unsubscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     */
+    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Updates the configuration of the grid.
+     * It should be noted that changing an option will not automatically update the table to reflect that change,
+     * you will likely need to call the refreshData function to trigger the update.
+     * @param key Key to update
+     * @param value value to set
+     */
+    setOption(key: keyof Options, value: unknown): void;
+
+    /**
+     * Uses the data loader to reload the data in the grid
+     * @param data New grid data
+     * @param silent Do not trigger any events
+     * @param columnsChanged If the column configuration has changed
+     * @returns a promise that resolves when the data update is competed
+     */
+    reloadData(data: unknown[] | string, silent: boolean, columnsChanged: boolean): Promise<void>;
+
+    /**
+     * Fire an forget an event that can be consumed by external consumers
+     * @param eventName Event name, must follow the `camelCase` convention
+     * @param args Arguments for the event
+     */
+    dispatchExternal(eventName: string, ...args: unknown[]): void;
+
+    /**
+     * Called by the table when it is ready for module integrations
+     */
+    initialize(): void;
 }
-declare class AccessorModule {}
-declare class AjaxModule {}
-declare class ClipboardModule {}
-declare class ColumnCalcsModule {}
-declare class DataTreeModule {}
-declare class DownloadModule {}
-declare class EditModule {}
-declare class ExportModule {}
-declare class FilterModule {}
-declare class FormatModule {}
-declare class FrozenColumnsModule {}
-declare class FrozenRowsModule {}
-declare class GroupRowsModule {}
-declare class HistoryModule {}
-declare class HtmlTableImportModule {}
-declare class InteractionModule {}
-declare class KeybindingsModule {}
-declare class MenuModule {}
-declare class MoveColumnsModule {}
-declare class MoveRowsModule {}
-declare class MutatorModule {}
-declare class PageModule {}
-declare class PersistenceModule {}
-declare class PopupModule {}
-declare class PrintModule {}
+declare class AccessorModule extends Module {}
+declare class AjaxModule extends Module {}
+declare class ClipboardModule extends Module {}
+declare class ColumnCalcsModule extends Module {}
+declare class DataTreeModule extends Module {}
+declare class DownloadModule extends Module {}
+declare class EditModule extends Module {}
+declare class ExportModule extends Module {}
+declare class FilterModule extends Module {}
+declare class FormatModule extends Module {}
+declare class FrozenColumnsModule extends Module {}
+declare class FrozenRowsModule extends Module {}
+declare class GroupRowsModule extends Module {}
+declare class HistoryModule extends Module {}
+declare class HtmlTableImportModule extends Module {}
+declare class InteractionModule extends Module {}
+declare class KeybindingsModule extends Module {}
+declare class MenuModule extends Module {}
+declare class MoveColumnsModule extends Module {}
+declare class MoveRowsModule extends Module {}
+declare class MutatorModule extends Module {}
+declare class PageModule extends Module {}
+declare class PersistenceModule extends Module {}
+declare class PopupModule extends Module {}
+declare class PrintModule extends Module {}
 declare class PseudoRow {}
-declare class ReactiveDataModule {}
+declare class ReactiveDataModule extends Module {}
 declare class Renderer {}
-declare class ResizeColumnsModule {}
-declare class ResizeRowsModule {}
-declare class ResizeTableModule {}
-declare class ResponsiveLayoutModule {}
-declare class SelectRowModule {}
-declare class SortModule {}
+declare class ResizeColumnsModule extends Module {}
+declare class ResizeRowsModule extends Module {}
+declare class ResizeTableModule extends Module {}
+declare class ResponsiveLayoutModule extends Module {}
+declare class SelectRowModule extends Module {}
+declare class SortModule extends Module {}
 declare class TabulatorFull extends Tabulator {}
-declare class TooltipModule {}
-declare class ValidateModule {}
+declare class TooltipModule extends Module {}
+declare class ValidateModule extends Module {}
 
 export {
     AccessorModule,
