@@ -10,5 +10,5 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "files": ["index.d.ts"]
+  "files": ["index.d.ts","electron.d.ts","store.d.ts"]
 }
