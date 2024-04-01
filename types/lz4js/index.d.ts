@@ -26,3 +26,5 @@ export function decompressBlock(
 ): number;
 
 export function compressFrame(src: Uint8Array | number[], dst: Uint8Array): number;
+
+export function makeBuffer(size: number): number;
