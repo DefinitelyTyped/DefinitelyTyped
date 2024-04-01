@@ -146,7 +146,12 @@ interface WebApp {
      * events.
      */
     onEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType:
+            | "themeChanged"
+            | "mainButtonClicked"
+            | "backButtonClicked"
+            | "settingsButtonClicked"
+            | "biometricManagerUpdated",
         eventHandler: () => void,
     ): void;
     onEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
@@ -162,7 +167,6 @@ interface WebApp {
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
     onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
-    onEvent(eventType: "biometricManagerUpdated", eventHandler: () => void): void;
     onEvent(
         eventType: "biometricAuthRequested",
         eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
@@ -171,7 +175,12 @@ interface WebApp {
 
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType:
+            | "themeChanged"
+            | "mainButtonClicked"
+            | "backButtonClicked"
+            | "settingsButtonClicked"
+            | "biometricManagerUpdated",
         eventHandler: () => void,
     ): void;
     offEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
@@ -187,7 +196,6 @@ interface WebApp {
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
     offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
-    offEvent(eventType: "biometricManagerUpdated", eventHandler: () => void): void;
     offEvent(
         eventType: "biometricAuthRequested",
         eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
