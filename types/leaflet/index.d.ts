@@ -2401,7 +2401,7 @@ export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.Geometr
         geojson: geojson.Feature<G, P> | G,
     ): geojson.Feature<G, P>;
 
-    constructor(geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions<P, G>);
+    constructor(geojson?: geojson.GeoJsonObject | null, options?: GeoJSONOptions<P, G> | null);
     /**
      * Adds a GeoJSON object to the layer.
      */
@@ -2430,12 +2430,12 @@ export class GeoJSON<P = any, G extends geojson.GeometryObject = geojson.Geometr
  * an options object.
  */
 export function geoJSON<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(
-    geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[],
-    options?: GeoJSONOptions<P, G>,
+    geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[] | null,
+    options?: GeoJSONOptions<P, G> | null,
 ): GeoJSON<P, G>;
 export function geoJson<P = any, G extends geojson.GeometryObject = geojson.GeometryObject>(
-    geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[],
-    options?: GeoJSONOptions<P, G>,
+    geojson?: geojson.GeoJsonObject | geojson.GeoJsonObject[] | null,
+    options?: GeoJSONOptions<P, G> | null,
 ): GeoJSON<P, G>;
 
 export type Zoom = boolean | "center";

@@ -164,9 +164,9 @@ mapOptions.scrollWheelZoom = "center";
 mapOptions.touchZoom = false;
 mapOptions.touchZoom = "center";
 
-let layer: L.Layer;
+let layer = new L.Layer();
 
-const htmlElement = document.getElementById("foo");
+const htmlElement = document.createElement("div");
 
 layer.addInteractiveTarget(htmlElement);
 layer.removeInteractiveTarget(htmlElement);
@@ -256,10 +256,11 @@ map.panInside(latLng, {
 // map.getRenderer
 
 let html: HTMLElement;
+let maybeHtml: HTMLElement | undefined;
 html = map.createPane("foo");
 html = map.createPane("foo", htmlElement);
-html = map.getPane("foo");
-html = map.getPane(htmlElement);
+maybeHtml = map.getPane("foo");
+maybeHtml = map.getPane(htmlElement);
 html = map.getContainer();
 
 const panes = map.getPanes();
@@ -417,7 +418,7 @@ imageOverlay.setUrl("https://www.google.ru/images/branding/googlelogo/2x/googlel
 imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
-html = imageOverlay.getElement();
+maybeHtml = imageOverlay.getElement();
 point = imageOverlay.getCenter();
 imageOverlay = imageOverlay.setStyle({ opacity: 90 });
 
@@ -444,7 +445,7 @@ svgOverlay.bringToBack();
 svgOverlay.setBounds(imageOverlayBounds);
 svgOverlay.setZIndex(1);
 svgOverlayBounds = svgOverlay.getBounds();
-const svgElement: SVGElement = svgOverlay.getElement();
+const svgElement: SVGElement | undefined = svgOverlay.getElement();
 point = svgOverlay.getCenter();
 svgOverlay = svgOverlay.setStyle({ opacity: 90 });
 
@@ -475,7 +476,7 @@ videoOverlay.setUrl("https://www.mapbox.com/bites/00188/patricia_nasa.webm");
 videoOverlay.setBounds(imageOverlayBounds);
 videoOverlay.setZIndex(1);
 videoOverlayBounds = videoOverlay.getBounds();
-html = videoOverlay.getElement();
+maybeHtml = videoOverlay.getElement();
 point = videoOverlay.getCenter();
 videoOverlay = videoOverlay.setStyle(videoOverlayOptions);
 
@@ -660,7 +661,7 @@ class MyMarker extends L.Marker {
         const speed = 1000;
 
         if (L.DomUtil.TRANSITION) {
-            if (this.getElement()) this.getElement().style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`);
+            this.getElement()?.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`);
             if (this._shadow) this._shadow.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`);
         }
     }
@@ -866,7 +867,7 @@ interface MyProperties {
 }
 
 // $ExpectType MyProperties
-let polygonFeatureProperties = L.polygon<MyProperties>(simplePolygonLatLngs).feature.properties;
+let polygonFeatureProperties = L.polygon<MyProperties>(simplePolygonLatLngs).feature!.properties;
 polygonFeatureProperties.testProperty = "test";
 
 // $ExpectType MyProperties
@@ -874,7 +875,7 @@ let markerFeatureProperties = L.marker<MyProperties>([1, 2], {
     icon: L.icon({
         iconUrl: "my-icon.png",
     }),
-}).feature.properties;
+}).feature!.properties;
 markerFeatureProperties.testProperty = "test";
 
 let lg = L.layerGroup();
@@ -946,7 +947,7 @@ export class ExtendedTileLayer extends L.TileLayer {
                 if (tile instanceof HTMLImageElement && !tile.complete) {
                     tile.src = L.Util.emptyImageUrl;
                     L.DomUtil.remove(tile);
-                    this._tiles[i] = undefined;
+                    delete this._tiles[i];
                 }
             }
         }
@@ -988,6 +989,10 @@ let circle = new L.Circle(latLng, 10);
 circle = new L.Circle(latLng, { radius: 10 });
 // @ts-expect-error
 circle = new L.Circle(latLng, { radius: "10" });
+// @ts-expect-error
+circle = new L.Circle(latLng, { radius: undefined });
+// @ts-expect-error
+circle = new L.Circle(latLng, { radius: null });
 // @ts-expect-error
 circle = new L.Circle(latLng, {});
 // @ts-expect-error
