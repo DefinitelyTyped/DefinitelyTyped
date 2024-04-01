@@ -162,6 +162,12 @@ interface WebApp {
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
     onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
+    onEvent(eventType: "biometricManagerUpdated", eventHandler: () => void): void;
+    onEvent(
+        eventType: "biometricAuthRequested",
+        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
+    ): void;
+    onEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
@@ -181,6 +187,12 @@ interface WebApp {
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
     offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
+    offEvent(eventType: "biometricManagerUpdated", eventHandler: () => void): void;
+    offEvent(
+        eventType: "biometricAuthRequested",
+        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
+    ): void;
+    offEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
