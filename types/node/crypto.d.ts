@@ -3378,6 +3378,15 @@ declare module "crypto" {
      * @since v13.9.0, v12.17.0
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+    /**
+     * A utility for creating one-shot hash digests of data.
+     * It can be faster than the object-based crypto.createHash() when hashing a smaller amount of data (<= 5MB) that's readily available.
+     * If the data can be big or if it is streamed, it's still recommended to use crypto.createHash() instead.
+     * The algorithm is dependent on the available algorithms supported by the version of OpenSSL on the platform. Examples are 'sha256', 'sha512', etc.
+     * @since v21.7.0, v20.12.0
+     */
+    function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
+    function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
     type CipherMode = "cbc" | "ccm" | "cfb" | "ctr" | "ecb" | "gcm" | "ocb" | "ofb" | "stream" | "wrap" | "xts";
     interface CipherInfoOptions {
         /**
