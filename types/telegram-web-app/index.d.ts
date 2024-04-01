@@ -720,7 +720,7 @@ interface BiometricManager {
     /**
      * A unique device identifier that can be used to match the token to the device.
      */
-    deviceId: boolean;
+    deviceId: string;
     /**
      * A method that initializes the BiometricManager object. It should be called before
      * the object's first use. If an optional callback parameter was passed, the callback
