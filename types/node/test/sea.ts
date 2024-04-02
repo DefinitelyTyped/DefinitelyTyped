@@ -1,6 +1,10 @@
-import { isSea } from "node:sea";
-import { equal } from "node:assert/strict";
+import { getAsset, getAssetAsBlob, isSea } from "node:sea";
 
 {
-    equal(isSea(), false);
+    isSea() // $ExpectType boolean
+
+    getAsset("a.jpg") // $ExpectType ArrayBuffer
+    getAsset("b.txt", "utf8") // $ExpectType string
+
+    getAssetAsBlob("c.png") // $ExpectType Blob
 }
