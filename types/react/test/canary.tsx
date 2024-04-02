@@ -98,6 +98,7 @@ function useAsyncAction() {
     function handleClick() {
         // $ExpectType void
         startTransition(async () => {});
+        React.startTransition(async () => {});
     }
 }
 
