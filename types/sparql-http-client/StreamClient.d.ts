@@ -24,7 +24,7 @@ interface OptionWithUpdateEndpoint<Q extends BaseQuad> extends BaseOptions<Q> {
     updateUrl: string;
 }
 
-export type Options<Q extends BaseQuad> =
+export type Options<Q extends BaseQuad = Quad> =
     | OptionWithQueryEndpoint<Q>
     | OptionWithStoreEndpoint<Q>
     | OptionWithUpdateEndpoint<Q>;
