@@ -1339,7 +1339,7 @@ declare namespace Mocha {
      *
      * @see https://mochajs.org/api/module-Context.html#~Context
      */
-    interface BaseContext {
+    class BaseContext {
         test?: Runnable | undefined;
         currentTest?: Test | undefined;
 
@@ -1389,7 +1389,7 @@ declare namespace Mocha {
         retries(n: number): this;
     }
 
-    interface Context extends BaseContext {
+    class Context extends BaseContext {
         /** Arbitrary, untyped fixtures. */
         [key: string]: any;
     }
