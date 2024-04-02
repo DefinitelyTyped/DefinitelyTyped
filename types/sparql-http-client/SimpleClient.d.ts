@@ -43,7 +43,9 @@ interface QueryOptions {
     update?: boolean;
 }
 
-declare class SimpleClient<
+export type SimpleClient = Client<RawQuery>;
+
+declare class SimpleClientImpl<
     TQuery extends Query = RawQuery,
     TStore extends Store<BaseQuad> = never,
     TFactory = Environment<DataFactory | DatasetCoreFactory> | undefined,
@@ -80,4 +82,4 @@ declare class SimpleClient<
     postUrlencoded(query: string, options?: QueryOptions): Promise<Response>;
 }
 
-export default SimpleClient;
+export default SimpleClientImpl;
