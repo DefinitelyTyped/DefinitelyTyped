@@ -93,12 +93,14 @@ describe("ReactDOM", () => {
 
     it("flushSync", () => {
         // $ExpectType void
+        ReactDOM.flushSync();
+        // $ExpectType void
         ReactDOM.flushSync(() => {});
         // $ExpectType number
         ReactDOM.flushSync(() => 42);
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync(() => 42, "not used");
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, "not used");
         // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
