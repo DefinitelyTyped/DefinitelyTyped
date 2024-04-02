@@ -391,7 +391,7 @@ function startTransitionTest() {
         transitionToPage("/");
     });
 
-    // @ts-expect-error
+    // Will not type-check in a real project but accepted in DT tests since canary.d.ts is part of compilation.
     React.startTransition(async () => {});
 }
 
