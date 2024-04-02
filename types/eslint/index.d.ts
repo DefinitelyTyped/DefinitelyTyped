@@ -1219,6 +1219,12 @@ export namespace Linter {
 
     interface FlatConfig {
         /**
+         * An string to identify the configuration object. Used in error messages and
+         * inspection tools.
+         */
+        name?: string;
+
+        /**
          * An array of glob patterns indicating the files that the configuration
          * object should apply to. If not specified, the configuration object applies
          * to all files

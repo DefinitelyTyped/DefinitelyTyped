@@ -629,6 +629,7 @@
 /types/bootstrap-fileinput/                               @CheCoxshall @peterblazejewicz @zshall
 /types/bootstrap-filestyle/                               @mustafasalahuldin
 /types/bootstrap-growl-ifightcrime/                       @AndersonFriaca
+/types/bootstrap-icons-react/                             @ms0503
 /types/bootstrap-maxlength/                               @danmana
 /types/bootstrap-menu/                                    @superheri
 /types/bootstrap-multiselect/                             @mustafasalahuldin
@@ -795,6 +796,7 @@
 /types/castv2/                                            @joeyparrish
 /types/catbox/                                            @jasonswearingen @AJamesPhillips @saboya
 /types/catbox/v7/                                         @jasonswearingen @AJamesPhillips
+/types/caverphone/                                        @hu0529
 /types/cavy/                                              @tyler-hoffman @AbigailMcP
 /types/cbor-js/                                           @Longqin88888
 /types/ccap/                                              @taoqf
@@ -1682,7 +1684,6 @@
 /types/dynamic-time-warping/                              @Goldsmith42
 /types/dynamodb/                                          @katsanva
 /types/dynamodb-localhost/                                @domdomegg
-/types/dynamodb-lock-client/                              @RyoshiKayo
 /types/dynatable/                                         @francoismassart
 /types/dynatrace/                                         @alvaro450
 /types/dynmap/                                            @mikeprimm
@@ -3384,6 +3385,7 @@
 /types/import-local/                                      @LeoDog896
 /types/impress/                                           @borisyankov
 /types/imsi-grok/                                         @deanpienaar
+/types/imtype/                                            @hu0529
 /types/imul/                                              @djcsdy
 /types/imurmurhash/                                       @Jimexist @peterblazejewicz
 /types/in-app-purchase/                                   @l-jonas @IchordeDionysos @Baskerville42 @kikuchy
@@ -4697,6 +4699,7 @@
 /types/lyric-parser/                                      @wkl007
 /types/lyricist/                                          @DadUndead
 /types/lz4/                                               @bendingbender
+/types/lz4js/                                             @hu0529
 /types/lzbase62/                                          @ArthurKa
 /types/lzma/                                              @Goldsmith42
 /types/lzma-native/                                       @leshow
@@ -4938,8 +4941,6 @@
 /types/midi/                                              @mattsoulanille
 /types/migrate-mongo/                                     @amitbeck
 /types/millisecond/                                       @xeoneux
-/types/mime/                                              @jedigo @dhritzkiv
-/types/mime/v1/                                           @jedigo @dhritzkiv
 /types/mime-db/                                           @AJamesPhillips @LinusU @peterblazejewicz
 /types/mime-types/                                        @Perlmint
 /types/mimetext/                                          @JoshuaKGoldberg
@@ -5744,6 +5745,7 @@
 /types/pbf2json/                                          @k-yle
 /types/pbkdf2/                                            @timonegk
 /types/pcm-volume/                                        @MasterOdin
+/types/pcx-js/                                            @zhuzhuzu1
 /types/pdf-fill-form/                                     @lodi-g
 /types/pdf-image/                                         @nicklatkovich
 /types/pdf-parse/                                         @qqilihq
@@ -5761,6 +5763,7 @@
 /types/pem-jwk/                                           @alessiopcc
 /types/pendo-io-browser/                                  @aaronbeall
 /types/penner/                                            @BendingBender
+/types/percentage-regex/                                  @hu0529
 /types/perfy/                                             @peterblazejewicz
 /types/permit/                                            @jannikkeye
 /types/persistent-cache/                                  @DanielBGomez
@@ -6449,6 +6452,7 @@
 /types/react-key-handler/                                 @pmqueiroz
 /types/react-key-value/                                   @ckchow
 /types/react-keyboard-event-handler/                      @jamiegluk
+/types/react-kofi-button/                                 @SteveJM
 /types/react-latex/                                       @EndBug
 /types/react-lazy-load-image-component/                   @danvk @diegochavez @revskill10 @kodai3
 /types/react-lazyload/                                    @m0a @svobik7
@@ -7028,7 +7032,7 @@
 /types/retry/                                             @krenor @BendingBender
 /types/revalidate/                                        @alex3165
 /types/revalidator/                                       @brewsoftware
-/types/reveal.js/                                         @robertop87 @Nava2 @JPtenBerge @kwatanwa17
+/types/reveal.js/                                         @robertop87 @JPtenBerge
 /types/rewire/                                            @borislavjivkov @CaselIT
 /types/rfc2047/                                           @mugifly
 /types/rgrove__parse-xml/                                 @petejohanson
@@ -8768,6 +8772,7 @@
 /types/xmpp__websocket/                                   @BendingBender
 /types/xmpp__xml/                                         @BendingBender
 /types/xo/                                                @peterblazejewicz @shian15810
+/types/xrandr/                                            @jabiinfante
 /types/xrm/                                               @mattngan @markusmauch @daryllabar @clownwilleatme @scottdurow @filcole @power-maverick
 /types/xrm/v6/                                            @6ix4our
 /types/xrm/v7/                                            @6ix4our @mattngan @markusmauch @daryllabar
