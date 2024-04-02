@@ -224,7 +224,7 @@ player.playAd("testTag");
 player.playAd(["testTag", "testTag2", "testTag3"]);
 
 // $ExpectType void
-player.registerPlugin("testId", "testTarget", () => {});
+player.registerPlugin("testPluginName", "testPlayerMinimumVersion", (playerInstance, pluginConfig, pluginDiv) => {});
 
 // $ExpectType void
 player.removePlaylistItemCallback();
