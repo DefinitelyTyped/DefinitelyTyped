@@ -93,8 +93,6 @@ describe("ReactDOM", () => {
 
     it("flushSync", () => {
         // $ExpectType void
-        ReactDOM.flushSync();
-        // $ExpectType void
         ReactDOM.flushSync(() => {});
         // $ExpectType number
         ReactDOM.flushSync(() => 42);
