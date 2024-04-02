@@ -1668,10 +1668,9 @@ declare namespace jwplayer {
         playlistPrev(): JWPlayer;
         playToggle(): JWPlayer;
         registerPlugin(
-            id: string,
-            target: string,
-            jsPlugin: (pluginName: string, playerMinimumVersion: string, pluginClassOrFunction: any) => void,
-            swfURL?: string
+            pluginName: string,
+            playerMinimumVersion: string,
+            pluginClassOrFunction: (playerInstance: JWPlayer, pluginConfig: any, pluginDiv: HTMLElement) => void
         ): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
