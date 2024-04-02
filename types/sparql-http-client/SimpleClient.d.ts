@@ -4,11 +4,11 @@ import { Client, Query, Store } from "./index.js";
 import RawQuery from "./RawQuery.js";
 
 interface QueryConstructor {
-    new(options: { client: SimpleClient }): Query;
+    new(options: { client: SimpleClientImpl }): Query;
 }
 
 interface StoreConstructor {
-    new<Q extends BaseQuad = Quad>(options: { client: SimpleClient }): Store<Q>;
+    new<Q extends BaseQuad = Quad>(options: { client: SimpleClientImpl }): Store<Q>;
 }
 
 interface BaseOptions {
