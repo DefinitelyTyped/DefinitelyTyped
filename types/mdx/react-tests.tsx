@@ -1,6 +1,5 @@
 import { MDXComponents, MDXContent, MDXModule } from "mdx/types";
 import * as React from "react";
-import * as runtime from "react/jsx-runtime";
 import MyMarkdownComponent from "./MyComponent.markdown";
 import MyMDComponent from "./MyComponent.md";
 import MyMDownComponent from "./MyComponent.mdown";
@@ -11,14 +10,6 @@ import MyMKDownComponent from "./MyComponent.mkdown";
 import MyRonComponent from "./MyComponent.ron";
 
 // Test setup — User code
-
-declare module "mdx/types" {
-    namespace JSX {
-        type Element = runtime.JSX.Element;
-        type ElementClass = runtime.JSX.ElementClass;
-        type IntrinsicElements = runtime.JSX.IntrinsicElements;
-    }
-}
 
 interface CustomImageComponentProps extends React.ComponentPropsWithoutRef<"img"> {
     type?: "custom";
