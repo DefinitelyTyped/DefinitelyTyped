@@ -1,10 +1,14 @@
 import { getAsset, getAssetAsBlob, isSea } from "node:sea";
 
 {
-    isSea() // $ExpectType boolean
+    // $ExpectType boolean
+    isSea();
 
-    getAsset("a.jpg") // $ExpectType ArrayBuffer
-    getAsset("b.txt", "utf8") // $ExpectType string
+    // $ExpectType ArrayBuffer
+    getAsset("a.jpg");
+    // $ExpectType string
+    getAsset("b.txt", "utf8");
 
-    getAssetAsBlob("c.png") // $ExpectType Blob
+    // $ExpectType Blob
+    getAssetAsBlob("c.png");
 }
