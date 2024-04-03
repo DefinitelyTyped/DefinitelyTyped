@@ -515,6 +515,7 @@ export function crypto_aead_aegis256_encrypt(
     key: Uint8Array,
     outputFormat?: Uint8ArrayOutputFormat | null,
 ): Uint8Array;
+
 export function crypto_aead_aegis256_encrypt(
     message: string | Uint8Array,
     additional_data: string | Uint8Array | null,
