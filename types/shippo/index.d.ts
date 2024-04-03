@@ -483,7 +483,7 @@ declare namespace Shippo {
 
     namespace Shipment {
         type Status = "WAITING" | "QUEUED" | "SUCCESS" | "ERROR";
-    
+
         // https://docs.goshippo.com/shippoapi/public-api/#tag/Shipments
         // https://goshippo.com/docs/reference#shipments
         // The text description of the object schema differs from the object schema
