@@ -60,6 +60,9 @@ export function createSignatureFunctionForTransform(): <T>(
     key: string,
     forceReset?: boolean,
     getCustomHooks?: () => AnyFn[],
-) => T | undefined;
+) =>
+    | T
+    | // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    void;
 
 export function isLikelyComponentType(type: unknown): boolean;
