@@ -496,6 +496,7 @@ export function crypto_aead_aegis256_decrypt_detached(
     key: Uint8Array,
     outputFormat?: Uint8ArrayOutputFormat | null,
 ): Uint8Array;
+
 export function crypto_aead_aegis256_decrypt_detached(
     secret_nonce: string | Uint8Array | null,
     ciphertext: string | Uint8Array,
