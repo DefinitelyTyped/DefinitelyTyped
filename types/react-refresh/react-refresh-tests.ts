@@ -7,7 +7,11 @@ const noop = () => {};
 
 ReactRefreshRuntime.collectCustomHooksForSignature(STRING);
 ReactRefreshRuntime.collectCustomHooksForSignature(noop);
-ReactRefreshRuntime.createSignatureFunctionForTransform();
+const _s = ReactRefreshRuntime.createSignatureFunctionForTransform();
+_s();
+_s(noop, STRING, true, () => [noop]);
+_s(noop, STRING, false);
+_s(noop, STRING);
 ReactRefreshRuntime.findAffectedHostInstances([]);
 ReactRefreshRuntime.findAffectedHostInstances([{ current: noop }]);
 // @ts-expect-error
