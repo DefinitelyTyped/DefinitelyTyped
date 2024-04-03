@@ -937,6 +937,60 @@ declare module "util" {
      * @since v16.11.0
      */
     export function stripVTControlCharacters(str: string): string;
+    export type TextFormat =
+      | 'reset'
+      | 'bold'
+      | 'dim'
+      | 'italic'
+      | 'underline'
+      | 'blink'
+      | 'inverse'
+      | 'hidden'
+      | 'strikethrough'
+      | 'doubleunderline'
+      | 'black'
+      | 'red'
+      | 'green'
+      | 'yellow'
+      | 'blue'
+      | 'magenta'
+      | 'cyan'
+      | 'white'
+      | 'bgBlack'
+      | 'bgRed'
+      | 'bgGreen'
+      | 'bgYellow'
+      | 'bgBlue'
+      | 'bgMagenta'
+      | 'bgCyan'
+      | 'bgWhite'
+      | 'framed'
+      | 'overlined'
+      | 'gray'
+      | 'redBright'
+      | 'greenBright'
+      | 'yellowBright'
+      | 'blueBright'
+      | 'magentaBright'
+      | 'cyanBright'
+      | 'whiteBright'
+      | 'bgGray'
+      | 'bgRedBright'
+      | 'bgGreenBright'
+      | 'bgYellowBright'
+      | 'bgBlueBright'
+      | 'bgMagentaBright'
+      | 'bgCyanBright'
+      | 'bgWhiteBright';
+    /**
+     * This function returns a formatted text considering the format passed.
+     * The full list of formats can be found in modifiers.
+     * ```js
+     * console.error(styleText('red', 'Error! Error!'));
+     * ```
+     * @since v20.12.0
+     */
+    export function styleText(format: TextFormat, text: string): string;    
     /**
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
