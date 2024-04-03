@@ -50,6 +50,8 @@ export interface MessageResponseEntity {
     confidence?: number | undefined;
     value?: string | undefined;
     type?: string | undefined;
+    role?: string | undefined;
+    grain?: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | undefined;
 }
 
 export interface WitIntent {
