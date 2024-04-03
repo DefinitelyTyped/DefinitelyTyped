@@ -65,10 +65,7 @@ export function createSignatureFunctionForTransform(): {
         key: string,
         forceReset?: boolean,
         getCustomHooks?: () => AnyFn[],
-    ):
-        | T
-        | // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        void;
+    ): T;
 };
 
 export function isLikelyComponentType(type: unknown): boolean;
