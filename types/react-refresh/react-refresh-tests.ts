@@ -1,6 +1,6 @@
+import * as babel from "@babel/core";
 import * as ReactRefreshRuntime from "react-refresh/runtime";
 import ReactRefreshBabelPlugin = require("react-refresh/babel");
-import * as babel from "@babel/core";
 
 const STRING = "example string";
 const noop = () => {};
@@ -24,7 +24,7 @@ ReactRefreshRuntime.performReactRefresh();
 ReactRefreshRuntime.register("unknown type", STRING);
 ReactRefreshRuntime.register(noop, STRING);
 ReactRefreshRuntime.register({}, STRING);
-ReactRefreshRuntime.setSignature(noop, STRING, true, () => noop);
+ReactRefreshRuntime.setSignature(noop, STRING, true, () => [noop]);
 ReactRefreshRuntime.setSignature(noop, STRING, false);
 ReactRefreshRuntime.setSignature(noop, STRING);
 

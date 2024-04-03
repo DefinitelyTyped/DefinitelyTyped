@@ -13,7 +13,7 @@ export function performReactRefresh(): RefreshUpdate | null;
 
 export function register(type: unknown, id: string): void;
 
-export function setSignature(type: unknown, key: string, forceReset?: boolean, getCustomHooks?: () => AnyFn): void;
+export function setSignature(type: unknown, key: string, forceReset?: boolean, getCustomHooks?: () => AnyFn[]): void;
 
 /**
  * This is lazily called during first render for a type.
@@ -55,6 +55,11 @@ export function hasUnrecoverableErrors(): boolean;
  *    () => [useCustomHook], // Lazy to avoid triggering inline requires
  * );
  */
-export function createSignatureFunctionForTransform(): void;
+export function createSignatureFunctionForTransform(): <T>(
+    type: T,
+    key: string,
+    forceReset?: boolean,
+    getCustomHooks?: () => AnyFn[],
+) => T | undefined;
 
 export function isLikelyComponentType(type: unknown): boolean;
