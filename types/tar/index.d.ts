@@ -645,6 +645,11 @@ export interface ExtractOptions {
      * The maximum size of meta entries that is supported. Defaults to 1 MB.
      */
     maxMetaEntrySize?: number | undefined;
+
+    /**
+     * Allow absolute paths. By default, / is stripped from absolute paths.
+     */
+    preservePaths?: boolean | undefined;
 }
 
 export interface ListOptions {
