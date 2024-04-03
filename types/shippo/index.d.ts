@@ -471,14 +471,28 @@ declare namespace Shippo {
         address_from: Address | string;
         address_to: Address | string;
         address_return?: Address | string | undefined;
-        shipment_date?: string | undefined;
         parcels: Parcel[];
+        shipment_date?: string | undefined;
+        extra?: ShipmentExtras | undefined;
+        customs_declaration?: string | undefined;
         rates: Rate[];
+        carrier_accounts: string[];
+        messages: Shipment.Message[];
         test?: boolean | undefined;
     }
 
     namespace Shipment {
         type Status = "WAITING" | "QUEUED" | "SUCCESS" | "ERROR";
+    
+        // https://docs.goshippo.com/shippoapi/public-api/#tag/Shipments
+        // https://goshippo.com/docs/reference#shipments
+        // The text description of the object schema differs from the object schema
+        // below the text and in the example. The schema from the example is used here.
+        interface Message {
+            code?: string;
+            source?: string;
+            text: string;
+        }
     }
 
     interface ShipmentExtras {
