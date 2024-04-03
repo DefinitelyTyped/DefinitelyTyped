@@ -55,14 +55,17 @@ export function hasUnrecoverableErrors(): boolean;
  *    () => [useCustomHook], // Lazy to avoid triggering inline requires
  * );
  */
-export function createSignatureFunctionForTransform(): <T>(
-    type: T,
-    key: string,
-    forceReset?: boolean,
-    getCustomHooks?: () => AnyFn[],
-) =>
-    | T
-    | // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    void;
+export function createSignatureFunctionForTransform(): {
+    (): void;
+    <T>(
+        type: T,
+        key: string,
+        forceReset?: boolean,
+        getCustomHooks?: () => AnyFn[],
+    ):
+        | T
+        | // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        void;
+};
 
 export function isLikelyComponentType(type: unknown): boolean;
