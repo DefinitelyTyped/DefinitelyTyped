@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { HttpError } from "http-errors";
-import * as http from "node:http";
+import * as http from "http";
 import * as send from "send";
 
 /**
