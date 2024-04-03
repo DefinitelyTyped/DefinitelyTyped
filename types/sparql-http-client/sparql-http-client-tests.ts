@@ -59,15 +59,15 @@ async function streamingClient() {
     });
 
     // query.select
-    const selectNoOptions: Readable = await fullOptions.query.select(query);
-    const selectFullOptions: Readable = await fullOptions.query.select(query, {
+    const selectNoOptions: Readable = fullOptions.query.select(query);
+    const selectFullOptions: Readable = fullOptions.query.select(query, {
         headers,
         operation: "postUrlencoded",
     });
 
     // query.construct
-    const constructNoOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query);
-    const constructFullOptions: Stream<TestQuad> & Readable = await fullOptions.query.construct(query, {
+    const constructNoOptions: Stream<TestQuad> & Readable = fullOptions.query.construct(query);
+    const constructFullOptions: Stream<TestQuad> & Readable = fullOptions.query.construct(query, {
         headers,
         operation: "get",
     });
