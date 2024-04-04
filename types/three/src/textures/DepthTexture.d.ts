@@ -1,19 +1,16 @@
-import { Texture } from './Texture.js';
 import {
-    Mapping,
-    Wrapping,
-    TextureDataType,
     DepthTexturePixelFormat,
     MagnificationTextureFilter,
+    Mapping,
     MinificationTextureFilter,
     TextureComparisonFunction,
-} from '../constants.js';
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * This class can be used to automatically save the depth information of a rendering into a texture
- * @remarks
- * When using a **WebGL1** rendering context, {@link DepthTexture} requires support for the
- * {@link https://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/ | WEBGL_depth_texture} extension.
  * @see Example: {@link https://threejs.org/examples/#webgl_depth_texture | depth / texture}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DepthTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DepthTexture.js | Source}

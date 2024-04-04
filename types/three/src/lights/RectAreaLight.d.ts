@@ -1,5 +1,5 @@
-import { Light } from './Light.js';
-import { ColorRepresentation } from '../math/Color.js';
+import { ColorRepresentation } from "../math/Color.js";
+import { Light } from "./Light.js";
 
 /**
  * {@link RectAreaLight} emits light uniformly across the face a rectangular plane
@@ -47,7 +47,7 @@ export class RectAreaLight extends Light<undefined> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `RectAreaLight`
      */
-    override readonly type: string | 'RectAreaLight';
+    override readonly type: string | "RectAreaLight";
 
     /**
      * The width of the light.

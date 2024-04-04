@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -14,7 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/scheduler.ts",
-        "test/tracing.ts"
+        "test/scheduler.ts"
     ]
 }

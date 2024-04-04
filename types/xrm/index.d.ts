@@ -3074,6 +3074,22 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for UI elements which can have their available option values read.
+         */
+        interface UiCanGetOptionsElement {
+            /**
+             * Returns an array of option objects representing valid options available for a control,
+             * including a blank option and excluding any options that have been removed from the control
+             * using removeOption.
+             *
+             * @returns The array of option objects representing valid options where each option object has the following attributes:
+             *          text: String. Label of the option.
+             *          value: Number. Enumeration value of the option.
+             */
+            getOptions(): OptionSetValue[];
+        }
+
+        /**
          * Interface for UI elements which can have the visibility value read.
          */
         interface UiCanGetVisibleElement {
@@ -3552,7 +3568,7 @@ declare namespace Xrm {
          *
          * @see {@link StandardControl}
          */
-        interface OptionSetControl extends StandardControl {
+        interface OptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -3584,7 +3600,7 @@ declare namespace Xrm {
             removeOption(value: number): void;
         }
 
-        interface MultiSelectOptionSetControl extends StandardControl {
+        interface MultiSelectOptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -5225,6 +5241,17 @@ declare namespace Xrm {
             text: string;
         }
 
+        /**
+         * An object describing whether to open or save the file
+         */
+        interface OpenFileOptions {
+            /**
+             * If you do not specify this parameter, by default 1 (open) is passed.
+             * This parameter is only supported on Unified Interface
+             */
+            openMode?: XrmEnum.OpenFileOptions;
+        }
+
         interface DialogSizeOptions {
             /**
              * Height of the alert dialog in pixels.
@@ -5599,7 +5626,7 @@ declare namespace Xrm {
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: Navigation.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.

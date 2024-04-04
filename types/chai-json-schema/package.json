@@ -8,7 +8,6 @@
     ],
     "dependencies": {
         "@types/chai": "*",
-        "@types/node": "*",
         "@types/tv4": "*"
     },
     "devDependencies": {

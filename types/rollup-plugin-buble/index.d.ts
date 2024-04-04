@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { TransformOptions } from "buble";
 import { Plugin } from "rollup";
 

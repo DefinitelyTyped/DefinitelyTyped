@@ -1,13 +1,9 @@
 import fetch from "@rdfjs/fetch";
 import { RdfFetchResponse } from "@rdfjs/fetch-lite";
-import { SinkMap } from "@rdfjs/sink-map";
+import { Formats } from "@rdfjs/formats";
 import { Dataset, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
-import { EventEmitter } from "events";
 
-const formats: {
-    parsers: SinkMap<EventEmitter, Stream>;
-    serializers: SinkMap<EventEmitter, Stream>;
-} = <any> {};
+const formats = <Formats> {};
 
 function noOptions(): Promise<RdfFetchResponse> {
     return fetch("http://example.com/");

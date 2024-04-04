@@ -1,4 +1,4 @@
-import { Formats } from "@rdfjs/formats-common";
+import { Formats } from "@rdfjs/formats";
 import { BaseQuad, DatasetCore, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 
 export interface FormatsInit extends RequestInit {

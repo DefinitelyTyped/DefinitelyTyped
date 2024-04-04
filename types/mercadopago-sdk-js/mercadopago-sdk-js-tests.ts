@@ -26,8 +26,9 @@ brickBuilder.isInitialized();
         },
         callbacks: {
             onSubmit: (formData, additionalData) => {
-                return new Promise(() => {
+                return new Promise((resolve) => {
                     console.log(formData, additionalData);
+                    resolve();
                 });
             },
         },
@@ -130,6 +131,7 @@ brickBuilder.isInitialized();
                 streetNumber: "222",
                 zipCode: "1122334455",
                 complement: "apartment 3",
+                additionalInformation: "el timbre no funciona",
             },
         },
     });
@@ -143,13 +145,15 @@ brickBuilder.create("statusScreen", "containerStatusScreen", {
 });
 
 brickBuilder.create("wallet", "containerWallet", {
+    brand: "mercado_pago",
     initialization: {
         paymentId: 123456789,
     },
     customization: {
         texts: {
             action: "pay",
-            valueProp: "smart_option",
+            actionComplement: "brand",
+            valueProp: "payment_methods_logos",
         },
     },
     callbacks: {
@@ -162,6 +166,15 @@ brickBuilder.create("wallet", "containerWallet", {
 });
 
 brickBuilder.create("brand", "containerBrand");
+
+brickBuilder.create("brand", "containerBrand", {
+    customization: {
+        paymentMethods: {
+            excludedPaymentMethods: ["amex"],
+            excludedPaymentTypes: ["ticket"],
+        },
+    },
+});
 
 const fieldInstance = mpInstance.fields.create("cardNumber", {});
 fieldInstance.mount("containerId");

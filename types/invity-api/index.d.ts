@@ -36,6 +36,7 @@ export const cryptoSymbols: readonly [
     "XLM",
     "XMR",
     "XRP",
+    "TXRP",
     "XTZ",
     "AE",
     "ALGO",
@@ -259,6 +260,7 @@ export type BuyCryptoPaymentMethod =
     | "eps"
     | "bankTransfer"
     | "creditCard"
+    | "debitCard"
     | "giropay"
     | "iDeal"
     | "sofort"
@@ -267,6 +269,7 @@ export type BuyCryptoPaymentMethod =
     | "poli"
     | "dcinterac"
     | "applePay"
+    | "googlePay"
     | "paynow"
     | "fps"
     | "promptpay"
@@ -282,7 +285,8 @@ export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favo
 
 export interface BuyProviderInfo {
     name: string; // simplex
-    companyName: string; // Simplex
+    companyName: string; // UAB Invity Finance
+    brandName?: string; // Invity
     logo: string; // simplex-icon.jpg
     isActive: boolean;
     isDisabled?: boolean;

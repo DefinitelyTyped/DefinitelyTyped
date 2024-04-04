@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         with:
-          # Use the bot token so that CI triggers on pushes; we want to know if formatting broke something.
-          token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
-      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+          # Use a deploy key so that CI triggers on pushes; we want to know if formatting broke something.
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: '20'
 
-      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
         with:
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
@@ -31,7 +31,7 @@ jobs:
         id: date
         run: echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3.3.3
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           # dprint caches info about the files in the repo to skip formatting them.
           # However, since package.json and .dprint.jsonc don't change very often,

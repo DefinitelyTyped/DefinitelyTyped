@@ -1,5 +1,5 @@
-import AttributeNode from '../core/AttributeNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import AttributeNode from "../core/AttributeNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class UVNode extends AttributeNode {
     isUVNode: true;

@@ -1,12 +1,14 @@
 {
     "files": [
         "index.d.ts",
+        "jsx-dev-runtime.d.ts",
+        "jsx-runtime.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"

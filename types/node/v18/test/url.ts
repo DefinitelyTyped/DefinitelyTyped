@@ -82,6 +82,37 @@ import * as url from "node:url";
     myURL = new url.URL("/foo", "https://example.org/");
     assert.equal(myURL.href, "https://example.org/foo");
     assert.equal(myURL.toJSON(), myURL.href);
+
+    myURL = new url.URL("https://example.org");
+    myURL = new url.URL(myURL);
+    assert.equal(myURL.hash, "");
+    assert.equal(myURL.host, "example.org");
+    assert.equal(myURL.hostname, "example.org");
+    assert.equal(myURL.href, "https://example.org/");
+    assert.equal(myURL.origin, "https://example.org");
+    assert.equal(myURL.password, "");
+    assert.equal(myURL.username, "");
+    assert.equal(myURL.pathname, "/");
+    assert.equal(myURL.port, "");
+    assert.equal(myURL.protocol, "https:");
+    assert.equal(myURL.search, "");
+    assert.equal(myURL.toJSON(), myURL.href);
+    assert(myURL.searchParams instanceof url.URLSearchParams);
+
+    myURL = new url.URL({ toString: () => "https://example.org" });
+    assert.equal(myURL.hash, "");
+    assert.equal(myURL.host, "example.org");
+    assert.equal(myURL.hostname, "example.org");
+    assert.equal(myURL.href, "https://example.org/");
+    assert.equal(myURL.origin, "https://example.org");
+    assert.equal(myURL.password, "");
+    assert.equal(myURL.username, "");
+    assert.equal(myURL.pathname, "/");
+    assert.equal(myURL.port, "");
+    assert.equal(myURL.protocol, "https:");
+    assert.equal(myURL.search, "");
+    assert.equal(myURL.toJSON(), myURL.href);
+    assert(myURL.searchParams instanceof url.URLSearchParams);
 }
 
 {

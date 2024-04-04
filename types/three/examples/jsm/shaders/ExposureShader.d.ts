@@ -1,7 +1,7 @@
-import { IUniform, Texture } from '../../../src/Three.js';
+import { IUniform, Texture } from "three";
 
 export const ExposureShader: {
-    name: 'ExposureShader';
+    name: "ExposureShader";
     uniforms: {
         tDiffuse: IUniform<Texture | null>;
         exposure: IUniform<number>;

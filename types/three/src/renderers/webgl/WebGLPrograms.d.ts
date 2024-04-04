@@ -1,16 +1,3 @@
-import { Material } from '../../materials/Material.js';
-import { Object3D } from '../../core/Object3D.js';
-import { Light } from '../../lights/Light.js';
-import { Scene } from '../../scenes/Scene.js';
-import { IUniform } from '../shaders/UniformsLib.js';
-import { WebGLRenderer } from '../WebGLRenderer.js';
-import { WebGLBindingStates } from './WebGLBindingStates.js';
-import { WebGLCapabilities } from './WebGLCapabilities.js';
-import { WebGLClipping } from './WebGLClipping.js';
-import { WebGLCubeMaps } from './WebGLCubeMaps.js';
-import { WebGLExtensions } from './WebGLExtensions.js';
-import { WebGLLightsState } from './WebGLLights.js';
-import { WebGLProgram } from './WebGLProgram.js';
 import {
     ColorSpace,
     Combine,
@@ -19,11 +6,22 @@ import {
     Mapping,
     ShadowMapType,
     ToneMapping,
-} from '../../constants.js';
+} from "../../constants.js";
+import { Object3D } from "../../core/Object3D.js";
+import { Light } from "../../lights/Light.js";
+import { Material } from "../../materials/Material.js";
+import { Scene } from "../../scenes/Scene.js";
+import { IUniform } from "../shaders/UniformsLib.js";
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { WebGLBindingStates } from "./WebGLBindingStates.js";
+import { WebGLCapabilities } from "./WebGLCapabilities.js";
+import { WebGLClipping } from "./WebGLClipping.js";
+import { WebGLCubeMaps } from "./WebGLCubeMaps.js";
+import { WebGLExtensions } from "./WebGLExtensions.js";
+import { WebGLLightsState } from "./WebGLLights.js";
+import { WebGLProgram } from "./WebGLProgram.js";
 
 export interface WebGLProgramParameters {
-    isWebGL2: boolean;
-
     shaderID: string;
     shaderType: string;
     shaderName: string;
@@ -38,14 +36,16 @@ export interface WebGLProgramParameters {
     isRawShaderMaterial: boolean;
     glslVersion: GLSLVersion | null | undefined;
 
-    precision: 'lowp' | 'mediump' | 'highp';
+    precision: "lowp" | "mediump" | "highp";
 
     batching: boolean;
     instancing: boolean;
     instancingColor: boolean;
+    instancingMorph: boolean;
 
     supportsVertexTextures: boolean;
     outputColorSpace: ColorSpace;
+    alphaToCoverage: boolean;
 
     map: boolean;
     matcap: boolean;
@@ -146,7 +146,7 @@ export interface WebGLProgramParameters {
 
     fog: boolean;
     useFog: boolean;
-    fogExp2: boolean | null; // null is possible because of a bug: ( fog && fog.isFogExp2 )
+    fogExp2: boolean;
 
     flatShading: boolean;
 
@@ -198,15 +198,9 @@ export interface WebGLProgramParameters {
 
     index0AttributeName: string | undefined;
 
-    extensionDerivatives: boolean;
-    extensionFragDepth: boolean;
-    extensionDrawBuffers: boolean;
-    extensionShaderTextureLOD: boolean;
     extensionClipCullDistance: boolean;
+    extensionMultiDraw: boolean;
 
-    rendererExtensionFragDepth: boolean;
-    rendererExtensionDrawBuffers: boolean;
-    rendererExtensionShaderTextureLod: boolean;
     rendererExtensionParallelShaderCompile: boolean;
 
     customProgramCacheKey: string;

@@ -31,7 +31,6 @@ export const render: Renderer;
 export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;
-export function flushSync<A, R>(fn: (a: A) => R, a: A): R;
 
 export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
 export function unstable_batchedUpdates<R>(callback: () => R): R;

@@ -368,6 +368,9 @@ switch (ast.type) {
         ast.children; // $ExpectType List<CssNode>
         break;
 
+    case "NestingSelector":
+        break;
+
     case "Nth":
         ast.nth; // $ExpectType AnPlusB | Identifier
         ast.selector; // $ExpectType SelectorList | null
@@ -706,6 +709,13 @@ csstree.parse(".selector { /* comment */ }", {
     onComment(value, loc) {
         value; // $ExpectType string
         loc; // $ExpectType CssLocation
+    },
+});
+
+csstree.parse(".a { ::: invalid css ::: }", {
+    onParseError(error, fallbackNode) {
+        error; // $ExpectType SyntaxParseError
+        fallbackNode; // $ExpectType CssNode
     },
 });
 

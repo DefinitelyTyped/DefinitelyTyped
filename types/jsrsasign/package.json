@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/kjur/jsrsasign"
     ],
-    "minimumTypeScriptVersion": "4.6",
     "devDependencies": {
         "@types/jsrsasign": "workspace:."
     },

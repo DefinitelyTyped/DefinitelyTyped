@@ -1,11 +1,11 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
-import { Dashicon, DropZone } from "@wordpress/components";
-import { ComponentType, JSX, MouseEventHandler } from "react";
+import { DropZone, IconType } from "@wordpress/components";
+import { ComponentProps, JSX, MouseEventHandler } from "react";
 
 declare namespace MediaPlaceholder {
     type MediaPlaceholderMultipleAction = "add";
 
-    interface Props<T extends boolean> extends Pick<DropZone.Props, "onHTMLDrop"> {
+    interface Props<T extends boolean> extends Pick<ComponentProps<typeof DropZone>, "onHTMLDrop"> {
         /**
          * A string passed to `FormFileUpload` that tells the browser which file types can be uploaded
          * to the upload window the browser use e.g: `image#<{(|,video#<{(|`.
@@ -47,7 +47,7 @@ declare namespace MediaPlaceholder {
         /**
          * Icon to display left of the title.
          */
-        icon?: Dashicon.Icon | JSX.Element | undefined;
+        icon?: IconType | undefined;
         /**
          * If `true`, the property changes the look of the placeholder to be adequate to scenarios
          * where new files are added to an already existing set of files, e.g., adding files to a

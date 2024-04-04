@@ -1,5 +1,7 @@
 (async () => {
     ZWJSBridge.onReady(() => {
+        ZWJSBridge.ssoTicket();
+
         ZWJSBridge.setLocalStorage({
             key: "key",
             value: "test",
@@ -90,6 +92,8 @@
             url: "https://www.google.com",
         });
 
+        ZWJSBridge.voicedictation();
+
         ZWJSBridge.confirm({
             title: "title",
             message: "message",
@@ -138,6 +142,11 @@
         });
 
         ZWJSBridge.getUiStyle();
+
+        ZWJSBridge.authentication({
+            accessKey: "szzj",
+            requestId: "req_9ca87969175445ec902cf4496a7f18ed",
+        });
 
         ZWJSBridge.egop({
             appKey: "appkey",

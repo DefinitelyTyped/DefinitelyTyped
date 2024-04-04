@@ -11,6 +11,9 @@ declare namespace c {
         // Return a deep copy of the specified object.
         cloneDeep(copyFrom: any, depth?: number): any;
 
+        // Set objects given a path as a string list
+        setPath(object: object, path: string[], value?: any): void;
+
         // Return true if two objects have equal contents.
         equalsDeep(object1: any, object2: any, dept?: number): boolean;
 

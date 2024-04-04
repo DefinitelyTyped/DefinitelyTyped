@@ -1,8 +1,10 @@
-import { Loader, LoadingManager } from '../../../src/Three.js';
+import { Loader, LoadingManager } from "three";
+import { FontData } from "./FontLoader.js";
 
-export class TTFLoader extends Loader<object> {
-    constructor(manager?: LoadingManager);
+export class TTFLoader extends Loader<FontData> {
     reversed: boolean;
 
-    parse(arraybuffer: ArrayBuffer): object;
+    constructor(manager?: LoadingManager);
+
+    parse(arraybuffer: ArrayBuffer): FontData;
 }

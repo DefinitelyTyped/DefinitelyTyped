@@ -1,7 +1,6 @@
 {
     "rules": {
         "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/ban-types": "off"
     }
 }

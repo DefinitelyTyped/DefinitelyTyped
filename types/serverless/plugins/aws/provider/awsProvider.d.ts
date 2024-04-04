@@ -510,6 +510,7 @@ declare namespace Aws {
         type?: "dynamodb" | "kinesis" | undefined;
         filterPatterns?: FilterPattern[] | undefined;
         functionResponseType?: "ReportBatchItemFailures" | undefined;
+        parallelizationFactor?: number | undefined;
     }
 
     interface Msk {

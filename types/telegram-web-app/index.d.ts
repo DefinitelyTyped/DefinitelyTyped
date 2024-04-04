@@ -101,6 +101,11 @@ interface WebApp {
      */
     MainButton: MainButton;
     /**
+     * An object for controlling the Settings item in the context menu of the Mini App
+     * in the Telegram interface.
+     */
+    SettingsButton: SettingsButton;
+    /**
      * An object for controlling haptic feedback.
      */
     HapticFeedback: HapticFeedback;
@@ -108,6 +113,10 @@ interface WebApp {
      * An object for controlling cloud storage.
      */
     CloudStorage: CloudStorage;
+    /**
+     * An object for controlling biometrics on the device.
+     */
+    BiometricManager: BiometricManager;
     /**
      * Returns true if the user's app supports a version of the Bot API that is
      * equal to or higher than the version passed as the parameter.
@@ -137,7 +146,12 @@ interface WebApp {
      * events.
      */
     onEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType:
+            | "themeChanged"
+            | "mainButtonClicked"
+            | "backButtonClicked"
+            | "settingsButtonClicked"
+            | "biometricManagerUpdated",
         eventHandler: () => void,
     ): void;
     onEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
@@ -152,11 +166,21 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    onEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
+    onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
+    onEvent(
+        eventType: "biometricAuthRequested",
+        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
+    ): void;
+    onEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
 
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: "themeChanged" | "mainButtonClicked" | "backButtonClicked" | "settingsButtonClicked",
+        eventType:
+            | "themeChanged"
+            | "mainButtonClicked"
+            | "backButtonClicked"
+            | "settingsButtonClicked"
+            | "biometricManagerUpdated",
         eventHandler: () => void,
     ): void;
     offEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
@@ -171,7 +195,12 @@ interface WebApp {
         eventType: "writeAccessRequested",
         eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
     ): void;
-    offEvent(eventType: "contactRequested", eventHandler: (eventData: { status: "sent" | "cancelled" }) => void): void;
+    offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
+    offEvent(
+        eventType: "biometricAuthRequested",
+        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
+    ): void;
+    offEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -234,7 +263,7 @@ interface WebApp {
      * popup is closed and the first argument will be a boolean indicating whether the user
      * pressed the 'OK' button.
      */
-    showConfirm(message: string, callback?: (ok?: boolean) => void): void;
+    showConfirm(message: string, callback?: (ok: boolean) => void): void;
     /**
      * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
      * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
@@ -273,9 +302,12 @@ interface WebApp {
      * @param callback If an optional callback parameter was passed, the
      * callback function will be called when the popup is closed and the first
      * argument will be a boolean indicating whether the user shared its
-     * phone number.
+     * phone number. The second argument, contingent upon success, will be
+     * an object detailing the shared contact information or a cancellation response.
      */
-    requestContact(callback?: (success: boolean) => void): void;
+    requestContact(
+        callback?: (success: boolean, response: RequestContactResponse) => void,
+    ): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -302,40 +334,71 @@ interface WebApp {
  */
 interface ThemeParams {
     /**
-     * Background color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-bg-color).
+     * Background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-bg-color)`.
      */
-    bg_color: string;
+    bg_color?: string;
     /**
-     * Main text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-text-color).
+     * Main text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-text-color)`.
      */
-    text_color: string;
+    text_color?: string;
     /**
-     * Hint text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-hint-color).
+     * Hint text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-hint-color)`.
      */
-    hint_color: string;
+    hint_color?: string;
     /**
-     * Link color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-link-color).
+     * Link color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-link-color)`.
      */
-    link_color: string;
+    link_color?: string;
     /**
-     * Button color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-color).
+     * Button color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-color)`.
      */
-    button_color: string;
+    button_color?: string;
     /**
-     * Button text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-text-color).
+     * Button text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-text-color)`.
      */
-    button_text_color: string;
+    button_text_color?: string;
     /**
-     * Optional. Bot API 6.1+ Secondary background color in the #RRGGBB format.
-     * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
+     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
      */
-    secondary_bg_color: string;
+    secondary_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Header background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-header-bg-color)`.
+     */
+    header_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Accent text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-accent-text-color)`.
+     */
+    accent_text_color?: string;
+    /**
+     * **Bot API 7.0+** Background color for the section in the `#RRGGBB` format. It is
+     * recommended to use this in conjunction with *secondary_bg_color*.
+     * Also available as the CSS variable `var(--tg-theme-section-bg-color)`.
+     */
+    section_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Header text color for the section in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
+     */
+    section_header_text_color?: `#${string}`;
+    /**
+     * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
+     */
+    subtitle_text_color?: string;
+    /**
+     * **Bot API 7.0+** Text color for destructive actions in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-destructive-text-color)`.
+     */
+    destructive_text_color?: string;
 }
 
 /**
@@ -497,6 +560,37 @@ interface MainButtonParams {
 }
 
 /**
+ * This object controls the Settings item in the context menu of the Mini App in the
+ * Telegram interface.
+ */
+interface SettingsButton {
+    /**
+     * Shows whether the context menu item is visible. Set to false by default.
+     */
+    isVisible: boolean;
+    /**
+     * **Bot API 7.0+** A method that sets the press event handler for the Settings item in
+     * the context menu. An alias for
+     * `Telegram.WebApp.onEvent('settingsButtonClicked', callback)`
+     */
+    onClick(callback: () => void): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method that removes the press event handler from the Settings item
+     * in the context menu. An alias for
+     * `Telegram.WebApp.offEvent('settingsButtonClicked', callback)`
+     */
+    offClick(callback: () => void): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method to make the Settings item in the context menu visible.
+     */
+    show(): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method to hide the Settings item in the context menu.
+     */
+    hide(): SettingsButton;
+}
+
+/**
  *  This object controls haptic feedback.
  */
 interface HapticFeedback {
@@ -609,6 +703,110 @@ interface CloudStorage {
      * second argument.
      */
     getKeys(callback?: (error: string | null, keys: null | string[]) => void): CloudStorage;
+}
+
+/**
+ * This object controls biometrics on the device. Before the first use
+ * of this object, it needs to be initialized using the init method.
+ */
+interface BiometricManager {
+    /**
+     * Shows whether biometrics object is initialized.
+     */
+    isInited: boolean;
+    /**
+     * Shows whether biometrics is available on the current device.
+     */
+    isBiometricAvailable: boolean;
+    /**
+     * The type of biometrics currently available on the device. Can be one of these values:
+     * - finger, fingerprint-based biometrics,
+     * - face, face-based biometrics,
+     * - unknown, biometrics of an unknown type.
+     */
+    biometricType: "finger" | "face" | "unkown";
+    /**
+     * Shows whether permission to use biometrics has been requested.
+     */
+    isAccessRequested: boolean;
+    /**
+     * Shows whether permission to use biometrics has been granted.
+     */
+    isAccessGranted: boolean;
+    /**
+     * Shows whether the token is saved in secure storage on the device.
+     */
+    isBiometricTokenSaved: boolean;
+    /**
+     * A unique device identifier that can be used to match the token to the device.
+     */
+    deviceId: string;
+    /**
+     * A method that initializes the BiometricManager object. It should be called before
+     * the object's first use. If an optional callback parameter was passed, the callback
+     * function will be called when the object is initialized.
+     */
+    init: (callback?: () => void) => BiometricManager;
+    /**
+     * A method that requests permission to use biometrics according to the params
+     * argument of type BiometricRequestAccessParams. If an optional callback
+     * parameter was passed, the callback function will be called and the first argument
+     * will be a boolean indicating whether the user granted access.
+     */
+    requestAccess: (
+        params: BiometricRequestAccessParams,
+        callback?: (isAccessGranted: boolean) => void,
+    ) => BiometricManager;
+    /**
+     * A method that authenticates the user using biometrics according to the params
+     * argument of type BiometricAuthenticateParams. If an optional callback parameter
+     * was passed, the callback function will be called and the first argument will be
+     * a boolean indicating whether the user authenticated successfully.
+     *
+     * If so, the second argument will be a biometric token.
+     */
+    authenticate: (
+        params: BiometricAuthenticateParams,
+        callback?: (isAuthenticated: boolean, biometricToken?: string) => void,
+    ) => BiometricManager;
+    /**
+     * A method that updates the biometric token in secure storage on the device.
+     * To remove the token, pass an empty string. If an optional callback parameter
+     * was passed, the callback function will be called and the first argument will be
+     * a boolean indicating whether the token was updated.
+     */
+    updateBiometricToken: (token: string, callback?: (applied: boolean) => void) => BiometricManager;
+    /**
+     * A method that opens the biometric access settings for bots. Useful when you
+     * need to request biometrics access to users who haven't granted it yet.
+     *
+     * Note that this method can be called only in response to user interaction with
+     * the Mini App interface (e.g. a click inside the Mini App or on the main button)
+     */
+    openSettings: () => BiometricManager;
+}
+
+/**
+ * This object describes the native popup for requesting permission to use biometrics.
+ */
+interface BiometricRequestAccessParams {
+    /**
+     * The text to be displayed to a user in the popup describing why the bot needs
+     * access to biometrics, 0-128 characters.
+     */
+    reason?: string;
+}
+
+/**
+ * This object describes the native popup for authenticating the user using biometrics.
+ */
+interface BiometricAuthenticateParams {
+    /**
+     * The text to be displayed to a user in the popup describing why you are asking them
+     * to authenticate and what action you will be taking based on that authentication,
+     * 0-128 characters.
+     */
+    reason?: string;
 }
 
 /**
@@ -742,3 +940,43 @@ interface ScanQrPopupParams {
      */
     text?: string;
 }
+
+/**
+ * This object describes contact information shared when requestContact was approved by the user.
+ */
+interface RequestContactResponseSent {
+    /** Status 'sent' indicates that contact information has been shared. */
+    status: "sent";
+    /** A status message or result as a string. */
+    response: string;
+    /** Contains sensitive information shared upon user consent. WARNING: Data from
+     * this field should not be trusted. You should only use data from `response` on
+     * the bot's server and only after it has been validated. */
+    responseUnsafe: {
+        /** Authorization date for sharing contact information. */
+        auth_date: string;
+        /** Object holding user's contact details. */
+        contact: {
+            /** User's first name. */
+            first_name: string;
+            /** Optional. User's last name. */
+            last_name?: string;
+            /** User's phone number. */
+            phone_number: string;
+            /** Unique identifier of the user. */
+            user_id: number;
+        };
+        /** Hash to verify data authenticity. */
+        hash: string;
+    };
+}
+
+/**
+ * This object only contains a status to indicate the cancellation.
+ */
+interface RequestContactResponseCancelled {
+    /** Status 'cancelled', indicates that user cancelled the contact share request. */
+    status: "cancelled";
+}
+
+type RequestContactResponse = RequestContactResponseSent | RequestContactResponseCancelled;

@@ -1,5 +1,4 @@
-import { WebGLExtensions } from './WebGLExtensions.js';
-import { WebGLCapabilities } from './WebGLCapabilities.js';
+import { WebGLExtensions } from "./WebGLExtensions.js";
 
 export interface WebGLLightsState {
     version: number;
@@ -40,7 +39,7 @@ export interface WebGLLightsState {
 }
 
 export class WebGLLights {
-    constructor(extensions: WebGLExtensions, capabilities: WebGLCapabilities);
+    constructor(extensions: WebGLExtensions);
 
     state: WebGLLightsState;
 

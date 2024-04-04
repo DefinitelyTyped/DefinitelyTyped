@@ -2738,6 +2738,5 @@ declare module 'inspector' {
     function waitForDebugger(): void;
 }
 declare module 'node:inspector' {
-    import EventEmitter = require('inspector');
-    export = EventEmitter;
+    export * from 'inspector';
 }

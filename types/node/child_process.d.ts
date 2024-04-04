@@ -894,6 +894,8 @@ declare module "child_process" {
         killed?: boolean | undefined;
         code?: number | undefined;
         signal?: NodeJS.Signals | undefined;
+        stdout?: string;
+        stderr?: string;
     }
     /**
      * Spawns a shell then executes the `command` within that shell, buffering any

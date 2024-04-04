@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "ESNext.AsyncIterable"
@@ -16,7 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "rrdir-tests.ts",
-        "test/rrdir-tests.cjs.ts"
+        "rrdir-tests.ts"
     ]
 }

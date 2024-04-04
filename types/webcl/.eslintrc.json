@@ -1,7 +1,6 @@
 {
     "rules": {
         "@definitelytyped/no-const-enum": "off",
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/explicit-member-accessibility": "off"
     }
 }

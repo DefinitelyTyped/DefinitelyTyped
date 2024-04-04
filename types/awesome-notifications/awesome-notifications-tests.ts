@@ -1,4 +1,4 @@
-import AWN from "awesome-notifications";
+import AWN = require("awesome-notifications");
 
 const awn = new AWN();
 

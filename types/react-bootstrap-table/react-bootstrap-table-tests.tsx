@@ -758,13 +758,14 @@ class CustomPagination extends React.Component {
  * Adapted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/custom/insert-modal/custom-insert-modal.js
  */
 class CustomModal extends React.Component {
+    fields: Record<string, React.RefObject<HTMLInputElement | null>> = {};
     handleSaveBtnClick = (
         columns: ReadonlyArray<InsertModalColumnDescription<Product>>,
         onSave: (row: any) => void,
     ) => {
         const newRow: { [field: string]: string } = {};
         columns.forEach((column, i) => {
-            newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
+            newRow[column.field] = (this.fields[column.field].current!).value;
         }, this);
         onSave(newRow);
     };
@@ -794,10 +795,13 @@ class CustomModal extends React.Component {
                     const error = validateState[field]
                         ? <span className="help-block bg-danger">{validateState[field]}</span>
                         : null;
+                    if (!(field in this.fields)) {
+                        this.fields[field] = React.createRef();
+                    }
                     return (
                         <div className="form-group" key={field}>
                             <label>{name} :</label>
-                            <input ref={field} type="text" defaultValue={""} />
+                            <input ref={this.fields[field]} type="text" defaultValue={""} />
                             {error}
                         </div>
                     );
@@ -903,7 +907,7 @@ class CustomInsertModalFieldTable extends React.Component {
 
     render() {
         return (
-            <BootstrapTable ref="table" data={products} insertRow={true}>
+            <BootstrapTable ref={React.createRef<BootstrapTable>()} data={products} insertRow={true}>
                 <TableHeaderColumn dataField="id" isKey={true} customInsertEditor={{ getElement: this.customKeyField }}>
                     Product ID
                 </TableHeaderColumn>
@@ -931,10 +935,11 @@ interface MyCustomBodyProps {
     ignoreEditable: boolean;
 }
 class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBodyInterface<Product> {
+    fields: Record<keyof Product, React.RefObject<HTMLInputElement | null>>;
     getFieldValue() {
         const newRow: Partial<Product> = {};
         this.props.columns.forEach((column, i) => {
-            newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value as number & string;
+            newRow[column.field] = (this.fields[column.field].current!).value as number & string;
         }, this);
         return newRow as Product;
     }
@@ -960,10 +965,14 @@ class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBo
                         const error = validateState[field]
                             ? <span className="help-block bg-danger">{validateState[field]}</span>
                             : null;
+                        if (!(field in this.fields)) {
+                            this.fields[field] = React.createRef<HTMLInputElement>();
+                        }
+
                         return (
                             <div className="form-group" key={field}>
                                 <label>{name}</label>
-                                <input ref={field} type="text" defaultValue={""} />
+                                <input ref={this.fields[field]} type="text" defaultValue={""} />
                                 {error}
                             </div>
                         );
@@ -1747,7 +1756,7 @@ class AllFilters extends React.Component {
     render() {
         const satisfaction = [0, 1, 2, 3, 4, 5];
         return (
-            <BootstrapTable ref="table" data={products}>
+            <BootstrapTable ref={React.createRef<BootstrapTable>()} data={products}>
                 <TableHeaderColumn dataField="id" isKey={true}>
                     Product ID
                     <br />

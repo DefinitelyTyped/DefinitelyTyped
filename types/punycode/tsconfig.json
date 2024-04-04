@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
+        "punycode.d.ts",
         "punycode-tests.ts"
     ]
 }

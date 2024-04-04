@@ -616,3 +616,22 @@ multiSelectOptionSetControl.getAttribute();
 
 // Demonstrates getWebResourceUrl
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
+
+const optionSetControl = Xrm.Page.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
+
+// Demonstrates getOptions for Xrm.Controls.OptionSetControl
+// $ExpectType OptionSetValue[]
+optionSetControl.getOptions();
+
+// Demonstrates getOptions for Xrm.Controls.MultiSelectOptionSetControl
+// $ExpectType OptionSetValue[]
+multiSelectOptionSetControl.getOptions();
+
+const openFileSave = Xrm.Navigation.openFile({
+    fileContent: "",
+    fileName: "test.txt",
+    fileSize: 0,
+    mimeType: "text/plain",
+}, {
+    openMode: XrmEnum.OpenFileOptions.Save,
+});

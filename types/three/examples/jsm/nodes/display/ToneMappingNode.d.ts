@@ -1,7 +1,8 @@
-import { ToneMapping } from '../../../../src/Three.js';
-import TempNode from '../core/TempNode.js';
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ToneMapping } from "three";
+import RendererReferenceNode from "../accessors/RendererReferenceNode.js";
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 // exposure only
 export const LinearToneMappingNode: Node;
@@ -19,3 +20,14 @@ export const toneMapping: (
     exposure: NodeRepresentation,
     color?: NodeRepresentation,
 ) => ShaderNodeObject<ToneMappingNode>;
+export const toneMappingExposure: ShaderNodeObject<RendererReferenceNode>;
+
+declare module "../shadernode/ShaderNode.js" {
+    interface NodeElements {
+        toneMapping: (
+            color: NodeRepresentation,
+            mapping?: NodeRepresentation,
+            exposure?: NodeRepresentation,
+        ) => ShaderNodeObject<ToneMappingNode>;
+    }
+}

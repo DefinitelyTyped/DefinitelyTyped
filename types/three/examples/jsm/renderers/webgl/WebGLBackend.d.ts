@@ -1,8 +1,14 @@
-import { CoordinateSystem } from '../../../../src/Three.js';
-import Backend from '../common/Backend.js';
+import { CoordinateSystem } from "three";
+import Backend, { BackendParameters } from "../common/Backend.js";
+
+export interface WebGLBackendParameters extends BackendParameters {
+    trackTimestamp?: boolean | undefined;
+}
 
 export default class WebGLBackend extends Backend {
-    constructor(parameters?: { canvas?: HTMLCanvasElement | undefined });
+    constructor(parameters?: BackendParameters);
 
     get coordinateSystem(): CoordinateSystem;
+
+    getMaxAnisotropy(): number;
 }

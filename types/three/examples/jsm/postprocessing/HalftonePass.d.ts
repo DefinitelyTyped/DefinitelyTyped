@@ -1,6 +1,6 @@
-import { IUniform, ShaderMaterial } from '../../../src/Three.js';
+import { IUniform, ShaderMaterial } from "three";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export interface HalftonePassParameters {
     shape?: number;

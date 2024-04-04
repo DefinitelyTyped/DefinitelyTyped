@@ -7,8 +7,8 @@
     ],
     "dependencies": {
         "@types/http-errors": "*",
-        "@types/mime": "*",
-        "@types/node": "*"
+        "@types/node": "*",
+        "@types/send": "*"
     },
     "devDependencies": {
         "@types/express": "*",

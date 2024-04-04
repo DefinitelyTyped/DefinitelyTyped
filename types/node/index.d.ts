@@ -66,6 +66,7 @@
 /// <reference path="readline.d.ts" />
 /// <reference path="readline/promises.d.ts" />
 /// <reference path="repl.d.ts" />
+/// <reference path="sea.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />
 /// <reference path="stream/consumers.d.ts" />

@@ -106,7 +106,7 @@ declare module "crypto" {
         const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
         /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
         const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
-        /** Instructs OpenSSL to use Cisco's "speshul" version of DTLS_BAD_VER. */
+        /** Instructs OpenSSL to use Cisco's version identifier of DTLS_BAD_VER. */
         const SSL_OP_CISCO_ANYCONNECT: number;
         /** Instructs OpenSSL to turn on cookie exchange. */
         const SSL_OP_COOKIE_EXCHANGE: number;
@@ -1920,7 +1920,7 @@ declare module "crypto" {
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
      *
-     * The range (`max - min`) must be less than 248. `min` and `max` must
+     * The range (`max - min`) must be less than 2**48. `min` and `max` must
      * be [safe integers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger).
      *
      * If the `callback` function is not provided, the random integer is
@@ -4472,6 +4472,14 @@ declare module "crypto" {
                 wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
             ): Promise<ArrayBuffer>;
         }
+    }
+
+    global {
+        var crypto: typeof globalThis extends {
+            crypto: infer T;
+            onmessage: any;
+        } ? T
+            : webcrypto.Crypto;
     }
 }
 declare module "node:crypto" {

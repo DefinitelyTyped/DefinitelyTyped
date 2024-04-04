@@ -95,18 +95,33 @@ declare module "." {
         /**
          * Marks all state updates inside the async function as transitions
          *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
          *
          * @param callback
          */
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
-    function useOptimistic<State>(
+    export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function useOptimistic<State, Action>(
+    export function useOptimistic<State, Action>(
         passthrough: State,
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+        cleanup: () => VoidOrUndefinedOnly;
+    }
+
+    export function useActionState<State>(
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
+    export function useActionState<State, Payload>(
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 }

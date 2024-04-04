@@ -17,6 +17,11 @@ const bearerStrategyOptions: IBearerStrategyOptionWithRequest = {
     identityMetadata: "https://api.test.com",
     clientID: "XXXXX",
     passReqToCallback: true,
+    proxy: {
+        protocol: "http",
+        host: "proxy.test.com",
+        port: "8080",
+    },
 };
 
 const oidcStrategyOptions: IOIDCStrategyOptionWithRequest = {

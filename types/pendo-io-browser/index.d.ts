@@ -25,7 +25,7 @@ declare namespace pendo {
         disablePersistence?: boolean | undefined;
         guides?: {
             delay?: boolean | undefined;
-            disable?: boolean | undefined;
+            disabled?: boolean | undefined;
             timeout?: number | undefined;
             tooltip?: {
                 arrowSize?: number | undefined;

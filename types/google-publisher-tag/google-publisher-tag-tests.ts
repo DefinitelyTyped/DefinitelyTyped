@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20231211
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/e9b791a4a49d911e5e04660c08dcd2039978813c
+// Tests for Google Publisher Tag 1.20240219
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/42bfb2b9b8d977aeafe03d51562dca96323f5f38
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -629,11 +629,35 @@ function test_googletag_slot_updateTargetingFromMap() {
     });
 }
 
+// Test for googletag.config.AdExpansionConfig
+function test_googletag_config_adExpansionConfig() {
+    // Enable ad slot expansion across the entire page.
+    googletag.setConfig({
+        adExpansion: { enabled: true },
+    });
+}
+
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
 function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
     googletag.setConfig({
         privacyTreatments: { treatments: ["disablePersonalization"] },
+    });
+}
+
+// Test for googletag.config.PublisherProvidedSignalsConfig
+function test_googletag_config_publisherProvidedSignalsConfig() {
+    googletag.setConfig({
+        pps: {
+            taxonomies: {
+                "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
+                // '6' = 'Demographic | Age Range | 18-20'
+                // '626' = 'Interest | Sports | Darts'
+                "IAB_CONTENT_2_2": { values: ["48", "127"] },
+                // '48' = 'Books and Literature | Fiction'
+                // '127' = 'Careers | Job Search'
+            },
+        },
     });
 }
 
@@ -692,6 +716,7 @@ function test_googletag_config_interstitialConfig_triggers() {
     interstitialSlot.setConfig({
         interstitial: {
             triggers: {
+                navBar: enableTriggers,
                 unhideWindow: enableTriggers,
             },
         },

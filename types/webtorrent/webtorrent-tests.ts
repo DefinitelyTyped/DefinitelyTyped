@@ -121,3 +121,13 @@ client.add(magnetURI, torrent => {
 client.add(magnetURI, torrent => {
     client.remove(torrent, { destroyStore: true });
 });
+
+// createServer and streamURL
+const server = client.createServer();
+client.add(magnetURI, (torrent) => {
+    const file = torrent.files[0];
+    console.log("Torrent file streamURL", file.streamURL);
+
+    server.close();
+    client.destroy();
+});

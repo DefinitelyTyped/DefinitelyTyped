@@ -29,6 +29,7 @@ declare namespace GorillaEngine.UI {
         keys: Partial<MidiKeyboardKeys>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface MidiKeyboard extends MidiKeyboardProps {}
 
     class MidiKeyboard extends Component {

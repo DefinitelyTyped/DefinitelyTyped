@@ -9,7 +9,7 @@ export interface AvailabilityMetrics {
      */
     currentMonth?: number | null;
     /**
-     * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. 0.0 means 0%. 1.0 means 100%.
+     * Percentage availability of the CDR platform for previous calendar months. The first element indicates the last month and so on. A maximum of twelve entries is required if available. 0.0 means 0%. 1.0 means 100%.clear
      */
     previousMonths?: number[] | null;
     [k: string]: unknown;

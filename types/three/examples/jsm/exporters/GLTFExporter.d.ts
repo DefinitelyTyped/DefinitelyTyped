@@ -1,4 +1,4 @@
-import { Object3D, AnimationClip, Texture, Material, Mesh } from '../../../src/Three.js';
+import { AnimationClip, Material, Mesh, Object3D, Texture } from "three";
 
 export interface GLTFExporterOptions {
     /**
