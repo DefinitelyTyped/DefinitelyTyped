@@ -6,6 +6,8 @@ import { EventEmitter } from "events";
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type JobCallback = (fireDate: Date) => void | Promise<any>;
 
+/** The Spec that is used as parms for schedule to deside when it needs to be ran */
+export type Spec = RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number;
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
     readonly name: string;
@@ -63,7 +65,7 @@ export class Job extends EventEmitter {
      * Changes the scheduling information for this Job.
      * @return whether the reschedule was successful
      */
-    reschedule(spec: RecurrenceRule | string | number): boolean;
+    reschedule(spec: Spec): boolean;
 
     /** The Date on which this Job will be run next. */
     nextInvocation(): Date;
@@ -78,7 +80,7 @@ export class Job extends EventEmitter {
     runOnDate(date: Date): void;
 
     /** Set scheduling information */
-    schedule(date: Date | string | number): boolean;
+    schedule(spec: Spec): boolean;
 }
 
 export class Range {
@@ -174,23 +176,23 @@ export class Invocation {
  * Create a schedule job.
  *
  * @param name     name for the new Job
- * @param rule     scheduling info
+ * @param spec     scheduling info
  * @param callback callback to be executed on each invocation
  */
 export function scheduleJob(
     name: string,
-    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    spec: Spec,
     callback: JobCallback,
 ): Job;
 
 /**
  * Create a schedule job.
  *
- * @param rule     scheduling info
+ * @param spec     scheduling info
  * @param callback callback to be executed on each invocation
  */
 export function scheduleJob(
-    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    spec: Spec,
     callback: JobCallback,
 ): Job;
 
