@@ -5,7 +5,7 @@ interface BidderParams {
 }
 interface VideoCustomParameters {
     [key: string]: number | string | undefined;
-  }
+}
 
 interface BidderConfig {
     bidder: string;

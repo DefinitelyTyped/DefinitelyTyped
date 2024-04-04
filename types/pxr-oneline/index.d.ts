@@ -2,17 +2,22 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        buildVideoUrl(bidder: BidderConfig[], placementID: string, customParams: VideoCustomParameters, videoTitle?: string): string;
+        buildVideoUrl(
+            bidder: BidderConfig[],
+            placementID: string,
+            customParams: VideoCustomParameters,
+            videoTitle?: string,
+        ): string;
     }
     interface VideoCustomParameters {
         [key: string]: number | string | undefined;
-      }
-      
-      interface VideoParameters {
+    }
+
+    interface VideoParameters {
         cust_params: VideoCustomParameters;
         iu: string;
         output: string;
-      }
+    }
 
     interface BidderParams {
         placementId: string;
