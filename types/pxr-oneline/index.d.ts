@@ -2,8 +2,26 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        buildVideoUrl(bidder: BidderConfig[], placementID?: string, videoTitle?: string): string;
+        buildVideoUrl(bidder: BidderConfig[], placementID: string, customParams: VideoCustomParameters, videoTitle?: string): string;
     }
+    interface VideoCustomParameters {
+        ad_count?: number;
+        ad_duration?: number;
+        ad_request_count?: number;
+        betting?: "true" | "false";
+        buffer_duration?: number;
+        video_count?: number;
+        video_duration?: number;
+        page_type?: string | undefined;
+        ad_type?: "preroll" | "bumper";
+        video_title?: string | undefined;
+      }
+      
+      interface VideoParameters {
+        cust_params: VideoCustomParameters;
+        iu: string;
+        output: string;
+      }
 
     interface BidderParams {
         placementId: string;
