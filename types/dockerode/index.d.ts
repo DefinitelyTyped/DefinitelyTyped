@@ -2,6 +2,7 @@
 
 import * as DockerModem from "docker-modem";
 import * as events from "events";
+import { ConnectConfig } from "ssh2";
 import * as stream from "stream";
 
 declare namespace Dockerode {
@@ -1238,6 +1239,7 @@ declare namespace Dockerode {
         timeout?: number | undefined;
         version?: string | undefined;
         sshAuthAgent?: string | undefined;
+        sshOptions?: ConnectConfig | undefined;
         Promise?: typeof Promise | undefined;
     }
 
