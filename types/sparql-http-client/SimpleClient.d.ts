@@ -4,11 +4,11 @@ import { Client, Query, Store } from "./index.js";
 import RawQuery from "./RawQuery.js";
 
 interface QueryConstructor {
-    new(options: { client: SimpleClient }): Query;
+    new(options: { client: SimpleClientImpl }): Query;
 }
 
 interface StoreConstructor {
-    new<Q extends BaseQuad = Quad>(options: { client: SimpleClient }): Store<Q>;
+    new<Q extends BaseQuad = Quad>(options: { client: SimpleClientImpl }): Store<Q>;
 }
 
 interface BaseOptions {
@@ -43,7 +43,9 @@ interface QueryOptions {
     update?: boolean;
 }
 
-declare class SimpleClient<
+export type SimpleClient = Client<RawQuery>;
+
+declare class SimpleClientImpl<
     TQuery extends Query = RawQuery,
     TStore extends Store<BaseQuad> = never,
     TFactory = Environment<DataFactory | DatasetCoreFactory> | undefined,
@@ -80,4 +82,4 @@ declare class SimpleClient<
     postUrlencoded(query: string, options?: QueryOptions): Promise<Response>;
 }
 
-export default SimpleClient;
+export default SimpleClientImpl;
