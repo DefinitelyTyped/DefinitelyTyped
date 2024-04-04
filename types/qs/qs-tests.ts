@@ -364,7 +364,7 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 
 (() => {
     var withEmptyArrays = qs.stringify({ foo: [], bar: "baz" }, { allowEmptyArrays: true });
-    assert.deepEqual(withEmptyArrays,  "foo[]&bar=baz");
+    assert.deepEqual(withEmptyArrays, "foo[]&bar=baz");
 });
 
 (() => {
