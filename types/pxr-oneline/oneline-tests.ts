@@ -4,16 +4,7 @@ interface BidderParams {
     placementId: string;
 }
 interface VideoCustomParameters {
-    ad_count?: number;
-    ad_duration?: number;
-    ad_request_count?: number;
-    betting?: "true" | "false";
-    buffer_duration?: number;
-    video_count?: number;
-    video_duration?: number;
-    page_type?: string | undefined;
-    ad_type?: "preroll" | "bumper";
-    video_title?: string | undefined;
+    [key: string]: number | string | undefined;
   }
 
 interface BidderConfig {
