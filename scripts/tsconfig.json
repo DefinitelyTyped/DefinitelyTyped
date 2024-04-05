@@ -4,6 +4,7 @@
         "module": "nodenext",
         "strict": true,
         "allowJs": true,
+        "checkJs": true,
         "noEmit": true
     },
     "include": ["**/*.js"]

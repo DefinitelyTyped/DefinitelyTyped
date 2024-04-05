@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosInstance } from "axios";
 
 // Module
 declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
@@ -18,7 +18,9 @@ declare namespace AxiosTokenProvider {
         expires_in: number;
     }
 
-    type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
+    type _InterceptorsRequestUseParam = Parameters<AxiosInstance["interceptors"]["request"]["use"]>[0];
+    type InternalAxiosRequestConfig = Parameters<NonNullable<_InterceptorsRequestUseParam>>[0];
+    type TokenProvider = (config: InternalAxiosRequestConfig) => Promise<InternalAxiosRequestConfig>;
 
     interface TokenCacheOptions<T = unknown> {
         getMaxAge?: (() => number) | ((el: T) => number) | undefined;

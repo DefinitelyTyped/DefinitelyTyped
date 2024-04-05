@@ -1,6 +1,6 @@
 interface LaunchParams {
     targetURL?: string;
-    files: ReadonlyArray<FileSystemHandle>;
+    files: readonly FileSystemHandle[];
 }
 
 interface LaunchConsumer {

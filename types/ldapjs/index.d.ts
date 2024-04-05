@@ -118,7 +118,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     bind(dn: string, password: string, callback: CallBack): void;
-    bind(dn: string, password: string, controls: Control | Array<Control>, callback: CallBack): void;
+    bind(dn: string, password: string, controls: Control | Control[], callback: CallBack): void;
 
     /**
      * Adds an entry to the LDAP server.
@@ -134,7 +134,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     add(name: string, entry: Object, callback: ErrorCallback): void;
-    add(name: string, entry: Object, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    add(name: string, entry: Object, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Compares an attribute/value pair with an entry on the LDAP server.
@@ -151,9 +151,14 @@ export interface Client extends EventEmitter {
         name: string,
         attr: string,
         value: string,
-        controls: Control | Array<Control>,
+        controls: Control | Control[],
         callback: CompareCallback,
     ): void;
+
+    /**
+     * Initiate LDAP connection if lost. The constructor will call this method so there's no need to call it the first time.
+     */
+    connect(): void;
 
     /**
      * Deletes an entry from the LDAP server.
@@ -164,7 +169,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     del(name: string, callback: ErrorCallback): void;
-    del(name: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    del(name: string, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Performs an extended operation on the LDAP server.
@@ -180,7 +185,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     exop(name: string, value: string | Buffer, callback: ExopCallback): void;
-    exop(name: string, value: string | Buffer, controls: Control | Array<Control>, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, controls: Control | Control[], callback: ExopCallback): void;
 
     /**
      * Performs an LDAP modify against the server.
@@ -191,11 +196,11 @@ export interface Client extends EventEmitter {
      * @param callback of the form f(err, res).
      * @throws {TypeError} on invalid input.
      */
-    modify(name: string, change: Change | Array<Change>, callback: ErrorCallback): void;
+    modify(name: string, change: Change | Change[], callback: ErrorCallback): void;
     modify(
         name: string,
-        change: Change | Array<Change>,
-        controls: Control | Array<Control>,
+        change: Change | Change[],
+        controls: Control | Control[],
         callback: ErrorCallback,
     ): void;
 
@@ -214,7 +219,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     modifyDN(name: string, newName: string, callback: ErrorCallback): void;
-    modifyDN(name: string, newName: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    modifyDN(name: string, newName: string, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Performs an LDAP search against the server.
@@ -237,11 +242,11 @@ export interface Client extends EventEmitter {
      */
     search(base: string, options: SearchOptions, callback: SearchCallBack): void;
     search(base: string, options: SearchOptions, callback: SearchCallBack, _bypass: boolean): void;
-    search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack): void;
+    search(base: string, options: SearchOptions, controls: Control | Control[], callback: SearchCallBack): void;
     search(
         base: string,
         options: SearchOptions,
-        controls: Control | Array<Control>,
+        controls: Control | Control[],
         callback: SearchCallBack,
         _bypass: boolean,
     ): void;
@@ -249,8 +254,8 @@ export interface Client extends EventEmitter {
     /**
      * Attempt to secure connection with StartTLS.
      */
-    starttls(options: Object, controls: Control | Array<Control>, callback: CallBack): void;
-    starttls(options: Object, controls: Control | Array<Control>, callback: CallBack, _bypass: boolean): void;
+    starttls(options: Object, controls: Control | Control[], callback: CallBack): void;
+    starttls(options: Object, controls: Control | Control[], callback: CallBack, _bypass: boolean): void;
 
     /**
      * Unbinds this client from the LDAP server.

@@ -28,7 +28,6 @@
         "./types/react-native",
         "./types/recurly__recurly-js",
         "./types/sawtooth-sdk",
-        "./types/three",
         "./types/webextension-polyfill",
         "./types/winrt-uwp",
         "./types/vscode",
@@ -36,7 +35,9 @@
         // Machine-generated files.
         "./docs/support-window.json",
         "./notNeededPackages.json",
-        "**/package-lock.json"
+        "**/package-lock.json",
+
+        "./types/**/*.md"
     ],
     "prettier": {
         "associations": [
@@ -49,9 +50,10 @@
     },
     // NOTE: if extending this list, also update settings.template.json.
     "plugins": [
-        "https://plugins.dprint.dev/typescript-0.88.2.wasm",
-        "https://plugins.dprint.dev/json-0.18.0.wasm",
-        "https://plugins.dprint.dev/prettier-0.27.0.json@3557a62b4507c55a47d8cde0683195b14d13c41dda66d0f0b0e111aed107e2fe"
+        "https://plugins.dprint.dev/typescript-0.89.3.wasm",
+        "https://plugins.dprint.dev/json-0.19.2.wasm",
+        "https://plugins.dprint.dev/markdown-0.16.4.wasm",
+        "https://plugins.dprint.dev/prettier-0.39.0.json@896b70f29ef8213c1b0ba81a93cee9c2d4f39ac2194040313cd433906db7bc7c"
     ],
     "indentWidth": 4,
     "lineWidth": 120,

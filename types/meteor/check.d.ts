@@ -30,7 +30,7 @@ declare module 'meteor/check' {
             T extends undefined | null | string | number | boolean ? T :
             T extends new (...args: any[]) => infer U ? U :
             // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-            T extends [Pattern] ? PatternMatch<T[0]>[] :
+            T extends [Pattern] ? Array<PatternMatch<T[0]>> :
             T extends {[key: string]: Pattern} ? {[K in keyof T]: PatternMatch<T[K]>} :
             unknown;
 

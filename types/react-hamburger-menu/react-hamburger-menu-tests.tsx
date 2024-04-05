@@ -4,7 +4,7 @@ import HamburgerMenu, { HamburgerMenuProps } from "react-hamburger-menu";
 export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
     state: State = { isOpen: false };
 
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const props: HamburgerMenuProps = {
             isOpen: this.state.isOpen,
             menuClicked: this.menuClicked,

@@ -1,6 +1,6 @@
 declare class ConvexHullGrahamScan {
     addPoint(x: number, y: number): void;
-    getHull(): { x: number; y: number }[];
+    getHull(): Array<{ x: number; y: number }>;
 }
 
 export = ConvexHullGrahamScan;

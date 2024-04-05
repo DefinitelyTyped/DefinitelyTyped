@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, JSX, useState } from "react";
 
 import {
     AreaSeries,

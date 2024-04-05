@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import TinyMCE = require("react-mce");
 
 class Example extends React.Component {
@@ -35,4 +34,4 @@ class Example extends React.Component {
     }
 }
 
-ReactDOM.render(<Example />, document.getElementById("root"));
+<Example />;

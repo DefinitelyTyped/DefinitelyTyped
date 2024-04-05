@@ -455,6 +455,14 @@ export interface Layout {
     legend: Partial<Legend>;
     font: Partial<Font>;
     scene: Partial<Scene>;
+    scene2: Partial<Scene>;
+    scene3: Partial<Scene>;
+    scene4: Partial<Scene>;
+    scene5: Partial<Scene>;
+    scene6: Partial<Scene>;
+    scene7: Partial<Scene>;
+    scene8: Partial<Scene>;
+    scene9: Partial<Scene>;
     barmode: "stack" | "group" | "overlay" | "relative";
     barnorm: "" | "fraction" | "percent";
     bargap: number;
@@ -881,7 +889,7 @@ export interface ShapeLabel {
 }
 
 export interface Shape {
-    visible: boolean;
+    visible: boolean | "legendonly";
     layer: "below" | "above";
     type: "rect" | "circle" | "line" | "path";
     path: string;
@@ -901,6 +909,13 @@ export interface Shape {
     opacity: number;
     line: Partial<ShapeLine>;
     label: Partial<ShapeLabel>;
+    showlegend: boolean;
+    legendgroup: string;
+    legendgrouptitle: {
+        text: string;
+        font?: Partial<Font>;
+    };
+    legendrank: number;
 }
 
 export interface Margin {
@@ -1396,7 +1411,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
-    offset: number;
+    offset: number | number[];
     contours: Partial<{
         coloring: "fill" | "heatmap" | "lines" | "none";
         end: number;

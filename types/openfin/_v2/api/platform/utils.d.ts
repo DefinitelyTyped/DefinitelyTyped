@@ -77,4 +77,4 @@ export declare const promisifyViewLoadEvents: (view: View, windowIdentity: Ident
 export declare const getOutOfBoundsWindows: (
     snapshot: Snapshot,
     monitorInfo: MonitorInfo,
-) => Promise<import("../../shapes/WindowOptions").WindowOptions[]>;
+) => Promise<Array<import("../../shapes/WindowOptions").WindowOptions>>;

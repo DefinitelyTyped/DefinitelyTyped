@@ -10,6 +10,7 @@ export interface WorkgridToolbarOptions {
     debug?: boolean | undefined;
     deferDisplay?: boolean | undefined;
     htmlDisplay?: string | null | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     listener?: ((event: string) => void | null) | undefined;
     preventPageHide?: boolean | undefined;
     toolbarId?: string | null | undefined;

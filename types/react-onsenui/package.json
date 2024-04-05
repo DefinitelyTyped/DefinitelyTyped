@@ -9,7 +9,6 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/react-onsenui": "workspace:."
     },
     "owners": [

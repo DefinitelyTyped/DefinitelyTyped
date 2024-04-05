@@ -2233,8 +2233,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-effectScatter.data
              */
             data?:
-                | (void | number | string | SeriesEffectScatter.DataObject)[]
-                | (void | number | string | SeriesEffectScatter.DataObject)[][]
+                | Array<void | number | string | SeriesEffectScatter.DataObject>
+                | Array<Array<void | number | string | SeriesEffectScatter.DataObject>>
                 | undefined;
 
             /**

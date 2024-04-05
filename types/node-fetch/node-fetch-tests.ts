@@ -1,6 +1,37 @@
 import { Agent } from "http";
-import fetch, { Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
+import fetch, {
+    AbortError,
+    Blob,
+    FetchError,
+    HeaderInit,
+    Headers,
+    HeadersInit,
+    Request,
+    RequestInit,
+    Response,
+} from "node-fetch";
 import { URL } from "url";
+// eslint-disable-next-line no-duplicate-imports -- test namespace import where import name differs
+import Fetch from "node-fetch";
+import FormData = require("form-data");
+
+function test_FetchNamespace() {
+    // without `import _default = fetch;`, Fetch.HeaderInit errors with "Cannot find namespace 'Fetch'"
+    const h1: Fetch.HeaderInit = [["Content-Type", "applicaion/json"]];
+}
+
+function test_AbortError() {
+    const e = new AbortError("message");
+
+    // $ExpectType "aborted"
+    e.type;
+
+    // $ExpectType "AbortError"
+    e.name;
+
+    // $ExpectType string
+    e.message;
+}
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();
@@ -18,6 +49,11 @@ function test_fetchUrlWithOptions() {
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions),
     );
+}
+
+function test_headerInit() {
+    const h1: HeaderInit = [["Content-Type", "applicaion/json"]];
+    const h2: HeadersInit = h1;
 }
 
 function test_fetchUrlWithHeadersObject() {
@@ -87,6 +123,10 @@ function test_fetchUrlWithRequestObject() {
 
 function test_fetchUrlObject() {
     handlePromise(fetch(new URL("https://example.org")));
+}
+
+async function test_formData() {
+    await fetch(new URL("https://example.org"), { body: new FormData() });
 }
 
 async function test_responseReturnTypes() {
@@ -184,6 +224,7 @@ function test_headers() {
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
     [...headers.values()]; // $ExpectType string[]
+    headers.raw(); // $ExpectType { [k: string]: string[]; }
 }
 
 function test_isRedirect() {
@@ -220,6 +261,20 @@ function test_ResponseInit() {
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
+            timeout: response.timeout,
+            counter: 5,
+        });
+    });
+}
+
+function test_ResponseInitRawHeaders() {
+    fetch("http://test.com", {}).then(response => {
+        new Response(response.body, {
+            url: response.url,
+            size: response.size,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers.raw(),
             timeout: response.timeout,
         });
     });

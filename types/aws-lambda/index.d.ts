@@ -12,6 +12,7 @@ export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
 export * from "./trigger/cloudfront-response";
+export * from "./trigger/cloudwatch-alarm";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 export * from "./trigger/codebuild-cloudwatch-state";
@@ -33,6 +34,7 @@ export * from "./trigger/iot";
 export * from "./trigger/iot-authorizer";
 export * from "./trigger/kinesis-firehose-transformation";
 export * from "./trigger/kinesis-stream";
+export * from "./trigger/lambda-function-url";
 export * from "./trigger/lex";
 export * from "./trigger/lex-v2";
 // RDS events are delivered using SNS events...

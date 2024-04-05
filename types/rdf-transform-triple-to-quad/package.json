@@ -8,7 +8,7 @@
     "type": "module",
     "dependencies": {
         "@types/readable-stream": "*",
-        "rdf-js": "^4.0.2"
+        "@rdfjs/types": ">=1.0.0"
     },
     "devDependencies": {
         "@types/node": "*",

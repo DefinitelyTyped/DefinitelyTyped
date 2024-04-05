@@ -6,6 +6,7 @@ export = api;
 
 declare function api(params: api.Options & { generator: true; async: true }): AsyncGenerator<api.Certificate>;
 declare function api(params: api.Options & { generator: true }): Generator<api.Certificate>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function api(params: api.Options): AsyncGenerator<api.Certificate> | Generator<api.Certificate> | void;
 
 declare namespace api {

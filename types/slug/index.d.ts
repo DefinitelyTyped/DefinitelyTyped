@@ -14,6 +14,7 @@ declare namespace slug {
             rfc3986: Mode;
         };
         multicharmap: CharMap;
+        fallback: boolean;
     };
     const multicharmap: CharMap;
 
@@ -28,6 +29,7 @@ declare namespace slug {
         replacement?: string | null | undefined;
         symbols?: boolean | null | undefined;
         trim?: boolean | null | undefined;
+        fallback?: boolean | null | undefined;
     }
 
     type Options = {

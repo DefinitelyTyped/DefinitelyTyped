@@ -25,7 +25,7 @@ export interface VirtualizedOptionRenderOptions<T> {
 export interface AdditionalVirtualizedSelectProps<TValue> {
     maxHeight?: number | undefined;
     optionHeight?: number | ((options: { option: TValue }) => number) | undefined;
-    optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): JSX.Element;
+    optionRenderer?(options: VirtualizedOptionRenderOptions<TValue>): React.JSX.Element;
     selectComponent?: React.ComponentClass<any> | React.FunctionComponent<any> | undefined;
 }
 

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/travis-fold": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Andy Hanson",
-            "githubUsername": "andy-ms"
-        }
-    ]
+    "owners": []
 }

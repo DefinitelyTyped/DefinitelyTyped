@@ -1,4 +1,5 @@
 /// <reference types="../canary"/>
+import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMClient = require("react-dom/client");
 
@@ -7,6 +8,7 @@ function preloadTest() {
         ReactDOM.preload("foo", { as: "style", fetchPriority: "high", integrity: "sad" });
         ReactDOM.preload("bar", {
             as: "font",
+            type: "font/woff2",
             // @ts-expect-error Unknown fetch priority
             fetchPriority: "unknown",
         });
@@ -122,13 +124,69 @@ function Status() {
     }
 }
 
+// Keep in sync with React.useActionState tests
 function formTest() {
     function Page1() {
         async function action(state: number) {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1);
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+            // $ExpectType boolean
+            isPending,
+        ] = useFormState(action, 1);
+
+        function actionExpectingPromiseState(state: Promise<number>) {
+            return state.then((s) => s + 1);
+        }
+
+        useFormState(
+            // @ts-expect-error
+            actionExpectingPromiseState,
+            Promise.resolve(1),
+        );
+        useFormState(
+            action,
+            // @ts-expect-error
+            Promise.resolve(1),
+        );
+        // $ExpectType number
+        useFormState<Promise<number>>(action, 1)[0];
+
+        useFormState(
+            async (
+                prevState: // only needed in TypeScript 4.9
+                    // 5.0 infers `number` whereas 4.9 infers `0`
+                    number,
+            ) => prevState + 1,
+            0,
+        )[0];
+        // $ExpectType number
+        useFormState(
+            async (prevState) => prevState + 1,
+            // @ts-expect-error
+            Promise.resolve(0),
+        )[0];
+
+        const [
+            state2,
+            action2,
+            // $ExpectType boolean
+            isPending2,
+        ] = useFormState(
+            async (state: React.ReactNode, payload: FormData): Promise<React.ReactNode> => {
+                return state;
+            },
+            (
+                <button>
+                    New Project
+                </button>
+            ),
+        );
+
         return (
             <button
                 onClick={() => {
@@ -145,7 +203,11 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <form action={dispatch}>
                 <span>Count: {state}</span>
@@ -154,12 +216,37 @@ function formTest() {
         );
     }
 
+    function Page3() {
+        function actionSync(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(actionSync, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
     function Page4() {
         async function action(state: number, type: "increment" | "decrement") {
             return state + (type === "increment" ? 1 : -1);
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <button
                 onClick={() => {
@@ -173,4 +260,55 @@ function formTest() {
 
     const formState = [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState;
     ReactDOMClient.hydrateRoot(document.body, <Page1 />, { formState });
+}
+
+function createRoot(validContainer: Element | DocumentFragment | Document) {
+    ReactDOMClient.createRoot(document);
+    ReactDOMClient.createRoot(validContainer);
+
+    ReactDOMClient.createRoot(document, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
+
+    ReactDOMClient.hydrateRoot(document.body, null, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
 }

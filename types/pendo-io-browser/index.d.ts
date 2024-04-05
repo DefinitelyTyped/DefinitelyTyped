@@ -25,7 +25,7 @@ declare namespace pendo {
         disablePersistence?: boolean | undefined;
         guides?: {
             delay?: boolean | undefined;
-            disable?: boolean | undefined;
+            disabled?: boolean | undefined;
             timeout?: number | undefined;
             tooltip?: {
                 arrowSize?: number | undefined;
@@ -55,7 +55,9 @@ declare namespace pendo {
         getCurrentUrl(): string;
 
         // Guides and Guide Center
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         findGuideByName(name: string): Guide | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         findGuideById(id: string): Guide | void;
         showGuideByName(name: string): void;
         showGuideById(id: string): void;

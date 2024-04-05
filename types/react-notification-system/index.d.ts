@@ -4,8 +4,8 @@ declare namespace NotificationSystem {
     export type CallBackFunction = (notification: Notification) => void;
 
     export interface Notification {
-        title?: string | JSX.Element | undefined;
-        message?: string | JSX.Element | undefined;
+        title?: string | React.JSX.Element | undefined;
+        message?: string | React.JSX.Element | undefined;
         level?: "error" | "warning" | "info" | "success" | undefined;
         position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc" | undefined;
         autoDismiss?: number | undefined;

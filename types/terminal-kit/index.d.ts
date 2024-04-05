@@ -21,7 +21,7 @@ export function getDetectedTerminal(
 ): void;
 
 export function autoComplete(
-    array: ReadonlyArray<string>,
+    array: readonly string[],
     startString: string,
     returnAlternatives?: boolean,
     prefix?: string,

@@ -1,7 +1,0 @@
-lineToLine.d.ts
-lineToPolygon.d.ts
-circle.d.ts
-circleOutline.d.ts
-ellipse.d.ts
-point.d.ts
-polygon.d.ts

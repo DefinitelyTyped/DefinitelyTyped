@@ -37,7 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/vm.js)
  */
 declare module "vm" {
-    import { ImportAssertions } from "node:module";
+    import { ImportAttributes } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -68,7 +68,7 @@ declare module "vm" {
          * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAssertions: ImportAssertions) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
             | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -522,7 +522,7 @@ declare module "vm" {
      */
     function compileFunction(
         code: string,
-        params?: ReadonlyArray<string>,
+        params?: readonly string[],
         options?: CompileFunctionOptions,
     ): Function & {
         cachedData?: Script["cachedData"] | undefined;
@@ -593,7 +593,9 @@ declare module "vm" {
         specifier: string,
         referencingModule: Module,
         extra: {
-            assert: Object;
+            /** @deprecated Use `attributes` instead */
+            assert: ImportAttributes;
+            attributes: ImportAttributes;
         },
     ) => Module | Promise<Module>;
     type ModuleStatus = "unlinked" | "linking" | "linked" | "evaluating" | "evaluated" | "errored";
@@ -602,8 +604,8 @@ declare module "vm" {
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`class that closely mirrors [Module Record](https://www.ecma-international.org/ecma-262/#sec-abstract-module-records)
-     * s as defined in the ECMAScript
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
+     * defined in the ECMAScript
      * specification.
      *
      * Unlike `vm.Script` however, every `vm.Module` object is bound to a context from

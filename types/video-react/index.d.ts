@@ -1,4 +1,4 @@
-import { LegacyRef } from "react";
+import { JSX, RefAttributes } from "react";
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
@@ -189,8 +189,7 @@ export interface PlayerActions {
     subscribeToStateChange: (listener: StateListener) => void;
 }
 
-export interface PlayerProps {
-    ref?: LegacyRef<PlayerReference> | undefined;
+export interface PlayerProps extends RefAttributes<PlayerReference> {
     /**
      * In fluid mode, it’s 100% wide all the time, the height will be
      * calculated by the video's ratio.

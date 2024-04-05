@@ -55,8 +55,8 @@ export interface PlayerSize {
 export interface YouTubePlayer {
     addEventListener(event: string, listener: (event: CustomEvent) => void): Promise<void>;
     destroy(): Promise<void>;
-    getAvailablePlaybackRates(): Promise<ReadonlyArray<number>>;
-    getAvailableQualityLevels(): Promise<ReadonlyArray<string>>;
+    getAvailablePlaybackRates(): Promise<readonly number[]>;
+    getAvailableQualityLevels(): Promise<readonly string[]>;
     getCurrentTime(): Promise<number>;
     getDuration(): Promise<number>;
     getIframe(): Promise<HTMLIFrameElement>;
@@ -66,7 +66,7 @@ export interface YouTubePlayer {
     setOption(module: string, option: string, value: any): Promise<void>;
     setOptions(): Promise<void>;
     cuePlaylist(
-        playlist: string | ReadonlyArray<string>,
+        playlist: string | readonly string[],
         index?: number,
         startSeconds?: number,
         suggestedQuality?: string,
@@ -79,7 +79,7 @@ export interface YouTubePlayer {
         suggestedQuality?: string | undefined;
     }): Promise<void>;
     loadPlaylist(
-        playlist: string | ReadonlyArray<string>,
+        playlist: string | readonly string[],
         index?: number,
         startSeconds?: number,
         suggestedQuality?: string,
@@ -91,7 +91,7 @@ export interface YouTubePlayer {
         startSeconds?: number | undefined;
         suggestedQuality?: string | undefined;
     }): Promise<void>;
-    getPlaylist(): Promise<ReadonlyArray<string>>;
+    getPlaylist(): Promise<readonly string[]>;
     getPlaylistIndex(): Promise<number>;
     getPlaybackQuality(): Promise<string>;
     getPlaybackRate(): Promise<number>;

@@ -498,7 +498,7 @@ function FourthMyForm() {
 
 // Few tests
 
-export function EmailField(props: any): JSX.Element {
+export function EmailField(props: any): React.JSX.Element {
     const data = useField("email", {
         defaultValue: props.defaultValue,
         defaultError: props.defaultError,

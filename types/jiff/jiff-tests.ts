@@ -22,6 +22,12 @@ const f = jiff.patch(e, d, {
     },
 });
 
+jiff.patchInPlace(e, d, {
+    findContext(index, array, context) {
+        return array.findIndex((value, index, array) => value["id"] === context);
+    },
+});
+
 new jiff.InvalidPatchOperationError("Invalid patch operation");
 new jiff.TestFailedError("Test failed");
 const error = new jiff.PatchNotInvertibleError("Patch not invertible");

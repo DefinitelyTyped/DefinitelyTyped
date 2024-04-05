@@ -76,7 +76,7 @@ declare class EscPosEncoder {
 
     qrcode(value: string, model?: 1 | 2, size?: qrSizeType, errorLevel?: qrErrorLevelType): EscPosEncoder;
 
-    raw(data: ReadonlyArray<number> | Uint8Array): EscPosEncoder;
+    raw(data: readonly number[] | Uint8Array): EscPosEncoder;
 
     size(value: sizeType): EscPosEncoder;
 

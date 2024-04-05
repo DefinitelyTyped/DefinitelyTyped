@@ -14,7 +14,7 @@ export type Encoding =
     | "UNICODE"
     | "AUTO";
 type IntArrayType =
-    | ReadonlyArray<number>
+    | readonly number[]
     | Uint8Array
     | Uint16Array
     | Uint32Array
@@ -74,21 +74,21 @@ export function base64Encode(data: IntArrayType): string;
 export function base64Decode(data: string): number[];
 export function codeToString(data: IntArrayType): string;
 export function stringToCode(data: string): number[];
-export function toHankakuCase(data: ReadonlyArray<number>): number[];
+export function toHankakuCase(data: readonly number[]): number[];
 export function toHankakuCase(data: string): string;
-export function toZenkakuCase(data: ReadonlyArray<number>): number[];
+export function toZenkakuCase(data: readonly number[]): number[];
 export function toZenkakuCase(data: string): string;
-export function toHiraganaCase(data: ReadonlyArray<number>): number[];
+export function toHiraganaCase(data: readonly number[]): number[];
 export function toHiraganaCase(data: string): string;
-export function toKatakanaCase(data: ReadonlyArray<number>): number[];
+export function toKatakanaCase(data: readonly number[]): number[];
 export function toKatakanaCase(data: string): string;
-export function toHankanaCase(data: ReadonlyArray<number>): number[];
+export function toHankanaCase(data: readonly number[]): number[];
 export function toHankanaCase(data: string): string;
-export function toZenkanaCase(data: ReadonlyArray<number>): number[];
+export function toZenkanaCase(data: readonly number[]): number[];
 export function toZenkanaCase(data: string): string;
-export function toHankakuSpace(data: ReadonlyArray<number>): number[];
+export function toHankakuSpace(data: readonly number[]): number[];
 export function toHankakuSpace(data: string): string;
-export function toZenkakuSpace(data: ReadonlyArray<number>): number[];
+export function toZenkakuSpace(data: readonly number[]): number[];
 export function toZenkakuSpace(data: string): string;
 
 export const version: string;

@@ -104,6 +104,7 @@ export interface SailthruClient {
         data: object,
         binary_data_params: string[],
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -240,6 +241,7 @@ export interface SailthruClient {
         sid: string,
         options: object,
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**
@@ -254,6 +256,7 @@ export interface SailthruClient {
         key: string,
         options: object,
         callback: SailthruCallback,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | RestlerResult;
 
     /**

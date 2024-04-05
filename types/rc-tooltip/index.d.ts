@@ -18,9 +18,8 @@ declare namespace RCTooltip {
         | "leftTop"
         | "leftBottom";
 
-    export interface Props {
+    export interface Props extends React.RefAttributes<any> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<any> | undefined;
         overlayClassName?: string | undefined;
         trigger?: Trigger[] | undefined;
         mouseEnterDelay?: number | undefined;
@@ -35,7 +34,13 @@ declare namespace RCTooltip {
         placement?: Placement | Object | undefined;
         align?: Object | undefined;
         onPopupAlign?: ((popupDomNode: Element, align: Object) => void) | undefined;
-        overlay: (() => React.ReactChild) | React.ReactChild | React.ReactFragment | React.ReactPortal;
+        overlay:
+            | (() => React.ReactElement | number | string)
+            | React.ReactElement
+            | number
+            | string
+            | Iterable<React.ReactNode>
+            | React.ReactPortal;
         arrowContent?: React.ReactNode | undefined;
         getTooltipContainer?: (() => Element) | undefined;
         destroyTooltipOnHide?: boolean | undefined;

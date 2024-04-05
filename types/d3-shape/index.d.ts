@@ -3,7 +3,7 @@
 import { Path } from "d3-path";
 
 declare global {
-    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+    interface CanvasRenderingContext2D {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 // -----------------------------------------------------------------------------------

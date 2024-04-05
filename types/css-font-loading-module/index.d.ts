@@ -89,7 +89,7 @@ declare global {
     };
 
     interface FontFaceSetLoadEvent extends Event {
-        readonly fontfaces: ReadonlyArray<FontFace>;
+        readonly fontfaces: readonly FontFace[];
     }
 
     var FontFaceSetLoadEvent: {

@@ -252,13 +252,13 @@ export namespace ojInputDate {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DayFormatterInput = {
         fullYear: number;
         month: number;
         date: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DayFormatterOutput = {
         disabled?: boolean | undefined;
         className?: string | undefined;

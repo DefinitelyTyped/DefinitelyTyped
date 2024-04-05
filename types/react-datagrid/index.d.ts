@@ -5,9 +5,8 @@ import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 
 declare namespace ReactDataGrid {
-    interface DataGridProps {
+    interface DataGridProps extends React.RefAttributes<DataGrid> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<DataGrid> | undefined;
 
         /**
          * Array/String/Function/Promise - for local data, an array of object

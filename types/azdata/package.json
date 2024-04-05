@@ -17,16 +17,24 @@
             "githubUsername": "Charles-Gagnon"
         },
         {
-            "name": "Alan Ren:",
+            "name": "Alan Ren",
             "githubUsername": "alanrenmsft"
         },
         {
-            "name": "Karl Burtram:",
+            "name": "Cheena Malhotra",
+            "githubUsername": "cheenamalhotra"
+        },
+        {
+            "name": "Karl Burtram",
             "githubUsername": "kburtram"
         },
         {
-            "name": "Ken Van Hyning:",
+            "name": "Ken Van Hyning",
             "githubUsername": "kenvanhyning"
+        },
+        {
+            "name": "Kim Santiago",
+            "githubUsername": "kisantia"
         }
     ]
 }

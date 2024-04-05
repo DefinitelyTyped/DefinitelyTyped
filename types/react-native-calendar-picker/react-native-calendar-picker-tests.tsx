@@ -2,11 +2,13 @@ import * as React from "react";
 import { TextInput, View } from "react-native";
 
 import CalendarPicker, {
+    ChangedDate,
     CustomDatesStylesFunc,
     CustomDateStyle,
     CustomDayHeaderStylesFunc,
     DateChangedCallback,
     DisabledDatesFunc,
+    MonthChangedCallback,
 } from "react-native-calendar-picker";
 
 const TestSimpleProps = () => (
@@ -91,7 +93,7 @@ const TestRangeDurations = () => {
 };
 
 const TestDisabledDates = () => {
-    const isDateDisabled: DisabledDatesFunc = date => date.day() % 2 === 1;
+    const isDateDisabled: DisabledDatesFunc = (date: Date) => date.getDate() % 2 === 1;
     return <CalendarPicker disabledDates={isDateDisabled} />;
 };
 
@@ -113,8 +115,8 @@ const TestCustomDateStyle = () => {
 };
 
 const TestCustomDateFuncs = () => {
-    const customDatesStylesFn: CustomDatesStylesFunc = date => {
-        if (date.weekday() === 0) {
+    const customDatesStylesFn: CustomDatesStylesFunc = (date: Date) => {
+        if (date.getDay() === 0) {
             return {
                 containerStyle: {
                     backgroundColor: "red",
@@ -145,7 +147,7 @@ const TestCustomDateFuncs = () => {
     }) => {
         return {
             textStyle: {
-                color: date.year === 2020 ? "red" : "blue",
+                color: date.year === new Date().getFullYear() ? "red" : "blue",
             },
             style: {
                 backgroundColor: "yellow",
@@ -156,19 +158,23 @@ const TestCustomDateFuncs = () => {
 };
 
 const TestCallbacks = () => {
-    const onDateChange: DateChangedCallback = date => console.log(date.day());
+    const onDateChange: DateChangedCallback = (date: Date, changedDate: ChangedDate) =>
+        `Updated ${changedDate} to ${date.toDateString()}`;
 
-    return <CalendarPicker onDateChange={onDateChange} onMonthChange={onDateChange} />;
+    const onMonthChange: MonthChangedCallback = (date: Date) => `Updated month to ${date.getMonth()}`;
+
+    return <CalendarPicker onDateChange={onDateChange} onMonthChange={onMonthChange} />;
 };
 
 const TestRef = () => {
     const ref = React.useRef<CalendarPicker>();
+    const today = new Date();
     ref.current!.handleOnPressNext();
     ref.current!.handleOnPressPrevious();
     ref.current!.handleOnPressDay({
-        day: 5,
-        month: 6,
-        year: 2020,
+        day: today.getDate(),
+        month: today.getMonth(),
+        year: today.getFullYear(),
     });
     ref.current!.resetSelections();
 };
@@ -200,6 +206,18 @@ const TestInitialViewValues = () => {
             <CalendarPicker initialView={"months"} />
             <CalendarPicker initialView={"years"} />
             <CalendarPicker initialView={undefined} />
+        </>
+    );
+};
+
+const TestParsableDateValues = () => {
+    const today = new Date();
+    const inTwoWeeks = new Date(today.setDate(today.getDate() + 14));
+    return (
+        <>
+            <CalendarPicker minDate={today} maxDate={inTwoWeeks} />
+            <CalendarPicker minDate={today.valueOf()} maxDate={inTwoWeeks.valueOf()} />
+            <CalendarPicker minDate={today.toISOString()} maxDate={inTwoWeeks.toISOString()} />
         </>
     );
 };

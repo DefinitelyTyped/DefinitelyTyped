@@ -63,7 +63,7 @@ interface MediaMetadata {
     // Media's album.
     album: string;
     // Media's artwork.
-    artwork: ReadonlyArray<MediaImage>;
+    artwork: readonly MediaImage[];
 }
 
 declare var MediaMetadata: {

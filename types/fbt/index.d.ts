@@ -269,7 +269,7 @@ export interface FbtProps extends FbtOptions {
     desc: string;
 }
 
-declare global {
+declare module "react" {
     namespace JSX {
         type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
         type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };

@@ -58,7 +58,7 @@ type XRHandedness = "none" | "left" | "right";
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen";
+type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen" | "transient-pointer";
 
 /**
  * Eye types
@@ -149,7 +149,7 @@ declare abstract class XRViewport implements XRViewport {}
  *
  * ref: https://immersive-web.github.io/webxr/#xrspace-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRSpace extends EventTarget {}
 
 declare abstract class XRSpace implements XRSpace {}
@@ -506,7 +506,7 @@ declare abstract class XRSession implements XRSession {}
  * ref: https://immersive-web.github.io/webxr/#xrviewerpose-interface
  */
 interface XRViewerPose extends XRPose {
-    readonly views: ReadonlyArray<XRView>;
+    readonly views: readonly XRView[];
 }
 
 declare abstract class XRViewerPose implements XRViewerPose {}
@@ -547,8 +547,8 @@ declare abstract class XRView implements XRView {}
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
 interface XRInputSourceChangeEvent extends XRSessionEvent {
-    readonly removed: ReadonlyArray<XRInputSource>;
-    readonly added: ReadonlyArray<XRInputSource>;
+    readonly removed: readonly XRInputSource[];
+    readonly added: readonly XRInputSource[];
 }
 
 interface XRInputSourceChangeEventHandler {
@@ -585,7 +585,7 @@ type XRHitTestTrackableType = "point" | "plane" | "mesh";
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: ReadonlyArray<XRHitTestResult>;
+    readonly results: readonly XRHitTestResult[];
 }
 
 declare class XRTransientInputHitTestResult {
@@ -653,7 +653,21 @@ interface XRPlane {
     orientation: XRPlaneOrientation;
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
-    lastChangedTime: number;
+    lastChangedTime: DOMHighResTimeStamp;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedPlanes attribute which contains
+     * all planes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update planes
+     * algorithm. If this attribute is accessed when the frame is not active,
+     * the user agent MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    readonly detectedPlanes?: XRPlaneSet;
 }
 
 declare abstract class XRPlane implements XRPlane {}
@@ -664,29 +678,47 @@ type XRMeshSet = Set<XRMesh>;
 interface XRMesh {
     meshSpace: XRSpace;
     vertices: Float32Array;
-    indices: Float32Array;
-    lastChangedTime: number;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
     semanticLabel?: string;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent
+     * MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-meshing/#mesh-set
+     */
+    readonly detectedMeshes?: XRMeshSet;
 }
 
 declare abstract class XRMesh implements XRMesh {}
 
 interface XRSession {
-    // Legacy
-    updateWorldTrackingState?: (options: {
-        planeDetectionState?: { enabled: boolean } | undefined;
-    }) => void | undefined;
+    /**
+     * XRSession is extended to contain the initiateRoomCapture method which,
+     * if supported, will ask the XR Compositor to capture the current room layout.
+     * It is up to the XRCompositor if this will replace or augment the set of tracked planes.
+     * The user agent MAY also ignore this call, for instance if it doesn’t support a manual room
+     * capture more or if it determines that the room is already set up.
+     * The initiateRoomCapture method MUST only be able to be called once per XRSession.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    initiateRoomCapture?(): Promise<undefined>;
 }
 
-interface XRFrame {
-    worldInformation?:
-        | {
-            detectedPlanes?: XRPlaneSet | undefined;
-        }
-        | undefined;
-}
-
-// Hand Tracking
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
 type XRHandJoint =
     | "wrist"
     | "thumb-metacarpal"
@@ -714,6 +746,12 @@ type XRHandJoint =
     | "pinky-finger-phalanx-distal"
     | "pinky-finger-tip";
 
+/**
+ * The XRJointSpace interface is an {@link XRSpace} and represents the position and
+ * orientation of an {@link XRHand} joint.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrjointspace-interface
+ */
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
@@ -726,7 +764,13 @@ interface XRJointPose extends XRPose {
 
 declare abstract class XRJointPose implements XRJointPose {}
 
-interface XRHand extends Map<number, XRJointSpace> {
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
+interface XRHand extends Map<XRHandJoint, XRJointSpace> {
     readonly WRIST: number;
 
     readonly THUMB_METACARPAL: number;
@@ -771,7 +815,7 @@ interface XRFrame {
  * The base class for XRWebGLLayer and other layer types introduced by future extensions.
  * ref: https://immersive-web.github.io/webxr/#xrlayer-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRLayer extends EventTarget {}
 
 declare abstract class XRLayer implements XRLayer {}

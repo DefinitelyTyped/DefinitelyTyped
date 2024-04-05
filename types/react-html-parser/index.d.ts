@@ -2,6 +2,7 @@ import { DomElement } from "htmlparser2";
 import { ReactElement } from "react";
 
 export interface Transform {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (node: DomElement, index: number, transform?: Transform): ReactElement | void | null;
 }
 

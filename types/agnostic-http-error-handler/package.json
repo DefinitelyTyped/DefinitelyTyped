@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/jkyberneees/http-error-handler#readme"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "devDependencies": {
         "@types/agnostic-http-error-handler": "workspace:.",
         "@types/express": "*"

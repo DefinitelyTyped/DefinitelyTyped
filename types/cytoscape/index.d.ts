@@ -2514,7 +2514,9 @@ declare namespace cytoscape {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
 
         /**
@@ -3100,6 +3102,7 @@ declare namespace cytoscape {
         u: NodeSingular | undefined,
         i: number,
         depth: number,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => boolean | void;
     interface SearchFirstOptionsBase {
         /**
@@ -3238,6 +3241,11 @@ declare namespace cytoscape {
          * edges from source to target (default false).
          */
         directed: boolean;
+        /**
+         * Indicating whether the algorithm should find and return
+         * negative weight cycles (default true).
+         */
+        findNegativeWeightCycles?: boolean | undefined;
     }
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
@@ -3257,6 +3265,12 @@ declare namespace cytoscape {
 
         /* true/false. If true, pathTo and distanceTo will be undefined */
         hasNegativeWeightCycle: boolean;
+
+        /**
+         * array of collections corresponding to the negative weight cycles found
+         * (only populated if the findNegativeWeightCycles option is set to true)
+         */
+        negativeWeightCycles: CollectionReturnValue[];
     }
 
     /**
@@ -4939,8 +4953,8 @@ declare namespace cytoscape {
         cy: Core;
         /** indicates the element or core that first caused the event */
         target: any;
-        /** the event type string (e.g. "tap") */
-        type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
+        /** the event type string (e.g. "tap", "select") */
+        type: UserInputDeviceEventName | UserInputDeviceEventNameExt | CollectionEventName | GraphEventName;
         /** the event namespace string (e.g. "foo" for "foo.tap") */
         namespace: string;
         /** Unix epoch time of event in milliseconds */

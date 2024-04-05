@@ -60,7 +60,7 @@ declare module "twitter-stream-channels" {
              * @returns {Array}
              * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L145
              */
-            getTrackedKeywords(): Array<string>;
+            getTrackedKeywords(): string[];
 
             /**
              * Returns an object key/value - key:your channels - value:the full text search RegExp for the keywords of this channel

@@ -299,6 +299,9 @@ function test_resizable() {
     var animateEasing = $(".selector").resizable("option", "animateEasing");
     $(".selector").resizable("option", "animateEasing", "easeOutBounce");
     $(".selector").resizable({ aspectRatio: true });
+    $(".selector").resizable({ aspectRatio: 1.337 });
+    // @ts-expect-error -- a string is not a valid aspectRatio.
+    $(".selector").resizable({ aspectRatio: "xx" });
     var aspectRatio = $(".selector").resizable("option", "aspectRatio");
     $(".selector").resizable("option", "aspectRatio", true);
     $(".selector").resizable({ autoHide: true });
@@ -307,6 +310,36 @@ function test_resizable() {
     $(".selector").resizable({ cancel: ".cancel" });
     var cancel = $(".selector").resizable("option", "cancel");
     $(".selector").resizable("option", "cancel", ".cancel");
+    $(".selector").resizable({ classes: {} });
+    $(".selector").resizable({ classes: { "ui-resizable": "my-class" } });
+    $(".selector").resizable({ classes: { "ui-resizable-s": "my-class" } });
+    $(".selector").resizable({
+        classes: {
+            "ui-resizable": "my-class",
+            "ui-resizable-resizing": "my-class",
+            "ui-resizable-autohide": "my-class",
+            "ui-resizable-handle": "my-class",
+            "ui-resizable-n": "my-class",
+            "ui-resizable-e": "my-class",
+            "ui-resizable-s": "my-class",
+            "ui-resizable-w": "my-class",
+            "ui-resizable-ne": "my-class",
+            "ui-resizable-se": "my-class",
+            "ui-resizable-sw": "my-class",
+            "ui-resizable-nw": "my-class",
+            "ui-resizable-all": "my-class",
+            "ui-resizable-ghost": "my-class",
+            "ui-resizable-helper": "my-class",
+        },
+    });
+    // @ts-expect-error -- classes is an object, not a string.
+    $(".selector").resizable({ classes: "xx xx" });
+    // @ts-expect-error -- classes is an object, not an array.
+    $(".selector").resizable({ classes: ["xx", "xx"] });
+    // @ts-expect-error -- classes only accepts the defined set of class names.
+    $(".selector").resizable({ classes: { "xx": "my-class" } });
+    // @ts-expect-error -- classes only accepts the defined set of class names (testing the ResizableHandleDirection).
+    $(".selector").resizable({ classes: { "ui-resizable-xx": "my-class" } });
     $(".selector").resizable({ containment: "parent" });
     var containment = $(".selector").resizable("option", "containment");
     $(".selector").resizable("option", "containment", "parent");

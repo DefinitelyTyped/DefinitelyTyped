@@ -191,7 +191,7 @@ declare namespace traverse {
         /**
          * Call this function before each of the children are traversed.
          */
-        pre(callback: (this: TraverseContext, child: any) => void): void;
+        pre(callback: (this: TraverseContext, child: any, key: any) => void): void;
 
         /**
          * Call this function after each of the children are traversed.

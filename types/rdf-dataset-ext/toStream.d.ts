@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore, Quad, Stream } from "rdf-js";
+import { BaseQuad, DatasetCore, Quad, Stream } from "@rdfjs/types";
 import { Readable } from "readable-stream";
 
 /**

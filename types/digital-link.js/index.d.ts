@@ -91,7 +91,7 @@ export const Utils: {
      * @param segments - The list of the url path element
      * @returns the position of the indentifier in the array (-1 if it there is not any identifier).
      */
-    getIdentifierCodeIndex(segments: ReadonlyArray<string>): number;
+    getIdentifierCodeIndex(segments: readonly string[]): number;
 
     /**
      * if the domain has a custom path (ex : https://example.com/path/) it returns the domain without the custom path

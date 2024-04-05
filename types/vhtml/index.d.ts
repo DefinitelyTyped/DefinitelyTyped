@@ -845,7 +845,7 @@ declare namespace vhtml {
             formtarget?: string | undefined;
             name?: string | undefined;
             type?: "submit" | "reset" | "button" | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface CanvasHTMLAttributes extends HTMLAttributes {
             height?: number | string | undefined;
@@ -859,11 +859,12 @@ declare namespace vhtml {
             span?: number | undefined;
         }
         interface DataHTMLAttributes extends HTMLAttributes {
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface DetailsHTMLAttributes extends HTMLAttributes {
             open?: boolean | undefined;
             ontoggle?: string | undefined;
+            name?: string | undefined;
         }
         interface DelHTMLAttributes extends HTMLAttributes {
             cite?: string | undefined;
@@ -967,7 +968,7 @@ declare namespace vhtml {
             src?: string | undefined;
             step?: number | string | undefined;
             type?: string | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
             width?: number | string | undefined;
 
             onchange?: string | undefined;
@@ -987,7 +988,7 @@ declare namespace vhtml {
             for?: string | undefined;
         }
         interface LiHTMLAttributes extends HTMLAttributes {
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface LinkHTMLAttributes extends HTMLAttributes {
             as?: string | undefined;
@@ -1033,7 +1034,7 @@ declare namespace vhtml {
             max?: number | string | undefined;
             min?: number | string | undefined;
             optimum?: number | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface QuoteHTMLAttributes extends HTMLAttributes {
             cite?: string | undefined;
@@ -1062,7 +1063,7 @@ declare namespace vhtml {
             disabled?: boolean | undefined;
             label?: string | undefined;
             selected?: boolean | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface OutputHTMLAttributes extends HTMLAttributes {
             form?: string | undefined;
@@ -1072,11 +1073,11 @@ declare namespace vhtml {
         }
         interface ParamHTMLAttributes extends HTMLAttributes {
             name?: string | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface ProgressHTMLAttributes extends HTMLAttributes {
             max?: number | string | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
         }
         interface SlotHTMLAttributes extends HTMLAttributes {
             name?: string | undefined;
@@ -1103,7 +1104,7 @@ declare namespace vhtml {
             name?: string | undefined;
             required?: boolean | undefined;
             size?: number | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
             onchange?: string | undefined;
         }
         interface SourceHTMLAttributes extends HTMLAttributes {
@@ -1139,7 +1140,7 @@ declare namespace vhtml {
             readonly?: boolean | undefined;
             required?: boolean | undefined;
             rows?: number | undefined;
-            value?: string | ReadonlyArray<string> | number | undefined;
+            value?: string | readonly string[] | number | undefined;
             wrap?: string | undefined;
 
             onchange?: string | undefined;

@@ -780,8 +780,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-custom.data
              */
             data?:
-                | (void | string | number | SeriesCustom.DataObject)[]
-                | (void | string | number | SeriesCustom.DataObject)[][]
+                | Array<void | string | number | SeriesCustom.DataObject>
+                | Array<Array<void | string | number | SeriesCustom.DataObject>>
                 | undefined;
 
             /**

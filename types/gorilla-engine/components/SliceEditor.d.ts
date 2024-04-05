@@ -69,7 +69,11 @@ declare namespace GorillaEngine.UI {
         overlayColorRight?: string;
         enforceValueOnConstraintViolation?: boolean;
         valueOffsetOnConstraintViolation?: number;
-        styles?: SliceStyle[];
+        styles?: {
+            normal: SliceStyle;
+            hover: SliceStyle;
+            selected: SliceStyle;
+        };
     }
 
     interface Slice {
@@ -129,6 +133,7 @@ declare namespace GorillaEngine.UI {
         modulations: Modulation[];
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface SliceEditor extends SliceEditorProps {}
 
     class SliceEditor extends Component {

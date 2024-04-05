@@ -1,5 +1,5 @@
 declare function polygonEllipse(
-    points: ReadonlyArray<number>,
+    points: readonly number[],
     xe: number,
     ye: number,
     rex: number,

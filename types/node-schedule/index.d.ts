@@ -3,8 +3,11 @@
 import { EventEmitter } from "events";
 
 /** The callback executed by a Job */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type JobCallback = (fireDate: Date) => void | Promise<any>;
 
+/** The Spec that is used as parms for schedule to deside when it needs to be ran */
+export type Spec = RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number;
 /** Scheduler jobs. */
 export class Job extends EventEmitter {
     readonly name: string;
@@ -27,7 +30,7 @@ export class Job extends EventEmitter {
     trackInvocation(invocation: Invocation): boolean;
 
     /**
-     * removes an Invocation from this Job's tracking list. For internal use.
+     * Removes an Invocation from the tracking list of this Job. For internal use.
      * @internal
      * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
      */
@@ -40,19 +43,19 @@ export class Job extends EventEmitter {
     triggeredJobs(): number;
 
     /**
-     * set the number of currently running Jobs.
+     * Set the number of currently running Jobs.
      * @internal
      */
     setTriggeredJobs(triggeredJobs: number): void;
 
     /**
-     * cancel all pending Invocations of this Job.
+     * Cancel all pending Invocations of this Job.
      * @param reschedule whether to reschedule the canceled Invocations.
      */
     cancel(reschedule?: boolean): boolean;
 
     /**
-     * cancel the next Invocation of this Job.
+     * Cancel the next Invocation of this Job.
      * @param reschedule whether to reschedule the canceled Invocation.
      * @return whether cancelation was successful
      */
@@ -62,24 +65,22 @@ export class Job extends EventEmitter {
      * Changes the scheduling information for this Job.
      * @return whether the reschedule was successful
      */
-    reschedule(spec: RecurrenceRule | string | number): boolean;
+    reschedule(spec: Spec): boolean;
 
     /** The Date on which this Job will be run next. */
     nextInvocation(): Date;
 
-    /** A list of all pending Invocations */
-    pendingInvocations(): Invocation[];
+    /** A list of all pending Invocations. */
+    pendingInvocations: Invocation[];
 
-    /**
-     * run this Job immediately.
-     */
+    /** Run this Job immediately. */
     invoke(): void;
 
-    /** schedule this Job to be run on the specified date. */
+    /** Schedule this Job to be run on the specified date. */
     runOnDate(date: Date): void;
 
-    /** set scheduling information */
-    schedule(date: Date | string | number): boolean;
+    /** Set scheduling information */
+    schedule(spec: Spec): boolean;
 }
 
 export class Range {
@@ -118,6 +119,7 @@ export class RecurrenceRule {
     );
 
     nextInvocationDate(base: Date): Date;
+    isValid(): boolean;
 }
 
 /**
@@ -174,23 +176,23 @@ export class Invocation {
  * Create a schedule job.
  *
  * @param name     name for the new Job
- * @param rule     scheduling info
+ * @param spec     scheduling info
  * @param callback callback to be executed on each invocation
  */
 export function scheduleJob(
     name: string,
-    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    spec: Spec,
     callback: JobCallback,
 ): Job;
 
 /**
  * Create a schedule job.
  *
- * @param rule     scheduling info
+ * @param spec     scheduling info
  * @param callback callback to be executed on each invocation
  */
 export function scheduleJob(
-    rule: RecurrenceRule | RecurrenceSpecDateRange | RecurrenceSpecObjLit | Date | string | number,
+    spec: Spec,
     callback: JobCallback,
 ): Job;
 

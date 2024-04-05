@@ -125,7 +125,7 @@ export namespace ojDialog {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Position = {
         my?: PositionAlign | undefined;
         at?: PositionAlign | undefined;
@@ -133,12 +133,12 @@ export namespace ojDialog {
         of?: string | PositionPoint | undefined;
         collision?: "flip" | "fit" | "flipfit" | "none" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PositionAlign = {
         vertical?: "top" | "bottom" | "center" | undefined;
         horizontal?: "start" | "end" | "left" | "center" | "bottom" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PositionPoint = {
         x?: number | undefined;
         y?: number | undefined;

@@ -1,2 +1,2 @@
-export function shuffle<T>(deck: ReadonlyArray<T>): T[];
-export default function _default<T>(randomSeed: number, deck: ReadonlyArray<T>): T[];
+export function shuffle<T>(deck: readonly T[]): T[];
+export default function _default<T>(randomSeed: number, deck: readonly T[]): T[];

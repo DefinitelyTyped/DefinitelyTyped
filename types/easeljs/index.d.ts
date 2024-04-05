@@ -230,7 +230,7 @@ declare namespace createjs {
             lastChild: T,
             index: number,
         ): T;
-        addChildAt(...childOrIndex: (DisplayObject | number)[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+        addChildAt(...childOrIndex: Array<DisplayObject | number>): DisplayObject; // actually (...child: DisplayObject[], index: number)
 
         clone(recursive?: boolean): Container;
         contains(child: DisplayObject): boolean;

@@ -2770,8 +2770,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-pictorialBar.data
              */
             data?:
-                | (void | number | string | SeriesPictorialBar.DataObject)[]
-                | (void | number | string | SeriesPictorialBar.DataObject)[][]
+                | Array<void | number | string | SeriesPictorialBar.DataObject>
+                | Array<Array<void | number | string | SeriesPictorialBar.DataObject>>
                 | undefined;
 
             /**

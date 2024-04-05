@@ -45,7 +45,7 @@ declare module "assert" {
                 /** The `operator` property on the error instance. */
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
-                // tslint:disable-next-line:ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 stackStartFn?: Function | undefined;
             });
         }
@@ -228,7 +228,7 @@ declare module "assert" {
             expected: unknown,
             message?: string | Error,
             operator?: string,
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             stackStartFn?: Function,
         ): never;
         /**

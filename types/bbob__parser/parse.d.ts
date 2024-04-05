@@ -3,8 +3,8 @@ import { createLexer } from "./lexer";
 
 export function parse(input: string, opts?: {
     createTokenizer?(): typeof createLexer;
-    onlyAllowTags?: ReadonlyArray<string>;
-    contextFreeTags?: ReadonlyArray<string>;
+    onlyAllowTags?: readonly string[];
+    contextFreeTags?: readonly string[];
     enableEscapeTags?: boolean;
     openTag?: string;
     closeTag?: string;

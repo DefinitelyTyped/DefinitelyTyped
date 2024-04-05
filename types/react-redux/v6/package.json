@@ -12,7 +12,6 @@
     "devDependencies": {
         "@types/object-assign": "*",
         "@types/prop-types": "*",
-        "@types/react-dom": "*",
         "@types/react-redux": "workspace:."
     },
     "owners": [

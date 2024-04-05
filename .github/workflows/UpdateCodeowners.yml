@@ -21,21 +21,26 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          version: latest
+          node-version: '20'
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"
 
       - run: pnpm run update-codeowners
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update CODEOWNERS'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

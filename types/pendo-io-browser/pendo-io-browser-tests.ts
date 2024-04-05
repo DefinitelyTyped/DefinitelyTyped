@@ -43,6 +43,18 @@ pendo.initialize({
         email: "neo@thematrix.io",
         role: "godlike",
     },
+    guides: {
+        disabled: true,
+    },
+});
+
+pendo.initialize({
+    visitor: {
+        id: "PUT_VISITOR_ID_HERE",
+        name: "Neo",
+        email: "neo@thematrix.io",
+        role: "godlike",
+    },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
         name: "CorpSchmorp",

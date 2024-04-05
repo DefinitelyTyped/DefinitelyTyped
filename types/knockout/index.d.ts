@@ -247,11 +247,11 @@ interface KnockoutObservableArrayStatic {
  * casting an observable array to this type expresses the intention that it shouldn't be mutated.
  */
 interface KnockoutReadonlyObservableArray<T>
-    extends KnockoutReadonlyObservable<ReadonlyArray<T>>, KnockoutReadonlyObservableArrayFunctions<T>
+    extends KnockoutReadonlyObservable<readonly T[]>, KnockoutReadonlyObservableArrayFunctions<T>
 {
     // NOTE: Keep in sync with KnockoutObservableArray<T>, see note on KnockoutObservableArray<T>
     subscribe(
-        callback: (newValue: KnockoutArrayChange<T>[]) => void,
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
         target: any,
         event: "arrayChange",
     ): KnockoutSubscription;
@@ -267,7 +267,7 @@ interface KnockoutReadonlyObservableArray<T>
 */
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     subscribe(
-        callback: (newValue: KnockoutArrayChange<T>[]) => void,
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
         target: any,
         event: "arrayChange",
     ): KnockoutSubscription;
@@ -390,7 +390,7 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
-    after?: Array<string> | undefined;
+    after?: string[] | undefined;
     init?:
         | ((
             element: E,
@@ -398,6 +398,7 @@ interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
             allBindingsAccessor: KnockoutAllBindingsAccessor,
             viewModel: VM,
             bindingContext: KnockoutBindingContext,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | { controlsDescendantBindings: boolean })
         | undefined;
     update?:

@@ -62,8 +62,8 @@ declare class Header {
 declare namespace Header {
     export { Email, Event, groupFilters, SimpleLayout, Visualization };
 }
-type SimpleLayout = import("./SimpleLayout");
 type Event = import("@nginstack/engine/lib/event/Event");
-type Visualization = import("../dsv/Visualization");
-type Email = import("@nginstack/engine/lib/email/Email");
 declare function groupFilters(filters: any): any[];
+type Email = import("@nginstack/engine/lib/email/Email");
+type SimpleLayout = import("./SimpleLayout");
+type Visualization = import("../dsv/Visualization");

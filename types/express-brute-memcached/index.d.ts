@@ -63,7 +63,7 @@ export interface MemcachedStoreOptions {
     /**
      * @summary An array of  server_locations  to replace servers that fail and that are removed from the consistent hashing scheme.
      */
-    failOverServers: Array<any>;
+    failOverServers: any[];
 
     /**
      * @summary True, whether to use  md5  as hashing scheme when keys exceed  maxKeySize .
@@ -85,5 +85,5 @@ export default class MemcachedStore {
      * @param {string|Array}    hosts   The collection.
      * @param {Object}          options The otpions.
      */
-    constructor(hosts: string | Array<string>, options?: MemcachedStoreOptions);
+    constructor(hosts: string | string[], options?: MemcachedStoreOptions);
 }

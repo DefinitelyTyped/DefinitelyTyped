@@ -30,7 +30,7 @@ declare class IClauseSelect {
     toSql(): string;
     distinct(): IClauseSelect;
     equals(obj: any): boolean;
-    groupBy(fields: any): IClauseSelect;
+    groupBy(fields: any): this;
     private fetchGroupByArr_;
 }
 declare namespace IClauseSelect {

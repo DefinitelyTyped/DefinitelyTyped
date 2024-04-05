@@ -392,7 +392,7 @@ declare namespace google.payments.api {
          * If omitted, a shipping address from any supported country may be
          * returned.
          */
-        allowedCountryCodes: string[];
+        allowedCountryCodes?: string[];
 
         /**
          * Whether a phone number is additionally required from the buyer for
@@ -1811,6 +1811,15 @@ declare namespace google.payments.api {
          * @default "buy"
          */
         buttonType?: ButtonType | undefined;
+
+        /**
+         * Specifies the button corner radius in pixels. The minimum is 0 and the
+         * maximum depends on the height of the button. If the height is 40px (default height) then
+         * the maximum value for the buttonRadius is 20.
+         *
+         * @default 4
+         */
+        buttonRadius?: number | undefined;
 
         /**
          * Determines how the button's size should change relative to the

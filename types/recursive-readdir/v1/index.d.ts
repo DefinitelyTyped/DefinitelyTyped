@@ -7,7 +7,7 @@ declare namespace RecursiveReaddir {
         // ignorePattern supports glob syntax via https://github.com/isaacs/minimatch
         (
             path: string,
-            ignorePattern: (string | ((file: string, stats: fs.Stats) => void))[],
+            ignorePattern: Array<string | ((file: string, stats: fs.Stats) => void)>,
             callback: (error: Error, files: string[]) => any,
         ): void;
         (

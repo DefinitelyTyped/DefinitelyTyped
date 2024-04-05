@@ -1,6 +1,6 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
 import { after, afterEach, before, beforeEach, describe, it, run, test } from "node:test";
-import { TestEvent } from "node:test/reporters";
+import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
 // $ExpectType TestsStream
@@ -21,8 +21,13 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ["executed"],
+    only: true,
     setup: (root) => {},
     watch: true,
+    shard: {
+        index: 1,
+        total: 3,
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -539,6 +544,32 @@ test("mocks a setter", (t) => {
         // $ExpectType unknown
         call.this;
     }
+});
+
+// @ts-expect-error
+dot();
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+dot("" as any);
+// @ts-expect-error
+tap();
+// $ExpectType AsyncGenerator<string, void, unknown>
+tap("" as any);
+// $ExpectType Spec
+new spec();
+// @ts-expect-error
+junit();
+// $ExpectType AsyncGenerator<string, void, unknown>
+junit("" as any);
+
+describe("Mock Timers Test Suite", () => {
+    it((t) => {
+        t.mock.timers.enable(["setTimeout"]);
+        // @ts-expect-error
+        t.mock.timers.enable(["DOES_NOT_EXIST"]);
+        t.mock.timers.enable();
+        t.mock.timers.reset();
+        t.mock.timers.tick(1000);
+    });
 });
 
 class TestReporter extends Transform {

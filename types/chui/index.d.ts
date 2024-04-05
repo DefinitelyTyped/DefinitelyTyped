@@ -22,7 +22,7 @@ interface ChocolateChipStatic {
      * @param callback A callback to execute on each loop.
      * @param args Any arguments you need to pass to the callback.
      */
-    forEach(obj: Array<any>, callback: Function, args?: any): any;
+    forEach(obj: any[], callback: Function, args?: any): any;
 
     /**
      * Alias for cross-platform events: pointerdown, MSPointerDown, touchstart and mousedown.
@@ -648,7 +648,7 @@ interface JQueryStatic {
      * @param callback A callback to execute on each loop.
      * @param args Any arguments you need to pass to the callback.
      */
-    forEach(obj: Array<any>, callback: Function, args?: any): any;
+    forEach(obj: any[], callback: Function, args?: any): any;
 
     /**
      * Alias for cross-platform events: pointerdown, MSPointerDown, touchstart and mousedown.

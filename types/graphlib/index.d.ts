@@ -77,6 +77,7 @@ declare module "graphlib" {
          * @argument v - node to get parent of.
          * @returns parent node name or void if v has no parent.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         parent(v: string): string | void;
 
         /**
@@ -274,6 +275,7 @@ declare module "graphlib" {
          * @argument w - edge source node.
          * @returns edges descriptors list if v is in the graph, or undefined otherwise.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         inEdges(v: string, w?: string): void | Edge[];
 
         /**
@@ -285,6 +287,7 @@ declare module "graphlib" {
          * @argument w - edge sink node.
          * @returns edges descriptors list if v is in the graph, or undefined otherwise.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         outEdges(v: string, w?: string): void | Edge[];
 
         /**
@@ -296,6 +299,7 @@ declare module "graphlib" {
          * @argument w - edge adjacent node.
          * @returns edges descriptors list if v is in the graph, or undefined otherwise.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         nodeEdges(v: string, w?: string): void | Edge[];
 
         /**
@@ -306,6 +310,7 @@ declare module "graphlib" {
          * @argument v - node identifier.
          * @returns node identifiers list or undefined if v is not in the graph.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         predecessors(v: string): void | string[];
 
         /**
@@ -316,6 +321,7 @@ declare module "graphlib" {
          * @argument v - node identifier.
          * @returns node identifiers list or undefined if v is not in the graph.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         successors(v: string): void | string[];
 
         /**
@@ -327,6 +333,7 @@ declare module "graphlib" {
          * @returns node identifiers list or undefined if v is not in the graph.
          */
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         neighbors(v: string): void | string[];
 
         /**
@@ -363,6 +370,7 @@ declare module "graphlib" {
          *
          * @returns currently assigned label for the graph or undefined if no label assigned.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         graph(): void | string;
 
         /**

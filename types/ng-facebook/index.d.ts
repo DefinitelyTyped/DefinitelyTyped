@@ -12,7 +12,7 @@ declare module "angular" {
             setVersion(version: string): IFacebookProvider;
             getVersion(): string;
 
-            setPermissions(permissions: string | Array<string>): IFacebookProvider;
+            setPermissions(permissions: string | string[]): IFacebookProvider;
             getPermissions(): string;
 
             setCustomInit(customInit: Partial<facebook.InitParams>): IFacebookProvider;

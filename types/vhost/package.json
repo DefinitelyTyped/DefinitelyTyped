@@ -6,10 +6,11 @@
         "https://github.com/expressjs/vhost"
     ],
     "dependencies": {
-        "@types/express": "*"
+        "@types/connect": "*"
     },
     "devDependencies": {
-        "@types/vhost": "workspace:."
+        "@types/vhost": "workspace:.",
+        "@types/express": "*"
     },
     "owners": [
         {
@@ -17,8 +18,8 @@
             "githubUsername": "XVincentX"
         },
         {
-            "name": "Cambo",
-            "githubUsername": "indentedspace"
+            "name": "Paul Grant",
+            "githubUsername": "cssinate"
         }
     ]
 }

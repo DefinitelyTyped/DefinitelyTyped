@@ -1,7 +1,6 @@
 // From https://github.com/jpuri/react-draft-wysiwyg/blob/master/stories/
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor } from "react-draft-wysiwyg";
 
 const Basic = () => (
@@ -13,5 +12,3 @@ const Basic = () => (
         />
     </div>
 );
-
-ReactDOM.render(<Basic />, document.getElementById("target"));

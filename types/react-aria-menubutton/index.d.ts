@@ -74,7 +74,7 @@ export interface MenuProps<T extends HTMLElement> extends Omit<React.HTMLProps<T
      * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"] | undefined;
-    children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
+    children: React.JSX.Element | (({ isOpen }: { isOpen: boolean }) => React.JSX.Element);
 }
 
 /**

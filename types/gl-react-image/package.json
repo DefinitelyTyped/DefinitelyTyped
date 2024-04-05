@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/gl-react-image": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/gl-react-image": "workspace:."
     },
     "owners": [
         {

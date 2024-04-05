@@ -5,7 +5,7 @@ export function register(name: string, descriptor: {
     viewModel: (param0: ViewModelContext) => void | object;
     parseFunction: (value: string, name: string, meta: object, defaultParseFunction: (value: string) => any) => any;
 }): void;
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type Metadata = {
     name: string;
     version: string;
@@ -15,7 +15,7 @@ export type Metadata = {
     events?: object | undefined;
     slots?: object | undefined;
 };
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type PropertyChangedContext = {
     property: string;
     value: any;
@@ -27,7 +27,7 @@ export type PropertyChangedContext = {
         previousValue: any;
     } | undefined;
 };
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type ViewModel = {
     activated: (param0: ViewModelContext) => Promise<any> | void;
     connected: (param0: ViewModelContext) => void;
@@ -35,7 +35,7 @@ export type ViewModel = {
     propertyChanged: (param0: PropertyChangedContext) => void;
     disconnected: (param0: Element) => void;
 };
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type ViewModelContext = {
     element: Element;
     properties: object;

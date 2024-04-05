@@ -84,7 +84,7 @@ export interface User extends BaseUser {
 }
 
 export interface CreateUpdateUser extends BaseUser {
-    companies: (Partial<Company> & { remove?: boolean | undefined })[];
+    companies: Array<Partial<Company> & { remove?: boolean | undefined }>;
 }
 
 export interface List {

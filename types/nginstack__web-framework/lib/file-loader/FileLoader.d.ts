@@ -39,6 +39,10 @@ declare namespace FileLoader {
     export { FileInfo, FileInfoUpload, Request };
 }
 import UploadOptions = require("./UploadOptions.js");
+import UploadedFile = require("./UploadedFile.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DownloadOptions = require("./DownloadOptions.js");
+import DownloadFile = require("./DownloadFile.js");
 type Request = import("@nginstack/engine/lib/http/Request");
 interface FileInfoUpload {
     fileId: string;
@@ -47,10 +51,6 @@ interface FileInfoUpload {
     lastModified: number;
     contentType: string;
 }
-import UploadedFile = require("./UploadedFile.js");
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
-import DownloadOptions = require("./DownloadOptions.js");
-import DownloadFile = require("./DownloadFile.js");
 interface FileInfo {
     name: string;
     filePath: string;

@@ -19,7 +19,7 @@ export type ComponentResolver<Props, Module = DefaultComponent<Props>> = (
 
 export interface OptionsWithoutResolver<Props> {
     cacheKey?(props: Props): any;
-    fallback?: JSX.Element | undefined;
+    fallback?: React.JSX.Element | undefined;
     ssr?: boolean | undefined;
 }
 
@@ -41,15 +41,16 @@ export interface LoadableComponentMethods<Props> {
 }
 
 export interface ExtraComponentProps {
-    fallback?: JSX.Element | undefined;
+    fallback?: React.JSX.Element | undefined;
 }
 
 export type LoadableComponent<Props> =
     & React.ComponentType<Props & ExtraComponentProps>
     & LoadableComponentMethods<Props>;
 
-export interface ExtraClassComponentProps<Component extends React.ComponentClass> extends ExtraComponentProps {
-    ref?: React.LegacyRef<InstanceType<Component>> | undefined;
+export interface ExtraClassComponentProps<Component extends React.ComponentClass>
+    extends ExtraComponentProps, React.RefAttributes<InstanceType<Component>>
+{
 }
 
 export type LoadableClassComponent<Component extends React.ComponentClass> =
@@ -60,7 +61,7 @@ export type LoadableClassComponent<Component extends React.ComponentClass> =
 
 export type LoadableLibrary<Module> =
     & React.ComponentType<{
-        fallback?: JSX.Element | undefined;
+        fallback?: React.JSX.Element | undefined;
         children?: ((module: Module) => React.ReactNode) | undefined;
         ref?: React.Ref<Module> | undefined;
     }>

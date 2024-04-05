@@ -94,11 +94,40 @@ declare namespace GorillaEngine {
          * Its steps if it's a stepped paramter
          */
         readonly steps: string[];
+        /**
+         * Hint for the best type of UI control for this parameter:
+         * "default": usually a knob, could also be a slider or drag/spin control
+         * "volume": audio volume control down to silence, often a vertical slider but could be horizontal or a knob
+         * "drag": more suited to a drag/spin control because usually only a small part of the range is used
+         * "keySelect": select a MIDI note
+         * "outSelect": select an audio output (zero for default, negative values for internal busses)
+         * "modSource": select from a list of mod sources (where mod source names should be inserted instead of numbers)
+         * "voiceGroup": select from a list of voice groups (where voice group names should be inserted instead of numbers)
+         * (the above types can fall back to e.g. ControlTypeDrag if no special behaviour is implemented for them in the UI)
+         * "onOffSwitch": toggle between Off/On (could be a power switch or \"Bypass\" or \"Solo\" etc. - see parameter name)
+         * "switch": toggle between two values that are not Off/On, could also be displayed as a menu
+         * "menu": dropdown menu, could also be a multi-way switch or a stepped knob if there are not many steps
+         * "levelMeter": audio level meter: display should apply log scaling (may have multiple channels)
+         * "meter": meter that may be showing something other than audio level (may have multiple channels)
+         * "display": numeric or text display: value is not user editable
+         * "text": editable text
+         * "textBox": multi-line text with at least copy/paste of the whole text, if not full editing
+         * "array": edit multiple values e.g. as a bargraph
+         * "waveform": display a waveform overview
+         * "notVisible": not intended for display to the user
+         */
+        readonly controlType: string[];
         readonly persistence: InstrumentPropertyPersistence;
     }
 
     interface ccState {
+        /**
+         * MIDI CC number in the range of 1-119
+         */
         cc: number;
+        /**
+         * Path in the instrument, e.g. `Scripts/0/Volume`
+         */
         path: string;
     }
 
@@ -113,7 +142,23 @@ declare namespace GorillaEngine {
      * Instrument
      */
     interface Instrument {
-        on(propName: string, handler: (normValue: number) => void): void;
+        /**
+         * Attach an event listener to an instrument parameter. Whenever the instrument parameter
+         * changes the callback will be called with the current normalized value of the parameter.
+         * Does not trigger for meter parameters.
+         * @param paramName the instrument parameter name
+         * @param handler the callback
+         * @returns `1` when the handler was successfully attached
+         */
+        on(paramName: string, handler: (normValue: number) => void): number;
+        /**
+         * Dettach one or multiple event listeners for an instrument parameter. Pass in a reference
+         * to the callback to remove a specific listener. If no callback is passed then all listeners
+         * for that parameter are removed
+         * @param paramName
+         * @returns the number of removed listeners
+         */
+        off(paramName: string, handler?: (normValue: number) => void): number;
         /**
          * Method used to retrieve a serialised module from the Gorilla Engine.
          *
@@ -256,21 +301,21 @@ declare namespace GorillaEngine {
         removeModuleAtPath(path: string): boolean;
 
         /**
-         * Method used to set a normalised double at a ceterain path in the Gorilla Engine.
+         * Method used to set a normalized double at a ceterain path in the Gorilla Engine.
          *
          * @param path The path to the normalised double that should be set.
          * @param value The normalised double that should be set at the given `path`.
          * @returns `true` if the value has been set succcessfully or `false` otherwise.
          */
-        setNormalisedDoubleAtPath(path: string, value: number): boolean;
+        setNormalizedDoubleAtPath(path: string, value: number): boolean;
 
         /**
-         * Method used to retrieve a normalised double from the Gorilla Engine.
+         * Method used to retrieve a normalized double from the Gorilla Engine.
          *
-         * @param path The path to the normalised double should be retrieved.
+         * @param path The path to the normalised double that should be retrieved.
          * @returns The normalised double found at the given `path` or `false` if nothing was found.
          */
-        getNormalisedDoubleAtPath(): number | boolean;
+        getNormalizedDoubleAtPath(): number | boolean;
 
         /**
          * Method used to retrieve MIDI data from the first instrument script that implements `on midi_drag`
@@ -306,8 +351,23 @@ declare namespace GorillaEngine {
          */
         valueToStringAtPath(path: string, value: number): boolean | string;
 
+        /**
+         * Method used to retrieve a string from the Gorilla Engine.
+         * @param path The path to the string that should be retrieved.
+         * @returns the string found at the given `path` or `false` if nothing was found.
+         */
+        getStringAtPath(path: string): string;
+
+        /**
+         * Get the current MIDI CC state
+         * @returns an array of MIDI CC to instrument path mappings
+         */
         getMIDICCstate(): ccState[];
 
+        /**
+         * Set the MIDI CC state
+         * @param ccMidiSatate an array of MIDI CC to instrument path mappings
+         */
         setMIDICCstate(ccMidiSatate: ccState[]): void;
 
         renderAudioFile(
@@ -325,10 +385,6 @@ declare namespace GorillaEngine {
             minFileLength: number,
         ): void;
 
-        setNormalizedDoubleAtPath(path: string, value: number): void;
-
-        getNormalizedDoubleAtPath(path: string): number;
-
         getLoadingStatus(): boolean;
 
         getLoadingProgressPercent(): number;
@@ -337,6 +393,15 @@ declare namespace GorillaEngine {
 
         endRecallingParameterState(): boolean;
 
+        /**
+         * Add an unconnected dynamic parameter.
+         * Persistence flags:
+         * Private       = 0x000
+         * ShowInHost    = 0x001
+         * SaveInSession = 0x002
+         * SaveInPreset  = 0x004
+         * @param persistence the or'd persistence flags of the parameter
+         */
         addParameter(persistence: number): InstrumentProperty;
 
         getWaveformOverview(
@@ -347,11 +412,18 @@ declare namespace GorillaEngine {
             vertZoom: number,
         ): Uint8Array;
 
-        getStringAtPath(path: string): string;
+        getSampleMetadata(filePath: string, overviewSize: number): { metadata: string; overview: Uint8Array };
     }
 
     interface Blob {
+        /**
+         * Load the specified instrument
+         * @param name the name of the instrument to load
+         */
         loadInstrument(name: string): Instrument;
+        /**
+         * List all instrument names contained in this blob
+         */
         getInstrumentNames(): string[];
     }
 
@@ -360,12 +432,22 @@ declare namespace GorillaEngine {
     }
 
     function registerUncaughtUIExceptionCallback(handler: (err: Error) => void): void;
+    /**
+     * Get the platform specific path where all the resources (assets, blobs, etc.) have
+     * been installed to.
+     * @returns the resource path
+     */
     function getResourcePath(): string;
     function getPluginName(): string;
     function getPluginType(): string;
     function getPluginPath(): string;
-    function quitApplication(): void;
     function getManufacturerName(): string;
+    function quitApplication(): void;
+    /**
+     * Load blob at the specified path
+     * @param blobPath the load blob
+     * @throws if the blob could not be loaded e.g. it is not there or decryption failed
+     */
     function loadBlob(blobPath: string): Blob;
     function getPluginNRTB(enable: boolean): void;
     /**
@@ -377,25 +459,60 @@ declare namespace GorillaEngine {
      * @returns The name of the host
      */
     function getHostDescription(): string;
-    function showNativeMessageBox(options: {
+    interface MessageBoxOptions {
         title: string;
         message: string;
-        iconType: "info" | "question" | "warning";
-    }): void;
-    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
+        iconType: "info" | "question" | "warning" | "error";
+    }
+    function showNativeMessageBoxSync(options: MessageBoxOptions): void;
+    function showNativeMessageBox(options: MessageBoxOptions): Promise<void>;
+    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): Promise<number>;
+    /**
+     * If Codemeter is enabled this will check if a valid license is available. If it is
+     * then the MIDI and Audio will automatically be enabled if they were disabled.
+     * @returns `true` if a valid license has been found *or* codemeter is not enabled, `false` otherwise
+     */
     function checkLicense(): boolean;
-    function checkBeatportRTO(): string;
+    /**
+     * If Codemeter is enabled this will indicate if the license checked with {@link checkLicense} is
+     * a trial license
+     * @returns `true` if it is a trial license, `false` if it isn't *or* codemeter is not enabled
+     */
     function isTrial(): boolean;
+    /**
+     * If Codemeter is enabled this can be used to query the expiration timestamp of the running trial
+     * @returns the timestamp when the trial expires. If there is no trial or codemeter is not enabled
+     * this will return `0`
+     */
     function trialExpirationTimestamp(): number;
+    function checkBeatportRTO(): string;
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
+    /**
+     * Activates an instrument, i.e. route MIDI to the instrument and send Audio from the isntrument to
+     * the DAW. Currently only one instrument can be active. If there was
+     * another instrument active before, it will get deativated.
+     * @param instrument the instrument activate
+     */
     function setActiveInstrument(instrument: Instrument): void;
+    /**
+     * Create an empty dummy instrument. It can be modified with e.g. {@link Instrument.setModuleAtPath}
+     * @returns the empty instrument.
+     */
     function createEmptyInstrument(): Instrument;
     function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
     function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;
     function areParametersDirty(): boolean;
+    /**
+     * Set this flag to indicate that {@link signalReady} will be called once the plugin
+     * initialization has completed.
+     */
     function shouldWaitForReadySignal(): void;
+    /**
+     * Signal that the initialization is done. If this is not called although {@link shouldWaitForReadySignal}
+     * has been called, then this will cause all sorts of problmes like hanging or half working DAWs
+     */
     function signalReady(): void;
     function setParametersDirtyCallback(callback: any): void;
     function getBuildInformation(): any;
@@ -403,7 +520,6 @@ declare namespace GorillaEngine {
     function getPluginMM(v: boolean): void;
     function getPluginAE(v: boolean): void;
     function getPreviewPlayer(): PreviewPlayer;
-    function getSampleMetadata(filePath: string, overviewSize: number): string;
     function openFileChooser(config: {
         allowMultiple?: boolean;
         browseDirectory?: boolean;
@@ -412,14 +528,14 @@ declare namespace GorillaEngine {
         hint?: string;
         allowedExtensions?: string;
         defaultLocation?: string;
-    }): void;
+    }): Promise<string[]>;
     /**
      * Method to convert mp3 files to wave files
      * @param mp3Filepath The path of the mp3 file to convert
      * @param wavFilePath The path where the converted file should be stored
      * @returns `true` if the convertion was successful
      */
-    function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): boolean;
+    function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): Promise<boolean>;
     /**
      * Method to register opening and closing of the plugin editor
      * @param openCallback The callback when the plugin editor opens
@@ -429,7 +545,26 @@ declare namespace GorillaEngine {
     let sessionSaveLoadCallbackTimeoutMs: number;
 
     namespace UI {
+        /**
+         * Load a UI laid out in a yaml file
+         * @param ymlPath The path to yaml layout file
+         */
         function loadUIfromYAML(ymlPath: string): void;
+        /**
+         * Auto generate a generic UI based on the activate blob. Useful for prototyping
+         */
+        function autoGenerate(): void;
+        /**
+         * Get the control with the given id.
+         * @param id The id of the control
+         * @returns the control
+         * @throws when there is no control with the specified id
+         */
         function getControlById(id: string): Component;
+        /**
+         * Creates the window based on the passed in window control {@link GorillaEngine.UI.Window}.
+         * @param window the window to show
+         */
+        function createWindow(window: Window): void;
     }
 }

@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

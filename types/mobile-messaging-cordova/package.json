@@ -8,7 +8,6 @@
         "https://github.com/infobip/mobile-messaging-cordova-plugin"
     ],
     "dependencies": {
-        "@types/node": "*"
     },
     "devDependencies": {
         "@types/mobile-messaging-cordova": "workspace:."

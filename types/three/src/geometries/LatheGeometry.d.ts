@@ -1,5 +1,5 @@
-import { Vector2 } from './../math/Vector2.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Vector2 } from "../math/Vector2.js";
 
 /**
  * Creates meshes with axial symmetry like vases
@@ -37,7 +37,7 @@ export class LatheGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `LatheGeometry`
      */
-    override readonly type: string | 'LatheGeometry';
+    override readonly type: string | "LatheGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

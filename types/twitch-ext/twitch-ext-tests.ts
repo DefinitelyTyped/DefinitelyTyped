@@ -102,6 +102,8 @@ Twitch.ext.bits
     });
 Twitch.ext.bits.onTransactionCancelled(() => console.log("Transaction cancelled"));
 Twitch.ext.bits.onTransactionComplete(transaction => {
+    // $ExpectType "current_user" | "other"
+    transaction.initiator;
     console.log(`${transaction.initiator} (${transaction.userId}) bought ${transaction.product.displayName}`);
     console.log(`Transaction id was ${transaction.transactionID}`);
 });

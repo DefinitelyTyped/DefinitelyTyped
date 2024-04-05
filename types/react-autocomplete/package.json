@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-autocomplete": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-autocomplete": "workspace:."
     },
     "owners": [
         {

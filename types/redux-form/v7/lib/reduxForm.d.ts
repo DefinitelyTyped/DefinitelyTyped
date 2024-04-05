@@ -14,6 +14,7 @@ export type FormSubmitHandler<FormData = {}, P = {}, ErrorType = string> = (
     values: FormData,
     dispatch: Dispatch<any>,
     props: P,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | FormErrors<FormData, ErrorType> | Promise<any>;
 
 export type GetFormState = (state: any) => FormStateMap;

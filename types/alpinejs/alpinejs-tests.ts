@@ -7,11 +7,12 @@
  */
 
 import Alpine, {
-    AlpineComponent,
-    DirectiveCallback,
-    DirectiveData,
-    DirectiveUtilities,
-    ElementWithXAttributes,
+    type AlpineComponent,
+    type DirectiveCallback,
+    type DirectiveData,
+    type DirectiveUtilities,
+    type ElementWithXAttributes,
+    type InterceptorObject,
 } from "alpinejs";
 
 {
@@ -78,10 +79,10 @@ import Alpine, {
     // Alpine.setReactivityEngine
     // $ExpectType void
     Alpine.setReactivityEngine({
-        reactive: val => val,
-        effect: cb => 1,
+        reactive: (val) => val,
+        effect: (cb) => 1,
         release: (id: number) => undefined,
-        raw: val => val,
+        raw: (val) => val,
     });
 }
 
@@ -194,7 +195,7 @@ import Alpine, {
     // $resultType (resultCallback: (result: unknown) => void) => void
     const getThingToLog = Alpine.evaluateLater(el, expression);
 
-    getThingToLog(thingToLog => {
+    getThingToLog((thingToLog) => {
         console.log(thingToLog);
     });
 }
@@ -203,10 +204,9 @@ import Alpine, {
     // Alpine.setEvaluator
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
-
-    const justExpressionEvaluator = <T>(
+    const justExpressionEvaluator = <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         el: ElementWithXAttributes,
-        expression?: string | (() => T), // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        expression?: string | (() => T),
     ) =>
     (resultCallback: (result: T) => void) =>
         resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));
@@ -248,12 +248,22 @@ import Alpine, {
     // $ExpectType interceptor
     Alpine.interceptor;
 
-    Alpine.data("user", () => ({
+    // This uses the generics as older versions of TypeScript don't properly infer the argument types
+    Alpine.data<
+        {
+            intercepted: InterceptorObject<"foo">;
+            init(): void;
+            hello: "world";
+        },
+        [hello: "world"]
+    >("user", (hello: "world") => ({
+        // checks argument support
         intercepted: Alpine.interceptor((initialValue: "foo") => initialValue)("foo"),
         init() {
             // $ExpectType "foo"
             this.intercepted;
         },
+        hello,
     }));
 
     let alias: string;
@@ -528,6 +538,9 @@ import Alpine, {
     // $ExpectType void
     Alpine.store("darkModeState", false);
 
+    // $ExpectType boolean
+    Alpine.store("darkModeState");
+
     // $ExpectType void
     Alpine.store("tabs", {
         current: "first",
@@ -540,6 +553,9 @@ import Alpine, {
     Alpine.store("untypedKey", {
         foo: "bar",
     });
+
+    // $ExpectType unknown
+    Alpine.store("untypedKey");
 }
 
 {
@@ -622,6 +638,47 @@ import Alpine, {
             },
         },
     }));
+
+    // $ExpectType () => void
+    Alpine.bind("#my-el", () => ({
+        "x-show": "true",
+        "@mouseenter"() {},
+        "@mouseleave"(e: MouseEvent) {},
+    }));
+
+    // $ExpectType () => void
+    Alpine.bind(document.createElement("div") as HTMLElement, () => ({
+        "x-show": "true",
+        // allows typed events for x-on and @ bindings
+        "x-on:keydown"(e: KeyboardEvent) {},
+        "@mouseleave"(e: MouseEvent) {},
+        // allows higher event types
+        "@click"(e: Event) {},
+        // does not limit events on custom events
+        "@custom-event"(e: string) {},
+        // does not require event
+        "@keydown"() {},
+        // infers Event type
+        "@keyup"(e) {
+            // $ExpectType KeyboardEvent
+            e;
+        },
+    }));
+
+    // @ts-expect-error: does not allow incorrect event types
+    Alpine.bind(document.createElement("div") as HTMLElement, () => ({
+        "x-on:keydown"(e: MouseEvent) {},
+    }));
+
+    // allows arguments in bindings functions
+    const unbind = Alpine.bind("bindings", (arg: string) => ({
+        disabled() {
+            return true;
+        },
+    }));
+
+    // $ExpectType () => void
+    unbind;
 
     // $ExpectType void
     Alpine.data("user", () => ({

@@ -24,6 +24,6 @@ declare namespace columns {
 /**
  * Outputs aligned table of columns.
  */
-declare function columns(data: ReadonlyArray<ReadonlyArray<any>>, options?: columns.ColumnsOptions): string;
+declare function columns(data: ReadonlyArray<readonly any[]>, options?: columns.ColumnsOptions): string;
 declare function columns(data: columns.Data, options?: columns.ColumnsOptions): string;
 export = columns;

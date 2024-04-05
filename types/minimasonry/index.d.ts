@@ -59,7 +59,6 @@ export interface MiniMasonryOptions {
  *     container: '.masonry_transition'
  * });
  */
-// tslint:disable-next-line:npm-naming
 export default class MiniMasonry {
     constructor(options: MiniMasonryOptions);
     /**

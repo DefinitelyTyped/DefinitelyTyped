@@ -72,27 +72,29 @@ declare namespace gapi.client.language {
 
 interface GoogleApiTranslateTranslationListResponse {
     data: {
-        translations: {
+        translations: Array<{
             translatedText: string;
             detectedSourceLanguage: string;
-        }[];
+        }>;
     };
 }
 
 interface GoogleApiTranslateLanguageListResponse {
     data: {
-        languages: {
+        languages: Array<{
             language: string;
             name: string;
-        }[];
+        }>;
     };
 }
 
 interface GoogleApiTranslateDetectionListResponse {
     data: {
-        detections: {
-            language: string;
-            confidence: number;
-        }[][];
+        detections: Array<
+            Array<{
+                language: string;
+                confidence: number;
+            }>
+        >;
     };
 }

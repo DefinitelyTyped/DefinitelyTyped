@@ -236,7 +236,7 @@ export declare namespace photoshopAction {
     function batchPlay(
         commands: ActionDescriptor[],
         options?: BatchPlayCommandOptions,
-    ): Promise<Array<ActionDescriptor>>;
+    ): Promise<ActionDescriptor[]>;
     /**
      * Attach a listener to a Photoshop event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.

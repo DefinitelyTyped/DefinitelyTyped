@@ -6,8 +6,8 @@ export function configureRefreshFetch<T>(
     },
 ): T;
 
+/* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
 export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: RequestInit): Promise<{
-    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     body: ResponseBody;
     response: Response;
 }>;

@@ -1,7 +1,6 @@
 import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 import * as React from "react";
 import { DragDropContext, Draggable, DraggableLocation, Droppable, DropResult } from "react-beautiful-dnd";
-import * as ReactDOM from "react-dom";
 
 interface listItemType {
     id: string;
@@ -124,8 +123,6 @@ class List extends React.Component<{}, { items: listItemType[]; selected: listIt
         );
     }
 }
-
-ReactDOM.render(<List />, document.getElementById("root"));
 
 const grid = 8;
 

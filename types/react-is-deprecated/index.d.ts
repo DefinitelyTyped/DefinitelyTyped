@@ -1,31 +1,50 @@
 declare module "react-is-deprecated" {
-    import { ReactPropTypes, Requireable, ValidationMap, Validator } from "react";
+    import type * as PropTypes from "prop-types";
 
-    export function deprecate<T>(validator: Validator<T>, message: string): Validator<T>;
+    interface PropTypesValidators {
+        any: typeof PropTypes.any;
+        array: typeof PropTypes.array;
+        bool: typeof PropTypes.bool;
+        func: typeof PropTypes.func;
+        number: typeof PropTypes.number;
+        object: typeof PropTypes.object;
+        string: typeof PropTypes.string;
+        node: typeof PropTypes.node;
+        element: typeof PropTypes.element;
+        instanceOf: typeof PropTypes.instanceOf;
+        oneOf: typeof PropTypes.oneOf;
+        oneOfType: typeof PropTypes.oneOfType;
+        arrayOf: typeof PropTypes.arrayOf;
+        objectOf: typeof PropTypes.objectOf;
+        shape: typeof PropTypes.shape;
+        exact: typeof PropTypes.exact;
+    }
+
+    export function deprecate<T>(validator: PropTypes.Validator<T>, message: string): PropTypes.Validator<T>;
 
     interface Deprecatable<T> {
-        isDeprecated: (message: string) => Validator<T>;
+        isDeprecated: (message: string) => PropTypes.Validator<T>;
     }
 
     // Unfortunately this copy-paste must happen -- I can't just take PropTypes and programmatically
     // define a version that intersects in the Deprecatable interface into the keys.
     interface DeprecatablePropTypes {
-        any: Requireable<any> & Deprecatable<any>;
-        array: Requireable<any> & Deprecatable<any>;
-        bool: Requireable<any> & Deprecatable<any>;
-        func: Requireable<any> & Deprecatable<any>;
-        number: Requireable<any> & Deprecatable<any>;
-        object: Requireable<any> & Deprecatable<any>;
-        string: Requireable<any> & Deprecatable<any>;
-        node: Requireable<any> & Deprecatable<any>;
-        element: Requireable<any> & Deprecatable<any>;
-        instanceOf(expectedClass: {}): Requireable<any> & Deprecatable<any>;
-        oneOf(types: any[]): Requireable<any> & Deprecatable<any>;
-        oneOfType(types: Validator<any>[]): Requireable<any> & Deprecatable<any>;
-        arrayOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
-        objectOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
-        shape(type: ValidationMap<any>): Requireable<any> & Deprecatable<any>;
+        any: PropTypes.Requireable<any> & Deprecatable<any>;
+        array: PropTypes.Requireable<any> & Deprecatable<any>;
+        bool: PropTypes.Requireable<any> & Deprecatable<any>;
+        func: PropTypes.Requireable<any> & Deprecatable<any>;
+        number: PropTypes.Requireable<any> & Deprecatable<any>;
+        object: PropTypes.Requireable<any> & Deprecatable<any>;
+        string: PropTypes.Requireable<any> & Deprecatable<any>;
+        node: PropTypes.Requireable<any> & Deprecatable<any>;
+        element: PropTypes.Requireable<any> & Deprecatable<any>;
+        instanceOf(expectedClass: {}): PropTypes.Requireable<any> & Deprecatable<any>;
+        oneOf(types: any[]): PropTypes.Requireable<any> & Deprecatable<any>;
+        oneOfType(types: Array<PropTypes.Validator<any>>): PropTypes.Requireable<any> & Deprecatable<any>;
+        arrayOf(type: PropTypes.Validator<any>): PropTypes.Requireable<any> & Deprecatable<any>;
+        objectOf(type: PropTypes.Validator<any>): PropTypes.Requireable<any> & Deprecatable<any>;
+        shape(type: PropTypes.ValidationMap<any>): PropTypes.Requireable<any> & Deprecatable<any>;
     }
 
-    export function addIsDeprecated(propTypes: ReactPropTypes): DeprecatablePropTypes;
+    export function addIsDeprecated(propTypes: PropTypesValidators): DeprecatablePropTypes;
 }

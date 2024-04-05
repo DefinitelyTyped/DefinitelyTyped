@@ -465,7 +465,7 @@ export namespace dygraphs {
          * A function to call when the canvas is clicked.
          * @default null
          */
-        clickCallback?: ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>) => void) | null | undefined;
+        clickCallback?: ((event: MouseEvent, xval: number, points: readonly Point[]) => void) | null | undefined;
 
         /**
          * If colors is not specified, saturation of the automatically-generated
@@ -648,7 +648,7 @@ export namespace dygraphs {
          * @default null
          */
         highlightCallback?:
-            | ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>, row: number, seriesName: string) => void)
+            | ((event: MouseEvent, xval: number, points: readonly Point[], row: number, seriesName: string) => void)
             | null
             | undefined;
 
@@ -1032,7 +1032,7 @@ export namespace dygraphs {
          * form "#AABBCC" or "rgb(255,100,200)" or "yellow".
          * @default black
          */
-        rangeSelectorForegroundStrokeColor?: number | null | undefined;
+        rangeSelectorForegroundStrokeColor?: string | null | undefined;
 
         /**
          * The top color for the range selector mini plot fill color gradient. This can be of the form
@@ -1586,6 +1586,11 @@ export default class Dygraph {
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#ready}
      */
     ready(callback: (g: Dygraph) => any): void;
+
+    // built-in tickers
+    static numericLinearTicks: dygraphs.Ticker;
+    static numericTicks: dygraphs.Ticker;
+    static dateTicker: dygraphs.Ticker;
 
     // Tick granularities (passed to ticker).
     static SECONDLY: number;

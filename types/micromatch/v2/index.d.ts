@@ -56,7 +56,7 @@ declare namespace micromatch {
     interface Glob {
         options: micromatch.Options;
         pattern: string;
-        history: { msg: any; pattern: string }[];
+        history: Array<{ msg: any; pattern: string }>;
         tokens: parseGlob.Result;
         orig: string;
         negated: boolean;

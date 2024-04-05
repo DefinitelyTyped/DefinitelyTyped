@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "class-name": true,
-        "no-const-enum": false,
-        "no-unnecessary-type-assertion": false,
-        "unified-signatures": false
-    }
-}

@@ -471,6 +471,7 @@ declare namespace SemanticUI {
             /**
              * Called when a label is remove, return false; will prevent the label from being removed.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onLabelRemove(this: JQuery, value: any): false | void;
             /**
              * Is called after a label is selected by a user
@@ -483,10 +484,12 @@ declare namespace SemanticUI {
             /**
              * Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onShow(this: JQuery): false | void;
             /**
              * Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onHide(this: JQuery): false | void;
 
             // endregion

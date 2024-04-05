@@ -9,7 +9,7 @@ export type FormValues = Nested<FormValue>;
 export type Touched = Nested<boolean>;
 export type FormErrors = { [key: string]: FormError } | [{ [key: string]: FormError }];
 export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null;
+export type RenderReturn = React.JSX.Element | false | null;
 
 export interface FormProps {
     loadState?(props: FormProps, self: Form): FormState | undefined;
@@ -119,7 +119,7 @@ export interface FormFieldPropsWithoutField {
     children(api: FormApi): RenderReturn;
 }
 export type FormFieldProps = FormFieldPropsWithField | FormFieldPropsWithoutField;
-export const FormField: React.FC<FormFieldProps>;
+export const FormField: React.SFC<FormFieldProps>;
 
 // FormError
 export interface FormErrorProps {
@@ -127,7 +127,7 @@ export interface FormErrorProps {
     className?: string | undefined;
     style?: React.HTMLAttributes<HTMLElement>["style"] | undefined;
 }
-export const FormError: React.FC<FormErrorProps>;
+export const FormError: React.SFC<FormErrorProps>;
 
 export interface FormInputProps {
     field?: FormFieldPropsWithField["field"] | undefined;
@@ -141,7 +141,7 @@ export interface FormInputProps {
 export interface FormInputPropsWithChildren extends FormInputProps {
     children(api: FormFieldApi): React.ReactElement | null;
 }
-export const FormInput: React.FC<FormInputPropsWithChildren>;
+export const FormInput: React.SFC<FormInputPropsWithChildren>;
 
 // ==============================
 //             Inputs
@@ -165,7 +165,7 @@ export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElemen
     onBlur?: any;
 }
 export interface SelectProps extends SelectAttrs {
-    options: ReadonlyArray<SelectOption>;
+    options: readonly SelectOption[];
     field?: FormInputProps["field"] | undefined;
     showErrors?: FormInputProps["showErrors"] | undefined;
     errorBefore?: FormInputProps["errorBefore"] | undefined;
@@ -176,7 +176,7 @@ export interface SelectProps extends SelectAttrs {
     errorProps?: FormInputProps["errorProps"] | undefined;
     placeholder?: string | undefined;
 }
-export const Select: React.FC<SelectProps>;
+export const Select: React.SFC<SelectProps>;
 
 export interface InputAttrs extends React.InputHTMLAttributes<HTMLInputElement> {
     onChange?: any;
@@ -192,7 +192,7 @@ export interface CheckboxProps extends InputAttrs {
     noTouch?: boolean | undefined;
     errorProps?: FormInputProps["errorProps"] | undefined;
 }
-export const Checkbox: React.FC<CheckboxProps>;
+export const Checkbox: React.SFC<CheckboxProps>;
 
 export interface TextareaAttrs extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     onChange?: any;
@@ -208,14 +208,14 @@ export interface TextareaProps extends TextareaAttrs {
     noTouch?: boolean | undefined;
     errorProps?: FormInputProps["errorProps"] | undefined;
 }
-export const Textarea: React.FC<TextareaProps>;
+export const Textarea: React.SFC<TextareaProps>;
 
 export interface NestedFormProps extends FormProps {
     field?: FormInputProps["field"] | undefined;
     children?: React.ReactElement<FormProps> | [React.ReactElement<FormProps>] | undefined;
     errorProps?: FormInputProps["errorProps"] | undefined;
 }
-export const NestedForm: React.FC<NestedFormProps>;
+export const NestedForm: React.SFC<NestedFormProps>;
 
 export interface TextProps extends InputAttrs {
     field?: FormInputProps["field"] | undefined;
@@ -227,7 +227,7 @@ export interface TextProps extends InputAttrs {
     noTouch?: boolean | undefined;
     errorProps?: FormInputProps["errorProps"] | undefined;
 }
-export const Text: React.FC<TextProps>;
+export const Text: React.SFC<TextProps>;
 
 export interface RadioGroupProps {
     children?: React.ReactNode;

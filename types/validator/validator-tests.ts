@@ -707,6 +707,22 @@ const any: any = null;
 
     result = validator.isHexadecimal("sample");
 
+    result = validator.isIdentityCard("sample", "ar-LY");
+    result = validator.isIdentityCard("sample", "ar-TN");
+    result = validator.isIdentityCard("sample", "ES");
+    result = validator.isIdentityCard("sample", "FI");
+    result = validator.isIdentityCard("sample", "he-IL");
+    result = validator.isIdentityCard("sample", "IN");
+    result = validator.isIdentityCard("sample", "IR");
+    result = validator.isIdentityCard("sample", "IT");
+    result = validator.isIdentityCard("sample", "LK");
+    result = validator.isIdentityCard("sample", "NO");
+    result = validator.isIdentityCard("sample", "PL");
+    result = validator.isIdentityCard("sample", "TH");
+    result = validator.isIdentityCard("sample", "zh-CN");
+    result = validator.isIdentityCard("sample", "zh-HK");
+    result = validator.isIdentityCard("sample", "zh-TW");
+
     result = validator.isIP("sample");
     result = validator.isIP("sample", "6");
 
@@ -762,10 +778,10 @@ const any: any = null;
 
     result = validator.isLowercase("sample");
 
-    const isMACAddressOptions: validator.IsMACAddressOptions = {
-        no_colons: true,
-    };
-    result = validator.isMACAddress("sample", isMACAddressOptions);
+    result = validator.isMACAddress("sample", { no_separators: true, eui: "48" });
+    result = validator.isMACAddress("sample", { no_separators: true, eui: "64" });
+    result = validator.isMACAddress("sample", { no_separators: true });
+    result = validator.isMACAddress("sample", { no_colons: true });
     result = validator.isMACAddress("sample");
 
     result = validator.isMD5("sample");

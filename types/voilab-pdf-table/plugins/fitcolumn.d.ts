@@ -10,7 +10,7 @@ declare namespace VoilabPdfTablePluginFitColumn {
 }
 
 interface VoilabPdfTablePluginFitColumn<T = any> {
-    // tslint:disable-next-line:no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     new<T>(
         conf: VoilabPdfTablePluginFitColumn.VoilabPdfTablePluginFitColumnConf<T>,
     ): VoilabPdfTable.VoilabPdfTablePlugin<T>;

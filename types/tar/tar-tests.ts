@@ -24,12 +24,8 @@ readStream.pipe(extract);
 extract.on("entry", (entry: any) => undefined);
 
 {
-    const fixtures = path.resolve(__dirname, "fixtures");
-    const tars = path.resolve(fixtures, "tars");
-    const files = fs.readdirSync(tars);
-
     const options: tar.PackOptions = {
-        cwd: files,
+        cwd: __dirname,
         portable: true,
         // gzip: true,
         gzip: { flush: 1 },
@@ -37,7 +33,7 @@ extract.on("entry", (entry: any) => undefined);
         filter: (path, stat): boolean => {
             // $ExpectType string
             path;
-            // $ExpectType FileStat
+            // $ExpectType Stats
             stat;
 
             return true;
@@ -55,6 +51,15 @@ extract.on("entry", (entry: any) => undefined);
         noDirRecurse: true,
         follow: true,
     };
+
+    // @ts-expect-error
+    options.mtime = 1704391217691;
+
+    options.mtime = undefined;
+    options.mtime; // $ExpectType undefined
+
+    options.mtime = new Date();
+    options.mtime; // $ExpectType Date
 
     // $ExpectType Pack
     const pack = new tar.Pack(options)
@@ -131,6 +136,42 @@ tar.t({
     onentry: (entry) => console.log(entry.path, "was", entry.size),
 });
 
+tar.c(
+    {
+        gzip: true,
+        preservePaths: true,
+    },
+    ["some", "files", "and", "folders"],
+).pipe(fs.createWriteStream("my-tarball.tgz"));
+
+tar.x(
+    {
+        file: "my-tarball.tgz",
+        preservePaths: true,
+    },
+).then(() => undefined);
+
+tar.c(
+    {
+        brotli: true,
+        file: "my-tarball.tbr",
+    },
+    ["some", "files", "and", "folders"],
+).then(() => undefined);
+
+tar.c(
+    {
+        brotli: {
+            flush: 1,
+            finishFlush: 2,
+            chunkSize: 32 * 1024,
+            maxOutputLength: 1073741823,
+        },
+        file: "my-tarball.tbr",
+    },
+    ["some", "files", "and", "folders"],
+).then(() => undefined);
+
 fs.createReadStream("my-tarball.tgz")
     .pipe(tar.t())
     .on("entry", entry => console.log(entry.size));
@@ -142,4 +183,12 @@ fs.createReadStream("my-tarball.tgz")
 tar.list({
     file: "my-tarball.tgz",
     onentry: (entry) => entry.path.slice(1),
+    filter: (path, stat): boolean => {
+        // $ExpectType string
+        path;
+        // $ExpectType FileStat
+        stat;
+
+        return true;
+    },
 }).then(() => console.log("after listing"));

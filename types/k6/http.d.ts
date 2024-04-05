@@ -3,7 +3,7 @@ import { Selection } from "./html";
 
 /**
  * Make DELETE  request.
- * https://k6.io/docs/javascript-api/k6-http/del-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/del/
  * @param url - Request URL.
  * @param body - Discouraged. Request body. Object form encoded.
  * @param params - Request parameters.
@@ -17,7 +17,7 @@ export function del<RT extends ResponseType | undefined>(
 
 /**
  * Make HEAD request.
- * https://k6.io/docs/javascript-api/k6-http/head-url-params/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/head/
  * @param url - Request URL.
  * @param params - Request parameters.
  * @returns Resulting response.
@@ -31,7 +31,7 @@ export function head<RT extends ResponseType | undefined>(
 
 /**
  * Make GET request.
- * https://k6.io/docs/javascript-api/k6-http/get-url-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/get/
  * @param url - Request URL.
  * @param params - Request parameters.
  * @returns Resulting response.
@@ -45,7 +45,7 @@ export function get<RT extends ResponseType | undefined>(
 
 /**
  * Make OPTIONS request.
- * https://k6.io/docs/javascript-api/k6-http/options-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/options/
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -59,7 +59,7 @@ export function options<RT extends ResponseType | undefined>(
 
 /**
  * Make PATCH request.
- * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/patch/
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -73,7 +73,7 @@ export function patch<RT extends ResponseType | undefined>(
 
 /**
  * Make POST request.
- * https://k6.io/docs/javascript-api/k6-http/post-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/post/
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -91,7 +91,7 @@ export function post<RT extends ResponseType | undefined>(
 
 /**
  * Make PUT request.
- * https://k6.io/docs/javascript-api/k6-http/put-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/put/
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
@@ -105,7 +105,7 @@ export function put<RT extends ResponseType | undefined>(
 
 /**
  * Make request.
- * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/request/
  * @param method - HTTP method.
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
@@ -125,7 +125,7 @@ export function request<RT extends ResponseType | undefined>(
 
 /**
  * Make async request.
- * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/asyncrequest/
  * @param method - HTTP method.
  * @param url - Request URL.
  * @param body - Request body. Object form encoded.
@@ -146,7 +146,7 @@ export function asyncRequest<RT extends ResponseType | undefined>(
 /**
  * Batch multiple HTTP requests together,
  * to issue them in parallel over multiple TCP connections.
- * https://k6.io/docs/javascript-api/k6-http/batch-requests
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/batch/
  * @param requests - Request specifications.
  * @returns Resulting responses.
  * @example
@@ -170,7 +170,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
 /**
  * Create a file object used for building multipart requests (file uploads).
- * https://k6.io/docs/javascript-api/k6-http/file-data-filename-contenttype
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/file/
  * @param data - File data.
  * @param filename - Filename. Included in MIME message.
  * @param contentType - Content type. Included in MIME message.
@@ -189,7 +189,7 @@ export function file(data: string | bytes | ArrayBuffer, filename?: string, cont
 
 /**
  * Get active cookie jar.
- * https://k6.io/docs/javascript-api/k6-http/cookiejar
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar
  * @returns Active cookie jar.
  * @example
  * let jar = http.cookieJar();
@@ -205,7 +205,7 @@ export function expectedStatuses(...param: Array<number | ExpectedStatusesObject
 
 /**
  * Set the response callback to be called to determine if a response was expected/successful or not.
- * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/setresponsecallback/
  */
 export function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 
@@ -261,7 +261,7 @@ export const OCSP_REASON_UNSPECIFIED = "unspecified";
 
 /**
  * Request parameters.
- * https://k6.io/docs/javascript-api/k6-http/params-k6-http
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/params/
  */
 export interface Params {
     /** Authentication method. */
@@ -315,7 +315,7 @@ export type ResponseType = "binary" | "none" | "text";
 
 /**
  * Cookie value in request parameters.
- * https://k6.io/docs/javascript-api/k6-http/params-k6-http
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/params/
  */
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
@@ -339,7 +339,7 @@ export interface StructuredRequestBody {
 
 /**
  * Batch request specification.
- * https://k6.io/docs/javascript-api/k6-http/batch-requests
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/batch/
  */
 export type BatchRequest = string | HttpURL | ArrayBatchRequest | ObjectBatchRequest;
 
@@ -418,7 +418,7 @@ export type BatchResponses<Q> = {
 
 /**
  * Response.
- * https://k6.io/docs/javascript-api/k6-http/response-k6-http
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/response/
  */
 export interface Response {
     /** Response body. */
@@ -525,7 +525,7 @@ export interface Response {
 
     /**
      * Click link on page.
-     * https://k6.io/docs/javascript-api/k6-http/response-k6-http/response-clicklink-params
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/response/response-clicklink/
      * @param selector - Selector expression locating link to click.
      * @param params - Parameters for link click request.
      * @returns Link click response.
@@ -537,7 +537,7 @@ export interface Response {
 
     /**
      * Parse body as HTML. Optionally filter by selector.
-     * https://k6.io/docs/javascript-api/k6-http/response/response-html
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/response/response-html
      * @param selector - Selector expression.
      * @returns Document node or selected elements.
      * @example
@@ -548,7 +548,7 @@ export interface Response {
 
     /**
      * Parse body as JSON. Optionally filter by selector.
-     * https://k6.io/docs/javascript-api/k6-http/response/response-json-selector
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/response/response-json/
      * @param selector - GJSON expression.
      * @returns Parse result if successful, `undefined` if unsuccessful.
      * @example
@@ -559,7 +559,7 @@ export interface Response {
 
     /**
      * Submit form on page.
-     * https://k6.io/docs/javascript-api/k6-http/response-k6-http/response-submitform-params
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/response/response-submitform/
      * @param formSelector - Selector expression locating form to submit.
      * @param fields - Form field values.
      * @param submitSelector - Selector expression locating submit button.
@@ -682,7 +682,7 @@ export interface ResponseCookie {
 
 /**
  * File data for constructing a multipart request with file uploads.
- * https://k6.io/docs/javascript-api/k6-http/filedata-k6-http
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/filedata/
  */
 export abstract class FileData {
     protected __brand: never;
@@ -702,14 +702,14 @@ export abstract class FileData {
 
 /**
  * Object for storing cookies.
- * https://k6.io/docs/javascript-api/k6-http/cookiejar/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/
  */
 export class CookieJar {
     protected __brand: never;
 
     /**
      * Get cookies set for a particular URL.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-cookiesforurl-url/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/cookiejar-cookiesforurl/
      * @param url - URL for which to get cookies.
      * @returns Cookies for URL.
      */
@@ -717,7 +717,7 @@ export class CookieJar {
 
     /**
      * Set cookie.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar-k6-http/cookiejar-set-name-value-options/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/cookiejar-set/
      * @param url - Cookie URL.
      * @param name - Cookie name.
      * @param value - Cookie value.
@@ -727,7 +727,7 @@ export class CookieJar {
 
     /**
      * Delete all cookies for the given URL.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-clear
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/cookiejar-clear
      * @param url - URL to delete all cookies for.
      */
 
@@ -735,7 +735,7 @@ export class CookieJar {
 
     /**
      * Deletes specific cookie by name for the given URL.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-delete/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/cookiejar-delete/
      * @param url - URL to delete cookie for.
      * @param name - Cookie name to delete.
      */
@@ -794,12 +794,12 @@ interface HttpURL {
 
 /**
  * The http module contains functionality for performing HTTP transactions.
- * https://k6.io/docs/javascript-api/k6-http/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/
  */
 declare namespace http {
     /**
      * Make DELETE  request.
-     * https://k6.io/docs/javascript-api/k6-http/del-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/del/
      * @param url - Request URL.
      * @param body - Discouraged. Request body. Object form encoded.
      * @param params - Request parameters.
@@ -813,7 +813,7 @@ declare namespace http {
 
     /**
      * Make HEAD request.
-     * https://k6.io/docs/javascript-api/k6-http/head-url-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/head/
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -827,7 +827,7 @@ declare namespace http {
 
     /**
      * Make GET request.
-     * https://k6.io/docs/javascript-api/k6-http/get-url-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/get/
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -841,7 +841,7 @@ declare namespace http {
 
     /**
      * Make OPTIONS request.
-     * https://k6.io/docs/javascript-api/k6-http/options-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/options/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -855,7 +855,7 @@ declare namespace http {
 
     /**
      * Make PATCH request.
-     * https://k6.io/docs/javascript-api/k6-http/patch-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/patch/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -869,7 +869,7 @@ declare namespace http {
 
     /**
      * Make POST request.
-     * https://k6.io/docs/javascript-api/k6-http/post-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/post/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -887,7 +887,7 @@ declare namespace http {
 
     /**
      * Make PUT request.
-     * https://k6.io/docs/javascript-api/k6-http/put-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/put/
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -901,7 +901,7 @@ declare namespace http {
 
     /**
      * Make request.
-     * https://k6.io/docs/javascript-api/k6-http/request-method-url-body-params/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/request/
      * @param method - HTTP method.
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -921,7 +921,7 @@ declare namespace http {
 
     /**
      * Make async request.
-     * https://k6.io/docs/javascript-api/k6-http/asyncrequest/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/asyncrequest/
      * @param method - HTTP method.
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -941,7 +941,7 @@ declare namespace http {
 
     /**
      * Creates a URL with set name tag.
-     * https://k6.io/docs/using-k6/http-requests/#url-grouping
+     * https://grafana.com/docs/k6/latest/using-k6/http-requests/#url-grouping
      * @param strings - Passed string values.
      * @param args - Tagged template expressions.
      * @returns HTTP URL object.
@@ -953,7 +953,7 @@ declare namespace http {
     /**
      * Batch multiple HTTP requests together,
      * to issue them in parallel over multiple TCP connections.
-     * https://k6.io/docs/javascript-api/k6-http/batch-requests/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/batch/
      * @param requests - Request specifications.
      * @returns Resulting responses.
      * @example
@@ -977,7 +977,7 @@ declare namespace http {
 
     /**
      * Create a file object used for building multipart requests (file uploads).
-     * https://k6.io/docs/javascript-api/k6-http/file-data-filename-contenttype
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/file/
      * @param data - File data.
      * @param filename - Filename. Included in MIME message.
      * @param contentType - Content type. Included in MIME message.
@@ -996,7 +996,7 @@ declare namespace http {
 
     /**
      * Get active cookie jar.
-     * https://k6.io/docs/javascript-api/k6-http/cookiejar/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/
      * @returns Active cookie jar.
      * @example
      * let jar = http.cookieJar();
@@ -1011,7 +1011,7 @@ declare namespace http {
 
     /**
      * Set the response callback to be called to determine if a response was expected/successful or not.
-     * https://k6.io/docs/javascript-api/k6-http/setresponsecallback-callback/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/setresponsecallback/
      */
     function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
 }

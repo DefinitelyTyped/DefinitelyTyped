@@ -24,23 +24,23 @@ export interface HotKey {
  * Is hotkey?
  */
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
+    hotkey: string | readonly string[],
     options?: HotKeyOptions,
 ): (event: KeyboardEventLike) => boolean;
 
-export function isHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 export function isHotkey(
-    hotkey: string | ReadonlyArray<string>,
+    hotkey: string | readonly string[],
     options: HotKeyOptions,
     event: KeyboardEventLike,
 ): boolean;
 
-export function isCodeHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEventLike) => boolean;
-export function isCodeHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isCodeHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isCodeHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
-export function isKeyHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEventLike) => boolean;
-export function isKeyHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEventLike): boolean;
+export function isKeyHotkey(hotkey: string | readonly string[]): (event: KeyboardEventLike) => boolean;
+export function isKeyHotkey(hotkey: string | readonly string[], event: KeyboardEventLike): boolean;
 
 /**
  * Parse.

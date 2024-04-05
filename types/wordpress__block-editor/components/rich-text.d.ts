@@ -2,7 +2,7 @@
 import { BlockInstance } from "@wordpress/blocks";
 import { Autocomplete, ToolbarButton } from "@wordpress/components";
 import { displayShortcut, rawShortcut } from "@wordpress/keycodes";
-import { ComponentType, HTMLProps, ReactNode } from "react";
+import { ComponentProps, ComponentType, HTMLProps, JSX } from "react";
 
 declare namespace RichText {
     interface Props<T extends keyof HTMLElementTagNameMap> extends Omit<HTMLProps<T>, "onChange"> {
@@ -14,7 +14,7 @@ declare namespace RichText {
         /**
          * A list of autocompleters to use instead of the default.
          */
-        autocompleters?: Array<Autocomplete.Completer<any>> | undefined;
+        autocompleters?: ComponentProps<typeof Autocomplete>["completers"] | undefined;
         children?: never | undefined;
         className?: string | undefined;
         identifier?: string | undefined;
@@ -48,7 +48,7 @@ declare namespace RichText {
          * off. Here you should create a new block with that content and return it. Note that you
          * also need to provide `onReplace` in order for this to take any effect.
          */
-        onSplit?(value: string): void;
+        onSplit?(value: string, isOriginal?: boolean): void;
         onTagNameChange?(tagName: keyof HTMLElementTagNameMap): void;
         /**
          * Placeholder text to show when the field is empty, similar to the `input` and `textarea`
@@ -94,7 +94,7 @@ export namespace RichTextShortcut {
 export const RichTextShortcut: ComponentType<RichTextShortcut.Props>;
 
 export namespace RichTextToolbarButton {
-    interface Props extends ToolbarButton.Props {
+    interface Props extends ComponentProps<typeof ToolbarButton> {
         name?: string | undefined;
         shortcutType?: keyof typeof displayShortcut | undefined;
         shortcutCharacter?: string | undefined;

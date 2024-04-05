@@ -7,14 +7,34 @@ import * as ReactTestUtils from "react-dom/test-utils";
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component<{ x: string }> {}
+class TestComponent extends React.Component<{ x: string }> {
+    someInstanceMethod() {
+        return 42;
+    }
+}
 
 describe("ReactDOM", () => {
     it("render", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(React.createElement("div"), rootElement);
+        const container = document.createElement("div");
+        ReactDOM.render(React.createElement("div"), container);
         ReactDOM.render(React.createElement("div"), document.createDocumentFragment());
         ReactDOM.render(React.createElement("div"), document);
+
+        const instance = ReactDOM.render(React.createElement(TestComponent), container);
+        instance.someInstanceMethod();
+
+        const element = React.createElement(TestComponent, { x: "test" });
+        const component: TestComponent = ReactDOM.render(element, container);
+        const componentNullContainer: TestComponent = ReactDOM.render(element, null);
+        const componentElementOrNull: TestComponent = ReactDOM.render(element, container);
+        class ModernComponentNoState extends React.Component<{ x: string }> {}
+        const elementNoState: React.CElement<{ x: string }, ModernComponentNoState> = React.createElement(
+            ModernComponentNoState,
+            { x: "test" },
+        );
+        const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
+        const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
+        const domComponent: Element = ReactDOM.render(React.createElement("div"), container);
     });
 
     it("hydrate", () => {
@@ -33,7 +53,7 @@ describe("ReactDOM", () => {
     it("works with document fragments", () => {
         const fragment = document.createDocumentFragment();
         ReactDOM.render(React.createElement("div"), fragment);
-        ReactDOM.unmountComponentAtNode(fragment);
+        const unmounted: boolean = ReactDOM.unmountComponentAtNode(fragment);
     });
 
     it("find dom node", () => {
@@ -42,6 +62,11 @@ describe("ReactDOM", () => {
         ReactDOM.findDOMNode(rootElement);
         ReactDOM.findDOMNode(null);
         ReactDOM.findDOMNode(undefined);
+
+        const element = React.createElement(TestComponent, { x: "test" });
+        const component: TestComponent = ReactDOM.render(element, document.createElement("div"));
+        let domNode = ReactDOM.findDOMNode(component);
+        domNode = ReactDOM.findDOMNode(domNode as Element);
     });
 
     it("createPortal", () => {
@@ -71,9 +96,9 @@ describe("ReactDOM", () => {
         ReactDOM.flushSync(() => {});
         // $ExpectType number
         ReactDOM.flushSync(() => 42);
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync(() => 42, "not used");
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, "not used");
         // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
@@ -85,10 +110,12 @@ describe("ReactDOM", () => {
 describe("ReactDOMServer", () => {
     it("renderToString", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
+        ReactDOMServer.renderToString(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
+        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 });
 
@@ -344,8 +371,7 @@ function createRoot() {
     root.render(<div>initial render</div>);
     root.render(false);
 
-    // only makes sense for `hydrateRoot`
-    // @ts-expect-error
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     ReactDOMClient.createRoot(document);
 }
 
@@ -414,6 +440,52 @@ function pipeableStreamDocumentedExample() {
 }
 
 /**
+ * source: https://react.dev/reference/react-dom/server/renderToPipeableStream
+ */
+function pipeableStreamDocumentedStringExample() {
+    function App() {
+        return null;
+    }
+
+    interface Response extends NodeJS.WritableStream {
+        send(content: string): void;
+        setHeader(key: string, value: unknown): void;
+        statusCode: number;
+    }
+
+    let didError = false;
+    const response: Response = {} as any;
+    const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
+        bootstrapScripts: ["/main.js"],
+        onShellReady() {
+            response.statusCode = didError ? 500 : 200;
+            response.setHeader("content-type", "text/html");
+            pipe(response);
+        },
+        onShellError(error) {
+            response.statusCode = 500;
+            response.setHeader("content-type", "text/html");
+            response.send("<h1>Something went wrong</h1>");
+        },
+        onAllReady() {},
+        onError(err) {
+            didError = true;
+            console.error(err);
+        },
+    });
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort();
+    }, 1000);
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort("timeout");
+    }, 1000);
+}
+
+/**
  * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
  */
 async function readableStreamDocumentedExample() {
@@ -424,6 +496,38 @@ async function readableStreamDocumentedExample() {
             <html>
                 <body>Success</body>
             </html>,
+            {
+                signal: controller.signal,
+                onError(error) {
+                    didError = true;
+                    console.error(error);
+                },
+            },
+        );
+
+        await stream.allReady;
+
+        return new Response(stream, {
+            status: didError ? 500 : 200,
+            headers: { "Content-Type": "text/html" },
+        });
+    } catch (error) {
+        return new Response("<!doctype html><p>Loading...</p><script src=\"clientrender.js\"></script>", {
+            status: 500,
+            headers: { "Content-Type": "text/html" },
+        });
+    }
+}
+
+/**
+ * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ */
+async function readableStreamDocumentedStringExample() {
+    const controller = new AbortController();
+    let didError = false;
+    try {
+        const stream = await ReactDOMServer.renderToReadableStream(
+            "app",
             {
                 signal: controller.signal,
                 onError(error) {

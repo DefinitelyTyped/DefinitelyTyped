@@ -7,16 +7,12 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-native": "*"
+        "react-native": "*"
     },
     "devDependencies": {
         "@types/react-native-scrollable-tab-view": "workspace:."
     },
     "owners": [
-        {
-            "name": "CaiHuan",
-            "githubUsername": "CaiHuan"
-        },
         {
             "name": "Egor Shulga",
             "githubUsername": "egorshulga"

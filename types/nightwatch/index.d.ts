@@ -1,7 +1,9 @@
 import { Protocol } from "devtools-protocol";
-import { Actions, By, Capabilities, RelativeBy, WebElement } from "selenium-webdriver";
+import { Actions, By, RelativeBy, WebElement } from "selenium-webdriver";
 import { Expect } from "./expect";
+import NightwatchClient = require("./lib/core/client");
 
+export type { NightwatchClient };
 export * from "./expect";
 export * from "./globals";
 
@@ -20,6 +22,7 @@ export type Definition = string | ElementProperties | Element | By | RelativeBy;
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
 // tslint:disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VoidToNull<T> = T extends void ? null : T;
 
 type ExecuteScriptFunction<ArgType extends any[], ReturnValue> = (
@@ -1914,13 +1917,13 @@ export interface NightwatchAPI
     launch_url: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomCommands {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomAssertions {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomPageObjects {}
 
 export interface NightwatchBrowser
@@ -2386,6 +2389,7 @@ interface ExclusiveSuiteFunction {
 }
 
 interface PendingSuiteFunction {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (title: string, fn?: (this: DescribeInstance) => void): this | void;
 }
 
@@ -2459,20 +2463,6 @@ export interface NightwatchAssertion<T, U = any> {
     client: NightwatchClientObject;
 }
 
-export interface NightwatchClient extends NightwatchClientObject {
-    argv: { [key: string]: any };
-    client: NightwatchClientObject;
-    configLocateStrategy: "css selector" | "xpath";
-    // TODO: Add missing properties, like:
-    // elementLocator
-    // httpOpts
-    // initialCapabilities
-    // queue
-    // reporter
-    unitTestingMode: boolean;
-    usingCucumber: boolean;
-}
-
 export interface NightwatchClientObject {
     api: NightwatchAPI;
     options: NightwatchOptions;
@@ -2502,45 +2492,48 @@ export interface CreateClientParams {
     test_settings?: Partial<NightwatchOptions>;
 }
 
-export interface Nightwatch {
-    cli(callback: () => void): void;
-    client(settings: NightwatchOptions, reporter?: any, argv?: {}, skipInt?: boolean): this;
-    CliRunner(argv?: {}): this; // TODO: return type is `CliRunner` instance.
-    initClient(opts?: {}): this;
-    runner(argv?: {}, done?: () => void, settings?: {}): Promise<void>;
-    runTests(testSource: string | string[], settings?: any, ...args: any[]): Promise<void>;
+export function cli(callback: () => void): void;
+export function client(
+    settings: NightwatchOptions,
+    reporter?: any,
+    argv?: {},
+    skipInt?: boolean,
+): import("./lib/core/client");
+export function CliRunner(argv?: {}): import("./lib/runner/cli/cli");
+export function initClient(opts?: {}): import("./lib/core/client");
+export function runner(argv?: {}, done?: () => void, settings?: {}): Promise<void>;
+export function runTests(testSource: string | string[], settings?: any, ...args: any[]): Promise<void>;
 
-    /**
-     * Creates a new Nightwatch client that can be used to create WebDriver sessions.
-     */
-    createClient({
-        headless,
-        silent,
-        output,
-        useAsync,
-        env,
-        timeout,
-        parallel,
-        reporter,
-        browserName,
-        globals,
-        devtools,
-        debug,
-        enable_global_apis,
-        config,
-        test_settings,
-    }?: CreateClientParams): NightwatchProgrammaticAPIClient;
+/**
+ * Creates a new Nightwatch client that can be used to create WebDriver sessions.
+ */
+export function createClient({
+    headless,
+    silent,
+    output,
+    useAsync,
+    env,
+    timeout,
+    parallel,
+    reporter,
+    browserName,
+    globals,
+    devtools,
+    debug,
+    enable_global_apis,
+    config,
+    test_settings,
+}?: CreateClientParams): NightwatchProgrammaticAPIClient;
 
-    // TODO: add the following missing properties
-    // Logger
-    // element (only available after createClient is called)
+// TODO: add the following missing exports
+// Logger
+// element (only available after createClient is called)
 
-    browser: NightwatchAPI;
-    app: NightwatchAPI;
-    by: typeof By;
-    Capabilities: typeof Capabilities;
-    Key: NightwatchKeys;
-}
+export const browser: NightwatchAPI;
+export const app: NightwatchAPI;
+export const by: typeof By;
+export const Capabilities: typeof import("selenium-webdriver").Capabilities;
+export const Key: NightwatchKeys;
 
 export interface NightwatchProgrammaticAPIClient {
     /**
@@ -7466,6 +7459,3 @@ export interface PageObjectModel {
     commands?: any;
     props?: any;
 }
-
-declare const _default: Nightwatch;
-export default _default;

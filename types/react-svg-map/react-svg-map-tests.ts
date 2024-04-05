@@ -3,7 +3,7 @@ import { SVGMap } from "react-svg-map";
 
 const mockFunction = () => null;
 
-const SVGMapContainer: JSX.Element = React.createElement(SVGMap, {
+const SVGMapContainer: React.JSX.Element = React.createElement(SVGMap, {
     map: {
         viewBox: "viewBox",
         locations: [{
@@ -28,7 +28,7 @@ const SVGMapContainer: JSX.Element = React.createElement(SVGMap, {
     isLocationSelected: mockFunction,
 });
 
-const SVGMapContainerNoOptional: JSX.Element = React.createElement(SVGMap, {
+const SVGMapContainerNoOptional: React.JSX.Element = React.createElement(SVGMap, {
     map: {
         viewBox: "viewBox",
         locations: [{

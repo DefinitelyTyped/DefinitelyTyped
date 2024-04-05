@@ -164,17 +164,21 @@ declare namespace W2UI {
         error(msg: string): void;
         expand(recid: string): boolean;
         find(match: Object, returnIndex?: boolean): Object[] | number[];
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(recid: string, returnIndex?: boolean): Object | number | void;
         getCellHTML(index: number, columnIndex: number, summary?: boolean): string;
         getCellValue(index: number, columnIndex: number, summary?: boolean): string;
         getChanges(): Object[];
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getColumn(field: string, returnIndex?: boolean): Object | number | void;
         getColumnsHTML(): string;
         getFooterHTML(): string;
         getRangeData(range: Object, extra?: boolean): Object[][];
         getRecordHTML(index: number, lineNumber: number, summary?: boolean): string;
         getRecordsHTML(): string;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getSearch(field: string, returnIndex?: boolean): Object | number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getSearchData(field: string): Object | void;
         getSearchesHTML(): string;
         getSelection(): Object[]; // the doc is weird here
@@ -194,11 +198,15 @@ declare namespace W2UI {
         lock(message: string, showSpinner?: boolean): void;
         menuClick(recid: string, index: number, event: Object): void;
         mergeChanges(): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         nextCell(colInd: number, editable: boolean): number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         nextRow(index: number): number | void;
         parseField(obj: Object, field: string): any;
         paste(text: string): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         prevCell(colInd: number, editable: boolean): number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         prevRow(index: number): number | void;
         refreshCell(recid: string, field: string): void;
         refreshRanges(): number;
@@ -233,7 +241,9 @@ declare namespace W2UI {
         sort(): void;
         sort(field: string, direction?: string, multiField?: boolean): void;
         stateReset(): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         stateRestore(stateObj?: Object): Object | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         stateSave(returnOnly?: boolean): Object | void;
         status(msg?: string): void;
         toggle(recid: string): void;
@@ -254,6 +264,7 @@ declare namespace W2UI {
         click(id: string, event?: Object): void;
         disable(...ids: string[]): number;
         enable(...ids: string[]): number;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(id: string, returnIndex?: boolean): Object | number | void;
         getItemHTML(item: Object): string;
         hide(...ids: string[]): number;
@@ -291,8 +302,11 @@ declare namespace W2UI {
         expandParents(id: string): void;
         find(attrs: Object): Object[];
         find(parent: string, attrs: Object): Object[];
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(): Object | number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(id: string, returnIndex?: boolean): Object | number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(parent: string, id: string, returnIndex?: boolean): Object | number | void;
         hide(...ids: string[]): number;
         insert(before: string | Object, nodes: Object | Object[]): Object;
@@ -322,6 +336,7 @@ declare namespace W2UI {
         click(id: string, event?: Object): void;
         disable(...ids: string[]): number;
         enable(...ids: string[]): number;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(id: string, returnIndex?: boolean): Object | number | void;
         hide(...ids: string[]): number;
         insert(before: string, tabs: Object | Object[]): void;
@@ -357,7 +372,9 @@ declare namespace W2UI {
         clear(): void;
         error(msg: string): void;
         generateHTML(): string;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(): Object | number | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get(field: string, returnIndex?: boolean): Object | number | void;
         getChanges(): Object;
         goto(page: number): void;

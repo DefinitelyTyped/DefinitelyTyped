@@ -47,7 +47,7 @@ declare class Sha256 {
      * @param data The data to update the hash with.
      * @param [encoding='utf-8'] The encoding of the data string.
      */
-    update(data: Uint8Array | ReadonlyArray<number>): this;
+    update(data: Uint8Array | readonly number[]): this;
     update(data: string, encoding?: string): this;
     /**
      * Digest the hash.
@@ -68,7 +68,7 @@ declare namespace Sha256 {
         pad: Buffer | Uint8Array;
         inner: Sha256;
         outer: Sha256;
-        update(input: Uint8Array | ReadonlyArray<number>): this;
+        update(input: Uint8Array | readonly number[]): this;
         update(input: string, encoding?: string): this;
         digest<TBuf extends Uint8Array = Uint8Array>(enc?: TBuf, offset?: number): TBuf;
         digest(enc: string): string;

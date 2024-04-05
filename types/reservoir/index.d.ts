@@ -9,10 +9,10 @@ export = Reservoir;
  * @param randomNumberGenerator is an optional random number generating function to use in
  *   place of the default Math.random.
  */
-declare function Reservoir<T>(
+declare function Reservoir<T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
     reservoirSize?: number,
     randomNumberGenerator?: () => number,
-): Reservoir.ReservoirArray<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+): Reservoir.ReservoirArray<T>;
 
 /*~ If you want to expose types from your module as well, you can
  *~ place them in this block. Often you will want to describe the

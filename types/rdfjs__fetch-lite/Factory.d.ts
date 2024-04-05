@@ -1,5 +1,7 @@
-import { BaseQuad, DatasetCore, Quad, Stream } from "@rdfjs/types";
+import { BaseQuad, DatasetCore, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 import { FormatsInit } from "./index.js";
+
+type ExtractDataset<This> = This extends DatasetCoreFactory ? ReturnType<This["dataset"]> : never;
 
 interface RdfFetchResponse<
     D extends DatasetCore<OutQuad, InQuad>,
@@ -11,7 +13,11 @@ interface RdfFetchResponse<
 }
 
 interface Fetch {
-    (url: string, options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    <D extends DatasetCore = ExtractDataset<this>>(
+        url: Parameters<typeof fetch>[0],
+        options?: FormatsInit,
+    ): Promise<RdfFetchResponse<D>>;
     config(key: string, value: unknown): void;
     Headers: Headers;
 }

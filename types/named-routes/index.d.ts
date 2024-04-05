@@ -4,7 +4,7 @@ declare module "express-serve-static-core" {
     interface Application {
         namedRoutes: NamedRouter;
     }
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IRouterMatcher<T> {
         (path: PathParams, name: string, ...handlers: RequestHandler[]): T;
         (path: PathParams, name: string, ...handlers: RequestHandlerParams[]): T;

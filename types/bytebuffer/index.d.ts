@@ -512,7 +512,7 @@ declare class ByteBuffer {
      *  ] : markedOffset and limit,
      *  ! : offset, markedOffset and limit
      */
-    toDebug(columns?: boolean): string | Array<string>;
+    toDebug(columns?: boolean): string | string[];
 
     /**
      * Encodes this ByteBuffer's contents to a hex encoded string.

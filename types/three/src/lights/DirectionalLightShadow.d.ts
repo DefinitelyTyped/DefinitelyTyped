@@ -1,5 +1,5 @@
-import { OrthographicCamera } from './../cameras/OrthographicCamera.js';
-import { LightShadow } from './LightShadow.js';
+import { OrthographicCamera } from "../cameras/OrthographicCamera.js";
+import { LightShadow } from "./LightShadow.js";
 
 /**
  * This is used internally by {@link DirectionalLight | DirectionalLights} for calculating shadows.

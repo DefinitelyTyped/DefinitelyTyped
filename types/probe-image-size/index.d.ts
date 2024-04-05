@@ -42,7 +42,7 @@ declare namespace probe {
 
     function sync(data: Buffer): ProbeResult | null;
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ParserStream extends Transform {}
 
     type Parser = () => ParserStream;

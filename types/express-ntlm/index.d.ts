@@ -12,7 +12,7 @@ declare namespace expressNtlm {
         forbidden?: Handler | undefined;
         unauthorized?: Handler | undefined;
         domain?: string | undefined;
-        domaincontroller?: string | ReadonlyArray<string> | undefined;
+        domaincontroller?: string | readonly string[] | undefined;
         tlsOptions?: ConnectionOptions | undefined;
         debug?(prefix: string, message: string): void;
     }

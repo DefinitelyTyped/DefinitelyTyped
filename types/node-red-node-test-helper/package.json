@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/node-red/node-red-node-test-helper#readme"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "@types/node-red": "*",
         "@types/node-red__runtime": "*",

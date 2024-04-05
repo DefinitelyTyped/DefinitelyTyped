@@ -70,6 +70,9 @@ class AxisLineChartScreen extends React.Component {
                             drawAxisLine: true,
                             textColor: processColor("red"),
                             textSize: 16,
+                            fontFamily: "Arial",
+                            fontStyle: "normal",
+                            fontWeight: "700",
                             gridColor: processColor("red"),
                             gridLineWidth: 1,
                             axisLineColor: processColor("darkgray"),
@@ -368,7 +371,7 @@ class CandleStickChartScreen extends React.Component {
                         // zoom={{scaleX: 2, scaleY: 1, xValue:  400000, yValue: 1}}
                         zoom={{ scaleX: 15.41, scaleY: 1, xValue: 40, yValue: 916, axisDependency: "LEFT" }}
                         onSelect={this.handleSelect.bind(this)}
-                        ref="chart"
+                        ref={React.createRef()}
                         onChange={event => console.log(event.nativeEvent)}
                     />
                 </View>

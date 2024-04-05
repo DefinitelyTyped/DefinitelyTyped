@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string.prototype.trim",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/es-shims/String.prototype.trim#readme"
+    ],
+    "devDependencies": {
+        "@types/string.prototype.trim": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

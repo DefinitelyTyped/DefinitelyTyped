@@ -4,7 +4,7 @@
  * @param callback callback to run after markdown updates
  */
 declare function markdownMagic(
-    path: string | ReadonlyArray<string>,
+    path: string | readonly string[],
     config?: markdownMagic.Configuration,
     callback?: markdownMagic.Callback,
 ): void;
@@ -46,7 +46,7 @@ declare namespace markdownMagic {
     }
 
     interface Callback {
-        (error: Error | undefined, output: ReadonlyArray<ProcessedConfig>): void;
+        (error: Error | undefined, output: readonly ProcessedConfig[]): void;
     }
 }
 

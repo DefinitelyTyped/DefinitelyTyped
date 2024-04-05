@@ -1,4 +1,4 @@
-import { Component, FC } from "react";
+import { Component, FC, JSX } from "react";
 import { FlatList, FlatListProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface SkipButtonProps {

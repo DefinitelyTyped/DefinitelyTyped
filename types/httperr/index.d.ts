@@ -211,7 +211,7 @@ interface HttpError extends Error {
     /** The HTTP response status code for the HTTP error. */
     statusCode: number;
 
-    toObject(...skip: (string | RegExp)[]): any;
+    toObject(...skip: Array<string | RegExp>): any;
 }
 
 /** Configuration object for constructing HttpErrors. */

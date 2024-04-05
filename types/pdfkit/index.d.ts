@@ -40,12 +40,12 @@ declare namespace PDFKit.Mixins {
     interface AnnotationOption {
         Type?: string | undefined;
         Rect?: any;
-        Border?: Array<number> | undefined;
+        Border?: number[] | undefined;
         SubType?: string | undefined;
         Contents?: string | undefined;
         Name?: string | undefined;
         color?: string | undefined;
-        QuadPoints?: Array<number> | undefined;
+        QuadPoints?: number[] | undefined;
 
         A?: any;
         B?: any;
@@ -383,7 +383,7 @@ declare namespace PDFKit.Mixins {
         cover?: [number, number] | undefined;
         align?: "center" | "right" | undefined;
         valign?: "center" | "bottom" | undefined;
-        link?: AnnotationOption | undefined;
+        link?: string | AnnotationOption | undefined;
         goTo?: AnnotationOption | undefined;
         destination?: string | undefined;
     }

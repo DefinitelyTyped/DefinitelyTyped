@@ -1,4 +1,4 @@
-import { AnimationAction, AnimationMixer, BufferGeometry, Material, Mesh } from '../../../src/Three.js';
+import { AnimationAction, AnimationMixer, BufferGeometry, Material, Mesh } from "three";
 
 export class MorphAnimMesh extends Mesh {
     constructor(geometry: BufferGeometry, material: Material);

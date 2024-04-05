@@ -10,7 +10,7 @@
 // to update this type definitions for redux@4.x from redux@3.x.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
 
-import { Component, ComponentClass, ComponentType, FunctionComponent, ReactNode } from "react";
+import { Component, ComponentClass, ComponentType, FunctionComponent, JSX, ReactNode } from "react";
 
 import { Action, ActionCreator, AnyAction, Dispatch, Store } from "redux";
 
@@ -319,8 +319,8 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions,
 ): AdvancedComponentDecorator<TProps, TOwnProps>;

@@ -75,4 +75,6 @@ app.use(ctx => {
 
 app.listen(3000);
 
+const currentContext: DbBaseContext | undefined = app.currentContext;
+
 const server = app.listen();

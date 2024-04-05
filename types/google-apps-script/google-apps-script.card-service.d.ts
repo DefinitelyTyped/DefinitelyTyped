@@ -18,6 +18,7 @@ declare namespace GoogleAppsScript {
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
+            setPersistValues(persistValues: boolean): Action;
         }
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)
@@ -544,6 +545,7 @@ declare namespace GoogleAppsScript {
          */
         enum OnClose {
             NOTHING,
+            RELOAD,
             RELOAD_ADD_ON,
         }
         /**
@@ -691,6 +693,7 @@ declare namespace GoogleAppsScript {
          *             .setUrl("https://www.google.com"));
          */
         interface TextButton {
+            setAltText(altText: string): TextButton;
             setAuthorizationAction(action: AuthorizationAction): TextButton;
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
@@ -958,7 +961,7 @@ declare namespace GoogleAppsScript {
         /**
          * A horizontal divider.
          */
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Divider {
         }
 
@@ -1183,7 +1186,7 @@ declare namespace GoogleAppsScript {
         /**
          * Base class for all widgets that can be added to a Card.
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Widget {
         }
     }

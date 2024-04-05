@@ -50,6 +50,17 @@ export interface Requireable<T> extends Validator<T | undefined | null> {
 
 export type ValidationMap<T> = { [K in keyof T]?: Validator<T[K]> };
 
+/**
+ * Like {@link ValidationMap} but treats `undefined`, `null` and optional properties the same.
+ * This type is only added as a migration path in React 19 where this type was removed from React.
+ * Runtime and compile time types would mismatch since you could see `undefined` at runtime when your types don't expect this type.
+ */
+export type WeakValidationMap<T> = {
+    [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
+        : undefined extends T[K] ? Validator<T[K] | null | undefined>
+        : Validator<T[K]>;
+};
+
 export type InferType<V> = V extends Validator<infer T> ? T : any;
 export type InferProps<V> =
     & InferPropsInner<Pick<V, RequiredKeys<V>>>
@@ -67,7 +78,7 @@ export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
 export const elementType: Requireable<ReactComponentLike>;
 export function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
-export function oneOf<T>(types: ReadonlyArray<T>): Requireable<T>;
+export function oneOf<T>(types: readonly T[]): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T }>;

@@ -1001,7 +1001,7 @@ declare abstract class SearchQuery {
     /**
      * Creates a query for matches all of a list of subqueries in an index.
      */
-    static conjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.ConjunctionQuery;
+    static conjuncts(queries: readonly SearchQuery.Query[]): SearchQuery.ConjunctionQuery;
 
     /**
      * Creates a query for matches all of a list of subqueries in an index.
@@ -1016,7 +1016,7 @@ declare abstract class SearchQuery {
     /**
      * Creates a query for matches any of a list of subqueries in an index.
      */
-    static disjuncts(queries: ReadonlyArray<SearchQuery.Query>): SearchQuery.DisjunctionQuery;
+    static disjuncts(queries: readonly SearchQuery.Query[]): SearchQuery.DisjunctionQuery;
 
     /**
      * Creates a query for matches any of a list of subqueries in an index.
@@ -1026,7 +1026,7 @@ declare abstract class SearchQuery {
     /**
      * Creates a query which allows you to match a list of document IDs in an index.
      */
-    static docIds(ids: ReadonlyArray<string>): SearchQuery.DocIdQuery;
+    static docIds(ids: readonly string[]): SearchQuery.DocIdQuery;
 
     /**
      * Creates a query which allows you to match a list of document IDs in an index.
@@ -1080,7 +1080,7 @@ declare abstract class SearchQuery {
     /**
      * Creates a search query for a prefix in an index.
      */
-    static phrase(terms: ReadonlyArray<string>): SearchQuery.PhraseQuery;
+    static phrase(terms: readonly string[]): SearchQuery.PhraseQuery;
 
     /**
      * Creates a search query for a prefix in an index.
@@ -1133,7 +1133,7 @@ declare abstract class SearchQuery {
     /**
      * Specifies the fields you wish to receive in the result set.
      */
-    fields(fields: ReadonlyArray<string>): this;
+    fields(fields: readonly string[]): this;
 
     /**
      * Specifies the fields you wish to receive in the result set.
@@ -1143,7 +1143,7 @@ declare abstract class SearchQuery {
     /**
      * Request a particular highlight style and field list for this query.
      */
-    highlight(style: SearchQuery.HighlightStyle, fields: ReadonlyArray<string>): this;
+    highlight(style: SearchQuery.HighlightStyle, fields: readonly string[]): this;
 
     /**
      * Request a particular highlight style and field list for this query.
@@ -1170,7 +1170,7 @@ declare abstract class SearchQuery {
     /**
      * Specifies the fields you wish to sort by in your result set.
      */
-    sort(...fields: (string | SearchSort)[]): this;
+    sort(...fields: Array<string | SearchSort>): this;
 
     /**
      * Specifies the maximum time to wait for this query to complete.
@@ -1234,7 +1234,7 @@ declare namespace SearchQuery {
          * Specifies additional predicate queries.
          * @param queries Additional predicate queries.
          */
-        and(queries: ReadonlyArray<SearchQuery.Query>): this;
+        and(queries: readonly SearchQuery.Query[]): this;
 
         /**
          * Specifies additional predicate queries.
@@ -1282,7 +1282,7 @@ declare namespace SearchQuery {
          * Specifies additional predicate queries.
          * @param queries Additional predicate queries.
          */
-        or(queries: ReadonlyArray<SearchQuery.Query>): this;
+        or(queries: readonly SearchQuery.Query[]): this;
 
         /**
          * Specifies additional predicate queries.

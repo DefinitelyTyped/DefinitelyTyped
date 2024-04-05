@@ -1,5 +1,5 @@
 declare namespace iframeResizer {
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameObject {
         close(): void;
 
@@ -13,12 +13,12 @@ declare namespace iframeResizer {
         ): void;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameComponent extends HTMLIFrameElement {
         iFrameResizer: IFrameObject;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameOptions {
         /**
          * When enabled changes to the Window size or the DOM will cause the iFrame to resize to the new content size.
@@ -140,7 +140,7 @@ declare namespace iframeResizer {
         scrollCallback?(data: IFrameScrollData): boolean;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFramePageOptions {
         /**
          * This option allows you to restrict the domain of the parent page,
@@ -190,7 +190,7 @@ declare namespace iframeResizer {
         | "rightMostElement"
         | "taggedElement";
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFramePage {
         /**
          * Turn autoResizing of the iFrame on and off. Returns bool of current state.
@@ -302,7 +302,7 @@ declare namespace iframeResizer {
         scrollTop: number;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameResizedData {
         iframe: IFrameComponent;
         height: number;
@@ -310,13 +310,13 @@ declare namespace iframeResizer {
         type: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameMessageData {
         iframe: IFrameComponent;
         message: any;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrameScrollData {
         x: number;
         y: number;

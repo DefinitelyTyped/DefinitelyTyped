@@ -527,5 +527,5 @@ export default class Route<Model = unknown, Params extends object = object> exte
     buildRouteInfoMetadata(): unknown;
 }
 
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Route<Model = unknown, Params extends object = object> extends ActionHandler, Evented {}

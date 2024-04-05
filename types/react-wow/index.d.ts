@@ -111,7 +111,7 @@ export interface ReactWOWProps {
     /**
      * Content you want to apply the animation to.
      */
-    children: JSX.Element;
+    children: React.JSX.Element;
 
     /**
      * Animation delay.

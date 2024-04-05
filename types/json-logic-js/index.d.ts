@@ -15,7 +15,7 @@ type MAXIMUM_ALLOWED_BOUNDARY = 80;
 type Mapped<
     Tuple extends unknown[],
     Result extends unknown[] = [],
-    Count extends ReadonlyArray<number> = [],
+    Count extends readonly number[] = [],
 > = Count["length"] extends MAXIMUM_ALLOWED_BOUNDARY ? Result
     : Tuple extends [] ? []
     : Result extends [] ? Mapped<Tuple, Tuple, [...Count, 1]>
@@ -70,7 +70,7 @@ export type ReservedOperations =
  */
 export type AdditionalOperation = Partial<Record<ReservedOperations, never>> & { [k: string]: any };
 
-interface AllReservedOperationsInterface<AddOps extends AdditionalOperation = never> {
+export interface AllReservedOperationsInterface<AddOps extends AdditionalOperation = never> {
     var: RulesLogic<AddOps> | [RulesLogic<AddOps>] | [RulesLogic<AddOps>, any] | [RulesLogic<AddOps>, any];
     missing: RulesLogic<AddOps> | any[];
     missing_some: [RulesLogic<AddOps>, RulesLogic<AddOps> | any[]];

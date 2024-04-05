@@ -30,7 +30,7 @@ class UserModel implements IUser {
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface User extends UserModel {}
     }
 }

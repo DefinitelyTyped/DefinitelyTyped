@@ -9,7 +9,7 @@ export interface SectionTags {
 
 export interface HoganOptions {
     asString?: boolean | undefined;
-    sectionTags?: ReadonlyArray<SectionTags> | undefined;
+    sectionTags?: readonly SectionTags[] | undefined;
     delimiters?: string | undefined;
     disableLambda?: boolean | undefined;
 }
@@ -83,7 +83,7 @@ export function scan(text: string, delimiters?: string): Token[];
  * @returns The tree structure of the given tokens.
  */
 export function parse(
-    tokens: ReadonlyArray<Token>,
+    tokens: readonly Token[],
     text?: undefined,
     options?: HoganOptions,
 ): Tree;

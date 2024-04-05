@@ -23,6 +23,7 @@ export interface ProgressProps {
     isBgShadow?: boolean;
     bgShadow?: Shadow;
     viewport?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onViewport?: (element: React.ReactElement) => void | null;
 }
 

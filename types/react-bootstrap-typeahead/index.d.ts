@@ -64,7 +64,7 @@ export interface InputContainerPropsSingle<T extends TypeaheadModel> extends Inp
     autoComplete: string;
     disabled: boolean;
     inputClassName: string;
-    inputRef: React.LegacyRef<HTMLInputElement>;
+    inputRef: React.Ref<HTMLInputElement>;
     onBlur: (e: React.SyntheticEvent) => void;
     onChange: (selected: T[]) => void;
     onClick: (e: React.SyntheticEvent<HTMLInputElement>) => void;
@@ -207,7 +207,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     multiple?: boolean | undefined;
 
     /* Override default new selection text. */
-    newSelectionPrefix?: JSX.Element | string;
+    newSelectionPrefix?: React.JSX.Element | string;
 
     /* Invoked when the input is blurred. Receives an event. */
     onBlur?: ((e: Event) => void) | undefined;
@@ -424,7 +424,7 @@ export const Loader: React.FunctionComponent<LoaderProps>;
 --------------------------------------------------------------------------- */
 export interface AutosizeInputProps extends Pick<React.InputHTMLAttributes<HTMLInputElement>, "className" | "style"> {
     inputClassName?: string | undefined;
-    inputRef?: React.LegacyRef<HTMLInputElement> | undefined;
+    inputRef?: React.Ref<HTMLInputElement> | undefined;
     inputStyle?: React.CSSProperties | undefined;
     style: React.CSSProperties;
 }
@@ -440,7 +440,7 @@ export interface MenuProps {
     className?: string | undefined;
     emptyLabel?: React.ReactNode | undefined;
     id: string;
-    innerRef?: React.LegacyRef<HTMLUListElement> | undefined;
+    innerRef?: React.Ref<HTMLUListElement> | undefined;
     inputHeight?: number | undefined;
     maxHeight?: string | undefined;
     style?: React.CSSProperties | undefined;

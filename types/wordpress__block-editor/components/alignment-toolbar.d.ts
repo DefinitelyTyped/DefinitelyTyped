@@ -1,4 +1,4 @@
-import { Dashicon } from "@wordpress/components";
+import { IconType } from "@wordpress/components";
 import { ComponentType } from "react";
 
 declare namespace AlignmentToolbar {
@@ -6,7 +6,7 @@ declare namespace AlignmentToolbar {
         alignmentControls?:
             | Array<{
                 align: string;
-                icon: Dashicon.Icon | JSX.Element;
+                icon: IconType;
                 title: string;
             }>
             | undefined;

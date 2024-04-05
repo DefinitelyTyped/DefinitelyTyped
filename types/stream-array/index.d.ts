@@ -2,6 +2,6 @@
 
 import { Readable } from "stream";
 
-declare function streamify(array: ReadonlyArray<any>): Readable;
+declare function streamify(array: readonly any[]): Readable;
 
 export = streamify;

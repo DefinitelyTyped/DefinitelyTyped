@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-symbol-description",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/get-symbol-description#readme"
+    ],
+    "devDependencies": {
+        "@types/get-symbol-description": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

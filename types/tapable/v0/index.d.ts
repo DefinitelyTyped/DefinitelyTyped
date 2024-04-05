@@ -20,7 +20,7 @@ declare abstract class Tapable {
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
      */
-    apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
+    apply(...plugins: Array<((this: this) => any) | Tapable.Plugin>): void;
 
     /**
      * synchronously applies all registered handlers for target name(event id).

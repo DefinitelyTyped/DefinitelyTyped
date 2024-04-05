@@ -1,21 +1,21 @@
 # Definitely Typed
 
-> Le référentiel des définitions de type TypeScript de *haute qualité*.
+> Le référentiel des définitions de type TypeScript de _haute qualité_.
 
-*Vous pouvez également lire ce README en [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) et [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!*
+_Vous pouvez également lire ce README en [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md), [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md) et [Français](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.fr.md)!_
 
-*Lien vers le [Manuel de l'administrateur](./docs/admin.md)*
+_Lien vers le [Manuel de l'administrateur](./docs/admin.md)_
 
 ## État actuel
 
 Cette section permet de suivre l'état de santé du référentiel et du processus de publication.
 Elle peut être utile aux contributeurs qui rencontrent des problèmes avec leurs PR et leurs paquets.
 
-* Dernière version [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) proprement: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* Tous les paquets font l'objet d'une vérification de type et d'un marquage propre sur typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Tous les paquets en cours de [Publication sur npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) en moins d'une heure et demie : [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
-* [typescript-bot](https://github.com/typescript-bot) a été actif sur Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
-* Actuel [mise à jour de l'état de l'infrastructure](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
+- Dernière version [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) proprement: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+- Tous les paquets font l'objet d'une vérification de type et d'un marquage propre sur typescript@next: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
+- Tous les paquets en cours de [Publication sur npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) en moins d'une heure et demie : [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+- [typescript-bot](https://github.com/typescript-bot) a été actif sur Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
+- Actuel [mise à jour de l'état de l'infrastructure](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
 
 Si quelque chose ne semble pas fonctionner, ou si l'un des éléments ci-dessus échoue, merci de nous le faire savoir dans [le canal Definitely Typed sur le serveur Discord de la Communauté TypeScript](https://discord.gg/typescript).
 
@@ -42,7 +42,7 @@ Plus d'informations dans le [manuel](https://www.typescriptlang.org/docs/handboo
 
 Pour un paquet npm "foo", les typages pour celui-ci seront à "@types/foo"..
 
-Si votre paquet a des typages spécifiés en utilisant la clé ``types`` ou ``typings`` dans son ``package.json``, le registre npm affichera que le paquet a des bindings disponibles comme ceci :
+Si votre paquet a des typages spécifiés en utilisant la clé `types` ou `typings` dans son `package.json`, le registre npm affichera que le paquet a des bindings disponibles comme ceci :
 
 ![image](https://user-images.githubusercontent.com/30049719/228748963-56fabfd1-9101-42c2-9891-b586b775b01e.png)
 
@@ -73,9 +73,9 @@ Par exemple, si vous lancez `npm dist-tags @types/react`, vous verrez que TypeSc
 
 #### TypeScript 1.*
 
-* Télécharger manuellement depuis la branche `master` de ce dépôt et les placer dans votre projet
-* ~~[Typings](https://github.com/typings/typings)~~ (utilisez les alternatives préférées, typings est déprécié)
-* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (utilisez les alternatives préférées, la publication des types DT de Nuget a été désactivée)
+- Télécharger manuellement depuis la branche `master` de ce dépôt et les placer dans votre projet
+- ~~[Typings](https://github.com/typings/typings)~~ (utilisez les alternatives préférées, typings est déprécié)
+- ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (utilisez les alternatives préférées, la publication des types DT de Nuget a été désactivée)
 
 Vous pouvez avoir besoin d'ajouter le manuel [references](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
@@ -91,8 +91,8 @@ Avant de partager votre amélioration avec le monde, utilisez les types vous-mê
 
 ```ts
 declare module "libname" {
-  // Types à l'intérieur ici
-  export function helloWorldMessage(): string
+    // Types à l'intérieur ici
+    export function helloWorldMessage(): string;
 }
 ```
 
@@ -113,7 +113,7 @@ Ajoutez-le à votre `tsconfig.json` :
 
 Créez `types/foo/index.d.ts` contenant les déclarations pour le module "foo".
 Vous devriez maintenant être capable d'importer `"foo"` dans votre code et il sera dirigé vers la nouvelle définition de type.
-Ensuite, compilez *et* exécutez le code pour vous assurer que votre définition de type correspond bien à ce qui se passe à l'exécution.
+Ensuite, compilez _et_ exécutez le code pour vous assurer que votre définition de type correspond bien à ce qui se passe à l'exécution.
 
 Une fois que vous avez testé vos définitions avec du code réel, faites un [PR](#faire-une-demande-de-pull-request)
 puis suivez les instructions pour [modifier un paquet existant](#modifier-un-paquet-existant) ou
@@ -138,22 +138,22 @@ Vous pouvez cloner l'ensemble du dépôt [comme d'habitude](https://docs.github.
 
 Pour un clone plus facile à gérer qui inclut _seulement_ les paquets de type qui vous concernent, vous pouvez utiliser les fonctionnalités de git [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt), et [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt). Cela réduira le temps de clonage et améliorera les performances de git.
 
->:warning: Ceci nécessite au minimum [git version 2.27.0](https://git-scm.com/downloads), qui est probablement plus récent que la version par défaut sur la plupart des machines. Des procédures plus complexes sont disponibles dans les versions plus anciennes, mais ne sont pas couvertes par ce guide.
+> :warning: Ceci nécessite au minimum [git version 2.27.0](https://git-scm.com/downloads), qui est probablement plus récent que la version par défaut sur la plupart des machines. Des procédures plus complexes sont disponibles dans les versions plus anciennes, mais ne sont pas couvertes par ce guide.
 
 1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
-    - `--sparse` initialise le fichier sparse-checkout afin que le répertoire de travail ne contienne au départ que les fichiers situés à la racine du référentiel.
-    - `--filter=blob:none` exclura des fichiers, les récupérant uniquement en cas de besoin.
-    - `--depth=1` améliorera encore la vitesse de clonage en tronquant l'historique des livraisons, mais il peut causer des problèmes, comme le résume le tableau suivant [ici](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+   - `--sparse` initialise le fichier sparse-checkout afin que le répertoire de travail ne contienne au départ que les fichiers situés à la racine du référentiel.
+   - `--filter=blob:none` exclura des fichiers, les récupérant uniquement en cas de besoin.
+   - `--depth=1` améliorera encore la vitesse de clonage en tronquant l'historique des livraisons, mais il peut causer des problèmes, comme le résume le tableau suivant [ici](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 </details>
 
 #### Modifier un paquet existant
 
-* `cd types/<paquet à modifier>`
-* Apporter des modifications. N'oubliez pas d' [éditer les tests](#mon-paquet-teststs).
+- `cd types/<paquet à modifier>`
+- Apporter des modifications. N'oubliez pas d' [éditer les tests](#mon-paquet-teststs).
   Si vous apportez des modifications radicales, n'oubliez pas de [mettre à jour une version majeure](#si-une-bibliothèque-est-mise-à-jour-vers-une-nouvelle-version-majeure-comportant-des-changements-importants-comment-dois-je-mettre-à-jour-son-paquet-de-déclarations-de-types-).
-* [Run `npm test <paquet-à-tester>`](#exécution-des-tests).
+- [Run `npm test <paquet-à-tester>`](#exécution-des-tests).
 
 Quand vous faites une PR pour éditer un paquet existant, `dt-bot` devrait @-mentionner les auteurs précédents.
 S'il ne le fait pas, vous pouvez le faire vous-même dans le commentaire associé à la PR.
@@ -168,16 +168,15 @@ Si le paquet pour lequel vous ajoutez des typages n'est pas sur npm, assurez-vou
 
 Votre paquet doit avoir cette structure :
 
-| Fichier          | Objectif |
-| ------------- | ------- |
-| `index.d.ts`  | Il contient les typages du paquet. |
-| [`<mon-paquet>-tests.ts`](#mon-paquet-teststs)  | Il contient un exemple de code qui teste les typages. Ce code *ne* s'exécute pas, mais il est vérifié. |
-| [`tsconfig.json`](#tsconfigjson) | Cela vous permet d'exécuter `tsc` à l'intérieur du paquet. |
-| [`tslint.json`](#linter-tslintjson)   | Activer le linting |
-| [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarement) Nécessaire uniquement pour désactiver les règles de lint écrites pour eslint. |
+| Fichier                                        | Objectif                                                                                               |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `index.d.ts`                                   | Il contient les typages du paquet.                                                                     |
+| [`<mon-paquet>-tests.ts`](#mon-paquet-teststs) | Il contient un exemple de code qui teste les typages. Ce code _ne_ s'exécute pas, mais il est vérifié. |
+| [`tsconfig.json`](#tsconfigjson)               | Cela vous permet d'exécuter `tsc` à l'intérieur du paquet.                                             |
+| [`.eslintrc.json`](#linter-eslintrcjson)       | (Rarement) Nécessaire uniquement pour désactiver les règles de lint écrites pour eslint.               |
 
 Vous pouvez les générer en lançant `npx dts-gen --dt --name <mon-paquet> --template module` si vous avez npm ≥ 5.2.0, `npm install -g dts-gen` et `dts-gen --dt --name <mon-paquet> --template module` dans le cas contraire.
-Voir toutes les options à [dts-gen](https://github.com/Microsoft/dts-gen).
+Voir toutes les options à [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Si vous avez des fichiers `.d.ts` en plus de `index.d.ts`, assurez-vous qu'ils sont référencés soit dans `index.d.ts` soit dans les tests.
 
@@ -190,9 +189,10 @@ Pour un bon exemple de paquet, voir [base64-js](https://github.com/DefinitelyTyp
 Lorsqu'un paquet [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ses propres types, les types doivent être supprimés de Definitely Typed pour éviter toute confusion.
 
 Vous pouvez le supprimer en lançant `npm run not-needed -- <nomDuPaquet> <commeVersion> [<nomDeBibliothèque>]`.
-* `<nomDuPaquet>` : C'est le nom du répertoire à supprimer.
-* `<commeVersion>` : Un stub sera publié dans `@types/<nomDuPaquet>` avec cette version. Elle doit être supérieure à toute version actuellement publiée, et doit être une version de `<nomDeBibliothèque>` sur npm.
-* `<nomDeBibliothèque>` : Nom du paquet npm qui remplace Definitely Typed types. Habituellement, il est identique à `<nomDuPaquet>`, dans ce cas vous pouvez l'omettre.
+
+- `<nomDuPaquet>` : C'est le nom du répertoire à supprimer.
+- `<commeVersion>` : Un stub sera publié dans `@types/<nomDuPaquet>` avec cette version. Elle doit être supérieure à toute version actuellement publiée, et doit être une version de `<nomDeBibliothèque>` sur npm.
+- `<nomDeBibliothèque>` : Nom du paquet npm qui remplace Definitely Typed types. Habituellement, il est identique à `<nomDuPaquet>`, dans ce cas vous pouvez l'omettre.
 
 Tous les autres paquets de Definitely Typed qui référencent le paquet supprimé doivent être mis à jour pour référencer les types regroupés.
 Vous pouvez obtenir cette liste en regardant les erreurs de `npm run test-all`.
@@ -201,10 +201,10 @@ Par exemple :
 
 ```json
 {
-  "private": true,
-  "dependencies": {
-    "<libraryName>": "^2.6.0"
-  }
+    "private": true,
+    "dependencies": {
+        "<libraryName>": "^2.6.0"
+    }
 }
 ```
 
@@ -277,23 +277,18 @@ f("one");
 
 Pour plus de détails, voir le readme de [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
-#### Linter: `tslint.json`
-
-Le fichier de configuration du linter, `tslint.json` doit contenir `{ "extends" : "@definitelytyped/dtslint/dt.json" }`, et aucune règle supplémentaire.
-
-Si, pour une raison quelconque, une règle doit être désactivée, [désactivez-la pour cette ligne spécifique](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Désactive%20les%20règles%20listées%20pour%20la%20prochaine%20ligne) en utilisant `// tslint:disable-next-line:[nomRègle]` - pas pour tout le paquet, afin que la désactivation puisse être examinée. (Il y a quelques anciennes configurations de lint qui ont des contenus additionnels, mais cela ne devrait pas se produire dans un nouveau travail).
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed est en train de passer à eslint pour le linting.
-Contrairement à tslint, vous n'avez pas besoin d'un fichier de configuration pour activer le linting.
-Comme pour tslint, vous devez désactiver des règles spécifiques uniquement sur des lignes spécifiques :
-
+Vous devez désactiver des règles spécifiques uniquement sur des lignes spécifiques :
 
 ```ts
 // eslint-disable-next-line no-const-enum
-const enum Const { One }
-const enum Enum { Two } // eslint-disable-line no-const-enum
+const enum Const {
+    One,
+}
+const enum Enum { // eslint-disable-line no-const-enum
+    Two,
+}
 ```
 
 Vous pouvez toujours désactiver les règles avec un fichier .eslintrc.json, mais vous ne devriez pas le faire dans les nouveaux paquets.
@@ -306,7 +301,7 @@ Vous pouvez éditer le fichier `tsconfig.json` pour ajouter de nouveaux fichiers
 
 ##### `esModuleInterop`/`allowSyntheticDefaultImports`
 
-TL;DR : `esModuleInterop` et `allowSyntheticDefaultImports` ne sont *pas autorisés* dans votre `tsconfig.json`.
+TL;DR : `esModuleInterop` et `allowSyntheticDefaultImports` ne sont _pas autorisés_ dans votre `tsconfig.json`.
 
 > Ces options permettent d'écrire une importation par défaut pour une exportation CJS, modélisant l'interopérabilité intégrée entre les modules CJS et ES dans Node et dans certains bundlers JS:
 >
@@ -360,27 +355,27 @@ Si un fichier n'est ni testé ni référencé dans `index.d.ts`, ajoutez-le à u
 
 #### Erreurs courantes
 
-* Tout d'abord, suivez les conseils du [manuel](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatage : Utilisez 4 espaces. Prettier est installé sur ce repo, vous pouvez donc lancer `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Lorsque vous utilisez des assertions](https://github.com/SamVerschueren/tsd#assertions), ajoutez l'exclusion `// prettier-ignore` pour marquer les lignes de code comme exclues du formatage :
+- Tout d'abord, suivez les conseils du [manuel](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+- Formatage : Utilisez 4 espaces. Prettier est installé sur ce repo, vous pouvez donc lancer `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Lorsque vous utilisez des assertions](https://github.com/SamVerschueren/tsd#assertions), ajoutez l'exclusion `// prettier-ignore` pour marquer les lignes de code comme exclues du formatage :
   ```tsx
   // prettier-ignore
   // @ts-expect-error
   const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
-* `function sum(nums : number[]) : number` : Utilisez `ReadonlyArray` si une fonction n'écrit pas dans ses paramètres.
-* `interface Foo { new(): Foo; }`:
+- `function sum(nums : number[]) : number` : Utilisez `ReadonlyArray` si une fonction n'écrit pas dans ses paramètres.
+- `interface Foo { new(): Foo; }`:
   Cela définit un type d'objets qui peuvent être modifiés. Vous voudrez probablement `declare class Foo { constructor() ; }`.
-* `const Class: { new(): IClass; }`:
+- `const Class: { new(): IClass; }`:
   Il est préférable d'utiliser une déclaration de classe `class Class { constructor() ; }` plutôt qu'une constante modifiable.
-* `getMeAT<T>(): T`:
+- `getMeAT<T>(): T`:
   Si un paramètre de type n'apparaît dans les types d'aucun paramètre, il ne s'agit pas vraiment d'une fonction générique, mais simplement d'une assertion de type déguisée.
   Il est préférable d'utiliser une assertion de type réel, par exemple `getMeAT() as number`.
   Exemple où un paramètre de type est acceptable : `function id<T>(value : T) : T;`.
   Exemple où il n'est pas acceptable : `function parseJson<T>(json : string) : T;`.
   Exception : `new Map<string, number>()` est OK.
-* L'utilisation des types `Function` et `Object` n'est presque jamais une bonne idée. Dans 99% des cas, il est possible de spécifier un type plus spécifique. Les exemples sont `(x : number) => number` pour les [fonctions](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) et `{ x : number, y : number }` pour les objets. S'il n'y a aucune certitude sur le type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) est le bon choix, pas `Object`. Si la seule chose connue à propos du type est qu'il s'agit d'un objet, utilisez le type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), pas `Object` ou `{ [key : string] : any }`.
-* `var foo: string | any`:
-  Lorsque `any` est utilisé dans un type union, le type résultant est toujours `any`. Ainsi, bien que la partie `string` de cette annotation de type puisse _look_ utile, elle n'offre en fait aucune vérification de  type supplémentaire par rapport à l'utilisation simple de `any`.
+- L'utilisation des types `Function` et `Object` n'est presque jamais une bonne idée. Dans 99% des cas, il est possible de spécifier un type plus spécifique. Les exemples sont `(x : number) => number` pour les [fonctions](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) et `{ x : number, y : number }` pour les objets. S'il n'y a aucune certitude sur le type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) est le bon choix, pas `Object`. Si la seule chose connue à propos du type est qu'il s'agit d'un objet, utilisez le type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), pas `Object` ou `{ [key : string] : any }`.
+- `var foo: string | any`:
+  Lorsque `any` est utilisé dans un type union, le type résultant est toujours `any`. Ainsi, bien que la partie `string` de cette annotation de type puisse _look_ utile, elle n'offre en fait aucune vérification de type supplémentaire par rapport à l'utilisation simple de `any`.
   Selon l'intention, les alternatives acceptables pourraient être `any`, `string`, ou `string | object`.
 
 ### Définition des propriétaires
@@ -389,14 +384,14 @@ Si un fichier n'est ni testé ni référencé dans `index.d.ts`, ajoutez-le à u
 
 DT a le concept de "propriétaires de définition" qui sont des personnes qui veulent maintenir la qualité des types d'un module particulier.
 
-* En vous ajoutant à la liste, vous serez notifié (via votre nom d'utilisateur GitHub) chaque fois que quelqu'un fera une pull request ou posera un problème concernant le paquet.
-* Vos évaluations de PR auront une plus grande importance pour [le bot](https://github.com/DefinitelyTyped/dt-mergebot) qui maintient ce repo.
-* Les mainteneurs de DT font confiance aux propriétaires des définitions pour assurer un écosystème stable, ne vous ajoutez pas à la légère.
+- En vous ajoutant à la liste, vous serez notifié (via votre nom d'utilisateur GitHub) chaque fois que quelqu'un fera une pull request ou posera un problème concernant le paquet.
+- Vos évaluations de PR auront une plus grande importance pour [le bot](https://github.com/DefinitelyTyped/dt-mergebot) qui maintient ce repo.
+- Les mainteneurs de DT font confiance aux propriétaires des définitions pour assurer un écosystème stable, ne vous ajoutez pas à la légère.
 
 Pour vous ajouter en tant que titulaire d'une définition :
 
-* Ajouter votre nom à la fin de la ligne, comme dans l'exemple suivant `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Ou, s'il y a plus de personnes, il peut être multiligne
+- Ajouter votre nom à la fin de la ligne, comme dans l'exemple suivant `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+- Ou, s'il y a plus de personnes, il peut être multiligne
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -481,6 +476,7 @@ Il s'agit d'une [réponse Stack Overflow](https://stackoverflow.com/questions/39
 
 Il est plus approprié d'importer le module en utilisant la syntaxe `import foo = require("foo");`.
 Néanmoins, si vous voulez utiliser un import par défaut comme `import foo from "foo";` vous avez deux options :
+
 - vous pouvez utiliser l'option de compilation [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) si votre module d'exécution supporte un schéma d'interopérabilité pour les modules non-ECMAScript, c'est-à-dire si les importations par défaut fonctionnent dans votre environnement (par exemple Webpack, SystemJS, esm).
 - vous pouvez utiliser l'option de compilation [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) si vous voulez que TypeScript prenne en charge l'interopérabilité non-ECMAScript (depuis TypeScript 2.7).
 
@@ -497,7 +493,7 @@ Pour un paquet npm, `export =` est correct si `node -p 'require("foo")'` fonctio
 
 Vous devrez alors ajouter un commentaire à la dernière ligne de votre en-tête de définition (après `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: X.Y`. Ceci définira la version minimale la plus basse supportée.
 
-Cependant, si votre projet a besoin de maintenir des types compatibles avec, disons, 3.7 et plus *en même temps* que des types compatibles avec 3.6 ou moins, vous devrez utiliser la fonctionnalité `typesVersions`.
+Cependant, si votre projet a besoin de maintenir des types compatibles avec, disons, 3.7 et plus _en même temps_ que des types compatibles avec 3.6 ou moins, vous devrez utiliser la fonctionnalité `typesVersions`.
 Vous trouverez une explication détaillée de cette fonctionnalité dans la [documentation officielle de TypeScript](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
 
 Voici un petit exemple pour commencer :
@@ -506,26 +502,26 @@ Voici un petit exemple pour commencer :
 
    ```json
    {
-     "private": true,
-     "types": "index",
-     "typesVersions": {
-       "<=3.6": { "*": ["ts3.6/*"] }
-     }
+       "private": true,
+       "types": "index",
+       "typesVersions": {
+           "<=3.6": { "*": ["ts3.6/*"] }
+       }
    }
    ```
 
 2. Créez le sous-répertoire mentionné dans le champ `typesVersions` à l'intérieur de votre répertoire de types (`ts3.6/` dans cet exemple).
-  `ts3.6/` supportera les versions 3.6 et inférieures de TypeScript, donc copiez les types et les tests existants dans ce répertoire.
+   `ts3.6/` supportera les versions 3.6 et inférieures de TypeScript, donc copiez les types et les tests existants dans ce répertoire.
 
    Vous devrez supprimer l'en-tête de définition de `ts3.6/index.d.ts` puisque seule la racine `index.d.ts` est supposée l'avoir.
 
 3. Définissez les options `baseUrl` et `typeRoots` dans `ts3.6/tsconfig.json` avec les chemins corrects, qui devraient ressembler à ceci :
    ```json
    {
-     "compilerOptions": {
-       "baseUrl": "../../",
-       "typeRoots": ["../../"]
-     }
+       "compilerOptions": {
+           "baseUrl": "../../",
+           "typeRoots": ["../../"]
+       }
    }
    ```
 
@@ -543,7 +539,7 @@ Lorsqu'il sort du mode brouillon, nous pouvons le retirer de Definitely Typed et
 
 #### Comment les versions des paquets Definitely Typed sont-elles liées aux versions de la bibliothèque correspondante ?
 
-*REMARQUE : la discussion dans cette section suppose une certaine familiarité avec le [Semantic versioning](https://semver.org/)*.
+_REMARQUE : la discussion dans cette section suppose une certaine familiarité avec le [Semantic versioning](https://semver.org/)_.
 
 Chaque paquet Definitely Typed est versionné lorsqu'il est publié sur npm.
 L'outil [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (l'outil qui publie les paquets `@types` sur npm) définira la version du paquet de déclaration en utilisant le numéro de version `major.minor` listé dans la première ligne de son fichier `index.d.ts`.
@@ -566,11 +562,11 @@ Il arrive que les versions des paquets de déclarations de type et les versions 
 Voici quelques raisons courantes, classées par ordre de gêne pour les utilisateurs d'une bibliothèque.
 Seul le dernier cas est généralement problématique.
 
-* Comme indiqué ci-dessus, la version du patch du paquet de déclaration de type n'est pas liée à la version du patch de la bibliothèque.
+- Comme indiqué ci-dessus, la version du patch du paquet de déclaration de type n'est pas liée à la version du patch de la bibliothèque.
   Cela permet à Definitely Typed de mettre à jour en toute sécurité les déclarations de types pour la même version majeure/mineure d'une bibliothèque.
-* Si vous mettez à jour un paquet pour une nouvelle fonctionnalité, n'oubliez pas de mettre à jour le numéro de version pour qu'il corresponde à la version de la bibliothèque.
+- Si vous mettez à jour un paquet pour une nouvelle fonctionnalité, n'oubliez pas de mettre à jour le numéro de version pour qu'il corresponde à la version de la bibliothèque.
   Si les utilisateurs s'assurent que les versions correspondent entre les paquets JavaScript et leurs paquets `@types` respectifs, alors `npm update` devrait fonctionner.
-* Il est fréquent que les mises à jour des paquets de déclarations de types soient en retard par rapport aux mises à jour des bibliothèques, car ce sont souvent les utilisateurs des bibliothèques, et non les mainteneurs, qui mettent à jour Definitely Typed lorsque de nouvelles fonctionnalités des bibliothèques sont publiées.
+- Il est fréquent que les mises à jour des paquets de déclarations de types soient en retard par rapport aux mises à jour des bibliothèques, car ce sont souvent les utilisateurs des bibliothèques, et non les mainteneurs, qui mettent à jour Definitely Typed lorsque de nouvelles fonctionnalités des bibliothèques sont publiées.
   Il peut donc y avoir un décalage de plusieurs jours, semaines ou même mois avant qu'un membre utile de la communauté n'envoie un PR pour mettre à jour le paquet de déclaration de type pour une nouvelle version de la bibliothèque.
   Si vous êtes affecté par cela, vous pouvez être le changement que vous voulez voir dans le monde et vous pouvez être ce membre utile de la communauté !
 
@@ -598,17 +594,17 @@ Au moment où j'écris ces lignes, le dossier [history v2 `tsconfig.json`](https
 
 ```json
 {
-  "compilerOptions": {
-    "baseUrl": "../../",
-    "typeRoots": ["../../"],
-    "paths": {
-      "history": [ "history/v2" ]
-    }
-  },
-  "files": [
-    "index.d.ts",
-    "history-tests.ts"
-  ]
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "history": ["history/v2"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "history-tests.ts"
+    ]
 }
 ```
 
@@ -622,9 +618,9 @@ De plus, `/// <reference types="..." />` ne fonctionnera pas avec la corresponda
 
 #### Comment puis-je écrire des définitions pour des paquets qui peuvent être utilisés globalement et en tant que module ?
 
-Le manuel TypeScript contient d'excellentes [informations générales sur l'écriture de définitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), ainsi que [cet exemple de fichier de définition](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) qui montre comment créer une définition en utilisant la syntaxe de module de style ES6, tout en spécifiant également les objets mis à la disposition de la portée globale.  Cette technique est démontrée en pratique dans la [définition de `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), qui est une bibliothèque qui peut être chargée globalement via une balise script sur une page web, ou importée via require ou des importations de style ES6.
+Le manuel TypeScript contient d'excellentes [informations générales sur l'écriture de définitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), ainsi que [cet exemple de fichier de définition](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) qui montre comment créer une définition en utilisant la syntaxe de module de style ES6, tout en spécifiant également les objets mis à la disposition de la portée globale. Cette technique est démontrée en pratique dans la [définition de `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), qui est une bibliothèque qui peut être chargée globalement via une balise script sur une page web, ou importée via require ou des importations de style ES6.
 
-Pour tester comment votre définition peut être utilisée à la fois lorsqu'elle est référencée globalement ou en tant que module importé, créez un dossier `test`, et placez-y deux fichiers de test.  Nommez l'un `VotreNomBibliothèque-global.test.ts` et l'autre `VotreNomBibliothèque-module.test.ts`.  Le fichier de test *global* doit exercer la définition de la manière dont elle serait utilisée dans un script chargé sur une page web où la bibliothèque est disponible sur la portée globale - dans ce scénario, vous ne devez pas spécifier d'instruction d'importation.  Le fichier de test *module* doit exercer la définition selon la façon dont elle serait utilisée lorsqu'elle est importée (y compris la ou les déclarations `import`).  Si vous spécifiez une propriété `files` dans votre fichier `tsconfig.json`, assurez-vous d'inclure les deux fichiers de test.  Un [exemple pratique de ceci](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) est aussi disponible sur la définition de `big.js`.
+Pour tester comment votre définition peut être utilisée à la fois lorsqu'elle est référencée globalement ou en tant que module importé, créez un dossier `test`, et placez-y deux fichiers de test. Nommez l'un `VotreNomBibliothèque-global.test.ts` et l'autre `VotreNomBibliothèque-module.test.ts`. Le fichier de test _global_ doit exercer la définition de la manière dont elle serait utilisée dans un script chargé sur une page web où la bibliothèque est disponible sur la portée globale - dans ce scénario, vous ne devez pas spécifier d'instruction d'importation. Le fichier de test _module_ doit exercer la définition selon la façon dont elle serait utilisée lorsqu'elle est importée (y compris la ou les déclarations `import`). Si vous spécifiez une propriété `files` dans votre fichier `tsconfig.json`, assurez-vous d'inclure les deux fichiers de test. Un [exemple pratique de ceci](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) est aussi disponible sur la définition de `big.js`.
 
 Il suffit de tester uniquement les éléments accessibles globalement dans le fichier de test global et d'exercer pleinement la définition dans le fichier de test du module, ou vice versa.
 
@@ -636,11 +632,11 @@ Quand `dts-gen` est utilisé pour échafauder un paquet scopé, la propriété `
 
 ```json
 {
-  "compilerOptions": {
-    "paths": {
-      "@foo/*": ["foo__*"]
+    "compilerOptions": {
+        "paths": {
+            "@foo/*": ["foo__*"]
+        }
     }
-  }
 }
 ```
 

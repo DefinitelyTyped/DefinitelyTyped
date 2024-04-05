@@ -7,8 +7,8 @@ import { Options as OptipngOptions } from "imagemin-optipng";
 import { Options as SvgoOptions } from "imagemin-svgo";
 import { Transform } from "stream";
 
-declare function imagemin(pluginsOrOptions?: ReadonlyArray<Plugin> | imagemin.Options): Transform;
-declare function imagemin(plugins?: ReadonlyArray<Plugin>, options?: imagemin.Options): Transform;
+declare function imagemin(pluginsOrOptions?: readonly Plugin[] | imagemin.Options): Transform;
+declare function imagemin(plugins?: readonly Plugin[], options?: imagemin.Options): Transform;
 
 declare namespace imagemin {
     interface Options {

@@ -335,7 +335,7 @@ declare namespace TL {
         /*
          * Default: ['back_to_start','nav_next','nav_previous','zoom_in','zoom_out']
          */
-        track_events?: ("back_to_start" | "nav_next" | "nav_previous" | "zoom_in" | "zoom_out")[] | undefined;
+        track_events?: Array<"back_to_start" | "nav_next" | "nav_previous" | "zoom_in" | "zoom_out"> | undefined;
         /*
          * Default: ''
          * Can be used to help Timeline load related resources such as CSS themes and language files. Rarely needs to be set.

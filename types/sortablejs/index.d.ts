@@ -78,7 +78,7 @@ declare class Sortable {
      * @param order an array of strings to sort.
      * @param useAnimation default: false.
      */
-    sort(order: ReadonlyArray<string>, useAnimation?: boolean): void;
+    sort(order: readonly string[], useAnimation?: boolean): void;
 
     /**
      * Saving and restoring of the sort.
@@ -156,7 +156,7 @@ declare namespace Sortable {
          *
          * If MultiDrag is not used to sort, this array will be empty.
          */
-        oldIndicies: { multiDragElement: HTMLElement; index: number }[];
+        oldIndicies: Array<{ multiDragElement: HTMLElement; index: number }>;
         /**
          * When MultiDrag is used to sort, this holds a HTMLElement and newIndex for each item.
          *
@@ -164,7 +164,7 @@ declare namespace Sortable {
          *
          * If MultiDrag is not used to sort, this array will be empty.
          */
-        newIndicies: { multiDragElement: HTMLElement; index: number }[];
+        newIndicies: Array<{ multiDragElement: HTMLElement; index: number }>;
         /** When Swap is used to sort, this will contain the dragging item that was dropped on.*/
         swapItem: HTMLElement | null;
     }
@@ -182,8 +182,8 @@ declare namespace Sortable {
         willInsertAfter?: boolean | undefined;
     }
 
-    type PullResult = ReadonlyArray<string> | boolean | "clone";
-    type PutResult = ReadonlyArray<string> | boolean;
+    type PullResult = readonly string[] | boolean | "clone";
+    type PutResult = readonly string[] | boolean;
     export interface GroupOptions {
         /**
          * group name
@@ -212,7 +212,7 @@ declare namespace Sortable {
                 activeSortable: Sortable,
                 dragEl: HTMLElement,
                 event: SortableEvent,
-            ) => boolean | string | Array<string>)
+            ) => boolean | string | string[])
             | undefined;
         /**
          * a canonical version of put, created by Sortable
@@ -223,7 +223,7 @@ declare namespace Sortable {
                 activeSortable: Sortable,
                 dragEl: HTMLElement,
                 event: SortableEvent,
-            ) => boolean | string | "clone" | Array<string>)
+            ) => boolean | string | "clone" | string[])
             | undefined;
         /**
          * revert cloned element to initial position after moving to a another list.
@@ -421,6 +421,7 @@ declare namespace Sortable {
         /**
          * Event when you move an item in the list or between lists
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onMove?: ((evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1 | void) | undefined;
         /**
          * Called when dragging element changes position

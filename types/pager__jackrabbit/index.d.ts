@@ -45,7 +45,7 @@ declare namespace jackrabbit {
     type QueueOptions = amqplib.Options.AssertQueue & {
         name?: string | undefined;
         key?: string | undefined;
-        keys?: ReadonlyArray<string> | undefined;
+        keys?: readonly string[] | undefined;
         prefetch?: number | undefined;
     };
 

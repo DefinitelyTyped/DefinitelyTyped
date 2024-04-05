@@ -41,6 +41,7 @@ import * as net from "node:net";
 
     _socket = _socket.end();
     _socket = _socket.destroy();
+    _socket.destroySoon();
 }
 
 {
@@ -367,4 +368,5 @@ import * as net from "node:net";
     bl.addSubnet("127.0.0.1", 26, "ipv4");
     bl.addSubnet(sockAddr, 12);
     const res: boolean = bl.check("127.0.0.1", "ipv4") || bl.check(sockAddr);
+    bl.rules; // $ExpectType readonly string[]
 }

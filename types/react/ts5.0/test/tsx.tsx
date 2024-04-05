@@ -335,15 +335,48 @@ const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
-// const Memoized7 = React.memo((() => {
-//     function HasDefaultProps(props: { test: boolean }) { return null; }
-//     HasDefaultProps.defaultProps = {
-//         test: true
-//     };
-//     return HasDefaultProps;
-// })());
-// // $ExpectType boolean
-// Memoized7.type.defaultProps.test;
+const Memoized7 = React.memo((() => {
+    function HasDefaultProps(props: { test: boolean }) {
+        return null;
+    }
+    HasDefaultProps.defaultProps = {
+        test: true,
+    };
+    return HasDefaultProps;
+})());
+// $ExpectType boolean
+Memoized7.type.defaultProps.test;
+
+// From type-fest
+type RequireAllOrNone<ObjectType, KeysType extends keyof ObjectType = never> =
+    & (
+        | Required<Pick<ObjectType, KeysType>>
+        | Partial<Record<KeysType, never>>
+    )
+    & Omit<ObjectType, KeysType>;
+
+type MemoizedProps = RequireAllOrNone<{ foo: string; bar: number }, "foo" | "bar">;
+declare module "react" {
+    namespace JSX {
+        interface IntrinsicElements {
+            "memoized-element": MemoizedProps;
+        }
+    }
+}
+// $ExpectType Element
+<memoized-element />;
+// $ExpectType Element
+<memoized-element foo="f" bar={42} />;
+// @ts-expect-error
+<memoized-element bar={42} />;
+
+const Memoized8 = React.memo((props: MemoizedProps) => <div />);
+// $ExpectType Element
+<Memoized8 />;
+// $ExpectType Element
+<Memoized8 foo="" bar={42} />;
+// @ts-expect-error
+<Memoized8 bar={42} />;
 
 const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithPropsAndState }));
 const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
@@ -421,11 +454,9 @@ const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { c
 
 <ForwardRef ref={divFnRef} />;
 <ForwardRef ref={divRef} />;
-// @ts-expect-error
 <ForwardRef ref="string" />;
 <ForwardRef2 ref={divFnRef} />;
 <ForwardRef2 ref={divRef} />;
-// @ts-expect-error
 <ForwardRef2 ref="string" />;
 // @ts-expect-error Undesired behavior
 <ForwardRef2 ref={badlyAuthoredRef} />;
@@ -449,7 +480,6 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
-// @ts-expect-error
 <ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
@@ -485,18 +515,10 @@ const { Profiler } = React;
         baseDuration,
         startTime,
         commitTime,
-        interactions,
     ) => {
         const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
         const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
-
-        const interactionsSummary = Array.from(interactions)
-            .map(interaction => {
-                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-            })
-            .join("\n");
-        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
     }}
 >
     <div />
@@ -516,7 +538,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -559,6 +581,14 @@ const CustomElement2: React.ElementType = "my-declared-element-deprecated";
 
 const CustomElement3: React.ElementType = "my-declared-element";
 <my-declared-element />;
+
+const CustomTag1: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "a";
+const CustomTag2: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "button";
+// @ts-expect-error
+const CustomTag3: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "div";
+const CustomTag4: React.ElementType<{ className?: string | undefined }, "a" | "button"> = (
+    props: { className?: string | undefined },
+) => <div {...props} />;
 
 interface TestPropTypesProps {
     foo: string;
@@ -871,4 +901,28 @@ function managingRefs() {
     // `inputRef.current` will contain `Element | null` at runtime
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
+    // ref cleanup
+    <div
+        ref={current => {
+            return function refCleanup() {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            // @ts-expect-error
+            return function refCleanup(implicitAny) {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            return function refCleanup(neverPassed: string) {
+            };
+        }}
+    />;
 }

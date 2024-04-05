@@ -7,7 +7,7 @@ declare namespace TSV {
 
         constructor(sep: string, options?: { header?: boolean | undefined });
 
-        stringify(data: ReadonlyArray<any>): string;
+        stringify(data: readonly any[]): string;
         parse(tsv: string): any[];
     }
 

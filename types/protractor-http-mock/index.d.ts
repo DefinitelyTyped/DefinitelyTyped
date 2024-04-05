@@ -26,7 +26,7 @@ declare namespace mock {
          * Returns a promise that will be resolved with an array of
          * all matched HTTP requests.
          */
-        requestsMade(): webdriver.promise.Promise<Array<ReceivedRequest>>;
+        requestsMade(): webdriver.promise.Promise<ReceivedRequest[]>;
 
         /**
          * Returns a promise that will be resolved with a true boolean
@@ -61,7 +61,7 @@ declare namespace mock {
                  * Collection of default mocks to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined;
+                default?: readonly string[] | undefined;
             } | undefined;
 
             plugins?: {
@@ -69,7 +69,7 @@ declare namespace mock {
                  * Collection of default plugins to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined;
+                default?: readonly string[] | undefined;
             } | undefined;
         };
 
@@ -80,7 +80,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to load into the application.
          */
-        add(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
+        add(mocks: readonly requests.AllRequests[]): webdriver.promise.Promise<boolean>;
 
         /**
          * Remove mocks during test execution.
@@ -89,7 +89,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to remove from the application.
          */
-        remove(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
+        remove(mocks: readonly requests.AllRequests[]): webdriver.promise.Promise<boolean>;
     }
 
     /**

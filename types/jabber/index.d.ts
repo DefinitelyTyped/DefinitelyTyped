@@ -6,7 +6,7 @@ declare class Jabber {
      * @param extraConsonants additional consonants
      */
     constructor(
-        themeWords?: ReadonlyArray<string>,
+        themeWords?: readonly string[],
         themeWordDensity?: number,
         extraVowels?: string,
         extraConsonants?: string,

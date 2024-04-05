@@ -1,6 +1,7 @@
 import stream = require("stream");
 import RStream = require("readable-stream");
 import { dot, spec, tap } from "node:test/reporters";
+import ErrnoException = NodeJS.ErrnoException;
 
 function testTypes() {
     const ANY: any = undefined;
@@ -26,7 +27,7 @@ function test() {
     const RS_Transform = RStream.Transform;
     const RS_Duplex = RStream.Duplex;
 
-    const streamR = new RS_Readable({
+    let streamR = new RS_Readable({
         objectMode: true,
         read(size) {
             assertType<number>(size);
@@ -39,6 +40,25 @@ function test() {
 
     streamR.once("end", () => {
         process.nextTick(() => streamR.emit("close"));
+    });
+
+    streamR = RStream.from([]);
+    streamR = RStream.Readable.from([]);
+    streamR = RStream.from("");
+    streamR = RStream.Readable.from("");
+    const iterable = {} as Iterable<Record<any, any>>;
+    streamR = RStream.from(iterable);
+    streamR = RStream.Readable.from(iterable);
+    const asyncIterable = {} as AsyncIterable<Record<any, any>>;
+    streamR = RStream.from(asyncIterable);
+    streamR = RStream.Readable.from(asyncIterable);
+    streamR = RStream.from([], {
+        objectMode: true,
+        readableHighWaterMark: 1,
+    });
+    streamR = RStream.Readable.from([], {
+        objectMode: true,
+        readableHighWaterMark: 1,
     });
 
     const row = null;
@@ -147,6 +167,32 @@ function test() {
         writableObjectMode: false,
         write(chunk: any, enc: string, cb: (err?: Error | null) => void) {},
     };
+}
+
+function callback(err: ErrnoException | undefined | null) {
+}
+
+function testFinished() {
+    const _readable: stream.Readable = <any> {};
+    RStream.finished(_readable, callback);
+
+    const _writable: stream.Writable = <any> {};
+    RStream.finished(_writable, callback);
+
+    const _transform: stream.Transform = <any> {};
+    RStream.finished(_transform, callback);
+
+    const _duplex: stream.Duplex = <any> {};
+    RStream.finished(_duplex, callback);
+}
+
+function testPipeline() {
+    const _readable: stream.Readable = <any> {};
+    const _transform: stream.Transform = <any> {};
+    const _writable: stream.Writable = <any> {};
+
+    RStream.pipeline([_readable], callback);
+    RStream.pipeline([_readable], _transform, _writable, callback);
 }
 
 function assertType<T>(value: T, msg?: string): T {

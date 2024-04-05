@@ -32,10 +32,10 @@ export function buffer(url: string, init?: RequestInit): Promise<ArrayBuffer>;
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function csv<Columns extends string>(
     url: string,
     init?: RequestInit,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the CSV file at the specified input URL and returns
@@ -95,11 +95,11 @@ export function csv<ParsedRow extends object, Columns extends string = string>(
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function dsv<Columns extends string>(
     delimiter: string,
     url: string,
     init?: RequestInit,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the DSV file with the specified delimiter character at the specified input URL and returns
@@ -183,10 +183,10 @@ export function image(url: string, init?: Partial<HTMLImageElement>): Promise<HT
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function json<ParsedJSONObject extends any>(
     url: string,
     init?: RequestInit,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<ParsedJSONObject | undefined>;
 
 /**
@@ -220,10 +220,10 @@ export function text(url: string, init?: RequestInit): Promise<string>;
  * @param url A valid URL string.
  * @param init An optional request initialization object.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function tsv<Columns extends string>(
     url: string,
     init?: RequestInit,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Promise<DSVRowArray<Columns>>;
 /**
  * Fetches the TSV file at the specified input URL and returns

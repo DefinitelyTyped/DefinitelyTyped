@@ -19,22 +19,22 @@ export interface ReactPaginateProps {
     /**
      * Label for the `previous` button.
      */
-    previousLabel?: string | JSX.Element | undefined;
+    previousLabel?: string | React.JSX.Element | undefined;
 
     /**
      * Label for the `next` button.
      */
-    nextLabel?: string | JSX.Element | undefined;
+    nextLabel?: string | React.JSX.Element | undefined;
 
     /**
      * Label for ellipsis.
      */
-    breakLabel?: string | JSX.Element | undefined;
+    breakLabel?: string | React.JSX.Element | undefined;
 
     /**
      * The classname on tag `li` of the ellipsis element.
      */
-    breakClassName?: string | JSX.Element | undefined;
+    breakClassName?: string | React.JSX.Element | undefined;
 
     /**
      * The method to call when a page is clicked. Exposes the current page object as an argument.

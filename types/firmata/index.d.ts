@@ -201,7 +201,7 @@ declare namespace Board {
         DIRECTION: { CCW: STEPPER_DIRECTION; CW: STEPPER_DIRECTION };
     }
 
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I2cModes {
         WRITE: I2C_MODE;
         READ: I2C_MODE;

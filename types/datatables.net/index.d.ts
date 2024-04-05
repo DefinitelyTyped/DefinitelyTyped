@@ -954,7 +954,7 @@ declare namespace DataTables {
         /**
          * Delete the selected row from the DataTable.
          */
-        remove(): Node;
+        remove(): Api;
 
         /**
          * Selects this row.

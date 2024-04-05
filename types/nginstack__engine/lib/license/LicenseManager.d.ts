@@ -13,10 +13,11 @@ declare class LicenseManager {
             licenseeName: string;
             licenseeId: string;
         },
-        userId: string,
-        password: string
+        userId?: string,
+        password?: string
     ): string;
-    addLicense(license: string, administratorPassword: string): void;
+    addLicense(license: string, administratorPassword?: string): void;
+    removeLicense(product: number, administratorPassword?: string): number;
     getIssuableLicenses(userKey: number): any[];
     setIssuableLicenses(userKey: number, productKeys: any[], passwords: any[]): void;
     getUsedProductsByUser(userKey: number): any[];
@@ -36,5 +37,6 @@ declare class LicenseManager {
     decryptLicensedData(data: string, product: number, opt_extension?: number): string;
 }
 declare namespace LicenseManager {
+    let defaultLicenseVersion: number;
     function getInstance(): LicenseManager;
 }

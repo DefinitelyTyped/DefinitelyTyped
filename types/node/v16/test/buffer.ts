@@ -23,8 +23,8 @@ console.log(Buffer.isBuffer(octetBuffer));
 console.log(Buffer.isEncoding("utf8"));
 console.log(Buffer.byteLength("xyz123"));
 console.log(Buffer.byteLength("xyz123", "ascii"));
-const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
-const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
+const result1 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[]);
+const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[], 9999999);
 
 // Module constants
 {
@@ -45,7 +45,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method: Buffer.from(data)
 {
     // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
+    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
     // Buffer
     const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
@@ -208,7 +208,7 @@ b.fill("a").fill("b");
     for (let entry of buffer.entries()) {
         val = entry;
     }
-        */
+    */
 }
 
 {
@@ -233,7 +233,7 @@ b.fill("a").fill("b");
     for (let key of buffer.keys()) {
         val = key;
     }
-        */
+    */
 }
 
 {
@@ -244,7 +244,7 @@ b.fill("a").fill("b");
     for (let value of buffer.values()) {
         val = value;
     }
-        */
+    */
 }
 
 // Imported Buffer from buffer module works properly
@@ -298,7 +298,7 @@ b.fill("a").fill("b");
 (async () => {
     const blob = new Blob(["asd", Buffer.from("test"), new Blob(["dummy"])], {
         type: "application/javascript",
-        encoding: "base64",
+        endings: "native",
     });
 
     blob.size; // $ExpectType number

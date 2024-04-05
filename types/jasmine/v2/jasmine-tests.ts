@@ -815,7 +815,7 @@ describe("jasmine.objectContaining", () => {
 });
 
 describe("jasmine.arrayContaining", () => {
-    var foo: Array<number>;
+    var foo: number[];
 
     beforeEach(() => {
         foo = [1, 2, 3, 4];
@@ -842,7 +842,7 @@ describe("jasmine.arrayContaining", () => {
 });
 
 describe("jasmine.arrayWithExactContents", () => {
-    var foo: Array<number>;
+    var foo: number[];
 
     beforeEach(() => {
         foo = [1, 2, 3, 4];

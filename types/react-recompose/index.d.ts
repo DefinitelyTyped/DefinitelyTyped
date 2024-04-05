@@ -1,8 +1,9 @@
 /// <reference types="react" />
 
 declare module "react-recompose" {
+    import type * as PropTypes from "prop-types";
     import * as React from "react";
-    import { ComponentClass, ComponentType as Component, FunctionComponent, ValidationMap } from "react";
+    import { ComponentClass, ComponentType as Component, FunctionComponent } from "react";
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
@@ -198,7 +199,7 @@ declare module "react-recompose" {
 
     // onlyUpdateForKeys: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -209,13 +210,13 @@ declare module "react-recompose" {
 
     // withContext: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#withContext
     export function withContext<TContext, TProps>(
-        childContextTypes: ValidationMap<TContext>,
+        childContextTypes: PropTypes.ValidationMap<TContext>,
         getChildContext: mapper<TProps, any>,
     ): InferableComponentEnhancer<{}>;
 
     // getContext: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#getContext
     export function getContext<TContext>(
-        contextTypes: ValidationMap<TContext>,
+        contextTypes: PropTypes.ValidationMap<TContext>,
     ): InferableComponentEnhancer<TContext>;
 
     interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
@@ -320,7 +321,7 @@ declare module "react-recompose" {
 
     // setPropTypes: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#setPropTypes
     export function setPropTypes<P>(
-        propTypes: ValidationMap<P>,
+        propTypes: PropTypes.ValidationMap<P>,
     ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#setDisplayName
@@ -388,7 +389,7 @@ declare module "react-recompose" {
 
     // nest: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#hoistStatics

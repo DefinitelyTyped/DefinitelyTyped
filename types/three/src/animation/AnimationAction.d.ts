@@ -1,7 +1,7 @@
-import { AnimationMixer } from './AnimationMixer.js';
-import { AnimationClip } from './AnimationClip.js';
-import { AnimationActionLoopStyles, AnimationBlendMode } from '../constants.js';
-import { Object3D } from '../core/Object3D.js';
+import { AnimationActionLoopStyles, AnimationBlendMode } from "../constants.js";
+import { Object3D } from "../core/Object3D.js";
+import { AnimationClip } from "./AnimationClip.js";
+import { AnimationMixer } from "./AnimationMixer.js";
 // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
 export class AnimationAction {

@@ -27,12 +27,14 @@ declare namespace ReduxPromiseListener {
     interface PromiseListener {
         middleware: Middleware<{}, AnyAction>;
         createAsyncFunction: <
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             StartAction extends AnyAction,
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             ResolveAction extends AnyAction,
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             RejectAction extends AnyAction,
             TReturn = ResolveAction["payload"],
         >(
-            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             config: Config<StartAction, ResolveAction, RejectAction, TReturn>,
         ) => AsyncFunction<TReturn>;
     }

@@ -68,6 +68,7 @@ declare namespace BetterSqlite3 {
             name: string,
             options: Database.RegistrationOptions & {
                 start?: T | (() => T);
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 step: (total: T, next: ElementOf<T>) => T | void;
                 inverse?: ((total: T, dropped: T) => T) | undefined;
                 result?: ((total: T) => unknown) | undefined;
@@ -83,8 +84,8 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new(filename: string | Buffer, options?: Database.Options): Database;
-        (filename: string, options?: Database.Options): Database;
+        new(filename?: string | Buffer, options?: Database.Options): Database;
+        (filename?: string, options?: Database.Options): Database;
         prototype: Database;
 
         SqliteError: typeof SqliteError;

@@ -1,5 +1,5 @@
 declare function findImports(
-    files: ReadonlyArray<string> | string,
+    files: readonly string[] | string,
     options?: {
         flatten?: boolean;
         packageImports?: boolean;

@@ -1,6 +1,6 @@
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, JSX, ReactNode } from "react";
 import { ColumnDescription, SearchProps } from "react-bootstrap-table-next";
 
 /**
@@ -25,6 +25,7 @@ export interface TableSearchProps<T extends object = any> {
     placeholder?: string | undefined;
     onColumnMatch?: ((props: SearchMatchProps<T>) => void) | undefined;
     customMatchFunc?: ((props: SearchMatchProps<T>) => boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     afterSearch?: (newResult: T[]) => void | undefined;
 }
 

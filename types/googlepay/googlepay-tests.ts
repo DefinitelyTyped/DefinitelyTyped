@@ -40,6 +40,8 @@ allowedPaymentMethods[0].tokenizationSpecification = {
     },
 };
 
+const shippingAddressParametersEmptyObjectIsValid: google.payments.api.ShippingAddressParameters = {};
+
 const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
     return new google.payments.api.PaymentsClient({
         environment: env,
@@ -123,6 +125,12 @@ function addGooglePayButton() {
     buttonOptions.buttonType = "subscribe";
     buttonOptions.buttonType = "long";
     buttonOptions.buttonType = "short";
+
+    buttonOptions.buttonRadius = -1;
+    buttonOptions.buttonRadius = 0;
+    buttonOptions.buttonRadius = 10;
+    buttonOptions.buttonRadius = 20;
+    buttonOptions.buttonRadius = 100;
 
     buttonOptions.buttonSizeMode = undefined;
     buttonOptions.buttonSizeMode = "fill";

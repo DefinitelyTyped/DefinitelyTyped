@@ -4,8 +4,8 @@ interface ExtrasObject {
 }
 
 interface FilterObject {
-    filterActions: ReadonlyArray<string>;
-    filterCategories: ReadonlyArray<string>;
+    filterActions: readonly string[];
+    filterCategories: readonly string[];
 }
 
 declare const DataWedgeIntents: {

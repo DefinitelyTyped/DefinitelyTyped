@@ -21,10 +21,10 @@ export interface HappoTransformDOMOptions {
 }
 
 export interface HappoHideDynamicElementsOptions {
-    matchers?: ReadonlyArray<RegExp> | undefined;
-    defaultMatchers?: ReadonlyArray<RegExp> | undefined;
-    selectors?: ReadonlyArray<string> | undefined;
-    defaultSelectors?: ReadonlyArray<string> | undefined;
+    matchers?: readonly RegExp[] | undefined;
+    defaultMatchers?: readonly RegExp[] | undefined;
+    selectors?: readonly string[] | undefined;
+    defaultSelectors?: readonly string[] | undefined;
     replace?: boolean | undefined;
 }
 

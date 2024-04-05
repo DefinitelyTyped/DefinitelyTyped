@@ -26,7 +26,7 @@ export declare abstract class Tapable {
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
      */
-    apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
+    apply(...plugins: Array<((this: this) => any) | Tapable.Plugin>): void;
 
     /**
      * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
@@ -273,7 +273,7 @@ export type TapOptions<TTapType extends TapType = TapType, TArg1 = any, TArg2 = 
 
 export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THookResult = any> {
     constructor(tapArgumentNames?: string[]);
-    taps: Tap<TapType, TArg1, TArg2, TArg3, THookResult>[];
+    taps: Array<Tap<TapType, TArg1, TArg2, TArg3, THookResult>>;
     interceptors: HookInterceptor[];
 
     isUsed: () => boolean;

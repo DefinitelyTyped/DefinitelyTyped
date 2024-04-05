@@ -135,4 +135,5 @@ sodium.crypto_box_keypair(publicKey, secretKey);
 const message = sodium.sodium_malloc(4);
 const cipherText = sodium.sodium_malloc(message.length + sodium.crypto_box_SEALBYTES);
 sodium.crypto_box_seal(cipherText, message, publicKey);
-sodium.crypto_box_seal_open(message, cipherText, publicKey, secretKey);
+// $ExpectType boolean
+const success = sodium.crypto_box_seal_open(message, cipherText, publicKey, secretKey);

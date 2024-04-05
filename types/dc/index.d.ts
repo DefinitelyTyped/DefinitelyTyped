@@ -45,7 +45,7 @@ declare namespace dc {
         (
             start: number | Date,
             end: number | Date,
-            domain?: number | Array<string>,
+            domain?: number | string[],
         ): number | Array<number | Date | string>;
     }
 
@@ -69,8 +69,8 @@ declare namespace dc {
 
     export interface Filters {
         RangedFilter(low: number, high: number): Filter;
-        TwoDimensionalFilter(filter: Array<number>): Filter;
-        RangedTwoDimensionalFilter(arr: Array<Array<number>>): Filter;
+        TwoDimensionalFilter(filter: number[]): Filter;
+        RangedTwoDimensionalFilter(arr: number[][]): Filter;
         HierarchyFilter(path: string): Filter;
     }
 
@@ -86,12 +86,12 @@ declare namespace dc {
     export interface Config {
         disableTransitions: boolean;
         dateFormat: (date: Date) => string;
-        defaultColors(colors?: Array<string>): Array<string> | Config;
+        defaultColors(colors?: string[]): string[] | Config;
     }
 
     export interface Printers {
-        filters(filters: Array<any>): string;
-        filter(filter: Printers["filters"] | any | Array<any>): string;
+        filters(filters: any[]): string;
+        filter(filter: Printers["filters"] | any | any[]): string;
     }
 
     export interface Round {
@@ -118,7 +118,7 @@ declare namespace dc {
             tag: string,
         ): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         safeNumber(n: any): number;
-        arraysEqual(a1: Array<any> | null, a2: Array<any> | null): boolean;
+        arraysEqual(a1: any[] | null, a2: any[] | null): boolean;
     }
 
     export interface Legend {
@@ -149,7 +149,7 @@ declare namespace dc {
         minWidth: IGetSet<number, T>;
         minHeight: IGetSet<number, T>;
         dimension: IGetSet<any, T>;
-        data: IGetSetComputed<(group: any) => Array<any>, Array<any>, T>;
+        data: IGetSetComputed<(group: any) => any[], any[], T>;
         // http://dc-js.github.io/dc.js/docs/html/dc.baseMixin.html#group__anchor
         group: IBiGetSet<any, string, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
@@ -170,7 +170,7 @@ declare namespace dc {
             d3.Selection<d3.BaseType, any, d3.BaseType, any>
         >;
         resetSvg(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
-        filterPrinter: IGetSet<(filters: Array<any>) => string, T>;
+        filterPrinter: IGetSet<(filters: any[]) => string, T>;
         controlsUseVisibility: IGetSet<boolean, T>;
         turnOnControls(): void;
         turnOffControls(): void;
@@ -178,14 +178,14 @@ declare namespace dc {
         render(): void;
         redraw(): void;
         redrawGroup(): void;
-        hasFilterHandler: IGetSet<(filters: Array<any>, filter: any) => boolean, T>;
+        hasFilterHandler: IGetSet<(filters: any[], filter: any) => boolean, T>;
         hasFilter(filter?: any): boolean;
-        removeFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
-        addFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
-        resetFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
+        removeFilterHandler: IGetSet<(filters: any[]) => any[], T>;
+        addFilterHandler: IGetSet<(filters: any[]) => any[], T>;
+        resetFilterHandler: IGetSet<(filters: any[]) => any[], T>;
         filter: IGetSet<any, T>;
         replaceFilter: IGetSet<any, T>;
-        filters(): Array<any>;
+        filters(): any[];
         onClick(datum: any): void;
         filterHandler: IGetSet<(dimension: any, filter: any) => any, T>;
         keyAccessor: IGetSet<Accessor<any, any>, T>;
@@ -225,11 +225,11 @@ declare namespace dc {
 
     export interface ColorMixin<T> {
         // http://dc-js.github.io/dc.js/docs/html/dc.colorMixin.html
-        colors: IGetSet<Array<string> | Scale<string | d3.Color> | string, T>;
-        ordinalColors(r: Array<string>): T;
-        linearColors(r: Array<string>): T;
+        colors: IGetSet<string[] | Scale<string | d3.Color> | string, T>;
+        ordinalColors(r: string[]): T;
+        linearColors(r: string[]): T;
         colorAccessor: IGetSet<Accessor<any, number>, T>;
-        colorDomain: IGetSet<Array<any>, T>;
+        colorDomain: IGetSet<any[], T>;
         calculateColorDomain(): void;
         getColor(datum: any, index?: number): string;
         colorCalculator: IGetSet<Accessor<any, string>, T>;
@@ -237,7 +237,7 @@ declare namespace dc {
 
     export interface CoordinateGridMixin<T> extends BaseMixin<T>, MarginMixin<T>, ColorMixin<T> {
         rangeChart: IGetSet<BaseMixin<any>, T>;
-        zoomScale: IGetSet<Array<any>, T>;
+        zoomScale: IGetSet<any[], T>;
         zoomOutRestrict: IGetSet<boolean, T>;
         g: IGetSet<d3.Selection<d3.BaseType, any, d3.BaseType, any>, T>;
         mouseZoomable: IGetSet<boolean, T>;
@@ -264,7 +264,7 @@ declare namespace dc {
         yAxisPadding: IGetSet<number, T>;
         round: IGetSet<(value: any) => any, T>;
         clipPadding: IGetSet<number, T>;
-        focus(range?: Array<any>): void;
+        focus(range?: any[]): void;
         brushOn: IGetSet<boolean, T>;
     }
 
@@ -280,7 +280,7 @@ declare namespace dc {
     export interface CapMixin<T> {
         cap: IGetSet<number, T>;
         othersLabel: IGetSet<string, T>;
-        othersGrouper: IGetSet<(data: Array<any>) => Array<any>, T>;
+        othersGrouper: IGetSet<(data: any[]) => any[], T>;
     }
 
     export interface BubbleMixin<T> extends ColorMixin<T> {
@@ -333,7 +333,7 @@ declare namespace dc {
         interpolate: IGetSet<string, LineChart>;
         tension: IGetSet<number, LineChart>;
         defined: IGetSet<Accessor<any, boolean>, LineChart>;
-        dashStyle: IGetSet<Array<number>, LineChart>;
+        dashStyle: IGetSet<number[], LineChart>;
         renderArea: IGetSet<boolean, LineChart>;
         xyTipsOn: IGetSet<boolean, LineChart>;
         dotRadius: IGetSet<number, LineChart>;
@@ -407,7 +407,7 @@ declare namespace dc {
     export interface GeoChoroplethChart extends ColorMixin<GeoChoroplethChart>, BaseMixin<GeoChoroplethChart> {
         overlayGeoJson(json: any, name: string, keyAccessor: Accessor<any, any>): GeoChoroplethChart;
         projection: IGetSet<d3.GeoProjection, GeoChoroplethChart>;
-        geoJsons(): Array<GeoChoroplethLayer>;
+        geoJsons(): GeoChoroplethLayer[];
         geoPath(): d3.GeoPath;
         removeGeoJson(name: string): GeoChoroplethChart;
     }

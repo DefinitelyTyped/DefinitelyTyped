@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor } from "react-draft-wysiwyg";
 
 const RenderWithTestId = () => (
@@ -7,5 +6,3 @@ const RenderWithTestId = () => (
         <Editor webDriverTestID="test" />
     </div>
 );
-
-ReactDOM.render(<RenderWithTestId />, document.getElementById("target"));

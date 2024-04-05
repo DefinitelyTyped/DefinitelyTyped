@@ -14,7 +14,7 @@ declare var xtest: jest.It;
 declare const expect: jest.Expect;
 
 // Remove once https://github.com/microsoft/TypeScript/issues/53255 is fixed.
-type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
+type ExtractEachCallbackArgs<T extends readonly any[]> = {
     1: [T[0]];
     2: [T[0], T[1]];
     3: [T[0], T[1], T[2]];
@@ -498,6 +498,7 @@ declare namespace jest {
         fail(error?: string | { message: string }): any;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => PromiseLike<unknown>);
     type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
@@ -509,19 +510,19 @@ declare namespace jest {
 
     interface Each {
         // Exclusively arrays.
-        <T extends any[] | [any]>(cases: ReadonlyArray<T>): (
+        <T extends any[] | [any]>(cases: readonly T[]): (
             name: string,
             fn: (...args: T) => any,
             timeout?: number,
         ) => void;
-        <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (
+        <T extends readonly any[]>(cases: readonly T[]): (
             name: string,
             fn: (...args: ExtractEachCallbackArgs<T>) => any,
             timeout?: number,
         ) => void;
         // Not arrays.
-        <T>(cases: ReadonlyArray<T>): (name: string, fn: (arg: T, done: DoneCallback) => any, timeout?: number) => void;
-        (cases: ReadonlyArray<ReadonlyArray<any>>): (
+        <T>(cases: readonly T[]): (name: string, fn: (arg: T, done: DoneCallback) => any, timeout?: number) => void;
+        (cases: ReadonlyArray<readonly any[]>): (
             name: string,
             fn: (...args: any[]) => any,
             timeout?: number,
@@ -562,7 +563,7 @@ declare namespace jest {
         /**
          * Sketch out which tests to write in the future.
          */
-        todo: It;
+        todo: (name: string) => void;
         /**
          * Experimental and should be avoided.
          */
@@ -577,13 +578,13 @@ declare namespace jest {
          *
          * - `table`: Array of Arrays with the arguments that are passed into the test fn for each row.
          * - `name`: String the title of the test block.
-         * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
+         * - `fn`: Function the test to be run, this is the function that will receive the parameters in each row as function arguments.
          *
          * #### 2  `test.each table(name, fn)`
          *
          * - `table`: Tagged Template Literal
          * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
-         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         * - `fn`: Function the test to be run, this is the function that will receive the test data object.
          *
          * @example
          *
@@ -609,7 +610,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         /** Only runs the tests inside this `describe` for the current file */
         only: Describe;
@@ -805,6 +806,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenLastCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         lastCalledWith<E extends any[]>(...args: E): R;
@@ -813,6 +816,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveLastReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         lastReturnedWith<E = any>(expected?: E): R;
@@ -821,6 +826,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenNthCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
@@ -829,6 +836,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveNthReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         nthReturnedWith<E = any>(n: number, expected?: E): R;
@@ -843,10 +852,14 @@ declare namespace jest {
         toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
+         *
+         * @deprecated in favor of `toHaveBeenCalled`
          */
         toBeCalled(): R;
         /**
          * Ensures that a mock function is called an exact number of times.
+         *
+         * @deprecated in favor of `toHaveBeenCalledTimes`
          */
         toBeCalledTimes(expected: number): R;
         /**
@@ -854,6 +867,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toBeCalledWith<E extends any[]>(...args: E): R;
@@ -1087,10 +1102,14 @@ declare namespace jest {
         toMatchInlineSnapshot(snapshot?: string): R;
         /**
          * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         *
+         * @deprecated in favor of `toHaveReturned`
          */
         toReturn(): R;
         /**
          * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         *
+         * @deprecated in favor of `toHaveReturnedTimes`
          */
         toReturnTimes(count: number): R;
         /**
@@ -1098,6 +1117,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toReturnWith<E = any>(value?: E): R;
@@ -1115,6 +1136,8 @@ declare namespace jest {
         toThrow(error?: string | Constructable | RegExp | Error): R;
         /**
          * If you want to test that a specific error is thrown inside a function.
+         *
+         * @deprecated in favor of `toThrow`
          */
         toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**

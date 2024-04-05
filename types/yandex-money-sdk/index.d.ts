@@ -31,10 +31,12 @@ declare namespace YandexMoneySDK {
                 debt?: number | undefined;
                 hold?: number | undefined;
             } | undefined;
-            cards_linked?: {
-                pan_fragment?: string | undefined;
-                type?: string | undefined;
-            }[] | undefined;
+            cards_linked?:
+                | Array<{
+                    pan_fragment?: string | undefined;
+                    type?: string | undefined;
+                }>
+                | undefined;
         }
 
         interface OperationHistoryOptions {
@@ -50,17 +52,19 @@ declare namespace YandexMoneySDK {
         interface OperationHistoryResult {
             error?: string | undefined;
             next_record?: string | undefined;
-            operations?: {
-                operation_id: string;
-                status: string;
-                datetime: string;
-                title: string;
-                pattern_id?: string | undefined;
-                direction: string;
-                amount: number;
-                label?: string | undefined;
-                type?: string | undefined;
-            }[] | undefined;
+            operations?:
+                | Array<{
+                    operation_id: string;
+                    status: string;
+                    datetime: string;
+                    title: string;
+                    pattern_id?: string | undefined;
+                    direction: string;
+                    amount: number;
+                    label?: string | undefined;
+                    type?: string | undefined;
+                }>
+                | undefined;
         }
 
         interface OperationDetailsResult {
@@ -87,15 +91,15 @@ declare namespace YandexMoneySDK {
             details?: string | undefined;
             type?: string | undefined;
             digital_goods?: {
-                article: {
+                article: Array<{
                     merchantArticleId: string;
                     serial: string;
                     secret: string;
-                }[];
-                bonus: {
+                }>;
+                bonus: Array<{
                     serial: string;
                     secret: string;
-                }[];
+                }>;
             } | undefined;
         }
 
@@ -128,11 +132,11 @@ declare namespace YandexMoneySDK {
                 cards?: {
                     allowed: boolean;
                     csc_required: boolean;
-                    items: {
+                    items: Array<{
                         id: string;
                         pan_fragment: string;
                         type: string;
-                    }[];
+                    }>;
                 } | undefined;
             } | undefined;
             request_id?: string | undefined;
@@ -176,15 +180,15 @@ declare namespace YandexMoneySDK {
             } | undefined;
             next_retry?: number | undefined;
             digital_goods?: {
-                article: {
+                article: Array<{
                     merchantArticleId: string;
                     serial: string;
                     secret: string;
-                }[];
-                bonus: {
+                }>;
+                bonus: Array<{
                     serial: string;
                     secret: string;
-                }[];
+                }>;
             } | undefined;
         }
 

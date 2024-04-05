@@ -1,6 +1,5 @@
 // Example from https://github.com/tajo/react-portal
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as Portal from "react-portal";
 
 export default class App extends React.Component {
@@ -45,4 +44,4 @@ export class PseudoModal extends React.Component<{ children?: React.ReactNode; c
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("react-body"));
+<App />;

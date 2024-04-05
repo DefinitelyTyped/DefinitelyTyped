@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es2015"
         ],
@@ -33,6 +33,7 @@
         "test/tracing.ts",
         "test/webcrypto.ts",
         "test/websockets.ts",
+        "test/experimental/fs.ts",
         "test/experimental/grpc.ts",
         "test/ws.ts"
     ]

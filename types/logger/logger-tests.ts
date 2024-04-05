@@ -8,6 +8,7 @@ logToSTDOUT.fatal("fatal", "text1", "text2", "text3", "text4", "text5"); // $Exp
 logToSTDOUT.error("error", "text1", "text2", "text3", "text4"); // $ExpectType string | false
 logToSTDOUT.warn("warn", "text1", "text2", "text3"); // $ExpectType string | false
 logToSTDOUT.info("info", "text1", "text2"); // $ExpectType string | false
+logToSTDOUT.info("info", "text1", { "foo": "bar" }); // $ExpectType string | false
 logToSTDOUT.debug("debug", "text1"); // $ExpectType string | false
 
 createLogger("test.log"); // $ExpectType Logger

@@ -13,10 +13,10 @@ interface ComboBoxContext {
 }
 
 interface ComboBox {
-    init(root: HTMLElement | Document): void;
+    init(root?: HTMLElement | Document): void;
     COMBO_BOX_CLASS: string;
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
     /**
      * Get an object of elements belonging directly to the given
      * combo box component.

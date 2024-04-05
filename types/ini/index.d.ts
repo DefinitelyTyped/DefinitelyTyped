@@ -1,6 +1,11 @@
 interface EncodeOptions {
+    align?: boolean;
     section?: string;
+    sort?: boolean;
     whitespace?: boolean;
+    newline?: boolean;
+    platform?: string;
+    bracketedArray?: boolean;
 }
 
 export function decode(str: string): {

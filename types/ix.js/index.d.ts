@@ -59,8 +59,8 @@ declare namespace Ix {
 
         catch(handler: (error: Error) => Enumerable<T>): Enumerable<T>;
         catchException(handler: (error: Error) => Enumerable<T>): Enumerable<T>;
-        catch(second: Enumerable<T>, ...other: Enumerable<T>[]): Enumerable<T>;
-        catchException(second: Enumerable<T>, ...other: Enumerable<T>[]): Enumerable<T>;
+        catch(second: Enumerable<T>, ...other: Array<Enumerable<T>>): Enumerable<T>;
+        catchException(second: Enumerable<T>, ...other: Array<Enumerable<T>>): Enumerable<T>;
 
         // todo: Enumerable<Enumerable<T>>.catch(): Enumerable<T>
         // catch<TInner, T extends Enumerable<TInner>>(): Enumerable<TInner>;
@@ -91,10 +91,10 @@ declare namespace Ix {
             enumerableFactory: (resource: TResource) => Enumerable<T>,
         ): Enumerable<T>;
 
-        catch<T>(...sources: Enumerable<T>[]): Enumerable<T>;
-        catchException<T>(...sources: Enumerable<T>[]): Enumerable<T>;
+        catch<T>(...sources: Array<Enumerable<T>>): Enumerable<T>;
+        catchException<T>(...sources: Array<Enumerable<T>>): Enumerable<T>;
 
-        onErrorResumeNext<T>(...sources: Enumerable<T>[]): Enumerable<T>;
+        onErrorResumeNext<T>(...sources: Array<Enumerable<T>>): Enumerable<T>;
 
         while<T>(condition: EnumerablePredicate<Enumerable<T>>, source: Enumerable<T>): Enumerable<T>;
         whileDo<T>(condition: EnumerablePredicate<Enumerable<T>>, source: Enumerable<T>): Enumerable<T>;

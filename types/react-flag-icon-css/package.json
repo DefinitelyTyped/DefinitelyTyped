@@ -10,7 +10,6 @@
         "csstype": "^3.0.2"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/react-flag-icon-css": "workspace:."
     },
     "owners": [

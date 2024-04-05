@@ -1,5 +1,6 @@
 declare module "angular-es" {
     interface ClassDecorator {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
@@ -8,6 +9,7 @@ declare module "angular-es" {
             target: Object,
             propertyKey: string | symbol,
             descriptor: TypedPropertyDescriptor<T>,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): TypedPropertyDescriptor<T> | void;
     }
 
@@ -18,9 +20,9 @@ declare module "angular-es" {
         (
             target: Object | Function,
             ngName?: string,
-            ngArguments?: Array<any>,
+            ngArguments?: any[],
             ngType?: string,
-            injectAsProperty?: Array<string>,
+            injectAsProperty?: string[],
         ): void;
     }
 
@@ -113,7 +115,7 @@ declare module "angular-es" {
      *
      * @returns decorated class
      */
-    function Inject(...dependencies: Array<string>): ngESDecorator;
+    function Inject(...dependencies: string[]): ngESDecorator;
 
     /**
      * Inject dependencies as properties to target
@@ -122,7 +124,7 @@ declare module "angular-es" {
      *
      * @returns decorated class
      */
-    function InjectAsProperty(...dependencies: Array<string>): ngESDecorator;
+    function InjectAsProperty(...dependencies: string[]): ngESDecorator;
 
     /**
      * Attach target to the specified module

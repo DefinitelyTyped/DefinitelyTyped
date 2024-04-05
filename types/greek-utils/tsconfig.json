@@ -6,7 +6,7 @@
         "strictFunctionTypes": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es5"
         ],

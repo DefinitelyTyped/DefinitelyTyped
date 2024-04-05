@@ -2,7 +2,7 @@ import * as React from "react";
 import LoadingIndicator, { LoadingIndicatorColor, LoadingIndicatorProps } from "react-loading-indicator";
 
 export class LoadingIndicatorTest extends React.PureComponent {
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const color: LoadingIndicatorColor = {
             red: 224,
             green: 33,

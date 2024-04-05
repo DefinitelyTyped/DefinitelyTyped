@@ -337,7 +337,7 @@ const paginationExample: Pagination = {
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
  */
-// tslint:disable-next-line:void-return no-void-expression
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const shouldBeVoid: void = Webhook.verifySigHeader(JSON.stringify(eventResponseExample), "some-signature", "my-secret");
 
 /**

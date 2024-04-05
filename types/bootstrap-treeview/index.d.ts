@@ -44,7 +44,7 @@ interface BootstrapTreeViewOptions {
     showCheckbox?: boolean | undefined;
     showIcon?: boolean | undefined;
     showTags?: boolean | undefined;
-    uncheckedIcon?: boolean | undefined;
+    uncheckedIcon?: string | undefined;
 
     onNodeSelected?(event: any, node: BootstrapTreeViewNodeData): void;
     onNodeChecked?(event: any, node: BootstrapTreeViewNodeData): void;

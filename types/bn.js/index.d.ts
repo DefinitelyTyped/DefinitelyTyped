@@ -419,9 +419,9 @@ declare class BN {
     iuxor(b: BN): BN;
 
     /**
-     * @description set specified bit to 1
+     * @description set specified bit to value
      */
-    setn(b: number): BN;
+    setn(b: number, value: boolean | 0 | 1): BN;
 
     /**
      * @description shift left

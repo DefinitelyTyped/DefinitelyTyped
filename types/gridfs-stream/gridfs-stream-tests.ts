@@ -26,7 +26,7 @@ readstream.on("error", function(err: any) {
     throw err;
 });
 
-var bufs: Array<any> = [];
+var bufs: any[] = [];
 readstream.on("data", function(d: any) {
     bufs.push(d);
 });

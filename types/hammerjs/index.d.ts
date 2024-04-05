@@ -66,7 +66,7 @@ type RecognizerTuple =
     | [RecognizerStatic]
     | [RecognizerStatic, RecognizerOptions]
     | [RecognizerStatic, RecognizerOptions, string | string[]]
-    | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | (string | Recognizer)[]];
+    | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | Array<string | Recognizer>];
 
 interface HammerDefaults extends HammerOptions {
     domEvents: boolean;

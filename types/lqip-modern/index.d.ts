@@ -21,7 +21,7 @@ declare namespace lqip {
 
     interface DefaultOptions {
         concurrency?: number | undefined;
-        resize?: number | ReadonlyArray<any> | undefined;
+        resize?: number | readonly any[] | undefined;
     }
 
     interface WebpOptions extends DefaultOptions {
@@ -40,7 +40,7 @@ declare namespace lqip {
 
 declare function lqip(input: string | Buffer, options?: lqip.LqipOptions): Promise<lqip.LqipResult>;
 declare function lqip(
-    input: ReadonlyArray<string> | ReadonlyArray<Buffer>,
+    input: readonly string[] | readonly Buffer[],
     options?: lqip.LqipOptions,
 ): Promise<lqip.LqipResult[]>;
 

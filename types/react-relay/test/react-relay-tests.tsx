@@ -658,7 +658,7 @@ function markNotificationAsRead(source: string, storyID: string) {
         onError: err => console.error(err),
         updater: (store, data) => {
             const story = store.get(storyID);
-            if (story) {
+            if (story && data) {
                 story.setValue(data.markReadNotification.notification.seenState, "seenState");
             }
         },

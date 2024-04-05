@@ -84,7 +84,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      * @param apply
      * A value indicating whether to apply the filter after setting the filter-text.
      */
-    setFilters(table: JQuery<TElement> | TElement, filter: ReadonlyArray<string>, apply?: boolean): void;
+    setFilters(table: JQuery<TElement> | TElement, filter: readonly string[], apply?: boolean): void;
 
     /**
      * Adds instance-methods to the tablesorter.
@@ -289,7 +289,7 @@ export interface Tablesorter<TElement = HTMLElement> {
     addRows(
         config: TablesorterConfigurationStore<TElement>,
         rows: JQuery | string,
-        resort: boolean | ReadonlyArray<SortDefinition>,
+        resort: boolean | readonly SortDefinition[],
         callback?: TriggerCallbackHandler<TElement>,
     ): void;
 
@@ -344,7 +344,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      */
     removeWidget(
         table: JQuery<TElement> | TElement,
-        id: string | ReadonlyArray<string> | boolean,
+        id: string | readonly string[] | boolean,
         refreshing?: boolean,
     ): void;
 
@@ -381,7 +381,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      */
     update(
         config: TablesorterConfigurationStore<TElement>,
-        sorting?: boolean | ReadonlyArray<SortDefinition>,
+        sorting?: boolean | readonly SortDefinition[],
         callback?: TriggerCallbackHandler<TElement>,
     ): void;
 
@@ -396,7 +396,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      */
     updateRows(
         config: TablesorterConfigurationStore<TElement>,
-        sorting?: boolean | ReadonlyArray<SortDefinition>,
+        sorting?: boolean | readonly SortDefinition[],
         callback?: TriggerCallbackHandler<TElement>,
     ): void;
 
@@ -436,7 +436,7 @@ export interface Tablesorter<TElement = HTMLElement> {
     updateCell(
         config: TablesorterConfigurationStore<TElement>,
         cell: JQuery,
-        sorting?: boolean | ReadonlyArray<SortDefinition>,
+        sorting?: boolean | readonly SortDefinition[],
         callback?: TriggerCallbackHandler<TElement>,
     ): void;
 
@@ -465,7 +465,7 @@ export interface Tablesorter<TElement = HTMLElement> {
      */
     updateAll(
         config: TablesorterConfigurationStore<TElement>,
-        sorting?: boolean | ReadonlyArray<SortDefinition>,
+        sorting?: boolean | readonly SortDefinition[],
         callback?: TriggerCallbackHandler<TElement>,
     ): void;
 

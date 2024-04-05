@@ -62,9 +62,8 @@ declare namespace FixedDataTable {
      * The body columns that move while scrolling vertically or
      * horizontally.
      */
-    export interface TableProps {
+    export interface TableProps extends React.RefAttributes<Table> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Table> | undefined;
 
         /**
          * Pixel width of table. If all columns do not fit, a
@@ -250,9 +249,8 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of table column.
      */
-    interface ColumnProps {
+    interface ColumnProps extends React.RefAttributes<Column> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<Column>;
 
         /**
          * The horizontal alignment of the table cell content.
@@ -402,9 +400,8 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of a table column group.
      */
-    export interface ColumnGroupProps {
+    export interface ColumnGroupProps extends React.RefAttributes<ColumnGroup> {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ColumnGroup>;
 
         /**
          * The horizontal alignment of the table cell content.

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.livestampjs",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.livestampjs",
     "projects": [
         "http://mattbradley.github.com/livestampjs/"
     ],

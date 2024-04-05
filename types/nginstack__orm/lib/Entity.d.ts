@@ -110,7 +110,7 @@ declare function fromDataSet(
         }
         | Record<any, any>,
 ): Entity;
-declare var requiresStrictMode: boolean;
+declare let requiresStrictMode: boolean;
 type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
 type ConfigDef = import("@nginstack/engine/lib/classdef/ConfigDef");
 type Field = import("@nginstack/engine/lib/classdef/Field");

@@ -49,8 +49,8 @@ declare namespace gtmetrix {
         /**
          * Get a list of available test browsers.
          */
-        list(callback: (error: MetricsError, data: ReadonlyArray<BrowserFeatures>) => void): void;
-        list(): Promise<ReadonlyArray<BrowserFeatures>>;
+        list(callback: (error: MetricsError, data: readonly BrowserFeatures[]) => void): void;
+        list(): Promise<readonly BrowserFeatures[]>;
     }
 
     interface BrowserFeatures {
@@ -105,8 +105,8 @@ declare namespace gtmetrix {
         /**
          * Get a list of available test locations.
          */
-        list(callback: (error: MetricsError, data: ReadonlyArray<LocationInfo>) => void): void;
-        list(): Promise<ReadonlyArray<LocationInfo>>;
+        list(callback: (error: MetricsError, data: readonly LocationInfo[]) => void): void;
+        list(): Promise<readonly LocationInfo[]>;
     }
 
     interface TestApi {

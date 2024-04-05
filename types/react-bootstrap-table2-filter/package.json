@@ -10,8 +10,7 @@
         "@types/react-bootstrap-table-next": "*"
     },
     "devDependencies": {
-        "@types/react-bootstrap-table2-filter": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-bootstrap-table2-filter": "workspace:."
     },
     "owners": [
         {

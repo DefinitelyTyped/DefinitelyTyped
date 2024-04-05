@@ -15,14 +15,14 @@ declare class StringList {
     exchange(index1: any, index2: any): void;
     find(string: any): Array<number | boolean>;
     findObjectsByString(string: any): any;
-    indexOf(string: any): any;
-    indexOfObject(object: any): any;
+    indexOf(string: any): number;
+    indexOfObject(object: any): number;
     add(string: any): void;
     addObject(string: any, object: any): void;
     insert(index: any, string: any): void;
     insertObject(index: any, string: any, object: any): void;
     addStringList(stringList: any): void;
     equals(stringList: any): boolean;
-    getText(separator: any): any;
+    getText(separator: any): string;
     sort(compareFunction: any): void;
 }

@@ -92,6 +92,21 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     stream.on("data", data => {
         //
     });
+
+    conn.execute({
+        sqlText: "",
+        parameters: {
+            stringField: "value",
+            booleanField: false,
+            numberField: 1,
+        },
+    });
+
+    conn.execute({
+        sqlText: "",
+        // @ts-expect-error
+        parameters: "not-a-record",
+    });
 };
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback).then(() => {});
@@ -115,7 +130,6 @@ snowflake.createConnection({
 
 snowflake.createConnection({
     account: "",
-    username: "",
     authenticator: "",
     token: "",
 });

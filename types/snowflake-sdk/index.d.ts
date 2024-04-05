@@ -163,7 +163,7 @@ export interface StreamOptions {
 
 /**
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#required-connection-options Required Connection Options}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#required-connection-options Required Connection Options}
  */
 export interface ConnectionOptions {
     /**
@@ -175,7 +175,7 @@ export interface ConnectionOptions {
     /**
      * Snowflake user login name to connect with.
      */
-    username: string;
+    username?: string;
 
     /**
      * Password for the user. Set this option if you set the authenticator option to SNOWFLAKE or the Okta URL endpoint for your
@@ -488,7 +488,7 @@ export type Bind = string | number;
  * ```
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#binding-statement-parameters Binding Statement Parameters}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#binding-statement-parameters Binding Statement Parameters}
  */
 export type Binds = Bind[] | InsertBinds;
 
@@ -501,7 +501,7 @@ export type Binds = Bind[] | InsertBinds;
  * ```
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#binding-array-for-bulk-insert Binding Array For Bulk Insert}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#binding-array-for-bulk-insert Binding Array For Bulk Insert}
  */
 export type InsertBinds = Bind[][];
 
@@ -553,23 +553,24 @@ export type Connection = NodeJS.EventEmitter & {
 
     /**
      * ### Related Docs
-     * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#executing-statements Executing Statements}
+     * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute Executing Statements}
      */
     execute(options: {
         sqlText: string;
         /**
          * ### Related Docs
-         * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#batch-processing-results Batch Processing Results}
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-consume#streaming-results Streaming Results}
          */
         streamResult?: boolean | undefined;
         binds?: Binds | undefined;
 
         /**
          * ### Related Docs
-         * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-consume#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
         fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+        parameters?: Record<string, unknown>;
     }): Statement;
 
     /**
@@ -616,7 +617,7 @@ export interface ConfigureOptions {
  * Creates a new Connection instance.
  *
  * ### Related Docs
- * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#establishing-a-connection Establishing a Connection}
+ * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect Establishing a Connection}
  */
 export function createConnection(options: ConnectionOptions): Connection;
 

@@ -22,7 +22,6 @@ function TestEdgeOptions() {
     options = options.setEdgeLogFile("logfile");
     options = options.setLocalState("state");
     options = options.androidActivity("com.example.Activity");
-    options = options.headless();
     options = options.androidDeviceSerial("emulator-5554");
     options = options.androidEdge();
     options = options.androidPackage("com.android.edge");

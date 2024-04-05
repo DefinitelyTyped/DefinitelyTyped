@@ -89,13 +89,13 @@ var voidStream: Highland.Stream<void>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
 var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
-var barStreamArrStream: Highland.Stream<Highland.Stream<Bar>[]>;
+var barStreamArrStream: Highland.Stream<Array<Highland.Stream<Bar>>>;
 
 var fooArrStream: Highland.Stream<Foo[]>;
 var barArrStream: Highland.Stream<Bar[]>;
 
-var fooStreamArr: Highland.Stream<Foo>[];
-var barStreamArr: Highland.Stream<Bar>[];
+var fooStreamArr: Array<Highland.Stream<Foo>>;
+var barStreamArr: Array<Highland.Stream<Bar>>;
 
 var strFooArrMapStream: Highland.Stream<StrFooArrMap>;
 var strBarArrMapStream: Highland.Stream<StrBarArrMap>;
@@ -106,14 +106,16 @@ var barThen: PromiseLike<Bar>;
 var fooArrThen: PromiseLike<Foo[]>;
 var barArrThen: PromiseLike<Bar[]>;
 
-var fooThenArr: PromiseLike<Foo>[];
-var barThenArr: PromiseLike<Bar>[];
+var fooThenArr: Array<PromiseLike<Foo>>;
+var barThenArr: Array<PromiseLike<Bar>>;
 
 var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
 var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 
 var fooIterable: Iterable<Foo>;
 var fooIterator: Iterator<Foo>;
+
+var maybeFooStream: Highland.Stream<Foo | undefined>;
 
 var isBaz: (obj: Foo) => obj is Baz;
 
@@ -215,6 +217,8 @@ fooArrStream = fooStream.batchWithTimeOrCount(10, 2);
 fooArrStream = fooStream.collect();
 
 fooStream = fooStream.compact();
+
+fooStream = maybeFooStream.compact();
 
 barStream = fooStream.consume(
     (
@@ -504,6 +508,8 @@ fooStream.toPromise<Promise<Foo>>(MyPromise);
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooStream = _.fromError(new Error());
+
 bool = _.isNil(x);
 
 bool = _.isStream(x);
@@ -519,6 +525,8 @@ _.log(str);
 _.log(str, num, foo);
 
 obj = _.nil;
+
+fooStream = _.of(foo);
 
 f = _.wrapCallback(func);
 f = _.wrapCallback(func, num);

@@ -5,14 +5,14 @@ declare class FuzzySearch<T extends object | string> {
 
     static isMatch(item: string, query: string, caseSensitive: boolean): number;
 
-    constructor(haystack: T[], keys?: string[], options?: FuzzySearch.Options);
+    constructor(haystack: readonly T[], keys?: readonly string[], options?: FuzzySearch.Options);
     search(needle?: string): T[];
 }
 
 declare namespace FuzzySearch {
     interface Options {
-        caseSensitive?: boolean | undefined;
-        sort?: boolean | undefined;
+        readonly caseSensitive?: boolean | undefined;
+        readonly sort?: boolean | undefined;
     }
 }
 

@@ -347,7 +347,7 @@ declare namespace MagicSuggest {
          * @param items - json object or array of json objects
          * @param isSilent - (optional) set to true to suppress 'selectionchange' event from being triggered
          */
-        addToSelection(objs: Array<any>, isSilent?: boolean): void;
+        addToSelection(objs: any[], isSilent?: boolean): void;
 
         /**
          * Clears the current selection
@@ -401,7 +401,7 @@ declare namespace MagicSuggest {
          * Retrieve an array of selected json objects
          * @return {Array}
          */
-        getSelection(): Array<any>;
+        getSelection(): any[];
 
         /**
          * Retrieve the current text entered by the user
@@ -411,7 +411,7 @@ declare namespace MagicSuggest {
         /**
          * Retrieve an array of selected values
          */
-        getValue(): Array<any>;
+        getValue(): any[];
 
         /**
          * Remove one or multiples json items from the current selection
@@ -442,13 +442,13 @@ declare namespace MagicSuggest {
          * @param items
          * @param isSilent - (optional)
          */
-        setSelection(items: Array<any>, isSilet?: boolean): void;
+        setSelection(items: any[], isSilet?: boolean): void;
 
         /**
          * Sets a value for the combo box. Value must be an array of values with data type matching valueField one.
          * @param data
          */
-        setValue(values: Array<any>): void;
+        setValue(values: any[]): void;
 
         /**
          * Sets data params for subsequent ajax requests

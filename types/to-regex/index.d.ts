@@ -50,6 +50,6 @@ declare namespace toRegex {
 /**
  * Create a regular expression from the given `patterns` string.
  */
-declare function toRegex(patterns: string | ReadonlyArray<string> | RegExp, options?: toRegex.Options): RegExp;
+declare function toRegex(patterns: string | readonly string[] | RegExp, options?: toRegex.Options): RegExp;
 
 export = toRegex;

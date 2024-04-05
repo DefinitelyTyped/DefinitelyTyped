@@ -47,7 +47,7 @@ declare class Broker {
 declare namespace Broker {
     export { getInstance, runStartupScripts, Request, Response };
 }
-type Request = import('../http/Request');
-type Response = import('../http/Response');
 declare function getInstance(): Broker;
 declare function runStartupScripts(): void;
+type Request = import('../http/Request');
+type Response = import('../http/Response');

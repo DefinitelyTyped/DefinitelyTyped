@@ -248,8 +248,8 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
  * The first generic refers to the type of element to be dragged.
  * The second generic refers to the type of the datum of the dragged element.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     GElement,
     Datum,
     Datum | SubjectPosition

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FC } from "react";
-import { render } from "react-dom";
 import { CSS, default as reactCSS, hover, HoverProps, loop, LoopableProps } from "reactcss";
 
 interface TestHoverProps extends HoverProps<any> {}
@@ -61,7 +60,4 @@ const TestLoop: FC<TestLoopProps> = (props) => {
 
 const Test = hover(TestHover);
 
-render(
-    <Test />,
-    document.getElementById("main"),
-);
+<Test />;

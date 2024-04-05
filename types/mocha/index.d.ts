@@ -129,7 +129,7 @@ declare class Mocha {
      *
      * @see https://mochajs.org/api/mocha#globals
      */
-    globals(globals: string | ReadonlyArray<string>): this;
+    globals(globals: string | readonly string[]): this;
 
     /**
      * Set the timeout in milliseconds.
@@ -472,6 +472,7 @@ declare namespace Mocha {
      * @returns [tdd] `void`
      */
     interface PendingSuiteFunction {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (title: string, fn: (this: Suite) => void): Suite | void;
     }
 
@@ -1268,7 +1269,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Runnable.html#globals
          */
-        globals(globals: ReadonlyArray<string>): void;
+        globals(globals: readonly string[]): void;
 
         /**
          * Run the test and invoke `fn(err)`.
@@ -1466,7 +1467,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Runner.html#.Runner#globals
          */
-        globals(arr: ReadonlyArray<string>): this;
+        globals(arr: readonly string[]): this;
 
         /**
          * Run the root suite and invoke `fn(failures)` on completion.
@@ -2741,22 +2742,22 @@ declare var xspecify: Mocha.PendingTestFunction;
 // Forward declaration for `HTMLLIElement` from lib.dom.d.ts.
 // Required by Mocha.reporters.HTML.
 // NOTE: Mocha *must not* have a direct dependency on DOM types.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface HTMLLIElement {}
 
 // Augments the DOM `Window` object when lib.dom.d.ts is loaded.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window extends Mocha.MochaGlobals {}
 
 declare namespace NodeJS {
     // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
     // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
     // NOTE: Mocha *must not* have a direct dependency on @types/node.
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventEmitter {}
 
     // Augments NodeJS's `global` object when node.d.ts is loaded
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Global extends Mocha.MochaGlobals {}
 }
 

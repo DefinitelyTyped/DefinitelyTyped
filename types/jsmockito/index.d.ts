@@ -323,7 +323,7 @@ declare namespace JsMockito {
          * @param func Functions to be run in order of execution.
          * @return Itself for method chaining
          */
-        then(...func: ((obj: any) => any)[]): JsMockitoStubBuilder;
+        then(...func: Array<(obj: any) => any>): JsMockitoStubBuilder;
 
         /**
          * Provide values to be returned by the mocked function.

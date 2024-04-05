@@ -340,7 +340,7 @@ declare namespace j {
          * Composes a set of functions into a new single function
          * @param ...args Arguments for compose
          */
-        compose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any;
+        compose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Counts the number of arguments in a function declaration
@@ -389,7 +389,7 @@ declare namespace j {
          * @param value Initial condition for function pipelining
          * @param ...args Functions to chain/pipeline
          */
-        pipeline(value: any, ...args: ((...args: any[]) => any)[]): any;
+        pipeline(value: any, ...args: Array<(...args: any[]) => any>): any;
 
         /**
          * Recursion function to allow for tail-optimized recursion
@@ -552,7 +552,7 @@ declare namespace j {
         /**
          * Composes functions together in common nested order
          */
-        compose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any;
+        compose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Curries passed function and applies optional arguments
@@ -577,12 +577,12 @@ declare namespace j {
         /**
          * Passes chains functions together with an initial arguments
          */
-        pipeline(value: any, ...args: ((...args: any[]) => any)[]): any;
+        pipeline(value: any, ...args: Array<(...args: any[]) => any>): any;
 
         /**
          * Composes functions executing from left to right
          */
-        rcompose(...args: ((...args: any[]) => any)[]): (...args: any[]) => any;
+        rcompose(...args: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
         /**
          * Executes a trampolined tail-optimized recursive function
@@ -810,6 +810,6 @@ declare namespace j {
         /**
          * Creates composite predicate which performs each check on a value and then conjoins the result
          */
-        composePredicate(...args: ((...args: any[]) => boolean)[]): (...args: any[]) => boolean;
+        composePredicate(...args: Array<(...args: any[]) => boolean>): (...args: any[]) => boolean;
     }
 }

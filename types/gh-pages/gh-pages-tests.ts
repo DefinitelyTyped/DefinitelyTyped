@@ -8,6 +8,8 @@ const callback = (err: any) => {};
 ghpages.publish(dir, callback);
 ghpages.publish(dir, emptyOptions, callback);
 ghpages.publish("dist", { history: false }, callback);
+ghpages.publish("dist", { nojekyll: true }, callback);
+ghpages.publish("dist", { cname: "custom-domain.com" }, callback);
 ghpages.publish(
     "dist",
     {

@@ -1,2 +1,2 @@
-export const LOCKED: number;
-export const UNLOCKED: number;
+export let LOCKED: number;
+export let UNLOCKED: number;

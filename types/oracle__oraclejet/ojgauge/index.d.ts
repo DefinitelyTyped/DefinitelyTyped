@@ -183,14 +183,14 @@ export interface ojLedGaugeSettablePropertiesLenient extends Partial<ojLedGaugeS
     [key: string]: any;
 }
 export namespace ojLedGauge {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Threshold = {
         borderColor?: string | undefined;
         color?: string | undefined;
         max?: number | undefined;
         shortDesc?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext = {
         color: string;
         componentElement: Element;
@@ -354,14 +354,14 @@ export interface ojRatingGaugeSettablePropertiesLenient extends Partial<ojRating
     [key: string]: any;
 }
 export namespace ojRatingGauge {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Threshold = {
         borderColor?: string | undefined;
         color?: string | undefined;
         max?: number | undefined;
         shortDesc?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext = {
         color: string;
         componentElement: Element;
@@ -589,33 +589,33 @@ export interface ojStatusMeterGaugeSettablePropertiesLenient extends Partial<ojS
     [key: string]: any;
 }
 export namespace ojStatusMeterGauge {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Bounds = {
         x: number;
         y: number;
         width: number;
         height: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CenterContext = {
         componentElement: Element;
         innerBounds: Bounds;
         metricLabel: string;
         outerBounds: Bounds;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ReferenceLine = {
         color?: string | undefined;
         value?: number | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Threshold = {
         borderColor?: string | undefined;
         color?: string | undefined;
         max?: number | undefined;
         shortDesc?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext = {
         color: string;
         componentElement: Element;

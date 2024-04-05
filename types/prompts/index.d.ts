@@ -14,7 +14,7 @@ declare namespace prompts {
     // Circular reference from prompts
     const prompt: any;
 
-    function inject(arr: ReadonlyArray<any>): void;
+    function inject(arr: readonly any[]): void;
 
     namespace inject {
         const prototype: {};

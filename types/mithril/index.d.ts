@@ -29,10 +29,12 @@ declare namespace Mithril {
         /** The oncreate hook is called after a DOM element is created and attached to the document. */
         oncreate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
         /** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
         /** The onremove hook is called before a DOM element is removed from the document. */
         onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
         /** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
         /** The onupdate hook is called after a DOM element is updated, while attached to the document. */
         onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
@@ -69,6 +71,7 @@ declare namespace Mithril {
             args: Attrs,
             requestedPath: string,
             route: string,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): ComponentTypes<any, any> | Promise<any> | void;
         /** The render method is called on every redraw for a matching route. */
         render?(this: this, vnode: Vnode<Attrs, State>): Children;
@@ -133,6 +136,7 @@ declare namespace Mithril {
         /** Whether to send cookies to 3rd party domains. */
         withCredentials?: boolean | undefined;
         /** Exposes the underlying XMLHttpRequest object for low-level configuration. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         config?(xhr: XMLHttpRequest, options: this): XMLHttpRequest | void;
         /** Headers to append to the request before sending it. */
         headers?: { [key: string]: string } | undefined;
@@ -261,6 +265,7 @@ declare namespace Mithril {
         onbeforeremove?(
             this: _NoLifecycle<this & State>,
             vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Promise<any> | void;
         /** The onremove hook is called before a DOM element is removed from the document. */
         onremove?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): any;
@@ -269,10 +274,12 @@ declare namespace Mithril {
             this: _NoLifecycle<this & State>,
             vnode: Vnode<Attrs, _NoLifecycle<this & State>>,
             old: VnodeDOM<Attrs, _NoLifecycle<this & State>>,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): boolean | void;
         /** The onupdate hook is called after a DOM element is updated, while attached to the document. */
         onupdate?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): any;
         /** Creates a view out of virtual elements. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         view(this: _NoLifecycle<this & State>, vnode: Vnode<Attrs, _NoLifecycle<this & State>>): Children | null | void;
     }
 
@@ -287,14 +294,17 @@ declare namespace Mithril {
         /** The oncreate hook is called after a DOM element is created and attached to the document. */
         oncreate?(vnode: VnodeDOM<A, this>): any;
         /** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeremove?(vnode: VnodeDOM<A, this>): Promise<any> | void;
         /** The onremove hook is called before a DOM element is removed from the document. */
         onremove?(vnode: VnodeDOM<A, this>): any;
         /** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeupdate?(vnode: Vnode<A, this>, old: VnodeDOM<A, this>): boolean | void;
         /** The onupdate hook is called after a DOM element is updated, while attached to the document. */
         onupdate?(vnode: VnodeDOM<A, this>): any;
         /** Creates a view out of virtual elements. */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         view(vnode: Vnode<A, this>): Children | null | void;
     }
 
@@ -337,14 +347,14 @@ declare namespace Mithril {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element extends Mithril.Vnode {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicAttributes extends Mithril.Attributes {
             children?: Mithril.Children | HTMLCollection;
         }
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicClassAttributes extends Mithril.Attributes {}
 
         interface IntrinsicElements {

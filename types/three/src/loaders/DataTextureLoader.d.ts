@@ -1,6 +1,6 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
-import { DataTexture } from '../textures/DataTexture.js';
+import { DataTexture } from "../textures/DataTexture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 export class DataTextureLoader extends Loader<DataTexture> {
     constructor(manager?: LoadingManager);

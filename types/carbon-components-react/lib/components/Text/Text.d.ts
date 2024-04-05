@@ -20,7 +20,7 @@ export type TextDefaultProps =
         as?: undefined;
     };
 
-export type TextIntrinsicProps<K extends keyof JSX.IntrinsicElements> =
+export type TextIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> =
     & TextBaseProps
     & JSXIntrinsicElementProps<K>
     & {
@@ -38,7 +38,7 @@ export type TextCustomComponentProps<
     : never;
 
 declare function Text(props: TextDefaultProps): FCReturn;
-declare function Text<T extends keyof JSX.IntrinsicElements>(props: TextIntrinsicProps<T>): FCReturn;
+declare function Text<T extends keyof React.JSX.IntrinsicElements>(props: TextIntrinsicProps<T>): FCReturn;
 declare function Text<T extends ReactComponentConstructor<never>>(props: TextCustomComponentProps<T>): FCReturn;
 
 export { Text };

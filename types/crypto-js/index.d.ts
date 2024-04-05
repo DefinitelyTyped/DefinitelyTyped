@@ -633,7 +633,21 @@ declare global {
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607]);
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607], 6);
                  */
-                create(words?: number[], sigBytes?: number): WordArray;
+                create(
+                    words?:
+                        | number[]
+                        | ArrayBuffer
+                        | Uint8Array
+                        | Int8Array
+                        | Uint8ClampedArray
+                        | Int16Array
+                        | Uint16Array
+                        | Int32Array
+                        | Uint32Array
+                        | Float32Array
+                        | Float64Array,
+                    sigBytes?: number,
+                ): WordArray;
                 /**
                  * Creates a word array filled with random bytes.
                  *
@@ -960,7 +974,13 @@ declare global {
                  *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32);
                  *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32, 'saltsalt');
                  */
-                execute(password: string, keySize: number, ivSize: number, salt?: WordArray | string): CipherParams;
+                execute(
+                    password: string,
+                    keySize: number,
+                    ivSize: number,
+                    salt?: WordArray | string,
+                    hasher?: Hasher,
+                ): CipherParams;
             };
         }
 
@@ -1698,6 +1718,16 @@ declare global {
          *     var plaintext  = CryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
          */
         export const RabbitLegacy: CipherHelper;
+
+        /**
+         * Shortcut functions to the cipher's object interface.
+         *
+         * @example
+         *
+         *     var ciphertext = CryptoJS.Blowfish.encrypt(message, key, cfg);
+         *     var plaintext  = CryptoJS.Blowfish.decrypt(ciphertext, key, cfg);
+         */
+        export const Blowfish: CipherHelper;
 
         /**
          * Derives a key from a password.

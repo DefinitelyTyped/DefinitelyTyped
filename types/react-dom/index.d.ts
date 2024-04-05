@@ -31,7 +31,6 @@ export const render: Renderer;
 export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;
-export function flushSync<A, R>(fn: (a: A) => R, a: A): R;
 
 export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
 export function unstable_batchedUpdates<R>(callback: () => R): R;
@@ -53,6 +52,7 @@ export function unstable_renderSubtreeIntoContainer<P>(
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;
 
 export type Container = Element | Document | DocumentFragment;
@@ -95,11 +95,13 @@ export interface Renderer {
         element: ReactElement<P>,
         container: Container | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<P, ComponentState> | Element | void;
 
     (
         element: ReactElement[],
         container: Container | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<any, ComponentState> | Element | void;
 }

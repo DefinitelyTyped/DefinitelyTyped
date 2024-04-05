@@ -60,7 +60,7 @@ declare module "react-jsonschema-form" {
          */
         idPrefix?: string | undefined;
         /** Allows you to validate formdata against another JSON Schema meta schema */
-        additionalMetaSchemas?: ReadonlyArray<object> | undefined;
+        additionalMetaSchemas?: readonly object[] | undefined;
         /** Allows you to define custom formats for validation */
         customFormats?: { [k: string]: string | RegExp | ((data: string) => boolean) } | undefined;
         // HTML Attributes
@@ -95,7 +95,7 @@ declare module "react-jsonschema-form" {
          */
         liveOmit?: boolean | undefined;
         /** Used to change the default `form` tag into a different HTML tag */
-        tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
+        tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType | undefined;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
@@ -229,7 +229,7 @@ declare module "react-jsonschema-form" {
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
-        items: {
+        items: Array<{
             children: React.ReactElement;
             className: string;
             disabled: boolean;
@@ -242,7 +242,7 @@ declare module "react-jsonschema-form" {
             onReorderClick: (index: number, newIndex: number) => (event: any) => void;
             readonly: boolean;
             key: string;
-        }[];
+        }>;
         onAddClick: (event: any) => (event: any) => void;
         readonly: boolean;
         required: boolean;
@@ -259,12 +259,12 @@ declare module "react-jsonschema-form" {
         TitleField: React.FunctionComponent<{ id: string; title: string; required: boolean }>;
         title: string;
         description: string;
-        properties: {
+        properties: Array<{
             content: React.ReactElement;
             name: string;
             disabled: boolean;
             readonly: boolean;
-        }[];
+        }>;
         required: boolean;
         schema: JSONSchema6;
         uiSchema: UiSchema;
@@ -366,18 +366,18 @@ declare module "react-jsonschema-form/lib/utils" {
 
     export function computeDefaults<T = any>(
         schema: JSONSchema6,
-        parentDefaults: JSONSchema6["default"][],
+        parentDefaults: Array<JSONSchema6["default"]>,
         definitions: FieldProps["registry"]["definitions"],
         rawFormData?: T,
         includeUndefinedValues?: boolean,
-    ): JSONSchema6["default"][];
+    ): Array<JSONSchema6["default"]>;
 
     export function getDefaultFormState<T = any>(
         schema: JSONSchema6,
         formData: T,
         definitions?: FieldProps["registry"]["definitions"],
         includeUndefinedValues?: boolean,
-    ): T | JSONSchema6["default"][];
+    ): T | Array<JSONSchema6["default"]>;
 
     export function getUiOptions(uiSchema: UiSchema): UiSchema["ui:options"];
 
@@ -407,7 +407,7 @@ declare module "react-jsonschema-form/lib/utils" {
 
     export function allowAdditionalItems(schema: JSONSchema6): boolean;
 
-    export function optionsList(schema: JSONSchema6): { label: string; value: string }[];
+    export function optionsList(schema: JSONSchema6): Array<{ label: string; value: string }>;
 
     export function guessType(value: any): JSONSchema6TypeName;
 

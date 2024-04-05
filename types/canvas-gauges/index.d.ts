@@ -215,7 +215,7 @@ declare namespace CanvasGauges {
 
         public pixelRatio: number;
         public static redraw(): any;
-        public static collection: Array<SmartCanvas>;
+        public static collection: SmartCanvas[];
     }
 
     export class DomObserver {

@@ -130,6 +130,7 @@ export declare function writeArray(callback: Function): MapStream;
 /**
  * A stream that buffers all chunks when paused
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export declare function pause(): MapStream | void;
 
 /**

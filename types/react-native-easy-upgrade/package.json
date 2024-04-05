@@ -6,7 +6,7 @@
         "https://github.com/react-native-org/react-native-easy-upgrade#readme"
     ],
     "devDependencies": {
-        "@types/react-native": "*",
+        "react-native": "*",
         "@types/react-native-easy-upgrade": "workspace:."
     },
     "owners": [

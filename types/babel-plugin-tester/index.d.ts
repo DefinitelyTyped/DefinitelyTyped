@@ -96,11 +96,11 @@ export interface TestObject {
      * be treated as a teardown function.
      */
     setup?:
-        | (() =>
-            | void
-            | NonNullable<TestObject["teardown"]>
-            | Promise<void>
-            | Promise<NonNullable<TestObject["teardown"]>>)
+        | (() => // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        | void
+        | NonNullable<TestObject["teardown"]>
+        | Promise<void>
+        | Promise<NonNullable<TestObject["teardown"]>>)
         | undefined;
 
     /**

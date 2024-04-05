@@ -54,9 +54,9 @@ declare namespace KCLProcess {
         millisBehindLatest?: number | undefined;
     }
 
-    interface LeaseLossInput {} // tslint:disable-line:no-empty-interface
+    interface LeaseLossInput {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
-    interface ShardEndedInput extends CheckpointInput {} // tslint:disable-line:no-empty-interface
+    interface ShardEndedInput extends CheckpointInput {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface RecordProcessor {
         /**

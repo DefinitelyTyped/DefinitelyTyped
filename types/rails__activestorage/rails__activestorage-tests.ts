@@ -14,10 +14,15 @@ const delegate: ActiveStorage.DirectUploadDelegate = {
     },
 };
 
+const customHeaders = {
+    "foo": "bar",
+};
+
 const d = new ActiveStorage.DirectUpload(
     new File([], "blank.txt"),
     "/rails/active_storage/direct_uploads",
     delegate,
+    customHeaders,
 );
 
 d.create((error, blob) => {

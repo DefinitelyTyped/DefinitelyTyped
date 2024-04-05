@@ -43,8 +43,7 @@ export interface Twitter {
     twitter_description?: Nullable<string> | undefined;
 }
 
-export interface SocialMedia extends Facebook, Twitter {
-}
+export interface SocialMedia extends Facebook, Twitter {}
 
 export interface Settings extends Metadata, CodeInjection, SocialMedia {
     title?: string | undefined;
@@ -83,9 +82,11 @@ export interface Author extends Identification, Metadata {
     facebook?: Nullable<string> | undefined;
     twitter?: Nullable<string> | undefined;
     url?: Nullable<string> | undefined;
-    count?: {
-        posts: number;
-    } | undefined;
+    count?:
+        | {
+            posts: number;
+        }
+        | undefined;
 }
 
 export type TagVisibility = "public" | "internal";
@@ -98,9 +99,11 @@ export interface Tag extends Identification, Metadata, SocialMedia {
     url?: string | undefined;
     canonical_url?: Nullable<string> | undefined;
     accent_color?: Nullable<string> | undefined;
-    count?: {
-        posts: number;
-    } | undefined;
+    count?:
+        | {
+            posts: number;
+        }
+        | undefined;
 }
 
 export interface PostOrPage extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia {
@@ -187,14 +190,11 @@ interface BrowseResults<T> extends Array<T> {
     meta: { pagination: Pagination };
 }
 
-export interface PostsOrPages extends BrowseResults<PostOrPage> {
-}
+export interface PostsOrPages extends BrowseResults<PostOrPage> {}
 
-export interface Authors extends BrowseResults<Author> {
-}
+export interface Authors extends BrowseResults<Author> {}
 
-export interface Tags extends BrowseResults<Tag> {
-}
+export interface Tags extends BrowseResults<Tag> {}
 
 export interface SettingsResponse extends Settings {
     meta: any;
@@ -207,19 +207,34 @@ export interface GhostError {
     }>;
 }
 
+export interface MakeRequestOptions {
+    url: string;
+    method: string;
+    params: {
+        [key: string]: any;
+    };
+    headers: {
+        [key: string]: any;
+    };
+}
+
 export interface GhostContentAPIOptions {
     url: string;
     /**
      * Version of GhostContentAPI
+     * Should be in 'v{major}.{minor}' format.
      *
-     * Supported Versions: 'v2', 'v3', 'v4', 'v5.0', 'canary'
+     * Deprecated options: 'v2', 'v3', 'v4', 'v5', 'canary'
      */
-    version: "v2" | "v3" | "v4" | "v5.0" | "canary";
+    version: string;
     key: string;
     /** @deprecated since version v2 */
     host?: string | undefined;
     /** @default "ghost" */
     ghostPath?: string | undefined;
+    makeRequest?: (
+        options: MakeRequestOptions,
+    ) => Promise<any>;
 }
 
 export interface GhostAPI {

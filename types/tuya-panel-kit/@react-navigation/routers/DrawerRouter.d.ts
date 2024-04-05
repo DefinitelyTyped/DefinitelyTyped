@@ -22,12 +22,14 @@ export declare type DrawerNavigationState<ParamList extends ParamListBase> =
          * List of previously visited route keys and drawer open status.
          */
         // tslint:disable-next-line array-type
-        history: ({
-            type: "route";
-            key: string;
-        } | {
-            type: "drawer";
-        })[];
+        history: Array<
+            {
+                type: "route";
+                key: string;
+            } | {
+                type: "drawer";
+            }
+        >;
     };
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DrawerActionHelpers<ParamList extends ParamListBase> = TabActionHelpers<ParamList> & {

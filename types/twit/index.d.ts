@@ -234,10 +234,10 @@ declare module "twit" {
             }
 
             export interface Errors {
-                errors: {
+                errors: Array<{
                     code: number;
                     message: string;
-                }[];
+                }>;
             }
 
             export interface SearchResults {

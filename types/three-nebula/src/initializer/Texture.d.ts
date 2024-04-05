@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { Three } from "../../src/core/three";
 import Particle from "../core/Particle";
 import { DEFAULT_MATERIAL_PROPERTIES } from "./constants";

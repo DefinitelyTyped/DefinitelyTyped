@@ -5,8 +5,8 @@ import * as jspb from "../../index";
 
 export class FieldMask extends jspb.Message {
     clearPathsList(): FieldMask;
-    getPathsList(): Array<string>;
-    setPathsList(value: Array<string>): FieldMask;
+    getPathsList(): string[];
+    setPathsList(value: string[]): FieldMask;
     addPaths(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
@@ -21,6 +21,6 @@ export class FieldMask extends jspb.Message {
 
 export namespace FieldMask {
     export type AsObject = {
-        pathsList: Array<string>;
+        pathsList: string[];
     };
 }

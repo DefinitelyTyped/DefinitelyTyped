@@ -130,7 +130,7 @@ declare const Deque: {
     /**
      * Creates a double-ended queue from `items`.
      */
-    new<Item>(items: ReadonlyArray<Item>): Deque<Item>;
+    new<Item>(items: readonly Item[]): Deque<Item>;
 
     /**
      * Creates an empty double-ended queue with the given capacity.

@@ -1,3 +1,4 @@
+import axios from "axios";
 import tokenProvider = require("axios-token-interceptor");
 
 const getToken = async (): Promise<tokenProvider.Token> => ({
@@ -20,12 +21,14 @@ tokenProvider();
 const validOptions1 = {
     getToken: () => "qwerty",
 };
-tokenProvider(validOptions1); // $ExpectType TokenProvider
+const provider1 = tokenProvider(validOptions1); // $ExpectType TokenProvider
+axios.interceptors.request.use(provider1);
 
 const validOptions2 = {
     getToken: () => Promise.resolve("qwerty"),
 };
-tokenProvider(validOptions2); // $ExpectType TokenProvider
+const provider2 = tokenProvider(validOptions2); // $ExpectType TokenProvider
+axios.interceptors.request.use(provider2);
 
 // @ts-expect-error
 tokenProvider.tokenCache();

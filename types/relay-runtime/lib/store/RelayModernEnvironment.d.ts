@@ -32,7 +32,7 @@ export interface EnvironmentConfig {
     readonly network: Network;
     readonly scheduler?: TaskScheduler | null | undefined;
     readonly store: Store;
-    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null | undefined;
+    readonly missingFieldHandlers?: readonly MissingFieldHandler[] | null | undefined;
     readonly operationTracker?: OperationTracker | null | undefined;
     readonly getDataID?: GetDataID | null | undefined;
     readonly UNSTABLE_defaultRenderPolicy?: RenderPolicy | null | undefined;

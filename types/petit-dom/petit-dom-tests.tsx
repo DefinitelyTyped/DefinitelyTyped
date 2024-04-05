@@ -171,7 +171,7 @@ export function testFunctionComponentWithProps() {
  * Create a function component with child content, using HyperScript syntax and JSX syntax
  */
 export function testFunctionComponentWithChildren() {
-    function FunctionComponentWithChildren(props: CustomProps, content: ReadonlyArray<PetitDom.Content>): JSX.Element {
+    function FunctionComponentWithChildren(props: CustomProps, content: readonly PetitDom.Content[]): JSX.Element {
         const { name, count, onSomeEvent } = props;
         return <div className={name} tabIndex={count} onclick={onSomeEvent}>{content}</div>;
     }
@@ -225,8 +225,8 @@ export function testComponentClass() {
             element: Element,
             newProps: object,
             oldProps: object,
-            newContent: ReadonlyArray<PetitDom.VNode>,
-            oldContent: ReadonlyArray<PetitDom.VNode>,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
         ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,
@@ -281,8 +281,8 @@ export function testComponentClassWithProps() {
             element: Element,
             newProps: CustomProps,
             oldProps: CustomProps,
-            newContent: ReadonlyArray<PetitDom.VNode>,
-            oldContent: ReadonlyArray<PetitDom.VNode>,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
         ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,
@@ -332,7 +332,7 @@ export function testComponentClassWithChildren() {
             this.props = props;
         }
 
-        mount(props: CustomProps, content: ReadonlyArray<PetitDom.Content>): Element {
+        mount(props: CustomProps, content: readonly PetitDom.Content[]): Element {
             const { name, count, onSomeEvent } = props;
             return mount(
                 <div className={name} tabIndex={count} onclick={onSomeEvent}>{content}</div>,
@@ -343,8 +343,8 @@ export function testComponentClassWithChildren() {
             element: Element,
             newProps: CustomProps,
             oldProps: CustomProps,
-            newContent: ReadonlyArray<PetitDom.VNode>,
-            oldContent: ReadonlyArray<PetitDom.VNode>,
+            newContent: readonly PetitDom.VNode[],
+            oldContent: readonly PetitDom.VNode[],
         ): Element {
             patch(
                 <div {...oldProps}>{oldContent}</div>,

@@ -14,7 +14,9 @@ export interface ShaOptions {
  * Asynchronously check that `fileName` has a "hash" of `expected`. The callback will be called with either `null`
  * or an error (indicating that they did not match).
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function check<R>(fileName: string, expected: string, cb: CheckCallback<R>): void | R;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function check<R>(fileName: string, expected: string, options: ShaOptions, cb: CheckCallback<R>): void | R;
 /**
  * Synchronously check that `fileName` has a "hash" of `expected`. Throws if they do not match.

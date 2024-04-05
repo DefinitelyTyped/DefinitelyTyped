@@ -1,4 +1,4 @@
-import { LoadingManager, CompressedTextureLoader, PixelFormat, CompressedPixelFormat } from '../../../src/Three.js';
+import { CompressedPixelFormat, CompressedTextureLoader, LoadingManager, PixelFormat } from "three";
 
 export interface DDS {
     mipmaps: object[];

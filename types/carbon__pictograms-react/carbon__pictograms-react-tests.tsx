@@ -9,6 +9,7 @@ import {
     AppModernization,
     AudioData,
     Backpack,
+    BentoBoxTray,
     Bluepages,
     ClientFinancing_01,
     CloudPakForApplications,
@@ -25,6 +26,7 @@ import {
     MovingDolly,
     RedHatApplications,
     SolarField,
+    Spss,
     SystemsDevopsAnalyze,
     Upload_01,
     UserMask,
@@ -67,3 +69,5 @@ import * as React from "react";
 <MovingDolly />; // $ExpectType Element
 <AdvocateMask />; // $ExpectType Element
 <UserMask />; // $ExpectType Element
+<Spss />; // $ExpectType Element
+<BentoBoxTray />; // $ExpectType Element

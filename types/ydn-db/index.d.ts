@@ -233,8 +233,8 @@ declare namespace ydn.db {
             offset?: number,
             reverse?: boolean,
         ): Request;
-        values(store_name: string, ids?: Array<any>): Request;
-        values(keys?: Array<any>): Request;
+        values(store_name: string, ids?: any[]): Request;
+        values(keys?: any[]): Request;
     }
 
     export class Storage extends DbOperator {

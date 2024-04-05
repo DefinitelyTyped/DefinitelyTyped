@@ -14,6 +14,7 @@ export interface ScrollSyncPaneProps {
     children?: React.ReactNode;
     group?: string | string[] | undefined;
     enabled?: boolean | undefined;
+    innerRef?: React.Ref<HTMLElement>;
 }
 
 export const ScrollSync: React.FC<ScrollSyncProps>;

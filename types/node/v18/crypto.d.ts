@@ -103,7 +103,7 @@ declare module "crypto" {
         const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
         /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
         const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
-        /** Instructs OpenSSL to use Cisco's "speshul" version of DTLS_BAD_VER. */
+        /** Instructs OpenSSL to use Cisco's version identifier of DTLS_BAD_VER. */
         const SSL_OP_CISCO_ANYCONNECT: number;
         /** Instructs OpenSSL to turn on cookie exchange. */
         const SSL_OP_COOKIE_EXCHANGE: number;
@@ -655,6 +655,12 @@ declare module "crypto" {
         export(options: KeyExportOptions<"pem">): string | Buffer;
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
+        /**
+         * Returns `true` or `false` depending on whether the keys have exactly the same type, value, and parameters.
+         * This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v16.15.0
+         */
+        equals(otherKeyObject: KeyObject): boolean;
         /**
          * For secret keys, this property represents the size of the key in bytes. This
          * property is `undefined` for asymmetric keys.
@@ -2493,6 +2499,10 @@ declare module "crypto" {
          * Name of the curve to use
          */
         namedCurve: string;
+        /**
+         * Must be `'named'` or `'explicit'`. Default: `'named'`.
+         */
+        paramEncoding?: "explicit" | "named" | undefined;
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
@@ -2603,11 +2613,7 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Name of the curve to use.
-         */
-        namedCurve: string;
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
         publicKeyEncoding: {
             type: "pkcs1" | "spki";
             format: PubF;
@@ -4203,7 +4209,7 @@ declare module "crypto" {
                     | HkdfParams
                     | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
@@ -4283,12 +4289,12 @@ declare module "crypto" {
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
@@ -4315,7 +4321,7 @@ declare module "crypto" {
                     | HmacImportParams
                     | AesKeyAlgorithm,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,

@@ -87,8 +87,8 @@ declare namespace driver {
 declare namespace process {
     class Bytecode {
         constructor(toClone?: Bytecode);
-        addSource(name: string, values?: ReadonlyArray<any>): Bytecode;
-        addStep(name: string, values?: ReadonlyArray<any>): Bytecode;
+        addSource(name: string, values?: readonly any[]): Bytecode;
+        addStep(name: string, values?: readonly any[]): Bytecode;
         toString(): string;
     }
 

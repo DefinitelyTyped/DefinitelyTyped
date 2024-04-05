@@ -67,6 +67,7 @@ declare module "." {
         imageSizes?: string | undefined;
         imageSrcSet?: string | undefined;
         integrity?: string | undefined;
+        type?: string | undefined;
         nonce?: string | undefined;
         referrerPolicy?: ReferrerPolicy | undefined;
     }
@@ -128,15 +129,15 @@ declare module "." {
     function useFormStatus(): FormStatus;
 
     function useFormState<State>(
-        action: (state: State) => Promise<State>,
-        initialState: State,
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: () => void];
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
     function useFormState<State, Payload>(
-        action: (state: State, payload: Payload) => Promise<State>,
-        initialState: State,
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: (payload: Payload) => void];
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 }
 
 declare module "./client" {
@@ -144,7 +145,38 @@ declare module "./client" {
         [REACT_FORM_STATE_SIGIL]: never;
     }
 
+    interface RootOptions {
+        onUncaughtError?:
+            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+            | undefined;
+        onCaughtError?:
+            | ((
+                error: unknown,
+                errorInfo: {
+                    componentStack?: string | undefined;
+                    errorBoundary?: React.Component<unknown> | undefined;
+                },
+            ) => void)
+            | undefined;
+    }
+
     interface HydrationOptions {
         formState?: ReactFormState | null;
+        onUncaughtError?:
+            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+            | undefined;
+        onCaughtError?:
+            | ((
+                error: unknown,
+                errorInfo: {
+                    componentStack?: string | undefined;
+                    errorBoundary?: React.Component<unknown> | undefined;
+                },
+            ) => void)
+            | undefined;
+    }
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS {
+        document: Document;
     }
 }

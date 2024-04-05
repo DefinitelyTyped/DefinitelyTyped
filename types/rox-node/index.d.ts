@@ -122,7 +122,7 @@ export class Flag {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_rox_roxstring
  */
 export class RoxString {
-    constructor(defaultValue: string, options?: ReadonlyArray<string>);
+    constructor(defaultValue: string, options?: readonly string[]);
 
     // The name of the string flag
     readonly name: string;
@@ -140,7 +140,7 @@ export class RoxString {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api#_rox_roxnumber
  */
 export class RoxNumber {
-    constructor(defaultValue: number, options?: ReadonlyArray<number>);
+    constructor(defaultValue: number, options?: readonly number[]);
 
     // The name of the number flag
     readonly name: string;
@@ -221,4 +221,4 @@ export namespace dynamicApi {
     function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

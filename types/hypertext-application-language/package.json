@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/hypertext-application-language",
     "version": "6.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "hypertext-application-language",
     "projects": [
         "https://tools.ietf.org/html/draft-kelly-json-hal-06"
     ],

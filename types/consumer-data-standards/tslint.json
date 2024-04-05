@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-
-    "rules": {
-        "no-const-enum": false,
-        "array-type": [false],
-        "max-line-length": [false]
-    }
-}

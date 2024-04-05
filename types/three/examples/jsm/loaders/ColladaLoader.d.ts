@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, Scene } from '../../../src/Three.js';
+import { Loader, Scene } from "three";
 
 export interface Collada {
     kinematics: object;
@@ -7,7 +7,5 @@ export interface Collada {
 }
 
 export class ColladaLoader extends Loader<Collada> {
-    constructor(manager?: LoadingManager);
-
     parse(text: string, path: string): Collada;
 }

@@ -85,7 +85,7 @@ declare namespace Twig {
         output: RawOutput[];
     }
 
-    interface ExtendableParseContext {} // tslint:disable-line:no-empty-interface
+    interface ExtendableParseContext {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface ParseLoopContext {
         index: number;
