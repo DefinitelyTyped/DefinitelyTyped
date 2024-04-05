@@ -2,7 +2,7 @@ import clevertap = require("clevertap-web-sdk");
 
 clevertap.privacy.push({ optOut: false }); // Set the flag to true, if the user of the device opts out of sharing their data
 clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user agrees to share their IP data
-clevertap.init("ACCOUNT_ID", "us1", "TARGET_DOMAIN"); // Replace with values applicable to you. Refer below
+clevertap.init("ACCOUNT_ID", "us1", "TARGET_DOMAIN", "token"); // Replace with values applicable to you. Refer below
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
 clevertap.dismissSpamControl = true;
@@ -118,7 +118,7 @@ clevertap.deleteInboxMessage("1687446482_1687781900740");
 // Mark Message as Read. Message id should be a String
 clevertap.markReadInboxMessage("1687446482_1687781900740");
 // Mark Messages as Read.The method takes and array fo message Ids. Message id should be a String
-clevertap.markReadInboxMessagesForIds(["1688382277_1706170861769"]);
+clevertap.markReadInboxMessagesForIds(["1688382277_1706170861769"])
 // Mark all messages as read
 clevertap.markReadAllInboxMessage();
 
@@ -133,3 +133,29 @@ clevertap.handleIncrementValue("price", 10);
 clevertap.handleDecrementValue("price", 10);
 
 clevertap.getLocation(21, 79);
+
+const va = clevertap.defineVariable('zz-web-zzb', 123)
+const onSyncSuccess = () => {
+  // console.log("Variables synced successfully");
+};
+const onSyncFailure = (error: Error) => {
+  //console.error("Failed to sync variables:", error.message);
+};
+clevertap.syncVariables(onSyncSuccess, onSyncFailure)
+
+const onFetchCallback = () => {
+    // console.log("Variables fetched successfully:");
+};
+clevertap.fetchVariables(onFetchCallback)
+
+const handleVariablesChanged = () => {
+    // console.log("Variables changed:", changedVariables);
+};
+clevertap.addVariablesChangedCallback(handleVariablesChanged);
+
+const callback = () => {
+    //console.log("Variables changed!");
+};
+  
+// Call the addOneTimeVariablesChangedCallback method
+clevertap.addOneTimeVariablesChangedCallback(callback);

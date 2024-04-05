@@ -97,7 +97,7 @@ interface CustomNotificationEvent {
     msgCTkv?: any;
 }
 declare class CleverTap {
-    init(accountId: string, region?: Region, targetDomain?: string): void;
+    init(accountId: string, region?: Region, targetDomain?: string, token?: string): void;
     privacy: Privacy;
     event: EventHandler;
     profile: ProfileHandler;
@@ -137,6 +137,11 @@ declare class CleverTap {
     getInboxMessageUnreadCount: () => number | undefined;
     getInboxMessageCount: () => number | undefined;
     getLocation: (lat: number, lng: number) => void;
+    defineVariable: (name: string, defaultValue: string | number | boolean) => any;
+    syncVariables(onSyncSuccess: () => void, onSyncFailure: (error: Error) => void): Promise<void>;
+    fetchVariables(onFetchCallback: () => void): void;
+    addVariablesChangedCallback(callback: () => void): void;
+    addOneTimeVariablesChangedCallback(callback: () => void): void;
 }
 
 export default CleverTap;
