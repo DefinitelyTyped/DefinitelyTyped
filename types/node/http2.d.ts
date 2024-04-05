@@ -2094,7 +2094,13 @@ declare module "http2" {
         const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
         const HTTP2_HEADER_ACCEPT_RANGES: string;
         const HTTP2_HEADER_ACCEPT: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS: string;
         const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_EXPOSE_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_REQUEST_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_REQUEST_METHOD: string;
         const HTTP2_HEADER_AGE: string;
         const HTTP2_HEADER_ALLOW: string;
         const HTTP2_HEADER_AUTHORIZATION: string;
