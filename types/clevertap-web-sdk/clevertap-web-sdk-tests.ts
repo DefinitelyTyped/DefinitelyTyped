@@ -148,7 +148,7 @@ const onFetchCallback = () => {
 };
 clevertap.fetchVariables(onFetchCallback)
 
-const handleVariablesChanged = (changedVariables: any) => {
+const handleVariablesChanged = () => {
     // console.log("Variables changed:", changedVariables);
 };
 clevertap.addVariablesChangedCallback(handleVariablesChanged);
