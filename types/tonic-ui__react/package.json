@@ -1,12 +1,13 @@
 {
     "private": true,
     "name": "@types/tonic-ui__react",
-    "version": "2.0.9999",
+    "version": "2.7.9999",
     "projects": [
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "*",
+        "react": "^19.1.0"
     },
     "devDependencies": {
         "@types/tonic-ui__react": "workspace:."
@@ -19,6 +20,10 @@
         {
             "name": "Zachary Legros",
             "githubUsername": "ZachLegros"
+        },
+        {
+            "name": "Georgiana Chiriac",
+            "githubUsername": "georgids9"
         }
     ]
 }
