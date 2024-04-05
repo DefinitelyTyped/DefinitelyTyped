@@ -409,7 +409,7 @@ declare namespace _Readable {
         destroy?(this: _IReadable, error: Error | null, callback: (error: Error | null) => void): void;
     };
 
-    class Readable extends _Readable {
+    class Readable extends _Readable implements NodeJS.ReadableStream {
         readonly readableAborted: never;
         readonly readableDidRead: never;
         readonly readableEncoding: never;
@@ -417,7 +417,7 @@ declare namespace _Readable {
         readonly readableObjectMode: never;
 
         constructor(options?: ReadableOptions);
-        pipe<T extends _IWritable>(destination: T, options?: { end?: boolean | undefined }): T;
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
         compose<T extends NodeJS.ReadableStream>(
             stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
             options?: { signal: AbortSignal },
@@ -548,7 +548,7 @@ declare namespace _Readable {
         end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
-    class _Writable extends Stream implements _IWritable {
+    class _Writable extends Stream implements _IWritable, NodeJS.WritableStream {
         writable: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
@@ -655,7 +655,7 @@ declare namespace _Readable {
 
     class Stream extends _Readable {
         constructor(options?: ReadableOptions);
-        pipe<T extends _IWritable>(destination: T, options?: { end?: boolean | undefined }): T;
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
         compose<T extends NodeJS.ReadableStream>(
             stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
             options?: { signal: AbortSignal },
