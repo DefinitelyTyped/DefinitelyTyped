@@ -4902,7 +4902,7 @@ declare namespace chrome.idle {
      * @since Chrome 25
      */
     export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
-    
+
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25
