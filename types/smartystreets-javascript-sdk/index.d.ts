@@ -175,8 +175,8 @@ export namespace usStreet {
              * - **strict**  - The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
              * - **invalid**  - The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
              * https://www.smarty.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
-             * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address 
-             * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license. 
+             * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address
+             * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license.
              * Note: A freeform address, that we can't find a match for, will respond with an empty array, "[]".
              *
              * Notes:
@@ -228,8 +228,8 @@ export namespace usStreet {
          * - **strict**  - The API will return detailed output only if a valid match is found. Otherwise the API response will be an empty array.
          * - **invalid**  - The API will return detailed output for both valid and invalid addresses. To find out if the address is valid, check the [dpv_match_code](
          * https://www.smarty.com/docs/cloud/us-street-api#dpvmatchcode). Values of Y, S, or D indicate a valid address.
-         * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address 
-         * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license. 
+         * - **enhanced** - The API will return detailed output based on a more aggressive matching mechanism. It also includes a more comprehensive address
+         * dataset beyond just the postal address data. Requires a US Core license or a US Rooftop Geocoding license.
          * Note: A freeform address, that we can't find a match for, will respond with an empty array, "[]".
          *
          * Notes:
@@ -247,7 +247,7 @@ export namespace usStreet {
          */
         format: string;
         /**
-         * The maximum number of addresses returned when the input is ambiguous.  
+         * The maximum number of addresses returned when the input is ambiguous.
          * Max Value: 10
          * @default 1
          */
@@ -295,9 +295,9 @@ export namespace usStreet {
         lastLine: string;
         /** 12-digit POSTNET™ barcode; consists of 5-digit ZIP Code, 4-digit add-on code, 2-digit delivery point, and 1-digit check digit. */
         deliveryPointBarcode: string;
-        /** 
-         * Smarty's unique identifier for an address. This identifier will only be displayed when an address is submitted with the match parameter 
-         * set to "enhanced," with an appropriate product subscription. 
+        /**
+         * Smarty's unique identifier for an address. This identifier will only be displayed when an address is submitted with the match parameter
+         * set to "enhanced," with an appropriate product subscription.
          */
         smartyKey?: string;
         /** @see Component */
@@ -385,7 +385,7 @@ export namespace usStreet {
          */
         dpvMatchCode?: string | undefined;
         /**
-         * When an address is submitted with the match parameter set to "enhanced," this field will contain additional information about the result. Multiple values may be present, separated by commas. 
+         * When an address is submitted with the match parameter set to "enhanced," this field will contain additional information about the result. Multiple values may be present, separated by commas.
          * Additional values will be added from time to time. The current possible values are:
          * - **none** — No address match was found.
          * - **non-postal-match** — A match was found within additional, non-postal address data.
@@ -432,7 +432,7 @@ export namespace usStreet {
          */
         lacsLinkIndicator: any;
         /**
-         * Indicates that a delivery point is listed as "no-stat" by the USPS. Technically, that means the USPS is temporarily declaring the address undeliverable. 
+         * Indicates that a delivery point is listed as "no-stat" by the USPS. Technically, that means the USPS is temporarily declaring the address undeliverable.
          * In practice, however, the USPS is often several months behind in removing addresses from the "no-stat" list, so only rely on this data point if you are fully aware of its weaknesses and limitations.
          * - **Y** — USPS lists the address as "no-stat."
          * - **N** — USPS does not list the address as "no-stat."
@@ -479,7 +479,7 @@ export namespace usStreet {
         /***
          * The license ID for the geographic coordinate returned.
          * - **SmartyStreets** - Results with this coordinate license are provided with an open/unrestricted license. Attribution is optional.
-         * - **SmartyStreets Proprietary** - Smarty hereby grants a limited, worldwide, non-exclusive, non-transferable (except as authorized herein), revocable license to use this geocoding 
+         * - **SmartyStreets Proprietary** - Smarty hereby grants a limited, worldwide, non-exclusive, non-transferable (except as authorized herein), revocable license to use this geocoding
          * coordinate consisting of latitude and longitude values and associated metadata for internal business use purposes only and for the duration of the term stated for the online subscription.
          */
         coordinateLicense: string;
