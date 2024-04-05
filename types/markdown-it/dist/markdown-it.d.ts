@@ -823,7 +823,7 @@ declare namespace MarkdownIt {
             idx: number,
             options: MarkdownIt.Options,
             env: any,
-            self: Renderer
+            self: Renderer,
         ) => string;
 
         interface RenderRuleRecord {
@@ -909,9 +909,9 @@ declare namespace MarkdownIt {
 }
 
 interface MarkdownItConstructor {
-    new (): MarkdownIt;
-    new (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
-    new (options: MarkdownIt.Options): MarkdownIt;
+    new(): MarkdownIt;
+    new(presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
+    new(options: MarkdownIt.Options): MarkdownIt;
     (): MarkdownIt;
     (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
     (options: MarkdownIt.Options): MarkdownIt;

@@ -90,9 +90,9 @@ export type PluginWithOptions<T = any> = (md: MarkdownIt, options?: T) => void;
 export type PluginWithParams = (md: MarkdownIt, ...params: any[]) => void;
 
 interface MarkdownItConstructor {
-    new (): MarkdownIt;
-    new (presetName: PresetName, options?: Options): MarkdownIt;
-    new (options: Options): MarkdownIt;
+    new(): MarkdownIt;
+    new(presetName: PresetName, options?: Options): MarkdownIt;
+    new(options: Options): MarkdownIt;
     (): MarkdownIt;
     (presetName: PresetName, options?: Options): MarkdownIt;
     (options: Options): MarkdownIt;

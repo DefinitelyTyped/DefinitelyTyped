@@ -1,7 +1,7 @@
 import MarkdownIt from "./index.mjs";
 import Ruler from "./ruler.mjs";
-import Token from "./token.mjs";
 import StateInline from "./rules_inline/state_inline.mjs";
+import Token from "./token.mjs";
 
 export type RuleInline = (state: StateInline, silent: boolean) => boolean;
 export type RuleInline2 = (state: StateInline) => boolean;

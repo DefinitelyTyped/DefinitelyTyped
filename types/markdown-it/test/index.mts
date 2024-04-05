@@ -19,7 +19,7 @@ import Renderer from "markdown-it/lib/renderer.mjs";
         langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: "\u201c\u201d\u2018\u2019" /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -31,7 +31,7 @@ import Renderer from "markdown-it/lib/renderer.mjs";
         langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: "\u201c\u201d\u2018\u2019" /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -43,7 +43,7 @@ import Renderer from "markdown-it/lib/renderer.mjs";
         langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: "\u201c\u201d\u2018\u2019" /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -55,7 +55,7 @@ import Renderer from "markdown-it/lib/renderer.mjs";
         langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: "\u201c\u201d\u2018\u2019" /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: (str, lang, attrs) => "",
     };
 }
