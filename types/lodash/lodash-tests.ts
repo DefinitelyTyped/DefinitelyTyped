@@ -5424,6 +5424,12 @@ fp.now(); // $ExpectType number
     _.has(abcObject, ""); // $ExpectType boolean
     _.has(abcObject, 42); // $ExpectType boolean
     _.has(abcObject, ["", 42]); // $ExpectType boolean
+    const partialObject: { a?: number; b?: string } = {};
+    if (_.has(partialObject, 'a')) {
+        partialObject.a; // $ExpectType number
+    } else {
+        partialObject.a; // $ExpectType number | undefined
+    }
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean

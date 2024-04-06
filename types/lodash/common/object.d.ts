@@ -1327,6 +1327,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
+        has<T, K extends keyof T>(object: T, path: K): object is RequiredBy<T, K>;
         has<T>(object: T, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
