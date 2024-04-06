@@ -9,7 +9,7 @@ declare class Vorpal {
     exec(
         command: string,
         args?: Vorpal.Args,
-        callback?: (data: any) => any
+        callback?: (data: any) => any,
     ): this;
     execSync(command: string, opts?: Vorpal.Args): any;
     log(value: string, ...values: string[]): this;
@@ -22,12 +22,12 @@ declare class Vorpal {
     command(
         command: string,
         description?: string,
-        opts?: Vorpal.CommandOpts
+        opts?: Vorpal.CommandOpts,
     ): Vorpal.Command;
     mode(
         mode: string,
         description?: string,
-        opts?: Vorpal.CommandOpts
+        opts?: Vorpal.CommandOpts,
     ): Vorpal.Mode;
     commands: Vorpal.Command[];
     version(version: string): this;
@@ -51,7 +51,7 @@ declare namespace Vorpal {
     }
 
     interface ParseOpts {
-        use?: 'minimist';
+        use?: "minimist";
     }
 
     interface PromptObject {
@@ -72,15 +72,15 @@ declare namespace Vorpal {
         option(
             option: string,
             description: string,
-            autocomplete?: readonly string[]
+            autocomplete?: readonly string[],
         ): this;
-        types(types: {string?: readonly string[] | undefined}): this;
+        types(types: { string?: readonly string[] | undefined }): this;
         hidden(): this;
         remove(): this;
         help(value: (args: Args) => void): this;
         validate(value: (args: Args) => boolean | string): this;
         autocomplete(
-            values: readonly string[] | {data: () => Promise<readonly string[]>}
+            values: readonly string[] | { data: () => Promise<readonly string[]> },
         ): this;
         action(action: Action, cb?: (data: any) => any): this;
         cancel(cancel: Cancel): this;
@@ -89,7 +89,6 @@ declare namespace Vorpal {
         init(init: Action): this;
         delimiter(delimiter: string): this;
     }
-
 
     class Catch extends Command {}
 
