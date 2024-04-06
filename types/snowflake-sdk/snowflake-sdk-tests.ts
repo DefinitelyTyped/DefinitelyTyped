@@ -107,6 +107,11 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         // @ts-expect-error
         parameters: "not-a-record",
     });
+
+    conn.execute({
+        sqlText: "",
+        requestId: "",
+    });
 };
 connection.connect(connectCallback);
 connection.connectAsync(connectCallback).then(() => {});

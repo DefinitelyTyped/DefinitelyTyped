@@ -571,6 +571,12 @@ export type Connection = NodeJS.EventEmitter & {
         fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
         parameters?: Record<string, unknown>;
+
+        /**
+         * ### Related Docs
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#resubmitting-requests Resubmitting Requests}
+         */
+        requestId?: string;
     }): Statement;
 
     /**
