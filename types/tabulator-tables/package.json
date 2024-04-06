@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tabulator-tables",
-    "version": "5.6.9999",
+    "version": "6.2.9999",
     "projects": [
         "http://tabulator.info"
     ],

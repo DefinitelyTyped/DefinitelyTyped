@@ -5165,6 +5165,7 @@ declare namespace google.maps {
     Review: typeof google.maps.places.Review;
     SearchBox: typeof google.maps.places.SearchBox;
     SearchByTextRankPreference: typeof google.maps.places.SearchByTextRankPreference;
+    SearchNearbyRankPreference: typeof google.maps.places.SearchNearbyRankPreference;
   }
   /**
    * Access by calling `const {Point} = await
@@ -13242,6 +13243,13 @@ declare namespace google.maps.places {
       this: any,
       request: google.maps.places.SearchByTextRequest,
     ): Promise<{places: google.maps.places.Place[]}>;
+    /**
+     * Search for nearby places.
+     */
+    static searchNearby(
+      this: any,
+      request: google.maps.places.SearchNearbyRequest,
+    ): Promise<{places: google.maps.places.Place[]}>;
   }
   /**
    * Defines information about an aspect of the place that users have reviewed.
@@ -13263,13 +13271,8 @@ declare namespace google.maps.places {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * <ul>
-   * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
-   * provides a UI component for the Places Autocomplete API. After loading the
-   * <code>places</code> library, an input with autocomplete functionality can
-   * be created in HTML. For example: <pre><code>&lt;gmp-placeautocomplete
-   * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
-   * </ul>
+   * PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+   * provides a UI component for the Places Autocomplete API.
    *
    * Access by calling `const {PlaceAutocompleteElement} = await
    * google.maps.importLibrary("places")`. See
@@ -13282,14 +13285,8 @@ declare namespace google.maps.places {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
-     * <ul>
-     * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass
-     * which provides a UI component for the Places Autocomplete API. After
-     * loading the <code>places</code> library, an input with autocomplete
-     * functionality can be created in HTML. For example:
-     * <pre><code>&lt;gmp-placeautocomplete
-     * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
-     * </ul>
+     * PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+     * provides a UI component for the Places Autocomplete API.
      *
      * Access by calling `const {PlaceAutocompleteElement} = await
      * google.maps.importLibrary("places")`. See
@@ -14518,6 +14515,99 @@ declare namespace google.maps.places {
      * @defaultValue <code>false</code>
      */
     useStrictTypeFiltering?: boolean;
+  }
+  /**
+   * RankPreference enum for SearchNearbyRequest.
+   *
+   * Access by calling `const {SearchNearbyRankPreference} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SearchNearbyRankPreference {
+    /**
+     * Ranks results by distance.
+     */
+    DISTANCE = 'DISTANCE',
+    /**
+     * Ranks results by popularity.
+     */
+    POPULARITY = 'POPULARITY',
+  }
+  /**
+   * Request interface for {@link google.maps.places.Place.searchNearby}. For
+   * more information on the request, see <a
+   * href="https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places/searchNearby">Places
+   * API reference</a>.
+   */
+  export interface SearchNearbyRequest {
+    /**
+     * Excluded primary place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can only have a single primary type.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    excludedPrimaryTypes?: string[];
+    /**
+     * Fields to be included in the response, <a
+     * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
+     * will be billed for</a>. If <code>[&#39;*&#39;]</code> is passed in, all
+     * available fields will be returned and billed for (this is not recommended
+     * for production deployments). For a list of fields see {@link
+     * google.maps.places.PlaceResult}. Nested fields can be specified with
+     * dot-paths (for example, <code>"geometry.location"</code>).
+     */
+    fields: string[];
+    /**
+     * Included primary place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can only have a single primary type.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    includedPrimaryTypes?: string[];
+    /**
+     * Included place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can have many different place types.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    includedTypes?: string[];
+    /**
+     * Place details will be displayed with the preferred language if available.
+     * Will default to the browser&#39;s language preference. Current list of
+     * supported languages: <a
+     * href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a>.
+     */
+    language?: string;
+    /**
+     * The region to search, specified as a circle with center and radius.
+     * Results outside given location are not returned.
+     */
+    locationRestriction: google.maps.Circle | google.maps.CircleLiteral;
+    /**
+     * Maximum number of results to return. It must be between 1 and 20,
+     * inclusively.
+     */
+    maxResultCount?: number;
+    /**
+     * How results will be ranked in the response.
+     * @defaultValue <code>SearchNearbyRankPreference.DISTANCE</code>
+     */
+    rankPreference?: google.maps.places.SearchNearbyRankPreference;
+    /**
+     * The Unicode country/region code (CLDR) of the location where the request
+     * is coming from. This parameter is used to display the place details, like
+     * region-specific place name, if available. The parameter can affect
+     * results based on applicable law. For more information, see <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html">https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html</a>.
+     * Note that 3-digit region codes are not currently supported.
+     */
+    region?: string;
   }
   /**
    * Contains structured information about the place&#39;s description, divided

@@ -22,13 +22,6 @@ export interface HeaderProperties {
     devmin?: number | undefined;
 }
 
-export interface ExtractOptions {
-    type?: string | undefined;
-    Directory?: boolean | undefined;
-    path?: string | undefined;
-    strip?: number | undefined;
-}
-
 export interface ParseStream extends NodeJS.ReadWriteStream {
     position: number;
 
@@ -241,6 +234,11 @@ export interface PackOptions {
      */
     gzip?: boolean | zlib.ZlibOptions;
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions;
+    /**
      * A function that gets called with (path, stat) for each entry being added.
      * Return true to add the entry to the archive, or false to omit it.
      */
@@ -423,6 +421,12 @@ export interface CreateOptions {
     z?: boolean | zlib.ZlibOptions | undefined;
 
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions | undefined;
+
+    /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
@@ -544,6 +548,20 @@ export interface ExtractOptions {
      * Alias for keep.
      */
     "keep-existing"?: boolean | undefined;
+
+    /**
+     * Allow absolute paths, paths containing .., and extracting
+     * through symbolic links. By default, / is stripped from
+     * absolute paths, .. paths are not extracted, and any file
+     * whose location would be modified by a symbolic link is not
+     * extracted.
+     */
+    preservePaths?: boolean | undefined;
+
+    /**
+     * Alias for presevePaths.
+     */
+    P?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -729,12 +747,6 @@ export interface ReplaceOptions {
      * A path portion to prefix onto the entries in the archive.
      */
     prefix?: string | undefined;
-
-    /**
-     * Set to any truthy value to create a gzipped archive,
-     * or an object with settings for zlib.Gzip()
-     */
-    gzip?: boolean | zlib.ZlibOptions | undefined;
 
     /**
      * A function that gets called with (path, stat) for each entry being
