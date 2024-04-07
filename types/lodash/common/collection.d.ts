@@ -1004,7 +1004,7 @@ declare module "../index" {
          * @param fromIndex The index to search from.
          * @return True if the target element is found, else false.
          */
-        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: unknow, fromIndex?: number): target is T;
+        includes<T>(collection: Dictionary<T> | NumericDictionary<T> | null | undefined, target: unknown, fromIndex?: number): target is T;
     }
     interface Object<T> {
         /**
