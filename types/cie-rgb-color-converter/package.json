@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/cie-rgb-color-converter": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "nebmit",
+            "githubUsername": "nebmit"
+        }
+    ]
 }
