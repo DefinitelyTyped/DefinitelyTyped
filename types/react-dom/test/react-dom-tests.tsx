@@ -106,6 +106,29 @@ function createRoot(validContainer: Element | DocumentFragment | Document) {
     root.render(<div>initial render</div>);
     root.render(false);
 
+    ReactDOMClient.createRoot(document, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
+
     ReactDOMClient.createRoot(document);
     ReactDOMClient.createRoot(validContainer);
 }
@@ -126,6 +149,29 @@ function hydrateRoot() {
     });
 
     ReactDOMClient.hydrateRoot(document.getElementById("root")!, false);
+
+    ReactDOMClient.hydrateRoot(document.body, null, {
+        onUncaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // @ts-expect-error -- only on onCaughtError
+            errorInfo.errorBoundary;
+        },
+        onCaughtError: (error, errorInfo) => {
+            // $ExpectType unknown
+            error;
+            // $ExpectType string | undefined
+            errorInfo.componentStack;
+            // @ts-expect-error -- only on onRecoverableError
+            errorInfo.digest;
+            // $ExpectType Component<unknown, {}, any> | undefined
+            errorInfo.errorBoundary;
+        },
+    });
 }
 
 /**
