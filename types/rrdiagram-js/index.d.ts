@@ -1,31 +1,24 @@
-import BNFToGrammar from "../model/bnftogrammar";
-import GrammarToRRDiagram from "../model/grammartorrdiagram";
-import RRDiagramToSVG from "../ui/rrdiagramtosvg";
-import Expression from "../model/expression";
-import RRElement from "../ui/rrelement";
-import RRDiagram from "../ui/rrdiagram";
-
-declare module 'rrdiagram-js' {
+declare module "rrdiagram-js" {
   export namespace bnfdisplay {
     class BNFDisplay {
-      bnfToGrammar: BNFToGrammar;
-      grammarToRRDiagram: GrammarToRRDiagram;
-      rrDiagramToSVG: RRDiagramToSVG;
+      bnfToGrammar: model.BNFToGrammar;
+      grammarToRRDiagram: model.GrammarToRRDiagram;
+      rrDiagramToSVG: ui.RRDiagramToSVG;
 
       /**
        * @return {BNFToGrammar}
        */
-      getBNFToGrammar(): BNFToGrammar;
+      getBNFToGrammar(): model.BNFToGrammar;
 
       /**
        * @return {GrammarToRRDiagram}
        */
-      getGrammarToRRDiagram(): GrammarToRRDiagram;
+      getGrammarToRRDiagram(): model.GrammarToRRDiagram;
 
       /**
        * @return {RRDiagramToSVG}
        */
-      getRRDiagramToSVG(): RRDiagramToSVG;
+      getRRDiagramToSVG(): ui.RRDiagramToSVG;
 
       /**
        * @param {string} className
@@ -33,6 +26,25 @@ declare module 'rrdiagram-js' {
        */
       replaceBNF(className: string, newClassName: string): void;
     }
+  }
+
+  class Expression {
+    /**
+     * @param {GrammarToRRDiagram} grammarToRRDiagram
+     * @return {RRElement}
+     */
+    toRRElement(grammarToRRDiagram: model.GrammarToRRDiagram): RRElement;
+    /**
+     * @param {GrammarToBNF} grammarToBNF
+     * @param {string[]} sb
+     * @param {boolean} isNested
+     */
+    toBNF(grammarToBNF: model.GrammarToBNF, sb: string[], isNested: boolean): void;
+    /**
+     * @param {*} o
+     * @return {boolean}
+     */
+    equals(o: any): boolean;
   }
   
   export namespace model {
@@ -101,7 +113,7 @@ declare module 'rrdiagram-js' {
        * @param {Rule} rule
        * @return {RRDiagram}
        */
-      convert(rule: Rule): RRDiagram;
+      convert(rule: Rule): ui.RRDiagram;
     }
 
     class Literal extends Expression {
@@ -158,7 +170,7 @@ declare module 'rrdiagram-js' {
        * @param {GrammarToRRDiagram} grammarToRRDiagram
        * @return {RRDiagram}
        */
-      toRRDiagram(grammarToRRDiagram: GrammarToRRDiagram): RRDiagram;
+      toRRDiagram(grammarToRRDiagram: GrammarToRRDiagram): ui.RRDiagram;
       /**
        * @param {GrammarToBNF} grammarToBNF
        * @return {string}
@@ -194,6 +206,12 @@ declare module 'rrdiagram-js' {
       constructor(text: string);
       text: string;
     }
+  }
+
+  class RRElement {
+    layoutInfo: any;
+    setLayoutInfo(layoutInfo: any): void;
+    getLayoutInfo(): any;
   }
   
   export namespace ui {
