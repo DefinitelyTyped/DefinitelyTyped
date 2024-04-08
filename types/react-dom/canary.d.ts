@@ -34,35 +34,3 @@ export {};
 declare module "." {
     function requestFormReset(form: HTMLFormElement): void;
 }
-
-declare module "./client" {
-    interface RootOptions {
-        onUncaughtError?:
-            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
-            | undefined;
-        onCaughtError?:
-            | ((
-                error: unknown,
-                errorInfo: {
-                    componentStack?: string | undefined;
-                    errorBoundary?: React.Component<unknown> | undefined;
-                },
-            ) => void)
-            | undefined;
-    }
-
-    interface HydrationOptions {
-        onUncaughtError?:
-            | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
-            | undefined;
-        onCaughtError?:
-            | ((
-                error: unknown,
-                errorInfo: {
-                    componentStack?: string | undefined;
-                    errorBoundary?: React.Component<unknown> | undefined;
-                },
-            ) => void)
-            | undefined;
-    }
-}

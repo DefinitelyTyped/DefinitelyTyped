@@ -19,7 +19,19 @@ export interface HydrationOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
+    onUncaughtError?:
+        | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+        | undefined;
     onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+    onCaughtError?:
+        | ((
+            error: unknown,
+            errorInfo: {
+                componentStack?: string | undefined;
+                errorBoundary?: React.Component<unknown> | undefined;
+            },
+        ) => void)
+        | undefined;
 }
 
 export interface RootOptions {
@@ -27,7 +39,19 @@ export interface RootOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
+    onUncaughtError?:
+        | ((error: unknown, errorInfo: { componentStack?: string | undefined }) => void)
+        | undefined;
     onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+    onCaughtError?:
+        | ((
+            error: unknown,
+            errorInfo: {
+                componentStack?: string | undefined;
+                errorBoundary?: React.Component<unknown> | undefined;
+            },
+        ) => void)
+        | undefined;
 }
 
 export interface ErrorInfo {
