@@ -102,6 +102,13 @@ declare module "." {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback An _asynchronous_ function which causes state updates that can be deferred.
+     */
+    export function startTransition(scope: () => Promise<VoidOrUndefinedOnly>): void;
+
     export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
