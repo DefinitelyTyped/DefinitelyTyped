@@ -51,7 +51,7 @@ export interface MessageResponseEntity {
     value?: string | undefined;
     type?: string | undefined;
     role?: string | undefined;
-    grain?: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year' | undefined;
+    grain?: string | undefined;
 }
 
 export interface WitIntent {
