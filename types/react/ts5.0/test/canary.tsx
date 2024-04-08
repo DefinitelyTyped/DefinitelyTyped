@@ -339,3 +339,23 @@ function formTest() {
         );
     }
 }
+
+// New transition events
+<div
+    onTransitionStart={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionRun={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionCancel={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionEnd={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+/>;
