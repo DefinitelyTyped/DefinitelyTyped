@@ -5,7 +5,13 @@ declare class Vorpal {
     hide(): this;
     find(command: string): Vorpal.Command;
     exec(command: string): Promise<{}>;
-    execSync(command: string): Promise<{}>;
+    exec(command: string, args?: Vorpal.Args): Promise<{}>;
+    exec(
+        command: string,
+        args?: Vorpal.Args,
+        callback?: (data: any) => any,
+    ): this;
+    execSync(command: string, opts?: Vorpal.Args): any;
     log(value: string, ...values: string[]): this;
     history(id: string): this;
     localStorage(id: string): object;
@@ -13,7 +19,17 @@ declare class Vorpal {
     pipe(value: (stdout: string) => string): this;
     use(extension: Vorpal.Extension): this;
     catch(command: string, description?: string): Vorpal.Catch;
-    command(command: string, description?: string): Vorpal.Command;
+    command(
+        command: string,
+        description?: string,
+        opts?: Vorpal.CommandOpts,
+    ): Vorpal.Command;
+    mode(
+        mode: string,
+        description?: string,
+        opts?: Vorpal.CommandOpts,
+    ): Vorpal.Mode;
+    commands: Vorpal.Command[];
     version(version: string): this;
     sigint(value: () => void): this;
     ui: Vorpal.UI;
@@ -28,6 +44,12 @@ declare namespace Vorpal {
         };
     }
 
+    interface CommandOpts {
+        default?: boolean;
+        mode?: boolean;
+        noHelp?: boolean;
+    }
+
     interface ParseOpts {
         use?: "minimist";
     }
@@ -36,8 +58,10 @@ declare namespace Vorpal {
         [key: string]: any;
     }
 
-    type Action = (args: Args) => Promise<void>;
+    type Action = (args: Args | string) => Promise<void>;
     type Cancel = () => void;
+
+    type Extension = (vorpal: Vorpal, args?: Args) => any;
 
     class Command {
         _name: string;
@@ -45,21 +69,32 @@ declare namespace Vorpal {
         _cancel: Cancel | undefined;
         alias(command: string): this;
         parse(value: (command: string, args: Args) => string): this;
-        option(option: string, description: string, autocomplete?: readonly string[]): this;
+        option(
+            option: string,
+            description: string,
+            autocomplete?: readonly string[],
+        ): this;
         types(types: { string?: readonly string[] | undefined }): this;
         hidden(): this;
         remove(): this;
         help(value: (args: Args) => void): this;
         validate(value: (args: Args) => boolean | string): this;
-        autocomplete(values: readonly string[] | { data: () => Promise<readonly string[]> }): this;
-        action(action: Action): this;
+        autocomplete(
+            values: readonly string[] | { data: () => Promise<readonly string[]> },
+        ): this;
+        action(action: Action, cb?: (data: any) => any): this;
         cancel(cancel: Cancel): this;
         allowUnknownOptions(): this;
+        done(value: () => any): this;
+        init(init: Action): this;
+        delimiter(delimiter: string): this;
     }
 
     class Catch extends Command {}
 
-    class Extension {}
+    class Mode extends Command {
+        description(value: string): this;
+    }
 
     class UI {
         delimiter(text?: string): string;
@@ -80,5 +115,4 @@ declare namespace Vorpal {
         delimiter(value: string): void;
     }
 }
-
 export = Vorpal;

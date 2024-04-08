@@ -2,6 +2,7 @@ export = FastFIFO;
 declare class FastFIFO<T> {
     constructor(hwm?: number);
     hwm: number;
+    length: number;
     head: FixedFIFO<T>;
     tail: FixedFIFO<T>;
     push(val: T): void;

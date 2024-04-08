@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/resolve-id-refs",
+    "version": "0.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/resolve-id-refs"
+    ],
+    "devDependencies": {
+        "@types/resolve-id-refs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Morgan Spencer",
+            "githubUsername": "morganmspencer"
+        }
+    ]
+}

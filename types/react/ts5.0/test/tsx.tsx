@@ -515,18 +515,10 @@ const { Profiler } = React;
         baseDuration,
         startTime,
         commitTime,
-        interactions,
     ) => {
         const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
 
         const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
-
-        const interactionsSummary = Array.from(interactions)
-            .map(interaction => {
-                return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
-            })
-            .join("\n");
-        const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
     }}
 >
     <div />
@@ -546,7 +538,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -909,4 +901,28 @@ function managingRefs() {
     // `inputRef.current` will contain `Element | null` at runtime
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
+    // ref cleanup
+    <div
+        ref={current => {
+            return function refCleanup() {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            // @ts-expect-error
+            return function refCleanup(implicitAny) {
+            };
+        }}
+    />;
+    <div
+        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
+        // @ts-expect-error
+        ref={current => {
+            return function refCleanup(neverPassed: string) {
+            };
+        }}
+    />;
 }

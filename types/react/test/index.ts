@@ -82,6 +82,14 @@ declare const container: Element;
         }
     }
     class BetterPropsAndStateChecksComponent extends React.Component<Props, State, Snapshot> {
+        constructor(props: Props) {
+            super(props);
+            // This should ideally error since `props` should not be mutated, but it doesn't.
+            props.foo = 2;
+            // @ts-expect-error
+            this.props = { type: "foo" };
+        }
+
         render() {
             return null;
         }
@@ -115,6 +123,13 @@ declare const container: Element;
                 hello: "world",
                 foo: 42,
             };
+        }
+    }
+
+    class InferredConstructorProps extends React.Component<{ value: string }> {
+        // @ts-expect-error ts(7006) Ideally, this would infer the props type from the type parameter but has implicit any.
+        constructor(props) {
+            super(props);
         }
     }
 }
@@ -297,7 +312,9 @@ React.cloneElement(element, {}, null);
 React.cloneElement(myElement);
 
 const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
-    ref: c => c && c.reset(),
+    ref: c => {
+        c && c.reset();
+    },
 });
 const clonedElement3: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
     key: "8eac7",
@@ -377,7 +394,11 @@ class RefComponent extends React.Component<RCProps> {
 let componentRef: RefComponent | null = new RefComponent({});
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
-RefComponent.create({ ref: c => componentRef = c });
+RefComponent.create({
+    ref: c => {
+        componentRef = c;
+    },
+});
 componentRef.refMethod();
 
 let domNodeRef: Element | null;
@@ -811,4 +832,128 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
         // @ts-expect-error
         notImplemented: 5,
     };
+}
+
+function propsInferenceHelpersTests() {
+    const divRef: React.Ref<HTMLDivElement> = React.createRef();
+
+    function FunctionComponent(props: { value: string; optional?: number; ref: React.Ref<HTMLDivElement> }) {
+        return null;
+    }
+    const functionComponentProps: React.ComponentProps<typeof FunctionComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const functionComponentPropsWithRef: React.ComponentPropsWithRef<typeof FunctionComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const functionComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof FunctionComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedFunctionComponentProps extends React.ComponentPropsWithRef<typeof FunctionComponent> {
+        ref: React.Ref<HTMLDivElement>;
+        optional?: number;
+        value: string;
+    }
+
+    class ClassComponent extends React.Component<{ value: string; optional?: number }> {
+        render() {
+            return null;
+        }
+    }
+    const badClassComponentProps: React.ComponentProps<typeof ClassComponent> = {
+        // @ts-expect-error ts(2353) No ref typed currently.
+        ref: React.createRef<InstanceType<typeof ClassComponent>>(),
+        value: "string",
+    };
+    const classComponentProps: React.ComponentProps<typeof ClassComponent> = {
+        value: "string",
+    };
+    const classComponentPropsWithRef: React.ComponentPropsWithRef<typeof ClassComponent> = {
+        ref: React.createRef<InstanceType<typeof ClassComponent>>(),
+        value: "string",
+    };
+    const badClassComponentPropsWithRef: React.ComponentPropsWithRef<typeof ClassComponent> = {
+        // @ts-expect-error ts(2322) Wrong ref type
+        ref: (current: string) => {},
+        value: "string",
+    };
+    const classComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof ClassComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedClassComponentProps extends React.ComponentPropsWithRef<typeof ClassComponent> {
+        ref: React.Ref<InstanceType<typeof ClassComponent>>;
+        optional?: number;
+        value: string;
+    }
+
+    const ForwardRefComponent = React.forwardRef<HTMLDivElement, { value: string; optional?: number }>((props, ref) => {
+        return null;
+    });
+    const badForwardRefComponentProps: React.ComponentProps<typeof ForwardRefComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const forwardRefComponentProps: React.ComponentProps<typeof ForwardRefComponent> = {
+        value: "string",
+    };
+    const forwardRefComponentPropsWithRef: React.ComponentPropsWithRef<typeof ForwardRefComponent> = {
+        ref: divRef,
+        value: "string",
+    };
+    const badForwardRefComponentPropsWithRef: React.ComponentPropsWithRef<typeof ForwardRefComponent> = {
+        // FIXME: Should be an error.
+        ref: (current: string) => {},
+        value: "string",
+    };
+    const forwardRefComponentPropsWithoutRef: React.ComponentPropsWithoutRef<typeof ForwardRefComponent> = {
+        // @ts-expect-error ts(2353) Should be omitted.
+        ref: divRef,
+        value: "string",
+    };
+    // This tests that we can use an interface to extend inferred props types that would've also been extendable without the helper.
+    interface ExtendedForwardRefComponentProps extends React.ComponentPropsWithRef<typeof ForwardRefComponent> {
+        ref: React.Ref<InstanceType<typeof ClassComponent>>;
+        optional?: number;
+        value: string;
+    }
+
+    type UnionProps = { type: string } & ({ value: string } | { children: string });
+    class UnionPropsClassComponent extends React.Component<UnionProps> {
+        render() {
+            return null;
+        }
+    }
+    function UnionPropsFunctionComponent(props: UnionProps) {
+        return null;
+    }
+    const UnionPropsForwardRefComponent = React.forwardRef<HTMLDivElement, UnionProps>((props, ref) => {
+        return null;
+    });
+
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentProps = React.ComponentProps<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps & RefAttributes<UnionPropsClassComponent>
+    type UnionPropsClassComponentPropsWithRef = React.ComponentPropsWithRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsClassComponentPropsWithoutRef = React.ComponentPropsWithoutRef<typeof UnionPropsClassComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentProps = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps
+    type UnionPropsFunctionComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsFunctionComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentProps = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
+    // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
+    type UnionPropsForwardRefComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
 }

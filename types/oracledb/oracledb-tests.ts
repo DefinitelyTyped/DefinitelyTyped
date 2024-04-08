@@ -65,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         {
             name: "1",
             fetchType: 2002,
-            dbType: 2,
+            dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
             precision: 0,
             scale: -127,

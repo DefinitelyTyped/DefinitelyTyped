@@ -4,7 +4,6 @@ import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates an array of textures directly from raw data, width and height and depth
- * @remarks Compatible only with {@link WebGL2RenderingContext | WebGL 2 Rendering Context}.
  * @example
  * ```typescript
  * This creates a[name] where each texture has a different color.

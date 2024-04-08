@@ -357,6 +357,31 @@ qs.parse("a=b&c=d", { delimiter: "&" });
     assert.deepEqual(sparseArray, { a: [, "2", , "5"] });
 });
 
+(() => {
+    var withEmptyArrays = qs.parse("foo[]&bar=baz", { allowEmptyArrays: true });
+    assert.deepEqual(withEmptyArrays, { foo: [], bar: "baz" });
+});
+
+(() => {
+    var withDots = qs.parse("name%252Eobj.first=John&name%252Eobj.last=Doe", { decodeDotInKeys: true });
+    assert.deepEqual(withDots, { "name.obj": { first: "John", last: "Doe" } });
+});
+
+(() => {
+    var withDots = qs.stringify({ "name.obj": { "first": "John", "last": "Doe" } }, {
+        allowDots: true,
+        encodeDotInKeys: true,
+    });
+    assert.equal(withDots, "name%252Eobj.first=John&name%252Eobj.last=Doe");
+});
+
+(() => {
+    assert.deepEqual(qs.parse("foo=bar&foo=baz"), { foo: ["bar", "baz"] });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "combine" }), { foo: ["bar", "baz"] });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "first" }), { foo: "bar" });
+    assert.deepEqual(qs.parse("foo=bar&foo=baz", { duplicates: "last" }), { foo: "baz" });
+});
+
 declare const myQuery: { a: string; b?: string | undefined };
 const myQueryCopy: qs.ParsedQs = myQuery;
 

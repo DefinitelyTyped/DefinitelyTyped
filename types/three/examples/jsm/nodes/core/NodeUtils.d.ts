@@ -7,7 +7,7 @@ export interface NodeChild {
     childNode: Node;
 }
 
-export function getCacheKey(object: Node): string;
+export function getCacheKey(object: Node, force?: boolean): string;
 export function getNodeChildren(object: Node): Generator<NodeChild, void>;
 export function getValueType(value: unknown): string | null;
 export function getValueFromType(

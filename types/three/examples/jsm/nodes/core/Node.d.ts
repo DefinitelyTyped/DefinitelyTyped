@@ -3,8 +3,6 @@ import NodeBuilder from "./NodeBuilder.js";
 import NodeFrame from "./NodeFrame.js";
 
 export default abstract class Node {
-    readonly isNode: true;
-
     nodeType: NodeTypeOption | null;
 
     updateType: NodeUpdateType;
@@ -12,9 +10,15 @@ export default abstract class Node {
 
     uuid: string;
 
+    version: number;
+
+    readonly isNode: true;
+
     readonly id: number;
 
     constructor(nodeType?: NodeTypeOption | null);
+
+    set needsUpdate(value: boolean);
 
     get type(): number;
 
@@ -22,7 +26,7 @@ export default abstract class Node {
 
     getChildren(): Node[];
 
-    getCacheKey(): string;
+    getCacheKey(force?: boolean): string;
 
     getHash(builder: NodeBuilder): string;
 

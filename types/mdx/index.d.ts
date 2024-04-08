@@ -52,7 +52,7 @@
  */
 declare module "*.mdx" {
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { MDXProps } from "mdx/types";
+    import { Element, MDXProps } from "mdx/types";
 
     /**
      * An function component which renders the MDX content using JSX.
@@ -61,7 +61,7 @@ declare module "*.mdx" {
      * @returns A JSX element. The meaning of this may depend on the project configuration. I.e. it
      * could be a React, Preact, or Vuex element.
      */
-    export default function MDXContent(props: MDXProps): JSX.Element;
+    export default function MDXContent(props: MDXProps): Element;
 }
 
 // Support markdown extensions from

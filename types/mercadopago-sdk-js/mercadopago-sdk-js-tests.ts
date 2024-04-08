@@ -26,8 +26,9 @@ brickBuilder.isInitialized();
         },
         callbacks: {
             onSubmit: (formData, additionalData) => {
-                return new Promise(() => {
+                return new Promise((resolve) => {
                     console.log(formData, additionalData);
+                    resolve();
                 });
             },
         },
@@ -151,7 +152,8 @@ brickBuilder.create("wallet", "containerWallet", {
     customization: {
         texts: {
             action: "pay",
-            valueProp: "smart_option",
+            actionComplement: "brand",
+            valueProp: "payment_methods_logos",
         },
     },
     callbacks: {
@@ -164,6 +166,15 @@ brickBuilder.create("wallet", "containerWallet", {
 });
 
 brickBuilder.create("brand", "containerBrand");
+
+brickBuilder.create("brand", "containerBrand", {
+    customization: {
+        paymentMethods: {
+            excludedPaymentMethods: ["amex"],
+            excludedPaymentTypes: ["ticket"],
+        },
+    },
+});
 
 const fieldInstance = mpInstance.fields.create("cardNumber", {});
 fieldInstance.mount("containerId");

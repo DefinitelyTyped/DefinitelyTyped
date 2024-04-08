@@ -118,6 +118,13 @@ browser.version();
 //
 const browserContext = browser.newContext();
 
+// @ts-expect-error
+browserContext.addInitScript();
+// $ExpectType void
+browserContext.addInitScript("Math.random = function(){return 0}");
+// $ExpectType void
+browserContext.addInitScript({ content: "Math.random = function(){return 0}" });
+
 // $ExpectType Browser
 browserContext.browser();
 // @ts-expect-error
@@ -638,6 +645,30 @@ page.setDefaultTimeout(1000);
 page.setExtraHTTPHeaders();
 // $ExpectType void
 page.setExtraHTTPHeaders({ Accept: "text/html" });
+
+// @ts-expect-error
+page.setInputFiles();
+// @ts-expect-error
+page.setInputFiles("foo");
+// @ts-expect-error
+page.setInputFiles("foo", {});
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+page.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // @ts-expect-error
 page.setViewportSize();
@@ -1420,6 +1451,28 @@ elementHandle.selectText({ force: true });
 // $ExpectType void
 elementHandle.selectText({ noWaitAfter: true });
 
+// @ts-expect-error
+elementHandle.setInputFiles();
+// @ts-expect-error
+elementHandle.setInputFiles({});
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt" });
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
+
 // $ExpectType void
 elementHandle.tap();
 // $ExpectType void
@@ -1889,6 +1942,30 @@ frame.isVisible();
 frame.isVisible("input");
 // $ExpectType boolean
 frame.isVisible("input", { strict: true });
+
+// @ts-expect-error
+frame.setInputFiles();
+// @ts-expect-error
+frame.setInputFiles("foo");
+// @ts-expect-error
+frame.setInputFiles("foo", {});
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+frame.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // @ts-expect-error
 frame.waitForFunction();

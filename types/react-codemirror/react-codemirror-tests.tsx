@@ -37,7 +37,9 @@ class CodemirrorTest extends React.Component {
                     onScroll={onScroll}
                     options={options}
                     preserveScrollPosition={true}
-                    ref={(r: Codemirror | null) => this.editorRef = r}
+                    ref={(r: Codemirror | null) => {
+                        this.editorRef = r;
+                    }}
                     value="foo bar"
                 />
             </div>

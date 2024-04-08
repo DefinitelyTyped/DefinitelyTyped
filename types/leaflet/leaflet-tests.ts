@@ -979,3 +979,12 @@ L.GeoJSON.geometryToLayer(
         },
     },
 );
+
+let circle = new L.Circle(latLng, 10);
+circle = new L.Circle(latLng, { radius: 10 });
+// @ts-expect-error
+circle = new L.Circle(latLng, { radius: "10" });
+// @ts-expect-error
+circle = new L.Circle(latLng, {});
+// @ts-expect-error
+circle = new L.Circle(latLng);

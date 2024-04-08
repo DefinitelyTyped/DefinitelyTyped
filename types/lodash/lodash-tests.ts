@@ -1810,8 +1810,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
-    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
-    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType "a"[] || string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType "a"[] || string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;

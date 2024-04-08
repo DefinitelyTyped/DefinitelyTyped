@@ -1045,6 +1045,21 @@ declare module "process" {
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**
+                 * Loads the environment configuration from a `.env` file into `process.env`. If
+                 * the file is not found, error will be thrown.
+                 *
+                 * To load a specific .env file by specifying its path, use the following code:
+                 *
+                 * ```js
+                 * import { loadEnvFile } from 'node:process';
+                 *
+                 * loadEnvFile('./development.env')
+                 * ```
+                 * @since v20.12.0
+                 * @param path The path to the .env file
+                 */
+                loadEnvFile(path?: string | URL | Buffer): void;
+                /**
                  * The `process.pid` property returns the PID of the process.
                  *
                  * ```js
