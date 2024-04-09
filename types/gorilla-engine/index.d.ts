@@ -16,6 +16,7 @@
 /// <reference path = "components/AmpEnv.d.ts" />
 /// <reference path = "components/BarStepEditor.d.ts" />
 /// <reference path = "components/ComboBox.d.ts" />
+/// <reference path = "components/Curve.d.ts" />
 /// <reference path = "components/DragContainer.d.ts" />
 /// <reference path = "components/DragTarget.d.ts" />
 /// <reference path = "components/DropZone.d.ts" />
