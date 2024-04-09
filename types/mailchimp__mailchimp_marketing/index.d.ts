@@ -1194,6 +1194,27 @@ export namespace ping {
 }
 
 /**
+ * SearchMembersApi
+ */
+export namespace searchMembers {
+  interface SearchMembersSuccessResponse {
+    exact_matches: {
+      members: lists.MembersSuccessResponse[];
+      total_items: number;
+    };
+    full_search: {
+      members: lists.MembersSuccessResponse[];
+      total_items: number;
+    };
+    _links: Link[];
+  }
+
+  function search(
+    query: string
+  ): Promise<SearchMembersSuccessResponse | ErrorResponse>;
+}
+
+/**
  * ListsApi
  */
 export namespace lists {
