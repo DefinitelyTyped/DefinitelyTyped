@@ -152,6 +152,18 @@ const settings: TagifySettings = {
             // $ExpectType Tagify<TagData>
             event.detail.tagify;
         },
+        paste: event => {
+            // $ExpectType ClipboardEvent
+            event.detail.event;
+            // $ExpectType string
+            event.detail.pastedText;
+            // $ExpectType DataTransfer
+            event.detail.clipboardData;
+            // $ExpectType HTMLElement[]
+            event.detail.tagsElems;
+            // $ExpectType Tagify<TagData>
+            event.detail.tagify;
+        },
         "dropdown:hide": event => {
             // $ExpectType HTMLElement | null
             event.detail.parentElement;
@@ -501,6 +513,7 @@ const tagifyArea = new Tagify(textAreaElement);
 const tagifyOneArg = new Tagify(inputElement);
 const tagifyEmptySettings = new Tagify(inputElement, {});
 new Tagify(inputElement, { dropdown: { appendTarget: null } });
+new Tagify(inputElement, { dropdown: { appendTarget: () => document.body } });
 new Tagify(inputElement, { pattern: null });
 // @ts-expect-error
 new Tagify(inputElement, { required: false });
@@ -590,6 +603,18 @@ tagify.on("remove", (event) => {
     event.detail.index;
     // $ExpectType HTMLElement
     event.detail.tag;
+    // $ExpectType Tagify<TagData>
+    event.detail.tagify;
+});
+tagify.on("paste", (event) => {
+    // $ExpectType ClipboardEvent
+    event.detail.event;
+    // $ExpectType string
+    event.detail.pastedText;
+    // $ExpectType DataTransfer
+    event.detail.clipboardData;
+    // $ExpectType HTMLElement[]
+    event.detail.tagsElems;
     // $ExpectType Tagify<TagData>
     event.detail.tagify;
 });
