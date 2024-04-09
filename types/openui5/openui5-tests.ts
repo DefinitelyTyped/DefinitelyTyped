@@ -211,3 +211,6 @@ const iti: ITableItem = new ColumnListItem();
 
 // 1.120
 const noneFilter = Filter.NONE;
+
+// 1.121: this commit just updates the version in package.json
+ 
