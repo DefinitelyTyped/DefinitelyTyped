@@ -180,12 +180,6 @@ declare class SteamUser extends EventEmitter {
      */
     setOptions(options: Options): void;
 
-    /**
-     * Set a sentry file
-     * @param sentry Binary Sentry File
-     */
-    setSentry(sentry: Buffer | null): void;
-
     logOn(
         details?:
             | LogOnDetailsAnon
@@ -988,7 +982,6 @@ interface Events {
     steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
     error: [err: Error & { eresult: SteamUser.EResult }];
     disconnected: [eresult: SteamUser.EResult, msg?: string];
-    sentry: [sentry: Buffer];
     webSession: [sessionID: string, cookies: string[]];
     loginKey: [key: string];
     newItems: [count: number];
