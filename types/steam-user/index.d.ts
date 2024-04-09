@@ -1038,6 +1038,7 @@ interface Events {
         },
     ];
     authTicketValidation: Events["authTicketStatus"];
+    refreshToken: [refreshToken: string];
 }
 // #endregion "Events"
 
@@ -1096,6 +1097,7 @@ interface Options {
     picsCacheAll?: boolean;
     changelistUpdateInterval?: number;
     saveAppTickets?: boolean;
+    renewRefreshTokens?: boolean;
     additionalHeaders?: Record<string, string>;
     webCompatibilityMode?: boolean;
     ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
@@ -1297,12 +1299,10 @@ interface QuickInviteLink {
 
 interface LogOnDetailsAnon {
     password?: string;
-    loginKey?: string;
     webLogonToken?: string;
     steamID?: SteamID | string;
     authCode?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
@@ -1315,7 +1315,6 @@ interface LogOnDetailsNamePass {
     password: string;
     authCode?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
@@ -1324,8 +1323,6 @@ interface LogOnDetailsNamePass {
 }
 interface LogOnDetailsNameKey {
     accountName: string;
-    loginKey: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
