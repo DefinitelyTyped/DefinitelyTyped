@@ -1440,6 +1440,7 @@ interface TwoFactorResponse {
     shared_secret: string;
     identity_secret: string;
     revocation_code: string;
+    [key: string]: any;
 }
 // #endregion "Response Interfaces"
 
