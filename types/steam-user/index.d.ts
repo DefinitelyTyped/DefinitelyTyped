@@ -1089,7 +1089,6 @@ interface Options {
     socksProxy?: string | null;
     localAddress?: string | null;
     autoRelogin?: boolean;
-    singleSentryfile?: boolean;
     machineIdType?: SteamUser.EMachineIDType;
     machineIdFormat?: [string, string, string];
     enablePicsCache?: boolean;
@@ -1306,7 +1305,6 @@ interface LogOnDetailsAnon {
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 
@@ -1314,11 +1312,11 @@ interface LogOnDetailsNamePass {
     accountName: string;
     password: string;
     authCode?: string;
+    machineAuthToken?: string;
     twoFactorCode?: string;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
