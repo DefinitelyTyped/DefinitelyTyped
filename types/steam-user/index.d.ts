@@ -230,7 +230,7 @@ declare class SteamUser extends EventEmitter {
             timestampMachineSteamGuardEnabled: Date | null,
             canTrade: boolean,
             timestampTwoFactorEnabled: Date | null,
-            isPhoneVerified: boolean
+            isPhoneVerified: boolean,
         ) => void,
     ): Promise<SteamGuardDetails>;
 
