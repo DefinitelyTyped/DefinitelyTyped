@@ -55,7 +55,7 @@ user.enableTwoFactor()
     })
     .catch(err => console.error(err));
 
-user.finalizeTwoFactor(Buffer.from("iwpergjawhirgos"), "active")
+user.finalizeTwoFactor("iwpergjawhirgos", "active")
     .then(response => {
         // do something with response
     })
