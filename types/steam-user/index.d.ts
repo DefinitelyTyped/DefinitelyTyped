@@ -214,7 +214,7 @@ declare class SteamUser extends EventEmitter {
      * @param activationCode - The activation code you got in your email
      * @param [callback] - Called with a single Error argument, or null on success
      */
-    finalizeTwoFactor(secret: Buffer, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
+    finalizeTwoFactor(secret: string, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
 
     getSteamGuardDetails(
         callback?: (
