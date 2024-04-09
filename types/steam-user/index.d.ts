@@ -1297,6 +1297,7 @@ interface QuickInviteLink {
 }
 
 interface LogOnDetailsAnon {
+    anonymous: true;
     password?: string;
     webLogonToken?: string;
     steamID?: SteamID | string;
@@ -1309,6 +1310,7 @@ interface LogOnDetailsAnon {
 }
 
 interface LogOnDetailsNamePass {
+    anonymous?: false;
     accountName: string;
     password: string;
     authCode?: string;
@@ -1320,6 +1322,7 @@ interface LogOnDetailsNamePass {
     autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
+    anonymous?: false;
     accountName: string;
     logonID?: number | string;
     machineName?: string;
@@ -1328,6 +1331,7 @@ interface LogOnDetailsNameKey {
 }
 
 interface LogOnDetailsNameToken {
+    anonymous?: false;
     accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
