@@ -15,4 +15,3 @@ const label = new GorillaEngine.UI.Label({ margin: 5 });
 const slider = new GorillaEngine.UI.Slider({ id: "slider" });
 
 const curve = new GorillaEngine.UI.Curve({ id: "AmpCurve" });
-
