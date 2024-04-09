@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/base/assert" {
   /**
@@ -14717,7 +14717,7 @@ declare module "sap/ui/core/Component" {
              */
             settings?: $ComponentSettings;
             /**
-             * Initial data of the component (@see sap.ui.core.Component#getComponentData)
+             * Initial data of the component, see {@link sap.ui.core.Component#getComponentData}
              */
             componentData?: object;
           }
@@ -14731,8 +14731,16 @@ declare module "sap/ui/core/Component" {
      * Subclasses of Component should override this hook to implement any necessary cleanup.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    exit(): void;
+    exit(): void | undefined;
     /**
      * Returns the list of active terminologies. See the {@link sap.ui.core.Component.create Component.create }
      * factory API documentation for more detail.
@@ -14891,15 +14899,29 @@ declare module "sap/ui/core/Component" {
      * Subclasses of Component should override this hook to implement any necessary initialization.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    init(): void;
+    init(): void | undefined;
     /**
      * This method is called after the component is activated
      *
      * @since 1.88
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onActivate(): void;
+    onActivate(): void | undefined;
     /**
      * The hook which gets called when the static configuration of the component has been changed by some configuration
      * extension.
@@ -14917,8 +14939,14 @@ declare module "sap/ui/core/Component" {
      *
      * @since 1.88
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onDeactivate(): void;
+    onDeactivate(): void | undefined;
     /**
      * The window before unload hook. Override this method in your Component class implementation, to handle
      * cleanup before the real unload or to prompt a question to the user, if the component should be exited.
@@ -17914,13 +17942,21 @@ declare module "sap/ui/core/Control" {
      * Subclasses of Control should override this hook to implement any necessary actions after the rendering.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
     onAfterRendering(
       /**
        * onAfterRendering event object
        */
       oEvent: jQuery.Event
-    ): void;
+    ): void | undefined;
     /**
      * Function is called before the rendering of the control is started.
      *
@@ -17929,13 +17965,21 @@ declare module "sap/ui/core/Control" {
      * Subclasses of Control should override this hook to implement any necessary actions before the rendering.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
     onBeforeRendering(
       /**
        * onBeforeRendering event object
        */
       oEvent: jQuery.Event
-    ): void;
+    ): void | undefined;
     /**
      * Puts `this` control into the specified container (`oRef`) at the given position (`oPosition`).
      *
@@ -20649,15 +20693,15 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
          */
         vertical?: boolean;
         /**
-         * @deprecated since 1.42, the parameter has no effect
+         * Deprecated since 1.42, the parameter has no effect
          */
         zynga?: boolean;
         /**
-         * @deprecated since 1.42, the parameter has no effect
+         * Deprecated since 1.42, the parameter has no effect
          */
         iscroll?: boolean;
         /**
-         * @deprecated since 1.42, the parameter has no effect
+         * Deprecated since 1.42, the parameter has no effect
          */
         preventDefault?: boolean;
         /**
@@ -23168,8 +23212,16 @@ declare module "sap/ui/core/Element" {
      * in the documentation.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    exit(): void;
+    exit(): void | undefined;
     /**
      * Searches and returns an array of child elements and controls which are referenced within an aggregation
      * or aggregations of child elements/controls. This can be either done recursive or not.
@@ -23397,8 +23449,16 @@ declare module "sap/ui/core/Element" {
      * Subclasses of Element should override this hook to implement any necessary initialization.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This hook method must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    init(): void;
+    init(): void | undefined;
     /**
      * Inserts a customData into the aggregation {@link #getCustomData customData}.
      *
@@ -24406,10 +24466,10 @@ declare module "sap/ui/core/format/DateFormat" {
          */
         relative?: boolean;
         /**
-         * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
-         * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
-         * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
-         * dates are formatted relatively.
+         * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to value 'day',
+         * the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next 6 days
+         * are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all dates are
+         * formatted relatively.
          */
         relativeRange?: int[];
         /**
@@ -24629,10 +24689,10 @@ declare module "sap/ui/core/format/DateFormat" {
          */
         relative?: boolean;
         /**
-         * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
-         * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
-         * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
-         * dates are formatted relatively.
+         * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to value 'day',
+         * the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next 6 days
+         * are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all dates are
+         * formatted relatively.
          */
         relativeRange?: int[];
         /**
@@ -25039,7 +25099,7 @@ declare module "sap/ui/core/format/NumberFormat" {
     protected constructor();
     /**
      * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
-     * mode in this object indicates how the least significant returned digits of rounded result is to be calculated.
+     * mode in this object indicates how the least significant returned digits of rounded result are to be calculated.
      *
      * This enum is part of the 'sap/ui/core/format/NumberFormat' module export and must be accessed by the
      * property 'RoundingMode'.
@@ -25925,15 +25985,16 @@ declare module "sap/ui/core/format/NumberFormat" {
      * Format a number according to the given format options.
      *
      *
-     * @returns the formatted output value
+     * @returns The formatted value
      */
     format(
       /**
-       * the number to format or an array which contains the number to format and the sMeasure parameter
+       * The number to format as a number or a string, such as `1234.45` or `"-1234.45"`, or an array which contains
+       * both the number to format as a number or a string and the `sMeasure` parameter
        */
-      vValue: number | any[],
+      vValue: number | string | any[],
       /**
-       * an optional unit which has an impact on formatting currencies and units
+       * An optional unit which has an impact on formatting currencies and units
        */
       sMeasure?: string
     ): string;
@@ -25974,46 +26035,56 @@ declare module "sap/ui/core/format/NumberFormat" {
   }
   /**
    * Specifies a rounding behavior for numerical operations capable of discarding precision. Each rounding
-   * mode in this object indicates how the least significant returned digits of rounded result is to be calculated.
+   * mode in this object indicates how the least significant returned digits of rounded result are to be calculated.
    *
    * This enum is part of the 'sap/ui/core/format/NumberFormat' module export and must be accessed by the
    * property 'RoundingMode'.
    */
   enum RoundingMode {
     /**
-     * Rounding mode to round away from zero
+     * Rounding mode to round away from zero; examples of rounding results to one fractional digit: 0.51 is
+     * rounded to 0.6, and -0.51 is rounded to -0.6.
      */
     AWAY_FROM_ZERO = "AWAY_FROM_ZERO",
     /**
-     * Rounding mode to round towards positive infinity
+     * Rounding mode to round towards positive infinity; examples of rounding results to one fractional digit:
+     * 0.51 is rounded to 0.6, and -0.51 is rounded to -0.5.
      */
     CEILING = "CEILING",
     /**
-     * Rounding mode to round towards negative infinity
+     * Rounding mode to round towards negative infinity; examples of rounding results to one fractional digit:
+     * 0.51 is rounded to 0.5, and -0.51 is rounded to -0.6.
      */
     FLOOR = "FLOOR",
     /**
-     * Rounding mode to round towards the nearest neighbor unless both neighbors are equidistant, in which case
-     * round away from zero.
+     * Rounding mode to round towards the nearest neighbor unless, both neighbors are equidistant, in which
+     * case round away from zero; examples of rounding results to one fractional digit: 0.54 or 0.46 are rounded
+     * to 0.5, -0.54 or -0.46 are rounded to -0.5, 0.55 is rounded to 0.6, and -0.55 is rounded to -0.6.
      */
     HALF_AWAY_FROM_ZERO = "HALF_AWAY_FROM_ZERO",
     /**
-     * Rounding mode to round towards the nearest neighbor unless both neighbors are equidistant, in which case
-     * round towards positive infinity.
+     * Rounding mode to round towards the nearest neighbor, unless both neighbors are equidistant, in which
+     * case round towards positive infinity; examples of rounding results to one fractional digit: 0.54 or 0.46
+     * are rounded to 0.5, -0.54 or -0.46 are rounded to -0.5, 0.55 is rounded to 0.6, and -0.55 is rounded
+     * to -0.5.
      */
     HALF_CEILING = "HALF_CEILING",
     /**
-     * Rounding mode to round towards the nearest neighbor unless both neighbors are equidistant, in which case
-     * round towards negative infinity.
+     * Rounding mode to round towards the nearest neighbor, unless both neighbors are equidistant, in which
+     * case round towards negative infinity; examples of rounding results to one fractional digit: 0.54 or 0.46
+     * are rounded to 0.5, -0.54 or -0.46 are rounded to -0.5, 0.55 is rounded to 0.5, and -0.55 is rounded
+     * to -0.6.
      */
     HALF_FLOOR = "HALF_FLOOR",
     /**
-     * Rounding mode to round towards the nearest neighbor unless both neighbors are equidistant, in which case
-     * round towards zero.
+     * Rounding mode to round towards the nearest neighbor, unless both neighbors are equidistant, in which
+     * case round towards zero; examples of rounding results to one fractional digit: 0.54 or 0.46 are rounded
+     * to 0.5, -0.54 or -0.46 are rounded to -0.5, 0.55 is rounded to 0.5, and -0.55 is rounded to -0.5.
      */
     HALF_TOWARDS_ZERO = "HALF_TOWARDS_ZERO",
     /**
-     * Rounding mode to round towards zero
+     * Rounding mode to round towards zero; examples of rounding results to one fractional digit: 0.59 is rounded
+     * to 0.5, and -0.59 is rounded to -0.5.
      */
     TOWARDS_ZERO = "TOWARDS_ZERO",
   }
@@ -32369,8 +32440,16 @@ declare module "sap/ui/core/mvc/Controller" {
      * 	sap.ui.core.Control.prototype.onAfterRendering
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onAfterRendering(): void;
+    onAfterRendering(): void | undefined;
     /**
      * This method is called every time the View is rendered, before the Renderer is called and the HTML is
      * placed in the DOM-Tree. It can be used to perform clean-up-tasks before re-rendering. (Even though this
@@ -32380,8 +32459,16 @@ declare module "sap/ui/core/mvc/Controller" {
      * 	sap.ui.core.Control.prototype.onBeforeRendering
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onBeforeRendering(): void;
+    onBeforeRendering(): void | undefined;
     /**
      * This method is called upon desctuction of the View. The controller should perform its internal destruction
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -32389,8 +32476,16 @@ declare module "sap/ui/core/mvc/Controller" {
      * if the method does not exist, it will simply not be called.)
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onExit(): void;
+    onExit(): void | undefined;
     /**
      * This method is called upon initialization of the View. The controller can perform its internal setup
      * in this hook. It is only called once per View instance, unlike the onBeforeRendering and onAfterRendering
@@ -32404,8 +32499,16 @@ declare module "sap/ui/core/mvc/Controller" {
      * event. The event is fired when either the context or the model changes for the control.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns This lifecycle hook must not have a return value. Return value `void` is deprecated since 1.120,
+     * as it does not force functions to **not** return something. This implies that, for instance, no async
+     * function returning a Promise should be used.
+     *
+     * **Note:** While the return type is currently `void|undefined`, any implementation of this hook must not
+     * return anything but undefined. Any other return value will cause an error log in this version of UI5
+     * and will fail in future major versions of UI5.
      */
-    onInit(): void;
+    onInit(): void | undefined;
   }
 }
 
@@ -38643,7 +38746,7 @@ declare module "sap/ui/core/routing/Router" {
      */
     addRoute(
       /**
-       * Configuration object for the route @see sap.ui.core.routing.Route#constructor
+       * Configuration object for the route, see {@link sap.ui.core.routing.Route#constructor}
        */
       oConfig: $RouteSettings,
       /**
@@ -48718,9 +48821,11 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
 
   import Model from "sap/ui/model/Model";
 
-  import TreeAutoExpandMode from "sap/ui/model/TreeAutoExpandMode";
+  import Sorter from "sap/ui/model/Sorter";
 
   import Filter from "sap/ui/model/Filter";
+
+  import TreeAutoExpandMode from "sap/ui/model/TreeAutoExpandMode";
 
   import FilterType from "sap/ui/model/FilterType";
 
@@ -48729,8 +48834,6 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
   import Context from "sap/ui/model/Context";
 
   import Metadata from "sap/ui/base/Metadata";
-
-  import Sorter from "sap/ui/model/Sorter";
 
   /**
    * Tree binding implementation for OData entity sets with aggregate semantics.
@@ -48765,13 +48868,14 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
        */
       oContext?: object,
       /**
-       * An array of predefined sorters
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorter?: any[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * An array of predefined filters
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: any[],
+      aFilters?: Filter[] | Filter,
       /**
        * A map containing additional binding parameters; for the `AnalyticalBinding` this parameter is mandatory
        */
@@ -48860,9 +48964,11 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      */
     filter(
       /**
-       * an Array of sap.ui.model.Filter objects or a single Filter instance.
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.odata.v2.ODataModel#bindList}; a falsy value is treated as an empty array
+       * and thus removes all filters of the specified type
        */
-      aFilter: Filter[] | Filter,
+      aFilters?: Filter[] | Filter,
       /**
        * Type of the filter which should be adjusted.
        */
@@ -49286,9 +49392,10 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
      */
     sort(
       /**
-       * a sorter object or an array of sorter objects which define the sort order.
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.odata.v2.ODataModel#bindList};
+       * a falsy value is treated as an empty array and thus removes all sorters
        */
-      aSorter: Sorter | any[]
+      aSorter?: Sorter[] | Sorter
     ): this;
     /**
      * Updates the binding's structure with new analytical information.
@@ -49391,7 +49498,7 @@ declare module "sap/ui/model/analytics/BatchResponseCollector" {
      */
     constructor(
       /**
-       * optional Setup-Parameter, @see BatchResponseCollector#setup
+       * optional Setup-Parameter, see {@link #setup}
        */
       mParams?: object
     );
@@ -49469,9 +49576,9 @@ declare module "sap/ui/model/analytics/BatchResponseCollector" {
 }
 
 declare module "sap/ui/model/analytics/odata4analytics" {
-  import FilterOperator from "sap/ui/model/FilterOperator";
-
   import Filter from "sap/ui/model/Filter";
+
+  import FilterOperator from "sap/ui/model/FilterOperator";
 
   import Sorter from "sap/ui/model/Sorter";
 
@@ -50109,21 +50216,21 @@ declare module "sap/ui/model/analytics/odata4analytics" {
      */
     addCondition(
       /**
-       * The name of the property bound in the condition
+       * The name of the property or a {@link sap.ui.model.Filter} instance
        */
-      sPropertyName: string,
+      vPropertyNameOrFilter: string | Filter,
       /**
-       * operator used for the condition
+       * The operator of the condition, only used if `vPropertyNameOrFilter` is a string
        */
-      sOperator: FilterOperator | keyof typeof FilterOperator,
+      sOperator?: FilterOperator | keyof typeof FilterOperator,
       /**
-       * value to be used for this condition
+       * The value of the condition, only used if `vPropertyNameOrFilter` is a string
        */
-      oValue: object,
+      oValue?: object,
       /**
-       * (optional) as second value to be used for this condition
+       * The second value of the condition, only used if `vPropertyNameOrFilter` is a string
        */
-      oValue2: object
+      oValue2?: object
     ): FilterExpression;
     /**
      * Add a set condition to the filter expression.
@@ -50145,7 +50252,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
       aValues: any[]
     ): FilterExpression;
     /**
-     * Add an array of UI5 filter conditions to the filter expression.
+     * Adds an array of UI5 filter conditions to the filter expression.
      *
      * The UI5 filter condition is combined with the other given conditions using a logical AND. This method
      * is particularly useful for passing forward already created UI5 filter arrays.
@@ -52258,13 +52365,14 @@ declare module "sap/ui/model/ClientListBinding" {
        */
       oContext: Context,
       /**
-       * Initial sort order (can be either a sorter or an array of sorters)
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filter/s (can be either a filter or an array of filters)
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Map of optional parameters as defined by subclasses; this class does not introduce any own parameters
        */
@@ -52318,12 +52426,14 @@ declare module "sap/ui/model/ClientListBinding" {
      */
     filter(
       /**
-       * Single filter object or an array of filter objects
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.ClientModel#bindList}; a falsy value is treated as an empty array and thus
+       * removes all filters of the specified type
        */
-      aFilters: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter which should be adjusted; if no type is given, then any previously configured application
-       * filters are cleared and the given filters are used as control filters
+       * The type of the filter to replace; if no type is given, all filters previously configured with type {@link sap.ui.model.FilterType.Application }
+       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -52629,18 +52739,19 @@ declare module "sap/ui/model/ClientTreeBinding" {
        */
       oContext?: Context,
       /**
-       * Predefined application filter, either a single instance or an array
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aApplicationFilters?: Filter | Filter[],
+      aApplicationFilters?: Filter[] | Filter,
       /**
        * Additional model specific parameters as defined by subclasses; this class does not introduce any own
        * parameters
        */
       mParameters?: object,
       /**
-       * Predefined sorter/s contained in an array (optional)
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter[]
+      aSorters?: Sorter[] | Sorter
     );
 
     /**
@@ -52690,12 +52801,14 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     filter(
       /**
-       * Single filter object or an array of filter objects
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.ClientModel#bindTree}; a falsy value is treated as an empty array and thus
+       * removes all filters of the specified type
        */
-      aFilters: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter to be adjusted; if no type is given, any previously configured application filters
-       * are cleared, and the given filters are used as control filters
+       * The type of the filter to replace; if no type is given, all filters previously configured with type {@link sap.ui.model.FilterType.Application }
+       * are cleared, and the given filters are used as filters of type {@link sap.ui.model.FilterType.Control}
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -52768,9 +52881,10 @@ declare module "sap/ui/model/ClientTreeBinding" {
      */
     sort(
       /**
-       * An array of Sorter instances which will be applied
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.ClientModel#bindTree}; a falsy
+       * value is treated as an empty array and thus removes all sorters
        */
-      aSorters: Sorter[]
+      aSorters?: Sorter[] | Sorter
     ): this;
   }
 }
@@ -53399,9 +53513,9 @@ declare module "sap/ui/model/CompositeType" {
      * @since 1.82.0
      *
      * @returns An array of indices that determine which parts of this type shall not propagate their model
-     * messages to the attached control
+     * messages to the attached control; an empty array is returned by default
      */
-    getPartsIgnoringMessages(): number[];
+    getPartsIgnoringMessages(): int[];
     /**
      * Returns whether the {@link #formatValue} and {@link #parseValue} methods operate on the internal, related
      * native JavaScript values.
@@ -54413,13 +54527,14 @@ declare module "sap/ui/model/json/JSONListBinding" {
        */
       oContext: Context,
       /**
-       * Initial sort order (can be either a sorter or an array of sorters)
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filter/s (can be either a filter or an array of filters)
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Map of optional parameters as defined by subclasses; this class does not introduce any own parameters
        */
@@ -54542,9 +54657,11 @@ declare module "sap/ui/model/json/JSONModel" {
        */
       sURL: string,
       /**
-       * A map or string that is sent to the server with the request. Data that is sent to the server is appended
-       * to the URL as a query string. If the value of the data parameter is an object (map), it is converted
-       * to a string and url-encoded before it is appended to the URL.
+       * A map or string that is sent to the server with the request. If the value of this parameter is a string,
+       * it must already be url-encoded. If the value of this parameter is an object (map), it is converted to
+       * a string and then url-encoded. The resulting string is appended to the URL if the HTTP request method
+       * cannot have a request body, e.g. for a GET request. Otherwise, the resulting string is added to the request
+       * body.
        */
       oParameters?: object | string,
       /**
@@ -54677,6 +54794,8 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
 
   import Filter from "sap/ui/model/Filter";
 
+  import Sorter from "sap/ui/model/Sorter";
+
   /**
    * Tree binding implementation for JSON format.
    *
@@ -54710,9 +54829,10 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
        */
       oContext?: object,
       /**
-       * Predefined filters contained in an array
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model-specific parameters
        */
@@ -54724,7 +54844,11 @@ declare module "sap/ui/model/json/JSONTreeBinding" {
          * its child arrays will be ignored as well even if they have been added to `arrayNames`.
          */
         arrayNames?: string[];
-      }
+      },
+      /**
+       * The sorters used initially; call {@link #sort} to replace them
+       */
+      aSorters?: Sorter[] | Sorter
     );
   }
 }
@@ -54769,13 +54893,14 @@ declare module "sap/ui/model/ListBinding" {
        */
       oContext: Context,
       /**
-       * Initial sort order (can be either a sorter or an array of sorters)
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filter/s (can be either a filter or an array of filters)
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional, implementation-specific parameters that should be used by the new list binding; this base
        * class doesn't define any parameters, check the API reference for the concrete model implementations to
@@ -54961,11 +55086,13 @@ declare module "sap/ui/model/ListBinding" {
      */
     filter(
       /**
-       * Single filter object or an array of filter objects
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.Model#bindList}; a falsy value is treated as an empty array and thus removes
+       * all filters of the specified type
        */
-      aFilters: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter which should be adjusted; if no type is given, the behavior depends on the model implementation
+       * The type of the filter to replace; if no type is given, the behavior depends on the model implementation
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
@@ -55172,9 +55299,10 @@ declare module "sap/ui/model/ListBinding" {
      */
     sort(
       /**
-       * The Sorter object or an array of sorters which defines the sort order
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.Model#bindList}; a falsy value
+       * is treated as an empty array and thus removes all sorters
        */
-      aSorters: Sorter | Sorter[]
+      aSorters?: Sorter[] | Sorter
     ): this;
     /**
      * Update the list and apply sorting and filtering. Called after creation of the list binding on enabling
@@ -55676,13 +55804,14 @@ declare module "sap/ui/model/Model" {
        */
       oContext?: Context,
       /**
-       * Initial sort order (can be either a sorter or an array of sorters)
+       * The sorters used initially; call {@link sap.ui.model.ListBinding#sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filter/s (can be either a filter or an array of filters)
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.ListBinding#filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model-specific parameters
        */
@@ -55720,17 +55849,18 @@ declare module "sap/ui/model/Model" {
        */
       oContext?: Context,
       /**
-       * Predefined filter/s contained in an array
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.TreeBinding#filter }
+       * to replace them
        */
-      aFilters?: Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model specific parameters
        */
       mParameters?: object,
       /**
-       * Predefined sap.ui.model.sorter/s contained in an array
+       * The sorters used initially; call {@link sap.ui.model.TreeBinding#sort} to replace them
        */
-      aSorters?: Sorter[]
+      aSorters?: Sorter[] | Sorter
     ): TreeBinding;
     /**
      *
@@ -64648,8 +64778,8 @@ declare module "sap/ui/model/odata/v2/ODataAnnotations" {
    */
   export type failedParameters = {
     /**
-     * An array of Errors (@see sap.ui.model.v2.ODataAnnotations#error) that occurred while loading a group
-     * of annotations
+     * An array of Errors, see {@link sap.ui.model.v2.ODataAnnotations#error} that occurred while loading a
+     * group of annotations
      */
     result: Error[];
   };
@@ -64878,13 +65008,14 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
        */
       oContext?: Context,
       /**
-       * Initial sort order, can be either a sorter or an array of sorters.
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filters, can be either a filter or an array of filters.
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * A map which contains additional parameters for the binding.
        */
@@ -65097,11 +65228,13 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     filter(
       /**
-       * Single filter or array of filter objects
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.odata.v2.ODataModel#bindList}; a falsy value is treated as an empty array
+       * and thus removes all filters of the specified type
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter which should be adjusted. If it is not given, type `Control` is assumed
+       * The type of the filter to replace
        */
       sFilterType?: FilterType | keyof typeof FilterType,
       /**
@@ -65271,9 +65404,10 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      */
     sort(
       /**
-       * A new sorter or an array of sorters which define the sort order
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.odata.v2.ODataModel#bindList};
+       * a falsy value is treated as an empty array and thus removes all sorters
        */
-      aSorters: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
        * Whether the success indicator should be returned instead of `this`
        */
@@ -65946,13 +66080,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       oContext?: Context,
       /**
-       * Initial sort order, can be either a sorter or an array of sorters.
+       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataListBinding#sort} to replace them
        */
-      aSorters?: Sorter | Sorter[],
+      aSorters?: Sorter[] | Sorter,
       /**
-       * Predefined filters, can be either a filter or an array of filters.
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataListBinding#filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * A map which contains additional parameters for the binding.
        */
@@ -66078,7 +66213,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      *
      * Operation Modes: For a full definition and explanation of all OData binding operation modes, see {@link sap.ui.model.odata.OperationMode}.
      *
-     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with {@link sap.ui.model.FilterType.Application application filters}.
+     * OperationMode.Server: Filtering on the `ODataTreeBinding` is only supported with filters of type {@link sap.ui.model.FilterType.Application}.
      * Be aware that this applies only to filters which do not prevent the creation of a hierarchy. So filtering
      * on a property (e.g. a "Customer") is fine, as long as the application ensures that the responses from
      * the back end are sufficient to create a valid hierarchy on the client. Subsequent paging requests for
@@ -66112,8 +66247,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        */
       oContext?: Context,
       /**
-       * The application filters to be used initially; depending on the operation mode, there are restrictions
-       * for using filters, see above
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link sap.ui.model.odata.v2.ODataTreeBinding#filter }
+       * to replace them; depending on the operation mode, there are restrictions for using filters; see above
        */
       vFilters?: Filter | Filter[],
       /**
@@ -66231,9 +66366,9 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
         navigation?: object;
       },
       /**
-       * The dynamic sorters to be used initially
+       * The sorters used initially; call {@link sap.ui.model.odata.v2.ODataTreeBinding#sort} to replace them
        */
-      vSorters?: Sorter | Sorter[]
+      vSorters?: Sorter[] | Sorter
     ): ODataTreeBinding;
     /**
      * Triggers a request for the given function import.
@@ -68331,13 +68466,15 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
      */
     filter(
       /**
-       * Filter or array of filters to apply
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.odata.v2.ODataModel#bindTree}; a falsy value is treated as an empty array
+       * and thus removes all filters of the specified type
        */
-      aFilters: Filter[] | Filter,
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter which should be adjusted. If it is not given, the type `FilterType.Control` is assumed
+       * The type of the filter to replace
        */
-      sFilterType: FilterType | keyof typeof FilterType,
+      sFilterType?: FilterType | keyof typeof FilterType,
       /**
        * Whether to return `true` or `false`, instead of `this`, depending on whether the filtering has been done
        */
@@ -68488,9 +68625,10 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
      */
     sort(
       /**
-       * The Sorter or an Array of sap.ui.model.Sorter instances
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.odata.v2.ODataModel#bindTree};
+       * a falsy value is treated as an empty array and thus removes all sorters
        */
-      aSorters: Sorter[] | Sorter,
+      aSorters?: Sorter[] | Sorter,
       /**
        * Whether to return `true` or `false`, instead of `this`, depending on whether the sorting has been done
        */
@@ -69298,7 +69436,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Returns `undefined` if the data is not (yet) available; no request is triggered. Use {@link #requestObject }
      * for asynchronous access.
      *
-     * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
+     * The header context of a list binding only delivers `$count` and `@$ui5.context.isSelected` (wrapped in
+     * an object if `sPath` is "").
      * See:
      * 	sap.ui.model.Context#getObject
      *
@@ -69316,7 +69455,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Returns the parent node (in case of a recursive hierarchy; see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation})
      * or `undefined` if the parent of this node hasn't been read yet; it can then be requested via {@link #requestParent}.
      *
-     * @experimental (since 1.120.0)
+     * @since 1.122.0
      *
      * @returns The parent node, or `null` if this node is a root node and thus has no parent, or `undefined`
      * if the parent node hasn't been read yet
@@ -69438,7 +69577,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isKeepAlive(): boolean;
     /**
-     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client.
+     * Tells whether this context is currently selected, but not {@link #delete deleted} on the client. Since
+     * 1.122.0 the selection state can also be accessed via instance annotation "@$ui5.context.isSelected" at
+     * the entity. Note that the annotation does not take the deletion state into account.
      * See:
      * 	#setSelected
      *
@@ -69545,7 +69686,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * to the complete data the context points to (if `sPath` is "") or any part thereof. The data is a JSON
      * structure as described in "OData JSON Format Version 4.0". Note that the function clones the result. Modify values via {@link sap.ui.model.odata.v4.Context#setProperty}.
      *
-     * The header context of a list binding only delivers `$count` (wrapped in an object if `sPath` is "").
+     * The header context of a list binding only delivers `$count` and `@$ui5.context.isSelected` (wrapped in
+     * an object if `sPath` is "").
      *
      * In case of a {@link sap.ui.model.odata.v4.ODataContextBinding#getBoundContext context binding's bound context }
      * that hasn't requested its data yet, this method causes an initial back-end request using the binding's
@@ -69571,12 +69713,10 @@ declare module "sap/ui/model/odata/v4/Context" {
     ): Promise<any>;
     /**
      * Requests the parent node (in case of a recursive hierarchy; see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
-     *
-     * Note: **DO NOT** call {@link #setKeepAlive} on the resulting context!
      * See:
      * 	#getParent
      *
-     * @experimental (since 1.120.0)
+     * @since 1.122.0
      *
      * @returns A promise which:
      * 	 -  Resolves if successful with either the parent node or `null` for a root node that has no parent
@@ -69594,7 +69734,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @since 1.39.0
      *
      * @returns A promise on the requested value or values; it is rejected if a value is not primitive or if
-     * the context is a header context and a path is not "$count"
+     * the context is a header context and a path is not "$count" or "@$ui5.context.isSelected"
      */
     requestProperty(
       /**
@@ -69762,7 +69902,9 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * Sets a new value for the property identified by the given path. The path is relative to this context
      * and is expected to point to a structural property with primitive type or, since 1.85.0, to an instance
-     * annotation.
+     * annotation. Since 1.122.0 the client-side annotation "@$ui5.context.isSelected" can be given as a path.
+     * Note: Writing to a client-side annotation never triggers a PATCH request, even if `sGroupId` is given.
+     * Thus, reverting the value of this annotation cannot be done via {@link #resetChanges}.
      * See:
      * 	#getProperty
      * 	sap.ui.model.odata.v4.ODataContextBinding#event:patchSent
@@ -69791,8 +69933,8 @@ declare module "sap/ui/model/odata/v4/Context" {
       vValue: any,
       /**
        * The group ID to be used for the PATCH request; if not specified, the update group ID for the context's
-       * binding is used, see {@link #getUpdateGroupId}. Since 1.74.0, you can use `null` to prevent the PATCH
-       * request.
+       * binding is used, see {@link #getUpdateGroupId}. When writing to a client-side annotation, `null` is used
+       * automatically. Since 1.74.0, you can use `null` to prevent the PATCH request.
        */
       sGroupId?: string,
       /**
@@ -69812,9 +69954,11 @@ declare module "sap/ui/model/odata/v4/Context" {
       bRetry?: boolean
     ): Promise<void>;
     /**
-     * Determines whether this context is currently selected. If the preconditions of {@link #setKeepAlive }
+     * Sets whether this context is currently selected. While a context is currently {@link #delete deleted }
+     * on the client, it does not appear as {@link #isSelected selected}. If the preconditions of {@link #setKeepAlive }
      * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
-     * state. While a context is currently {@link #delete deleted} on the client, it does not appear as {@link #isSelected selected}.
+     * state. Once the selection is no longer needed, for example because you perform an operation on this context
+     * which logically removes it from its list, you need to reset the selection.
      *
      * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
@@ -70236,7 +70380,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * Refreshes the binding. Prompts the model to retrieve data from the server using the given group ID and
      * notifies the control that new data is available.
      *
-     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
+     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context},
+     * as well as (since 1.122.0) for bindings with the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList }
+     * and {@link sap.ui.model.odata.v4.ODataModel#bindContext})
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -71017,7 +71163,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      */
     getGroupId(): string;
     /**
-     * Returns the header context which allows binding to `$count`.
+     * Returns the header context which allows binding to `$count` or `@$ui5.context.isSelected`.
      * See:
      * 	#getCount
      *
@@ -71174,7 +71320,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * Refreshes the binding. Prompts the model to retrieve data from the server using the given group ID and
      * notifies the control that new data is available.
      *
-     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
+     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context},
+     * as well as (since 1.122.0) for bindings with the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList }
+     * and {@link sap.ui.model.odata.v4.ODataModel#bindContext})
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -72175,7 +72323,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * must refer to a function in `mParameters.scope` in case of a relative name starting with a dot, which
      * is stripped before lookup; see the `<template:alias>` instruction for XML Templating. In case of an
      * absolute name, it is searched in `mParameters.scope` first and then in the global namespace. (Using the
-     * global namespace is @deprecated as of version 1.120.3). The names "requestCurrencyCodes" and "requestUnitsOfMeasure"
+     * global namespace is deprecated as of version 1.120.3). The names "requestCurrencyCodes" and "requestUnitsOfMeasure"
      * default to {@link #requestCurrencyCodes} and {@link #requestUnitsOfMeasure} resp. if not present in `mParameters.scope`.
      * This function is called with the current object (or primitive value) and additional details and returns
      * the result of this {@link #requestObject} call. The additional details are given as an object with the
@@ -73041,7 +73189,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
       }
     ): ODataPropertyBinding;
     /**
-     * Method not supported
+     * Method not supported, use {@link #bindList} with `mParameters.$$aggregation` instead.
      * See:
      * 	sap.ui.model.Model#bindTree
      *
@@ -73830,7 +73978,9 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Refreshes the binding. Prompts the model to retrieve data from the server using the given group ID and
      * notifies the control that new data is available.
      *
-     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context}.
+     * Refresh is supported for bindings which are not relative to an {@link sap.ui.model.odata.v4.Context},
+     * as well as (since 1.122.0) for bindings with the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList }
+     * and {@link sap.ui.model.odata.v4.ODataModel#bindContext})
      *
      * Note: When calling {@link #refresh} multiple times, the result of the request triggered by the last call
      * determines the binding's data; it is **independent** of the order of calls to {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -73949,7 +74099,10 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
      * Sets the new current value and updates the cache. If the value cannot be accepted or cannot be updated
      * on the server, an error is logged to the console and added to the message manager as a technical message.
      * Unless preconditions fail synchronously, a {@link sap.ui.model.odata.v4.ODataModel#event:propertyChange 'propertyChange' }
-     * event is fired and provides a promise on the outcome of the asynchronous operation.
+     * event is fired and provides a promise on the outcome of the asynchronous operation. Since 1.122.0 this
+     * method allows updates to the client-side annotation "@$ui5.context.isSelected". Note: Changing the value
+     * of a client-side annotation never triggers a PATCH request, no matter which `sGroupId` is given. Thus,
+     * it cannot be reverted via {@link #resetChanges}.
      * See:
      * 	sap.ui.model.PropertyBinding#setValue
      *
@@ -73964,6 +74117,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
        * The group ID to be used for this update call; if not specified, the update group ID for this binding
        * (or its relevant parent binding) is used, see {@link #getUpdateGroupId}. Valid values are `undefined`,
        * '$auto', '$auto.*', '$direct' or application group IDs as specified in {@link sap.ui.model.odata.v4.ODataModel}.
+       * When writing to a client-side annotation, this parameter is ignored.
        */
       sGroupId?: string
     ): void;
@@ -75415,17 +75569,18 @@ declare module "sap/ui/model/TreeBinding" {
        */
       oContext?: object,
       /**
-       * Predefined filter or an array of filters (optional)
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model specific parameters (optional)
        */
       mParameters?: string,
       /**
-       * Predefined sorter or an array of sorters (optional)
+       * The sorters used initially; call {@link #sort} to replace them
        */
-      aSorters?: Sorter | Sorter[]
+      aSorters?: Sorter[] | Sorter
     );
 
     /**
@@ -75502,13 +75657,15 @@ declare module "sap/ui/model/TreeBinding" {
      */
     filter(
       /**
-       * Single sap.ui.model.Filter object or an array of filter objects
+       * The filters to use; in case of type {@link sap.ui.model.FilterType.Application} this replaces the filters
+       * given in {@link sap.ui.model.Model#bindTree}; a falsy value is treated as an empty array and thus removes
+       * all filters of the specified type
        */
-      aFilters: Filter | Filter[],
+      aFilters?: Filter[] | Filter,
       /**
-       * Type of the filter which should be adjusted, if it is not given, the standard behaviour applies
+       * The type of the filter to replace; if no type is given, the behavior depends on the model implementation
        */
-      sFilterType: FilterType | keyof typeof FilterType
+      sFilterType?: FilterType | keyof typeof FilterType
     ): void;
     /**
      * Returns the number of child nodes of a specific context
@@ -75588,9 +75745,10 @@ declare module "sap/ui/model/TreeBinding" {
      */
     sort(
       /**
-       * Array of sap.ui.model.Sorter objects
+       * The sorters to use; they replace the sorters given in {@link sap.ui.model.Model#bindTree}; a falsy value
+       * is treated as an empty array and thus removes all sorters
        */
-      aSorters: Sorter[]
+      aSorters?: Sorter[]
     ): void;
   }
 }
@@ -77359,6 +77517,10 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
 
   import XMLModel from "sap/ui/model/xml/XMLModel";
 
+  import Filter from "sap/ui/model/Filter";
+
+  import Sorter from "sap/ui/model/Sorter";
+
   import Context from "sap/ui/model/Context";
 
   /**
@@ -77381,13 +77543,18 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
        */
       oContext?: object,
       /**
-       * Predefined filters contained in an array
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: any[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model-specific parameters
        */
-      mParameters?: object
+      mParameters?: object,
+      /**
+       * The sorters used initially; call {@link #sort} to replace them
+       */
+      aSorters?: Sorter[] | Sorter
     );
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -77402,13 +77569,18 @@ declare module "sap/ui/model/xml/XMLTreeBinding" {
        */
       oContext?: object,
       /**
-       * Predefined filters contained in an array
+       * The filters to be used initially with type {@link sap.ui.model.FilterType.Application}; call {@link #filter }
+       * to replace them
        */
-      aFilters?: any[],
+      aFilters?: Filter[] | Filter,
       /**
        * Additional model-specific parameters
        */
-      mParameters?: object
+      mParameters?: object,
+      /**
+       * The sorters used initially; call {@link #sort} to replace them
+       */
+      aSorters?: Sorter[] | Sorter
     );
 
     /**
@@ -83768,7 +83940,7 @@ declare namespace sap {
              */
             url?: string;
             /**
-             * Initial data of the Component (@see sap.ui.core.Component#getComponentData)
+             * Initial data of the Component, see {@link sap.ui.core.Component#getComponentData}
              */
             componentData?: object;
             /**

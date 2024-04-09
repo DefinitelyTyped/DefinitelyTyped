@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -2464,6 +2464,7 @@ declare module "sap/ui/commons/layout/BorderLayout" {
    * The object contains the available parameters for BorderLayout's Area.
    *
    * @since 1.110
+   * @deprecated (since 1.110) - as it is an integral part of the already deprecated {@link sap.ui.commons.BorderLayout}.
    */
   export type BorderLayoutAreaData = {
     /**
@@ -8074,6 +8075,8 @@ declare module "sap/ui/commons/TextField" {
   /**
    * The object representing the serialized focus information.
    *
+   * @since 1.110
+   * @deprecated (since 1.110) - as it is an integral part of the already deprecated {@link sap.ui.commons.TextField}.
    * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
    */
   export type FocusInfo = {
