@@ -2,7 +2,7 @@ declare function jsonlFile(path: string): JsonlFile<{}>;
 
 export = jsonlFile;
 
-declare interface JsonlFile<T> {
+interface JsonlFile<T> {
     add(o: T): Promise<void>;
     addMany(os: T[]): Promise<void>;
     first(): Promise<T>;
