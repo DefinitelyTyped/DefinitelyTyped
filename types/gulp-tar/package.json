@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/sindresorhus/gulp-tar#readme"
     ],
-	"type": "module",
+    "type": "module",
     "dependencies": {
         "@types/archiver": "*",
         "@types/node": "*"
