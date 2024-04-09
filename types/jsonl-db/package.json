@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/jsonl-db",
+  "version": "1.2.9999",
+  "projects": [
+    "https://www.npmjs.com/package/jsonl-db/"
+  ],
+  "devDependencies": {
+    "@types/jsonl-db": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "Jakob Rössner",
+      "githubUsername": "FleetAdmiralJakob"
+    }
+  ]
+}
