@@ -205,8 +205,8 @@ declare class SteamUser extends EventEmitter {
      * @param [callback] - Called when an activation SMS has been sent.
      */
     enableTwoFactor(
-        callback?: (err: Error | null, response: Record<string, any>) => void,
-    ): Promise<Record<string, any>>;
+        callback?: (err: Error | null, response: TwoFactorResponse) => void,
+    ): Promise<TwoFactorResponse>;
 
     /**
      * Finalize the process of enabling TOTP two-factor authentication
@@ -1347,11 +1347,10 @@ interface LogOnDetailsRefresh {
 }
 
 interface SteamGuardDetails {
-    canTrade: boolean;
-    isSteamGuardEnabled: boolean;
+    isSteamGuardEnabled: boolean,
     timestampSteamGuardEnabled: Date | null;
     timestampMachineSteamGuardEnabled: Date | null;
-    isTwoFactorEnabled: boolean;
+    canTrade: boolean;
     timestampTwoFactorEnabled: Date | null;
     isPhoneVerified: boolean;
 }
@@ -1434,6 +1433,13 @@ interface ProfileItems {
     avatar_frames: ProfileItem[];
     animated_avatars: ProfileItem[];
     profile_modifiers: ProfileItem[];
+}
+
+interface TwoFactorResponse {
+    status: SteamUser.EResult;
+    shared_secret: string;
+    identity_secret: string;
+    revocation_code: string;
 }
 // #endregion "Response Interfaces"
 
