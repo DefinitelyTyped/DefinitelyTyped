@@ -1347,7 +1347,7 @@ interface LogOnDetailsRefresh {
 }
 
 interface SteamGuardDetails {
-    isSteamGuardEnabled: boolean,
+    isSteamGuardEnabled: boolean;
     timestampSteamGuardEnabled: Date | null;
     timestampMachineSteamGuardEnabled: Date | null;
     canTrade: boolean;
