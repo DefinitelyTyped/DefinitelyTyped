@@ -1,4 +1,4 @@
-import jsonlFile from "jsonl-db";
+import jsonlFile = require("jsonl-db")
 
 const myJsonlFile = jsonlFile("./data.jsonl");
 
