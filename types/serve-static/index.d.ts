@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import * as http from "http";
 import { HttpError } from "http-errors";
-import * as m from "mime";
+import * as send from "send";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -14,7 +14,7 @@ declare function serveStatic<R extends http.ServerResponse>(
 ): serveStatic.RequestHandler<R>;
 
 declare namespace serveStatic {
-    var mime: typeof m;
+    var mime: typeof send.mime;
     interface ServeStaticOptions<R extends http.ServerResponse = http.ServerResponse> {
         /**
          * Enable or disable accepting ranged requests, defaults to true.
@@ -100,7 +100,7 @@ declare namespace serveStatic {
 
     interface RequestHandlerConstructor<R extends http.ServerResponse> {
         (root: string, options?: ServeStaticOptions<R>): RequestHandler<R>;
-        mime: typeof m;
+        mime: typeof send.mime;
     }
 }
 

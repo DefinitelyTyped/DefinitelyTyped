@@ -13,7 +13,7 @@ import {
     Vector2,
     Vector3,
     Vector4,
-} from "../../../src/Three.js";
+} from "three";
 
 /**
  * @deprecated Use Face3 instead.

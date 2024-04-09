@@ -149,7 +149,9 @@ declare namespace bricks {
             | "security_details"
             | "security_safety"
             | "convenience_credits"
-            | "smart_option";
+            | "smart_option"
+            | "payment_methods_logos";
+        actionComplement?: "brand" | "amount";
     }
 
     interface StatusBrickBackUrls {
@@ -234,6 +236,10 @@ declare namespace bricks {
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickType extends "brand" ? BrandBrickCustomization : BrickCustomization;
+    }
+
+    interface WalletBrickSettings extends BrickSettings<"wallet"> {
+        brand?: string;
     }
 
     interface BrandBrickSettings {
@@ -475,13 +481,13 @@ declare namespace bricks {
     type BrandBrickBorderColor = "dark" | "light";
 
     interface BrandBrickPaymentMethodCustomization {
-        excludedPaymentMethods?: BrandBrickPaymentMethods[];
-        excludedPaymentTypes?: BrandBrickPaymentTypes[];
+        excludedPaymentMethods?: BrandBrickExcludedPaymentMethods[];
+        excludedPaymentTypes?: BrandBrickExcludedPaymentTypes[];
         maxInstallments?: number;
         interestFreeInstallments?: boolean;
     }
 
-    type BrandBrickPaymentMethods =
+    type BrandBrickExcludedPaymentMethods =
         | "master"
         | "visa"
         | "amex"
@@ -495,10 +501,9 @@ declare namespace bricks {
         | "tarshop"
         | "cmr"
         | "rapipago"
-        | "pagofacil"
-        | "mercadopago";
+        | "pagofacil";
 
-    type BrandBrickPaymentTypes = "credit_card" | "debit_card" | "ticket" | "account_money" | "mercado_credito";
+    type BrandBrickExcludedPaymentTypes = "credit_card" | "debit_card" | "ticket";
 
     interface CardPaymentController {
         unmount: () => void;
@@ -534,7 +539,9 @@ declare namespace bricks {
         create<BrickType extends BrickTypes>(
             brick: BrickType,
             containerId: string,
-            settings?: BrickType extends "brand" ? BrandBrickSettings : BrickSettings<BrickType>,
+            settings?: BrickType extends "brand" ? BrandBrickSettings
+                : BrickType extends "wallet" ? WalletBrickSettings
+                : BrickSettings<BrickType>,
         ): Promise<
             BrickType extends "cardPayment" ? CardPaymentController
                 : BrickType extends "payment" ? PaymentController

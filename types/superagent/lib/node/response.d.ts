@@ -1,7 +1,6 @@
-/// <reference types="node" />
-
 import { IncomingMessage } from "http";
 import { Stream } from "stream";
+import { Request } from "./index";
 
 interface HTTPError extends Error {
     status: number;
@@ -9,6 +8,7 @@ interface HTTPError extends Error {
     method: string;
     path: string;
 }
+
 declare class Response extends Stream implements Pick<IncomingMessage, "setEncoding"> {
     constructor(request: Request);
 
@@ -20,8 +20,8 @@ declare class Response extends Stream implements Pick<IncomingMessage, "setEncod
     error: false | HTTPError;
     files: any;
     forbidden: boolean;
-    get(header: string): string;
-    get(header: "Set-Cookie"): string[];
+    get(header: string): string | undefined;
+    get(header: "Set-Cookie"): string[] | undefined;
     header: { [index: string]: string };
     headers: { [index: string]: string };
     info: boolean;
@@ -31,7 +31,7 @@ declare class Response extends Stream implements Pick<IncomingMessage, "setEncod
     notFound: boolean;
     ok: boolean;
     redirect: boolean;
-    request: InstanceType<typeof Request>;
+    request: Request;
     serverError: boolean;
     status: number;
     statusCode: number;

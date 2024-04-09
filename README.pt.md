@@ -146,7 +146,7 @@ Seu pacote deve possuir a seguinte estrutura:
 | [`tsconfig.json`](#tsconfigjson)               | Permite que você execute `tsc` dentro do pacote.                                                         |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
-Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
+Veja todas as opções em [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Se há outros arquivos `.d.ts` além do arquivo `index.d.ts`, tenha certeza de que eles são referenciados no arquivo `index.d.ts` ou nos testes.
 

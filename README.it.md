@@ -171,7 +171,7 @@ Il tuo package dovrebbe avere questa struttura:
 | [`tsconfig.json`](#tsconfigjson)                  | Ti permette di eseguire `tsc` all'interno del package.                                                                                       |
 
 Generali eseguento `npx dts-gen --dt --name <mio-package> --template module` se hai npm ≥ 5.2.0, altrimenti `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module`.
-Leggi tutte le opzioni su [dts-gen](https://github.com/Microsoft/dts-gen).
+Leggi tutte le opzioni su [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Se hai file `.d.ts` oltre all'`index.d.ts`, assicurati che siano referenziati o nell'`index.d.ts` o nei test.
 

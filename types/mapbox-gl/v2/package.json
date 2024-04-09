@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "name": "@types/mapbox-gl",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/mapbox/mapbox-gl-js"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox-gl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dominik Bruderer",
+            "githubUsername": "dobrud"
+        },
+        {
+            "name": "Karl-Aksel Puulmann",
+            "githubUsername": "macobo"
+        },
+        {
+            "name": "Dmytro Gokun",
+            "githubUsername": "dmytro-gokun"
+        },
+        {
+            "name": "Liam Clarke",
+            "githubUsername": "LiamAttClarke"
+        },
+        {
+            "name": "Vladimir Dashukevich",
+            "githubUsername": "life777"
+        },
+        {
+            "name": "André Fonseca",
+            "githubUsername": "amxfonseca"
+        },
+        {
+            "name": "makspetrov",
+            "githubUsername": "Nosfit"
+        },
+        {
+            "name": "Michael Bullington",
+            "githubUsername": "mbullington"
+        },
+        {
+            "name": "Olivier Pascal",
+            "githubUsername": "pascaloliv"
+        },
+        {
+            "name": "Marko Schilde",
+            "githubUsername": "mschilde"
+        }
+    ]
+}

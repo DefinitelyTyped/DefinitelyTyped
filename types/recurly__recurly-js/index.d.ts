@@ -17,6 +17,7 @@ export * from './lib/address';
 export * from './lib/adyen';
 export * from './lib/bank-redirect';
 export * from './lib/apple-pay/index';
+export * from './lib/amazon-pay';
 export * from './lib/google-pay/index';
 export * from './lib/bank-account';
 export * from './lib/configure';

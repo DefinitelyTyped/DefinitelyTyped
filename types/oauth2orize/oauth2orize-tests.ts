@@ -100,7 +100,19 @@ class Clients {
     static findOne(id: string, callback: (err: Error, client?: Clients) => void): void {
         callback(new Error(), {} as Clients); // tslint:disable-line no-object-literal-type-assertion
     }
+    id: string;
     redirectURI: string;
+}
+
+declare global {
+    namespace Express {
+        interface Request {
+            oauth2?: oauth2orize.OAuth2<{
+                id: string;
+                redirectURI: string;
+            }>;
+        }
+    }
 }
 
 // app.get('/dialog/authorize',
@@ -126,18 +138,39 @@ server.authorize(
 });
 // );
 
+server.authorize(
+    ((clientID, redirectURI, done) => {
+        Clients.findOne(clientID, (err, client) => {
+            if (err) {
+                done(err);
+            } else if (!client) {
+                done(null, false);
+            } else if (client.redirectURI !== redirectURI) {
+                done(null, false);
+            } else {
+                done(null, client, client.redirectURI);
+            }
+        });
+    }) as oauth2orize.ValidateFunction,
+);
+((req: Express.Request, res: http.ServerResponse) => {
+    req.oauth2!.transactionID; // $ExpectType string
+    req.oauth2!.client; // $ExpectType { id: string; redirectURI: string; }
+    req.oauth2!.user; // $ExpectType any
+});
+
 server.authorize((clientID, redirectURI, scope, type, done) => {
-    done; // $ExpectType ValidateDoneFunction
+    done; // $ExpectType ValidateDoneFunction<any>
 });
 server.authorize(
     ((clientID, redirectURI, scope, done) => {
-        done; // $ExpectType ValidateDoneFunction
-    }) as oauth2orize.ValidateFunctionArity4,
+        done; // $ExpectType ValidateDoneFunction<any>
+    }) as oauth2orize.ValidateFunctionArity4<any>,
 );
 server.authorize(
     ((areq, done) => {
-        done; // $ExpectType ValidateDoneFunction
-    }) as oauth2orize.ValidateFunctionArity2,
+        done; // $ExpectType ValidateDoneFunction<any>
+    }) as oauth2orize.ValidateFunctionArity2<any>,
 );
 
 server.authorization((clientId, redirectURI, done) => {});
@@ -157,6 +190,15 @@ server.deserializeClient((id, done) => {
     });
 });
 
+// Decision Middleware
+server.decision({ loadTransaction: false }, (req, done) => {
+    done(null, { allow: true });
+});
+
+server.decision((req, done) => {
+    done(null, { allow: true });
+});
+
 // Implement Token Endpoint
 // app.post('/token',
 // passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
@@ -169,3 +211,30 @@ const tokenError = new oauth2orize.TokenError("Incorrect token", "invalid_grant"
 const code: string = tokenError.code;
 new oauth2orize.AuthorizationError("Incorrect token", "access_denied");
 new oauth2orize.OAuth2Error();
+
+// Typed server
+interface Client {
+    id: string;
+    redirectURI: string;
+}
+interface User {
+    id: string;
+}
+const typedServer = oauth2orize.createServer<Client, User>();
+
+typedServer.grant(
+    oauth2orize.grant.token(async function grantToken(
+        client,
+        user,
+        _res,
+        req,
+        done: (
+            err: Error | null,
+            token?: string | false,
+            params?: { expires_in: number },
+        ) => void,
+    ) {
+        client; // $ExpectType Client
+        user; // $ExpectType User
+    }),
+);

@@ -1,4 +1,4 @@
-import { Camera, DirectionalLight, Material, Object3D, Vector2, Vector3 } from "../../../src/Three.js";
+import { Camera, DirectionalLight, Material, Object3D, Vector2, Vector3 } from "three";
 
 export type CSMMode = "uniform" | "logarithmic" | "practical" | "custom";
 

@@ -7,8 +7,7 @@
     ],
     "dependencies": {
         "@types/aws-sdk2-types": "*",
-        "@types/elasticsearch": "*",
-        "@types/node": "*"
+        "@types/elasticsearch": "*"
     },
     "devDependencies": {
         "@types/http-aws-es": "workspace:."

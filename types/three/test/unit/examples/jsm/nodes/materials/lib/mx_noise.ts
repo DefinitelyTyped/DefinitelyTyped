@@ -3,9 +3,9 @@ import {
     mx_fractal_noise_float,
     mx_perlin_noise_float,
     mx_worley_noise_float,
-} from "three/examples/jsm/nodes/materialx/lib/mx_noise";
+} from "three/addons/nodes/materialx/lib/mx_noise.js";
 
-import { mx_hsvtorgb, mx_rgbtohsv } from "three/examples/jsm/nodes/materialx/MaterialXNodes";
+import { mx_hsvtorgb, mx_rgbtohsv } from "three/addons/nodes/materialx/MaterialXNodes.js";
 
 mx_perlin_noise_float(1);
 mx_cell_noise_float(1);

@@ -6,7 +6,9 @@ import Menu, { MenuDivider, MenuItem } from "react-native-material-menu";
 class App extends React.PureComponent {
     _menu: Menu | null = null;
 
-    setMenuRef = (ref: Menu | null) => (this._menu = ref);
+    setMenuRef = (ref: Menu | null) => {
+        this._menu = ref;
+    };
 
     hideMenu = (onHidden?: () => void) => this._menu && this._menu.hide(onHidden);
 

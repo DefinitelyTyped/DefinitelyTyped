@@ -1,5 +1,5 @@
 import { DebounceSettings } from "lodash";
-import { ComponentType, LegacyRef } from "react";
+import { ComponentType, Ref } from "react";
 import { CommonReactLinesEllipsisProps } from "..";
 
 declare function responsiveHOC(
@@ -7,6 +7,6 @@ declare function responsiveHOC(
     debounceOptions?: DebounceSettings,
 ): <P extends CommonReactLinesEllipsisProps>(
     WrappedComponent: ComponentType<P>,
-) => ComponentType<P & { innerRef?: LegacyRef<HTMLDivElement> }>;
+) => ComponentType<P & { innerRef?: Ref<HTMLDivElement> }>;
 
 export = responsiveHOC;

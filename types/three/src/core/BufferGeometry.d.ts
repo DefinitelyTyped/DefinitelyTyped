@@ -333,14 +333,16 @@ export class BufferGeometry<
     setFromPoints(points: Vector3[] | Vector2[]): this;
 
     /**
-     * Computes bounding box of the geometry, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding box of the geometry, and updates the {@link .boundingBox} attribute. The bounding box is
+     * not computed by the engine; it must be computed by your app. You may need to recompute the bounding box if the
+     * geometry vertices are modified.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes bounding sphere of the geometry, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding sphere of the geometry, and updates the {@link .boundingSphere} attribute. The engine
+     * automatically computes the bounding sphere when it is needed, e.g., for ray casting or view frustum culling. You
+     * may need to recompute the bounding sphere if the geometry vertices are modified.
      */
     computeBoundingSphere(): void;
 

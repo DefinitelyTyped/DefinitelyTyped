@@ -176,7 +176,7 @@ export interface ConsumeMessageFields extends CommonMessageFields {
 export interface MessageProperties {
     contentType: any | undefined;
     contentEncoding: any | undefined;
-    headers: MessagePropertyHeaders;
+    headers: MessagePropertyHeaders | undefined;
     deliveryMode: any | undefined;
     priority: any | undefined;
     correlationId: any | undefined;

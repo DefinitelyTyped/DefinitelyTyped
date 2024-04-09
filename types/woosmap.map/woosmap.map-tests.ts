@@ -476,6 +476,27 @@ promiseLocalitiesAutocomplete.then((result) => {
     result;
 });
 
+const localitiesDetailsRequest = expectType({
+    public_id: "MkvnYy6K6oVGqeqfWJGO/6eCgqo=",
+    fields: "geometry",
+    cc_format: "alpha2",
+    language: "EN",
+}) as woosmap.map.localities.LocalitiesDetailsRequest;
+const promiseLocalitiesDetails = localitiesService.getDetails(localitiesDetailsRequest);
+promiseLocalitiesDetails.then((result) => {
+    // $ExpectType LocalitiesDetailsResponse
+    result;
+});
+const localitiesGeocodeRequest = expectType({
+    latLng: { lat: 51.5007, lng: -0.1246 },
+    components: { country: ["GB"] },
+}) as woosmap.map.localities.LocalitiesGeocodeRequest;
+const promiseLocalitiesGeocode = localitiesService.geocode(localitiesGeocodeRequest);
+promiseLocalitiesGeocode.then((result) => {
+    // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+
 /**
  * Stores Service
  */

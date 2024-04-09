@@ -15,13 +15,26 @@ class TestComponent extends React.Component<{ x: string }> {
 
 describe("ReactDOM", () => {
     it("render", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(React.createElement("div"), rootElement);
+        const container = document.createElement("div");
+        ReactDOM.render(React.createElement("div"), container);
         ReactDOM.render(React.createElement("div"), document.createDocumentFragment());
         ReactDOM.render(React.createElement("div"), document);
 
-        const instance = ReactDOM.render(React.createElement(TestComponent), rootElement);
+        const instance = ReactDOM.render(React.createElement(TestComponent), container);
         instance.someInstanceMethod();
+
+        const element = React.createElement(TestComponent, { x: "test" });
+        const component: TestComponent = ReactDOM.render(element, container);
+        const componentNullContainer: TestComponent = ReactDOM.render(element, null);
+        const componentElementOrNull: TestComponent = ReactDOM.render(element, container);
+        class ModernComponentNoState extends React.Component<{ x: string }> {}
+        const elementNoState: React.CElement<{ x: string }, ModernComponentNoState> = React.createElement(
+            ModernComponentNoState,
+            { x: "test" },
+        );
+        const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
+        const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
+        const domComponent: Element = ReactDOM.render(React.createElement("div"), container);
     });
 
     it("hydrate", () => {
@@ -40,7 +53,7 @@ describe("ReactDOM", () => {
     it("works with document fragments", () => {
         const fragment = document.createDocumentFragment();
         ReactDOM.render(React.createElement("div"), fragment);
-        ReactDOM.unmountComponentAtNode(fragment);
+        const unmounted: boolean = ReactDOM.unmountComponentAtNode(fragment);
     });
 
     it("find dom node", () => {
@@ -49,6 +62,11 @@ describe("ReactDOM", () => {
         ReactDOM.findDOMNode(rootElement);
         ReactDOM.findDOMNode(null);
         ReactDOM.findDOMNode(undefined);
+
+        const element = React.createElement(TestComponent, { x: "test" });
+        const component: TestComponent = ReactDOM.render(element, document.createElement("div"));
+        let domNode = ReactDOM.findDOMNode(component);
+        domNode = ReactDOM.findDOMNode(domNode as Element);
     });
 
     it("createPortal", () => {
@@ -78,9 +96,9 @@ describe("ReactDOM", () => {
         ReactDOM.flushSync(() => {});
         // $ExpectType number
         ReactDOM.flushSync(() => 42);
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync(() => 42, "not used");
-        // $ExpectType number
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, "not used");
         // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
@@ -353,8 +371,7 @@ function createRoot() {
     root.render(<div>initial render</div>);
     root.render(false);
 
-    // only makes sense for `hydrateRoot`
-    // @ts-expect-error
+    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     ReactDOMClient.createRoot(document);
 }
 

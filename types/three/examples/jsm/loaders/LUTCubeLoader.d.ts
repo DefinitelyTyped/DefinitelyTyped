@@ -1,19 +1,10 @@
-import {
-    Data3DTexture,
-    DataTexture,
-    FloatType,
-    Loader,
-    LoadingManager,
-    UnsignedByteType,
-    Vector3,
-} from "../../../src/Three.js";
+import { Data3DTexture, FloatType, Loader, LoadingManager, UnsignedByteType, Vector3 } from "three";
 
 export interface LUTCubeResult {
     title: string;
     size: number;
     domainMin: Vector3;
     domainMax: Vector3;
-    texture: DataTexture;
     texture3D: Data3DTexture;
 }
 

@@ -102,11 +102,33 @@ declare module "." {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
-    function useOptimistic<State>(
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback An _asynchronous_ function which causes state updates that can be deferred.
+     */
+    export function startTransition(scope: () => Promise<VoidOrUndefinedOnly>): void;
+
+    export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function useOptimistic<State, Action>(
+    export function useOptimistic<State, Action>(
         passthrough: State,
         reducer: (state: State, action: Action) => State,
     ): [State, (action: Action) => void];
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
+        cleanup: () => VoidOrUndefinedOnly;
+    }
+
+    export function useActionState<State>(
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
+    export function useActionState<State, Payload>(
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 }

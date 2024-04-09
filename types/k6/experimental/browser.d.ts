@@ -115,6 +115,23 @@ export interface EventSequenceOptions {
     delay?: number;
 }
 
+export interface File {
+    /**
+     * File name
+     */
+    name: string;
+
+    /**
+     * File type
+     */
+    mimeType: string;
+
+    /**
+     * File content
+     */
+    buffer: ArrayBuffer;
+}
+
 export type ElementHandleOptions = {
     /**
      * Setting this to `true` will bypass the actionability checks (visible,
@@ -638,6 +655,33 @@ export interface Browser {
  */
 export interface BrowserContext {
     /**
+     * Adds a script which will be evaluated in one of the following scenarios:
+     * - Whenever a page is created in the browser context or is navigated.
+     * - Whenever a child frame is attached or navigated in any page in the
+     *   browser context. In this case, the script is evaluated in the context
+     *   of the newly attached frame.
+     *
+     * The script is evaluated after the document is created but before any of
+     * its scripts were run. This is useful to amend the JavaScript environment,
+     * e.g. to override `Math.random`.
+     *
+     * **Usage**
+     *
+     * An example of overriding `Math.random` before the page loads:
+     *
+     * ```js
+     * const browserContext = browser.newContext();
+     * browserContext.addInitScript("Math.random = function(){return 0}");
+     *
+     * const page = browserContext.newPage();
+     * await page.goto(url);
+     * ```
+     *
+     * @param script Script to be evaluated in all pages in the browser context.
+     */
+    addInitScript(script: string | { content?: string }): void;
+
+    /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
     browser(): Browser;
@@ -1132,6 +1176,33 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): void;
 
     /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * The {@link ElementHandle | element handle} must be an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param files
+     * @param options
+     */
+    setInputFiles(files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}.
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * does not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
+
+    /**
      * Scrolls element into view if needed, and then uses `page.tapscreen` to tap in the center of the element
      * or at the specified position.
      * @param options Tap options.
@@ -1170,7 +1241,10 @@ export interface ElementHandle extends JSHandle {
      * @param selector A selector to query for.
      * @param options Wait options.
      */
-    waitForSelector(selector: string, options?: { state?: ElementState } & StrictnessOptions & TimeoutOptions): void;
+    waitForSelector(
+        selector: string,
+        options?: { state?: ElementState } & StrictnessOptions & TimeoutOptions,
+    ): ElementHandle;
 }
 
 /**
@@ -1478,6 +1552,36 @@ export interface Frame {
      * @returns `true` if the element is visible, `false` otherwise.
      */
     isVisible(selector: string, options?: StrictnessOptions): boolean;
+
+    /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * This method expects a `selector` to point to an
+     * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param selector A selector to search for an element. If there are multiple
+     * elements satisfying the selector, the first will be used.
+     * @param files
+     * @param options
+     */
+    setInputFiles(selector: string, files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
 
     /**
      * Wait for the given function to return a truthy value.
@@ -2915,6 +3019,36 @@ export interface Page {
     setExtraHTTPHeaders(headers: { [key: string]: string }): void;
 
     /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * This method expects a `selector` to point to an
+     * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param selector A selector to search for an element. If there are multiple
+     * elements satisfying the selector, the first will be used.
+     * @param files
+     * @param options
+     */
+    setInputFiles(selector: string, files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
+
+    /**
      * This will update the page's width and height.
      *
      * @param viewportSize
@@ -3370,7 +3504,7 @@ export interface Page {
      * To wait for an element on the page, use locator.waitFor([options]).
      * @param selector A selector to query for.
      */
-    $(selector: string): ElementHandle;
+    $(selector: string): ElementHandle | null;
 
     /**
      * **NOTE** Use locator-based page.locator(selector[, options]) instead.

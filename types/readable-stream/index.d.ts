@@ -102,6 +102,7 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     readonly readableLength: number;
     readonly closed: boolean;
     readonly errored: Error | null;
+    static from(iterable: Iterable<any> | AsyncIterable<any>, options?: _Readable.ReadableOptions): _Readable.Readable;
     _read(size: number): void;
     read(size?: number): any;
     setEncoding(encoding: string): this;

@@ -38,7 +38,10 @@ export interface ReactDatePickerCustomHeaderProps {
     nextYearButtonDisabled: boolean;
 }
 
-export interface ReactDatePickerProps<WithRange extends boolean | undefined = undefined> {
+export interface ReactDatePickerProps<
+    WithRange extends boolean | undefined = undefined,
+    WithMultiple extends boolean | undefined = undefined,
+> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -107,7 +110,9 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
     onChange(
-        date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
+        date: WithRange extends false | undefined
+            ? (WithMultiple extends false | undefined ? Date | null : Date[] | null)
+            : [Date | null, Date | null],
         event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -143,6 +148,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
+    renderQuarterContent?(quarter: number, shortQuarterText: string): React.ReactNode;
     renderMonthContent?(monthIndex: number, shortMonthText: string, fullMonthText: string): React.ReactNode;
     renderYearContent?(year: number): React.ReactNode;
     required?: boolean | undefined;
@@ -152,6 +158,8 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     selectsEnd?: boolean | undefined;
     selectsStart?: boolean | undefined;
     selectsRange?: WithRange;
+    selectsMultiple?: WithMultiple;
+    selectedDates?: Date[];
     shouldCloseOnSelect?: boolean | undefined;
     showDisabledMonthNavigation?: boolean | undefined;
     showFullMonthYearPicker?: boolean | undefined;
@@ -198,8 +206,11 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
-    ReactDatePickerProps<WithRange>
+declare class ReactDatePicker<
+    WithRange extends boolean | undefined = undefined,
+    WithMultiple extends boolean | undefined = undefined,
+> extends React.Component<
+    ReactDatePickerProps<WithRange, WithMultiple>
 > {
     readonly setBlur: () => void;
     readonly setFocus: () => void;

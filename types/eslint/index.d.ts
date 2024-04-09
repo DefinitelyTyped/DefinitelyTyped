@@ -696,17 +696,15 @@ export namespace Rule {
     }
 
     interface RuleMetaData {
+        /** Properties often used for documentation generation and tooling. */
         docs?: {
-            /** Provides a short description of the rule. */
+            /** Provides a short description of the rule. Commonly used when generating lists of rules. */
             description?: string | undefined;
-            /**
-             * TODO: remove this field in next major release of @types/eslint.
-             * @deprecated no longer used
-             */
+            /** Historically used by some plugins that divide rules into categories in their documentation. */
             category?: string | undefined;
-            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
+            /** Historically used by some plugins to indicate a rule belongs in their `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
+            /** Specifies the URL at which the full documentation can be accessed. Code editors often use this to provide a helpful link on highlighted rule violations. */
             url?: string | undefined;
             /**
              * TODO: remove this field in next major release of @types/eslint.
@@ -724,7 +722,7 @@ export namespace Rule {
         /**
          * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
-         * TODO: schema is potentially planned to be no longer be optional in v9 (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
+         * Mandatory for rules with options.
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
 
@@ -1179,6 +1177,18 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
+    // Temporarily loosen type for just flat config files (see #68232)
+    type FlatConfigParserModule =
+        & Omit<ParserModule, "parseForESLint">
+        & ({
+            parse(text: string, options?: any): unknown;
+        } | {
+            parseForESLint(text: string, options?: any): Omit<ESLintParseResult, "ast" | "scopeManager"> & {
+                ast: unknown;
+                scopeManager?: unknown;
+            };
+        });
+
     type ParserModule =
         & ESLint.ObjectMetaProperties
         & (
@@ -1208,6 +1218,12 @@ export namespace Linter {
     type FlatConfigFileSpec = string | ((filePath: string) => boolean);
 
     interface FlatConfig {
+        /**
+         * An string to identify the configuration object. Used in error messages and
+         * inspection tools.
+         */
+        name?: string;
+
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should apply to. If not specified, the configuration object applies
@@ -1252,7 +1268,7 @@ export namespace Linter {
              * An object containing a parse() or parseForESLint() method.
              * If not configured, the default ESLint parser (Espree) will be used.
              */
-            parser?: ParserModule;
+            parser?: FlatConfigParserModule;
 
             /**
              * An object specifying additional options that are passed directly to the

@@ -20,3 +20,17 @@ clonePromise("DefinitelyTyped/DefinitelyTyped", "repo", {
 }).catch(error => {
     // Error
 });
+
+clone("DefinitelyTyped/DefinitelyTyped", "repo", {
+    git: "/usr/bin/git",
+    shallow: true,
+    checkout: "master",
+    args: ["--recursive"],
+});
+
+clonePromise("DefinitelyTyped/DefinitelyTyped", "repo", {
+    git: "/usr/bin/git",
+    shallow: true,
+    checkout: "master",
+    args: ["--recursive"],
+});

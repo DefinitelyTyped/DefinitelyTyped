@@ -222,7 +222,7 @@ declare module "Synthetics" {
             launchTime?: number,
         ): string;
     }
-    import * as localPuppeteer from "puppeteer";
+    import * as localPuppeteer from "puppeteer-core";
     import * as RequestResponseLogHelper_1 from "RequestResponseLogHelper";
     import RequestResponseLogHelper = RequestResponseLogHelper_1.RequestResponseLogHelper;
     import * as SyntheticsMetricEmitter_1 from "SyntheticsMetricEmitter";

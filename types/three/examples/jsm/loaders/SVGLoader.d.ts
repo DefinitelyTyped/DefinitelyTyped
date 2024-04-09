@@ -1,4 +1,4 @@
-import { BufferGeometry, Loader, LoadingManager, Shape, ShapePath, Vector2, Vector3 } from "../../../src/Three.js";
+import { BufferGeometry, Loader, LoadingManager, Shape, ShapePath, Vector2, Vector3 } from "three";
 
 export interface SVGResultPaths extends ShapePath {
     userData?: Record<string, any> | undefined;

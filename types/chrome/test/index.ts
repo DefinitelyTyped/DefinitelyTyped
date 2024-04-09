@@ -2237,3 +2237,47 @@ function testInstanceID() {
 
     chrome.instanceID.onTokenRefresh.addListener(() => void 0);
 }
+
+function testUserScripts() {
+    const worldProperties = { csp: "script-src 'self'", messaging: true };
+    chrome.userScripts.configureWorld(worldProperties); // $ExpectType Promise<void>
+    chrome.userScripts.configureWorld(worldProperties, () => void 0); // $ExpectType void
+
+    const userScriptFilter = { ids: ["scriptId1", "scriptId2"] };
+    chrome.userScripts.getScripts(userScriptFilter); // $ExpectType Promise<RegisteredUserScript[]>
+    chrome.userScripts.getScripts(userScriptFilter, (scripts: chrome.userScripts.RegisteredUserScript[]) => void 0); // $ExpectType void
+
+    const scripts: chrome.userScripts.RegisteredUserScript[] = [
+        {
+            id: "scriptId1",
+            js: [{ code: "console.log(\"Hello from scriptId1!\");" }],
+            matches: ["*://example.com/*"],
+        },
+        {
+            id: "scriptId2",
+            js: [{ code: "console.log(\"Hello from scriptId2!\");" }],
+            matches: ["*://example.org/*"],
+        },
+    ];
+    chrome.userScripts.register(scripts); // $ExpectType Promise<void>
+    chrome.userScripts.register(scripts, () => void 0); // $ExpectType void
+
+    chrome.userScripts.unregister(userScriptFilter); // $ExpectType Promise<void>
+    chrome.userScripts.unregister(userScriptFilter, () => void 0); // $ExpectType void
+
+    chrome.userScripts.update(scripts); // $ExpectType Promise<void>
+    chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
+}
+
+function testPlatformKeys() {
+    chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
+        scope: "MACHINE",
+        challenge: new ArrayBuffer(0),
+        registerKey: { algorithm: "ECDSA" },
+    }, () => {});
+
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+}

@@ -6,13 +6,11 @@ import {
     PlaneGeometry,
     Scene,
     SphereGeometry,
-    sRGBEncoding,
     WebGLRenderer,
 } from "three";
-import { Reflector } from "three/examples/jsm/objects/Reflector";
+import { Reflector } from "three/addons/objects/Reflector.js";
 
 const renderer = new WebGLRenderer();
-renderer.outputEncoding = sRGBEncoding;
 
 const camera = new PerspectiveCamera();
 camera.position.set(0.0, 0.0, 5.0);

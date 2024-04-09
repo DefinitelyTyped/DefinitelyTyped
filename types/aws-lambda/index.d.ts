@@ -12,6 +12,7 @@ export * from "./trigger/cdk-custom-resource";
 export * from "./trigger/cloudformation-custom-resource";
 export * from "./trigger/cloudfront-request";
 export * from "./trigger/cloudfront-response";
+export * from "./trigger/cloudwatch-alarm";
 export * from "./trigger/cloudwatch-events";
 export * from "./trigger/cloudwatch-logs";
 export * from "./trigger/codebuild-cloudwatch-state";
