@@ -1337,6 +1337,31 @@ elementHandle.check({ timeout: 10000 });
 // $ExpectType void
 elementHandle.check({ trial: true });
 
+// $ExpectType Promise<void>
+elementHandle.click();
+// $ExpectType Promise<void>
+elementHandle.click({ button: "left" });
+// $ExpectType Promise<void>
+elementHandle.click({ button: "middle" });
+// $ExpectType Promise<void>
+elementHandle.click({ button: "right" });
+// $ExpectType Promise<void>
+elementHandle.click({ clickCount: 3 });
+// $ExpectType Promise<void>
+elementHandle.click({ delay: 1000 });
+// $ExpectType Promise<void>
+elementHandle.click({ force: true });
+// $ExpectType Promise<void>
+elementHandle.click({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
+// $ExpectType Promise<void>
+elementHandle.click({ noWaitAfter: true });
+// $ExpectType Promise<void>
+elementHandle.click({ position: { x: 0, y: 0 } });
+// $ExpectType Promise<void>
+elementHandle.click({ timeout: 10000 });
+// $ExpectType Promise<void>
+elementHandle.click({ trial: true });
+
 // $ExpectType Frame
 elementHandle.contentFrame();
 
