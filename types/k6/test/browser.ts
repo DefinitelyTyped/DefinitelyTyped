@@ -1322,6 +1322,21 @@ elementHandle.$$("div");
 // $ExpectType Rect
 elementHandle.boundingBox();
 
+// $ExpectType void
+elementHandle.check();
+// $ExpectType void
+elementHandle.check({ force: true });
+// $ExpectType void
+elementHandle.check({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.check({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.check({ strict: true });
+// $ExpectType void
+elementHandle.check({ timeout: 10000 });
+// $ExpectType void
+elementHandle.check({ trial: true });
+
 // $ExpectType Frame
 elementHandle.contentFrame();
 

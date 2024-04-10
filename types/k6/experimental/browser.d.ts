@@ -1051,6 +1051,12 @@ export interface ElementHandle extends JSHandle {
     boundingBox(): Rect;
 
     /**
+     * Checks the checkbox element.
+     * @param options The options to use.
+     */
+    check(options?: ElementClickOptions & StrictnessOptions): void;
+
+    /**
      * Get the content frame for element handles.
      * @returns The content frame handle of the element handle.
      */
