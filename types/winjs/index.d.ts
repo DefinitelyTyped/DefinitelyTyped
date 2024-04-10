@@ -10023,7 +10023,10 @@ declare namespace WinJS.Utilities {
          * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
          * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
          */
-        every<S extends T>(callbackFn: (value: T, index: number, array: T[]) => value is S, thisArg?: any): this is QueryCollection<S>;
+        every<S extends T>(
+            callbackFn: (value: T, index: number, array: T[]) => value is S,
+            thisArg?: any,
+        ): this is QueryCollection<S>;
         /**
          * Determines whether all the members of an array satisfy the specified test.
          * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
