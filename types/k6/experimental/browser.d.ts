@@ -1816,7 +1816,7 @@ export interface JSHandle<T = any> {
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
-     * Fethes a map with own property names of of the `JSHandle` with their values as
+     * Fetches a map with own property names of of the `JSHandle` with their values as
      * `JSHandle` instances.
      * @returns A map with property names as keys and `JSHandle` instances for the property values.
      */
