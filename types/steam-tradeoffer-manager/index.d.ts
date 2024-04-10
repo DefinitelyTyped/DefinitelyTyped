@@ -12,7 +12,10 @@ export = TradeOfferManager;
 declare class TradeOfferManager extends EventEmitter {
     constructor(options?: TradeOfferManager.TradeOfferManagerOptions);
 
+    useAccessToken: boolean;
     pollInterval: number;
+    minimumPollInterval: number;
+    pollFullUpdateInterval: number;
     cancelTime: number | null;
     pendingCancelTime: number | null;
     cancelOfferCount: number | null;
@@ -692,8 +695,11 @@ declare namespace TradeOfferManager {
         steam?: Steam.SteamClient | SteamUser;
         community?: SteamCommunity;
         domain?: string;
+        useAccessToken?: boolean;
         language?: string;
         pollInterval?: number;
+        minimumPollInterval?: number;
+        pollFullUpdateInterval?: number;
         cancelTime?: number;
         pendingCancelTime?: number;
         cancelOfferCount?: number;
