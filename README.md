@@ -18,7 +18,7 @@ This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
 - Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
-- All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
+- All packages are type-checking/linting cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
 - All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 - [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 - Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
@@ -196,7 +196,7 @@ Your package should have this structure:
 | [`.npmignore`](#npmignore)                     | Specifies which files are intended to be included in the package.                                    |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
-See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
+See all options at [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 If you have `.d.ts` files besides `index.d.ts`, make sure that they are referenced either in `index.d.ts` or the tests.
 
@@ -227,7 +227,7 @@ Once you have all your changes ready, use `pnpm run test-all` to see how your ch
 
 ##### @arethetypeswrong/cli (`attw`) checks
 
-dtslint includes module format and `package.json` configuration checks from [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli). The checks run only if a SemVer-major-compatible implementation package can be found on npm to compare against the DefinitelyTyped package. (DefinitelyTyped packages marked as `"nonNpm": true` in their `package.json` are skipped.)
+dtslint includes module format and `package.json` configuration checks from [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli). The checks run only if a SemVer-major-compatible implementation package can be found on npm to compare against the DefinitelyTyped package. (DefinitelyTyped packages marked as `nonNpm` in their `package.json` are skipped.)
 
 Many packages currently fail the `attw` checks and need to be fixed. To allow us to make incremental progress, failed `attw` checks do not fail the `dtslint` run when the package is listed in `failingPackages` in [`attw.json`](./attw.json), but they will still be reported in the `pnpm test my-package` output. If you fix the package, remove it from `failingPackages` so that `attw` checks can start failing `dtslint` runs.
 
@@ -317,6 +317,9 @@ If you need help fixing a problem, please ask in the DefinitelyTyped channel on 
 If you are adding typings for an npm package, create a directory with the same name.
 If the package you are adding typings for is not on npm, set `"nonNpm": true` in the `package.json`, and make sure the name you choose for it does not conflict with the name of a package on npm.
 (You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
+
+In rare occasions, `nonNpm` may be set to `"conflict"`, which incidates that there is a package on npm with the same name, but the types intentionally conflict with that package.
+This can be true for packages which define an environment like `@types/node` or for dummy packages like `aws-lambda`. Avoid using `"conflict"` where possible.
 
 #### `<my-package>-tests.ts`
 

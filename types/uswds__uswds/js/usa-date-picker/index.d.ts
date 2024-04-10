@@ -14,9 +14,9 @@ interface DatePickerContext {
 }
 
 interface DatePicker {
-    init(root: HTMLElement | Document): void;
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    init(root?: HTMLElement | Document): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
     /**
      * Get an object of the properties and elements belonging directly to the given
      * date picker component.

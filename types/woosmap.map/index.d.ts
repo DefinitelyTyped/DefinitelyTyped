@@ -1646,7 +1646,7 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     interface MatchedSubstring {
-        matchedSubstrings: woosmap.map.AutocompleteMatchedSubstring[];
+        description: woosmap.map.AutocompleteMatchedSubstring[];
     }
 }
 declare namespace woosmap.map {
@@ -2399,7 +2399,7 @@ declare namespace woosmap.map.stores {
      */
     interface StorePrediction {
         highlighted?: number;
-        matched_substrings?: woosmap.map.MatchedSubstring[];
+        matched_substrings?: woosmap.map.AutocompleteMatchedSubstring[];
         name: string;
         store_id: string;
         types: string[];
@@ -2825,7 +2825,7 @@ declare namespace woosmap.map.localities {
     interface LocalitiesDetailsGeometry {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
-        viewport: woosmap.map.LatLngBoundsLiteral;
+        viewport: woosmap.map.localties.LocalitiesBounds;
     }
 }
 declare namespace woosmap.map.localities {
@@ -2886,7 +2886,7 @@ declare namespace woosmap.map.localities {
          * The location of the result, in latitude and longitude, eventually associated with a Viewport.
          * Accuracy is also provided for locality of type Address.
          */
-        geometry?: woosmap.map.localities.LocalitiesDetailsGeometry;
+        geometry?: woosmap.map.localities.LocalitiesGeocodeGeometry;
         /**
          * Contains a unique ID for geocoded locality.
          */
@@ -2960,7 +2960,16 @@ declare namespace woosmap.map.localities {
     interface LocalitiesGeocodeGeometry {
         location: woosmap.map.LatLngLiteral;
         location_type: woosmap.map.localities.LocalitiesGeocodeLocationType;
-        viewport: woosmap.map.LatLngBounds;
+        viewport: woosmap.map.localties.LocalitiesBounds;
+    }
+}
+declare namespace woosmap.map.localties {
+    /**
+     * Defines a viewport by its geographical coordinates of North-East and South-West corners.
+     */
+    interface LocalitiesBounds {
+        northeast: woosmap.map.LatLngLiteral;
+        southwest: woosmap.map.LatLngLiteral;
     }
 }
 declare namespace woosmap.map {
@@ -3064,6 +3073,19 @@ declare namespace woosmap.map.geometry {
         poly: woosmap.map.Polygon,
         tolerance?: number,
     ): boolean;
+}
+declare namespace woosmap.map {
+    class NavigationWidget {
+        /**
+         * Creates a new Indoor Navigation Wiget.
+         */
+        constructor(renderer: woosmap.map.IndoorRenderer, closeCb: () => void);
+
+        /**
+         * Sets the map where to render the Indoor navigation widget.
+         */
+        setMap(map?: woosmap.map.Map | null): void;
+    }
 }
 declare namespace woosmap.map {
     class IndoorWidget {
@@ -3177,6 +3199,11 @@ declare namespace woosmap.map {
          * Sets the floor for the venue
          */
         setFloor(floor: number): void;
+
+        /**
+         * Gets the underlying instance of Indoor Renderer when using the Indoor Widget
+         */
+        getRenderer(): woosmap.map.IndoorRenderer;
 
         /**
          * Adds a listener for eventName.

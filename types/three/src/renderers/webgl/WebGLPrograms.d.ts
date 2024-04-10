@@ -22,8 +22,6 @@ import { WebGLLightsState } from "./WebGLLights.js";
 import { WebGLProgram } from "./WebGLProgram.js";
 
 export interface WebGLProgramParameters {
-    isWebGL2: boolean;
-
     shaderID: string;
     shaderType: string;
     shaderName: string;
@@ -43,6 +41,7 @@ export interface WebGLProgramParameters {
     batching: boolean;
     instancing: boolean;
     instancingColor: boolean;
+    instancingMorph: boolean;
 
     supportsVertexTextures: boolean;
     outputColorSpace: ColorSpace;
@@ -199,16 +198,9 @@ export interface WebGLProgramParameters {
 
     index0AttributeName: string | undefined;
 
-    extensionDerivatives: boolean;
-    extensionFragDepth: boolean;
-    extensionDrawBuffers: boolean;
-    extensionShaderTextureLOD: boolean;
     extensionClipCullDistance: boolean;
     extensionMultiDraw: boolean;
 
-    rendererExtensionFragDepth: boolean;
-    rendererExtensionDrawBuffers: boolean;
-    rendererExtensionShaderTextureLod: boolean;
     rendererExtensionParallelShaderCompile: boolean;
 
     customProgramCacheKey: string;

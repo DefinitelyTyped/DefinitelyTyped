@@ -1,5 +1,4 @@
-import { PluginWithOptions } from "markdown-it";
-import { RenderRule } from "markdown-it/lib/renderer";
+import { PluginWithOptions, Renderer } from "markdown-it";
 
 declare namespace markdownItLinkAttributes {
     interface Config {
@@ -15,7 +14,7 @@ declare const markdownItLinkAttributes:
         markdownItLinkAttributes.Config | markdownItLinkAttributes.Config[]
     >
     & {
-        readonly defaultRender: RenderRule;
+        readonly defaultRender: Renderer.RenderRule;
     };
 
 export = markdownItLinkAttributes;

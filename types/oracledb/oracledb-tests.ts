@@ -65,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         {
             name: "1",
             fetchType: 2002,
-            dbType: 2,
+            dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
             precision: 0,
             scale: -127,
@@ -675,4 +675,20 @@ export const v5Tests = async (): Promise<void> => {
 export const v5point1Tests = (): void => {
     console.log(defaultOracledb.DB_TYPE_JSON);
     defaultOracledb.dbObjectAsPojo = true;
+};
+
+export const fetchAsBufferTests = (): void => {
+    defaultOracledb.fetchAsBuffer = [oracledb.BLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsBuffer = [oracledb.DATE];
+};
+
+export const fetchAsStringTests = (): void => {
+    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [{}];
+    // @ts-expect-error
+    defaultOracledb.fetchAsString = [oracledb.STRING];
 };

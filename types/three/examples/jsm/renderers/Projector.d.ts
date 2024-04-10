@@ -1,4 +1,4 @@
-import { Camera, Color, Material, Object3D, Scene, Vector2, Vector3, Vector4 } from "../../../src/Three.js";
+import { Camera, Color, Material, Object3D, Scene, Vector2, Vector3, Vector4 } from "three";
 
 export class RenderableObject {
     id: number;

@@ -5,6 +5,7 @@
     "projects": [
         "http://www.restify.com"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/verror": "*"
     },

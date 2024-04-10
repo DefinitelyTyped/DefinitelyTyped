@@ -368,6 +368,9 @@ switch (ast.type) {
         ast.children; // $ExpectType List<CssNode>
         break;
 
+    case "NestingSelector":
+        break;
+
     case "Nth":
         ast.nth; // $ExpectType AnPlusB | Identifier
         ast.selector; // $ExpectType SelectorList | null

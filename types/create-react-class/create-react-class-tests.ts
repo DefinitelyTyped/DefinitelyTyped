@@ -1,5 +1,4 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import type * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 import createReactClass = require("create-react-class");
 
@@ -68,7 +67,9 @@ const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createRe
         return DOM.div(
             null,
             DOM.input({
-                ref: input => this._input = input,
+                ref: input => {
+                    this._input = input;
+                },
                 value: this.state.bar,
             }),
         );
@@ -95,7 +96,7 @@ const ClassicComponentNoState: createReactClass.ClassicComponentClass<{ text: st
 
 const displayName: string | undefined = ClassicComponent.displayName;
 const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
-const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
+const propTypes: PropTypes.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
 // Component API

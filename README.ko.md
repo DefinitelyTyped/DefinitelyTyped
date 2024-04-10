@@ -155,7 +155,7 @@ npm 에 올라가 있지 않은 패키지를 위한 자료형(Typing) 패키지�
 
 이 파일들은, npm ≥ 5.2.0 에서는 `npx dts-gen --dt --name <my-package> --template module` 명령으로,
 그 이하 경우에는 `npm install -g dts-gen` 와 `dts-gen --dt --name <my-package> --template module` 명령으로 만들 수 있습니다.
-`dts-gen` 의 모든 옵션(Option)을 보고싶으시면 [dts-gen](https://github.com/Microsoft/dts-gen) 저장소를 확인해주세요.
+`dts-gen` 의 모든 옵션(Option)을 보고싶으시면 [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen) 저장소를 확인해주세요.
 
 Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(Pull request)들을 확인하기는 하지만,
 다른 풀 리퀘스트(Pull request)가 많을 경우 확인이 느려질 수 있다는 걸 알아주세요.

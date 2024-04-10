@@ -23,6 +23,12 @@ breaker = new CircuitBreaker(async () => true, {
     volumeThreshold: 1,
     cache: true,
     cacheTTL: 100,
+    cacheGetKey: (...args) => JSON.stringify(args),
+    cacheTransport: {
+        get: (key) => key,
+        set: (key, value, ttl) => {},
+        flush: () => {},
+    },
     errorFilter: (err) => {
         err; // $ExpectType any
         return true;
@@ -83,7 +89,7 @@ const options: CircuitBreaker.Options = {
     resetTimeout: 30000, // After 30 seconds, try again.
 };
 options.enableSnapshots; // $ExpectType boolean | undefined
-options.rotateBucketController; // $ExpectType EventEmitter | undefined
+options.rotateBucketController; // $ExpectType EventEmitter<DefaultEventMap> | undefined
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker

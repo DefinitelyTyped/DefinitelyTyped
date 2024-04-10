@@ -255,6 +255,10 @@ export interface MediaQueryListPlain extends CssNodeCommon {
     children: CssNodePlain[];
 }
 
+export interface NestingSelector extends CssNodeCommon {
+    type: "NestingSelector";
+}
+
 export interface Nth extends CssNodeCommon {
     type: "Nth";
     nth: AnPlusB | Identifier;
@@ -426,6 +430,7 @@ export type CssNode =
     | MediaFeature
     | MediaQuery
     | MediaQueryList
+    | NestingSelector
     | Nth
     | NumberNode
     | Operator

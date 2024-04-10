@@ -135,7 +135,7 @@ Tu paquete debería tener esta estructura:
 | [`tsconfig.json`](#tsconfigjson)               | Este permite ejecutar `tsc` dentro del paquete.                                                                                             |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template module`.
-Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
+Ve todas las opciones en [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
 

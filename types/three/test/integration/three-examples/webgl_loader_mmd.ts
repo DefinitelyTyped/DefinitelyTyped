@@ -1,11 +1,11 @@
 import * as THREE from "three";
 
-import { CCDIKHelper } from "three/examples/jsm/animation/CCDIKSolver";
-import { MMDAnimationHelper } from "three/examples/jsm/animation/MMDAnimationHelper";
-import { MMDPhysicsHelper } from "three/examples/jsm/animation/MMDPhysics";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect";
-import { MMDLoader } from "three/examples/jsm/loaders/MMDLoader";
+import { CCDIKHelper } from "three/addons/animation/CCDIKSolver.js";
+import { MMDAnimationHelper } from "three/addons/animation/MMDAnimationHelper.js";
+import { MMDPhysicsHelper } from "three/addons/animation/MMDPhysics.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
+import { MMDLoader } from "three/addons/loaders/MMDLoader.js";
 
 let mesh: THREE.SkinnedMesh;
 let camera: THREE.PerspectiveCamera;

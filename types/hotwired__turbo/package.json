@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/hotwired__turbo",
+    "version": "8.0.9999",
+    "projects": [
+        "https://turbo.hotwired.dev"
+    ],
+    "devDependencies": {
+        "@types/hotwired__turbo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "G-Rath"
+        },
+        {
+            "name": "Luke Davia",
+            "githubUsername": "lukeify"
+        }
+    ]
+}

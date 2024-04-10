@@ -1813,6 +1813,15 @@ declare namespace google.payments.api {
         buttonType?: ButtonType | undefined;
 
         /**
+         * Specifies the button corner radius in pixels. The minimum is 0 and the
+         * maximum depends on the height of the button. If the height is 40px (default height) then
+         * the maximum value for the buttonRadius is 20.
+         *
+         * @default 4
+         */
+        buttonRadius?: number | undefined;
+
+        /**
          * Determines how the button's size should change relative to the
          * button's parent element.
          *

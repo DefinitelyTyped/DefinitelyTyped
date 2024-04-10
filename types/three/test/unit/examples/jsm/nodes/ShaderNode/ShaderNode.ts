@@ -15,9 +15,9 @@ import {
     PropertyNode,
     RotateUVNode,
     ShaderNode,
-} from "three/examples/jsm/nodes/Nodes";
+} from "three/addons/nodes/Nodes.js";
 
-import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/examples/jsm/nodes/shadernode/ShaderNode";
+import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/addons/nodes/shadernode/ShaderNode.js";
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

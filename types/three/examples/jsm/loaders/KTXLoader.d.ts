@@ -1,4 +1,4 @@
-import { CompressedPixelFormat, CompressedTextureLoader, LoadingManager, PixelFormat } from "../../../src/Three.js";
+import { CompressedPixelFormat, CompressedTextureLoader, LoadingManager, PixelFormat } from "three";
 
 export interface KTX {
     mipmaps: object[];

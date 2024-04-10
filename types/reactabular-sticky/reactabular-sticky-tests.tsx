@@ -32,11 +32,15 @@ class ReactabularStickyTestComponent extends React.Component<Props> {
                     renderers={this.renderers}
                 >
                     <Sticky.Header
-                        ref={(obj) => this.tableHeader = obj && obj.container}
+                        ref={(obj) => {
+                            this.tableHeader = obj && obj.container;
+                        }}
                         tableBody={this.tableBody}
                     />
                     <Sticky.Body
-                        ref={(obj) => this.tableBody = obj && obj.ref}
+                        ref={(obj) => {
+                            this.tableBody = obj && obj.ref;
+                        }}
                         tableHeader={this.tableHeader}
                         rows={this.props.rows}
                         rowKey="id"

@@ -1008,6 +1008,12 @@ declare module "fs/promises" {
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
                 flag?: OpenMode | undefined;
+                /**
+                 * If all data is successfully written to the file, and `flush`
+                 * is `true`, `filehandle.sync()` is used to flush the data.
+                 * @default false
+                 */
+                flush?: boolean | undefined;
             } & Abortable)
             | BufferEncoding
             | null,

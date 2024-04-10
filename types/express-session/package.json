@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/express-session",
-    "version": "1.17.9999",
+    "version": "1.18.9999",
     "projects": [
         "https://github.com/expressjs/session"
     ],

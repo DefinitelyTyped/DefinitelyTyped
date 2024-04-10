@@ -1,4 +1,4 @@
-import { CoordinateSystem } from "../../../../src/Three.js";
+import { CoordinateSystem } from "three";
 import Renderer from "./Renderer.js";
 
 export interface BackendParameters {

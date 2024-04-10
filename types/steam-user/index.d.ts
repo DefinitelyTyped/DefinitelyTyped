@@ -180,12 +180,6 @@ declare class SteamUser extends EventEmitter {
      */
     setOptions(options: Options): void;
 
-    /**
-     * Set a sentry file
-     * @param sentry Binary Sentry File
-     */
-    setSentry(sentry: Buffer | null): void;
-
     logOn(
         details?:
             | LogOnDetailsAnon
@@ -211,8 +205,8 @@ declare class SteamUser extends EventEmitter {
      * @param [callback] - Called when an activation SMS has been sent.
      */
     enableTwoFactor(
-        callback?: (err: Error | null, response: Record<string, any>) => void,
-    ): Promise<Record<string, any>>;
+        callback?: (err: Error | null, response: TwoFactorResponse) => void,
+    ): Promise<TwoFactorResponse>;
 
     /**
      * Finalize the process of enabling TOTP two-factor authentication
@@ -220,16 +214,15 @@ declare class SteamUser extends EventEmitter {
      * @param activationCode - The activation code you got in your email
      * @param [callback] - Called with a single Error argument, or null on success
      */
-    finalizeTwoFactor(secret: Buffer, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
+    finalizeTwoFactor(secret: string, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
 
     getSteamGuardDetails(
         callback?: (
             err: Error | null,
-            canTrade: boolean,
             isSteamGuardEnabled: boolean,
             timestampSteamGuardEnabled: Date | null,
             timestampMachineSteamGuardEnabled: Date | null,
-            isTwoFactorEnabled: boolean,
+            canTrade: boolean,
             timestampTwoFactorEnabled: Date | null,
             isPhoneVerified: boolean,
         ) => void,
@@ -989,7 +982,6 @@ interface Events {
     steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
     error: [err: Error & { eresult: SteamUser.EResult }];
     disconnected: [eresult: SteamUser.EResult, msg?: string];
-    sentry: [sentry: Buffer];
     webSession: [sessionID: string, cookies: string[]];
     loginKey: [key: string];
     newItems: [count: number];
@@ -1046,6 +1038,7 @@ interface Events {
         },
     ];
     authTicketValidation: Events["authTicketStatus"];
+    refreshToken: [refreshToken: string];
 }
 // #endregion "Events"
 
@@ -1096,7 +1089,6 @@ interface Options {
     socksProxy?: string | null;
     localAddress?: string | null;
     autoRelogin?: boolean;
-    singleSentryfile?: boolean;
     machineIdType?: SteamUser.EMachineIDType;
     machineIdFormat?: [string, string, string];
     enablePicsCache?: boolean;
@@ -1104,6 +1096,7 @@ interface Options {
     picsCacheAll?: boolean;
     changelistUpdateInterval?: number;
     saveAppTickets?: boolean;
+    renewRefreshTokens?: boolean;
     additionalHeaders?: Record<string, string>;
     webCompatibilityMode?: boolean;
     ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
@@ -1304,36 +1297,33 @@ interface QuickInviteLink {
 }
 
 interface LogOnDetailsAnon {
+    anonymous: true;
     password?: string;
-    loginKey?: string;
     webLogonToken?: string;
     steamID?: SteamID | string;
     authCode?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNamePass {
+    anonymous?: false;
     accountName: string;
     password: string;
     authCode?: string;
+    machineAuthToken?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
+    anonymous?: false;
     accountName: string;
-    loginKey: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
@@ -1341,6 +1331,7 @@ interface LogOnDetailsNameKey {
 }
 
 interface LogOnDetailsNameToken {
+    anonymous?: false;
     accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
@@ -1356,11 +1347,10 @@ interface LogOnDetailsRefresh {
 }
 
 interface SteamGuardDetails {
-    canTrade: boolean;
     isSteamGuardEnabled: boolean;
     timestampSteamGuardEnabled: Date | null;
     timestampMachineSteamGuardEnabled: Date | null;
-    isTwoFactorEnabled: boolean;
+    canTrade: boolean;
     timestampTwoFactorEnabled: Date | null;
     isPhoneVerified: boolean;
 }
@@ -1443,6 +1433,14 @@ interface ProfileItems {
     avatar_frames: ProfileItem[];
     animated_avatars: ProfileItem[];
     profile_modifiers: ProfileItem[];
+}
+
+interface TwoFactorResponse {
+    status: SteamUser.EResult;
+    shared_secret: string;
+    identity_secret: string;
+    revocation_code: string;
+    [key: string]: any;
 }
 // #endregion "Response Interfaces"
 

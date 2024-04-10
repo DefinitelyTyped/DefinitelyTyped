@@ -6,8 +6,7 @@
         "https://fluxible.io/"
     ],
     "dependencies": {
-        "@types/dispatchr": "*",
-        "@types/node": "*"
+        "@types/dispatchr": "*"
     },
     "devDependencies": {
         "@types/fluxible": "workspace:."

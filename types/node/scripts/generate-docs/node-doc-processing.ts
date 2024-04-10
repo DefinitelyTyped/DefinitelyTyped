@@ -219,6 +219,13 @@ function fixupModuleStructure(node: DocRoot): void {
 
     unnestSubmodule("http2", [["core_api"], ["compatibility_api"]]);
 
+    // sea
+    renameModule("single_executable_applications", "node:sea");
+    unnestSubmodule("node:sea", [
+        ["in_the_injected_main_script"],
+        ["in_the_injected_main_script", "single-executable_application_api"],
+    ]);
+
     // some of the methods of Http2ServerResponse are incorrectly nested under the `req` property.
     const http2Module = getModule(node, "http2");
     const httpResponseClass = getClass(http2Module, "http2.Http2ServerResponse");

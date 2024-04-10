@@ -163,3 +163,20 @@ async function test() {
     emitter.triggerAsyncId; // $ExpectType number
     emitter.emitDestroy();
 }
+
+{
+    class MyEmitter extends events.EventEmitter {
+        addListener(event: string, listener: () => void): this {
+            return this;
+        }
+        listeners(event: string): Array<() => void> {
+            return [];
+        }
+        emit(event: string, ...args: any[]): boolean {
+            return true;
+        }
+        listenerCount(type: string): number {
+            return 0;
+        }
+    }
+}

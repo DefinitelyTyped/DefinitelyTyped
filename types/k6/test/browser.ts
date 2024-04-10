@@ -118,6 +118,13 @@ browser.version();
 //
 const browserContext = browser.newContext();
 
+// @ts-expect-error
+browserContext.addInitScript();
+// $ExpectType void
+browserContext.addInitScript("Math.random = function(){return 0}");
+// $ExpectType void
+browserContext.addInitScript({ content: "Math.random = function(){return 0}" });
+
 // $ExpectType Browser
 browserContext.browser();
 // @ts-expect-error
@@ -640,6 +647,30 @@ page.setExtraHTTPHeaders();
 page.setExtraHTTPHeaders({ Accept: "text/html" });
 
 // @ts-expect-error
+page.setInputFiles();
+// @ts-expect-error
+page.setInputFiles("foo");
+// @ts-expect-error
+page.setInputFiles("foo", {});
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+page.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+page.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
+
+// @ts-expect-error
 page.setViewportSize();
 // $ExpectType void
 page.setViewportSize({ width: 800, height: 600 });
@@ -788,7 +819,7 @@ page.workers();
 
 // @ts-expect-error
 page.$();
-// $ExpectType ElementHandle
+// $ExpectType ElementHandle | null
 page.$(selector);
 
 // @ts-expect-error
@@ -1273,7 +1304,7 @@ response.then(r => r?.url());
 // ElementHandle
 //
 
-const elementHandle = page.$(selector);
+const elementHandle = page.waitForSelector(selector);
 
 // @ts-expect-error
 elementHandle.$();
@@ -1420,6 +1451,28 @@ elementHandle.selectText({ force: true });
 // $ExpectType void
 elementHandle.selectText({ noWaitAfter: true });
 
+// @ts-expect-error
+elementHandle.setInputFiles();
+// @ts-expect-error
+elementHandle.setInputFiles({});
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt" });
+// @ts-expect-error
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
+
 // $ExpectType void
 elementHandle.tap();
 // $ExpectType void
@@ -1475,13 +1528,13 @@ elementHandle.waitForElementState("visible", { timeout: 10000 });
 
 // @ts-expect-error
 elementHandle.waitForSelector();
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div");
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { timeout: 10000 });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { state: "attached" });
-// $ExpectType void
+// $ExpectType ElementHandle
 elementHandle.waitForSelector("div", { strict: true });
 
 //
@@ -1889,6 +1942,30 @@ frame.isVisible();
 frame.isVisible("input");
 // $ExpectType boolean
 frame.isVisible("input", { strict: true });
+
+// @ts-expect-error
+frame.setInputFiles();
+// @ts-expect-error
+frame.setInputFiles("foo");
+// @ts-expect-error
+frame.setInputFiles("foo", {});
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt" });
+// @ts-expect-error
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain" });
+// $ExpectType void
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
+// $ExpectType void
+frame.setInputFiles("foo", [{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    name: "file2.txt",
+    mimeType: "text/plain",
+    buffer: new ArrayBuffer(0),
+}]);
+// $ExpectType void
+frame.setInputFiles("foo", { name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
+    noWaitAfter: true,
+    timeout: 1000,
+});
 
 // @ts-expect-error
 frame.waitForFunction();

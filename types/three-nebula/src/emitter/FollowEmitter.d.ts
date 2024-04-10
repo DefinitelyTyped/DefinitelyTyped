@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Emitter from "./Emitter";
 
 export default class FollowEmitter extends Emitter {

@@ -1177,6 +1177,18 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
+    // Temporarily loosen type for just flat config files (see #68232)
+    type FlatConfigParserModule =
+        & Omit<ParserModule, "parseForESLint">
+        & ({
+            parse(text: string, options?: any): unknown;
+        } | {
+            parseForESLint(text: string, options?: any): Omit<ESLintParseResult, "ast" | "scopeManager"> & {
+                ast: unknown;
+                scopeManager?: unknown;
+            };
+        });
+
     type ParserModule =
         & ESLint.ObjectMetaProperties
         & (
@@ -1206,6 +1218,12 @@ export namespace Linter {
     type FlatConfigFileSpec = string | ((filePath: string) => boolean);
 
     interface FlatConfig {
+        /**
+         * An string to identify the configuration object. Used in error messages and
+         * inspection tools.
+         */
+        name?: string;
+
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should apply to. If not specified, the configuration object applies
@@ -1250,7 +1268,7 @@ export namespace Linter {
              * An object containing a parse() or parseForESLint() method.
              * If not configured, the default ESLint parser (Espree) will be used.
              */
-            parser?: ParserModule;
+            parser?: FlatConfigParserModule;
 
             /**
              * An object specifying additional options that are passed directly to the

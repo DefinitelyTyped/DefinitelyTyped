@@ -80,6 +80,7 @@ declare namespace cast.framework {
     }
 
     interface CastOptions {
+        androidReceiverCompatible?: boolean | undefined;
         autoJoinPolicy: chrome.cast.AutoJoinPolicy;
         language?: string | undefined;
         receiverApplicationId?: string | undefined;

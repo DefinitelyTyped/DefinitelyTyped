@@ -151,7 +151,63 @@ export interface Header {
 export type OpenMode = "r" | "r+" | "w" | "wx" | "xw" | "w+" | "xw+" | "a" | "ax" | "xa" | "a+" | "ax+" | "xa+";
 
 export namespace utils {
+    interface KeySettings {
+        rsa: {
+            bits: number;
+        };
+        ecdsa: {
+            bits: 256 | 384 | 521;
+        };
+        ed25519: {};
+    }
+
+    type KeyPairOptions =
+        & {
+            comment?: string;
+            /**
+             * As of now, ssh2 only supports the "new" format;
+             * Specifying this won't have any effect,
+             * as it's already the default behavior.
+             */
+            format?: "new";
+        }
+        & ({
+            passphrase: string | Buffer;
+            cipher: string;
+            rounds: number;
+        } | {});
+
+    type KeyType = keyof KeySettings;
+
+    /** All optional key types where their settings are optional */
+    type OptionalKeyType = {
+        [K in keyof KeySettings]: {} extends KeySettings[K] ? K : never;
+    }[keyof KeySettings];
+
+    interface KeyPairReturn {
+        private: string;
+        public: string;
+    }
+
     function parseKey(data: Buffer | string | ParsedKey, passphrase?: Buffer | string): ParsedKey | Error;
+
+    function generateKeyPair<K extends KeyType>(
+        keyType: K,
+        opts: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+        cb?: (err: Error | null, keyPair: KeyPairReturn) => void,
+    ): void;
+    function generateKeyPair(keyType: KeyType, cb: (err: Error | null, keyPair: KeyPairReturn) => void): void;
+
+    function generateKeyPairSync<K extends KeyType>(keyType: K, opts: KeySettings[K] & KeyPairOptions): KeyPairReturn;
+    function generateKeyPairSync<K extends OptionalKeyType>(
+        keyType: K,
+        opts?: KeySettings[K] & KeyPairOptions,
+    ): KeyPairReturn;
     namespace sftp {
         enum OPEN_MODE {
             READ = 0x00000001,

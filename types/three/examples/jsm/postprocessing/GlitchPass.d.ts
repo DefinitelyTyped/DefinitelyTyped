@@ -1,4 +1,4 @@
-import { DataTexture, ShaderMaterial } from "../../../src/Three.js";
+import { DataTexture, ShaderMaterial } from "three";
 
 import { FullScreenQuad, Pass } from "./Pass.js";
 

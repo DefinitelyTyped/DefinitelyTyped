@@ -1,10 +1,10 @@
 import { Camera } from "../cameras/Camera.js";
-import { Light } from "../lights/Light.js";
+import { Frustum } from "../math/Frustum.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { Vector2 } from "../math/Vector2.js";
 import { Vector4 } from "../math/Vector4.js";
 import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
-import { Frustum } from "../Three.js";
+import { Light } from "./Light.js";
 
 /**
  * Serves as a base class for the other shadow classes.

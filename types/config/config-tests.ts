@@ -18,6 +18,17 @@ var extended3: any = config.util.extendDeep({}, {}, {}, 20);
 var clone1: any = config.util.cloneDeep({});
 var clone2: any = config.util.cloneDeep({}, 20);
 
+// $ExpectType void
+config.util.setPath({}, [""], null);
+// $ExpectType void
+config.util.setPath({}, [], "");
+// $ExpectType void
+config.util.setPath({}, [""], "");
+// @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'string[]'
+config.util.setPath({}, "");
+// @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'object'
+config.util.setPath("", []);
+
 var equals1: boolean = config.util.equalsDeep({}, {});
 var equals2: boolean = config.util.equalsDeep({}, {}, 20);
 
