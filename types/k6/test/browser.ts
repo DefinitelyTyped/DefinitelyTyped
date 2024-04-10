@@ -1365,6 +1365,29 @@ elementHandle.click({ trial: true });
 // $ExpectType Frame
 elementHandle.contentFrame();
 
+// $ExpectType void
+elementHandle.dblclick();
+// $ExpectType void
+elementHandle.dblclick({ button: "left" });
+// $ExpectType void
+elementHandle.dblclick({ button: "middle" });
+// $ExpectType void
+elementHandle.dblclick({ button: "right" });
+// $ExpectType void
+elementHandle.dblclick({ delay: 1000 });
+// $ExpectType void
+elementHandle.dblclick({ force: true });
+// $ExpectType void
+elementHandle.dblclick({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
+// $ExpectType void
+elementHandle.dblclick({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.dblclick({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.dblclick({ timeout: 10000 });
+// $ExpectType void
+elementHandle.dblclick({ trial: true });
+
 // @ts-expect-error
 elementHandle.fill();
 // $ExpectType void
