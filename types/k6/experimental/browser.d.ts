@@ -644,6 +644,11 @@ export interface Browser {
     ): Page;
 
     /**
+     * Returns the browser application's user agent.
+     */
+    userAgent(): string;
+
+    /**
      * Returns the browser application's version.
      */
     version(): string;

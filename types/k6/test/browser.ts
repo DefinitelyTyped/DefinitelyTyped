@@ -111,6 +111,9 @@ browser.newPage({ userAgent: "foo" });
 browser.newPage({ viewport: { width: 1280, height: 720 } });
 
 // $ExpectType string
+browser.userAgent();
+
+// $ExpectType string
 browser.version();
 
 //
