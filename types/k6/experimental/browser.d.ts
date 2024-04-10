@@ -1197,6 +1197,17 @@ export interface ElementHandle extends JSHandle {
     ): void;
 
     /**
+     * Dispatches a DOM event to the element.
+     * @param type DOM event type: `"click"` etc.
+     * @param eventInit Optional event-specific initialization properties.
+     * @param options
+     */
+    dispatchEvent(
+        type: string,
+        eventInit?: EvaluationArgument,
+    ): void;
+
+    /**
      * Fill the `input` or `textarea` element with the provided `value`.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Element handle options.

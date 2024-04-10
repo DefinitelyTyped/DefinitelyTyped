@@ -1389,6 +1389,13 @@ elementHandle.dblclick({ timeout: 10000 });
 elementHandle.dblclick({ trial: true });
 
 // @ts-expect-error
+elementHandle.dispatchEvent();
+// $ExpectType void
+elementHandle.dispatchEvent("click");
+// $ExpectType void
+elementHandle.dispatchEvent("click", { type: "look" });
+
+// @ts-expect-error
 elementHandle.fill();
 // $ExpectType void
 elementHandle.fill("text");
