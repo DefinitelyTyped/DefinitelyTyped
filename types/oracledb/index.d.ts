@@ -683,7 +683,16 @@ declare namespace OracleDB {
      * @default 60
      * @since 1.12
      */
-    let poolPingInterval: number;
+    let poolPingInterval: number | undefined;
+    /**
+     * The number of milliseconds that a connection should wait for a response from connection.ping(). Refer to oracledb.poolPingTimeout for details.
+     * The default value is 5000 milliseconds.
+     * This optional property overrides the oracledb.poolPingTimeout property.
+     * See Connection Pool Pinging for more information.
+     * 
+     * @since 6.4
+     */
+    let poolPingTimeout: number;
     /**
      * The number of seconds after which idle connections (unused in the pool) are terminated.
      * Idle connections are terminated only when the pool is accessed. If the poolTimeout is set to 0,
@@ -1062,7 +1071,27 @@ declare namespace OracleDB {
          */
         createLob(type: DbType): Promise<Lob>;
         createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
-
+        /**
+         * This synchronous method decodes an OSON Buffer and returns a Javascript value. This method is useful for fetching BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         * The parameters of the connection.decodeOSON() are: buf; Buffer; The OSON buffer that is to be decoded.
+         * 
+         * @param buf The OSON buffer that is to be decoded.
+         * 
+         * @since 6.4
+         * 
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        decodeOSON(buf: Buffer): any;
+        /**
+         * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         * 
+         * @param value The JavaScript value that is to be encoded into OSON bytes. The JavaScript value can be any value supported by JSON.
+         * 
+         * @since 6.4
+         * 
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        encodeOSON(value: any): Buffer;
         /**
          * This call executes a single SQL or PL/SQL statement.
          *
@@ -1085,6 +1114,8 @@ declare namespace OracleDB {
          * This call executes a single SQL or PL/SQL statement.
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
+         * Changed in version 6.4: The ability to accept an object (returned from the sql function of the third-party sql-template-tag module) as an input parameter was added to connection.execute().
+         * 
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
@@ -1970,10 +2001,16 @@ declare namespace OracleDB {
          * For queries returning LOB columns, it can be more efficient to use fetchAsString, fetchAsBuffer, or fetchInfo instead of lob.getData().
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
+         * 
+         * For LOBs of type CLOB and NCLOB, the offset is the position from which the data is to be fetched, in UCS-2 code points. UCS-2 code points are equivalent to characters for all but supplemental characters. If supplemental characters are in the LOB, the offset and amount will have to be chosen carefully to avoid splitting a character.
+         * For LOBs of type BLOB and BFILE, the offset is the position of the byte from which the data is to be fetched.
+         * The default is 1.
+         * The value of offset must be greater than or equal to 1.
+         * If the offset specified in lob.getData() exceeds the length of the LOB, then the value null is returned.
          *
          * @since 4.0
          */
-        getData(): Promise<string | Buffer>;
+        getData(offset?: number, amount?: number): Promise<string | Buffer>;
         getData(callback: (error: DBError, data: string | Buffer) => void): void;
     }
 
@@ -2006,6 +2043,23 @@ declare namespace OracleDB {
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
         dbTypeName?: string | undefined;
+        /**
+
+         * The name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainName?: string | undefined;
+        /**
+         * The schema name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainSchema?: string | undefined;
+        /**
+         * Indicates if the column is known to contain JSON data. This will be true for JSON columns (from Oracle Database 21c) and for LOB and VARCHAR2 columns where “IS JSON” constraint is enabled (from Oracle Database 19c). This property will be false for all the other columns. It will also be false for any column when Oracle Client 18c or earlier is used in Thick mode or the Oracle Database version is earlier than 19c.
+         */
+        isJson?: boolean | undefined;
+        /**
+         * Indicates if the column is known to contain binary encoded OSON data. This attribute will be true in Thin mode and while using Oracle Client version 21c (or later) in Thick mode when the “IS JSON FORMAT OSON” check constraint is enabled on BLOB and RAW columns. It will be set to false for all other columns. It will also be set to false for any column when the Thick mode uses Oracle Client versions earlier than 21c. Note that the “IS JSON FORMAT OSON” check constraint is available from Oracle Database 19c onwards.
+         */
+        isOson?: boolean | undefined;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
@@ -2102,6 +2156,12 @@ declare namespace OracleDB {
          * before node-oracledb pings the database prior to returning that connection to the application.
          */
         readonly poolPingInterval: number;
+        /**
+         * This read-only property is a number which specifies the maximum number of milliseconds that a connection should wait for a response from connection.ping().
+         * 
+         * @since 6.4
+         */
+        readonly poolPingTimeout: number;
         /**
          * The time (in seconds) after which the pool terminates idle connections (unused in the pool).
          * The number of connections does not drop below poolMin.
@@ -2746,6 +2806,12 @@ declare namespace OracleDB {
          * Returns an array of element values as a JavaScript array in key order.
          */
         getValues(): T[];
+        /**
+         * Returns a map object for the collection types indexed by PLS_INTEGER where the collection’s indexes are the keys and the elements are its values. See Associative Array Indexed By PLS_INTEGER for example.
+         * 
+         * @since 6.4
+         */
+        toMap<V>(): Map<T, V>;
         /**
          * Trims the specified number of elements from the end of the collection.
          */
