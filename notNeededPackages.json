@@ -5087,6 +5087,10 @@
             "libraryName": "react-pdf",
             "asOfVersion": "7.0.0"
         },
+        "react-phone-number-input": {
+            "libraryName": "react-phone-number-input",
+            "asOfVersion": "3.1.37"
+        },
         "react-plaid-link": {
             "libraryName": "react-plaid-link",
             "asOfVersion": "2.0.0"
