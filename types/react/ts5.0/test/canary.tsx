@@ -385,5 +385,7 @@ function formTest() {
 
     const NotRenderableContext = React.createContext(() => {});
     // @ts-expect-error
-    node: React.ReactNode = NotRenderableContext;
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }
