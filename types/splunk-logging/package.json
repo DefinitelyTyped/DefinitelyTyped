@@ -5,9 +5,6 @@
     "projects": [
         "http://dev.splunk.com"
     ],
-    "dependencies": {
-        "@types/request": "*"
-    },
     "devDependencies": {
         "@types/splunk-logging": "workspace:."
     },

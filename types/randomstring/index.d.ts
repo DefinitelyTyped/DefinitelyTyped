@@ -11,7 +11,7 @@ declare namespace Randomstring {
     interface GenerateOptions {
         length?: number | undefined;
         readable?: boolean | undefined;
-        charset?: Charset | undefined;
+        charset?: Charset | Charset[] | undefined;
         capitalization?: Capitalization | undefined;
     }
 

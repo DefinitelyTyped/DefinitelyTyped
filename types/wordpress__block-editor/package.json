@@ -8,10 +8,10 @@
     "dependencies": {
         "@types/react": "*",
         "@types/wordpress__blocks": "*",
-        "@types/wordpress__components": "*",
-        "@types/wordpress__keycodes": "*",
         "@wordpress/data": "^9.13.0",
+        "@wordpress/components": "^27.2.0",
         "@wordpress/element": "^5.0.0",
+        "@wordpress/keycodes": "^3.54.0",
         "react-autosize-textarea": "^7.1.0"
     },
     "devDependencies": {

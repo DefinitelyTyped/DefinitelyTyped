@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -453,7 +453,7 @@ declare module "sap/ui/layout/library" {
      * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
      * if it has large size
      *
-     * Allowed values are numbers from 1 to 3.
+     * Allowed values are numbers from 1 to 4. **Note:** In versions lower than 1.122 only 3 columns are allowed.
      *
      * @since 1.56.0
      */
@@ -463,7 +463,7 @@ declare module "sap/ui/layout/library" {
      * An `int` type that defines how many columns a `Form` control using the `ColumnLayout` as layout can have
      * if it has medium size
      *
-     * Allowed values are numbers from 1 to 2.
+     * Allowed values are numbers from 1 to 3. **Note:** In versions lower than 1.122 only 2 columns are allowed.
      *
      * @since 1.56.0
      */
@@ -6154,7 +6154,7 @@ declare module "sap/ui/layout/form/ColumnLayout" {
   /**
    * The `ColumnLayout` control renders a {@link sap.ui.layout.form.Form Form} control in a column-based responsive
    * way. Depending on its size, the {@link sap.ui.layout.form.Form Form} control is divided into one or more
-   * columns. (XL - max. 4 columns, L - max. 3 columns, M - max. 2 columns and S - 1 column.)
+   * columns. (XL - max. 6 columns, L - max. 4 columns, M - max. 3 columns and S - 1 column.)
    *
    * The {@link sap.ui.layout.form.FormContainer FormContainer} elements are spread out to the columns depending
    * on the number of {@link sap.ui.layout.form.FormContainer FormContainer} elements and their size. For

@@ -1,10 +1,20 @@
 {
     "private": true,
     "name": "@types/markdown-it",
-    "version": "13.0.9999",
+    "version": "14.0.9999",
     "projects": [
         "https://github.com/markdown-it/markdown-it"
     ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./dist/index.cjs.d.ts"
+        },
+        "./*": {
+            "require": "./*",
+            "import": "./*"
+        }
+    },
     "dependencies": {
         "@types/linkify-it": "*",
         "@types/mdurl": "*"

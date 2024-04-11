@@ -10,7 +10,7 @@
     "tsconfigs": ["tsconfig.preact.json", "tsconfig.react.json"],
     "devDependencies": {
         "@types/mdx": "workspace:.",
-        "@types/react": "*",
+        "@types/react": "^18",
         "preact": "*"
     },
     "owners": [

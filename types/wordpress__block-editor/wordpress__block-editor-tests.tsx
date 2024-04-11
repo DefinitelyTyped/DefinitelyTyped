@@ -44,21 +44,18 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 <be.BlockControls
     controls={[
         {
-            icon: "yes",
+            icon: "admin-appearance",
             title: "Yes",
             onClick() {},
-            shortcut: {
-                display: "Yes",
-            },
             isDisabled: false,
         },
         {
-            icon: "no",
+            icon: null,
             title: "No",
             onClick() {},
             subscript: "no",
             isActive: false,
-            shortcut: "No",
+            isDisabled: false,
         },
     ]}
 >
@@ -66,6 +63,29 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 </be.BlockControls>;
 <be.BlockControls group="block">Hello World</be.BlockControls>;
 <be.BlockControls.Slot />;
+
+<be.BlockControls
+    controls={[[
+        {
+            icon: "admin-appearance",
+            title: "Yes",
+            subscript: "Yes",
+            onClick() {},
+            isActive: false,
+            isDisabled: false,
+        },
+        {
+            icon: null,
+            title: "No",
+            onClick() {},
+            subscript: "no",
+            isActive: false,
+            isDisabled: false,
+        },
+    ]]}
+>
+    Hello World
+</be.BlockControls>;
 
 //
 // BlockEditorProvider
@@ -344,6 +364,9 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     shortcutType="primary"
     shortcutCharacter="b"
     onClick={() => console.log("Hello World")}
+    placeholder="Hello World"
+    onPointerEnterCapture={() => console.log("Hello World")}
+    onPointerLeaveCapture={() => console.log("Hello World")}
 />;
 
 //

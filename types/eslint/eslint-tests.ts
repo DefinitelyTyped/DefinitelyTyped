@@ -1114,6 +1114,45 @@ ruleTester.run("simple-valid-test", rule, {
 // @ts-expect-error
 ((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
 
+((): Linter.FlatConfig => ({ name: "eslint:js" }));
+
+// @ts-expect-error // Generic passed in does not match the RuleEntry schema
+((): Linter.FlatConfig<{ foo?: "bar" }> => ({
+    rules: {},
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        foo: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Unspecified value
+        bar: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo: Linter.RuleEntry<[1 | 2]>; [x: string]: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+        // Wildcard values are supported
+        bar: 2,
+        baz: "off",
+        // @ts-expect-error // Invalid value
+        "foo/bar": "bar",
+    },
+}));
+
 // The following _should_ be an error, but we can't enforce on consumers
 // as it requires exactOptionalPropertyTypes: true
 // (): Linter.FlatConfig => ({ files: undefined });
