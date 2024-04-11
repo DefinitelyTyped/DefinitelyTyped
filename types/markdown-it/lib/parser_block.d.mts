@@ -9,7 +9,7 @@ declare class ParserBlock {
     /**
      * [[Ruler]] instance. Keep configuration of block rules.
      */
-    ruler: Ruler<ParserBlock.RuleBlock>;
+    ruler: Ruler<RuleBlock>;
 
     /**
      * Generate tokens for input range
