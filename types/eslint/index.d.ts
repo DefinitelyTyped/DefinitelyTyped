@@ -1217,7 +1217,7 @@ export namespace Linter {
 
     type FlatConfigFileSpec = string | ((filePath: string) => boolean);
 
-    interface FlatConfig {
+    interface FlatConfig<Rules extends RulesRecord = RulesRecord> {
         /**
          * An string to identify the configuration object. Used in error messages and
          * inspection tools.
@@ -1310,7 +1310,7 @@ export namespace Linter {
          * An object containing the configured rules. When files or ignores are specified,
          * these rule configurations are only available to the matching files.
          */
-        rules?: RulesRecord;
+        rules?: Partial<Rules>;
 
         /**
          * An object containing name-value pairs of information that should be
