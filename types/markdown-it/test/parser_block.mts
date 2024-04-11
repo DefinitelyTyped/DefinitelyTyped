@@ -1,5 +1,4 @@
 import MarkdownIt from "markdown-it/lib/index.mjs";
-import ParserBlock from "markdown-it/lib/parser_block.mjs";
 import { RuleBlock } from "markdown-it/lib/parser_block.mjs";
 import StateBlock from "markdown-it/lib/rules_block/state_block.mjs";
 import Token from "markdown-it/lib/token.mjs";
