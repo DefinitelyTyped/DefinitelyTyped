@@ -131,4 +131,14 @@ declare module "." {
         initialState: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+    interface DOMAttributes<T> {
+        // Transition Events
+        onTransitionCancel?: TransitionEventHandler<T> | undefined;
+        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionRun?: TransitionEventHandler<T> | undefined;
+        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionStart?: TransitionEventHandler<T> | undefined;
+        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
 }
