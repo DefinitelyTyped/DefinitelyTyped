@@ -33,7 +33,6 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 /**
  * @internal
  */
-// TODO: Do we need a non-recursive copy like we do in AwaitedReactNode to unwrap the context value?
 interface ReactContextAsReactNode extends React.Context<React.ReactNode> {}
 
 declare module "." {
