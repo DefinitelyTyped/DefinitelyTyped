@@ -265,6 +265,7 @@ const slotRenderEndedListener1 = (event: googletag.events.SlotRenderEndedEvent) 
     console.log(event.lineItemId);
     console.log(event.creativeId);
     console.log(event.campaignId);
+    console.log(event.isBackfill);
 };
 googletag.pubads().addEventListener("slotRenderEnded", slotRenderEndedListener1);
 googletag.pubads().removeEventListener("slotRenderEnded", slotRenderEndedListener1);
