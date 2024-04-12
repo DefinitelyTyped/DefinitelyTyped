@@ -15,9 +15,9 @@ const config: jwplayer.SetupConfig = {
     plugins: {
         "//myexample.com/jwplayer/scripts/sampleScript.js": {
             sampleFunction: () => {
-                console.log('from plugin: hello world');
+                console.log("from plugin: hello world");
             },
-            name: 'Dan Woon Acorn'
+            name: "Dan Woon Acorn",
         },
     },
 };

@@ -1670,7 +1670,7 @@ declare namespace jwplayer {
         registerPlugin(
             pluginName: string,
             playerMinimumVersion: string,
-            pluginClassOrFunction: (playerInstance: JWPlayer, pluginConfig: any, pluginDiv: HTMLElement) => void
+            pluginClassOrFunction: (playerInstance: JWPlayer, pluginConfig: any, pluginDiv: HTMLElement) => void,
         ): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
