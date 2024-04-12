@@ -293,3 +293,13 @@ const i18nInstanceWithConstructorOptions = new I18n({
     locales: ["en", "de"],
     directory: __dirname + "/locales",
 });
+
+const i18nObjectNotation = new I18n();
+
+i18nObjectNotation.configure({
+    locales: ["en", "de"],
+    directory: __dirname + "/locales",
+    objectNotation: "->",
+});
+
+i18nObjectNotation.__("object->notation");

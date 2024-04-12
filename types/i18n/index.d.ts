@@ -100,7 +100,7 @@ declare namespace i18n {
          * Enable object notation
          * @default false
          */
-        objectNotation?: boolean | undefined;
+        objectNotation?: boolean | string | undefined;
 
         /**
          * Setting of log level DEBUG
