@@ -40,7 +40,7 @@ export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
-    provider: 'google';
+    provider: "google";
     /**
      * An identifier for the user, unique among all Google accounts and
      * never reused. A Google account can have multiple email addresses at
