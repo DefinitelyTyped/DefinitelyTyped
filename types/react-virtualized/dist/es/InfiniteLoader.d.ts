@@ -1,4 +1,5 @@
-import { PureComponent, Requireable, Validator } from "react";
+import type * as PropTypes from "prop-types";
+import { PureComponent } from "react";
 import { Index, IndexRange } from "../../index";
 
 export type InfiniteLoaderChildProps = {
@@ -61,12 +62,12 @@ export type InfiniteLoaderProps = {
  */
 export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
     static propTypes: {
-        children: Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>;
-        isRowLoaded: Validator<(params: Index) => boolean>;
-        loadMoreRows: Validator<(params: IndexRange) => Promise<any>>;
-        minimumBatchSize: Validator<number>;
-        rowCount: Validator<number>;
-        threshold: Validator<number>;
+        children: PropTypes.Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>;
+        isRowLoaded: PropTypes.Validator<(params: Index) => boolean>;
+        loadMoreRows: PropTypes.Validator<(params: IndexRange) => Promise<any>>;
+        minimumBatchSize: PropTypes.Validator<number>;
+        rowCount: PropTypes.Validator<number>;
+        threshold: PropTypes.Validator<number>;
     };
 
     static defaultProps: {

@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1336,6 +1336,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
      * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
+     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
      *
      * @since 1.70
      * @experimental (since 1.70)
@@ -1728,6 +1729,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
      * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
+     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2058,6 +2060,7 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
      * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
+     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
      *
      * @since 1.70
      * @experimental (since 1.70)
@@ -2404,6 +2407,7 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Defines the base URL of the card manifest. It should be used when manifest property is an object instead
      * of a URL. If both manifest URL and base URL are defined - the base URL will be used for loading dependencies.
+     * If both manifest URL and base URL are not defined - relative resources might not be loaded correctly.
      *
      * @since 1.70
      * @experimental (since 1.70)

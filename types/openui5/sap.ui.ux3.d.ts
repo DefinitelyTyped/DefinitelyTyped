@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -2395,9 +2395,9 @@ declare module "sap/ui/ux3/DataSet" {
      */
     createViewSwitch(
       /**
-       * View
+       * DataSet view
        */
-      oView: /* was: sap.m.Element */ any,
+      oView: DataSetView,
       /**
        * Index of view
        */

@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1581,6 +1581,8 @@ declare module "sap/f/cards/BaseHeader" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { WrappingType } from "sap/m/library";
+
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
@@ -1732,6 +1734,19 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getToolbar(): Control;
     /**
+     * Gets current value of property {@link #getWrappingType wrappingType}.
+     *
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * Default value is `Normal`.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     *
+     * @returns Value of property `wrappingType`
+     */
+    getWrappingType(): WrappingType | keyof typeof WrappingType;
+    /**
      * Checks for the provided `sap.m.Text` in the aggregation {@link #getBannerLines bannerLines}. and returns
      * its index if found or -1 otherwise.
      *
@@ -1848,6 +1863,26 @@ declare module "sap/f/cards/BaseHeader" {
        */
       oToolbar: Control
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrappingType wrappingType}.
+     *
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Normal`.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrappingType(
+      /**
+       * New value for property `wrappingType`
+       */
+      sWrappingType?: WrappingType | keyof typeof WrappingType
+    ): this;
   }
 
   export interface $BaseHeaderSettings extends $ControlSettings {
@@ -1869,6 +1904,17 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.116) - this feature is experimental and the API may change.
      */
     statusVisible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     */
+    wrappingType?:
+      | (WrappingType | keyof typeof WrappingType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the toolbar.

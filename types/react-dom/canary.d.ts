@@ -138,6 +138,8 @@ declare module "." {
         initialState: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+    function requestFormReset(form: HTMLFormElement): void;
 }
 
 declare module "./client" {

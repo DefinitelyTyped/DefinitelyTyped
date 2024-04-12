@@ -1076,24 +1076,18 @@ ruleTester.run("simple-valid-test", rule, {
 }));
 
 ((): Linter.FlatConfig => ({ files: ["abc"] }));
-((): Linter.FlatConfig => ({ files: [(path) => false] }));
 ((): Linter.FlatConfig => ({ files: [["abc"]] }));
-((): Linter.FlatConfig => ({ files: [[(path) => false]] }));
-((): Linter.FlatConfig => ({ files: [["abc", (path) => false]] }));
-((): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] }));
 
 ((): Linter.FlatConfig => ({
     // @ts-expect-error // Second level of nesting is not allowed
-    files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]],
+    files: ["abc", ["abc"], [["abc"]]],
 }));
 
 ((): Linter.FlatConfig => ({ ignores: ["abc"] }));
-((): Linter.FlatConfig => ({ ignores: [(path) => false] }));
-((): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] }));
 
 ((): Linter.FlatConfig => ({
     // @ts-expect-error // No nesting
-    ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]],
+    ignores: ["abc", ["abc"]],
 }));
 
 // @ts-expect-error // Must be an array
@@ -1121,6 +1115,43 @@ ruleTester.run("simple-valid-test", rule, {
 ((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
 
 ((): Linter.FlatConfig => ({ name: "eslint:js" }));
+
+// @ts-expect-error // Generic passed in does not match the RuleEntry schema
+((): Linter.FlatConfig<{ foo?: "bar" }> => ({
+    rules: {},
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        foo: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Unspecified value
+        bar: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo: Linter.RuleEntry<[1 | 2]>; [x: string]: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+        // Wildcard values are supported
+        bar: 2,
+        baz: "off",
+        // @ts-expect-error // Invalid value
+        "foo/bar": "bar",
+    },
+}));
 
 // The following _should_ be an error, but we can't enforce on consumers
 // as it requires exactOptionalPropertyTypes: true
