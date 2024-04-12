@@ -33,6 +33,7 @@ const settings: TagifySettings = {
     id: "uniqueId",
     enforceWhitelist: true,
     userInput: true,
+    focusable: true,
     autoComplete: {
         enabled: true,
         rightKey: true,

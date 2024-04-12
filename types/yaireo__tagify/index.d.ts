@@ -752,6 +752,13 @@ declare namespace Tagify {
         userInput: boolean;
 
         /**
+         * Allow the component as a whole to receive focus. Set to `false` if implementations of Tagify
+         * without external border cause unwanted behaviour.
+         * @default true
+         */
+        focusable: boolean;
+
+        /**
          * An array of allowed tags.
          *
          * Also used for auto-completion when `autocomplete.enabled` is `true`.
