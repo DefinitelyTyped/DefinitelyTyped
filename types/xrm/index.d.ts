@@ -690,6 +690,31 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for postsave event arguments
+         */
+
+        interface PostSaveEventArguments{
+            /**
+             * Use this method to know information about a table being saved. 
+             * It returns the table logical name, record ID, and table name if save was successful.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getentityreference}
+             */
+            getEntityReference():LookupValue;
+
+            /** Use this method to know whether the save operation was successful or failed.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getissavesuccess}
+             */
+            getIsSaveSuccess():boolean;
+
+            /**
+             * Use this method to know the error details on why save failed.
+             *@see{@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getsaveerrorinfo}
+             */
+            getSaveErrorInfo():object;
+
+        }
+
+        /**
          * Interface for process stage change event arguments.
          */
         interface StageChangeEventArguments {
@@ -911,6 +936,19 @@ declare namespace Xrm {
             getEventArgs(): SaveEventArgumentsAsync;
         }
 
+         /**
+         * Synchronous Form OnPostSave event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments External Link: Form OnPostSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
+         */
+         interface PostSaveEventContext extends EventContext {
+            /**
+             * Gets postsave-event arguments.
+             */
+            getEventArgs(): PostSaveEventArguments;
+        }
+
         /**
          * Interface for a process stage change event context
          */
@@ -959,7 +997,7 @@ declare namespace Xrm {
         type SaveEventHandler = (context: SaveEventContext) => void;
         type SaveEventHandlerAsync = (context: SaveEventContextAsync) => PromiseLike<void>;
 
-        type PostSaveEventHandler = (context: EventContext) => void;
+        type PostSaveEventHandler = (context: PostSaveEventContext) => void;
 
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
         type StageChangeEventHandler = (context: StageChangeEventContext) => void;
