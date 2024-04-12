@@ -28,7 +28,7 @@ import React = require(".");
 export {};
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
-type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+export type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 /**
  * @internal
