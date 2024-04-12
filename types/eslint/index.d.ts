@@ -1215,8 +1215,6 @@ export namespace Linter {
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
 
-    type FlatConfigFileSpec = string | ((filePath: string) => boolean);
-
     interface FlatConfig<Rules extends RulesRecord = RulesRecord> {
         /**
          * An string to identify the configuration object. Used in error messages and
@@ -1229,14 +1227,14 @@ export namespace Linter {
          * object should apply to. If not specified, the configuration object applies
          * to all files
          */
-        files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
+        files?: Array<string | string[]>;
 
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should not apply to. If not specified, the configuration object
          * applies to all files matched by files
          */
-        ignores?: FlatConfigFileSpec[];
+        ignores?: string[];
 
         /**
          * An object containing settings related to how JavaScript is configured for
