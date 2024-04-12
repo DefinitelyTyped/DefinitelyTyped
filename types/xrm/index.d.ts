@@ -708,7 +708,7 @@ declare namespace Xrm {
 
             /**
              * Use this method to know the error details on why save failed.
-             *@see{@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getsaveerrorinfo}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getsaveerrorinfo}
              */
             getSaveErrorInfo():object;
 
