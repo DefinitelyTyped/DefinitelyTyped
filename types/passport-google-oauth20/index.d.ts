@@ -278,7 +278,7 @@ declare module "passport" {
         InitializeRet = express.Handler,
         AuthenticateRet = any,
         AuthorizeRet = AuthenticateRet,
-        AuthorizeOptions = AuthenticateOptions,
+        AuthorizeOptions = passport.AuthenticateOptions,
     > {
         authenticate(
             strategy: "google",
