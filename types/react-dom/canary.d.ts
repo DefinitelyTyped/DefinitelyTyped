@@ -30,7 +30,3 @@ import React = require("react");
 import ReactDOM = require(".");
 
 export {};
-
-declare module "." {
-    function requestFormReset(form: HTMLFormElement): void;
-}

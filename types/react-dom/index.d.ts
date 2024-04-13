@@ -123,3 +123,5 @@ export interface PreinitModuleOptions {
     nonce?: string | undefined;
 }
 export function preinitModule(href: string, options?: PreinitModuleOptions): void;
+
+export function requestFormReset(form: HTMLFormElement): void;
