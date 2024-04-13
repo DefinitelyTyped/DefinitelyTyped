@@ -590,3 +590,11 @@ function preloadTest() {
         });
     }
 }
+
+function requestFormResetTest(form: HTMLFormElement, button: HTMLButtonElement) {
+    ReactDOM.requestFormReset(form);
+    // @ts-expect-error
+    ReactDOM.requestFormReset(button);
+    // @ts-expect-error
+    ReactDOM.requestFormReset(null);
+}
