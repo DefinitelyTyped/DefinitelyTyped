@@ -2313,8 +2313,14 @@ declare namespace React {
         onAnimationIterationCapture?: AnimationEventHandler<T> | undefined;
 
         // Transition Events
+        onTransitionCancel?: TransitionEventHandler<T> | undefined;
+        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
         onTransitionEnd?: TransitionEventHandler<T> | undefined;
         onTransitionEndCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionRun?: TransitionEventHandler<T> | undefined;
+        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionStart?: TransitionEventHandler<T> | undefined;
+        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
     }
 
     export interface CSSProperties extends CSS.Properties<string | number> {

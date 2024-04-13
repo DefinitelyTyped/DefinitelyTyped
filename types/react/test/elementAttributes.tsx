@@ -94,6 +94,25 @@ const testCases = [
     <div inert={false} />,
     <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
      inert="" />,
+    // New Transition events
+    <div
+        onTransitionStart={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionRun={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionCancel={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionEnd={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+    />,
 ];
 
 // Needed to check these HTML elements in event callbacks.
