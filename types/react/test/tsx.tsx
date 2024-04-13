@@ -617,7 +617,6 @@ function reactNodeTests() {
     <div>{createChildren()}</div>;
     // @ts-expect-error plain objects are not allowed
     <div>{{ dave: true }}</div>;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <div>{Promise.resolve("React")}</div>;
 }
 
@@ -697,10 +696,8 @@ function elementTypeTests() {
     }
 
     const ReturnPromise = () => Promise.resolve("React");
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         render() {
             return Promise.resolve("React");
         }
@@ -777,13 +774,9 @@ function elementTypeTests() {
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <ReturnPromise />;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(ReturnPromise);
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <RenderPromise />;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
 
     // @ts-expect-error -- legacy context was removed
