@@ -725,11 +725,9 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
     const emptyObject: React.ReactNode = {};
     // @ts-expect-error
     const plainObject: React.ReactNode = { dave: true };
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const promise: React.ReactNode = Promise.resolve("React");
 
     const asyncTests = async function asyncTests() {
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         const node: Awaited<React.ReactNode> = await Promise.resolve("React");
     };
 
@@ -750,6 +748,18 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
             return null;
         },
     });
+    const RenderableContext = React.createContext<React.ReactNode>("HAL");
+    const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Should be supported.
+    let node: React.ReactNode = RenderableContext;
+    // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
+    node = NestedContext;
+
+    const NotRenderableContext = React.createContext(() => {});
+    // @ts-expect-error
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
