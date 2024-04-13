@@ -352,8 +352,9 @@ declare namespace Shippo {
     }
 
     interface Message {
+        source?: string;
         code?: string;
-        message: string;
+        text?: string;
     }
 
     interface Location {
@@ -477,22 +478,12 @@ declare namespace Shippo {
         customs_declaration?: string | undefined;
         rates: Rate[];
         carrier_accounts: string[];
-        messages: Shipment.Message[];
+        messages: Message[];
         test?: boolean | undefined;
     }
 
     namespace Shipment {
         type Status = "WAITING" | "QUEUED" | "SUCCESS" | "ERROR";
-
-        // https://docs.goshippo.com/shippoapi/public-api/#tag/Shipments
-        // https://goshippo.com/docs/reference#shipments
-        // The text description of the object schema differs from the object schema
-        // below the text and in the example. The schema from the example is used here.
-        interface Message {
-            code?: string;
-            source?: string;
-            text: string;
-        }
     }
 
     interface ShipmentExtras {
