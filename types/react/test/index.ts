@@ -741,15 +741,16 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
         const node: Awaited<React.ReactNode> = await Promise.resolve("React");
     };
 
-    const RenderProps = (
-        { children }: { children: React.ReactNode | ((data: string) => React.ReactNode) },
-    ) => {
-        if (typeof children === "function") {
-            return children("data");
-        } else {
-            return children;
+    class RenderProps extends React.Component<{ children: React.ReactNode | ((data: string) => React.ReactNode) }> {
+        render() {
+            const { children } = this.props;
+            if (typeof children === "function") {
+                return children("data");
+            } else {
+                return children;
+            }
         }
-    };
+    }
     React.createElement(RenderProps, {
         children: data => {
             // $ExpectType string
