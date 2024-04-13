@@ -740,6 +740,23 @@ class RenderChildren extends React.Component<{ children?: React.ReactNode }> {
         // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         const node: Awaited<React.ReactNode> = await Promise.resolve("React");
     };
+
+    const RenderProps = (
+        { children }: { children: React.ReactNode | ((data: string) => React.ReactNode) },
+    ) => {
+        if (typeof children === "function") {
+            return children("data");
+        } else {
+            return children;
+        }
+    };
+    React.createElement(RenderProps, {
+        children: data => {
+            // $ExpectType string
+            data;
+            return null;
+        },
+    });
 }
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) {
