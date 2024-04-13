@@ -38,16 +38,6 @@ declare module "." {
 
     export function unstable_useCacheRefresh(): () => void;
 
-    interface DOMAttributes<T> {
-        // Transition Events
-        onTransitionCancel?: TransitionEventHandler<T> | undefined;
-        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
-        onTransitionRun?: TransitionEventHandler<T> | undefined;
-        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
-        onTransitionStart?: TransitionEventHandler<T> | undefined;
-        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
-    }
-
     type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
 
     interface HTMLAttributes<T> {
