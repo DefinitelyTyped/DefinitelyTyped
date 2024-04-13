@@ -617,7 +617,6 @@ function reactNodeTests() {
     <div>{createChildren()}</div>;
     // @ts-expect-error plain objects are not allowed
     <div>{{ dave: true }}</div>;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <div>{Promise.resolve("React")}</div>;
 }
 
@@ -697,10 +696,8 @@ function elementTypeTests() {
     }
 
     const ReturnPromise = () => Promise.resolve("React");
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         render() {
             return Promise.resolve("React");
         }
@@ -709,7 +706,11 @@ function elementTypeTests() {
     const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
     const FCPromiseReactNode: React.FC = ReturnReactNode;
     class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
-        // @ts-expect-error class components cannot render async
+        // Undesired behavior.
+        // Class components cannot have an async `render`.
+        // However, they can return a `Promise` by just returning `props.children`.
+        // We can't differentiate this case from the desired behavior in TypeScript.
+        // `async render` would have to be linted against instead.
         async render() {
             return this.props.children;
         }
@@ -786,18 +787,12 @@ function elementTypeTests() {
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <ReturnPromise />;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(ReturnPromise);
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <RenderPromise />;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
 
-    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
     <ReturnPromiseReactNode />;
-    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
     React.createElement(ReturnPromiseReactNode);
     <FCPromiseReactNode />;
     React.createElement(FCPromiseReactNode);

@@ -33,6 +33,25 @@ type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 
 /**
+ * @internal Use `Awaited<ReactNode>` instead
+ */
+// Helper type to enable `Awaited<ReactNode>`.
+// Must be a copy of the non-thenables of `ReactNode`.
+type AwaitedReactNode =
+    | React.ReactElement
+    | string
+    | number
+    | bigint
+    | Iterable<React.ReactNode>
+    | React.ReactPortal
+    | boolean
+    | null
+    | undefined
+    | React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
+        keyof React.DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
+    ];
+
+/**
  * The function returned from an effect passed to {@link React.useEffect useEffect},
  * which can be used to clean up the effect when the component unmounts.
  *
@@ -409,6 +428,7 @@ declare namespace React {
         | ReactElement
         | string
         | number
+        | bigint
         | Iterable<ReactNode>
         | ReactPortal
         | boolean
@@ -416,7 +436,8 @@ declare namespace React {
         | undefined
         | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES[
             keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES
-        ];
+        ]
+        | Promise<AwaitedReactNode>;
 
     //
     // Top Level API
