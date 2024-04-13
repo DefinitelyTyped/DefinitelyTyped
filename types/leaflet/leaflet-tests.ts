@@ -988,3 +988,8 @@ circle = new L.Circle(latLng, { radius: "10" });
 circle = new L.Circle(latLng, {});
 // @ts-expect-error
 circle = new L.Circle(latLng);
+
+let circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({});
+circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle({ radius: 10 });
+// @ts-expect-error
+circleMarker = new L.CircleMarker(latLng, { radius: 10 }).setStyle();
