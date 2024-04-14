@@ -1891,8 +1891,8 @@ declare namespace Dockerode {
     }
 
     interface ContainerLogsOptions {
-        stdout?: boolean | undefined;
-        stderr?: boolean | undefined;
+        stdout: boolean;
+        stderr: boolean;
         follow?: boolean | undefined;
         since?: number | string | undefined;
         until?: number | string | undefined;
