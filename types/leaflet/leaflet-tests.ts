@@ -865,13 +865,17 @@ interface MyProperties {
     testProperty: string;
 }
 
-(L.polygon(simplePolygonLatLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
+// $ExpectType MyProperties
+let polygonFeatureProperties = L.polygon<MyProperties>(simplePolygonLatLngs).feature.properties;
+polygonFeatureProperties.testProperty = "test";
 
-(L.marker([1, 2], {
+// $ExpectType MyProperties
+let markerFeatureProperties = L.marker<MyProperties>([1, 2], {
     icon: L.icon({
         iconUrl: "my-icon.png",
     }),
-}) as L.Marker<MyProperties>).feature.properties.testProperty = "test";
+}).feature.properties;
+markerFeatureProperties.testProperty = "test";
 
 let lg = L.layerGroup();
 lg = L.layerGroup([new L.Layer(), new L.Layer()]);
