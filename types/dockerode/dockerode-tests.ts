@@ -155,22 +155,22 @@ container.remove({ v: true, force: false, link: true }, (err, data) => {
     // NOOP
 });
 
-container.logs((err, logs) => {
+container.logs({stdout: true, stderr: false}, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({}, (err, logs) => {
+container.logs({stdout: false, stderr: true}, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({ follow: true }, (err, logs) => {
+container.logs({ stdout: false, stderr: true, follow: true }, (err, logs) => {
     // $ExpectType ReadableStream
     logs;
 });
 
-container.logs({ follow: false }, (err, logs) => {
+container.logs({ stdout: true, stderr: false, follow: false }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
@@ -182,10 +182,16 @@ container.logs({ since: 0, until: 10, stdout: true, stderr: true });
 container.logs({ since: "12345.987654321", until: "54321.123456789", stdout: true, stderr: true });
 
 // $ExpectType Promise<ReadableStream>
-container.logs({ follow: true });
+container.logs({ stderr: true, stdout: false, follow: true });
 
 // $ExpectType Promise<Buffer>
-container.logs({ follow: false });
+container.logs({ stderr: true, stdout: false, follow: false });
+
+// $ExpectType Promise<ReadableStream>
+container.logs({ stderr: false, stdout: true, follow: true });
+
+// $ExpectType Promise<Buffer>
+container.logs({ stderr: false, stdout: true, follow: false });
 
 container.stats((err, logs) => {
     // $ExpectType ContainerStats
