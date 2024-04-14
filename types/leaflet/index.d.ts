@@ -2095,7 +2095,7 @@ export class CircleMarker<P = any> extends Path {
     getLatLng(): LatLng;
     setRadius(radius: number): this;
     getRadius(): number;
-    setStyle(options: CircleMarkerOptions): this;
+    setStyle(options: Partial<CircleMarkerOptions>): this;
 
     options: CircleMarkerOptions;
     feature?: geojson.Feature<geojson.Point, P> | undefined;
