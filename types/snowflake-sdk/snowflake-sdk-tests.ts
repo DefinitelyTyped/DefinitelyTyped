@@ -6,7 +6,7 @@ snowflake.configure({
     ocspFailOpen: true,
     keepAlive: true,
     jsonColumnVariantParser: undefined,
-    xmlColumnVariantParser: undefined
+    xmlColumnVariantParser: undefined,
 });
 
 const connection = snowflake.createConnection({
