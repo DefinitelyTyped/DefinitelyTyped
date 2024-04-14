@@ -175,6 +175,9 @@ container.logs({ stdout: true, stderr: false, follow: false }, (err, logs) => {
     logs;
 });
 
+// @ts-expect-error
+container.logs({});
+
 // $ExpectType Promise<Buffer>
 container.logs({ since: 0, until: 10, stdout: true, stderr: true });
 
