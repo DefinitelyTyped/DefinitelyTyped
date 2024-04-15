@@ -987,7 +987,6 @@
 /types/color-convert/                                     @Airlun @peterblazejewicz
 /types/color-diff/                                        @katsanva
 /types/color-hash/                                        @JohannesHoppe @ksocha
-/types/color-name/                                        @Ailrun
 /types/color-namer/                                       @in19farkt
 /types/color-rgba/                                        @peterblazejewicz
 /types/color-string/                                      @BendingBender @danmarshall @ccjmne
@@ -1079,6 +1078,7 @@
 /types/console-log-tree/                                  @ChocolateLoverRaj
 /types/console-ui/                                        @dfreeman
 /types/consolidate/                                       @soywiz @theosherry @nicolashenry @AndrewLeedham
+/types/consolidated-events/                               @romellem
 /types/consul/                                            @chrootsu @vadim-v @smoke
 /types/consumable-stream/                                 @DanielRose @Methuselah96
 /types/consumable-stream/v1/                              @DanielRose
@@ -3072,6 +3072,7 @@
 /types/gulp-strip-debug/                                  @peterjuras
 /types/gulp-svg-sprite/                                   @tkqubo
 /types/gulp-svgmin/                                       @Aankhen
+/types/gulp-tar/                                          @cprecioso
 /types/gulp-task-listing/                                 @joeskeen
 /types/gulp-template/                                     @pe8ter
 /types/gulp-terser/                                       @favna
@@ -7100,6 +7101,7 @@
 /types/rpio/                                              @DominikPalo @Pencl @mhoffmeyerDC @wayneparrott
 /types/rr-notifications/                                  @RobbieGM
 /types/rrc/                                               @DeividasBakanas
+/types/rrdiagram-js/                                      @muaz-32
 /types/rrdir/                                             @anyone-developer
 /types/rrdtool/                                           @filiptypjeu
 /types/rsmq-worker/                                       @MugeSo
@@ -7970,6 +7972,7 @@
 /types/textract/                                          @lal12
 /types/textversionjs/                                     @aaronosher
 /types/texzilla/                                          @m93a
+/types/tg-ads-mediation__ads-cdn/                         @barinbritva
 /types/tgfancy/                                           @Dabolus
 /types/tgwf__co2/                                         @fershad @mrchrisadams
 /types/then-eos/                                          @seangenabe
