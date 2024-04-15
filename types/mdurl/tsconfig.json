@@ -11,5 +11,14 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true
-    }
+    },
+    "files": [
+        "build/index.cjs.d.ts",
+        "lib/decode.d.mts",
+        "lib/encode.d.mts",
+        "lib/format.d.mts",
+        "lib/parse.d.mts",
+        "index.d.mts",
+        "mdurl-tests.ts",
+    ]
 }
