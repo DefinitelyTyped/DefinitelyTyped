@@ -1,4 +1,4 @@
-// same as linkify-it-tests.ts but with ESM resolution
+// same as types/markdown-it/linkify-it-tests.ts but with .mts extension and ESM syntax
 
 import LinkifyIt from "linkify-it";
 

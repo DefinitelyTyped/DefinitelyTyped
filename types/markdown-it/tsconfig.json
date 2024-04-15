@@ -15,6 +15,7 @@
         "index.d.mts",
         "index.d.ts",
         "markdown-it-tests.ts",
+        "markdown-it-tests.mts",
         "dist/index.cjs.d.ts",
         "dist/markdown-it.d.ts",
         "dist/markdown-it.min.d.ts",
