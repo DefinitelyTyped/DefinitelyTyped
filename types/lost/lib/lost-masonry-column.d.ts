@@ -1,3 +1,3 @@
-import { LostLib } from '../';
+import { LostLib } from "../";
 declare var lostMasonryColumn: LostLib;
 export = lostMasonryColumn;

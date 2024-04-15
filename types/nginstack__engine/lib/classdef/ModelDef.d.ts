@@ -8,6 +8,7 @@ declare class ModelDef {
     protected logger_: Logger;
     protected defaultAdapterDescriptor_: any;
     canAddAdaptedListeners(): boolean;
+    declareCloneableObject(propertyName: string, initialValue: any): void;
     private nextParentDefWithFieldsCache_;
     private extraFilterExpressionCache_;
     private extraFilterFieldsCache_;
@@ -18,12 +19,11 @@ declare class ModelDef {
         ON_DEMAND: string;
     };
     cachedVfsContent: boolean;
-    classDefManager: any;
+    classDefManager: ClassDefManager;
     classChangePolicy: number;
     classFieldName: string;
     dataDictionary: string;
     dbIndexSpace: string;
-    dbPrimaryKey: string;
     dbTableSpace: string;
     fieldClass: (...args: any[]) => any;
     findOrder: number;
@@ -56,6 +56,7 @@ declare class ModelDef {
     realm: string;
     justToGroup: boolean;
     tableName: string;
+    groups: FieldGroupSet;
     resetJustToGroup(): void;
     private justToGroup_;
     private nextParentWithFields_;
@@ -72,10 +73,14 @@ declare class ModelDef {
     hasEvent(eventName: string): boolean;
     declareArray(name: string): void;
     declareGetterOfObjectProperty(propertyName: string, objectClassName: string): void;
+    datasourceDefaultFilters: string[];
+    indexes: string[];
+    dbSums: any[];
     declareObject(name: string): void;
     declareEvent(name: string): void;
     protected adaptEvent_(name: string, descriptor: AdapterDescriptor | Record<any, any>): void;
-    declareCloneableObject(propertyName: string, initialValue: any): void;
+    onLookupAddResult: Event;
+    onValidate: DataEvent;
     init(opt_parentDef?: ClassDef, ...args: any[]): void;
     hasOwnFields(): boolean;
     getFieldsAsStringList(): StringList;
@@ -104,25 +109,34 @@ declare class ModelDef {
 }
 declare namespace ModelDef {
     export {
+        declareCloneableObject,
         declareArray,
         declareGetterOfObjectProperty,
         declareObject,
         declareEvent,
-        declareCloneableObject,
         Event,
         AdapterDescriptor,
         CachedDataOptions,
+        ClassDefManager,
+        ViewDef,
     };
 }
 import Logger = require('../log/Logger.js');
 type CachedDataOptions = Record<any, any>;
+type ClassDefManager = import('./ClassDefManager');
 import ClassDefCache = require('./ClassDefCache.js');
 import Field = require('./Field.js');
+import FieldGroupSet = require('./FieldGroupSet.js');
 import FieldList = require('./FieldList.js');
-type AdapterDescriptor = import('../event/AdapterDescriptor');
+type Event = import('../event/Event');
+import DataEvent = require('./DataEvent.js');
 import ClassDef = require('./ClassDef.js');
 import StringList = require('../string/StringList.js');
-type Event = import('../event/Event');
+declare function declareCloneableObject(
+    obj: ModelDef,
+    propertyName: string,
+    initialValue: any
+): void;
 declare function declareArray(obj: ModelDef, name: string): void;
 declare function declareGetterOfObjectProperty(
     obj: ModelDef,
@@ -131,8 +145,5 @@ declare function declareGetterOfObjectProperty(
 ): void;
 declare function declareObject(obj: ModelDef, name: string): void;
 declare function declareEvent(obj: ModelDef, name: string): void;
-declare function declareCloneableObject(
-    obj: ModelDef,
-    propertyName: string,
-    initialValue: any
-): void;
+type AdapterDescriptor = import('../event/AdapterDescriptor');
+type ViewDef = any;

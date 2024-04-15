@@ -1,2 +1,2 @@
-import TestIntegrityLevel = require('../2016/TestIntegrityLevel');
+import TestIntegrityLevel = require("../2016/TestIntegrityLevel");
 export = TestIntegrityLevel;

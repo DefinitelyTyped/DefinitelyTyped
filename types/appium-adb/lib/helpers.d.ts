@@ -1,9 +1,8 @@
-import { StartAppOptions } from './tools/apk-utils';
-import systemCallMethods from './tools/system-calls';
+import { StartAppOptions } from "./tools/apk-utils";
+import systemCallMethods from "./tools/system-calls";
 
-export const rootDir: string;
-export const APKS_EXTENSION: '.apks';
-export const APK_EXTENSION: '.apk';
+export const APKS_EXTENSION: ".apks";
+export const APK_EXTENSION: ".apk";
 export const APK_INSTALL_TIMEOUT: 60000;
 export const APKS_INSTALL_TIMEOUT: 120000;
 /** in milliseconds */
@@ -74,7 +73,7 @@ export function getOpenSslForOs(): Promise<string>;
  * @returns An absolute path to apksigner tool.
  * @throws If the tool is not present on the local file system.
  */
-export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>): Promise<string>;
+export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, "getBinaryFromSdkRoot">): Promise<string>;
 
 /**
  * Get the absolute path to apkanalyzer tool.
@@ -85,7 +84,7 @@ export function getApksignerForOs(sysHelpers: Pick<typeof systemCallMethods, 'ge
  * @throws If the tool is not present on the local file system.
  */
 export function getApkanalyzerForOs(
-    sysHelpers: Pick<typeof systemCallMethods, 'getBinaryFromSdkRoot'>,
+    sysHelpers: Pick<typeof systemCallMethods, "getBinaryFromSdkRoot">,
 ): Promise<string>;
 
 /**
@@ -155,7 +154,7 @@ export function getBuildToolsDirs(sdkRoot: string): Promise<string[]>;
  */
 export function extractMatchingPermissions(
     dumpsysOutput: string,
-    groupNames: ReadonlyArray<string>,
+    groupNames: readonly string[],
     grantedState?: boolean | null,
 ): string[];
 
@@ -265,7 +264,7 @@ export function parseAapt2Strings(rawOutput: string, configMarker: string): Reco
  * @return The formatted config marker
  */
 export function formatConfigMarker(
-    configsGetter: () => ReadonlyArray<string> | Promise<ReadonlyArray<string>>,
+    configsGetter: () => readonly string[] | Promise<readonly string[]>,
     desiredMarker: string,
     defaultMarker: string,
 ): Promise<string>;
@@ -319,3 +318,35 @@ export function dirExists(location?: string): Promise<boolean>;
  * @returns The escaped argument
  */
 export function escapeShellArg(arg: string): string;
+
+/**
+ * Parses the name of launchable package activity
+ * from dumpsys output.
+ *
+ * @param dumpsys the actual dumpsys output
+ * @returns Either the fully qualified
+ * activity name as a single list item or an empty list if nothing could be parsed.
+ * In Android 6 and older there is no reliable way to determine
+ * the category name for the given activity, so this API just
+ * returns all activity names belonging to 'android.intent.action.MAIN'
+ * with the expectation that the app manifest could be parsed next
+ * in order to determine category names for these.
+ */
+export function parseLaunchableActivityNames(dumpsys: string): string[];
+
+/**
+ * Check if the given string is a valid component name
+ *
+ * @param classString The string to verify
+ * @return The result of Regexp.exec operation
+ * or _null_ if no matches are found
+ */
+export function matchComponentName(classString: string): RegExpExecArray | null;
+
+/**
+ * Calculates the path to the current module's root folder
+ *
+ * @returns The full path to module root
+ * @throws {Error} If the current module root folder cannot be determined
+ */
+export function getModuleRoot(): string;

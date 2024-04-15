@@ -24,7 +24,7 @@ export interface BaseRoomAttributes {
     multiLateralRoom?: boolean | undefined;
 }
 
-export interface AllRoomAttributes extends BaseRoomAttributes, ImmutableRoomAttributes { }
+export interface AllRoomAttributes extends BaseRoomAttributes, ImmutableRoomAttributes {}
 
 export interface RoomSystemInfo {
     id: string;
@@ -77,7 +77,7 @@ export interface SearchRoomResponse {
 }
 
 export interface StreamType {
-    type: 'IM' | 'MIM' | 'ROOM' | 'POST';
+    type: "IM" | "MIM" | "ROOM" | "POST";
 }
 
 export interface StreamAttributes {
@@ -143,4 +143,9 @@ export function searchRooms(
     member?: UserId,
     sortOrder?: "BASIC" | "RELEVANCE",
 ): Promise<SearchRoomResponse>;
-export function getUserStreams(skip: number, limit: number, streamTypes: StreamType[], includeInactiveStreams: boolean): Promise<UserStream>;
+export function getUserStreams(
+    skip: number,
+    limit: number,
+    streamTypes: StreamType[],
+    includeInactiveStreams: boolean,
+): Promise<UserStream>;

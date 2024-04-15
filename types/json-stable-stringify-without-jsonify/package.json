@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-stable-stringify-without-jsonify",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/samn/json-stable-stringify"
+    ],
+    "devDependencies": {
+        "@types/json-stable-stringify-without-jsonify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Wheatley",
+            "githubUsername": "davwheat"
+        }
+    ]
+}

@@ -1,11 +1,3 @@
-// Type definitions for async-lock 1.3
-// Project: https://github.com/rain1017/async-lock, https://github.com/rogierschouten/async-lock
-// Definitions by: Alejandro <https://github.com/afharo>
-//                 Anatoly <https://github.com/rhymmor>
-//                 Humulus <https://github.com/humulus>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AsyncLock {
     type AsyncLockDoneCallback<T> = (err?: Error | null, ret?: T) => void;
 
@@ -28,6 +20,12 @@ declare namespace AsyncLock {
          * @default 0 (Never)
          */
         maxOccupationTime?: number | undefined;
+        /**
+         * Max amount of time allowed between acquiring the lock and completing execution.
+         *
+         * @default 0 (Never)
+         */
+        maxExecutionTime?: number | undefined;
         /**
          * Make a lock reentrant in the same domain.
          *
@@ -80,9 +78,10 @@ declare namespace AsyncLock {
 }
 
 declare class AsyncLock {
-    static readonly DEFAULT_TIMEOUT: number;
-    static readonly DEFAULT_MAX_OCCUPATION_TIME: number;
-    static readonly DEFAULT_MAX_PENDING: number;
+    static readonly DEFAULT_TIMEOUT: 0;
+    static readonly DEFAULT_MAX_OCCUPATION_TIME: 0;
+    static readonly DEFAULT_MAX_EXECUTION_TIME: 0;
+    static readonly DEFAULT_MAX_PENDING: 1000;
 
     constructor(options?: AsyncLock.AsyncLockOptions);
 

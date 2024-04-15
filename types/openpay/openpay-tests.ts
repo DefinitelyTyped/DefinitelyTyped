@@ -1,7 +1,7 @@
 // Test code obtained from original repository https://github.com/open-pay/openpay-node
-import Openpay = require('openpay');
+import Openpay = require("openpay");
 
-const openpay = new Openpay('your merchant id', 'your private key');
+const openpay = new Openpay("your merchant id", "your private key");
 
 const newCustomer = {
     name: "John",
@@ -13,9 +13,9 @@ const newCustomer = {
         line1: "Calle Morelos no 10",
         line2: "col. san pablo",
         postal_code: "76000",
-        country_code: "MX"
+        country_code: "MX",
     },
-    phone_number: "44209087654"
+    phone_number: "44209087654",
 };
 
 openpay.customers.create(newCustomer, (error, body) => {
@@ -33,7 +33,7 @@ const newCharge = {
     },
     amount: 200.00,
     description: "Service Charge",
-    order_id: "oid-00721"
+    order_id: "oid-00721",
 };
 openpay.charges.create(newCharge, (error, body) => {
     // ...
@@ -43,16 +43,16 @@ const payout = {
     method: "bank_account",
     bank_account: {
         clabe: "012298026516924616",
-        holder_name: "John Doe"
+        holder_name: "John Doe",
     },
     amount: 10.50,
-    description: "Monthly payment"
+    description: "Monthly payment",
 };
 openpay.payouts.create(payout, (error, body) => {
     // ...
 });
 
 openpay.setTimeout(20000); // in ms (default is 90000ms)
-openpay.setMerchantId(' your merchant id ');
-openpay.setPrivateKey(' your private key ');
+openpay.setMerchantId(" your merchant id ");
+openpay.setPrivateKey(" your private key ");
 openpay.setProductionReady(true);

@@ -29,7 +29,7 @@ declare namespace MusicKit {
         /**
          * The current playback state of the music player.
          */
-        readonly playbackState: PlaybackState;
+        readonly playbackState: PlaybackStates;
         /**
          * A Boolean value that indicates if a playback target is available.
          */

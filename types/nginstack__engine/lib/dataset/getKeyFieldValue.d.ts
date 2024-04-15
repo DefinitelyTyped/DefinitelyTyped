@@ -1,2 +1,2 @@
-declare function _exports(ds: any): number;
+declare function _exports(ds: DataSet): number;
 export = _exports;

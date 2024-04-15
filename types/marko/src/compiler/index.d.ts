@@ -1,8 +1,8 @@
-import Config from './config';
-import * as taglibLookup from './taglib-lookup';
-import * as taglibLoader from './taglib-loader';
-import * as taglibFinder from './taglib-finder';
-import * as modules from './modules';
+import Config from "./config";
+import * as modules from "./modules";
+import * as taglibFinder from "./taglib-finder";
+import * as taglibLoader from "./taglib-loader";
+import * as taglibLookup from "./taglib-lookup";
 
 export const isVDOMSupported: true;
 export const builder: any;
@@ -37,9 +37,4 @@ export function buildTaglibLookup(dirname: string): taglibLookup.TaglibLookup;
 
 export function registerTaglib(filePath: string): void;
 
-export {
-    taglibLookup,
-    taglibLoader,
-    taglibFinder,
-    modules
-};
+export { modules, taglibFinder, taglibLoader, taglibLookup };

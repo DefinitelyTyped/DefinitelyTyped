@@ -1,8 +1,3 @@
-// Type definitions for dom-parser 0.1
-// Project: https://github.com/ershov-konst/dom-parser#readme
-// Definitions by: Guy Bidkar <https://github.com/gbidkar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class DomParser {
     constructor();
 
@@ -48,7 +43,7 @@ declare namespace DomParser {
 
     enum NodeType {
         ELEMENT_NODE = 1,
-        TEXT_NODE = 3
+        TEXT_NODE = 3,
     }
 }
 

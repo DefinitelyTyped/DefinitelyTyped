@@ -1,4 +1,4 @@
-import State from './State';
+import State from "./State";
 
 // execWith :: s -> State s a -> s
 declare function execWith(val: unknown, state: State): any;

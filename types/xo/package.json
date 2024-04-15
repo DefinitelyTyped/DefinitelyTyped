@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/xo",
+    "version": "0.39.9999",
+    "projects": [
+        "https://github.com/xojs/xo#readme"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/xo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Chuah Chee Shian (shian15810)",
+            "githubUsername": "shian15810"
+        }
+    ]
+}

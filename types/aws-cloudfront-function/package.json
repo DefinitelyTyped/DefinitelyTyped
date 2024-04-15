@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/aws-cloudfront-function",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "AWS CloudFront Functions",
+    "projects": [
+        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html"
+    ],
+    "devDependencies": {
+        "@types/aws-cloudfront-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Zelenka",
+            "githubUsername": "bukka"
+        }
+    ]
+}

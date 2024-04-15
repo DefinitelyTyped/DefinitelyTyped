@@ -5,4 +5,4 @@ _useColorScheme.getPreference(["dark", "light"]);
 _useColorScheme.makeQuery("light");
 _useColorScheme.matchPreference("no-preference");
 _useColorScheme.useColorScheme();
-_useColorScheme.values[0]; // $ExpectType "dark" | "light" | "no-preference"
+_useColorScheme.values[0]; // $ExpectType "dark" | "light" | "no-preference" || "no-preference" | "dark" | "light"

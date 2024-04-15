@@ -1,8 +1,3 @@
-// Type definitions for jweixin 1.0
-// Project: https://github.com/heyong-2015/jweixin
-// Definitions by: taoqf <https://github.com/taoqf>
-//                     gomydodo <https://github.com/gomydodo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
 import * as wx from 'jweixin';
 wx.config(...);
@@ -12,75 +7,99 @@ config();
  =============================================== */
 
 declare namespace wx {
-    type ImageSizeType = 'original' | 'compressed';
-    type ImageSourceType = 'album' | 'camera';
-    type VideoSourceType = 'album' | 'camera';
-    type ApiMethod = 'onMenuShareTimeline' |
-        'onMenuShareAppMessage' |
-        'onMenuShareQQ' |
-        'onMenuShareWeibo' |
-        'onMenuShareQZone' |
-        'startRecord' |
-        'stopRecord' |
-        'onVoiceRecordEnd' |
-        'playVoice' |
-        'pauseVoice' |
-        'stopVoice' |
-        'onVoicePlayEnd' |
-        'uploadVoice' |
-        'downloadVoice' |
-        'chooseImage' |
-        'previewImage' |
-        'uploadImage' |
-        'downloadImage' |
-        'translateVoice' |
-        'getNetworkType' |
-        'openLocation' |
-        'getLocation' |
-        'hideOptionMenu' |
-        'showOptionMenu' |
-        'hideMenuItems' |
-        'showMenuItems' |
-        'hideAllNonBaseMenuItem' |
-        'showAllNonBaseMenuItem' |
-        'closeWindow' |
-        'scanQRCode' |
-        'chooseWXPay' |
-        'openProductSpecificView' |
-        'addCard' |
-        'chooseCard' |
-        'openCard';
+    type ImageSizeType = "original" | "compressed";
+    type ImageSourceType = "album" | "camera";
+    type VideoSourceType = "album" | "camera";
+    type ApiMethod =
+        | "onMenuShareTimeline"
+        | "onMenuShareAppMessage"
+        | "onMenuShareQQ"
+        | "onMenuShareWeibo"
+        | "onMenuShareQZone"
+        | "startRecord"
+        | "stopRecord"
+        | "onVoiceRecordEnd"
+        | "playVoice"
+        | "pauseVoice"
+        | "stopVoice"
+        | "onVoicePlayEnd"
+        | "uploadVoice"
+        | "downloadVoice"
+        | "chooseImage"
+        | "previewImage"
+        | "uploadImage"
+        | "downloadImage"
+        | "translateVoice"
+        | "getNetworkType"
+        | "openLocation"
+        | "getLocation"
+        | "hideOptionMenu"
+        | "showOptionMenu"
+        | "hideMenuItems"
+        | "showMenuItems"
+        | "hideAllNonBaseMenuItem"
+        | "showAllNonBaseMenuItem"
+        | "closeWindow"
+        | "scanQRCode"
+        | "chooseWXPay"
+        | "openProductSpecificView"
+        | "addCard"
+        | "chooseCard"
+        | "openCard";
     // 所有JS接口列表
     type jsApiList = ApiMethod[];
 
     // 所有菜单项列表
     // 基本类
-    type menuBase = "menuItem:exposeArticle" | // 举报
-        "menuItem:setFont" | // 调整字体
-        "menuItem:dayMode" | // 日间模式
-        "menuItem:nightMode" | // 夜间模式
-        "menuItem:refresh" | // 刷新
-        "menuItem:profile" | // 查看公众号（已添加）
+    type menuBase =
+        | "menuItem:exposeArticle"
+        | // 举报
+        "menuItem:setFont"
+        | // 调整字体
+        "menuItem:dayMode"
+        | // 日间模式
+        "menuItem:nightMode"
+        | // 夜间模式
+        "menuItem:refresh"
+        | // 刷新
+        "menuItem:profile"
+        | // 查看公众号（已添加）
         "menuItem:addContact"; // 查看公众号（未添加）
     // 传播类
-    type menuShare = "menuItem:share:appMessage" |    // 发送给朋友
-        "menuItem:share:timeline" |    // 分享到朋友圈
-        "menuItem:share:qq" |    // 分享到QQ
-        "menuItem:share:weiboApp" |    // 分享到Weibo
-        "menuItem:favorite" |    // 收藏
-        "menuItem:share:facebook" |    // 分享到FB
-        "menuItem:share:QZone";    // 分享到 QQ 空间
+    type menuShare =
+        | "menuItem:share:appMessage"
+        | // 发送给朋友
+        "menuItem:share:timeline"
+        | // 分享到朋友圈
+        "menuItem:share:qq"
+        | // 分享到QQ
+        "menuItem:share:weiboApp"
+        | // 分享到Weibo
+        "menuItem:favorite"
+        | // 收藏
+        "menuItem:share:facebook"
+        | // 分享到FB
+        "menuItem:share:QZone"; // 分享到 QQ 空间
 
     // 保护类
-    type menuProtected = "menuItem:editTag" |    // 编辑标签
-        "menuItem:delete" |    // 删除
-        "menuItem:copyUrl" |    // 复制链接
-        "menuItem:originPage" |    // 原网页
-        "menuItem:readMode" |    // 阅读模式
-        "menuItem:openWithQQBrowser" |    // 在QQ浏览器中打开
-        "menuItem:openWithSafari" |    // 在Safari中打开
-        "menuItem:share:email" |    // 邮件
-        "menuItem:share:brand";    // 一些特殊公众号
+    type menuProtected =
+        | "menuItem:editTag"
+        | // 编辑标签
+        "menuItem:delete"
+        | // 删除
+        "menuItem:copyUrl"
+        | // 复制链接
+        "menuItem:originPage"
+        | // 原网页
+        "menuItem:readMode"
+        | // 阅读模式
+        "menuItem:openWithQQBrowser"
+        | // 在QQ浏览器中打开
+        "menuItem:openWithSafari"
+        | // 在Safari中打开
+        "menuItem:share:email"
+        | // 邮件
+        "menuItem:share:brand"; // 一些特殊公众号
 
     type menuList = Array<menuBase | menuProtected | menuShare>;
 
@@ -104,13 +123,13 @@ declare namespace wx {
         complete?(...args: any[]): void;
     }
     function ready(fn: () => void): void;
-    function error(fn: (err: { errMsg: string; }) => void): void;
+    function error(fn: (err: { errMsg: string }) => void): void;
 
     interface IcheckJsApi extends BaseParams {
         jsApiList: jsApiList; // 需要检测的JS接口列表，所有JS接口列表见附录2,
         // 以键值对的形式返回，可用的api值true，不可用为false
         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-        success(res: { checkResult: { [api: string]: boolean }, errMsg: string; }): void;
+        success(res: { checkResult: { [api: string]: boolean }; errMsg: string }): void;
     }
     /**
      * 判断当前客户端版本是否支持指定JS接口
@@ -134,11 +153,11 @@ declare namespace wx {
     function onMenuShareTimeline(params: IonMenuShareTimeline): void;
 
     interface IonMenuShareAppMessage extends BaseParams {
-        title: string;    // 分享标题
-        desc: string;    // 分享描述
-        link: string;    // 分享链接
-        imgUrl: string;    // 分享图标
-        type?: 'music' | 'video或link' | 'link' | undefined;        // 分享类型,music、video或link，不填默认为link
+        title: string; // 分享标题
+        desc: string; // 分享描述
+        link: string; // 分享链接
+        imgUrl: string; // 分享图标
+        type?: "music" | "video或link" | "link" | undefined; // 分享类型,music、video或link，不填默认为link
         dataUrl?: string | undefined; // 如果type是music或video，则要提供数据链接，默认为空
         // 用户确认分享后执行的回调函数
         success(): void;
@@ -206,7 +225,7 @@ declare namespace wx {
         sourceType?: ImageSourceType[] | undefined;
         /** 成功则返回图片的本地文件路径列表 tempFilePaths */
         success(res: {
-            sourceType: string;    // weixin album camera
+            sourceType: string; // weixin album camera
             localIds: string[];
             errMsg: string;
         }): void;
@@ -345,7 +364,7 @@ declare namespace wx {
     /*=============================智能接口================================*/
 
     /*=============================设备信息================================*/
-    type networkType = '2g' | '3g' | '4g' | 'wifi';
+    type networkType = "2g" | "3g" | "4g" | "wifi";
     interface IgetNetworkType extends BaseParams {
         success(res: { networkType: networkType }): void;
     }
@@ -370,7 +389,7 @@ declare namespace wx {
     function openLocation(params: IopenLocation): void;
 
     interface IgetLocation extends BaseParams {
-        type: 'wgs84' | 'gcj02'; // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        type: "wgs84" | "gcj02"; // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
         success(res: {
             latitude: number; // 纬度，浮点数，范围为90 ~ -90
             longitude: number; // 经度，浮点数，范围为180 ~ -180。
@@ -385,7 +404,7 @@ declare namespace wx {
     /*=============================地理位置================================*/
     /*=============================摇一摇周边================================*/
     interface IstartSearchBeacons extends BaseParams {
-        ticket: string;  // 摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
+        ticket: string; // 摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
         // 开启查找完成后的回调函数
         complete(argv: any): void;
     }
@@ -466,7 +485,7 @@ declare namespace wx {
         needResult: 0 | 1; // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
         scanType: scanType[]; // 可以指定扫二维码还是一维码，默认二者都有
         // 当needResult 为 1 时，扫码返回的结果
-        success(res: { resultStr: string; }): void;
+        success(res: { resultStr: string }): void;
     }
     /**
      * 调起微信扫一扫接口
@@ -477,7 +496,7 @@ declare namespace wx {
 
     interface IopenProductSpecificView extends BaseParams {
         productId: string; // 商品id
-        viewType: '0' | '1' | '2'; // 0.默认值，普通商品详情页1.扫一扫商品详情页2.小店商品详情页
+        viewType: "0" | "1" | "2"; // 0.默认值，普通商品详情页1.扫一扫商品详情页2.小店商品详情页
     }
     /**
      * 跳转微信商品页接口
@@ -507,7 +526,7 @@ declare namespace wx {
             cardId: string;
             cardExt: string;
         }>; // 需要添加的卡券列表
-        success(res: { cardList: string[]; }): void;
+        success(res: { cardList: string[] }): void;
     }
     /**
      * 批量添加卡券接口

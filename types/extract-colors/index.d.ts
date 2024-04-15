@@ -1,16 +1,10 @@
-// Type definitions for extract-colors 1.1
-// Project: https://github.com/Namide/extract-colors
-// Definitions by: Matt <https://github.com/punctuations>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
- *
  * @param src String for a path of image, Image or ImageData.
  * @param options Optional parameters.
  */
-export function extractColors(src: string, options?: Options): Promise<Colors[]>;
+export function extractColors(src: string | HTMLImageElement | ImageData, options?: Options): Promise<Colors[]>;
 export function extractColorsFromSrc(src: string, option?: Options): Colors[];
-export function extractColorsFromImageData(imageData: string, option?: Options): Colors[];
+export function extractColorsFromImageData(imageData: ImageData, option?: Options): Colors[];
 
 export interface Options {
     /**
@@ -40,12 +34,12 @@ export interface Options {
      * @param blue
      * @param alpha
      */
-    colorValidator?: (red: number, green: number, blue: number, alpha: number) => void;
+    colorValidator?: (red: number, green: number, blue: number, alpha: number) => boolean;
     /**
      * Only for browser, can be 'Anonymous' to avoid CORS
      * @default null
      */
-    crossOrigin?: string;
+    crossOrigin?: "anonymous" | "use-credentials" | "";
 }
 
 interface Colors {

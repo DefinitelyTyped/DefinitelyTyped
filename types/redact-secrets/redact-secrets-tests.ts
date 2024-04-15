@@ -1,31 +1,11 @@
-import Redact from 'redact-secrets';
+import Redact = require("redact-secrets");
 
-const REDACTED = '[REDACTED]';
+const redact = Redact("[REDACTED]");
 
-interface Info {
-    username: string;
-    password: string;
-    extra: {
-        id: number;
-        token: string;
-        card: string;
-    };
-}
-
-const redact = Redact(REDACTED);
-
-const info: Info = {
-    username: 'watson',
-    password: 'hhGu38gf',
-    extra: {
-        id: 1,
-        token: 'some-secret-stuff',
-        card: '1234 1234 1234 1234'
-    }
+const info = {
+    username: "watson",
+    password: "hhGu38gf",
 };
 
-const redacted = redact.map(info);
-
-if (redacted.password !== REDACTED) {
-    // password should be redacted
-}
+redact.map(info); // $ExpectType { username: string; password: string; }
+redact.forEach(info); // $ExpectType void

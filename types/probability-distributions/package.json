@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/probability-distributions",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/Mattasher/probability-distributions"
+    ],
+    "devDependencies": {
+        "@types/probability-distributions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sophie Dankel",
+            "githubUsername": "sdankel"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for localtunnel 2.0
-// Project: https://github.com/localtunnel/localtunnel
-// Definitions by: Vladyslav Khrapov <https://github.com/vladhrapov>
-//                 Noam Alffasy <https://github.com/noamalffasy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -11,7 +5,7 @@ import { EventEmitter } from "events";
 export = localtunnel;
 
 declare function localtunnel(
-    port: number | localtunnel.TunnelConfig & { port: number }
+    port: number | localtunnel.TunnelConfig & { port: number },
 ): Promise<localtunnel.Tunnel>;
 
 declare function localtunnel(
@@ -21,7 +15,7 @@ declare function localtunnel(
 
 declare function localtunnel(
     port: number,
-    opts: localtunnel.TunnelConfig
+    opts: localtunnel.TunnelConfig,
 ): Promise<localtunnel.Tunnel>;
 
 declare function localtunnel(
@@ -33,7 +27,7 @@ declare function localtunnel(
 declare namespace localtunnel {
     type TunnelCallback = (
         err?: string,
-        tunnel?: Tunnel
+        tunnel?: Tunnel,
     ) => void;
 
     interface TunnelConfig {

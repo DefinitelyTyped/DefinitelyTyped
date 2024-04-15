@@ -52,11 +52,11 @@ tinycolor.readability(testColor, testColor);
 // $ExpectType boolean
 tinycolor.isReadable(testColor, testColor);
 // $ExpectType boolean
-tinycolor.isReadable(testColor, testColor, {size: "small"});
+tinycolor.isReadable(testColor, testColor, { size: "small" });
 // $ExpectType Instance
 tinycolor.mostReadable(testColor, [testColor, testColor, testColor]);
 // $ExpectType Instance
-tinycolor.mostReadable(testColor, [testColor, testColor, testColor], {size: "large", level: "AA"});
+tinycolor.mostReadable(testColor, [testColor, testColor, testColor], { size: "large", level: "AA" });
 
 const hexNames: { [key: string]: string } = tinycolor.hexNames;
 const names: { [key: string]: string } = tinycolor.names;

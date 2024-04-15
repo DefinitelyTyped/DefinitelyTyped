@@ -1,0 +1,32 @@
+name: pnpm cache
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run every day at 01:00 UTC
+    - cron: '0 1 * * *'
+
+jobs:
+  create-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+
+      - name: Get pnpm cache info
+        id: pnpm-cache
+        run: |
+          echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
+          echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: Save pnpm cache
+        uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: ${{ steps.pnpm-cache.outputs.store }}
+          key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}

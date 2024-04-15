@@ -1,3 +1,3 @@
-import ES6 = require('./es2015');
+import ES6 = require("./es2015");
 /** @deprecated */
 export = ES6;

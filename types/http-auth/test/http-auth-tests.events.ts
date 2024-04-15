@@ -1,21 +1,21 @@
-import * as http from 'http';
-import * as auth from 'http-auth';
+import * as http from "http";
+import * as auth from "http-auth";
 
 const basic = auth.basic({
-    realm: 'Simon Area.',
-    file: __dirname + '/../data/users.htpasswd', // gevorg:gpass, Sarah:testpass
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
 });
 
 // Adding event listeners.
-basic.on('success', result => {
+basic.on("success", result => {
     console.log(`User authenticated: ${result.user}`);
 });
 
-basic.on('fail', result => {
+basic.on("fail", result => {
     console.log(`User authentication failed: ${result.user}`);
 });
 
-basic.on('error', error => {
+basic.on("error", error => {
     console.log(`Authentication error: ${error.message}`);
 });
 
@@ -26,5 +26,5 @@ http.createServer(
     }),
 ).listen(1337, () => {
     // Log URL.
-    console.log('Server running at http://127.0.0.1:1337/');
+    console.log("Server running at http://127.0.0.1:1337/");
 });

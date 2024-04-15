@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-notifier",
+    "version": "5.4.9999",
+    "projects": [
+        "https://github.com/mikaelbr/node-notifier"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-notifier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

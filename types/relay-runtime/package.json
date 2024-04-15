@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/relay-runtime",
+    "version": "14.1.9999",
+    "projects": [
+        "https://github.com/facebook/relay",
+        "https://facebook.github.io/relay"
+    ],
+    "devDependencies": {
+        "@types/relay-runtime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eloy Durán",
+            "githubUsername": "alloy"
+        },
+        {
+            "name": "Marais Rossouw",
+            "githubUsername": "maraisr"
+        },
+        {
+            "name": "Lorenzo Di Giacomo",
+            "githubUsername": "morrys"
+        },
+        {
+            "name": "Levi Buzolic",
+            "githubUsername": "levibuzolic"
+        }
+    ]
+}

@@ -14,7 +14,7 @@ interface Layui {
     layer: Layui.Layer;
     laypage: Layui.Laypage;
     laytpl: Layui.Laytpl;
-    'layui.all': string;
+    "layui.all": string;
     rate: Layui.Rate;
     slider: Layui.Slider;
     table: Layui.Table;
@@ -113,7 +113,7 @@ interface Layui {
      * 获取浏览器信息：内置属性
      * @param [key]  获取浏览器信息
      */
-    device(key: 'android' | 'ie' | 'ios' | 'mobile' | 'weixin'): boolean;
+    device(key: "android" | "ie" | "ios" | "mobile" | "weixin"): boolean;
 
     /**
      * 获取浏览器信息:根据指定的key
@@ -125,7 +125,7 @@ interface Layui {
      * 获取浏览器信息：系统
      * @param [key]
      */
-    device(key: 'os'): string;
+    device(key: "os"): string;
     /**
      * 获取浏览器信息:全部
      */
@@ -218,7 +218,7 @@ interface Layui {
      * 向控制台打印一些异常信息，目前只返回了 error方法：	<br/>&nbsp;
      *   实例：layui.hint().error('出错啦');layui.hint().error('出错啦','warn');
      */
-    hint(): { error: (msg: any, type?: string | 'log' | 'info' | 'error' | 'warn' | 'debug') => void };
+    hint(): { error: (msg: any, type?: string | "log" | "info" | "error" | "warn" | "debug") => void };
 
     // https://www.layui.com/doc/base/infrastructure.html#other
     /**

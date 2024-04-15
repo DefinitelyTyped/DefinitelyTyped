@@ -1,37 +1,37 @@
 /// <reference types="node" />
 
-import { Flowable, Single } from 'rsocket-flowable';
+import { Flowable, Single } from "rsocket-flowable";
 
 export interface Responder<D, M> {
-  /**
-   * Fire and Forget interaction model of `ReactiveSocket`. The returned
-   * Publisher resolves when the passed `payload` is successfully handled.
-   */
-  fireAndForget(payload: Payload<D, M>): void;
+    /**
+     * Fire and Forget interaction model of `ReactiveSocket`. The returned
+     * Publisher resolves when the passed `payload` is successfully handled.
+     */
+    fireAndForget(payload: Payload<D, M>): void;
 
-  /**
-   * Request-Response interaction model of `ReactiveSocket`. The returned
-   * Publisher resolves with the response.
-   */
-  requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
+    /**
+     * Request-Response interaction model of `ReactiveSocket`. The returned
+     * Publisher resolves with the response.
+     */
+    requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
 
-  /**
-   * Request-Stream interaction model of `ReactiveSocket`. The returned
-   * Publisher returns values representing the response(s).
-   */
-  requestStream(payload: Payload<D, M>): Flowable<Payload<D, M>>;
+    /**
+     * Request-Stream interaction model of `ReactiveSocket`. The returned
+     * Publisher returns values representing the response(s).
+     */
+    requestStream(payload: Payload<D, M>): Flowable<Payload<D, M>>;
 
-  /**
-   * Request-Channel interaction model of `ReactiveSocket`. The returned
-   * Publisher returns values representing the response(s).
-   */
-  requestChannel(payloads: Flowable<Payload<D, M>>): Flowable<Payload<D, M>>;
+    /**
+     * Request-Channel interaction model of `ReactiveSocket`. The returned
+     * Publisher returns values representing the response(s).
+     */
+    requestChannel(payloads: Flowable<Payload<D, M>>): Flowable<Payload<D, M>>;
 
-  /**
-   * Metadata-Push interaction model of `ReactiveSocket`. The returned Publisher
-   * resolves when the passed `payload` is successfully handled.
-   */
-  metadataPush(payload: Payload<D, M>): Single<void>;
+    /**
+     * Metadata-Push interaction model of `ReactiveSocket`. The returned Publisher
+     * resolves when the passed `payload` is successfully handled.
+     */
+    metadataPush(payload: Payload<D, M>): Single<void>;
 }
 
 /**
@@ -64,53 +64,53 @@ export interface ReactiveSocket<D, M> extends Responder<D, M> {
  * send/receive data.
  */
 export interface DuplexConnection {
-  /**
-   * Send a single frame on the connection.
-   */
-  sendOne(frame: Frame): void;
+    /**
+     * Send a single frame on the connection.
+     */
+    sendOne(frame: Frame): void;
 
-  /**
-   * Send all the `input` frames on this connection.
-   *
-   * Notes:
-   * - Implementations must not cancel the subscription.
-   * - Implementations must signal any errors by calling `onError` on the
-   *   `receive()` Publisher.
-   */
-  send(input: Flowable<Frame>): void;
+    /**
+     * Send all the `input` frames on this connection.
+     *
+     * Notes:
+     * - Implementations must not cancel the subscription.
+     * - Implementations must signal any errors by calling `onError` on the
+     *   `receive()` Publisher.
+     */
+    send(input: Flowable<Frame>): void;
 
-  /**
-   * Returns a stream of all `Frame`s received on this connection.
-   *
-   * Notes:
-   * - Implementations must call `onComplete` if the underlying connection is
-   *   closed by the peer or by calling `close()`.
-   * - Implementations must call `onError` if there are any errors
-   *   sending/receiving frames.
-   * - Implemenations may optionally support multi-cast receivers. Those that do
-   *   not should throw if `receive` is called more than once.
-   */
-  receive(): Flowable<Frame>;
+    /**
+     * Returns a stream of all `Frame`s received on this connection.
+     *
+     * Notes:
+     * - Implementations must call `onComplete` if the underlying connection is
+     *   closed by the peer or by calling `close()`.
+     * - Implementations must call `onError` if there are any errors
+     *   sending/receiving frames.
+     * - Implemenations may optionally support multi-cast receivers. Those that do
+     *   not should throw if `receive` is called more than once.
+     */
+    receive(): Flowable<Frame>;
 
-  /**
-   * Close the underlying connection, emitting `onComplete` on the receive()
-   * Publisher.
-   */
-  close(): void;
+    /**
+     * Close the underlying connection, emitting `onComplete` on the receive()
+     * Publisher.
+     */
+    close(): void;
 
-  /**
-   * Open the underlying connection. Throws if the connection is already in
-   * the CLOSED or ERROR state.
-   */
-  connect(): void;
+    /**
+     * Open the underlying connection. Throws if the connection is already in
+     * the CLOSED or ERROR state.
+     */
+    connect(): void;
 
-  /**
-   * Returns a Flowable that immediately publishes the current connection
-   * status and thereafter updates as it changes. Once a connection is in
-   * the CLOSED or ERROR state, it may not be connected again.
-   * Implementations must publish values per the comments on ConnectionStatus.
-   */
-  connectionStatus(): Flowable<ConnectionStatus>;
+    /**
+     * Returns a Flowable that immediately publishes the current connection
+     * status and thereafter updates as it changes. Once a connection is in
+     * the CLOSED or ERROR state, it may not be connected again.
+     * Implementations must publish values per the comments on ConnectionStatus.
+     */
+    connectionStatus(): Flowable<ConnectionStatus>;
 }
 
 /**
@@ -123,11 +123,11 @@ export interface DuplexConnection {
  * - ERROR: when the connection has been closed for any other reason.
  */
 export type ConnectionStatus =
-  {kind: 'NOT_CONNECTED'} |
-  {kind: 'CONNECTING'} |
-  {kind: 'CONNECTED'} |
-  {kind: 'CLOSED'} |
-  {kind: 'ERROR', error: Error};
+    | { kind: "NOT_CONNECTED" }
+    | { kind: "CONNECTING" }
+    | { kind: "CONNECTED" }
+    | { kind: "CLOSED" }
+    | { kind: "ERROR"; error: Error };
 
 export const CONNECTION_STATUS: ConnectionStatus;
 
@@ -140,29 +140,29 @@ export type Encodable = string | Buffer | Uint8Array;
  * A single unit of data exchanged between the peers of a `ReactiveSocket`.
  */
 export interface Payload<D, M> {
-  data?: D | undefined;
-  metadata?: M | undefined;
+    data?: D | undefined;
+    metadata?: M | undefined;
 }
 
 export type Frame =
-  CancelFrame |
-  ErrorFrame |
-  KeepAliveFrame |
-  LeaseFrame |
-  PayloadFrame |
-  RequestChannelFrame |
-  RequestFnfFrame |
-  RequestNFrame |
-  RequestResponseFrame |
-  RequestStreamFrame |
-  ResumeFrame |
-  ResumeOkFrame |
-  SetupFrame |
-  UnsupportedFrame;
+    | CancelFrame
+    | ErrorFrame
+    | KeepAliveFrame
+    | LeaseFrame
+    | PayloadFrame
+    | RequestChannelFrame
+    | RequestFnfFrame
+    | RequestNFrame
+    | RequestResponseFrame
+    | RequestStreamFrame
+    | ResumeFrame
+    | ResumeOkFrame
+    | SetupFrame
+    | UnsupportedFrame;
 
 export interface FrameWithData {
-  data?: Encodable | undefined;
-  metadata?: Encodable | undefined;
+    data?: Encodable | undefined;
+    metadata?: Encodable | undefined;
 }
 
 export interface CancelFrame {

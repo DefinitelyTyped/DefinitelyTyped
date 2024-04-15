@@ -1,9 +1,9 @@
-import { Argv } from '.';
+import { Argv } from ".";
 
 export = Yargs;
 
 declare function Yargs(
-    processArgs?: ReadonlyArray<string> | string,
+    processArgs?: readonly string[] | string,
     cwd?: string,
     parentRequire?: NodeRequire,
 ): Argv;

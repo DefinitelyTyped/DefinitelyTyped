@@ -1,2 +1,2 @@
-import { traverse } from '../index';
+import { traverse } from "../index";
 export default traverse;

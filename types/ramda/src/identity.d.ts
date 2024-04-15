@@ -1,2 +1,2 @@
-import { identity } from '../index';
+import { identity } from "../index";
 export default identity;

@@ -1,8 +1,3 @@
-// Type definitions for OverlayScrollbars 1.12
-// Project: https://kingsora.github.io/OverlayScrollbars
-// Definitions by: KingSora <https://github.com/KingSora>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OverlayScrollbars {
     type ResizeBehavior = "none" | "both" | "horizontal" | "vertical" | "n" | "b" | "h" | "v";
 
@@ -22,7 +17,7 @@ declare namespace OverlayScrollbars {
 
     type Position = number | string;
 
-    type Extensions = string | ReadonlyArray<string> | { [extensionName: string]: {} };
+    type Extensions = string | readonly string[] | { [extensionName: string]: {} };
 
     type BasicEventCallback = (this: OverlayScrollbars) => void;
 
@@ -38,7 +33,8 @@ declare namespace OverlayScrollbars {
 
     type UpdatedCallback = (this: OverlayScrollbars, args?: UpdatedArgs) => void;
 
-    type Coordinates = { x?: Position | undefined; y?: Position | undefined }
+    type Coordinates =
+        | { x?: Position | undefined; y?: Position | undefined }
         | { l?: Position | undefined; t?: Position | undefined }
         | { left?: Position | undefined; top?: Position | undefined }
         | [Position, Position]
@@ -47,17 +43,25 @@ declare namespace OverlayScrollbars {
         | JQuery
         | {
             el: HTMLElement | JQuery;
-            scroll?: ScrollBehavior | { x?: ScrollBehavior | undefined; y?: ScrollBehavior | undefined } | [ScrollBehavior, ScrollBehavior] | undefined;
-            block?: BlockBehavior | { x?: BlockBehavior | undefined; y?: BlockBehavior | undefined } | [BlockBehavior, BlockBehavior] | undefined;
-            margin?: Margin
-            | {
-                top?: Margin | undefined;
-                right?: Margin | undefined;
-                bottom?: Margin | undefined;
-                left?: Margin | undefined;
-            }
-            | [Margin, Margin]
-            | [Margin, Margin, Margin, Margin] | undefined;
+            scroll?: ScrollBehavior | { x?: ScrollBehavior | undefined; y?: ScrollBehavior | undefined } | [
+                ScrollBehavior,
+                ScrollBehavior,
+            ] | undefined;
+            block?: BlockBehavior | { x?: BlockBehavior | undefined; y?: BlockBehavior | undefined } | [
+                BlockBehavior,
+                BlockBehavior,
+            ] | undefined;
+            margin?:
+                | Margin
+                | {
+                    top?: Margin | undefined;
+                    right?: Margin | undefined;
+                    bottom?: Margin | undefined;
+                    left?: Margin | undefined;
+                }
+                | [Margin, Margin]
+                | [Margin, Margin, Margin, Margin]
+                | undefined;
         };
 
     interface OverflowChangedArgs {
@@ -96,7 +100,7 @@ declare namespace OverlayScrollbars {
         paddingAbsolute?: boolean | undefined;
         autoUpdate?: boolean | null | undefined;
         autoUpdateInterval?: number | undefined;
-        updateOnLoad?: string | ReadonlyArray<string> | null | undefined;
+        updateOnLoad?: string | readonly string[] | null | undefined;
         nativeScrollbarsOverlaid?: {
             showNativeScrollbars?: boolean | undefined;
             initialize?: boolean | undefined;
@@ -117,7 +121,7 @@ declare namespace OverlayScrollbars {
         textarea?: {
             dynWidth?: boolean | undefined;
             dynHeight?: boolean | undefined;
-            inheritedAttrs?: string | ReadonlyArray<string> | null | undefined;
+            inheritedAttrs?: string | readonly string[] | null | undefined;
         } | undefined;
         callbacks?: {
             onInitialized?: BasicEventCallback | null | undefined;
@@ -239,12 +243,26 @@ declare namespace OverlayScrollbars {
 
         removed(): void;
 
-        on(callbackName: string, callbackArgs?: UIEvent | OverflowChangedArgs | OverflowAmountChangedArgs | DirectionChangedArgs | SizeChangedArgs | UpdatedArgs): void;
+        on(
+            callbackName: string,
+            callbackArgs?:
+                | UIEvent
+                | OverflowChangedArgs
+                | OverflowAmountChangedArgs
+                | DirectionChangedArgs
+                | SizeChangedArgs
+                | UpdatedArgs,
+        ): void;
     }
 
     interface ExtensionInfo {
         name: string;
-        extensionFactory: (this: OverlayScrollbars, defaultOptions: {}, compatibility: Compatibility, framework: any) => Extension;
+        extensionFactory: (
+            this: OverlayScrollbars,
+            defaultOptions: {},
+            compatibility: Compatibility,
+            framework: any,
+        ) => Extension;
         defaultOptions?: {} | undefined;
     }
 
@@ -288,7 +306,7 @@ declare namespace OverlayScrollbars {
         now(): number;
         stpP(event: Event): void;
         prvD(event: Event): void;
-        page(event: MouseEvent): { x: number, y: number };
+        page(event: MouseEvent): { x: number; y: number };
         mBtn(event: MouseEvent): number;
         inA<T>(item: T, array: T[]): number;
         isA(obj: any): boolean;
@@ -311,8 +329,11 @@ interface OverlayScrollbars {
     scroll(
         coordinates: OverlayScrollbars.Coordinates,
         duration?: number,
-        easing?: OverlayScrollbars.Easing | { x?: OverlayScrollbars.Easing | undefined; y?: OverlayScrollbars.Easing | undefined } | [OverlayScrollbars.Easing, OverlayScrollbars.Easing],
-        complete?: (...args: any[]) => any
+        easing?: OverlayScrollbars.Easing | {
+            x?: OverlayScrollbars.Easing | undefined;
+            y?: OverlayScrollbars.Easing | undefined;
+        } | [OverlayScrollbars.Easing, OverlayScrollbars.Easing],
+        complete?: (...args: any[]) => any,
     ): void;
     scroll(coordinates: OverlayScrollbars.Coordinates, options: {}): void;
 
@@ -338,20 +359,20 @@ interface OverlayScrollbarsStatic {
     (
         element: HTMLElement | Element | JQuery,
         options: OverlayScrollbars.Options,
-        extensions?: OverlayScrollbars.Extensions
+        extensions?: OverlayScrollbars.Extensions,
     ): OverlayScrollbars;
     (
-        element: HTMLElement | Element | JQuery | null
+        element: HTMLElement | Element | JQuery | null,
     ): OverlayScrollbars | undefined;
 
     (
-        elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
+        elements: NodeListOf<Element> | readonly Element[] | JQuery,
         options: OverlayScrollbars.Options,
-        extensions?: OverlayScrollbars.Extensions
+        extensions?: OverlayScrollbars.Extensions,
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
     (
-        elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
-        filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean)
+        elements: NodeListOf<Element> | readonly Element[] | JQuery,
+        filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean),
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
 
     globals(): OverlayScrollbars.Globals;
@@ -363,9 +384,13 @@ interface OverlayScrollbarsStatic {
     extension(extensionName: string): OverlayScrollbars.ExtensionInfo;
     extension(
         extensionName: string,
-        extensionFactory: (this: OverlayScrollbars, defaultOptions: {},
-            compatibility: OverlayScrollbars.Compatibility, framework: any) => OverlayScrollbars.Extension,
-        defaultOptions?: {}
+        extensionFactory: (
+            this: OverlayScrollbars,
+            defaultOptions: {},
+            compatibility: OverlayScrollbars.Compatibility,
+            framework: any,
+        ) => OverlayScrollbars.Extension,
+        defaultOptions?: {},
     ): void;
     extension(extensionName: string, extensionFactory: null | undefined): void;
 
@@ -375,10 +400,10 @@ interface OverlayScrollbarsStatic {
 interface JQuery {
     overlayScrollbars(
         options: OverlayScrollbars.Options,
-        extensions?: OverlayScrollbars.Extensions
+        extensions?: OverlayScrollbars.Extensions,
     ): JQuery;
     overlayScrollbars(
-        filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean)
+        filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean),
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
 }
 

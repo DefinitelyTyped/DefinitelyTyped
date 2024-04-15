@@ -1,9 +1,9 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { Connection } from './connection';
-import { Record } from './record';
-import { Channel } from './channel';
-import { Topic } from './topic';
+import { Channel } from "./channel";
+import { Connection } from "./connection";
+import { Record } from "./record";
+import { Topic } from "./topic";
 
 export interface StreamingMessage {
     event: {
@@ -21,7 +21,7 @@ export class Streaming extends EventEmitter {
     subscribe(name: string, listener: StreamingMessage): any; // Faye Subscription
     topic(name: string): Topic;
     unsubscribe(name: string, listener: StreamingMessage): Streaming;
-    createClient(extensions?: Array<any>): any; // Faye Client
+    createClient(extensions?: any[]): any; // Faye Client
 }
 
 export namespace StreamingExtension {

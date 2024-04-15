@@ -1,13 +1,41 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
+import * as React from "react";
 import {
-    CartesianGrid, Line, LineChart, PieChart, Pie,
-    Sector, XAxis, YAxis, Tooltip, ReferenceLine,
-    ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized,
-    RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Sankey, Layer
-} from 'recharts';
+    Area,
+    AreaChart,
+    Bar,
+    BarChart,
+    Brush,
+    CartesianGrid,
+    ContentRenderer,
+    Customized,
+    Label,
+    LabelList,
+    Layer,
+    Legend,
+    Line,
+    LineChart,
+    Pie,
+    PieChart,
+    PolarAngleAxis,
+    PolarGrid,
+    PolarRadiusAxis,
+    Radar,
+    RadarChart,
+    ReferenceArea,
+    ReferenceLine,
+    ResponsiveContainer,
+    Sankey,
+    Scatter,
+    ScatterChart,
+    Sector,
+    Text,
+    Tooltip,
+    TooltipPayload,
+    TooltipProps,
+    XAxis,
+    YAxis,
+    ZAxis,
+} from "recharts";
 
 interface ComponentState {
     activeIndex: number;
@@ -15,7 +43,7 @@ interface ComponentState {
 
 class Component extends React.Component<{}, ComponentState> {
     state = {
-        activeIndex: 0
+        activeIndex: 0,
     };
 
     private clickHandler(...args: any[]) {
@@ -28,57 +56,62 @@ class Component extends React.Component<{}, ComponentState> {
                 pv of page
             </Text>
         );
-    }
+    };
 
     private renderCustomizedElement(props: any) {
-        console.log('Customized props', props);
-        return (<Text x={0} y={0} width={100} height={20} className="customized-text">Customized element</Text>);
+        console.log("Customized props", props);
+        return (
+            <Text x={0} y={0} width={100} height={20} className="customized-text">
+                Customized element
+            </Text>
+        );
     }
+
     render() {
         const data = [
-            { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-            { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-            { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-            { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-            { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-            { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-            { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+            { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
+            { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
+            { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
+            { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
+            { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
+            { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
+            { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
         ];
 
         const data2 = [
-            { name: 'Group A', value: 400 },
-            { name: 'Group B', value: 300 },
-            { name: 'Group C', value: 300 },
-            { name: 'Group D', value: 200 }
+            { name: "Group A", value: 400 },
+            { name: "Group B", value: 300 },
+            { name: "Group C", value: 300 },
+            { name: "Group D", value: 200 },
         ];
 
         const data3 = {
             nodes: [
-              { name: "Accept" },
-              { name: "Reject" },
-              { name: "Hold" },
-              { name: "Unaffected" },
-              { name: "Accept" },
-              { name: "Reject" },
-              { name: "Hold" },
-              { name: "Unaffected" },
+                { name: "Accept" },
+                { name: "Reject" },
+                { name: "Hold" },
+                { name: "Unaffected" },
+                { name: "Accept" },
+                { name: "Reject" },
+                { name: "Hold" },
+                { name: "Unaffected" },
             ],
             links: [
-              { source: 0, target: 4, value: 1 },
-              { source: 0, target: 5, value: 1 },
-              { source: 0, target: 6, value: 1 },
-              { source: 1, target: 4, value: 1 },
-              { source: 1, target: 5, value: 4 },
-              { source: 2, target: 6, value: 1 },
-              { source: 3, target: 5, value: 10 },
-              { source: 3, target: 7, value: 10 },
+                { source: 0, target: 4, value: 1 },
+                { source: 0, target: 5, value: 1 },
+                { source: 0, target: 6, value: 1 },
+                { source: 1, target: 4, value: 1 },
+                { source: 1, target: 5, value: 4 },
+                { source: 2, target: 6, value: 1 },
+                { source: 3, target: 5, value: 10 },
+                { source: 3, target: 7, value: 10 },
             ],
-          };
+        };
 
         const renderActiveShape = (props: any) => {
             const RADIAN = Math.PI / 180;
-            const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-                fill, payload, percent, value } = props;
+            const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } =
+                props;
             const sin = Math.sin(-RADIAN * midAngle);
             const cos = Math.cos(-RADIAN * midAngle);
             const sx = cx + (outerRadius + 10) * cos;
@@ -87,11 +120,13 @@ class Component extends React.Component<{}, ComponentState> {
             const my = cy + (outerRadius + 30) * sin;
             const ex = mx + (cos >= 0 ? 1 : -1) * 22;
             const ey = my;
-            const textAnchor = cos >= 0 ? 'start' : 'end';
+            const textAnchor = cos >= 0 ? "start" : "end";
 
             return (
                 <g>
-                    <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+                    <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+                        {payload.name}
+                    </text>
                     <Sector
                         cx={cx}
                         cy={cy}
@@ -112,7 +147,14 @@ class Component extends React.Component<{}, ComponentState> {
                     />
                     <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
                     <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-                    <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+                    <text
+                        x={ex + (cos >= 0 ? 1 : -1) * 12}
+                        y={ey}
+                        textAnchor={textAnchor}
+                        fill="#333"
+                    >
+                        {`PV ${value}`}
+                    </text>
                     <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                         {`(Rate ${(percent * 100).toFixed(2)}%)`}
                     </text>
@@ -133,21 +175,33 @@ class Component extends React.Component<{}, ComponentState> {
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Line id="custom-id2" type="monotone" dataKey="pv" stroke="#82ca9d" dot={false} />
-                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={({ payload }) => <span>{payload.x}</span>} />
-                        <Line id="custom-id3" type="monotone" dataKey="pv" stroke="#82ca9d" dot={{ stroke: 'red', strokeWidth: 2 }} />
+                        <Line
+                            id="custom-id3"
+                            type="monotone"
+                            dataKey="pv"
+                            stroke="#82ca9d"
+                            dot={({ payload }) => <span>{payload.x}</span>}
+                        />
+                        <Line
+                            id="custom-id3"
+                            type="monotone"
+                            dataKey="pv"
+                            stroke="#82ca9d"
+                            dot={{ stroke: "red", strokeWidth: 2 }}
+                        />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
                         <Brush dataKey="name" leaveTimeOut={55} />
                         <ReferenceLine label={"reference"} />
-                        <ReferenceArea
-                            stroke="red"
-                            fill="red"
-                            y2={1}
-                            strokeOpacity={0.2}
-                            fillOpacity={0.1}
+                        <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
+                        <Customized
+                            component={
+                                <Text x={0} y={0} width={100} height={20}>
+                                    Customized element
+                                </Text>
+                            }
                         />
-                        <Customized component={<Text x={0} y={0} width={100} height={20}>Customized element</Text>} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
@@ -161,7 +215,21 @@ class Component extends React.Component<{}, ComponentState> {
                         <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-                        <Tooltip />
+                        <Tooltip
+                            content={(toolTipProps: TooltipProps) => {
+                                return (
+                                    <div>
+                                        {toolTipProps.payload?.map(payload => (
+                                            <div>
+                                                Stroke: {payload.stroke}
+                                                Stroke dash array: {payload.strokeDasharray}
+                                                Stroke width: {payload.strokeWidth}
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            }}
+                        />
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
@@ -185,13 +253,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <Tooltip />
                         <Brush dataKey="name" />
                         <ReferenceLine />
-                        <ReferenceArea
-                            stroke="red"
-                            fill="red"
-                            y2={1}
-                            strokeOpacity={0.2}
-                            fillOpacity={0.1}
-                        />
+                        <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
                     </LineChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={400}>
@@ -223,12 +285,7 @@ class Component extends React.Component<{}, ComponentState> {
                     </ScatterChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={250}>
-                    <BarChart
-                        width={730}
-                        height={250}
-                        data={data}
-                        margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
-                    >
+                    <BarChart width={730} height={250} data={data} margin={{ top: 15, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name">
                             <Label value="Pages of my website" offset={0} position="insideBottom" />
@@ -246,23 +303,29 @@ class Component extends React.Component<{}, ComponentState> {
                     </BarChart>
                 </ResponsiveContainer>
                 <ResponsiveContainer height={250}>
-                    <AreaChart width={730} height={250} data={data}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <AreaChart width={730} height={250} data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                             </linearGradient>
                             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                             </linearGradient>
                         </defs>
-                        <XAxis dataKey="name" padding={{left: 20}} />
-                        <YAxis padding={{top: 10}} />
+                        <XAxis dataKey="name" padding={{ left: 20 }} />
+                        <YAxis padding={{ top: 10 }} />
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
-                        <Area id="custom-id" type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                        <Area
+                            id="custom-id"
+                            type="monotone"
+                            dataKey="uv"
+                            stroke="#8884d8"
+                            fillOpacity={1}
+                            fill="url(#colorUv)"
+                        />
                         <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                     </AreaChart>
                 </ResponsiveContainer>
@@ -284,5 +347,3 @@ class Component extends React.Component<{}, ComponentState> {
         );
     }
 }
-
-ReactDOM.render(<Component />, document.getElementById('app'));

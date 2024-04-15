@@ -1,8 +1,8 @@
-import * as breaks from './cast.framework.breaks';
-import * as events from './cast.framework.events';
-import * as messages from './cast.framework.messages';
-import * as system from './cast.framework.system';
-import * as ui from './cast.framework.ui';
+import * as breaks from "./cast.framework.breaks";
+import * as events from "./cast.framework.events";
+import * as messages from "./cast.framework.messages";
+import * as system from "./cast.framework.system";
+import * as ui from "./cast.framework.ui";
 
 export import breaks = breaks;
 export import events = events;
@@ -25,12 +25,12 @@ export enum LoggerLevel {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
 export enum ContentProtection {
-    NONE = 'none',
-    CLEARKEY = 'clearkey',
-    PLAYREADY = 'playready',
-    WIDEVINE = 'widevine',
-    AES_128 = 'aes_128',
-    AES_128_CKP = 'aes_128_ckp',
+    NONE = "none",
+    CLEARKEY = "clearkey",
+    PLAYREADY = "playready",
+    WIDEVINE = "widevine",
+    AES_128 = "aes_128",
+    AES_128_CKP = "aes_128_ckp",
 }
 
 /**
@@ -556,7 +556,7 @@ export class PlayerManager {
             | events.EventType.TIMED_METADATA_CHANGED
             | events.EventType.TIMED_METADATA_ENTER
             | events.EventType.TIMED_METADATA_EXIT,
-        eventListener: TimedMetadataEventHandler
+        eventListener: TimedMetadataEventHandler,
     ): void;
 
     /**
@@ -948,6 +948,13 @@ export class PlaybackConfig {
      * Maximum number of times to retry a network request for a segment.
      */
     segmentRequestRetryLimit?: number | undefined;
+
+    /**
+     * This object is merged with CAF's default Shaka configurations (with options set in this object taking precedence).
+     * Developers should use caution when applying values to the Shaka configuration as it could result in playback issues.
+     * For allowed options in this object, @see: https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.PlayerConfiguration
+     */
+    shakaConfig?: any;
 }
 /**
  * HTTP(s) Request/Response information.
@@ -1044,6 +1051,17 @@ export class CastReceiverOptions {
     queue?: QueueBase | undefined;
 
     /**
+     * Shaka version in the MAJOR.MINOR.PATCH format, for example "3.2.11" (the current default).
+     * Supported versions are >=3.2.11 <5.0.0. Deprecated but still compatible versions are >=2.5.6 <3.2.11.
+     * NOTE: Shaka Player versions older than the default are not recommended, as many bugs have been fixed in the latest versions.
+     * Newer versions may be specified here to opt-in to additional fixes or features that are not yet available by default.
+     * However, please be aware that future releases of the Web Receiver SDK may change the range of supported versions and
+     * force the use of a version other than what you specify here. This flag should be used only as a temporary measure,
+     * and under guidance from the Cast support team. (https://developers.google.com/cast/support) Use at your own risk.
+     */
+    shakaVersion?: string | undefined;
+
+    /**
      * Indicate the receiver should not load the MPL player.
      */
     skipMplLoad?: boolean | undefined;
@@ -1083,6 +1101,11 @@ export class CastReceiverOptions {
      * Indicate that MPL should be used for DASH content.
      */
     useLegacyDashSupport?: boolean | undefined;
+
+    /**
+     * If true, use Shaka Player for HLS content. Defaults to false.
+     */
+    useShakaForHls?: boolean | undefined;
 
     /**
      * An integer used as an internal version number to represent your receiver version.

@@ -1,6 +1,6 @@
-import { Deferred } from '@xmpp/events';
-import { Entity, Middleware } from '@xmpp/middleware';
-import { Element } from '@xmpp/xml';
+import { Deferred } from "@xmpp/events";
+import { Entity, Middleware } from "@xmpp/middleware";
+import { Element } from "@xmpp/xml";
 
 export = iqCaller;
 
@@ -16,7 +16,7 @@ declare namespace iqCaller {
     /**
      * Implements the caller side of iq semantics.
      */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IQCaller<TEntity extends Entity> {
         handlers: Map<string, Deferred<Element>>;
         entity: TEntity;

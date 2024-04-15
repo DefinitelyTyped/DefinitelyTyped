@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/electron-positioner",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/jenslind/electron-positioner"
+    ],
     "dependencies": {
         "electron": "^15.3.1"
-    }
+    },
+    "devDependencies": {
+        "@types/electron-positioner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ktmouk",
+            "githubUsername": "ktmouk"
+        }
+    ]
 }

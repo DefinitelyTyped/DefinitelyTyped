@@ -1,9 +1,3 @@
-// Type definitions for node-ip2region 1.0
-// Project: https://github.com/lionsoul2014/ip2region
-// Definitions by: DCsunset <https://github.com/DCsunset>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 type SearchResult = {
@@ -14,7 +8,7 @@ type SearchResult = {
 type SearchCallback = (err: NodeJS.ErrnoException, result: SearchResult) => void;
 
 declare class IP2Region {
-    //#region Static Functions
+    // #region Static Functions
 
     // Single Instance
     static create(dbPath?: string): IP2Region;
@@ -24,11 +18,11 @@ declare class IP2Region {
      */
     static destroy(): void;
 
-    //#endregion
+    // #endregion
 
     constructor(options?: { dbPath: string });
 
-    //#region Public Functions
+    // #region Public Functions
     /**
      * Destroy the current file by closing it.
      */

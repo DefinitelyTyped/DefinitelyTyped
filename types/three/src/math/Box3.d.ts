@@ -1,10 +1,10 @@
-import { BufferAttribute } from './../core/BufferAttribute';
-import { Vector3 } from './Vector3';
-import { Object3D } from './../core/Object3D';
-import { Sphere } from './Sphere';
-import { Plane } from './Plane';
-import { Matrix4 } from './Matrix4';
-import { Triangle } from './Triangle';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { Object3D } from "../core/Object3D.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Plane } from "./Plane.js";
+import { Sphere } from "./Sphere.js";
+import { Triangle } from "./Triangle.js";
+import { Vector3 } from "./Vector3.js";
 
 export class Box3 {
     constructor(min?: Vector3, max?: Vector3);

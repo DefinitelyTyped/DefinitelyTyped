@@ -1,18 +1,18 @@
 import {
-    Vector2,
-    Scene,
     Camera,
-    Object3D,
     Color,
     Matrix4,
     MeshBasicMaterial,
     MeshDepthMaterial,
+    Object3D,
+    Scene,
     ShaderMaterial,
-    WebGLRenderTarget,
     Texture,
-} from '../../../src/Three';
+    Vector2,
+    WebGLRenderTarget,
+} from "three";
 
-import { Pass } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class OutlinePass extends Pass {
     constructor(resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[]);
@@ -48,7 +48,7 @@ export class OutlinePass extends Pass {
     materialCopy: ShaderMaterial;
     oldClearColor: Color;
     oldClearAlpha: number;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     tempPulseColor1: Color;
     tempPulseColor2: Color;
     textureMatrix: Matrix4;

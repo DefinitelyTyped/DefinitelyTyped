@@ -1,14 +1,14 @@
-import Koa = require('koa');
-import Koa2Ratelimit = require('koa2-ratelimit');
-import mongoose = require('mongoose');
-import Sequelize = require('sequelize');
+import Koa = require("koa");
+import Koa2Ratelimit = require("koa2-ratelimit");
+import mongoose = require("mongoose");
+import Sequelize = require("sequelize");
 
 const { RateLimit, Stores } = Koa2Ratelimit;
 
 const getId = (ctx: Koa.Context) => ctx.state.userId ?? ctx.ip;
 
 RateLimit.defaultOptions({
-    message: 'Get out.',
+    message: "Get out.",
     interval: { sec: 30, hour: 1, ms: 200 },
     delayAfter: 9,
     max: 3,
@@ -17,27 +17,27 @@ RateLimit.defaultOptions({
     keyGenerator: getId,
     async handler(ctx) {
         ctx.status = 420;
-        ctx.body = { status: 420, message: 'Enhance Your Calm' };
+        ctx.body = { status: 420, message: "Enhance Your Calm" };
     },
     headers: false,
     weight: async () => 5,
-    onLimitReached: async () => console.log('limit reached'),
+    onLimitReached: async () => console.log("limit reached"),
 });
 
 const rate1 = RateLimit.middleware();
 const rate2 = RateLimit.middleware({
     interval: 50000,
-    message: 'Nope',
+    message: "Nope",
     store: new Stores.Memory(),
     statusCode: 420,
 });
 const rate3 = RateLimit.middleware({
     store: new Stores.Redis({
-        host: 'localhost',
+        host: "localhost",
         db: 2,
-        password: 'password',
+        password: "password",
     }),
-    whitelist: ['1234567890'],
+    whitelist: ["1234567890"],
 });
 const rate4 = RateLimit.middleware({
     store: new Stores.Mongodb(mongoose.connection),

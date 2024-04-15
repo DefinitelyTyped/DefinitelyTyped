@@ -20,5 +20,5 @@ export class Sound extends Component {
     set stopOnRemove(arg: boolean);
     get stopOnRemove(): boolean;
 }
-import { Component } from '../core/Component';
-import { SoundInstance } from './SoundInstance';
+import { Component } from "../core/Component";
+import { SoundInstance } from "./SoundInstance";

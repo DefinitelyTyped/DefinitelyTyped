@@ -1,2 +1,2 @@
-import AbstractRelationalComparison = require('../2018/AbstractRelationalComparison');
+import AbstractRelationalComparison = require("../2018/AbstractRelationalComparison");
 export = AbstractRelationalComparison;

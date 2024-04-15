@@ -1,8 +1,3 @@
-// Type definitions for srtparsejs 1.0
-// Project: https://github.com/Qiming-Liu/srtparse.js
-// Definitions by: Qiming-Liu <https://github.com/Qiming-Liu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface srtArray {
     id: string;
     startTime: string;

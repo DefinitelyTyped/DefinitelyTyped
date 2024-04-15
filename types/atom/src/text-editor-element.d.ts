@@ -1,4 +1,4 @@
-import { Disposable, PixelPosition, PointLike, TextEditor, TextEditorComponent } from '../index';
+import { Disposable, PixelPosition, PointLike, TextEditor, TextEditorComponent } from "../index";
 
 /**
  *  Undocumented: Custom HTML elemnent for TextEditor, atom-text-editor

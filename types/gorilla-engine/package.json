@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/gorilla-engine",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gorilla-engine",
+    "projects": [
+        "https://gorilla-engine.com"
+    ],
+    "devDependencies": {
+        "@types/gorilla-engine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julian Woodward",
+            "githubUsername": "jhwoodward"
+        },
+        {
+            "name": "UJAM-JH",
+            "githubUsername": "UJAM-JH"
+        },
+        {
+            "name": "rip-off-hb",
+            "githubUsername": "rip-off-hb"
+        },
+        {
+            "name": "pkellett",
+            "githubUsername": "pkellett"
+        },
+        {
+            "name": "vpietropaolo-ujam",
+            "githubUsername": "vpietropaolo-ujam"
+        },
+        {
+            "name": "agachuma",
+            "githubUsername": "agachuma"
+        }
+    ]
+}

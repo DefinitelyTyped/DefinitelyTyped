@@ -1,13 +1,5 @@
-// Type definitions for express-fileupload 1.4
-// Project: https://github.com/richardgirges/express-fileupload#readme
-// Definitions by: Sefa Ilkimen <https://github.com/silkimen>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Mark Oude Elberink <https://github.com/markxoe>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { RequestHandler } from 'express';
-import type { BusboyConfig } from 'busboy';
+import type { BusboyConfig } from "busboy";
+import type { RequestHandler } from "express";
 
 declare global {
     namespace Express {
@@ -143,6 +135,11 @@ declare namespace fileUpload {
          * @default false
          */
         debug?: boolean | undefined;
+        /**
+         * Customizable logger to write debug messages to.
+         * @default console
+         */
+        logger?: { log: Console["log"] } | undefined;
         /**
          * This defines how long to wait for data before aborting. Set to `0` if you want to turn off timeout checks.
          * @default 60_000

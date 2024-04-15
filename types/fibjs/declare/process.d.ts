@@ -202,7 +202,7 @@
 declare module "process" {
     
 
-    module process {
+    namespace process {
         
         
         /**

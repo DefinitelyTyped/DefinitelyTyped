@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/denodeify",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/matthew-andrews/denodeify"
+    ],
+    "devDependencies": {
+        "@types/denodeify": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "joaomoreno",
+            "githubUsername": "joaomoreno"
+        }
+    ]
+}

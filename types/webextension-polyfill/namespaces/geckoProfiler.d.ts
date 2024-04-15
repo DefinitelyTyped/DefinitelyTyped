@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.geckoProfiler
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Exposes the browser's profiler.
  * Permissions: "geckoProfiler"
@@ -11,18 +14,15 @@ export namespace GeckoProfiler {
     type ProfilerFeature =
         | "java"
         | "js"
-        | "leaf"
         | "mainthreadio"
         | "fileio"
         | "fileioall"
-        | "noiostacks"
+        | "nomarkerstacks"
         | "screenshots"
         | "seqstyle"
         | "stackwalk"
-        | "jstracer"
         | "jsallocations"
         | "nostacksampling"
-        | "preferencereads"
         | "nativeallocations"
         | "ipcmessages"
         | "audiocallbacktracing"
@@ -33,6 +33,7 @@ export namespace GeckoProfiler {
         | "markersallthreads"
         | "unregisteredthreads"
         | "processcpu"
+        | "power"
         | "responsiveness";
 
     type supports = "windowLength";

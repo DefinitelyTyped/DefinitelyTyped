@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/node-xmpp-core",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/node-xmpp/node-xmpp"
+    ],
+    "dependencies": {
+        "@types/ltx": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-xmpp-core": "workspace:."
+    },
+    "owners": []
+}

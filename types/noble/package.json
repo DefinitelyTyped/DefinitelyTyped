@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/noble",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/sandeepmistry/noble"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/noble": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seon-Wook Park",
+            "githubUsername": "swook"
+        },
+        {
+            "name": "Shantanu Bhadoria",
+            "githubUsername": "shantanubhadoria"
+        },
+        {
+            "name": "Luke Libraro",
+            "githubUsername": "lukel99"
+        },
+        {
+            "name": "Dan Chao",
+            "githubUsername": "bioball"
+        },
+        {
+            "name": "Michal Lower",
+            "githubUsername": "keton"
+        },
+        {
+            "name": "Rob Moran",
+            "githubUsername": "thegecko"
+        },
+        {
+            "name": "Clayton Kucera",
+            "githubUsername": "claytonkucera"
+        }
+    ]
+}

@@ -3,136 +3,136 @@
 declare namespace M {
     class Dropdown extends Component<DropdownOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Dropdown;
 
         /**
-         * Init Dropdown
+         * Init Dropdown.
          */
         static init(els: Element, options?: Partial<DropdownOptions>): Dropdown;
 
         /**
-         * Init Dropdowns
+         * Init Dropdowns.
          */
         static init(els: MElements, options?: Partial<DropdownOptions>): Dropdown[];
 
         /**
-         * ID of the dropdown element
+         * ID of the dropdown element.
          */
         id: string;
 
         /**
-         * The DOM element of the dropdown
+         * The DOM element of the dropdown.
          */
         dropdownEl: Element;
 
         /**
-         * If the dropdown is open
+         * If the dropdown is open.
          */
         isOpen: boolean;
 
         /**
-         * If the dropdown content is scrollable
+         * If the dropdown content is scrollable.
          */
         isScrollable: boolean;
 
         /**
-         * The index of the item focused
+         * The index of the item focused.
          */
         focusedIndex: number;
 
         /**
-         * Open dropdown
+         * Open dropdown.
          */
         open(): void;
 
         /**
-         * Close dropdown
+         * Close dropdown.
          */
         close(): void;
 
         /**
-         * While dropdown is open, you can recalculate its dimensions if its contents have changed
+         * While dropdown is open, you can recalculate its dimensions if its contents have changed.
          */
         recalculateDimensions(): void;
     }
 
     interface DropdownOptions {
         /**
-         * Defines the edge the menu is aligned to
+         * Defines the edge the menu is aligned to.
          * @default 'left'
          */
-        alignment: 'left' | 'right';
+        alignment: "left" | "right";
 
         /**
-         * If true, automatically focus dropdown el for keyboard
+         * If true, automatically focus dropdown el for keyboard.
          * @default true
          */
         autoTrigger: boolean;
 
         /**
-         * If true, constrainWidth to the size of the dropdown activator
+         * If true, constrainWidth to the size of the dropdown activator.
          * @default true
          */
         constrainWidth: boolean;
 
         /**
-         * Provide an element that will be the bounding container of the dropdown
+         * Provide an element that will be the bounding container of the dropdown.
          * @default null
          */
         container: Element;
 
         /**
-         * If false, the dropdown will show below the trigger
+         * If false, the dropdown will show below the trigger.
          * @default true
          */
         coverTrigger: boolean;
 
         /**
-         * If true, close dropdown on item click
+         * If true, close dropdown on item click.
          * @default true
          */
         closeOnClick: boolean;
 
         /**
-         * If true, the dropdown will open on hover
+         * If true, the dropdown will open on hover.
          * @default false
          */
         hover: boolean;
 
         /**
-         * The duration of the transition enter in milliseconds
+         * The duration of the transition enter in milliseconds.
          * @default 150
          */
         inDuration: number;
 
         /**
-         * The duration of the transition out in milliseconds
+         * The duration of the transition out in milliseconds.
          * @default 250
          */
         outDuration: number;
 
         /**
-         * Function called when dropdown starts entering
+         * Function called when dropdown starts entering.
          * @default null
          */
         onOpenStart: (this: Dropdown, el: Element) => void;
 
         /**
-         * Function called when dropdown finishes entering
+         * Function called when dropdown finishes entering.
          * @default null
          */
         onOpenEnd: (this: Dropdown, el: Element) => void;
 
         /**
-         * Function called when dropdown starts exiting
+         * Function called when dropdown starts exiting.
          * @default null
          */
         onCloseStart: (this: Dropdown, el: Element) => void;
 
         /**
-         * Function called when dropdown finishes exiting
+         * Function called when dropdown finishes exiting.
          * @default null
          */
         onCloseEnd: (this: Dropdown, el: Element) => void;

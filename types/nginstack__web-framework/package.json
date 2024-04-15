@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/nginstack__web-framework",
+    "version": "71.0.9999",
+    "projects": [
+        "https://dev.azure.com/nginstack/nginstack"
+    ],
+    "dependencies": {
+        "@types/nginstack__datasource": "*",
+        "@types/nginstack__engine": "*",
+        "@types/nginstack__orm": "*"
+    },
+    "devDependencies": {
+        "@types/nginstack__web-framework": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Renato Ribeiro",
+            "githubUsername": "Henato"
+        },
+        {
+            "name": "Paulo Moreno",
+            "githubUsername": "paulocmoreno"
+        },
+        {
+            "name": "Ricardo Cavalcante",
+            "githubUsername": "oficial"
+        }
+    ]
+}

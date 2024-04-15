@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/photoshop",
+    "version": "25.0.9999",
+    "projects": [
+        "https://adobe.io/photoshop/uxp"
+    ],
+    "devDependencies": {
+        "@types/photoshop": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Adobe Photoshop",
+            "githubUsername": "adobe-photoshop"
+        },
+        {
+            "name": "Barkin Aygun",
+            "githubUsername": "baaygun"
+        },
+        {
+            "name": "Heewoo Ahn",
+            "githubUsername": "heewooa"
+        },
+        {
+            "name": "Jaroslav Bereza",
+            "githubUsername": "jardicc"
+        }
+    ]
+}

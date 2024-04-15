@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/svg-spritemap-webpack-plugin",
+    "version": "4.4.9999",
+    "projects": [
+        "https://github.com/cascornelissen/svg-spritemap-webpack-plugin"
+    ],
     "dependencies": {
+        "@types/glob": "~8.1.0",
+        "@types/node": "*",
         "tapable": "^2.2.0",
         "webpack": "^5.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/svg-spritemap-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

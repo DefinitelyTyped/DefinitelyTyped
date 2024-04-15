@@ -1,15 +1,50 @@
-import { Recognizer } from '../Recognizer';
-import { Token } from '../Token';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import DFA from "../dfa/DFA";
+import BitSet from "../misc/BitSet";
+import Recognizer from "../Recognizer";
+import Token from "../Token";
+import RecognitionException from "./RecognitionException";
 
-export class ErrorListener {
-    syntaxError(recognizer: Recognizer, offendingSymbol: Token, line: number, column: number, msg: string, e: any): void;
-    reportAmbiguity(recognizer: Recognizer, dfa: any, startIndex: number, stopIndex: number, exact: any, ambigAlts: any, configs: any): void;
-    reportAttemptingFullContext(recognizer: Recognizer, dfa: any, startIndex: number, stopIndex: number, conflictingAlts: any, configs: any): void;
-    reportContextSensitivity(recognizer: Recognizer, dfa: any, startIndex: number, stopIndex: number, conflictingAlts: any, configs: any): void;
-}
+/**
+ * Provides an empty default implementation of ANTLRErrorListener. The
+ * default implementation of each method does nothing, but can be overridden as
+ * necessary.
+ */
+export default class ErrorListener {
+    syntaxError(
+        recognizer: Recognizer,
+        offendingSymbol: Token,
+        line: number,
+        column: number,
+        msg: string,
+        e: RecognitionException,
+    ): void;
 
-export class ConsoleErrorListener extends ErrorListener {
-}
+    reportAmbiguity(
+        recognizer: Recognizer,
+        dfa: DFA,
+        startIndex: number,
+        stopIndex: number,
+        exact: boolean,
+        ambigAlts: BitSet,
+        configs: ATNConfigSet,
+    ): void;
 
-export class ProxyErrorListener extends ErrorListener {
+    reportAttemptingFullContext(
+        recognizer: Recognizer,
+        dfa: DFA,
+        startIndex: number,
+        stopIndex: number,
+        conflictingAlts: BitSet,
+        configs: ATNConfigSet,
+    ): void;
+
+    reportContextSensitivity(
+        recognizer: Recognizer,
+        dfa: DFA,
+        startIndex: number,
+        stopIndex: number,
+        conflictingAlts: any,
+        configs: ATNConfigSet,
+    ): void;
 }

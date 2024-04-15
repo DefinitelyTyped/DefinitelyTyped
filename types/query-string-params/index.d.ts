@@ -1,8 +1,3 @@
-// Type definitions for query-string-params 1.7
-// Project: https://github.com/bansalrachita/query-string-params#readme
-// Definitions by: Rachita <https://github.com/bansalrachita>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Transforms complex object in a URL search string.
  * For e.g. {orgType: ["a", "b", "c"], orgId: ["x ", "y"]} -> "orgType=a,b,c&orgId=x,y"

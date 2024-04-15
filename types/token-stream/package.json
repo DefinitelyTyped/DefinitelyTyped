@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/token-stream",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/pugjs/token-stream#readme"
+    ],
+    "devDependencies": {
+        "@types/token-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maiko Tan",
+            "githubUsername": "MaikoTan"
+        }
+    ]
+}

@@ -2,7 +2,7 @@ class TestObject {
     text: string;
     value: number;
 
-    constructor (text: string, value: number) {
+    constructor(text: string, value: number) {
         this.text = text;
         this.value = value;
     }
@@ -29,7 +29,7 @@ $.cookie.json = true;
 
 $.cookie("test", testObject, cookieOptions);
 
-var result = <TestObject>$.cookie("test");
+var result = <TestObject> $.cookie("test");
 
 console.log(result.text);
 

@@ -1,20 +1,13 @@
-// Type definitions for react-rte 0.16
-// Project: https://github.com/sstur/react-rte
-// Definitions by: jclyons52 <https://github.com/jclyons52>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import { Component, ReactNode } from "react";
 import { ContentBlock, EditorState } from "draft-js";
+import { Component, ReactNode } from "react";
 import draftjs = require("draft-js");
 
 type CustomBlockFn = (
-    element: Element
+    element: Element,
 ) => undefined | null | CustomBlockObject;
 type CustomInlineFn = (
     element: Element,
-    inlineCreators: InlineCreators
+    inlineCreators: InlineCreators,
 ) => undefined | null | Style | draftjs.EntityInstance;
 
 interface CustomBlockObject {
@@ -41,7 +34,7 @@ interface ImportOptions {
 
 declare function stateFromHTML(
     html: string,
-    options?: ImportOptions
+    options?: ImportOptions,
 ): draftjs.ContentState;
 
 type BlockStyleFn = (block: draftjs.ContentBlock) => RenderConfig;
@@ -62,7 +55,7 @@ interface ExportOptions {
 
 declare function stateToHTML(
     content: draftjs.ContentState,
-    options?: ExportOptions
+    options?: ExportOptions,
 ): string;
 
 interface StringMap {
@@ -77,7 +70,7 @@ export class EditorValue {
     setContentFromString(
         markup: string,
         format: string,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
     static createEmpty(decorator?: any): EditorValue;
     static createFromState(editorState: EditorState): EditorValue;
@@ -85,7 +78,7 @@ export class EditorValue {
         markup: string,
         format: string,
         decorator?: any,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
 }
 
@@ -106,7 +99,7 @@ type SetControlState = (key: string, value: string) => void;
 type CustControlFunc = (
     set: SetControlState,
     get: GetControlState,
-    state: EditorState
+    state: EditorState,
 ) => ReactNode;
 
 type CustomControl = ReactNode | CustControlFunc;
@@ -114,6 +107,7 @@ type CustomControl = ReactNode | CustControlFunc;
 type GroupName =
     | "INLINE_STYLE_BUTTONS"
     | "BLOCK_TYPE_BUTTONS"
+    | "BLOCK_ALIGNMENT_BUTTONS"
     | "LINK_BUTTONS"
     | "BLOCK_TYPE_DROPDOWN"
     | "HISTORY_BUTTONS"
@@ -123,6 +117,7 @@ export interface ToolbarConfig {
     display: GroupName[];
     extraProps?: object | undefined;
     INLINE_STYLE_BUTTONS: StyleConfigList;
+    BLOCK_ALIGNMENT_BUTTONS: StyleConfigList;
     BLOCK_TYPE_DROPDOWN: StyleConfigList;
     BLOCK_TYPE_BUTTONS: StyleConfigList;
 }
@@ -146,6 +141,7 @@ interface Props {
     rootStyle?: object | undefined;
     editorStyle?: object | undefined;
     toolbarStyle?: object | undefined;
+    onBlur?: (event: object) => void;
 }
 
 declare class RichTextEditor extends Component<Props, any> {
@@ -153,7 +149,7 @@ declare class RichTextEditor extends Component<Props, any> {
     static createValueFromString(
         markup: string,
         format: string,
-        options?: ImportOptions
+        options?: ImportOptions,
     ): EditorValue;
 }
 

@@ -1,14 +1,14 @@
 /// <reference types="node" />
 
-import { Encodable } from 'rsocket-types';
+import { Encodable } from "rsocket-types";
 
 /**
  * Commonly used subset of the allowed Node Buffer Encoder types.
  */
 export interface Encoder<T extends Encodable> {
-  byteLength: (value: Encodable) => number;
-  encode: (value: Encodable, buffer: Buffer, start: number, end: number) => number;
-  decode: (buffer: Buffer, start: number, end: number) => T;
+    byteLength: (value: Encodable) => number;
+    encode: (value: Encodable, buffer: Buffer, start: number, end: number) => number;
+    decode: (buffer: Buffer, start: number, end: number) => T;
 }
 
 /**
@@ -16,12 +16,12 @@ export interface Encoder<T extends Encodable> {
  * to/from binary.
  */
 export interface Encoders<T extends Encodable> {
-  data: Encoder<T>;
-  dataMimeType: Encoder<string>;
-  message: Encoder<string>;
-  metadata: Encoder<T>;
-  metadataMimeType: Encoder<string>;
-  resumeToken: Encoder<T>;
+    data: Encoder<T>;
+    dataMimeType: Encoder<string>;
+    message: Encoder<string>;
+    metadata: Encoder<T>;
+    metadataMimeType: Encoder<string>;
+    resumeToken: Encoder<T>;
 }
 
 export const UTF8Encoder: Encoder<string>;

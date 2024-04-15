@@ -54,14 +54,14 @@ name = new ndn.Name("/A");
 name = new ndn.Name(name);
 
 name = name.append(ndn.Name.Component.fromSegment(4))
-           .append("A", ndn.ComponentType.OTHER_CODE, 1000)
-           .appendImplicitSha256Digest(DIGEST)
-           .appendParametersSha256Digest(DIGEST)
-           .appendSegment(0)
-           .appendSegmentOffset(1)
-           .appendSequenceNumber(4)
-           .appendTimestamp(3)
-           .appendVersion(2);
+    .append("A", ndn.ComponentType.OTHER_CODE, 1000)
+    .appendImplicitSha256Digest(DIGEST)
+    .appendParametersSha256Digest(DIGEST)
+    .appendSegment(0)
+    .appendSegmentOffset(1)
+    .appendSequenceNumber(4)
+    .appendTimestamp(3)
+    .appendVersion(2);
 
 name.clear();
 n = name.compare(name);

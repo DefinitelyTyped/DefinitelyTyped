@@ -1,16 +1,9 @@
-// Type definitions for jquery.dynatree 1.2.5
-// Project: http://code.google.com/p/dynatree/
-// Definitions by: François de Campredon <https://github.com/fdecampredon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 
 declare namespace JQueryUI {
     interface UI {
-        dynatree: DynatreeNamespace
+        dynatree: DynatreeNamespace;
     }
 }
 
@@ -34,7 +27,7 @@ interface DynaTree {
     isInitializing(): boolean;
     isReloading(): boolean;
     isUserEvent(): boolean;
-    loadKeyPath(keyPath: string, callback: (node: DynaTreeNode, status: string) =>void ): void;
+    loadKeyPath(keyPath: string, callback: (node: DynaTreeNode, status: string) => void): void;
     reactivate(setFocus: boolean): void;
     redraw(): void;
     reload(): void;
@@ -42,9 +35,8 @@ interface DynaTree {
     selectKey(key: string, flag: string): DynaTreeNode;
     serializeArray(stopOnParents: boolean): any[];
     toDict(includeRoot?: boolean): any;
-    visit(fn: (node: DynaTreeNode) =>boolean, includeRoot?: boolean): void;
+    visit(fn: (node: DynaTreeNode) => boolean, includeRoot?: boolean): void;
 }
-
 
 interface DynaTreeNode {
     data: DynaTreeDataModel;
@@ -88,12 +80,12 @@ interface DynaTreeNode {
     select(flag: boolean): void;
     setLazyNodeStatus(status: number): void;
     setTitle(title: string): void;
-    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) =>number, deep?: boolean): void;
-    toDict(recursive: boolean, callback?: (node: any) =>any): any;
+    sortChildren(cmp?: (a: DynaTreeNode, b: DynaTreeNode) => number, deep?: boolean): void;
+    toDict(recursive: boolean, callback?: (node: any) => any): any;
     toggleExpand(): void;
     toggleSelect(): void;
-    visit(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
-    visitParents(fn: (node: DynaTreeNode) =>boolean, includeSelf: boolean): void;
+    visit(fn: (node: DynaTreeNode) => boolean, includeSelf: boolean): void;
+    visitParents(fn: (node: DynaTreeNode) => boolean, includeSelf: boolean): void;
 }
 
 interface DynatreeOptions {
@@ -119,8 +111,8 @@ interface DynatreeOptions {
     keyPathSeparator?: string | undefined; // Used by node.getKeyPath() and tree.loadKeyPath().
     cookieId?: string | undefined; // Choose a more unique name, to allow multiple trees.
 
-    dnd?: DynaTreeDNDOptions | undefined;  // Drag'n'drop support
-    ajaxDefaults?: DynaTreeAjaxOptions | undefined;// Used by initAjax option
+    dnd?: DynaTreeDNDOptions | undefined; // Drag'n'drop support
+    ajaxDefaults?: DynaTreeAjaxOptions | undefined; // Used by initAjax option
     strings?: DynaTreeStringsOptions | undefined;
     cookie?: DynaTreeCookieOptions | undefined;
     // Class names used, when rendering the HTML markup.
@@ -128,31 +120,30 @@ interface DynatreeOptions {
     // values are still set to default.
     classNames?: DynatreeClassNamesOptions | undefined;
 
-
     // Low level event handlers: onEvent(dtnode, event): return false, to stop default processing
-    onClick?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // null: generate focus, expand, activate, select events.
-    onDblClick?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // (No default actions.)
-    onKeydown?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // null: generate keyboard navigation (focus, expand, activate).
-    onKeypress?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // (No default actions.)
-    onFocus?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // null: set focus to node.
-    onBlur?: ((dtnode: DynaTreeNode, event: Event) =>boolean) | undefined; // null: remove focus from node.
+    onClick?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // null: generate focus, expand, activate, select events.
+    onDblClick?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // (No default actions.)
+    onKeydown?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // null: generate keyboard navigation (focus, expand, activate).
+    onKeypress?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // (No default actions.)
+    onFocus?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // null: set focus to node.
+    onBlur?: ((dtnode: DynaTreeNode, event: Event) => boolean) | undefined; // null: remove focus from node.
 
     // Pre-event handlers onQueryEvent(flag, dtnode): return false, to stop processing
-    onQueryActivate?: ((flag: string, dtnode: DynaTreeNode) =>void) | undefined; // Callback(flag, dtnode) before a node is (de)activated.
-    onQuerySelect?: ((flag: string, dtnode: DynaTreeNode) =>void) | undefined;// Callback(flag, dtnode) before a node is (de)selected.
-    onQueryExpand?: ((flag: string, dtnode: DynaTreeNode) =>void) | undefined;// Callback(flag, dtnode) before a node is expanded/collpsed.
+    onQueryActivate?: ((flag: string, dtnode: DynaTreeNode) => void) | undefined; // Callback(flag, dtnode) before a node is (de)activated.
+    onQuerySelect?: ((flag: string, dtnode: DynaTreeNode) => void) | undefined; // Callback(flag, dtnode) before a node is (de)selected.
+    onQueryExpand?: ((flag: string, dtnode: DynaTreeNode) => void) | undefined; // Callback(flag, dtnode) before a node is expanded/collpsed.
 
     // High level event handlers
-    onPostInit?: ((isReloading: boolean, isError: boolean) =>void) | undefined;// Callback(isReloading, isError) when tree was (re)loaded.
-    onActivate?: ((dtnode: DynaTreeNode) =>void) | undefined; // Callback(dtnode) when a node is activated.
-    onDeactivate?: ((dtnode: DynaTreeNode) =>void) | undefined; // Callback(dtnode) when a node is deactivated.
-    onSelect?: ((flag: string, dtnode: DynaTreeNode) =>void) | undefined; // Callback(flag, dtnode) when a node is (de)selected.
-    onExpand?: ((flag: string, dtnode: DynaTreeNode) =>void) | undefined; // Callback(flag, dtnode) when a node is expanded/collapsed.
-    onLazyRead?: ((dtnode: DynaTreeNode) =>void) | undefined; // Callback(dtnode) when a lazy node is expanded for the first time.
-    onCustomRender?: ((dtnode: DynaTreeNode) =>void) | undefined; // Callback(dtnode) before a node is rendered. Return a HTML string to override.
-    onCreate?: ((dtnode: DynaTreeNode, nodeSpan: any) =>void) | undefined; // Callback(dtnode, nodeSpan) after a node was rendered for the first time.
-    onRender?: ((dtnode: DynaTreeNode, nodeSpan: any) =>void) | undefined; // Callback(dtnode, nodeSpan) after a node was rendered.
-    postProcess?: ((data: any, dataType: any) =>void) | undefined; // Callback(data, dataType) before an Ajax result is passed to dynatree.
+    onPostInit?: ((isReloading: boolean, isError: boolean) => void) | undefined; // Callback(isReloading, isError) when tree was (re)loaded.
+    onActivate?: ((dtnode: DynaTreeNode) => void) | undefined; // Callback(dtnode) when a node is activated.
+    onDeactivate?: ((dtnode: DynaTreeNode) => void) | undefined; // Callback(dtnode) when a node is deactivated.
+    onSelect?: ((flag: string, dtnode: DynaTreeNode) => void) | undefined; // Callback(flag, dtnode) when a node is (de)selected.
+    onExpand?: ((flag: string, dtnode: DynaTreeNode) => void) | undefined; // Callback(flag, dtnode) when a node is expanded/collapsed.
+    onLazyRead?: ((dtnode: DynaTreeNode) => void) | undefined; // Callback(dtnode) when a lazy node is expanded for the first time.
+    onCustomRender?: ((dtnode: DynaTreeNode) => void) | undefined; // Callback(dtnode) before a node is rendered. Return a HTML string to override.
+    onCreate?: ((dtnode: DynaTreeNode, nodeSpan: any) => void) | undefined; // Callback(dtnode, nodeSpan) after a node was rendered for the first time.
+    onRender?: ((dtnode: DynaTreeNode, nodeSpan: any) => void) | undefined; // Callback(dtnode, nodeSpan) after a node was rendered.
+    postProcess?: ((data: any, dataType: any) => void) | undefined; // Callback(data, dataType) before an Ajax result is passed to dynatree.
 }
 
 interface DynaTreeDataModel {
@@ -183,14 +174,14 @@ interface DynaTreeDNDOptions {
     revert: boolean; // true: slide helper back to source if drop is rejected
 
     // Make tree nodes draggable:
-    onDragStart?: ((sourceNode: any) =>void) | undefined; // Callback(sourceNode), return true, to enable dnd
-    onDragStop?: ((sourceNode: any) =>void) | undefined; // Callback(sourceNode)
+    onDragStart?: ((sourceNode: any) => void) | undefined; // Callback(sourceNode), return true, to enable dnd
+    onDragStop?: ((sourceNode: any) => void) | undefined; // Callback(sourceNode)
     // Make tree nodes accept draggables
 
-    onDragEnter?: ((targetNode: any, sourceNode: any) =>void) | undefined; // Callback(targetNode, sourceNode)
-    onDragOver?: ((targetNode: any, sourceNode: any, hitMode: string) =>void) | undefined;  // Callback(targetNode, sourceNode, hitMode)
-    onDrop?: ((targetNode: any, sourceNode: any, hitMode: string) =>void) | undefined; // Callback(targetNode, sourceNode, hitMode)
-    onDragLeave?: ((targetNode: any, sourceNode: any) =>void) | undefined; // Callback(targetNode, sourceNode)
+    onDragEnter?: ((targetNode: any, sourceNode: any) => void) | undefined; // Callback(targetNode, sourceNode)
+    onDragOver?: ((targetNode: any, sourceNode: any, hitMode: string) => void) | undefined; // Callback(targetNode, sourceNode, hitMode)
+    onDrop?: ((targetNode: any, sourceNode: any, hitMode: string) => void) | undefined; // Callback(targetNode, sourceNode, hitMode)
+    onDragLeave?: ((targetNode: any, sourceNode: any) => void) | undefined; // Callback(targetNode, sourceNode)
 }
 
 interface DynaTreeCookieOptions {
@@ -203,7 +194,6 @@ interface DynaTreeStringsOptions {
 }
 
 interface DynaTreeAjaxOptions {
-
     cache?: boolean | undefined; // false: Append random '_' argument to the request url to prevent caching.
     timeout?: number | undefined; // >0: Make sure we get an ajax error for invalid URLs
     dataType?: string | undefined; // Expect json format and pass json object to callbacks.

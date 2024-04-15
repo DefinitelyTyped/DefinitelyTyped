@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace ButtonToolbar {
     export interface ButtonToolbarProps extends React.HTMLProps<ButtonToolbar> {
@@ -11,5 +11,5 @@ declare namespace ButtonToolbar {
         vertical?: boolean | undefined;
     }
 }
-declare class ButtonToolbar extends React.Component<ButtonToolbar.ButtonToolbarProps> { }
+declare class ButtonToolbar extends React.Component<ButtonToolbar.ButtonToolbarProps> {}
 export = ButtonToolbar;

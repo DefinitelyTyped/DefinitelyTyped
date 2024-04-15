@@ -1,0 +1,19 @@
+{
+    "files": [
+        "index.d.ts",
+        "gauge-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "types": [],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

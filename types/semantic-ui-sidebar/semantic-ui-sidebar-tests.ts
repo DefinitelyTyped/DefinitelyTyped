@@ -1,7 +1,7 @@
 function test_sidebar_static() {
-    $.fn.sidebar.settings.error!.method = 'method';
-    $.fn.sidebar.settings.namespace = 'namespace';
-    $.fn.sidebar.settings.name = 'name';
+    $.fn.sidebar.settings.error!.method = "method";
+    $.fn.sidebar.settings.namespace = "namespace";
+    $.fn.sidebar.settings.name = "name";
     $.fn.sidebar.settings.silent = false;
     $.fn.sidebar.settings.debug = true;
     $.fn.sidebar.settings.performance = true;
@@ -9,31 +9,31 @@ function test_sidebar_static() {
 }
 
 function test_sidebar() {
-    const selector = '.ui.sidebar';
-    $(selector).sidebar('attach events', $(), 'toggle'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('show'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('hide'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('toggle'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('is visible'); // $ExpectType boolean
-    $(selector).sidebar('is hidden'); // $ExpectType boolean
-    $(selector).sidebar('push page'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('get direction'); // $ExpectType string
-    $(selector).sidebar('pull page'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('add body CSS'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('remove body CSS'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('get transition event'); // $ExpectType string
-    $(selector).sidebar('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).sidebar('setting', 'debug'); // $ExpectType boolean
-    $(selector).sidebar('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.sidebar";
+    $(selector).sidebar("attach events", $(), "toggle"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("show"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("hide"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("toggle"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("is visible"); // $ExpectType boolean
+    $(selector).sidebar("is hidden"); // $ExpectType boolean
+    $(selector).sidebar("push page"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("get direction"); // $ExpectType string
+    $(selector).sidebar("pull page"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("add body CSS"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("remove body CSS"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("get transition event"); // $ExpectType string
+    $(selector).sidebar("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).sidebar("setting", "debug"); // $ExpectType boolean
+    $(selector).sidebar("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).sidebar('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).sidebar("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).sidebar({
@@ -44,25 +44,25 @@ function test_sidebar() {
         scrollLock: true,
         returnScroll: false,
         delaySetup: true,
-        transition: 'auto',
-        mobileTransition: 'auto',
+        transition: "auto",
+        mobileTransition: "auto",
         defaultTransition: {
             mobile: {
-                left: 'left',
-                right: 'right',
-                top: 'top',
-                bottom: 'bottom'
+                left: "left",
+                right: "right",
+                top: "top",
+                bottom: "bottom",
             },
             computer: {
-                left: 'left',
-                right: 'right',
-                top: 'top',
-                bottom: 'bottom'
-            }
+                left: "left",
+                right: "right",
+                top: "top",
+                bottom: "bottom",
+            },
         },
         useLegacy: false,
         duration: 20,
-        easing: 'easeInOutQuint',
+        easing: "easeInOutQuint",
         onVisible() {
             this; // $ExpectType JQuery<HTMLElement>
         },
@@ -79,45 +79,46 @@ function test_sidebar() {
             this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
-            active: 'active',
-            animating: 'animating',
-            dimmed: 'dimmed',
-            ios: 'ios',
-            pushable: 'pushable',
-            pushed: 'pushed',
-            right: 'right',
-            top: 'top',
-            left: 'left',
-            bottom: 'bottom',
-            visible: 'visible'
+            active: "active",
+            animating: "animating",
+            dimmed: "dimmed",
+            ios: "ios",
+            pushable: "pushable",
+            pushed: "pushed",
+            right: "right",
+            top: "top",
+            left: "left",
+            bottom: "bottom",
+            visible: "visible",
         },
         regExp: {
             ios: /(iPad|iPhone|iPod)/g,
-            mobile: /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/g,
+            mobile:
+                /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/g,
         },
         selector: {
-            fixed: 'fixed',
-            omitted: 'omitted',
-            pusher: 'pusher',
-            sidebar: 'sidebar'
+            fixed: "fixed",
+            omitted: "omitted",
+            pusher: "pusher",
+            sidebar: "sidebar",
         },
         error: {
-            method: 'method',
-            pusher: 'pusher',
-            movedSidebar: 'movedSidebar',
-            overlay: 'overlay',
-            notFound: 'notFound'
-        }
+            method: "method",
+            pusher: "pusher",
+            movedSidebar: "movedSidebar",
+            overlay: "overlay",
+            notFound: "notFound",
+        },
     });
     $(selector).sidebar(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).sidebar('foo');
+    $(selector).sidebar("foo");
     // @ts-expect-error
-    $(selector).sidebar({ foo: 'bar' });
+    $(selector).sidebar({ foo: "bar" });
 }
 
-import sidebar = require('semantic-ui-sidebar');
+import sidebar = require("semantic-ui-sidebar");
 
 function test_module() {
     sidebar; // $ExpectType Sidebar

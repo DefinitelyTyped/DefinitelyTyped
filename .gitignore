@@ -40,7 +40,9 @@ npm-debug.log
 # Visual Studio Code
 .settings/launch.json
 .vs
-.vscode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.template.json
 .history
 
 # yarn
@@ -53,3 +55,7 @@ pnpm-debug.log
 
 # Output of 'npm pack'
 *.tgz
+
+# Package names containing dots may match any of the above.
+# Just allow any directory within the types directory directly.
+!/types/*/

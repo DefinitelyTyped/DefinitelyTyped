@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slack-winston",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/niftylettuce/slack-winston"
+    ],
+    "devDependencies": {
+        "@types/slack-winston": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elliot Blackburn",
+            "githubUsername": "BlueHatbRit"
+        }
+    ]
+}

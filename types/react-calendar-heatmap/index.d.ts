@@ -1,30 +1,40 @@
-// Type definitions for react-calendar-heatmap 1.6
-// Project: https://github.com/patientslikeme/react-calendar-heatmap
-// Definitions by: Keisuke Kan <https://github.com/9renpoto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as React from "react";
 
-import * as React from 'react';
+export type ReactCalendarHeatmapDate = string | number | Date;
+export interface ReactCalendarHeatmapValue<T extends ReactCalendarHeatmapDate> {
+    date: T;
+    [key: string]: any;
+}
 
-export interface Props {
-    classForValue?: ((value: any) => any) | undefined;
+export interface Props<T extends ReactCalendarHeatmapDate> {
+    classForValue?: ((value: ReactCalendarHeatmapValue<T> | undefined) => string) | undefined;
     endDate?: string | number | Date | undefined;
     gutterSize?: number | undefined;
     horizontal?: boolean | undefined;
     monthLabels?: string[] | undefined;
     numDays?: number | undefined;
-    onClick?: ((value: any) => void) | undefined;
-    onMouseLeave?: ((e: any, value: any) => void) | undefined;
-    onMouseOver?: ((e: any, value: any) => void) | undefined;
+    onClick?: ((value: ReactCalendarHeatmapValue<T> | undefined) => void) | undefined;
+    onMouseLeave?:
+        | ((e: React.MouseEvent<SVGRectElement, MouseEvent>, value: ReactCalendarHeatmapValue<T> | undefined) => void)
+        | undefined;
+    onMouseOver?:
+        | ((e: React.MouseEvent<SVGRectElement, MouseEvent>, value: ReactCalendarHeatmapValue<T> | undefined) => void)
+        | undefined;
     showMonthLabels?: boolean | undefined;
     showOutOfRangeDays?: boolean | undefined;
     showWeekdayLabels?: boolean | undefined;
     startDate?: string | number | Date | undefined;
-    titleForValue?: ((value: any) => any) | undefined;
+    titleForValue?: ((value: ReactCalendarHeatmapValue<T> | undefined) => string) | undefined;
     tooltipDataAttrs?: object | undefined;
-    transformDayElement?: ((rect: any, value: any, index: number) => any) | undefined;
-    values: any[];
+    transformDayElement?:
+        | ((
+            element: React.ReactElement,
+            value: ReactCalendarHeatmapValue<T> | undefined,
+            index: number,
+        ) => React.ReactNode)
+        | undefined;
+    values: Array<ReactCalendarHeatmapValue<T>>;
     weekdayLabels?: string[] | undefined;
 }
 
-export default class ReactCalendarHeatmap extends React.Component<Props> {}
+export default class ReactCalendarHeatmap<T extends ReactCalendarHeatmapDate> extends React.Component<Props<T>> {}

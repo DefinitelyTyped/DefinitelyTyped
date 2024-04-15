@@ -1,11 +1,6 @@
-// Type definitions for jsdoc-to-markdown 7.0
-// Project: https://github.com/jsdoc2md/jsdoc-to-markdown
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type StyleListFormat = 'none' | 'grouped' | 'table' | 'dl';
-export type RenderListFormat = 'list' | 'table';
-export type MemberIndexFormat = 'grouped' | 'list';
+export type StyleListFormat = "none" | "grouped" | "table" | "dl";
+export type RenderListFormat = "list" | "table";
+export type MemberIndexFormat = "grouped" | "list";
 
 export interface RenderOptions {
     /**
@@ -22,7 +17,7 @@ export interface RenderOptions {
      * The initial heading depth.
      * For example, with a value of 2 the top-level markdown headings look like "## The heading".
      */
-    'heading-depth'?: number | undefined;
+    "heading-depth"?: number | undefined;
     /**
      * Specifies the default language used in '@example' blocks (for syntax-highlighting purposes).
      * In gfm mode, each '@example' is wrapped in a fenced-code block. Example usage: --example-lang js.
@@ -31,7 +26,7 @@ export interface RenderOptions {
      * for any '@example' by specifying the @lang subtag,
      * e.g @example @lang hbs. Specifying @example @lang off will disable code blocks for that example.
      */
-    'example-lang'?: string | undefined;
+    "example-lang"?: string | undefined;
     /**
      * Use an installed package containing helper and/or partial overrides.
      */
@@ -48,27 +43,27 @@ export interface RenderOptions {
      * Format identifier names in the code style,
      * (i.e. format using backticks or <code></code>).
      */
-    'name-format'?: string | undefined;
+    "name-format"?: string | undefined;
     /**
      * By default, dmd generates github-flavoured markdown.
      * Not all markdown parsers render gfm correctly.
      * If your generated docs look incorrect on sites other than Github
      * (e.g. npmjs.org) try enabling this option to disable Github-specific syntax.
      */
-    'no-gfm'?: boolean | undefined;
+    "no-gfm"?: boolean | undefined;
     /**
      * Put <hr> breaks between identifiers. Improves readability on bulky docs.
      */
     separators?: boolean | undefined;
-    'module-index-format'?: StyleListFormat | undefined;
-    'global-index-format'?: StyleListFormat | undefined;
+    "module-index-format"?: StyleListFormat | undefined;
+    "global-index-format"?: StyleListFormat | undefined;
     /**
      * Two options to render parameter lists: 'list' or 'table' (default).
      * Table format works well in most cases but switch to list if things begin to look crowded / squashed.
      */
-    'param-list-format'?: RenderListFormat | undefined;
-    'property-list-format'?: RenderListFormat | undefined;
-    'member-index-format'?: MemberIndexFormat | undefined;
+    "param-list-format"?: RenderListFormat | undefined;
+    "property-list-format"?: RenderListFormat | undefined;
+    "member-index-format"?: MemberIndexFormat | undefined;
 }
 
 export interface JsdocOptions {
@@ -76,7 +71,7 @@ export interface JsdocOptions {
      * By default results are cached to speed up repeat invocations.
      * Set to true to disable this.
      */
-    'no-cache'?: boolean | undefined;
+    "no-cache"?: boolean | undefined;
     /**
      * One or more filenames to process.
      * Accepts globs (e.g. *.js). Either files, source or data must be supplied.

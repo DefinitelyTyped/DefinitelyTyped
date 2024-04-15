@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/cors",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/expressjs/cors/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cors": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Alan Plum",
+            "githubUsername": "pluma"
+        },
+        {
+            "name": "Gaurav Sharma",
+            "githubUsername": "gtpan77"
+        }
+    ]
+}

@@ -1,5 +1,3 @@
-
-
 function test_blocks_methods() {
     var extended: Object;
     blocks.extend(extended, new Object());
@@ -28,7 +26,7 @@ function test_blocks_methods() {
         callback = callback || blocks.noop;
     }
 
-    blocks.type('a string');
+    blocks.type("a string");
     // -> string
 
     blocks.type(314);
@@ -43,7 +41,7 @@ function test_blocks_methods() {
     blocks.type(blocks.noop);
     // -> function
 
-    blocks.type(new RegExp(''));
+    blocks.type(new RegExp(""));
     // -> regexp
 
     blocks.type(undefined);
@@ -51,21 +49,21 @@ function test_blocks_methods() {
 
     blocks.type(null);
     // -> null
-    
-    blocks.is([], 'array');
+
+    blocks.is([], "array");
     // -> true
 
-    blocks.is(function() { }, 'object');
+    blocks.is(function() {}, "object");
     // -> false
 
     blocks.has({
-        price: undefined
-    }, 'price');
+        price: undefined,
+    }, "price");
     // -> true
 
     blocks.has({
-        price: 314
-    }, 'ratio');
+        price: 314,
+    }, "ratio");
     // -> false
 
     blocks.unwrap(blocks.observable(314));
@@ -74,7 +72,7 @@ function test_blocks_methods() {
     blocks.unwrap(blocks([3, 1, 4]));
     // -> [3, 1, 4]
 
-    blocks.unwrap('a string or any other value will not be changed');
+    blocks.unwrap("a string or any other value will not be changed");
     // -> 'a string or any other value will not be changed'
 
     blocks.toArray(3);
@@ -86,12 +84,12 @@ function test_blocks_methods() {
     blocks.toUnit(230);
     // -> 230px
 
-    blocks.toUnit(230, '%');
+    blocks.toUnit(230, "%");
     // -> 230%
 
-    blocks.toUnit('60px', '%');
+    blocks.toUnit("60px", "%");
     // -> 60%
- 
+
     var array = [3, 1, 4];
     var cloned = blocks.clone(array);
     // -> [3, 1, 4]
@@ -126,18 +124,23 @@ function test_blocks_methods() {
 
     var alert = blocks.bind(() => {
         alert(this);
-    }, 'Hello bind method!');
+    }, "Hello bind method!");
 
     alert();
     // -> alerts 'Hello bind method'
 
-    var alertAll = blocks.bind((firstName: string, lastName: string) => {
-        alert('My name is ' + firstName + ' ' + lastName);
-    }, null, 'John', 'Doe');
+    var alertAll = blocks.bind(
+        (firstName: string, lastName: string) => {
+            alert("My name is " + firstName + " " + lastName);
+        },
+        null,
+        "John",
+        "Doe",
+    );
 
     alertAll();
     // -> alerts 'My name is John Doe'
-    
+
     blocks.equals([3, 4], [3, 4]);
     // -> true
 
@@ -145,21 +148,21 @@ function test_blocks_methods() {
     // -> false
 
     blocks.query({
-        message: 'Hello World!'
+        message: "Hello World!",
     });
 
     blocks.query({
-        items: ['John', 'Alf', 'Mega'],
+        items: ["John", "Alf", "Mega"],
         alertIndex: (e: any) => {
-            alert('Clicked an item with index:' + blocks.context(e.target).$index);
-        }
+            alert("Clicked an item with index:" + blocks.context(e.target).$index);
+        },
     });
 
     blocks.query({
         items: [1, 2, 3],
         alertValue: (e: any) => {
-            alert('Clicked the value: ' + blocks.dataItem(e.target));
-        }
+            alert("Clicked the value: " + blocks.dataItem(e.target));
+        },
     });
 
     blocks.isObservable(blocks.observable(3));
@@ -180,7 +183,7 @@ function test_observable_array() {
     var items = blocks.observable([1, 2, 3]);
 
     // removes the previous values and fills the observable array with [5, 6, 7] values
-    items.reset([5, 6, 7])
+    items.reset([5, 6, 7]);
 
     // results in observable array with [1, 2, 3, 4] values
     items.add(4);
@@ -204,8 +207,8 @@ function test_Property() {
 
     var User = App.Model({
         username: App.Property({
-            defaultValue: 'John Doe'
-        })
+            defaultValue: "John Doe",
+        }),
     });
 }
 
@@ -215,26 +218,26 @@ function test_Model() {
     var User = App.Model({
         firstName: App.Property({
             required: true,
-            validateOnChange: true
+            validateOnChange: true,
         }),
 
         lastName: App.Property({
             required: true,
-            validateOnChange: true
+            validateOnChange: true,
         }),
 
         fullName: App.Property({
             value: function() {
-                return this.firstName() + ' ' + this.lastName();
-            }
-        })
+                return this.firstName() + " " + this.lastName();
+            },
+        }),
     });
 
-    App.View('Profile', {
+    App.View("Profile", {
         user: User({
-            firstName: 'John',
-            lastName: 'Doe'
-        })
+            firstName: "John",
+            lastName: "Doe",
+        }),
     });
 }
 
@@ -244,79 +247,78 @@ function test_Collection() {
     var User = App.Model({
         firstName: App.Property({
             required: true,
-            validateOnChange: true
+            validateOnChange: true,
         }),
 
         lastName: App.Property({
             required: true,
-            validateOnChange: true
+            validateOnChange: true,
         }),
 
         fullName: App.Property({
             value: function() {
-                return this.firstName() + ' ' + this.lastName();
-            }
-        })
+                return this.firstName() + " " + this.lastName();
+            },
+        }),
     });
 
     var Users = App.Collection(User, {
         count: App.Property({
             value: () => {
                 return this().length;
-            }
-        })
+            },
+        }),
     });
 
-    App.View('Profiles', {
+    App.View("Profiles", {
         users: Users([{
-            firstName: 'John',
-            lastName: 'Doe'
+            firstName: "John",
+            lastName: "Doe",
         }, {
-                firstName: 'Johna',
-                lastName: 'Doa'
-            }])
+            firstName: "Johna",
+            lastName: "Doa",
+        }]),
     });
 }
 
 function test_View() {
     var App = blocks.Application();
 
-    App.View('Clicker', {
+    App.View("Clicker", {
         handleClick: () => {
-            alert('Clicky! Click!');
-        }
+            alert("Clicky! Click!");
+        },
     });
 
-
-    App.View('Statistics', {
+    App.View("Statistics", {
         init: () => {
             this.loadRemoteData();
         },
 
         loadRemoteData: () => {
             // ...stuff...
-        }
+        },
     });
 
-    App.View('ContactUs', {
+    App.View("ContactUs", {
         options: {
-            route: 'contactus'
+            route: "contactus",
         },
 
         routed: () => {
-            alert('Navigated to ContactUs page!')
-        }
+            alert("Navigated to ContactUs page!");
+        },
     });
 
-    App.View('ContactUs', {
+    App.View("ContactUs", {
         options: {
-            route: 'contactus'
-        }
+            route: "contactus",
+        },
     });
 
-    App.View('Navigation', {
+    App.View("Navigation", {
         navigateToContactUs: () => {
-            this.route('contactus')
-        }
+            this.route("contactus");
+        },
     });
 }

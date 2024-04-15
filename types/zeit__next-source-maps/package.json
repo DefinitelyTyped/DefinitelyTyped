@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/zeit__next-source-maps",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/zeit/next-plugins/tree/master/packages/next-source-maps",
+        "https://github.com/zeit/next-plugins"
+    ],
+    "devDependencies": {
+        "@types/zeit__next-source-maps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ldthorne",
+            "githubUsername": "ldthorne"
+        }
+    ]
+}

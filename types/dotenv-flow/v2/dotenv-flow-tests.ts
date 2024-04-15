@@ -8,13 +8,13 @@ dotenv.config({
     default_node_env: "development",
     path: "/path/to/project",
     encoding: "utf8",
-    purge_dotenv: true
+    purge_dotenv: true,
 });
 
 const parsed = dotenv.parse("NODE_ENV=production\nDB_HOST=a.b.c");
 const dbHost: string = parsed["DB_HOST"];
 
 const parsedFromBuffer = dotenv.parse(new Buffer("JUSTICE=league\n"), {
-    debug: true
+    debug: true,
 });
 const justice: string = parsedFromBuffer["JUSTICE"];

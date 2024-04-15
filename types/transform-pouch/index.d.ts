@@ -1,8 +1,3 @@
-// Type definitions for transform-pouch 1.0
-// Project: https://github.com/pouchdb-community/transform-pouch
-// Definitions by: Lucas Rainett <https://github.com/lucasrainett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
@@ -19,8 +14,8 @@ declare namespace PouchDB {
     }
 }
 
-// tslint:disable-next-line:no-declare-current-package no-single-declare-module
-declare module 'transform-pouch' {
-    const plugin: PouchDB.Plugin & {transform: () => void, filter: () => void};
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "transform-pouch" {
+    const plugin: PouchDB.Plugin & { transform: () => void; filter: () => void };
     export = plugin;
 }

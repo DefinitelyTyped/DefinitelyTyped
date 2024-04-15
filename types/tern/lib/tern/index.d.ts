@@ -1,7 +1,7 @@
 import * as ESTree from "estree";
 import { Context, Scope, Type } from "../infer";
 
-export { };
+export {};
 
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
@@ -98,8 +98,10 @@ export interface Server {
         doc: D & { query?: Q | undefined },
         callback: (
             error: string | null,
-            response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
-        ) => void
+            response:
+                | (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {})
+                | undefined,
+        ) => void,
     ): void;
     reset(): void;
     signal(event: keyof Events, file: File): void;
@@ -113,16 +115,16 @@ export type Query = QueryRegistry[keyof QueryRegistry]["query"];
 
 export interface QueryRegistry {
     completions: {
-        query: CompletionsQuery,
-        result: CompletionsQueryResult
+        query: CompletionsQuery;
+        result: CompletionsQueryResult;
     };
     type: {
-        query: TypeQuery,
-        result: TypeQueryResult
+        query: TypeQuery;
+        result: TypeQueryResult;
     };
     definition: {
-        query: DefinitionQuery,
-        result: DefinitionQueryResult
+        query: DefinitionQuery;
+        result: DefinitionQueryResult;
     };
     documentation: {
         query: DocumentationQuery;
@@ -133,16 +135,16 @@ export interface QueryRegistry {
         result: RefsQueryResult;
     };
     rename: {
-        query: RenameQuery,
-        result: RenameQueryResult
+        query: RenameQuery;
+        result: RenameQueryResult;
     };
     properties: {
-        query: PropertiesQuery,
-        result: PropertiesQueryResult
+        query: PropertiesQuery;
+        result: PropertiesQueryResult;
     };
     files: {
-        query: FilesQuery,
-        result: FilesQueryResult
+        query: FilesQuery;
+        result: FilesQueryResult;
     };
 }
 
@@ -232,14 +234,16 @@ export interface CompletionsQueryResult {
      * and, depending on the options, `type`, `depth`, `doc`, `url`, and `origin` properties.
      * When none of these options are enabled, the result array will hold plain strings.
      */
-    completions: string[] | Array<{
-        name: string,
-        type?: string | undefined,
-        depth?: number | undefined,
-        doc?: string | undefined,
-        url?: string | undefined,
-        origin?: string | undefined
-    }>;
+    completions:
+        | string[]
+        | Array<{
+            name: string;
+            type?: string | undefined;
+            depth?: number | undefined;
+            doc?: string | undefined;
+            url?: string | undefined;
+            origin?: string | undefined;
+        }>;
 }
 
 /** Query the type of something. */
@@ -358,9 +362,9 @@ export interface RefsQueryResult {
     /** The name of the variable or property */
     name: string;
     refs: Array<{
-        file: string,
-        start: number | Position,
-        end: number | Position
+        file: string;
+        start: number | Position;
+        end: number | Position;
     }>;
     /** for variables: a type property holding either "global" or "local". */
     type?: "global" | "local" | undefined;
@@ -385,10 +389,10 @@ export interface RenameQuery extends BaseQueryWithFile {
 export interface RenameQueryResult {
     /** Array of changes that must be performed to apply the rename. The client is responsible for doing the actual modification. */
     changes: Array<{
-        file: string,
-        start: number | Position,
-        end: number | Position,
-        text: string
+        file: string;
+        start: number | Position;
+        end: number | Position;
+        text: string;
     }>;
 }
 
@@ -432,6 +436,7 @@ export interface Events {
      * returns a new text value, the origin text will be overriden. This is useful for
      * instance when a plugin is able to extract JavaScript content from an HTML file.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     preParse(text: string, options: object): string | void;
     /** Run right after a file is parsed, and passed the parse tree and the parsed file as arguments. */
     postParse(ast: ESTree.Program, text: string): void;
@@ -445,8 +450,10 @@ export interface Events {
      * or an alternate type to be used instead. This is useful when
      * a plugin can provide a more helpful type than Tern (e.g. within comments).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     typeAt(file: File, end: Position, expr: ESTree.Node, type: Type): Type | void;
     /** Run at the start of a completion query. May return a valid completion result to replace the default completion algorithm. */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     completion(file: File, query: CompletionsQuery): CompletionsQueryResult | void;
 }
 

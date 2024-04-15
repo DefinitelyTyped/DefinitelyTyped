@@ -3,7 +3,7 @@
  * invariants.
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/assert.js)
  */
-declare module 'assert' {
+declare module "assert" {
     /**
      * An alias of {@link ok}.
      * @since v0.5.9
@@ -20,7 +20,7 @@ declare module 'assert' {
             expected: unknown;
             operator: string;
             generatedMessage: boolean;
-            code: 'ERR_ASSERTION';
+            code: "ERR_ASSERTION";
             constructor(options?: {
                 /** If provided, the error message is set to this value. */
                 message?: string | undefined;
@@ -31,7 +31,7 @@ declare module 'assert' {
                 /** The `operator` property on the error instance. */
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
-                // tslint:disable-next-line:ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 stackStartFn?: Function | undefined;
             });
         }
@@ -65,6 +65,27 @@ declare module 'assert' {
              */
             calls(exact?: number): () => void;
             calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            /**
+             * Example:
+             *
+             * ```js
+             * import assert from 'node:assert';
+             *
+             * const tracker = new assert.CallTracker();
+             *
+             * function func() {}
+             * const callsfunc = tracker.calls(func);
+             * callsfunc(1, 2, 3);
+             *
+             * assert.deepStrictEqual(tracker.getCalls(callsfunc),
+             *                        [{ thisArg: this, arguments: [1, 2, 3 ] }]);
+             * ```
+             *
+             * @since v18.8.0, v16.18.0
+             * @param fn
+             * @returns An Array with the calls to a tracked function.
+             */
+            getCalls(fn: Function): CallTrackerCall[];
             /**
              * The arrays contains information about the expected and actual number of calls of
              * the functions that have not been called the expected number of times.
@@ -101,6 +122,31 @@ declare module 'assert' {
              */
             report(): CallTrackerReportInformation[];
             /**
+             * Reset calls of the call tracker.
+             * If a tracked function is passed as an argument, the calls will be reset for it.
+             * If no arguments are passed, all tracked functions will be reset.
+             *
+             * ```js
+             * import assert from 'node:assert';
+             *
+             * const tracker = new assert.CallTracker();
+             *
+             * function func() {}
+             * const callsfunc = tracker.calls(func);
+             *
+             * callsfunc();
+             * // Tracker was called once
+             * tracker.getCalls(callsfunc).length === 1;
+             *
+             * tracker.reset(callsfunc);
+             * tracker.getCalls(callsfunc).length === 0;
+             * ```
+             *
+             * @since v18.8.0, v16.18.0
+             * @param fn a tracked function to reset.
+             */
+            reset(fn?: Function): void;
+            /**
              * Iterates through the list of functions passed to `tracker.calls()` and will throw an error for functions that
              * have not been called the expected number of times.
              *
@@ -125,6 +171,10 @@ declare module 'assert' {
              */
             verify(): void;
         }
+        interface CallTrackerCall {
+            thisArg: object;
+            arguments: unknown[];
+        }
         interface CallTrackerReportInformation {
             message: string;
             /** The actual number of times the function was called. */
@@ -136,7 +186,7 @@ declare module 'assert' {
             /** A stack trace of the function. */
             stack: object;
         }
-        type AssertPredicate = RegExp | (new () => object) | ((thrown: unknown) => boolean) | object | Error;
+        type AssertPredicate = RegExp | (new() => object) | ((thrown: unknown) => boolean) | object | Error;
         /**
          * Throws an `AssertionError` with the provided error message or a default
          * error message. If the `message` parameter is an instance of an `Error` then
@@ -167,8 +217,8 @@ declare module 'assert' {
             expected: unknown,
             message?: string | Error,
             operator?: string,
-            // tslint:disable-next-line:ban-types
-            stackStartFn?: Function
+            // eslint-disable-next-line @typescript-eslint/ban-types
+            stackStartFn?: Function,
         ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.
@@ -797,7 +847,11 @@ declare module 'assert' {
          * @since v10.0.0
          */
         function rejects(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
-        function rejects(block: (() => Promise<unknown>) | Promise<unknown>, error: AssertPredicate, message?: string | Error): Promise<void>;
+        function rejects(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            error: AssertPredicate,
+            message?: string | Error,
+        ): Promise<void>;
         /**
          * Awaits the `asyncFn` promise or, if `asyncFn` is a function, immediately
          * calls the function and awaits the returned promise to complete. It will then
@@ -840,8 +894,15 @@ declare module 'assert' {
          * ```
          * @since v10.0.0
          */
-        function doesNotReject(block: (() => Promise<unknown>) | Promise<unknown>, message?: string | Error): Promise<void>;
-        function doesNotReject(block: (() => Promise<unknown>) | Promise<unknown>, error: AssertPredicate, message?: string | Error): Promise<void>;
+        function doesNotReject(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            message?: string | Error,
+        ): Promise<void>;
+        function doesNotReject(
+            block: (() => Promise<unknown>) | Promise<unknown>,
+            error: AssertPredicate,
+            message?: string | Error,
+        ): Promise<void>;
         /**
          * Expects the `string` input to match the regular expression.
          *
@@ -888,25 +949,38 @@ declare module 'assert' {
          * @since v13.6.0, v12.16.0
          */
         function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
-        const strict: Omit<typeof assert, 'equal' | 'notEqual' | 'deepEqual' | 'notDeepEqual' | 'ok' | 'strictEqual' | 'deepStrictEqual' | 'ifError' | 'strict'> & {
-            (value: unknown, message?: string | Error): asserts value;
-            equal: typeof strictEqual;
-            notEqual: typeof notStrictEqual;
-            deepEqual: typeof deepStrictEqual;
-            notDeepEqual: typeof notDeepStrictEqual;
-            // Mapped types and assertion functions are incompatible?
-            // TS2775: Assertions require every name in the call target
-            // to be declared with an explicit type annotation.
-            ok: typeof ok;
-            strictEqual: typeof strictEqual;
-            deepStrictEqual: typeof deepStrictEqual;
-            ifError: typeof ifError;
-            strict: typeof strict;
-        };
+        const strict:
+            & Omit<
+                typeof assert,
+                | "equal"
+                | "notEqual"
+                | "deepEqual"
+                | "notDeepEqual"
+                | "ok"
+                | "strictEqual"
+                | "deepStrictEqual"
+                | "ifError"
+                | "strict"
+            >
+            & {
+                (value: unknown, message?: string | Error): asserts value;
+                equal: typeof strictEqual;
+                notEqual: typeof notStrictEqual;
+                deepEqual: typeof deepStrictEqual;
+                notDeepEqual: typeof notDeepStrictEqual;
+                // Mapped types and assertion functions are incompatible?
+                // TS2775: Assertions require every name in the call target
+                // to be declared with an explicit type annotation.
+                ok: typeof ok;
+                strictEqual: typeof strictEqual;
+                deepStrictEqual: typeof deepStrictEqual;
+                ifError: typeof ifError;
+                strict: typeof strict;
+            };
     }
     export = assert;
 }
-declare module 'node:assert' {
-    import assert = require('assert');
+declare module "node:assert" {
+    import assert = require("assert");
     export = assert;
 }

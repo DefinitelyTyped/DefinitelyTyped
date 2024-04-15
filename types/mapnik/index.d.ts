@@ -1,9 +1,3 @@
-// Type definitions for mapnik 3.x
-// Project: http://mapnik.org
-// Definitions by: Loli <https://github.com/ipv4sec>
-//                 EdgarJeremy <https://github.com/edgarjeremy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 export const settings: any;
 export function register_default_fonts(): void;
@@ -23,7 +17,7 @@ export class VectorTile {
     addData(
         buffer: Buffer,
         options?: { validate?: boolean | undefined; upgrade?: boolean | undefined },
-        callback?: (err?: Error) => void
+        callback?: (err?: Error) => void,
     ): void;
     addDataSync(buffer: Buffer, options?: { validate?: boolean | undefined; upgrade?: boolean | undefined }): void;
     addGeoJSON(
@@ -36,15 +30,19 @@ export class VectorTile {
             multi_polygon_union?: boolean | undefined;
             fill_type?: number | undefined;
             process_all_rings?: boolean | undefined;
-        }
+        },
     ): void;
-    addImage(image: Image, name: string, options?: { image_scaling?: string | undefined; image_format?: string | undefined }): void;
+    addImage(
+        image: Image,
+        name: string,
+        options?: { image_scaling?: string | undefined; image_format?: string | undefined },
+    ): void;
     addImageBuffer(buffer: Buffer, name: string, callback?: (err?: Error) => void): void;
     addImageBufferSync(buffer: Buffer, name: string): void;
     addImageSync(
         image: Image,
         name: string,
-        options?: { image_scaling?: string | undefined; image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined }
+        options?: { image_scaling?: string | undefined; image_format?: "webp" | "jpeg" | "png" | "tiff" | undefined },
     ): void;
     bufferedExtent(): [number, number, number, number];
     clear(callback?: (err?: Error) => void): void;
@@ -64,11 +62,11 @@ export class VectorTile {
             max_extent?: [number, number, number, number] | undefined;
             simplify_distance?: number | undefined;
             process_all_rings?: boolean | undefined;
-            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined;
+            image_format?: "webp" | "jpeg" | "png" | "tiff" | undefined;
             scaling_method?: string | undefined;
             threading_mode?: string | undefined;
             callback?: ((err: Error) => void) | undefined;
-        }
+        },
     ): void;
     compositeSync(
         vectorTiles: VectorTile[],
@@ -85,10 +83,10 @@ export class VectorTile {
             max_extent?: [number, number, number, number] | undefined;
             simplify_distance?: number | undefined;
             process_all_rings?: boolean | undefined;
-            image_format?: 'webp' | 'jpeg' | 'png' | 'tiff' | undefined;
+            image_format?: "webp" | "jpeg" | "png" | "tiff" | undefined;
             scaling_method?: string | undefined;
             threading_mode?: string | undefined;
-        }
+        },
     ): void;
     empty(): boolean;
     emptyLayers(): string[];
@@ -97,14 +95,14 @@ export class VectorTile {
         options?: {
             compression?: number | undefined;
             level?: number | undefined;
-            strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT' | undefined;
+            strategy?: "FILTERED" | "HUFFMAN_ONLY" | "RLE" | "FIXED" | "DEFAULT" | undefined;
         },
-        callback?: () => void
+        callback?: () => void,
     ): void;
     getDataSync(options?: {
         compression?: number | undefined;
         level?: number | undefined;
-        strategy?: 'FILTERED' | 'HUFFMAN_ONLY' | 'RLE' | 'FIXED' | 'DEFAULT' | undefined;
+        strategy?: "FILTERED" | "HUFFMAN_ONLY" | "RLE" | "FIXED" | "DEFAULT" | undefined;
     }): void;
     info(buffer: Buffer): void;
     layer(layer_name: string): VectorTile;
@@ -115,7 +113,7 @@ export class VectorTile {
         longitude: number,
         latitude: number,
         options?: { tolerance?: number | undefined; layer?: string | undefined },
-        callback?: (err: Error, features: Feature[]) => void
+        callback?: (err: Error, features: Feature[]) => void,
     ): void;
 }
 
@@ -135,21 +133,21 @@ export interface DatasourceOptions {
 }
 
 export class Datasource {
-    constructor(options: DatasourceOptions)
+    constructor(options: DatasourceOptions);
     featureset(): Featureset;
 }
 
 export class Featureset {
-    constructor()
+    constructor();
     next(): FeaturesetNext;
 }
 export class FeaturesetNext {
-    constructor()
+    constructor();
     toJSON(): string;
 }
 
 export class Image {
-    constructor(x: number, y: number)
+    constructor(x: number, y: number);
     encode(type: string, callback?: ImageEncodeCallback): void;
     getData(): Buffer;
 }
@@ -163,7 +161,7 @@ export interface Image {
 }
 
 export class Map {
-    constructor(x: number, y: number)
+    constructor(x: number, y: number);
     load(xml: string, callback?: MapLoadCallback): void;
     zoomAll(): void;
     zoomToBox(extent: number[]): void;

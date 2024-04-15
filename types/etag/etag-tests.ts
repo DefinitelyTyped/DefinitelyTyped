@@ -1,9 +1,9 @@
-import etag = require('etag');
+import etag = require("etag");
 
 // $ExpectType string
-etag('str');
-etag('str', {weak: true});
-etag(new Buffer(''));
+etag("str");
+etag("str", { weak: true });
+etag(new Buffer(""));
 etag({
     ctime: new Date(),
     mtime: new Date(),

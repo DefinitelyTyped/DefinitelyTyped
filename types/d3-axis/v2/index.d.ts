@@ -1,16 +1,6 @@
-// Type definitions for D3JS d3-axis module 2.1
-// Project: https://github.com/d3/d3-axis/, https://d3js.org/d3-axis
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 2.1.0
 
-import { Selection, TransitionLike } from 'd3-selection';
+import { Selection, TransitionLike } from "d3-selection";
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -19,7 +9,7 @@ import { Selection, TransitionLike } from 'd3-selection';
 /**
  * A helper type to alias elements which can serve as a domain for an axis.
  */
-export type AxisDomain = number | string | Date | { valueOf(): number};
+export type AxisDomain = number | string | Date | { valueOf(): number };
 
 /**
  * A helper interface to describe the minimal contract to be met by a time interval

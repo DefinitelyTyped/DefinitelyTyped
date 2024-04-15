@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fuzzysearch-highlight",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/uiur/fuzzysearch-highlight"
+    ],
+    "devDependencies": {
+        "@types/fuzzysearch-highlight": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

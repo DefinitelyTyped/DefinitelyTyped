@@ -1,13 +1,8 @@
-// Type definitions for ouibounce 0.0
-// Project: https://github.com/carlsednaoui/ouibounce
-// Definitions by: Krzysztof Gutkowski <https://github.com/LiquidPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace ouibounce;
 
 export = Ouibounce;
 
-declare function Ouibounce(el: Element|false|null, custom_config?: Ouibounce.OuibounceConfig): Ouibounce.Ouibounce;
+declare function Ouibounce(el: Element | false | null, custom_config?: Ouibounce.OuibounceConfig): Ouibounce.Ouibounce;
 
 declare namespace Ouibounce {
     interface OuibounceConfig {
@@ -99,6 +94,13 @@ declare namespace Ouibounce {
         /**
          * Disables the ouibounce event.
          */
-        disable: (custom_options?: {cookieExpire?: number | undefined, cookieDomain?: string | undefined, cookieName?: string | undefined, sitewide?: boolean | undefined}) => void;
+        disable: (
+            custom_options?: {
+                cookieExpire?: number | undefined;
+                cookieDomain?: string | undefined;
+                cookieName?: string | undefined;
+                sitewide?: boolean | undefined;
+            },
+        ) => void;
     }
 }

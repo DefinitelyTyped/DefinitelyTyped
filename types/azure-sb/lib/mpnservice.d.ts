@@ -1,5 +1,5 @@
-import { Azure } from '../index';
-import NotificationHubService = require('azure-sb/lib/notificationhubservice');
+import { Azure } from "../index";
+import NotificationHubService = require("azure-sb/lib/notificationhubservice");
 import ResponseCallback = Azure.ServiceBus.ResponseCallback;
 import NotificationHubRegistration = Azure.ServiceBus.NotificationHubRegistration;
 import ListNotificationHubsOptions = Azure.ServiceBus.ListNotificationHubsOptions;
@@ -35,82 +35,103 @@ declare class MpnsService {
 
     public notificationHubService: NotificationHubService;
 
-    public send(tags: string | string[],
-                payload: object | string,
-                targetName: string,
-                notificationClass: string,
-                callback: ResponseCallback): void;
+    public send(
+        tags: string | string[],
+        payload: object | string,
+        targetName: string,
+        notificationClass: string,
+        callback: ResponseCallback,
+    ): void;
 
-    public send(tags: string | string[],
-                payload: object | string,
-                targetName: string,
-                notificationClass: string,
-                options: { headers: Dictionary<string> },
-                callback: ResponseCallback): void;
+    public send(
+        tags: string | string[],
+        payload: object | string,
+        targetName: string,
+        notificationClass: string,
+        options: { headers: Dictionary<string> },
+        callback: ResponseCallback,
+    ): void;
 
-    public createNativeRegistration(channel: string,
-                                    tags: string | string[],
-                                    callback: ResponseCallback): void;
+    public createNativeRegistration(channel: string, tags: string | string[], callback: ResponseCallback): void;
 
-    public createNativeRegistration(channel: string,
-                                    tags: string | string[],
-                                    options: object,
-                                    callback: ResponseCallback): void;
+    public createNativeRegistration(
+        channel: string,
+        tags: string | string[],
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateNativeRegistration(registrationId: string,
-                                            channel: string,
-                                            tags: string | string[],
-                                            callback: ResponseCallback): void;
+    public createOrUpdateNativeRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateNativeRegistration(registrationId: string,
-                                            channel: string,
-                                            tags: string | string[],
-                                            options: object,
-                                            callback: ResponseCallback): void;
+    public createOrUpdateNativeRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public createRawTemplateRegistration(channel: string,
-                                         tags: string | string[],
-                                         template: Template | string,
-                                         callback: ResponseCallback): void;
+    public createRawTemplateRegistration(
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        callback: ResponseCallback,
+    ): void;
 
-    public createRawTemplateRegistration(channel: string,
-                                         tags: string | string[],
-                                         template: Template | string,
-                                         options: object,
-                                         callback: ResponseCallback): void;
+    public createRawTemplateRegistration(
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateRawTemplateRegistration(registrationId: string,
-                                                 channel: string,
-                                                 tags: string | string[],
-                                                 template: Template | string,
-                                                 callback: ResponseCallback): void;
+    public createOrUpdateRawTemplateRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        callback: ResponseCallback,
+    ): void;
 
-    public createOrUpdateRawTemplateRegistration(registrationId: string,
-                                                 channel: string,
-                                                 tags: string | string[],
-                                                 template: Template | string,
-                                                 options: object,
-                                                 callback: ResponseCallback): void;
+    public createOrUpdateRawTemplateRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public updatesRawTemplateRegistration(registrationId: string,
-                                          channel: string,
-                                          tags: string | string[],
-                                          template: Template | string,
-                                          callback: ResponseCallback): void;
+    public updatesRawTemplateRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        callback: ResponseCallback,
+    ): void;
 
-    public updatesRawTemplateRegistration(registrationId: string,
-                                          channel: string,
-                                          tags: string | string[],
-                                          template: Template | string,
-                                          options: object,
-                                          callback: ResponseCallback): void;
+    public updatesRawTemplateRegistration(
+        registrationId: string,
+        channel: string,
+        tags: string | string[],
+        template: Template | string,
+        options: object,
+        callback: ResponseCallback,
+    ): void;
 
-    public listRegistrationsByChannel(channel: string,
-                                      callback: ResponseCallback): void;
+    public listRegistrationsByChannel(channel: string, callback: ResponseCallback): void;
 
-    public listRegistrationsByChannel(channel: string,
-                                      options: ListNotificationHubsOptions,
-                                      callback: ResponseCallback): void;
+    public listRegistrationsByChannel(
+        channel: string,
+        options: ListNotificationHubsOptions,
+        callback: ResponseCallback,
+    ): void;
 }
 
 export = MpnsService;

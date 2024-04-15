@@ -1,10 +1,3 @@
-// Type definitions for FlexSlider 2.7
-// Project: https://github.com/woothemes/FlexSlider
-// Definitions by:  Diullei Gomes <https://github.com/diullei>
-//                  Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace FlexSlider {
@@ -83,7 +76,7 @@ declare namespace FlexSlider {
         /**
          * get target given a direction
          */
-        getTarget: (dir: 'next' | 'prev') => any;
+        getTarget: (dir: "next" | "prev") => any;
     }
 
     interface Options {
@@ -101,19 +94,19 @@ declare namespace FlexSlider {
          * Select your animation type, "fade" or "slide"
          * @default fade
          */
-        animation?: 'fade' | 'slide' | undefined;
+        animation?: "fade" | "slide" | undefined;
         /**
          * Determines the easing method used in jQuery transitions. jQuery easing
          * plugin is supported!
          * @default swing
          */
-        easing?: 'swing' | 'linear' | string | undefined;
+        easing?: "swing" | "linear" | string | undefined;
         /**
          * Select the sliding direction, "horizontal" or "vertical"
          * @default horizontal
          * @since v1.9
          */
-        direction?: 'horizontal' | 'vertical' | undefined;
+        direction?: "horizontal" | "vertical" | undefined;
         /**
          * Reverse the animation direction
          * @default false
@@ -217,7 +210,7 @@ declare namespace FlexSlider {
          * manualControls usage
          * @default true
          */
-        controlNav?: 'thumbnails' | boolean | undefined;
+        controlNav?: "thumbnails" | boolean | undefined;
         /**
          * Create navigation for previous/next navigation? (true/false)
          * @default true
@@ -382,7 +375,7 @@ declare namespace FlexSlider {
         init?: ((slider: SliderObject) => void) | undefined;
     }
 
-    type HelperActions = 'play' | 'pause' | 'stop' | 'next' | 'prev' | 'previous';
+    type HelperActions = "play" | "pause" | "stop" | "next" | "prev" | "previous";
 }
 
 interface JQuery {

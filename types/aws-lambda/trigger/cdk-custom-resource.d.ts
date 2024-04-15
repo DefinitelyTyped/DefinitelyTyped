@@ -1,5 +1,5 @@
-import { CloudFormationCustomResourceEvent } from './cloudformation-custom-resource';
-import { Handler, Callback } from '../handler';
+import { Callback, Handler } from "../handler";
+import { CloudFormationCustomResourceEvent } from "./cloudformation-custom-resource";
 
 // The CDK docs only specify 'important' properties, but in reality the incoming event
 // to the Lambda matches that of a traditional custom resource.
@@ -25,8 +25,8 @@ export interface CdkCustomResourceResponse {
     PhysicalResourceId?: string;
     Data?:
         | {
-              [Key: string]: any;
-          }
+            [Key: string]: any;
+        }
         | undefined;
     // Any extra properties will be provided to the isComplete handler for asynchronous resources.
     [Key: string]: any;
@@ -47,8 +47,8 @@ export interface CdkCustomResourceIsCompleteResponseSuccess {
      */
     Data?:
         | {
-              [Key: string]: any;
-          }
+            [Key: string]: any;
+        }
         | undefined;
 }
 

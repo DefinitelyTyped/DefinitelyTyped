@@ -1,14 +1,14 @@
-import PolygonLookup = require('polygon-lookup');
-import { FeatureCollection } from 'geojson';
+import PolygonLookup = require("polygon-lookup");
+import { FeatureCollection } from "geojson";
 
-const featureCollection: FeatureCollection = {
-    type: 'FeatureCollection',
+const inputFeatureCollection: FeatureCollection = {
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
-            properties: { id: 'bar' },
+            type: "Feature",
+            properties: { id: "bar" },
             geometry: {
-                type: 'Polygon',
+                type: "Polygon",
                 coordinates: [
                     [
                         [0, 1],
@@ -22,6 +22,10 @@ const featureCollection: FeatureCollection = {
     ],
 };
 
-const lookup = new PolygonLookup(featureCollection);
-lookup.search(1, 2);
-lookup.search(1, 2, 1);
+const lookup = new PolygonLookup(inputFeatureCollection);
+
+// $ExpectType Feature<Polygon, GeoJsonProperties> | undefined
+const foundFeature = lookup.search(1, 2);
+
+// $ExpectType FeatureCollection<Polygon, GeoJsonProperties> | undefined
+const foundFeatureCollection = lookup.search(1, 2, 1);

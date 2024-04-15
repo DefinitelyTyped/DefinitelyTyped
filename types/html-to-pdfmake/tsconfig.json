@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
-        "module": "commonjs",
-        "lib": ["es6", "DOM"],
+        "module": "node16",
+        "lib": [
+            "es6",
+            "DOM"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "html-to-pdfmake-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "html-to-pdfmake-tests.ts"
+    ]
 }

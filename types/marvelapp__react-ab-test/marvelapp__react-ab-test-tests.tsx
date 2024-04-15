@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Variant, Experiment } from 'marvelapp__react-ab-test';
+import { Experiment, Variant } from "marvelapp__react-ab-test";
+import * as React from "react";
 
 const TestComponent = (
     <div>

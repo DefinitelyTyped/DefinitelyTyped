@@ -309,6 +309,10 @@ declare global {
         isConnectedUsingDirectConnection(): boolean;
 
         /**
+         * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_isConnectedUsingDirectConnection
+         */
+        isConnectedUsingDirectConnection(): boolean;
+        /**
          * @see https://developer.knuddels.de/docs/classes/AppContentSession.html#method_getAppContent
          */
         getAppContent(): AppContent;
@@ -1153,7 +1157,7 @@ declare global {
             parameters?: {
                 onSuccess?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
                 onFailure?: (responseData: string, externalServerResponse: ExternalServerResponse) => void;
-                method?: 'GET' | 'POST';
+                method?: "GET" | "POST";
                 data?: Json;
             },
         ): void;
@@ -1535,6 +1539,16 @@ declare global {
         getOpenAppChatCommand(): string;
 
         /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getAddAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getAddAsFavoriteChatCommand(): string;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getOpenAppChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getOpenAppChatCommand(): string;
+        /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_closeActiveSessions
          */
         closeActiveSessions(): void;
@@ -1555,6 +1569,15 @@ declare global {
          */
         getRemoveAsFavoriteChatCommand(): string;
 
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_openGlobalApp
+         */
+        openGlobalApp(user: User, forceReplace?: boolean): AppContentSession;
+        /**
+         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getRemoveAsFavoriteChatCommand
+         * @since AppServer 20220502-125000
+         */
+        getRemoveAsFavoriteChatCommand(): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getActiveSession
          */
@@ -2282,7 +2305,7 @@ declare global {
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInts
          */
         function nextInts(
-            minValue: number /* optional */,
+            minValue: number, /* optional */
             maxValue: number,
             count: number,
             onlyDifferentNumbers: boolean,
@@ -2785,6 +2808,11 @@ declare global {
          */
         getGenderDetailed(): GenderDetailed;
 
+        /**
+         * @see https://developer.knuddels.de/docs/classes/User.html#method_getGenderDetailed
+         * @since AppServer 20220811170542
+         */
+        getGenderDetailed(): GenderDetailed;
         /**
          * @see https://developer.knuddels.de/docs/classes/User.html#method_isChannelModerator
          */

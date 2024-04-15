@@ -1,8 +1,8 @@
-import { CRYPT_BLOWFISH, CRYPT_EXT_DES, PasswordHash } from 'node-phpass';
+import { CRYPT_BLOWFISH, CRYPT_EXT_DES, PasswordHash } from "node-phpass";
 
 const hasher: PasswordHash = new PasswordHash();
-const hash: Promise<string> = hasher.HashPassword('foo').then(hash => {
-    hasher.CheckPassword('foo', hash);
+const hash: Promise<string> = hasher.HashPassword("foo").then(hash => {
+    hasher.CheckPassword("foo", hash);
 
     return hash;
 });

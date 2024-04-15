@@ -1,8 +1,3 @@
-// Type definitions for PreloadJS 0.6.2
-// Project: http://www.createjs.com/#!/PreloadJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Endel Dreyer <https://github.com/endel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
     Copyright (c) 2012 Pedro Ferreira
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -50,82 +45,71 @@ declare namespace createjs {
         toString(): string;
     }
 
-    export class AbstractMediaLoader
-        {
+    export class AbstractMediaLoader {
         constructor(loadItem: Object, preferXHR: boolean, type: string);
-        }
+    }
 
-    export class AbstractRequest
-        {
+    export class AbstractRequest {
         constructor(item: LoadItem);
 
         cancel(): void;
         destroy(): void;
         load(): void;
-        }
+    }
 
-    export class BinaryLoader extends AbstractLoader
-        {
+    export class BinaryLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         // methods
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class CSSLoader extends AbstractLoader
-        {
+    export class CSSLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         // methods
         canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export module DataUtils
-        {
+    export namespace DataUtils {
         export function parseJSON(value: string): Object;
         export function parseXML(text: string, type: string): XMLDocument;
-        }
+    }
 
-    export class ErrorEvent
-        {
+    export class ErrorEvent {
         constructor(title?: string, message?: string, data?: Object);
 
         // properties
         data: Object;
         message: string;
         title: string;
-        }
+    }
 
-    export class ImageLoader extends AbstractLoader
-        {
+    export class ImageLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class JavaScriptLoader extends AbstractLoader
-        {
+    export class JavaScriptLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class JSONLoader extends AbstractLoader
-        {
+    export class JSONLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class JSONPLoader extends AbstractLoader
-        {
+    export class JSONPLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class LoadItem
-        {
+    export class LoadItem {
         // properties
         callback: string;
         crossOrigin: boolean;
@@ -144,10 +128,9 @@ declare namespace createjs {
         // methods
         static create(value: LoadItem | string | Object): Object | LoadItem;
         set(props: Object): LoadItem;
-        }
+    }
 
-    export class LoadQueue extends AbstractLoader
-        {
+    export class LoadQueue extends AbstractLoader {
         constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: string | boolean);
 
         // properties
@@ -175,27 +158,23 @@ declare namespace createjs {
         unregisterLoader(loader: AbstractLoader): void;
     }
 
-    export class ManifestLoader extends AbstractLoader
-        {
+    export class ManifestLoader extends AbstractLoader {
         constructor(loadItem: LoadItem | Object);
 
         // methods
         static canLoadItem(item: LoadItem | Object): boolean;
-        }
+    }
 
-    export class MediaTagRequest
-        {
+    export class MediaTagRequest {
         constructor(loadItem: LoadItem, tag: HTMLAudioElement | HTMLVideoElement, srcAttribute: string);
-        }
+    }
 
-    export class PreloadJS
-        {
+    export class PreloadJS {
         static buildDate: string;
         static version: string;
-        }
+    }
 
-    export class ProgressEvent
-        {
+    export class ProgressEvent {
         constructor(loaded: number, total?: number);
 
         // properties
@@ -205,10 +184,9 @@ declare namespace createjs {
 
         // methods
         clone(): ProgressEvent;
-        }
+    }
 
-    export class RequestUtils
-        {
+    export class RequestUtils {
         // properties
         static ABSOLUTE_PATH: RegExp;
         static EXTENSION_PATT: RegExp;
@@ -226,61 +204,52 @@ declare namespace createjs {
         static isText(type: string): boolean;
         static isVideoTag(item: Object): boolean;
         static parseURI(path: string): Object;
-        }
+    }
 
-    export class SoundLoader extends AbstractLoader
-        {
+    export class SoundLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class SpriteSheetLoader extends AbstractLoader
-        {
+    export class SpriteSheetLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class SVGLoader extends AbstractLoader
-        {
+    export class SVGLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class TagRequest
-        {
+    export class TagRequest {
+    }
 
-        }
-
-    export class TextLoader extends AbstractLoader
-        {
+    export class TextLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class VideoLoader extends AbstractLoader
-        {
+    export class VideoLoader extends AbstractLoader {
         constructor(loadItem: Object, preferXHR: boolean);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 
-    export class XHRRequest extends AbstractLoader
-        {
+    export class XHRRequest extends AbstractLoader {
         constructor(item: Object);
 
         // methods
         getAllResponseHeaders(): string;
         getResponseHeader(header: string): string;
-        }
+    }
 
-    export class XMLLoader extends AbstractLoader
-        {
+    export class XMLLoader extends AbstractLoader {
         constructor(loadItem: Object);
 
         static canLoadItem(item: Object): boolean;
-        }
+    }
 }

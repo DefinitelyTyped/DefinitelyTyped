@@ -1,2 +1,2 @@
-import AdvanceStringIndex = require('../2017/AdvanceStringIndex');
+import AdvanceStringIndex = require("../2017/AdvanceStringIndex");
 export = AdvanceStringIndex;

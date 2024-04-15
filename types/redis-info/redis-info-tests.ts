@@ -1,8 +1,8 @@
-import * as redisInfo from 'redis-info';
+import * as redisInfo from "redis-info";
 
-const info = redisInfo.parse('');
+const info = redisInfo.parse("");
 
-if (info.role === 'master') {
+if (info.role === "master") {
     // @ts-expect-error
     info.master_host;
 } else {

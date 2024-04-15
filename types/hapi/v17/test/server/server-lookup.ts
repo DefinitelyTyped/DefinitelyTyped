@@ -6,15 +6,15 @@ const server = new Server({
 });
 
 server.route({
-    path: '/',
-    method: 'GET',
+    path: "/",
+    method: "GET",
     options: {
-        id: 'root',
-        handler: () => 'ok'
-    }
+        id: "root",
+        handler: () => "ok",
+    },
 });
 
-const route: RequestRoute | null = server.lookup('root');
+const route: RequestRoute | null = server.lookup("root");
 console.log(route);
 
 server.start();

@@ -1,8 +1,8 @@
-import Cleave = require('../');
-import * as React from 'react';
-import { CleaveOptions } from '../options';
+import Cleave = require("../");
+import * as React from "react";
+import { CleaveOptions } from "../options";
 
-export type ReactInstanceWithCleave = React.ReactInstance & Omit<Cleave, 'destroy'>;
+export type ReactInstanceWithCleave = React.ReactInstance & Omit<Cleave, "destroy">;
 
 export type InitHandler = (owner: ReactInstanceWithCleave) => void;
 

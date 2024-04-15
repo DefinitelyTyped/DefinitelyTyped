@@ -1,7 +1,6 @@
 {
-    "compileOnSave": true,
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "dom",
             "es5",
@@ -18,16 +17,7 @@
         "types": [],
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
-        "target": "es5",
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@oracle/*": [
-                "oracle__*"
-            ]
-        }
+        "target": "es5"
     },
     "files": [
         "oracle__oraclejet-tests.ts",

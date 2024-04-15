@@ -1,16 +1,10 @@
-// Type definitions for non-npm package amap-js-api-station-search 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.StationSearch
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace StationSearch {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -114,7 +108,7 @@ declare namespace AMap {
              */
             cityList?: CityInfo[] | undefined;
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     /**
      * 公交站点查询服务
@@ -128,7 +122,7 @@ declare namespace AMap {
          */
         searchById(
             id: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 根据给定公交站点名称进行公交站点详情查询
@@ -137,7 +131,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void
+            callback: (status: StationSearch.SearchStatus, result: StationSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置查询结果页码

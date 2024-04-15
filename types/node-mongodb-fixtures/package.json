@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/node-mongodb-fixtures",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/cdimascio/node-mongodb-fixtures#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongodb": "^4.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/node-mongodb-fixtures": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chuah Chee Shian (shian15810)",
+            "githubUsername": "shian15810"
+        }
+    ]
 }

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "asn1js": "^3.0.2"
-    }
-}

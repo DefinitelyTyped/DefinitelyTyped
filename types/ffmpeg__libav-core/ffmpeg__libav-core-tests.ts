@@ -1,4 +1,4 @@
-import createLibavCore = require('@ffmpeg/libav-core');
+import createLibavCore = require("@ffmpeg/libav-core");
 
 (async () => {
     // $ExpectType LibavCore

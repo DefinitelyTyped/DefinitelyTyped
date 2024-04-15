@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cross-storage",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/zendesk/cross-storage"
+    ],
+    "devDependencies": {
+        "@types/cross-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Chao",
+            "url": "http://dchao.co/"
+        }
+    ]
+}

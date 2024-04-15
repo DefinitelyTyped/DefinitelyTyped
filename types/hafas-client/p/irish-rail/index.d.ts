@@ -1,5 +1,3 @@
-export = irishrailProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const irishrailProfile: createClient.Profile;
+export const profile: Profile;

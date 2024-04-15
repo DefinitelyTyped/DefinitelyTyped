@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mute-stream",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/isaacs/mute-stream#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mute-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Jarret",
+            "githubUsername": "adamjarret"
+        }
+    ]
+}

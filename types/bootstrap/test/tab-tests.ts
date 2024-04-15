@@ -1,5 +1,5 @@
-import { Tab } from 'bootstrap';
-import * as $ from 'jquery';
+import { Tab } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -28,6 +28,6 @@ element.addEventListener(Tab.Events.shown, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').tab();
+$(".alert").tab();
 
-$('.alert').tab('show'); // $ExpectType JQuery<HTMLElement>
+$(".alert").tab("show"); // $ExpectType JQuery<HTMLElement>

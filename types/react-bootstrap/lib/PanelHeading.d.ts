@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace PanelHeading {
     export interface PanelHeadingProps extends React.HTMLProps<PanelHeading> {
@@ -7,5 +7,5 @@ declare namespace PanelHeading {
         bsClass?: string | undefined;
     }
 }
-declare class PanelHeading extends React.Component<PanelHeading.PanelHeadingProps> { }
+declare class PanelHeading extends React.Component<PanelHeading.PanelHeadingProps> {}
 export = PanelHeading;

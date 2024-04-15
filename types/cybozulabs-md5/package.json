@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "@types/cybozulabs-md5",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "cybozulabs-md5",
+    "projects": [
+        "http://labs.cybozu.co.jp/blog/mitsunari/2007/07/md5js_1.html"
+    ],
+    "devDependencies": {
+        "@types/cybozulabs-md5": "workspace:."
+    },
+    "owners": []
+}

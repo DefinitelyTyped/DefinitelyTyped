@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/angular-local-storage",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/grevory/angular-local-storage#readme"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-local-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Fukuyama",
+            "githubUsername": "kenfdev"
+        },
+        {
+            "name": "Davide Donadello",
+            "githubUsername": "dona278"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

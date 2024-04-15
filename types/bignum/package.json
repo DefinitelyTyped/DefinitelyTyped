@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/bignum",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/justmoon/node-BigNum"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bignum": "workspace:."
+    },
+    "owners": []
+}

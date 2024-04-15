@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/heic-convert",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/catdad-experiments/heic-convert"
+    ],
+    "devDependencies": {
+        "@types/heic-convert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tregan",
+            "githubUsername": "treemmett"
+        }
+    ]
+}

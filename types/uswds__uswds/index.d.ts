@@ -1,6 +1,51 @@
-// Type definitions for @uswds/uswds 3.0
-// Project: https://github.com/uswds/uswds
-// Definitions by: Morgan Spencer <https://github.com/morganmspencer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import {
+    accordion,
+    banner,
+    button,
+    characterCount,
+    comboBox,
+    datePicker,
+    dateRangePicker,
+    fileInput,
+    footer,
+    inPageNavigation,
+    inputMask,
+    inputPrefixSuffix,
+    languageSelector,
+    modal,
+    navigation,
+    password,
+    range,
+    search,
+    skipnav,
+    table,
+    timePicker,
+    tooltip,
+    validator,
+} from "./js";
 
-export {};
+export {
+    accordion,
+    banner,
+    button,
+    characterCount,
+    comboBox,
+    datePicker,
+    dateRangePicker,
+    fileInput,
+    footer,
+    inPageNavigation,
+    inputMask,
+    inputPrefixSuffix,
+    languageSelector,
+    modal,
+    navigation,
+    password,
+    range,
+    search,
+    skipnav,
+    table,
+    timePicker,
+    tooltip,
+    validator,
+};

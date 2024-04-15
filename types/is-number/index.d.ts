@@ -1,8 +1,3 @@
-// Type definitions for is-number 7.0
-// Project: https://github.com/jonschlinkert/is-number
-// Definitions by: Jed Thompson <https://github.com/jedster1111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = is_number;
 
 /**

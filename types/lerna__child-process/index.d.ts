@@ -1,10 +1,5 @@
-// Type definitions for @lerna/child-process 5.1
-// Project: https://github.com/lerna/lerna/blob/main/core/child-process
-// Definitions by: donmahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Package } from '@lerna/package';
-import * as execa from 'execa';
+import { Package } from "@lerna/package";
+import * as execa from "execa";
 
 export type ExecutionError = execa.ExecaError & { exitCode: number; pkg?: Package };
 export type ExecutionResult = execa.ExecaChildProcess & { pkg?: Package };
@@ -14,7 +9,7 @@ export function execSync(
     command: string,
     args: string[],
     opts?: execa.SyncOptions,
-): ReturnType<typeof execa.sync>['stdout'];
+): ReturnType<typeof execa.sync>["stdout"];
 
 export function getChildProcessCount(): number;
 

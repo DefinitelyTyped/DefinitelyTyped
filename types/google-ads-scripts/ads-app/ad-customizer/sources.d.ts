@@ -101,7 +101,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface AdCustomizerSourceSelector
-            extends Base.Selector<AdCustomizerSourceIterator>,
-                Base.SelectorWithLimit {}
+            extends Base.Selector<AdCustomizerSourceIterator>, Base.SelectorWithLimit
+        {}
     }
 }

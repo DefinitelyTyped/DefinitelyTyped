@@ -1,3 +1,3 @@
-import client = require('./lib/client');
+import client = require("./lib/client");
 
 export = client;

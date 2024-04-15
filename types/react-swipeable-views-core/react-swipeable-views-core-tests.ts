@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { SwipeableViewsProps } from 'react-swipeable-views';
-import { checkIndexBounds, computeIndex, constant, getDisplaySameSlide, mod } from 'react-swipeable-views-core';
+import * as React from "react";
+import { SwipeableViewsProps } from "react-swipeable-views";
+import { checkIndexBounds, computeIndex, constant, getDisplaySameSlide, mod } from "react-swipeable-views-core";
 
 const oldProps: SwipeableViewsProps = {
     index: 1,
-    children: [React.createElement('div'), React.createElement('div')],
+    children: [React.createElement("div"), React.createElement("div")],
 };
 
 const nextProps: SwipeableViewsProps = {
     index: 2,
-    children: [React.createElement('div'), React.createElement('div')],
+    children: [React.createElement("div"), React.createElement("div")],
 };
 
 // $ExpectType number

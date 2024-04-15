@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/vuelidate",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/monterail/vuelidate"
+    ],
     "dependencies": {
         "vue": "^2.6.11"
-    }
+    },
+    "devDependencies": {
+        "@types/vuelidate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Esser",
+            "githubUsername": "janesser"
+        },
+        {
+            "name": "Yuri Krylov",
+            "githubUsername": "shadrus"
+        }
+    ]
 }

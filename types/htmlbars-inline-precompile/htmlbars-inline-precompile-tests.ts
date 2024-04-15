@@ -1,4 +1,4 @@
-import hbs, { TemplateFactory } from 'htmlbars-inline-precompile';
+import hbs, { TemplateFactory } from "htmlbars-inline-precompile";
 
 const likeThisDotRender = (s: TemplateFactory) => {};
 

@@ -1,10 +1,4 @@
-// Type definitions for jQuery BlockUI Plugin
-// Project: http://malsup.com/jquery/block/
-// Definitions by: Jeffrey Lee <http://blog.darkthread.net/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 interface JQBlockUIOptions {
     /** message displayed when blocking (use null for no message) */
@@ -16,10 +10,10 @@ interface JQBlockUIOptions {
     /** set to true to use with jQuery UI themes */
     theme?: boolean | undefined;
 
-    /** 
-     * styles for the message when blocking; if you wish to disable 
-     * these and use an external stylesheet then do this in your code: 
-     * $.blockUI.defaults.css = {}; 
+    /**
+     * styles for the message when blocking; if you wish to disable
+     * these and use an external stylesheet then do this in your code:
+     * $.blockUI.defaults.css = {};
      */
     css?: any;
 
@@ -43,15 +37,14 @@ interface JQBlockUIOptions {
     /** z-index for the blocking overlay */
     baseZ?: number | undefined;
 
-
     /** set true to have the message automatically centered for X */
     centerX?: boolean | undefined;
     /** set true to have the message automatically centered for Y */
     centerY?: boolean | undefined;
 
-    /** 
+    /**
      * allow body element to be stetched in ie6; this makes blocking look better
-     * on "short" pages.  disable if you wish to prevent changes to the body height 
+     * on "short" pages.  disable if you wish to prevent changes to the body height
      */
     allowBodyStretch?: boolean | undefined;
 
@@ -79,15 +72,15 @@ interface JQBlockUIOptions {
     /** callback method invoked when fadeIn has completed and blocking message is visible */
     onBlock?: (() => void) | undefined;
 
-    /** 
-     * callback method invoked when unblocking has completed; the callback is 
-     * passed the element that has been unblocked (which is the window object for page 
-     * blocks) and the options that were passed to the unblock call: 
-     * onUnblock(element, options) 
+    /**
+     * callback method invoked when unblocking has completed; the callback is
+     * passed the element that has been unblocked (which is the window object for page
+     * blocks) and the options that were passed to the unblock call:
+     * onUnblock(element, options)
      */
     onUnblock?: ((element: any, options: any) => void) | undefined;
 
-    // don't ask; if you really must know: http://groups.google.com/group/jquery-en/browse_thread/thread/36640a8730503595/2f6a79a77a78e493#2f6a79a77a78e493 
+    // don't ask; if you really must know: http://groups.google.com/group/jquery-en/browse_thread/thread/36640a8730503595/2f6a79a77a78e493#2f6a79a77a78e493
     /** quirksmodeOffsetHack */
     quirksmodeOffsetHack?: number | undefined;
 
@@ -105,7 +98,7 @@ interface JQBlockUIStatic {
     (): void;
     /**
      * block user activity for the page
-     * @param options options 
+     * @param options options
      */
     (option: JQBlockUIOptions): void;
 }
@@ -118,7 +111,7 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-    /** 
+    /**
      * block the element(s)
      * @param options block options
      */

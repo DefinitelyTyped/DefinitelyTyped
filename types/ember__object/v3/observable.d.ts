@@ -1,6 +1,11 @@
-import { UnwrapComputedPropertyGetter, UnwrapComputedPropertyGetters, UnwrapComputedPropertySetters, ObserverMethod } from "@ember/object/-private/types";
-import Mixin from "@ember/object/mixin";
+import {
+    ObserverMethod,
+    UnwrapComputedPropertyGetter,
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetters,
+} from "@ember/object/-private/types";
 import CoreObject from "@ember/object/core";
+import Mixin from "@ember/object/mixin";
 
 /**
  * This mixin provides properties and property observing functionality, core features of the Ember object model.
@@ -15,7 +20,7 @@ interface Observable {
      * with a list of strings or an array:
      */
     getProperties<K extends keyof this>(
-        list: K[]
+        list: K[],
     ): Pick<UnwrapComputedPropertyGetters<this>, K>;
     getProperties<K extends keyof this>(
         ...list: K[]
@@ -31,11 +36,11 @@ interface Observable {
      * observers will be buffered.
      */
     setProperties<K extends keyof this>(
-        hash: Pick<this, K>
+        hash: Pick<this, K>,
     ): Pick<UnwrapComputedPropertySetters<this>, K>;
     setProperties<K extends keyof this>(
         // tslint:disable-next-line:unified-signatures
-        hash: { [KK in K]: any }
+        hash: { [KK in K]: any },
     ): Pick<UnwrapComputedPropertySetters<this>, K>;
     /**
      * Convenience method to call `propertyWillChange` and `propertyDidChange` in
@@ -48,7 +53,7 @@ interface Observable {
     addObserver<Target>(
         key: keyof this,
         target: Target,
-        method: ObserverMethod<Target, this>
+        method: ObserverMethod<Target, this>,
     ): this;
     addObserver(key: keyof this, method: ObserverMethod<this, this>): this;
     /**
@@ -59,7 +64,7 @@ interface Observable {
     removeObserver<Target>(
         key: keyof this,
         target: Target,
-        method: ObserverMethod<Target, this>
+        method: ObserverMethod<Target, this>,
     ): this;
     removeObserver(key: keyof this, method: ObserverMethod<this, this>): this;
     /**
@@ -68,7 +73,7 @@ interface Observable {
      */
     getWithDefault<K extends keyof this>(
         key: K,
-        defaultValue: UnwrapComputedPropertyGetter<this[K]>
+        defaultValue: UnwrapComputedPropertyGetter<this[K]>,
     ): UnwrapComputedPropertyGetter<this[K]>;
     /**
      * Set the value of a property to the current value plus some amount.
@@ -90,7 +95,7 @@ interface Observable {
      * generated lazily.
      */
     cacheFor<K extends keyof this>(
-        key: K
+        key: K,
     ): UnwrapComputedPropertyGetter<this[K]> | undefined;
 }
 declare const Observable: Mixin<Observable, CoreObject>;

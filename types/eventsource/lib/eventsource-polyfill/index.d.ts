@@ -1,2 +1,2 @@
-import * as EventSource from '../../index';
+import * as EventSource from "../../index";
 export = EventSource;

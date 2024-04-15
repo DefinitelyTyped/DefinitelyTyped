@@ -1,8 +1,3 @@
-// Type definitions for node-hook 1.0
-// Project: https://github.com/bahmutov/node-hook#readme
-// Definitions by: Nathan Hardy <https://github.com/nhardy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     verbose?: boolean | undefined;
 }

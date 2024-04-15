@@ -1,15 +1,15 @@
 /// <reference types="node" />
 
-import { Readable, ReadableOptions, Transform } from 'stream';
+import { Readable, ReadableOptions, Transform } from "stream";
 
-import Mail = require('../mailer');
-import SMTPConnection = require('../smtp-connection');
+import Mail = require("../mailer");
+import SMTPConnection = require("../smtp-connection");
 
 declare namespace MimeNode {
     interface Addresses {
         from?: string[] | undefined;
         sender?: string[] | undefined;
-        'reply-to'?: string[] | undefined;
+        "reply-to"?: string[] | undefined;
         to?: string[] | undefined;
         cc?: string[] | undefined;
         bcc?: string[] | undefined;
@@ -34,7 +34,7 @@ declare namespace MimeNode {
         /** If true, do not exclude Bcc from the generated headers */
         keepBcc?: boolean | undefined;
         /** either 'Q' (the default) or 'B' */
-        textEncoding?: 'B' | 'Q' | undefined;
+        textEncoding?: "B" | "Q" | undefined;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
     }
@@ -66,7 +66,7 @@ declare class MimeNode {
      * {key: 'value'} as the first argument.
      */
     setHeader(key: string, value: string | string[]): this;
-    setHeader(headers: { [key: string]: string } | Array<{ key: string, value: string }>): this;
+    setHeader(headers: { [key: string]: string } | Array<{ key: string; value: string }>): this;
 
     /**
      * Adds a header value. If the value for selected key exists, the value is appended
@@ -75,7 +75,7 @@ declare class MimeNode {
      * {key: 'value'} as the first argument.
      */
     addHeader(key: string, value: string): this;
-    addHeader(headers: { [key: string]: string } | Array<{ key: string, value: string }>): this;
+    addHeader(headers: { [key: string]: string } | Array<{ key: string; value: string }>): this;
 
     /** Retrieves the first mathcing value of a selected key */
     getHeader(key: string): string;

@@ -1,15 +1,15 @@
-import * as React from 'react';
-import ReactGridLayout = require('react-grid-layout');
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import * as React from "react";
+import ReactGridLayout = require("react-grid-layout");
+import { Responsive, WidthProvider } from "react-grid-layout";
 
 const ResponsiveWidth = WidthProvider(Responsive);
 
 class DefaultGridTest extends React.Component {
     render() {
         const layout = [
-            { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
-            { i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-            { i: 'c', x: 4, y: 0, w: 1, h: 2 },
+            { i: "a", x: 0, y: 0, w: 1, h: 2, static: true },
+            { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+            { i: "c", x: 4, y: 0, w: 1, h: 2 },
         ];
 
         return (
@@ -23,12 +23,12 @@ class DefaultGridTest extends React.Component {
                 isBounded={true}
                 allowOverlap={true}
                 onDropDragOver={e => false}
-                resizeHandles={['e']}
+                resizeHandles={["e"]}
                 resizeHandle={<div />}
             >
-                <div key={'a'}>a</div>
-                <div key={'b'}>b</div>
-                <div key={'c'}>c</div>
+                <div key={"a"}>a</div>
+                <div key={"b"}>b</div>
+                <div key={"c"}>c</div>
             </ReactGridLayout>
         );
     }
@@ -38,9 +38,9 @@ class ResponsiveGridTest extends React.Component {
     render() {
         const layouts = {
             lg: [
-                { i: '1', x: 0, y: 0, w: 1, h: 2, static: true },
-                { i: '2', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-                { i: '3', x: 4, y: 0, w: 1, h: 2 },
+                { i: "1", x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: "2", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+                { i: "3", x: 4, y: 0, w: 1, h: 2 },
             ],
         };
 
@@ -63,9 +63,9 @@ class ResponsiveGridTestWithCustomBreakpoints extends React.Component {
     render() {
         const layouts = {
             lg: [
-                { i: '1', x: 0, y: 0, w: 1, h: 2, static: true },
-                { i: '2', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-                { i: '3', x: 4, y: 0, w: 1, h: 2 },
+                { i: "1", x: 0, y: 0, w: 1, h: 2, static: true },
+                { i: "2", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+                { i: "3", x: 4, y: 0, w: 1, h: 2 },
             ],
         };
 

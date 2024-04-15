@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bumblebee-hotword",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jaxcore/bumblebee-hotword"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bumblebee-hotword": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "sheunglaili",
+            "githubUsername": "sheunglaili"
+        }
+    ]
+}

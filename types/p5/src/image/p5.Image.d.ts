@@ -41,7 +41,7 @@ declare module '../../index' {
          *   the underlying canvas
          *   @param y y-offset of the target update area for
          *   the underlying canvas
-         *   @param w height of the target update area for the
+         *   @param w width of the target update area for the
          *   underlying canvas
          *   @param h height of the target update area for the
          *   underlying canvas
@@ -177,7 +177,7 @@ declare module '../../index' {
          *   Masks part of an image from displaying by loading
          *   another image and using its alpha channel as an
          *   alpha channel for this image. Masks are
-         *   cumulative, one applied to an image object, they
+         *   cumulative, once applied to an image object, they
          *   cannot be removed.
          *   @param srcImage source image
          */

@@ -1,5 +1,5 @@
-import Koa = require('koa');
-import rateLimit = require('koa-ratelimit-lru');
+import Koa = require("koa");
+import rateLimit = require("koa-ratelimit-lru");
 
 const app = new Koa();
 

@@ -1,22 +1,22 @@
-import S3rver = require('s3rver');
-import { IncomingMessage, ServerResponse } from 'http';
-import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import { AddressInfo } from 'net';
+import S3rver = require("s3rver");
+import { IncomingMessage, ServerResponse } from "http";
+import { Http2ServerRequest, Http2ServerResponse } from "http2";
+import { AddressInfo } from "net";
 
 const s3rver = new S3rver({
-    address: 'localhost',
+    address: "localhost",
     port: 5694,
-    key: '',
-    cert: '',
+    key: "",
+    cert: "",
     silent: true,
-    serviceEndpoint: '',
-    directory: '/tmp/s3rver_test_directory',
+    serviceEndpoint: "",
+    directory: "/tmp/s3rver_test_directory",
     resetOnClose: false,
     allowMismatchedSignatures: false,
     vhostBuckets: true,
     configureBuckets: [
-        { name: 'bucket1', configs: [''] },
-        { name: 'bucket1', configs: [Buffer.alloc(1)] },
+        { name: "bucket1", configs: [""] },
+        { name: "bucket1", configs: [Buffer.alloc(1)] },
     ],
 });
 

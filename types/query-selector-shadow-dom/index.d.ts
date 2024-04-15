@@ -1,8 +1,3 @@
-// Type definitions for query-selector-shadow-dom 1.0
-// Project: https://github.com/Georgegriff/query-selector-shadow-dom#readme
-// Definitions by: David Alvarez Restrepo <https://github.com/davidalvarezr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Finds first matching elements on the page that may be in a shadow root using a complex selector of n-depth
  * Don't have to specify all shadow roots to button, tree is travered to find the correct element
@@ -17,7 +12,21 @@
  * ```
  * @license Apache-2.0
  */
-export function querySelectorDeep(selector: string, root?: Document | HTMLElement, cachedElements?: HTMLElement[] | null): HTMLElement | null;
+export function querySelectorDeep<K extends keyof HTMLElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<HTMLElementTagNameMap[K]> | null,
+): HTMLElementTagNameMap[K] | null;
+export function querySelectorDeep<K extends keyof SVGElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<SVGElementTagNameMap[K]> | null,
+): SVGElementTagNameMap[K] | null;
+export function querySelectorDeep(
+    selector: string,
+    root?: Document | HTMLElement,
+    cachedElements?: readonly HTMLElement[] | null,
+): HTMLElement | null;
 
 /**
  * Finds first matching elements on the page that may be in a shadow root using a complex selector of n-depth
@@ -28,7 +37,21 @@ export function querySelectorDeep(selector: string, root?: Document | HTMLElemen
  * @returns the HTMLElement's found or an empty array if none found
  * @license Apache-2.0
  */
-export function querySelectorAllDeep(selector: string, root?: Document | HTMLElement, cachedElements?: HTMLElement[] | null): HTMLElement[];
+export function querySelectorAllDeep<K extends keyof HTMLElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<HTMLElementTagNameMap[K]> | null,
+): Array<HTMLElementTagNameMap[K]>;
+export function querySelectorAllDeep<K extends keyof SVGElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<SVGElementTagNameMap[K]> | null,
+): Array<SVGElementTagNameMap[K]>;
+export function querySelectorAllDeep(
+    selector: string,
+    root?: Document | HTMLElement,
+    cachedElements?: readonly HTMLElement[] | null,
+): HTMLElement[];
 
 /**
  * Finds all elements on the page, inclusive of those within shadow roots
@@ -38,4 +61,18 @@ export function querySelectorAllDeep(selector: string, root?: Document | HTMLEle
  * @returns all elements on the page, inclusive of those within shadow roots.
  * @license Apache-2.0
  */
-export function collectAllElementsDeep(selector: string | null, root: Document | HTMLElement, cachedElements?: HTMLElement[] | null): HTMLHtmlElement[];
+export function collectAllElementsDeep<K extends keyof HTMLElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<HTMLElementTagNameMap[K]> | null,
+): Array<HTMLElementTagNameMap[K]>;
+export function collectAllElementsDeep<K extends keyof SVGElementTagNameMap>(
+    selector: K,
+    root?: Document | HTMLElement,
+    cachedElements?: ReadonlyArray<SVGElementTagNameMap[K]> | null,
+): Array<SVGElementTagNameMap[K]>;
+export function collectAllElementsDeep(
+    selector: string | null,
+    root: Document | HTMLElement,
+    cachedElements?: readonly HTMLElement[] | null,
+): HTMLElement[];

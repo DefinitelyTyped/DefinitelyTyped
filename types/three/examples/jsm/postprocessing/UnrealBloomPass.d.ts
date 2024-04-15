@@ -1,6 +1,6 @@
-import { Color, MeshBasicMaterial, ShaderMaterial, Vector2, Vector3, WebGLRenderTarget } from '../../../src/Three';
+import { Color, MeshBasicMaterial, ShaderMaterial, Vector2, Vector3, WebGLRenderTarget } from "three";
 
-import { Pass } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class UnrealBloomPass extends Pass {
     constructor(resolution: Vector2, strength: number, radius: number, threshold: number);
@@ -19,11 +19,11 @@ export class UnrealBloomPass extends Pass {
     compositeMaterial: ShaderMaterial;
     bloomTintColors: Vector3[];
     copyUniforms: object;
-    materialCopy: ShaderMaterial;
+    blendMaterial: ShaderMaterial;
     oldClearColor: Color;
     oldClearAlpha: number;
     basic: MeshBasicMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
 
     dispose(): void;
     getSeperableBlurMaterial(): ShaderMaterial;

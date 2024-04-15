@@ -1,14 +1,14 @@
-import moment from 'moment';
-import 'moment/locale/de';
-import Vue from 'vue';
-import VueMoment from 'vue-moment';
+import moment from "moment";
+import "moment/locale/de";
+import Vue from "vue";
+import VueMoment from "vue-moment";
 
 Vue.use(VueMoment, {
-    moment
+    moment,
 });
 
 new Vue({
-    el: '#app',
+    el: "#app",
     template: `
     {{ new Date() | moment("dddd, MMMM Do YYYY") }}
 `,

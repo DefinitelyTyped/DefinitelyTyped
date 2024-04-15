@@ -3,27 +3,27 @@
 declare namespace M {
     class FloatingActionButton extends Component<FloatingActionButtonOptions> implements Openable {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): FloatingActionButton;
 
         /**
-         * Init FloatingActionButton
+         * Init FloatingActionButton.
          */
         static init(els: Element, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton;
 
         /**
-         * Init FloatingActionButtons
+         * Init FloatingActionButtons.
          */
         static init(els: MElements, options?: Partial<FloatingActionButtonOptions>): FloatingActionButton[];
 
         /**
-         * Open FAB
+         * Open FAB.
          */
         open(): void;
 
         /**
-         * Close FAB
+         * Close FAB.
          */
         close(): void;
 
@@ -35,19 +35,19 @@ declare namespace M {
 
     interface FloatingActionButtonOptions {
         /**
-         * Direction FAB menu opens
+         * Direction FAB menu opens.
          * @default "top"
          */
         direction: "top" | "right" | "buttom" | "left";
 
         /**
-         * true: FAB menu appears on hover, false: FAB menu appears on click
+         * true: FAB menu appears on hover, false: FAB menu appears on click.
          * @default true
          */
         hoverEnabled: boolean;
 
         /**
-         * Enable transit the FAB into a toolbar on click
+         * Enable transit the FAB into a toolbar on click.
          * @default false
          */
         toolbarEnabled: boolean;

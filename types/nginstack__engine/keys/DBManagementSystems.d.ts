@@ -1,5 +1,5 @@
 export type exports = number;
-declare const ORACLE: number;
-declare const POSTGRESQL: number;
-declare const MS_SQL_SERVER: number;
+declare let ORACLE: number;
+declare let POSTGRESQL: number;
+declare let MS_SQL_SERVER: number;
 export {};

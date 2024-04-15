@@ -1,9 +1,3 @@
-// Type definitions for workbox-sw 3.2
-// Project: https://github.com/GoogleChrome/workbox
-// Definitions by: Frederik Wessberg <https://github.com/wessberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * ===== BroadcastCacheUpdate =====
  */
@@ -33,14 +27,14 @@ declare class BroadcastCacheUpdate {
      * @param {string} url - The URL of the updated request.
      * @param {string} cacheName - Name of the cache the responses belong to. This is included in the message posted on the broadcast channel.
      */
-    notifyIfUpdated (firstResponse: Response, secondResponse: Response, url: string, cacheName: string): void;
+    notifyIfUpdated(firstResponse: Response, secondResponse: Response, url: string, cacheName: string): void;
 }
 
 /**
  * Construct a BroadcastCacheUpdate instance with a specific channelName to broadcast messages on
  */
 interface IBroadcastCacheUpdateConstructor {
-    new (channelName: string, options: Partial<IBroadcastCacheUpdateOptions>): BroadcastCacheUpdate;
+    new(channelName: string, options: Partial<IBroadcastCacheUpdateOptions>): BroadcastCacheUpdate;
 }
 
 /**
@@ -61,7 +55,7 @@ declare class CacheableResponse {
      * @param {Response} response - The response whose cacheability is being checked.
      * @returns {boolean}
      */
-    isResponseCacheable (response: Response): boolean;
+    isResponseCacheable(response: Response): boolean;
 }
 
 /**
@@ -69,7 +63,7 @@ declare class CacheableResponse {
  * If both statuses and headers are specified, then both conditions must be met for the Response to be considered cacheable.
  */
 interface ICacheableResponseConstructor {
-    new (options: Partial<ICacheableResponseOptions>): CacheableResponse;
+    new(options: Partial<ICacheableResponseOptions>): CacheableResponse;
 }
 
 /**
@@ -96,7 +90,7 @@ declare class CacheExpiration {
      * Expires entries for the given cache and given criteria.
      * @returns {Promise<void>}
      */
-    expireEntries (): Promise<void>;
+    expireEntries(): Promise<void>;
 
     /**
      * Can be used to check if a URL has expired or not before it's used.
@@ -105,7 +99,7 @@ declare class CacheExpiration {
      * @param {string} url
      * @returns {Promise<boolean>}
      */
-    isURLExpired (url: string): Promise<boolean>;
+    isURLExpired(url: string): Promise<boolean>;
 
     /**
      * Update the timestamp for the given URL.
@@ -113,14 +107,14 @@ declare class CacheExpiration {
      * @param {string} url
      * @returns {Promise<void>}
      */
-    updateTimestamp (url: string): Promise<void>;
+    updateTimestamp(url: string): Promise<void>;
 }
 
 /**
  * To construct a new CacheExpiration instance you must provide at least one of the config properties.
  */
 interface ICacheExpirationConstructor {
-    new (cacheName: string, config: Partial<ICacheExpirationOptions>): CacheExpiration;
+    new(cacheName: string, config: Partial<ICacheExpirationOptions>): CacheExpiration;
 }
 
 /**
@@ -132,7 +126,7 @@ interface ICacheStrategyHandleOptions {
 }
 
 interface ICacheStrategyMakeRequestOptions {
-    request: Request|string;
+    request: Request | string;
     event?: FetchEvent | undefined;
 }
 
@@ -142,14 +136,14 @@ declare class CacheStrategy {
      * @param {ICacheStrategyHandleOptions} input
      * @returns {Promise<Response>}
      */
-    handle (input: ICacheStrategyHandleOptions): Promise<Response>;
+    handle(input: ICacheStrategyHandleOptions): Promise<Response>;
 
     /**
      * This method can be used to perform a make a standalone request outside the context of the Workbox Router.
      * @param {ICacheStrategyMakeRequestOptions} input
      * @returns {Promise<Response>}
      */
-    makeRequest (input: ICacheStrategyMakeRequestOptions): Promise<Response>;
+    makeRequest(input: ICacheStrategyMakeRequestOptions): Promise<Response>;
 }
 
 /**
@@ -178,7 +172,7 @@ declare class CacheOnly extends CacheStrategy {
  * Instantiates a new CacheOnly strategy
  */
 interface ICacheOnlyConstructor {
-    new (options?: Partial<ICacheOnlyOptions>): CacheOnly;
+    new(options?: Partial<ICacheOnlyOptions>): CacheOnly;
 }
 
 /**
@@ -203,7 +197,7 @@ declare class CacheFirst extends CacheStrategy {
  * Instantiates a new CacheFirst strategy
  */
 interface ICacheFirstConstructor {
-    new (options?: Partial<ICacheFirstOptions>): CacheFirst;
+    new(options?: Partial<ICacheFirstOptions>): CacheFirst;
 }
 
 /**
@@ -224,7 +218,7 @@ declare class NetworkOnly extends CacheStrategy {
  * Instantiates a new NetworkOnly strategy
  */
 interface INetworkOnlyConstructor {
-    new (options?: Partial<INetworkOnlyOptions>): NetworkOnly;
+    new(options?: Partial<INetworkOnlyOptions>): NetworkOnly;
 }
 
 /**
@@ -247,7 +241,7 @@ declare class NetworkFirst extends CacheStrategy {
  * Instantiates a new NetworkFirst strategy
  */
 interface INetworkFirstConstructor {
-    new (options?: Partial<INetworkFirstOptions>): NetworkFirst;
+    new(options?: Partial<INetworkFirstOptions>): NetworkFirst;
 }
 
 /**
@@ -272,7 +266,7 @@ declare class StaleWhileRevalidate extends CacheStrategy {
  * Instantiates a new StaleWhileRevalidate strategy
  */
 interface IStaleWhileRevalidateConstructor {
-    new (options?: Partial<IStaleWhileRevalidateOptions>): StaleWhileRevalidate;
+    new(options?: Partial<IStaleWhileRevalidateOptions>): StaleWhileRevalidate;
 }
 
 /**
@@ -289,7 +283,7 @@ interface IMatchContext extends IURLContext {
 /**
  * To signify a match, return anything other than null. Return null if the route shouldn't match.
  */
-type MatchCallback = (context: IMatchContext) => {}|null;
+type MatchCallback = (context: IMatchContext) => {} | null;
 
 /**
  * ===== HandlerCallback =====
@@ -344,7 +338,7 @@ declare class NavigationRoute {
  * The regular expressions in whitelist and blacklist are matched against the concatenated pathname and search portions of the requested URL.
  */
 interface INavigationRouteConstructor {
-    new (handler: HandlerCallback, options: Partial<INavigationRouteOptions>): NavigationRoute;
+    new(handler: HandlerCallback, options: Partial<INavigationRouteOptions>): NavigationRoute;
 }
 
 /**
@@ -361,7 +355,7 @@ declare class BroadcastUpdatePlugin {
  * Construct a new instance with a specific channelName to broadcast messages on
  */
 interface IBroadcastUpdatePluginConstructor {
-    new (channelName: string, options?: Partial<IBroadcastCacheUpdateOptions>): BroadcastUpdatePlugin;
+    new(channelName: string, options?: Partial<IBroadcastCacheUpdateOptions>): BroadcastUpdatePlugin;
 }
 
 /**
@@ -379,7 +373,7 @@ declare class RangeRequestsPlugin {
  * Instantiates a new RangeRequestsPlugin
  */
 interface IRangeRequestsPluginConstructor {
-    new (): RangeRequestsPlugin;
+    new(): RangeRequestsPlugin;
 }
 
 /**
@@ -398,7 +392,7 @@ declare class CacheableResponsePlugin {
  * If both statuses and headers are specified, then both conditions must be met for the Response to be considered cacheable.
  */
 interface ICacheableResponsePluginConstructor {
-    new (config: Partial<ICacheableResponseOptions>): CacheableResponsePlugin;
+    new(config: Partial<ICacheableResponseOptions>): CacheableResponsePlugin;
 }
 
 /**
@@ -416,7 +410,7 @@ declare class BackgroundSyncPlugin {
  * Instantiates a new BackgroundSyncPlugin
  */
 interface IBackgroundSyncPluginConstructor {
-    new (...queueArgs: any[]): BackgroundSyncPlugin;
+    new(...queueArgs: any[]): BackgroundSyncPlugin;
 }
 
 /**
@@ -438,14 +432,20 @@ declare class ExpirationPlugin {
  * Instantiates a new ExpirationPlugin
  */
 interface IExpirationPluginConstructor {
-    new (config: Partial<ICacheExpirationOptions>): ExpirationPlugin;
+    new(config: Partial<ICacheExpirationOptions>): ExpirationPlugin;
 }
 
 /**
  * ===== ExpirationPlugin =====
  */
 
-type Plugin = BroadcastUpdatePlugin|RangeRequestsPlugin|CacheableResponsePlugin|BackgroundSyncPlugin|ExpirationPlugin|WorkboxPlugin;
+type Plugin =
+    | BroadcastUpdatePlugin
+    | RangeRequestsPlugin
+    | CacheableResponsePlugin
+    | BackgroundSyncPlugin
+    | ExpirationPlugin
+    | WorkboxPlugin;
 
 /**
  * ===== BackgroundSync =====
@@ -471,11 +471,11 @@ interface IStorableRequestOptions {
 declare class StorableRequest {
     readonly timestamp: number;
 
-    toObject (): IStorableRequestOptions;
+    toObject(): IStorableRequestOptions;
 
-    toRequest (): Request;
+    toRequest(): Request;
 
-    clone (): StorableRequest;
+    clone(): StorableRequest;
 }
 
 /**
@@ -484,8 +484,8 @@ declare class StorableRequest {
  * reference when the object was created.
  */
 interface IStorableRequestConstructor {
-    new (options: IStorableRequestOptions): StorableRequest;
-    fromRequest (request: Request): StorableRequest;
+    new(options: IStorableRequestOptions): StorableRequest;
+    fromRequest(request: Request): StorableRequest;
 }
 
 /**
@@ -531,12 +531,12 @@ interface IInstallResult {
     /**
      * List of entries supplied for precaching that were precached.
      */
-    updatedEntries: (string|IPrecacheEntry)[];
+    updatedEntries: Array<string | IPrecacheEntry>;
 
     /**
      * List of entries supplied for precaching that were already precached.
      */
-    notUpdatedEntries: (string|IPrecacheEntry)[];
+    notUpdatedEntries: Array<string | IPrecacheEntry>;
 }
 
 /**
@@ -548,33 +548,33 @@ declare class PrecacheController {
      * @param {IActivateOptions} options
      * @returns {Promise<ICleanupResult>} Resolves with an object containing details of the deleted cache requests and precache revision details.
      */
-    activate (options: Partial<IActivateOptions>): Promise<ICleanupResult>;
+    activate(options: Partial<IActivateOptions>): Promise<ICleanupResult>;
 
     /**
      * This method will add items to the precache list, removing duplicates and ensuring the information is valid.
      * @param {(string | IPrecacheEntry)[]} entries - Array of entries to precache.
      */
-    addToCacheList (entries: (string|IPrecacheEntry)[]): void;
+    addToCacheList(entries: Array<string | IPrecacheEntry>): void;
 
     /**
      * Returns an array of fully qualified URL's that will be precached.
      * @returns {string[]} An array of URLs.
      */
-    getCachedUrls (): string[];
+    getCachedUrls(): string[];
 
     /**
      * Call this method from a service work install event to start precaching assets.
      * @param {Partial<IInstallOptions>} options
      * @returns {Promise<IInstallResult>}
      */
-    install (options?: Partial<IInstallOptions>): Promise<IInstallResult>;
+    install(options?: Partial<IInstallOptions>): Promise<IInstallResult>;
 }
 
 /**
  * Create a new PrecacheController.
  */
 interface IPrecacheControllerConstructor {
-    new (cacheName?: string): PrecacheController;
+    new(cacheName?: string): PrecacheController;
 }
 
 /**
@@ -586,18 +586,18 @@ interface IQueueCallback {
      * Invoked immediately before the request is stored to IndexedDB. Use this callback to modify request data at store time.
      * @param {StorableRequest} request
      */
-    requestWillEnqueue (request: StorableRequest): void;
+    requestWillEnqueue(request: StorableRequest): void;
     /**
      * Invoked immediately before the request is re-fetched. Use this callback to modify request data at fetch time.
      * @param {StorableRequest} request
      */
-    requestWillReplay (request: StorableRequest): void;
+    requestWillReplay(request: StorableRequest): void;
 
     /**
      * Invoked after all requests in the queue have successfully replayed.
      * @param {StorableRequest[]} requests
      */
-    queueDidReplay (requests: StorableRequest[]): void;
+    queueDidReplay(requests: StorableRequest[]): void;
 }
 
 interface IQueueOptions {
@@ -624,7 +624,7 @@ declare class Queue {
      * @param {Request} request - The request object to store.
      * @returns {Promise<void>}
      */
-    addRequest (request: Request): Promise<void>;
+    addRequest(request: Request): Promise<void>;
 
     /**
      * Retrieves all stored requests in IndexedDB and retries them. If the queue contained requests that
@@ -632,7 +632,7 @@ declare class Queue {
      * If any of the requests fail, a new sync registration is created to retry again later.
      * @returns {Promise<void>}
      */
-    replayRequests (): Promise<void>;
+    replayRequests(): Promise<void>;
 }
 
 /**
@@ -646,7 +646,7 @@ interface IQueueConstructor {
      * @param {Partial<IQueueOptions>} options
      * @returns {Queue}
      */
-    new (name: string, options?: Partial<IQueueOptions>): Queue;
+    new(name: string, options?: Partial<IQueueOptions>): Queue;
 }
 
 /**
@@ -667,13 +667,12 @@ declare class Route {
  */
 interface IRouteConstructor {
     /**
-     *
      * @param {MatchCallback} match - A callback function that determines whether the route matches a given fetch event by returning a non-falsy value.
      * @param {HandlerCallback} handler - A callback function that returns a Promise resolving to a Response.
      * @param {string} [method] - The HTTP method to match the Route against.
      * @returns {Route}
      */
-    new (match: MatchCallback, handler: HandlerCallback, method?: string): Route;
+    new(match: MatchCallback, handler: HandlerCallback, method?: string): Route;
 }
 
 /**
@@ -692,13 +691,12 @@ declare class RegExpRoute extends Route {
  */
 interface IRegExpRouteConstructor {
     /**
-     *
      * @param {RegExp} regExp - The regular expression to match against URLs.
      * @param {HandlerCallback} handler - A callback function that returns a Promise resulting in a Response.
      * @param {string} [method] - The HTTP method to match the Route against.
      * @returns {RegExpRoute}
      */
-    new (regExp: RegExp, handler: HandlerCallback, method?: string): RegExpRoute;
+    new(regExp: RegExp, handler: HandlerCallback, method?: string): RegExpRoute;
 }
 
 /**
@@ -718,39 +716,39 @@ declare class Router {
      * @returns {Promise<Response>?} A promise is returned if a registered route can handle the FetchEvent's request.
      *                               If there is no matching route and there's no defaultHandler, undefined is returned.
      */
-    handleRequest (event: FetchEvent): Promise<Response>|undefined;
+    handleRequest(event: FetchEvent): Promise<Response> | undefined;
 
     /**
      * Registers a route with the router.
      * @param {Route} route
      */
-    registerRoute (route: Route): void;
+    registerRoute(route: Route): void;
 
     /**
      * If a Route throws an error while handling a request, this handler will be called and given a chance to provide a response.
      * @param {HandlerCallback} handler - A callback function that returns a Promise resulting in a Response.
      */
-    setCatchHandler (handler: HandlerCallback): void;
+    setCatchHandler(handler: HandlerCallback): void;
 
     /**
      * Define a default handler that's called when no routes explicitly match the incoming request.
      * Without a default handler, unmatched requests will go against the network as if there were no service worker present.
      * @param {HandlerCallback} handler - A callback function that returns a Promise resulting in a Response.
      */
-    setDefaultHandler (handler: HandlerCallback): void;
+    setDefaultHandler(handler: HandlerCallback): void;
 
     /**
      * Unregisters a route with the router.
      * @param {Route} route - The route to unregister.
      */
-    unregisterRoute (route: Route): void;
+    unregisterRoute(route: Route): void;
 }
 
 /**
  * Initializes a new Router.
  */
 interface IRouterConstructor {
-    new (): Router;
+    new(): Router;
 }
 
 /**
@@ -822,13 +820,13 @@ declare class CoreNamespace {
      * Cache names are generated as <prefix>-<Cache Name>-<suffix>.
      * @param {Partial<ICacheNameDetails>} details
      */
-    static setCacheNameDetails (details: Partial<ICacheNameDetails>): void;
+    static setCacheNameDetails(details: Partial<ICacheNameDetails>): void;
 
     /**
      * Set the current log level passing in one of the values from LOG_LEVELS.
      * @param {number} logLevel - The new log level to use.
      */
-    static setLogLevel (logLevel: ILogLevel[keyof ILogLevel]): void;
+    static setLogLevel(logLevel: ILogLevel[keyof ILogLevel]): void;
 }
 
 /**
@@ -854,7 +852,7 @@ interface IRouteOptions {
     /**
      * The directoryIndex will check cache entries for a URLs ending with '/' to see if there is a hit when appending the directoryIndex value.
      */
-    directoryIndex: string|null;
+    directoryIndex: string | null;
 
     /**
      * An array of regex's to remove search params when looking for a cache match.
@@ -886,14 +884,14 @@ declare class PrecachingNamespace {
      * Add plugins to precaching.
      * @param {Plugin[]} newPlugins
      */
-    static addPlugins (newPlugins: Plugin[]): void;
+    static addPlugins(newPlugins: Plugin[]): void;
 
     /**
      * Add a fetch listener to the service worker that will respond to network requests with precached assets.
      * Requests for assets that aren't precached, the FetchEvent will not be responded to, allowing the event to fall through to other fetch event listeners.
      * @param {Partial<IRouteOptions>} route
      */
-    static addRoute (route: Partial<IRouteOptions>): void;
+    static addRoute(route: Partial<IRouteOptions>): void;
 
     /**
      * Add items to the precache list, removing any duplicates and store the files in the "precache cache" when the service worker installs.
@@ -902,7 +900,7 @@ declare class PrecachingNamespace {
      * If you have a single array of files to precache, you can just call precacheAndRoute().
      * @param {(string | IPrecacheEntry)[]} entries
      */
-    static precache (entries: (string|IPrecacheEntry)[]): void;
+    static precache(entries: Array<string | IPrecacheEntry>): void;
 
     /**
      * This method will add entries to the precache list and add a route to respond to fetch events.
@@ -910,7 +908,7 @@ declare class PrecachingNamespace {
      * @param {(string | IPrecacheEntry)[]} entries - Array of entries to precache.
      * @param {Partial<IRouteOptions>} [route] - see addRoute() options
      */
-    static precacheAndRoute (entries: (string|IPrecacheEntry)[], route?: Partial<IRouteOptions>): void;
+    static precacheAndRoute(entries: Array<string | IPrecacheEntry>, route?: Partial<IRouteOptions>): void;
 
     /**
      * Warnings will be logged if any of the precached assets are entered without a revision property.
@@ -918,7 +916,7 @@ declare class PrecachingNamespace {
      * However, the warnings can be supressed with this method.
      * @param {boolean} suppress
      */
-    static suppressWarnings (suppress: boolean): void;
+    static suppressWarnings(suppress: boolean): void;
 }
 
 /**
@@ -966,7 +964,10 @@ declare class RoutingNamespace {
      * @param {Partial<IRegisterNavigationRouteOptions>} [options]
      * @returns {NavigationRoute} Returns the generated Route.
      */
-    static registerNavigationRoute (cachedAssetUrl: string, options?: Partial<IRegisterNavigationRouteOptions>): NavigationRoute;
+    static registerNavigationRoute(
+        cachedAssetUrl: string,
+        options?: Partial<IRegisterNavigationRouteOptions>,
+    ): NavigationRoute;
 
     /**
      * Easily register a RegExp, string, or function with a caching strategy to the Router.
@@ -976,14 +977,18 @@ declare class RoutingNamespace {
      * @param {string} method - The HTTP method to match the Route against.
      * @returns {Route} The generated Route(Useful for unregistering).
      */
-    static registerRoute (capture: string|RegExp|MatchCallback|Route, handler: HandlerCallback, method?: string): Route;
+    static registerRoute(
+        capture: string | RegExp | MatchCallback | Route,
+        handler: HandlerCallback,
+        method?: string,
+    ): Route;
 
     /**
      * If a Route throws an error while handling a request, this handler will be called and given a chance to provide a response.
      * @param {IHandlerOptions} handler - A callback function that returns a Promise resulting in a Response.
      * @returns {Promise<Response>}
      */
-    static setCatchHandler (handler: IHandlerOptions): Promise<Response>;
+    static setCatchHandler(handler: IHandlerOptions): Promise<Response>;
 
     /**
      * Define a default handler that's called when no routes explicitly match the incoming request.
@@ -991,13 +996,13 @@ declare class RoutingNamespace {
      * @param {IHandlerOptions} handler - A callback function that returns a Promise resulting in a Response.
      * @returns {Promise<Response>}
      */
-    static setDefaultHandler (handler: IHandlerOptions): Promise<Response>;
+    static setDefaultHandler(handler: IHandlerOptions): Promise<Response>;
 
     /**
      * Unregisters a route with the router.
      * @param {Route} route - The route to unregister
      */
-    static unregisterRoute (route: Route): void;
+    static unregisterRoute(route: Route): void;
 }
 
 /**
@@ -1064,42 +1069,42 @@ declare class StrategiesNamespace {
      * @param {Partial<IStrategyOptions>} [options]
      * @returns {HandlerCallback}
      */
-    static cacheFirst (options?: Partial<IStrategyOptions>): HandlerCallback;
+    static cacheFirst(options?: Partial<IStrategyOptions>): HandlerCallback;
 
     /**
      * Instantiates a new CacheOnly strategy
      * @param {Partial<IStrategyOptions>} [options]
      * @returns {HandlerCallback}
      */
-    static cacheOnly (options?: Partial<IStrategyOptions>): HandlerCallback;
+    static cacheOnly(options?: Partial<IStrategyOptions>): HandlerCallback;
 
     /**
      * Instantiates a new NetworkFirst strategy
      * @param {Partial<IStrategyOptions>} [options]
      * @returns {HandlerCallback}
      */
-    static networkFirst (options?: Partial<IStrategyOptions>): HandlerCallback;
+    static networkFirst(options?: Partial<IStrategyOptions>): HandlerCallback;
 
     /**
      * Instantiates a new NetworkOnly strategy
      * @param {Partial<IStrategyOptions>} [options]
      * @returns {HandlerCallback}
      */
-    static networkOnly (options?: Partial<IStrategyOptions>): HandlerCallback;
+    static networkOnly(options?: Partial<IStrategyOptions>): HandlerCallback;
 
     /**
      * Instantiates a new StaleWhileRevalidate strategy
      * @param {Partial<IStrategyOptions>} [options]
      * @returns {StaleWhileRevalidate}
      */
-    static staleWhileRevalidate (options?: Partial<IStrategyOptions>): HandlerCallback;
+    static staleWhileRevalidate(options?: Partial<IStrategyOptions>): HandlerCallback;
 }
 
 /**
  * ===== StreamsNamespace =====
  */
 
-type StreamSource = Response|ReadableStream|BodyInit;
+type StreamSource = Response | ReadableStream | BodyInit;
 
 interface IConcatenateResult {
     done: Promise<StreamSource>;
@@ -1119,7 +1124,7 @@ declare class StreamsNamespace {
      * @param {Promise<StreamSource>[]} sourcePromises - Array of Promise containing StreamSource
      * @returns {IConcatenateResult}
      */
-    static concatenate (sourcePromises: Promise<StreamSource>[]): IConcatenateResult;
+    static concatenate(sourcePromises: Array<Promise<StreamSource>>): IConcatenateResult;
 
     /**
      * Takes multiple source Promises, each of which could resolve to a Response, a ReadableStream, or a BodyInit,along with a HeadersInit.
@@ -1129,20 +1134,23 @@ declare class StreamsNamespace {
      * @param {HeadersInit} [headersInit] - If there's no Content-Type specified, 'text/html' will be used by default.
      * @returns {IConcatenateToResponseResult}
      */
-    static concatenateToResponse (sourcePromises: Promise<StreamSource>[], headersInit?: HeadersInit): IConcatenateToResponseResult;
+    static concatenateToResponse(
+        sourcePromises: Array<Promise<StreamSource>>,
+        headersInit?: HeadersInit,
+    ): IConcatenateToResponseResult;
 
     /**
      * This is a utility method that determines whether the current browser supports the features required to create streamed responses. Currently, it checks if ReadableStream is available.
      * @param {HeadersInit} [headersInit] - If there's no Content-Type specified, 'text/html' will be used by default.
      * @returns {boolean} - true, if the current browser meets the requirements for streaming responses, and false otherwise.
      */
-    static createHeaders (headersInit?: HeadersInit): boolean;
+    static createHeaders(headersInit?: HeadersInit): boolean;
 
     /**
      * This is a utility method that determines whether the current browser supports the features required to create streamed responses. Currently, it checks if ReadableStream is available.
      * @returns {boolean} - true, if the current browser meets the requirements for streaming responses, and false otherwise.
      */
-    static isSupported (): boolean;
+    static isSupported(): boolean;
 
     /**
      * A shortcut to create a strategy that could be dropped-in to Workbox's router.
@@ -1152,7 +1160,7 @@ declare class StreamsNamespace {
      * @param {HeadersInit} headersInit . If there's no Content-Type specified, 'text/html' will be used by default.
      * @returns {HandlerCallback}
      */
-    static strategy (sourceFunctions: HandlerCallback[], headersInit?: HeadersInit): HandlerCallback;
+    static strategy(sourceFunctions: HandlerCallback[], headersInit?: HeadersInit): HandlerCallback;
 }
 
 /**
@@ -1212,11 +1220,11 @@ interface IGoogleAnalyticsInitializeOptions {
      * A function that allows you to modify the hit parameters prior to replaying the hit. The function is invoked with the original hit's URLSearchParams object as its only argument.
      * @param {URLSearchParams} params
      */
-    hitFilter (params: URLSearchParams): void;
+    hitFilter(params: URLSearchParams): void;
 }
 
 declare class GoogleAnalyticsNamespace {
-    static initialize (options: Partial<IGoogleAnalyticsInitializeOptions>): void;
+    static initialize(options: Partial<IGoogleAnalyticsInitializeOptions>): void;
 }
 
 /**
@@ -1263,7 +1271,7 @@ declare class BroadcastUpdateNamespace {
      * @param {string} url - The URL associated with the updated Response.
      * @param {string} source - A string identifying this library as the source of the update message.
      */
-    static broadCastUpdate (channel: BroadcastChannel, cacheName: string, url: string, source: string): void;
+    static broadCastUpdate(channel: BroadcastChannel, cacheName: string, url: string, source: string): void;
 }
 
 /**
@@ -1285,7 +1293,7 @@ declare class RangeRequestsNamespace {
      * content specified by the request's Range: header, or a 416 Range Not Satisfiable response if the conditions of
      * the Range: header can't be met.
      */
-    static createPartialResponse (request: Request, originalResponse: Response): Promise<Response>;
+    static createPartialResponse(request: Request, originalResponse: Response): Promise<Response>;
 }
 
 /**
@@ -1297,7 +1305,9 @@ interface WorkboxPlugin {
      * @param {CacheWillUpdatePluginContext} context
      * @returns {Promise<Response>|Response|null}
      */
-    readonly cacheWillUpdate?: ((context: CacheWillUpdatePluginContext) => Promise<Response>|Response|null) | undefined;
+    readonly cacheWillUpdate?:
+        | ((context: CacheWillUpdatePluginContext) => Promise<Response> | Response | null)
+        | undefined;
 
     /**
      * Called when a new entry is added to a cache or it’s updated. Useful if you wish to perform an action after a cache update.
@@ -1311,7 +1321,9 @@ interface WorkboxPlugin {
      * @param {CacheResponseWillBeUsedPluginContext} context
      * @returns {Promise<Response>|Response|null}
      */
-    readonly cachedResponseWillBeUsed?: ((context: CacheResponseWillBeUsedPluginContext) => Promise<Response>|Response|null) | undefined;
+    readonly cachedResponseWillBeUsed?:
+        | ((context: CacheResponseWillBeUsedPluginContext) => Promise<Response> | Response | null)
+        | undefined;
 
     /**
      * This is called whenever a fetch event is about to be made. You can alter the Request in this callback.
@@ -1402,25 +1414,25 @@ declare class WorkboxNamespace {
     /**
      * Claim any currently available clients once the service worker becomes active. This is normally used in conjunction with skipWaiting().
      */
-    static clientsClaim (): void;
+    static clientsClaim(): void;
 
     /**
      * Load a Workbox module by passing in the appropriate module name.
      * This is not generally needed unless you know there are modules that are dynamically used and you want to safe guard use of the module while the user may be offline.
      * @param {string} moduleName
      */
-    static loadModule (moduleName: string): void;
+    static loadModule(moduleName: string): void;
 
     /**
      * Updates the configuration options. You can specify whether to treat as a debug build and whether to use a CDN or a specific path when importing other workbox-modules
      * @param {Partial<IConfigOptions>} config
      */
-    static setConfig (config?: Partial<IConfigOptions>): void;
+    static setConfig(config?: Partial<IConfigOptions>): void;
 
     /**
      * Force a service worker to become active, instead of waiting. This is normally used in conjunction with clientsClaim().
      */
-    static skipWaiting (): void;
+    static skipWaiting(): void;
 }
 
 export = WorkboxNamespace;

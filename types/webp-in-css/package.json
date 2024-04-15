@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/webp-in-css",
+    "version": "0.7.9999",
+    "projects": [
+        "https://www.npmjs.com/package/webp-in-css"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "postcss": "^8.4.4"
-    }
+    },
+    "devDependencies": {
+        "@types/webp-in-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

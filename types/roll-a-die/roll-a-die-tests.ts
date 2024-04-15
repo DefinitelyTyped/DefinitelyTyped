@@ -1,6 +1,6 @@
-import rollADie from 'roll-a-die';
+import rollADie from "roll-a-die";
 
-const element = document.createElement('div');
+const element = document.createElement("div");
 const cb = (values: number[]) => values;
 
 rollADie({ element, numberOfDice: 2, callback: cb }); // $ExpectType void
@@ -15,7 +15,7 @@ rollADie({
     callback: values => {
         values; // $ExpectType number[]
     },
-    noSound: true
+    noSound: true,
 });
 
 // @ts-expect-error
@@ -29,8 +29,8 @@ rollADie({ element, numberOfDice: true });
 // @ts-expect-error
 rollADie({ element, numberOfDice: 1, callback: 34 });
 // @ts-expect-error
-rollADie({ element, numberOfDice: 1, delay: '5000' });
+rollADie({ element, numberOfDice: 1, delay: "5000" });
 // @ts-expect-error
-rollADie({ element, numberOfDice: 1, values: { val: 'Hello World!' } });
+rollADie({ element, numberOfDice: 1, values: { val: "Hello World!" } });
 // @ts-expect-error
-rollADie({ element, numberOfDice: 1, values: [5, '6'] });
+rollADie({ element, numberOfDice: 1, values: [5, "6"] });

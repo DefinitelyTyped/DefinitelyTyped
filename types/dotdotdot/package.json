@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/dotdotdot",
+    "version": "1.6.9999",
+    "projects": [
+        "http://dotdotdot.frebsite.nl/"
+    ],
+    "devDependencies": {
+        "@types/dotdotdot": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Milan Jaros",
+            "githubUsername": "milanjaros"
+        }
+    ]
+}

@@ -1,10 +1,4 @@
-// Type definitions for serviceworker-webpack-plugin 1.0
-// Project: https://github.com/oliviertassinari/serviceworker-webpack-plugin#readme
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Plugin, Stats } from 'webpack';
+import { Plugin, Stats } from "webpack";
 
 declare class ServiceWorkerWebpackPlugin<T = ServiceWorkerWebpackPlugin.ServiceWorkerDefaultOption> extends Plugin {
     constructor(options: ServiceWorkerWebpackPlugin.ServiceWorkerWebpackPluginOptions<T>);

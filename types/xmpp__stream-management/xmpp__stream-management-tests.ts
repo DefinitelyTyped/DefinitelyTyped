@@ -1,8 +1,8 @@
-import Connection = require('@xmpp/connection');
-import middleware = require('@xmpp/middleware');
-import streamFeatures = require('@xmpp/stream-features');
-import streamManagement = require('@xmpp/stream-management');
-import { Element } from '@xmpp/xml';
+import Connection = require("@xmpp/connection");
+import middleware = require("@xmpp/middleware");
+import streamFeatures = require("@xmpp/stream-features");
+import streamManagement = require("@xmpp/stream-management");
+import { Element } from "@xmpp/xml";
 
 // test type exports
 type StreamManagement = streamManagement.StreamManagement;
@@ -12,7 +12,7 @@ class Foo extends Connection implements middleware.Entity {
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
     headerElement() {
-        return new Element('foo');
+        return new Element("foo");
     }
 
     socketParameters(service: string) {
@@ -20,7 +20,7 @@ class Foo extends Connection implements middleware.Entity {
     }
 }
 
-const entity = new Foo({ service: 'foo', domain: 'foo.bar' });
+const entity = new Foo({ service: "foo", domain: "foo.bar" });
 const mw = middleware({ entity });
 const sf = streamFeatures({ middleware: mw });
 

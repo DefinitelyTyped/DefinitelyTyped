@@ -1,62 +1,54 @@
-// Type definitions for react-native-fbsdk 3.0
-// Project: https://github.com/facebook/react-native-fbsdk
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Thibault Malbranche <https://github.com/titozzz>
-//                 Stuart Forrest <https://github.com/stuartforrest-infinity>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ComponentClass, Component } from 'react';
-import { ViewStyle } from 'react-native';
+import { Component, ComponentClass } from "react";
+import { ViewStyle } from "react-native";
 
 /**
  * Commonly used Facebook permissions
  */
 export type Permissions =
-    | 'public_profile'
-    | 'user_friends'
-    | 'email'
-    | 'user_about_me'
-    | 'user_actions.books'
-    | 'user_actions.fitness'
-    | 'user_actions.music'
-    | 'user_actions.news'
-    | 'user_actions.video'
-    | 'user_birthday'
-    | 'user_education_history'
-    | 'user_events'
-    | 'user_games_activity'
-    | 'user_hometown'
-    | 'user_likes'
-    | 'user_location'
-    | 'user_managed_groups'
-    | 'user_photos'
-    | 'user_posts'
-    | 'user_relationships'
-    | 'user_relationship_details'
-    | 'user_religion_politics'
-    | 'user_tagged_places'
-    | 'user_videos'
-    | 'user_website'
-    | 'user_work_history'
-    | 'read_custom_friendlists'
-    | 'read_insights'
-    | 'read_audience_network_insights'
-    | 'read_page_mailboxes'
-    | 'manage_pages'
-    | 'publish_pages'
-    | 'publish_actions'
-    | 'rsvp_event'
-    | 'pages_show_list'
-    | 'pages_manage_cta'
-    | 'pages_manage_instant_articles'
-    | 'ads_read'
-    | 'ads_management'
-    | 'business_management'
-    | 'pages_messaging'
-    | 'pages_messaging_subscriptions'
-    | 'pages_messaging_payments'
-    | 'pages_messaging_phone_number'
+    | "public_profile"
+    | "user_friends"
+    | "email"
+    | "user_about_me"
+    | "user_actions.books"
+    | "user_actions.fitness"
+    | "user_actions.music"
+    | "user_actions.news"
+    | "user_actions.video"
+    | "user_birthday"
+    | "user_education_history"
+    | "user_events"
+    | "user_games_activity"
+    | "user_hometown"
+    | "user_likes"
+    | "user_location"
+    | "user_managed_groups"
+    | "user_photos"
+    | "user_posts"
+    | "user_relationships"
+    | "user_relationship_details"
+    | "user_religion_politics"
+    | "user_tagged_places"
+    | "user_videos"
+    | "user_website"
+    | "user_work_history"
+    | "read_custom_friendlists"
+    | "read_insights"
+    | "read_audience_network_insights"
+    | "read_page_mailboxes"
+    | "manage_pages"
+    | "publish_pages"
+    | "publish_actions"
+    | "rsvp_event"
+    | "pages_show_list"
+    | "pages_manage_cta"
+    | "pages_manage_instant_articles"
+    | "ads_read"
+    | "ads_management"
+    | "business_management"
+    | "pages_messaging"
+    | "pages_messaging_subscriptions"
+    | "pages_messaging_payments"
+    | "pages_messaging_phone_number"
     | string;
 
 /**
@@ -64,9 +56,9 @@ export type Permissions =
  */
 export type AppGroupPrivacy =
     // Anyone can see the group, who's in in and what members post.
-    | 'Open'
+    | "Open"
     // Anyone can see the group and who's in it, but only members can see posts.
-    | 'Closed';
+    | "Closed";
 
 /**
  * A model for app groups.
@@ -120,17 +112,17 @@ export interface AppInviteContent {
 
 export type GameRequestActionType =
     // The user is sending an object to their friends.
-    | 'send'
+    | "send"
     // The user is asking for an object from friends.
-    | 'askfor'
+    | "askfor"
     // It is the turn of the friends to play against the user in a match.
-    | 'turn';
+    | "turn";
 
 export type GameRequestFilters =
     // Friends using the app can be displayed.
-    | 'app_users'
+    | "app_users"
     // Friends not using the app can be displayed.
-    | 'app_non_users';
+    | "app_non_users";
 
 /**
  * A model for a game request.
@@ -180,7 +172,7 @@ export interface GameRequestContent {
     title?: string | undefined;
 }
 
-export type ObjectIdActionType = 'unknown' | 'open_graph' | 'page';
+export type ObjectIdActionType = "unknown" | "open_graph" | "page";
 
 /**
  * A base interface for content to be shared.
@@ -232,7 +224,7 @@ export interface ShareLinkContent {
     /**
      * The type of content to be shared is link.
      */
-    contentType: 'link';
+    contentType: "link";
 
     /**
      * Common parameters for share content;
@@ -284,7 +276,7 @@ export interface OpenGraphValue {
     value: any;
 }
 
-export type OpenGraphValueType = 'number' | 'open-graph-object' | 'photo' | 'string';
+export type OpenGraphValueType = "number" | "open-graph-object" | "photo" | "string";
 
 export interface ShareOpenGraphValueContainer {
     /**
@@ -341,7 +333,7 @@ export interface ShareOpenGraphContent {
     /**
      * The type of content to be shared is open graph content.
      */
-    contentType: 'open-graph';
+    contentType: "open-graph";
 
     /**
      * Common parameters for share content;
@@ -400,7 +392,7 @@ export interface SharePhotoContent {
     /**
      * The type of content to be shared is photo.
      */
-    contentType: 'photo';
+    contentType: "photo";
 
     /**
      * Common parameters for share content;
@@ -435,7 +427,7 @@ export interface ShareVideoContent {
     /**
      * The type of content to be shared is photo.
      */
-    contentType: 'video';
+    contentType: "video";
 
     /**
      * Common parameters for share content;
@@ -596,11 +588,11 @@ export type AppEventsFlushBehavior =
      * Flush automatically: periodically (every 15 seconds or after every 100 events), and
      * always at app reactivation. This is the default value.
      */
-    | 'auto'
+    | "auto"
     /**
      * Only flush when AppEventsLogger.flush() is explicitly invoked.
      */
-    | 'explicitly-only';
+    | "explicitly-only";
 
 export interface Params {
     [key: string]: string | number;
@@ -621,7 +613,7 @@ export interface UserData {
     lastName?: string | undefined;
     phone?: string | undefined;
     dateOfBirth?: string | undefined;
-    gender?: 'm' | 'f' | undefined;
+    gender?: "m" | "f" | undefined;
     city?: string | undefined;
     state?: string | undefined;
     zip?: string | undefined;
@@ -802,10 +794,10 @@ export class GraphRequestManager {
     start(timeout?: number): void;
 }
 
-export type AuxiliaryViewPosition = 'top' | 'bottom' | 'inline';
-export type HorizontalAlignment = 'center' | 'left' | 'right';
+export type AuxiliaryViewPosition = "top" | "bottom" | "inline";
+export type HorizontalAlignment = "center" | "left" | "right";
 
-export type TooltipBehaviorIOS = 'auto' | 'force_display' | 'disable';
+export type TooltipBehaviorIOS = "auto" | "force_display" | "disable";
 
 export interface LoginButtonProps {
     /**
@@ -856,11 +848,11 @@ export class LoginButton extends Component<LoginButtonProps, any> {
  */
 export type DefaultAudience =
     // Indicates that the user's friends are able to see posts made by the application.
-    | 'friends'
+    | "friends"
     // Indicates that all Facebook users are able to see posts made by the application.
-    | 'everyone'
+    | "everyone"
     // Indicates that only the user is able to see posts made by the application.
-    | 'only_me';
+    | "only_me";
 
 export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
 
@@ -869,18 +861,18 @@ export type LoginBehavior = LoginBehaviorIOS | LoginBehaviorAndroid;
  */
 export type LoginBehaviorAndroid =
     // Attempt login in using the Facebook App, and if that does not work fall back to web dialog auth.
-    | 'native_with_fallback'
+    | "native_with_fallback"
     // Only attempt to login using the Facebook App.
-    | 'native_only'
+    | "native_only"
     // Only the web dialog auth should be used.
-    | 'web_only';
+    | "web_only";
 
 /**
  * Indicate how Facebook Login should be attempted on iOS.
  */
 export type LoginBehaviorIOS =
     // Attempts log in through the Safari browser.
-    'browser';
+    "browser";
 
 /**
  * Shows the results of a login operation.
@@ -974,32 +966,32 @@ export type ShareDialogModeAndroid =
     /**
      * The mode is determined automatically.
      */
-    | 'automatic'
+    | "automatic"
     /**
      * The native dialog is used.
      */
-    | 'native'
+    | "native"
     /**
      * The web dialog is used.
      */
-    | 'web'
+    | "web"
     /**
      * The feed dialog is used.
      */
-    | 'feed';
+    | "feed";
 export type ShareDialogModeIOS =
     /*
      * Acts with the most appropriate mode that is available.
      */
-    | 'automatic'
+    | "automatic"
     /*
      * Displays the dialog in Safari.
      */
-    | 'browser'
+    | "browser"
     /*
      * Displays the dialog in a UIWebView within the app.
      */
-    | 'webview';
+    | "webview";
 
 export namespace ShareDialog {
     /**
@@ -1039,5 +1031,5 @@ export namespace Settings {
     /**
      * Set data processing options
      */
-    function setDataProcessingOptions(options: Array<string | 'LDU'>, ...args: number[]): void;
+    function setDataProcessingOptions(options: Array<string | "LDU">, ...args: number[]): void;
 }

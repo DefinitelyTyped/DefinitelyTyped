@@ -1,25 +1,48 @@
-import { BufferGeometry } from '../core/BufferGeometry';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
+/**
+ * {@link CapsuleGeometry} is a geometry class for a capsule with given radii and height
+ * @remarks It is constructed using a lathe.
+ * @example
+ * ```typescript
+ * const geometry = new THREE.CapsuleGeometry(1, 1, 4, 8);
+ * const material = new THREE.MeshBasicMaterial({
+ *     color: 0x00ff00
+ * });
+ * const capsule = new THREE.Mesh(geometry, material);
+ * scene.add(capsule);
+ * ```
+ * @see {@link https://threejs.org/docs/index.html#api/en/geometries/CapsuleGeometry | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/geometries/CapsuleGeometry.js | Source}
+ */
 export class CapsuleGeometry extends BufferGeometry {
     /**
-     * @param [radius=1] — Radius of the capsule.
-     * @param [length=1] — Length of the middle section.
-     * @param [capSegments=4] — Number of curve segments used to build the caps.
-     * @param [radialSegments=8] — Number of segmented faces around the circumference of the capsule.
+     * Create a new instance of {@link CapsuleGeometry}
+     * @param radius Radius of the capsule. Expects a `Float`. Default `1`
+     * @param length Length of the middle section. Expects a `Float`. Default `1`
+     * @param capSegments Number of curve segments used to build the caps. Expects a `Integer`. Default `4`
+     * @param radialSegments Number of segmented faces around the circumference of the capsule. Expects a `Integer`. Default `8`
      */
     constructor(radius?: number, length?: number, capSegments?: number, radialSegments?: number);
 
     /**
-     * @default 'CapsuleGeometry'
+     * A Read-only _string_ to check if `this` object type.
+     * @remarks Sub-classes will update this value.
+     * @defaultValue `CapsuleGeometry`
      */
-    type: string;
+    override readonly type: string | "CapsuleGeometry";
 
-    parameters: {
-        radius: number;
-        length: number;
-        capSegments: number;
-        radialSegments: number;
+    /**
+     * An object with a property for each of the constructor parameters.
+     * @remarks Any modification after instantiation does not change the geometry.
+     */
+    readonly parameters: {
+        readonly radius: number;
+        readonly length: number;
+        readonly capSegments: number;
+        readonly radialSegments: number;
     };
 
-    static fromJSON(data: any): CapsuleGeometry;
+    /** @internal */
+    static fromJSON(data: {}): CapsuleGeometry;
 }

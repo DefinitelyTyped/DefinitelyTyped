@@ -1,14 +1,14 @@
-import cytoscape = require('cytoscape');
-import navigator = require('cytoscape-navigator');
+import cytoscape = require("cytoscape");
+import navigator = require("cytoscape-navigator");
 
 cytoscape.use(navigator);
 
 const cy = cytoscape({
-    container: document.getElementById('cy'),
+    container: document.getElementById("cy"),
     elements: [
-        { data: { id: 'A' } },
-        { data: { id: 'B' } },
-    ]
+        { data: { id: "A" } },
+        { data: { id: "B" } },
+    ],
 });
 
 // $ExpectType Nav
@@ -17,7 +17,7 @@ const nav = cy.navigator({
     viewLiveFramerate: 60,
     dblClickDelay: 400,
     removeCustomContainer: false,
-    rerenderDelay: 1000
+    rerenderDelay: 1000,
 });
 
 nav.destroy();

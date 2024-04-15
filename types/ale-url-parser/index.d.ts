@@ -1,9 +1,3 @@
-// Type definitions for ale-url-parser 0.13
-// Project: https://github.com/msn0/ale-url-parser#readme
-// Definitions by: Michał Jezierski <https://github.com/msn0>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface QueryParams {
     [key: string]: any;
 }

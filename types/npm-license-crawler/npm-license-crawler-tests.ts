@@ -1,9 +1,9 @@
-import { CrawlerOptions, dumpLicenses } from 'npm-license-crawler';
+import { CrawlerOptions, dumpLicenses } from "npm-license-crawler";
 
 const options: CrawlerOptions = {
-    start: ['../..'],
-    exclude: ['.'],
-    json: 'licenses.json',
+    start: ["../.."],
+    exclude: ["."],
+    json: "licenses.json",
     unknown: true,
     noColor: true,
 };

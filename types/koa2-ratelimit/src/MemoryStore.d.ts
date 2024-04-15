@@ -1,5 +1,5 @@
-import { RateLimitOptions } from '..';
-import Store = require('./Store');
+import { RateLimitOptions } from "..";
+import Store = require("./Store");
 
 export = MemoryStore;
 

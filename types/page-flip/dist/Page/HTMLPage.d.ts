@@ -1,5 +1,5 @@
-import { Page, PageDensity, PageOrientation } from './Page';
-import { Render } from '../Render/Render';
+import { Render } from "../Render/Render";
+import { Page, PageDensity, PageOrientation } from "./Page";
 /**
  * Class representing a book page as a HTML Element
  */

@@ -1,9 +1,3 @@
-// Type definitions for objtools 2.0
-// Project: https://github.com/zipscene/objtools#readme
-// Definitions by: Steve Ripberger <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Plain object or boolean data for an ObjectMask instance.
  */
@@ -110,7 +104,7 @@ export class ObjectMask {
      *   `true` if either of the masks is `true` or an ObjectMask wrapping
      *   `true`.
      */
-    static addMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|true;
+    static addMasks(...masks: Array<ObjectMask | Mask>): ObjectMask | true;
 
     /**
      * Combines two or more masks such that the result mask matches fields
@@ -120,8 +114,8 @@ export class ObjectMask {
      * @returns The result of subtracting the second mask from the first
      */
     static subtractMasks(
-        min: ObjectMask|Mask,
-        sub: ObjectMask|Mask,
+        min: ObjectMask | Mask,
+        sub: ObjectMask | Mask,
     ): ObjectMask;
 
     /**
@@ -130,14 +124,14 @@ export class ObjectMask {
      * @param - the mask to invert
      * @returns the inverted mask
      */
-    static invertMask(mask: ObjectMask|Mask): ObjectMask;
+    static invertMask(mask: ObjectMask | Mask): ObjectMask;
 
     /**
      * Check if an object is an ObjectMask
      * @param obj - the object to determine if is an ObjectMask
      * @returns true if obj is an ObjectMask, false otherwise
      */
-    static isObjectMask(mask: ObjectMask|Mask): boolean;
+    static isObjectMask(mask: ObjectMask | Mask): boolean;
 
     /**
      * Adds a set of masks together, but using a logical AND instead of a
@@ -147,14 +141,14 @@ export class ObjectMask {
      * @returns The result of ANDing together the component masks. Will be
      *   `false` if the result would be an empty mask.
      */
-    static andMasks(...masks: Array<ObjectMask|Mask>): ObjectMask|false;
+    static andMasks(...masks: Array<ObjectMask | Mask>): ObjectMask | false;
 
     /**
      * Subtracts a mask.
      * @param mask - the mask to subtract
      * @returns the new mask
      */
-    subtractMask(mask: ObjectMask|Mask): ObjectMask;
+    subtractMask(mask: ObjectMask | Mask): ObjectMask;
 
     /**
      * Adds a field to a filter. If the filter already matches, the method is a
@@ -485,12 +479,14 @@ export function mergeLight(...args: any[]): any;
  * @returns The merged value. If `undefined`, merging will be handled by the
  *   invoked method instead.
  */
-export type MergeCustomizer = { bivariantHack(
-    objectValue: any,
-    sourceValue: any,
-    key: string,
-    object: any,
-): any }['bivariantHack'];
+export type MergeCustomizer = {
+    bivariantHack(
+        objectValue: any,
+        sourceValue: any,
+        key: string,
+        object: any,
+    ): any;
+}["bivariantHack"];
 
 /**
  * Merges n objects together.
@@ -619,7 +615,7 @@ export function getDuplicates(arr: any[]): any[];
  *   README.md for usage examples.
  */
 export function diffObjects(
-    ...objects: Array<Record<string, any>>,
+    ...objects: Array<Record<string, any>>
 ): Record<string, any>;
 
 /**
@@ -650,7 +646,7 @@ export function objectHash(obj: any): string;
  * @param value - the value to convert
  * @returns the converted Date instance
  */
-export function sanitizeDate(value: any): Date|null;
+export function sanitizeDate(value: any): Date | null;
 
 /**
  * Checks if value is a plain object, that is, an object created by the Object

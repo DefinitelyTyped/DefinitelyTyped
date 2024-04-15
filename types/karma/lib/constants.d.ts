@@ -7,16 +7,16 @@ export const DEFAULT_HOSTNAME: string;
 /** The default listen address used for the karma server */
 export const DEFAULT_LISTEN_ADDR: string;
 /** The value for disabling logs */
-export const LOG_DISABLE: 'OFF';
+export const LOG_DISABLE: "OFF";
 /** The value for the log `error` level */
-export const LOG_ERROR: 'ERROR';
+export const LOG_ERROR: "ERROR";
 /** The value for the log `warn` level */
-export const LOG_WARN: 'WARN';
+export const LOG_WARN: "WARN";
 /** The value for the log `info` level */
-export const LOG_INFO: 'INFO';
+export const LOG_INFO: "INFO";
 /** The value for the log `debug` level */
-export const LOG_DEBUG: 'DEBUG';
-export const LOG_LOG: 'LOG';
+export const LOG_DEBUG: "DEBUG";
+export const LOG_LOG: "LOG";
 /** An array of log levels in descending order, i.e. LOG_DISABLE, LOG_ERROR, LOG_WARN, LOG_LOG, LOG_INFO, and LOG_DEBUG */
 export const LOG_PRIORITIES: [
     typeof LOG_DISABLE,

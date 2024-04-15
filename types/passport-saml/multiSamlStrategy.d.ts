@@ -1,5 +1,5 @@
-import express = require('express');
-import { Strategy, SamlConfig, VerifyWithRequest, VerifyWithoutRequest } from './index';
+import express = require("express");
+import { SamlConfig, Strategy, VerifyWithoutRequest, VerifyWithRequest } from "./index";
 
 declare namespace MultiSamlStrategy {
     type SamlOptionsCallback = (err: Error | null, samlOptions?: SamlConfig) => void;
@@ -12,10 +12,12 @@ declare namespace MultiSamlStrategy {
 declare class MultiSamlStrategy extends Strategy {
     constructor(config: MultiSamlStrategy.MultiSamlConfig, verify: VerifyWithRequest | VerifyWithoutRequest);
     generateServiceProviderMetadata(decryptionCert: string | null, signingCert?: string | null): never;
-    generateServiceProviderMetadata(req: express.Request,
-                                    decryptionCert: string | null,
-                                    signingCert: string | null,
-                                    callback: (err: Error | null, metadata?: string) => void): string;
+    generateServiceProviderMetadata(
+        req: express.Request,
+        decryptionCert: string | null,
+        signingCert: string | null,
+        callback: (err: Error | null, metadata?: string) => void,
+    ): string;
 }
 
 export = MultiSamlStrategy;

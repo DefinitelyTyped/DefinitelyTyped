@@ -1,4 +1,4 @@
-import _ = require('underscore');
+import _ = require("underscore");
 
 /**************************************
  * Common Testing Types and Variables *
@@ -6,7 +6,7 @@ import _ = require('underscore');
 declare const $: any;
 declare const window: any;
 declare const alert: (msg: string) => void;
-declare const console: { log(...data: any[]): void; };
+declare const console: { log(...data: any[]): void };
 
 declare const context: object;
 
@@ -20,7 +20,7 @@ interface AugmentedList extends _.List<StringRecord> {
     notAListProperty: boolean;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type AugmentedListLiteral = {
     [index: number]: StringRecord;
     length: number;
@@ -33,15 +33,17 @@ interface ExplicitDictionary extends _.Dictionary<StringRecord> {
     c: StringRecord;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type ExplicitDictionaryLiteral = {
     a: StringRecord;
     b: StringRecord;
     c: StringRecord;
 };
 
-declare const shallowProperty: 'a';
-declare const deepProperty: ['a', 'length'];
+type StringOrNumberList = string[] | number[];
+
+declare const shallowProperty: "a";
+declare const deepProperty: ["a", "length"];
 declare const matcher: Partial<StringRecord>;
 declare const recordTester: (value: StringRecord) => boolean;
 declare const recordStringReducer: (prev: string, value: StringRecord) => string;
@@ -54,24 +56,42 @@ declare const recordList: _.List<StringRecord>;
 declare const recordListSelector: (value: StringRecord, index: number, list: _.List<StringRecord>) => string;
 declare const recordMaybeListSelector: (value: StringRecord, index?: number, list?: _.List<StringRecord>) => string;
 declare const recordListTester: (value: StringRecord, index: number, list: _.List<StringRecord>) => boolean;
-declare const recordListUnionIterator: (element: StringRecord, key: number, list: StringRecord[] | _.List<StringRecord>) => void;
-declare const recordListStringReducer: (prev: string, value: StringRecord, index: number, list: _.List<StringRecord>) => string;
+declare const recordListUnionIterator: (
+    element: StringRecord,
+    key: number,
+    list: StringRecord[] | _.List<StringRecord>,
+) => void;
+declare const recordListStringReducer: (
+    prev: string,
+    value: StringRecord,
+    index: number,
+    list: _.List<StringRecord>,
+) => string;
 
 declare const recordListUnion: StringRecord[] | _.List<StringRecord>;
-declare const recordListArray: _.List<StringRecord>[];
+declare const recordListArray: Array<_.List<StringRecord>>;
 declare const level2RecordList: _.List<_.List<StringRecord>>;
 declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
 declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
-declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
-declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+declare const maxLevel2RecordArray: Array<StringRecord | StringRecord[]>;
+declare const maxLevel3RecordArray: Array<StringRecord | StringRecord[] | StringRecord[][]>;
 
 declare const explicitDictionary: ExplicitDictionary;
 declare const explicitDictionaryIterator: (element: StringRecord, key: string, dictionary: ExplicitDictionary) => void;
 
 declare const recordDictionary: _.Dictionary<StringRecord>;
-declare const recordDictionarySelector: (element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => string;
+declare const recordDictionarySelector: (
+    element: StringRecord,
+    key: string,
+    dictionary: _.Dictionary<StringRecord>,
+) => string;
 declare const recordDictionaryTester: (element: StringRecord, key: string, list: _.Dictionary<StringRecord>) => boolean;
-declare const recordDictionaryStringReducer: (prev: string, element: StringRecord, key: string, dictionary: _.Dictionary<StringRecord>) => string;
+declare const recordDictionaryStringReducer: (
+    prev: string,
+    element: StringRecord,
+    key: string,
+    dictionary: _.Dictionary<StringRecord>,
+) => string;
 
 declare const maybeRecordList: _.List<StringRecord | undefined>;
 
@@ -81,10 +101,18 @@ interface NumberRecord {
 }
 
 declare const numberRecordList: _.List<NumberRecord>;
-declare const numberRecordListSelector: (value: NumberRecord, index: number, collection: _.List<NumberRecord>) => number;
+declare const numberRecordListSelector: (
+    value: NumberRecord,
+    index: number,
+    collection: _.List<NumberRecord>,
+) => number;
 
 declare const numberRecordDictionary: _.Dictionary<NumberRecord>;
-declare const numberRecordDictionarySelector: (element: NumberRecord, key: string, collection: _.Dictionary<NumberRecord>) => number;
+declare const numberRecordDictionarySelector: (
+    element: NumberRecord,
+    key: string,
+    collection: _.Dictionary<NumberRecord>,
+) => number;
 
 // function record
 interface NoParametersRecord {
@@ -104,7 +132,12 @@ declare const stringValue: string;
 declare const stringIterator: (value: string, index: number, str: string) => number;
 declare const stringTester: (value: string, index: number, str: string) => boolean;
 declare const stringStringReducer: (prev: string, value: string, index: number, str: string) => string;
-declare const dictionaryStringReducer: (prev: _.Dictionary<number>, value: string, index: number, str: string) => _.Dictionary<number>;
+declare const dictionaryStringReducer: (
+    prev: _.Dictionary<number>,
+    value: string,
+    index: number,
+    str: string,
+) => _.Dictionary<number>;
 declare const unionStringReducer: (prev: string | number, value: string, index: number, str: string) => string | number;
 
 declare const stringArray: string[];
@@ -163,12 +196,14 @@ declare const mixedIterabilityValue: number | number[];
 declare const stringy: StringRecord | string;
 declare const level2UnionList: _.List<_.List<string | number>>;
 declare const tupleList: _.List<[string, number]>;
+declare const unaryTupleList: _.List<[string]>; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+declare const homogeneousTupleList: _.List<[string, string, string, string]>;
 declare const maybeFunction: (() => void) | undefined;
 
 // concrete example types
 declare const manyParameters: (a: string, b: number, c: boolean, d: string, e: number, f: string) => string;
-const stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
-declare const explicitNumberDictionary: { one: number; two: number; three: number; };
+const stooges = [{ name: "moe", age: 40 }, { name: "larry", age: 50 }, { name: "curly", age: 60 }];
+declare const explicitNumberDictionary: { one: number; two: number; three: number };
 
 /*********
  * Types *
@@ -176,7 +211,7 @@ declare const explicitNumberDictionary: { one: number; two: number; three: numbe
 
 // avoid referencing types under test directly by translating them to other types to avoid needing to make lots of changes if
 // the types under test need to be refactored
-interface UnderscoreType<TWrappedValue, TItemType> { }
+interface UnderscoreType<TWrappedValue, TItemType> {}
 
 interface UnderscoreTypeExtractor {
     <T, V>(chainResult: _.Underscore<T, V>): UnderscoreType<V, T>;
@@ -184,7 +219,7 @@ interface UnderscoreTypeExtractor {
 
 declare const extractUnderscoreTypes: UnderscoreTypeExtractor;
 
-interface ChainType<TWrappedValue, TItemType> { }
+interface ChainType<TWrappedValue, TItemType> {}
 
 interface ChainTypeExtractor {
     <T, V>(chainResult: _._Chain<T, V>): ChainType<V, T>;
@@ -233,9 +268,13 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
         collection; // $ExpectType Dictionary<StringRecord>
         return element.a;
     };
-    dictionaryFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
+    dictionaryFunctionIteratee(recordDictionary["a"], "a", recordDictionary); // $ExpectType string
 
-    const unionFunctionIteratee: _.Iteratee<_.List<Intersecting>, string | StringRecord> = (element, key, collection) => {
+    const unionFunctionIteratee: _.Iteratee<_.List<Intersecting>, string | StringRecord> = (
+        element,
+        key,
+        collection,
+    ) => {
         element; // $ExpectType Intersecting
         key; // $ExpectType number
         collection; // $ExpectType List<Intersecting>
@@ -243,13 +282,17 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     };
     unionFunctionIteratee(intersectingPropertiesList[0], 0, intersectingPropertiesList); // $ExpectType string | StringRecord
 
-    const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (element, key, collection) => {
+    const collectionFunctionIteratee: _.Iteratee<_.Dictionary<StringRecord> | StringRecord[], string> = (
+        element,
+        key,
+        collection,
+    ) => {
         element; // $ExpectType StringRecord
         key; // $ExpectType string | number
         collection; // $ExpectType StringRecord[] | Dictionary<StringRecord> || Dictionary<StringRecord> | StringRecord[]
         return element.a;
     };
-    collectionFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
+    collectionFunctionIteratee(recordDictionary["a"], "a", recordDictionary); // $ExpectType string
 
     const anyFunctionIteratee: _.Iteratee<any, string> = (element, key, collection) => {
         element; // $ExpectType any
@@ -258,7 +301,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
         return element.a;
     };
     if (_.isFunction(anyFunctionIteratee)) {
-        anyFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string || any
+        anyFunctionIteratee(recordDictionary["a"], "a", recordDictionary); // $ExpectType string || any
     }
 
     // matchers
@@ -287,7 +330,8 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     const unionShallowPropertyIteratee: _.Iteratee<_.List<Intersecting>, string | boolean> = shallowProperty;
     unionShallowPropertyIteratee; // $ExpectType string
 
-    const collectionShallowPropertyIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = shallowProperty;
+    const collectionShallowPropertyIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> =
+        shallowProperty;
     collectionShallowPropertyIteratee; // $ExpectType string
 
     const anyShallowPropertyIteratee: _.Iteratee<any, string> = shallowProperty;
@@ -303,7 +347,8 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
     const unionDeepPropertyIteratee: _.Iteratee<_.List<Intersecting>, string | boolean> = deepProperty;
     unionDeepPropertyIteratee; // $ExpectType (string | number)[]
 
-    const collectionDeepPropertyIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> = deepProperty;
+    const collectionDeepPropertyIteratee: _.Iteratee<StringRecord[] | _.Dictionary<StringRecord>, string> =
+        deepProperty;
     collectionDeepPropertyIteratee; // $ExpectType (string | number)[]
 
     const anyDeepPropertyIteratee: _.Iteratee<any, string> = deepProperty;
@@ -342,7 +387,7 @@ knownShallowPropertyResult; // $ExpectType string | StringRecord
 declare const unknownShallowPropertyResult: _.IterateeResult<typeof shallowProperty, NonIntersecting>;
 unknownShallowPropertyResult; // $ExpectType any
 
-declare const deepPropertyResult: _.IterateeResult<(string | number)[], StringRecord>;
+declare const deepPropertyResult: _.IterateeResult<Array<string | number>, StringRecord>;
 deepPropertyResult; // $ExpectType any
 
 declare const nullResult: _.IterateeResult<null, StringRecord>;
@@ -479,63 +524,86 @@ _(explicitNumberDictionary).each((value, key, collection) => {
 {
     // null as object
     // $ExpectType undefined
-    _.get(null, 'a');
+    _.get(null, "a");
 
     // null as object, with default value
     // $ExpectType number
-    _.get(null, 'a', numberValue);
+    _.get(null, "a", numberValue);
 
     // no default value
     // $ExpectType number | undefined
-    _.get({ a: numberValue }, 'a');
+    _.get({ a: numberValue }, "a");
 
     // trying to get the property on a simple path
     // $ExpectType number
-    _.get({ a: numberValue }, ['a'], numberValue);
+    _.get({ a: numberValue }, ["a"], numberValue);
 
     // trying to get the property one level deep
     // $ExpectType number | { b: number; }
-    _.get({ a: { b: numberValue } }, ['a'], numberValue);
+    _.get({ a: { b: numberValue } }, ["a"], numberValue);
 
-    // trying to get the property one level deep
-    // $ExpectType string | number | { b: number; }
-    _.get({ a: { b: numberValue }, c: "a" }, ['a', 'b'], numberValue);
+    // trying to get the property two level deep
+    // $ExpectType number
+    _.get({ a: { b: numberValue }, c: "a" }, ["a", "b"], numberValue);
+
+    // trying to get the property on the [string, number, string] path
+    // $ExpectType number | undefined
+    _.get({ a: [{ b: 2 }] }, ["a", 0, "b"]);
 
     // default value if not found of the 'same type'
     // $ExpectType number
-    _.get({ a: numberValue }, ['b'], numberValue);
+    _.get({ a: numberValue }, ["b"], numberValue);
 
     // oop style with null as object
     // $ExpectType undefined
-    _(null).get(['b']);
+    _(null).get(["b"]);
 
     // oop style with null as object and default value
     // $ExpectType number
-    _(null).get(['b'], numberValue);
+    _(null).get(["b"], numberValue);
 
     // oop style without default value
-    // $ExpectType number | undefined
-    _({ a: numberValue }).get(['b']);
+    // $ExpectType undefined
+    _({ a: numberValue }).get(["b"]);
 
     // oop style with default value
     // $ExpectType string | number
-    _({ a: numberValue }).get(['a'], stringValue);
+    _({ a: numberValue }).get(["a"], stringValue);
+
+    // oop style without default value
+    // $ExpectType { b: number; } | undefined
+    _({ a: [{ b: numberValue }] }).get(["a", 0]);
+
+    // oop style with default value
+    // $ExpectType string | { b: number; }
+    _({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
 
     // chained with null as object
     // $ExpectType _Chain<undefined, undefined>
-    _.chain(null).get(['a']);
+    _.chain(null).get(["a"]);
 
     // chained with null as object and default value
     // $ExpectType _Chain<number, number>
-    _.chain(null).get(['a'], numberValue);
+    _.chain(null).get(["a"], numberValue);
 
     // chained without default value
-    // $ExpectType _Chain<string | number | undefined, string | number | undefined>
-    _.chain({ a: numberValue, b: stringValue }).get(['a']);
+    // $ExpectType _Chain<undefined, number | undefined>
+    _.chain({ a: numberValue, b: stringValue }).get(["a"]);
 
     // chained with default value
-    // $ExpectType _Chain<string | number, string | number>
-    _.chain({ a: numberValue }).get(['a'], stringValue);
+    // $ExpectType _Chain<string, string | number>
+    _.chain({ a: numberValue }).get(["a"], stringValue);
+
+    // chained without default value
+    // $ExpectType _Chain<number | undefined, { b: number; } | undefined>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]);
+
+    // chained with default value
+    // $ExpectType _Chain<string | number, string | { b: number; }>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
+
+    // $ExpectType _Chain<undefined, number | undefined>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]).get(["b"]);
 }
 
 // map, collect
@@ -561,7 +629,7 @@ _.map(explicitNumberDictionary, (value, key, collection): NumberRecord => {
 });
 
 // mapping a dictionary by retrieving the value of a specific property
-_.map([{ key: 'apples' }, { key: 'oranges' }], 'key'); // $ExpectType string[]
+_.map([{ key: "apples" }, { key: "oranges" }], "key"); // $ExpectType string[]
 
 {
     // function iteratee - lists - map
@@ -721,7 +789,7 @@ _.reduce(numberArray, (memo, num, key, collection) => {
 // summing numbers as strings in an object collection with a result of undefined when no values are provided
 // and a result of a string when only one value is provided
 // $ExpectType string | number | undefined
-_({ a: '1', b: '2', c: '3' }).reduce((memo: string | number, numstr, key, collection) => {
+_({ a: "1", b: "2", c: "3" }).reduce((memo: string | number, numstr, key, collection) => {
     numstr; // $ExpectType string
     key; // $ExpectType string
     collection; // $ExpectType { a: string; b: string; c: string; }
@@ -1051,7 +1119,7 @@ _([[0, 1], [2, 3], [4, 5]]).reduceRight((a: number[], b) => a.concat(b), []); //
 _.filter(numberArray, num => num % 2 === 0); // $ExpectType number[]
 
 // filtering to only uppercase letters
-_({ a: 'a', b: 'B', c: 'C', d: 'd' }).filter(l => l === l.toUpperCase()); // $ExpectType string[]
+_({ a: "a", b: "B", c: "C", d: "d" }).filter(l => l === l.toUpperCase()); // $ExpectType string[]
 
 {
     // function iteratee - lists - filter
@@ -1142,10 +1210,8 @@ _({ a: 'a', b: 'B', c: 'C', d: 'd' }).filter(l => l === l.toUpperCase()); // $Ex
 _.where([
     { title: "Cymbeline", author: "Shakespeare", year: 1611 },
     { title: "The Tempest", author: "Shakespeare", year: 1611 },
-    { title: "Other", author: "Not Shakespeare", year: 2012 }
-],
-    { author: "Shakespeare", year: 1611 }
-);
+    { title: "Other", author: "Not Shakespeare", year: 2012 },
+], { author: "Shakespeare", year: 1611 });
 
 {
     // non-intersecting type union - lists
@@ -1233,7 +1299,7 @@ _.reject(numberArray, (num) => num % 2 === 0); // $ExpectType number[]
 // every, all
 
 // determining whether every value is truthy
-_.every([true, 1, null, 'yes']); // $ExpectType boolean
+_.every([true, 1, null, "yes"]); // $ExpectType boolean
 
 {
     // function iteratee - lists - every
@@ -1343,7 +1409,7 @@ _.every([true, 1, null, 'yes']); // $ExpectType boolean
 _.some(numberArray, l => l % 3 === 0); // $ExpectType boolean
 
 // determining whether any value in a dictionary is uppercase
-_.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase()); // $ExpectType boolean
+_.some({ a: "a", b: "B", c: "C", d: "d" }, l => l === l.toUpperCase()); // $ExpectType boolean
 
 {
     // function iteratee - lists - some
@@ -1505,7 +1571,7 @@ _.contains(numberArray, 3, 1); // $ExpectType boolean
 // invoke
 
 // truncating a set of strings to 5 characters or less
-_.invoke(['zebra', 'giraffe', 'lion'], 'substring', 0, 5); // $ExpectType any[]
+_.invoke(["zebra", "giraffe", "lion"], "substring", 0, 5); // $ExpectType any[]
 
 {
     // function without parameters
@@ -1522,7 +1588,7 @@ _.invoke(['zebra', 'giraffe', 'lion'], 'substring', 0, 5); // $ExpectType any[]
 // pluck
 
 // retrieving a property value from all items in a collection
-_.pluck(stooges, 'name'); // $ExpectType string[]
+_.pluck(stooges, "name"); // $ExpectType string[]
 
 {
     // shallow property iteratee with a non-nullable single type - lists
@@ -1538,7 +1604,7 @@ _.pluck(stooges, 'name'); // $ExpectType string[]
     // shallow property iteratee with other types - lists
     _.pluck(maybeRecordList, shallowProperty); // $ExpectType any[]
     _.pluck(intersectingPropertiesList, shallowProperty); // $ExpectType (string | StringRecord)[]
-    _.pluck(nonIntersectingList, shallowProperty) // $ExpectType any[]
+    _.pluck(nonIntersectingList, shallowProperty); // $ExpectType any[]
     _.pluck(anyValue, shallowProperty); // $ExpectType any[]
 }
 
@@ -1711,7 +1777,7 @@ _.sortBy(numberArray, num => Math.sin(num)); // $ExpectType number[]
 _([1.3, 2.1, 2.4]).groupBy((e) => Math.floor(e)); // $ExpectType Dictionary<number[]>
 
 // grouping numbers by the value of a specified property
-_.groupBy(['one', 'two', 'three'], 'length'); // $ExpectType Dictionary<string[]>
+_.groupBy(["one", "two", "three"], "length"); // $ExpectType Dictionary<string[]>
 
 {
     // function iteratee - lists
@@ -1768,7 +1834,7 @@ _.groupBy(['one', 'two', 'three'], 'length'); // $ExpectType Dictionary<string[]
 // indexBy
 
 // indexing items in a dictionary by age
-_.indexBy(stooges, 'age'); // $ExpectType Dictionary<{ name: string; age: number; }>
+_.indexBy(stooges, "age"); // $ExpectType Dictionary<{ name: string; age: number; }>
 
 {
     // function iteratee - lists
@@ -1825,7 +1891,7 @@ _.indexBy(stooges, 'age'); // $ExpectType Dictionary<{ name: string; age: number
 // countBy
 
 // counting numbers by their evenness
-_.countBy(numberArray, num => (num % 2 === 0) ? 'even' : 'odd'); // $ExpectType Dictionary<number>
+_.countBy(numberArray, num => (num % 2 === 0) ? "even" : "odd"); // $ExpectType Dictionary<number>
 
 {
     // function iteratee - lists
@@ -1938,7 +2004,7 @@ _.shuffle(numberArray); // $ExpectType number[]
 // toArray
 
 // converting an array-like structure to an array
-(function (a, b, c, d) {
+(function(a, b, c, d) {
     const args = _.toArray(arguments); // $ExpectType any[]
     return args;
 })(1, 2, 3, 4);
@@ -2151,7 +2217,7 @@ _.rest(numberArray, 2); // $ExpectType number[]
 // compact
 
 // removing falsy values
-_.compact([0, 1, false, 2, '', '3', undefined]); // $ExpectType (string | number | true)[]
+_.compact([0, 1, false, 2, "", "3", undefined]); // $ExpectType (string | number | true)[]
 
 {
     // lists
@@ -2437,55 +2503,134 @@ _.uniq([1, 2, 1, 3, 1, 4]); // $ExpectType number[]
 // zip
 
 // merging together lists of values at a set of positions
-_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]); // $ExpectType any[][]
+_.zip(["moe", "larry", "curly"], [30, 40, 50], [true, false, false]); // $ExpectType [string, number, boolean][]
 
 {
     // multiple arguments
-    _.zip(stringList, numberList, recordList); // $ExpectType any[][]
-    _(stringList).zip(numberList, recordList); // $ExpectType any[][]
-    extractChainTypes(_.chain(stringList).zip(numberList, recordList)); // $ExpectType ChainType<any[][], any[]>
+    _.zip(stringList, numberList, recordList); // $ExpectType [string, number, StringRecord][]
+    _(stringList).zip(numberList, recordList); // $ExpectType [string, number, StringRecord][]
+    extractChainTypes(_.chain(stringList).zip(numberList, recordList)); // $ExpectType ChainType<[string, number, StringRecord][], [string, number, StringRecord]>
 
     // single arguments
-    _.zip(stringList); // $ExpectType any[][]
-    _(stringList).zip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(stringList).zip()); // $ExpectType ChainType<any[][], any[]>
+    _.zip(stringList); // $ExpectType [string][]
+    _(stringList).zip(); // $ExpectType [string][]
+    extractChainTypes(_.chain(stringList).zip()); // $ExpectType ChainType<[string][], [string]>
+
+    // many homogeneous arguments
+    _.zip(numberList, numberList, numberList, numberList); // $ExpectType number[][]
+    _(numberList).zip(numberList, numberList, numberList); // $ExpectType number[][]
+    extractChainTypes(_.chain(numberList).zip(numberList, numberList, numberList)); // $ExpectType ChainType<number[][], number[]>
+
+    // no arguments
+    _.zip(); // $ExpectType []
+
+    // invalid object arguments
+    _({ a: 1 }).zip(); // $ExpectType []
+    extractChainTypes(_.chain({ a: 1 }).zip()); // $ExpectType ChainType<[], never>
+
+    // Ensure that checking for undefined doesn't break compilation
+    // This is valid if the zipped lists have different lengths
+    for (const [left, right] of _.zip(numberList, stringList)) {
+        if (left === undefined) {
+            const left_check: undefined = left;
+        }
+        if (right === undefined) {
+            const right_check: undefined = right;
+        }
+    }
 }
 
 // unzip
 
 {
     // tuple lists
-    _.unzip(tupleList); // $ExpectType any[][]
-    _(tupleList).unzip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(tupleList).unzip()); // $ExpectType ChainType<any[][], any[]>
+    _.unzip(tupleList); // $ExpectType [string[], number[]]
+    _(tupleList).unzip(); // $ExpectType [string[], number[]]
+    // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
+    // so we create a type alias to normalise the union.
+    const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).unzip();
+    extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
     // nested lists
-    _.unzip(level2UnionList); // $ExpectType any[][]
-    _(level2UnionList).unzip(); // $ExpectType any[][]
-    extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<any[][], any[]>
+    _.unzip(level2UnionList); // $ExpectType (string | number)[][]
+    _(level2UnionList).unzip(); // $ExpectType (string | number)[][]
+    extractChainTypes(_.chain(level2UnionList).unzip()); // $ExpectType ChainType<(string | number)[][], (string | number)[]>
+
+    // unary tuple list
+    _.unzip(unaryTupleList); // $ExpectType [string[]]
+    _(unaryTupleList).unzip(); // $ExpectType [string[]]
+    extractChainTypes(_.chain(unaryTupleList).unzip()); // $ExpectType ChainType<[string[]], string[]>
+
+    // homogeneous tuple list
+    _.unzip(homogeneousTupleList); // $ExpectType string[][]
+    _(homogeneousTupleList).unzip(); // $ExpectType string[][]
+    extractChainTypes(_.chain(homogeneousTupleList).unzip()); // $ExpectType ChainType<string[][], string[]>
+
+    // no arguments
+    _.unzip(); // $ExpectType []
+
+    // invalid object arguments
+    _({ a: 1 }).unzip(); // $ExpectType []
+    extractChainTypes(_.chain({ a: 1 }).unzip()); // $ExpectType ChainType<[], never>
+
+    // invalid shallow list arguments
+    _(numberList).unzip(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<[], never>
+
+    // no arrays
+    _(numberList).unzip(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).unzip()); // $ExpectType ChainType<[], never>
 }
 
 // transpose
 
 {
     // tuple lists
-    _.transpose(tupleList); // $ExpectType any[][]
-    _(tupleList).transpose(); // $ExpectType any[][]
-    extractChainTypes(_.chain(tupleList).transpose()); // $ExpectType ChainType<any[][], any[]>
+    _.transpose(tupleList); // $ExpectType [string[], number[]]
+    _(tupleList).transpose(); // $ExpectType [string[], number[]]
+    // Typescript 4.6 and below arbitrarily swaps the string[] | number[] union to number[] | string[],
+    // so we create a type alias to normalise the union.
+    const string_or_number_list: _._Chain<StringOrNumberList, [string[], number[]]> = _.chain(tupleList).transpose();
+    extractChainTypes(string_or_number_list); // $ExpectType ChainType<[string[], number[]], StringOrNumberList>
 
     // nested lists
-    _.transpose(level2UnionList); // $ExpectType any[][]
-    _(level2UnionList).transpose(); // $ExpectType any[][]
-    extractChainTypes(_.chain(level2UnionList).transpose()); // $ExpectType ChainType<any[][], any[]>
+    _.transpose(level2UnionList); // $ExpectType (string | number)[][]
+    _(level2UnionList).transpose(); // $ExpectType (string | number)[][]
+    extractChainTypes(_.chain(level2UnionList).transpose()); // $ExpectType ChainType<(string | number)[][], (string | number)[]>
+
+    // unary tuple list
+    _.transpose(unaryTupleList); // $ExpectType [string[]]
+    _(unaryTupleList).transpose(); // $ExpectType [string[]]
+    extractChainTypes(_.chain(unaryTupleList).transpose()); // $ExpectType ChainType<[string[]], string[]>
+
+    // homogeneous tuple list
+    _.transpose(homogeneousTupleList); // $ExpectType string[][]
+    _(homogeneousTupleList).transpose(); // $ExpectType string[][]
+    extractChainTypes(_.chain(homogeneousTupleList).transpose()); // $ExpectType ChainType<string[][], string[]>
+
+    // no arguments
+    _.transpose(); // $ExpectType []
+
+    // invalid object arguments
+    _({ a: 1 }).transpose(); // $ExpectType []
+    extractChainTypes(_.chain({ a: 1 }).transpose()); // $ExpectType ChainType<[], never>
+
+    // invalid shallow list arguments
+    _(numberList).transpose(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<[], never>
+
+    // no arrays
+    _(numberList).transpose(); // $ExpectType []
+    extractChainTypes(_.chain(numberList).transpose()); // $ExpectType ChainType<[], never>
 }
 
 // object
 
 // creating an object from a set of keys and a set of values
-_.object(['moe', 'larry', 'curly'], [30, 40, 50]); // $ExpectType Dictionary<number | undefined>
+_.object(["moe", "larry", "curly"], [30, 40, 50]); // $ExpectType Dictionary<number | undefined>
 
 // creating an object from a set of key-value pairs
-_.object([['moe', 30], ['larry', 40], ['curly', 50]] as [string, number][]); // $ExpectType Dictionary<number>
+_.object([["moe", 30], ["larry", 40], ["curly", 50]] as Array<[string, number]>); // $ExpectType Dictionary<number>
 
 {
     // key and value lists
@@ -2569,7 +2714,7 @@ _.lastIndexOf(numberArray, 2); // $ExpectType number
 _.findIndex(numberArray, num => num % 2 === 0); // $ExpectType number
 
 // finding the index of the first matching value via a shallow object contents comparison
-_.findIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' }); // $ExpectType number
+_.findIndex([{ a: "a" }, { a: "b" }], { a: "b" }); // $ExpectType number
 
 {
     // function iteratee
@@ -2607,7 +2752,7 @@ _.findIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' }); // $ExpectType number
 _.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0); // $ExpectType number
 
 // finding the index of the last matching value via a shallow object contents comparison
-_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' }); // $ExpectType number
+_.findLastIndex([{ a: "a" }, { a: "b" }], { a: "b" }); // $ExpectType number
 
 {
     // function iteratee
@@ -2715,8 +2860,10 @@ _.range(0, 30, 5); // $ExpectType number[]
 
 // binding a context and arguments to a function
 {
-    const nameGreeting = function (this: { name: string }, greeting: string) { return `${greeting}: ${this.name}`; };
-    _.bind(nameGreeting, { name: 'moe' }, 'hi'); // $ExpectType () => any
+    const nameGreeting = function(this: { name: string }, greeting: string) {
+        return `${greeting}: ${this.name}`;
+    };
+    _.bind(nameGreeting, { name: "moe" }, "hi"); // $ExpectType () => any
 }
 
 // bindAll
@@ -2724,12 +2871,16 @@ _.range(0, 30, 5); // $ExpectType number[]
 // binding a context to all functions in an object
 {
     const buttonView = {
-        label: 'underscore',
-        onClick() { alert('clicked: ' + this.label); },
-        onHover() { console.log('hovering: ' + this.label); }
+        label: "underscore",
+        onClick() {
+            alert("clicked: " + this.label);
+        },
+        onHover() {
+            console.log("hovering: " + this.label);
+        },
     };
     _.bindAll(buttonView); // $ExpectType any
-    $('#underscore_button').bind('click', buttonView.onClick);
+    $("#underscore_button").bind("click", buttonView.onClick);
 }
 
 // partial
@@ -2746,7 +2897,7 @@ _.partial(manyParameters, _, _, _, ""); // $ExpectType (p1: string, p2: number, 
 {
     // $ExpectType (n: number) => number
     const fibonacci = _.memoize((n: number): number => {
-        return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+        return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
     });
     fibonacci(10); // $ExpectType number
 }
@@ -2754,8 +2905,8 @@ _.partial(manyParameters, _, _, _, ""); // $ExpectType (p1: string, p2: number, 
 // creating a function that will cache instances of classes as singletons
 // (the second call will return the same object as the first)
 {
-    class MyClass { };
-    const singleton = _.memoize(<T>(classInstance: new () => T) => new classInstance()); // $ExpectType <T>(classInstance: new () => T) => T
+    class MyClass {}
+    const singleton = _.memoize(<T>(classInstance: new() => T) => new classInstance()); // $ExpectType <T>(classInstance: new () => T) => T
     singleton(MyClass); // $ExpectType MyClass
     singleton(MyClass); // $ExpectType MyClass
 }
@@ -2763,18 +2914,18 @@ _.partial(manyParameters, _, _, _, ""); // $ExpectType (p1: string, p2: number, 
 // delay
 
 // delaying the execution of a function with arguments
-_.delay(alert, 1000, 'delayed'); // $ExpectType any
+_.delay(alert, 1000, "delayed"); // $ExpectType any
 
-//defer
+// defer
 
 // deferring the execution of a function
-_.defer(() => alert('deferred')); // $ExpectType void
+_.defer(() => alert("deferred")); // $ExpectType void
 
 // throttle
 
 // rate-limiting a function
 {
-    const updatePosition = (param: string) => alert('updating position... Param: ' + param);
+    const updatePosition = (param: string) => alert("updating position... Param: " + param);
     const throttled = _.throttle(updatePosition, 100); // $ExpectType ((param: string) => void) & Cancelable
     $(window).scroll(throttled);
     throttled.cancel(); // $ExpectType void
@@ -2784,7 +2935,7 @@ _.defer(() => alert('deferred')); // $ExpectType void
 
 // debouncing a function
 {
-    const calculateLayout = (param: string) => alert('calculating layout... Param: ' + param);
+    const calculateLayout = (param: string) => alert("calculating layout... Param: " + param);
     const lazyLayout = _.debounce(calculateLayout, 300); // $ExpectType ((param: string) => void) & Cancelable
     $(window).resize(lazyLayout);
     lazyLayout.cancel(); // $ExpectType void
@@ -2794,7 +2945,7 @@ _.defer(() => alert('deferred')); // $ExpectType void
 
 // creating a function that will only perform its action once (the second call will return the result of the first call)
 {
-    const createApplication = (param: string) => 'creating application... Param: ' + param;
+    const createApplication = (param: string) => "creating application... Param: " + param;
     const initialize = _.once(createApplication); // $ExpectType (param: string) => string
     initialize("first"); // $ExpectType string
     initialize("second"); // $ExpectType string
@@ -2824,7 +2975,7 @@ _.defer(() => alert('deferred')); // $ExpectType void
     const greet = (name: string) => "hi: " + name;
     const exclaim = (statement: string) => statement + "!";
     const welcome = _.compose(exclaim, greet); // $ExpectType Function
-    welcome('moe'); // $ExpectType any
+    welcome("moe"); // $ExpectType any
 }
 
 /***********
@@ -2844,7 +2995,7 @@ _.values(explicitNumberDictionary); // $ExpectType number[]
 // mapObject
 
 // converting the properties of an object from numbers to strings
-_.mapObject({ a: '1', b: '2' }, val => +val); // $ExpectType { a: number; b: number; }
+_.mapObject({ a: "1", b: "2" }, val => +val); // $ExpectType { a: number; b: number; }
 
 {
     // function iteratee - objects
@@ -2928,13 +3079,13 @@ _.functions(_); // $ExpectType string[]
 // extend
 
 // shallow copying properties from the source objects to the destination object
-_.extend({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
+_.extend({ name: "moe" }, { age: 50 }, { userid: "moe1" }); // $ExpectType any
 
 // extendOwn, assign
 
 // shallow copying own properties from the source objects to the destination object
-_.extendOwn({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
-_.assign({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
+_.extendOwn({ name: "moe" }, { age: 50 }, { userid: "moe1" }); // $ExpectType any
+_.assign({ name: "moe" }, { age: 50 }, { userid: "moe1" }); // $ExpectType any
 
 // findKey
 {
@@ -2977,46 +3128,46 @@ _.assign({ name: 'moe' }, { age: 50 }, { userid: 'moe1' }); // $ExpectType any
 // pick
 
 // making a copy of an object that includes a specific subset of properties selected by known names
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age'); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
+_.pick({ name: "moe", age: 50, userid: "moe1" }, "name", "age"); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
+_.pick({ name: "moe", age: 50, userid: "moe1" }, ["name", "age"]); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "name" | "age">
 
 // making a copy of an object that includes a specific subset of properties selected by unknown names
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
+_.pick({ name: "moe", age: 50, userid: "moe1" }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // making a copy of an object that includes a specific subset of properties selected by an iteratee
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age'); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
+_.pick({ name: "moe", age: 50, userid: "moe1" }, (value, key) => key === "name" || key === "age"); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 {
     // constant strings - record
-    _.pick(mixedTypeRecord, 'a', 'b', 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    _(mixedTypeRecord).pick('a', 'b', 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    extractChainTypes(_.chain(mixedTypeRecord).pick('a', 'b', 'notAKey')); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
+    _.pick(mixedTypeRecord, "a", "b", "notAKey"); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    _(mixedTypeRecord).pick("a", "b", "notAKey"); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    extractChainTypes(_.chain(mixedTypeRecord).pick("a", "b", "notAKey")); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
 
     // constant strings - any
-    _.pick(anyValue, 'a', 'b'); // $ExpectType Pick<any, "a" | "b">
-    _(anyValue).pick('a', 'b'); // $ExpectType Pick<any, "a" | "b">
-    extractChainTypes(_.chain(anyValue).pick('a', 'b')); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
+    _.pick(anyValue, "a", "b"); // $ExpectType Pick<any, "a" | "b">
+    _(anyValue).pick("a", "b"); // $ExpectType Pick<any, "a" | "b">
+    extractChainTypes(_.chain(anyValue).pick("a", "b")); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
 
     // constant string arrays - record
-    _.pick(mixedTypeRecord, ['a'], ['b', 'notAKey']); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    _(mixedTypeRecord).pick(['a'], ['b', 'notAKey']); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    extractChainTypes(_.chain(mixedTypeRecord).pick(['a'], ['b', 'notAKey'])); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
+    _.pick(mixedTypeRecord, ["a"], ["b", "notAKey"]); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    _(mixedTypeRecord).pick(["a"], ["b", "notAKey"]); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    extractChainTypes(_.chain(mixedTypeRecord).pick(["a"], ["b", "notAKey"])); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
 
     // constant string arrays - any
-    _.pick(anyValue, ['a'], ['b']); // $ExpectType Pick<any, "a" | "b">
-    _(anyValue).pick(['a'], ['b']); // $ExpectType Pick<any, "a" | "b">
-    extractChainTypes(_.chain(anyValue).pick(['a'], ['b'])); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
+    _.pick(anyValue, ["a"], ["b"]); // $ExpectType Pick<any, "a" | "b">
+    _(anyValue).pick(["a"], ["b"]); // $ExpectType Pick<any, "a" | "b">
+    extractChainTypes(_.chain(anyValue).pick(["a"], ["b"])); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
 
     // the explicit generics in the below cases are only required in TS versions below 3.6
     // constant strings and string arrays - record
-    _.pick<MixedTypeRecord, 'a' | 'b' | 'notAKey'>(mixedTypeRecord, 'a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    _(mixedTypeRecord).pick<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
-    extractChainTypes(_.chain(mixedTypeRecord).pick<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey')); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
+    _.pick<MixedTypeRecord, "a" | "b" | "notAKey">(mixedTypeRecord, "a", ["b"], "notAKey"); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    _(mixedTypeRecord).pick<"a" | "b" | "notAKey">("a", ["b"], "notAKey"); // $ExpectType Pick<MixedTypeRecord, "a" | "b">
+    extractChainTypes(_.chain(mixedTypeRecord).pick<"a" | "b" | "notAKey">("a", ["b"], "notAKey")); // $ExpectType ChainType<Pick<MixedTypeRecord, "a" | "b">, number | StringRecord>
 
     // constant strings and string arrays - any
-    _.pick<any, 'a' | 'b'>(anyValue, 'a', ['b']); // $ExpectType Pick<any, "a" | "b">
-    _(anyValue).pick<'a' | 'b'>('a', ['b']); // $ExpectType Pick<any, "a" | "b">
-    extractChainTypes(_.chain(anyValue).pick<'a' | 'b'>('a', ['b'])); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
+    _.pick<any, "a" | "b">(anyValue, "a", ["b"]); // $ExpectType Pick<any, "a" | "b">
+    _(anyValue).pick<"a" | "b">("a", ["b"]); // $ExpectType Pick<any, "a" | "b">
+    extractChainTypes(_.chain(anyValue).pick<"a" | "b">("a", ["b"])); // $ExpectType ChainType<Pick<any, "a" | "b">, any>
 
     // generic strings - record
     _.pick(mixedTypeRecord, stringValue); // $ExpectType Partial<MixedTypeRecord>
@@ -3057,46 +3208,46 @@ _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' 
 // omit
 
 // making a copy of an object that omits a specific subset of properties selected by known names
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age'); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
+_.omit({ name: "moe", age: 50, userid: "moe1" }, "name", "age"); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
+_.omit({ name: "moe", age: 50, userid: "moe1" }, ["name", "age"]); // $ExpectType Pick<{ name: string; age: number; userid: string; }, "userid">
 
 // making a copy of an object that omits a specific subset of properties selected by unknown names
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
+_.omit({ name: "moe", age: 50, userid: "moe1" }, stringArray); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 // making a copy of an object that omits a specific subset of properties selected by an iteratee
-_.omit({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => key === 'name' || key === 'age'); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
+_.omit({ name: "moe", age: 50, userid: "moe1" }, (value, key) => key === "name" || key === "age"); // $ExpectType Partial<{ name: string; age: number; userid: string; }>
 
 {
     // constant strings - record
-    _.omit(mixedTypeRecord, 'a', 'b', 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
-    _(mixedTypeRecord).omit('a', 'b', 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
-    extractChainTypes(_.chain(mixedTypeRecord).omit('a', 'b', 'notAKey')); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
+    _.omit(mixedTypeRecord, "a", "b", "notAKey"); // $ExpectType Pick<MixedTypeRecord, "c">
+    _(mixedTypeRecord).omit("a", "b", "notAKey"); // $ExpectType Pick<MixedTypeRecord, "c">
+    extractChainTypes(_.chain(mixedTypeRecord).omit("a", "b", "notAKey")); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
 
     // constant strings - any
-    _.omit(anyValue, 'a', 'b'); // $ExpectType any
-    _(anyValue).omit('a', 'b'); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).omit('a', 'b')); // $ExpectType ChainType<any, any>
+    _.omit(anyValue, "a", "b"); // $ExpectType any
+    _(anyValue).omit("a", "b"); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit("a", "b")); // $ExpectType ChainType<any, any>
 
     // constant string arrays - record
-    _.omit(mixedTypeRecord, ['a'], ['b', 'notAKey']); // $ExpectType Pick<MixedTypeRecord, "c">
-    _(mixedTypeRecord).omit(['a'], ['b', 'notAKey']); // $ExpectType Pick<MixedTypeRecord, "c">
-    extractChainTypes(_.chain(mixedTypeRecord).omit(['a'], ['b', 'notAKey'])); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
+    _.omit(mixedTypeRecord, ["a"], ["b", "notAKey"]); // $ExpectType Pick<MixedTypeRecord, "c">
+    _(mixedTypeRecord).omit(["a"], ["b", "notAKey"]); // $ExpectType Pick<MixedTypeRecord, "c">
+    extractChainTypes(_.chain(mixedTypeRecord).omit(["a"], ["b", "notAKey"])); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
 
     // constant string arrays - any
-    _.omit(anyValue, ['a'], ['b']); // $ExpectType any
-    _(anyValue).omit(['a'], ['b']); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).omit(['a'], ['b'])); // $ExpectType ChainType<any, any>
+    _.omit(anyValue, ["a"], ["b"]); // $ExpectType any
+    _(anyValue).omit(["a"], ["b"]); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit(["a"], ["b"])); // $ExpectType ChainType<any, any>
 
     // the explicit generics in the below cases are only required in TS versions below 3.6
     // constant strings and string arrays - record
-    _.omit<MixedTypeRecord, 'a' | 'b' | 'notAKey'>(mixedTypeRecord, 'a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
-    _(mixedTypeRecord).omit<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey'); // $ExpectType Pick<MixedTypeRecord, "c">
-    extractChainTypes(_.chain(mixedTypeRecord).omit<'a' | 'b' | 'notAKey'>('a', ['b'], 'notAKey')); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
+    _.omit<MixedTypeRecord, "a" | "b" | "notAKey">(mixedTypeRecord, "a", ["b"], "notAKey"); // $ExpectType Pick<MixedTypeRecord, "c">
+    _(mixedTypeRecord).omit<"a" | "b" | "notAKey">("a", ["b"], "notAKey"); // $ExpectType Pick<MixedTypeRecord, "c">
+    extractChainTypes(_.chain(mixedTypeRecord).omit<"a" | "b" | "notAKey">("a", ["b"], "notAKey")); // $ExpectType ChainType<Pick<MixedTypeRecord, "c">, NonIntersecting>
 
     // constant strings and string arrays - any
-    _.omit<any, 'a' | 'b'>(anyValue, 'a', ['b']); // $ExpectType any
-    _(anyValue).omit<'a' | 'b'>('a', ['b']); // $ExpectType any
-    extractChainTypes(_.chain(anyValue).omit<'a' | 'b'>('a', ['b'])); // $ExpectType ChainType<any, any>
+    _.omit<any, "a" | "b">(anyValue, "a", ["b"]); // $ExpectType any
+    _(anyValue).omit<"a" | "b">("a", ["b"]); // $ExpectType any
+    extractChainTypes(_.chain(anyValue).omit<"a" | "b">("a", ["b"])); // $ExpectType ChainType<any, any>
 
     // generic strings - record
     _.omit(mixedTypeRecord, stringValue); // $ExpectType Partial<MixedTypeRecord>
@@ -3142,10 +3293,10 @@ _.defaults({ flavor: "chocolate" }, { flavor: "vanilla", sprinkles: "lots" }); /
 // clone
 
 // creating a shallow-copied clone of an object
-_.clone({ name: 'moe' }); // $ExpectType { name: string; }
+_.clone({ name: "moe" }); // $ExpectType { name: string; }
 
 // creating a shallow-copied clone of an array
-_.clone(['i', 'am', 'an', 'object!']); // $ExpectType string[]
+_.clone(["i", "am", "an", "object!"]); // $ExpectType string[]
 
 // has
 
@@ -3156,17 +3307,17 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
 
 // creating a function that can determine if one object's property values matches another's
 {
-    const isUncleMoe = _.matches({ name: 'moe', relation: 'uncle' }); // $ExpectType Predicate<{ name: string; relation: string; }>
-    isUncleMoe({ name: 'moe', relation: 'uncle' }); // $ExpectType boolean
+    const isUncleMoe = _.matches({ name: "moe", relation: "uncle" }); // $ExpectType Predicate<{ name: string; relation: string; }>
+    isUncleMoe({ name: "moe", relation: "uncle" }); // $ExpectType boolean
 }
 
 // property
 
 // retrieving shallow and deep property values from an object
 {
-    const luckyNumbersMoe = { name: 'moe', luckyNumbers: [13, 27, 34] };
-    _.property('name')(luckyNumbersMoe); // $ExpectType any
-    _.property(['luckyNumbers', 2])(luckyNumbersMoe); // $ExpectType any
+    const luckyNumbersMoe = { name: "moe", luckyNumbers: [13, 27, 34] };
+    _.property("name")(luckyNumbersMoe); // $ExpectType any
+    _.property(["luckyNumbers", 2])(luckyNumbersMoe); // $ExpectType any
 }
 
 // isEqual
@@ -3242,7 +3393,7 @@ _.has({ a: 1, b: 2, c: 3 }, "b"); // $ExpectType boolean
         _.isFunction(anyValue) ? anyValue : neverValue; // $ExpectType Function
     }
 
-    _.isObject(stringy) ? stringy : neverValue // $ExpectType StringRecord
+    _.isObject(stringy) ? stringy : neverValue; // $ExpectType StringRecord
     _.isObject(maybeStringArray) ? maybeStringArray : neverValue; // $ExpectType string[]
     _.isObject(maybeFunction) ? maybeFunction : neverValue; // $ExpectType () => void
     _.isObject(stringValue) ? stringValue : neverValue; // $ExpectType never
@@ -3348,12 +3499,12 @@ _.noConflict(); // $ExpectType any
 // identity
 
 // calling a function that returns the same value that is used as the argument
-_.identity({ name: 'moe' }); // $ExpectType { name: string; }
+_.identity({ name: "moe" }); // $ExpectType { name: string; }
 
 // constant
 
 // creating a function that will always return a specific value
-_.constant({ name: 'moe' }); // $ExpectType () => { name: string; }
+_.constant({ name: "moe" }); // $ExpectType () => { name: string; }
 
 // times
 
@@ -3370,11 +3521,11 @@ _.random(0, 100); // $ExpectType number
 
 // adding functions to Underscore by calling _.mixin
 _.mixin({
-    capitalize: (string: string) => string.charAt(0).toUpperCase() + string.substring(1)
+    capitalize: (string: string) => string.charAt(0).toUpperCase() + string.substring(1),
 });
 
 // augmenting Underscore's type definitions to make TypeScript aware of the above
-declare module 'underscore' {
+declare module "underscore" {
     interface UnderscoreStatic {
         capitalize(string: string): string;
     }
@@ -3395,12 +3546,12 @@ _.chain("fabio").capitalize().value(); // $ExpectType string
 // uniqueId
 
 // generating an id that is unique only to this current usage of underscore
-_.uniqueId('contact_'); // $ExpectType string
+_.uniqueId("contact_"); // $ExpectType string
 
 // escape
 
 // HTML-escaping a string
-_.escape('Curly, Larry & Moe'); // $ExpectType string
+_.escape("Curly, Larry & Moe"); // $ExpectType string
 
 // result
 
@@ -3409,27 +3560,26 @@ _.escape('Curly, Larry & Moe'); // $ExpectType string
 //   returning the value of the default parameter (if it's undefined)
 //   or returning its value
 // the example below will always return a string
-declare const objectWithFunctionOrValue: { functionOrValue: (() => string) | string | undefined; };
-_.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult'); // $ExpectType any
+declare const objectWithFunctionOrValue: { functionOrValue: (() => string) | string | undefined };
+_.result(objectWithFunctionOrValue, "functionOrValue", "someDefaultResult"); // $ExpectType any
 
 // template
 
 // compiling and evaluating templates
 {
     const template = _.template("<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>"); // $ExpectType CompiledTemplate
-    template({ people: ['moe', 'curly', 'larry'] }); // $ExpectType string
+    template({ people: ["moe", "curly", "larry"] }); // $ExpectType string
 }
 
 // overriding template settings
 {
     // $ExpectType CompiledTemplate
-    const template = _.template("<p>Hello {{: data.name }}!<p><p>The current timestamp is {{= _.now() }}</p>",
-        {
-            escape: /\{\{=(.+?)\}\}/g,
-            interpolate: /\{\{:(.+?)\}\}/g,
-            evaluate: /\{\{\}\}/g,
-            variable: 'data'
-        });
+    const template = _.template("<p>Hello {{: data.name }}!<p><p>The current timestamp is {{= _.now() }}</p>", {
+        escape: /\{\{=(.+?)\}\}/g,
+        interpolate: /\{\{:(.+?)\}\}/g,
+        evaluate: /\{\{\}\}/g,
+        variable: "data",
+    });
     template({ name: "Mustache O'Grady" }); // $ExpectType string
 }
 
@@ -3441,7 +3591,7 @@ _.result(objectWithFunctionOrValue, 'functionOrValue', 'someDefaultResult'); // 
         escape: /\{\{=(.+?)\}\}/g,
         interpolate: /\{\{:(.+?)\}\}/g,
         evaluate: /\{\{\}\}/g,
-        variable: 'data'
+        variable: "data",
     };
     const template = _.template("<p>Hello {{: data.name }}!<p><p>The current timestamp is {{= _.now() }}</p>"); // $ExpectType CompiledTemplate
     template({ name: "Mustache O'Grady" }); // $ExpectType string
@@ -3476,22 +3626,22 @@ _.chain([1, 2, 3])
     .value();
 
 // $ExpectType { [x: string]: number[]; }
-_.chain([{ property: 'odd', value: 1 }, { property: 'even', value: 2 }, { property: 'even', value: 0 }])
-    .groupBy('property')
-    .mapObject((objects) => _.pluck(objects, 'value'))
+_.chain([{ property: "odd", value: 1 }, { property: "even", value: 2 }, { property: "even", value: 0 }])
+    .groupBy("property")
+    .mapObject((objects) => _.pluck(objects, "value"))
     .value();
 
 // $ExpectType string[]
-_.chain(['z', 'x', 'y'])
-    .union(['a', 'b', 'c'])
-    .without('z')
+_.chain(["z", "x", "y"])
+    .union(["a", "b", "c"])
+    .without("z")
     .value();
 
 // $ExpectType Dictionary<boolean>
 _.chain({
-    'test': { title: 'item1', value: 5 },
-    'another': { title: 'item2', value: 8 },
-    'third': { title: 'item3', value: 10 }
+    "test": { title: "item1", value: 5 },
+    "another": { title: "item2", value: 8 },
+    "third": { title: "item3", value: 10 },
 })
     .values()
     .filter(r => r.value >= 8)
@@ -3502,7 +3652,10 @@ _.chain({
 // tests for #7931 - verify that the result of a function like reduce that returns a singleton can be chained further
 // $ExpectType number[]
 _.chain([1, 2, 3])
-    .reduce((acc, x) => { acc.unshift(x); return acc; }, [] as number[])
+    .reduce((acc, x) => {
+        acc.unshift(x);
+        return acc;
+    }, [] as number[])
     .map(x => x + 1)
     .value();
 
@@ -3522,56 +3675,56 @@ _.chain([1, 2, 3, 4, 5, 6])
 // $ExpectType any
 _.chain(anyValue)
     .filter(i => i.filterBoolean)
-    .reject('rejectBoolean')
+    .reject("rejectBoolean")
     .find(i => i.findBooleanFunction())
     .value();
 
 // $ExpectType boolean
 _.chain([{ a: 1 }, { a: 2 }, { a: 3 }, { b: 4 }])
-    .map('a')
+    .map("a")
     .contains(3)
     .value();
 
 // $ExpectType string[]
 _.chain({
     a: {
-        common: 'only',
-        onlyA: 3
+        common: "only",
+        onlyA: 3,
     },
     b: {
-        common: 'strings',
-        onlyB: true
+        common: "strings",
+        onlyB: true,
     },
     c: {
-        common: 'strings',
-        onlyC: []
-    }
+        common: "strings",
+        onlyC: [],
+    },
 })
-    .mapObject('common')
-    .reject(s => s === 'not')
+    .mapObject("common")
+    .reject(s => s === "not")
     .uniq()
     .value();
 
-// $ExpectType any[][]
+// $ExpectType [("one" | "two")[], number[]]
 _.chain({ one: 1, two: 2 })
     .pairs()
     .unzip()
     .value();
 
-// $ExpectType any[][]
+// $ExpectType [("one" | "two")[], number[]]
 _.chain({ one: 1, two: 2 })
     .pairs()
     .transpose()
     .value();
 
 // $ExpectType ["one" | "two" | "three", string | number | number[]] | undefined
-_.chain({ one: '1', two: 2, three: [3] })
+_.chain({ one: "1", two: 2, three: [3] })
     .pairs()
     .last()
     .value();
 
 // $ExpectType string | undefined
-_.chain(['one', 'two', 'three'])
+_.chain(["one", "two", "three"])
     .object([1, 2, 3])
     .findKey((element, key, value) => {
         element; // $ExpectType number | undefined
@@ -3585,25 +3738,26 @@ _.chain(['one', 'two', 'three'])
 // $ExpectType { valueProperty: string; } | undefined
 _.chain([
     {
-        group: 'a',
+        group: "a",
         subGroup: 1,
-        value: { valueProperty: 'first' }
+        value: { valueProperty: "first" },
     },
     {
-        group: 'b',
+        group: "b",
         subGroup: 2,
-        value: { valueProperty: 'second' }
+        value: { valueProperty: "second" },
     },
     {
-        group: 'b',
+        group: "b",
         subGroup: 3,
-        value: { valueProperty: 'third' }
-    }])
+        value: { valueProperty: "third" },
+    },
+])
     .groupBy(v => v.group)
     .filter(g => g.length >= 2)
     .flatten()
     .where({ subGroup: 2 })
-    .pluck('value')
+    .pluck("value")
     .sample()
     .value();
 
@@ -3622,11 +3776,11 @@ _.chain([[1, 2, 3], [4, undefined, 5], [undefined, undefined, 6]])
 
 // verify that partial objects can be provided without error to where and findWhere for a union type collection
 // where no types in the union share the same property names
-declare const nonIntersectingTypeUnion: _.Dictionary<{ one: string; } | { two: number; }>;
+declare const nonIntersectingTypeUnion: _.Dictionary<{ one: string } | { two: number }>;
 
 // $ExpectType ({ one: string; } | { two: number; })[]
 _.chain(nonIntersectingTypeUnion)
-    .where({ one: 'one' })
+    .where({ one: "one" })
     .sample(5)
     .value();
 
@@ -3638,7 +3792,7 @@ _.chain(nonIntersectingTypeUnion)
 
 // verify that both types can be provided without error to where and findWhere for a union type collection where
 // two properties in the union have different types
-declare const overlappingTypeUnion: _.Dictionary<{ same: string; } | { same: number; }>;
+declare const overlappingTypeUnion: _.Dictionary<{ same: string } | { same: number }>;
 
 // $ExpectType ({ same: string; } | { same: number; })[]
 _.chain(overlappingTypeUnion)
@@ -3649,16 +3803,16 @@ _.chain(overlappingTypeUnion)
 // $ExpectType { same: string; } | { same: number; } | undefined
 _.chain(overlappingTypeUnion)
     .shuffle()
-    .findWhere({ same: 'no' })
+    .findWhere({ same: "no" })
     .value();
 
-declare const nestedObjectList: { a: { b: boolean; c: string; }; }[];
+declare const nestedObjectList: Array<{ a: { b: boolean; c: string } }>;
 
 // $ExpectType [{ a: { b: boolean; c: string; }; }[], { a: { b: boolean; c: string; }; }[]]
 _.chain(nestedObjectList)
-    .uniq(['a', 'c'])
+    .uniq(["a", "c"])
     .without(nestedObjectList[0], nestedObjectList[2])
-    .partition(['a', 'b'])
+    .partition(["a", "b"])
     .value();
 
 // $ExpectType number[]
@@ -3670,7 +3824,7 @@ _.chain([1, 3, 5])
 
 // "as const" isn't supported until TS3.4; the Readonly assertion below mimics its effect
 // $ExpectType Dictionary<number>
-_.chain([{ id: 1, name: 'a' }, { id: 2, name: 'b' }])
+_.chain([{ id: 1, name: "a" }, { id: 2, name: "b" }])
     .map(o => [o.name, o.id] as Readonly<[string, number]>)
     .object()
     .value();
@@ -3683,29 +3837,29 @@ _.chain([1, 2, 3])
     .value();
 
 // $ExpectType string[]
-_.chain([{ type: 'one' }, { type: 'two' }, { type: 'one' }])
-    .countBy('type')
+_.chain([{ type: "one" }, { type: "two" }, { type: "one" }])
+    .countBy("type")
     .omit(count => count < 2)
     .keys()
     .value();
 
 // $ExpectType number
-_.chain(['rate', 'rest', 'fate', 'best'])
+_.chain(["rate", "rest", "fate", "best"])
     .rest(2)
-    .invoke('substring', 2)
-    .indexOf('te')
+    .invoke("substring", 2)
+    .indexOf("te")
     .value();
 
 // $ExpectType number | { food: string; }
-_.chain([{ food: 'apple' }, { food: 'banana' }, { food: 'carrot' }])
+_.chain([{ food: "apple" }, { food: "banana" }, { food: "carrot" }])
     .initial()
-    .max(['food', 'length'])
+    .max(["food", "length"])
     .value();
 
 // $ExpectType number
 _.chain([{ score: 27 }, { score: 45 }, { score: 16 }])
-    .sortBy('score')
-    .sortedIndex({ score: 33 }, 'score')
+    .sortBy("score")
+    .sortedIndex({ score: 33 }, "score")
     .value();
 
 // $ExpectType boolean

@@ -1,8 +1,6 @@
-// Type definitions for get-sass-vars 3.0
-// Project: https://github.com/niksy/get-sass-vars#readme
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Options } from "sass";
+/// <reference types="node" />
+
+import { LegacyOptions as Options } from "sass";
 
 declare namespace sassVars {
     /**
@@ -19,7 +17,7 @@ declare namespace sassVars {
         /**
          * The options to pass to `sass`.
          */
-        sassOptions?: Options | undefined;
+        sassOptions?: Options<"sync"> | undefined;
     }
 }
 

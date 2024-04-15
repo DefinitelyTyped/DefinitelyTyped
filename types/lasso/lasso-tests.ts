@@ -1,16 +1,16 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
-import { transforms, configure, create, lassoPage, getDefaultLasso, writers } from 'lasso';
-import LassoContext from 'lasso/lib/LassoContext';
-import LassoPageResult from 'lasso/lib/LassoPageResult';
-import { serveStatic } from 'lasso/middleware';
-import { enable } from 'lasso/node-require-no-op';
+import { configure, create, getDefaultLasso, lassoPage, transforms, writers } from "lasso";
+import LassoContext from "lasso/lib/LassoContext";
+import LassoPageResult from "lasso/lib/LassoPageResult";
+import { serveStatic } from "lasso/middleware";
+import { enable } from "lasso/node-require-no-op";
 
 // configure() tests
 
 // $ExpectType void
-configure('lasso-config.json');
+configure("lasso-config.json");
 
 // $ExpectType void
 configure({});
@@ -21,15 +21,15 @@ configure({
         const res = out.stream;
 
         return res.csp && res.csp.nonce;
-    }
+    },
 });
 
 // $ExpectType void
 configure({
     require: {
-        extensions: [ '.js' ],
-        transforms: [ 'deamdify' ]
-    }
+        extensions: [".js"],
+        transforms: ["deamdify"],
+    },
 });
 
 // $ExpectType Lasso
@@ -41,15 +41,14 @@ lasso;
 
 // $ExpectType Promise<any>
 lassoPage({
-    name: 'my-page',
+    name: "my-page",
     dependencies: [
-        './style.less',
-        'require-run: ./main'
-    ]
-},
-(err, lassoPageResult) => {
+        "./style.less",
+        "require-run: ./main",
+    ],
+}, (err, lassoPageResult) => {
     if (err) {
-        console.log('Failed to lasso page: ', err);
+        console.log("Failed to lasso page: ", err);
         return;
     }
 
@@ -62,18 +61,18 @@ lassoPage({
 
 lassoPage({
     dependencies: [{
-        path: './hello-mobile.js',
-        'if-flag': 'mobile'
+        path: "./hello-mobile.js",
+        "if-flag": "mobile",
     }],
-    flags: ['mobile', 'foo', 'bar']
+    flags: ["mobile", "foo", "bar"],
 });
 
 // $ExpectType Lasso
-lasso.on('afterLassoPage', (event) => {
+lasso.on("afterLassoPage", (event) => {
     const lassoPageResult: LassoPageResult = event.result;
     const fingerprints = lassoPageResult.getInlineCodeFingerprints();
     // $ExpectType string
-    fingerprints.map(fingerprint => `script-src 'self' 'sha256-${fingerprint}'`).join('; ');
+    fingerprints.map(fingerprint => `script-src 'self' 'sha256-${fingerprint}'`).join("; ");
 });
 
 const dependencies = lasso.dependencies;
@@ -81,17 +80,17 @@ const dependencies = lasso.dependencies;
 // Register new types
 
 // $ExpectType void
-dependencies.registerJavaScriptType('my-js-type', require('./dependency-my-js-type')); // tslint:disable-line: no-var-requires
+dependencies.registerJavaScriptType("my-js-type", require("./dependency-my-js-type")); // tslint:disable-line: no-var-requires
 
 // $ExpectType void
-dependencies.registerJavaScriptType('my-custom-type', {
+dependencies.registerJavaScriptType("my-custom-type", {
     properties: {
-        path: 'string'
+        path: "string",
     },
 
     init(context: any, callback: any) {
         if (!this.path) {
-            throw new Error('"path" is required');
+            throw new Error("\"path\" is required");
         }
 
         this.path = this.resolvePath(this.path);
@@ -101,7 +100,7 @@ dependencies.registerJavaScriptType('my-custom-type', {
     read(context: any, callback: any) {
         const path = this.path;
 
-        fs.readFile(path, {encoding: 'utf8'}, (err, src) => {
+        fs.readFile(path, { encoding: "utf8" }, (err, src) => {
             if (err) {
                 return callback(err);
             }
@@ -112,23 +111,23 @@ dependencies.registerJavaScriptType('my-custom-type', {
 
     getSourceFile() {
         return this.path;
-    }
+    },
 });
 
 // $ExpectType void
-dependencies.registerStyleSheetType('my-custom-type', {});
+dependencies.registerStyleSheetType("my-custom-type", {});
 
 // $ExpectType void
-dependencies.registerPackageType('dir', {
+dependencies.registerPackageType("dir", {
     properties: {
-        path: 'string'
+        path: "string",
     },
 
     init(context: any, callback: any) {
         let path = this.path;
 
         if (!path) {
-            callback(new Error('"path" is required'));
+            callback(new Error("\"path\" is required"));
         }
 
         this.path = path = this.resolvePath(path);
@@ -139,7 +138,7 @@ dependencies.registerPackageType('dir', {
             }
 
             if (!stat.isDirectory()) {
-                return callback(new Error('Directory expected: ' + path));
+                return callback(new Error("Directory expected: " + path));
             }
 
             callback();
@@ -162,16 +161,16 @@ dependencies.registerPackageType('dir', {
 
     getDir() {
         return this.path;
-    }
+    },
 });
 
 // $ExpectType void
-dependencies.registerRequireExtension('test', (path: string, context: any, callback: any) => {
+dependencies.registerRequireExtension("test", (path: string, context: any, callback: any) => {
     callback(null, "exports.sayHello = function() { console.log('Hello!'); }");
 });
 
 // $ExpectType void
-lasso.lassoResource('path/to/foo.png', (err: any, result: any) => {
+lasso.lassoResource("path/to/foo.png", (err: any, result: any) => {
     if (err) {
         console.log(err);
     } else {
@@ -182,16 +181,16 @@ lasso.lassoResource('path/to/foo.png', (err: any, result: any) => {
 // Transformer tests
 
 // $ExpectType void
-lasso.addTransform(require('./my-transform')); // tslint:disable-line: no-var-requires
+lasso.addTransform(require("./my-transform")); // tslint:disable-line: no-var-requires
 
 // $ExpectType void
 lasso.addTransform({
-    contentType: 'js',
+    contentType: "js",
     name: module.id,
     stream: false,
     transform(code: string, lassoContext: LassoContext) {
         return code.toUpperCase();
-    }
+    },
 });
 
 // $ExpectType void
@@ -205,7 +204,7 @@ serveStatic();
 // $ExpectType RequestHandler<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
 serveStatic({
     lasso,
-    sendOptions: {}
+    sendOptions: {},
 });
 
 // node-require-no-op tests

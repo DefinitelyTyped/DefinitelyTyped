@@ -21,18 +21,18 @@ declare class EntityError {
 }
 declare namespace EntityError {
     namespace Codes {
-        const NOT_FOUND: number;
-        const PERMISSION_DENIED: number;
-        const FIELD_NOT_FOUND: number;
-        const FIELD_TYPE_NOT_SUPPORTED: number;
-        const READ_ONLY_FIELD: number;
-        const MISSING_FIELD: number;
-        const INVALID_CLASS_KEY: number;
-        const POSITION_CHANGED: number;
-        const EMPTY_DATASET: number;
-        const CLASS_IS_JUST_TO_GROUP: number;
-        const HAS_DETAIL_ENTITIES: number;
-        const INVALID_KEY: number;
+        let NOT_FOUND: number;
+        let PERMISSION_DENIED: number;
+        let FIELD_NOT_FOUND: number;
+        let FIELD_TYPE_NOT_SUPPORTED: number;
+        let READ_ONLY_FIELD: number;
+        let MISSING_FIELD: number;
+        let INVALID_CLASS_KEY: number;
+        let POSITION_CHANGED: number;
+        let EMPTY_DATASET: number;
+        let CLASS_IS_JUST_TO_GROUP: number;
+        let HAS_DETAIL_ENTITIES: number;
+        let INVALID_KEY: number;
     }
     type Codes = number;
 }

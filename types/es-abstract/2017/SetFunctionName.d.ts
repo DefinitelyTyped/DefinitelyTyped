@@ -1,2 +1,2 @@
-import SetFunctionName = require('../2016/SetFunctionName');
+import SetFunctionName = require("../2016/SetFunctionName");
 export = SetFunctionName;

@@ -1,10 +1,4 @@
-// Type definitions for zrender 4.0
-// Project: https://github.com/ecomfe/zrender
-// Definitions by: Roman <https://github.com/iRON5>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-type ImagePatternRepeat = 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat';
+type ImagePatternRepeat = "repeat" | "repeat-x" | "repeat-y" | "no-repeat";
 interface ImagePatternObject {
     image: any;
     repeat?: ImagePatternRepeat;
@@ -56,7 +50,7 @@ declare namespace zrender {
          * case that `null`/`undefined` can not be set.
          * (e.g., emphasis.lineStyle in echarts)
          */
-        lineDash?: false | number[] | 'solid' | 'dashed' | 'dotted';
+        lineDash?: false | number[] | "solid" | "dashed" | "dotted";
         lineDashOffset?: number;
         lineWidth?: number;
         lineCap?: CanvasLineCap;
@@ -73,26 +67,21 @@ declare namespace zrender {
      * x, y, x2, y2 are all percent from 0 to 1
      */
     interface LinearGradient {
-        new (
+        new(
             /** @default 0 */
             x?: X,
-
             /** @default 0 */
             y?: Y,
-
             /** @default 1 */
             x2?: X2,
-
             /** @default 0 */
             y2?: Y2,
-
             /** @default [] */
             colorStops?: ColorStops,
-
             /** @default false */
             globalCoord?: GlobalCoords,
         ): {
-            type: 'linear';
+            type: "linear";
             x: X;
             y: Y;
             x2: X2;
@@ -116,12 +105,12 @@ declare namespace zrender {
             buildPath?: (
                 ctx: any,
                 shapeCfg: Record<string, any>,
-                inBatch?: boolean
+                inBatch?: boolean,
             ) => void;
         }
     }
 }
 
-declare module 'zrender' {
+declare module "zrender" {
     export = zrender;
 }

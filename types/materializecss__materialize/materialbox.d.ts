@@ -3,89 +3,89 @@
 declare namespace M {
     class Materialbox extends Component<MaterialboxOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Materialbox;
 
         /**
-         * Init Materialbox
+         * Init Materialbox.
          */
         static init(els: Element, options?: Partial<MaterialboxOptions>): Materialbox;
 
         /**
-         * Init Materialboxes
+         * Init Materialboxes.
          */
         static init(els: MElements, options?: Partial<MaterialboxOptions>): Materialbox[];
 
         /**
-         * If the materialbox overlay is showing
+         * If the materialbox overlay is showing.
          */
         overlayActive: boolean;
 
         /**
-         * If the materialbox is no longer being animated
+         * If the materialbox is no longer being animated.
          */
         doneAnimating: boolean;
 
         /**
-         * Caption if specified
+         * Caption if specified.
          */
         caption: string;
 
         /**
-         * Original width of image
+         * Original width of image.
          */
         originalWidth: number;
 
         /**
-         * Original height of image
+         * Original height of image.
          */
         originalHeight: number;
 
         /**
-         * Open materialbox
+         * Open materialbox.
          */
         open(): void;
 
         /**
-         * Close materialbox
+         * Close materialbox.
          */
         close(): void;
     }
 
     interface MaterialboxOptions {
         /**
-         * Transition in duration in milliseconds
+         * Transition in duration in milliseconds.
          * @default 275
          */
         inDuration: number;
 
         /**
-         * Transition out duration in milliseconds
+         * Transition out duration in milliseconds.
          * @default 200
          */
         outDuration: number;
 
         /**
-         * Callback function called before materialbox is opened
+         * Callback function called before materialbox is opened.
          * @default null
          */
         onOpenStart: (this: Materialbox, el: Element) => void;
 
         /**
-         * Callback function called after materialbox is opened
+         * Callback function called after materialbox is opened.
          * @default null
          */
         onOpenEnd: (this: Materialbox, el: Element) => void;
 
         /**
-         * Callback function called before materialbox is closed
+         * Callback function called before materialbox is closed.
          * @default null
          */
         onCloseStart: (this: Materialbox, el: Element) => void;
 
         /**
-         * Callback function called after materialbox is closed
+         * Callback function called after materialbox is closed.
          * @default null
          */
         onCloseEnd: (this: Materialbox, el: Element) => void;

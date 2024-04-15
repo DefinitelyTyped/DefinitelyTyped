@@ -1,6 +1,6 @@
-import { BlockInstance } from '@wordpress/blocks';
+import { BlockInstance } from "@wordpress/blocks";
 
-import { EditorBlockListSettings, EditorBlockMode, EditorInserterItem, EditorSelection, EditorSettings } from '../';
+import { EditorBlockListSettings, EditorBlockMode, EditorInserterItem, EditorSelection, EditorSettings } from "../";
 
 /**
  * Determines if the given block type is allowed to be inserted into the block list.

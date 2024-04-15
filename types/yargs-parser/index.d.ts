@@ -1,15 +1,9 @@
-// Type definitions for yargs-parser 21.0
-// Project: https://github.com/yargs/yargs-parser#readme
-// Definitions by: Miles Johnson <https://github.com/milesj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace yargsParser {
     interface Arguments {
         /** Non-option arguments */
         _: Array<string | number>;
         /** Arguments after the end-of-options flag `--` */
-        '--'?: Array<string | number>;
+        "--"?: Array<string | number>;
         /** All remaining options */
         [argName: string]: any;
     }
@@ -29,41 +23,41 @@ declare namespace yargsParser {
 
     interface Configuration {
         /** Should variables prefixed with --no be treated as negations? Default is `true` */
-        'boolean-negation': boolean;
+        "boolean-negation": boolean;
         /** Should hyphenated arguments be expanded into camel-case aliases? Default is `true` */
-        'camel-case-expansion': boolean;
+        "camel-case-expansion": boolean;
         /** Should arrays be combined when provided by both command line arguments and a configuration file. Default is `false`  */
-        'combine-arrays': boolean;
+        "combine-arrays": boolean;
         /** Should keys that contain . be treated as objects? Default is `true` */
-        'dot-notation': boolean;
+        "dot-notation": boolean;
         /** Should arguments be coerced into an array when duplicated. Default is `true` */
-        'duplicate-arguments-array': boolean;
+        "duplicate-arguments-array": boolean;
         /** Should array arguments be coerced into a single array when duplicated. Default is `true` */
-        'flatten-duplicate-arrays': boolean;
+        "flatten-duplicate-arrays": boolean;
         /** Should arrays consume more than one positional argument following their flag. Default is `true` */
-        'greedy-arrays': boolean;
+        "greedy-arrays": boolean;
         /** Should nargs consume dash options as well as positional arguments. Default is `false` */
-        'nargs-eats-options': boolean;
+        "nargs-eats-options": boolean;
         /** Should parsing stop at the first text argument? This is similar to how e.g. ssh parses its command line. Default is `false` */
-        'halt-at-non-option': boolean;
+        "halt-at-non-option": boolean;
         /** The prefix to use for negated boolean variables. Default is `'no-'` */
-        'negation-prefix': string;
+        "negation-prefix": string;
         /** Should keys that look like numbers be treated as such? Default is `true` */
-        'parse-numbers': boolean;
+        "parse-numbers": boolean;
         /** Should positional keys that look like numbers be treated as such? Default is `true` */
-        'parse-positional-numbers': boolean;
+        "parse-positional-numbers": boolean;
         /** Should unparsed flags be stored in -- or _. Default is `false` */
-        'populate--': boolean;
+        "populate--": boolean;
         /** Should a placeholder be added for keys not set via the corresponding CLI argument? Default is `false` */
-        'set-placeholder-key': boolean;
+        "set-placeholder-key": boolean;
         /** Should a group of short-options be treated as boolean flags? Default is `true` */
-        'short-option-groups': boolean;
+        "short-option-groups": boolean;
         /** Should aliases be removed before returning results? Default is `false` */
-        'strip-aliased': boolean;
+        "strip-aliased": boolean;
         /** Should dashed keys be removed before returning results? This option has no effect if camel-case-expansion is disabled. Default is `false` */
-        'strip-dashed': boolean;
+        "strip-dashed": boolean;
         /** Should unknown options be treated like regular arguments? An unknown option is one that is not configured in opts. Default is `false` */
-        'unknown-options-as-args': boolean;
+        "unknown-options-as-args": boolean;
     }
 
     interface Options {

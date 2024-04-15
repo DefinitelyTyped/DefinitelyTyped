@@ -1,5 +1,3 @@
-export = dartProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const dartProfile: createClient.Profile;
+export const profile: Profile;

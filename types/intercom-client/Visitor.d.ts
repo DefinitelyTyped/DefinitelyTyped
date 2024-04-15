@@ -1,11 +1,11 @@
-import { Company } from './Company';
-import { SocialProfile, Segment, Avatar, LocationData } from './User';
-import { Tag } from './Tag';
+import { Company } from "./Company";
+import { Tag } from "./Tag";
+import { Avatar, LocationData, Segment, SocialProfile } from "./User";
 
 export type VisitorIdentifier = { id: string } | { user_id: string };
 
 export interface Visitor {
-    type: 'visitor'; // value is 'visitor'
+    type: "visitor"; // value is 'visitor'
     readonly id: string; // The Intercom defined id representing the Visitor
     user_id: string | null; // Automatically generated identifier for the Visitor
     name: string | null; // The name of the Visitor

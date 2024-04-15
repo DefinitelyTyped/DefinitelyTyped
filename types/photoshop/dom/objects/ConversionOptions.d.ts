@@ -1,5 +1,4 @@
 import * as Constants from "../Constants";
-import { SolidColor } from "./SolidColor";
 /**
  * Options for converting an image to bitmap mode, using [[Document.changeMode]] with `ChangeMode.BITMAP`.
  *
@@ -7,20 +6,75 @@ import { SolidColor } from "./SolidColor";
  * @optionobject
  */
 export declare class BitmapConversionOptions {
+    private _angle;
+    private _frequency;
+    private _method;
+    private _patternName;
+    private _resolution;
+    private _shape;
     /**
-     * The angle (in degrees) at which to orient individual dots. See [[shape]]
+     * The angle (in degrees) at which to orient individual dots. See shape property below.
+     * Valid only when the method property is set to `BitmapConversionType.HALFTONESCREEN`.
      *
-     * Valid only when [[method]] is `BitmapConversionType.HALFTONESCREEN`.
-     *
+     * @default -
      * @range -180...180
+     * @minVersion 23.0
      */
-    angle: number;
-    frequency: number;
-    method: Constants.BitmapConversionType;
-    patternName: string;
-    resolution: number;
-    shape: Constants.BitmapHalfToneType;
-    readonly typename: string;
+    get angle(): number;
+    set angle(value: number);
+    /**
+     * The number of dots (per inch) to use.
+     * Valid only when the method property is set to `BitmapConversionType.HALFTONESCREEN`.
+     *
+     * @default -
+     * @range 1.0..999.99
+     * @minVersion 23.0
+     */
+    get frequency(): number;
+    set frequency(value: number);
+    /**
+     * The conversion method.
+     *
+     * @default DIFFUSIONDITHER
+     * @range -
+     * @minVersion 23.0
+     */
+    get method(): Constants.BitmapConversionType;
+    set method(value: Constants.BitmapConversionType);
+    /**
+     * The name of the pattern to use.
+     * Valid only when the method property is set to BitmapConversionType.CUSTOMPATTERN.
+     *
+     * @default
+     * @range -
+     * @minVersion 23.0
+     */
+    get patternName(): string;
+    set patternName(value: string);
+    /**
+     * The output resolution (in pixels per inch).
+     *
+     * @default 72
+     * @range -
+     * @minVersion 23.0
+     */
+    get resolution(): number;
+    set resolution(value: number);
+    /**
+     * The dot shape.
+     * Valid only when the method property is set to BitmapConversionType.HALFTONESCREEN.
+     *
+     * @default -
+     * @range -
+     * @minVersion 23.0
+     */
+    get shape(): Constants.BitmapHalfToneType;
+    set shape(value: Constants.BitmapHalfToneType);
+    /**
+     * The class name of the referenced object: *"BitmapConversionOptions"*.
+     * @minVersion 23.0
+     */
+    get typename(): "BitmapConversionOptions";
     /** @ignore */
     constructor();
 }
@@ -29,205 +83,86 @@ export declare class BitmapConversionOptions {
  *
  * @targetfolder objects/conversionoptions
  * @optionobject
+ * @minVersion 23.0
  */
 export declare class IndexedConversionOptions {
-    colors: number;
-    dither: Constants.Dither;
-    ditherAmount: number;
-    forced: Constants.ForcedColors;
-    matte: Constants.MatteColor;
-    palette: Constants.Palette;
-    preserveExactColors: boolean;
-    transparency: boolean;
-    readonly typename: string;
-    /** @ignore */
-    constructor();
-}
-/**
- * Options for saving a document in BMP format using the [[Document.saveAs]] method
- *
- * @targetfolder objects/conversionoptions
- * @optionobject
- */
-export declare class BMPSaveOptions {
-    /** True to save the alpha channels */
-    alphaChannels: boolean;
-    /** The number of bits per channel */
-    depth: Constants.BMPDepthType;
+    private _colors;
+    private _dither;
+    private _ditherAmount;
+    private _forced;
+    private _matte;
+    private _palette;
+    private _preserveExactColors;
+    private _transparency;
     /**
-     * True to write the image from top to bottom,
-     * available only when osType is OperatingSystem.WINDOWS
-     */
-    flipRowOrder: boolean;
-    /** The target OS. */
-    osType: Constants.OperatingSystem;
-    /**
-     * True to use RLE compression
-     */
-    rleCompression: boolean;
-    /**
-     * The class name of the referenced object
-     * @default "BMPSaveOptions"
-     */
-    readonly typename: string;
-    /** @ignore */
-    constructor();
-}
-/**
- * @targetfolder objects/conversionoptions
- * @optionobject
- */
-export declare class JPEGSaveOptions {
-    /**
-     * The image quality setting to use; affects file size and compression.
+     * The number of palette colors.
      *
-     * @default 8
-     * @range 0...12
+     * Valid only with palette types: LOCALADAPTIVE, LOCALPERCEPTUAL,
+     * LOCALSELECTIVE, MACOSPALETTE, UNIFORM, WEBPALETTE, or WINDOWSPALETTE.
+     *
+     * @minVersion 23.0
      */
-    quality: number;
+    get colors(): number;
+    set colors(value: number);
     /**
-     * The JPEG format option to use.
-     * @default STANDARDBASELINE
+     * The type of dithering to be done.
+     *
+     * @minVersion 23.0
      */
-    formatOptions: Constants.JPEGFormatOptions;
+    get dither(): Constants.Dither;
+    set dither(value: Constants.Dither);
     /**
-     * The number of scans to incrementally display the image on the page.
-     * formatOptions must be JPEGFormatOptions.PROGRESSIVE.
-     * @default 3
-     * @range 3...5
+     * The amount of dithering to be done.
+     *
+     * Valid only when dither typ is DIFFUSION.
+     * @minVersion 23.0
      */
-    scans: number;
+    get ditherAmount(): number;
+    set ditherAmount(value: number);
     /**
-     * A custom color to use to fill anti-aliased edges adjacent to transparent areas of the image.
-     * Mutually exclusive with 'matteColor'.
+     * The set of colors to force into the color palette.
+     *
+     * @minVersion 23.0
      */
-    color: SolidColor;
+    get forced(): Constants.ForcedColors;
+    set forced(value: Constants.ForcedColors);
     /**
      * The color to use to fill anti-aliased edges adjacent to transparent areas of the image.
-     * Mutually exclusive with 'color'.
+     *
+     * When transparency is false, the matte color is applied to transparent areas.
+     *
+     * @default WHITE
+     * @minVersion 23.0
      */
-    matteColor: Constants.MatteColor;
+    get matte(): Constants.MatteColor;
+    set matte(value: Constants.MatteColor);
     /**
-     * Custom matting color; overrides matteColor
+     * The palette type.
+     *
+     * @minVersion 23.0
      */
-    customMatte: SolidColor;
+    get palette(): Constants.Palette;
+    set palette(value: Constants.Palette);
     /**
-     * False to skip embedding the color profile in the document
+     * When true, the image colors matching entries in the color table will not be dithered.
+     *
+     * @minVersion 23.0
      */
-    embedColorProfile: boolean;
+    get preserveExactColors(): boolean;
+    set preserveExactColors(value: boolean);
     /**
-     * The class name of the referenced object
-     * @default "JPEGSaveOptions"
+     * When true, transparent areas of the image are preserved during conversion to GIF format.
+     *
+     * @minVersion 23.0
      */
-    readonly typename: string;
+    get transparency(): boolean;
+    set transparency(value: boolean);
+    /**
+     * The class name of the referenced object: *"IndexedConversionOptions"*.
+     *
+     * @minVersion 23.0
+     */
+    get typename(): "IndexedConversionOptions";
     /** @ignore */
     constructor();
-}
-/**
- * @targetfolder objects/conversionoptions
- * @optionobject
- */
-export declare class GIFSaveOptions {
-    /**
-     * The number of palette colors. Valid only when palette is:
-     *
-     * Palette.LOCALADAPTIVE, LOCALPERCEPTUAL, LOCALSELECTIVE, MACOSPALETTE, UNIFORM, WEBPALETTE; or WINDOWSPALETTE
-     */
-    colors: number;
-    /** The dither type. */
-    dither: Constants.Dither;
-    /**
-     * The amount of dither.
-     *
-     * Valid only when dither = Dither.DIFFUSION.
-     */
-    ditherAmount: number;
-    /** The type of colors to force into the color palette. */
-    forced: Constants.ForcedColors;
-    /** True if rows should be interlaced/ */
-    interlaced: boolean;
-    /**
-     * The color to use to fill anti-aliased edges adjacent to transparent  areas of the image.
-     *
-     * When transparency is turned off for an image, the matte color is applied to transparent areas.
-     */
-    matte: Constants.MatteColor;
-    /**
-     * The type of palette to use.
-     */
-    palette: Constants.Palette;
-    /**
-     * True to protect colors in the image that contain entries in the color table from being dithered.
-     *
-     * Valid only when dither = DITHER.DIFFUSION
-     */
-    preserveExactColors: boolean;
-    /**
-     * True to preserve transparent areas of the image during conversion to GIF format.
-     */
-    transparency: boolean;
-    /**
-     * The class name of the referenced object
-     * @default "GIFSaveOptions"
-     */
-    readonly typename: string;
-    /** @ignore */
-    constructor();
-}
-/**
- * @targetfolder objects/conversionoptions
- * @optionobject
- */
-export declare class PNGSaveOptions {
-    /** @ignore */
-    constructor();
-    /**
-     * PNG File Size optimization method.
-     */
-    method: Constants.PNGMethod;
-    /**
-     * The compression value to be used when method = PNGMethod.QUICK
-     *
-     * @range 0...9
-     * @default 6
-     */
-    compression: number;
-    /**
-     * True to interlace rows when method = PNGMethod.QUICK
-     *
-     * @default false
-     */
-    interlaced: boolean;
-    /**
-     * The class name of the referenced object
-     * @default "PNGSaveOptions"
-     */
-    readonly typename: string;
-}
-/**
- * @targetfolder objects/conversionoptions
- * @optionobject
- */
-export declare class PhotoshopSaveOptions {
-    /** @ignore */
-    constructor();
-    /** True to save the alpha channels */
-    alphaChannels: boolean;
-    /** True to save the annotations */
-    annotations: boolean;
-    /** True to embed the color profiles in the document */
-    embedColorProfile: boolean;
-    /** True to preserve the layers */
-    layers: boolean;
-    /** True to save the spot colors */
-    spotColor: boolean;
-    /**
-     * Maximize Compatibility with older versions
-     */
-    maximizeCompatibility: boolean;
-    /**
-     * The class name of the referenced object
-     * @default "PhotoshopSaveOptions"
-     */
-    readonly typename: string;
 }

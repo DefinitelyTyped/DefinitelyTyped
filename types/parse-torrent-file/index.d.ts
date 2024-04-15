@@ -1,8 +1,3 @@
-// Type definitions for parse-torrent-file 4.0
-// Project: https://github.com/webtorrent/parse-torrent-file
-// Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function ParseTorrentFile(torrent: Buffer | ParseTorrentFile.Torrent): ParseTorrentFile.Instance;
@@ -12,22 +7,22 @@ declare namespace ParseTorrentFile {
     function encode(parsed: Instance): Buffer;
 
     interface TorrentInfo {
-        'name.utf-8'?: string | undefined;
+        "name.utf-8"?: string | undefined;
         name?: string | undefined;
         files?: File[] | undefined;
-        'piece length'?: number | undefined;
+        "piece length"?: number | undefined;
         pieces?: number | undefined;
         private?: boolean | undefined;
     }
 
     interface Torrent {
         info?: TorrentInfo | undefined;
-        'creation date'?: number | undefined;
-        'created by'?: string | undefined;
+        "creation date"?: number | undefined;
+        "created by"?: string | undefined;
         comment?: Buffer | undefined;
-        'announce-list'?: string[][] | undefined;
+        "announce-list"?: string[][] | undefined;
         announce?: string | undefined;
-        'url-list'?: Buffer | undefined;
+        "url-list"?: Buffer | undefined;
     }
 
     interface ParsedFile {

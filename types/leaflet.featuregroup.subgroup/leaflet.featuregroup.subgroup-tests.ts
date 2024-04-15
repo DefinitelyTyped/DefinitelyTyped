@@ -1,5 +1,5 @@
-import * as L from 'leaflet';
-import 'leaflet.featuregroup.subgroup';
+import * as L from "leaflet";
+import "leaflet.featuregroup.subgroup";
 
 // Setup
 interface MyProperties {
@@ -28,7 +28,7 @@ const parentGroup3 = subGroup.getParentGroup();
 
 // Calling methods inherited from FeatureGroup
 const bounds: L.LatLngBounds = subGroup
-   .setStyle({})
-   .bringToFront()
-   .bringToBack()
-   .getBounds();
+    .setStyle({})
+    .bringToFront()
+    .bringToBack()
+    .getBounds();

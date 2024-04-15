@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.googleads-v13",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Ads API v13",
+    "projects": [
+        "https://developers.google.com/google-ads/api/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.googleads-v13": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.googleads-v13": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

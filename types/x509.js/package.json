@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/x509.js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/encharm/x509.js"
+    ],
+    "devDependencies": {
+        "@types/x509.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephane Moser",
+            "githubUsername": "Moser-ss"
+        }
+    ]
+}

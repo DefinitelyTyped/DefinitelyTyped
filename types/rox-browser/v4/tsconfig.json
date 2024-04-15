@@ -1,20 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "rox-browser": ["rox-browser/v4"]
-        },    
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",

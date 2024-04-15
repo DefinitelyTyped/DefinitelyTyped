@@ -1,13 +1,13 @@
 /// <reference types="node"/>
 
-import path = require('path');
-import Transformer = require('webidl2js');
+import path = require("path");
+import Transformer = require("webidl2js");
 
-const idlDir = path.resolve(__dirname, '../src');
-const libDir = path.resolve(__dirname, '../lib');
+const idlDir = path.resolve(__dirname, "../src");
+const libDir = path.resolve(__dirname, "../lib");
 
 const transformer = new Transformer({
-    implSuffix: '-impl',
+    implSuffix: "-impl",
 
     processCEReactions(code) {
         this; // $ExpectType ProcessorContext
@@ -32,9 +32,9 @@ const transformer = new Transformer({
         idl; // $ExpectType AttributeMemberType
         implName; // $ExpectType string
 
-        const reflectAttr = idl.extAttrs.find(attr => attr.name === 'Reflect');
-        const attrName: string =
-            (reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value as string)) || idl.name.toLowerCase();
+        const reflectAttr = idl.extAttrs.find(attr => attr.name === "Reflect");
+        const attrName: string = (reflectAttr && reflectAttr.rhs && JSON.parse(reflectAttr.rhs.value as string))
+            || idl.name.toLowerCase();
 
         return {
             get: `${implName}.getAttributeNS(null, "${attrName}")`,

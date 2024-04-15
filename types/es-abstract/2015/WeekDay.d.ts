@@ -1,2 +1,2 @@
-import WeekDay = require('../5/WeekDay');
+import WeekDay = require("../5/WeekDay");
 export = WeekDay;

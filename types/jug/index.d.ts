@@ -1,17 +1,11 @@
-// Type definitions for jug
-// Project: https://github.com/kaiquewdev/Graph
-// Definitions by: yevt <https://github.com/yevt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 /**
  * Internal structure of a vertex
  */
 interface VertexStructure {
     level: number;
-    edge: Array<Vertex>,
-    data: VertexData,
-    parent: Vertex
+    edge: Vertex[];
+    data: VertexData;
+    parent: Vertex;
 }
 
 /**
@@ -23,7 +17,7 @@ type VertexData = Object;
  * Graph constructor function.
  */
 interface GraphConstructor {
-    new (): Graph;
+    new(): Graph;
 }
 
 /**
@@ -38,14 +32,13 @@ interface Graph {
  * Vertex constructor function.
  */
 interface VertexConstructor {
-    new (obj?: VertexData): Vertex;
+    new(obj?: VertexData): Vertex;
 }
 
 /**
  * Represents one node of a graph.
  */
 interface Vertex {
-
     /**
      * Initial vertex data.
      */
@@ -94,33 +87,33 @@ interface Vertex {
      * @param from
      * @param to
      */
-    proximity(from: string, to: string): Array<number>;
+    proximity(from: string, to: string): number[];
 
     /**
      * Find a node.
      * @param {string} type - object type.
      * @param {Object} query - _.where query object.
      */
-    find(type: string | void, query: Object): Array<VertexData>;
+    find(type: string | void, query: Object): VertexData[];
 
     /**
      * Get siblings of specified edge.
      * @param {number} index - edge index.
      */
-    getSiblingsOf(index: number): Array<VertexData>;
+    getSiblingsOf(index: number): VertexData[];
 
     /**
      * Getting childs of an specified edge.
      * @param egde - target vertex;
      */
-    getChildsOf(egde: number): Array<VertexData>;
+    getChildsOf(egde: number): VertexData[];
 
     /**
      * Getting parents of an specified level and edge.
      * @param {number} level - max level.
      * @param {number} edge - edge index.
      */
-    getParentsFrom(level: number, edge: number): Array<VertexData>;
+    getParentsFrom(level: number, edge: number): VertexData[];
 
     /**
      * Getting the length of childs of an specified edge.

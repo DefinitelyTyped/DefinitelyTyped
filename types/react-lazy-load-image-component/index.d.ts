@@ -1,23 +1,7 @@
-// Type definitions for react-lazy-load-image-component 1.5
-// Project: https://github.com/Aljullu/react-lazy-load-image-component#readme
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Diego Chavez <https://github.com/diegochavez>
-//                 Truong Hoang Dung <https://github.com/revskill10>
-//                 Kodai Suzuki <https://github.com/kodai3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+import { ComponentType, CSSProperties, FunctionComponent, ImgHTMLAttributes, ReactElement, ReactNode } from "react";
 
-import {
-    CSSProperties,
-    ComponentType,
-    FunctionComponent,
-    ImgHTMLAttributes,
-    ReactElement,
-    ReactNode,
-} from 'react';
-
-export type DelayMethod = 'debounce' | 'throttle';
-export type Effect = 'blur' | 'black-and-white' | 'opacity';
+export type DelayMethod = "debounce" | "throttle";
+export type Effect = "blur" | "black-and-white" | "opacity";
 
 export interface ScrollPosition {
     x: number;
@@ -25,8 +9,10 @@ export interface ScrollPosition {
 }
 
 export interface CommonProps {
-    /** Function called after the image has been completely loaded. */
+    /** @deprecated Use onLoad instead. This prop is only for backward compatibility. */
     afterLoad?: (() => any) | undefined;
+    /** Function called when the image has been loaded. This is the same function as the onLoad of an <img> which contains an event object. */
+    onLoad?: (() => any) | undefined;
     /** Function called right before the placeholder is replaced with the image element. */
     beforeLoad?: (() => any) | undefined;
     /* Method from lodash to use to delay the scroll/resize events. */
@@ -45,7 +31,9 @@ export interface CommonProps {
     scrollPosition?: ScrollPosition | undefined;
 }
 
-export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onload'>  {
+export interface LazyLoadImageProps
+    extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, "placeholder" | "onLoad">
+{
     /** Name of the effect to use. Requires importing CSS, see README.md. */
     effect?: Effect | undefined;
     /** Image src to display while the image is not visible or loaded. */
@@ -64,7 +52,7 @@ export interface LazyComponentProps {
 
 export function trackWindowScroll<P extends LazyComponentProps>(
     BaseComponent: ComponentType<P>,
-): ComponentType<Omit<P, 'scrollPosition'>>;
+): ComponentType<Omit<P, "scrollPosition">>;
 
 export interface LazyLoadComponentProps extends CommonProps {
     children: ReactNode;

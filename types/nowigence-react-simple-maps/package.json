@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/nowigence-react-simple-maps",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zcreativelabs/react-simple-maps#readme"
+    ],
+    "dependencies": {
+        "@types/d3-geo": "^1",
+        "@types/d3-zoom": "^1",
+        "@types/geojson": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/nowigence-react-simple-maps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Akash Sharma",
+            "githubUsername": "akashuplers"
+        }
+    ]
+}

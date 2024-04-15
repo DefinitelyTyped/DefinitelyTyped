@@ -1,4 +1,4 @@
-import { fromLatLon, toLatLon } from 'utm';
+import { fromLatLon, toLatLon } from "utm";
 
 const latLon1 = {
     lat: 37.240778,
@@ -8,10 +8,10 @@ const latLon1 = {
 const utmCoord1 = fromLatLon(latLon1.lat, latLon1.lon);
 
 const latLon2 = toLatLon(
-  utmCoord1.easting,
-  utmCoord1.northing,
-  utmCoord1.zoneNum,
-  utmCoord1.zoneLetter,
+    utmCoord1.easting,
+    utmCoord1.northing,
+    utmCoord1.zoneNum,
+    utmCoord1.zoneLetter,
 );
 
 const utmCoord2 = fromLatLon(latLon2.latitude, latLon2.longitude);

@@ -1,12 +1,6 @@
-// Type definitions for wait-on 5.3
-// Project: https://github.com/jeffbski/wait-on#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Andrew Leedham <https://github.com/AndrewLeedham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { SecureContextOptions } from 'tls';
+import { SecureContextOptions } from "tls";
 export = waitOn;
 
 declare function waitOn(options: waitOn.WaitOnOptions): Promise<void>;

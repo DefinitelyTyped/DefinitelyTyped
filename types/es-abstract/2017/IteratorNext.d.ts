@@ -1,2 +1,2 @@
-import IteratorNext = require('../2016/IteratorNext');
+import IteratorNext = require("../2016/IteratorNext");
 export = IteratorNext;

@@ -1,9 +1,3 @@
-// Type definitions for CookieJar 2.1
-// Project: https://github.com/bmeck/node-cookiejar
-// Definitions by: Rafal Proszowski <https://github.com/paroxp>, Charles Samborski <https://github.com/demurgos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export class CookieAccessInfo {
     /**
      * Class to determine matching qualities of a cookie
@@ -99,7 +93,7 @@ export class CookieJar {
      * @param requestDomain string argument is used to default the domain if it is not explicit in the cookie string
      * @param requestPath string argument is used to set the path if it is not explicit in a cookie String
      */
-    setCookies(cookie: string | ReadonlyArray<string>, requestDomain?: string, requestPath?: string): Cookie[];
+    setCookies(cookie: string | readonly string[], requestDomain?: string, requestPath?: string): Cookie[];
 
     /**
      * get a cookie with the name and access_info matching
@@ -112,5 +106,5 @@ export class CookieJar {
      * grab all cookies matching this access_info
      * @param accessInfo CookieAccessInfo
      */
-    getCookies(accessInfo: CookieAccessInfo): ReadonlyArray<Cookie> & { toValueString(): string };
+    getCookies(accessInfo: CookieAccessInfo): readonly Cookie[] & { toValueString(): string };
 }

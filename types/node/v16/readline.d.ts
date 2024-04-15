@@ -28,8 +28,8 @@
  * received on the `input` stream.
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/readline.js)
  */
-declare module 'readline' {
-    import { Abortable, EventEmitter } from 'node:events';
+declare module "readline" {
+    import { Abortable, EventEmitter } from "node:events";
     interface Key {
         sequence?: string | undefined;
         name?: string | undefined;
@@ -95,7 +95,12 @@ declare module 'readline' {
          *
          * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
          */
-        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean);
+        protected constructor(
+            input: NodeJS.ReadableStream,
+            output?: NodeJS.WritableStream,
+            completer?: Completer | AsyncCompleter,
+            terminal?: boolean,
+        );
         /**
          * NOTE: According to the documentation:
          *
@@ -256,59 +261,59 @@ declare module 'readline' {
          * 8. history
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'line', listener: (input: string) => void): this;
-        addListener(event: 'pause', listener: () => void): this;
-        addListener(event: 'resume', listener: () => void): this;
-        addListener(event: 'SIGCONT', listener: () => void): this;
-        addListener(event: 'SIGINT', listener: () => void): this;
-        addListener(event: 'SIGTSTP', listener: () => void): this;
-        addListener(event: 'history', listener: (history: string[]) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "line", listener: (input: string) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: "SIGCONT", listener: () => void): this;
+        addListener(event: "SIGINT", listener: () => void): this;
+        addListener(event: "SIGTSTP", listener: () => void): this;
+        addListener(event: "history", listener: (history: string[]) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'line', input: string): boolean;
-        emit(event: 'pause'): boolean;
-        emit(event: 'resume'): boolean;
-        emit(event: 'SIGCONT'): boolean;
-        emit(event: 'SIGINT'): boolean;
-        emit(event: 'SIGTSTP'): boolean;
-        emit(event: 'history', history: string[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "line", input: string): boolean;
+        emit(event: "pause"): boolean;
+        emit(event: "resume"): boolean;
+        emit(event: "SIGCONT"): boolean;
+        emit(event: "SIGINT"): boolean;
+        emit(event: "SIGTSTP"): boolean;
+        emit(event: "history", history: string[]): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'line', listener: (input: string) => void): this;
-        on(event: 'pause', listener: () => void): this;
-        on(event: 'resume', listener: () => void): this;
-        on(event: 'SIGCONT', listener: () => void): this;
-        on(event: 'SIGINT', listener: () => void): this;
-        on(event: 'SIGTSTP', listener: () => void): this;
-        on(event: 'history', listener: (history: string[]) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "line", listener: (input: string) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: "SIGCONT", listener: () => void): this;
+        on(event: "SIGINT", listener: () => void): this;
+        on(event: "SIGTSTP", listener: () => void): this;
+        on(event: "history", listener: (history: string[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'line', listener: (input: string) => void): this;
-        once(event: 'pause', listener: () => void): this;
-        once(event: 'resume', listener: () => void): this;
-        once(event: 'SIGCONT', listener: () => void): this;
-        once(event: 'SIGINT', listener: () => void): this;
-        once(event: 'SIGTSTP', listener: () => void): this;
-        once(event: 'history', listener: (history: string[]) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "line", listener: (input: string) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: "SIGCONT", listener: () => void): this;
+        once(event: "SIGINT", listener: () => void): this;
+        once(event: "SIGTSTP", listener: () => void): this;
+        once(event: "history", listener: (history: string[]) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'line', listener: (input: string) => void): this;
-        prependListener(event: 'pause', listener: () => void): this;
-        prependListener(event: 'resume', listener: () => void): this;
-        prependListener(event: 'SIGCONT', listener: () => void): this;
-        prependListener(event: 'SIGINT', listener: () => void): this;
-        prependListener(event: 'SIGTSTP', listener: () => void): this;
-        prependListener(event: 'history', listener: (history: string[]) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "line", listener: (input: string) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: "SIGCONT", listener: () => void): this;
+        prependListener(event: "SIGINT", listener: () => void): this;
+        prependListener(event: "SIGTSTP", listener: () => void): this;
+        prependListener(event: "history", listener: (history: string[]) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'line', listener: (input: string) => void): this;
-        prependOnceListener(event: 'pause', listener: () => void): this;
-        prependOnceListener(event: 'resume', listener: () => void): this;
-        prependOnceListener(event: 'SIGCONT', listener: () => void): this;
-        prependOnceListener(event: 'SIGINT', listener: () => void): this;
-        prependOnceListener(event: 'SIGTSTP', listener: () => void): this;
-        prependOnceListener(event: 'history', listener: (history: string[]) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "line", listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", listener: () => void): this;
+        prependOnceListener(event: "SIGINT", listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        prependOnceListener(event: "history", listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
     type ReadLine = Interface; // type forwarded for backwards compatibility
@@ -376,7 +381,12 @@ declare module 'readline' {
      * ```
      * @since v0.1.98
      */
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    function createInterface(
+        input: NodeJS.ReadableStream,
+        output?: NodeJS.WritableStream,
+        completer?: Completer | AsyncCompleter,
+        terminal?: boolean,
+    ): Interface;
     function createInterface(options: ReadLineOptions): Interface;
     /**
      * The `readline.emitKeypressEvents()` method causes the given `Readable` stream to begin emitting `'keypress'` events corresponding to received input.
@@ -538,6 +548,6 @@ declare module 'readline' {
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
-declare module 'node:readline' {
-    export * from 'readline';
+declare module "node:readline" {
+    export * from "readline";
 }

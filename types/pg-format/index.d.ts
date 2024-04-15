@@ -1,8 +1,3 @@
-// Type definitions for pg-format 1.0
-// Project: https://github.com/datalanche/node-pg-format
-// Definitions by: Alec Zopf <https://github.com/zopf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 export = format;
 
 declare function format(fmt: string, ...args: any[]): string;
@@ -10,10 +5,10 @@ declare function format(fmt: string, ...args: any[]): string;
 declare namespace format {
     function config(config?: {
         pattern: {
-            ident?: string | undefined,
-            literal?: string | undefined,
-            string?: string | undefined
-        }
+            ident?: string | undefined;
+            literal?: string | undefined;
+            string?: string | undefined;
+        };
     }): void;
     function ident(val: string | number | boolean | any[] | Date): string;
     function literal(val: string | number | boolean | any[] | Date | object | null | undefined): string;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/utils-merge",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jaredhanson/utils-merge"
+    ],
+    "devDependencies": {
+        "@types/utils-merge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        }
+    ]
+}

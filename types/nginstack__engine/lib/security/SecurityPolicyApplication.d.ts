@@ -1,5 +1,5 @@
 export type exports = string;
-declare const IDE: string;
-declare const iWeb: string;
-declare const FrameworkHTML: string;
+declare let IDE: string;
+declare let iWeb: string;
+declare let FrameworkHTML: string;
 export {};

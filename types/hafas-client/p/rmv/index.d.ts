@@ -1,5 +1,3 @@
-export = rmvProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const rmvProfile: createClient.Profile;
+export const profile: Profile;

@@ -352,7 +352,7 @@ declare namespace jsrsasign {
         getParam(): {
             version?: number;
             sigalg: string;
-            issuer: X500Name | Omit<X500Name, 'array'>;
+            issuer: X500Name | Omit<X500Name, "array">;
             thisupdate: string;
             nextupdate?: string;
             revcert?: RevokedCertificate[];

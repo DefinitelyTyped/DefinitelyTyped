@@ -5,7 +5,7 @@
 
 // Tests taken from documentation samples.
 
-import { openPromisified, open, openSync } from 'i2c-bus';
+import { open, openPromisified, openSync } from "i2c-bus";
 
 const MCP9808_ADDR = 0x18;
 const TEMP_REG = 0x05;
@@ -28,7 +28,7 @@ function example1(): void {
             i2c1
                 .readWord(MCP9808_ADDR, TEMP_REG)
                 .then(rawData => console.log(toCelsius(rawData)))
-                .then(_ => i2c1.close()),
+                .then(_ => i2c1.close())
         )
         .catch(console.log);
 }
@@ -46,7 +46,7 @@ function example2(): void {
                 .i2cWrite(MCP9808_ADDR, wbuf.length, wbuf)
                 .then(_ => i2c1.i2cRead(MCP9808_ADDR, rbuf.length, rbuf))
                 .then(data => console.log(toCelsius(data.buffer.readUInt16BE(0))))
-                .then(_ => i2c1.close()),
+                .then(_ => i2c1.close())
         )
         .catch(console.log);
 }

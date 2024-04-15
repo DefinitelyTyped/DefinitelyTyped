@@ -1,11 +1,20 @@
-import { ShaderNode } from '../shadernode/ShaderNodeElements';
-import Node from '../core/Node';
+import LightingModel from "../core/LightingModel.js";
+import Node from "../core/Node.js";
 
-declare const PhysicalLightingModel: {
-    direct: ShaderNode<{ lightDirection: Node; lightColor: Node; reflectedLight: Node }>;
-    indirectDiffuse: ShaderNode<{ irradiance: Node; reflectedLight: Node }>;
-    indirectSpecular: ShaderNode<{ radiance: Node; iblIrradiance: Node; reflectedLight: Node }>;
-    ambientOcclusion: ShaderNode<{ ambientOcclusion: Node; reflectedLight: Node }>;
-};
+export default class PhysicalLightingModel extends LightingModel {
+    clearcoat: boolean;
+    sheen: boolean;
+    iridescence: boolean;
 
-export default PhysicalLightingModel;
+    clearcoatRadiance: Node | null;
+    clearcoatSpecularDirect: Node | null;
+    clearcoatSpecularIndirect: Node | null;
+    sheenSpecularDirect: Node | null;
+    sheenSpecularIndirect: Node | null;
+    iridescenceFresnel: Node | null;
+    iridescenceF0: Node | null;
+
+    constructor(clearcoat?: boolean, sheen?: boolean, iridescence?: boolean);
+
+    computeMultiscattering(singleScatter: Node, multiScatter: Node, specularF90?: Node): void;
+}

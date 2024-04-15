@@ -7,12 +7,14 @@ declare namespace Layui {
      * @param [index] 当前层索引参数
      * @param [layero] 当前层的jqDOM
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type LayerCallbackYes = (index: number, layero: JQuery) => boolean | void;
     /**
      * 层关闭的回调,如果不想关闭，return false即可
      * @param [index] 当前层索引参数
      * @param [layero] 当前层的DOM对象
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type LayerCallbackCancel = (index: number, layero: JQuery) => boolean | void;
     type LayerCallbackEnd = () => void;
     type LayerCallbackFull = (layero: JQuery) => void;
@@ -88,7 +90,7 @@ declare namespace Layui {
          * anim: 'updown'  //（上下切换）
          * anim: 'fade'    //（渐隐渐显切换）
          */
-        anim?: 'default' | 'updown' | 'fade';
+        anim?: "default" | "updown" | "fade";
         /**
          * 是否自动切换
          * @default true
@@ -112,7 +114,7 @@ declare namespace Layui {
          * arrow: always // （始终显示）
          * arrow: none   //（始终不显示）
          */
-        arrow?: 'hover' | 'always' | 'none';
+        arrow?: "hover" | "always" | "none";
         /**
          * 指示器位置
          * @default 'inside'
@@ -121,7 +123,7 @@ declare namespace Layui {
          * indicator: outside // （容器外部）
          * indicator: none    //（不显示）
          */
-        indicator?: 'insider' | 'outsider' | 'none';
+        indicator?: "insider" | "outsider" | "none";
         /**
          * 指示器的触发事件
          * @default 'click'
@@ -288,7 +290,7 @@ declare namespace Layui {
          * 颜色显示/输入格式，可选值： hex、rgb  <br/>&nbsp;
          * 若在 rgb 格式下开启了透明度，格式会自动变成 rgba。在没有输入颜色的前提下，组件会默认为 #000 也就是黑色。
          */
-        format?: 'hex' | 'rgb' | 'rgba';
+        format?: "hex" | "rgb" | "rgba";
         /**
          * 是否开启透明度，若不开启，则不会显示透明框。<br/>&nbsp;
          * 开启了透明度选项时，当你的默认颜色为 hex 或 rgb 格式，组件会默认加上值为 1 的透明度。<br/>&nbsp;
@@ -307,7 +309,7 @@ declare namespace Layui {
         /**
          * 下拉框大小，可以选择：lg、sm、xs。
          */
-        size?: 'lg' | 'sm' | 'xs';
+        size?: "lg" | "sm" | "xs";
 
         /**
          * 颜色被改变的回调
@@ -399,7 +401,7 @@ declare namespace Layui {
         /**
          * 下拉面板相对绑定元素的水平对齐方式（支持: left/center/right） v2.6.8 新增 默认：left
          */
-        align?: 'left' | 'center' | 'right';
+        align?: "left" | "center" | "right";
         /**
          * 是否允许菜单组展开收缩 默认：true
          */
@@ -566,7 +568,7 @@ declare namespace Layui {
          * @param [type]  可选有：'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse'
          * @param [filter] lay-filter
          */
-        init(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
+        init(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
 
         /**
          * 更新渲染 ，当type不能识别时，layui会遍历渲染"tab""nav"|"breadcrumb"|"progress"|"collapse" 全部；<br/>&nbsp;
@@ -578,7 +580,7 @@ declare namespace Layui {
          *  5、collapse    重新对折叠面板进行渲染 <br/>&nbsp;
          * @param [filter] 为元素的 lay-filter="" 的值，用于局部更新
          */
-        render(type?: 'tab' | 'nav' | 'breadcrumb' | 'progress' | 'collapse', filter?: string): void;
+        render(type?: "tab" | "nav" | "breadcrumb" | "progress" | "collapse", filter?: string): void;
     }
 
     interface FlowOption {
@@ -734,7 +736,7 @@ declare namespace Layui {
          * @param [type] 可选：'select' | 'checkbox' | 'radio' | null
          * @param [filter] lay-filter
          */
-        render(type?: 'select' | 'checkbox' | 'radio' | null, filter?: string): Form;
+        render(type?: "select" | "checkbox" | "radio" | null, filter?: string): Form;
 
         /**
          * 表单赋值 / 取值
@@ -750,7 +752,7 @@ declare namespace Layui {
         verify(config: LayFormVerifyConfig): Form;
     }
 
-    interface LAY extends Omit<any[], 'find'> {
+    interface LAY extends Omit<any[], "find"> {
         /**
          * 当前的选择器
          */
@@ -992,7 +994,7 @@ declare namespace Layui {
         /**
          * 控件选择类型
          */
-        type?: 'year' | 'month' | 'date' | 'time' | 'datetime';
+        type?: "year" | "month" | "date" | "time" | "datetime";
         /**
          * 开启左右面板范围选择
          */
@@ -1061,7 +1063,7 @@ declare namespace Layui {
         /**
          * 定位方式
          */
-        position?: 'abolute' | 'fixed' | 'static';
+        position?: "abolute" | "fixed" | "static";
         /**
          * 层叠顺序 ,如果 position 参数设为 static 时，该参数无效。
          */
@@ -1073,15 +1075,15 @@ declare namespace Layui {
         /**
          * 工具按钮   默认值：['clear', 'now', 'confirm']
          */
-        btns?: Array<'clear' | 'now' | 'confirm'>;
+        btns?: Array<"clear" | "now" | "confirm">;
         /**
          * 语言 内置了两种语言版本：cn（中文版）、en（国际版，即英文版） ，默认值：cn
          */
-        lang?: 'cn' | 'en';
+        lang?: "cn" | "en";
         /**
          * 主题 ，默认值：default
          */
-        theme?: string | 'default' | 'molv' | 'grid';
+        theme?: string | "default" | "molv" | "grid";
         /**
          * 是否显示公历节日  默认值：false
          */
@@ -1442,7 +1444,6 @@ declare namespace Layui {
         /**
          * 是否允许拖拽到窗口外
          * @default false
-         *
          */
         moveOut?: boolean;
         /**
@@ -1798,10 +1799,9 @@ declare namespace Layui {
          * @param [type] 只想关闭某个类型(dialog,page,iframe,loading,tips)的层,不传则关闭全部
          * @param [callback]  关闭所有层后执行回调
          */
-        closeAll(type?: 'dialog' | 'page' | 'iframe' | 'loading' | 'tips', callback?: () => any): void;
+        closeAll(type?: "dialog" | "page" | "iframe" | "loading" | "tips", callback?: () => any): void;
 
         /**
-         *
          * @param [callback]  关闭所有层后执行回调
          */
         closeAll(callback: () => any): void;
@@ -1950,7 +1950,7 @@ declare namespace Layui {
          *  page（分页区域）、next（下一页区域）、limit（条目选项区域）、    <br/>&nbsp;
          *  refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
          */
-        layout?: Array<'count' | 'prev' | 'page' | 'next' | 'limit' | 'refresh' | 'skip'>;
+        layout?: Array<"count" | "prev" | "page" | "next" | "limit" | "refresh" | "skip">;
 
         /**
          * 自定义主题。支持传入：颜色值，或任意普通字符。    <br/>&nbsp;
@@ -1963,7 +1963,6 @@ declare namespace Layui {
         /**
          * 开启location.hash，并自定义 hash 值。如果开启，在触发分页时，    <br/>&nbsp;
          * 会自动对url追加：#!hash值={curr} 利用这个，可以在页面载入时就定位到指定页
-         *
          */
         hash?: string | boolean;
 
@@ -1978,7 +1977,7 @@ declare namespace Layui {
     /**
      * 先排除
      */
-    interface PageOptionsForCallback extends Omit<Required<PageOptions>, 'count' | 'curr' | 'limit' | 'groups'> {
+    interface PageOptionsForCallback extends Omit<Required<PageOptions>, "count" | "curr" | "limit" | "groups"> {
         /**
          * 数据总数。一般通过服务端得到
          */
@@ -2105,7 +2104,6 @@ declare namespace Layui {
         index: number;
 
         /**
-         *
          * @param [event]
          * @param [callback]
          */
@@ -2132,7 +2130,7 @@ declare namespace Layui {
         /**
          * 滑块类型，可选值有：default（水平滑块）、vertical（垂直滑块） 默认：default
          */
-        type?: 'default' | 'vertical';
+        type?: "default" | "vertical";
         /**
          * 滑动条最小值，正整数，默认： 0
          */
@@ -2252,7 +2250,7 @@ declare namespace Layui {
         /**
          * 设定列类型,可选有： 默认：normal
          */
-        type?: 'normal' | 'checkbox' | 'radio' | 'space' | 'numbers';
+        type?: "normal" | "checkbox" | "radio" | "space" | "numbers";
         /**
          * 是否全选状态（默认：false）。必须复选框列开启后才有效，
          *   如果设置 true，则表示复选框默认全部选中。
@@ -2263,7 +2261,7 @@ declare namespace Layui {
          *   注意：如果是固定在左，该列必须放在表头最前面；如果是固定在右，该列必须放在表头最后面。    <br/>&nbsp;
          *    非"right"就是left
          */
-        fixed?: 'left' | 'right';
+        fixed?: "left" | "right";
         /**
          * 是否初始隐藏列，默认：false
          */
@@ -2293,7 +2291,7 @@ declare namespace Layui {
         /**
          * 单元格编辑类型（默认不开启）目前只支持：text（输入框）
          */
-        edit?: 'text' | string;
+        edit?: "text" | string;
         /**
          * 自定义单元格点击事件名，以便在 tool 事件中完成对该单元格的业务处理，    <br/>&nbsp;
          *   比如：table.on('tool(tableFilter)', function(obj){obj.event=''})
@@ -2306,7 +2304,7 @@ declare namespace Layui {
         /**
          * 单元格排列方式。可选值有：left（默认）、center（居中）、right（居右）
          */
-        align?: 'left' | 'center' | 'right';
+        align?: "left" | "center" | "right";
         /**
          * 单元格所占列数（默认：1）。一般用于多级表头
          */
@@ -2339,7 +2337,7 @@ declare namespace Layui {
         /**
          * 该属性不存在，只是提示你：你可以用d.xxx 使用当前行中的任意数据属性。
          */
-        '你可以用 d.xx 来使用当前行的其他属性': never;
+        "你可以用 d.xx 来使用当前行的其他属性": never;
         [index: string]: any;
     }
 
@@ -2459,7 +2457,7 @@ declare namespace Layui {
          * print: 显示打印图标
          */
         defaultToolbar?: Array<
-            'filter' | 'exports' | 'print' | string | { title?: string; layEvent?: string; icon?: string }
+            "filter" | "exports" | "print" | string | { title?: string; layEvent?: string; icon?: string }
         >;
         /**
          * 设定容器宽度(超出容器会自动出现横向滚动条),默认宽度是跟随它的父元素铺满
@@ -2538,7 +2536,7 @@ declare namespace Layui {
          * 初始排序状态。    <br/>&nbsp;
          * 用于在数据表格渲染完毕时，默认按某个字段排序。
          */
-        initSort?: { field: string; type?: 'null' | 'desc' | 'asc' };
+        initSort?: { field: string; type?: "null" | "desc" | "asc" };
         /**
          * 设定容器唯一 id。id 是对表格的数据操作方法上是必要的传递条件，它是表格容器的索引
          */
@@ -2546,7 +2544,7 @@ declare namespace Layui {
         /**
          * 用于设定表格风格
          */
-        skin?: 'line' | 'row' | 'nob';
+        skin?: "line" | "row" | "nob";
         /**
          * 若不开启隔行背景，不设置该参数即可
          */
@@ -2554,7 +2552,7 @@ declare namespace Layui {
         /**
          * 用于设定表格尺寸，若使用默认尺寸不设置该属性即可
          */
-        size?: 'sm' | 'lg';
+        size?: "sm" | "lg";
         /**
          * 异接口http请求类型，默认：get
          */
@@ -2687,8 +2685,8 @@ declare namespace Layui {
         clearCacheKey(data: object): object;
 
         config: {
-            checkName: 'LAY_CHECKED'; // 是否选中状态的字段名
-            indexName: 'LAY_TABLE_INDEX'; // 初始下标索引名，用于恢复排序
+            checkName: "LAY_CHECKED"; // 是否选中状态的字段名
+            indexName: "LAY_TABLE_INDEX"; // 初始下标索引名，用于恢复排序
         };
 
         /**
@@ -2950,7 +2948,7 @@ declare namespace Layui {
     interface TreeClickData {
         data: any;
         elem: JQuery;
-        state: 'open' | 'close' | 'normal';
+        state: "open" | "close" | "normal";
     }
 
     interface TreeOperateData {
@@ -2959,13 +2957,13 @@ declare namespace Layui {
         /**
          * 除了add和update就是删除del
          */
-        type: 'add' | 'update' | 'del' | string;
+        type: "add" | "update" | "del" | string;
     }
 
     /**
      * tree.reload()返回值
      */
-    type TreeReloaded = Pick<Tree, 'config' | 'reload' | 'getChecked' | 'setChecked'>;
+    type TreeReloaded = Pick<Tree, "config" | "reload" | "getChecked" | "setChecked">;
 
     // https://www.layui.com/doc/modules/tree.html#options
     /**
@@ -3146,7 +3144,7 @@ declare namespace Layui {
          * 指定允许上传时校验的文件类型， 默认：images (即file,video,audio之外都可)    <br/>&nbsp;
          */
         //  可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
-        accept?: 'images' | 'file' | 'video' | 'audio';
+        accept?: "images" | "file" | "video" | "audio";
         /**
          * 规定打开文件选择框筛选出的文件类型，值为用逗号隔开。默认：images 如：    <br/>&nbsp;
          */
@@ -3371,7 +3369,7 @@ declare namespace Layui {
          *  支持的类型有：bar1、bar2、top
          * @param [type]  bar1、bar2、top
          */
-        click?(type: string | 'bar1' | 'bar2' | 'top'): void;
+        click?(type: string | "bar1" | "bar2" | "top"): void;
     }
 
     // https://www.layui.com/doc/modules/util.html
@@ -3496,7 +3494,7 @@ declare namespace Layui {
             layer: boolean;
             laypage: boolean;
             laytpl: boolean;
-            'layui.all': boolean;
+            "layui.all": boolean;
             rate: boolean;
             slider: boolean;
             table: boolean;
@@ -3532,7 +3530,7 @@ declare namespace Layui {
         layer: Layer;
         laypage: Laypage;
         laytpl: Laytpl;
-        'layui.all': string;
+        "layui.all": string;
         rate: Rate;
         slider: Slider;
         table: Table;

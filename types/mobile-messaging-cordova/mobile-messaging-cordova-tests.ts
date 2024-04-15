@@ -5,22 +5,18 @@ import Installation = MobileMessagingCordova.Installation;
 import PersonalizeContext = MobileMessagingCordova.PersonalizeContext;
 
 MobileMessaging.init({
-        applicationCode: 'some-code',
-        geofencingEnabled: false,
-        ios: {
-            notificationTypes: ['alert', 'badge', 'sound']
-        }
+    applicationCode: "some-code",
+    geofencingEnabled: false,
+    ios: {
+        notificationTypes: ["alert", "badge", "sound"],
     },
-    (error) => {
-        console.log('Init error: ' + error.message);
-    }
-);
+}, (error) => {
+    console.log("Init error: " + error.message);
+});
 
-MobileMessaging.register('messageReceived',
-    (message: MobileMessagingCordova.Message) => {
-        console.log('Message Received: ' + message.body);
-    }
-);
+MobileMessaging.register("messageReceived", (message: MobileMessagingCordova.Message) => {
+    console.log("Message Received: " + message.body);
+});
 const tappedHandler = (message: Message) => {
     console.log(message);
 };
@@ -28,22 +24,22 @@ MobileMessaging.register("notificationTapped", tappedHandler);
 MobileMessaging.unregister("notificationTapped", tappedHandler);
 
 MobileMessaging.saveUser({
-    externalUserId: 'some-user-123',
-    firstName: 'Name',
-    lastName: 'Lastname',
-    middleName: 'Middle',
-    gender: 'Male',
-    birthday: '1987-11-23',
-    phones: ['+12345677890'],
-    emails: ['some@ema.il'],
-    tags: ['TestIonic'],
+    externalUserId: "some-user-123",
+    firstName: "Name",
+    lastName: "Lastname",
+    middleName: "Middle",
+    gender: "Male",
+    birthday: "1987-11-23",
+    phones: ["+12345677890"],
+    emails: ["some@ema.il"],
+    tags: ["TestIonic"],
     customAttributes: {
-        firstAttr: 'firstValue'
-    }
+        firstAttr: "firstValue",
+    },
 }, (userData: UserData) => {
-        console.log(userData);
+    console.log(userData);
 }, (error: MobileMessagingError) => {
-        console.error(error);
+    console.error(error);
 });
 
 MobileMessaging.fetchUser((userData: UserData) => {
@@ -63,22 +59,22 @@ MobileMessaging.saveInstallation({
     isPushRegistrationEnabled: true,
     notificationsEnabled: true,
     geoEnabled: true,
-    sdkVersion: '1.2.9',
-    os: 'Android',
-    osVersion: '9.0',
-    deviceManufacturer: 'Motorolla',
+    sdkVersion: "1.2.9",
+    os: "Android",
+    osVersion: "9.0",
+    deviceManufacturer: "Motorolla",
     customAttributes: {
-        installationAttr: 'installationValue'
-    }
+        installationAttr: "installationValue",
+    },
 }, (result: Installation) => {
-    console.log('saveInstallation result:');
+    console.log("saveInstallation result:");
     console.log(result);
 
     MobileMessaging.getInstallation((installation: Installation) => {
-        console.log('getInstallation result:');
+        console.log("getInstallation result:");
         console.log(installation);
     }, (error) => {
-        console.log('getInstallation error:');
+        console.log("getInstallation error:");
         console.error(error);
     });
 
@@ -88,34 +84,35 @@ MobileMessaging.saveInstallation({
         console.error(error);
     });
 }, (error: MobileMessagingError) => {
-    console.log('saveInstallation error:');
+    console.log("saveInstallation error:");
     console.error(error);
 });
 
 MobileMessaging.setInstallationAsPrimary(
-    'some-reg-id',
+    "some-reg-id",
     true,
     (installation: Installation) => {
         console.log(installation);
     },
     (error: MobileMessagingError) => {
         console.error(error);
-    });
+    },
+);
 
 MobileMessaging.personalize({
     userIdentity: {
-        externalUserId: 'some-user-123',
-        phones: ['+1234567890'],
-        emails: ['some@ema.il'],
+        externalUserId: "some-user-123",
+        phones: ["+1234567890"],
+        emails: ["some@ema.il"],
     },
     userAttributes: {
-        personalizeAttr: 'personalizeValue'
-    }
+        personalizeAttr: "personalizeValue",
+    },
 }, (result) => {
-    console.log('Personalise result:');
+    console.log("Personalise result:");
     console.log(result);
 }, (error) => {
-    console.log('Personalise error:');
+    console.log("Personalise error:");
     console.error(error);
 });
 
@@ -125,23 +122,19 @@ MobileMessaging.depersonalize((personalizeContext: PersonalizeContext) => {
     console.error(error);
 });
 
-MobileMessaging.depersonalizeInstallation('pushRegistrationId',
-    (installation: Installation) => {
-        console.log(installation);
-    },
-    (error: MobileMessagingError) => {
-        console.error(error);
-    });
+MobileMessaging.depersonalizeInstallation("pushRegistrationId", (installation: Installation) => {
+    console.log(installation);
+}, (error: MobileMessagingError) => {
+    console.error(error);
+});
 
-MobileMessaging.markMessagesSeen(['someMessageId'],
-    (messages: Message[]) => {
-        console.log(messages);
-    },
-    (error: MobileMessagingError) => {
-        console.error(error);
-    });
+MobileMessaging.markMessagesSeen(["someMessageId"], (messages: Message[]) => {
+    console.log(messages);
+}, (error: MobileMessagingError) => {
+    console.error(error);
+});
 
-const defaultMessageStorage =  MobileMessaging.defaultMessageStorage();
+const defaultMessageStorage = MobileMessaging.defaultMessageStorage();
 if (defaultMessageStorage !== undefined) {
     defaultMessageStorage.find("messageId", (message: Message) => {
         console.log(message);

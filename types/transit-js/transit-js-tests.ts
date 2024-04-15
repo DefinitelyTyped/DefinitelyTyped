@@ -6,7 +6,7 @@ const t = transit;
 
 let r = transit.reader("json"); // $ExpectType TransitReader
 
-r.read('[1,1.5,1e5,"A string!","\u03BB"]'); // $ExpectType any
+r.read("[1,1.5,1e5,\"A string!\",\"\u03BB\"]"); // $ExpectType any
 
 class Point {
     constructor(readonly x: number, readonly y: number) {}
@@ -16,11 +16,11 @@ type PointRep = [number, number];
 
 r = transit.reader("json", {
     handlers: {
-        point: (v: PointRep) => new Point(v[0], v[1])
+        point: (v: PointRep) => new Point(v[0], v[1]),
     },
 });
 
-r.read('[{"~#point":[0.5,1.5]}]');
+r.read("[{\"~#point\":[0.5,1.5]}]");
 
 const ph = transit.makeWriteHandler({
     tag: (v) => "point",

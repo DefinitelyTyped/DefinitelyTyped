@@ -1,7 +1,7 @@
-import imagemin from 'imagemin';
-import imageminWebp from 'imagemin-webp';
+import imagemin from "imagemin";
+import imageminWebp from "imagemin-webp";
 
-imagemin(['*.webp'], {
+imagemin(["*.webp"], {
     plugins: [
         imageminWebp(),
         imageminWebp({}),
@@ -12,8 +12,8 @@ imagemin(['*.webp'], {
                 x: 10,
                 y: 10,
             },
-            preset: 'photo',
-            metadata: 'all',
+            preset: "photo",
+            metadata: "all",
             lossless: true,
             alphaQuality: 50,
             autoFilter: true,
@@ -35,8 +35,8 @@ imagemin(['*.webp'], {
 imageminWebp(); // $ExpectType Plugin
 
 (async () => {
-    await imagemin(['images/*.{jpg,png}'], {
-        destination: 'build/images',
+    await imagemin(["images/*.{jpg,png}"], {
+        destination: "build/images",
         plugins: [imageminWebp({ quality: 50 })],
     });
 })();

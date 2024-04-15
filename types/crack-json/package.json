@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/crack-json",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/gajus/crack-json#readme"
+    ],
+    "devDependencies": {
+        "@types/crack-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johannes Henning",
+            "githubUsername": "johenning"
+        }
+    ]
+}

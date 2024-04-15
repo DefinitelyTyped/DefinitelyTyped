@@ -1,5 +1,3 @@
-export = blsProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const blsProfile: createClient.Profile;
+export const profile: Profile;

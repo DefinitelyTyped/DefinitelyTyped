@@ -1,10 +1,10 @@
-import deindent = require('deindent');
+import deindent = require("deindent");
 
 // as a string function
 deindent(`
     this
     is
-  the ${'end'}
+  the ${"end"}
       my only
       friend
     the end
@@ -14,7 +14,7 @@ deindent(`
 deindent`
     this
     is
-  the ${'end'}
+  the ${"end"}
       my only
       friend
     the end
@@ -24,7 +24,7 @@ deindent`
 deindent(String.raw)`
     this
     is
-  the ${'end'}
+  the ${"end"}
       my only
       friend
     the end

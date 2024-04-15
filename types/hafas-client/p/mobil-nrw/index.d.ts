@@ -1,5 +1,3 @@
-export = mobilnrwProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const mobilnrwProfile: createClient.Profile;
+export const profile: Profile;

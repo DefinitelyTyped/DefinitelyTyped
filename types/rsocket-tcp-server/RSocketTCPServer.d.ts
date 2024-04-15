@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import { DuplexConnection } from 'rsocket-types';
-import { Encoders, TransportServer } from 'rsocket-core';
-import * as EventEmitter from 'events';
-import * as net from 'net';
-import { Flowable } from 'rsocket-flowable';
+import * as EventEmitter from "events";
+import * as net from "net";
+import { Encoders, TransportServer } from "rsocket-core";
+import { Flowable } from "rsocket-flowable";
+import { DuplexConnection } from "rsocket-types";
 export interface ServerOptions {
     host?: string | undefined;
     port: number;

@@ -1,11 +1,3 @@
-// Type definitions for non-npm package @ember/debug 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fdebug
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
@@ -96,5 +88,9 @@ export function deprecate(
     },
 ): void;
 
-export interface Available { available: string; }
-export interface Enabled extends Available { enabled: string; }
+export interface Available {
+    available: string;
+}
+export interface Enabled extends Available {
+    enabled: string;
+}

@@ -1,5 +1,5 @@
 export type exports = string;
-declare const DEGREE: string;
-declare const MINUTES: string;
-declare const SECONDS: string;
+declare let DEGREE: string;
+declare let MINUTES: string;
+declare let SECONDS: string;
 export {};

@@ -1,13 +1,4 @@
-// Type definitions for radium 0.24.0
-// Project: https://github.com/formidablelabs/radium
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
-//                 Philipp Holzer <https://github.com/nupplaphil>
-//                 Alexey Svetliakov <https://github.com/asvetliakov>
-//                 Christopher Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export default Radium;
 
@@ -46,7 +37,7 @@ declare namespace Radium {
      * StyleRoot component properties
      */
     export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
-         radiumConfig?: RadiumConfig | undefined
+        radiumConfig?: RadiumConfig | undefined;
     }
     /**
      * <StyleRoot />
@@ -71,7 +62,7 @@ declare namespace Radium {
         /**
          * List of plugins
          */
-        plugins?: Array<any> | undefined;
+        plugins?: any[] | undefined;
     }
 
     /**
@@ -114,5 +105,4 @@ declare namespace Radium {
     }
 
     var TestMode: RadiumTestMode;
-
 }

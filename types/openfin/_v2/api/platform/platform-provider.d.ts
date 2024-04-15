@@ -1,6 +1,8 @@
-import { Environment } from '../../environment/environment';
-import { OverrideCallback } from '../../shapes/Platform';
-export default function initConstructor(environment: Environment): (userOverrideFn: OverrideCallback<any>) => Promise<void>;
+import { Environment } from "../../environment/environment";
+import { OverrideCallback } from "../../shapes/Platform";
+export default function initConstructor(
+    environment: Environment,
+): (userOverrideFn: OverrideCallback<any>) => Promise<void>;
 /**
  * ApplySnapshotOptions interface
  * @typedef { object } ApplySnapshotOptions

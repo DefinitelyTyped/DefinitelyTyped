@@ -2,14 +2,14 @@ export = DBTrackerPool;
 declare function DBTrackerPool(opt_options: {
     id?: number;
     size?: number;
-    database?: any;
+    database?: Database;
     trackerProperties?: any;
 }): void;
 declare class DBTrackerPool {
     constructor(opt_options: {
         id?: number;
         size?: number;
-        database?: any;
+        database?: Database;
         trackerProperties?: any;
     });
     private database_;
@@ -21,4 +21,8 @@ declare class DBTrackerPool {
     tryAcquire(): DBTracker;
     release(tracker: DBTracker): void;
 }
+declare namespace DBTrackerPool {
+    export { Database };
+}
+type Database = import('./Database');
 import DBTracker = require('./DBTracker.js');

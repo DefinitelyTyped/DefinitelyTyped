@@ -1,20 +1,37 @@
-import { BufferGeometry } from './BufferGeometry';
+import { BufferGeometry } from "./BufferGeometry.js";
 
 /**
- * see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferGeometry.js|src/core/InstancedBufferGeometry.js}
+ * An instanced version of {@link THREE.BufferGeometry | BufferGeometry}.
+ * @see {@link https://threejs.org/docs/index.html#api/en/core/InstancedBufferGeometry | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/InstancedBufferGeometry.js | Source}
  */
 export class InstancedBufferGeometry extends BufferGeometry {
+    /**
+     * Create a new instance of {@link InstancedBufferGeometry}
+     */
     constructor();
 
     /**
-     * @default 'InstancedBufferGeometry
+     * @defaultValue `InstancedBufferGeometry`
      */
     type: string;
 
-    isInstancedBufferGeometry: boolean;
+    /**
+     * Read-only flag to check if a given object is of type {@link InstancedBufferGeometry}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isInstancedBufferGeometry: true;
 
     /**
-     * @default Infinity
+     * @defaultValue `Infinity`
      */
     instanceCount: number;
+
+    /**
+     * Copies the given {@link InstancedBufferGeometry} to this instance.
+     * @param source
+     * @override
+     */
+    copy(source: InstancedBufferGeometry): this;
 }

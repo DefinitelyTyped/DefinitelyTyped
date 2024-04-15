@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/moxy__next-router-scroll",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/moxystudio/next-router-scroll#readme"
+    ],
     "dependencies": {
         "@types/history": "^4.7.11",
+        "@types/node": "*",
+        "@types/react": "*",
         "scroll-behavior": "^0.11.0"
-    }
+    },
+    "devDependencies": {
+        "@types/moxy__next-router-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lee seung chan",
+            "githubUsername": "heozeop"
+        }
+    ]
 }

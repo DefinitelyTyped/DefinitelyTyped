@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace PagerItem {
     export interface PagerItemProps extends React.HTMLProps<PagerItem> {
@@ -11,5 +11,5 @@ declare namespace PagerItem {
         target?: string | undefined;
     }
 }
-declare class PagerItem extends React.Component<PagerItem.PagerItemProps> { }
+declare class PagerItem extends React.Component<PagerItem.PagerItemProps> {}
 export = PagerItem;

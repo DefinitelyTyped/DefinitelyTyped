@@ -1,8 +1,3 @@
-// Type definitions for medium-editor 5.0
-// Project: https://yabwe.github.io/medium-editor/
-// Definitions by: pascaliske <https://github.com/pascaliske>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace MediumEditor {
     export interface MediumEditor {
         // Initialization Functions
@@ -13,8 +8,18 @@ declare namespace MediumEditor {
         removeElements(elements: elementType): void;
 
         // Event Functions
-        on(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
-        off(targets: HTMLElement | NodeList, event: string, listener: EventListenerOrEventListenerObject, useCapture: boolean): MediumEditor;
+        on(
+            targets: HTMLElement | NodeList,
+            event: string,
+            listener: EventListenerOrEventListenerObject,
+            useCapture: boolean,
+        ): MediumEditor;
+        off(
+            targets: HTMLElement | NodeList,
+            event: string,
+            listener: EventListenerOrEventListenerObject,
+            useCapture: boolean,
+        ): MediumEditor;
         subscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
         unsubscribe(name: string, listener: (data: any, editable: HTMLElement) => void): MediumEditor;
         trigger(name: string, data: any, editable: HTMLElement): MediumEditor;
@@ -162,7 +167,7 @@ declare namespace MediumEditor {
         action?: string | undefined;
         aria?: string | undefined;
         tagNames?: string[] | undefined;
-        style?: { prop: string, value: string } | undefined;
+        style?: { prop: string; value: string } | undefined;
         useQueryState?: boolean | undefined;
         contentDefault?: string | undefined;
         contentFA?: string | undefined;

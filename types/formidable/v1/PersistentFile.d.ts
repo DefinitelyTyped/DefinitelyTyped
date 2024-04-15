@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 import { File, FileJSON } from "./";
 
 declare class PersistentFile extends EventEmitter {

@@ -3,17 +3,17 @@
 declare namespace M {
     class Datepicker extends Component<DatepickerOptions> implements Openable {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Datepicker;
 
         /**
-         * Init Datepicker
+         * Init Datepicker.
          */
         static init(els: Element, options?: Partial<DatepickerOptions>): Datepicker;
 
         /**
-         * Init Datepickers
+         * Init Datepickers.
          */
         static init(els: MElements, options?: Partial<DatepickerOptions>): Datepicker[];
 
@@ -38,48 +38,53 @@ declare namespace M {
         clearBtn: HTMLButtonElement;
 
         /**
-         * Open datepicker
+         * Open datepicker.
          */
         open(): void;
 
         /**
-         * Close datepicker
+         * Close datepicker.
          */
         close(): void;
 
         /**
-         * Gets a string representation of the selected date
+         * Gets a string representation of the selected date.
          */
         toString(): string;
 
         /**
-         * Set a date on the datepicker
+         * Set a date on the datepicker.
          * @param date Date to set on the datepicker.
-         * @param preventOnSelect Undocumented as of 5 March 2018
+         * @param preventOnSelect Undocumented as of 5 March 2018.
          */
         setDate(date?: Date | string, preventOnSelect?: boolean): void;
 
         /**
-         * Change date view to a specific date on the datepicker
+         * Change date view to a specific date on the datepicker.
          * @param date Date to show on the datepicker.
          */
         gotoDate(date: Date): void;
 
+        /**
+         * Sets current date as the input value.
+         */
         setInputValue(): void;
     }
 
     interface DatepickerOptions {
         /**
-         * Automatically close picker when date is selected
+         * Automatically close picker when date is selected.
          * @default false
          */
         autoClose: boolean;
 
         /**
-         * The date output format for the input field value.
+         * The date output format for the input field value
+         * or a function taking the date and outputting the
+         * formatted date string.
          * @default 'mmm dd, yyyy'
          */
-        format: string;
+        format: string | ((d: Date) => string);
 
         /**
          * Used to create date object from current input string.
@@ -94,7 +99,7 @@ declare namespace M {
         defaultDate: Date | null;
 
         /**
-         * Make the `defaultDate` the initial selected value
+         * Make the `defaultDate` the initial selected value.
          * @default false
          */
         setDefaultDate: boolean;
@@ -136,6 +141,12 @@ declare namespace M {
         yearRange: number | number[];
 
         /**
+         * Sort year range in reverse order.
+         * @default false
+         */
+        yearRangeReverse: boolean;
+
+        /**
          * Changes Datepicker to RTL.
          * @default false
          */
@@ -148,54 +159,58 @@ declare namespace M {
         showMonthAfterYear: boolean;
 
         /**
-         * Render days of the calendar grid that fall in the next or previous month.
+         * Render days of the calendar grid that fall in the next
+         * or previous month.
          * @default false
          */
         showDaysInNextAndPreviousMonths: boolean;
 
         /**
-         * Specify a DOM element to render the calendar in, by default it will be placed before the input
+         * Specify a DOM element OR selector for a DOM element to render
+         * the calendar in, by default it will be placed before the input.
          * @default null
          */
         container: Element | null;
 
         /**
-         * Show the clear button in the datepicker
+         * Show the clear button in the datepicker.
          * @default false
          */
         showClearBtn: boolean;
 
         /**
-         * Internationalization options
+         * Internationalization options.
          */
         i18n: Partial<InternationalizationOptions>;
 
         /**
-         * An array of string returned by `Date.toDateString()`, indicating there are events in the specified days.
+         * An array of string returned by `Date.toDateString()`,
+         * indicating there are events in the specified days.
          * @default []
          */
         events: string[];
 
         /**
-         * Callback function when date is selected, first parameter is the newly selected date.
+         * Callback function when date is selected,
+         * first parameter is the newly selected date.
          * @default null
          */
         onSelect: ((this: Datepicker, selectedDate: Date) => void) | null;
 
         /**
-         * Callback function when Datepicker is opened
+         * Callback function when Datepicker is opened.
          * @default null
          */
         onOpen: ((this: Datepicker) => void) | null;
 
         /**
-         * Callback function when Datepicker is closed
+         * Callback function when Datepicker is closed.
          * @default null
          */
         onClose: ((this: Datepicker) => void) | null;
 
         /**
-         * Callback function when Datepicker HTML is refreshed
+         * Callback function when Datepicker HTML is refreshed.
          * @default null
          */
         onDraw: ((this: Datepicker) => void) | null;

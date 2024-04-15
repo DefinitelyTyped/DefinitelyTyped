@@ -1,18 +1,15 @@
-// Type definitions for newman 5.3
-// Project: https://github.com/postmanlabs/newman
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import * as http from 'http';
 import { EventEmitter } from "events";
+import * as http from "http";
 import {
     Collection,
     CollectionDefinition,
+    Item,
+    Request,
+    Response,
     VariableScope,
-    VariableScopeDefinition
+    VariableScopeDefinition,
 } from "postman-collection";
-import { CookieJar } from 'tough-cookie';
+import { CookieJar } from "tough-cookie";
 
 export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
@@ -20,11 +17,11 @@ export interface NewmanRunOptions {
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    envVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
+    envVar?: { key: string; value: string } | Array<{ key: string; value: string }> | undefined;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to global variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    globalVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
+    globalVar?: { key: string; value: string } | Array<{ key: string; value: string }> | undefined;
     /** The relative path to export the globals file from the current run to  */
     exportGlobals?: string | undefined;
     /** The relative path to export the environment file from the current run to */
@@ -168,9 +165,9 @@ export interface NewmanRunOptions {
 
 export interface NewmanRunSummary {
     error?: any;
-    collection: any;
-    environment: any;
-    globals: any;
+    collection: Collection;
+    environment: VariableScope;
+    globals: VariableScope;
     run: NewmanRun;
 }
 export interface NewmanRun {
@@ -185,6 +182,7 @@ export interface NewmanRun {
         testScripts: NewmanRunStat;
         prerequestScripts: NewmanRunStat;
     };
+    timings: NewmanRunTimings;
     failures: NewmanRunFailure[];
     executions: NewmanRunExecution[];
 }
@@ -193,16 +191,52 @@ export interface NewmanRunStat {
     failed?: number | undefined;
     pending?: number | undefined;
 }
+
+/** Stores all generic timing information */
+export interface NewmanRunTimings {
+    /** The average response time of the run */
+    responseAverage: number;
+    /** The miminum response time of the run */
+    responseMin: number;
+    /** The maximum response time of the run */
+    responseMax: number;
+    /** Standard deviation of response time of the run */
+    responseSd: number;
+    /** The average DNS lookup time of the run */
+    dnsAverage: number;
+    /** The minimum DNS lookup time of the run */
+    dnsMin: number;
+    /** The maximum DNS lookup time of the run */
+    dnsMax: number;
+    /** Standard deviation of DNS lookup time of the run */
+    dnsSd: number;
+    /** The average first byte time of the run */
+    firstByteAverage: number;
+    /** The minimum first byte time of the run */
+    firstByteMin: number;
+    /** The maximum first byte time of the run */
+    firstByteMax: number;
+    /** Standard deviation of first byte time of the run */
+    firstByteSd: number;
+    started?: number;
+    completed?: number;
+}
+
 export interface NewmanRunExecution {
     item: NewmanRunExecutionItem;
     assertions: NewmanRunExecutionAssertion[];
+    response: Response;
+    request: Request;
+    cursor: Cursor;
 }
-export interface NewmanRunExecutionItem {
+
+export interface NewmanRunExecutionItem extends Item {
     name: string;
 }
 export interface NewmanRunExecutionAssertion {
     assertion: string;
     error: NewmanRunExecutionAssertionError;
+    skipped: boolean;
 }
 export interface NewmanRunExecutionAssertionError {
     name: string;
@@ -221,8 +255,55 @@ export interface NewmanRunFailure {
 }
 export function run(
     options: NewmanRunOptions,
-    callback?: (err: Error | null, summary: NewmanRunSummary) => void
+    callback?: (err: Error | null, summary: NewmanRunSummary) => void,
 ): EventEmitter;
 export function run(
-    callback: (err: Error | null, summary: NewmanRunSummary) => void
+    callback: (err: Error | null, summary: NewmanRunSummary) => void,
 ): EventEmitter;
+
+/** The event fired when a console function is called within the scripts. */
+export interface ConsoleEvent {
+    cursor: Cursor;
+    level: string;
+    messages: unknown[];
+}
+
+/**
+ * The cursor holds the details of the current state of the run.
+ *
+ * See: https://github.com/postmanlabs/newman/wiki/The-Cursor-Object
+ */
+export interface Cursor {
+    /** Indicates if this cursor position is at the beginning of the run. */
+    bof: boolean;
+
+    /** Indicates if this cursor position is going to change to the next cycle. */
+    cr: boolean;
+
+    /** Total number of iterations that will be repeated on the length. */
+    cycles: number;
+
+    /** The run is empty and there is nothing to execute. */
+    empty: boolean;
+
+    /** Indicates if this cursor position is at the end of the run. */
+    eof: boolean;
+
+    /** A unique identifier added during the Item execution. */
+    httpRequestId?: string;
+
+    /** The current cycle in the total iteration count. */
+    iteration: number;
+
+    /** Total number of items in the collection run. */
+    length: number;
+
+    /** Current index of the item being processed from within the total number of items. */
+    position: number;
+
+    /** A common item identifier in an execution cycle. */
+    ref: string;
+
+    /** A unique identifier added during the Script execution. */
+    scriptId?: string;
+}

@@ -1,4 +1,4 @@
-import { Repository } from './repository';
+import { Repository } from "./repository";
 
 export namespace Attr {
     const enum STATES {

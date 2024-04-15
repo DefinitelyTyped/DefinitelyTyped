@@ -1,7 +1,7 @@
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStandardMaterial';
-import { Color } from './../math/Color';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { MeshStandardMaterial, MeshStandardMaterialParameters } from "./MeshStandardMaterial.js";
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
     clearcoat?: number | undefined;
@@ -15,22 +15,45 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
     ior?: number | undefined;
 
     sheen?: number | undefined;
-    sheenColor?: Color | undefined;
+    sheenColor?: ColorRepresentation | undefined;
+    sheenColorMap?: Texture | null | undefined;
     sheenRoughness?: number | undefined;
+    sheenRoughnessMap?: Texture | null | undefined;
 
     transmission?: number | undefined;
     transmissionMap?: Texture | null | undefined;
+
+    thickness?: number | undefined;
+    thicknessMap?: Texture | null | undefined;
+
     attenuationDistance?: number | undefined;
-    attenuationColor?: Color | undefined;
+    attenuationColor?: ColorRepresentation | undefined;
 
     specularIntensity?: number | undefined;
-    specularColor?: Color | undefined;
+    specularColor?: ColorRepresentation | undefined;
     specularIntensityMap?: Texture | null | undefined;
     specularColorMap?: Texture | null | undefined;
+
+    iridescenceMap?: Texture | null | undefined;
+    iridescenceIOR?: number | undefined;
+    iridescence?: number | undefined;
+    iridescenceThicknessRange?: [number, number] | undefined;
+    iridescenceThicknessMap?: Texture | null | undefined;
+
+    anisotropy?: number | undefined;
+    anisotropyRotation?: number | undefined;
+    anisotropyMap?: Texture | null | undefined;
 }
 
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
     constructor(parameters?: MeshPhysicalMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshPhysicalMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshPhysicalMaterial: true;
 
     /**
      * @default 'MeshPhysicalMaterial'
@@ -175,10 +198,25 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
     /**
      * @default [100, 400]
      */
-    iridescenceThicknessRange: number[];
+    iridescenceThicknessRange: [number, number];
 
     /**
      * @default null
      */
     iridescenceThicknessMap: Texture | null;
+
+    /**
+     * @default 0
+     */
+    anisotropy?: number;
+
+    /**
+     * @default 0
+     */
+    anisotropyRotation?: number;
+
+    /**
+     * @default null
+     */
+    anisotropyMap?: Texture | null;
 }

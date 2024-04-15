@@ -17,7 +17,7 @@ const definition: BPMNModdle.Definitions = {} as any;
 
 // Expect type of process or undefined
 const maybeProcess = definition.rootElements.find(
-    i => i.$type === "bpmn:Process"
+    i => i.$type === "bpmn:Process",
 );
 
 // Expect process to have additional typings to base element1

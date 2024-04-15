@@ -16,7 +16,7 @@ declare namespace AMap {
             /**
              * 地图显示的参考坐标系
              */
-            crs?: 'EPGS3857' | 'EPGS3395' | 'EPGS4326' | undefined;
+            crs?: "EPGS3857" | "EPGS3395" | "EPGS4326" | undefined;
         }
     }
     class View2D extends EventEmitter {

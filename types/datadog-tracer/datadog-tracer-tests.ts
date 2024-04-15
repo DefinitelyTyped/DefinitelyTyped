@@ -1,9 +1,9 @@
-import Tracer = require('datadog-tracer');
+import Tracer = require("datadog-tracer");
 
 const tracer = new Tracer({
-    service: 'test'
+    service: "test",
 });
 
-tracer.on('error', (e: any) => {
-    void(0);
+tracer.on("error", (e: any) => {
+    void (0);
 });

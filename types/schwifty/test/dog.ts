@@ -1,7 +1,7 @@
 import * as Joi from "joi";
 import * as Schwifty from "schwifty";
 
-declare module 'schwifty' {
+declare module "schwifty" {
     interface RegisteredModels {
         Dog: typeof Dog;
     }
@@ -12,7 +12,7 @@ export default class Dog extends Schwifty.Model {
 
     static joiSchema: Joi.Schema = Joi.object({
         id: Joi.number(),
-        name: Joi.string()
+        name: Joi.string(),
     });
 
     id?: number | undefined;

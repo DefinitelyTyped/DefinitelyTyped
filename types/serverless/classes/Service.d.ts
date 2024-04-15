@@ -1,4 +1,4 @@
-import Serverless = require('../index');
+import Serverless = require("../index");
 
 declare namespace Service {
     interface Custom {
@@ -16,8 +16,8 @@ declare class Service {
             };
             Outputs?:
                 | {
-                      [key: string]: any;
-                  }
+                    [key: string]: any;
+                }
                 | undefined;
         };
 
@@ -37,10 +37,10 @@ declare class Service {
     functions: { [key: string]: Serverless.FunctionDefinitionHandler | Serverless.FunctionDefinitionImage };
     resources:
         | {
-              Resources: {
-                  [key: string]: any;
-              };
-          }
+            Resources: {
+                [key: string]: any;
+            };
+        }
         | { [key: string]: any };
     package: { [key: string]: any };
     configValidationMode: string;

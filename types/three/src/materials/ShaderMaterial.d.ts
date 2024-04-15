@@ -1,9 +1,11 @@
-import { IUniform } from '../renderers/shaders/UniformsLib';
-import { MaterialParameters, Material } from './Material';
-import { GLSLVersion } from '../constants';
+import { GLSLVersion } from "../constants.js";
+import { UniformsGroup } from "../core/UniformsGroup.js";
+import { IUniform } from "../renderers/shaders/UniformsLib.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface ShaderMaterialParameters extends MaterialParameters {
     uniforms?: { [uniform: string]: IUniform } | undefined;
+    uniformsGroups?: UniformsGroup[] | undefined;
     vertexShader?: string | undefined;
     fragmentShader?: string | undefined;
     linewidth?: number | undefined;
@@ -14,17 +16,22 @@ export interface ShaderMaterialParameters extends MaterialParameters {
     fog?: boolean | undefined;
     extensions?:
         | {
-              derivatives?: boolean | undefined;
-              fragDepth?: boolean | undefined;
-              drawBuffers?: boolean | undefined;
-              shaderTextureLOD?: boolean | undefined;
-          }
+            clipCullDistance?: boolean | undefined;
+            multiDraw?: boolean | undefined;
+        }
         | undefined;
     glslVersion?: GLSLVersion | undefined;
 }
 
 export class ShaderMaterial extends Material {
     constructor(parameters?: ShaderMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link ShaderMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isShaderMaterial: true;
 
     /**
      * @default 'ShaderMaterial'
@@ -40,7 +47,11 @@ export class ShaderMaterial extends Material {
      * @default {}
      */
     uniforms: { [uniform: string]: IUniform };
+
+    uniformsGroups: UniformsGroup[];
+
     vertexShader: string;
+
     fragmentShader: string;
 
     /**
@@ -74,22 +85,18 @@ export class ShaderMaterial extends Material {
     clipping: boolean;
 
     /**
-     * @deprecated Use {@link ShaderMaterial#extensions.derivatives extensions.derivatives} instead.
-     */
-    derivatives: any;
-
-    /**
-     * @default { derivatives: false, fragDepth: false, drawBuffers: false, shaderTextureLOD: false }
+     * @default {
+     *   clipCullDistance: false,
+     *   multiDraw: false
+     * }
      */
     extensions: {
-        derivatives: boolean;
-        fragDepth: boolean;
-        drawBuffers: boolean;
-        shaderTextureLOD: boolean;
+        clipCullDistance: boolean;
+        multiDraw: boolean;
     };
 
     /**
-     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv2': [ 0, 0 ] }
+     * @default { 'color': [ 1, 1, 1 ], 'uv': [ 0, 0 ], 'uv1': [ 0, 0 ] }
      */
     defaultAttributeValues: any;
 
@@ -107,8 +114,6 @@ export class ShaderMaterial extends Material {
      * @default null
      */
     glslVersion: GLSLVersion | null;
-
-    isShaderMaterial: boolean;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;

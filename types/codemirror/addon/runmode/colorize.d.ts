@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     /**
      * Provides a convenient way to syntax-highlight code snippets in a webpage. Depends on the runmode addon (or its standalone variant).
      * Can be called with an array (or other array-ish collection) of DOM nodes that represent the code snippets. By default, it'll get all pre tags.

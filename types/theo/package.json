@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/theo",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/salesforce-ux/theo"
+    ],
     "dependencies": {
         "immutable": "3.8.2"
-    }
+    },
+    "devDependencies": {
+        "@types/theo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pete Petrash",
+            "githubUsername": "petekp"
+        },
+        {
+            "name": "Niko Laitinen",
+            "githubUsername": "laitine"
+        }
+    ]
 }

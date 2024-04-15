@@ -10,36 +10,36 @@ declare class PermissionClauseGenerator {
     generate(classFieldName: any):
         | string
         | Array<
-              | string
-              | {
+            | string
+            | {
+                field: any;
+                operator: string;
+                value: any;
+                disableGetChildren: boolean;
+            }
+        >
+        | {
+            field: any;
+            operator: string;
+            value: any[];
+            disableGetChildren: boolean;
+        }
+        | Array<
+            | string
+            | Array<
+                | string
+                | {
                     field: any;
                     operator: string;
                     value: any;
                     disableGetChildren: boolean;
                 }
-          >
-        | {
-              field: any;
-              operator: string;
-              value: any[];
-              disableGetChildren: boolean;
-          }
-        | Array<
-              | string
-              | Array<
-                    | string
-                    | {
-                          field: any;
-                          operator: string;
-                          value: any;
-                          disableGetChildren: boolean;
-                      }
-                >
-              | {
-                    field: any;
-                    operator: string;
-                    value: any[];
-                    disableGetChildren: boolean;
-                }
-          >;
+            >
+            | {
+                field: any;
+                operator: string;
+                value: any[];
+                disableGetChildren: boolean;
+            }
+        >;
 }

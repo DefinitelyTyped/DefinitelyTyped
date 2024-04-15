@@ -1,32 +1,32 @@
 import cssesc = require("cssesc");
 
 // $ExpectType string
-cssesc('Ich ♥ Bücher');
+cssesc("Ich ♥ Bücher");
 
 // $ExpectType string
-cssesc('123a2b', {
-    isIdentifier: true
+cssesc("123a2b", {
+    isIdentifier: true,
 });
 
 // $ExpectType string
-cssesc('Lorem ipsum "dolor" sit \'amet\' etc.', {
-    quotes: 'single'
+cssesc("Lorem ipsum \"dolor\" sit 'amet' etc.", {
+    quotes: "single",
 });
 
 // $ExpectType string
-cssesc('Lorem ipsum "dolor" sit \'amet\' etc.', {
-    quotes: 'double'
+cssesc("Lorem ipsum \"dolor\" sit 'amet' etc.", {
+    quotes: "double",
 });
 
 // $ExpectType string
-cssesc('Lorem ipsum "dolor" sit \'amet\' etc.', {
-    quotes: 'single',
-    wrap: true
+cssesc("Lorem ipsum \"dolor\" sit 'amet' etc.", {
+    quotes: "single",
+    wrap: true,
 });
 
 // $ExpectType string
-cssesc('lolwat"foo\'bar', {
-    escapeEverything: true
+cssesc("lolwat\"foo'bar", {
+    escapeEverything: true,
 });
 
 cssesc.options.escapeEverything = false;

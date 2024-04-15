@@ -1,5 +1,3 @@
-export = bvgProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const bvgProfile: createClient.Profile;
+export const profile: Profile;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nslog",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/atom/node-nslog"
+    ],
+    "devDependencies": {
+        "@types/nslog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        }
+    ]
+}

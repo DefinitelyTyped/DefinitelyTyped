@@ -98,11 +98,11 @@ declare namespace echarts {
              *
              * @default 20
              */
-            cellSize?: number | 'auto' | ('auto' | number)[] | undefined;
+            cellSize?: number | "auto" | Array<"auto" | number> | undefined;
             /**
              * The layout orientation of calendar.
              */
-            orient?: 'horizontal' | 'vertical' | undefined;
+            orient?: "horizontal" | "vertical" | undefined;
             /**
              * Calendar coordinates splitLine style.
              */
@@ -124,7 +124,7 @@ declare namespace echarts {
                 color?: EChartOption.Color | undefined;
                 borderColor?: EChartOption.Color | undefined;
                 borderWidth?: number | undefined;
-                borderType?: 'solid' | 'dashed' | 'dotted' | undefined;
+                borderType?: "solid" | "dashed" | "dotted" | undefined;
                 shadowBlur?: number | undefined;
                 shadowColor?: EChartOption.Color | undefined;
                 shadowOffsetX?: number | undefined;
@@ -172,7 +172,7 @@ declare namespace echarts {
                  *
                  * @default 'en'
                  */
-                nameMap?: string | number | (string | number)[] | undefined;
+                nameMap?: string | number | Array<string | number> | undefined;
             }
             interface DayLabel extends Label {
                 /**
@@ -186,7 +186,7 @@ declare namespace echarts {
                  *
                  * @default 'start'
                  */
-                position?: 'start' | 'end' | undefined;
+                position?: "start" | "end" | undefined;
             }
             interface MonthLabel extends Label {
                 /**
@@ -198,13 +198,13 @@ declare namespace echarts {
                  *
                  * @default 'start'
                  */
-                position?: 'start' | 'end' | undefined;
+                position?: "start" | "end" | undefined;
             }
             interface MonthLabelFormatter {
                 (params: MonthLabelFormatterParams): string;
             }
             interface MonthLabelFormatterParams {
-                nameMap?: string | number | (string | number)[] | undefined;
+                nameMap?: string | number | Array<string | number> | undefined;
                 yyyy?: number | undefined;
                 yy?: number | undefined;
                 MM?: number | undefined;
@@ -222,13 +222,13 @@ declare namespace echarts {
                  * Default: when orient is set as horizontal,
                  * position is left when orient is set as vertical, position is top
                  */
-                position?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+                position?: "top" | "bottom" | "left" | "right" | undefined;
             }
             interface YearLabelFormatter {
                 (params: YearLabelFormatterParams): string;
             }
             interface YearLabelFormatterParams {
-                nameMap?: string | number | (string | number)[] | undefined;
+                nameMap?: string | number | Array<string | number> | undefined;
                 start?: number | undefined;
                 end?: number | undefined;
             }

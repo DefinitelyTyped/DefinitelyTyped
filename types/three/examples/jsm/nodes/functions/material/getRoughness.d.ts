@@ -1,5 +1,5 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeElements';
-import Node from '../../core/Node';
+import Node from "../../core/Node.js";
+import { ShaderNode } from "../../shadernode/ShaderNode.js";
 
 declare const getRoughness: ShaderNode<{ roughness: Node }>;
 

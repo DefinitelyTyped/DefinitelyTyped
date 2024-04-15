@@ -1,3 +1,0 @@
-dist/alt/video.core.novtt.d.ts
-dist/alt/video.core.d.ts
-dist/video.min.d.ts

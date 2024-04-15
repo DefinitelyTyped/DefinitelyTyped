@@ -23,6 +23,10 @@ eventSource.close();
 eventSource.addEventListener("custom", (e: Event) => {});
 eventSource.addEventListener("custom", (e: MessageEvent) => {});
 
+eventSource.onerror = (event) => {
+    event.status; // $ExpectType number | undefined
+};
+
 import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
 
 const eventSourcePolyfill = new EventSourcePolyfill("http://foobar");

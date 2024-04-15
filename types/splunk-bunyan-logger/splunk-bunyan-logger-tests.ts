@@ -1,15 +1,13 @@
-import { createStream } from 'splunk-bunyan-logger';
-import { Config } from 'splunk-logging';
-import { createLogger } from 'bunyan';
+import { createLogger } from "bunyan";
+import { createStream } from "splunk-bunyan-logger";
+import { Config } from "splunk-logging";
 
 const config = {
     token: "your-token-here",
-    url: "https://splunk.local:8088"
+    url: "https://splunk.local:8088",
 };
 
 const splunkStream = createStream(config);
-// Enable SSL certificate validation
-splunkStream.stream.logger.requestOptions.strictSSL = true;
 
 splunkStream.on("error", (err, context) => {
     // Handle errors here
@@ -39,21 +37,21 @@ splunkStream.setEventFormatter((message, severity) => {
 const Logger = createLogger({
     name: "my logger",
     streams: [
-        splunkStream
-    ]
+        splunkStream,
+    ],
 });
 
 // Fully-specified config
 
 const fullConfig: Config = {
-    token: 'token',
-    name: 'loggerName',
-    host: 'splunkHost',
+    token: "token",
+    name: "loggerName",
+    host: "splunkHost",
     maxRetries: 2,
-    path: 'splunkPath',
-    protocol: 'https',
+    path: "splunkPath",
+    protocol: "https",
     port: 234,
-    level: 'info',
+    level: "info",
     batchInterval: 200,
     maxBatchSize: 300,
     maxBatchCount: 400,

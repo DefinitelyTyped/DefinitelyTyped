@@ -23,18 +23,18 @@ rest.putJson("http://localhost", { num: 100, str: "string" }, { agent: "test", t
 
 rest.settleAsync([
     { url: "http://localhost" },
-    { url: "http://localhost" }
+    { url: "http://localhost" },
 ]).then(console.log);
 rest.settleAsync({
     r1: { url: "http://localhost" },
-    r2: { url: "http://localhost" }
+    r2: { url: "http://localhost" },
 }).then(console.log);
 
 rest.allAsync([
     { url: "http://localhost" },
-    { url: "http://localhost" }
+    { url: "http://localhost" },
 ]).then(console.log);
 rest.allAsync({
     r1: { url: "http://localhost" },
-    r2: { url: "http://localhost" }
+    r2: { url: "http://localhost" },
 }).then(console.log);

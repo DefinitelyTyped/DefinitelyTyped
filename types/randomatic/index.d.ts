@@ -1,9 +1,3 @@
-// Type definitions for randomatic 3.1
-// Project: https://github.com/jonschlinkert/randomatic
-// Definitions by: Frelia <https://github.com/execfera>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Generate randomized strings of a specified length using simple character sequences. The original generate-password.
  */

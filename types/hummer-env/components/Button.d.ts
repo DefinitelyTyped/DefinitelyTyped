@@ -24,5 +24,5 @@ declare const Button: {
     /**
      * 按钮控件
      */
-    new (): Button;
+    new(): Button;
 };

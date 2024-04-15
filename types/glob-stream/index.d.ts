@@ -1,39 +1,44 @@
-// Type definitions for glob-stream v6.1.0
-// Project: https://github.com/wearefractal/glob-stream
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 mrmlnc <https://github.com/mrmlnc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-/// <reference types="glob" />
 
-import glob = require('glob');
+import { PicomatchOptions } from "picomatch";
+import { Readable } from "streamx";
 
-declare function GlobStream(glob: string | string[]): NodeJS.ReadableStream;
-declare function GlobStream(glob: string | string[], options: GlobStream.Options): NodeJS.ReadableStream;
+declare function globStream(glob: string | string[]): Readable<globStream.Entry>;
+declare function globStream(glob: string | string[], options: globStream.Options): Readable<globStream.Entry>;
 
-declare namespace GlobStream {
+declare namespace globStream {
     export interface Entry {
         cwd: string;
         base: string;
         path: string;
     }
 
-    export type UniqueByStringPredicate = 'cwd' | 'base' | 'path';
+    export type UniqueByStringPredicate = keyof Entry;
     export type UniqueByFunctionPredicate = (entry: Entry) => string;
 
-    export interface Options extends glob.IOptions {
+    // Here, the settings interface provided by `picomatch` is used rather than the `anymatch` one's.
+    // This is due to the fact that `anymatch` redirects its options to `picomatch`.
+    // Furthermore, `anymatch`s type declaration of the `picomatch` options is hand-written and describes some of the available options incorrectly.
+    export interface Options extends PicomatchOptions {
         /**
          * Whether or not to error upon an empty singular glob.
          */
         allowEmpty?: boolean | undefined;
         /**
+         * The current working directory that the glob is resolved against.
+         */
+        cwd?: string | undefined;
+        /**
+         * The root path that the glob is resolved against.
+         */
+        root?: string | undefined;
+        /**
          * The absolute segment of the glob path that isn't a glob. This value is attached
-         * to each globobject and is useful for relative pathing.
+         * to each glob object and is useful for relative pathing.
          */
         base?: string | undefined;
         /**
-         * Whether or not the `cwd` and `base` should be the same.
+         * Whether or not the {@linkcode cwd} and {@linkcode base} should be the same.
          */
         cwdbase?: boolean | undefined;
         /**
@@ -45,4 +50,4 @@ declare namespace GlobStream {
     }
 }
 
-export = GlobStream;
+export = globStream;

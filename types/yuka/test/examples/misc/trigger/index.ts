@@ -1,9 +1,9 @@
 import * as YUKA from "yuka";
 import { CustomTrigger } from "./CustomTrigger.js";
 
-const entityMesh = {matrix: new YUKA.Matrix4()};
-const triggerMesh1 = {matrix: new YUKA.Matrix4()};
-const triggerMesh2 = {matrix: new YUKA.Matrix4()};
+const entityMesh = { matrix: new YUKA.Matrix4() };
+const triggerMesh1 = { matrix: new YUKA.Matrix4() };
+const triggerMesh2 = { matrix: new YUKA.Matrix4() };
 
 const entityManager = new YUKA.EntityManager();
 const time = new YUKA.Time();
@@ -37,6 +37,6 @@ const elapsedTime = time.getElapsed();
 entity.position.x = Math.sin(elapsedTime) * 2;
 entityManager.update(delta);
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

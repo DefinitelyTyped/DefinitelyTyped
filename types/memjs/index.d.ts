@@ -1,13 +1,14 @@
-// Type definitions for memjs 1.2
-// Project: https://github.com/memcachier/memjs
-// Definitions by: Zongmin Lei <https://github.com/leizongmin>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-export interface ClientOptions {
+import EventEmitter = require("node:events");
+import { Socket } from "node:net";
+
+export interface ClientOptions<TIn = string | Buffer, TOut = Buffer | null> {
+    /**
+     * Whether to failover to next server.
+     * @default false
+     */
+    failover?: boolean;
     /**
      * How many seconds to wait until retrying a failed server.
      * @default 60
@@ -33,10 +34,23 @@ export interface ClientOptions {
      * A logger object that responds to `log(string)` method calls.
      * @default console
      */
-    logger?: {
-        log(...args: any[]): void;
-    } | undefined;
+    logger?: Logger | undefined;
+    /**
+     * The object which will (de)serialize the data.
+     * @default a passthrough function which will leave the parameters unchanged
+     */
+    serializer?: Serializer<TIn, TOut>;
 }
+
+export interface Logger {
+    log(...args: any[]): void;
+}
+
+export interface Serializer<TIn, TOut> {
+    serialize(opcode: number, value: TIn, extras: Buffer): { value: string | Buffer; extras: Buffer };
+    deserialize(opcode: number, value: Buffer | null, extras: Buffer): { value: TOut; extras: Buffer };
+}
+
 export interface ServerOptions {
     /**
      * Server username for fallback SASL authentication credentials.
@@ -68,104 +82,92 @@ export interface ServerOptions {
      */
     keepAliveDelay?: number | undefined;
 }
-export class Client {
+
+export class Client<TIn = string | Buffer, TOut = Buffer | null> {
     /**
      * Creates a new client given an optional config string and optional hash of
-     * options. The config string should be of the form:
+     * options.
+     *
+     * @param serversStr The config string should be of the form:
      *
      *     "[user:pass@]server1[:11211],[user:pass@]server2[:11211],..."
      *
      * If the argument is not given, fallback on the `MEMCACHIER_SERVERS` environment
      * variable, `MEMCACHE_SERVERS` environment variable or `"localhost:11211"`.
-     *
-     * The options hash may contain the options:
-     *
-     * * `retries` - the number of times to retry an operation in lieu of failures
-     * (default 2)
-     * * `expires` - the default expiration in seconds to use (default 0 - never
-     * expire). If `expires` is greater than 30 days (60 x 60 x 24 x 30), it is
-     * treated as a UNIX time (number of seconds since January 1, 1970).
-     * * `logger` - a logger object that responds to `log(string)` method calls.
-     * * `failover` - whether to failover to next server. Defaults to false.
-     * * `failoverTime` - how much to wait until retring a failed server. Default
-     *                    is 60 seconds.
-     *
-     *   ~~~~
-     *     log(msg1[, msg2[, msg3[...]]])
-     *   ~~~~
-     *
-     *   Defaults to `console`.
-     *
-     * Or options for the servers including:
-     * * `username` and `password` for fallback SASL authentication credentials.
-     * * `timeout` in seconds to determine failure for operations. Default is 0.5
-     *             seconds.
-     * * 'conntimeout' in seconds to connection failure. Default is twice the value
-     *                 of `timeout`.
-     * * `keepAlive` whether to enable keep-alive functionality. Defaults to false.
-     * * `keepAliveDelay` in seconds to the initial delay before the first keepalive
-     *                    probe is sent on an idle socket. Defaults is 30 seconds.
      */
-    static create(serversStr?: string, options?: ClientOptions | ServerOptions): Client;
+    static create<TIn = string | Buffer, TOut = Buffer | null>(
+        serversStr?: string,
+        options?: ClientOptions<TIn, TOut> & ServerOptions,
+    ): Client<TIn, TOut>;
 
-    servers: string[];
+    readonly seq: number;
+    readonly servers: readonly Server[];
+    readonly options: ClientOptions<TIn, TOut>;
+    readonly serializer: Serializer<TIn, TOut>;
 
     /**
      * Client initializer takes a list of Servers and an options dictionary. See Client.create for details.
-     * @param servers
-     * @param options
      */
-    constructor(servers: string, options?: ClientOptions);
+    constructor(servers: readonly Server[], options?: ClientOptions);
+
+    /**
+     * An overridable method you can use for determing
+     * server selection. Should return the server index
+     * in the list of servers on Client#servers.
+     *
+     * @example
+     * // example using node-hashring
+     * import * as memjs from 'memjs';
+     * import HashRing = require('node-hashring');
+     *
+     * const servers = ['localhost:11211', 'localhost:11212'];
+     * // build a map of server addresses to their index in the server list
+     * const serverMap: { [key: string]: number } = {};
+     * servers.forEach((server, index) => serverMap[server] = index);
+     * const client = memjs.Client.create(servers.join(','));
+     * // build the hashring
+     * const hashRing = new HashRing(servers);
+     * // override the getServer method
+     * client.getServer = (key) => serverMap[hashRing.findNode(key)];
+     */
+    getServer(key: string): string;
 
     /**
      * Chooses the server to talk to by hashing the given key.
-     * @param key
+     *
+     * @param key The key in memcache.
      */
-    server(key: string): string;
+    server(key: string): Server | undefined;
 
     /**
      * GET
      *
      * Retrieves the value at the given key in memcache.
      *
-     * The callback signature is:
-     *
-     *     callback(err, value, flags)
-     *
-     * _value_ and _flags_ are both `Buffer`s. If the key is not found, the
-     * callback is invoked with null for both arguments and no error
-     * @param key
-     * @param callback
+     * @param key The key in memcache.
+     * @param callback The callback invoked when a response is received or the request fails.
+     * If the key is not found, the callback is invoked with null for both arguments and no error.
      */
-    get(key: string): Promise<{ value: Buffer; flags: Buffer }>;
-    get(
-        key: string,
-        callback: (err: Error | null, value: Buffer | null, flags: Buffer | null) => void
-    ): void;
+    get(key: string): Promise<{ value: TOut; flags: Buffer | null }>;
+    get(key: string, callback: (err: Error | null, value: TOut, flags: Buffer | null) => void): void;
 
     /**
      * SET
      *
      * Sets the given _key_ and _value_ in memcache.
      *
-     * The options dictionary takes:
-     * * _expires_: overrides the default expiration (see `Client.create`) for this
-     *              particular key-value pair.
-     *
-     * The callback signature is:
-     *
-     *     callback(err, success)
-     * @param key
-     * @param value
-     * @param options
-     * @param callback
+     * @param key The key in memcache.
+     * @param value The value to set in memcache.
+     * @param options Additional request options.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    set(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
+    set(key: string, value: TIn, options?: InsertOptions): Promise<boolean>;
+    set(key: string, value: TIn, callback: (err: Error | null, success: boolean | null) => void): void;
     set(
         key: string,
-        value: string | Buffer,
-        options: { expires?: number | undefined },
-        callback: (err: Error | null, success: boolean | null) => void
+        value: TIn,
+        options: InsertOptions,
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -174,24 +176,18 @@ export class Client {
      * Adds the given _key_ and _value_ to memcache. The operation only succeeds
      * if the key is not already set.
      *
-     * The options dictionary takes:
-     * * _expires_: overrides the default expiration (see `Client.create`) for this
-     *              particular key-value pair.
-     *
-     * The callback signature is:
-     *
-     *     callback(err, success)
-     * @param key
-     * @param value
-     * @param options
-     * @param callback
+     * @param key The key in memcache.
+     * @param value The value to set in memcache.
+     * @param options Additional request options.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    add(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
+    add(key: string, value: TIn, options?: InsertOptions): Promise<boolean>;
+    add(key: string, value: TIn, callback: (err: Error | null, success: boolean | null) => void): void;
     add(
         key: string,
-        value: string | Buffer,
-        options: { expires?: number | undefined },
-        callback: (err: Error | null, success: boolean | null) => void
+        value: TIn,
+        options: InsertOptions,
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -200,24 +196,18 @@ export class Client {
      * Replaces the given _key_ and _value_ to memcache. The operation only succeeds
      * if the key is already present.
      *
-     * The options dictionary takes:
-     * * _expires_: overrides the default expiration (see `Client.create`) for this
-     *              particular key-value pair.
-     *
-     * The callback signature is:
-     *
-     *     callback(err, success)
-     * @param key
-     * @param value
-     * @param options
-     * @param callback
+     * @param key The key in memcache.
+     * @param value The value with which to replace the value in memcache.
+     * @param options Additional request options.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    replace(key: string, value: string | Buffer, options: { expires?: number | undefined }): Promise<boolean>;
+    replace(key: string, value: TIn, options?: InsertOptions): Promise<boolean>;
+    replace(key: string, value: TIn, callback: (err: Error | null, success: boolean | null) => void): void;
     replace(
         key: string,
-        value: string | Buffer,
-        options: { expires?: number | undefined },
-        callback: (err: Error | null, success: boolean | null) => void
+        value: TIn,
+        options: InsertOptions,
+        callback: (err: Error | null, success: boolean | null) => void,
     ): void;
 
     /**
@@ -226,11 +216,8 @@ export class Client {
      * Deletes the given _key_ from memcache. The operation only succeeds
      * if the key is already present.
      *
-     * The callback signature is:
-     *
-     *     callback(err, success)
-     * @param key
-     * @param callback
+     * @param key The key in memcache.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
     delete(key: string): Promise<boolean>;
     delete(key: string, callback: (err: Error | null, success: boolean | null) => void): void;
@@ -240,29 +227,26 @@ export class Client {
      *
      * Increments the given _key_ in memcache.
      *
-     * The options dictionary takes:
-     * * _initial_: the value for the key if not already present, defaults to 0.
-     * * _expires_: overrides the default expiration (see `Client.create`) for this
-     *              particular key-value pair.
-     *
-     * The callback signature is:
-     *
-     *     callback(err, success, value)
-     * @param key
-     * @param amount
-     * @param options
-     * @param callback
+     * @param key The key in memcache.
+     * @param amount The amount by which to increment the value.
+     * @param options Additional request options.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
     increment(
         key: string,
         amount: number,
-        options: { initial?: number | undefined; expires?: number | undefined }
+        options?: IncrementDecrementOptions,
     ): Promise<{ success: boolean; value?: number | null | undefined }>;
     increment(
         key: string,
         amount: number,
-        options: { initial?: number | undefined; expires?: number | undefined },
-        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
+    ): void;
+    increment(
+        key: string,
+        amount: number,
+        options: IncrementDecrementOptions,
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
     ): void;
 
     /**
@@ -270,136 +254,105 @@ export class Client {
      *
      * Decrements the given _key_ in memcache.
      *
-     * The options dictionary takes:
-     * * _initial_: the value for the key if not already present, defaults to 0.
-     * * _expires_: overrides the default expiration (see `Client.create`) for this
-     *              particular key-value pair.
-     *
-     * The callback signature is:
-     *
-     *     callback(err, success, value)
-     * @param key
-     * @param amount
-     * @param options
-     * @param callback
+     * @param key The key in memcache.
+     * @param amount The amount by which to decrement the value.
+     * @param options Additional request options.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
     decrement(
         key: string,
         amount: number,
-        options: { initial?: number | undefined; expires?: number | undefined }
+        options?: IncrementDecrementOptions,
     ): Promise<{ success: boolean; value?: number | null | undefined }>;
     decrement(
         key: string,
         amount: number,
-        options: { initial?: number | undefined; expires?: number | undefined },
-        callback: (err: Error | null, success: boolean | null, value?: number | null) => void
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
+    ): void;
+    decrement(
+        key: string,
+        amount: number,
+        options: IncrementDecrementOptions,
+        callback: (err: Error | null, success: boolean | null, value?: number | null) => void,
     ): void;
 
     /**
      * APPEND
      *
-     * Append the given _value_ to the value associated with the given _key_ in
-     * memcache. The operation only succeeds if the key is already present. The
-     * callback signature is:
+     * Append the given _value_ to the value associated with the given _key_.
+     * The operation only succeeds if the key is already present.
      *
-     *     callback(err, success)
-     * @param key
-     * @param value
-     * @param callback
+     * @param key The key in memcache.
+     * @param value The value to prepend.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    append(key: string, value: string | Buffer): Promise<boolean>;
-    append(
-        key: string,
-        value: string | Buffer,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    append(key: string, value: TIn): Promise<boolean>;
+    append(key: string, value: TIn, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * PREPEND
      *
-     * Prepend the given _value_ to the value associated with the given _key_ in
-     * memcache. The operation only succeeds if the key is already present. The
-     * callback signature is:
+     * Prepend the given _value_ to the value associated with the given _key_.
+     * The operation only succeeds if the key is already present.
      *
-     *     callback(err, success)
-     * @param key
-     * @param value
-     * @param callback
+     * @param key The key in memcache.
+     * @param value The value to prepend.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    prepend(key: string, value: string | Buffer): Promise<boolean>;
-    prepend(
-        key: string,
-        value: string | Buffer,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    prepend(key: string, value: TIn): Promise<boolean>;
+    prepend(key: string, value: TIn, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * TOUCH
      *
-     * Touch sets an expiration value, given by _expires_, on the given _key_ in
-     * memcache. The operation only succeeds if the key is already present. The
-     * callback signature is:
+     * Touch sets an expiration value. The operation only succeeds if the key is already present.
      *
-     *     callback(err, success)
-     * @param key
-     * @param expires
-     * @param callback
+     * @param key The key in memcache.
+     * @param expires The expiration value to set.
+     * @param callback The callback invoked when a response is received or the request fails.
      */
-    touch(key: string, expires: number): Promise<boolean>;
-    touch(
-        key: string,
-        expires: number,
-        callback: (err: Error | null, success: boolean | null) => void
-    ): void;
+    touch(key: string, expires?: number): Promise<boolean>;
+    touch(key: string, callback: (err: Error | null, success: boolean | null) => void): void;
+    touch(key: string, expires: number, callback: (err: Error | null, success: boolean | null) => void): void;
 
     /**
      * FLUSH
      *
-     * Flushes the cache on each connected server. The callback signature is:
+     * Flushes the cache on each connected server.
      *
-     *     callback(lastErr, results)
-     *
-     * where _lastErr_ is the last error encountered (or null, in the common case
+     * @param callback The callback invoked when a response is received or the request fails.
+     * Its _lastErr_ argument is the last error encountered (or null, in the common case
      * of no errors). _results_ is a dictionary mapping `"hostname:port"` to either
      * `true` (if the operation was successful), or an error.
-     * @param callback
      */
     flush(): Promise<Record<string, boolean>>;
-    flush(callback: (err: Error | null, results: Record<string, boolean>) => void): void;
+    flush(callback: (lastErr: Error | null, results: Record<string, boolean | Error>) => void): void;
 
     /**
      * STATS_WITH_KEY
      *
-     * Sends a memcache stats command with a key to each connected server. The
-     * callback is invoked **ONCE PER SERVER** and has the signature:
+     * Sends a memcache stats command with a key to each connected server.
      *
-     *     callback(err, server, stats)
-     *
-     * _server_ is the `"hostname:port"` of the server, and _stats_ is a dictionary
-     * mapping the stat name to the value of the statistic as a string.
-     * @param key
-     * @param callback
+     * @param key The key to perform the operation on.
+     * @param callback The callback invoked when a response is received or the request fails.
+     * Its invoked **ONCE PER SERVER**, its _server_ parameter is the `"hostname:port"` of the server,
+     * and _stats_ is a dictionary mapping the stat name to the value of the statistic as a string.
      */
     statsWithKey(
         key: string,
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
+        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void,
     ): void;
 
     /**
      * STATS
      *
-     * Fetches memcache stats from each connected server. The callback is invoked
-     * **ONCE PER SERVER** and has the signature:
+     * Fetches memcache stats from each connected server.
      *
-     *     callback(err, server, stats)
-     *
-     * _server_ is the `"hostname:port"` of the server, and _stats_ is a
-     * dictionary mapping the stat name to the value of the statistic as a string.
-     * @param callback
+     * @param callback The callback invoked when a response is received or the request fails.
+     * Its invoked **ONCE PER SERVER**, its _server_ parameter is the `"hostname:port"` of the server,
+     * and _stats_ is a dictionary mapping the stat name to the value of the statistic as a string.
      */
-    stats(
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
-    ): void;
+    stats(callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void): void;
 
     /**
      * RESET_STATS
@@ -408,16 +361,10 @@ export class Client {
      * stats such as item count, but temporary stats such as total number of
      * connections over time.
      *
-     * The callback is invoked **ONCE PER SERVER** and has the signature:
-     *
-     *     callback(err, server)
-     *
-     * _server_ is the `"hostname:port"` of the server.
-     * @param callback
+     * @param callback The callback invoked when a response is received or the request fails.
+     * Its invoked **ONCE PER SERVER**, its _server_ parameter is the `"hostname:port"` of the server.
      */
-    resetStats(
-        callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void
-    ): void;
+    resetStats(callback?: (err: Error | null, server: string, stats: Record<string, string> | null) => void): void;
 
     /**
      * QUIT
@@ -437,25 +384,114 @@ export class Client {
     close(): void;
 
     /**
-     * Perform a generic single response operation (get, set etc) on a server
-     * serv: the server to perform the operation on
-     * request: a buffer containing the request
-     * seq: the sequence number of the operation. It is used to pin the callbacks
-     *      to a specific operation and should never change during a `perform`.
-     * callback: a callback invoked when a response is received or the request
-     *           fails
-     * retries: number of times to retry request on failure
-     * @param key
-     * @param request
-     * @param seq
-     * @param callback
-     * @param retries
+     * Perform a generic single response operation (get, set etc) on a server.
+     *
+     * @param key The key to perform the operation on.
+     * @param request A buffer containing the request.
+     * @param seq The sequence number of the operation. It is used to pin the callbacks
+     * to a specific operation and should never change during a `perform`.
+     * @param callback The callback invoked when a response is received or the request fails.
+     * @param retries Number of times to retry request on failure.
      */
     perform(
         key: string,
         request: Buffer,
         seq: number,
         callback?: (err: Error | null, ...args: any[]) => void,
-        retries?: number
+        retries?: number,
     ): void;
+
+    /**
+     * Increment the seq value.
+     */
+    incrSeq(): void;
+}
+
+export interface InsertOptions {
+    /**
+     * Overrides the default expiration (see `Client.create`) for this particular key-value pair.
+     */
+    expires?: number | undefined;
+}
+
+export interface IncrementDecrementOptions extends InsertOptions {
+    /**
+     * The value for the key if not already present.
+     * @default 0
+     */
+    initial?: number | undefined;
+}
+
+export class Server extends EventEmitter {
+    readonly responseBuffer: Buffer;
+    readonly host: string;
+    readonly port: number;
+    readonly connected: boolean;
+    readonly timeoutSet: boolean;
+    readonly connectCallbacks: ReadonlyArray<(socket: Socket) => void>;
+    readonly responseCallbacks: { [key: number]: (response: Response) => void };
+    readonly requestTimeouts: readonly number[];
+    readonly errorCallbacks: { [key: number]: (error: Error) => void };
+    readonly options: ServerOptions;
+    readonly username: string | undefined;
+    readonly password: string | undefined;
+
+    constructor(host: string, port: number, username?: string, password?: string, options?: ServerOptions);
+
+    onConnect(fn: (socket: Socket) => void): void;
+    onResponse(seq: number, fn: (response: Response) => void): void;
+    onError(seq: number, fn: (error: Error) => void): void;
+    error(error: Error): void;
+    listSasl(): void;
+    saslAuth(): void;
+    appendToBuffer(dataBuf: Buffer): Buffer;
+    responseHandler(dataBuf: Buffer): void;
+    sock(sasl: boolean, go: (socket: Socket) => void): void;
+    write(blob: Uint8Array | string): void;
+    writeSASL(blob: Uint8Array | string): void;
+    close(): void;
+    toString(): string;
+}
+
+export const Utils: {
+    makeRequestBuffer(
+        opcode: number,
+        key: string | Buffer,
+        extras: string | Buffer,
+        value: string | Buffer,
+        opaque: number,
+    ): Buffer;
+    makeAmountInitialAndExpiration(amount: number, amountIfEmpty: number, expiration: number): Buffer;
+    makeExpiration(expiration: number): Buffer;
+    hashCode(str: string): number;
+    parseMessage(dataBuf: Buffer): Response;
+    merge<TOriginal extends object, TDefault extends object>(
+        original: TOriginal,
+        deflt: TDefault,
+    ): TOriginal & TDefault;
+    timestamp(): number;
+};
+
+export interface Response {
+    header: Required<Header>;
+    key: Buffer;
+    extras: Buffer;
+    val: Buffer;
+}
+
+export const Header: {
+    fromBuffer(headerBuf: Buffer): Required<Header>;
+    toBuffer(header: Header): Buffer;
+};
+
+export interface Header {
+    magic: number;
+    opcode: number;
+    keyLength: number;
+    extrasLength: number;
+    dataType?: number;
+    status?: number;
+    totalBodyLength: number;
+    opaque?: number;
+    cas?: Buffer;
 }

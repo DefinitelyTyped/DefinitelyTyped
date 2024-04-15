@@ -1,5 +1,5 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer = require('../..');
+import { Interface as ReadlineInterface } from "readline";
+import inquirer = require("../..");
 
 /**
  * Represents a ui.

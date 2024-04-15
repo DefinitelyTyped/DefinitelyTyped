@@ -7,11 +7,15 @@ export enum ComponentType {
     OTHER_CODE = 0x7fff,
 }
 
-export type CompareResult = -1|0|1;
+export type CompareResult = -1 | 0 | 1;
 
 export namespace Name {
     class Component {
-        constructor(value?: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number);
+        constructor(
+            value?: readonly number[] | ArrayBuffer | Uint8Array | string | Blob,
+            type?: ComponentType,
+            otherTypeCode?: number,
+        );
         constructor(component: Component);
 
         compare(other: Component): CompareResult;
@@ -52,11 +56,15 @@ export namespace Name {
 }
 
 export class Name {
-    constructor(components?: ReadonlyArray<Name.Component|Uint8Array>);
-    constructor(name: Name|string);
+    constructor(components?: ReadonlyArray<Name.Component | Uint8Array>);
+    constructor(name: Name | string);
 
-    append(value: ReadonlyArray<number>|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
-    append(components: Name.Component|Name): Name;
+    append(
+        value: readonly number[] | ArrayBuffer | Uint8Array | string | Blob,
+        type?: ComponentType,
+        otherTypeCode?: number,
+    ): Name;
+    append(components: Name.Component | Name): Name;
     appendImplicitSha256Digest(digest: Blob): Name;
     appendParametersSha256Digest(digest: Blob): Name;
     appendSegment(segment: number): Name;
@@ -68,8 +76,13 @@ export class Name {
     clear(): void;
 
     compare(other: Name): CompareResult;
-    compare(iStartComponent: number, nComponents: number, other: Name,
-            iOtherStartComponent?: number, nOtherComponents?: number): CompareResult;
+    compare(
+        iStartComponent: number,
+        nComponents: number,
+        other: Name,
+        iOtherStartComponent?: number,
+        nOtherComponents?: number,
+    ): CompareResult;
 
     equals(other: Name): boolean;
     static fromEscapedString(uri: string): Name;
@@ -82,6 +95,6 @@ export class Name {
     size(): number;
     toUri(includeScheme?: boolean): string;
 
-    wireDecode(input: Blob|Buffer): void;
+    wireDecode(input: Blob | Buffer): void;
     wireEncode(): Blob;
 }

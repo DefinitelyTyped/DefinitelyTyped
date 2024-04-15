@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-window-infinite-loader",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bvaughn/react-window-infinite-loader/"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-window": "*"
+    },
+    "devDependencies": {
+        "@types/react-window-infinite-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nivesh Ravindran",
+            "githubUsername": "Nibblesh"
+        },
+        {
+            "name": "fnknzzz",
+            "githubUsername": "fnknzzz"
+        }
+    ]
+}

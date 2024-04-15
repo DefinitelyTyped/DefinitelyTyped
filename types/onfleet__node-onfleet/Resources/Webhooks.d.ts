@@ -6,15 +6,16 @@ declare class Webhook {
 
 declare namespace Webhook {
     interface OnfleetWebhook {
-        trigger: WebhookTriggerType['triggerId'];
+        trigger: WebhookTriggerType["triggerId"];
         url: string;
+        name?: string;
         threshold?: number | undefined;
     }
 
     interface WebhookResult {
         count: number;
         id: string;
-        trigger: WebhookTriggerType['triggerId'];
+        trigger: WebhookTriggerType["triggerId"];
         url: string;
     }
 
@@ -23,20 +24,20 @@ declare namespace Webhook {
     }
 
     enum WebhookTriggerName {
-        SmsRecipientResponseMissed = 'smsRecipientResponseMissed',
-        TaskArrival = 'taskArrival',
-        TaskAssigned = 'taskAssigned',
-        TaskCloned = 'taskCloned',
-        TaskCompleted = 'taskCompleted',
-        TaskCreated = 'taskCreated',
-        TaskDelayed = 'taskDelayed',
-        TaskDeleted = 'taskDeleted',
-        TaskEta = 'taskEta',
-        TaskFailed = 'taskFailed',
-        TaskStarted = 'taskStarted',
-        TaskUnassigned = 'taskUnassigned',
-        TaskUpdated = 'taskUpdated',
-        WorkerDuty = 'workerDuty',
+        SmsRecipientResponseMissed = "smsRecipientResponseMissed",
+        TaskArrival = "taskArrival",
+        TaskAssigned = "taskAssigned",
+        TaskCloned = "taskCloned",
+        TaskCompleted = "taskCompleted",
+        TaskCreated = "taskCreated",
+        TaskDelayed = "taskDelayed",
+        TaskDeleted = "taskDeleted",
+        TaskEta = "taskEta",
+        TaskFailed = "taskFailed",
+        TaskStarted = "taskStarted",
+        TaskUnassigned = "taskUnassigned",
+        TaskUpdated = "taskUpdated",
+        WorkerDuty = "workerDuty",
     }
 
     type WebhookTriggerType =

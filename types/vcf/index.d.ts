@@ -1,9 +1,3 @@
-// Type definitions for vcf 2.0
-// Project: https://github.com/jhermsmeier/node-vcf
-// Definitions by: mcpar-land <https://github.com/mcpar-land>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export = vCard;
@@ -13,13 +7,13 @@ declare class vCard {
 
     version: CardVersion;
 
-    data: {[key: string]: vCard.Property | vCard.Property[] };
+    data: { [key: string]: vCard.Property | vCard.Property[] };
 
     /** Add a vCard property  */
     add(
         key: string,
         value: string,
-        params?: { [key: string]: string | string[] }
+        params?: { [key: string]: string | string[] },
     ): vCard;
 
     /** Add a vCard property  */
@@ -29,13 +23,13 @@ declare class vCard {
     get(key: string): vCard.Property | vCard.Property[];
 
     /** Parse a vcf formatted vCard */
-    parse(value: string|Buffer): vCard;
+    parse(value: string | Buffer): vCard;
 
     /** Set a vCard property */
     set(
         key: string,
         value: string,
-        params?: { [key: string]: string | string[] }
+        params?: { [key: string]: string | string[] },
     ): vCard;
 
     /** Set a vCard property */
@@ -51,15 +45,15 @@ declare class vCard {
     toString(version?: CardVersion, charset?: string): string;
 
     /** Is equal to `\r\n` */
-    static EOL: '\r\n';
+    static EOL: "\r\n";
 
     /** is equal to `.vcf` */
-    static extension: '.vcf';
+    static extension: ".vcf";
 
     private static foldLine(
         input: string,
         maxLength?: number,
-        hardWrap?: boolean
+        hardWrap?: boolean,
     ): string;
 
     static format(card: vCard, version?: CardVersion): string;
@@ -75,11 +69,11 @@ declare class vCard {
     static normalize(input: string): string;
 
     /** Returns an *array* of vCard objects from a multiple-card string. */
-    static parse(value: string|Buffer): vCard[];
+    static parse(value: string | Buffer): vCard[];
 
-    private static parseLines(lines: ReadonlyArray<string>): any;
+    private static parseLines(lines: readonly string[]): any;
 
-    static versions: ['2.1', '3.0', '4.0'];
+    static versions: ["2.1", "3.0", "4.0"];
 }
 
 declare namespace vCard {
@@ -87,7 +81,7 @@ declare namespace vCard {
         constructor(
             field: string,
             value: string,
-            params?: { [key: string]: string | string[]; }
+            params?: { [key: string]: string | string[] },
         );
 
         /** Returns a deep-copied clone of the property */
@@ -113,14 +107,14 @@ declare namespace vCard {
     }
 }
 
-type CardVersion =
-    "2.1" | "3.0" | "4.0";
+type CardVersion = "2.1" | "3.0" | "4.0";
 
 type jCardProperty = [
     string,
     { [key: string]: string | string[] },
-    string, string | string[]
+    string,
+    string | string[],
 ];
 
 /** jCard standard format */
-type jCard = [ 'vcard', jCardProperty[] ];
+type jCard = ["vcard", jCardProperty[]];

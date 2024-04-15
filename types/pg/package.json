@@ -1,7 +1,26 @@
 {
     "private": true,
+    "name": "@types/pg",
+    "version": "8.11.9999",
+    "projects": [
+        "https://github.com/brianc/node-postgres"
+    ],
     "dependencies": {
-        "pg-types": "^2.2.0",
-        "pg-protocol": "*"
-    }
+        "@types/node": "*",
+        "pg-protocol": "*",
+        "pg-types": "^4.0.1"
+    },
+    "devDependencies": {
+        "@types/pg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Phips Peter",
+            "githubUsername": "pspeter3"
+        },
+        {
+            "name": "Ravi van Rooijen",
+            "githubUsername": "HoldYourWaffle"
+        }
+    ]
 }

@@ -1,17 +1,8 @@
-// Type definitions for linkifyjs 2.1
-// Project: https://github.com/SoapBox/linkifyjs#readme
-// Definitions by: Gareth Jones <https://github.com/g-rath>
-//                 Sean Zhu <https://github.com/szhu>
-//                 Ovidiu Bute <https://github.com/ovidiubute>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export type LinkEntityType =
-    | 'url'
-    | 'email'
-    | 'hashtag'
-    | 'mention'
-    ;
+    | "url"
+    | "email"
+    | "hashtag"
+    | "mention";
 
 export interface FindResultHash {
     /**
@@ -68,7 +59,11 @@ export interface Options {
      *
      * @default null
      */
-    attributes?: Record<string, string> | ((href: string, type: LinkEntityType) => Record<string, string>) | null | undefined;
+    attributes?:
+        | Record<string, string>
+        | ((href: string, type: LinkEntityType) => Record<string, string>)
+        | null
+        | undefined;
 
     /**
      * class attribute to use for newly created links.
@@ -79,7 +74,11 @@ export interface Options {
      * Accepts an object where each key is the link type and each value is the
      * string or function to use for that type.
      */
-    className?: string | Partial<Record<LinkEntityType, string | ((href: string) => string)>> | ((href: string, type: LinkEntityType) => string) | undefined;
+    className?:
+        | string
+        | Partial<Record<LinkEntityType, string | ((href: string) => string)>>
+        | ((href: string, type: LinkEntityType) => string)
+        | undefined;
 
     /**
      * Protocol that should be used in href attributes for URLs without a
@@ -87,7 +86,7 @@ export interface Options {
      *
      * @default 'http'
      */
-    defaultProtocol?: 'http' | 'https' | 'ftp' | 'ftps' | string | undefined;
+    defaultProtocol?: "http" | "https" | "ftp" | "ftps" | string | undefined;
 
     /**
      * Format the text displayed by a linkified entity. e.g., truncate a long URL.
@@ -97,7 +96,11 @@ export interface Options {
      *
      * @default null
      */
-    format?: ((value: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, (value: string) => string>> | null | undefined;
+    format?:
+        | ((value: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, (value: string) => string>>
+        | null
+        | undefined;
 
     /**
      * Similar to format, except the result of this function will be used as the
@@ -111,7 +114,11 @@ export interface Options {
      *
      * @default null
      */
-    formatHref?: ((href: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, (href: string) => string>> | null | undefined;
+    formatHref?:
+        | ((href: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, (href: string) => string>>
+        | null
+        | undefined;
 
     /**
      * If `true`, \n line breaks will automatically be converted to `<br>` tags.
@@ -132,7 +139,11 @@ export interface Options {
      *
      * @default a
      */
-    tagName?: string | ((href: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, string>> | undefined;
+    tagName?:
+        | string
+        | ((href: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, string>>
+        | undefined;
 
     /**
      * target attribute for generated link.
@@ -145,7 +156,11 @@ export interface Options {
      *
      * @default { url: '_blank' }
      */
-    target?: string | ((href: string, type: LinkEntityType) => string) | Partial<Record<LinkEntityType, string | null>> | undefined;
+    target?:
+        | string
+        | ((href: string, type: LinkEntityType) => string)
+        | Partial<Record<LinkEntityType, string | null>>
+        | undefined;
 
     /**
      * validate
@@ -164,5 +179,10 @@ export interface Options {
      *
      * @default null
      */
-    validate?: boolean | ((href: string, type: LinkEntityType) => boolean) | Partial<Record<LinkEntityType, ((href: string) => boolean)>> | null | undefined;
+    validate?:
+        | boolean
+        | ((href: string, type: LinkEntityType) => boolean)
+        | Partial<Record<LinkEntityType, ((href: string) => boolean)>>
+        | null
+        | undefined;
 }

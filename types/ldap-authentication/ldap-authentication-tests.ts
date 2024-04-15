@@ -1,7 +1,7 @@
 /* tslint:disable:no-namespace */
-'use strict';
+"use strict";
 
-import { authenticate, AuthenticationOptions } from 'ldap-authentication';
+import { authenticate, AuthenticationOptions } from "ldap-authentication";
 
 namespace Module {
     declare const options: AuthenticationOptions;

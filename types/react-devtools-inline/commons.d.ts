@@ -1,5 +1,5 @@
-import { Lanes, Fiber } from 'react-reconciler';
-import { Config } from './frontend';
+import { Fiber, Lanes } from "react-reconciler";
+import { Config } from "./frontend";
 
 export type AnyFn = (...args: any[]) => any;
 export interface Wall {
@@ -28,11 +28,11 @@ export interface Plugins {
     stylex: StyleXPlugin | null;
 }
 
-export type BrowserTheme = 'dark' | 'light';
+export type BrowserTheme = "dark" | "light";
 
 export type CanViewElementSource = (inspectedElement: InspectedElement) => boolean;
 
-export type TabID = 'components' | 'profiler';
+export type TabID = "components" | "profiler";
 
 export type ViewAttributeSource = (id: number, path: Array<string | number>) => void;
 
@@ -43,13 +43,13 @@ export type FetchFileWithCaching = (url: string) => Promise<string>;
 export type Context = FetchFileWithCaching | null;
 
 export interface DevtoolsProps {
-    bridge: FrontendBridge;
+    bridge?: FrontendBridge;
     browserTheme?: BrowserTheme | undefined;
     canViewElementSourceFunction?: CanViewElementSource | null | undefined;
     defaultTab?: TabID | undefined;
     enabledInspectedElementContextMenu?: boolean | undefined;
     showTabBar?: boolean | undefined;
-    store: Store;
+    store?: Store;
     warnIfLegacyBackendDetected?: boolean | undefined;
     warnIfUnsupportedVersionDetected?: boolean | undefined;
     viewAttributeSourceFunction?: ViewAttributeSource | null | undefined;
@@ -65,6 +65,7 @@ export interface DevtoolsProps {
     profilerPortalContainer?: Element | undefined;
     fetchFileWithCaching?: FetchFileWithCaching | null | undefined;
     hookNamesModuleLoaderFunction?: HookNamesModuleLoaderFunction | null | undefined;
+    viewUrlSourceFunction?: ViewUrlSourceFunction | null | undefined;
 }
 
 export interface SerializedElement {
@@ -125,7 +126,7 @@ export interface HooksNode {
     hookSource?: HookSource | undefined;
 }
 export interface EncodedHookMap {
-    names: ReadonlyArray<string>;
+    names: readonly string[];
     mappings: string;
 }
 export type ReactSourceMetadata = [EncodedHookMap | null | undefined];
@@ -205,6 +206,7 @@ export interface ParseHookNamesModule {
 }
 
 export type HookNamesModuleLoaderFunction = () => PromiseLike<ParseHookNamesModule>;
+export type ViewUrlSourceFunction = (url: string, line: number, col: number) => void;
 export type EventParams<T> = T extends any[] ? T : never;
 export class EventEmitter<Events> {
     listenersMap: Map<string, AnyFn[]>;
@@ -356,7 +358,7 @@ export class ProfilingCache {
 
 export type BatchUID = number;
 export type Milliseconds = number;
-export type ReactMeasureType = 'commit' | 'render-idle' | 'render' | 'layout-effects' | 'passive-effects';
+export type ReactMeasureType = "commit" | "render-idle" | "render" | "layout-effects" | "passive-effects";
 export type ReactLane = number;
 
 export interface ReactMeasure {
@@ -369,11 +371,11 @@ export interface ReactMeasure {
 }
 
 export type ReactComponentMeasureType =
-    | 'render'
-    | 'layout-effect-mount'
-    | 'layout-effect-unmount'
-    | 'passive-effect-mount'
-    | 'passive-effect-unmount';
+    | "render"
+    | "layout-effect-mount"
+    | "layout-effect-unmount"
+    | "passive-effect-mount"
+    | "passive-effect-unmount";
 export interface ReactComponentMeasure {
     readonly type: ReactComponentMeasureType;
     readonly componentName: string;
@@ -436,13 +438,13 @@ export interface BaseReactScheduleEvent extends BaseReactEvent {
 }
 
 export interface ReactScheduleRenderEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-render';
+    readonly type: "schedule-render";
 }
 export interface ReactScheduleStateUpdateEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-state-update';
+    readonly type: "schedule-state-update";
 }
 export interface ReactScheduleForceUpdateEvent extends BaseReactScheduleEvent {
-    readonly type: 'schedule-force-update';
+    readonly type: "schedule-force-update";
 }
 export type SchedulingEvent = ReactScheduleRenderEvent | ReactScheduleStateUpdateEvent | ReactScheduleForceUpdateEvent;
 
@@ -453,20 +455,20 @@ export interface Snapshot {
     readonly timestamp: Milliseconds;
     width: number;
 }
-export type Phase = 'mount' | 'update';
+export type Phase = "mount" | "update";
 
 export interface SuspenseEvent extends BaseReactEvent {
-    readonly type: 'suspense';
+    readonly type: "suspense";
     depth: number;
     duration: number | null;
     readonly id: string;
     readonly phase: Phase | null;
     promiseName: string | null;
-    resolution: 'rejected' | 'resolved' | 'unresolved';
+    resolution: "rejected" | "resolved" | "unresolved";
 }
 
 export interface ThrownError {
-    readonly type: 'thrown-error';
+    readonly type: "thrown-error";
     readonly componentName?: string | undefined;
     readonly message: string;
     readonly phase: Phase;
@@ -652,7 +654,7 @@ export class Store extends EventEmitter<{
 
     get hasOwnerMetadata(): boolean;
 
-    get nativeStyleEditorValidAttributes(): ReadonlyArray<string> | null;
+    get nativeStyleEditorValidAttributes(): readonly string[] | null;
 
     get numElements(): number;
 
@@ -666,7 +668,7 @@ export class Store extends EventEmitter<{
 
     get rootIDToRendererID(): Map<number, number>;
 
-    get roots(): ReadonlyArray<number>;
+    get roots(): readonly number[];
 
     /**
      * At least one of the currently mounted roots support the Legacy profiler.
@@ -730,7 +732,7 @@ export class Store extends EventEmitter<{
         validAttributes,
     }: {
         isSupported: boolean;
-        validAttributes: ReadonlyArray<string> | null | undefined;
+        validAttributes: readonly string[] | null | undefined;
     }) => void;
 
     onBridgeOperations: (operations: number[]) => void;
@@ -759,7 +761,7 @@ export interface ElementAndRendererID {
     rendererID: RendererID;
 }
 
-export type PathType = 'props' | 'hooks' | 'state' | 'context';
+export type PathType = "props" | "hooks" | "state" | "context";
 
 export interface OverrideValueAtPath extends ElementAndRendererID {
     type: PathType;
@@ -788,34 +790,34 @@ export class Bridge<
     overrideValueAtPath: (overrideValueAtPath: OverrideValueAtPath) => void;
 }
 export interface InspectElementError {
-    type: 'error';
+    type: "error";
     id: number;
     responseID: number;
-    errorType: 'user' | 'unknown-hook' | 'uncaught';
+    errorType: "user" | "unknown-hook" | "uncaught";
     message: string;
     stack?: string | undefined;
 }
 
 export interface InspectElementFullData {
-    type: 'full-data';
+    type: "full-data";
     id: number;
     responseID: number;
     value: InspectedElement;
 }
 export interface InspectElementHydratedPath {
-    type: 'hydrated-path';
+    type: "hydrated-path";
     id: number;
     responseID: number;
     path: Array<string | number>;
     value: any;
 }
 export interface InspectElementNoChange {
-    type: 'no-change';
+    type: "no-change";
     id: number;
     responseID: number;
 }
 export interface InspectElementNotFound {
-    type: 'not-found';
+    type: "not-found";
     id: number;
     responseID: number;
 }
@@ -880,7 +882,7 @@ export interface BackendEvents extends Record<string, unknown[]> {
     isNativeStyleEditorSupported: [
         {
             isSupported: boolean;
-            validAttributes: ReadonlyArray<string> | null | undefined;
+            validAttributes: readonly string[] | null | undefined;
         },
     ];
     NativeStyleEditor_styleAndLayout: [StyleAndLayout];
@@ -1021,7 +1023,7 @@ export interface PathMatch {
     isFullMatch: boolean;
 }
 export type FindNativeNodesForFiberID = (id: number) => any[] | null | undefined;
-export type Type = 'props' | 'hooks' | 'state' | 'context';
+export type Type = "props" | "hooks" | "state" | "context";
 
 export type NativeType = unknown;
 export type GetFiberIDForNative = (component: NativeType, findNearestUnfilteredAncestor?: boolean) => number | null;
@@ -1094,11 +1096,11 @@ export interface ReactRenderer {
     /** 17+ */
     overrideHookStateRenamePath?:
         | ((
-              fiber: Record<string, unknown>,
-              id: number,
-              oldPath: Array<string | number>,
-              newPath: Array<string | number>,
-          ) => void)
+            fiber: Record<string, unknown>,
+            id: number,
+            oldPath: Array<string | number>,
+            newPath: Array<string | number>,
+        ) => void)
         | null
         | undefined;
     /** 16.7+ */
@@ -1218,8 +1220,8 @@ export interface HookEventPayload {
     operations: number[];
     /** value: nodes */
     traceUpdates: Set<NativeType>;
-    'react-devtools': unknown;
-    'renderer-attached': {
+    "react-devtools": unknown;
+    "renderer-attached": {
         id: number;
         renderer: ReactRenderer;
         rendererInterface: RendererInterface;
@@ -1227,7 +1229,7 @@ export interface HookEventPayload {
     shutdown: undefined;
     fastRefreshScheduled: undefined;
     /** Value: id */
-    'unsupported-renderer-version': number;
+    "unsupported-renderer-version": number;
 }
 
 export type HookEventListener<EV extends HookEvents> = (
@@ -1262,6 +1264,7 @@ export interface FiberNode {
     pendingProps: Record<string, unknown> | null;
     _debugSource: Source | null;
     key: string | null;
+    deletions: FiberNode[] | null;
 }
 export interface DevToolsHook {
     listeners: Record<string, ListenerHandler[]>;
@@ -1278,7 +1281,7 @@ export interface DevToolsHook {
      * Used by react-native-web and Flipper/Inspector
      */
     resolveRNStyle?: ResolveNativeStyle | undefined;
-    nativeStyleEditorValidAttributes?: ReadonlyArray<string> | undefined;
+    nativeStyleEditorValidAttributes?: readonly string[] | undefined;
     /** React uses these methods. */
     checkDCE: (fn: AnyFn) => void;
     onCommitFiberUnmount: (rendererID: RendererID, fiber: Record<string, unknown>) => void;
@@ -1294,6 +1297,7 @@ export interface DevToolsHook {
     getInternalModuleRanges: () => Array<[string, string]>;
     registerInternalModuleStart: (moduleStartError: Error) => void;
     registerInternalModuleStop: (moduleStopError: Error) => void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     dangerous_setTargetConsoleForTesting?: (fakeConsole: Record<string, unknown>) => void | undefined;
 }
 

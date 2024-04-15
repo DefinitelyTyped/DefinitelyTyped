@@ -1,21 +1,12 @@
-// Type definitions for page 1.11
-// Project: https://github.com/visionmedia/page.js
-// Definitions by: Alan Norbauer <https://github.com/altano/>
-//                 James Garbutt <https://github.com/43081j>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PageJS {
     interface Static {
         create(options?: Partial<Options>): Static;
         /**
          * Expose Route
-         * @type {Route}
          */
         Route: Route;
         /**
          * Export Context
-         * @type {Context}
          */
         Context: Context;
         /**
@@ -98,12 +89,10 @@ declare namespace PageJS {
          *      });
          *
          *      page('/default');
-         *
          */
         redirect(page: string): void;
         /**
          * Replace `path` with optional `state` object.
-         *
          */
         replace(path: string, state?: any, init?: boolean, dispatch?: boolean): Context;
         /**
@@ -198,7 +187,7 @@ declare namespace PageJS {
          * @param {string}  path    path
          * @param {Options} options Options
          */
-        new (path: string, options?: RouteOptions): Route;
+        new(path: string, options?: RouteOptions): Route;
         /**
          * Return route middleware with the given callback `fn()`.
          * @param {Callback} callback Callback
@@ -216,12 +205,10 @@ declare namespace PageJS {
     interface RouteOptions {
         /**
          * enable case-sensitive routes
-         * @type {[type]}
          */
         sensitive?: boolean | undefined;
         /**
          * enable strict matching for trailing slashes
-         * @type {[type]}
          */
         strict?: boolean | undefined;
     }
@@ -266,7 +253,7 @@ declare namespace PageJS {
          * @param {string} path  path
          * @param {any}    state state
          */
-        new (path: string, state?: any): Context;
+        new(path: string, state?: any): Context;
         [idx: string]: any;
         /**
          * Saves the context using replaceState(). For example this is useful for caching HTML or other resources that were loaded for when a user presses "back".
@@ -315,7 +302,7 @@ declare namespace PageJS {
     }
 }
 
-declare module 'page' {
+declare module "page" {
     const page: PageJS.Static;
 
     type Callback = PageJS.Callback;

@@ -1,10 +1,5 @@
-// Type definitions for postcss-js 4.0
-// Project: https://github.com/postcss/postcss-js
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AcceptedPlugin, ProcessOptions, Root, LazyResult } from 'postcss';
-import NoWorkResult from 'postcss/lib/no-work-result';
+import { AcceptedPlugin, LazyResult, ProcessOptions, Root } from "postcss";
+import NoWorkResult = require("postcss/lib/no-work-result");
 
 /** CSS-in-JS object */
 export type CssInJs = Record<string, any>;
@@ -41,11 +36,11 @@ export function async(plugins: AcceptedPlugin[]): (input: CssInJs) => Promise<Cs
 // when the parser is the postcss-js parser.
 // This lets the postcss-js parser be used
 // as long as the object passed to `process` is a CSS-in-JS object
-declare module 'postcss/lib/processor' {
-    export default interface Processor {
+declare module "postcss/lib/processor" {
+    class Processor_ {
         process(
             obj: CssInJs,
-            opts: Omit<ProcessOptions, 'parser'> & { parser: typeof parse },
+            opts: Omit<ProcessOptions, "parser"> & { parser: typeof parse },
         ): LazyResult | NoWorkResult;
     }
 }

@@ -1,8 +1,3 @@
-// Type definitions for node-media-server 2.3
-// Project: https://github.com/illuspas/Node-Media-Server
-// Definitions by: Thomas Seberechts <https://github.com/Tseberechts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Config {
     logType?: number;
     rtmp?: RtmpConfig;
@@ -43,29 +38,29 @@ interface AuthConfig {
 
 interface TransConfig {
     ffmpeg: string;
-    tasks: [TransTaskConfig];
+    tasks: TransTaskConfig[];
 }
 
 interface RelayConfig {
-    tasks: [RelayTaskConfig];
+    tasks: RelayTaskConfig[];
     ffmpeg: string;
 }
 
 interface FissionConfig {
     ffmpeg: string;
-    tasks: [FissionTaskConfig];
+    tasks: FissionTaskConfig[];
 }
 
 interface TransTaskConfig {
     app: string;
     hls?: boolean;
     hlsFlags?: string;
-    dash?: true;
+    dash?: boolean;
     dashFlags?: string;
     vc?: string;
-    vcParam?: [string];
+    vcParam?: string[];
     ac?: string;
-    acParam?: [string];
+    acParam?: string[];
     rtmp?: boolean;
     rtmpApp?: string;
     mp4?: boolean;
@@ -78,11 +73,12 @@ interface RelayTaskConfig {
     mode: string;
     edge: string;
     rtsp_transport?: string;
+    appendName?: boolean;
 }
 
 interface FissionTaskConfig {
     rule: string;
-    model: [FissionTaskModel];
+    model: FissionTaskModel[];
 }
 
 interface FissionTaskModel {

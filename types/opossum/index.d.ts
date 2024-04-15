@@ -1,20 +1,10 @@
-// Type definitions for opossum 6.2
-// Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
-// Definitions by: Quinn Langille <https://github.com/quinnlangille>
-//                 Willy Zhang <https://github.com/merufm>
-//                 Lance Ball <https://github.com/lance>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Tom Jenkinson <https://github.com/tjenkinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node"/>
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
     static isOurError(error: any): boolean;
 
-    constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options);
+    constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options<TI>);
 
     readonly name: string;
     readonly group: string;
@@ -33,6 +23,11 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
      * Execute the action for this circuit with a provided this argument
      */
     call(context: any, ...args: TI): Promise<TR>;
+
+    /**
+     * Returns the current state of the circuit
+     */
+    toJSON(): { state: CircuitBreaker.State; status: CircuitBreaker.Stats };
 
     /**
      * Clears the cache of this CircuitBreaker
@@ -100,25 +95,25 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     healthCheck(func: () => Promise<void>, interval?: number): void;
 
     /* tslint:disable:unified-signatures */
-    on(event: 'halfOpen', listener: (resetTimeout: number) => void): this;
-    on(event: 'close', listener: () => void): this;
-    on(event: 'open', listener: () => void): this;
-    on(event: 'shutdown', listener: () => void): this;
-    on(event: 'fire', listener: (args: TI) => void): this;
-    on(event: 'cacheHit', listener: () => void): this;
-    on(event: 'cacheMiss', listener: () => void): this;
-    on(event: 'reject', listener: (err: Error) => void): this;
-    on(event: 'timeout', listener: (err: Error) => void): this;
-    on(event: 'success', listener: (result: TR, latencyMs: number) => void): this;
-    on(event: 'semaphoreLocked', listener: (err: Error) => void): this;
-    on(event: 'healthCheckFailed', listener: (err: Error) => void): this;
-    on(event: 'fallback', listener: (result: unknown, err: Error) => void): this;
-    on(event: 'failure', listener: (err: Error, latencyMs: number, args: TI) => void): this;
+    on(event: "halfOpen", listener: (resetTimeout: number) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "open", listener: () => void): this;
+    on(event: "shutdown", listener: () => void): this;
+    on(event: "fire", listener: (args: TI) => void): this;
+    on(event: "cacheHit", listener: () => void): this;
+    on(event: "cacheMiss", listener: () => void): this;
+    on(event: "reject", listener: (err: Error) => void): this;
+    on(event: "timeout", listener: (err: Error) => void): this;
+    on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
+    on(event: "semaphoreLocked", listener: (err: Error) => void): this;
+    on(event: "healthCheckFailed", listener: (err: Error) => void): this;
+    on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
+    on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
     /* tslint:enable:unified-signatures */
 }
 
 declare namespace CircuitBreaker {
-    interface Options {
+    interface Options<TI extends unknown[] = unknown[]> {
         /**
          * The time in milliseconds that action should be allowed to execute before timing out.
          * Timeout can be disabled by setting this to `false`.
@@ -224,13 +219,45 @@ declare namespace CircuitBreaker {
          * @default false
          */
         cache?: boolean | undefined;
+
+        /**
+         * The cache time to live (TTL) in milliseconds.
+         * The default value is 0, which means the cache will never be cleared.
+         * @default 0
+         */
+        cacheTTL?: number;
+
+        /**
+         * An optional function that will be called to generate a cache key for the circuit's function.
+         * The function is passed the original `fire` arguments. If no `cacheKey` function is supplied, a JSON.stringify of the arguments will be used as the key.
+         * @default (...args) => JSON.stringify(args)
+         */
+        cacheGetKey?: ((...args: TI) => string) | undefined;
+
+        /**
+         * Transport for cache storage. By default, the cache is stored in memory.
+         * If a cacheTransport is provided, the cache will be stored there instead.
+         */
+        cacheTransport?: CacheTransport | undefined;
+
+        /**
+         * Whether to enable the periodic snapshots that are emitted by the Status class.
+         * Passing false will result in snapshots not being emitted
+         * @default true
+         */
+        enableSnapshots?: boolean | undefined;
+
+        /**
+         * Optional EventEmitter to be passed in to control the buckets instead of the bucket-interval timer
+         */
+        rotateBucketController?: EventEmitter | undefined;
     }
 
     interface Status extends EventEmitter {
         stats: Stats;
         window: Window;
 
-        on(event: 'snapshot', listener: (snapshot: Stats) => void): this;
+        on(event: "snapshot", listener: (snapshot: Stats) => void): this;
     }
 
     interface Bucket {
@@ -251,6 +278,39 @@ declare namespace CircuitBreaker {
 
     interface Stats extends Bucket {
         latencyMean: number;
+    }
+
+    interface State {
+        name: string;
+        enabled: boolean;
+        closed: boolean;
+        open: boolean;
+        halfOpen: boolean;
+        warmUp: boolean;
+        shutdown: boolean;
+        lastTimerAt: symbol;
+    }
+
+    interface CacheTransport {
+        /**
+         * Get cache value by key
+         * @param {string} key Cache key
+         * @returns Response from cache
+         */
+        get(key: string): unknown | undefined;
+
+        /**
+         * Set cache key with value and ttl
+         * @param {string} key Cache key
+         * @param {any} value Value to cache
+         * @param {number} ttl Time to live in milliseconds
+         */
+        set(key: string, value: any, ttl: number): void;
+
+        /**
+         * Clear cache
+         */
+        flush(): void;
     }
 }
 

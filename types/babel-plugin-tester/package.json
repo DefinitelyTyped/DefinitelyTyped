@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/babel-plugin-tester",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/babel-utils/babel-plugin-tester#readme"
+    ],
+    "dependencies": {
+        "@types/babel__core": "*",
+        "@types/prettier": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/babel-plugin-tester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "Mathieu TUDISCO",
+            "githubUsername": "mathieutu"
+        }
+    ]
+}

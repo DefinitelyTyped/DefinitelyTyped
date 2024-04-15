@@ -1,21 +1,16 @@
-// Type definitions for non-npm package firemonkey-browser 2.60
-// Project: https://github.com/erosman/support/tree/FireMonkey
-// Definitions by: DrakeTDL <https://github.com/DrakeTDL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
 //
 // This definition is based on the API reference of FireMonkey
 // https://erosman.github.io/support/content/help.html#Script-API
 
 declare namespace GM {
     interface PlatformInfo {
-        os: 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd' | 'fuchsia';
-        arch: 'arm' | 'x86-32' | 'x86-64';
+        os: "mac" | "win" | "android" | "cros" | "linux" | "openbsd" | "fuchsia";
+        arch: "arm" | "x86-32" | "x86-64";
     }
 
     interface BrowserInfo {
-        name: 'Firefox';
-        vendor: 'Mozilla';
+        name: "Firefox";
+        vendor: "Mozilla";
         version: string;
         buildID: string;
     }
@@ -29,7 +24,7 @@ declare namespace GM {
         excludes: string[];
         includeGlobs: string[];
         excludeGlobs: string[];
-        'run-at': 'document_start' | 'document_end' | 'document_idle';
+        "run-at": "document_start" | "document_end" | "document_idle";
         namespace: string | null;
         /**
          * An object keyed by resource name.
@@ -45,7 +40,7 @@ declare namespace GM {
         };
     }
     type Value = string | boolean | number | object;
-    type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'TRACE' | 'OPTIONS' | 'CONNECT';
+    type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "TRACE" | "OPTIONS" | "CONNECT";
     interface Headers {
         [header: string]: string;
     }
@@ -55,7 +50,7 @@ declare namespace GM {
          * The URL to make the request to. Must be an absolute URL, beginning
          * with the scheme. May be relative to the current page.
          */
-        url: string;
+        url: string | URL;
         /** String type of HTTP request to make (E.G. "GET", "POST") */
         method?: RequestMethod;
         /** A set of headers to include in the request */
@@ -124,7 +119,7 @@ declare namespace GM {
         /** The redirect mode */
         redirect?: RequestRedirect;
         /** A USVString */
-        referrer?: 'no-referrer' | 'client' | URL;
+        referrer?: "no-referrer" | "client" | URL;
         /** Specifies the value of the referer HTTP header */
         referrerPolicy?: ReferrerPolicy;
         /** Contains the subresource integrity value of the request */
@@ -145,8 +140,8 @@ declare namespace GM {
         readonly ok: boolean;
         readonly redirected: boolean;
         readonly status: number;
-        readonly statusText: 'OK';
-        readonly type: 'basic';
+        readonly statusText: "OK";
+        readonly type: "basic";
         readonly url: URL;
 
         // plus one of the following properties based on responseType, if method is not HEAD
@@ -164,7 +159,47 @@ declare namespace GM {
  */
 declare var unsafeWindow: Window;
 
-//#region GM3 style APIs
+/**
+ * exports content script function to the page script's scope, so the page script can call it.
+ * @param func The function to export.
+ * @param targetScope The object to attach the function to. This does not have to be the global window object: it could be any other object in the target window, or an object created by the caller.
+ * @param options.defineAs determines the name of the function in _targetScope_. If this is omitted, you need to assign the return value of exportFunction() to an object in the target scope.
+ * @param options.allowCrossOriginArguments do not check that arguments to the exported function are subsumed by the caller: this allows the caller to pass objects with a different origin
+ * into the exported function, which can then use its privileged status to make cross-origin requests with them
+ * @returns A function which has been created in the target context.
+ * @example // defines a function, then exports it to a content window
+ * exportFunction(notify, window, {defineAs: 'notify'});
+ * @example // Instead of using defineAs, the script can assign the result of exportFunction to an object in the target scope
+ * window.notify = exportFunction(notify, window);
+ * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts#exportfunction}
+ */
+
+declare function exportFunction<T>(
+    func: T,
+    targetScope: object,
+    options?: { defineAs?: string; allowCrossOriginArguments?: boolean },
+): T;
+
+/**
+ * This function provides a safe way to take an object defined in a privileged scope and create a structured clone of it in a less-privileged scope
+ * @param obj The object to clone.
+ * @param targetScope The object to attach the object to.
+ * @param options.cloneFunctions if functions should be cloned. Cloned functions have the same semantics as functions exported using exportFunction()
+ * @param options.wrapReflectors if objects reflected from C++, such as DOM objects, should be cloned.
+ * @returns A reference to the cloned object.
+ * @example // object without methods
+ * unsafeWindow.messenger = cloneInto(obj, unsafeWindow);
+ * @example // object with methods
+ * unsafeWindow.messenger = cloneInto(obj, unsafeWindow, {cloneFunctions: true});
+ * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts#cloneinto}
+ */
+declare function cloneInto<T>(
+    obj: T,
+    targetScope: object,
+    options?: { cloneFunctions?: boolean; wrapReflectors?: boolean },
+): T;
+
+// #region GM3 style APIs
 
 declare var GM: {
     /**
@@ -181,7 +216,9 @@ declare var GM: {
      * const elem = GM_addElement(parentElement, 'a', {href: 'https://....', title: 'Some title', target: '_blank', textContent: 'Some text'});
      * @see {@link https://erosman.github.io/support/content/help.html#addElement}
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(tagName: string, attributes: object): HTMLElement | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(parentNode: string, tagName: string, attributes: object): HTMLElement | void;
 
     /**
@@ -238,7 +275,7 @@ declare var GM: {
      * It will seem familiar to anyone who has used XMLHttpRequest, but it provides a more powerful and flexible feature set
      * @see {@link https://erosman.github.io/support/content/help.html#fetch}
      */
-    fetch(url: string, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
+    fetch(url: string | URL, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
 
     /**
      * Given a defined `@resource`, this method fetches and returns the content of the url
@@ -316,15 +353,15 @@ declare var GM: {
      */
     popup(options?: {
         type?:
-            | 'center'
-            | 'slide-left'
-            | 'slide-right'
-            | 'slide-top'
-            | 'slide-bottom'
-            | 'panel-left'
-            | 'panel-right'
-            | 'panel-top'
-            | 'panel-bottom';
+            | "center"
+            | "slide-left"
+            | "slide-right"
+            | "slide-top"
+            | "slide-bottom"
+            | "panel-left"
+            | "panel-right"
+            | "panel-top"
+            | "panel-bottom";
         modal?: boolean;
     }): {
         /** Can be used to add style to the popup */
@@ -387,9 +424,9 @@ declare var GM: {
     xmlHttpRequest(init: GM.XMLRequest): Promise<void>;
 };
 
-//#endregion
+// #endregion
 
-//#region GM4 style APIs
+// #region GM4 style APIs
 
 declare var GM_addElement: typeof GM.addElement;
 declare var GM_addScript: typeof GM.addScript;
@@ -439,12 +476,14 @@ declare function GM_getValue<TValue = GM.Value>(key: string, defaultValue?: TVal
  * Given a defined `@resource`, this method fetches and returns the content of the url
  * @see {@link https://erosman.github.io/support/content/help.html#getResourceText}
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function GM_getResourceText(resourceName: string): string | void;
 
 /**
  * Given a defined `@resource`, this method returns it as a URL
  * @see {@link https://erosman.github.io/support/content/help.html#getResourceUrl}
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function GM_getResourceUrl(resourceName: string): string | void;
 
-//#endregion
+// #endregion

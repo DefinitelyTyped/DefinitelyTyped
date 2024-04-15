@@ -1,4 +1,4 @@
-import isPrimitive = require('es-abstract/helpers/isPrimitive');
+import isPrimitive = require("es-abstract/helpers/isPrimitive");
 
 declare const any: unknown;
 

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/latlon-geohash",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/chrisveness/latlon-geohash",
+        "http://www.movable-type.co.uk/scripts/geohash.html"
+    ],
+    "devDependencies": {
+        "@types/latlon-geohash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Imig",
+            "githubUsername": "rimig"
+        }
+    ]
+}

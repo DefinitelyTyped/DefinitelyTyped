@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/splunk-logging",
+    "version": "0.11.9999",
+    "projects": [
+        "http://dev.splunk.com"
+    ],
+    "devDependencies": {
+        "@types/splunk-logging": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Brick",
+            "githubUsername": "bricka"
+        },
+        {
+            "name": "Borui Gu",
+            "githubUsername": "BoruiGu"
+        }
+    ]
+}

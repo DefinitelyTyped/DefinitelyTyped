@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/esbuild-vue",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/apeschar/esbuild-vue"
+    ],
+    "devDependencies": {
+        "@types/esbuild-vue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilya Medvedev",
+            "githubUsername": "iam-medvedev"
+        }
+    ]
+}

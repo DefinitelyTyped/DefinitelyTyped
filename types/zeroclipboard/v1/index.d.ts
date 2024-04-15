@@ -1,9 +1,3 @@
-// Type definitions for ZeroClipboard 1.3
-// Project: https://github.com/jonrohan/ZeroClipboard
-// Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>, Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare class ZeroClipboard {
     constructor(elements?: Element | { [index: number]: Element }, options?: ZeroClipboardOptions);
 
@@ -25,14 +19,12 @@ declare class ZeroClipboard {
     clip(elements: Element | { [index: number]: Element }): void;
     unclip(elements: Element | { [index: number]: Element }): void;
 
-
     static config(options: ZeroClipboardOptions): void;
     static destroy(): void;
     static emit(eventName: string, args: any): void;
 }
 
 interface ZeroClipboardOptions {
-
     /** Setting this to false would allow users to handle calling ZeroClipboard.activate(...); themselves instead of relying on our per-element mouseover handler */
     autoActivate?: boolean | undefined;
 
@@ -77,4 +69,6 @@ interface ZeroClipboardOptions {
 }
 
 // Support AMD.
-declare module "zeroclipboard" { export = ZeroClipboard; }
+declare module "zeroclipboard" {
+    export = ZeroClipboard;
+}

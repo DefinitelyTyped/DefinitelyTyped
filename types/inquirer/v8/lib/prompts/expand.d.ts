@@ -1,7 +1,7 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer = require('../..');
-import Paginator = require('../utils/paginator');
-import Prompt = require('./base');
+import { Interface as ReadlineInterface } from "readline";
+import inquirer = require("../..");
+import Paginator = require("../utils/paginator");
+import Prompt = require("./base");
 
 /**
  * The question-options for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
@@ -118,7 +118,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param choices
      * The choices to validate.
      */
-    protected validateChoices(choices: ExpandPrompt<TQuestion>['opt']['choices']): void;
+    protected validateChoices(choices: ExpandPrompt<TQuestion>["opt"]["choices"]): void;
 
     /**
      * Generates the string-representation of the choices.
@@ -132,7 +132,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @returns
      * The string-representations of the choices.
      */
-    protected generateChoicesString(choices: ExpandPrompt<TQuestion>['opt']['choices'], defaultChoice: any): string;
+    protected generateChoicesString(choices: ExpandPrompt<TQuestion>["opt"]["choices"], defaultChoice: any): string;
 
     /**
      * Renders the choices.
@@ -143,7 +143,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param pointer
      * The value of the choice to select.
      */
-    protected renderChoices(choices: ExpandPrompt<TQuestion>['opt']['choices'], pointer: string): string;
+    protected renderChoices(choices: ExpandPrompt<TQuestion>["opt"]["choices"], pointer: string): string;
 }
 
 export = ExpandPrompt;

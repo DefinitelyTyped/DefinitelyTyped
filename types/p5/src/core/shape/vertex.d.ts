@@ -48,12 +48,12 @@ declare module '../../../index' {
          *   TRIANGLE_STRIP Draw a series of connected
          *   triangles in strip fashion
          *
-         *   QUADS Draw a series of separate quad
+         *   QUADS Draw a series of separate quads
          *
          *   QUAD_STRIP Draw quad strip using adjacent edges to
          *   form the next quad
          *
-         *   TESS (WebGl only) Handle irregular polygon for
+         *   TESS (WEBGL only) Handle irregular polygon for
          *   filling curve by explicit tessellation
          *
          *   After calling the beginShape() function, a series
@@ -214,9 +214,9 @@ declare module '../../../index' {
          *   The endShape() function is the companion to
          *   beginShape() and may only be called after
          *   beginShape(). When endShape() is called, all of
-         *   image data defined since the previous call to
+         *   the image data defined since the previous call to
          *   beginShape() is written into the image buffer. The
-         *   constant CLOSE as the value for the MODE parameter
+         *   constant CLOSE as the value for the mode parameter
          *   to close the shape (to connect the beginning and
          *   the end).
          *   @param [mode] use CLOSE to close the shape
@@ -294,18 +294,27 @@ declare module '../../../index' {
          *   the beginShape() and endShape() functions.
          *   @param x x-coordinate of the vertex
          *   @param y y-coordinate of the vertex
-         *   @param z z-coordinate of the vertex. Defaults to 0
-         *   if not specified.
+         *   @param [z] z-coordinate of the vertex. Defaults to
+         *   0 if not specified.
          *   @chainable
          */
-        vertex(x: number, y: number, z: number): p5;
+        vertex(x: number, y: number, z?: number): p5;
 
-        // TODO: Fix vertex() errors in src/core/shape/vertex.js, line 965:
-        //
-        //    required param "u" follows an optional param
-        //    required param "v" follows an optional param
-        //
-        // vertex(x: number, y: number, z?: number, u: number, v: number): p5
+        /**
+         *   All shapes are constructed by connecting a series
+         *   of vertices. vertex() is used to specify the
+         *   vertex coordinates for points, lines, triangles,
+         *   quads, and polygons. It is used exclusively within
+         *   the beginShape() and endShape() functions.
+         *   @param x x-coordinate of the vertex
+         *   @param y y-coordinate of the vertex
+         *   @param [z] z-coordinate of the vertex. Defaults to
+         *   0 if not specified.
+         *   @param [u] the vertex's texture u-coordinate
+         *   @param [v] the vertex's texture v-coordinate
+         *   @chainable
+         */
+        vertex(x: number, y: number, z?: number, u?: number, v?: number): p5;
 
         /**
          *   Sets the 3d vertex normal to use for subsequent

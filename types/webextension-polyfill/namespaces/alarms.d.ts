@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.alarms
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Permissions: "alarms"
  *
@@ -88,7 +91,7 @@ export namespace Alarms {
          *
          * @param name Optional. The name of the alarm to get. Defaults to the empty string.
          */
-        get(name?: string): Promise<Alarm>;
+        get(name?: string): Promise<Alarm | undefined>;
 
         /**
          * Gets an array of all the alarms.

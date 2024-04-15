@@ -11,9 +11,9 @@
  *
  * @module ContextChannels
  */
-import { Identity } from '../main';
-import { Context } from './context';
-import { ContextListener } from './main';
+import { Identity } from "../main";
+import { Context } from "./context";
+import { ContextListener } from "./main";
 /**
  * Type used to identify specific Channels. Though simply an alias of `string`, use of this type indicates use of the string
  * as a channel identifier, and that the user should avoid assuming any internal structure and instead treat as a fully opaque object
@@ -52,7 +52,7 @@ export declare type Channel = DefaultChannel | SystemChannel | AppChannel;
  * @event
  */
 export interface ChannelWindowAddedEvent {
-    type: 'window-added';
+    type: "window-added";
     /**
      * The window that has just been added to the channel.
      */
@@ -81,7 +81,7 @@ export interface ChannelWindowAddedEvent {
  * @event
  */
 export interface ChannelWindowRemovedEvent {
-    type: 'window-removed';
+    type: "window-removed";
     /**
      * The window that has just been removed from the channel.
      */
@@ -108,7 +108,7 @@ export interface ChannelWindowRemovedEvent {
  * @event
  */
 export interface ChannelChangedEvent {
-    type: 'channel-changed';
+    type: "channel-changed";
     /**
      * The window that has switched channel.
      */
@@ -149,14 +149,14 @@ export interface ChannelTransport {
  * @hidden
  */
 export interface SystemChannelTransport extends ChannelTransport {
-    type: 'system';
+    type: "system";
     visualIdentity: DisplayMetadata;
 }
 /**
  * @hidden
  */
 export interface AppChannelTransport extends ChannelTransport {
-    type: 'app';
+    type: "app";
     name: string;
 }
 /**
@@ -247,7 +247,7 @@ export declare abstract class ChannelBase {
      * The event also includes which channel the window was in previously. The `channel` property within the
      * event will always be this channel instance.
      */
-    addEventListener(eventType: 'window-added', handler: (event: ChannelWindowAddedEvent) => void): void;
+    addEventListener(eventType: "window-added", handler: (event: ChannelWindowAddedEvent) => void): void;
     /**
      * Event that is fired whenever a window leaves this channel. This includes switching to/from the default
      * channel.
@@ -255,9 +255,9 @@ export declare abstract class ChannelBase {
      * The event also includes which channel the window is being added to. The `previousChannel` property within the
      * event will always be this channel instance.
      */
-    addEventListener(eventType: 'window-removed', handler: (event: ChannelWindowRemovedEvent) => void): void;
-    removeEventListener(eventType: 'window-added', handler: (event: ChannelWindowAddedEvent) => void): void;
-    removeEventListener(eventType: 'window-removed', handler: (event: ChannelWindowRemovedEvent) => void): void;
+    addEventListener(eventType: "window-removed", handler: (event: ChannelWindowRemovedEvent) => void): void;
+    removeEventListener(eventType: "window-added", handler: (event: ChannelWindowAddedEvent) => void): void;
+    removeEventListener(eventType: "window-removed", handler: (event: ChannelWindowRemovedEvent) => void): void;
 }
 /**
  * The channel all windows start in.
@@ -268,7 +268,7 @@ export declare abstract class ChannelBase {
  * An instance of the default channel is available from the [[defaultChannel]] getter API.
  */
 export declare class DefaultChannel extends ChannelBase {
-    readonly type: 'default';
+    readonly type: "default";
     /**
      * @hidden
      *
@@ -286,7 +286,7 @@ export declare class DefaultChannel extends ChannelBase {
  * To fetch the list of available channels, use [[getSystemChannels]].
  */
 export declare class SystemChannel extends ChannelBase {
-    readonly type: 'system';
+    readonly type: "system";
     /**
      * How a client application should present this channel in any UI.
      */
@@ -309,7 +309,7 @@ export declare class SystemChannel extends ChannelBase {
  * App channels can be joined by any window, but are only indirectly discoverable if the name is not known.
  */
 export declare class AppChannel extends ChannelBase {
-    readonly type: 'app';
+    readonly type: "app";
     /**
      * The name of this channel. This is the same string as is passed to [[getOrCreateAppChannel]].
      */

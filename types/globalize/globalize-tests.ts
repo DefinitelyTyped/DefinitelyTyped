@@ -1,8 +1,8 @@
 let en = new Globalize("en");
 en = new Globalize(new Cldr("en"));
 
-Globalize( "de-Latn-CH" ).cldr.main( "test-bundle" )
-Globalize( new Cldr("de-Latn-CH") ).cldr.main( "test-bundle" )
+Globalize("de-Latn-CH").cldr.main("test-bundle");
+Globalize(new Cldr("de-Latn-CH")).cldr.main("test-bundle");
 
 let locale = Globalize.locale();
 locale = Globalize.locale("en");
@@ -29,7 +29,7 @@ let dateFormatter = en.dateFormatter({
     time: "full",
     datetime: "full",
     raw: "",
-    timeZone: ""
+    timeZone: "",
 });
 strOutput = dateFormatter(new Date());
 
@@ -42,7 +42,7 @@ let dateParser = en.dateParser({
     time: "full",
     datetime: "full",
     raw: "",
-    timeZone: ""
+    timeZone: "",
 });
 dateOutput = dateParser("");
 

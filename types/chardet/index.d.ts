@@ -1,9 +1,3 @@
-// Type definitions for chardet 0.8
-// Project: https://github.com/runk/node-chardet
-// Definitions by: Hauke Oldsen <https://github.com/Gebatzens>
-//                 Sam Hinshaw <https://github.com/samhinshaw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Confidence {

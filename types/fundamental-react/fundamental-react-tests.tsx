@@ -6,11 +6,13 @@ import {
     Button,
     ButtonGroup,
     Calendar,
+    Checkbox,
+    Column,
     ComboboxInput,
+    Container,
     Counter,
     DatePicker,
     Dialog,
-    Checkbox,
     FormFieldset,
     FormGroup,
     FormInput,
@@ -27,7 +29,6 @@ import {
     InfoLabel,
     InlineHelp,
     InputGroup,
-    LayoutGrid,
     LayoutPanel,
     Link,
     List,
@@ -38,6 +39,7 @@ import {
     ObjectStatus,
     Pagination,
     Popover,
+    Row,
     SearchInput,
     Select,
     Shellbar,
@@ -52,7 +54,8 @@ import {
     TimePicker,
     Title,
     Token,
-    TreeView,
+    Tree,
+    Wizard,
 } from "fundamental-react";
 import * as React from "react";
 
@@ -61,51 +64,50 @@ const counter = <Counter>101</Counter>;
 const actionBars = (
     <div>
         <ActionBar
-            actions={(
+            actions={
                 <Popover
                     body={
                         <Menu>
                             <Menu.List>
-                                <Menu.Item url='#'>Option 1</Menu.Item>
-                                <Menu.Item url='#'>Option 2</Menu.Item>
-                                <Menu.Item url='#'>Option 3</Menu.Item>
-                                <Menu.Item url='#'>Option 4</Menu.Item>
+                                <Menu.Item url="#">Option 1</Menu.Item>
+                                <Menu.Item url="#">Option 2</Menu.Item>
+                                <Menu.Item url="#">Option 3</Menu.Item>
+                                <Menu.Item url="#">Option 4</Menu.Item>
                             </Menu.List>
                         </Menu>
                     }
-                    control={<Button glyph='vertical-grip' option='transparent' />}
-                    placement='bottom-end' />
-            )}
-            description={'Action Bar Description'}
-            title={'Page Title'}
+                    control={<Button glyph="vertical-grip" option="transparent" />}
+                    placement="bottom-end"
+                />
+            }
+            description={"Action Bar Description"}
+            title={"Page Title"}
         />
         <ActionBar
-            actions={(
+            actions={
                 <>
                     <Button>Button</Button>
-                    <Button option='emphasized'>Button</Button>
+                    <Button option="emphasized">Button</Button>
                 </>
-            )}
-            description={'Action Bar Description'}
-            title={'Page Title'}
+            }
+            description={"Action Bar Description"}
+            title={"Page Title"}
         />
         <ActionBar
-            actions={(
+            actions={
                 <>
                     <Button>Button</Button>
-                    <Button option='emphasized'>Button</Button>
+                    <Button option="emphasized">Button</Button>
                 </>
-            )}
-            description={'Action Bar Description'}
+            }
+            description={"Action Bar Description"}
             onBackClick={() => null}
-            title={'Page Title'}
+            title={"Page Title"}
         />
     </div>
 );
 
-const avatar = (
-    <Avatar color={1} tile={false} />
-);
+const avatar = <Avatar color={1} tile={false} />;
 
 const breadcrumb = (
     <Breadcrumb>
@@ -115,9 +117,7 @@ const breadcrumb = (
     </Breadcrumb>
 );
 
-const busyIndicator = (
-    <BusyIndicator show/>
-);
+const busyIndicator = <BusyIndicator show />;
 
 const buttons = (
     <div>
@@ -250,7 +250,7 @@ const calendars = (
         <Calendar
             blockedDates={[
                 new Date("2018-01-31T23:00:00.000Z"),
-                new Date("2018-04-02T22:00:00.000Z")
+                new Date("2018-04-02T22:00:00.000Z"),
             ]}
             disableWeekday={["Monday", "Tuesday"]}
         />
@@ -260,7 +260,7 @@ const calendars = (
 
 const comboboxInput = (
     <ComboboxInput
-        list=''
+        list=""
         menu={
             <Menu>
                 <Menu.List>
@@ -333,7 +333,7 @@ const datePickers = (
         <DatePicker
             blockedDates={[
                 new Date("2018-11-30T23:00:00.000Z"),
-                new Date("2018-12-22T23:00:00.000Z")
+                new Date("2018-12-22T23:00:00.000Z"),
             ]}
             compact
             disableWeekday={["Monday", "Tuesday"]}
@@ -370,7 +370,7 @@ const dialogs = (
                         No Way
                     </Button>
                     <Button onClick={function w() {}}>Sure</Button>
-                </>
+                </>,
             ]}
             onClose={function w() {}}
             title="Delete"
@@ -387,7 +387,7 @@ const dialogs = (
                         Cancel
                     </Button>
                     <Button onClick={function w() {}}>Invite</Button>
-                </>
+                </>,
             ]}
             onClose={function w() {}}
             title="Invite user"
@@ -404,6 +404,14 @@ const dialogs = (
                 </div>
             </div>
         </Dialog>
+        <Dialog
+            actions={[]}
+            allowListForLockFocus={e => {}}
+            title=""
+            disableAutoClose
+            focusElementOnClose={{}}
+            size="l"
+        />
     </div>
 );
 
@@ -705,8 +713,8 @@ const images = (
 const infoLabels = (
     <div>
         <InfoLabel>Default</InfoLabel>
-        <InfoLabel glyph='key'>Icon</InfoLabel>
-        <InfoLabel glyph='upload-to-cloud' />
+        <InfoLabel glyph="key">Icon</InfoLabel>
+        <InfoLabel glyph="upload-to-cloud" />
         <InfoLabel numeric>1</InfoLabel>
         <InfoLabel numeric>10000</InfoLabel>
         <InfoLabel color={1}>Default</InfoLabel>
@@ -889,8 +897,8 @@ const inputGroup = (
 
 const links = (
     <div>
-        <Link href='#'>Default Link</Link>
-        <Link disabled href='#'>Disabled Link</Link>
+        <Link href="#">Default Link</Link>
+        <Link disabled href="#">Disabled Link</Link>
     </div>
 );
 
@@ -903,7 +911,7 @@ const lists = (
             </List.Item>
             <List.Item>
                 <List.Text>List Item 2</List.Text>
-                <List.Icon glyph='navigation-right-arrow' />
+                <List.Icon glyph="navigation-right-arrow" />
             </List.Item>
             <List.Item>
                 <List.Text>List Item 3</List.Text>
@@ -923,21 +931,21 @@ const localizationEditors = (
             control={{
                 label: "Localization Editor Label",
                 language: "EN*",
-                placeholder: "Enter Label"
+                placeholder: "Enter Label",
             }}
             menu={[
                 {
                     language: "ES",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "CH",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "PL",
-                    placeholder: "Enter Label"
-                }
+                    placeholder: "Enter Label",
+                },
             ]}
         />
         <br />
@@ -946,42 +954,42 @@ const localizationEditors = (
             control={{
                 label: "Localization Editor Compact Mode",
                 language: "EN*",
-                placeholder: "Enter Label"
+                placeholder: "Enter Label",
             }}
             menu={[
                 {
                     language: "ES",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "CH",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "PL",
-                    placeholder: "Enter Label"
-                }
+                    placeholder: "Enter Label",
+                },
             ]}
         />
         <LocalizationEditor
             control={{
                 label: "Localization Editor Label",
                 language: "EN*",
-                placeholder: "Enter Label"
+                placeholder: "Enter Label",
             }}
             menu={[
                 {
                     language: "ES",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "CH",
-                    placeholder: "Enter Label"
+                    placeholder: "Enter Label",
                 },
                 {
                     language: "PL",
-                    placeholder: "Enter Label"
-                }
+                    placeholder: "Enter Label",
+                },
             ]}
             textarea
         />
@@ -1063,15 +1071,17 @@ const messageStrips = (
     <div>
         <MessageStrip
             dismissible
-            link='#'
-            linkText='link'>
+            link="#"
+            linkText="link"
+        >
             Default MessageStrip
         </MessageStrip>
         <MessageStrip
             dismissible
-            link='#'
-            linkText='Learn More'
-            type='error'>
+            link="#"
+            linkText="Learn More"
+            type="error"
+        >
             Error Message.
         </MessageStrip>
         <MessageStrip noGlyph>
@@ -1096,7 +1106,7 @@ const multiInputs = (
                 "Balsam Apple",
                 "Chokeberry",
                 "Cranberry",
-                "Cupuacu"
+                "Cupuacu",
             ]}
             onTagsUpdate={function w() {}}
             placeHolder="Select a Fruit"
@@ -1116,7 +1126,7 @@ const multiInputs = (
                 "Balsam Apple",
                 "Chokeberry",
                 "Cranberry",
-                "Cupuacu"
+                "Cupuacu",
             ]}
             onTagsUpdate={function w() {}}
             placeHolder="Select a Fruit"
@@ -1124,9 +1134,7 @@ const multiInputs = (
     </div>
 );
 
-const objectStatus = (
-    <ObjectStatus indication={1} size={'l'}/>
-);
+const objectStatus = <ObjectStatus indication={1} size={"l"} />;
 
 const paginations = (
     <div>
@@ -1508,19 +1516,20 @@ const popovers = (
                         height: "200px",
                         overflowY: "auto",
                         textAlign: "center",
-                        width: "400px"
-                    }
+                        width: "400px",
+                    },
                 }}
                 onClose={function w() {}}
                 title="Overflow Example"
             >
                 <p>
-                    Click the icon to show the popover and then scroll within
-                    the modal body...
+                    Click the icon to show the popover and then scroll within the modal body...
                 </p>
                 <br />
                 <br />
                 <Popover
+                    disableTriggerOnClick
+                    show={false}
                     body={
                         <Menu>
                             <Menu.List>
@@ -1561,40 +1570,40 @@ const searchInputs = (
             searchList={[
                 {
                     callback: function w() {},
-                    text: "apple"
+                    text: "apple",
                 },
                 {
                     callback: function w() {},
-                    text: "apricot"
+                    text: "apricot",
                 },
                 {
                     callback: function w() {},
-                    text: "banana"
+                    text: "banana",
                 },
                 {
                     callback: function w() {},
-                    text: "blueberry"
+                    text: "blueberry",
                 },
                 {
                     callback: function w() {},
-                    text: "blackberry"
+                    text: "blackberry",
                 },
                 {
                     callback: function w() {},
-                    text: "calabash"
+                    text: "calabash",
                 },
                 {
                     callback: function w() {},
-                    text: "clementines"
+                    text: "clementines",
                 },
                 {
                     callback: function w() {},
-                    text: "kiwi"
+                    text: "kiwi",
                 },
                 {
                     callback: function w() {},
-                    text: "orange"
-                }
+                    text: "orange",
+                },
             ]}
         />
         <br />
@@ -1611,40 +1620,40 @@ const searchInputs = (
             searchList={[
                 {
                     callback: function w() {},
-                    text: "apple"
+                    text: "apple",
                 },
                 {
                     callback: function w() {},
-                    text: "apricot"
+                    text: "apricot",
                 },
                 {
                     callback: function w() {},
-                    text: "banana"
+                    text: "banana",
                 },
                 {
                     callback: function w() {},
-                    text: "blueberry"
+                    text: "blueberry",
                 },
                 {
                     callback: function w() {},
-                    text: "blackberry"
+                    text: "blackberry",
                 },
                 {
                     callback: function w() {},
-                    text: "calabash"
+                    text: "calabash",
                 },
                 {
                     callback: function w() {},
-                    text: "clementines"
+                    text: "clementines",
                 },
                 {
                     callback: function w() {},
-                    text: "kiwi"
+                    text: "kiwi",
                 },
                 {
                     callback: function w() {},
-                    text: "orange"
-                }
+                    text: "orange",
+                },
             ]}
         />
     </div>
@@ -1652,12 +1661,16 @@ const searchInputs = (
 
 const selects = (
     <div>
-        <Select placeholder='Select' options={[
-            {text: "List Item 1", key: "1"},
-            {text: "List Item 2", key: "2"}
-        ]} selectedKey={"2"} />
+        <Select
+            placeholder="Select"
+            options={[
+                { text: "List Item 1", key: "1" },
+                { text: "List Item 2", key: "2" },
+            ]}
+            selectedKey={"2"}
+        />
 
-        <Select compact validationState={{state: 'warning', text: 'Validated'}} />
+        <Select compact validationState={{ state: "warning", text: "Validated" }} />
     </div>
 );
 
@@ -1674,21 +1687,21 @@ const shellbars = (
             profile={{
                 colorAccent: 8,
                 initials: "JS",
-                userName: "John Snow"
+                userName: "John Snow",
             }}
             profileMenu={[
                 {
                     callback: function w() {},
                     glyph: "action-settings",
                     name: "Settings",
-                    size: "s"
+                    size: "s",
                 },
                 {
                     callback: function w() {},
                     glyph: "log",
                     name: "Sign Out",
-                    size: "s"
-                }
+                    size: "s",
+                },
             ]}
         />
         <Shellbar
@@ -1703,21 +1716,21 @@ const shellbars = (
             profile={{
                 colorAccent: 8,
                 initials: "JS",
-                userName: "John Snow"
+                userName: "John Snow",
             }}
             profileMenu={[
                 {
                     callback: function w() {},
                     glyph: "action-settings",
                     name: "Settings",
-                    size: "s"
+                    size: "s",
                 },
                 {
                     callback: function w() {},
                     glyph: "log",
                     name: "Sign Out",
-                    size: "s"
-                }
+                    size: "s",
+                },
             ]}
         />
         <Shellbar
@@ -1725,51 +1738,50 @@ const shellbars = (
             notifications={{
                 callback: function w() {},
                 label: "Notifications",
-                notificationCount: 2
+                notificationCount: 2,
             }}
             productMenu={[
                 {
                     callback: function w() {},
-                    name: "Application A"
+                    name: "Application A",
                 },
                 {
                     callback: function w() {},
-                    name: "Application B"
+                    name: "Application B",
                 },
                 {
                     callback: function w() {},
-                    name: "Application C"
+                    name: "Application C",
                 },
                 {
                     callback: function w() {},
-                    name: "Application D"
-                }
+                    name: "Application D",
+                },
             ]}
             productTitle="Corporate Portal"
             profile={{
-                image:
-                    "/fundamental-react/static/media/headshot-male.10d4e22e.jpg",
-                userName: "John Snow"
+                image: "/fundamental-react/static/media/headshot-male.10d4e22e.jpg",
+                userName: "John Snow",
             }}
             profileMenu={[
                 {
                     callback: function w() {},
                     glyph: "action-settings",
                     name: "Settings",
-                    size: "s"
+                    size: "s",
                 },
                 {
                     callback: function w() {},
                     glyph: "log",
                     name: "Sign Out",
-                    size: "s"
-                }
+                    size: "s",
+                },
             ]}
             searchInput={{
                 callback: function w() {},
                 label: "Search",
                 onSearch: function w() {},
-                placeholder: "Enter a fruit"
+                placeholder: "Enter a fruit",
             }}
             subtitle="Subtitle"
         />
@@ -1788,8 +1800,8 @@ const shellbars = (
                             </Menu.List>
                         </Menu>
                     ),
-                    notificationCount: 5
-                }
+                    notificationCount: 5,
+                },
             ]}
             copilot
             logoSAP
@@ -1812,134 +1824,121 @@ const shellbars = (
                             <Menu.Item url="/">Notification 3</Menu.Item>
                         </Menu.List>
                     </Menu>
-                )
+                ),
             }}
             productMenu={[
                 {
                     callback: function w() {},
-                    name: "Application A"
+                    name: "Application A",
                 },
                 {
                     callback: function w() {},
-                    name: "Application B"
+                    name: "Application B",
                 },
                 {
                     callback: function w() {},
-                    name: "Application C"
+                    name: "Application C",
                 },
                 {
                     callback: function w() {},
-                    name: "Application D"
-                }
+                    name: "Application D",
+                },
             ]}
             productSwitch={{
-                label: "Product Switcher"
+                label: "Product Switcher",
             }}
             productSwitchList={[
                 {
                     callback: function w() {},
                     glyph: "home",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Fiori Home"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Fiori Home",
                 },
                 {
                     callback: function w() {},
                     glyph: "cloud",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "S/4 HANA Cloud"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "S/4 HANA Cloud",
                 },
                 {
                     callback: function w() {},
                     glyph: "business-objects-experience",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Analytics Cloud"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Analytics Cloud",
                 },
                 {
                     callback: function w() {},
                     glyph: "activate",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Ariba"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Ariba",
                 },
                 {
                     callback: function w() {},
                     glyph: "message-success",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "SuccessFactors"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "SuccessFactors",
                 },
                 {
                     callback: function w() {},
                     glyph: "retail-store",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Commerce Cloud"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Commerce Cloud",
                 },
                 {
                     callback: function w() {},
                     glyph: "customer-view",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Gigya"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Gigya",
                 },
                 {
                     callback: function w() {},
                     glyph: "globe",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Callidus Cloud"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Callidus Cloud",
                 },
                 {
                     callback: function w() {},
                     glyph: "work-history",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Fieldglass"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Fieldglass",
                 },
                 {
                     callback: function w() {},
                     glyph: "area-chart",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Concur"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Concur",
                 },
                 {
                     callback: function w() {},
                     glyph: "customer-view",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Cloud for Customer"
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Cloud for Customer",
                 },
                 {
                     callback: function w() {},
                     glyph: "customer",
-                    image:
-                        "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
-                    title: "Cloud Portal"
-                }
+                    image: "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                    title: "Cloud Portal",
+                },
             ]}
             productTitle="Corporate Portal"
             profile={{
-                image:
-                    "/fundamental-react/static/media/headshot-male.10d4e22e.jpg",
-                userName: "John Snow"
+                image: "/fundamental-react/static/media/headshot-male.10d4e22e.jpg",
+                userName: "John Snow",
             }}
             profileMenu={[
                 {
                     callback: function w() {},
                     glyph: "action-settings",
                     name: "Settings",
-                    size: "s"
+                    size: "s",
                 },
                 {
                     callback: function w() {},
                     glyph: "log",
                     name: "Sign Out",
-                    size: "s"
-                }
+                    size: "s",
+                },
             ]}
             searchInput={{
                 callback: function w() {},
@@ -1949,57 +1948,57 @@ const shellbars = (
                 searchList: [
                     {
                         callback: function w() {},
-                        text: "apple"
+                        text: "apple",
                     },
                     {
                         callback: function w() {},
-                        text: "apricot"
+                        text: "apricot",
                     },
                     {
                         callback: function w() {},
-                        text: "acai"
+                        text: "acai",
                     },
                     {
                         callback: function w() {},
-                        text: "banana"
+                        text: "banana",
                     },
                     {
                         callback: function w() {},
-                        text: "berry"
+                        text: "berry",
                     },
                     {
                         callback: function w() {},
-                        text: "blueberry"
+                        text: "blueberry",
                     },
                     {
                         callback: function w() {},
-                        text: "blackberry"
+                        text: "blackberry",
                     },
                     {
                         callback: function w() {},
-                        text: "cranberry"
+                        text: "cranberry",
                     },
                     {
                         callback: function w() {},
-                        text: "conkerberry"
+                        text: "conkerberry",
                     },
                     {
                         callback: function w() {},
-                        text: "calabash"
+                        text: "calabash",
                     },
                     {
                         callback: function w() {},
-                        text: "clementines"
+                        text: "clementines",
                     },
                     {
                         callback: function w() {},
-                        text: "kiwi"
+                        text: "kiwi",
                     },
                     {
                         callback: function w() {},
-                        text: "orange"
-                    }
-                ]
+                        text: "orange",
+                    },
+                ],
             }}
             subtitle="Subtitle"
         />
@@ -2008,12 +2007,12 @@ const shellbars = (
 
 const sideNavs = (
     <div>
-        <SideNav skipLink={{href: "/", label: "skip to /"}} selectedId="item-2">
+        <SideNav skipLink={{ href: "/", label: "skip to /" }} selectedId="item-2">
             <SideNav.List groupLabel="groupLabel-1">
                 <SideNav.ListItem condensed id="item-1" name="Link Item" url="#" />
                 <SideNav.ListItem condensed id="item-2" name="Link Item" url="#" />
                 <SideNav.ListItem condensed id="item-3" name="Link Item" url="#" />
-                <SideNav.ListItem condensed id="item-4" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-4" name={<p>Link Item</p>} url="#" />
                 <SideNav.ListItem condensed expandSubmenuLabel="subemenuLabel-1" id="item-5" name="Link Item" url="#" />
             </SideNav.List>
         </SideNav>
@@ -2149,11 +2148,12 @@ const stepInputs = (
         <StepInput readOnly value={10} />
         <StepInput
             onChange={(stepValue) => {}}
-            placeholder='Error'
+            placeholder="Error"
             validationState={{
-                state: 'error',
-                text: 'Test validation state'
-            }} />
+                state: "error",
+                text: "Test validation state",
+            }}
+        />
     </div>
 );
 
@@ -2164,15 +2164,15 @@ const tables = (
                 "Column Header 1",
                 "Column Header 2",
                 "Column Header 3",
-                "Column Header 4"
+                "Column Header 4",
             ]}
             tableData={[
                 {
-                    rowData: ["Data 1", "Data 2", "Data 3", "Data 4"]
+                    rowData: ["Data 1", "Data 2", "Data 3", "Data 4"],
                 },
                 {
-                    rowData: ["Data 5", "Data 6", "Data 7", "Data 8"]
-                }
+                    rowData: ["Data 5", "Data 6", "Data 7", "Data 8"],
+                },
             ]}
         />
         <Table
@@ -2183,7 +2183,7 @@ const tables = (
                 "First Name",
                 "Last Name",
                 "Date",
-                " "
+                " ",
             ]}
             tableData={[
                 {
@@ -2210,12 +2210,10 @@ const tables = (
                                     </Menu.List>
                                 </Menu>
                             }
-                            control={
-                                <Button glyph="vertical-grip" option="transparent" />
-                            }
+                            control={<Button glyph="vertical-grip" option="transparent" />}
                             placement="bottom-end"
-                        />
-                    ]
+                        />,
+                    ],
                 },
                 {
                     rowData: [
@@ -2241,12 +2239,10 @@ const tables = (
                                     </Menu.List>
                                 </Menu>
                             }
-                            control={
-                                <Button glyph="vertical-grip" option="transparent" />
-                            }
+                            control={<Button glyph="vertical-grip" option="transparent" />}
                             placement="bottom-end"
-                        />
-                    ]
+                        />,
+                    ],
                 },
                 {
                     rowData: [
@@ -2272,12 +2268,10 @@ const tables = (
                                     </Menu.List>
                                 </Menu>
                             }
-                            control={
-                                <Button glyph="vertical-grip" option="transparent" />
-                            }
+                            control={<Button glyph="vertical-grip" option="transparent" />}
                             placement="bottom-end"
-                        />
-                    ]
+                        />,
+                    ],
                 },
                 {
                     rowData: [
@@ -2303,13 +2297,11 @@ const tables = (
                                     </Menu.List>
                                 </Menu>
                             }
-                            control={
-                                <Button glyph="vertical-grip" option="transparent" />
-                            }
+                            control={<Button glyph="vertical-grip" option="transparent" />}
                             placement="bottom-end"
-                        />
-                    ]
-                }
+                        />,
+                    ],
+                },
             ]}
         />
     </div>
@@ -2322,11 +2314,9 @@ const tabs = (
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </Tab>
             <Tab id="2" title="Tab 2">
-                Numquam libero id corporis odit animi voluptat, Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Possimus quia
-                tempore eligendi tempora repellat officia rerum laudantium,
-                veritatis officiis asperiores ipsum nam, distinctio, dolor
-                provident culpa voluptatibus esse deserunt animi?
+                Numquam libero id corporis odit animi voluptat, Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Possimus quia tempore eligendi tempora repellat officia rerum laudantium, veritatis officiis asperiores
+                ipsum nam, distinctio, dolor provident culpa voluptatibus esse deserunt animi?
             </Tab>
             <Tab disabled id="3" title="Tab 3">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -2355,11 +2345,11 @@ const tiles = (
             </Tile.Header>
         </Tile>
         <br />
-            <Tile onClick={function w() {}}>
-                <Tile.Content title="Tile Title">
-                    <p>Tile Description</p>
-                </Tile.Content>
-            </Tile>
+        <Tile onClick={function w() {}}>
+            <Tile.Content title="Tile Title">
+                <p>Tile Description</p>
+            </Tile.Content>
+        </Tile>
     </div>
 );
 
@@ -2402,217 +2392,46 @@ const switches = (
 
 const tokens = (
     <div>
-        <Token onClick={function w() {}}>Bibendum</Token>
-        <Token onClick={function w() {}}>Lorem</Token>
-        <Token onClick={function w() {}}>Dolor</Token>
-        <Token onClick={function w() {}}>Filter</Token>
+        <Token buttonLabel="Bibendum" onClick={function w() {}} ref={ele => {}}>
+            Bibendum
+        </Token>
+        <Token buttonLabel="Lorem" onClick={function w() {}}>
+            Lorem
+        </Token>
+        <Token buttonLabel="Dolor" onClick={function w() {}}>
+            Dolor
+        </Token>
+        <Token buttonLabel="Filter" onClick={function w() {}}>
+            Filter
+        </Token>
     </div>
 );
 
-const treeViews = (
-    <div>
-        <TreeView>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                    </TreeView.Row>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 2</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 3</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                            </TreeView.Row>
-                            <TreeView.Branch>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 1
-                                        </TreeView.Col>
-                                    </TreeView.Row>
-                                </TreeView.Item>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 2
-                                        </TreeView.Col>
-                                    </TreeView.Row>
-                                </TreeView.Item>
-                            </TreeView.Branch>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-        <TreeView>
-            <TreeView.Head>
-                <TreeView.Col>Column Header 1</TreeView.Col>
-                <TreeView.Col>Column Header 2</TreeView.Col>
-                <TreeView.Col>Column Header 3</TreeView.Col>
-                <TreeView.Col>Column Header 4</TreeView.Col>
-            </TreeView.Head>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                            <TreeView.Branch>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 1
-                                        </TreeView.Col>
-                                        <TreeView.Col>Data Col 2</TreeView.Col>
-                                        <TreeView.Col>Data Col 3</TreeView.Col>
-                                        <TreeView.Col>Data Col 4</TreeView.Col>
-                                    </TreeView.Row>
-                                    <TreeView.Branch>
-                                        <TreeView.Item>
-                                            <TreeView.Row>
-                                                <TreeView.Col>
-                                                    Great Grandchild 1
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 2
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 3
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 4
-                                                </TreeView.Col>
-                                            </TreeView.Row>
-                                        </TreeView.Item>
-                                    </TreeView.Branch>
-                                </TreeView.Item>
-                            </TreeView.Branch>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 2</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 3</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 4</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-        <TreeView>
-            <TreeView.Head>
-                <TreeView.Col>Column Header 1</TreeView.Col>
-                <TreeView.Col>Column Header 2</TreeView.Col>
-                <TreeView.Col>Column Header 3</TreeView.Col>
-                <TreeView.Col>Column Header 4</TreeView.Col>
-            </TreeView.Head>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col />
-                                <TreeView.Col>
-                                    <a href="http://www.google.com">Google</a>
-                                </TreeView.Col>
-                                <TreeView.Col>
-                                    <a href="http://www.bing.com">Bing</a>
-                                </TreeView.Col>
-                                <TreeView.Col>
-                                    <a href="http://www.yahoo.com">Yahoo</a>
-                                </TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-    </div>
+const tree = (
+    <Tree>
+        <Tree.Node>A</Tree.Node>
+        <Tree.Node>B</Tree.Node>
+    </Tree>
+);
+
+const gridLayout = (
+    <Container>
+        <Row>
+            <Column span={4}>123</Column>
+        </Row>
+    </Container>
+);
+
+const wizard = (
+    <Wizard contentSize="sm" headerSize="sm" option="stacked" background="list">
+        <Wizard.Step title="First Step">
+            <p>This is the first step.</p>
+        </Wizard.Step>
+        <Wizard.Step title="Second Step">
+            <p>This is the second step.</p>
+        </Wizard.Step>
+        <Wizard.Step title="Final Step">
+            <p>This is the final step.</p>
+        </Wizard.Step>
+    </Wizard>
 );

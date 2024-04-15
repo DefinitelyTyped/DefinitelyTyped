@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/redux-storage-engine-localstorage",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/react-stack/redux-storage-engine-localstorage"
+    ],
+    "dependencies": {
+        "@types/redux-storage": "*"
+    },
+    "devDependencies": {
+        "@types/redux-storage-engine-localstorage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

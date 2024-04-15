@@ -1,51 +1,51 @@
 import {
     Component,
     Entity,
+    Geometry,
     MultiPropertySchema,
+    registerComponent,
+    Scene,
     System,
     SystemDefinition,
     THREE,
-    Geometry,
-    registerComponent,
-    Scene
-} from 'aframe';
-import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
+} from "aframe";
+import * as threeDeprecated from "three/examples/jsm/deprecated/Geometry";
 
 // Global
-const threeCamera = new AFRAME.THREE.Camera();
+const threeCamera = new AFRAME.THREE.OrthographicCamera();
 
 // Entity
-const entity = document.createElement('a-entity');
-entity.emit('rotate');
-entity.emit('collide', { target: entity });
-entity.emit('sink', null, false);
+const entity = document.createElement("a-entity");
+entity.emit("rotate");
+entity.emit("collide", { target: entity });
+entity.emit("sink", null, false);
 
-const position = entity.getAttribute('position');
+const position = entity.getAttribute("position");
 position.x;
 position.y;
 position.z;
-entity.setAttribute('material', 'color', 'red');
+entity.setAttribute("material", "color", "red");
 
-entity.components['geometry'].data;
+entity.components["geometry"].data;
 
 type MyEntity = Entity<{
     camera: THREE.Camera;
     material: THREE.Material;
     sound: { pause(): void };
 }>;
-const camera = (document.querySelector('a-entity[camera]') as MyEntity).components.camera;
-const material = (document.querySelector('a-entity[material]') as MyEntity).components.material;
-(document.querySelector('a-entity[sound]') as MyEntity).components.sound.pause();
+const camera = (document.querySelector("a-entity[camera]") as MyEntity).components.camera;
+const material = (document.querySelector("a-entity[material]") as MyEntity).components.material;
+(document.querySelector("a-entity[sound]") as MyEntity).components.sound.pause();
 
-entity.getDOMAttribute('geometry').primitive;
+entity.getDOMAttribute("geometry").primitive;
 
-entity.setAttribute('light', {
-    type: 'spot',
+entity.setAttribute("light", {
+    type: "spot",
     distance: 30,
-    intensity: 2.0
+    intensity: 2.0,
 });
 
-entity.addEventListener('child-detached', event => {
+entity.addEventListener("child-detached", event => {
     event.detail;
 });
 
@@ -63,21 +63,21 @@ entity.addEventListener('child-detached', event => {
 //     system: TestSystem;
 // }
 
-const Component = registerComponent('test-component', {
+const Component = registerComponent("test-component", {
     schema: {
         myProperty: {
             default: [],
             parse() {
                 return [true];
-            }
+            },
         },
-        string: { type: 'string' },
-        num: 0
+        string: { type: "string" },
+        num: 0,
     },
     init() {
         this.data.num = 0;
         if (this.initialized && this.el.hasLoaded) {
-            this.el.setAttribute('custom-attribute', 'custom-value');
+            this.el.setAttribute("custom-attribute", "custom-value");
         }
     },
     update() {},
@@ -93,37 +93,37 @@ const Component = registerComponent('test-component', {
     multiply(f: number) {
         // Reference to system because both were registered with the same name.
         return f * this.data.num * this.system!.data.counter;
-    }
+    },
 });
 
 // Scene
-const scene = document.querySelector('a-scene');
+const scene = document.querySelector("a-scene");
 scene.hasLoaded;
 
 // System
 
 const testSystem: SystemDefinition = {
     schema: {
-        counter: 0
+        counter: 0,
     },
 
     init() {
         this.data.counter = 1;
-        ((this.el as Entity).sceneEl as Scene).addEventListener('enter-vr', (e) => { });
-    }
+        ((this.el as Entity).sceneEl as Scene).addEventListener("enter-vr", (e) => {});
+    },
 };
 
-AFRAME.registerSystem('test-component', testSystem);
+AFRAME.registerSystem("test-component", testSystem);
 
 // Register Custom Geometry
 
-AFRAME.registerGeometry('a-test-geometry', {
+AFRAME.registerGeometry("a-test-geometry", {
     schema: {
-        groupIndex: { default: 0 }
+        groupIndex: { default: 0 },
     },
     init(data) {
         this.geometry = new threeDeprecated.Geometry();
         const temp = data.groupIndex;
         temp;
-    }
+    },
 });

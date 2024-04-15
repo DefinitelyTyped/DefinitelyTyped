@@ -1,2 +1,2 @@
-import { splitWhenever } from '../index';
+import { splitWhenever } from "../index";
 export default splitWhenever;

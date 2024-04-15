@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-geosuggest",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/ubilabs/react-geosuggest"
+    ],
+    "dependencies": {
+        "@types/google.maps": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-geosuggest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brad Menchl",
+            "githubUsername": "brmenchl"
+        }
+    ]
+}

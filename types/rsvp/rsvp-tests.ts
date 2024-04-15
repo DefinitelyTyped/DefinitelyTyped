@@ -1,4 +1,4 @@
-import RSVP, { all, race, resolve, Promise as RPromise, EventTarget as REventTarget } from 'rsvp';
+import RSVP, { all, EventTarget as REventTarget, Promise as RPromise, race, resolve } from "rsvp";
 
 /** Static assertion that `value` has type `T` */
 declare function assertType<T>(value: T): void;
@@ -9,23 +9,23 @@ rsvpPromise = Promise.resolve([1, 2, 3]) as PromiseLike<number[]>;
 
 new RPromise<number>((res, rej) => {
     res(3); // $ExpectType void
-    rej('oops'); // $ExpectType void
+    rej("oops"); // $ExpectType void
 });
 
 const et = REventTarget.mixin({});
 type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger" || keyof ObjectWithEventMixins
-et.on('error', handler => {}); // $ExpectType void
-et.off('error', handler => {}); // $ExpectType void
-et.trigger('error'); // $ExpectType void
+et.on("error", handler => {}); // $ExpectType void
+et.off("error", handler => {}); // $ExpectType void
+et.trigger("error"); // $ExpectType void
 // @ts-expect-error
-et.trigger('error', '12', 34);
+et.trigger("error", "12", 34);
 
 async function testAsyncAwait() {
     const awaitedNothing = await RSVP.resolve();
-    const awaitedValue = await RSVP.resolve('just a value');
+    const awaitedValue = await RSVP.resolve("just a value");
 
     async function returnsAPromise(): RSVP.Promise<string> {
-        return RSVP.resolve('look, a string');
+        return RSVP.resolve("look, a string");
     }
 
     assertType<RSVP.Promise<string>>(returnsAPromise());
@@ -33,7 +33,7 @@ async function testAsyncAwait() {
 }
 
 function testCast() {
-    RSVP.Promise.cast('foo').then(value => {
+    RSVP.Promise.cast("foo").then(value => {
         assertType<string>(value);
     });
 
@@ -43,50 +43,53 @@ function testCast() {
 }
 
 function testConfigure() {
-    assertType<void>(RSVP.configure('name', { with: 'some value' }));
-    assertType<{}>(RSVP.configure('name'));
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    assertType<void>(RSVP.configure("name", { with: "some value" }));
+    assertType<{}>(RSVP.configure("name"));
 }
 
 function testAsap() {
     const result = RSVP.asap(something => {
         console.log(something);
-    }, 'srsly');
+    }, "srsly");
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(result);
 }
 
 function testAsync() {
     const result = RSVP.async(something => {
         console.log(something);
-    }, 'rly srsly');
+    }, "rly srsly");
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(result);
 }
 
 function testPromise() {
-    const promiseOfString = new RSVP.Promise((resolve: any, reject: any) => resolve('some string'));
+    const promiseOfString = new RSVP.Promise((resolve: any, reject: any) => resolve("some string"));
     assertType<RSVP.Promise<number>>(promiseOfString.then((s: string) => s.length));
 }
 
 function testPromiseWithLabel() {
-    new RSVP.Promise((resolve: any, reject: any) => resolve('foo'), 'my promise');
+    new RSVP.Promise((resolve: any, reject: any) => resolve("foo"), "my promise");
 }
 
 function testAll() {
     const imported = all([]);
     const empty = RSVP.Promise.all([]);
 
-    const everyPromise = RSVP.all(['string', RSVP.resolve(42), RSVP.resolve({ hash: 'with values' })]);
+    const everyPromise = RSVP.all(["string", RSVP.resolve(42), RSVP.resolve({ hash: "with values" })]);
 
     assertType<RSVP.Promise<[string, number, { hash: string }]>>(everyPromise);
 
-    const anyFailure = RSVP.all([12, 'strings', RSVP.reject('anywhere')]);
+    const anyFailure = RSVP.all([12, "strings", RSVP.reject("anywhere")]);
     assertType<RSVP.Promise<{}>>(anyFailure);
 
     let promise1 = RSVP.resolve(1);
-    let promise2 = RSVP.resolve('2');
+    let promise2 = RSVP.resolve("2");
     let promise3 = RSVP.resolve({ key: 13 });
-    RSVP.Promise.all([promise1, promise2, promise3], 'my label').then(function(array) {
+    RSVP.Promise.all([promise1, promise2, promise3], "my label").then(function(array) {
         assertType<number>(array[0]);
         assertType<string>(array[1]);
         assertType<{ key: number }>(array[2]);
@@ -95,13 +98,13 @@ function testAll() {
 
 function testAllSettled() {
     const resolved1 = RSVP.resolve(1);
-    const resolved2 = RSVP.resolve('wat');
-    const rejected = RSVP.reject(new Error('oh teh noes'));
+    const resolved2 = RSVP.resolve("wat");
+    const rejected = RSVP.reject(new Error("oh teh noes"));
     const pending = new RSVP.Promise<{ neato: string }>((resolve, reject) => {
-        if ('something') {
-            resolve({ neato: 'yay' });
+        if ("something") {
+            resolve({ neato: "yay" });
         } else {
-            reject('nay');
+            reject("nay");
         }
     });
 
@@ -139,7 +142,7 @@ function testAllSettled() {
 
 function testDefer() {
     let deferred = RSVP.defer<string>();
-    deferred.resolve('Success!');
+    deferred.resolve("Success!");
     deferred.promise.then(function(value) {
         assertType<string>(value);
     });
@@ -174,15 +177,15 @@ function testDenodeify() {
     // We can't actually map the key names here, because we would need full-on
     // dependent typing to use the *values of an array* as the keys of the
     // resulting object.
-    assertType<(value: A1) => RSVP.Promise<{ first: D1 }>>(RSVP.denodeify(nodeFn1Arg1CbParam, ['first']));
+    assertType<(value: A1) => RSVP.Promise<{ first: D1 }>>(RSVP.denodeify(nodeFn1Arg1CbParam, ["first"]));
     assertType<(value: A1) => RSVP.Promise<{ first: D1; second: D2 }>>(
-        RSVP.denodeify(nodeFn1Arg2CbParam, ['first', 'second'])
+        RSVP.denodeify(nodeFn1Arg2CbParam, ["first", "second"]),
     );
     assertType<(value: A1) => RSVP.Promise<{ first: D1; second: D2; third: D3 }>>(
-        RSVP.denodeify(nodeFn1Arg3CbParam, ['first', 'second', 'third'])
+        RSVP.denodeify(nodeFn1Arg3CbParam, ["first", "second", "third"]),
     );
 
-    const foo = RSVP.denodeify(nodeFn1Arg2CbParam, ['quux', 'baz']);
+    const foo = RSVP.denodeify(nodeFn1Arg2CbParam, ["quux", "baz"]);
     foo([{ arg: true }]).then(value => {
         console.log(value.quux + 1);
         console.log(value.baz.length);
@@ -190,22 +193,22 @@ function testDenodeify() {
 }
 
 function testFilter() {
-    RSVP.filter([RSVP.resolve(1), RSVP.resolve(2)], item => item > 1, 'over one').then(results => {
+    RSVP.filter([RSVP.resolve(1), RSVP.resolve(2)], item => item > 1, "over one").then(results => {
         assertType<number[]>(results);
     });
 
     RSVP.filter(
-        [RSVP.resolve('a string'), RSVP.resolve(112233)],
+        [RSVP.resolve("a string"), RSVP.resolve(112233)],
         item => String(item).length < 10,
-        'short string'
+        "short string",
     ).then(results => {
         assertType<Array<string | number>>(results);
     });
 
     // This is the best we can do: we can't actually write the full type here,
     // which would be `assertType<never>(results)`, but TS can't infer that.
-    const isString = (item: any): item is string => typeof item === 'string';
-    RSVP.filter([RSVP.reject('for any reason')], isString).then(results => {
+    const isString = (item: any): item is string => typeof item === "string";
+    RSVP.filter([RSVP.reject("for any reason")], isString).then(results => {
         assertType<{}>(results);
     });
 }
@@ -213,11 +216,11 @@ function testFilter() {
 function testHash() {
     let promises = {
         myPromise: RSVP.resolve(1),
-        yourPromise: RSVP.resolve('2'),
+        yourPromise: RSVP.resolve("2"),
         theirPromise: RSVP.resolve({ key: 3 }),
         notAPromise: 4,
     };
-    RSVP.hash(promises, 'my label').then(function(hash) {
+    RSVP.hash(promises, "my label").then(function(hash) {
         assertType<number>(hash.myPromise);
         assertType<string>(hash.yourPromise);
         assertType<{ key: number }>(hash.theirPromise);
@@ -231,7 +234,7 @@ function testHashSettled() {
     }
     let promises = {
         myPromise: RSVP.Promise.resolve(1),
-        yourPromise: RSVP.Promise.resolve('2'),
+        yourPromise: RSVP.Promise.resolve("2"),
         theirPromise: RSVP.Promise.resolve({ key: 3 }),
         notAPromise: 4,
     };
@@ -252,61 +255,62 @@ function testHashSettled() {
 }
 
 function testMap() {
-    RSVP.map([RSVP.resolve(1), RSVP.resolve(2)], item => item + 1, 'add one').then(results => {
+    RSVP.map([RSVP.resolve(1), RSVP.resolve(2)], item => item + 1, "add one").then(results => {
         assertType<number[]>(results);
         assertType<{ length: 2 }>(results);
     });
 
-    RSVP.map([RSVP.resolve('a string'), RSVP.resolve(112233)], String).then(results => {
+    RSVP.map([RSVP.resolve("a string"), RSVP.resolve(112233)], String).then(results => {
         assertType<string[]>(results);
         assertType<{ length: 2 }>(results);
     });
 
     // This is the best we can do: we can't actually write the full type here,
     // which would be `assertType<never>(results)`, but TS can't infer that.
-    RSVP.map([RSVP.reject('for any reason')], String).then(results => {
+    RSVP.map([RSVP.reject("for any reason")], String).then(results => {
         assertType<{}>(results);
     });
 }
 
 function testRace() {
     const imported = race([]);
-    const firstPromise = RSVP.race([{ notAPromise: true }, RSVP.resolve({ some: 'value' })]);
+    const firstPromise = RSVP.race([{ notAPromise: true }, RSVP.resolve({ some: "value" })]);
     assertType<RSVP.Promise<{ notAPromise: boolean } | { some: string }>>(firstPromise);
 
     let promise1 = RSVP.resolve(1);
-    let promise2 = RSVP.resolve('2');
-    RSVP.Promise.race([promise1, promise2], 'my label').then(function(result) {
+    let promise2 = RSVP.resolve("2");
+    RSVP.Promise.race([promise1, promise2], "my label").then(function(result) {
         assertType<string | number>(result);
     });
 }
 
 function testReject() {
     assertType<RSVP.Promise<never>>(RSVP.reject());
-    assertType<RSVP.Promise<never>>(RSVP.reject('this is a string'));
+    assertType<RSVP.Promise<never>>(RSVP.reject("this is a string"));
 
     RSVP.reject({ ok: false }).catch(reason => {
         console.log(`${reason} could be anything`);
     });
-    RSVP.reject({ ok: false }, 'some label').catch((reason: any) => reason.ok);
+    RSVP.reject({ ok: false }, "some label").catch((reason: any) => reason.ok);
 
-    let promise = RSVP.Promise.reject(new Error('WHOOPS'));
+    let promise = RSVP.Promise.reject(new Error("WHOOPS"));
 }
 
 function testResolve() {
     assertType<RSVP.Promise<void>>(RSVP.resolve());
-    assertType<RSVP.Promise<string>>(RSVP.resolve('this is a string'));
-    assertType<RSVP.Promise<string>>(RSVP.resolve(RSVP.resolve('nested')));
-    assertType<RSVP.Promise<string>>(RSVP.resolve(Promise.resolve('nested')));
+    assertType<RSVP.Promise<string>>(RSVP.resolve("this is a string"));
+    assertType<RSVP.Promise<string>>(RSVP.resolve(RSVP.resolve("nested")));
+    assertType<RSVP.Promise<string>>(RSVP.resolve(Promise.resolve("nested")));
 
     let promise = RSVP.Promise.resolve(1);
     let imported = resolve(1);
 }
 
 function testRethrow() {
-    RSVP.reject(new Error('all the badness'))
+    RSVP.reject(new Error("all the badness"))
         .catch(RSVP.rethrow)
         .then(value => {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             assertType<void>(value);
         })
         .catch(reason => {
@@ -317,13 +321,13 @@ function testRethrow() {
 }
 
 function testOnAndOff() {
-    RSVP.on('error', (reason: Error) => {
+    RSVP.on("error", (reason: Error) => {
         console.log(`it was an error: ${reason}`);
     });
 
-    RSVP.off('whatever', (value: any) => {
+    RSVP.off("whatever", (value: any) => {
         console.log(
-            `any old value will do: ${value !== undefined && value !== null ? value.toString() : 'even undefined'}`
+            `any old value will do: ${value !== undefined && value !== null ? value.toString() : "even undefined"}`,
         );
     });
 }

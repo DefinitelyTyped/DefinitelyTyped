@@ -1,4 +1,4 @@
-import generatePackageJson = require('rollup-plugin-generate-package-json');
+import generatePackageJson = require("rollup-plugin-generate-package-json");
 
 generatePackageJson();
 
@@ -15,17 +15,17 @@ generatePackageJson({
 });
 
 generatePackageJson({
-    additionalDependencies: ['vue', 'react'],
-    inputFolder: '.',
-    outputFolder: 'dist',
+    additionalDependencies: ["vue", "react"],
+    inputFolder: ".",
+    outputFolder: "dist",
     baseContents: {
-        name: 'test',
+        name: "test",
     },
 });
 
 generatePackageJson({
     additionalDependencies: {
-        react: '^18.0.0',
+        react: "^18.0.0",
     },
 });
 

@@ -1,5 +1,5 @@
-import JsReport = require('jsreport-core');
-import JsReportHandlebars = require('jsreport-handlebars');
+import JsReport = require("jsreport-core");
+import JsReportHandlebars = require("jsreport-handlebars");
 
 (async () => {
     const jsreport = JsReport();

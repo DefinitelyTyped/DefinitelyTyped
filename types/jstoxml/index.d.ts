@@ -1,8 +1,3 @@
-// Type definitions for jstoxml 2.0
-// Project: https://github.com/davidcalhoun/jstoxml
-// Definitions by: Steven Snoeijen <https://github.com/stevensnoeijen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface XmlAttrs {
     [name: string]: unknown;
 }

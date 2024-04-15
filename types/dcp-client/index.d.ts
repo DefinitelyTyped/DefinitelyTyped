@@ -1,110 +1,55 @@
-// Type definitions for dcp-client 4.2
-// Project: https://github.com/Distributed-Compute-Labs/dcp-client
-// Definitions by: Roman Fairushyn <https://github.com/roman5364>
-//                 Bryan Hoang <https://github.com/bryan-hoang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
+/// <reference path="./dcp.d.ts" />
+/// <reference path="./compute.d.ts" />
+/// <reference path="./wallet.d.ts" />
+/// <reference path="./worker.d.ts" />
 
-import { Wallet } from './src/wallet';
-import { Worker } from './src/worker';
-import { Compute } from './src/compute';
+import type Compute from "dcp/compute";
+import type Wallet from "dcp/wallet";
+import type Worker from "dcp/worker";
 
+/**
+ * Asynchronously initialize the dcp-client bundle for use by the compute API, etc.
+ */
 export function init(): Promise<DCPClient>;
 
-export interface DCPClient {
-    compute: Compute;
-    wallet: Wallet;
-    worker: Worker;
-}
+/**
+ * Synchronously initialize the dcp-client bundle for use by the compute API, etc.
+ */
+export function initSync(): DCPClient;
 
-export class Keystore {
-    id: number;
-}
-
-export interface Address {
-    account: string;
-}
-
-export class AuthKeystore extends Keystore {}
-
-export class PaymentKeystore extends Keystore {
-    address: Address;
-}
-
-export interface LoadResult {
-    keystore: Keystore;
-    safe: boolean | false;
-}
-
-export interface LoadOptions {
+declare global {
     /**
-     * The keystore filename.
+     * Emits a progress event. Every work function must invoke this function.
+     * If a progress event is not emitted within 30 seconds, the scheduler will throw an ENOPROGRESS error.
+     * @param n An estimate between 0 and 1 (inclusive) of the ratio of work completed to the total amount of work that needs to be done for one slice.
+     * This value must be between 6 significant digits and must always be increasing as more work is continuously being done.
+     * @returns void | EnoProgressError
      */
-    filename: string | undefined;
-
-    /**
-     * The keystore label or filename.
-     */
-    name: string | undefined;
-
-    /**
-     * Override paths.
-     */
-    dir: string | undefined;
-
-    /**
-     *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
-     */
-    paths?: string[] | LoadOptions["dir"];
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    function progress(n?: string | number): void | EnoProgressError;
 }
 
-export interface AuthKeystoreOptions {
+/**
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=string%20representation%20dcc%20value%20paid%20out#events)
+ */
+export interface PaymentParams {
     /**
-     * The keystore name.
+     * Whether the slice was accepted, payment value will be 0 if not accepted.
      */
-    name: string | 'default';
-
+    accepted: boolean;
     /**
-     * An optional, user-defined identifier used for caching keystores.
+     * String representation of the DCC value that was paid out.
      */
-    contextId?: string | undefined;
-
+    payment: string;
     /**
-     *  An optional name for the job that they keystore is being requested for.
+     * Reason string for why the slice was accepted/rejected.
      */
-    jobName?: string | undefined;
-
+    reason: string;
     /**
-     * Try an empty password before prompting user. Defaults to true.
+     * Bank address that the payment was sent to.
      */
-    checkEmpty: boolean | true;
+    paymentAddress: string;
 }
-
-export class JobHandle {}
-
-export class JobInfo {
-    status: string;
-    jobInfo: object;
-}
-export class JobHistory {
-    status: string;
-    history: object;
-}
-
-export interface Ranges {
-    ranges: [];
-}
-
-export type jobId = number;
-
-export class Job {}
-
-export class WorkValueQuote {}
-
-export class SliceProfile {}
-
-export class WorkValue {}
-
-export class Supervisor {}
 
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#schedmsg-commands)
@@ -143,92 +88,44 @@ export interface SchedMsg {
     openPopup(href: string): void;
 }
 
-/**
- * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=ignorenoprogress#new-worker-options-object)
- */
-export class SandboxOptions {
+export interface DCPClient {
+    compute: Compute;
     /**
-     * When true, the sandbox will ignore errors from the sandbox not firing progress events.
+     * The Wallet API is a library for working with the Distributive Compute Protocol (DCP), to perform operations
+     * related to Addresses, Keystores, Key Pairs, etc.
+     *
+     * [Wallet API](https://docs.dcp.dev/specs/wallet-api.html)
      */
-    ignoreNoProgress: boolean | false;
+    wallet: Wallet;
+    worker: Worker;
 }
 
-/**
- * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maximum%20number%20sandboxes%20can%20working%20one%20time#new-worker-options-object)
- */
-export interface WorkerParams {
-    /**
-     * @summary Maximum number of sandboxes that can be working at one time.
-     */
-    maxWorkingSandboxes: number | 1;
-
-    /**
-     * @summary Sandbox options
-     */
-    sandboxOptions: SandboxOptions;
-
-    /**
-     * @summary Address used for depositing DCCs in after a slice is computed,
-     * will default to (await wallet.get()).address
-     */
-    paymentAddress?: string | Keystore;
-
-    /**
-     * @summary Keystore that will be used as the identity when communicating with the scheduler, will default to wallet.getId()
-     */
-    identityKeystore?: Keystore | undefined;
-
-    /**
-     * @summary URL to use when connecting to the scheduler, defaults to dcpConfig.scheduler.location
-     */
-    schedulerURL?: string;
-
-    /**
-     * @summary When provided, this worker will only compute slices for the provided job. The job must have been deployed with the local exec flag set.
-     */
-    jobAddress?: string;
+export class EnoProgressError implements Error {
+    name: string;
+    stack?: string | undefined;
+    message: string;
 }
 
-/**
- * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#sandbox-api)
- */
-export interface Sandbox {
+export type URL = string;
+export type DcpURL = object | string;
+
+export type Status = any;
+export type WorkValueQuote = any;
+export type WorkValue = any;
+
+export interface PublicProperties {
     /**
-     * Emitted when the sandbox begins working on a slice. The job description object. Use job.public for accessing the job’s title/description.
+     * Public-facing name of the job.
      */
-    on(event: 'sliceStart', listener: (job: object) => void): this;
+    name: string;
 
     /**
-     * Emitted when the sandbox completes the slice it was working on.
+     * Public-facing description of the job.
      */
-    on(event: 'sliceFinish', listener: (result: any) => void): this;
+    description: string;
 
     /**
-     * @sliceError - Emitted when the slice the sandbox was working on throws an error. The first argument is the same payload from sliceStart, the second argument is the error instance.
-     * @sliceEnd - Emitted when the slice either finishes or throws an error. The callback argument is the payload from sliceStart.
-     * @terminate - Emitted when the sandbox environment is terminated. The sandbox will not be used after this event is emitted.
+     * Public-facing link to an external resource about the job.
      */
-    on(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): this;
-}
-
-/**
- * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=string%20representation%20dcc%20value%20paid%20out#events)
- */
-export interface PaymentParams {
-    /**
-     * Whether the slice was accepted, payment value will be 0 if not accepted.
-     */
-    accepted: boolean;
-    /**
-     * String representation of the DCC value that was paid out.
-     */
-    payment: string;
-    /**
-     * Reason string for why the slice was accepted/rejected.
-     */
-    reason: string;
-    /**
-     * Bank address that the payment was sent to.
-     */
-    paymentAddress: string;
+    link: string;
 }

@@ -1,15 +1,10 @@
-// Type definitions for node-uci 1.3
-// Project: https://github.com/ebemunk/node-uci
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface SearchOptions {
-    searchmoves?: ReadonlyArray<string> | undefined;
+    searchmoves?: readonly string[] | undefined;
     ponder?: boolean | undefined;
     wtime?: number | undefined;
     btime?: number | undefined;
@@ -24,12 +19,12 @@ export interface SearchOptions {
 
 export interface SearchResult {
     bestmove: string;
-    info: ReadonlyArray<string>;
+    info: readonly string[];
 }
 
 export class Engine {
     constructor(enginePath: string);
-    getBufferUntil(fn: (str: string) => boolean): Promise<ReadonlyArray<string>>;
+    getBufferUntil(fn: (str: string) => boolean): Promise<readonly string[]>;
     write(cmd: string): void;
     chain(): EngineChain;
     init(): Promise<Engine>;
@@ -39,7 +34,7 @@ export class Engine {
     setoption(name: string, value?: string): Promise<Engine>;
     ucinewgame(): Promise<Engine>;
     ponderhit(): Promise<Engine>;
-    position(fen: string, moves?: ReadonlyArray<string>): Promise<Engine>;
+    position(fen: string, moves?: readonly string[]): Promise<Engine>;
     go(sp: SearchOptions): Promise<SearchResult>;
     goInfinite(sp: SearchOptions): EventEmitter;
     stop(): Promise<SearchResult>;
@@ -52,7 +47,7 @@ export class EngineChain {
     isready(): EngineChain;
     ucinewgame(): EngineChain;
     quit(): EngineChain;
-    position(fen: string, moves?: ReadonlyArray<string>): EngineChain;
+    position(fen: string, moves?: readonly string[]): EngineChain;
     go(sp: SearchOptions): Promise<SearchResult>;
     exec(): unknown;
 }

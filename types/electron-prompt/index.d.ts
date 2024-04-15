@@ -1,10 +1,4 @@
-// Type definitions for electron-prompt 1.6
-// Project: https://github.com/p-sam/electron-prompt#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
-import { BrowserWindow } from 'electron';
+import { BrowserWindow } from "electron";
 
 declare namespace prompt {
     interface ButtonLabels {
@@ -85,7 +79,7 @@ declare namespace prompt {
          * The type of input field, either `input` for a standard text input
          * field or `select` for a dropdown type input. Defaults to `input`.
          */
-        type?: 'input' | 'select' | undefined;
+        type?: "input" | "select" | undefined;
         /**
          * Whether the label should be interpreted as HTML or not.
          * Defaults to `false`.

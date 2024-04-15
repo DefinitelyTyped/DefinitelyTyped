@@ -1,4 +1,4 @@
-import colors = require('color-name');
+import colors = require("color-name");
 
 export type RGB = [number, number, number];
 export type HSL = [number, number, number];
@@ -18,7 +18,7 @@ export type GRAY = [number];
 
 export namespace rgb {
     const channels: 3;
-    const labels: 'rgb';
+    const labels: "rgb";
     function hsl(rgb: RGB): HSL;
     function hsl(...rgb: RGB): HSL;
     function hsv(rgb: RGB): HSV;
@@ -49,7 +49,7 @@ export namespace rgb {
 
 export namespace hsl {
     const channels: 3;
-    const labels: 'hsl';
+    const labels: "hsl";
     function rgb(hsl: HSL): RGB;
     function hsv(hsl: HSL): HSV;
     function hcg(hsl: HSL): HCG;
@@ -57,7 +57,7 @@ export namespace hsl {
 
 export namespace hsv {
     const channels: 3;
-    const labels: 'hsv';
+    const labels: "hsv";
     function rgb(hsv: HSV): RGB;
     function hsl(hsv: HSV): HSL;
     function ansi16(hsv: HSV): ANSI16;
@@ -66,64 +66,64 @@ export namespace hsv {
 
 export namespace hwb {
     const channels: 3;
-    const labels: 'hwb';
+    const labels: "hwb";
     function rgb(hwb: HWB): RGB;
     function hcg(hwb: HWB): HCG;
 }
 
 export namespace cmyk {
     const channels: 4;
-    const labels: 'cmyk';
+    const labels: "cmyk";
     function rgb(cmyk: CMYK): RGB;
 }
 
 export namespace xyz {
     const channels: 3;
-    const labels: 'xyz';
+    const labels: "xyz";
     function rgb(xyz: XYZ): RGB;
     function lab(xyz: XYZ): LAB;
 }
 
 export namespace lab {
     const channels: 3;
-    const labels: 'lab';
+    const labels: "lab";
     function xyz(lab: LAB): XYZ;
     function lch(lab: LAB): LCH;
 }
 
 export namespace lch {
     const channels: 3;
-    const labels: 'lch';
+    const labels: "lch";
     function lab(lch: LCH): LAB;
 }
 
 export namespace hex {
     const channels: 1;
-    const labels: ['hex'];
+    const labels: ["hex"];
     function rgb(hex: HEX): RGB;
 }
 
 export namespace keyword {
     const channels: 1;
-    const labels: ['keyword'];
+    const labels: ["keyword"];
     function rgb(keyword: KEYWORD): RGB;
 }
 
 export namespace ansi16 {
     const channels: 1;
-    const labels: ['ansi16'];
+    const labels: ["ansi16"];
     function rgb(ansi16: ANSI16): RGB;
 }
 
 export namespace ansi256 {
     const channels: 1;
-    const labels: ['ansi256'];
+    const labels: ["ansi256"];
     function rgb(ansi256: ANSI256): RGB;
 }
 
 export namespace hcg {
     const channels: 3;
-    const labels: ['h', 'c', 'g'];
+    const labels: ["h", "c", "g"];
     function rgb(hcg: HCG): RGB;
     function hsv(hcg: HCG): HSV;
     function hsl(hcg: HCG): HSL;
@@ -132,13 +132,13 @@ export namespace hcg {
 
 export namespace apple {
     const channels: 3;
-    const labels: ['r16', 'g16', 'b16'];
+    const labels: ["r16", "g16", "b16"];
     function rgb(apple: APPLE): RGB;
 }
 
 export namespace gray {
     const channels: 1;
-    const labels: ['gray'];
+    const labels: ["gray"];
     function rgb(gray: GRAY): RGB;
     function hsl(gray: GRAY): HSL;
     function hsv(gray: GRAY): HSV;

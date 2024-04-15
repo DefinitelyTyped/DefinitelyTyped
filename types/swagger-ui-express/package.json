@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/swagger-ui-express",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/scottie1984/swagger-ui-express"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/serve-static": "*"
+    },
+    "devDependencies": {
+        "@types/swagger-ui-express": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Rogozhny",
+            "githubUsername": "dmitryrogozhny"
+        },
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

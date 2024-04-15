@@ -1,16 +1,20 @@
-import { Matrix4 } from './Matrix4';
-import { Quaternion } from './Quaternion';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { Vector } from './Vector2';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { Matrix4 } from "./Matrix4.js";
+import { QuaternionLike } from "./Quaternion.js";
 
 export type Vector4Tuple = [number, number, number, number];
 
+export interface Vector4Like {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    readonly w: number;
+}
+
 /**
  * 4D vector.
- *
- * ( class Vector4 implements Vector<Vector4> )
  */
-export class Vector4 implements Vector {
+export class Vector4 {
     constructor(x?: number, y?: number, z?: number, w?: number);
 
     /**
@@ -79,34 +83,34 @@ export class Vector4 implements Vector {
     /**
      * Copies value of v to this vector.
      */
-    copy(v: Vector4): this;
+    copy(v: Vector4Like): this;
 
     /**
      * Adds v to this vector.
      */
-    add(v: Vector4): this;
+    add(v: Vector4Like): this;
 
     addScalar(scalar: number): this;
 
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector4, b: Vector4): this;
+    addVectors(a: Vector4Like, b: Vector4Like): this;
 
-    addScaledVector(v: Vector4, s: number): this;
+    addScaledVector(v: Vector4Like, s: number): this;
     /**
      * Subtracts v from this vector.
      */
-    sub(v: Vector4): this;
+    sub(v: Vector4Like): this;
 
     subScalar(s: number): this;
 
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector4, b: Vector4): this;
+    subVectors(a: Vector4Like, b: Vector4Like): this;
 
-    multiply(v: Vector4): this;
+    multiply(v: Vector4Like): this;
 
     /**
      * Multiplies this vector by scalar s.
@@ -125,7 +129,7 @@ export class Vector4 implements Vector {
      * http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle/index.htm
      * @param q is assumed to be normalized
      */
-    setAxisAngleFromQuaternion(q: Quaternion): this;
+    setAxisAngleFromQuaternion(q: QuaternionLike): this;
 
     /**
      * http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
@@ -133,9 +137,9 @@ export class Vector4 implements Vector {
      */
     setAxisAngleFromRotationMatrix(m: Matrix4): this;
 
-    min(v: Vector4): this;
-    max(v: Vector4): this;
-    clamp(min: Vector4, max: Vector4): this;
+    min(v: Vector4Like): this;
+    max(v: Vector4Like): this;
+    clamp(min: Vector4Like, max: Vector4Like): this;
     clampScalar(min: number, max: number): this;
     floor(): this;
     ceil(): this;
@@ -150,7 +154,7 @@ export class Vector4 implements Vector {
     /**
      * Computes dot product of this vector and v.
      */
-    dot(v: Vector4): number;
+    dot(v: Vector4Like): number;
 
     /**
      * Computes squared length of this vector.
@@ -173,6 +177,7 @@ export class Vector4 implements Vector {
      * Normalizes this vector.
      */
     normalize(): this;
+
     /**
      * Normalizes this vector and multiplies it by l.
      */
@@ -181,14 +186,14 @@ export class Vector4 implements Vector {
     /**
      * Linearly interpolate between this vector and v with alpha factor.
      */
-    lerp(v: Vector4, alpha: number): this;
+    lerp(v: Vector4Like, alpha: number): this;
 
-    lerpVectors(v1: Vector4, v2: Vector4, alpha: number): this;
+    lerpVectors(v1: Vector4Like, v2: Vector4Like, alpha: number): this;
 
     /**
      * Checks for strict equality of this vector and v.
      */
-    equals(v: Vector4): boolean;
+    equals(v: Vector4Like): boolean;
 
     /**
      * Sets this vector's x, y, z and w value from the provided array or array-like.
@@ -220,4 +225,9 @@ export class Vector4 implements Vector {
      * Sets this vector's x, y, z and w from Math.random
      */
     random(): this;
+
+    /**
+     * Iterating through a Vector4 instance will yield its components (x, y, z, w) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

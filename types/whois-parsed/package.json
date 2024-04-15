@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/whois-parsed",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/moneals/whois-parsed#readme"
+    ],
+    "devDependencies": {
+        "@types/whois-parsed": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Uche Chilaka",
+            "githubUsername": "uchilaka"
+        }
+    ]
+}

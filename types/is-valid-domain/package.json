@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-valid-domain",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/miguelmota/is-valid-domain"
+    ],
+    "devDependencies": {
+        "@types/is-valid-domain": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guille",
+            "githubUsername": "guillenotfound"
+        }
+    ]
+}

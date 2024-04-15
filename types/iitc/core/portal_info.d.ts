@@ -1,6 +1,6 @@
 import { IITC } from "./iitctypes";
 
-export { };
+export {};
 
 declare global {
     /**
@@ -47,17 +47,17 @@ declare global {
     function getPortalLinkDefenseBoost(d: IITC.PortalDataDetail): number;
     function getPortalLinksMitigation(linkCount: number): number;
     function getPortalMitigationDetails(d: IITC.PortalDataDetail, linkCount: number): {
-        shields: number,
-        links: number,
-        linkDefenseBoost: number,
+        shields: number;
+        links: number;
+        linkDefenseBoost: number;
         excess: number;
     };
     function getMaxOutgoingLinks(d: IITC.PortalDataDetail): number;
 
     function getPortalHackDetails(d: IITC.PortalDataDetail): {
-        cooldown: number,
-        hacks: number,
-        burnout: number
+        cooldown: number;
+        hacks: number;
+        burnout: number;
     };
 
     /**
@@ -72,7 +72,7 @@ declare global {
         health: number;
         team: number;
         lngE6: number;
-        type: 'portal'
+        type: "portal";
     };
 
     function getPortalAttackValues(d: IITC.PortalDataDetail): {

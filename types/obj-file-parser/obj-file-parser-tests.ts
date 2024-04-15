@@ -36,7 +36,7 @@ f  2//1  6//1  8//1
 f  2//1  8//1  4//1`;
 
 // Create parser and load test OBJ
-const parser = new ObjFileParser(testObjFile, 'test');
+const parser = new ObjFileParser(testObjFile, "test");
 const file = parser.parse();
 
 // get first model in file

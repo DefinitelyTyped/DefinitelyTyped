@@ -1,2 +1,2 @@
-import WeekDay = require('../2018/WeekDay');
+import WeekDay = require("../2018/WeekDay");
 export = WeekDay;

@@ -1,8 +1,3 @@
-// Type definitions for ink-box 1.0
-// Project: https://github.com/sindresorhus/ink-box#readme
-// Definitions by: omjadas <https://github.com/omjadas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 type Alignment = "right" | "center" | "left";

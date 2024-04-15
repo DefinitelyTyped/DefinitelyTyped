@@ -1,12 +1,7 @@
-// Type definitions for stompit 0.26
-// Project: https://github.com/gdaws/node-stomp
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Writable, Readable, Duplex, WritableOptions } from "stream";
 import { EventEmitter } from "events";
+import { Duplex, Readable, Writable, WritableOptions } from "stream";
 
 export import IncomingFrameStream = require("./lib/IncomingFrameStream");
 export import OutgoingFrameStream = require("./lib/OutgoingFrameStream");

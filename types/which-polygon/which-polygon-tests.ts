@@ -1,4 +1,4 @@
-import WhichPolygon = require('which-polygon');
+import WhichPolygon = require("which-polygon");
 
 interface City {
     name: string;
@@ -6,13 +6,13 @@ interface City {
 }
 
 const cities: WhichPolygon.GeoJson<City> = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         {
-            type: 'Feature',
-            properties: { name: 'Ōtepoti', population: 123_456 },
+            type: "Feature",
+            properties: { name: "Ōtepoti", population: 123_456 },
             geometry: {
-                type: 'Polygon',
+                type: "Polygon",
                 coordinates: [
                     [
                         [174, -36],

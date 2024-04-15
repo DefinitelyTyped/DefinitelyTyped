@@ -1,11 +1,11 @@
-import { Viz, ToolbarState } from './viz';
-import { TableauEventName } from './enums';
-import { CustomView } from './workbook';
-import { Worksheet, StoryPoint, StoryPointInfo } from './sheet';
-import { Filter } from './filtering';
-import { Mark } from './marks';
-import { Parameter } from './parameter';
-import { Size } from './other';
+import { TableauEventName } from "./enums";
+import { Filter } from "./filtering";
+import { Mark } from "./marks";
+import { Size } from "./other";
+import { Parameter } from "./parameter";
+import { StoryPoint, StoryPointInfo, Worksheet } from "./sheet";
+import { ToolbarState, Viz } from "./viz";
+import { CustomView } from "./workbook";
 
 export class TableauEvent {
     getViz(): Viz;

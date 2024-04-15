@@ -1,7 +1,6 @@
-import { ColorRepresentation } from '../utils';
-import { Color } from './../math/Color';
-import { Texture } from './../textures/Texture';
-import { MaterialParameters, Material } from './Material';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface SpriteMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -14,6 +13,13 @@ export interface SpriteMaterialParameters extends MaterialParameters {
 
 export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
+    /**
+     * Read-only flag to check if a given object is of type {@link SpriteMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isSpriteMaterial: true;
+
     /**
      * @default 'SpriteMaterial'
      */
@@ -54,8 +60,6 @@ export class SpriteMaterial extends Material {
      * @default fog
      */
     fog: boolean;
-
-    readonly isSpriteMaterial: true;
 
     setValues(parameters: SpriteMaterialParameters): void;
     copy(source: SpriteMaterial): this;

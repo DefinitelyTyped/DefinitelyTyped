@@ -1,9 +1,3 @@
-// Type definitions for list.js 2.3
-// Project: http://listjs.com
-// Definitions by: Jeffrey Meng <https://github.com/jeffreymeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare class List {
     listContainer: HTMLElement;
     list: HTMLElement;
@@ -44,7 +38,7 @@ declare namespace List {
     }
 
     interface ListOptions {
-        valueNames?: Array<string|{data: string[]}|{name: string, attr: string}> | undefined;
+        valueNames?: Array<string | { data: string[] } | { name: string; attr: string }> | undefined;
         item?: string | undefined;
         listClass?: string | undefined;
         searchClass?: string | undefined;
@@ -53,12 +47,12 @@ declare namespace List {
         page?: number | undefined;
         i?: number | undefined;
         pagination?: {
-            paginationClass?: string | undefined,
-            innerWindow?: number | undefined,
-            outerWindow?: number | undefined,
-            left?: number | undefined,
-            right?: number | undefined
-            item?: string | undefined,
+            paginationClass?: string | undefined;
+            innerWindow?: number | undefined;
+            outerWindow?: number | undefined;
+            left?: number | undefined;
+            right?: number | undefined;
+            item?: string | undefined;
         } | undefined;
         fuzzySearch?: FuzzySearchOptions | undefined;
     }
@@ -79,13 +73,13 @@ declare namespace List {
     }
 
     type Event =
-        | 'updated'
-        | 'filterStart'
-        | 'filterComplete'
-        | 'searchStart'
-        | 'searchComplete'
-        | 'sortStart'
-        | 'sortComplete';
+        | "updated"
+        | "filterStart"
+        | "filterComplete"
+        | "searchStart"
+        | "searchComplete"
+        | "sortStart"
+        | "sortComplete";
 }
 
 export = List;

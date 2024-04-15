@@ -19,10 +19,17 @@ getIterator(new Map<symbol, unknown>());
 getIterator(new Set<boolean>());
 
 // $ExpectType Iterator<"foo" | "bar", void, unknown> || Iterator<"foo" | "bar", void, any>
-getIterator((function*() { yield "foo"; yield "bar"; })());
+getIterator((function*() {
+    yield "foo";
+    yield "bar";
+})());
 
 // $ExpectType Iterator<0 | 1, number, unknown> || Iterator<0 | 1, number, any>
-getIterator((function*() { yield 0; yield 1; return 2; })());
+getIterator((function*() {
+    yield 0;
+    yield 1;
+    return 2;
+})());
 
 declare const ARGUMENTS: IArguments;
 // $ExpectType Iterator<any, any, undefined>

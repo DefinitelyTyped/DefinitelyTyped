@@ -1,5 +1,5 @@
-import * as React from 'react';
-import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
+import * as React from "react";
+import SvgAnimatedLinearGradient from "react-native-svg-animated-linear-gradient";
 
 class Test1 extends React.Component {
     render() {

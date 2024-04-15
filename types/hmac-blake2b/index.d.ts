@@ -1,8 +1,3 @@
-// Type definitions for hmac-blake2b 2.0
-// Project: https://github.com/emilbayes/hmac-blake2b
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hmac;
 
 /**

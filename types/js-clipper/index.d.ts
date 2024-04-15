@@ -1,10 +1,5 @@
-// Type definitions for js-clipper
-// Project: https://github.com/mathisonian/JsClipper
-// Definitions by: Hou Chunlei <https://github.com/omni360>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 declare namespace ClipperLib {
-
     export var biginteger_used: boolean;
     export function Math_Abs_Int64(a: number): number;
     export function Math_Abs_Int32(a: number): number;
@@ -45,19 +40,46 @@ declare namespace ClipperLib {
         constructor(polys: ArrayLike<ArrayLike<IntPoint>>);
     }
 
-
     export class ExPolygon {
         outer: ArrayLike<IntPoint>;
         holes: ArrayLike<ArrayLike<IntPoint>>;
     }
 
-    export enum ClipType { ctIntersection, ctUnion, ctDifference, ctXor }
-    export enum PolyType { ptSubject, ptClip }
-    export enum PolyFillType { pftEvenOdd, pftNonZero, pftPositive, pftNegative }
-    export enum JoinType { jtSquare, jtRound, jtMiter }
-    export enum EdgeSide { esLeft, esRight }
-    export enum Protects { ipNone, ipLeft, ipRight, ipBoth }
-    export enum Direction { dRightToLeft, dLeftToRight }
+    export enum ClipType {
+        ctIntersection,
+        ctUnion,
+        ctDifference,
+        ctXor,
+    }
+    export enum PolyType {
+        ptSubject,
+        ptClip,
+    }
+    export enum PolyFillType {
+        pftEvenOdd,
+        pftNonZero,
+        pftPositive,
+        pftNegative,
+    }
+    export enum JoinType {
+        jtSquare,
+        jtRound,
+        jtMiter,
+    }
+    export enum EdgeSide {
+        esLeft,
+        esRight,
+    }
+    export enum Protects {
+        ipNone,
+        ipLeft,
+        ipRight,
+        ipBoth,
+    }
+    export enum Direction {
+        dRightToLeft,
+        dLeftToRight,
+    }
 
     export class TEdge {
         xbot: number;
@@ -83,7 +105,6 @@ declare namespace ClipperLib {
         prevInAEL: TEdge;
         nextInSEL: TEdge;
         prevInSEL: TEdge;
-
     }
     export class IntersectNode {
         edge1: TEdge;
@@ -108,7 +129,6 @@ declare namespace ClipperLib {
         AppendLink: OutRec;
         pts: OutPt;
         bottomPt: OutPt;
-
     }
     export class OutPt {
         idx: number;
@@ -155,7 +175,6 @@ declare namespace ClipperLib {
         SwapX(e: TEdge): void;
         Reset(): void;
         GetBounds(): IntRect;
-
     }
 
     export class Clipper extends ClipperBase {
@@ -180,7 +199,12 @@ declare namespace ClipperLib {
         set_ReverseSolution(value: boolean): boolean;
         InsertScanbeam(Y: number): void;
         Execute(clipType: ClipType, solution: ArrayLike<IntPoint> | ExPolygon): boolean;
-        Execute(clipType: ClipType, solution: ArrayLike<IntPoint> | ExPolygon, subjFillType: PolyFillType, clipFillType: PolyFillType): boolean;
+        Execute(
+            clipType: ClipType,
+            solution: ArrayLike<IntPoint> | ExPolygon,
+            subjFillType: PolyFillType,
+            clipFillType: PolyFillType,
+        ): boolean;
         PolySort(or1: OutRec, or2: OutRec): number;
         FindAppendLinkEnd(outRec: OutRec): OutRec;
         FixHoleLinkage(outRec: OutRec): void;
@@ -206,7 +230,14 @@ declare namespace ClipperLib {
         CreateOutRec(): OutRec;
         AddOutPt(e: TEdge, pt: IntPoint): void;
         SwapPoints(pt1: IntPoint, pt2: IntPoint): void;
-        GetOverlapSegment(pt1a: IntPoint, pt1b: IntPoint, pt2a: IntPoint, pt2b: IntPoint, pt1: IntPoint, pt2: IntPoint): boolean;
+        GetOverlapSegment(
+            pt1a: IntPoint,
+            pt1b: IntPoint,
+            pt2a: IntPoint,
+            pt2b: IntPoint,
+            pt1: IntPoint,
+            pt2: IntPoint,
+        ): boolean;
         FindSegment(pp: IntPoint, pt1: IntPoint, pt2: IntPoint): boolean;
         Pt3IsBetweenPt1AndPt2(pt1: boolean, pt2: boolean, pt3: boolean): OutPt;
         InsertPolyPtBetween(p1: OutPt, p2: OutPt, pt: OutPt): OutPt;
@@ -262,11 +293,15 @@ declare namespace ClipperLib {
         Area(outRec: OutRec, UseFull64BitRange: boolean): number;
         BuildArc(pt: IntPoint, a1: IntPoint, a2: IntPoint, r: number): Polygon;
         GetUnitNormal(pt1: IntPoint, pt2: IntPoint): DoublePoint;
-        OffsetPolygons(poly: Polygon, delta: number, jointype: JoinType, MiterLimit: number, AutoFix: boolean): ArrayLike<ArrayLike<IntPoint>>;
+        OffsetPolygons(
+            poly: Polygon,
+            delta: number,
+            jointype: JoinType,
+            MiterLimit: number,
+            AutoFix: boolean,
+        ): ArrayLike<ArrayLike<IntPoint>>;
         SimplifyPolygon(poly: Polygon, fillType: PolyFillType): Polygon;
         SimplifyPolygons(polys: Polygons, fillType: PolyFillType): Polygons;
-
-
     }
     export class DoublePoint {
         X: number;
@@ -285,7 +320,14 @@ declare namespace ClipperLib {
         m_k: number;
         botPt: PolyOffsetBuilder;
 
-        constructor(pts: Polygons, solution: { value: Polygons }, delta: number, jointype: JoinType, MiterLimit: number, AutoFix: boolean);
+        constructor(
+            pts: Polygons,
+            solution: { value: Polygons },
+            delta: number,
+            jointype: JoinType,
+            MiterLimit: number,
+            AutoFix: boolean,
+        );
         UpdateBotPt(pt: IntPoint): boolean;
         AddPoint(pt: IntPoint): void;
         DoSquare(mul: number): void;
@@ -293,10 +335,15 @@ declare namespace ClipperLib {
         DoRound(): void;
     }
     export function Error(message: string): void;
-    export function Clone(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
-    export function Clean(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>, delta: number): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
-    export function Lighten(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>, tolerance: number): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
-
-
+    export function Clone(
+        polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>,
+    ): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
+    export function Clean(
+        polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>,
+        delta: number,
+    ): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
+    export function Lighten(
+        polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>,
+        tolerance: number,
+    ): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
 }
-

@@ -1,6 +1,6 @@
-import { Layer } from './Layer';
-import { VisibleLayer } from './VisibleLayer';
-import { Mimetype } from './GuacCommon.d';
+import { Mimetype } from "./GuacCommon";
+import { Layer } from "./Layer";
+import { VisibleLayer } from "./VisibleLayer";
 
 export {};
 
@@ -288,7 +288,7 @@ export class Display {
      * layers composited within.
      * @return A new canvas element containing a copy of the display.
      */
-    flatten(): void;
+    flatten(): HTMLCanvasElement;
     /**
      * Returns the element which contains the Guacamole display.
      */

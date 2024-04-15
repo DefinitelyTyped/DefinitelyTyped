@@ -1,9 +1,3 @@
-// Type definitions for media-typer 1.1
-// Project: https://github.com/jshttp/media-typer
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Simple RFC 6838 media type parser.
  * This module will parse a given media type into its component parts, like type, subtype, and suffix.

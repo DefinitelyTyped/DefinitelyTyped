@@ -1,8 +1,3 @@
-// Type definitions for walk-asyncgen 0.0
-// Project: https://bitbucket.org/ShoemakerSteve/walk-asyncgen
-// Definitions by: PythonCoderAS <https://github.com/PythonCoderAS>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     /**
      * A regex of which directories to exclude.

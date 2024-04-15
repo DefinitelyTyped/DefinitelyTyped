@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/createjs",
+    "version": "0.0.9999",
+    "projects": [
+        "http://www.createjs.com/"
+    ],
+    "dependencies": {
+        "@types/createjs-lib": "*",
+        "@types/easeljs": "*",
+        "@types/preloadjs": "*",
+        "@types/soundjs": "*",
+        "@types/tweenjs": "*"
+    },
+    "devDependencies": {
+        "@types/createjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Ferreira",
+            "url": "https://bitbucket.org/drk4"
+        },
+        {
+            "name": "Chris Smith",
+            "githubUsername": "evilangelist"
+        },
+        {
+            "name": "Satoru Kimura",
+            "githubUsername": "gyohk"
+        }
+    ]
+}

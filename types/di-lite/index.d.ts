@@ -1,8 +1,3 @@
-// Type definitions for di-lite 0.3.3
-// Project: https://github.com/NickQiZhu/di.js
-// Definitions by: Timothy Morris <https://github.com/dcrusader>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace DiLite {
     interface DiLiteStatic {
         version: string;
@@ -49,8 +44,22 @@ declare namespace DiLite {
     }
 
     interface StrategyEnum {
-        proto<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx: CreateContext, dependencies: any): TObject;
-        singleton<TObject, TType>(name: string, object: TObject, type: TType, args: any, ctx?: CreateContext, dependencies?: any): TObject;
+        proto<TObject, TType>(
+            name: string,
+            object: TObject,
+            type: TType,
+            args: any,
+            ctx: CreateContext,
+            dependencies: any,
+        ): TObject;
+        singleton<TObject, TType>(
+            name: string,
+            object: TObject,
+            type: TType,
+            args: any,
+            ctx?: CreateContext,
+            dependencies?: any,
+        ): TObject;
     }
 
     interface FactoryEnum {

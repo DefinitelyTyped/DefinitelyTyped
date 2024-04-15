@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/react-addons-linked-state-mixin",
+    "version": "0.14.9999",
+    "projects": [
+        "http://facebook.github.io/react/"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/create-react-class": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom-factories": "*",
+        "@types/react-addons-linked-state-mixin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        }
+    ]
+}

@@ -4,4 +4,4 @@ export class XHRAssetLoader extends AssetLoader {
     mimeType: string;
     responseType: string;
 }
-import { AssetLoader } from './AssetLoader';
+import { AssetLoader } from "./AssetLoader";

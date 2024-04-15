@@ -19,11 +19,11 @@ declare var fetch: any;
 omelette`github ${["pull", "push"]} ${["origin", "upstream"]} ${["master", "develop"]}`.init();
 
 const firstArgument: Callback = ({ reply }) => {
-  reply(["beautiful", "cruel", "far"]);
+    reply(["beautiful", "cruel", "far"]);
 };
 
 const planet: Callback = ({ reply }) => {
-  reply(["world", "mars", "pluto"]);
+    reply(["world", "mars", "pluto"]);
 };
 
 // simple initial omelette object: with function callback
@@ -38,32 +38,32 @@ const completion = omelette(`githubber|gh <action> <user> <repo>`);
 
 // Bind events for every template part.
 completion.on("action", ({ reply }) => {
-  reply(["clone", "update", "push"]);
+    reply(["clone", "update", "push"]);
 });
 
 completion.on("user", ({ reply }) => {
-  reply(fs.readdirSync("/Users/"));
+    reply(fs.readdirSync("/Users/"));
 });
 
 completion.on("repo", ({ before, reply }) => {
-  reply([`https://github.com/${before}/helloworld`, `https://github.com/${before}/blabla`]);
+    reply([`https://github.com/${before}/helloworld`, `https://github.com/${before}/blabla`]);
 });
 
-completion.on('complete', (fragment, { reply }) => reply(["hello", "world"]));
+completion.on("complete", (fragment, { reply }) => reply(["hello", "world"]));
 
 // Initialize the omelette.
 completion.init();
 
 // If you want to have a setup feature, you can use `omeletteInstance.setupShellInitFile()` function.
 if (~process.argv.indexOf("--setup")) {
-  completion.setupShellInitFile();
+    completion.setupShellInitFile();
 
-  completion.setupShellInitFile("~/custom/.bashrc"); // OR
+    completion.setupShellInitFile("~/custom/.bashrc"); // OR
 }
 
 // Similarly, if you want to tear down autocompletion, use `omeletteInstance.cleanupShellInitFile()`
 if (~process.argv.indexOf("--cleanup")) {
-  completion.cleanupShellInitFile();
+    completion.cleanupShellInitFile();
 }
 
 // Rest is yours
@@ -96,10 +96,10 @@ omelette`
       ${({ reply }) => fetch("http://api.example.com/lazy-commands").then(reply) /* Fetch when argument <tab>bed */}
       ${() => fs.readdirSync("/Users/") /* Access filesystem via Node */}
       ${({ before }) => [
-        /* Use parameters like `before`, `line`, `fragment` or `reply` */
-        `${before}/helloworld`,
-        `${before}/blabla`,
-      ]}
+    /* Use parameters like `before`, `line`, `fragment` or `reply` */
+    `${before}/helloworld`,
+    `${before}/blabla`,
+]}
   `.init();
 
 // No extra configuration required.
@@ -112,27 +112,47 @@ console.log(process.argv);
 // ------------------------------ //
 
 completion.onAsync("user", async ({ reply }) => {
-  reply(
-    new Promise(resolve => {
-      fs.readdir("/Users/", (err: any, users: any) => {
-        resolve(users);
-      });
-    }),
-  );
+    reply(
+        new Promise(resolve => {
+            fs.readdir("/Users/", (err: any, users: any) => {
+                resolve(users);
+            });
+        }),
+    );
 });
 
 // Instead of running directly, you need to set an handler to run your main workflow.
 completion.next(() => {
-  console.log("Your program's default workflow.");
-  console.log(process.argv);
+    console.log("Your program's default workflow.");
+    console.log(process.argv);
 });
 
 // .init must be called after defining .next
 completion.init();
 
 omelette("hello")
-  .tree({
-    cruel: ["world", "moon"],
-    beautiful: ["mars", "pluto"],
-  })
-  .init();
+    .tree({
+        how: {
+            much: {
+                is: {
+                    this: ["car"],
+                    that: ["house"],
+                },
+            },
+            are: ["you"],
+            many: ["cars"],
+        },
+        where: {
+            are: {
+                you: ["from"],
+                the: ["houses", "cars"],
+            },
+            is: {
+                // You can also add some logic with defining functions:
+                your() {
+                    return ["house", "car"];
+                },
+            },
+        },
+    })
+    .init();

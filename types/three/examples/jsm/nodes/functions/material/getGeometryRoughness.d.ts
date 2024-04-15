@@ -1,4 +1,4 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements';
+import { ShaderNode } from "../../shadernode/ShaderNode.js";
 
 declare const getGeometryRoughness: ShaderNode;
 

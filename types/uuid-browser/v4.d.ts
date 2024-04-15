@@ -1,4 +1,4 @@
-import { v4 } from './interfaces';
+import { v4 } from "./interfaces";
 
 declare const v4: v4;
 

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/jest-dev-server",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-dev-server"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/wait-on": "*"
+    },
+    "devDependencies": {
+        "@types/jest-dev-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "Tony Brix",
+            "githubUsername": "UziTech"
+        }
+    ]
+}

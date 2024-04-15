@@ -105,10 +105,10 @@ interface PlaneLayout {
 }
 
 interface VideoColorSpaceInit {
-    fullRange?: boolean | undefined;
-    matrix?: VideoMatrixCoefficients | undefined;
-    primaries?: VideoColorPrimaries | undefined;
-    transfer?: VideoTransferCharacteristics | undefined;
+    fullRange?: boolean | null | undefined;
+    matrix?: VideoMatrixCoefficients | null | undefined;
+    primaries?: VideoColorPrimaries | null | undefined;
+    transfer?: VideoTransferCharacteristics | null | undefined;
 }
 
 interface VideoDecoderConfig {
@@ -129,15 +129,15 @@ interface VideoDecoderInit {
 }
 
 interface VideoDecoderSupport {
-    config: VideoDecoderConfig;
-    supported: boolean;
+    config?: VideoDecoderConfig;
+    supported?: boolean;
 }
 
 interface VideoEncoderConfig {
     alpha?: AlphaOption | undefined;
     avc?: AvcEncoderConfig | undefined;
     bitrate?: number | undefined;
-    bitrateMode?: BitrateMode | undefined;
+    bitrateMode?: VideoEncoderBitrateMode | undefined;
     codec: string;
     displayHeight?: number | undefined;
     displayWidth?: number | undefined;
@@ -150,7 +150,7 @@ interface VideoEncoderConfig {
 }
 
 interface VideoEncoderEncodeOptions {
-    keyFrame?: boolean | null | undefined;
+    keyFrame?: boolean;
 }
 
 interface VideoEncoderInit {
@@ -159,8 +159,8 @@ interface VideoEncoderInit {
 }
 
 interface VideoEncoderSupport {
-    config: VideoEncoderConfig;
-    supported: boolean;
+    config?: VideoEncoderConfig;
+    supported?: boolean;
 }
 
 interface VideoFrameBufferInit {
@@ -366,7 +366,7 @@ interface VideoFrame {
     readonly displayWidth: number;
     readonly duration: number | null;
     readonly format: VideoPixelFormat | null;
-    readonly timestamp: number | null;
+    readonly timestamp: number;
     readonly visibleRect: DOMRectReadOnly | null;
     allocationSize(options?: VideoFrameCopyToOptions): number;
     clone(): VideoFrame;
@@ -400,18 +400,18 @@ interface WebCodecsErrorCallback {
     (error: DOMException): void;
 }
 
-type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
-type BitrateMode = "constant" | "variable";
+// type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
+// type BitrateMode = "constant" | "variable";
 type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
-type AlphaOption = "discard" | "keep";
+// type AlphaOption = "discard" | "keep";
 type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
-type AvcBitstreamFormat = "annexb" | "avc";
-type CodecState = "closed" | "configured" | "unconfigured";
+// type AvcBitstreamFormat = "annexb" | "avc";
+// type CodecState = "closed" | "configured" | "unconfigured";
 type EncodedAudioChunkType = "delta" | "key";
-type EncodedVideoChunkType = "delta" | "key";
+// type EncodedVideoChunkType = "delta" | "key";
 type HardwarePreference = "no-preference" | "prefer-hardware" | "prefer-software";
-type LatencyMode = "quality" | "realtime";
+// type LatencyMode = "quality" | "realtime";
 // type VideoColorPrimaries = "bt470bg" | "bt709" | "smpte170m";
 // type VideoMatrixCoefficients = "bt470bg" | "bt709" | "rgb" | "smpte170m";
-type VideoPixelFormat = "BGRA" | "BGRX" | "I420" | "I420A" | "I422" | "I444" | "NV12" | "RGBA" | "RGBX";
+// type VideoPixelFormat = "BGRA" | "BGRX" | "I420" | "I420A" | "I422" | "I444" | "NV12" | "RGBA" | "RGBX";
 // type VideoTransferCharacteristics = "bt709" | "iec61966-2-1" | "smpte170m";

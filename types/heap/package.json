@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/heap",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/qiao/heap.js"
+    ],
+    "devDependencies": {
+        "@types/heap": "workspace:."
+    },
+    "owners": []
+}

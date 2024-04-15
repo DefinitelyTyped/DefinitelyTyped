@@ -1,3 +1,3 @@
-import { http } from '.';
+import { http } from ".";
 
 export = http;

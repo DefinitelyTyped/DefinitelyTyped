@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/koa-ignore",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/smcmurray/koa-ignore#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-ignore": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fer22f",
+            "githubUsername": "fer22f"
+        }
+    ]
+}

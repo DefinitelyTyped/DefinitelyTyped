@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webmidi",
+    "version": "2.0.9999",
+    "projects": [
+        "http://www.w3.org/TR/webmidi/"
+    ],
+    "devDependencies": {
+        "@types/webmidi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toshiya Nakakura",
+            "githubUsername": "nakakura"
+        }
+    ]
+}

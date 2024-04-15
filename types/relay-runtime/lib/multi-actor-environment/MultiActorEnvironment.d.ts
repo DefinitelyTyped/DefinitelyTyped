@@ -1,9 +1,9 @@
-import { HandlerProvider } from '../handlers/RelayDefaultHandlerProvider';
-import { MutationParameters } from '../mutations/commitMutation';
-import { GraphQLResponse, Network, PayloadData } from '../network/RelayNetworkTypes';
-import { RelayObservable as Observable } from '../network/RelayObservable';
-import { TaskScheduler } from '../store/RelayModernQueryExecutor';
-import { GetDataID } from '../store/RelayResponseNormalizer';
+import { HandlerProvider } from "../handlers/RelayDefaultHandlerProvider";
+import { MutationParameters } from "../mutations/commitMutation";
+import { GraphQLResponse, Network, PayloadData } from "../network/RelayNetworkTypes";
+import { RelayObservable as Observable } from "../network/RelayObservable";
+import { TaskScheduler } from "../store/RelayModernQueryExecutor";
+import { GetDataID } from "../store/RelayResponseNormalizer";
 import {
     ExecuteMutationConfig,
     LogFunction,
@@ -19,14 +19,14 @@ import {
     Snapshot,
     Store,
     StoreUpdater,
-} from '../store/RelayStoreTypes';
-import { Disposable, RenderPolicy } from '../util/RelayRuntimeTypes';
-import { ActorIdentifier } from './ActorIdentifier';
+} from "../store/RelayStoreTypes";
+import { Disposable, RenderPolicy } from "../util/RelayRuntimeTypes";
+import { ActorIdentifier } from "./ActorIdentifier";
 import {
     ActorEnvironment,
     MultiActorEnvironment as IMultiActorEnvironment,
     MultiActorStoreUpdater,
-} from './MultiActorEnvironmentTypes';
+} from "./MultiActorEnvironmentTypes";
 
 export type MultiActorEnvironmentConfig = Readonly<{
     createConfigNameForActor?: ((actorIdentifier: ActorIdentifier) => string) | null;
@@ -37,7 +37,7 @@ export type MultiActorEnvironmentConfig = Readonly<{
     handlerProvider?: HandlerProvider;
     isServer?: boolean | null;
     logFn?: LogFunction | null;
-    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null;
+    missingFieldHandlers?: readonly MissingFieldHandler[] | null;
     operationLoader?: OperationLoader | null;
     requiredFieldLogger?: RequiredFieldLogger | null;
     scheduler?: TaskScheduler | null;
@@ -96,7 +96,7 @@ export class MultiActorEnvironment implements IMultiActorEnvironment {
         actorEnvironment: ActorEnvironment,
         config: {
             operation: OperationDescriptor;
-            updater?: SelectorStoreUpdater<MutationParameters['response']> | null | undefined;
+            updater?: SelectorStoreUpdater<MutationParameters["response"]> | null | undefined;
         },
     ): Observable<GraphQLResponse>;
 

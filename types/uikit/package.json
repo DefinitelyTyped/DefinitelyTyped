@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/uikit",
+    "version": "3.14.9999",
+    "projects": [
+        "https://getuikit.com"
+    ],
+    "devDependencies": {
+        "@types/uikit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Giovanni Silva",
+            "githubUsername": "giovannicandido"
+        },
+        {
+            "name": "Ivo Senner",
+            "githubUsername": "s0x"
+        },
+        {
+            "name": "Weiyu Weng",
+            "githubUsername": "pcdotfan"
+        },
+        {
+            "name": "Johanns Gregorian",
+            "githubUsername": "johanns"
+        }
+    ]
+}

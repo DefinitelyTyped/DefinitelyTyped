@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-incall-manager",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/zxcpoiu/react-native-incall-manager#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-incall-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Quiroga",
+            "githubUsername": "KarlosQ"
+        }
+    ]
+}

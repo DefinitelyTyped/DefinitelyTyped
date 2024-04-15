@@ -1,5 +1,3 @@
-export = insaProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const insaProfile: createClient.Profile;
+export const profile: Profile;

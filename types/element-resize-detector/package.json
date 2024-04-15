@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/element-resize-detector",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/wnr/element-resize-detector"
+    ],
+    "devDependencies": {
+        "@types/element-resize-detector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Saransh Kataria",
+            "githubUsername": "saranshkataria"
+        },
+        {
+            "name": "Frank Li",
+            "githubUsername": "franklixuefei"
+        }
+    ]
+}

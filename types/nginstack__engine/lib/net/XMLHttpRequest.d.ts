@@ -4,7 +4,8 @@ declare class XMLHttpRequest {
     constructor(options?: XHRConfig);
     open(method: string, url: string): void;
     setRequestHeader(header: string, value: string): void;
-    send(data?: string | ArrayBuffer): void;
+    send(body?: string | ArrayBuffer): void;
+    timeout: number;
     readyState: number;
     status: number;
     statusText: string;
@@ -13,8 +14,7 @@ declare class XMLHttpRequest {
     response: string | ArrayBuffer | Record<any, any>;
     getResponseHeader(header: string): string;
     getAllResponseHeaders(): string;
-    setTimeout(value: number): void;
-    getTimeout(): number;
+    overrideMimeType(mimeType: string): void;
 }
 declare namespace XMLHttpRequest {
     export { UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE, XHRConfig };
@@ -25,10 +25,10 @@ interface XHRConfig {
     pfxPath?: string;
     passphrase?: string;
     ignoreSslErrors?: boolean;
-    decodeContentFromLatin1?: boolean;
+    proxy?: string;
 }
-declare var UNSENT: number;
-declare var OPENED: number;
-declare var HEADERS_RECEIVED: number;
-declare var LOADING: number;
-declare var DONE: number;
+declare let UNSENT: number;
+declare let OPENED: number;
+declare let HEADERS_RECEIVED: number;
+declare let LOADING: number;
+declare let DONE: number;

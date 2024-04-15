@@ -1,7 +1,7 @@
 export = recordToJson;
 declare function recordToJson(
     dataSet: DataSet,
-    opt_options?: {
+    options?: {
         toLowerCase?: boolean;
         onlyFilled?: boolean;
     }

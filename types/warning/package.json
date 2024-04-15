@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/warning",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/BerkeleyTrue/warning"
+    ],
+    "devDependencies": {
+        "@types/warning": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chi Vinh Le",
+            "githubUsername": "cvle"
+        }
+    ]
+}

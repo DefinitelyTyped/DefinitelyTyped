@@ -1,3 +1,17 @@
 {
-    "private": true
+    "private": true,
+    "name": "@types/crocks",
+    "version": "0.12.9999",
+    "projects": [
+        "https://crocks.dev/"
+    ],
+    "devDependencies": {
+        "@types/crocks": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Barczyk",
+            "githubUsername": "jakubbarczyk"
+        }
+    ]
 }

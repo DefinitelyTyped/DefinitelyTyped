@@ -1,13 +1,9 @@
-// Type definitions for @rdfjs/express-handler 1.1
-// Project: https://github.com/rdfjs-base/express-handler
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
+import { Request, RequestHandler, Response } from "express";
 
-import { Stream, DatasetCore, DatasetCoreFactory } from 'rdf-js';
-import { Request, Response, RequestHandler } from 'express';
-import formats = require('@rdfjs/formats-common');
-
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         dataset?(parserOptions?: any): Promise<DatasetCore>;
         quadStream?(parserOptions?: any): Stream;
@@ -23,11 +19,16 @@ interface BaseIriFromRequest {
     (req: Request): Promise<string> | string;
 }
 
+interface Formats {
+    parsers: SinkMap<EventEmitter, Stream>;
+    serializers: SinkMap<Stream, EventEmitter>;
+}
 interface RdfHandlerOptions {
     factory?: DatasetCoreFactory | undefined;
-    formats?: typeof formats | undefined;
+    formats?: Formats | undefined;
     defaultMediaType?: string | undefined;
     baseIriFromRequest?: boolean | BaseIriFromRequest | undefined;
+    sendTriples?: boolean | undefined;
 }
 
 interface RdfHandler {
@@ -35,6 +36,6 @@ interface RdfHandler {
     attach(req: Request, res: Response, options?: RdfHandlerOptions): Promise<void>;
 }
 
-declare const middleware: RdfHandler;
+declare const init: RdfHandler;
 
-export = middleware;
+export default init;

@@ -1,8 +1,3 @@
-// Type definitions for asciichart 1.5
-// Project: https://github.com/kroitor/asciichart
-// Definitions by: pokutuna <https://github.com/pokutuna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace asciichart;
 
 export const black: string;

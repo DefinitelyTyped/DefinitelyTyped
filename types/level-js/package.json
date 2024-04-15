@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/level-js",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Level/level-js"
+    ],
+    "dependencies": {
+        "@types/abstract-leveldown": "*"
+    },
+    "devDependencies": {
+        "@types/level-js": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

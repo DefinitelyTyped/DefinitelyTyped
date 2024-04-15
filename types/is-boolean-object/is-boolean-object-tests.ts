@@ -1,4 +1,4 @@
-import isBoolean = require('is-boolean-object');
+import isBoolean = require("is-boolean-object");
 
 isBoolean(Boolean(42)); // $ExpectType boolean
 isBoolean(false); // $ExpectType boolean

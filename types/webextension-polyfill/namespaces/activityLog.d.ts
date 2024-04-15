@@ -1,12 +1,15 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.activityLog
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Monitor extension activity
  * Permissions: "activityLog"
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Events } from "./events";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace ActivityLog {
     interface OnExtensionActivityDetailsType {

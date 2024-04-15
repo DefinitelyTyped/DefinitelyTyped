@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/rx-lite-coincidence",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS"
+    ],
+    "dependencies": {
+        "@types/rx-lite": "*"
+    },
+    "devDependencies": {
+        "@types/rx-lite-coincidence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl de Billy",
+            "url": "http://carl.debilly.net/"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

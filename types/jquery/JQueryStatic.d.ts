@@ -1,5 +1,4 @@
 // tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
 // tslint:disable:no-irregular-whitespace
 
 interface JQueryStatic {
@@ -97,8 +96,11 @@ $( "<div/>", {
   .appendTo( "body" );
 ```
      */
-    // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    <TElement extends HTMLElement = HTMLElement>(
+        html: JQuery.htmlString,
+        ownerDocument_attributes?: Document | JQuery.PlainObject,
+    ): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      * @param selector A string containing a selector expression
@@ -136,8 +138,11 @@ $( "div", xml.responseXML );
 ```
 ​
      */
-    // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery | JQuery.Selector): JQuery<TElement>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    <TElement extends Element = HTMLElement>(
+        selector: JQuery.Selector,
+        context?: Element | Document | JQuery | JQuery.Selector,
+    ): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param element A DOM element to wrap in a jQuery object.
@@ -193,8 +198,10 @@ jQuery(function( $ ) {
 });
 ```
      */
-    // tslint:disable-next-line:no-unnecessary-generics unified-signatures
-    <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
+    /* eslint-disable @definitelytyped/no-unnecessary-generics */
+    // tslint:disable-next-line:unified-signatures
+    <TElement = HTMLElement>(callback: (this: Document, $: JQueryStatic) => void): JQuery<TElement>;
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param object A plain object to wrap in a jQuery object.
@@ -207,7 +214,7 @@ jQuery(function( $ ) {
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.4
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <TElement = HTMLElement>(): JQuery<TElement>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
@@ -292,15 +299,29 @@ $.ajax({
      * @see \`{@link https://api.jquery.com/jQuery.ajaxPrefilter/ }\`
      * @since 1.5
      */
-    ajaxPrefilter(dataTypes: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
+    ajaxPrefilter(
+        dataTypes: string,
+        handler: (
+            options: JQuery.AjaxSettings,
+            originalOptions: JQuery.AjaxSettings,
+            jqXHR: JQuery.jqXHR,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => string | void,
+    ): void;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
      * @param handler A handler to set default values for future Ajax requests.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxPrefilter/ }\`
      * @since 1.5
      */
-    ajaxPrefilter(handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
+    ajaxPrefilter(
+        handler: (
+            options: JQuery.AjaxSettings,
+            originalOptions: JQuery.AjaxSettings,
+            jqXHR: JQuery.jqXHR,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => string | void,
+    ): void;
     /**
      * Set default values for future Ajax requests. Its use is not recommended.
      * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
@@ -324,8 +345,15 @@ $.ajax({ data: myData });
      * @see \`{@link https://api.jquery.com/jQuery.ajaxTransport/ }\`
      * @since 1.5
      */
-    ajaxTransport(dataType: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
+    ajaxTransport(
+        dataType: string,
+        handler: (
+            options: JQuery.AjaxSettings,
+            originalOptions: JQuery.AjaxSettings,
+            jqXHR: JQuery.jqXHR,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => JQuery.Transport | void,
+    ): void;
     /**
      * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
      */
@@ -416,7 +444,11 @@ $( "button" ).click( function() {
 </html>
 ```
      */
-    data<T extends string | number | boolean | symbol | object | null>(element: Element | Document | Window | JQuery.PlainObject, key: string, value: T): T;
+    data<T extends string | number | boolean | symbol | object | null>(
+        element: Element | Document | Window | JQuery.PlainObject,
+        key: string,
+        value: T,
+    ): T;
     /**
      * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or the full data store for the element.
      * @param element The DOM element to query for the data.
@@ -719,7 +751,16 @@ $( "#log" ).append( JSON.stringify( object1 ) );
 </html>
 ```
      */
-    extend<T, U, V, W, X, Y, Z>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
+    extend<T, U, V, W, X, Y, Z>(
+        deep: true,
+        target: T,
+        object1: U,
+        object2: V,
+        object3: W,
+        object4: X,
+        object5: Y,
+        object6: Z,
+    ): T & U & V & W & X & Y & Z;
     /**
      * Merge the contents of two or more objects together into the first object.
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
@@ -766,7 +807,15 @@ $( "#log" ).append( JSON.stringify( object1 ) );
 </html>
 ```
      */
-    extend<T, U, V, W, X, Y>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
+    extend<T, U, V, W, X, Y>(
+        deep: true,
+        target: T,
+        object1: U,
+        object2: V,
+        object3: W,
+        object4: X,
+        object5: Y,
+    ): T & U & V & W & X & Y;
     /**
      * Merge the contents of two or more objects together into the first object.
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
@@ -1073,7 +1122,15 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
 </html>
 ```
      */
-    extend<T, U, V, W, X, Y, Z>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
+    extend<T, U, V, W, X, Y, Z>(
+        target: T,
+        object1: U,
+        object2: V,
+        object3: W,
+        object4: X,
+        object5: Y,
+        object6: Z,
+    ): T & U & V & W & X & Y & Z;
     /**
      * Merge the contents of two or more objects together into the first object.
      * @param target An object that will receive the new properties if additional objects are passed in or that will
@@ -1149,7 +1206,14 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
 </html>
 ```
      */
-    extend<T, U, V, W, X, Y>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
+    extend<T, U, V, W, X, Y>(
+        target: T,
+        object1: U,
+        object2: V,
+        object3: W,
+        object4: X,
+        object5: Y,
+    ): T & U & V & W & X & Y;
     /**
      * Merge the contents of two or more objects together into the first object.
      * @param target An object that will receive the new properties if additional objects are passed in or that will
@@ -1535,10 +1599,12 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
      */
-    get(url: string,
+    get(
+        url: string,
         data: JQuery.PlainObject | string,
         success: JQuery.jqXHR.DoneCallback | null,
-        dataType?: string): JQuery.jqXHR;
+        dataType?: string,
+    ): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
      * @param url A string containing the URL to which the request is sent.
@@ -1559,9 +1625,11 @@ $.get( "test.php", function( data ) {
 }, "json" );
 ```
      */
-    get(url: string,
+    get(
+        url: string,
         data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
-        dataType: string): JQuery.jqXHR;
+        dataType: string,
+    ): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
      * @param url A string containing the URL to which the request is sent.
@@ -1594,8 +1662,7 @@ $.get( "test.cgi", { name: "John", time: "2pm" } )
   });
 ```
      */
-    get(url: string,
-        success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    get(url: string, success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
      * @param url_settings _&#x40;param_ `url_settings`
@@ -1622,9 +1689,7 @@ $.get( "test.php" );
      * @see \`{@link https://api.jquery.com/jQuery.getJSON/ }\`
      * @since 1.0
      */
-    getJSON(url: string,
-            data: JQuery.PlainObject | string,
-            success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
+    getJSON(url: string, data: JQuery.PlainObject | string, success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      * @param url A string containing the URL to which the request is sent.
@@ -1694,8 +1759,7 @@ $.getJSON( "test.js", { name: "John", time: "2pm" } )
 });
 ```
      */
-    getJSON(url: string,
-            success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    getJSON(url: string, success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      * @param url A string containing the URL to which the request is sent.
@@ -1769,8 +1833,7 @@ $.getScript( url, function() {
 </html>
 ```
      */
-    getScript(url: string,
-              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
+    getScript(url: string, success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      * @see \`{@link https://api.jquery.com/jQuery.getScript/ }\`
@@ -1863,9 +1926,7 @@ $.grep( [ 0, 1, 2 ], function( n, i ) {
 }, true );
 ```
      */
-    grep<T>(array: ArrayLike<T>,
-            funсtion: (elementOfArray: T, indexInArray: number) => boolean,
-            invert?: boolean): T[];
+    grep<T>(array: ArrayLike<T>, funсtion: (elementOfArray: T, indexInArray: number) => boolean, invert?: boolean): T[];
     /**
      * Determine whether an element has any jQuery data associated with it.
      * @param element A DOM element to be checked for data.
@@ -2075,7 +2136,7 @@ jQuery.each( objs, function( i ) {
 $.isFunction(function() {});
 ```
      */
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     isFunction(obj: any): obj is Function;
     /**
      * Determines whether its argument represents a JavaScript number.
@@ -2301,7 +2362,14 @@ array = $.map( array, function( a, index ) {
 });
 ```
      */
-    map<T, TReturn>(array: T[], callback: (this: Window, elementOfArray: T, indexInArray: number) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
+    map<T, TReturn>(
+        array: T[],
+        callback: (
+            this: Window,
+            elementOfArray: T,
+            indexInArray: number,
+        ) => JQuery.TypeOrArray<TReturn> | null | undefined,
+    ): TReturn[];
     /**
      * Translate all items in an array or object to new array of items.
      * @param obj The Object to translate.
@@ -2326,7 +2394,10 @@ var keys = $.map( dimensions, function( value, key ) {
 });
 ```
      */
-    map<T, K extends keyof T, TReturn>(obj: T, callback: (this: Window, propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
+    map<T, K extends keyof T, TReturn>(
+        obj: T,
+        callback: (this: Window, propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined,
+    ): TReturn[];
     /**
      * Merge the contents of two arrays together into the first array.
      * @param first The first array-like object to merge, the elements of second added.
@@ -2648,10 +2719,12 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
 }, "json");
 ```
      */
-    post(url: string,
-         data: JQuery.PlainObject | string,
-         success: JQuery.jqXHR.DoneCallback | null,
-         dataType?: string): JQuery.jqXHR;
+    post(
+        url: string,
+        data: JQuery.PlainObject | string,
+        success: JQuery.jqXHR.DoneCallback | null,
+        dataType?: string,
+    ): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      * @param url A string containing the URL to which the request is sent.
@@ -2664,9 +2737,11 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
      */
-    post(url: string,
-         data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
-         dataType: string): JQuery.jqXHR;
+    post(
+        url: string,
+        data_success: JQuery.PlainObject | string | JQuery.jqXHR.DoneCallback | null,
+        dataType: string,
+    ): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      * @param url A string containing the URL to which the request is sent.
@@ -2747,8 +2822,7 @@ $( "#searchForm" ).submit(function( event ) {
 </html>
 ```
      */
-    post(url: string,
-         success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    post(url: string, success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
      * @param url_settings _&#x40;param_ `url_settings`
@@ -2795,10 +2869,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2813,10 +2894,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
+    proxy<TReturn, A, B, C, D, E, F>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2830,10 +2917,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E>(funсtion: (a: A, b: B, c: C, d: D, e: E) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
+    proxy<TReturn, A, B, C, D, E>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2846,10 +2938,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D>(funсtion: (a: A, b: B, c: C, d: D) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D): () => TReturn;
+    proxy<TReturn, A, B, C, D>(
+        funсtion: (a: A, b: B, c: C, d: D) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2861,10 +2957,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C>(funсtion: (a: A, b: B, c: C) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C): () => TReturn;
+    proxy<TReturn, A, B, C>(
+        funсtion: (a: A, b: B, c: C) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2875,10 +2974,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B>(funсtion: (a: A, b: B) => TReturn,
-              context: null | undefined,
-              a: A, b: B): () => TReturn;
+    proxy<TReturn, A, B>(funсtion: (a: A, b: B) => TReturn, context: null | undefined, a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2888,10 +2984,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A>(funсtion: (a: A) => TReturn,
-           context: null | undefined,
-           a: A): () => TReturn;
+    proxy<TReturn, A>(funсtion: (a: A) => TReturn, context: null | undefined, a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2900,8 +2993,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn>(funсtion: () => TReturn,
-                   context: null | undefined): () => TReturn;
+    proxy<TReturn>(funсtion: () => TReturn, context: null | undefined): () => TReturn;
 
     // #endregion
 
@@ -2923,12 +3015,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2943,12 +3040,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2962,12 +3063,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2980,12 +3084,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T>(funсtion: (a: A, b: B, c: C, d: D,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C, d: D): (t: T) => TReturn;
+    proxy<TReturn, A, B, C, D, T>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -2997,12 +3103,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T>(funсtion: (a: A, b: B, c: C,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B, c: C): (t: T) => TReturn;
+    proxy<TReturn, A, B, C, T>(
+        funсtion: (a: A, b: B, c: C, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3013,12 +3120,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T>(funсtion: (a: A, b: B,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A, b: B): (t: T) => TReturn;
+    proxy<TReturn, A, B, T>(
+        funсtion: (a: A, b: B, t: T) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3028,12 +3135,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T>(funсtion: (a: A,
-                      t: T) => TReturn,
-           context: null | undefined,
-           a: A): (t: T) => TReturn;
+    proxy<TReturn, A, T>(funсtion: (a: A, t: T) => TReturn, context: null | undefined, a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3042,9 +3144,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T>(funсtion: (t: T) => TReturn,
-           context: null | undefined): (t: T) => TReturn;
+    proxy<TReturn, T>(funсtion: (t: T) => TReturn, context: null | undefined): (t: T) => TReturn;
 
     // #endregion
 
@@ -3066,12 +3166,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3086,12 +3191,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3105,12 +3214,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3123,12 +3235,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3140,12 +3254,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U>(funсtion: (a: A, b: B, c: C,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B, c: C): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, C, T, U>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3156,12 +3271,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U>(funсtion: (a: A, b: B,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A, b: B): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, B, T, U>(
+        funсtion: (a: A, b: B, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3171,12 +3286,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U>(funсtion: (a: A,
-                         t: T, u: U) => TReturn,
-              context: null | undefined,
-              a: A): (t: T, u: U) => TReturn;
+    proxy<TReturn, A, T, U>(
+        funсtion: (a: A, t: T, u: U) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3185,9 +3299,7 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U>(funсtion: (t: T, u: U) => TReturn,
-              context: null | undefined): (t: T, u: U) => TReturn;
+    proxy<TReturn, T, U>(funсtion: (t: T, u: U) => TReturn, context: null | undefined): (t: T, u: U) => TReturn;
 
     // #endregion
 
@@ -3209,12 +3321,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U, V>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3229,12 +3346,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U, V>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3248,12 +3369,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U, V>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3266,12 +3390,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U, V>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3283,12 +3409,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U, V>(funсtion: (a: A, b: B, c: C,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, C, T, U, V>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3299,12 +3426,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U, V>(funсtion: (a: A, b: B,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, B, T, U, V>(
+        funсtion: (a: A, b: B, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3314,12 +3441,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U, V>(funсtion: (a: A,
-                            t: T, u: U, v: V) => TReturn,
-                 context: null | undefined,
-                 a: A): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, A, T, U, V>(
+        funсtion: (a: A, t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3328,9 +3454,10 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U, V>(funсtion: (t: T, u: U, v: V) => TReturn,
-                 context: null | undefined): (t: T, u: U, v: V) => TReturn;
+    proxy<TReturn, T, U, V>(
+        funсtion: (t: T, u: U, v: V) => TReturn,
+        context: null | undefined,
+    ): (t: T, u: U, v: V) => TReturn;
 
     // #endregion
 
@@ -3352,12 +3479,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U, V, W>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3372,12 +3504,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U, V, W>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3391,12 +3527,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U, V, W>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3409,12 +3548,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U, V, W>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3426,12 +3567,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, C, T, U, V, W>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3442,12 +3584,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U, V, W>(funсtion: (a: A, b: B,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, B, T, U, V, W>(
+        funсtion: (a: A, b: B, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3457,12 +3599,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U, V, W>(funсtion: (a: A,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined,
-                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, A, T, U, V, W>(
+        funсtion: (a: A, t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3471,9 +3612,10 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U, V, W>(funсtion: (t: T, u: U, v: V, w: W) => TReturn,
-                    context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TReturn, T, U, V, W>(
+        funсtion: (t: T, u: U, v: V, w: W) => TReturn,
+        context: null | undefined,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
 
     // #endregion
 
@@ -3495,12 +3637,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U, V, W, X>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3515,12 +3662,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U, V, W, X>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3534,12 +3685,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U, V, W, X>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3552,12 +3706,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U, V, W, X>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3569,12 +3725,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, C, T, U, V, W, X>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3585,12 +3742,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U, V, W, X>(funсtion: (a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, B, T, U, V, W, X>(
+        funсtion: (a: A, b: B, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3600,12 +3757,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U, V, W, X>(funсtion: (a: A,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined,
-                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, A, T, U, V, W, X>(
+        funсtion: (a: A, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3614,9 +3770,10 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U, V, W, X>(funсtion: (t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TReturn, T, U, V, W, X>(
+        funсtion: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: null | undefined,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // #endregion
 
@@ -3638,12 +3795,17 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3658,12 +3820,16 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3677,12 +3843,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3695,12 +3864,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3712,12 +3883,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, C, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3728,12 +3900,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, B, T, U, V, W, X, Y>(
+        funсtion: (a: A, b: B, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3743,12 +3915,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U, V, W, X, Y>(funсtion: (a: A,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined,
-                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, A, T, U, V, W, X, Y>(
+        funсtion: (a: A, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3757,9 +3928,10 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U, V, W, X, Y>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TReturn, T, U, V, W, X, Y>(
+        funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: null | undefined,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // #endregion
 
@@ -3781,12 +3953,33 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, G, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            f: F,
+            g: G,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3801,12 +3994,31 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, C, D, E, F, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            f: F,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3820,12 +4032,15 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, C, D, E, T, U, V, W, X, Y, Z>(
+        funсtion: (a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3838,12 +4053,14 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C, D,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, C, D, T, U, V, W, X, Y, Z>(
+        funсtion: (a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3855,12 +4072,13 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B, C,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, C, T, U, V, W, X, Y, Z>(
+        funсtion: (a: A, b: B, c: C, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3871,12 +4089,12 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A, B,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, B, T, U, V, W, X, Y, Z>(
+        funсtion: (a: A, b: B, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3886,12 +4104,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        A,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined,
-                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, A, T, U, V, W, X, Y, Z>(
+        funсtion: (a: A, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -3900,9 +4117,10 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn,
-        T, U, V, W, X, Y, Z>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TReturn, T, U, V, W, X, Y, Z>(
+        funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: null | undefined,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // #endregion
 
@@ -3920,9 +4138,11 @@ $.post( "test.php" );
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
-    proxy<TReturn>(funсtion: (...args: any[]) => TReturn,
-                   context: null | undefined,
-                   ...additionalArguments: any[]): (...args: any[]) => TReturn;
+    proxy<TReturn>(
+        funсtion: (...args: any[]) => TReturn,
+        context: null | undefined,
+        ...additionalArguments: any[]
+    ): (...args: any[]) => TReturn;
 
     // #endregion
 
@@ -4071,11 +4291,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4209,11 +4435,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4346,11 +4577,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4482,11 +4717,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D>(funсtion: (this: TContext, a: A, b: B, c: C, d: D) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D): () => TReturn;
+    proxy<TContext, TReturn, A, B, C, D>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4617,11 +4855,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C>(funсtion: (this: TContext, a: A, b: B, c: C) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C): () => TReturn;
+    proxy<TContext, TReturn, A, B, C>(
+        funсtion: (this: TContext, a: A, b: B, c: C) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4751,11 +4991,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B>(funсtion: (this: TContext, a: A, b: B) => TReturn,
-              context: TContext,
-              a: A, b: B): () => TReturn;
+    proxy<TContext, TReturn, A, B>(
+        funсtion: (this: TContext, a: A, b: B) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4884,11 +5125,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A>(funсtion: (this: TContext, a: A) => TReturn,
-           context: TContext,
-           a: A): () => TReturn;
+    proxy<TContext, TReturn, A>(funсtion: (this: TContext, a: A) => TReturn, context: TContext, a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5016,9 +5253,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn>(funсtion: (this: TContext) => TReturn,
-                 context: TContext): () => TReturn;
+    proxy<TContext, TReturn>(funсtion: (this: TContext) => TReturn, context: TContext): () => TReturn;
 
     // #endregion
 
@@ -5159,13 +5394,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5299,13 +5538,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5438,13 +5680,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5576,13 +5820,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C, d: D): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5713,13 +5958,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T>(funсtion: (this: TContext, a: A, b: B, c: C,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B, c: C): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5849,13 +6094,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T>(funсtion: (this: TContext, a: A, b: B,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A, b: B): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, B, T>(
+        funсtion: (this: TContext, a: A, b: B, t: T) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5984,13 +6228,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T>(funсtion: (this: TContext, a: A,
-                      t: T) => TReturn,
-           context: TContext,
-           a: A): (t: T) => TReturn;
+    proxy<TContext, TReturn, A, T>(
+        funсtion: (this: TContext, a: A, t: T) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6118,10 +6360,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T>(funсtion: (this: TContext, t: T) => TReturn,
-           context: TContext): (t: T) => TReturn;
+    proxy<TContext, TReturn, T>(funсtion: (this: TContext, t: T) => TReturn, context: TContext): (t: T) => TReturn;
 
     // #endregion
 
@@ -6262,13 +6501,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6402,13 +6645,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6541,13 +6787,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6679,13 +6927,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6816,13 +7065,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U>(funсtion: (this: TContext, a: A, b: B, c: C,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B, c: C): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6952,13 +7201,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U>(funсtion: (this: TContext, a: A, b: B,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A, b: B): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7087,13 +7335,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U>(funсtion: (this: TContext, a: A,
-                         t: T, u: U) => TReturn,
-              context: TContext,
-              a: A): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, A, T, U>(
+        funсtion: (this: TContext, a: A, t: T, u: U) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7221,10 +7467,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U>(funсtion: (this: TContext, t: T, u: U) => TReturn,
-              context: TContext): (t: T, u: U) => TReturn;
+    proxy<TContext, TReturn, T, U>(
+        funсtion: (this: TContext, t: T, u: U) => TReturn,
+        context: TContext,
+    ): (t: T, u: U) => TReturn;
 
     // #endregion
 
@@ -7365,13 +7611,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7505,13 +7755,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7644,13 +7897,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7782,13 +8037,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7919,13 +8175,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8055,13 +8311,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U, V>(funсtion: (this: TContext, a: A, b: B,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U, V>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8190,13 +8445,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U, V>(funсtion: (this: TContext, a: A,
-                            t: T, u: U, v: V) => TReturn,
-                 context: TContext,
-                 a: A): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, A, T, U, V>(
+        funсtion: (this: TContext, a: A, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8324,10 +8577,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U, V>(funсtion: (this: TContext, t: T, u: U, v: V) => TReturn,
-                 context: TContext): (t: T, u: U, v: V) => TReturn;
+    proxy<TContext, TReturn, T, U, V>(
+        funсtion: (this: TContext, t: T, u: U, v: V) => TReturn,
+        context: TContext,
+    ): (t: T, u: U, v: V) => TReturn;
 
     // #endregion
 
@@ -8468,13 +8721,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8608,13 +8865,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8747,13 +9007,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8885,13 +9147,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9022,13 +9285,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9158,13 +9421,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U, V, W>(funсtion: (this: TContext, a: A, b: B,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U, V, W>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9293,13 +9555,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U, V, W>(funсtion: (this: TContext, a: A,
-                               t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext,
-                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, A, T, U, V, W>(
+        funсtion: (this: TContext, a: A, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9427,10 +9687,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U, V, W>(funсtion: (this: TContext, t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext): (t: T, u: U, v: V, w: W) => TReturn;
+    proxy<TContext, TReturn, T, U, V, W>(
+        funсtion: (this: TContext, t: T, u: U, v: V, w: W) => TReturn,
+        context: TContext,
+    ): (t: T, u: U, v: V, w: W) => TReturn;
 
     // #endregion
 
@@ -9571,13 +9831,17 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9711,13 +9975,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9850,13 +10117,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9988,13 +10257,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10125,13 +10395,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10261,13 +10531,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10396,13 +10665,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U, V, W, X>(funсtion: (this: TContext, a: A,
-                                  t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext,
-                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, A, T, U, V, W, X>(
+        funсtion: (this: TContext, a: A, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10530,10 +10797,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U, V, W, X>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    proxy<TContext, TReturn, T, U, V, W, X>(
+        funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn,
+        context: TContext,
+    ): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // #endregion
 
@@ -10674,13 +10941,32 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U, V, W, X, Y>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            f: F,
+            g: G,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10814,13 +11100,16 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10953,13 +11242,15 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11091,13 +11382,14 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, b: B, c: C, d: D, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11228,13 +11520,13 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, b: B, c: C, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11364,13 +11656,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11499,13 +11790,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A,
-                                     t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext,
-                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, A, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, a: A, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11633,10 +11922,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U, V, W, X, Y>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    proxy<TContext, TReturn, T, U, V, W, X, Y>(
+        funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+        context: TContext,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // #endregion
 
@@ -11777,13 +12066,34 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F, G,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, G, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            f: F,
+            g: G,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11917,13 +12227,32 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E, F,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, F, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            f: F,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12056,13 +12385,30 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D, E,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, E, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            e: E,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12194,13 +12540,28 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C, D,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, C, D, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            d: D,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12331,13 +12692,26 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B, C,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, C, T, U, V, W, X, Y, Z>(
+        funсtion: (
+            this: TContext,
+            a: A,
+            b: B,
+            c: C,
+            t: T,
+            u: U,
+            v: V,
+            w: W,
+            x: X,
+            y: Y,
+            z: Z,
+            ...args: any[]
+        ) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+        c: C,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12467,13 +12841,12 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A, B,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, B, T, U, V, W, X, Y, Z>(
+        funсtion: (this: TContext, a: A, b: B, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: TContext,
+        a: A,
+        b: B,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12602,13 +12975,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        A,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A,
-                                        t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext,
-                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, A, T, U, V, W, X, Y, Z>(
+        funсtion: (this: TContext, a: A, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: TContext,
+        a: A,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12736,10 +13107,10 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn,
-        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    proxy<TContext, TReturn, T, U, V, W, X, Y, Z>(
+        funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+        context: TContext,
+    ): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12876,10 +13247,11 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext,
-        TReturn>(funсtion: (this: TContext, ...args: any[]) => TReturn,
-                 context: TContext,
-                 ...additionalArguments: any[]): (...args: any[]) => TReturn;
+    proxy<TContext, TReturn>(
+        funсtion: (this: TContext, ...args: any[]) => TReturn,
+        context: TContext,
+        ...additionalArguments: any[]
+    ): (...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12926,9 +13298,7 @@ $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
 </html>
 ```
      */
-    proxy<TContext>(context: TContext,
-                    name: keyof TContext,
-                    ...additionalArguments: any[]): (...args: any[]) => any;
+    proxy<TContext>(context: TContext, name: keyof TContext, ...additionalArguments: any[]): (...args: any[]) => any;
 
     // #endregion
 
@@ -13109,7 +13479,11 @@ $( "#stop" ).click(function() {
 </html>
 ```
      */
-    queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
+    queue<T extends Element>(
+        element: T,
+        queueName?: string,
+        newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>,
+    ): JQuery.Queue<T>;
     /**
      * Handles errors thrown synchronously in functions wrapped in jQuery().
      * @param error An error thrown in the function wrapped in jQuery().
@@ -13178,7 +13552,11 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * @see \`{@link https://api.jquery.com/jQuery.speed/ }\`
      * @since 1.1
      */
-    speed<TElement extends Element = HTMLElement>(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(
+        duration: JQuery.Duration,
+        easing: string,
+        complete: (this: TElement) => void,
+    ): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      * @param duration A string or number determining how long the animation will run.
@@ -13190,8 +13568,10 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * @since 1.0
      * @since 1.1
      */
-    speed<TElement extends Element = HTMLElement>(duration: JQuery.Duration,
-                                                  easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(
+        duration: JQuery.Duration,
+        easing_complete: string | ((this: TElement) => void),
+    ): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      * @param duration_complete_settings _&#x40;param_ `duration_complete_settings`
@@ -13203,7 +13583,9 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * @since 1.0
      * @since 1.1
      */
-    speed<TElement extends Element = HTMLElement>(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+    speed<TElement extends Element = HTMLElement>(
+        duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>,
+    ): JQuery.EffectsOptions<TElement>;
     /**
      * Remove the whitespace from the beginning and end of a string.
      * @param str The string to trim.
@@ -13270,7 +13652,21 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
 </html>
 ```
      */
-    type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
+    type(
+        obj: any,
+    ):
+        | "array"
+        | "boolean"
+        | "date"
+        | "error"
+        | "function"
+        | "null"
+        | "number"
+        | "object"
+        | "regexp"
+        | "string"
+        | "symbol"
+        | "undefined";
     /**
      * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
      * @param array The Array of DOM elements.
@@ -13390,15 +13786,21 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
 ```
      */
-    when<TR1, UR1, VR1,
-        TJ1 = any, UJ1 = any, VJ1 = any>(
-            deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
-            deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
-            deferredV: JQuery.Promise<VR1, VJ1> | JQuery.Thenable<VR1> | VR1,
+    when<TR1, UR1, VR1, TJ1 = any, UJ1 = any, VJ1 = any>(
+        deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
+        deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
+        deferredV: JQuery.Promise<VR1, VJ1> | JQuery.Thenable<VR1> | VR1,
     ): JQuery.Promise3<
-        TR1, TJ1, never,
-        UR1, UJ1, never,
-        VR1, VJ1, never>;
+        TR1,
+        TJ1,
+        never,
+        UR1,
+        UJ1,
+        never,
+        VR1,
+        VJ1,
+        never
+    >;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
@@ -13420,13 +13822,17 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
 ```
      */
-    when<TR1, UR1,
-        TJ1 = any, UJ1 = any>(
-            deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
-            deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
+    when<TR1, UR1, TJ1 = any, UJ1 = any>(
+        deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
+        deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
     ): JQuery.Promise2<
-        TR1, TJ1, never,
-        UR1, UJ1, never>;
+        TR1,
+        TJ1,
+        never,
+        UR1,
+        UJ1,
+        never
+    >;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
@@ -13448,15 +13854,21 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
 ```
      */
-    when<TR1, TJ1,
-        TR2, TJ2,
-        TR3 = never, TJ3 = never>(
-            deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
-                       JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>
+    when<TR1, TJ1, TR2, TJ2, TR3 = never, TJ3 = never>(
+        deferredT:
+            | JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any>
+            | JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>,
     ): JQuery.Promise3<
-        TR1, TJ1, never,
-        TR2, TJ2, never,
-        TR3, TJ3, never>;
+        TR1,
+        TJ1,
+        never,
+        TR2,
+        TJ2,
+        never,
+        TR3,
+        TJ3,
+        never
+    >;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
@@ -13478,7 +13890,9 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
 ```
      */
-    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
+    when<TR1, TJ1 = any>(
+        deferred: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
+    ): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      * @param deferreds Zero or more Thenable objects.
@@ -13501,7 +13915,9 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
 ```
      */
-    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    when<TR1 = never, TJ1 = never>(
+        ...deferreds: Array<JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1>
+    ): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      * @param deferreds Zero or more Thenable objects.

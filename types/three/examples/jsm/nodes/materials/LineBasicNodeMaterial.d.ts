@@ -1,16 +1,18 @@
-import NodeMaterial from './NodeMaterial';
-import { ShaderMaterialParameters } from '../../../../src/Three';
-import { Node } from '../Nodes';
+import { Color, LineBasicMaterialParameters, Texture } from "three";
+import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+
+export interface LineBasicNodeMaterialParameters extends NodeMaterialParameters, LineBasicMaterialParameters {
+}
 
 export default class LineBasicNodeMaterial extends NodeMaterial {
-    isLineBasicNodeMaterial: true;
+    readonly isLineBasicNodeMaterial: true;
 
-    colorNode: Node | null;
-    opacityNode: Node | null;
-    alphaTestNode: Node | null;
-    lightNode: Node | null;
-    positionNode: Node | null;
+    // Properties from LineBasicMaterial
+    readonly isLineBasicMaterial: true;
+    color: Color;
+    linecap: string;
+    linejoin: string;
+    map: Texture | null;
 
-    constructor(parameters?: ShaderMaterialParameters);
-    copy(source: LineBasicNodeMaterial): this;
+    constructor(parameters?: LineBasicNodeMaterialParameters);
 }

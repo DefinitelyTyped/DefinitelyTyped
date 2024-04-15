@@ -1,4 +1,4 @@
-import * as tree from 'flat-tree';
+import * as tree from "flat-tree";
 
 // START: Documentation example
 const list: string[] = [];
@@ -8,9 +8,9 @@ const j = tree.index(1, 0); // get array index for depth: 1, offset: 0
 
 // use these indexes to store some data
 
-list[i] = 'a';
-list[j] = 'b';
-list[tree.parent(i)] = 'parent of a and b';
+list[i] = "a";
+list[j] = "b";
+list[tree.parent(i)] = "parent of a and b";
 
 // END: Documentation example
 

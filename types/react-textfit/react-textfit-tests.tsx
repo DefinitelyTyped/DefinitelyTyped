@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Textfit } from 'react-textfit';
+import * as React from "react";
+import { Textfit } from "react-textfit";
 
 const TruncatedText = () => (
     <Textfit

@@ -1,10 +1,13 @@
 import { Handler } from "../handler";
 
-// tslint:disable-next-line:void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
 
-// tslint:disable-next-line:void-return
-export type KinesisStreamTumblingWindowHandler = Handler<KinesisStreamTumblingWindowEvent, KinesisStreamStateResponse | void>;
+export type KinesisStreamTumblingWindowHandler = Handler<
+    KinesisStreamTumblingWindowEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    KinesisStreamStateResponse | void
+>;
 
 // Kinesis Streams
 // https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-streams

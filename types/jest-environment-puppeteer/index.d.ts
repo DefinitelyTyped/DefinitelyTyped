@@ -1,12 +1,6 @@
-// Type definitions for jest-environment-puppeteer 5.0
-// Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
-import NodeEnvironment = require('jest-environment-node');
-import { Browser, Page, BrowserContext } from 'puppeteer';
-import { Context } from 'vm';
+import NodeEnvironment = require("jest-environment-node");
+import { Browser, BrowserContext, Page } from "puppeteer";
+import { Context } from "vm";
 
 interface JestPuppeteer {
     /**
@@ -45,7 +39,7 @@ interface JestPuppeteer {
     debug(): Promise<void>;
 }
 
-interface Global extends NonNullable<NodeEnvironment['global']> {
+interface Global extends NonNullable<NodeEnvironment["global"]> {
     browser: Browser;
     context: Context;
     page: Page;

@@ -1,8 +1,3 @@
-// Type definitions for rx-lite-virtualtime 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-lite" />
 
 declare namespace Rx {
@@ -12,9 +7,17 @@ declare namespace Rx {
         advanceBy(time: TRelative): void;
         advanceTo(time: TAbsolute): void;
         scheduleAbsolute(dueTime: TAbsolute, action: () => void): IDisposable;
-        scheduleAbsoluteWithState<TState>(state: TState, dueTime: TAbsolute, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+        scheduleAbsoluteWithState<TState>(
+            state: TState,
+            dueTime: TAbsolute,
+            action: (scheduler: IScheduler, state: TState) => IDisposable,
+        ): IDisposable;
         scheduleRelative(dueTime: TRelative, action: () => void): IDisposable;
-        scheduleRelativeWithState<TState>(state: TState, dueTime: TRelative, action: (scheduler: IScheduler, state: TState) => IDisposable): IDisposable;
+        scheduleRelativeWithState<TState>(
+            state: TState,
+            dueTime: TRelative,
+            action: (scheduler: IScheduler, state: TState) => IDisposable,
+        ): IDisposable;
         sleep(time: TRelative): void;
         start(): IDisposable;
         stop(): void;
@@ -32,7 +35,7 @@ declare namespace Rx {
     }
 
     const HistoricalScheduler: {
-        new (initialClock: number, comparer: (first: number, second: number) => number): HistoricalScheduler;
+        new(initialClock: number, comparer: (first: number, second: number) => number): HistoricalScheduler;
     };
 }
 

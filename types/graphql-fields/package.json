@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^15.3.0"
-  }
+    "private": true,
+    "name": "@types/graphql-fields",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/robrichard/graphql-fields#readme"
+    ],
+    "dependencies": {
+        "graphql": "*"
+    },
+    "devDependencies": {
+        "@types/graphql-fields": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "feinoujc",
+            "githubUsername": "feinoujc"
+        }
+    ]
 }

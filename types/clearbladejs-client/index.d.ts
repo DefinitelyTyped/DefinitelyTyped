@@ -1,9 +1,3 @@
-// Type definitions for non-npm package clearbladejs-client 1.1
-// Project: https://github.com/ClearBlade/JavaScript-API
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="paho-mqtt" />
 declare namespace CbClient {
     interface Resp {
@@ -14,7 +8,7 @@ declare namespace CbClient {
     enum MessagingQOS {
         MESSAGING_QOS_AT_MOST_ONCE = 0,
         MESSAGING_QOS_AT_LEAST_ONCE = 1,
-        MESSAGING_QOS_EXACTLY_ONCE = 2
+        MESSAGING_QOS_EXACTLY_ONCE = 2,
     }
 
     interface InitOptions {
@@ -77,7 +71,7 @@ declare namespace CbClient {
         registerUser(
             email: string,
             password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         isCurrentUserAuthenticated(callback: CbCallback): void;
         logoutUser(callback: CbCallback): void;
@@ -86,17 +80,17 @@ declare namespace CbClient {
         loginUserMqtt(
             email: string,
             password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         registerMasterCallback(callback: CbCallback): void;
         Collection(
             options:
                 | string
                 | CollectionOptionsWithName
-                | CollectionOptionsWithID
+                | CollectionOptionsWithID,
         ): Collection;
         Query(
-            options: string | QueryOptionsWithName | QueryOptionsWithID
+            options: string | QueryOptionsWithName | QueryOptionsWithID,
         ): QueryObj;
         Item(data: object, collectionID: string | ItemOptions): Item;
         Code(): Code;
@@ -107,7 +101,7 @@ declare namespace CbClient {
             users: string[],
             payload: object,
             appId: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getEdges(query: Query, callback: CbCallback): void;
         Edge(): Edge;
@@ -146,7 +140,7 @@ declare namespace CbClient {
 
     enum QuerySortDirections {
         QUERY_SORT_ASCENDING = "ASC",
-        QUERY_SORT_DESCENDING = "DESC"
+        QUERY_SORT_DESCENDING = "DESC",
     }
 
     enum QueryConditions {
@@ -156,7 +150,7 @@ declare namespace CbClient {
         QUERY_GREATERTHAN_EQUAL = "GTE",
         QUERY_LESSTHAN = "LT",
         QUERY_LESSTHAN_EQUAL = "LTE",
-        QUERY_MATCHES = "RE"
+        QUERY_MATCHES = "RE",
     }
 
     type QueryValue = string | number | boolean;
@@ -166,12 +160,8 @@ declare namespace CbClient {
         limit?: number | undefined;
     }
 
-    interface QueryOptionsWithName
-        extends CollectionOptionsWithName,
-            QueryOptions {}
-    interface QueryOptionsWithID
-        extends CollectionOptionsWithID,
-            QueryOptions {}
+    interface QueryOptionsWithName extends CollectionOptionsWithName, QueryOptions {}
+    interface QueryOptionsWithID extends CollectionOptionsWithID, QueryOptions {}
 
     interface Query {
         SELECTCOLUMNS?: string[] | undefined;
@@ -203,13 +193,13 @@ declare namespace CbClient {
         addSortToQuery(
             query: QueryObj,
             direction: QuerySortDirections,
-            column: string
+            column: string,
         ): void;
         addFilterToQuery(
             query: QueryObj,
             condition: QueryConditions,
             key: string,
-            value: QueryValue
+            value: QueryValue,
         ): void;
         ascending(field: string): void;
         descending(field: string): void;
@@ -268,7 +258,7 @@ declare namespace CbClient {
         setPassword(
             old_password: string,
             new_password: string,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         count(query: Query, callback: CbCallback): void;
     }
@@ -288,13 +278,13 @@ declare namespace CbClient {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getMessageHistory(
             topic: string,
             last: number,
             count: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getAndDeleteMessageHistory(
             topic: string,
@@ -302,7 +292,7 @@ declare namespace CbClient {
             last: number,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         currentTopics(callback: CbCallback): void;
         publish(topic: string, payload: object): void;
@@ -310,7 +300,7 @@ declare namespace CbClient {
         subscribe(
             topic: string,
             options: MessagingSubscribeOptions,
-            messageCallback: MessageCallback
+            messageCallback: MessageCallback,
         ): void;
         unsubscribe(topic: string, options: MessagingSubscribeOptions): void;
         disconnect(): void;
@@ -354,7 +344,7 @@ declare namespace CbClient {
             topic: string,
             start: number,
             stop: number,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         getOpenConnections(callback: CbCallback): void;
         getCurrentSubscribers(topic: string, callback: CbCallback): void;
@@ -369,7 +359,7 @@ declare namespace CbClient {
         updateEdgeByName(
             name: string,
             object: object,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         deleteEdgeByName(name: string, callback: CbCallback): void;
         create(newEdge: object, name: string, callback: CbCallback): void;
@@ -400,7 +390,7 @@ declare namespace CbClient {
             name: string,
             object: object,
             trigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         deleteDeviceByName(name: string, callback: CbCallback): void;
         fetch(query: Query, callback: CbCallback): void;
@@ -408,7 +398,7 @@ declare namespace CbClient {
             query: Query,
             object: object,
             trigger: boolean,
-            callback: CbCallback
+            callback: CbCallback,
         ): void;
         delete(query: Query, callback: CbCallback): void;
         create(newDevice: object, callback: CbCallback): void;

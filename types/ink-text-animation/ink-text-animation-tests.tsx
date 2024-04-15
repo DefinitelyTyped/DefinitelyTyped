@@ -1,13 +1,10 @@
-import React from 'react';
-import { Text, render } from 'ink';
-import TextAnimation from 'ink-text-animation';
+import TextAnimation from "ink-text-animation";
+import React from "react";
 
 const Demo = () => (
     <div>
         <TextAnimation>
-            <Text>Look at me, I'm moving!</Text>
         </TextAnimation>
     </div>
 );
-
-render(<Demo />);
+Demo();

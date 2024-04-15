@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/words-to-time-converter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/momotofu/words-to-time#readme"
+    ],
+    "devDependencies": {
+        "@types/words-to-time-converter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

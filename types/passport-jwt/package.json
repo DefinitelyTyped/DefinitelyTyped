@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/passport-jwt",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/themikenicholson/passport-jwt"
+    ],
+    "dependencies": {
+        "@types/jsonwebtoken": "*",
+        "@types/passport-strategy": "*"
+    },
+    "devDependencies": {
+        "@types/passport": "*",
+        "@types/passport-jwt": "workspace:.",
+        "@types/express": "*",
+        "fastify": "*"
+    },
+    "owners": [
+        {
+            "name": "TANAKA Koichi",
+            "githubUsername": "mugeso"
+        },
+        {
+            "name": "Alex Young",
+            "githubUsername": "alsiola"
+        },
+        {
+            "name": "Carlos Eduardo Scheffer",
+            "githubUsername": "carlosscheffer"
+        },
+        {
+            "name": "Byungjin Kim",
+            "githubUsername": "jindev"
+        },
+        {
+            "name": "Svyatoslav Bychkov",
+            "githubUsername": "stbychkov"
+        }
+    ]
+}

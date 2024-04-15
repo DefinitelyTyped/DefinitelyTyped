@@ -1,9 +1,3 @@
-// Type definitions for resolve-bin 0.4
-// Project: https://github.com/thlorenz/resolve-bin
-// Definitions by: Cameron Hunter <https://github.com/cameronhunter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 interface Options {
     /**
      * (default: @name) executable name (e.g. 'buster-test')

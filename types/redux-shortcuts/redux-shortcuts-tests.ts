@@ -1,12 +1,7 @@
-import {
-    bindShortcut,
-    bindShortcuts,
-    mousetrap,
-    Mousetrap
-} from "redux-shortcuts";
+import { bindShortcut, bindShortcuts, Mousetrap, mousetrap } from "redux-shortcuts";
 import "mousetrap/plugins/global-bind/mousetrap-global-bind";
 
-import { Dispatch, ActionCreator, Action, AnyAction } from "redux";
+import { Action, ActionCreator, AnyAction, Dispatch } from "redux";
 
 const dispatch: Dispatch<{}> = (action: any) => action;
 const saveAction: ActionCreator<Action> = () => ({ type: "SAVE" });
@@ -28,7 +23,7 @@ bindShortcuts(
     ["s", saveAction, true], // preventDefault
     ["s", saveAction, false],
     ["s", [saveAction, saveAction], false], // multi actions
-    [["s", "ctrl+s"], [saveAction, saveAction], false] // multi both
+    [["s", "ctrl+s"], [saveAction, saveAction], false], // multi both
 )(dispatch);
 
 // mousetrap (instance)

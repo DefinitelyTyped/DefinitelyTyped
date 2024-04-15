@@ -1,4 +1,4 @@
-import { LoadingManager, CompressedTextureLoader, CompressedPixelFormat } from '../../../src/Three';
+import { CompressedPixelFormat, CompressedTextureLoader, LoadingManager } from "three";
 
 export interface PVR {
     mipmaps: object[];

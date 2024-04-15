@@ -1,10 +1,3 @@
-// Type definitions for non-npm package w3c Screen Wake Lock API 1.0
-// Project: https://w3c.github.io/screen-wake-lock/
-// Definitions by: Chris Milson <https://github.com/chrismilson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type WakeLockType = 'screen';
-
 /**
  * A WakeLockSentinel provides a handle to a platform wake lock, and it holds on
  * to it until it is either manually released or until the underlying platform
@@ -25,7 +18,7 @@ interface WakeLockSentinel extends EventTarget {
      * WakeLockSentinel's handle being released does not necessarily mean that
      * the underlying wake lock has been released.
      */
-    onrelease: EventListener;
+    onrelease: ((this: WakeLockSentinel, ev: Event) => any) | null;
 }
 
 /**

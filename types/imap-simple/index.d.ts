@@ -1,13 +1,7 @@
-// Type definitions for imap-simple v4.2.0
-// Project: https://github.com/chadxz/imap-simple
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-//                 Ilari Aarnio <https://github.com/iaarnio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Imap = require("imap");
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -40,6 +34,9 @@ export interface Message {
 export class ImapSimple extends EventEmitter {
     constructor(imap: Imap);
 
+    /** Access underlying `node-imap` instance */
+    imap: Imap; // https://github.com/chadxz/imap-simple/blob/master/lib/imapSimple.js#L22
+
     /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
     openBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
     openBox(boxName: string): Promise<string>;
@@ -57,7 +54,11 @@ export class ImapSimple extends EventEmitter {
     getBoxes(): Promise<Imap.MailBoxes>;
 
     /** Search for and retrieve mail in the currently open mailbox. */
-    search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
+    search(
+        searchCriteria: any[],
+        fetchOptions: Imap.FetchOptions,
+        callback: (err: Error, messages: Message[]) => void,
+    ): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 
     /** Close the connection to the imap server. */

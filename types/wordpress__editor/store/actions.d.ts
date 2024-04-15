@@ -1,7 +1,5 @@
-import { EditorSettings } from '@wordpress/block-editor';
-import { BlockInstance, TemplateArray } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
-import { dispatch } from '@wordpress/data';
+import { EditorSettings } from "@wordpress/block-editor";
+import { BlockInstance, TemplateArray } from "@wordpress/blocks";
 
 export {
     clearSelectedBlock,
@@ -12,9 +10,9 @@ export {
     insertBlocks,
     insertDefaultBlock,
     mergeBlocks,
-    moveBlockToPosition,
     moveBlocksDown,
     moveBlocksUp,
+    moveBlockToPosition,
     multiSelect,
     receiveBlocks,
     removeBlock,
@@ -35,7 +33,7 @@ export {
     updateBlock,
     updateBlockAttributes,
     updateBlockListSettings,
-} from '@wordpress/block-editor/store/actions';
+} from "@wordpress/block-editor/store/actions";
 
 /**
  * Action generator used in signalling that the post should autosave.
@@ -46,8 +44,10 @@ export function autosave(options?: Record<string, boolean>): IterableIterator<vo
 
 /**
  * Signals that an undo history record should be created.
+ *
+ * @deprecated since 12.2.0.
  */
-export function createUndoLevel(): void;
+export function createUndoLevel(): { type: "DO_NOTHING" };
 
 /**
  * Signals that the user has disabled the publish sidebar.
@@ -80,18 +80,10 @@ export function redo(): void;
 
 /**
  * Action generator for handling refreshing the current post.
- */
-export function refreshPost(): IterableIterator<void>;
-
-/**
- * Signals that the latest autosave of the post has been received, by initialization or autosave.
  *
- * @deprecated since 5.6. Callers should use the `receiveAutosaves( postId, autosave )`
- *                selector from the '@wordpress/core-data' package.
- *
- * @param newAutosave - Autosave post object.
+ * @deprecated since 12.2.0.
  */
-export function resetAutosave(newAutosave: Autosave): IterableIterator<void>;
+export function refreshPost(): { type: "DO_NOTHING" };
 
 /**
  * Signals that the blocks have been updated.
@@ -123,7 +115,7 @@ export function savePost(options?: Record<string, any>): IterableIterator<void>;
 export function setupEditor(
     post: Record<string, any>,
     edits?: Record<string, any>,
-    template?: TemplateArray
+    template?: TemplateArray,
 ): IterableIterator<void>;
 
 /**
@@ -169,4 +161,4 @@ export function updatePost(edits: Record<string, any>): void;
  *
  * @param lock - Details about the post lock status, user, and nonce.
  */
-export function updatePostLock(lock: EditorSettings['postLock']): void;
+export function updatePostLock(lock: EditorSettings["postLock"]): void;

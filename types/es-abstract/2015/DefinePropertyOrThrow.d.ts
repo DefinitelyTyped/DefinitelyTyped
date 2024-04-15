@@ -1,4 +1,4 @@
-import type { PropertyDescriptor, PropertyKey } from '../index';
+import type { PropertyDescriptor, PropertyKey } from "../index";
 
 declare function DefinePropertyOrThrow<O extends object>(
     O: O,

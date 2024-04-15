@@ -1,12 +1,13 @@
-// Type definitions for bunyan-syslog 0.3
-// Project: https://www.npmjs.com/package/bunyan-syslog
-// Definitions by: Naor Tedgi <https://github.com/ntedgi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export { };
+export {};
 
-type PrependNextNum<A extends unknown[]> = A['length'] extends infer T ? ((t: T, ...a: A) => void) extends ((...x: infer X) => void) ? X : never : never;
+type PrependNextNum<A extends unknown[]> = A["length"] extends infer T
+    ? ((t: T, ...a: A) => void) extends ((...x: infer X) => void) ? X : never
+    : never;
 
-type EnumerateInternal<A extends unknown[], N extends number> = { 0: A, 1: EnumerateInternal<PrependNextNum<A>, N> }[N extends A['length'] ? 0 : 1];
+type EnumerateInternal<A extends unknown[], N extends number> = {
+    0: A;
+    1: EnumerateInternal<PrependNextNum<A>, N>;
+}[N extends A["length"] ? 0 : 1];
 
 type Enumerate<N extends number> = EnumerateInternal<[], N> extends Array<infer E> ? E : never;
 
@@ -14,7 +15,7 @@ type Range<FROM extends number, TO extends number> = Exclude<Enumerate<TO>, Enum
 
 type Facility = Range<0, 24>;
 
-type StreamType = | 'sys' | 'tcp' | 'udp';
+type StreamType = "sys" | "tcp" | "udp";
 
 export const kern = 0;
 export const user = 1;

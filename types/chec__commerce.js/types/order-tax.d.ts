@@ -1,5 +1,5 @@
-import { Price } from './price';
-import { OrderTaxLine } from './order-tax-line';
+import { OrderTaxLine } from "./order-tax-line";
+import { Price } from "./price";
 
 export interface OrderTax {
     amount: Price;

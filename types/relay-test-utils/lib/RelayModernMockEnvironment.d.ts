@@ -8,7 +8,7 @@ import {
     IEnvironment,
     OperationDescriptor,
     Variables,
-} from 'relay-runtime';
+} from "relay-runtime";
 
 export type OperationMockResolver = (operation: OperationDescriptor) => GraphQLResponse | Error | null;
 
@@ -28,7 +28,7 @@ export interface MockFunctions {
     nextValue: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLSingularResponse) => void;
     complete: (request: ConcreteRequest | OperationDescriptor) => void;
     resolve: (request: ConcreteRequest | OperationDescriptor, payload: GraphQLSingularResponse) => void;
-    getAllOperations: () => ReadonlyArray<OperationDescriptor>;
+    getAllOperations: () => readonly OperationDescriptor[];
     findOperation: (findFn: (operation: OperationDescriptor) => boolean) => OperationDescriptor;
     queuePendingOperation: (query: GraphQLTaggedNode, variables: Variables) => void;
     getMostRecentOperation: () => OperationDescriptor;

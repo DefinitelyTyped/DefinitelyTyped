@@ -1,10 +1,4 @@
-// Type definitions for lambda-wrapper 0.3
-// Project: https://github.com/nordcloud/lambda-wrapper
-// Definitions by: Gaelan Steele <https://github.com/Gaelan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
-import { Handler, Context, Callback } from 'aws-lambda';
+import { Callback, Context, Handler } from "aws-lambda";
 
 export interface Wrapped<TEvent, TResult> {
     // None of these functions resolve the promise if a callback is present, so prohibit using both.
@@ -16,7 +10,7 @@ export interface Wrapped<TEvent, TResult> {
     runHandler(event: TEvent, context: Partial<Context>): Promise<TResult>;
 }
 
-export function wrap<TEvent, TResult, THandlerName extends string = 'handler'>(
+export function wrap<TEvent, TResult, THandlerName extends string = "handler">(
     mod: { [name in THandlerName]: Handler<TEvent, TResult> },
     options?: { handler?: THandlerName | undefined },
 ): Wrapped<TEvent, TResult>;

@@ -1,9 +1,15 @@
-// Type definitions for CanvasJS 1.9
-// Project: http://canvasjs.com/, https://github.com/tsur/canvasjs
-// Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type DashType = "solid" | "shortDash" | "shortDot" | "shortDashDot" | "shortDashDotDot" | "dot" | "dash" | "dashDot" | "longDash" | "longDashDot" | "longDashDotDot";
+type DashType =
+    | "solid"
+    | "shortDash"
+    | "shortDot"
+    | "shortDashDot"
+    | "shortDashDotDot"
+    | "dot"
+    | "dash"
+    | "dashDot"
+    | "longDash"
+    | "longDashDot"
+    | "longDashDotDot";
 
 declare namespace CanvasJS {
     class Chart {
@@ -68,12 +74,19 @@ declare namespace CanvasJS {
          * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
          * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
          */
-        addTo(propertyName: string, options: ChartAxisXOptions | ChartAxisYOptions | ChartDataSeriesOptions, index?: number, updateChart?: boolean): void;
+        addTo(
+            propertyName: string,
+            options: ChartAxisXOptions | ChartAxisYOptions | ChartDataSeriesOptions,
+            index?: number,
+            updateChart?: boolean,
+        ): void;
         /**
          * Export the chart as image (jpg / png).
          * @param options Setting when export
          */
-        exportChart(options: { format: "jpg" | "png", toDataURL?: boolean | undefined, fileName?: string | undefined }): void;
+        exportChart(
+            options: { format: "jpg" | "png"; toDataURL?: boolean | undefined; fileName?: string | undefined },
+        ): void;
         /**
          * Prints the Chart.
          * Chart should be rendered before you can use this method.
@@ -339,6 +352,53 @@ declare namespace CanvasJS {
          * subtitle allows you to set content, appearance and position of Chart’s subtitle. subtitle is very much like title except that its font size is lesser than title by default.
          */
         subtitles?: ChartTitleOptions[] | undefined;
+        /**
+         * Chart Toolbar contains various tools and options like Zoom, Pan, Reset, Print, Save as Image, etc.
+         * toolbar Object lets you customize the look & feel of various options available.
+         */
+        toolbar?: ChartToolbar | undefined;
+        /**
+         * zoomType allows you to control the axis for which zooming and panning are enabled. Default is “x”
+         * which enables zooming across xAxis. You can customize this to allow zooming/panning on yAxis or
+         * both xAxis and yAxis by setting zoomType to “y” or “xy”.
+         *
+         * Note:
+         * - This property works only when zoomEnabled is set to true.
+         * - Applies only for Chart types which have Axis.
+         *
+         * Default: "x"
+         */
+        zoomType?: "x" | "y" | "xy";
+        /**
+         * Sets the rangeChanging event handler for Chart which is triggered before viewportMinimum or
+         * viewportMaximum are updated while zooming, panning, or reset. Upon event, a parameter that
+         * contains event related data is sent to the assigned event handler. Parameter includes trigger,
+         * type and axes viewportMinimum and viewportMaximum corresponding to the event.
+         *
+         * Note:
+         * - rangeChanging is triggered only when range is changed manually using mouse/pointer (zoom/pan)
+         * and it does not fire when viewportMinimum and viewportMaximum are set programmatically.
+         * - This event along with viewportMinimum and viewportMaximum can be used to sync multiple chart ranges.
+         *
+         * Default: null
+         * @param e event object
+         */
+        rangeChanging?(e: ChartRangeEvent): void;
+        /**
+         * Sets the rangeChanged event handler for Chart which is triggered after viewportMinimum or
+         * viewportMaximum are updated while zooming, panning, or reset. Upon event, a parameter that
+         * contains event related data is sent to the assigned event handler. Parameter includes trigger,
+         * type and axes viewportMinimum and viewportMaximum corresponding to the event.
+         *
+         * Note:
+         * - rangeChanged is triggered only when range is changed manually using mouse/pointer (zoom/pan)
+         * and it does not fire when viewportMinimum and viewportMaximum are set programmatically.
+         * - This event along with viewportMinimum and viewportMaximum can be used to sync multiple chart ranges.
+         *
+         * Default: null
+         * @param e event object
+         */
+        rangeChanged?(e: ChartRangeEvent): void;
     }
 
     interface ChartTitleOptions {
@@ -451,10 +511,10 @@ declare namespace CanvasJS {
          * Can be accessed via get method or dot notation.
          */
         readonly bounds: {
-            x1: number,
-            x2: number,
-            y1: number,
-            y2: number,
+            x1: number;
+            x2: number;
+            y1: number;
+            y2: number;
         };
         /**
          * Returns the specified property of title.
@@ -599,7 +659,14 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns text to be displayed inside individual legend items.
          */
-        itemTextFormatter?(e?: { chart: Chart, legend: ChartLegendOptions, dataSeries: ChartDataSeriesOptions, dataPoint: ChartDataPoint }): string;
+        itemTextFormatter?(
+            e?: {
+                chart: Chart;
+                legend: ChartLegendOptions;
+                dataSeries: ChartDataSeriesOptions;
+                dataPoint: ChartDataPoint;
+            },
+        ): string;
         /**
          * When dockInsidePlotArea is set to true, legend renders inside the plot area there by giving more space to plot area.
          * Default: false
@@ -860,7 +927,7 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns stripLine’s label.
          */
-        labelFormatter?(e?: { chart: Chart, axis: ChartAxisYOptions, stripline: ChartStripLinesOptions }): string;
+        labelFormatter?(e?: { chart: Chart; axis: ChartAxisYOptions; stripline: ChartStripLinesOptions }): string;
     }
 
     interface ChartStrip extends ChartStripLinesOptions {
@@ -1058,7 +1125,7 @@ declare namespace CanvasJS {
          * 1.labelFormatter function should return a string.
          * 2.You can use formatNumber and formatDate functions to format number/date values inside the formatter function.
          */
-        labelFormatter?(e: { chart: Chart, axis: ChartAxisYOptions, value: number, label: string }): string;
+        labelFormatter?(e: { chart: Chart; axis: ChartAxisYOptions; value: number; label: string }): string;
         /**
          * Strip Lines / Trend Lines are vertical or horizontal lines used to highlight/mark a certain region on the plot area.
          * You can choose whether to draw a line at a specific position or shade a region on the plot area. Strip Lines are also referred to as Trend Lines.
@@ -1234,7 +1301,13 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns the content (text/html) to be displayed inside the toolTip.
          */
-        contentFormatter?(e: { chart: Chart, toolTip: ChartToolTipOptions, entries: Array<{ dataPoint: ChartDataPoint, dataSeries: ChartDataSeriesOptions }> }): string;
+        contentFormatter?(
+            e: {
+                chart: Chart;
+                toolTip: ChartToolTipOptions;
+                entries: Array<{ dataPoint: ChartDataPoint; dataSeries: ChartDataSeriesOptions }>;
+            },
+        ): string;
         /**
          * Sets the background color of toolTip. Values can be “HTML Color Name” or “hex” code.
          * Default: white
@@ -1298,12 +1371,12 @@ declare namespace CanvasJS {
          * @param e event object
          */
         indexLabelFormatter?(e: {
-            chart: Chart,
-            dataSeries: ChartDataSeriesOptions,
-            dataPoint: ChartDataPoint,
-            index?: number | undefined,
-            total?: number | undefined,
-            pencent?: number | undefined
+            chart: Chart;
+            dataSeries: ChartDataSeriesOptions;
+            dataPoint: ChartDataPoint;
+            index?: number | undefined;
+            total?: number | undefined;
+            pencent?: number | undefined;
         }): string;
         /**
          * Using this property you can define whether to render indexLabel "inside" or "outside" the dataPoint.
@@ -1690,6 +1763,85 @@ declare namespace CanvasJS {
          * Example: true, false
          */
         exploded?: boolean | undefined;
+    }
+
+    interface ChartRangeEvent {
+        type: "rangeChanging" | "rangeChanged";
+        trigger: "zoom" | "pan" | "reset";
+        chart: Chart;
+        /**
+         * Retuned only if axisX is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "y"
+         * - `viewportMaximum` will be null for zoomType "y"
+         */
+        axisX?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisY is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "x"
+         * - `viewportMaximum` will be null for zoomType "x"
+         */
+        axisY?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisX2 is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "y"
+         * - `viewportMaximum` will be null for zoomType "y"
+         */
+        axisX2?: ChartViewportBounds[];
+        /**
+         * Retuned only if axisY2 is present.
+         * Note:
+         * - `viewportMinimum` will be null for zoomType "x"
+         * - `viewportMaximum` will be null for zoomType "x"
+         */
+        axisY2?: ChartViewportBounds[];
+    }
+
+    interface ChartViewportBounds {
+        viewportMinimum: number | null;
+        viewportMaximum: number | null;
+    }
+
+    interface ChartToolbar {
+        /**
+         * Sets the background color of toolbar options (zoom/pan, reset, export-menu & export-options).
+         * Values of itemBackgroundColor can be specified in “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: "white"
+         */
+        itemBackgroundColor?: string | undefined;
+        /**
+         * Sets the background color of particular option (zoom/pan, reset, export-menu & export-options)
+         * within toolbar on mouse hover. Values of itemBackgroundColorOnHover can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: "#2196f3"
+         */
+        itemBackgroundColorOnHover?: string | undefined;
+        /**
+         * Sets the background color of particular option (zoom/pan, reset, export-menu & export-options)
+         * within toolbar on mouse hover. Values of itemBackgroundColorOnHover can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “#2196f3”
+         */
+        buttonBorderColor?: string | undefined;
+        /**
+         * Sets the border thickness of buttons (zoom/pan, reset & export-menu) in chart toolbar.
+         * Default: 1
+         */
+        buttonBorderThickness?: number | undefined;
+        /**
+         * Sets the font color of text within chart toolbar. Values of fontColor can be specified in
+         * “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “black”
+         */
+        fontColor?: string | undefined;
+        /**
+         * Sets the font color of text within chart toolbar on mouse hover. Values of fontColorOnHover
+         * can be specified in “HTML Color Name”, “hex code” or “rgba values”.
+         * Default: “black”
+         */
+        fontColorOnHover?: string | undefined;
     }
 }
 declare function CanvasJS(): void;

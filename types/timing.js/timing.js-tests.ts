@@ -1,4 +1,4 @@
-import * as timing from 'timing.js';
+import * as timing from "timing.js";
 
 const t = timing.getTimes();
 t.domReadyTime; // $ExpectType number

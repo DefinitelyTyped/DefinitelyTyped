@@ -1,7 +1,7 @@
-import { Viz } from './viz';
-import { Sheet, SheetInfo } from './sheet';
-import { Parameter } from './parameter';
-import { FieldAggregationType, FieldRoleType } from './enums';
+import { FieldAggregationType, FieldRoleType } from "./enums";
+import { Parameter } from "./parameter";
+import { Sheet, SheetInfo } from "./sheet";
+import { Viz } from "./viz";
 
 export class Workbook {
     // properties

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/clui",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/nathanpeck/clui#readme"
+    ],
+    "dependencies": {
+        "@types/cli-color": "*"
+    },
+    "devDependencies": {
+        "@types/clui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Farzad Majidfayyaz",
+            "githubUsername": "farzadmf"
+        }
+    ]
+}

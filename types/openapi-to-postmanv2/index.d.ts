@@ -1,18 +1,13 @@
-// Type definitions for openapi-to-postman 3.2
-// Project: https://github.com/postmanlabs/openapi-to-postman/
-// Definitions by: detachhead <https://github.com/detachhead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
-import { CollectionDefinition } from 'postman-collection';
+import { CollectionDefinition } from "postman-collection";
 
 export interface Input {
-    type: 'file' | 'string' | 'json';
+    type: "file" | "string" | "json";
     data: string;
 }
 
-export type ParametersResolution = 'Example' | 'Schema';
+export type ParametersResolution = "Example" | "Schema";
 
 /** @see https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md */
 export interface Options {
@@ -22,14 +17,14 @@ export interface Options {
      *
      * default: Fallback
      */
-    requestNameSource?: 'Fallback' | 'URL' | undefined;
+    requestNameSource?: "Fallback" | "URL" | undefined;
 
     /**
      * Option for setting indentation character
      *
      * default: Space
      */
-    indentCharacter?: 'Tab' | 'Space' | undefined;
+    indentCharacter?: "Tab" | "Space" | undefined;
 
     /**
      * Importing will collapse all folders that have only one child element and lack persistent folder-level data.
@@ -68,7 +63,7 @@ export interface Options {
      *
      * default: Paths
      */
-    folderStrategy?: 'Paths' | 'Tags' | undefined;
+    folderStrategy?: "Paths" | "Tags" | undefined;
 
     /**
      * Whether or not schemas should be faked.
@@ -98,7 +93,7 @@ export interface Options {
      *
      * default: false
      */
-    shortValidationErrors?: boolean| undefined;
+    shortValidationErrors?: boolean | undefined;
 
     /**
      * Specific properties (parts of a request/response pair) to ignore during validation. Must be sent as an array of
@@ -106,7 +101,7 @@ export interface Options {
      *
      * default: []
      */
-    validationPropertiesToIgnore?: ReadonlyArray<string> | undefined;
+    validationPropertiesToIgnore?: readonly string[] | undefined;
 
     /**
      * MISSING_IN_SCHEMA indicates that an extra parameter was included in the request. For most use cases, this need
@@ -193,8 +188,8 @@ export type ValidateResult = SuccessfulValidationResult | UnsuccessfulValidation
 
 type Result<T> =
     | (SuccessfulValidationResult & {
-    output: ReadonlyArray<{ type: 'collection' } & T>
-})
+        output: ReadonlyArray<{ type: "collection" } & T>;
+    })
     | UnsuccessfulValidationResult;
 
 export type ConvertResult = Result<{ data: CollectionDefinition }>;
@@ -205,9 +200,9 @@ export type Callback<Result> = (err: unknown, result: Result) => void;
 
 interface OptionsBase {
     external?: boolean | undefined;
-    usage: ReadonlyArray<'CONVERSION' | 'VALIDATION'>;
+    usage: ReadonlyArray<"CONVERSION" | "VALIDATION">;
 }
-export type OptionsVersion = '3.0' | '3.1';
+export type OptionsVersion = "3.0" | "3.1";
 
 export interface OptionsCriteria extends OptionsBase {
     version?: OptionsVersion | undefined;
@@ -218,11 +213,10 @@ interface OptionsTypes {
     enum: string;
     string: string;
     integer: number;
-    array: ReadonlyArray<unknown>;
+    array: readonly unknown[];
 }
 
-export interface OptionsDocument<T extends keyof OptionsTypes = keyof OptionsTypes>
-    extends OptionsBase {
+export interface OptionsDocument<T extends keyof OptionsTypes = keyof OptionsTypes> extends OptionsBase {
     name: string;
     id: string;
     type: T;
@@ -234,7 +228,7 @@ export interface OptionsDocument<T extends keyof OptionsTypes = keyof OptionsTyp
 type OptionsUse = Record<string, OptionsTypes[keyof OptionsTypes]>;
 
 export class SchemaPack {
-    constructor(input: Input, options?: Options)
+    constructor(input: Input, options?: Options);
 
     convert(cb: Callback<ConvertResult>): void;
 
@@ -249,8 +243,8 @@ export class SchemaPack {
         cb: Callback<{ requests: unknown; missingEndpoints: unknown }>,
     ): void;
 
-    static getOptions(mode: 'document', criteria: OptionsCriteria): OptionsDocument;
-    static getOptions(mode: 'use', criteria: OptionsCriteria): OptionsUse;
+    static getOptions(mode: "document", criteria: OptionsCriteria): OptionsDocument;
+    static getOptions(mode: "use", criteria: OptionsCriteria): OptionsUse;
 }
 
 export function convert(
@@ -261,8 +255,8 @@ export function convert(
 
 export function getMetaData(input: Input, cb: Callback<MetadataResult>): void;
 
-export function getOptions(mode: 'document', criteria: OptionsCriteria): OptionsDocument;
-export function getOptions(mode: 'use', criteria: OptionsCriteria): OptionsUse;
+export function getOptions(mode: "document", criteria: OptionsCriteria): OptionsDocument;
+export function getOptions(mode: "use", criteria: OptionsCriteria): OptionsUse;
 
 export function mergeAndValidate(input: Input, cb: Callback<ValidateResult>): void;
 

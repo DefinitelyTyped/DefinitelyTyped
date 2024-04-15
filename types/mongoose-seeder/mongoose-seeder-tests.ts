@@ -1,4 +1,4 @@
-import * as seeder from 'mongoose-seeder';
+import * as seeder from "mongoose-seeder";
 
 const data = `{
     "users": {
@@ -17,13 +17,13 @@ seeder.seed(data, { dropCollections: true }, (err, dbData) => {
 });
 
 seeder.seed(data, { dropDatabase: true }).then((dbData) => {
-  // ...
+    // ...
 }).catch((err) => {
-  // handle error
+    // handle error
 });
 
 seeder.seed(data, { dropCollections: true }).then((dbData) => {
-  // ...
+    // ...
 }).catch((err) => {
-  // handle error
+    // handle error
 });

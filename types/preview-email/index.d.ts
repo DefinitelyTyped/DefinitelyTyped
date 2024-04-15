@@ -1,10 +1,7 @@
-// Type definitions for preview-email 2.0
-// Project: https://github.com/niftylettuce/preview-email
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+/// <reference types="node" />
 
-import { Options as NodeMailerOptions } from 'nodemailer/lib/mailer';
+import type { SimpleParserOptions } from "mailparser";
+import type { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
 
 /**
  * Automatically opens your browser to preview Node.js email messages sent with Nodemailer. Made for Lad!
@@ -42,6 +39,23 @@ declare namespace previewEmail {
          * @default (path) => 'file://[file path]'
          */
         urlTransform?: UrlTransform | undefined;
+        /**
+         * whether or not to open the iOS Simulator with the preview url file path
+         * (defaults to true via process.env.NODE_ENV !== 'test' and will only run if macOS detected and not in a CI environment)
+         * @default true
+         */
+        openSimulator?: boolean | undefined;
+        /**
+         * an options Object to pass to `mailparser`'s `simpleParser` method
+         * (see [mailparser docs](https://nodemailer.com/extras/mailparser/#options) for available options
+         * – note that `Iconv` option is always overridden for safeguard)
+         */
+        simpleParser?: Omit<SimpleParserOptions, "Iconv"> | undefined;
+        /**
+         * whether or not to return HTML only – and subsequently not write nor open the file preview file
+         * @default false
+         */
+        returnHtml?: boolean | undefined;
     }
 
     interface OpenOptions {

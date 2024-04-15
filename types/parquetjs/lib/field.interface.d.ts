@@ -11,5 +11,5 @@ export interface FieldInterface {
     dLevelMax: number;
     isNested?: boolean | undefined;
     fieldCount?: number | undefined;
-    fields?: {[key: string]: FieldInterface} | undefined;
+    fields?: { [key: string]: FieldInterface } | undefined;
 }

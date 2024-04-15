@@ -1,5 +1,3 @@
-export = vkgProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const vkgProfile: createClient.Profile;
+export const profile: Profile;

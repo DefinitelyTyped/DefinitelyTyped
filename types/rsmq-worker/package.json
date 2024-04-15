@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/rsmq-worker",
+    "version": "0.4.9999",
+    "projects": [
+        "http://smrchy.github.io/rsmq/rsmq-worker/"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/redis": "^2.8.32",
         "@types/rsmq": "^0.3.27"
-    }
+    },
+    "devDependencies": {
+        "@types/rsmq-worker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TANAKA Koichi",
+            "githubUsername": "MugeSo"
+        }
+    ]
 }

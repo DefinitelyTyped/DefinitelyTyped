@@ -1,4 +1,4 @@
-import jQueryFactory = require('jquery');
+import jQueryFactory = require("jquery");
 
 const jq = jQueryFactory(window, true);
 // $ExpectType JQueryStatic

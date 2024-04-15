@@ -1,5 +1,5 @@
-import { Dashicon } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Dashicon } from "@wordpress/components";
+import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PluginSidebar {
     interface Props {
@@ -12,7 +12,7 @@ declare namespace PluginSidebar {
          * A Dashicon slug or a custom JSX element to be rendered when the sidebar is pinned to
          * toolbar.
          */
-        icon?: Dashicon.Icon | JSX.Element | undefined;
+        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
         /**
          * Whether to allow to pin sidebar to toolbar.
          * @defaultValue `true`

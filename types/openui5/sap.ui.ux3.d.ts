@@ -1,12 +1,14 @@
-// For Library Version: 1.106.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/ux3/library" {
   /**
-   * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2)
-   *
    * Enumeration of available standard actions for 'sap.ui.ux3.ActionBar'. To be used as parameters for function
    * 'sap.ui.ux3.ActionBar.getSocialAction'.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ActionBarSocialActions'.
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    */
   export enum ActionBarSocialActions {
     /**
@@ -31,19 +33,21 @@ declare module "sap/ui/ux3/library" {
     Update = "Update",
   }
   /**
-   * @deprecated (since 1.38)
-   *
    * Marker interface for controls which are suitable as view rendering for a DataSet.
+   *
+   * @deprecated (since 1.38)
    */
   export interface DataSetView {
     __implements__sap_ui_ux3_DataSetView: boolean;
   }
 
   /**
-   * @SINCE 1.7.1
-   * @deprecated (since 1.38)
-   *
    * Defines the order of the sub lists of a list in the ExactBrowser.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ExactOrder'.
+   *
+   * @since 1.7.1
+   * @deprecated (since 1.38)
    */
   export enum ExactOrder {
     /**
@@ -56,10 +60,14 @@ declare module "sap/ui/ux3/library" {
     Select = "Select",
   }
   /**
-   * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2)
-   *
    * Type of a Feeder.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'FeederType'.
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
    */
   export enum FeederType {
     /**
@@ -76,9 +84,11 @@ declare module "sap/ui/ux3/library" {
     Medium = "Medium",
   }
   /**
-   * @deprecated (since 1.38)
-   *
    * Defines the states of the follow action
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'FollowActionState'.
+   *
+   * @deprecated (since 1.38)
    */
   export enum FollowActionState {
     /**
@@ -95,9 +105,11 @@ declare module "sap/ui/ux3/library" {
     Hold = "Hold",
   }
   /**
-   * @deprecated (since 1.38)
-   *
    * This entries are used to set the visibility status of a NotificationBar
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'NotificationBarStatus'.
+   *
+   * @deprecated (since 1.38)
    */
   export enum NotificationBarStatus {
     /**
@@ -118,10 +130,12 @@ declare module "sap/ui/ux3/library" {
     None = "None",
   }
   /**
-   * @SINCE 1.12.0
-   * @deprecated (since 1.38)
-   *
    * Available shell design types.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ShellDesignType'.
+   *
+   * @since 1.12.0
+   * @deprecated (since 1.38)
    */
   export enum ShellDesignType {
     /**
@@ -139,9 +153,11 @@ declare module "sap/ui/ux3/library" {
     Standard = "Standard",
   }
   /**
-   * @deprecated (since 1.38)
-   *
    * Available shell header display types.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ShellHeaderType'.
+   *
+   * @deprecated (since 1.38)
    */
   export enum ShellHeaderType {
     /**
@@ -162,10 +178,12 @@ declare module "sap/ui/ux3/library" {
     Standard = "Standard",
   }
   /**
-   * @SINCE 1.16.3
-   * @deprecated (since 1.38)
-   *
    * Available ThingViewer header display types.
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'ThingViewerHeaderType'.
+   *
+   * @since 1.16.3
+   * @deprecated (since 1.38)
    */
   export enum ThingViewerHeaderType {
     /**
@@ -178,10 +196,12 @@ declare module "sap/ui/ux3/library" {
     Standard = "Standard",
   }
   /**
-   * @deprecated (since 1.38)
-   *
    * VisibleItemCountMode of the FacetFilter defines if the FacetFilter takes the whole available height (Auto)
    * in the surrounding container, or is so high as needed to show 5 Items ("Fixed " - default).
+   *
+   * This enum is part of the 'sap/ui/ux3/library' module export and must be accessed by the property 'VisibleItemCountMode'.
+   *
+   * @deprecated (since 1.38)
    */
   export enum VisibleItemCountMode {
     /**
@@ -196,10 +216,27 @@ declare module "sap/ui/ux3/library" {
   }
 }
 
+declare module "sap/ui/ux3/ShellPersonalization" {
+  /**
+   * Experimental implementation of visual Ux3 Shell personalization / branding.
+   *
+   * DO NOT USE PRODUCTIVELY!!!
+   *
+   * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
+   * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
+   * considering the number of configurable properties etc.
+   *
+   * @deprecated (since 1.36) - This class was never released for productive use and will never be.
+   * @experimental (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
+   * experimental work and might change or disappear in future versions.
+   */
+  const ShellPersonalization: undefined;
+
+  export default ShellPersonalization;
+}
+
 declare module "sap/ui/ux3/ActionBar" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ThingAction from "sap/ui/ux3/ThingAction";
 
@@ -214,9 +251,9 @@ declare module "sap/ui/ux3/ActionBar" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
-   *
    * A special toolbar with predefined social actions which can be shown as needed. These are: Create an update
    * (Feed), Follow, Mark for Follow Up, Mark as Favorite and Open Thing.
    *
@@ -225,6 +262,8 @@ declare module "sap/ui/ux3/ActionBar" {
    *
    * When using this control, please be aware that it fulfills rather specific requirements: it has been designed
    * for and is used within composite controls QuickView and ThingInspector.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
    */
   export default class ActionBar extends Control {
     /**
@@ -264,6 +303,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -284,6 +324,7 @@ declare module "sap/ui/ux3/ActionBar" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ActionBar.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -302,6 +343,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * For ‘Update’, please refer to event ‘feedSubmit’
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
@@ -313,7 +355,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -334,13 +376,14 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * For ‘Update’, please refer to event ‘feedSubmit’
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -353,6 +396,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * otherwise it will be bound to this `sap.ui.ux3.ActionBar` itself.
      *
      * Fired when a new feed entry is submitted.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -365,7 +409,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -379,13 +423,14 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Fired when a new feed entry is submitted.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFeedSubmit(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ActionBar` itself
        */
@@ -402,13 +447,14 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachActionSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -419,13 +465,14 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFeedSubmit(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ActionBar$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -434,30 +481,20 @@ declare module "sap/ui/ux3/ActionBar" {
     /**
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireActionSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected ThingAction
-         */
-        id?: string;
-        /**
-         * Selected ThingAction
-         */
-        action?: ThingAction;
-        /**
-         * New State of the selected action.Only filled if the respective action maintains a state property, for
-         * example 'FollowUp' or 'Favorite'
-         */
-        newState?: string;
-      }
+      mParameters?: ActionBar$ActionSelectedEventParameters
     ): this;
     /**
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -465,12 +502,7 @@ declare module "sap/ui/ux3/ActionBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Feed text
-         */
-        text?: string;
-      }
+      mParameters?: ActionBar$FeedSubmitEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAlwaysShowMoreMenu alwaysShowMoreMenu}.
@@ -479,6 +511,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * button is only displayed for overflow and business actions are rendered as inidividual buttons.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `alwaysShowMoreMenu`
      */
@@ -495,6 +528,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * The minimum width of ActionBar's the social actions part: business action controls have to be rendered
      * outside this area
      *
+     *
      * @returns Value of property `dividerWidth`
      */
     getDividerWidth(): CSSSize;
@@ -503,6 +537,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Indicates whether “Favorite” is active
      *
+     *
      * @returns Value of property `favoriteState`
      */
     getFavoriteState(): boolean;
@@ -510,6 +545,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Gets current value of property {@link #getFlagState flagState}.
      *
      * Indicates whether “Mark for Follow Up” is active
+     *
      *
      * @returns Value of property `flagState`
      */
@@ -522,6 +558,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Value of property `followState`
      */
     getFollowState(): FollowActionState | keyof typeof FollowActionState;
@@ -531,6 +568,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Indicates whether social action “Favorite” is shown, default is ‘true’
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showFavorite`
      */
@@ -542,6 +580,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showFlag`
      */
     getShowFlag(): boolean;
@@ -551,6 +590,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Indicates whether social action “Follow” is shown, default is ‘true’
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showFollow`
      */
@@ -562,6 +602,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showOpen`
      */
     getShowOpen(): boolean;
@@ -572,6 +613,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showUpdate`
      */
     getShowUpdate(): boolean;
@@ -579,6 +621,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Gets current value of property {@link #getThingIconURI thingIconURI}.
      *
      * The thing icon uri. Icon will be displayed in Feeder
+     *
      *
      * @returns Value of property `thingIconURI`
      */
@@ -588,12 +631,14 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Indicates whether “Update” is active
      *
+     *
      * @returns Value of property `updateState`
      */
     getUpdateState(): boolean;
     /**
      * Checks for the provided `sap.ui.ux3.ThingAction` in the aggregation {@link #getBusinessActions businessActions}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -607,6 +652,8 @@ declare module "sap/ui/ux3/ActionBar" {
      * Checks whether the control is still valid (is in the DOM). ActionBar instance is rendered if and only
      * if 'isActive' returns 'true'. This check is called implicitely by the rendere, MUST not be removed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns True if the control is still in the active DOM
      */
     isActive(): boolean;
@@ -619,6 +666,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -636,6 +684,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setDividerWidth(
@@ -651,6 +700,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteState(
@@ -665,6 +715,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Indicates whether “Mark for Follow Up” is active
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -684,6 +735,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFollowState(
@@ -700,6 +752,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -718,6 +771,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowFlag(
@@ -734,6 +788,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -752,6 +807,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowOpen(
@@ -769,6 +825,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowUpdate(
@@ -784,6 +841,7 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setThingIconURI(
@@ -798,6 +856,7 @@ declare module "sap/ui/ux3/ActionBar" {
      * Indicates whether “Update” is active
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -894,13 +953,48 @@ declare module "sap/ui/ux3/ActionBar" {
      *
      * For ‘Update’, please refer to event ‘feedSubmit’
      */
-    actionSelected?: (oEvent: Event) => void;
+    actionSelected?: (oEvent: ActionBar$ActionSelectedEvent) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: (oEvent: Event) => void;
+    feedSubmit?: (oEvent: ActionBar$FeedSubmitEvent) => void;
   }
+
+  export interface ActionBar$ActionSelectedEventParameters {
+    /**
+     * Id of selected ThingAction
+     */
+    id?: string;
+
+    /**
+     * Selected ThingAction
+     */
+    action?: ThingAction;
+
+    /**
+     * New State of the selected action.Only filled if the respective action maintains a state property, for
+     * example 'FollowUp' or 'Favorite'
+     */
+    newState?: string;
+  }
+
+  export type ActionBar$ActionSelectedEvent = Event<
+    ActionBar$ActionSelectedEventParameters,
+    ActionBar
+  >;
+
+  export interface ActionBar$FeedSubmitEventParameters {
+    /**
+     * Feed text
+     */
+    text?: string;
+  }
+
+  export type ActionBar$FeedSubmitEvent = Event<
+    ActionBar$FeedSubmitEventParameters,
+    ActionBar
+  >;
 }
 
 declare module "sap/ui/ux3/Collection" {
@@ -920,10 +1014,10 @@ declare module "sap/ui/ux3/Collection" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
-   * @deprecated (since 1.38)
-   *
    * Collection
+   *
+   * @since 1.9.0
+   * @deprecated (since 1.38)
    */
   export default class Collection extends UI5Element {
     /**
@@ -963,6 +1057,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -983,11 +1078,13 @@ declare module "sap/ui/ux3/Collection" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Collection.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1017,6 +1114,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Fires if a property has changed, and the collection inspector needs to do something after that
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPropertyChanged(
@@ -1043,6 +1141,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Fires if a property has changed, and the collection inspector needs to do something after that
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPropertyChanged(
@@ -1063,6 +1162,7 @@ declare module "sap/ui/ux3/Collection" {
      * otherwise it will be bound to this `sap.ui.ux3.Collection` itself.
      *
      * Fired when ever the selected items changer
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1090,6 +1190,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Fired when ever the selected items changer
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChanged(
@@ -1105,6 +1206,7 @@ declare module "sap/ui/ux3/Collection" {
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
@@ -1113,6 +1215,7 @@ declare module "sap/ui/ux3/Collection" {
      * this `sap.ui.ux3.Collection`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1132,6 +1235,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChanged(
@@ -1147,6 +1251,8 @@ declare module "sap/ui/ux3/Collection" {
     /**
      * Fires event {@link #event:propertyChanged propertyChanged} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     firePropertyChanged(
@@ -1157,6 +1263,8 @@ declare module "sap/ui/ux3/Collection" {
     ): this;
     /**
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1172,6 +1280,7 @@ declare module "sap/ui/ux3/Collection" {
      * If a collection is editable an edit button will be displayed below the list of items
      *
      * Default value is `false`.
+     *
      *
      * @returns Value of property `editable`
      */
@@ -1189,12 +1298,12 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `multiSelection`
      */
     getMultiSelection(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getSelectedItems
-     * selectedItems}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getSelectedItems selectedItems}.
      */
     getSelectedItems(): ID[];
     /**
@@ -1202,12 +1311,14 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Name for the collection
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getItems items}. and returns its
      * index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -1219,6 +1330,7 @@ declare module "sap/ui/ux3/Collection" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1239,6 +1351,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): Item[];
@@ -1249,6 +1362,7 @@ declare module "sap/ui/ux3/Collection" {
     removeAllSelectedItems(): string[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -1277,6 +1391,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
@@ -1294,6 +1409,7 @@ declare module "sap/ui/ux3/Collection" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setMultiSelection(
@@ -1308,6 +1424,7 @@ declare module "sap/ui/ux3/Collection" {
      * Name for the collection
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1355,6 +1472,20 @@ declare module "sap/ui/ux3/Collection" {
      */
     propertyChanged?: (oEvent: Event) => void;
   }
+
+  export interface Collection$PropertyChangedEventParameters {}
+
+  export type Collection$PropertyChangedEvent = Event<
+    Collection$PropertyChangedEventParameters,
+    Collection
+  >;
+
+  export interface Collection$SelectionChangedEventParameters {}
+
+  export type Collection$SelectionChangedEvent = Event<
+    Collection$SelectionChangedEventParameters,
+    Collection
+  >;
 }
 
 declare module "sap/ui/ux3/CollectionInspector" {
@@ -1374,10 +1505,10 @@ declare module "sap/ui/ux3/CollectionInspector" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
-   * @deprecated (since 1.38)
-   *
    * CollectionInspector
+   *
+   * @since 1.9.0
+   * @deprecated (since 1.38)
    */
   export default class CollectionInspector extends Control {
     /**
@@ -1417,6 +1548,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -1437,11 +1569,13 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Returns a metadata object for class sap.ui.ux3.CollectionInspector.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some collection `oCollection` to the aggregation named `collections`.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -1453,6 +1587,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): this;
     /**
      * Adds some content `oContent` to the aggregation named `content`.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -1470,6 +1605,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
      *
      * Event is fired if user selects a collection
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1497,6 +1633,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * Event is fired if user selects a collection
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachCollectionSelected(
@@ -1517,6 +1654,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
      *
      * Fires when the edit button is clicked
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1543,6 +1681,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
      *
      * Fires when the edit button is clicked
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1564,6 +1703,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
      *
      * Fires when an item in a collection is selected
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1590,6 +1730,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.CollectionInspector` itself.
      *
      * Fires when an item in a collection is selected
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1610,11 +1751,13 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Destroys the collection aggregation
      *
+     *
      * @returns this to allow method chaining
      */
     destroyCollections(): this;
     /**
      * Destroys all the content in the aggregation named `content`.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -1624,6 +1767,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * of this `sap.ui.ux3.CollectionInspector`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1643,6 +1787,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachEditCollection(
@@ -1656,10 +1801,11 @@ declare module "sap/ui/ux3/CollectionInspector" {
       oListener?: object
     ): this;
     /**
-     * Detaches event handler `fnFunction` from the {@link #event:itemSelectionChanged itemSelectionChanged}
+     * Detaches event handler `fnFunction` from the {@link #event:itemSelectionChanged itemSelectionChanged }
      * event of this `sap.ui.ux3.CollectionInspector`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1676,6 +1822,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Fires event {@link #event:collectionSelected collectionSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireCollectionSelected(
@@ -1687,6 +1835,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Fires event {@link #event:editCollection editCollection} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireEditCollection(
@@ -1697,6 +1847,8 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): this;
     /**
      * Fires event {@link #event:itemSelectionChanged itemSelectionChanged} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1729,6 +1881,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `fitParent`
      */
     getFitParent(): boolean;
@@ -1736,7 +1889,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * ID of the element which is the current target of the association {@link #getSelectedCollection selectedCollection},
      * or `null`.
      */
-    getSelectedCollection(): ID;
+    getSelectedCollection(): ID | null;
     /**
      * Gets current value of property {@link #getSidebarVisible sidebarVisible}.
      *
@@ -1744,12 +1897,14 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `sidebarVisible`
      */
     getSidebarVisible(): boolean;
     /**
      * Checks for the provided `sap.ui.ux3.Collection` in the aggregation {@link #getCollections collections}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -1763,6 +1918,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -1773,6 +1929,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): int;
     /**
      * Inserts a collection into the aggregation named `collections`.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -1790,6 +1947,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): this;
     /**
      * Inserts a content into the aggregation named `content`.
+     *
      *
      * @returns `this` to allow method chaining
      */
@@ -1813,6 +1971,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * Removes all the controls in the aggregation named `collections`.
      *  Additionally unregisters them from the hosting UIArea.
      *
+     *
      * @returns an array of the removed elements (might be empty)
      */
     removeAllCollections(): Collection[];
@@ -1820,11 +1979,13 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * Removes all the controls in the aggregation named `content`.
      *  Additionally unregisters them from the hosting UIArea.
      *
+     *
      * @returns an array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a collection from the aggregation named `collections`.
+     *
      *
      * @returns the removed collection or `null`
      */
@@ -1836,6 +1997,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): Collection | null;
     /**
      * Removes a content from the aggregation named `content`.
+     *
      *
      * @returns the removed content or `null`
      */
@@ -1854,6 +2016,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFitParent(
@@ -1864,6 +2027,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedCollection selectedCollection}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1882,6 +2046,7 @@ declare module "sap/ui/ux3/CollectionInspector" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1938,6 +2103,27 @@ declare module "sap/ui/ux3/CollectionInspector" {
      */
     editCollection?: (oEvent: Event) => void;
   }
+
+  export interface CollectionInspector$CollectionSelectedEventParameters {}
+
+  export type CollectionInspector$CollectionSelectedEvent = Event<
+    CollectionInspector$CollectionSelectedEventParameters,
+    CollectionInspector
+  >;
+
+  export interface CollectionInspector$EditCollectionEventParameters {}
+
+  export type CollectionInspector$EditCollectionEvent = Event<
+    CollectionInspector$EditCollectionEventParameters,
+    CollectionInspector
+  >;
+
+  export interface CollectionInspector$ItemSelectionChangedEventParameters {}
+
+  export type CollectionInspector$ItemSelectionChangedEvent = Event<
+    CollectionInspector$ItemSelectionChangedEventParameters,
+    CollectionInspector
+  >;
 }
 
 declare module "sap/ui/ux3/DataSet" {
@@ -1949,8 +2135,6 @@ declare module "sap/ui/ux3/DataSet" {
 
   import { DataSetView } from "sap/ui/ux3/library";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
@@ -1960,10 +2144,12 @@ declare module "sap/ui/ux3/DataSet" {
 
   import { ID } from "sap/ui/core/library";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
-   *
    * DataSet
+   *
+   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
    */
   export default class DataSet extends Control {
     /**
@@ -2003,6 +2189,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -2023,19 +2210,25 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Returns a metadata object for class sap.ui.ux3.DataSet.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Rerendering of the FilterArea
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     _rerenderFilter(): void;
     /**
      * Rerendering of the Toolbar
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     _rerenderToolbar(): void;
     /**
      * Adds some filter to the aggregation {@link #getFilter filter}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2047,6 +2240,7 @@ declare module "sap/ui/ux3/DataSet" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2068,6 +2262,7 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Adds some view to the aggregation {@link #getViews views}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addView(
@@ -2084,6 +2279,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Event which is fired when the user triggers a search
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
@@ -2095,7 +2291,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2109,13 +2305,14 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Event which is fired when the user triggers a search
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2129,6 +2326,7 @@ declare module "sap/ui/ux3/DataSet" {
      * otherwise it will be bound to this `sap.ui.ux3.DataSet` itself.
      *
      * selection Changed
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2141,7 +2339,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2156,13 +2354,14 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * selection Changed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChanged(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSet` itself
        */
@@ -2173,6 +2372,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2189,20 +2389,23 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Creates a view switch button
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns viewSwitch instance
      */
     createViewSwitch(
       /**
-       * View
+       * DataSet view
        */
-      oView: object,
+      oView: DataSetView,
       /**
        * Index of view
        */
       iIndex: int
-    ): object;
+    ): /* was: sap.m.Button */ any;
     /**
      * Destroys all the filter in the aggregation {@link #getFilter filter}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2210,11 +2413,13 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Destroys all the views in the aggregation {@link #getViews views}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2224,13 +2429,14 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSearch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2242,13 +2448,14 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChanged(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSet$SelectionChangedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2257,21 +2464,20 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Fires event {@link #event:search search} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSearch(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The search query
-         */
-        query?: string;
-      }
+      mParameters?: DataSet$SearchEventParameters
     ): this;
     /**
      * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2279,16 +2485,7 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Old lead selected index
-         */
-        oldLeadSelectedIndex?: int;
-        /**
-         * New lead selected index
-         */
-        newLeadSelectedIndex?: int;
-      }
+      mParameters?: DataSet$SelectionChangedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getFilter filter}.
@@ -2305,6 +2502,8 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Returns the LeadSelection index
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns selected index
      */
     getLeadSelection(): int;
@@ -2314,6 +2513,7 @@ declare module "sap/ui/ux3/DataSet" {
      * Selection mode of the DataSet
      *
      * Default value is `false`.
+     *
      *
      * @returns Value of property `multiSelect`
      */
@@ -2329,6 +2529,8 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Returns id of selected Item from given index
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns id of selected item
      */
     getSelectedItemId(
@@ -2341,13 +2543,14 @@ declare module "sap/ui/ux3/DataSet" {
      * ID of the element which is the current target of the association {@link #getSelectedView selectedView},
      * or `null`.
      */
-    getSelectedView(): ID;
+    getSelectedView(): ID | null;
     /**
      * Gets current value of property {@link #getShowFilter showFilter}.
      *
      * show filter
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showFilter`
      */
@@ -2359,6 +2562,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showSearchField`
      */
     getShowSearchField(): boolean;
@@ -2368,6 +2572,7 @@ declare module "sap/ui/ux3/DataSet" {
      * show Toolbar
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showToolbar`
      */
@@ -2382,6 +2587,7 @@ declare module "sap/ui/ux3/DataSet" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getFilter filter}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFilter(
@@ -2393,6 +2599,7 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Checks for the provided `sap.ui.ux3.DataSetItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -2406,6 +2613,7 @@ declare module "sap/ui/ux3/DataSet" {
      * Checks for the provided `sap.ui.ux3.DataSetView` in the aggregation {@link #getViews views}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfView(
@@ -2416,6 +2624,7 @@ declare module "sap/ui/ux3/DataSet" {
     ): int;
     /**
      * Inserts a filter into the aggregation {@link #getFilter filter}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2434,6 +2643,7 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
@@ -2450,6 +2660,7 @@ declare module "sap/ui/ux3/DataSet" {
     ): this;
     /**
      * Inserts a view into the aggregation {@link #getViews views}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2468,6 +2679,8 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Returns true if iIndex is selected
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns index selected true/false
      */
     isSelectedIndex(
@@ -2481,6 +2694,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllFilter(): Control[];
@@ -2488,6 +2702,7 @@ declare module "sap/ui/ux3/DataSet" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -2497,11 +2712,13 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllViews(): DataSetView[];
     /**
      * Removes a filter from the aggregation {@link #getFilter filter}.
+     *
      *
      * @returns The removed filter or `null`
      */
@@ -2513,6 +2730,7 @@ declare module "sap/ui/ux3/DataSet" {
     ): Control | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -2529,6 +2747,7 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Removes a view from the aggregation {@link #getViews views}.
      *
+     *
      * @returns The removed view or `null`
      */
     removeView(
@@ -2539,6 +2758,8 @@ declare module "sap/ui/ux3/DataSet" {
     ): DataSetView | null;
     /**
      * Set the LeadSelection index
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     setLeadSelection(
       /**
@@ -2558,6 +2779,7 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * Sets the associated {@link #getSelectedView selectedView}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedView(
@@ -2576,6 +2798,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowFilter(
@@ -2592,6 +2815,7 @@ declare module "sap/ui/ux3/DataSet" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2610,6 +2834,7 @@ declare module "sap/ui/ux3/DataSet" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowToolbar(
@@ -2620,6 +2845,7 @@ declare module "sap/ui/ux3/DataSet" {
     ): this;
     /**
      * Unbinds aggregation {@link #getItems items} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2678,19 +2904,46 @@ declare module "sap/ui/ux3/DataSet" {
     /**
      * selection Changed
      */
-    selectionChanged?: (oEvent: Event) => void;
+    selectionChanged?: (oEvent: DataSet$SelectionChangedEvent) => void;
 
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: DataSet$SearchEvent) => void;
   }
+
+  export interface DataSet$SearchEventParameters {
+    /**
+     * The search query
+     */
+    query?: string;
+  }
+
+  export type DataSet$SearchEvent = Event<
+    DataSet$SearchEventParameters,
+    DataSet
+  >;
+
+  export interface DataSet$SelectionChangedEventParameters {
+    /**
+     * Old lead selected index
+     */
+    oldLeadSelectedIndex?: int;
+
+    /**
+     * New lead selected index
+     */
+    newLeadSelectedIndex?: int;
+  }
+
+  export type DataSet$SelectionChangedEvent = Event<
+    DataSet$SelectionChangedEventParameters,
+    DataSet
+  >;
 }
 
 declare module "sap/ui/ux3/DataSetItem" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
-
-  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -2698,10 +2951,12 @@ declare module "sap/ui/ux3/DataSetItem" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * DataSet Item
+   *
+   * @deprecated (since 1.38)
    */
   export default class DataSetItem extends UI5Element {
     /**
@@ -2741,6 +2996,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -2761,6 +3017,7 @@ declare module "sap/ui/ux3/DataSetItem" {
     /**
      * Returns a metadata object for class sap.ui.ux3.DataSetItem.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -2771,6 +3028,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * otherwise it will be bound to this `sap.ui.ux3.DataSetItem` itself.
      *
      * Event Fired when Datset item is selected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2783,7 +3041,7 @@ declare module "sap/ui/ux3/DataSetItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
        */
@@ -2797,13 +3055,14 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * Event Fired when Datset item is selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.DataSetItem` itself
        */
@@ -2814,13 +3073,14 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DataSetItem$SelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -2829,18 +3089,15 @@ declare module "sap/ui/ux3/DataSetItem" {
     /**
      * Fires event {@link #event:selected selected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of the selected Datset item
-         */
-        itemId?: string;
-      }
+      mParameters?: DataSetItem$SelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCheckable checkable}.
@@ -2849,6 +3106,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `checkable`
      */
     getCheckable(): boolean;
@@ -2856,6 +3114,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * Gets current value of property {@link #getIconSrc iconSrc}.
      *
      * image
+     *
      *
      * @returns Value of property `iconSrc`
      */
@@ -2867,6 +3126,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * Default value is `'Subtitle'`.
      *
+     *
      * @returns Value of property `subtitle`
      */
     getSubtitle(): string;
@@ -2876,6 +3136,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * title
      *
      * Default value is `'Title'`.
+     *
      *
      * @returns Value of property `title`
      */
@@ -2888,6 +3149,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2903,6 +3165,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * image
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2921,6 +3184,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      *
      * Default value is `'Subtitle'`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitle(
@@ -2937,6 +3201,7 @@ declare module "sap/ui/ux3/DataSetItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'Title'`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2972,8 +3237,20 @@ declare module "sap/ui/ux3/DataSetItem" {
     /**
      * Event Fired when Datset item is selected.
      */
-    selected?: (oEvent: Event) => void;
+    selected?: (oEvent: DataSetItem$SelectedEvent) => void;
   }
+
+  export interface DataSetItem$SelectedEventParameters {
+    /**
+     * Id of the selected Datset item
+     */
+    itemId?: string;
+  }
+
+  export type DataSetItem$SelectedEvent = Event<
+    DataSetItem$SelectedEventParameters,
+    DataSetItem
+  >;
 }
 
 declare module "sap/ui/ux3/DataSetSimpleView" {
@@ -2992,9 +3269,9 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38) - Use a layout by choice from the {@link sap.m} library, instead.
-   *
    * DataSetSimpleView provides a simple view example for DataSet usage.
+   *
+   * @deprecated (since 1.38) - Use a layout by choice from the {@link sap.m} library, instead.
    */
   export default class DataSetSimpleView
     extends Control
@@ -3037,6 +3314,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3057,17 +3335,21 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     /**
      * Returns a metadata object for class sap.ui.ux3.DataSetSimpleView.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Destroys the template in the aggregation {@link #getTemplate template}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyTemplate(): this;
     /**
      * View finalization: Called when leaving the view
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     exitView(aItems: DataSetItem[]): void;
     /**
@@ -3078,16 +3360,17 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `floating`
      */
     getFloating(): boolean;
     /**
-     * @SINCE 1.13.0
-     *
      * Gets current value of property {@link #getHeight height}.
      *
      * If the pagination feature is used without specifying a scroll area, a height for the dataset must be
      * defined.
+     *
+     * @since 1.13.0
      *
      * @returns Value of property `height`
      */
@@ -3097,6 +3380,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Icon source for this view
      *
+     *
      * @returns Value of property `icon`
      */
     getIcon(): URI;
@@ -3104,6 +3388,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * Gets current value of property {@link #getIconHovered iconHovered}.
      *
      * icon: hovered state
+     *
      *
      * @returns Value of property `iconHovered`
      */
@@ -3113,12 +3398,11 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * icon: selected state
      *
+     *
      * @returns Value of property `iconSelected`
      */
     getIconSelected(): URI;
     /**
-     * @SINCE 1.13.0
-     *
      * Gets current value of property {@link #getInitialItemCount initialItemCount}.
      *
      * If this value is greater zero only this amount of items is loaded in the first place. New items are loaded
@@ -3127,18 +3411,20 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `0`.
      *
+     * @since 1.13.0
+     *
      * @returns Value of property `initialItemCount`
      */
     getInitialItemCount(): int;
     /**
-     * @SINCE 1.9.2
-     *
      * Gets current value of property {@link #getItemMinWidth itemMinWidth}.
      *
      * When itemMinWidth>0 and the property floating is true the given minimum width in pixels is set to DatSet
      * items. A minimum width must be given when the property responsive is set.
      *
      * Default value is `0`.
+     *
+     * @since 1.9.2
      *
      * @returns Value of property `itemMinWidth`
      */
@@ -3150,24 +3436,23 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `"Name of this View"`.
      *
+     *
      * @returns Value of property `name`
      */
     getName(): string;
     /**
-     * @SINCE 1.13.0
-     *
      * Gets current value of property {@link #getReloadItemCount reloadItemCount}.
      *
      * This number defines the item count which is reloaded on scroll if initialItemCount is enabled.
      *
      * Default value is `0`.
      *
+     * @since 1.13.0
+     *
      * @returns Value of property `reloadItemCount`
      */
     getReloadItemCount(): int;
     /**
-     * @SINCE 1.9.2
-     *
      * Gets current value of property {@link #getResponsive responsive}.
      *
      * When true and the property floating is true the DatSet items are floating containers filling the whole
@@ -3175,15 +3460,17 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `false`.
      *
+     * @since 1.9.2
+     *
      * @returns Value of property `responsive`
      */
     getResponsive(): boolean;
     /**
-     * @SINCE 1.13.0
-     *
      * Gets current value of property {@link #getScrollArea scrollArea}.
      *
      * ID of the DOM Element or jQuery reference to the dom which holds the scrollbar for the dataset
+     *
+     * @since 1.13.0
      *
      * @returns Value of property `scrollArea`
      */
@@ -3196,6 +3483,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     getTemplate(): Control;
     /**
      * Eventhandler for the selection of an Item
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     handleSelection(
       /**
@@ -3205,6 +3494,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     ): void;
     /**
      * View Initialization: Called when selecting the view
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     initView(
       /**
@@ -3214,6 +3505,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     ): void;
     /**
      * Check if Item `oItem` is selected
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     isItemSelected(
       /**
@@ -3231,6 +3524,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFloating(
@@ -3240,14 +3534,14 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       bFloating?: boolean
     ): this;
     /**
-     * @SINCE 1.13.0
-     *
      * Sets a new value for property {@link #getHeight height}.
      *
      * If the pagination feature is used without specifying a scroll area, a height for the dataset must be
      * defined.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.13.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3264,6 +3558,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
@@ -3278,6 +3573,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * icon: hovered state
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3294,6 +3590,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIconSelected(
@@ -3303,8 +3600,6 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       sIconSelected?: URI
     ): this;
     /**
-     * @SINCE 1.13.0
-     *
      * Sets a new value for property {@link #getInitialItemCount initialItemCount}.
      *
      * If this value is greater zero only this amount of items is loaded in the first place. New items are loaded
@@ -3315,6 +3610,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `0`.
      *
+     * @since 1.13.0
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setInitialItemCount(
@@ -3324,8 +3621,6 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       iInitialItemCount?: int
     ): this;
     /**
-     * @SINCE 1.9.2
-     *
      * Sets a new value for property {@link #getItemMinWidth itemMinWidth}.
      *
      * When itemMinWidth>0 and the property floating is true the given minimum width in pixels is set to DatSet
@@ -3334,6 +3629,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @since 1.9.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3352,6 +3649,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      *
      * Default value is `"Name of this View"`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setName(
@@ -3361,8 +3659,6 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       sName?: string
     ): this;
     /**
-     * @SINCE 1.13.0
-     *
      * Sets a new value for property {@link #getReloadItemCount reloadItemCount}.
      *
      * This number defines the item count which is reloaded on scroll if initialItemCount is enabled.
@@ -3370,6 +3666,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @since 1.13.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3380,8 +3678,6 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       iReloadItemCount?: int
     ): this;
     /**
-     * @SINCE 1.9.2
-     *
      * Sets a new value for property {@link #getResponsive responsive}.
      *
      * When true and the property floating is true the DatSet items are floating containers filling the whole
@@ -3390,6 +3686,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3408,6 +3706,7 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     /**
      * Sets the aggregated {@link #getTemplate template}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTemplate(
@@ -3418,6 +3717,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     ): this;
     /**
      * View update: Called when pagination adds items
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     updateView(
       /**
@@ -3455,49 +3756,49 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
     iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
-     *
      * When true and the property floating is true the DatSet items are floating containers filling the whole
      * space of a row.
+     *
+     * @since 1.9.2
      */
     responsive?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
-     *
      * When itemMinWidth>0 and the property floating is true the given minimum width in pixels is set to DatSet
      * items. A minimum width must be given when the property responsive is set.
+     *
+     * @since 1.9.2
      */
     itemMinWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
-     *
      * If this value is greater zero only this amount of items is loaded in the first place. New items are loaded
      * automatically when the user scrolls down. The number of items which are reloaded can be defined with
      * the property "reloadItemCount"
+     *
+     * @since 1.13.0
      */
     initialItemCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
-     *
      * This number defines the item count which is reloaded on scroll if initialItemCount is enabled.
+     *
+     * @since 1.13.0
      */
     reloadItemCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
-     *
      * ID of the DOM Element or jQuery reference to the dom which holds the scrollbar for the dataset
+     *
+     * @since 1.13.0
      */
     scrollArea?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.0
-     *
      * If the pagination feature is used without specifying a scroll area, a height for the dataset must be
      * defined.
+     *
+     * @since 1.13.0
      */
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
@@ -3513,8 +3814,6 @@ declare module "sap/ui/ux3/Exact" {
 
   import ExactAttribute from "sap/ui/ux3/ExactAttribute";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ExactArea from "sap/ui/ux3/ExactArea";
@@ -3528,12 +3827,14 @@ declare module "sap/ui/ux3/Exact" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.2)
-   *
    * A comprehensive UI design approach with graphical and functional elements for searching data, exploring
    * data, and acting on the data ("Explore and Act (Exact) Pattern").
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.2) - API is not yet finished and might change completely
    */
   export default class Exact extends Control {
     /**
@@ -3573,6 +3874,7 @@ declare module "sap/ui/ux3/Exact" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3593,11 +3895,13 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Exact.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some attribute to the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3615,6 +3919,7 @@ declare module "sap/ui/ux3/Exact" {
      *
      * Event which is fired when an attribute is selected or unselected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachRefineSearch(
@@ -3626,7 +3931,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3640,13 +3945,14 @@ declare module "sap/ui/ux3/Exact" {
      *
      * Event which is fired when an attribute is selected or unselected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachRefineSearch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3659,6 +3965,7 @@ declare module "sap/ui/ux3/Exact" {
      * otherwise it will be bound to this `sap.ui.ux3.Exact` itself.
      *
      * Event is fired when the search button is clicked
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3671,7 +3978,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3685,13 +3992,14 @@ declare module "sap/ui/ux3/Exact" {
      *
      * Event is fired when the search button is clicked
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Exact` itself
        */
@@ -3700,11 +4008,13 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * Destroys all the attributes in the aggregation {@link #getAttributes attributes}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyAttributes(): this;
     /**
      * Destroys the settingsMenu in the aggregation {@link #getSettingsMenu settingsMenu}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3714,13 +4024,14 @@ declare module "sap/ui/ux3/Exact" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachRefineSearch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$RefineSearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3731,13 +4042,14 @@ declare module "sap/ui/ux3/Exact" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSearch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Exact$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3746,29 +4058,20 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * Fires event {@link #event:refineSearch refineSearch} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireRefineSearch(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The query string which was entered in the search field
-         */
-        query?: string;
-        /**
-         * The attribute which was selected or unselected recently
-         */
-        changedAttribute?: ExactAttribute;
-        /**
-         * Array of all selected ExcatAttribute.
-         */
-        allSelectedAttributes?: object;
-      }
+      mParameters?: Exact$RefineSearchEventParameters
     ): this;
     /**
      * Fires event {@link #event:search search} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3776,12 +4079,7 @@ declare module "sap/ui/ux3/Exact" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The query string which was entered in the search field.
-         */
-        query?: string;
-      }
+      mParameters?: Exact$SearchEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getAttributes attributes}.
@@ -3797,6 +4095,7 @@ declare module "sap/ui/ux3/Exact" {
      * Gets current value of property {@link #getResultText resultText}.
      *
      * A title text which is displayed above the result section
+     *
      *
      * @returns Value of property `resultText`
      */
@@ -3815,6 +4114,7 @@ declare module "sap/ui/ux3/Exact" {
      * Checks for the provided `sap.ui.ux3.ExactAttribute` in the aggregation {@link #getAttributes attributes}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfAttribute(
@@ -3825,6 +4125,7 @@ declare module "sap/ui/ux3/Exact" {
     ): int;
     /**
      * Inserts a attribute into the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3845,11 +4146,13 @@ declare module "sap/ui/ux3/Exact" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAttributes(): ExactAttribute[];
     /**
      * Removes a attribute from the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns The removed attribute or `null`
      */
@@ -3866,6 +4169,7 @@ declare module "sap/ui/ux3/Exact" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setResultText(
@@ -3876,6 +4180,7 @@ declare module "sap/ui/ux3/Exact" {
     ): this;
     /**
      * Sets the aggregated {@link #getSettingsMenu settingsMenu}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3910,13 +4215,44 @@ declare module "sap/ui/ux3/Exact" {
     /**
      * Event is fired when the search button is clicked
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: Exact$SearchEvent) => void;
 
     /**
      * Event which is fired when an attribute is selected or unselected.
      */
-    refineSearch?: (oEvent: Event) => void;
+    refineSearch?: (oEvent: Exact$RefineSearchEvent) => void;
   }
+
+  export interface Exact$RefineSearchEventParameters {
+    /**
+     * The query string which was entered in the search field
+     */
+    query?: string;
+
+    /**
+     * The attribute which was selected or unselected recently
+     */
+    changedAttribute?: ExactAttribute;
+
+    /**
+     * Array of all selected ExcatAttribute.
+     */
+    allSelectedAttributes?: object;
+  }
+
+  export type Exact$RefineSearchEvent = Event<
+    Exact$RefineSearchEventParameters,
+    Exact
+  >;
+
+  export interface Exact$SearchEventParameters {
+    /**
+     * The query string which was entered in the search field.
+     */
+    query?: string;
+  }
+
+  export type Exact$SearchEvent = Event<Exact$SearchEventParameters, Exact>;
 }
 
 declare module "sap/ui/ux3/ExactArea" {
@@ -3932,11 +4268,11 @@ declare module "sap/ui/ux3/ExactArea" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38)
-   * @EXPERIMENTAL (since 1.6)
-   *
    * Consists of two sections: A tool bar and a content area where arbitrary controls can be added. The ExactArea
    * is intended to be used for the Exact design approach but alternatively also in a stand alone version.
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.6) - API is not yet finished and might change completely
    */
   export default class ExactArea extends Control {
     /**
@@ -3976,6 +4312,7 @@ declare module "sap/ui/ux3/ExactArea" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -3996,11 +4333,13 @@ declare module "sap/ui/ux3/ExactArea" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ExactArea.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4013,6 +4352,7 @@ declare module "sap/ui/ux3/ExactArea" {
     /**
      * Adds some toolbarItem to the aggregation {@link #getToolbarItems toolbarItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addToolbarItem(
@@ -4024,11 +4364,13 @@ declare module "sap/ui/ux3/ExactArea" {
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the toolbarItems in the aggregation {@link #getToolbarItems toolbarItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4052,12 +4394,14 @@ declare module "sap/ui/ux3/ExactArea" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `toolbarVisible`
      */
     getToolbarVisible(): boolean;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -4071,6 +4415,7 @@ declare module "sap/ui/ux3/ExactArea" {
      * Checks for the provided `sap.ui.commons.ToolbarItem` in the aggregation {@link #getToolbarItems toolbarItems}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfToolbarItem(
@@ -4081,6 +4426,7 @@ declare module "sap/ui/ux3/ExactArea" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4098,6 +4444,7 @@ declare module "sap/ui/ux3/ExactArea" {
     ): this;
     /**
      * Inserts a toolbarItem into the aggregation {@link #getToolbarItems toolbarItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4118,6 +4465,7 @@ declare module "sap/ui/ux3/ExactArea" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
@@ -4126,11 +4474,13 @@ declare module "sap/ui/ux3/ExactArea" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllToolbarItems(): ToolbarItem[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -4142,6 +4492,7 @@ declare module "sap/ui/ux3/ExactArea" {
     ): Control | null;
     /**
      * Removes a toolbarItem from the aggregation {@link #getToolbarItems toolbarItems}.
+     *
      *
      * @returns The removed toolbarItem or `null`
      */
@@ -4159,6 +4510,7 @@ declare module "sap/ui/ux3/ExactArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4195,8 +4547,6 @@ declare module "sap/ui/ux3/ExactArea" {
 declare module "sap/ui/ux3/ExactAttribute" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import { ExactOrder } from "sap/ui/ux3/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -4208,10 +4558,12 @@ declare module "sap/ui/ux3/ExactAttribute" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * An element for defining attributes and sub-attributes used within the Exact pattern.
+   *
+   * @deprecated (since 1.38)
    */
   export default class ExactAttribute extends UI5Element {
     /**
@@ -4251,6 +4603,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -4271,11 +4624,13 @@ declare module "sap/ui/ux3/ExactAttribute" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ExactAttribute.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some attribute to the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4296,6 +4651,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
      * getAttributes() is called.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSupplyAttributes(
@@ -4307,7 +4663,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
        */
@@ -4324,13 +4680,14 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
      * getAttributes() is called.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSupplyAttributes(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactAttribute` itself
        */
@@ -4338,6 +4695,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
     ): this;
     /**
      * Destroys all the attributes in the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4348,13 +4706,14 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSupplyAttributes(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactAttribute$SupplyAttributesEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4363,23 +4722,21 @@ declare module "sap/ui/ux3/ExactAttribute" {
     /**
      * Fires event {@link #event:supplyAttributes supplyAttributes} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSupplyAttributes(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ExactAttribute
-         */
-        attribute?: ExactAttribute;
-      }
+      mParameters?: ExactAttribute$SupplyAttributesEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAdditionalData additionalData}.
      *
      * An example for additional data are database keys
+     *
      *
      * @returns Value of property `additionalData`
      */
@@ -4398,17 +4755,18 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `autoActivateSupply`
      */
     getAutoActivateSupply(): boolean;
     /**
-     * @SINCE 1.7.1
-     *
      * Gets current value of property {@link #getListOrder listOrder}.
      *
      * The order how the sublists of this attribute should be displayed.
      *
      * Default value is `Select`.
+     *
+     * @since 1.7.1
      *
      * @returns Value of property `listOrder`
      */
@@ -4417,6 +4775,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * Gets current value of property {@link #getSelected selected}.
      *
      * Specifies whether the attribute shall be selected
+     *
      *
      * @returns Value of property `selected`
      */
@@ -4432,6 +4791,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * for example, showSubAttributesIndicator should be set to true.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showSubAttributesIndicator`
      */
@@ -4450,6 +4810,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `supplyActive`
      */
     getSupplyActive(): boolean;
@@ -4458,17 +4819,18 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * The attribute name
      *
+     *
      * @returns Value of property `text`
      */
     getText(): string;
     /**
-     * @SINCE 1.7.0
-     *
      * Gets current value of property {@link #getWidth width}.
      *
      * Specifies the width of the corresponding list in pixels. The value must be between 70 and 500.
      *
      * Default value is `168`.
+     *
+     * @since 1.7.0
      *
      * @returns Value of property `width`
      */
@@ -4476,6 +4838,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
     /**
      * Checks for the provided `sap.ui.ux3.ExactAttribute` in the aggregation {@link #getAttributes attributes}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -4487,6 +4850,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
     ): int;
     /**
      * Inserts a attribute into the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4507,11 +4871,13 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAttributes(): ExactAttribute[];
     /**
      * Removes a attribute from the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns The removed attribute or `null`
      */
@@ -4538,6 +4904,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAdditionalData(
@@ -4556,6 +4923,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAutoActivateSupply(
@@ -4565,8 +4933,6 @@ declare module "sap/ui/ux3/ExactAttribute" {
       bAutoActivateSupply?: boolean
     ): this;
     /**
-     * @SINCE 1.7.1
-     *
      * Sets a new value for property {@link #getListOrder listOrder}.
      *
      * The order how the sublists of this attribute should be displayed.
@@ -4574,6 +4940,8 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Select`.
+     *
+     * @since 1.7.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4586,6 +4954,8 @@ declare module "sap/ui/ux3/ExactAttribute" {
     /**
      * See:
      * 	sap.ui.base.ManagedObject.prototype.setProperty
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -4602,6 +4972,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * Specifies whether the attribute shall be selected
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4625,6 +4996,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowSubAttributesIndicator(
@@ -4645,6 +5017,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSupplyActive(
@@ -4660,6 +5033,7 @@ declare module "sap/ui/ux3/ExactAttribute" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setText(
@@ -4672,12 +5046,11 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * See:
      * 	sap.ui.core.Element.prototype.setTooltip
      *
+     *
      * @returns Returns `this` to allow method chaining
      */
     setTooltip(oTooltip: string | TooltipBase): this;
     /**
-     * @SINCE 1.7.0
-     *
      * Sets a new value for property {@link #getWidth width}.
      *
      * Specifies the width of the corresponding list in pixels. The value must be between 70 and 500.
@@ -4685,6 +5058,8 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `168`.
+     *
+     * @since 1.7.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4708,16 +5083,16 @@ declare module "sap/ui/ux3/ExactAttribute" {
     selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
-     *
      * Specifies the width of the corresponding list in pixels. The value must be between 70 and 500.
+     *
+     * @since 1.7.0
      */
     width?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
-     *
      * The order how the sublists of this attribute should be displayed.
+     *
+     * @since 1.7.1
      */
     listOrder?:
       | (ExactOrder | keyof typeof ExactOrder)
@@ -4767,8 +5142,20 @@ declare module "sap/ui/ux3/ExactAttribute" {
      * the corresponding ExactAttribute is selected, it was already selected when a handler is attached or function
      * getAttributes() is called.
      */
-    supplyAttributes?: (oEvent: Event) => void;
+    supplyAttributes?: (oEvent: ExactAttribute$SupplyAttributesEvent) => void;
   }
+
+  export interface ExactAttribute$SupplyAttributesEventParameters {
+    /**
+     * The ExactAttribute
+     */
+    attribute?: ExactAttribute;
+  }
+
+  export type ExactAttribute$SupplyAttributesEvent = Event<
+    ExactAttribute$SupplyAttributesEventParameters,
+    ExactAttribute
+  >;
 }
 
 declare module "sap/ui/ux3/ExactBrowser" {
@@ -4792,13 +5179,13 @@ declare module "sap/ui/ux3/ExactBrowser" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38)
-   *
    * Attribute browse area used within the Exact pattern. The main benefit of this control is the high flexibility
    * when large data amounts shall be displayed in the form of structured data sets with a high or low interdependency
    * level. From lists - which can be nested according to the defined attributes - the user can choose entries
    * and thereby trigger the display of further information, depending on the chosen entry/entries (multiple
    * selection supported).
+   *
+   * @deprecated (since 1.38)
    */
   export default class ExactBrowser extends Control {
     /**
@@ -4838,6 +5225,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -4858,11 +5246,13 @@ declare module "sap/ui/ux3/ExactBrowser" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ExactBrowser.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some attribute to the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4881,6 +5271,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Event is fired when an attribute is selected or unselected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAttributeSelected(
@@ -4892,7 +5283,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -4907,13 +5298,14 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Event is fired when an attribute is selected or unselected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAttributeSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactBrowser` itself
        */
@@ -4926,6 +5318,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
      *
      * Event is fired when an attribute is selected or unselected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4951,6 +5344,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * otherwise it will be bound to this `sap.ui.ux3.ExactBrowser` itself.
      *
      * Event is fired when an attribute is selected or unselected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4967,11 +5361,13 @@ declare module "sap/ui/ux3/ExactBrowser" {
     /**
      * Destroys all the attributes in the aggregation {@link #getAttributes attributes}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyAttributes(): this;
     /**
      * Destroys the optionsMenu in the aggregation {@link #getOptionsMenu optionsMenu}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4982,13 +5378,14 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachAttributeSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactBrowser$AttributeSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -4998,6 +5395,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Detaches event handler `fnFunction` from the {@link #event:save save} event of this `sap.ui.ux3.ExactBrowser`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5014,25 +5412,20 @@ declare module "sap/ui/ux3/ExactBrowser" {
     /**
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireAttributeSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The attribute which was selected or unselected recently
-         */
-        attribute?: ExactAttribute;
-        /**
-         * Array of all selected ExactAttributes
-         */
-        allAttributes?: object;
-      }
+      mParameters?: ExactBrowser$AttributeSelectedEventParameters
     ): this;
     /**
      * Fires event {@link #event:save save} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5055,6 +5448,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `enableListClose`
      */
     getEnableListClose(): boolean;
@@ -5065,17 +5459,18 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enableReset`
      */
     getEnableReset(): boolean;
     /**
-     * @SINCE 1.9.2
-     *
      * Gets current value of property {@link #getEnableSave enableSave}.
      *
      * Whether the save button should be available in the header area.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.2
      *
      * @returns Value of property `enableSave`
      */
@@ -5084,11 +5479,12 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * ID of the element which is the current target of the association {@link #getFollowUpControl followUpControl},
      * or `null`.
      */
-    getFollowUpControl(): ID;
+    getFollowUpControl(): ID | null;
     /**
      * Gets current value of property {@link #getHeaderTitle headerTitle}.
      *
      * Title text in the header of the Exact Browser.
+     *
      *
      * @returns Value of property `headerTitle`
      */
@@ -5099,6 +5495,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * The height of the list area in px.
      *
      * Default value is `290`.
+     *
      *
      * @returns Value of property `listHeight`
      */
@@ -5116,18 +5513,19 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `showHeader`
      */
     getShowHeader(): boolean;
     /**
-     * @SINCE 1.7.0
-     *
      * Gets current value of property {@link #getShowTopList showTopList}.
      *
      * Whether the top list of the ExactBrowser should be shown. When the property is set to false the application
      * must ensure to select top level attributes appropriately.
      *
      * Default value is `true`.
+     *
+     * @since 1.7.0
      *
      * @returns Value of property `showTopList`
      */
@@ -5138,29 +5536,30 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Title text in the list area of the Exact Browser. The title is not shown when the property showTopList
      * is set to false.
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
     /**
-     * @SINCE 1.7.1
-     *
      * Gets current value of property {@link #getTopListOrder topListOrder}.
      *
      * The order how the sublists of the top level list should be displayed.
      *
      * Default value is `Select`.
      *
+     * @since 1.7.1
+     *
      * @returns Value of property `topListOrder`
      */
     getTopListOrder(): ExactOrder | keyof typeof ExactOrder;
     /**
-     * @SINCE 1.7.0
-     *
      * Gets current value of property {@link #getTopListWidth topListWidth}.
      *
      * Specifies the width of the top list in pixels. The value must be between 70 and 500.
      *
      * Default value is `168`.
+     *
+     * @since 1.7.0
      *
      * @returns Value of property `topListWidth`
      */
@@ -5168,6 +5567,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     /**
      * Checks for the provided `sap.ui.ux3.ExactAttribute` in the aggregation {@link #getAttributes attributes}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -5179,6 +5579,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     ): int;
     /**
      * Inserts a attribute into the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5199,11 +5600,13 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAttributes(): ExactAttribute[];
     /**
      * Removes a attribute from the aggregation {@link #getAttributes attributes}.
+     *
      *
      * @returns The removed attribute or `null`
      */
@@ -5226,6 +5629,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableListClose(
@@ -5243,6 +5647,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableReset(
@@ -5252,8 +5657,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
       bEnableReset?: boolean
     ): this;
     /**
-     * @SINCE 1.9.2
-     *
      * Sets a new value for property {@link #getEnableSave enableSave}.
      *
      * Whether the save button should be available in the header area.
@@ -5261,6 +5664,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5272,6 +5677,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     ): this;
     /**
      * Sets the associated {@link #getFollowUpControl followUpControl}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5288,6 +5694,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * Title text in the header of the Exact Browser.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5306,6 +5713,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `290`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setListHeight(
@@ -5316,6 +5724,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
     ): this;
     /**
      * Sets the aggregated {@link #getOptionsMenu optionsMenu}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5334,6 +5743,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowHeader(
@@ -5343,8 +5753,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
       bShowHeader?: boolean
     ): this;
     /**
-     * @SINCE 1.7.0
-     *
      * Sets a new value for property {@link #getShowTopList showTopList}.
      *
      * Whether the top list of the ExactBrowser should be shown. When the property is set to false the application
@@ -5353,6 +5761,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.7.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5370,6 +5780,7 @@ declare module "sap/ui/ux3/ExactBrowser" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
@@ -5379,8 +5790,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
       sTitle?: string
     ): this;
     /**
-     * @SINCE 1.7.1
-     *
      * Sets a new value for property {@link #getTopListOrder topListOrder}.
      *
      * The order how the sublists of the top level list should be displayed.
@@ -5388,6 +5797,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Select`.
+     *
+     * @since 1.7.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5398,8 +5809,6 @@ declare module "sap/ui/ux3/ExactBrowser" {
       sTopListOrder?: ExactOrder | keyof typeof ExactOrder
     ): this;
     /**
-     * @SINCE 1.7.0
-     *
      * Sets a new value for property {@link #getTopListWidth topListWidth}.
      *
      * Specifies the width of the top list in pixels. The value must be between 70 and 500.
@@ -5407,6 +5816,8 @@ declare module "sap/ui/ux3/ExactBrowser" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `168`.
+     *
+     * @since 1.7.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5431,9 +5842,9 @@ declare module "sap/ui/ux3/ExactBrowser" {
     headerTitle?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.7.1
-     *
      * The order how the sublists of the top level list should be displayed.
+     *
+     * @since 1.7.1
      */
     topListOrder?:
       | (ExactOrder | keyof typeof ExactOrder)
@@ -5456,10 +5867,10 @@ declare module "sap/ui/ux3/ExactBrowser" {
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
-     *
      * Whether the top list of the ExactBrowser should be shown. When the property is set to false the application
      * must ensure to select top level attributes appropriately.
+     *
+     * @since 1.7.0
      */
     showTopList?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -5469,16 +5880,16 @@ declare module "sap/ui/ux3/ExactBrowser" {
     enableReset?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.2
-     *
      * Whether the save button should be available in the header area.
+     *
+     * @since 1.9.2
      */
     enableSave?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
-     *
      * Specifies the width of the top list in pixels. The value must be between 70 and 500.
+     *
+     * @since 1.7.0
      */
     topListWidth?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -5505,36 +5916,60 @@ declare module "sap/ui/ux3/ExactBrowser" {
     /**
      * Event is fired when an attribute is selected or unselected.
      */
-    attributeSelected?: (oEvent: Event) => void;
+    attributeSelected?: (oEvent: ExactBrowser$AttributeSelectedEvent) => void;
 
     /**
      * Event is fired when an attribute is selected or unselected.
      */
     save?: (oEvent: Event) => void;
   }
+
+  export interface ExactBrowser$AttributeSelectedEventParameters {
+    /**
+     * The attribute which was selected or unselected recently
+     */
+    attribute?: ExactAttribute;
+
+    /**
+     * Array of all selected ExactAttributes
+     */
+    allAttributes?: object;
+  }
+
+  export type ExactBrowser$AttributeSelectedEvent = Event<
+    ExactBrowser$AttributeSelectedEventParameters,
+    ExactBrowser
+  >;
+
+  export interface ExactBrowser$SaveEventParameters {}
+
+  export type ExactBrowser$SaveEvent = Event<
+    ExactBrowser$SaveEventParameters,
+    ExactBrowser
+  >;
 }
 
 declare module "sap/ui/ux3/ExactList" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
-  import ExactAttribute from "sap/ui/ux3/ExactAttribute";
-
   import { ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import ExactAttribute from "sap/ui/ux3/ExactAttribute";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * Internal sub-control of the ExactBrowser. The control is not intended to be used stand alone. For this
    * purpose, the ExactBrowser control can be used.
+   *
+   * @deprecated (since 1.38)
    */
   export default class ExactList extends Control {
     /**
@@ -5574,6 +6009,7 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -5594,11 +6030,13 @@ declare module "sap/ui/ux3/ExactList" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ExactList.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some subList to the aggregation {@link #getSubLists subLists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5617,6 +6055,7 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Event which is fired when an attribute is selected/unselected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAttributeSelected(
@@ -5628,7 +6067,7 @@ declare module "sap/ui/ux3/ExactList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
        */
@@ -5643,13 +6082,14 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Event which is fired when an attribute is selected/unselected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachAttributeSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ExactList` itself
        */
@@ -5657,6 +6097,7 @@ declare module "sap/ui/ux3/ExactList" {
     ): this;
     /**
      * Destroys all the subLists in the aggregation {@link #getSubLists subLists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5667,13 +6108,14 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachAttributeSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ExactList$AttributeSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -5682,33 +6124,27 @@ declare module "sap/ui/ux3/ExactList" {
     /**
      * Fires event {@link #event:attributeSelected attributeSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireAttributeSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The attribute which was selected/unselected recently
-         */
-        attribute?: ExactAttribute;
-        /**
-         * Array of all ExactAttributes
-         */
-        allAttributes?: object;
-      }
+      mParameters?: ExactList$AttributeSelectedEventParameters
     ): this;
     /**
      * ID of the element which is the current target of the association {@link #getData data}, or `null`.
      */
-    getData(): ID;
+    getData(): ID | null;
     /**
      * Gets current value of property {@link #getShowClose showClose}.
      *
      * Defines whether the close icon shall be displayed in the header.
      *
      * Default value is `false`.
+     *
      *
      * @returns Value of property `showClose`
      */
@@ -5727,6 +6163,7 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Default value is `290`.
      *
+     *
      * @returns Value of property `topHeight`
      */
     getTopHeight(): int;
@@ -5735,12 +6172,14 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * The title of this list is the top of the list hierarchy.
      *
+     *
      * @returns Value of property `topTitle`
      */
     getTopTitle(): string;
     /**
      * Checks for the provided `sap.ui.ux3.ExactList` in the aggregation {@link #getSubLists subLists}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -5752,6 +6191,7 @@ declare module "sap/ui/ux3/ExactList" {
     ): int;
     /**
      * Inserts a subList into the aggregation {@link #getSubLists subLists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5772,11 +6212,13 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllSubLists(): ExactList[];
     /**
      * Removes a subList from the aggregation {@link #getSubLists subLists}.
+     *
      *
      * @returns The removed subList or `null`
      */
@@ -5788,6 +6230,7 @@ declare module "sap/ui/ux3/ExactList" {
     ): ExactList | null;
     /**
      * Sets the associated {@link #getData data}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5807,6 +6250,7 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowClose(
@@ -5824,6 +6268,7 @@ declare module "sap/ui/ux3/ExactList" {
      *
      * Default value is `290`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTopHeight(
@@ -5838,6 +6283,7 @@ declare module "sap/ui/ux3/ExactList" {
      * The title of this list is the top of the list hierarchy.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5879,8 +6325,25 @@ declare module "sap/ui/ux3/ExactList" {
     /**
      * Event which is fired when an attribute is selected/unselected
      */
-    attributeSelected?: (oEvent: Event) => void;
+    attributeSelected?: (oEvent: ExactList$AttributeSelectedEvent) => void;
   }
+
+  export interface ExactList$AttributeSelectedEventParameters {
+    /**
+     * The attribute which was selected/unselected recently
+     */
+    attribute?: ExactAttribute;
+
+    /**
+     * Array of all ExactAttributes
+     */
+    allAttributes?: object;
+  }
+
+  export type ExactList$AttributeSelectedEvent = Event<
+    ExactList$AttributeSelectedEventParameters,
+    ExactList
+  >;
 }
 
 declare module "sap/ui/ux3/FacetFilter" {
@@ -5898,9 +6361,9 @@ declare module "sap/ui/ux3/FacetFilter" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
-   *
    * FacetFilter Control.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
    */
   export default class FacetFilter extends Control {
     /**
@@ -5940,6 +6403,7 @@ declare module "sap/ui/ux3/FacetFilter" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -5960,11 +6424,13 @@ declare module "sap/ui/ux3/FacetFilter" {
     /**
      * Returns a metadata object for class sap.ui.ux3.FacetFilter.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some list to the aggregation {@link #getLists lists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5976,6 +6442,7 @@ declare module "sap/ui/ux3/FacetFilter" {
     ): this;
     /**
      * Destroys all the lists in the aggregation {@link #getLists lists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5994,6 +6461,7 @@ declare module "sap/ui/ux3/FacetFilter" {
      *
      * Default value is `Fixed`.
      *
+     *
      * @returns Value of property `visibleItemCountMode`
      */
     getVisibleItemCountMode():
@@ -6002,6 +6470,7 @@ declare module "sap/ui/ux3/FacetFilter" {
     /**
      * Checks for the provided `sap.ui.ux3.FacetFilterList` in the aggregation {@link #getLists lists}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -6013,6 +6482,7 @@ declare module "sap/ui/ux3/FacetFilter" {
     ): int;
     /**
      * Inserts a list into the aggregation {@link #getLists lists}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6033,11 +6503,13 @@ declare module "sap/ui/ux3/FacetFilter" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllLists(): FacetFilterList[];
     /**
      * Removes a list from the aggregation {@link #getLists lists}.
+     *
      *
      * @returns The removed list or `null`
      */
@@ -6056,6 +6528,7 @@ declare module "sap/ui/ux3/FacetFilter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Fixed`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6095,8 +6568,6 @@ declare module "sap/ui/ux3/FacetFilterList" {
 
   import ListItem from "sap/ui/core/ListItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -6104,10 +6575,12 @@ declare module "sap/ui/ux3/FacetFilterList" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
-   *
    * List to be used with the FacetFilter control. The control is not intended to be used stand alone.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
    */
   export default class FacetFilterList extends Control {
     /**
@@ -6147,6 +6620,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -6167,11 +6641,13 @@ declare module "sap/ui/ux3/FacetFilterList" {
     /**
      * Returns a metadata object for class sap.ui.ux3.FacetFilterList.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6189,6 +6665,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * On Select event.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
@@ -6200,7 +6677,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
        */
@@ -6214,13 +6691,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * On Select event.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FacetFilterList` itself
        */
@@ -6228,6 +6706,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6237,13 +6716,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FacetFilterList$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6252,41 +6732,25 @@ declare module "sap/ui/ux3/FacetFilterList" {
     /**
      * Fires event {@link #event:select select} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of the FacetFilterList taht fires the event.
-         */
-        id?: string;
-        /**
-         * Array of selected Indices.
-         */
-        selectedIndices?: int[];
-        /**
-         * Array of selected Items.
-         */
-        selectedItems?: ListItem[];
-        /**
-         * If it is true, then Item All is selected. That means all items in the list are selected - no filter is
-         * set.
-         */
-        all?: boolean;
-      }
+      mParameters?: FacetFilterList$SelectEventParameters
     ): this;
     /**
-     * @SINCE 1.9.0
-     *
      * Gets current value of property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
      * Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.0
      *
      * @returns Value of property `displaySecondaryValues`
      */
@@ -6304,6 +6768,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `multiSelect`
      */
     getMultiSelect(): boolean;
@@ -6311,6 +6776,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      * Gets current value of property {@link #getSelectedKeys selectedKeys}.
      *
      * Array of type string containing the selected keys.
+     *
      *
      * @returns Value of property `selectedKeys`
      */
@@ -6322,6 +6788,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showCounter`
      */
     getShowCounter(): boolean;
@@ -6330,12 +6797,14 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * The title of this list.
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Checks for the provided `sap.ui.core.ListItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -6347,6 +6816,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6367,11 +6837,13 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ListItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -6382,8 +6854,6 @@ declare module "sap/ui/ux3/FacetFilterList" {
       vItem: int | string | ListItem
     ): ListItem | null;
     /**
-     * @SINCE 1.9.0
-     *
      * Sets a new value for property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
      * Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
@@ -6392,6 +6862,8 @@ declare module "sap/ui/ux3/FacetFilterList" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6410,6 +6882,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setMultiSelect(
@@ -6424,6 +6897,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      * Array of type string containing the selected keys.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6442,6 +6916,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowCounter(
@@ -6456,6 +6931,7 @@ declare module "sap/ui/ux3/FacetFilterList" {
      * The title of this list.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6479,10 +6955,10 @@ declare module "sap/ui/ux3/FacetFilterList" {
     multiSelect?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
-     *
      * Specifies whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
+     *
+     * @since 1.9.0
      */
     displaySecondaryValues?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -6504,8 +6980,36 @@ declare module "sap/ui/ux3/FacetFilterList" {
     /**
      * On Select event.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: FacetFilterList$SelectEvent) => void;
   }
+
+  export interface FacetFilterList$SelectEventParameters {
+    /**
+     * Id of the FacetFilterList taht fires the event.
+     */
+    id?: string;
+
+    /**
+     * Array of selected Indices.
+     */
+    selectedIndices?: int[];
+
+    /**
+     * Array of selected Items.
+     */
+    selectedItems?: ListItem[];
+
+    /**
+     * If it is true, then Item All is selected. That means all items in the list are selected - no filter is
+     * set.
+     */
+    all?: boolean;
+  }
+
+  export type FacetFilterList$SelectEvent = Event<
+    FacetFilterList$SelectEventParameters,
+    FacetFilterList
+  >;
 }
 
 declare module "sap/ui/ux3/Feed" {
@@ -6517,24 +7021,26 @@ declare module "sap/ui/ux3/Feed" {
 
   import MenuItem from "sap/ui/commons/MenuItem";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
-
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import Event from "sap/ui/base/Event";
+
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
   /**
-   * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
-   * @EXPERIMENTAL (since 1.2)
-   *
    * A container control representing a full feed page, including feeder and updates.
+   *
+   * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
    */
   export default class Feed extends Control {
     /**
@@ -6574,6 +7080,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -6594,11 +7101,13 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Feed.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some chunk to the aggregation {@link #getChunks chunks}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6611,6 +7120,7 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Adds some filterItem to the aggregation {@link #getFilterItems filterItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addFilterItem(
@@ -6621,6 +7131,7 @@ declare module "sap/ui/ux3/Feed" {
     ): this;
     /**
      * Adds some toolsMenuItem to the aggregation {@link #getToolsMenuItems toolsMenuItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6638,6 +7149,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when a new chunk is added
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachChunkAdded(
@@ -6649,7 +7161,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6663,13 +7175,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when a new chunk is added
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachChunkAdded(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6683,6 +7196,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when the filter is changed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFilterChange(
@@ -6694,7 +7208,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6708,13 +7222,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when the filter is changed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFilterChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6728,6 +7243,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when the search function on SearchField is triggered
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
@@ -6739,7 +7255,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6753,13 +7269,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when the search function on SearchField is triggered
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6772,6 +7289,7 @@ declare module "sap/ui/ux3/Feed" {
      * otherwise it will be bound to this `sap.ui.ux3.Feed` itself.
      *
      * Event is fired when the live mode has changed
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6784,7 +7302,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6798,13 +7316,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when the live mode has changed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleLive(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6819,6 +7338,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when an item from the tools MenuButton was selected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToolsItemSelected(
@@ -6830,7 +7350,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6845,13 +7365,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Event is fired when an item from the tools MenuButton was selected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToolsItemSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feed` itself
        */
@@ -6862,6 +7383,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6877,6 +7399,7 @@ declare module "sap/ui/ux3/Feed" {
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     bindFilterItems(
@@ -6891,6 +7414,7 @@ declare module "sap/ui/ux3/Feed" {
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     bindToolsMenuItems(
@@ -6902,17 +7426,20 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Destroys all the chunks in the aggregation {@link #getChunks chunks}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyChunks(): this;
     /**
      * Destroys all the filterItems in the aggregation {@link #getFilterItems filterItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFilterItems(): this;
     /**
      * Destroys all the toolsMenuItems in the aggregation {@link #getToolsMenuItems toolsMenuItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6922,13 +7449,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachChunkAdded(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ChunkAddedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6939,13 +7467,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFilterChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$FilterChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6956,13 +7485,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSearch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6973,13 +7503,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachToggleLive(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToggleLiveEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -6991,13 +7522,14 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachToolsItemSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feed$ToolsItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -7006,21 +7538,20 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Fires event {@link #event:chunkAdded chunkAdded} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireChunkAdded(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * New chunk
-         */
-        chunk?: FeedChunk;
-      }
+      mParameters?: Feed$ChunkAddedEventParameters
     ): this;
     /**
      * Fires event {@link #event:filterChange filterChange} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7028,15 +7559,12 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The new/changed value of the filter
-         */
-        newValue?: string;
-      }
+      mParameters?: Feed$FilterChangeEventParameters
     ): this;
     /**
      * Fires event {@link #event:search search} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7044,15 +7572,12 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The search query
-         */
-        query?: string;
-      }
+      mParameters?: Feed$SearchEventParameters
     ): this;
     /**
      * Fires event {@link #event:toggleLive toggleLive} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7060,15 +7585,12 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current live indicator
-         */
-        live?: boolean;
-      }
+      mParameters?: Feed$ToggleLiveEventParameters
     ): this;
     /**
      * Fires event {@link #event:toolsItemSelected toolsItemSelected} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7076,16 +7598,7 @@ declare module "sap/ui/ux3/Feed" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The Id of the selected item
-         */
-        itemId?: string;
-        /**
-         * The selected item
-         */
-        item?: MenuItemBase;
-      }
+      mParameters?: Feed$ToolsItemSelectedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getChunks chunks}.
@@ -7098,6 +7611,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * The sender of the feeder
      *
+     *
      * @returns Value of property `feederSender`
      */
     getFeederSender(): string;
@@ -7105,6 +7619,7 @@ declare module "sap/ui/ux3/Feed" {
      * Gets current value of property {@link #getFeederThumbnailSrc feederThumbnailSrc}.
      *
      * The path to the thumbnail image used for the feeder
+     *
      *
      * @returns Value of property `feederThumbnailSrc`
      */
@@ -7122,6 +7637,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `live`
      */
     getLive(): boolean;
@@ -7129,6 +7645,7 @@ declare module "sap/ui/ux3/Feed" {
      * Gets current value of property {@link #getTitle title}.
      *
      * Title text of the Feed. If no text is entered "FEED" is displayed.
+     *
      *
      * @returns Value of property `title`
      */
@@ -7143,6 +7660,7 @@ declare module "sap/ui/ux3/Feed" {
      * Checks for the provided `sap.ui.ux3.FeedChunk` in the aggregation {@link #getChunks chunks}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfChunk(
@@ -7154,6 +7672,7 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Checks for the provided `sap.ui.core.ListItem` in the aggregation {@link #getFilterItems filterItems}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -7167,6 +7686,7 @@ declare module "sap/ui/ux3/Feed" {
      * Checks for the provided `sap.ui.commons.MenuItem` in the aggregation {@link #getToolsMenuItems toolsMenuItems}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfToolsMenuItem(
@@ -7177,6 +7697,7 @@ declare module "sap/ui/ux3/Feed" {
     ): int;
     /**
      * Inserts a chunk into the aggregation {@link #getChunks chunks}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7195,6 +7716,7 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Inserts a filterItem into the aggregation {@link #getFilterItems filterItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertFilterItem(
@@ -7211,6 +7733,7 @@ declare module "sap/ui/ux3/Feed" {
     ): this;
     /**
      * Inserts a toolsMenuItem into the aggregation {@link #getToolsMenuItems toolsMenuItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7231,6 +7754,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllChunks(): FeedChunk[];
@@ -7238,6 +7762,7 @@ declare module "sap/ui/ux3/Feed" {
      * Removes all the controls from the aggregation {@link #getFilterItems filterItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -7247,11 +7772,13 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllToolsMenuItems(): MenuItem[];
     /**
      * Removes a chunk from the aggregation {@link #getChunks chunks}.
+     *
      *
      * @returns The removed chunk or `null`
      */
@@ -7264,6 +7791,7 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Removes a filterItem from the aggregation {@link #getFilterItems filterItems}.
      *
+     *
      * @returns The removed filterItem or `null`
      */
     removeFilterItem(
@@ -7274,6 +7802,7 @@ declare module "sap/ui/ux3/Feed" {
     ): ListItem | null;
     /**
      * Removes a toolsMenuItem from the aggregation {@link #getToolsMenuItems toolsMenuItems}.
+     *
      *
      * @returns The removed toolsMenuItem or `null`
      */
@@ -7290,6 +7819,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFeederSender(
@@ -7304,6 +7834,7 @@ declare module "sap/ui/ux3/Feed" {
      * The path to the thumbnail image used for the feeder
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7322,6 +7853,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setLive(
@@ -7337,6 +7869,7 @@ declare module "sap/ui/ux3/Feed" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
@@ -7348,17 +7881,20 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Unbinds aggregation {@link #getChunks chunks} from model data.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     unbindChunks(): this;
     /**
      * Unbinds aggregation {@link #getFilterItems filterItems} from model data.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     unbindFilterItems(): this;
     /**
      * Unbinds aggregation {@link #getToolsMenuItems toolsMenuItems} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7412,28 +7948,90 @@ declare module "sap/ui/ux3/Feed" {
     /**
      * Event is fired when the filter is changed
      */
-    filterChange?: (oEvent: Event) => void;
+    filterChange?: (oEvent: Feed$FilterChangeEvent) => void;
 
     /**
      * Event is fired when the search function on SearchField is triggered
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: Feed$SearchEvent) => void;
 
     /**
      * Event is fired when a new chunk is added
      */
-    chunkAdded?: (oEvent: Event) => void;
+    chunkAdded?: (oEvent: Feed$ChunkAddedEvent) => void;
 
     /**
      * Event is fired when an item from the tools MenuButton was selected
      */
-    toolsItemSelected?: (oEvent: Event) => void;
+    toolsItemSelected?: (oEvent: Feed$ToolsItemSelectedEvent) => void;
 
     /**
      * Event is fired when the live mode has changed
      */
-    toggleLive?: (oEvent: Event) => void;
+    toggleLive?: (oEvent: Feed$ToggleLiveEvent) => void;
   }
+
+  export interface Feed$ChunkAddedEventParameters {
+    /**
+     * New chunk
+     */
+    chunk?: FeedChunk;
+  }
+
+  export type Feed$ChunkAddedEvent = Event<
+    Feed$ChunkAddedEventParameters,
+    Feed
+  >;
+
+  export interface Feed$FilterChangeEventParameters {
+    /**
+     * The new/changed value of the filter
+     */
+    newValue?: string;
+  }
+
+  export type Feed$FilterChangeEvent = Event<
+    Feed$FilterChangeEventParameters,
+    Feed
+  >;
+
+  export interface Feed$SearchEventParameters {
+    /**
+     * The search query
+     */
+    query?: string;
+  }
+
+  export type Feed$SearchEvent = Event<Feed$SearchEventParameters, Feed>;
+
+  export interface Feed$ToggleLiveEventParameters {
+    /**
+     * Current live indicator
+     */
+    live?: boolean;
+  }
+
+  export type Feed$ToggleLiveEvent = Event<
+    Feed$ToggleLiveEventParameters,
+    Feed
+  >;
+
+  export interface Feed$ToolsItemSelectedEventParameters {
+    /**
+     * The Id of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase;
+  }
+
+  export type Feed$ToolsItemSelectedEvent = Event<
+    Feed$ToolsItemSelectedEventParameters,
+    Feed
+  >;
 }
 
 declare module "sap/ui/ux3/FeedChunk" {
@@ -7448,19 +8046,21 @@ declare module "sap/ui/ux3/FeedChunk" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
-
   import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
-   * @EXPERIMENTAL (since 1.2)
-   *
    * The unit that is embedded - single-wise or in a multiple way - into a Feed control. The control provides
    * a set of properties for text, sender information, time stamp, comments, and functions such as flagging
    * the entry to be favorite, shared, or flagged.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
    */
   export default class FeedChunk extends Control {
     /**
@@ -7500,6 +8100,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -7520,11 +8121,13 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Returns a metadata object for class sap.ui.ux3.FeedChunk.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some actionMenuItem to the aggregation {@link #getActionMenuItems actionMenuItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7536,6 +8139,7 @@ declare module "sap/ui/ux3/FeedChunk" {
     ): this;
     /**
      * Adds some comment to the aggregation {@link #getComments comments}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7554,6 +8158,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when an item from the action menu button was selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionItemSelected(
@@ -7565,7 +8170,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7580,13 +8185,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when an item from the action menu button was selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionItemSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7599,6 +8205,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
      *
      * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7611,7 +8218,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7625,13 +8232,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachCommentAdded(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7644,6 +8252,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
      *
      * Event is fired when the deletion button is pressed.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7670,6 +8279,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when the deletion button is pressed.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachDeleted(
@@ -7690,6 +8300,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when the inspect button was pressed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachInspect(
@@ -7715,6 +8326,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when the inspect button was pressed
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachInspect(
@@ -7736,6 +8348,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Click on a @-reference
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachReferenceClicked(
@@ -7747,7 +8360,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7762,13 +8375,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Click on a @-reference
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachReferenceClicked(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7781,6 +8395,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
      *
      * Event is fired when the thumbnail or the name of the sender is clicked.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7807,6 +8422,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is fired when the thumbnail or the name of the sender is clicked.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSenderClicked(
@@ -7829,6 +8445,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
      * chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleFavorite(
@@ -7840,7 +8457,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7856,13 +8473,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
      * chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleFavorite(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7876,6 +8494,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleFlagged(
@@ -7887,7 +8506,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7901,13 +8520,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleFlagged(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7920,6 +8540,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * otherwise it will be bound to this `sap.ui.ux3.FeedChunk` itself.
      *
      * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7932,7 +8553,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7946,13 +8567,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleShared(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.FeedChunk` itself
        */
@@ -7963,6 +8585,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7978,6 +8601,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     bindComments(
@@ -7989,11 +8613,13 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Destroys all the actionMenuItems in the aggregation {@link #getActionMenuItems actionMenuItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActionMenuItems(): this;
     /**
      * Destroys all the comments in the aggregation {@link #getComments comments}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8004,13 +8630,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachActionItemSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ActionItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8021,13 +8648,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachCommentAdded(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$CommentAddedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8037,6 +8665,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Detaches event handler `fnFunction` from the {@link #event:deleted deleted} event of this `sap.ui.ux3.FeedChunk`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8054,6 +8683,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Detaches event handler `fnFunction` from the {@link #event:inspect inspect} event of this `sap.ui.ux3.FeedChunk`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8073,13 +8703,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachReferenceClicked(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ReferenceClickedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8090,6 +8721,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * `sap.ui.ux3.FeedChunk`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8109,13 +8741,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachToggleFavorite(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFavoriteEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8127,13 +8760,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachToggleFlagged(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleFlaggedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8144,13 +8778,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachToggleShared(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: FeedChunk$ToggleSharedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -8159,25 +8794,20 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Fires event {@link #event:actionItemSelected actionItemSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireActionItemSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The Id of the selected item
-         */
-        itemId?: string;
-        /**
-         * The selected item
-         */
-        item?: MenuItemBase;
-      }
+      mParameters?: FeedChunk$ActionItemSelectedEventParameters
     ): this;
     /**
      * Fires event {@link #event:commentAdded commentAdded} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8185,15 +8815,12 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * New comment chunk
-         */
-        comment?: FeedChunk;
-      }
+      mParameters?: FeedChunk$CommentAddedEventParameters
     ): this;
     /**
      * Fires event {@link #event:deleted deleted} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8206,6 +8833,8 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Fires event {@link #event:inspect inspect} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireInspect(
@@ -8217,21 +8846,20 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Fires event {@link #event:referenceClicked referenceClicked} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireReferenceClicked(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Text of the @-reference
-         */
-        text?: string;
-      }
+      mParameters?: FeedChunk$ReferenceClickedEventParameters
     ): this;
     /**
      * Fires event {@link #event:senderClicked senderClicked} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8244,21 +8872,20 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Fires event {@link #event:toggleFavorite toggleFavorite} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireToggleFavorite(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current favorite state
-         */
-        favorite?: boolean;
-      }
+      mParameters?: FeedChunk$ToggleFavoriteEventParameters
     ): this;
     /**
      * Fires event {@link #event:toggleFlagged toggleFlagged} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8266,15 +8893,12 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current flagged state
-         */
-        flagged?: boolean;
-      }
+      mParameters?: FeedChunk$ToggleFlaggedEventParameters
     ): this;
     /**
      * Fires event {@link #event:toggleShared toggleShared} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8282,12 +8906,7 @@ declare module "sap/ui/ux3/FeedChunk" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current shared state
-         */
-        shareed?: boolean;
-      }
+      mParameters?: FeedChunk$ToggleSharedEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getActionMenuItems actionMenuItems}.
@@ -8296,15 +8915,15 @@ declare module "sap/ui/ux3/FeedChunk" {
      */
     getActionMenuItems(): MenuItem[];
     /**
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
-     *
      * Gets current value of property {@link #getCommentChunk commentChunk}.
      *
      * This flag changes a FeedChunk into a CommentChunk. In this case, it can not have own comments, furthermore
      * it must be assigned to a FeedChunk.
      *
      * Default value is `false`.
+     *
+     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
+     * the parent is a chunk it's automatically a comment.
      *
      * @returns Value of property `commentChunk`
      */
@@ -8322,6 +8941,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `deletionAllowed`
      */
     getDeletionAllowed(): boolean;
@@ -8331,6 +8951,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * If true the comment action is enabled.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `enableComment`
      */
@@ -8342,6 +8963,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enableFavorite`
      */
     getEnableFavorite(): boolean;
@@ -8351,6 +8973,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * If true the flag action is enabled.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `enableFlag`
      */
@@ -8362,6 +8985,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enableInspect`
      */
     getEnableInspect(): boolean;
@@ -8372,6 +8996,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enableShare`
      */
     getEnableShare(): boolean;
@@ -8380,6 +9005,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Defines whether the entry shall be displayed as favorite. This property is not supported for comment
      * chunks.
+     *
      *
      * @returns Value of property `favorite`
      */
@@ -8391,6 +9017,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * In this case the value of the feed control is used if it's not set. So it must be only set once on the
      * feed control.
      *
+     *
      * @returns Value of property `feederSender`
      */
     getFeederSender(): string;
@@ -8400,6 +9027,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * URL to the thumbnail image for the comment feeder. This property is optional if the chunk is a sub-control
      * of a feed control. In this case the value of the feed control is used if it's not set. So it must be
      * only set once on the feed control.
+     *
      *
      * @returns Value of property `feederThumbnailSrc`
      */
@@ -8411,6 +9039,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `flagged`
      */
     getFlagged(): boolean;
@@ -8418,6 +9047,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Gets current value of property {@link #getSender sender}.
      *
      * Sender of the chunk
+     *
      *
      * @returns Value of property `sender`
      */
@@ -8429,6 +9059,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `shared`
      */
     getShared(): boolean;
@@ -8436,6 +9067,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Gets current value of property {@link #getText text}.
      *
      * The FeedChunk text. @References are supported.
+     *
      *
      * @returns Value of property `text`
      */
@@ -8445,6 +9077,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * URL to the thumbnail image.
      *
+     *
      * @returns Value of property `thumbnailSrc`
      */
     getThumbnailSrc(): URI;
@@ -8453,12 +9086,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Format is ISO 8601 YYYY-MM-DDThh:mm:ss.sZ, Z meaning the time is in UTC time zone
      *
+     *
      * @returns Value of property `timestamp`
      */
     getTimestamp(): string;
     /**
      * Checks for the provided `sap.ui.commons.MenuItem` in the aggregation {@link #getActionMenuItems actionMenuItems}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -8472,6 +9107,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Checks for the provided `sap.ui.ux3.FeedChunk` in the aggregation {@link #getComments comments}. and
      * returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfComment(
@@ -8482,6 +9118,7 @@ declare module "sap/ui/ux3/FeedChunk" {
     ): int;
     /**
      * Inserts a actionMenuItem into the aggregation {@link #getActionMenuItems actionMenuItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8500,6 +9137,7 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Inserts a comment into the aggregation {@link #getComments comments}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertComment(
@@ -8517,6 +9155,7 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Removes a actionMenuItem from the aggregation {@link #getActionMenuItems actionMenuItems}.
      *
+     *
      * @returns The removed actionMenuItem or `null`
      */
     removeActionMenuItem(
@@ -8530,6 +9169,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllActionMenuItems(): MenuItem[];
@@ -8538,11 +9178,13 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllComments(): FeedChunk[];
     /**
      * Removes a comment from the aggregation {@link #getComments comments}.
+     *
      *
      * @returns The removed comment or `null`
      */
@@ -8553,9 +9195,6 @@ declare module "sap/ui/ux3/FeedChunk" {
       vComment: int | string | FeedChunk
     ): FeedChunk | null;
     /**
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
-     *
      * Sets a new value for property {@link #getCommentChunk commentChunk}.
      *
      * This flag changes a FeedChunk into a CommentChunk. In this case, it can not have own comments, furthermore
@@ -8564,6 +9203,9 @@ declare module "sap/ui/ux3/FeedChunk" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
+     * the parent is a chunk it's automatically a comment.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8582,6 +9224,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setDeletionAllowed(
@@ -8598,6 +9241,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8616,6 +9260,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableFavorite(
@@ -8632,6 +9277,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8650,6 +9296,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableInspect(
@@ -8667,6 +9314,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setEnableShare(
@@ -8682,6 +9330,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * chunks.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8700,6 +9349,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFeederSender(
@@ -8716,6 +9366,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * only set once on the feed control.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8734,6 +9385,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFlagged(
@@ -8748,6 +9400,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * Sender of the chunk
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8766,6 +9419,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShared(
@@ -8780,6 +9434,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      * The FeedChunk text. @References are supported.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8796,6 +9451,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setThumbnailSrc(
@@ -8811,6 +9467,7 @@ declare module "sap/ui/ux3/FeedChunk" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTimestamp(
@@ -8822,11 +9479,13 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Unbinds aggregation {@link #getActionMenuItems actionMenuItems} from model data.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     unbindActionMenuItems(): this;
     /**
      * Unbinds aggregation {@link #getComments comments} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -8860,11 +9519,11 @@ declare module "sap/ui/ux3/FeedChunk" {
     deletionAllowed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
-     * the parent is a chunk it's automatically a comment.
-     *
      * This flag changes a FeedChunk into a CommentChunk. In this case, it can not have own comments, furthermore
      * it must be assigned to a FeedChunk.
+     *
+     * @deprecated (since 1.4.0) - Not longer used. If a chunk is a comment is determined from hierarchy. If
+     * the parent is a chunk it's automatically a comment.
      */
     commentChunk?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -8945,12 +9604,12 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Event is raised when a comment is added to the entry. This event is not supported for comment chunks.
      */
-    commentAdded?: (oEvent: Event) => void;
+    commentAdded?: (oEvent: FeedChunk$CommentAddedEvent) => void;
 
     /**
      * Event is raised when the user clicks to flag the entry. This event is not supported for comment chunks.
      */
-    toggleFlagged?: (oEvent: Event) => void;
+    toggleFlagged?: (oEvent: FeedChunk$ToggleFlaggedEvent) => void;
 
     /**
      * Event is fired when the thumbnail or the name of the sender is clicked.
@@ -8960,13 +9619,13 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Click on a @-reference
      */
-    referenceClicked?: (oEvent: Event) => void;
+    referenceClicked?: (oEvent: FeedChunk$ReferenceClickedEvent) => void;
 
     /**
      * Event is raised when the user clicks to set the entry as favorite. This event is not supported for comment
      * chunks.
      */
-    toggleFavorite?: (oEvent: Event) => void;
+    toggleFavorite?: (oEvent: FeedChunk$ToggleFavoriteEvent) => void;
 
     /**
      * Event is fired when the inspect button was pressed
@@ -8976,19 +9635,115 @@ declare module "sap/ui/ux3/FeedChunk" {
     /**
      * Event is raised when the user clicks to share the entry. This event is not supported for comment chunks.
      */
-    toggleShared?: (oEvent: Event) => void;
+    toggleShared?: (oEvent: FeedChunk$ToggleSharedEvent) => void;
 
     /**
      * Event is fired when an item from the action menu button was selected.
      */
-    actionItemSelected?: (oEvent: Event) => void;
+    actionItemSelected?: (oEvent: FeedChunk$ActionItemSelectedEvent) => void;
   }
+
+  export interface FeedChunk$ActionItemSelectedEventParameters {
+    /**
+     * The Id of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase;
+  }
+
+  export type FeedChunk$ActionItemSelectedEvent = Event<
+    FeedChunk$ActionItemSelectedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$CommentAddedEventParameters {
+    /**
+     * New comment chunk
+     */
+    comment?: FeedChunk;
+  }
+
+  export type FeedChunk$CommentAddedEvent = Event<
+    FeedChunk$CommentAddedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$DeletedEventParameters {}
+
+  export type FeedChunk$DeletedEvent = Event<
+    FeedChunk$DeletedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$InspectEventParameters {}
+
+  export type FeedChunk$InspectEvent = Event<
+    FeedChunk$InspectEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$ReferenceClickedEventParameters {
+    /**
+     * Text of the @-reference
+     */
+    text?: string;
+  }
+
+  export type FeedChunk$ReferenceClickedEvent = Event<
+    FeedChunk$ReferenceClickedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$SenderClickedEventParameters {}
+
+  export type FeedChunk$SenderClickedEvent = Event<
+    FeedChunk$SenderClickedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$ToggleFavoriteEventParameters {
+    /**
+     * Current favorite state
+     */
+    favorite?: boolean;
+  }
+
+  export type FeedChunk$ToggleFavoriteEvent = Event<
+    FeedChunk$ToggleFavoriteEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$ToggleFlaggedEventParameters {
+    /**
+     * Current flagged state
+     */
+    flagged?: boolean;
+  }
+
+  export type FeedChunk$ToggleFlaggedEvent = Event<
+    FeedChunk$ToggleFlaggedEventParameters,
+    FeedChunk
+  >;
+
+  export interface FeedChunk$ToggleSharedEventParameters {
+    /**
+     * Current shared state
+     */
+    shareed?: boolean;
+  }
+
+  export type FeedChunk$ToggleSharedEvent = Event<
+    FeedChunk$ToggleSharedEventParameters,
+    FeedChunk
+  >;
 }
 
 declare module "sap/ui/ux3/Feeder" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -8998,13 +9753,17 @@ declare module "sap/ui/ux3/Feeder" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
-   * @EXPERIMENTAL (since 1.2)
-   *
    * This feed control flavor represents a lean common feed, or a comment feed, with a text commit function.
    * The control can be used stand alone or in a multiple way, and generally would be integrated directly
    * into a UIArea.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
    */
   export default class Feeder extends Control {
     /**
@@ -9044,6 +9803,7 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -9064,6 +9824,7 @@ declare module "sap/ui/ux3/Feeder" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Feeder.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -9074,6 +9835,7 @@ declare module "sap/ui/ux3/Feeder" {
      * otherwise it will be bound to this `sap.ui.ux3.Feeder` itself.
      *
      * Event is fired when the entered text is submitted
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9086,7 +9848,7 @@ declare module "sap/ui/ux3/Feeder" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
        */
@@ -9100,13 +9862,14 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * Event is fired when the entered text is submitted
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSubmit(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Feeder` itself
        */
@@ -9117,13 +9880,14 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSubmit(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Feeder$SubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9132,23 +9896,21 @@ declare module "sap/ui/ux3/Feeder" {
     /**
      * Fires event {@link #event:submit submit} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSubmit(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The text that is submitted
-         */
-        text?: string;
-      }
+      mParameters?: Feeder$SubmitEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getPlaceholderText placeholderText}.
      *
      * This property could be used for costum placeholder. If it is not set, the default text is used.
+     *
      *
      * @returns Value of property `placeholderText`
      */
@@ -9157,6 +9919,7 @@ declare module "sap/ui/ux3/Feeder" {
      * Gets current value of property {@link #getText text}.
      *
      * The text for the Feeder. @References are supported.
+     *
      *
      * @returns Value of property `text`
      */
@@ -9168,6 +9931,7 @@ declare module "sap/ui/ux3/Feeder" {
      * control. In this case the value of the feed or feddChunk control is used if it's not set. So it must
      * be only set once on the feed or feedChunk control.
      *
+     *
      * @returns Value of property `thumbnailSrc`
      */
     getThumbnailSrc(): URI;
@@ -9178,6 +9942,7 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * Default value is `Large`.
      *
+     *
      * @returns Value of property `type`
      */
     getType(): FeederType | keyof typeof FeederType;
@@ -9187,6 +9952,7 @@ declare module "sap/ui/ux3/Feeder" {
      * This property could be used for costum placeholder. If it is not set, the default text is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9202,6 +9968,7 @@ declare module "sap/ui/ux3/Feeder" {
      * The text for the Feeder. @References are supported.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9220,6 +9987,7 @@ declare module "sap/ui/ux3/Feeder" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setThumbnailSrc(
@@ -9236,6 +10004,7 @@ declare module "sap/ui/ux3/Feeder" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Large`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9276,8 +10045,17 @@ declare module "sap/ui/ux3/Feeder" {
     /**
      * Event is fired when the entered text is submitted
      */
-    submit?: (oEvent: Event) => void;
+    submit?: (oEvent: Feeder$SubmitEvent) => void;
   }
+
+  export interface Feeder$SubmitEventParameters {
+    /**
+     * The text that is submitted
+     */
+    text?: string;
+  }
+
+  export type Feeder$SubmitEvent = Event<Feeder$SubmitEventParameters, Feeder>;
 }
 
 declare module "sap/ui/ux3/NavigationBar" {
@@ -9287,8 +10065,6 @@ declare module "sap/ui/ux3/NavigationBar" {
 
   import NavigationItem from "sap/ui/ux3/NavigationItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -9296,15 +10072,17 @@ declare module "sap/ui/ux3/NavigationBar" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
-   * control.
-   *
    * Provides enhanced navigation capabilities and is the parent control of NavigationItem. It is displayed
    * in the form of a horizontal line with switching markers depending on the currently selected item. The
    * size of an item which is currently chosen by the user is enlarged. In the case that a large number of
    * items are defined for the bar, this is made transparent to the user by showing symbols for scrolling
    * options (forwards and backwards) to see the next or previous items.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * control.
    */
   export default class NavigationBar extends Control {
     /**
@@ -9344,6 +10122,7 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -9364,11 +10143,13 @@ declare module "sap/ui/ux3/NavigationBar" {
     /**
      * Returns a metadata object for class sap.ui.ux3.NavigationBar.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some associatedItem into the association {@link #getAssociatedItems associatedItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9380,6 +10161,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9397,6 +10179,7 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * Event is fired when an item is selected by the user
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
@@ -9408,7 +10191,7 @@ declare module "sap/ui/ux3/NavigationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
        */
@@ -9422,13 +10205,14 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * Event is fired when an item is selected by the user
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NavigationBar` itself
        */
@@ -9436,6 +10220,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9445,13 +10230,14 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NavigationBar$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -9463,26 +10249,18 @@ declare module "sap/ui/ux3/NavigationBar" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the newly selected NavigationItem.
-         */
-        itemId?: string;
-        /**
-         * The newly selected NavigationItem.
-         */
-        item?: NavigationItem;
-      }
+      mParameters?: NavigationBar$SelectEventParameters
     ): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAssociatedItems
-     * associatedItems}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAssociatedItems associatedItems}.
      */
     getAssociatedItems(): ID[];
     /**
@@ -9494,13 +10272,13 @@ declare module "sap/ui/ux3/NavigationBar" {
      */
     getItems(): NavigationItem[];
     /**
-     * @SINCE 1.36
-     *
      * Gets current value of property {@link #getOverflowItemsToUpperCase overflowItemsToUpperCase}.
      *
      * Sets the appearance of the menu items in the overflow menu to uppercase
      *
      * Default value is `false`.
+     *
+     * @since 1.36
      *
      * @returns Value of property `overflowItemsToUpperCase`
      */
@@ -9509,7 +10287,7 @@ declare module "sap/ui/ux3/NavigationBar" {
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
      */
-    getSelectedItem(): ID;
+    getSelectedItem(): ID | null;
     /**
      * Gets current value of property {@link #getToplevelVariant toplevelVariant}.
      *
@@ -9517,12 +10295,14 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `toplevelVariant`
      */
     getToplevelVariant(): boolean;
     /**
      * Checks for the provided `sap.ui.ux3.NavigationItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -9534,6 +10314,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9557,6 +10338,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     /**
      * Removes all the controls in the association named {@link #getAssociatedItems associatedItems}.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAssociatedItems(): ID[];
@@ -9565,11 +10347,13 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): NavigationItem[];
     /**
      * Removes an associatedItem from the association named {@link #getAssociatedItems associatedItems}.
+     *
      *
      * @returns The removed associatedItem or `null`
      */
@@ -9581,6 +10365,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -9600,8 +10385,6 @@ declare module "sap/ui/ux3/NavigationBar" {
       aItems: NavigationItem[]
     ): this;
     /**
-     * @SINCE 1.36
-     *
      * Sets a new value for property {@link #getOverflowItemsToUpperCase overflowItemsToUpperCase}.
      *
      * Sets the appearance of the menu items in the overflow menu to uppercase
@@ -9609,6 +10392,8 @@ declare module "sap/ui/ux3/NavigationBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.36
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9620,6 +10405,7 @@ declare module "sap/ui/ux3/NavigationBar" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedItem selectedItem}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9639,6 +10425,7 @@ declare module "sap/ui/ux3/NavigationBar" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setToplevelVariant(
@@ -9656,9 +10443,9 @@ declare module "sap/ui/ux3/NavigationBar" {
     toplevelVariant?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.36
-     *
      * Sets the appearance of the menu items in the overflow menu to uppercase
+     *
+     * @since 1.36
      */
     overflowItemsToUpperCase?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -9687,8 +10474,25 @@ declare module "sap/ui/ux3/NavigationBar" {
     /**
      * Event is fired when an item is selected by the user
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: NavigationBar$SelectEvent) => void;
   }
+
+  export interface NavigationBar$SelectEventParameters {
+    /**
+     * The ID of the newly selected NavigationItem.
+     */
+    itemId?: string;
+
+    /**
+     * The newly selected NavigationItem.
+     */
+    item?: NavigationItem;
+  }
+
+  export type NavigationBar$SelectEvent = Event<
+    NavigationBar$SelectEventParameters,
+    NavigationBar
+  >;
 }
 
 declare module "sap/ui/ux3/NavigationItem" {
@@ -9704,10 +10508,10 @@ declare module "sap/ui/ux3/NavigationItem" {
   } from "sap/ui/base/ManagedObject";
 
   /**
+   * Is the item to be used within the NavigationBar
+   *
    * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
    * control.
-   *
-   * Is the item to be used within the NavigationBar
    */
   export default class NavigationItem extends Item {
     /**
@@ -9747,6 +10551,7 @@ declare module "sap/ui/ux3/NavigationItem" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -9767,11 +10572,13 @@ declare module "sap/ui/ux3/NavigationItem" {
     /**
      * Returns a metadata object for class sap.ui.ux3.NavigationItem.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some subItem to the aggregation {@link #getSubItems subItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9783,6 +10590,7 @@ declare module "sap/ui/ux3/NavigationItem" {
     ): this;
     /**
      * Destroys all the subItems in the aggregation {@link #getSubItems subItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9797,6 +10605,7 @@ declare module "sap/ui/ux3/NavigationItem" {
      * this URL and it is the application's responsibility to display what the user expects (e.g. the Shell,
      * with the respective NavigationItem being selected).
      *
+     *
      * @returns Value of property `href`
      */
     getHref(): URI;
@@ -9807,8 +10616,6 @@ declare module "sap/ui/ux3/NavigationItem" {
      */
     getSubItems(): NavigationItem[];
     /**
-     * @SINCE 1.9.0
-     *
      * Gets current value of property {@link #getVisible visible}.
      *
      * Whether the NavigationItem is currently visible. When making NavigationItems invisible at runtime it
@@ -9817,12 +10624,15 @@ declare module "sap/ui/ux3/NavigationItem" {
      *
      * Default value is `true`.
      *
+     * @since 1.9.0
+     *
      * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
      * Checks for the provided `sap.ui.ux3.NavigationItem` in the aggregation {@link #getSubItems subItems}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -9834,6 +10644,7 @@ declare module "sap/ui/ux3/NavigationItem" {
     ): int;
     /**
      * Inserts a subItem into the aggregation {@link #getSubItems subItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9854,11 +10665,13 @@ declare module "sap/ui/ux3/NavigationItem" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllSubItems(): NavigationItem[];
     /**
      * Removes a subItem from the aggregation {@link #getSubItems subItems}.
+     *
      *
      * @returns The removed subItem or `null`
      */
@@ -9880,6 +10693,7 @@ declare module "sap/ui/ux3/NavigationItem" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHref(
@@ -9889,8 +10703,6 @@ declare module "sap/ui/ux3/NavigationItem" {
       sHref?: URI
     ): this;
     /**
-     * @SINCE 1.9.0
-     *
      * Sets a new value for property {@link #getVisible visible}.
      *
      * Whether the NavigationItem is currently visible. When making NavigationItems invisible at runtime it
@@ -9900,6 +10712,8 @@ declare module "sap/ui/ux3/NavigationItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.9.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9913,11 +10727,11 @@ declare module "sap/ui/ux3/NavigationItem" {
 
   export interface $NavigationItemSettings extends $ItemSettings {
     /**
-     * @SINCE 1.9.0
-     *
      * Whether the NavigationItem is currently visible. When making NavigationItems invisible at runtime it
      * is the application's responsibility to make sure it is not the currently selected one - or to select
      * another one in this case.
+     *
+     * @since 1.9.0
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -9947,26 +10761,26 @@ declare module "sap/ui/ux3/NotificationBar" {
 
   import UI5Element from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { NotificationBarStatus } from "sap/ui/ux3/library";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.7.0
-   * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
-   *
    * A NotificationBar is a "toolbar" that can be added to a page to show messages and notifications from
    * the application. Its position, height and width is inherited from the element that the notification bar
    * is added to. The NotificationBar uses position: fixed; to always stay at the bottom of the screen. This
    * CSS may sometimes cause issues when nested deeply inside other controls. To have a proper behavior of
    * the NotificationBar use it as high in the control hierarchy as possible.
+   *
+   * @since 1.7.0
+   * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
    */
   export default class NotificationBar extends Control {
     /**
@@ -10006,6 +10820,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -10026,11 +10841,13 @@ declare module "sap/ui/ux3/NotificationBar" {
     /**
      * Returns a metadata object for class sap.ui.ux3.NotificationBar.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some notifier to the aggregation {@link #getNotifiers notifiers}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10049,6 +10866,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
      * to decide what to do.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachDisplay(
@@ -10060,7 +10878,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10075,21 +10893,20 @@ declare module "sap/ui/ux3/NotificationBar" {
      * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
      * to decide what to do.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachDisplay(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
-     *
      * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -10098,6 +10915,8 @@ declare module "sap/ui/ux3/NotificationBar" {
      * This event is thrown when the bar was resized (to the different valid states: Min, Max, Default, None).
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
      * firing this event.
+     *
+     * @since 1.12.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10110,15 +10929,13 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
-     *
      * Attaches event handler `fnFunction` to the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -10128,13 +10945,15 @@ declare module "sap/ui/ux3/NotificationBar" {
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
      * firing this event.
      *
+     * @since 1.12.2
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachResize(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.NotificationBar` itself
        */
@@ -10143,11 +10962,13 @@ declare module "sap/ui/ux3/NotificationBar" {
     /**
      * Destroys the messageNotifier in the aggregation {@link #getMessageNotifier messageNotifier}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyMessageNotifier(): this;
     /**
      * Destroys all the notifiers in the aggregation {@link #getNotifiers notifiers}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10157,24 +10978,25 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachDisplay(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$DisplayEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.2
-     *
      * Detaches event handler `fnFunction` from the {@link #event:resize resize} event of this `sap.ui.ux3.NotificationBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.12.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10182,7 +11004,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: NotificationBar$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10191,23 +11013,21 @@ declare module "sap/ui/ux3/NotificationBar" {
     /**
      * Fires event {@link #event:display display} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireDisplay(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Indicates if the bar wants to be shown or hidden
-         */
-        show?: boolean;
-      }
+      mParameters?: NotificationBar$DisplayEventParameters
     ): this;
     /**
-     * @SINCE 1.12.2
-     *
      * Fires event {@link #event:resize resize} to attached listeners.
+     *
+     * @since 1.12.2
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10215,13 +11035,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The corresponding status to which the bar was resized. The corresponding heights can be taken for the
-         * bar's CSS file.
-         */
-        status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
-      }
+      mParameters?: NotificationBar$ResizeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAlwaysShowToggler alwaysShowToggler}.
@@ -10229,6 +11043,8 @@ declare module "sap/ui/ux3/NotificationBar" {
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
      *
      * Default value is `false`.
+     *
+     * @since 1.24.5
      *
      * @returns Value of property `alwaysShowToggler`
      */
@@ -10252,6 +11068,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `resizeEnabled`
      */
     getResizeEnabled(): boolean;
@@ -10261,6 +11078,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * This property displays the bar corresponding to given status
      *
      * Default value is `Default`.
+     *
      *
      * @returns Value of property `visibleStatus`
      */
@@ -10276,6 +11094,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * Checks for the provided `sap.ui.core.Element` in the aggregation {@link #getNotifiers notifiers}. and
      * returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfNotifier(
@@ -10286,6 +11105,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     ): int;
     /**
      * Inserts a notifier into the aggregation {@link #getNotifiers notifiers}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10306,11 +11126,13 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllNotifiers(): UI5Element[];
     /**
      * Removes a notifier from the aggregation {@link #getNotifiers notifiers}.
+     *
      *
      * @returns The removed notifier or `null`
      */
@@ -10321,7 +11143,7 @@ declare module "sap/ui/ux3/NotificationBar" {
       vNotifier: int | string | UI5Element
     ): UI5Element | null;
     /**
-     * @SINCE 1.22.11
+     * @since 1.22.11
      */
     setAlwaysShowToggler(
       /**
@@ -10331,6 +11153,7 @@ declare module "sap/ui/ux3/NotificationBar" {
     ): void;
     /**
      * Sets the aggregated {@link #getMessageNotifier messageNotifier}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10349,6 +11172,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setResizeEnabled(
@@ -10365,6 +11189,7 @@ declare module "sap/ui/ux3/NotificationBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10394,6 +11219,8 @@ declare module "sap/ui/ux3/NotificationBar" {
 
     /**
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
+     *
+     * @since 1.24.5
      */
     alwaysShowToggler?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -10415,25 +11242,48 @@ declare module "sap/ui/ux3/NotificationBar" {
      * Event is fired when the bar wants to be displayed depending on given flag. This allows the application
      * to decide what to do.
      */
-    display?: (oEvent: Event) => void;
+    display?: (oEvent: NotificationBar$DisplayEvent) => void;
 
     /**
-     * @SINCE 1.12.2
-     *
      * This event is thrown when the bar was resized (to the different valid states: Min, Max, Default, None).
      * The event itself can be used from SAPUI5-version 1.12.2 since there was a bug in the previous versions
      * firing this event.
+     *
+     * @since 1.12.2
      */
-    resize?: (oEvent: Event) => void;
+    resize?: (oEvent: NotificationBar$ResizeEvent) => void;
   }
+
+  export interface NotificationBar$DisplayEventParameters {
+    /**
+     * Indicates if the bar wants to be shown or hidden
+     */
+    show?: boolean;
+  }
+
+  export type NotificationBar$DisplayEvent = Event<
+    NotificationBar$DisplayEventParameters,
+    NotificationBar
+  >;
+
+  export interface NotificationBar$ResizeEventParameters {
+    /**
+     * The corresponding status to which the bar was resized. The corresponding heights can be taken for the
+     * bar's CSS file.
+     */
+    status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
+  }
+
+  export type NotificationBar$ResizeEvent = Event<
+    NotificationBar$ResizeEventParameters,
+    NotificationBar
+  >;
 }
 
 declare module "sap/ui/ux3/Notifier" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Message from "sap/ui/core/Message";
-
-  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -10444,10 +11294,12 @@ declare module "sap/ui/ux3/Notifier" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * This element can be docked to a notification bar to show notification items
+   *
+   * @deprecated (since 1.38)
    */
   export default class Notifier extends UI5Element {
     /**
@@ -10487,6 +11339,7 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -10507,11 +11360,13 @@ declare module "sap/ui/ux3/Notifier" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Notifier.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some message to the aggregation {@link #getMessages messages}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10530,6 +11385,7 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * Event is fired when a message of the notifiers was selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachMessageSelected(
@@ -10541,7 +11397,7 @@ declare module "sap/ui/ux3/Notifier" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
        */
@@ -10556,13 +11412,14 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * Event is fired when a message of the notifiers was selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachMessageSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Notifier` itself
        */
@@ -10570,6 +11427,7 @@ declare module "sap/ui/ux3/Notifier" {
     ): this;
     /**
      * Destroys all the messages in the aggregation {@link #getMessages messages}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10580,13 +11438,14 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachMessageSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Notifier$MessageSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -10595,27 +11454,21 @@ declare module "sap/ui/ux3/Notifier" {
     /**
      * Fires event {@link #event:messageSelected messageSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireMessageSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The message that was selected
-         */
-        message?: Message;
-        /**
-         * The notifier that contains the selected message
-         */
-        notifier?: Notifier;
-      }
+      mParameters?: Notifier$MessageSelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Icon of the control that should be displayed within the corresponding bar
+     *
      *
      * @returns Value of property `icon`
      */
@@ -10631,6 +11484,7 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * Defines the title that should be displayed within the opening popup
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
@@ -10642,6 +11496,7 @@ declare module "sap/ui/ux3/Notifier" {
      * Checks for the provided `sap.ui.core.Message` in the aggregation {@link #getMessages messages}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfMessage(
@@ -10652,6 +11507,7 @@ declare module "sap/ui/ux3/Notifier" {
     ): int;
     /**
      * Inserts a message into the aggregation {@link #getMessages messages}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10672,11 +11528,13 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllMessages(): Message[];
     /**
      * Removes a message from the aggregation {@link #getMessages messages}.
+     *
      *
      * @returns The removed message or `null`
      */
@@ -10693,6 +11551,7 @@ declare module "sap/ui/ux3/Notifier" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
@@ -10707,6 +11566,7 @@ declare module "sap/ui/ux3/Notifier" {
      * Defines the title that should be displayed within the opening popup
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10737,8 +11597,25 @@ declare module "sap/ui/ux3/Notifier" {
     /**
      * Event is fired when a message of the notifiers was selected.
      */
-    messageSelected?: (oEvent: Event) => void;
+    messageSelected?: (oEvent: Notifier$MessageSelectedEvent) => void;
   }
+
+  export interface Notifier$MessageSelectedEventParameters {
+    /**
+     * The message that was selected
+     */
+    message?: Message;
+
+    /**
+     * The notifier that contains the selected message
+     */
+    notifier?: Notifier;
+  }
+
+  export type Notifier$MessageSelectedEvent = Event<
+    Notifier$MessageSelectedEventParameters,
+    Notifier
+  >;
 }
 
 declare module "sap/ui/ux3/Overlay" {
@@ -10746,16 +11623,16 @@ declare module "sap/ui/ux3/Overlay" {
 
   import { PopupInterface } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * Overlay Control
+   *
+   * @deprecated (since 1.38)
    */
   export default class Overlay extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -10796,6 +11673,7 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -10816,6 +11694,7 @@ declare module "sap/ui/ux3/Overlay" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Overlay.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -10827,6 +11706,7 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay starts closing.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
@@ -10838,7 +11718,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10852,13 +11732,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay starts closing.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10872,6 +11753,7 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay is closed.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
@@ -10883,7 +11765,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10897,13 +11779,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay is closed.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10917,6 +11800,7 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay is opened.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachOpen(
@@ -10928,7 +11812,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10942,13 +11826,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the Overlay is opened.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachOpen(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10961,6 +11846,7 @@ declare module "sap/ui/ux3/Overlay" {
      * otherwise it will be bound to this `sap.ui.ux3.Overlay` itself.
      *
      * Event is fired when the 'Open' button of the Overlay is clicked.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10973,7 +11859,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -10987,13 +11873,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Event is fired when the 'Open' button of the Overlay is clicked.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachOpenNew(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Overlay` itself
        */
@@ -11008,13 +11895,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachClose(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11025,13 +11913,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachClosed(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$ClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11042,13 +11931,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachOpen(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11059,13 +11949,14 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachOpenNew(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Overlay$OpenNewEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11077,18 +11968,15 @@ declare module "sap/ui/ux3/Overlay" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireClose(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the Overlay instance.
-         */
-        id?: string;
-      }
+      mParameters?: Overlay$CloseEventParameters
     ): boolean;
     /**
      * Fires event {@link #event:closed closed} to attached listeners.
@@ -11096,21 +11984,20 @@ declare module "sap/ui/ux3/Overlay" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireClosed(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the Overlay instance.
-         */
-        id?: string;
-      }
+      mParameters?: Overlay$ClosedEventParameters
     ): boolean;
     /**
      * Fires event {@link #event:open open} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11118,15 +12005,12 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the Overlay instance
-         */
-        id?: string;
-      }
+      mParameters?: Overlay$OpenEventParameters
     ): this;
     /**
      * Fires event {@link #event:openNew openNew} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11134,12 +12018,7 @@ declare module "sap/ui/ux3/Overlay" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the Overlay instance.
-         */
-        id?: string;
-      }
+      mParameters?: Overlay$OpenNewEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCloseButtonVisible closeButtonVisible}.
@@ -11147,6 +12026,7 @@ declare module "sap/ui/ux3/Overlay" {
      * Defines whether the 'Close' button shall be visible.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `closeButtonVisible`
      */
@@ -11157,6 +12037,7 @@ declare module "sap/ui/ux3/Overlay" {
      * Defines whether the 'Open' button shall be visible.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `openButtonVisible`
      */
@@ -11183,6 +12064,7 @@ declare module "sap/ui/ux3/Overlay" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setCloseButtonVisible(
@@ -11199,6 +12081,7 @@ declare module "sap/ui/ux3/Overlay" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11224,23 +12107,65 @@ declare module "sap/ui/ux3/Overlay" {
     /**
      * Event is fired when the Overlay starts closing.
      */
-    close?: (oEvent: Event) => void;
+    close?: (oEvent: Overlay$CloseEvent) => void;
 
     /**
      * Event is fired when the Overlay is closed.
      */
-    closed?: (oEvent: Event) => void;
+    closed?: (oEvent: Overlay$ClosedEvent) => void;
 
     /**
      * Event is fired when the 'Open' button of the Overlay is clicked.
      */
-    openNew?: (oEvent: Event) => void;
+    openNew?: (oEvent: Overlay$OpenNewEvent) => void;
 
     /**
      * Event is fired when the Overlay is opened.
      */
-    open?: (oEvent: Event) => void;
+    open?: (oEvent: Overlay$OpenEvent) => void;
   }
+
+  export interface Overlay$CloseEventParameters {
+    /**
+     * The ID of the Overlay instance.
+     */
+    id?: string;
+  }
+
+  export type Overlay$CloseEvent = Event<Overlay$CloseEventParameters, Overlay>;
+
+  export interface Overlay$ClosedEventParameters {
+    /**
+     * The ID of the Overlay instance.
+     */
+    id?: string;
+  }
+
+  export type Overlay$ClosedEvent = Event<
+    Overlay$ClosedEventParameters,
+    Overlay
+  >;
+
+  export interface Overlay$OpenEventParameters {
+    /**
+     * The ID of the Overlay instance
+     */
+    id?: string;
+  }
+
+  export type Overlay$OpenEvent = Event<Overlay$OpenEventParameters, Overlay>;
+
+  export interface Overlay$OpenNewEventParameters {
+    /**
+     * The ID of the Overlay instance.
+     */
+    id?: string;
+  }
+
+  export type Overlay$OpenNewEvent = Event<
+    Overlay$OpenNewEventParameters,
+    Overlay
+  >;
 }
 
 declare module "sap/ui/ux3/OverlayContainer" {
@@ -11253,9 +12178,9 @@ declare module "sap/ui/ux3/OverlayContainer" {
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38)
-   *
    * Is to be embedded into the Overlay control as content container
+   *
+   * @deprecated (since 1.38)
    */
   export default class OverlayContainer extends Overlay {
     /**
@@ -11295,6 +12220,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.ux3.Overlay.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -11315,11 +12241,13 @@ declare module "sap/ui/ux3/OverlayContainer" {
     /**
      * Returns a metadata object for class sap.ui.ux3.OverlayContainer.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11331,6 +12259,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11345,6 +12274,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -11355,6 +12285,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11375,11 +12306,13 @@ declare module "sap/ui/ux3/OverlayContainer" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -11414,10 +12347,10 @@ declare module "sap/ui/ux3/OverlayDialog" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38)
-   *
    * Dialog implementation based on the Overlay. If used in a Shell it leaves the Tool-Palette, Pane-Bar and
    * Header-Items accessible.
+   *
+   * @deprecated (since 1.38)
    */
   export default class OverlayDialog extends Overlay {
     /**
@@ -11457,6 +12390,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.ux3.Overlay.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -11477,11 +12411,13 @@ declare module "sap/ui/ux3/OverlayDialog" {
     /**
      * Returns a metadata object for class sap.ui.ux3.OverlayDialog.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11493,6 +12429,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11511,6 +12448,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
      *
      * Default value is `'auto'`.
      *
+     *
      * @returns Value of property `height`
      */
     getHeight(): CSSSize;
@@ -11522,12 +12460,14 @@ declare module "sap/ui/ux3/OverlayDialog" {
      *
      * Default value is `'auto'`.
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -11539,6 +12479,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11559,11 +12500,13 @@ declare module "sap/ui/ux3/OverlayDialog" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -11579,6 +12522,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
     setHeight(sHeight: CSSSize): void;
     /**
      * This Method is not supported for the OverlayDialog.
+     *
      *
      * @returns Returns `this` to allow method chaining
      */
@@ -11619,8 +12563,6 @@ declare module "sap/ui/ux3/QuickView" {
 
   import UI5Element from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState } from "sap/ui/ux3/library";
@@ -11634,11 +12576,13 @@ declare module "sap/ui/ux3/QuickView" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
-   *
    * QuickView is a small popup with a short overview of a Thing. QuickView is shown when a user holds the
    * mouse pointer over a related screen element.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
    */
   export default class QuickView extends CalloutBase {
     /**
@@ -11678,6 +12622,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.CalloutBase.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -11698,11 +12643,13 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Returns a metadata object for class sap.ui.ux3.QuickView.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11714,6 +12661,7 @@ declare module "sap/ui/ux3/QuickView" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11732,6 +12680,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Action is selected in Action Bar
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
@@ -11743,7 +12692,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11758,13 +12707,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Action is selected in Action Bar
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11777,6 +12727,7 @@ declare module "sap/ui/ux3/QuickView" {
      * otherwise it will be bound to this `sap.ui.ux3.QuickView` itself.
      *
      * Fired when a new feed entry is submitted.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11789,7 +12740,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11803,13 +12754,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Fired when a new feed entry is submitted.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFeedSubmit(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11824,6 +12776,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
      * object to cancel browser navigation.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachNavigate(
@@ -11835,7 +12788,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11850,13 +12803,14 @@ declare module "sap/ui/ux3/QuickView" {
      * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
      * object to cancel browser navigation.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachNavigate(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.QuickView` itself
        */
@@ -11865,17 +12819,20 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Destroys the actionBar in the aggregation {@link #getActionBar actionBar}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActionBar(): this;
     /**
      * Destroys all the actions in the aggregation {@link #getActions actions}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActions(): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11886,13 +12843,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachActionSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11903,13 +12861,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFeedSubmit(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11920,13 +12879,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachNavigate(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: QuickView$NavigateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -11935,30 +12895,20 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireActionSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected ThingAction
-         */
-        id?: string;
-        /**
-         * Selected ThingAction
-         */
-        action?: ThingAction;
-        /**
-         * New State of the selected action. Only filled if the respective action maintains a state property, for
-         * example 'FollowUp' or 'Favorite'
-         */
-        newState?: string;
-      }
+      mParameters?: QuickView$ActionSelectedEventParameters
     ): this;
     /**
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11966,12 +12916,7 @@ declare module "sap/ui/ux3/QuickView" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Feed text
-         */
-        text?: string;
-      }
+      mParameters?: QuickView$FeedSubmitEventParameters
     ): this;
     /**
      * Fires event {@link #event:navigate navigate} to attached listeners.
@@ -11979,18 +12924,15 @@ declare module "sap/ui/ux3/QuickView" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireNavigate(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * URI of the Thing Inspector application.
-         */
-        href?: string;
-      }
+      mParameters?: QuickView$NavigateEventParameters
     ): boolean;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -12018,6 +12960,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `favoriteActionEnabled`
      */
     getFavoriteActionEnabled(): boolean;
@@ -12028,6 +12971,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `favoriteState`
      */
     getFavoriteState(): boolean;
@@ -12036,6 +12980,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Thing name shown in the header of the QuickView
      *
+     *
      * @returns Value of property `firstTitle`
      */
     getFirstTitle(): string;
@@ -12043,6 +12988,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Gets current value of property {@link #getFirstTitleHref firstTitleHref}.
      *
      * URI to Thing Inspector
+     *
      *
      * @returns Value of property `firstTitleHref`
      */
@@ -12054,6 +13000,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `flagActionEnabled`
      */
     getFlagActionEnabled(): boolean;
@@ -12063,6 +13010,7 @@ declare module "sap/ui/ux3/QuickView" {
      * State of Flag Action
      *
      * Default value is `false`.
+     *
      *
      * @returns Value of property `flagState`
      */
@@ -12074,6 +13022,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `followActionEnabled`
      */
     getFollowActionEnabled(): boolean;
@@ -12084,6 +13033,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Value of property `followState`
      */
     getFollowState(): FollowActionState | keyof typeof FollowActionState;
@@ -12092,6 +13042,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * URI of the Thing icon image (mandatory). The image is scaled down to the maximal size of 32 pixel (vertical
      * or horizontal).
+     *
      *
      * @returns Value of property `icon`
      */
@@ -12103,6 +13054,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `openActionEnabled`
      */
     getOpenActionEnabled(): boolean;
@@ -12110,6 +13062,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Gets current value of property {@link #getSecondTitle secondTitle}.
      *
      * Optional short text shown under the firstTitle
+     *
      *
      * @returns Value of property `secondTitle`
      */
@@ -12121,6 +13074,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showActionBar`
      */
     getShowActionBar(): boolean;
@@ -12129,6 +13083,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Thing type (mandatory) like Account, Material, Employee etc. is displayed in a header at the top part
      * of the QuickView.
+     *
      *
      * @returns Value of property `type`
      */
@@ -12140,6 +13095,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `updateActionEnabled`
      */
     getUpdateActionEnabled(): boolean;
@@ -12148,12 +13104,14 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Control width as common CSS-size (px or % as unit, for example).
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.ux3.ThingAction` in the aggregation {@link #getActions actions}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -12167,6 +13125,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Checks for the provided `sap.ui.core.Element` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -12177,6 +13136,7 @@ declare module "sap/ui/ux3/QuickView" {
     ): int;
     /**
      * Inserts a action into the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12195,6 +13155,7 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
@@ -12212,6 +13173,7 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Removes a action from the aggregation {@link #getActions actions}.
      *
+     *
      * @returns The removed action or `null`
      */
     removeAction(
@@ -12225,6 +13187,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllActions(): ThingAction[];
@@ -12233,11 +13196,13 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): UI5Element[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -12249,6 +13214,7 @@ declare module "sap/ui/ux3/QuickView" {
     ): UI5Element | null;
     /**
      * Sets the aggregated {@link #getActionBar actionBar}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12267,6 +13233,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteActionEnabled(
@@ -12284,6 +13251,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteState(
@@ -12299,6 +13267,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFirstTitle(
@@ -12313,6 +13282,7 @@ declare module "sap/ui/ux3/QuickView" {
      * URI to Thing Inspector
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12331,6 +13301,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFlagActionEnabled(
@@ -12347,6 +13318,7 @@ declare module "sap/ui/ux3/QuickView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12365,6 +13337,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFollowActionEnabled(
@@ -12382,6 +13355,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFollowState(
@@ -12397,6 +13371,7 @@ declare module "sap/ui/ux3/QuickView" {
      * or horizontal).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12415,6 +13390,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setOpenActionEnabled(
@@ -12429,6 +13405,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Optional short text shown under the firstTitle
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12447,6 +13424,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowActionBar(
@@ -12462,6 +13440,7 @@ declare module "sap/ui/ux3/QuickView" {
      * of the QuickView.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12480,6 +13459,7 @@ declare module "sap/ui/ux3/QuickView" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setUpdateActionEnabled(
@@ -12494,6 +13474,7 @@ declare module "sap/ui/ux3/QuickView" {
      * Control width as common CSS-size (px or % as unit, for example).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12613,19 +13594,66 @@ declare module "sap/ui/ux3/QuickView" {
     /**
      * Action is selected in Action Bar
      */
-    actionSelected?: (oEvent: Event) => void;
+    actionSelected?: (oEvent: QuickView$ActionSelectedEvent) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: (oEvent: Event) => void;
+    feedSubmit?: (oEvent: QuickView$FeedSubmitEvent) => void;
 
     /**
      * Event is fired when a user clicks on the firstTitle link. Call the preventDefault method of the event
      * object to cancel browser navigation.
      */
-    navigate?: (oEvent: Event) => void;
+    navigate?: (oEvent: QuickView$NavigateEvent) => void;
   }
+
+  export interface QuickView$ActionSelectedEventParameters {
+    /**
+     * Id of selected ThingAction
+     */
+    id?: string;
+
+    /**
+     * Selected ThingAction
+     */
+    action?: ThingAction;
+
+    /**
+     * New State of the selected action. Only filled if the respective action maintains a state property, for
+     * example 'FollowUp' or 'Favorite'
+     */
+    newState?: string;
+  }
+
+  export type QuickView$ActionSelectedEvent = Event<
+    QuickView$ActionSelectedEventParameters,
+    QuickView
+  >;
+
+  export interface QuickView$FeedSubmitEventParameters {
+    /**
+     * Feed text
+     */
+    text?: string;
+  }
+
+  export type QuickView$FeedSubmitEvent = Event<
+    QuickView$FeedSubmitEventParameters,
+    QuickView
+  >;
+
+  export interface QuickView$NavigateEventParameters {
+    /**
+     * URI of the Thing Inspector application.
+     */
+    href?: string;
+  }
+
+  export type QuickView$NavigateEvent = Event<
+    QuickView$NavigateEventParameters,
+    QuickView
+  >;
 }
 
 declare module "sap/ui/ux3/Shell" {
@@ -12655,11 +13683,11 @@ declare module "sap/ui/ux3/Shell" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Shell}
-   *
    * The Ux3 GoldReflection Shell, which is an application frame with navigation capabilities. It is supposed
    * to be added to a direct child of the BODY tag of a page and there should be no other parts of the page
    * consuming space outside the Shell.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Shell}
    */
   export default class Shell extends Control {
     /**
@@ -12699,6 +13727,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -12719,11 +13748,13 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Returns a metadata object for class sap.ui.ux3.Shell.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12736,6 +13767,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Adds some headerItem to the aggregation {@link #getHeaderItems headerItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addHeaderItem(
@@ -12746,6 +13778,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Adds some paneBarItem to the aggregation {@link #getPaneBarItems paneBarItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12758,6 +13791,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Adds some paneContent to the aggregation {@link #getPaneContent paneContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addPaneContent(
@@ -12769,6 +13803,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Adds some toolPopup to the aggregation {@link #getToolPopups toolPopups}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addToolPopup(
@@ -12779,6 +13814,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Adds some worksetItem to the aggregation {@link #getWorksetItems worksetItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12796,6 +13832,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired when a new feed entry is submitted.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFeedSubmit(
@@ -12821,6 +13858,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired when a new feed entry is submitted.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFeedSubmit(
@@ -12841,6 +13879,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired when the user clicks the "Log-off" button
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachLogout(
@@ -12866,6 +13905,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired when the user clicks the "Log-off" button
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachLogout(
@@ -12888,6 +13928,7 @@ declare module "sap/ui/ux3/Shell" {
      * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
      * with UI elements.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPaneBarItemSelected(
@@ -12899,7 +13940,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -12915,21 +13956,20 @@ declare module "sap/ui/ux3/Shell" {
      * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
      * with UI elements.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPaneBarItemSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -12937,6 +13977,8 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
+     *
+     * @since 1.12.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12949,15 +13991,13 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -12966,13 +14006,15 @@ declare module "sap/ui/ux3/Shell" {
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
      *
+     * @since 1.12.0
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachPaneClosed(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -12985,6 +14027,7 @@ declare module "sap/ui/ux3/Shell" {
      * otherwise it will be bound to this `sap.ui.ux3.Shell` itself.
      *
      * Fired when search has been triggered.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13011,6 +14054,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Fired when search has been triggered.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
@@ -13035,6 +14079,7 @@ declare module "sap/ui/ux3/Shell" {
      * is responsible for displaying the correct content for the selected one of the newly created sub-items.
      * The Shell will currently always mark the first sub-item as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachWorksetItemSelected(
@@ -13046,7 +14091,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13064,13 +14109,14 @@ declare module "sap/ui/ux3/Shell" {
      * is responsible for displaying the correct content for the selected one of the newly created sub-items.
      * The Shell will currently always mark the first sub-item as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachWorksetItemSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.Shell` itself
        */
@@ -13085,19 +14131,21 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the headerItems in the aggregation {@link #getHeaderItems headerItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeaderItems(): this;
     /**
-     * @SINCE 1.7.0
-     *
      * Destroys the notificationBar in the aggregation {@link #getNotificationBar notificationBar}.
+     *
+     * @since 1.7.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13105,11 +14153,13 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Destroys all the paneBarItems in the aggregation {@link #getPaneBarItems paneBarItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyPaneBarItems(): this;
     /**
      * Destroys all the paneContent in the aggregation {@link #getPaneContent paneContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13117,11 +14167,13 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Destroys all the toolPopups in the aggregation {@link #getToolPopups toolPopups}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolPopups(): this;
     /**
      * Destroys all the worksetItems in the aggregation {@link #getWorksetItems worksetItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13130,6 +14182,7 @@ declare module "sap/ui/ux3/Shell" {
      * Detaches event handler `fnFunction` from the {@link #event:feedSubmit feedSubmit} event of this `sap.ui.ux3.Shell`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13147,6 +14200,7 @@ declare module "sap/ui/ux3/Shell" {
      * Detaches event handler `fnFunction` from the {@link #event:logout logout} event of this `sap.ui.ux3.Shell`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13166,24 +14220,25 @@ declare module "sap/ui/ux3/Shell" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachPaneBarItemSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneBarItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.12.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:paneClosed paneClosed} event of this `sap.ui.ux3.Shell`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.12.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13191,7 +14246,7 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$PaneClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13201,6 +14256,7 @@ declare module "sap/ui/ux3/Shell" {
      * Detaches event handler `fnFunction` from the {@link #event:search search} event of this `sap.ui.ux3.Shell`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13220,13 +14276,14 @@ declare module "sap/ui/ux3/Shell" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachWorksetItemSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Shell$WorksetItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13234,6 +14291,8 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13246,6 +14305,8 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Fires event {@link #event:logout logout} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireLogout(
@@ -13257,31 +14318,21 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Fires event {@link #event:paneBarItemSelected paneBarItemSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     firePaneBarItemSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the selected PaneBarItem.
-         */
-        id?: string;
-        /**
-         * The selected Item
-         */
-        item?: Item;
-        /**
-         * The key of the selected Item (or null if there is no key)
-         */
-        key?: string;
-      }
+      mParameters?: Shell$PaneBarItemSelectedEventParameters
     ): this;
     /**
-     * @SINCE 1.12.0
-     *
      * Fires event {@link #event:paneClosed paneClosed} to attached listeners.
+     *
+     * @since 1.12.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13289,15 +14340,12 @@ declare module "sap/ui/ux3/Shell" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The id of the PaneBarItem to which the closed pane belonged.
-         */
-        id?: string;
-      }
+      mParameters?: Shell$PaneClosedEventParameters
     ): this;
     /**
      * Fires event {@link #event:search search} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13313,37 +14361,25 @@ declare module "sap/ui/ux3/Shell" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireWorksetItemSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The id of the workset item that has been newly selected by the user. If a top-level item has been clicked
-         * which has sub-items, the ID of the currently active sub-item (/leaf) is given.
-         */
-        id?: string;
-        /**
-         * The selected NavigationItem
-         */
-        item?: NavigationItem;
-        /**
-         * The key of the selected NavigationItem (or null if there is no key)
-         */
-        key?: string;
-      }
+      mParameters?: Shell$WorksetItemSelectedEventParameters
     ): boolean;
     /**
-     * @SINCE 1.14.0
-     *
      * Gets current value of property {@link #getAllowOverlayHeaderAccess allowOverlayHeaderAccess}.
      *
      * Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer
      * or ThingInspector is open.
      *
      * Default value is `false`.
+     *
+     * @since 1.14.0
      *
      * @returns Value of property `allowOverlayHeaderAccess`
      */
@@ -13356,6 +14392,7 @@ declare module "sap/ui/ux3/Shell" {
      * icon appears first. If the appIcon is set, for accessibility reasons the appIconTooltip must also be
      * set.
      *
+     *
      * @returns Value of property `appIcon`
      */
     getAppIcon(): URI;
@@ -13364,17 +14401,18 @@ declare module "sap/ui/ux3/Shell" {
      *
      * The tooltip of the application icon in the header
      *
+     *
      * @returns Value of property `appIconTooltip`
      */
     getAppIconTooltip(): string;
     /**
-     * @SINCE 1.9.0
-     *
      * Gets current value of property {@link #getApplyContentPadding applyContentPadding}.
      *
      * Whether the Shell content area should have a theme-dependent padding or not.
      *
      * Default value is `true`.
+     *
+     * @since 1.9.0
      *
      * @returns Value of property `applyContentPadding`
      */
@@ -13384,6 +14422,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * The application title to appear in the left part of the header, usually a company and/or product name.
      * appIcon and appTitle are both optional and can both be set; in this case the icon appears first.
+     *
      *
      * @returns Value of property `appTitle`
      */
@@ -13396,20 +14435,18 @@ declare module "sap/ui/ux3/Shell" {
      */
     getContent(): Control[];
     /**
-     * @SINCE 1.12.0
-     *
      * Gets current value of property {@link #getDesignType designType}.
      *
      * Defines which design type is to be used.
      *
      * Default value is `Standard`.
      *
+     * @since 1.12.0
+     *
      * @returns Value of property `designType`
      */
     getDesignType(): ShellDesignType | keyof typeof ShellDesignType;
     /**
-     * @SINCE 1.9.0
-     *
      * Gets current value of property {@link #getFullHeightContent fullHeightContent}.
      *
      * If set to true, the content area has a defined height. This means that any content put inside can use
@@ -13417,6 +14454,8 @@ declare module "sap/ui/ux3/Shell" {
      * will appear at the content area of the Shell and not on window level.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.0
      *
      * @returns Value of property `fullHeightContent`
      */
@@ -13436,26 +14475,27 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `Standard`.
      *
+     *
      * @returns Value of property `headerType`
      */
     getHeaderType(): ShellHeaderType | keyof typeof ShellHeaderType;
     /**
-     * @SINCE 1.9.0
-     *
      * Gets current value of property {@link #getLogoutButtonTooltip logoutButtonTooltip}.
      *
      * The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning "Logout" in
      * the current language will be displayed.
      *
+     * @since 1.9.0
+     *
      * @returns Value of property `logoutButtonTooltip`
      */
     getLogoutButtonTooltip(): string;
     /**
-     * @SINCE 1.7.0
-     *
      * Gets content of aggregation {@link #getNotificationBar notificationBar}.
      *
      * The NotificationBar which should be integrated into the Shell.
+     *
+     * @since 1.7.0
      */
     getNotificationBar(): NotificationBar;
     /**
@@ -13478,6 +14518,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `250`.
      *
+     *
      * @returns Value of property `paneWidth`
      */
     getPaneWidth(): int;
@@ -13489,7 +14530,7 @@ declare module "sap/ui/ux3/Shell" {
      * ID of the element which is the current target of the association {@link #getSelectedWorksetItem selectedWorksetItem},
      * or `null`.
      */
-    getSelectedWorksetItem(): ID;
+    getSelectedWorksetItem(): ID | null;
     /**
      * Gets current value of property {@link #getShowFeederTool showFeederTool}.
      *
@@ -13497,19 +14538,20 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showFeederTool`
      */
     getShowFeederTool(): boolean;
     /**
-     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
-     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
-     * it from the respective elements in the Shell content.
-     *
      * Gets current value of property {@link #getShowInspectorTool showInspectorTool}.
      *
      * Whether the "Inspector" tool should be displayed or not.
      *
      * Default value is `false`.
+     *
+     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
+     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
+     * it from the respective elements in the Shell content.
      *
      * @returns Value of property `showInspectorTool`
      */
@@ -13521,6 +14563,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showLogoutButton`
      */
     getShowLogoutButton(): boolean;
@@ -13530,6 +14573,7 @@ declare module "sap/ui/ux3/Shell" {
      * Whether the pane bar should be displayed at all or not.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showPane`
      */
@@ -13541,6 +14585,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `showSearchTool`
      */
     getShowSearchTool(): boolean;
@@ -13550,6 +14595,7 @@ declare module "sap/ui/ux3/Shell" {
      * Whether the tool area should be displayed at all or not.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `showTools`
      */
@@ -13570,6 +14616,7 @@ declare module "sap/ui/ux3/Shell" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -13581,6 +14628,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeaderItems headerItems}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -13594,6 +14642,7 @@ declare module "sap/ui/ux3/Shell" {
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getPaneBarItems paneBarItems}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfPaneBarItem(
@@ -13605,6 +14654,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getPaneContent paneContent}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -13618,6 +14668,7 @@ declare module "sap/ui/ux3/Shell" {
      * Checks for the provided `sap.ui.ux3.ToolPopup` in the aggregation {@link #getToolPopups toolPopups}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfToolPopup(
@@ -13629,6 +14680,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Checks for the provided `sap.ui.ux3.NavigationItem` in the aggregation {@link #getWorksetItems worksetItems}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -13654,6 +14706,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
@@ -13670,6 +14723,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Inserts a headerItem into the aggregation {@link #getHeaderItems headerItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13688,6 +14742,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Inserts a paneBarItem into the aggregation {@link #getPaneBarItems paneBarItems}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertPaneBarItem(
@@ -13704,6 +14759,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Inserts a paneContent into the aggregation {@link #getPaneContent paneContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13722,6 +14778,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Inserts a toolPopup into the aggregation {@link #getToolPopups toolPopups}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertToolPopup(
@@ -13738,6 +14795,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Inserts a worksetItem into the aggregation {@link #getWorksetItems worksetItems}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13782,6 +14840,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
@@ -13789,6 +14848,7 @@ declare module "sap/ui/ux3/Shell" {
      * Removes all the controls from the aggregation {@link #getHeaderItems headerItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -13798,6 +14858,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllPaneBarItems(): Item[];
@@ -13805,6 +14866,7 @@ declare module "sap/ui/ux3/Shell" {
      * Removes all the controls from the aggregation {@link #getPaneContent paneContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -13814,6 +14876,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllToolPopups(): ToolPopup[];
@@ -13822,11 +14885,13 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllWorksetItems(): NavigationItem[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -13839,6 +14904,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Removes a headerItem from the aggregation {@link #getHeaderItems headerItems}.
      *
+     *
      * @returns The removed headerItem or `null`
      */
     removeHeaderItem(
@@ -13849,6 +14915,7 @@ declare module "sap/ui/ux3/Shell" {
     ): Control | null;
     /**
      * Removes a paneBarItem from the aggregation {@link #getPaneBarItems paneBarItems}.
+     *
      *
      * @returns The removed paneBarItem or `null`
      */
@@ -13861,6 +14928,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Removes a paneContent from the aggregation {@link #getPaneContent paneContent}.
      *
+     *
      * @returns The removed paneContent or `null`
      */
     removePaneContent(
@@ -13871,6 +14939,7 @@ declare module "sap/ui/ux3/Shell" {
     ): Control | null;
     /**
      * Removes a toolPopup from the aggregation {@link #getToolPopups toolPopups}.
+     *
      *
      * @returns The removed toolPopup or `null`
      */
@@ -13883,6 +14952,7 @@ declare module "sap/ui/ux3/Shell" {
     /**
      * Removes a worksetItem from the aggregation {@link #getWorksetItems worksetItems}.
      *
+     *
      * @returns The removed worksetItem or `null`
      */
     removeWorksetItem(
@@ -13892,8 +14962,6 @@ declare module "sap/ui/ux3/Shell" {
       vWorksetItem: int | string | NavigationItem
     ): NavigationItem | null;
     /**
-     * @SINCE 1.14.0
-     *
      * Sets a new value for property {@link #getAllowOverlayHeaderAccess allowOverlayHeaderAccess}.
      *
      * Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer
@@ -13902,6 +14970,8 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.14.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13921,6 +14991,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAppIcon(
@@ -13936,6 +15007,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAppIconTooltip(
@@ -13945,8 +15017,6 @@ declare module "sap/ui/ux3/Shell" {
       sAppIconTooltip?: string
     ): this;
     /**
-     * @SINCE 1.9.0
-     *
      * Sets a new value for property {@link #getApplyContentPadding applyContentPadding}.
      *
      * Whether the Shell content area should have a theme-dependent padding or not.
@@ -13954,6 +15024,8 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.9.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13970,6 +15042,7 @@ declare module "sap/ui/ux3/Shell" {
      * appIcon and appTitle are both optional and can both be set; in this case the icon appears first.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14001,8 +15074,6 @@ declare module "sap/ui/ux3/Shell" {
       bDestroyOldContent: boolean
     ): Control[];
     /**
-     * @SINCE 1.12.0
-     *
      * Sets a new value for property {@link #getDesignType designType}.
      *
      * Defines which design type is to be used.
@@ -14010,6 +15081,8 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.12.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14020,8 +15093,6 @@ declare module "sap/ui/ux3/Shell" {
       sDesignType?: ShellDesignType | keyof typeof ShellDesignType
     ): this;
     /**
-     * @SINCE 1.9.0
-     *
      * Sets a new value for property {@link #getFullHeightContent fullHeightContent}.
      *
      * If set to true, the content area has a defined height. This means that any content put inside can use
@@ -14031,6 +15102,8 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @since 1.9.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14050,6 +15123,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `Standard`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderType(
@@ -14059,14 +15133,14 @@ declare module "sap/ui/ux3/Shell" {
       sHeaderType?: ShellHeaderType | keyof typeof ShellHeaderType
     ): this;
     /**
-     * @SINCE 1.9.0
-     *
      * Sets a new value for property {@link #getLogoutButtonTooltip logoutButtonTooltip}.
      *
      * The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning "Logout" in
      * the current language will be displayed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.9.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14077,8 +15151,6 @@ declare module "sap/ui/ux3/Shell" {
       sLogoutButtonTooltip?: string
     ): this;
     /**
-     * @SINCE 1.7.0
-     *
      * Moves the complete Shell away from the right window border by the given number of pixels (left border
      * in RTL case).
      *
@@ -14086,6 +15158,9 @@ declare module "sap/ui/ux3/Shell" {
      * the basic position capabilities for the sidebar DOM element.
      *
      * This feature is not public. The usage is only granted to special groups on request.
+     *
+     * @since 1.7.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      */
     setOffsetRight(
       /**
@@ -14133,6 +15208,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `250`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setPaneWidth(
@@ -14143,6 +15219,7 @@ declare module "sap/ui/ux3/Shell" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedWorksetItem selectedWorksetItem}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14162,6 +15239,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowFeederTool(
@@ -14171,10 +15249,6 @@ declare module "sap/ui/ux3/Shell" {
       bShowFeederTool?: boolean
     ): this;
     /**
-     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
-     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
-     * it from the respective elements in the Shell content.
-     *
      * Sets a new value for property {@link #getShowInspectorTool showInspectorTool}.
      *
      * Whether the "Inspector" tool should be displayed or not.
@@ -14182,6 +15256,10 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
+     * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
+     * it from the respective elements in the Shell content.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14200,6 +15278,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowLogoutButton(
@@ -14216,6 +15295,7 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14234,6 +15314,7 @@ declare module "sap/ui/ux3/Shell" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setShowSearchTool(
@@ -14250,6 +15331,7 @@ declare module "sap/ui/ux3/Shell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14287,10 +15369,10 @@ declare module "sap/ui/ux3/Shell" {
     showLogoutButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
-     *
      * The tooltip to be displayed for the Logout Button of the Shell. If not set, a text meaning "Logout" in
      * the current language will be displayed.
+     *
+     * @since 1.9.0
      */
     logoutButtonTooltip?: string | PropertyBindingInfo;
 
@@ -14300,11 +15382,11 @@ declare module "sap/ui/ux3/Shell" {
     showSearchTool?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Whether the "Inspector" tool should be displayed or not.
+     *
      * @deprecated (since 1.7.2) - According to the current Ux designs, the ThingInspector should NOT be opened
      * like this from the Tool Pane. And technically, the ThingInspector is not a ToolPopup. Instead trigger
      * it from the respective elements in the Shell content.
-     *
-     * Whether the "Inspector" tool should be displayed or not.
      */
     showInspectorTool?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -14333,9 +15415,9 @@ declare module "sap/ui/ux3/Shell" {
       | `{${string}}`;
 
     /**
-     * @SINCE 1.12.0
-     *
      * Defines which design type is to be used.
+     *
+     * @since 1.12.0
      */
     designType?:
       | (ShellDesignType | keyof typeof ShellDesignType)
@@ -14349,26 +15431,26 @@ declare module "sap/ui/ux3/Shell" {
     paneWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
-     *
      * Whether the Shell content area should have a theme-dependent padding or not.
+     *
+     * @since 1.9.0
      */
     applyContentPadding?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
-     *
      * If set to true, the content area has a defined height. This means that any content put inside can use
      * "100%" height in CSS and will then consume all available space. However, if content is larger, scrollbars
      * will appear at the content area of the Shell and not on window level.
+     *
+     * @since 1.9.0
      */
     fullHeightContent?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.14.0
-     *
      * Whether the Shell header (Title Area + Header Items) can be accessed when an Overlay, OverlayContainer
      * or ThingInspector is open.
+     *
+     * @since 1.14.0
      */
     allowOverlayHeaderAccess?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -14413,9 +15495,9 @@ declare module "sap/ui/ux3/Shell" {
     headerItems?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.0
-     *
      * The NotificationBar which should be integrated into the Shell.
+     *
+     * @since 1.7.0
      */
     notificationBar?: NotificationBar;
 
@@ -14434,13 +15516,13 @@ declare module "sap/ui/ux3/Shell" {
      * is responsible for displaying the correct content for the selected one of the newly created sub-items.
      * The Shell will currently always mark the first sub-item as selected.
      */
-    worksetItemSelected?: (oEvent: Event) => void;
+    worksetItemSelected?: (oEvent: Shell$WorksetItemSelectedEvent) => void;
 
     /**
      * An item in the right-hand-side pane bar has been selected, the pane is now visible and can be filled
      * with UI elements.
      */
-    paneBarItemSelected?: (oEvent: Event) => void;
+    paneBarItemSelected?: (oEvent: Shell$PaneBarItemSelectedEvent) => void;
 
     /**
      * Fired when the user clicks the "Log-off" button
@@ -14458,28 +15540,100 @@ declare module "sap/ui/ux3/Shell" {
     feedSubmit?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.12.0
-     *
      * Fired after a side pane of the shell is closed. It is also fired, when an open pane is closed by calling
      * setShowPane(false), if and only if the pane was opened before.
+     *
+     * @since 1.12.0
      */
-    paneClosed?: (oEvent: Event) => void;
+    paneClosed?: (oEvent: Shell$PaneClosedEvent) => void;
   }
+
+  export interface Shell$FeedSubmitEventParameters {}
+
+  export type Shell$FeedSubmitEvent = Event<
+    Shell$FeedSubmitEventParameters,
+    Shell
+  >;
+
+  export interface Shell$LogoutEventParameters {}
+
+  export type Shell$LogoutEvent = Event<Shell$LogoutEventParameters, Shell>;
+
+  export interface Shell$PaneBarItemSelectedEventParameters {
+    /**
+     * The ID of the selected PaneBarItem.
+     */
+    id?: string;
+
+    /**
+     * The selected Item
+     */
+    item?: Item;
+
+    /**
+     * The key of the selected Item (or null if there is no key)
+     */
+    key?: string;
+  }
+
+  export type Shell$PaneBarItemSelectedEvent = Event<
+    Shell$PaneBarItemSelectedEventParameters,
+    Shell
+  >;
+
+  export interface Shell$PaneClosedEventParameters {
+    /**
+     * The id of the PaneBarItem to which the closed pane belonged.
+     */
+    id?: string;
+  }
+
+  export type Shell$PaneClosedEvent = Event<
+    Shell$PaneClosedEventParameters,
+    Shell
+  >;
+
+  export interface Shell$SearchEventParameters {}
+
+  export type Shell$SearchEvent = Event<Shell$SearchEventParameters, Shell>;
+
+  export interface Shell$WorksetItemSelectedEventParameters {
+    /**
+     * The id of the workset item that has been newly selected by the user. If a top-level item has been clicked
+     * which has sub-items, the ID of the currently active sub-item (/leaf) is given.
+     */
+    id?: string;
+
+    /**
+     * The selected NavigationItem
+     */
+    item?: NavigationItem;
+
+    /**
+     * The key of the selected NavigationItem (or null if there is no key)
+     */
+    key?: string;
+  }
+
+  export type Shell$WorksetItemSelectedEvent = Event<
+    Shell$WorksetItemSelectedEventParameters,
+    Shell
+  >;
 }
 
 declare module "sap/ui/ux3/ThingAction" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38)
-   *
    * Thing Action for Swatch, QuickView, Thinginspector
+   *
+   * @deprecated (since 1.38)
    */
   export default class ThingAction extends UI5Element {
     /**
@@ -14519,6 +15673,7 @@ declare module "sap/ui/ux3/ThingAction" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -14539,6 +15694,7 @@ declare module "sap/ui/ux3/ThingAction" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ThingAction.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -14549,6 +15705,7 @@ declare module "sap/ui/ux3/ThingAction" {
      * otherwise it will be bound to this `sap.ui.ux3.ThingAction` itself.
      *
      * Event will be fired when the action was triggered.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14561,7 +15718,7 @@ declare module "sap/ui/ux3/ThingAction" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
        */
@@ -14575,13 +15732,14 @@ declare module "sap/ui/ux3/ThingAction" {
      *
      * Event will be fired when the action was triggered.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingAction` itself
        */
@@ -14592,13 +15750,14 @@ declare module "sap/ui/ux3/ThingAction" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingAction$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -14607,22 +15766,15 @@ declare module "sap/ui/ux3/ThingAction" {
     /**
      * Fires event {@link #event:select select} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected action
-         */
-        id?: string;
-        /**
-         * Selected Thing Action
-         */
-        action?: ThingAction;
-      }
+      mParameters?: ThingAction$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnabled enabled}.
@@ -14631,6 +15783,7 @@ declare module "sap/ui/ux3/ThingAction" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
@@ -14638,6 +15791,7 @@ declare module "sap/ui/ux3/ThingAction" {
      * Gets current value of property {@link #getText text}.
      *
      * text of action
+     *
      *
      * @returns Value of property `text`
      */
@@ -14650,6 +15804,7 @@ declare module "sap/ui/ux3/ThingAction" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14665,6 +15820,7 @@ declare module "sap/ui/ux3/ThingAction" {
      * text of action
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14690,8 +15846,25 @@ declare module "sap/ui/ux3/ThingAction" {
     /**
      * Event will be fired when the action was triggered.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: ThingAction$SelectEvent) => void;
   }
+
+  export interface ThingAction$SelectEventParameters {
+    /**
+     * Id of selected action
+     */
+    id?: string;
+
+    /**
+     * Selected Thing Action
+     */
+    action?: ThingAction;
+  }
+
+  export type ThingAction$SelectEvent = Event<
+    ThingAction$SelectEventParameters,
+    ThingAction
+  >;
 }
 
 declare module "sap/ui/ux3/ThingGroup" {
@@ -14707,9 +15880,9 @@ declare module "sap/ui/ux3/ThingGroup" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38)
-   *
    * Thing Group Area
+   *
+   * @deprecated (since 1.38)
    */
   export default class ThingGroup extends UI5Element {
     /**
@@ -14749,6 +15922,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -14769,11 +15943,13 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ThingGroup.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14786,6 +15962,7 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
@@ -14797,11 +15974,13 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Destroys all the actions in the aggregation {@link #getActions actions}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActions(): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14819,6 +15998,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `colspan`
      */
     getColspan(): boolean;
@@ -14833,12 +16013,14 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * Title of Group
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Checks for the provided `sap.ui.ux3.ThingGroup` in the aggregation {@link #getActions actions}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -14852,6 +16034,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -14862,6 +16045,7 @@ declare module "sap/ui/ux3/ThingGroup" {
     ): int;
     /**
      * Inserts a action into the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -14880,6 +16064,7 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
@@ -14897,6 +16082,7 @@ declare module "sap/ui/ux3/ThingGroup" {
     /**
      * Removes a action from the aggregation {@link #getActions actions}.
      *
+     *
      * @returns The removed action or `null`
      */
     removeAction(
@@ -14910,6 +16096,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllActions(): ThingGroup[];
@@ -14918,11 +16105,13 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
      *
      * @returns The removed content or `null`
      */
@@ -14941,6 +16130,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setColspan(
@@ -14955,6 +16145,7 @@ declare module "sap/ui/ux3/ThingGroup" {
      * Title of Group
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15002,8 +16193,6 @@ declare module "sap/ui/ux3/ThingInspector" {
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
 
-  import Event from "sap/ui/base/Event";
-
   import ActionBar from "sap/ui/ux3/ActionBar";
 
   import { FollowActionState, ThingViewerHeaderType } from "sap/ui/ux3/library";
@@ -15017,10 +16206,12 @@ declare module "sap/ui/ux3/ThingInspector" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @deprecated (since 1.38) - There is not an exact replacement.
-   *
    * Thing Inspector
+   *
+   * @deprecated (since 1.38) - There is not an exact replacement.
    */
   export default class ThingInspector extends Overlay {
     /**
@@ -15060,6 +16251,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.ux3.Overlay.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -15080,11 +16272,13 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ThingInspector.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15097,6 +16291,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Adds some facet to the aggregation {@link #getFacets facets}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addFacet(
@@ -15108,6 +16303,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Adds some facetContent to the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addFacetContent(
@@ -15118,6 +16314,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     ): this;
     /**
      * Adds some headerContent to the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15136,6 +16333,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Further thing related Action selected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
@@ -15147,7 +16345,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15162,13 +16360,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Further thing related Action selected
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachActionSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15183,6 +16382,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFacetSelected(
@@ -15194,7 +16394,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15209,13 +16409,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFacetSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15228,6 +16429,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * otherwise it will be bound to this `sap.ui.ux3.ThingInspector` itself.
      *
      * Fired when a new feed entry is submitted.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15240,7 +16442,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15254,13 +16456,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Fired when a new feed entry is submitted.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFeedSubmit(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingInspector` itself
        */
@@ -15269,11 +16472,13 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Destroys the actionBar in the aggregation {@link #getActionBar actionBar}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActionBar(): this;
     /**
      * Destroys all the actions in the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15281,17 +16486,20 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Destroys all the facetContent in the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFacetContent(): this;
     /**
      * Destroys all the facets in the aggregation {@link #getFacets facets}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFacets(): this;
     /**
      * Destroys all the headerContent in the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15302,13 +16510,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachActionSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$ActionSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15320,13 +16529,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFacetSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FacetSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15337,13 +16547,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFeedSubmit(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingInspector$FeedSubmitEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -15352,22 +16563,15 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Fires event {@link #event:actionSelected actionSelected} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireActionSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected ThingAction
-         */
-        id?: string;
-        /**
-         * Selected ThingAction
-         */
-        action?: ThingAction;
-      }
+      mParameters?: ThingInspector$ActionSelectedEventParameters
     ): this;
     /**
      * Fires event {@link #event:facetSelected facetSelected} to attached listeners.
@@ -15375,29 +16579,20 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireFacetSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected NavigationItem
-         */
-        id?: string;
-        /**
-         * The selected NavigationItem
-         */
-        item?: NavigationItem;
-        /**
-         * Key of selected NavigationItem
-         */
-        key?: string;
-      }
+      mParameters?: ThingInspector$FacetSelectedEventParameters
     ): boolean;
     /**
      * Fires event {@link #event:feedSubmit feedSubmit} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15405,12 +16600,7 @@ declare module "sap/ui/ux3/ThingInspector" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Feed text
-         */
-        text?: string;
-      }
+      mParameters?: ThingInspector$FeedSubmitEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -15443,6 +16633,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `favoriteActionEnabled`
      */
     getFavoriteActionEnabled(): boolean;
@@ -15453,6 +16644,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `favoriteState`
      */
     getFavoriteState(): boolean;
@@ -15460,6 +16652,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Gets current value of property {@link #getFirstTitle firstTitle}.
      *
      * First Line of the Thing Inspector Title
+     *
      *
      * @returns Value of property `firstTitle`
      */
@@ -15471,6 +16664,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `flagActionEnabled`
      */
     getFlagActionEnabled(): boolean;
@@ -15480,6 +16674,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * State of Flag Action
      *
      * Default value is `false`.
+     *
      *
      * @returns Value of property `flagState`
      */
@@ -15491,6 +16686,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `followActionEnabled`
      */
     getFollowActionEnabled(): boolean;
@@ -15500,6 +16696,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Follow State of a Thing
      *
      * Default value is `Default`.
+     *
      *
      * @returns Value of property `followState`
      */
@@ -15511,13 +16708,13 @@ declare module "sap/ui/ux3/ThingInspector" {
      */
     getHeaderContent(): ThingGroup[];
     /**
-     * @SINCE 1.16.3
-     *
      * Gets current value of property {@link #getHeaderType headerType}.
      *
      * Defines which header type should be used.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.16.3
      *
      * @returns Value of property `headerType`
      */
@@ -15527,6 +16724,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Thing Icon Url
      *
+     *
      * @returns Value of property `icon`
      */
     getIcon(): URI;
@@ -15535,6 +16733,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Second Line of the Thing Inspector Title
      *
+     *
      * @returns Value of property `secondTitle`
      */
     getSecondTitle(): string;
@@ -15542,11 +16741,12 @@ declare module "sap/ui/ux3/ThingInspector" {
      * ID of the element which is the current target of the association {@link #getSelectedFacet selectedFacet},
      * or `null`.
      */
-    getSelectedFacet(): ID;
+    getSelectedFacet(): ID | null;
     /**
      * Gets current value of property {@link #getType type}.
      *
      * Thing type
+     *
      *
      * @returns Value of property `type`
      */
@@ -15558,12 +16758,14 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `updateActionEnabled`
      */
     getUpdateActionEnabled(): boolean;
     /**
      * Checks for the provided `sap.ui.ux3.ThingAction` in the aggregation {@link #getActions actions}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -15577,6 +16779,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Checks for the provided `sap.ui.ux3.NavigationItem` in the aggregation {@link #getFacets facets}. and
      * returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFacet(
@@ -15588,6 +16791,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Checks for the provided `sap.ui.ux3.ThingGroup` in the aggregation {@link #getFacetContent facetContent}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -15601,6 +16805,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Checks for the provided `sap.ui.ux3.ThingGroup` in the aggregation {@link #getHeaderContent headerContent}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeaderContent(
@@ -15611,6 +16816,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     ): int;
     /**
      * Inserts a action into the aggregation {@link #getActions actions}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15629,6 +16835,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Inserts a facet into the aggregation {@link #getFacets facets}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertFacet(
@@ -15646,6 +16853,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Inserts a facetContent into the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertFacetContent(
@@ -15662,6 +16870,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     ): this;
     /**
      * Inserts a headerContent into the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15684,6 +16893,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Removes a action from the aggregation {@link #getActions actions}.
      *
+     *
      * @returns The removed action or `null`
      */
     removeAction(
@@ -15697,6 +16907,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllActions(): ThingAction[];
@@ -15704,6 +16915,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * Removes all the controls from the aggregation {@link #getFacetContent facetContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -15713,6 +16925,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllFacets(): NavigationItem[];
@@ -15721,11 +16934,13 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllHeaderContent(): ThingGroup[];
     /**
      * Removes a facet from the aggregation {@link #getFacets facets}.
+     *
      *
      * @returns The removed facet or `null`
      */
@@ -15738,6 +16953,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Removes a facetContent from the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns The removed facetContent or `null`
      */
     removeFacetContent(
@@ -15749,6 +16965,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Removes a headerContent from the aggregation {@link #getHeaderContent headerContent}.
      *
+     *
      * @returns The removed headerContent or `null`
      */
     removeHeaderContent(
@@ -15759,6 +16976,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     ): ThingGroup | null;
     /**
      * Sets the aggregated {@link #getActionBar actionBar}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15777,6 +16995,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteActionEnabled(
@@ -15794,6 +17013,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteState(
@@ -15808,6 +17028,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * First Line of the Thing Inspector Title
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15826,6 +17047,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFlagActionEnabled(
@@ -15842,6 +17064,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15860,6 +17083,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFollowActionEnabled(
@@ -15877,6 +17101,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * Default value is `Default`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFollowState(
@@ -15886,8 +17111,6 @@ declare module "sap/ui/ux3/ThingInspector" {
       sFollowState?: FollowActionState | keyof typeof FollowActionState
     ): this;
     /**
-     * @SINCE 1.16.3
-     *
      * Sets a new value for property {@link #getHeaderType headerType}.
      *
      * Defines which header type should be used.
@@ -15895,6 +17118,8 @@ declare module "sap/ui/ux3/ThingInspector" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.16.3
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15911,6 +17136,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
@@ -15926,6 +17152,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSecondTitle(
@@ -15936,6 +17163,7 @@ declare module "sap/ui/ux3/ThingInspector" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedFacet selectedFacet}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -15953,6 +17181,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setType(
@@ -15969,6 +17198,7 @@ declare module "sap/ui/ux3/ThingInspector" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16040,9 +17270,9 @@ declare module "sap/ui/ux3/ThingInspector" {
     flagActionEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.16.3
-     *
      * Defines which header type should be used.
+     *
+     * @since 1.16.3
      */
     headerType?:
       | (ThingViewerHeaderType | keyof typeof ThingViewerHeaderType)
@@ -16098,19 +17328,70 @@ declare module "sap/ui/ux3/ThingInspector" {
     /**
      * Further thing related Action selected
      */
-    actionSelected?: (oEvent: Event) => void;
+    actionSelected?: (oEvent: ThingInspector$ActionSelectedEvent) => void;
 
     /**
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
-    facetSelected?: (oEvent: Event) => void;
+    facetSelected?: (oEvent: ThingInspector$FacetSelectedEvent) => void;
 
     /**
      * Fired when a new feed entry is submitted.
      */
-    feedSubmit?: (oEvent: Event) => void;
+    feedSubmit?: (oEvent: ThingInspector$FeedSubmitEvent) => void;
   }
+
+  export interface ThingInspector$ActionSelectedEventParameters {
+    /**
+     * Id of selected ThingAction
+     */
+    id?: string;
+
+    /**
+     * Selected ThingAction
+     */
+    action?: ThingAction;
+  }
+
+  export type ThingInspector$ActionSelectedEvent = Event<
+    ThingInspector$ActionSelectedEventParameters,
+    ThingInspector
+  >;
+
+  export interface ThingInspector$FacetSelectedEventParameters {
+    /**
+     * Id of selected NavigationItem
+     */
+    id?: string;
+
+    /**
+     * The selected NavigationItem
+     */
+    item?: NavigationItem;
+
+    /**
+     * Key of selected NavigationItem
+     */
+    key?: string;
+  }
+
+  export type ThingInspector$FacetSelectedEvent = Event<
+    ThingInspector$FacetSelectedEventParameters,
+    ThingInspector
+  >;
+
+  export interface ThingInspector$FeedSubmitEventParameters {
+    /**
+     * Feed text
+     */
+    text?: string;
+  }
+
+  export type ThingInspector$FeedSubmitEvent = Event<
+    ThingInspector$FeedSubmitEventParameters,
+    ThingInspector
+  >;
 }
 
 declare module "sap/ui/ux3/ThingViewer" {
@@ -16119,8 +17400,6 @@ declare module "sap/ui/ux3/ThingViewer" {
   import NavigationItem from "sap/ui/ux3/NavigationItem";
 
   import ThingGroup from "sap/ui/ux3/ThingGroup";
-
-  import Event from "sap/ui/base/Event";
 
   import ActionBar from "sap/ui/ux3/ActionBar";
 
@@ -16135,13 +17414,15 @@ declare module "sap/ui/ux3/ThingViewer" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.9.1
-   * @deprecated (since 1.38) - There is not an exact replacement.
-   *
    * ThingViewer: Same as ThingInspector but decoupled from the Overlay and the ActionBar. The control can
    * be added to a Parent container that has a defined width. The ThingViewer fill the whole container. If
    * the parent container has no width defined the control will not work properly.
+   *
+   * @since 1.9.1
+   * @deprecated (since 1.38) - There is not an exact replacement.
    */
   export default class ThingViewer extends Control {
     /**
@@ -16181,6 +17462,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -16201,11 +17483,13 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ThingViewer.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some facet to the aggregation {@link #getFacets facets}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16218,6 +17502,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Adds some facetContent to the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addFacetContent(
@@ -16228,6 +17513,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     ): this;
     /**
      * Adds some headerContent to the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16246,6 +17532,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFacetSelected(
@@ -16257,7 +17544,7 @@ declare module "sap/ui/ux3/ThingViewer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
        */
@@ -16272,13 +17559,14 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachFacetSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ThingViewer` itself
        */
@@ -16287,11 +17575,13 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Destroys the actionBar in the aggregation {@link #getActionBar actionBar}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyActionBar(): this;
     /**
      * Destroys all the facetContent in the aggregation {@link #getFacetContent facetContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16299,11 +17589,13 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Destroys all the facets in the aggregation {@link #getFacets facets}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFacets(): this;
     /**
      * Destroys all the headerContent in the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16314,13 +17606,14 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachFacetSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ThingViewer$FacetSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -16332,26 +17625,15 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireFacetSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected NavigationItem
-         */
-        id?: string;
-        /**
-         * The selected NavigationItem
-         */
-        item?: NavigationItem;
-        /**
-         * Key of selected NavigationItem
-         */
-        key?: string;
-      }
+      mParameters?: ThingViewer$FacetSelectedEventParameters
     ): boolean;
     /**
      * Gets content of aggregation {@link #getActionBar actionBar}.
@@ -16378,13 +17660,13 @@ declare module "sap/ui/ux3/ThingViewer" {
      */
     getHeaderContent(): ThingGroup[];
     /**
-     * @SINCE 1.16.3
-     *
      * Gets current value of property {@link #getHeaderType headerType}.
      *
      * Defines which header type should be used.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.16.3
      *
      * @returns Value of property `headerType`
      */
@@ -16396,6 +17678,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Default value is `'100%'`.
      *
+     *
      * @returns Value of property `height`
      */
     getHeight(): CSSSize;
@@ -16404,6 +17687,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Thing Icon Url
      *
+     *
      * @returns Value of property `icon`
      */
     getIcon(): URI;
@@ -16411,11 +17695,12 @@ declare module "sap/ui/ux3/ThingViewer" {
      * ID of the element which is the current target of the association {@link #getSelectedFacet selectedFacet},
      * or `null`.
      */
-    getSelectedFacet(): ID;
+    getSelectedFacet(): ID | null;
     /**
      * Gets current value of property {@link #getSubtitle subtitle}.
      *
      * Subtitle of the Thing Inspector
+     *
      *
      * @returns Value of property `subtitle`
      */
@@ -16425,6 +17710,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Title of the Thing Inspector
      *
+     *
      * @returns Value of property `title`
      */
     getTitle(): string;
@@ -16432,6 +17718,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Gets current value of property {@link #getType type}.
      *
      * Thing type
+     *
      *
      * @returns Value of property `type`
      */
@@ -16443,12 +17730,14 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Default value is `'100%'`.
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.ux3.NavigationItem` in the aggregation {@link #getFacets facets}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -16462,6 +17751,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Checks for the provided `sap.ui.ux3.ThingGroup` in the aggregation {@link #getFacetContent facetContent}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFacetContent(
@@ -16474,6 +17764,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Checks for the provided `sap.ui.ux3.ThingGroup` in the aggregation {@link #getHeaderContent headerContent}.
      * and returns its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeaderContent(
@@ -16484,6 +17775,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     ): int;
     /**
      * Inserts a facet into the aggregation {@link #getFacets facets}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16502,6 +17794,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Inserts a facetContent into the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     insertFacetContent(
@@ -16518,6 +17811,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     ): this;
     /**
      * Inserts a headerContent into the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16538,6 +17832,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllFacetContent(): ThingGroup[];
@@ -16545,6 +17840,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Removes all the controls from the aggregation {@link #getFacets facets}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -16554,11 +17850,13 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllHeaderContent(): ThingGroup[];
     /**
      * Removes a facet from the aggregation {@link #getFacets facets}.
+     *
      *
      * @returns The removed facet or `null`
      */
@@ -16571,6 +17869,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Removes a facetContent from the aggregation {@link #getFacetContent facetContent}.
      *
+     *
      * @returns The removed facetContent or `null`
      */
     removeFacetContent(
@@ -16581,6 +17880,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     ): ThingGroup | null;
     /**
      * Removes a headerContent from the aggregation {@link #getHeaderContent headerContent}.
+     *
      *
      * @returns The removed headerContent or `null`
      */
@@ -16593,6 +17893,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     /**
      * Sets the aggregated {@link #getActionBar actionBar}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setActionBar(
@@ -16602,8 +17903,6 @@ declare module "sap/ui/ux3/ThingViewer" {
       oActionBar: ActionBar
     ): this;
     /**
-     * @SINCE 1.16.3
-     *
      * Sets a new value for property {@link #getHeaderType headerType}.
      *
      * Defines which header type should be used.
@@ -16611,6 +17910,8 @@ declare module "sap/ui/ux3/ThingViewer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.16.3
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16629,6 +17930,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * Default value is `'100%'`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
@@ -16644,6 +17946,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
@@ -16654,6 +17957,7 @@ declare module "sap/ui/ux3/ThingViewer" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedFacet selectedFacet}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16671,6 +17975,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitle(
@@ -16686,6 +17991,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
@@ -16700,6 +18006,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Thing type
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16717,6 +18024,7 @@ declare module "sap/ui/ux3/ThingViewer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16760,9 +18068,9 @@ declare module "sap/ui/ux3/ThingViewer" {
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.16.3
-     *
      * Defines which header type should be used.
+     *
+     * @since 1.16.3
      */
     headerType?:
       | (ThingViewerHeaderType | keyof typeof ThingViewerHeaderType)
@@ -16810,8 +18118,30 @@ declare module "sap/ui/ux3/ThingViewer" {
      * Event for facet selection. The application is responsible for displaying the correct content for the
      * selected one. The ThingInspector will currently always mark the first facet as selected.
      */
-    facetSelected?: (oEvent: Event) => void;
+    facetSelected?: (oEvent: ThingViewer$FacetSelectedEvent) => void;
   }
+
+  export interface ThingViewer$FacetSelectedEventParameters {
+    /**
+     * Id of selected NavigationItem
+     */
+    id?: string;
+
+    /**
+     * The selected NavigationItem
+     */
+    item?: NavigationItem;
+
+    /**
+     * Key of selected NavigationItem
+     */
+    key?: string;
+  }
+
+  export type ThingViewer$FacetSelectedEvent = Event<
+    ThingViewer$FacetSelectedEventParameters,
+    ThingViewer
+  >;
 }
 
 declare module "sap/ui/ux3/ToolPopup" {
@@ -16823,7 +18153,7 @@ declare module "sap/ui/ux3/ToolPopup" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { Dock } from "sap/ui/core/Popup";
+  import Popup from "sap/ui/core/Popup";
 
   import {
     PropertyBindingInfo,
@@ -16831,12 +18161,12 @@ declare module "sap/ui/ux3/ToolPopup" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @deprecated (since 1.38) - Instead, use the `sap.m.Popover` control.
-   *
    * A popup which the user can open from the Shell's tool pane. Generally, the starting point would be an
    * icon. For this pop up, buttons can be defined with any text; therefore, it has the same purpose and similar
    * look like any common dialog box. A ToolPopup can have any content. Depending on the application type
    * and design, the structure of the texts and input fields can be for example form-like.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.Popover` control.
    */
   export default class ToolPopup extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -16877,6 +18207,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -16897,11 +18228,13 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Returns a metadata object for class sap.ui.ux3.ToolPopup.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16914,6 +18247,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Adds some content to the aggregation {@link #getContent content}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
@@ -16923,10 +18257,10 @@ declare module "sap/ui/ux3/ToolPopup" {
       oContent: Control
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Adds an ID to the Popup that should be focusable as well when using `autoclose`. Chaining is only possible
      * if a valid type (string) is given.
+     *
+     * @since 1.19.0
      */
     addFocusableArea(
       /**
@@ -16943,6 +18277,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Event is fired when the popup closes because the user pressed Escape or the ToolPopup Button in the Shell.
      * This is called before the closing animation.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
@@ -16969,6 +18304,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Event is fired when the popup closes because the user pressed Escape or the ToolPopup Button in the Shell.
      * This is called before the closing animation.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
@@ -16990,6 +18326,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * This event is fired after the ToolPopup has finished its closing animation. It is called for EVERY close,
      * regardless of whether the user has triggered the close or whether the ToolPopup was closed via API call.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
@@ -17016,6 +18353,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * This event is fired after the ToolPopup has finished its closing animation. It is called for EVERY close,
      * regardless of whether the user has triggered the close or whether the ToolPopup was closed via API call.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
@@ -17036,6 +18374,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachEnter(
@@ -17047,7 +18386,7 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -17061,13 +18400,14 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachEnter(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.ux3.ToolPopup` itself
        */
@@ -17081,6 +18421,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
      * To be used by other controls which want to update the icon in their UI.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17108,6 +18449,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
      * To be used by other controls which want to update the icon in their UI.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachIconChanged(
@@ -17127,6 +18469,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
      *
      * Event is fired when the popup opens
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17153,6 +18496,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Event is fired when the popup opens
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachOpen(
@@ -17166,14 +18510,14 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
      *
      * Event is being fired after the ToolPopup has been opened.
+     *
+     * @since 1.19.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17193,14 +18537,14 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.ux3.ToolPopup` itself.
      *
      * Event is being fired after the ToolPopup has been opened.
+     *
+     * @since 1.19.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17229,11 +18573,13 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Destroys all the buttons in the aggregation {@link #getButtons buttons}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyButtons(): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17242,6 +18588,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Detaches event handler `fnFunction` from the {@link #event:close close} event of this `sap.ui.ux3.ToolPopup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17260,6 +18607,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachClosed(
@@ -17277,13 +18625,14 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachEnter(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ToolPopup$EnterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -17293,6 +18642,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Detaches event handler `fnFunction` from the {@link #event:iconChanged iconChanged} event of this `sap.ui.ux3.ToolPopup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17311,6 +18661,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * The passed function and listener object must match the ones used for event registration.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     detachOpen(
@@ -17324,11 +18675,11 @@ declare module "sap/ui/ux3/ToolPopup" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Detaches event handler `fnFunction` from the {@link #event:opened opened} event of this `sap.ui.ux3.ToolPopup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.19.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17348,6 +18699,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Whether or not to prevent the default action
      */
     fireClose(
@@ -17358,6 +18711,8 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): boolean;
     /**
      * Fires event {@link #event:closed closed} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17370,25 +18725,20 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Fires event {@link #event:enter enter} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireEnter(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The onsapenter event, received by the pop up
-         */
-        originalEvent?: object;
-        /**
-         * The control that was focused when the user pressed the Enter key (may be null)
-         */
-        originalSrcControl?: Control;
-      }
+      mParameters?: ToolPopup$EnterEventParameters
     ): this;
     /**
      * Fires event {@link #event:iconChanged iconChanged} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17401,6 +18751,8 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Fires event {@link #event:open open} to attached listeners.
      *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     fireOpen(
@@ -17410,9 +18762,10 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Fires event {@link #event:opened opened} to attached listeners.
+     *
+     * @since 1.19.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17423,8 +18776,6 @@ declare module "sap/ui/ux3/ToolPopup" {
       mParameters?: object
     ): this;
     /**
-     * @SINCE 1.13.2
-     *
      * Gets current value of property {@link #getAutoClose autoClose}.
      *
      * Determines whether the ToolPopup will auto close when it loses focus. If the user e.g. clicks outside
@@ -17432,6 +18783,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * case a warning will be prompted to the console and "autoclose" won't be used.
      *
      * Default value is `false`.
+     *
+     * @since 1.13.2
      *
      * @returns Value of property `autoClose`
      */
@@ -17443,13 +18796,13 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getButtons(): Control[];
     /**
-     * @SINCE 1.19.0
-     *
      * Gets current value of property {@link #getCloseDuration closeDuration}.
      *
      * Time in milliseconds for the close animation.
      *
      * Default value is `400`.
+     *
+     * @since 1.19.0
      *
      * @returns Value of property `closeDuration`
      */
@@ -17461,15 +18814,13 @@ declare module "sap/ui/ux3/ToolPopup" {
      */
     getContent(): Control[];
     /**
-     * @SINCE 1.20.1
-     *
      * ID of the element which is the current target of the association {@link #getDefaultButton defaultButton},
      * or `null`.
-     */
-    getDefaultButton(): ID;
-    /**
-     * @SINCE 1.13.1
      *
+     * @since 1.20.1
+     */
+    getDefaultButton(): ID | null;
+    /**
      * Indicates whether the ToolPopup is currently enabled or not.
      *
      * Applications can't control the enabled state via a property. A ToolPopup is implicitly enabled depending
@@ -17487,6 +18838,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      *  A second aspect that might change is the visual behavior of the content: during the CLOSING phase it
      * 'looks' enabled but in fact it is already disabled. This avoids unnecessary redraws for content that
      * becomes hidden soon. Should this show to be confusing for end users, it might be changed.
+     *
+     * @since 1.13.1
      */
     getEnabled(): boolean;
     /**
@@ -17495,6 +18848,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * This property is relevant for Shell use: The URL to the icon displayed in the tool area which is used
      * to open the ToolPopup. The recommended size is 32x32px, including some transparent border. Therefore,
      * the content will cover about 20x20px.
+     *
      *
      * @returns Value of property `icon`
      */
@@ -17505,6 +18859,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * This property is relevant for Shell use: The URL to the icon in hover state, displayed in the tool area
      * which is used to open the popup.
      *
+     *
      * @returns Value of property `iconHover`
      */
     getIconHover(): URI;
@@ -17512,10 +18867,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * ID of the element which is the current target of the association {@link #getInitialFocus initialFocus},
      * or `null`.
      */
-    getInitialFocus(): ID;
+    getInitialFocus(): ID | null;
     /**
-     * @SINCE 1.11.1
-     *
      * Gets current value of property {@link #getInverted inverted}.
      *
      * Specifies whether the ToolPopup has a dark or bright background. If set to true the background and borders
@@ -17523,26 +18876,28 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Default value is `true`.
      *
+     * @since 1.11.1
+     *
      * @returns Value of property `inverted`
      */
     getInverted(): boolean;
     /**
-     * @SINCE 1.13.2
-     *
      * Gets current value of property {@link #getMaxHeight maxHeight}.
      *
      * Forces a maximum height of the ToolPopup in pixels. If the ToolPopup content is higher than the ToolPopup,
      * the content will be scrollable.
      *
+     * @since 1.13.2
+     *
      * @returns Value of property `maxHeight`
      */
     getMaxHeight(): CSSSize;
     /**
-     * @SINCE 1.15.0
-     *
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
      * Forces a maximum width of the ToolPopup in pixels.
+     *
+     * @since 1.15.0
      *
      * @returns Value of property `maxWidth`
      */
@@ -17557,17 +18912,18 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `modal`
      */
     getModal(): boolean;
     /**
-     * @SINCE 1.19.0
-     *
      * Gets current value of property {@link #getOpenDuration openDuration}.
      *
      * Time in milliseconds for the open animation.
      *
      * Default value is `400`.
+     *
+     * @since 1.19.0
      *
      * @returns Value of property `openDuration`
      */
@@ -17575,11 +18931,12 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * ID of the element which is the current target of the association {@link #getOpener opener}, or `null`.
      */
-    getOpener(): ID;
+    getOpener(): ID | null;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Determines the title displayed in the pop up window
+     *
      *
      * @returns Value of property `title`
      */
@@ -17587,6 +18944,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getButtons buttons}. and returns
      * its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -17600,6 +18958,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
      *
+     *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
@@ -17610,6 +18969,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): int;
     /**
      * Inserts a button into the aggregation {@link #getButtons buttons}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17627,6 +18987,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): this;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17658,16 +19019,17 @@ declare module "sap/ui/ux3/ToolPopup" {
       /**
        * The ToolPopup's content reference position for docking
        */
-      my?: Dock,
+      my?: typeof Popup.Dock,
       /**
        * The "of" element's reference point for docking to
        */
-      at?: Dock
+      at?: typeof Popup.Dock
     ): this;
     /**
      * Removes all the controls from the aggregation {@link #getButtons buttons}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -17677,11 +19039,13 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a button from the aggregation {@link #getButtons buttons}.
+     *
      *
      * @returns The removed button or `null`
      */
@@ -17694,6 +19058,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
+     *
      * @returns The removed content or `null`
      */
     removeContent(
@@ -17703,10 +19068,10 @@ declare module "sap/ui/ux3/ToolPopup" {
       vContent: int | string | Control
     ): Control | null;
     /**
-     * @SINCE 1.19.0
-     *
      * Removes an ID to the Popup that should be focusable as well when using `autoclose`. Chaining is only
      * possible if a valid type (string) is given.
+     *
+     * @since 1.19.0
      */
     removeFocusableArea(
       /**
@@ -17715,8 +19080,6 @@ declare module "sap/ui/ux3/ToolPopup" {
       sID?: string
     ): void;
     /**
-     * @SINCE 1.13.2
-     *
      * Sets a new value for property {@link #getAutoClose autoClose}.
      *
      * Determines whether the ToolPopup will auto close when it loses focus. If the user e.g. clicks outside
@@ -17727,6 +19090,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Default value is `false`.
      *
+     * @since 1.13.2
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setAutoClose(
@@ -17736,14 +19101,12 @@ declare module "sap/ui/ux3/ToolPopup" {
       bAutoClose?: boolean
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * This is just a forward to the Popup's function (sap.ui.core.Popup.setAutoCloseAreas) with the same functionality.
+     *
+     * @since 1.19.0
      */
     setAutoCloseAreas(aAutoCloseAreas: Element[]): void;
     /**
-     * @SINCE 1.19.0
-     *
      * Sets a new value for property {@link #getCloseDuration closeDuration}.
      *
      * Time in milliseconds for the close animation.
@@ -17751,6 +19114,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `400`.
+     *
+     * @since 1.19.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17761,9 +19126,9 @@ declare module "sap/ui/ux3/ToolPopup" {
       iCloseDuration?: int
     ): this;
     /**
-     * @SINCE 1.20.1
-     *
      * Sets the associated {@link #getDefaultButton defaultButton}.
+     *
+     * @since 1.20.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17777,6 +19142,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Sets the associated {@link #getInitialFocus initialFocus}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setInitialFocus(
@@ -17787,8 +19153,6 @@ declare module "sap/ui/ux3/ToolPopup" {
       oInitialFocus: ID | Control
     ): this;
     /**
-     * @SINCE 1.11.1
-     *
      * Sets a new value for property {@link #getInverted inverted}.
      *
      * Specifies whether the ToolPopup has a dark or bright background. If set to true the background and borders
@@ -17797,6 +19161,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.11.1
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17807,14 +19173,14 @@ declare module "sap/ui/ux3/ToolPopup" {
       bInverted?: boolean
     ): this;
     /**
-     * @SINCE 1.13.2
-     *
      * Sets a new value for property {@link #getMaxHeight maxHeight}.
      *
      * Forces a maximum height of the ToolPopup in pixels. If the ToolPopup content is higher than the ToolPopup,
      * the content will be scrollable.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.13.2
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17836,6 +19202,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setModal(
@@ -17845,8 +19212,6 @@ declare module "sap/ui/ux3/ToolPopup" {
       bModal?: boolean
     ): this;
     /**
-     * @SINCE 1.19.0
-     *
      * Sets a new value for property {@link #getOpenDuration openDuration}.
      *
      * Time in milliseconds for the open animation.
@@ -17854,6 +19219,8 @@ declare module "sap/ui/ux3/ToolPopup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `400`.
+     *
+     * @since 1.19.0
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17865,6 +19232,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     ): this;
     /**
      * Sets the associated {@link #getOpener opener}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17885,6 +19253,7 @@ declare module "sap/ui/ux3/ToolPopup" {
      * Determines the title displayed in the pop up window
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17930,48 +19299,48 @@ declare module "sap/ui/ux3/ToolPopup" {
     modal?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.1
-     *
      * Specifies whether the ToolPopup has a dark or bright background. If set to true the background and borders
      * will be dark. If false they will be bright. This property only has an effect for the GoldReflection-theme.
+     *
+     * @since 1.11.1
      */
     inverted?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.2
-     *
      * Determines whether the ToolPopup will auto close when it loses focus. If the user e.g. clicks outside
      * of the ToolPopup it will be closed. Please don't use "modal" and "autoclose" at the same time. In this
      * case a warning will be prompted to the console and "autoclose" won't be used.
+     *
+     * @since 1.13.2
      */
     autoClose?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.13.2
-     *
      * Forces a maximum height of the ToolPopup in pixels. If the ToolPopup content is higher than the ToolPopup,
      * the content will be scrollable.
+     *
+     * @since 1.13.2
      */
     maxHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.15.0
-     *
      * Forces a maximum width of the ToolPopup in pixels.
+     *
+     * @since 1.15.0
      */
     maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.19.0
-     *
      * Time in milliseconds for the open animation.
+     *
+     * @since 1.19.0
      */
     openDuration?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.19.0
-     *
      * Time in milliseconds for the close animation.
+     *
+     * @since 1.19.0
      */
     closeDuration?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -17998,12 +19367,12 @@ declare module "sap/ui/ux3/ToolPopup" {
     opener?: Control | string;
 
     /**
-     * @SINCE 1.20.1
-     *
      * Defines one of the buttons that have been provided via button aggregation to be the default button. This
      * default button is initially selected, if no control is set via the initialFocus association explicitly.
      * The default button is activated when Enter is pressed in the context of the dialog and when the currently
      * selected element does not handle the Enter event itself.
+     *
+     * @since 1.20.1
      */
     defaultButton?: Control | string;
 
@@ -18021,7 +19390,7 @@ declare module "sap/ui/ux3/ToolPopup" {
     /**
      * Event is fired whenever the user clicks the Enter or the Enter key inside the pop up
      */
-    enter?: (oEvent: Event) => void;
+    enter?: (oEvent: ToolPopup$EnterEvent) => void;
 
     /**
      * Event is fired when one of the icon properties is modified (Note: The icon is not rendered by the ToolPopup).
@@ -18036,39 +19405,67 @@ declare module "sap/ui/ux3/ToolPopup" {
     closed?: (oEvent: Event) => void;
 
     /**
-     * @SINCE 1.19.0
-     *
      * Event is being fired after the ToolPopup has been opened.
+     *
+     * @since 1.19.0
      */
     opened?: (oEvent: Event) => void;
   }
+
+  export interface ToolPopup$CloseEventParameters {}
+
+  export type ToolPopup$CloseEvent = Event<
+    ToolPopup$CloseEventParameters,
+    ToolPopup
+  >;
+
+  export interface ToolPopup$ClosedEventParameters {}
+
+  export type ToolPopup$ClosedEvent = Event<
+    ToolPopup$ClosedEventParameters,
+    ToolPopup
+  >;
+
+  export interface ToolPopup$EnterEventParameters {
+    /**
+     * The onsapenter event, received by the pop up
+     */
+    originalEvent?: object;
+
+    /**
+     * The control that was focused when the user pressed the Enter key (may be null)
+     */
+    originalSrcControl?: Control;
+  }
+
+  export type ToolPopup$EnterEvent = Event<
+    ToolPopup$EnterEventParameters,
+    ToolPopup
+  >;
+
+  export interface ToolPopup$IconChangedEventParameters {}
+
+  export type ToolPopup$IconChangedEvent = Event<
+    ToolPopup$IconChangedEventParameters,
+    ToolPopup
+  >;
+
+  export interface ToolPopup$OpenEventParameters {}
+
+  export type ToolPopup$OpenEvent = Event<
+    ToolPopup$OpenEventParameters,
+    ToolPopup
+  >;
+
+  export interface ToolPopup$OpenedEventParameters {}
+
+  export type ToolPopup$OpenedEvent = Event<
+    ToolPopup$OpenedEventParameters,
+    ToolPopup
+  >;
 }
 
 declare namespace sap {
-  namespace ui {
-    /**
-     * @SINCE 0.13
-     * @deprecated (since 1.38)
-     *
-     * Controls that implement the SAP User Experience (UX) Guidelines 3.0
-     */
-    namespace ux3 {
-      /**
-       * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-       * @EXPERIMENTAL (since 1.0)
-       *
-       * Experimental implementation of visual Ux3 Shell personalization / branding.
-       *
-       * DO NOT USE PRODUCTIVELY!!!
-       *
-       * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
-       * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
-       * considering the number of configurable properties etc.
-       */
-      export const ShellPersonalization: undefined;
-    }
-  }
-
   interface IUI5DefineDependencyNames {
     "sap/ui/ux3/ActionBar": undefined;
 

@@ -1,8 +1,3 @@
-// Type definitions for gulp-codecov 3.0
-// Project: https://github.com/eddiemoore/gulp-codecov
-// Definitions by: Rodolfo Aguirre <https://github.com/roddolf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import * as stream from "stream";
@@ -18,10 +13,10 @@ declare namespace gulpCodecov {
         env?: string | undefined;
         file?: string | undefined;
         flags?: string | undefined;
-        'gcov-args'?: string | undefined;
-        'gcov-exec'?: string | undefined;
-        'gcov-glob'?: string | undefined;
-        'gcov-root'?: string | undefined;
+        "gcov-args"?: string | undefined;
+        "gcov-exec"?: string | undefined;
+        "gcov-glob"?: string | undefined;
+        "gcov-root"?: string | undefined;
         pipe?: boolean | undefined;
         root?: string | undefined;
         slug?: string | undefined;

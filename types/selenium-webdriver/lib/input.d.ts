@@ -1,5 +1,5 @@
-import { ILocation, WebDriver, WebElement } from '../';
-import { Executor } from './command';
+import { ILocation, WebDriver, WebElement } from "../";
+import { Executor } from "./command";
 
 /**
  * Defines the reference point from which to compute offsets for
@@ -7,9 +7,9 @@ import { Executor } from './command';
  */
 export enum Origin {
     /** Compute offsets relative to the pointer's current position. */
-    POINTER = 'pointer',
+    POINTER = "pointer",
     /** Compute offsets relative to the viewport. */
-    VIEWPORT = 'viewport',
+    VIEWPORT = "viewport",
 }
 
 /**
@@ -105,8 +105,6 @@ export interface IKey {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
- * @enum {string}
  */
 export const Key: IKey;
 
@@ -139,7 +137,6 @@ export class Keyboard extends Device {}
  *         dragAndDrop(element3, element4).
  *         keyUp(Key.SHIFT).
  *         perform();
- *
  */
 export class Actions {
     // region Constructors

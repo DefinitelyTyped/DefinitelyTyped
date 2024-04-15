@@ -1,4 +1,4 @@
-import onExit = require('signal-exit');
+import onExit = require("signal-exit");
 
 // $ExpectType () => void
 onExit((code, signal) => {
@@ -10,7 +10,7 @@ const detach = onExit(
         code; // $ExpectType number | null
         signal; // $ExpectType string | null
     },
-    { alwaysLast: true }
+    { alwaysLast: true },
 );
 
 detach();

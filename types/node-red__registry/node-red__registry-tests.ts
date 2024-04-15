@@ -1,4 +1,4 @@
-import registry = require('@node-red/registry');
+import registry = require("@node-red/registry");
 
 function registryTests() {
     interface ExtendedNodeRedSettings extends registry.NodeAPISettingsWithData {
@@ -24,9 +24,13 @@ function registryTests() {
         // @ts-expect-error
         RED.settings.wrongKey;
 
-        // tslint:disable-next-line:space-before-function-paren
-        const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function (nodeDef) {
+        const nodeConstructor: registry.NodeConstructor<MyNode, MyNodeDef, MyNodeCredentials> = function(nodeDef) {
             RED.nodes.createNode(this, nodeDef);
+
+            // $ExpectType FlowInfo | undefined
+            this._flow;
+            // $ExpectType string | undefined
+            this._alias;
 
             // $ExpectType string
             nodeDef.defKey;
@@ -40,123 +44,115 @@ function registryTests() {
             // @ts-expect-error
             this.credentials.wrongKey;
 
-            this.instanceKey = 'value';
+            this.instanceKey = "value";
             // @ts-expect-error
             this.instanceKey = 123;
             // @ts-expect-error
             this.wrongKey;
 
             const status: registry.NodeStatus = {
-                text: 'status',
-                fill: 'blue',
-                shape: 'dot',
+                text: "status",
+                fill: "blue",
+                shape: "dot",
             };
             // @ts-expect-error
-            status.fill = 'invalid-fill';
+            status.fill = "invalid-fill";
             // @ts-expect-error
-            status.shape = 'invalid-shape';
+            status.shape = "invalid-shape";
             this.status(status);
             this.status({});
 
-            this.context().set('key', 'value');
-            this.context().set('key', 123);
-            this.context().set('key', undefined);
-            this.context().get('key');
+            this.context().set("key", "value");
+            this.context().set("key", 123);
+            this.context().set("key", undefined);
+            this.context().get("key");
 
-            this.on('input', (msg, send, done) => {
+            this.on("input", (msg, send, done) => {
                 // $ExpectType string
                 msg._msgid;
 
                 // $ExpectType boolean
                 this.metric();
-                this.metric('eventname', msg, 10);
-                this.log('log info');
-                this.warn('log warn');
-                this.error('log error');
-                this.trace('log trace');
-                this.debug('log debug');
+                this.metric("eventname", msg, 10);
+                this.log("log info");
+                this.warn("log warn");
+                this.error("log error");
+                this.trace("log trace");
+                this.debug("log debug");
 
                 send(msg);
 
                 // send a new message with a topic
 
-                send ({
+                send({
                     payload: "payload",
-                    topic: "topic"
+                    topic: "topic",
                 });
 
                 this.send({
                     payload: "payload",
-                    topic: "topic"
+                    topic: "topic",
                 });
 
                 // send messages to a subset of the outputs
 
-                send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                send([
+                    {
+                        payload: "payload",
+                        topic: "topic",
+                    },
+                    null,
+                ]);
 
-                this.send (
-                    [
-                        {
-                            payload: "payload",
-                            topic: "topic"
-                        },
-                        null
-                    ]
-                );
+                this.send([
+                    {
+                        payload: "payload",
+                        topic: "topic",
+                    },
+                    null,
+                ]);
 
                 // send multiple messages to a particular output
 
-                send (
+                send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: "payload",
+                            topic: "topic",
+                        },
+                        {
+                            payload: "payload",
+                            topic: "topic",
+                        },
+                    ],
+                ]);
 
-                this.send (
+                this.send([
+                    null,
                     [
-                        null,
-                        [
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            },
-                            {
-                                payload: "payload",
-                                topic: "topic"
-                            }
-                        ]
-                    ]
-                );
+                        {
+                            payload: "payload",
+                            topic: "topic",
+                        },
+                        {
+                            payload: "payload",
+                            topic: "topic",
+                        },
+                    ],
+                ]);
 
                 done();
 
-                done(new Error('error'));
+                done(new Error("error"));
             });
 
-            this.on('close', () => {});
+            this.on("close", () => {});
 
             this.receive({});
 
             // $ExpectType Node<{}>
-            RED.nodes.getNode('node-id');
+            RED.nodes.getNode("node-id");
 
             // RED.util covered in @node-red/util
             // just check the link
@@ -173,11 +169,37 @@ function registryTests() {
             RED.server;
 
             // $ExpectType string
-            RED._('myNode.label');
+            RED._("myNode.label");
             // $ExpectType string
-            RED._('myNode.status', { num: 10 });
+            RED._("myNode.status", { num: 10 });
         };
 
-        RED.nodes.registerType('my-node', nodeConstructor);
+        RED.nodes.registerType("my-node", nodeConstructor);
+
+        RED.plugins.registerPlugin("my-plugin", { type: "my-plugin-type" });
+
+        // $ExpectType PluginDefinition<PluginDef>
+        RED.plugins.get("my-plugin");
+
+        // $ExpectType PluginDefinition<PluginDef>[]
+        RED.plugins.getByType("my-plugin-type");
+    }
+
+    interface MyPluginDef extends registry.PluginDef {
+        defKey: string;
+    }
+
+    function pluginAPITests(RED: registry.NodeAPI<ExtendedNodeRedSettings>) {
+        const pluginDefinition: registry.PluginDefinition<MyPluginDef> = {
+            type: "my-plugin",
+            settings: {
+                "*": { value: "", exportable: true },
+                defKey: { value: "", exportable: true },
+            },
+            onadd: () => {
+                RED.comms.publish(`my-route-for-plugin`, true, true);
+            },
+        };
+        RED.plugins.registerPlugin("my-plugin", pluginDefinition);
     }
 }

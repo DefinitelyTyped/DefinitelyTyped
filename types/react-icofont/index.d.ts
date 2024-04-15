@@ -1,9 +1,3 @@
-// Type definitions for react-icofont 1.0
-// Project: https://www.npmjs.com/package/react-icofont
-// Definitions by: Ivan Chuyko <https://github.com/ichuyko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface IcofontProps {

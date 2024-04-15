@@ -1,12 +1,6 @@
-// Type definitions for redux-auth-wrapper 1.0
-// Project: https://github.com/mjrussell/redux-auth-wrapper
-// Definitions by: Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ComponentClass, FunctionComponent, ElementType } from "react";
-import { Action } from "redux";
 import { Location } from "history";
+import { ComponentClass, ElementType, FunctionComponent } from "react";
+import { Action } from "redux";
 
 export type ComponentConstructor<P> = ComponentClass<P> | FunctionComponent<P>;
 
@@ -30,4 +24,6 @@ export interface AuthWrapperConfig<State, Props, AuthData> {
 
 export type AuthDecorator<Props> = (component: ComponentConstructor<Props>) => ComponentClass<Props>;
 
-export function UserAuthWrapper<State, Props, AuthData>(config: AuthWrapperConfig<State, Props, AuthData>): AuthDecorator<Props>;
+export function UserAuthWrapper<State, Props, AuthData>(
+    config: AuthWrapperConfig<State, Props, AuthData>,
+): AuthDecorator<Props>;

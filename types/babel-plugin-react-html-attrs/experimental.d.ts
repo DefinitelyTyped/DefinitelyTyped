@@ -34,13 +34,13 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('.');
+import React = require(".");
 
 export {};
 
-declare module '.' {
-    export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
-    export type SuspenseListTailMode = 'collapsed' | 'hidden';
+declare module "." {
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together";
+    export type SuspenseListTailMode = "collapsed" | "hidden";
 
     export interface SuspenseListCommonProps {
         /**
@@ -57,7 +57,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: 'forwards' | 'backwards';
+        revealOrder: "forwards" | "backwards";
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
@@ -72,7 +72,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']>;
+        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]>;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */

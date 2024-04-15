@@ -1,8 +1,3 @@
-// Type definitions for p2.js v0.7.1
-// Project: https://github.com/schteppe/p2.js/
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>, Janne Ramstedt <https://github.com/jramstedt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = p2;
 export as namespace p2;
 
@@ -18,7 +13,12 @@ declare namespace p2 {
         lowerBound: [number, number];
         upperBound: [number, number];
 
-        setFromPoints(points: [number, number][], position: [number, number], angle?: number, skinSize?: number): void;
+        setFromPoints(
+            points: Array<[number, number]>,
+            position: [number, number],
+            angle?: number,
+            skinSize?: number,
+        ): void;
         copy(aabb: AABB): void;
         extend(aabb: AABB): void;
         overlaps(aabb: AABB): boolean;
@@ -529,21 +529,21 @@ declare namespace p2 {
         fixedY?: boolean | undefined;
     }
 
-    export type SleepyEvent = Body['sleepyEvent'];
-    export type SleepEvent = Body['sleepEvent'];
-    export type WakeUpEvent = Body['wakeUpEvent'];
+    export type SleepyEvent = Body["sleepyEvent"];
+    export type SleepEvent = Body["sleepEvent"];
+    export type WakeUpEvent = Body["wakeUpEvent"];
 
     export class Body extends EventEmitter {
         sleepyEvent: {
-            type: 'sleepy';
+            type: "sleepy";
         };
 
         sleepEvent: {
-            type: 'sleep';
+            type: "sleep";
         };
 
         wakeUpEvent: {
-            type: 'wakeup';
+            type: "wakeup";
         };
 
         static DYNAMIC: 1;
@@ -614,7 +614,7 @@ declare namespace p2 {
         vectorToLocalFrame(out: [number, number], worldVector: [number, number]): void;
         vectorToWorldFrame(out: [number, number], localVector: [number, number]): void;
         fromPolygon(
-            path: [number, number][],
+            path: Array<[number, number]>,
             options?: {
                 optimalDecomp?: boolean | undefined;
                 skipSimpleCheck?: boolean | undefined;
@@ -764,8 +764,8 @@ declare namespace p2 {
     }
 
     export interface ConvexOptions extends SharedShapeOptions {
-        vertices?: ([number, number] | ArrayLike<number>)[] | undefined;
-        axes?: ([number, number] | ArrayLike<number>)[] | undefined;
+        vertices?: Array<[number, number] | ArrayLike<number>> | undefined;
+        axes?: Array<[number, number] | ArrayLike<number>> | undefined;
     }
 
     export class Convex extends Shape {
@@ -773,8 +773,8 @@ declare namespace p2 {
 
         constructor(options?: ConvexOptions);
 
-        vertices: [number, number][];
-        axes: [number, number][];
+        vertices: Array<[number, number]>;
+        axes: Array<[number, number]>;
         centerOfMass: [number, number];
         triangles: [[number, number], [number, number], [number, number]];
         boundingRadius: number;
@@ -1024,9 +1024,9 @@ declare namespace p2 {
     }
 
     export class Utils {
-        static appendArray<T>(a: Array<T>, b: Array<T>): Array<T>;
-        static splice<T>(array: Array<T>, index: number, howMany: number): void;
-        static arrayRemove<T>(array: Array<T>, element: number): void;
+        static appendArray<T>(a: T[], b: T[]): T[];
+        static splice<T>(array: T[], index: number, howMany: number): void;
+        static arrayRemove<T>(array: T[], element: number): void;
         static extend(a: any, b: any): void;
         static defaults(options: any, defaults: any): any;
         static shallowClone<T>(obj: T): T;
@@ -1076,38 +1076,38 @@ declare namespace p2 {
         islandSplit?: boolean | undefined;
     }
 
-    export type PostStepEvent = World['postStepEvent'];
-    export type AddBodyEvent = World['addBodyEvent'];
-    export type RemoveBodyEvent = World['removeBodyEvent'];
-    export type AddSpringEvent = World['addSpringEvent'];
-    export type ImpactEvent = World['impactEvent'];
-    export type PostBroadphaseEvent = World['postBroadphaseEvent'];
-    export type BeginContactEvent = World['beginContactEvent'];
-    export type EndContactEvent = World['endContactEvent'];
-    export type PreSolveEvent = World['preSolveEvent'];
+    export type PostStepEvent = World["postStepEvent"];
+    export type AddBodyEvent = World["addBodyEvent"];
+    export type RemoveBodyEvent = World["removeBodyEvent"];
+    export type AddSpringEvent = World["addSpringEvent"];
+    export type ImpactEvent = World["impactEvent"];
+    export type PostBroadphaseEvent = World["postBroadphaseEvent"];
+    export type BeginContactEvent = World["beginContactEvent"];
+    export type EndContactEvent = World["endContactEvent"];
+    export type PreSolveEvent = World["preSolveEvent"];
 
     export class World extends EventEmitter {
         postStepEvent: {
-            type: 'postStep';
+            type: "postStep";
         };
 
         addBodyEvent: {
-            type: 'addBody';
+            type: "addBody";
             body: Body;
         };
 
         removeBodyEvent: {
-            type: 'removeBody';
+            type: "removeBody";
             body: Body;
         };
 
         addSpringEvent: {
-            type: 'addSpring';
+            type: "addSpring";
             spring: Spring;
         };
 
         impactEvent: {
-            type: 'impact';
+            type: "impact";
             bodyA: Body;
             bodyB: Body;
             shapeA: Shape;
@@ -1116,12 +1116,12 @@ declare namespace p2 {
         };
 
         postBroadphaseEvent: {
-            type: 'postBroadphase';
+            type: "postBroadphase";
             pairs: Body[];
         };
 
         beginContactEvent: {
-            type: 'beginContact';
+            type: "beginContact";
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1130,7 +1130,7 @@ declare namespace p2 {
         };
 
         endContactEvent: {
-            type: 'endContact';
+            type: "endContact";
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1138,7 +1138,7 @@ declare namespace p2 {
         };
 
         preSolveEvent: {
-            type: 'preSolve';
+            type: "preSolve";
             contactEquations: ContactEquation[];
             frictionEquations: FrictionEquation[];
         };
@@ -1147,7 +1147,7 @@ declare namespace p2 {
         static BODY_SLEEPING: 2;
         static ISLAND_SLEEPING: 4;
 
-        //static integrateBody(body: Body, dy: number): void;
+        // static integrateBody(body: Body, dy: number): void;
 
         constructor(options?: WorldOptions);
 

@@ -1,11 +1,3 @@
-// Type definitions for Sinon-Chrome v2.2.4
-// Project: https://github.com/vitalets/sinon-chrome
-// Definitions by: Tim Perry <https://github.com/pimterry>
-//                 CRIMX <https://github.com/crimx>
-//                 kobanyan <https://github.com/kobanyan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="chrome"/>
 /// <reference types="sinon"/>
 
@@ -18,7 +10,7 @@
  * chrome.storage.onChanged.trigger(...);
  */
 
-import * as Sinon from 'sinon';
+import * as Sinon from "sinon";
 export = SinonChrome;
 export as namespace SinonChrome;
 
@@ -197,7 +189,7 @@ declare namespace SinonChrome.declarativeContent {
     export var onPageChanged: SinonChrome.events.Event;
 }
 
-declare namespace SinonChrome. desktopCapture {
+declare namespace SinonChrome.desktopCapture {
     export var cancelChooseDesktopMedia: SinonChromeStub;
     export var chooseDesktopMedia: SinonChromeStub;
 }
@@ -374,7 +366,7 @@ declare namespace SinonChrome.plugins {
         constructor(translations?: Translations);
     }
     export class CookiePlugin {
-        constructor(state?: Array<chrome.cookies.Cookie>);
+        constructor(state?: chrome.cookies.Cookie[]);
     }
 }
 

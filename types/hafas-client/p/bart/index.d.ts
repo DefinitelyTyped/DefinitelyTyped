@@ -1,5 +1,3 @@
-export = bartProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const bartProfile: createClient.Profile;
+export const profile: Profile;

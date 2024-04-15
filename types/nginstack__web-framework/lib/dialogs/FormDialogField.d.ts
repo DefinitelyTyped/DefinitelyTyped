@@ -18,4 +18,4 @@ declare class FormDialogField {
 declare namespace FormDialogField {
     export { Field };
 }
-type Field = import('@nginstack/engine/lib/classdef/Field');
+type Field = import("@nginstack/engine/lib/classdef/Field");

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import NoSSR from 'react-no-ssr';
+import * as React from "react";
+import NoSSR from "react-no-ssr";
 
 export class NoSSRTest extends React.Component {
     render() {

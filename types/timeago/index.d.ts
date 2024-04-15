@@ -1,9 +1,3 @@
-// Type definitions for timeago 1.6
-// Project: http://timeago.yarp.com/
-// Definitions by: Christophe Coevoet <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace Timeago {
@@ -51,8 +45,8 @@ declare namespace Timeago {
 }
 
 interface JQuery {
-    timeago(action: 'update', timestamp: Date | string): this;
-    timeago(action?: 'init' | 'updateFromDOM' | 'dispose'): this;
+    timeago(action: "update", timestamp: Date | string): this;
+    timeago(action?: "init" | "updateFromDOM" | "dispose"): this;
 }
 
 interface JQueryStatic {

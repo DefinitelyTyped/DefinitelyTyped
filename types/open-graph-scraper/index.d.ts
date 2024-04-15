@@ -1,18 +1,15 @@
-// Type definitions for open-graph-scraper 4.8
-// Project: https://github.com/jshemas/openGraphScraper#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 declare namespace run {
     interface OpenGraphImage {
-        height: string;
+        // Height and Width can be optional, see doc on
+        // https://github.com/jshemas/openGraphScraper/blob/master/lib/media.js
+        height?: string;
         type: string;
         url: string;
-        width: string;
+        width?: string;
     }
 
     interface OpenGraphProperties {

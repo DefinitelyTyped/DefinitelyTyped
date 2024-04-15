@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/optimist",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/substack/node-optimist"
+    ],
+    "devDependencies": {
+        "@types/optimist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "Christopher Brown",
+            "githubUsername": "chbrown"
+        }
+    ]
+}

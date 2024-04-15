@@ -1,10 +1,3 @@
-// Type definitions for whatwg-url 11.0
-// Project: https://github.com/jsdom/whatwg-url#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="es2020"/>
 /** https://url.spec.whatwg.org/#url-representation */
 export interface URLRecord {
@@ -61,7 +54,7 @@ export class URL {
 
     toJSON(): string;
 
-    readonly [Symbol.toStringTag]: 'URL';
+    readonly [Symbol.toStringTag]: "URL";
 }
 
 /** https://url.spec.whatwg.org/#interface-urlsearchparams */
@@ -90,18 +83,18 @@ export class URLSearchParams {
         thisArg?: THIS_ARG,
     ): void;
 
-    readonly [Symbol.toStringTag]: 'URLSearchParams';
+    readonly [Symbol.toStringTag]: "URLSearchParams";
     [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(input: string, options?: { readonly baseURL?: string | undefined }): URLRecord | null;
+export function parseURL(input: string, options?: { readonly baseURL?: URLRecord | undefined }): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
-        baseURL?: string | undefined;
+        baseURL?: URLRecord | undefined;
         url?: URLRecord | undefined;
         stateOverride?: StateOverride | undefined;
     },
@@ -109,27 +102,27 @@ export function basicURLParse(
 
 /** https://url.spec.whatwg.org/#scheme-start-state */
 export type StateOverride =
-    | 'scheme start'
-    | 'scheme'
-    | 'no scheme'
-    | 'special relative or authority'
-    | 'path or authority'
-    | 'relative'
-    | 'relative slash'
-    | 'special authority slashes'
-    | 'special authority ignore slashes'
-    | 'authority'
-    | 'host'
-    | 'hostname'
-    | 'port'
-    | 'file'
-    | 'file slash'
-    | 'file host'
-    | 'path start'
-    | 'path'
-    | 'opaque path'
-    | 'query'
-    | 'fragment';
+    | "scheme start"
+    | "scheme"
+    | "no scheme"
+    | "special relative or authority"
+    | "path or authority"
+    | "relative"
+    | "relative slash"
+    | "special authority slashes"
+    | "special authority ignore slashes"
+    | "authority"
+    | "host"
+    | "hostname"
+    | "port"
+    | "file"
+    | "file slash"
+    | "file host"
+    | "path start"
+    | "path"
+    | "opaque path"
+    | "query"
+    | "fragment";
 
 /** https://url.spec.whatwg.org/#concept-url-serializer */
 export function serializeURL(urlRecord: URLRecord, excludeFragment?: boolean): string;

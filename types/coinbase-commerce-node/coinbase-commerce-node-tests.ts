@@ -1,14 +1,14 @@
 import {
-    Pagination,
     ChargeResource,
     CheckoutResource,
-    CreateCheckout,
     Client,
-    EventResource,
     CreateCharge,
+    CreateCheckout,
+    EventResource,
+    Pagination,
+    resources as Resource,
     Webhook,
-    resources as Resource
-} from 'coinbase-commerce-node';
+} from "coinbase-commerce-node";
 
 const Checkout = Resource.Checkout;
 const Charge = Resource.Charge;
@@ -17,7 +17,7 @@ const Event = Resource.Event;
 /**
  * Initialize client.
  */
-Client.init('some-api-key', 'http://example.com', 'v0.0.1', 2000);
+Client.init("some-api-key", "http://example.com", "v0.0.1", 2000);
 
 /**
  * Prebuilt example request
@@ -25,19 +25,19 @@ Client.init('some-api-key', 'http://example.com', 'v0.0.1', 2000);
  * @link https://commerce.coinbase.com/docs/api/#create-a-charge
  */
 const chargeCreateExample: CreateCharge = {
-    name: 'The Sovereign Individual',
-    description: 'Mastering the Transition to the Information Age',
+    name: "The Sovereign Individual",
+    description: "Mastering the Transition to the Information Age",
     local_price: {
-        amount: '100.00',
-        currency: 'USD'
+        amount: "100.00",
+        currency: "USD",
     },
-    pricing_type: 'fixed_price',
+    pricing_type: "fixed_price",
     metadata: {
-        customer_id: 'id_1005',
-        customer_name: 'Satoshi Nakamoto'
+        customer_id: "id_1005",
+        customer_name: "Satoshi Nakamoto",
     },
-    redirect_url: 'https://charge/completed/page',
-    cancel_url: 'https://charge/canceled/page',
+    redirect_url: "https://charge/completed/page",
+    cancel_url: "https://charge/canceled/page",
 };
 
 /**
@@ -46,70 +46,70 @@ const chargeCreateExample: CreateCharge = {
  * @link https://commerce.coinbase.com/docs/api/#charge-resource
  */
 const chargeResponseExample: ChargeResource = {
-    id: 'f765421f2-1451-fafb-a513-aac6c819fba9',
-    resource: 'charge',
-    code: '66BEOV2A',
-    name: 'The Sovereign Individual',
-    description: 'Mastering the Transition to the Information Age',
-    logo_url: 'https://commerce.coinbase.com/charges/ybjknds.png',
-    hosted_url: 'https://commerce.coinbase.com/charges/66BEOV2A',
-    created_at: '2017-01-31T20:49:02Z',
-    expires_at: '2017-01-31T21:49:02Z',
-    confirmed_at: '2017-01-31T20:50:02Z',
+    id: "f765421f2-1451-fafb-a513-aac6c819fba9",
+    resource: "charge",
+    code: "66BEOV2A",
+    name: "The Sovereign Individual",
+    description: "Mastering the Transition to the Information Age",
+    logo_url: "https://commerce.coinbase.com/charges/ybjknds.png",
+    hosted_url: "https://commerce.coinbase.com/charges/66BEOV2A",
+    created_at: "2017-01-31T20:49:02Z",
+    expires_at: "2017-01-31T21:49:02Z",
+    confirmed_at: "2017-01-31T20:50:02Z",
     checkout: {
-        id: 'a76721f2-1611-48fb-a513-aac6c819a9d6'
+        id: "a76721f2-1611-48fb-a513-aac6c819a9d6",
     },
     timeline: [
         {
-            time: '2017-01-31T20:49:02Z',
-            status: 'NEW'
+            time: "2017-01-31T20:49:02Z",
+            status: "NEW",
         },
         {
-            time: '2017-01-31T20:50:02Z',
-            status: 'PENDING'
+            time: "2017-01-31T20:50:02Z",
+            status: "PENDING",
         },
         {
-            time: '2017-01-31T20:50:02Z',
-            status: 'COMPLETED'
+            time: "2017-01-31T20:50:02Z",
+            status: "COMPLETED",
         },
         {
-            time: '2017-01-31T20:50:02Z',
-            status: 'UNRESOLVED',
-            context: 'UNDERPAID'
+            time: "2017-01-31T20:50:02Z",
+            status: "UNRESOLVED",
+            context: "UNDERPAID",
         },
         {
-            time: '2017-01-31T20:50:02Z',
-            status: 'RESOLVED'
-        }
+            time: "2017-01-31T20:50:02Z",
+            status: "RESOLVED",
+        },
     ],
     metadata: {},
-    pricing_type: 'fixed_price',
+    pricing_type: "fixed_price",
     pricing: {
-        local: { amount: '100.00', currency: 'USD' },
-        bitcoin: { amount: '1.00', currency: 'BTC' },
-        ethereum: { amount: '10.00', currency: 'ETH' }
+        local: { amount: "100.00", currency: "USD" },
+        bitcoin: { amount: "1.00", currency: "BTC" },
+        ethereum: { amount: "10.00", currency: "ETH" },
     },
     payments: [
         {
-            network: 'ethereum',
-            transaction_id: '0xe02fead885c3e4019945428ed54d094247bada2d0ac41b08fce7ce137bf29587',
-            status: 'COMPLETED',
+            network: "ethereum",
+            transaction_id: "0xe02fead885c3e4019945428ed54d094247bada2d0ac41b08fce7ce137bf29587",
+            status: "COMPLETED",
             value: {
-                local: { amount: '100.0', currency: 'USD' },
-                crypto: { amount: '10.00', currency: 'ETH' }
+                local: { amount: "100.0", currency: "USD" },
+                crypto: { amount: "10.00", currency: "ETH" },
             },
             block: {
                 height: 100,
-                hash: '0xe02fead885c3e4019945428ed54d094247bada2d0ac41b08fce7ce137bf29587',
+                hash: "0xe02fead885c3e4019945428ed54d094247bada2d0ac41b08fce7ce137bf29587",
                 confirmations_accumulated: 8,
-                confirmations_required: 2
-            }
-        }
+                confirmations_required: 2,
+            },
+        },
     ],
     addresses: {
-        bitcoin: 'mymZkiXhQNd6VWWG7VGSVdDX9bKmviti3U',
-        ethereum: '0x419f91df39951fd4e8acc8f1874b01c0c78ceba6'
-    }
+        bitcoin: "mymZkiXhQNd6VWWG7VGSVdDX9bKmviti3U",
+        ethereum: "0x419f91df39951fd4e8acc8f1874b01c0c78ceba6",
+    },
 };
 
 /**
@@ -119,7 +119,7 @@ Charge.create(chargeCreateExample).then((response: Resource.Charge) => {
     return Charge.retrieve(response.id);
 }).then((response) => {
     const id: string = response.id;
-    const resource: 'charge' = response.resource;
+    const resource: "charge" = response.resource;
 });
 
 /**
@@ -130,7 +130,7 @@ Charge.list({}).then(([list, paginationInfo]) => {
 
     list.forEach((entry) => {
         const id: string = entry.id;
-        const resource: 'charge' = entry.resource;
+        const resource: "charge" = entry.resource;
     });
 });
 
@@ -140,7 +140,7 @@ Charge.list({}).then(([list, paginationInfo]) => {
 Charge.all({}).then((list) => {
     list.forEach((entry) => {
         const id: string = entry.id;
-        const resource: 'charge' = entry.resource;
+        const resource: "charge" = entry.resource;
     });
 });
 
@@ -148,21 +148,21 @@ Charge.all({}).then((list) => {
  * insert, save, update and delete a Charge resource.
  */
 new Charge(chargeCreateExample).insert().then((charge) => {
-    const resource: 'charge' = charge.resource;
-    charge.name = 'some-new-name';
+    const resource: "charge" = charge.resource;
+    charge.name = "some-new-name";
 
     return charge.save();
 }).then((charge) => {
-    const resource: 'charge' = charge.resource;
-    charge.description = 'some-new-description';
+    const resource: "charge" = charge.resource;
+    charge.description = "some-new-description";
 
     return charge.update();
 }).then((charge) => {
-    const resource: 'charge' = charge.resource;
+    const resource: "charge" = charge.resource;
 
     return charge.delete();
 }).then((charge) => {
-    const resource: 'charge' = charge.resource;
+    const resource: "charge" = charge.resource;
 });
 
 /**
@@ -171,14 +171,14 @@ new Charge(chargeCreateExample).insert().then((charge) => {
  * @link https://commerce.coinbase.com/docs/api/#create-a-checkout
  */
 const checkoutCreateExample: CreateCheckout = {
-    name: 'The Sovereign Individual',
-    description: 'Mastering the Transition to the Information Age',
+    name: "The Sovereign Individual",
+    description: "Mastering the Transition to the Information Age",
     local_price: {
-        amount: '100.00',
-        currency: 'USD'
+        amount: "100.00",
+        currency: "USD",
     },
-    pricing_type: 'fixed_price',
-    requested_info: ['email']
+    pricing_type: "fixed_price",
+    requested_info: ["email"],
 };
 
 /**
@@ -187,17 +187,17 @@ const checkoutCreateExample: CreateCheckout = {
  * @link https://commerce.coinbase.com/docs/api/#checkout-resource
  */
 const checkoutResponseExample: CheckoutResource = {
-    id: '30934862-d980-46cb-9402-43c81b0cabd5',
-    resource: 'checkout',
-    name: 'The Sovereign Individual',
-    description: 'Mastering the Transition to the Information Age',
-    logo_url: 'https://commerce.coinbase.com/charges/ybjknds.png',
-    requested_info: ['name', 'email'],
-    pricing_type: 'fixed_price',
+    id: "30934862-d980-46cb-9402-43c81b0cabd5",
+    resource: "checkout",
+    name: "The Sovereign Individual",
+    description: "Mastering the Transition to the Information Age",
+    logo_url: "https://commerce.coinbase.com/charges/ybjknds.png",
+    requested_info: ["name", "email"],
+    pricing_type: "fixed_price",
     local_price: {
-        amount: '100.0',
-        currency: 'USD'
-    }
+        amount: "100.0",
+        currency: "USD",
+    },
 };
 
 /**
@@ -206,7 +206,7 @@ const checkoutResponseExample: CheckoutResource = {
 Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
     return Checkout.retrieve(response.id);
 }).then((response) => {
-    return Checkout.updateById(response.id, { name: 'some-name', description: 'some-description' });
+    return Checkout.updateById(response.id, { name: "some-name", description: "some-description" });
 }).then((response) => {
     return Checkout.deleteById(response.id);
 });
@@ -215,21 +215,21 @@ Checkout.create(checkoutCreateExample).then((response: Resource.Checkout) => {
  * insert, save, update and delete a Checkout resource.
  */
 new Checkout(checkoutCreateExample).insert().then((checkout) => {
-    const resource: 'checkout' = checkout.resource;
-    checkout.name = 'some-new-name';
+    const resource: "checkout" = checkout.resource;
+    checkout.name = "some-new-name";
 
     return checkout.save();
 }).then((checkout) => {
-    const resource: 'checkout' = checkout.resource;
-    checkout.description = 'some-new-description';
+    const resource: "checkout" = checkout.resource;
+    checkout.description = "some-new-description";
 
     return checkout.update();
 }).then((checkout) => {
-    const resource: 'checkout' = checkout.resource;
+    const resource: "checkout" = checkout.resource;
 
     return checkout.delete();
 }).then((checkout) => {
-    const resource: 'checkout' = checkout.resource;
+    const resource: "checkout" = checkout.resource;
 });
 
 /**
@@ -240,7 +240,7 @@ Checkout.list({}).then(([list, paginationInfo]) => {
 
     list.forEach((entry) => {
         const id: string = entry.id;
-        const resource: 'checkout' = entry.resource;
+        const resource: "checkout" = entry.resource;
     });
 });
 
@@ -250,7 +250,7 @@ Checkout.list({}).then(([list, paginationInfo]) => {
 Checkout.all({}).then((list) => {
     list.forEach((entry) => {
         const id: string = entry.id;
-        const resource: 'checkout' = entry.resource;
+        const resource: "checkout" = entry.resource;
     });
 });
 
@@ -260,11 +260,11 @@ Checkout.all({}).then((list) => {
  * @link https://commerce.coinbase.com/docs/api/#event-resource
  */
 const eventResponseExample: EventResource = {
-    id: '24934862-d980-46cb-9402-43c81b0cdba6',
-    resource: 'event',
-    type: 'charge:created',
-    api_version: '2018-03-22',
-    created_at: '2017-01-31T20:49:02Z',
+    id: "24934862-d980-46cb-9402-43c81b0cdba6",
+    resource: "event",
+    type: "charge:created",
+    api_version: "2018-03-22",
+    created_at: "2017-01-31T20:49:02Z",
     data: chargeResponseExample,
 };
 
@@ -272,11 +272,11 @@ const eventResponseExample: EventResource = {
  * Event resource with Checkout data.
  */
 const eventCheckoutResponseExample: EventResource<CheckoutResource> = {
-    id: '24934862-d980-46cb-9402-43c81b0cdba6',
-    resource: 'event',
-    type: 'charge:created',
-    api_version: '2018-03-22',
-    created_at: '2017-01-31T20:49:02Z',
+    id: "24934862-d980-46cb-9402-43c81b0cdba6",
+    resource: "event",
+    type: "charge:created",
+    api_version: "2018-03-22",
+    created_at: "2017-01-31T20:49:02Z",
     data: checkoutResponseExample,
 };
 
@@ -284,11 +284,11 @@ const eventCheckoutResponseExample: EventResource<CheckoutResource> = {
  * Event resource with Charge data.
  */
 const eventChargeResponseExample: EventResource<ChargeResource> = {
-    id: '24934862-d980-46cb-9402-43c81b0cdba6',
-    resource: 'event',
-    type: 'charge:created',
-    api_version: '2018-03-22',
-    created_at: '2017-01-31T20:49:02Z',
+    id: "24934862-d980-46cb-9402-43c81b0cdba6",
+    resource: "event",
+    type: "charge:created",
+    api_version: "2018-03-22",
+    created_at: "2017-01-31T20:49:02Z",
     data: chargeResponseExample,
 };
 
@@ -296,14 +296,14 @@ const eventChargeResponseExample: EventResource<ChargeResource> = {
  * Retrieve an event by ID.
  */
 Event.retrieve(eventResponseExample.id).then((event) => {
-    const type: 'event' = event.resource;
+    const type: "event" = event.resource;
 });
 
 /**
  * Get a paginated list of events.
  */
 Event.list({}).then(([events, paginationInfo]) => {
-    const type: 'event' = events[0].resource;
+    const type: "event" = events[0].resource;
     const results: number = paginationInfo.total;
 });
 
@@ -311,7 +311,7 @@ Event.list({}).then(([events, paginationInfo]) => {
  * Fetch all available events.
  */
 Event.all({}).then((events) => {
-    const type: 'event' = events[0].resource;
+    const type: "event" = events[0].resource;
 });
 
 /**
@@ -320,15 +320,16 @@ Event.all({}).then((events) => {
  * @link https://commerce.coinbase.com/docs/api/#pagination
  */
 const paginationExample: Pagination = {
-    order: 'desc',
+    order: "desc",
     starting_after: null,
     ending_before: null,
     total: 25,
     yielded: 20,
     limit: 20,
     previous_uri: null,
-    next_uri: 'https://api.commerce.coinbase.com/checkouts?limit=20&starting_after=fb6721f2-1622-48f0-b713-aac6c819b67a',
-    cursor_range: ['a76721f2-1611-48fb-a513-aac6c819a9d6', 'fb6721f2-1622-48f0-b713-aac6c819b67a']
+    next_uri:
+        "https://api.commerce.coinbase.com/checkouts?limit=20&starting_after=fb6721f2-1622-48f0-b713-aac6c819b67a",
+    cursor_range: ["a76721f2-1611-48fb-a513-aac6c819a9d6", "fb6721f2-1622-48f0-b713-aac6c819b67a"],
 };
 
 /**
@@ -336,12 +337,12 @@ const paginationExample: Pagination = {
  *
  * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
  */
-// tslint:disable-next-line:void-return no-void-expression
-const shouldBeVoid: void = Webhook.verifySigHeader(JSON.stringify(eventResponseExample), 'some-signature', 'my-secret');
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+const shouldBeVoid: void = Webhook.verifySigHeader(JSON.stringify(eventResponseExample), "some-signature", "my-secret");
 
 /**
  * Verify event body.
  *
  * @link https://github.com/coinbase/coinbase-commerce-node/blob/v1.0.4/lib/Webhook.js#L10
  */
-Webhook.verifyEventBody(JSON.stringify(eventResponseExample), 'some-signature', 'my-secret');
+Webhook.verifyEventBody(JSON.stringify(eventResponseExample), "some-signature", "my-secret");

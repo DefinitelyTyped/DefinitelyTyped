@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/parcel-env",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "parcel-env",
+    "projects": [
+        "https://github.com/parcel/parcel-bundler"
+    ],
+    "devDependencies": {
+        "@types/parcel-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fathy Boundjadj",
+            "githubUsername": "fathyb"
+        }
+    ]
+}

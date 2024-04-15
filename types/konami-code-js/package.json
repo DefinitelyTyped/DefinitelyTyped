@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/konami-code-js",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/Haeresis/konami-code-js#readme"
+    ],
+    "devDependencies": {
+        "@types/konami-code-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}

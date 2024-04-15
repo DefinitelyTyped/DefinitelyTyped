@@ -1,18 +1,20 @@
 export = Engine;
 declare function Engine(): void;
 declare class Engine {
-    progressMonitor: any;
-    sessionManager: any;
+    progressMonitor: ProgressMonitor;
+    sessionManager: SessionManager;
     instanceId: string;
     processId: number;
     keyCacheRange: number;
     version: string;
     versionInfo: VersionInfo;
+    java: JavaInfo;
     platform: string;
     arch: string;
     applicationPath: string;
     dataDir: string;
     env: any;
+    args: string[];
     logDir: string;
     programDir: string;
     tempDir: string;
@@ -30,10 +32,17 @@ declare class Engine {
     discardEndpointInfoCache(): void;
 }
 declare namespace Engine {
-    export { VersionInfo };
+    export { ProgressMonitor, SessionManager, VersionInfo, JavaInfo };
 }
+type ProgressMonitor = import('../progress/ProgressMonitor');
+type SessionManager = import('../session/SessionManager');
 interface VersionInfo {
     fileVersion: string;
     legalCopyright: string;
     companyName: string;
+}
+interface JavaInfo {
+    version: string;
+    home: string;
+    vendor: string;
 }

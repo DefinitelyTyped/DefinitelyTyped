@@ -1,12 +1,6 @@
-// Type definitions for Umbraco v7.2.8
-// Project: https://github.com/umbraco
-// Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="angular" />
 
-declare namespace umbraco.resources{
-
+declare namespace umbraco.resources {
     /**
      * ResourcePromise object
      * The success callback returns the data which will be resolved by the deferred object.
@@ -23,29 +17,28 @@ declare namespace umbraco.resources{
      */
     enum Direction {
         Ascending,
-        Descending
+        Descending,
     }
 
     /**
      * Property to order items by, default: `SortOrder`
      */
     enum OrderItemsBy {
-        SortOrder
+        SortOrder,
     }
 
-/**
- * @ngdoc service
- * @name umbraco.resources.authResource
- * @description
- * This Resource perfomrs actions to common authentication tasks for the Umbraco backoffice user
- *
- * @requires $q
- * @requires $http
- * @requires umbRequestHelper
- * @requires angularHelper
- */
-interface IAuthResource{
-
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.authResource
+     * @description
+     * This Resource perfomrs actions to common authentication tasks for the Umbraco backoffice user
+     *
+     * @requires $q
+     * @requires $http
+     * @requires umbRequestHelper
+     * @requires angularHelper
+     */
+    interface IAuthResource {
         /**
          * @ngdoc method
          * @name umbraco.resources.authResource#performLogin
@@ -64,7 +57,6 @@ interface IAuthResource{
          * @param {string} login Username of backoffice user
          * @param {string} password Password of backoffice user
          * @returns {Promise} resourcePromise object
-         *
          */
         performLogin(username: string, password: string): ng.IPromise<IResourcePromise>;
 
@@ -84,7 +76,6 @@ interface IAuthResource{
          *    });
          * </pre>
          * @returns {Promise} resourcePromise object
-         *
          */
         performLogout(): ng.IPromise<IResourcePromise>;
 
@@ -104,7 +95,6 @@ interface IAuthResource{
          *    });
          * </pre>
          * @returns {Promise} resourcePromise object
-         *
          */
         getCurrentUser(): ng.IPromise<IResourcePromise>;
 
@@ -124,7 +114,6 @@ interface IAuthResource{
          *    });
          * </pre>
          * @returns {Promise} resourcePromise object
-         *
          */
         isAuthenticated(): ng.IPromise<IResourcePromise>;
 
@@ -144,37 +133,36 @@ interface IAuthResource{
          *    });
          * </pre>
          * @returns {Promise} resourcePromise object
-         *
          */
         getRemainingTimeoutSeconds(): ng.IPromise<IResourcePromise>;
-}
+    }
 
-/**
-  * @ngdoc service
-  * @name umbraco.resources.contentResource
-  * @description Handles all transactions of content data
-  * from the angular application to the Umbraco database, using the Content WebApi controller
-  *
-  * all methods returns a resource promise async, so all operations won't complete untill .then() is completed.
-  *
-  * @requires $q
-  * @requires $http
-  * @requires umbDataFormatter
-  * @requires umbRequestHelper
-  *
-  * ##usage
-  * To use, simply inject the contentResource into any controller or service that needs it, and make
-  * sure the umbraco.resources module is accesible - which it should be by default.
-  *
-  * <pre>
-  *    contentResource.getById(1234)
-  *          .then(function(data) {
-  *              $scope.content = data;
-  *          });
-  * </pre>
-  **/
-interface IContentResource{
     /**
+     * @ngdoc service
+     * @name umbraco.resources.contentResource
+     * @description Handles all transactions of content data
+     * from the angular application to the Umbraco database, using the Content WebApi controller
+     *
+     * all methods returns a resource promise async, so all operations won't complete untill .then() is completed.
+     *
+     * @requires $q
+     * @requires $http
+     * @requires umbDataFormatter
+     * @requires umbRequestHelper
+     *
+     * ##usage
+     * To use, simply inject the contentResource into any controller or service that needs it, and make
+     * sure the umbraco.resources module is accesible - which it should be by default.
+     *
+     * <pre>
+     *    contentResource.getById(1234)
+     *          .then(function(data) {
+     *              $scope.content = data;
+     *          });
+     * </pre>
+     */
+    interface IContentResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#sort
          * @methodOf umbraco.resources.contentResource
@@ -194,9 +182,8 @@ interface IContentResource{
          * @param {Int} args.parentId the ID of the parent node
          * @param {Array} options.sortedIds array of node IDs as they should be sorted
          * @returns {Promise} resourcePromise object.
-         *
          */
-    sort(...args: any[]): ng.IPromise<IResourcePromise>;
+        sort(...args: any[]): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -219,9 +206,8 @@ interface IContentResource{
          * @param {Int} args.id the ID of the node to move
          * @param {Int} args.parentId the ID of the parent node to move to
          * @returns {Promise} resourcePromise object.
-         *
          */
-    move(...args: any[]): ng.IPromise<IResourcePromise>;
+        move(...args: any[]): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -245,10 +231,8 @@ interface IContentResource{
          * @param {Int} args.parentId the ID of the parent node to copy to
          * @param {Boolean} args.relateToOriginal if true, relates the copy to the original through the relation api
          * @returns {Promise} resourcePromise object.
-         *
          */
-    copy(...args: any[]): ng.IPromise<IResourcePromise>;
-
+        copy(...args: any[]): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -269,7 +253,6 @@ interface IContentResource{
          * </pre>
          * @param {Int} id the ID of the node to unpublish
          * @returns {Promise} resourcePromise object.
-         *
          */
         unPublish(id: number): ng.IPromise<IResourcePromise>;
 
@@ -290,7 +273,6 @@ interface IContentResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object.
-         *
          */
         emptyRecycleBin(): ng.IPromise<IResourcePromise>;
 
@@ -312,7 +294,6 @@ interface IContentResource{
          *
          * @param {Int} id id of content item to delete
          * @returns {Promise} resourcePromise object.
-         *
          */
         deleteById(id: number): ng.IPromise<IResourcePromise>;
 
@@ -335,11 +316,10 @@ interface IContentResource{
          *
          * @param {Int} id id of content item to return
          * @returns {Promise} resourcePromise object containing the content item.
-         *
          */
         getById(id: number): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.contentResource#getByIds
          * @methodOf umbraco.resources.contentResource
@@ -358,7 +338,6 @@ interface IContentResource{
          *
          * @param {Array} ids ids of content items to return as an array
          * @returns {Promise} resourcePromise object containing the content items array.
-         *
          */
         getByIds(ids: number[]): ng.IPromise<IResourcePromise>;
 
@@ -392,7 +371,6 @@ interface IContentResource{
          * @param {Int} parentId id of content item to return
          * @param {String} alias contenttype alias to base the scaffold on
          * @returns {Promise} resourcePromise object containing the content scaffold.
-         *
          */
         getScaffold(parentId: number, alias: string): ng.IPromise<IResourcePromise>;
 
@@ -414,7 +392,6 @@ interface IContentResource{
          *
          * @param {Int} id Id of node to return the public url to
          * @returns {Promise} resourcePromise object containing the url.
-         *
          */
         getNiceUrl(id: number): ng.IPromise<IResourcePromise>;
 
@@ -443,9 +420,17 @@ interface IContentResource{
          * @param {String} options.orderDirection can be `Ascending` or `Descending` - Default: `Ascending`
          * @param {String} options.orderBy property to order items by, default: `SortOrder`
          * @returns {Promise} resourcePromise object containing an array of content items.
-         *
          */
-        getChildren(parentId: number, options?: { pageSize: number; pageNumber: number; filter: string; orderDirection: Direction; orderBy: OrderItemsBy }): ng.IPromise<IResourcePromise>;
+        getChildren(
+            parentId: number,
+            options?: {
+                pageSize: number;
+                pageNumber: number;
+                filter: string;
+                orderDirection: Direction;
+                orderBy: OrderItemsBy;
+            },
+        ): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -467,7 +452,6 @@ interface IContentResource{
          * @param {String} permission char representing the permission to check
          * @param {Int} id id of content item to delete
          * @returns {Promise} resourcePromise object.
-         *
          */
         checkPermission(permission: string, id: number): ng.IPromise<IResourcePromise>;
 
@@ -479,7 +463,6 @@ interface IContentResource{
          * @description
          * Saves changes made to a content item to its current version, if the content item is new, the isNew paramater must be passed to force creation
          * if the content item needs to have files attached, they must be provided as the files param and passed seperately
-         *
          *
          * ##usage
          * <pre>
@@ -497,7 +480,6 @@ interface IContentResource{
          * @param {Bool} isNew set to true to create a new item or to update an existing
          * @param {Array} files collection of files for the document
          * @returns {Promise} resourcePromise object containing the saved content item.
-         *
          */
         save(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
@@ -509,7 +491,6 @@ interface IContentResource{
          * @description
          * Saves and publishes changes made to a content item to a new version, if the content item is new, the isNew paramater must be passed to force creation
          * if the content item needs to have files attached, they must be provided as the files param and passed seperately
-         *
          *
          * ##usage
          * <pre>
@@ -527,7 +508,6 @@ interface IContentResource{
          * @param {Bool} isNew set to true to create a new item or to update an existing
          * @param {Array} files collection of files for the document
          * @returns {Promise} resourcePromise object containing the saved content item.
-         *
          */
         publish(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
@@ -555,10 +535,8 @@ interface IContentResource{
          * @param {Bool} isNew set to true to create a new item or to update an existing
          * @param {Array} files collection of files for the document
          * @returns {Promise} resourcePromise object containing the saved content item.
-         *
          */
         sendToPublish(content: IContentResource, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
-
 
         /**
          * @ngdoc method
@@ -578,18 +556,16 @@ interface IContentResource{
          *
          * @param {Int} id The ID of the conten to publish
          * @returns {Promise} resourcePromise object containing the published content item.
-         *
          */
         publishById(id: number): ng.IPromise<IResourcePromise>;
+    }
 
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.contentTypeResource
-    * @description Loads in data for content types
-    **/
-interface IContentTypeResource{
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.contentTypeResource
+     * @description Loads in data for content types
+     */
+    interface IContentTypeResource {
         /**
          * @ngdoc method
          * @name umbraco.resources.contentTypeResource#getAllowedTypes
@@ -607,9 +583,8 @@ interface IContentTypeResource{
          * </pre>
          * @param {Int} contentId id of the content item to retrive allowed child types for
          * @returns {Promise} resourcePromise object.
-         *
          */
-    getAllowedTypes(contentId: number): ng.IPromise<IResourcePromise>;
+        getAllowedTypes(contentId: number): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -620,20 +595,16 @@ interface IContentTypeResource{
          * Returns a list of defined property type aliases
          *
          * @returns {Promise} resourcePromise object.
-         *
          */
-    getAllPropertyTypeAliases(): ng.IPromise<IResourcePromise>;
-}
+        getAllPropertyTypeAliases(): ng.IPromise<IResourcePromise>;
+    }
 
-/**
-    * @ngdoc service
-    * @name umbraco.resources.currentUserResource
-    * @description Used for read/updates for the currently logged in user
-    *
-    *
-    **/
-interface ICurrentUserResource{
-
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.currentUserResource
+     * @description Used for read/updates for the currently logged in user
+     */
+    interface ICurrentUserResource {
         /**
          * @ngdoc method
          * @name umbraco.resources.currentUserResource#changePassword
@@ -643,7 +614,6 @@ interface ICurrentUserResource{
          * Changes the current users password
          *
          * @returns {Promise} resourcePromise object containing the user array.
-         *
          */
         changePassword(changePasswordArgs: any): ng.IPromise<IResourcePromise>;
 
@@ -656,15 +626,14 @@ interface ICurrentUserResource{
          * Gets the configuration of the user membership provider which is used to configure the change password form
          */
         getMembershipProviderConfig(): any;
+    }
 
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.dashboardResource
-    * @description Handles loading the dashboard manifest
-    **/
-interface IDashboardResource{
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.dashboardResource
+     * @description Handles loading the dashboard manifest
+     */
+    interface IDashboardResource {
         /**
          * @ngdoc method
          * @name umbraco.resources.dashboardResource#getDashboard
@@ -675,18 +644,17 @@ interface IDashboardResource{
          *
          * @param {string} section Alias of section to retrieve dashboard configuraton for
          * @returns {Promise} resourcePromise object containing the user array.
-         *
          */
-    getDashboard(section: string): ng.IPromise<IResourcePromise>;
-}
+        getDashboard(section: string): ng.IPromise<IResourcePromise>;
+    }
 
-/**
-    * @ngdoc service
-    * @name umbraco.resources.dataTypeResource
-    * @description Loads in data for data types
-    **/
-interface IDataTypeResource{
-       /**
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.dataTypeResource
+     * @description Loads in data for data types
+     */
+    interface IDataTypeResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.dataTypeResource#getPreValues
          * @methodOf umbraco.resources.dataTypeResource
@@ -705,9 +673,8 @@ interface IDataTypeResource{
          * @param {String} editorAlias string alias of editor type to retrive prevalues configuration for
          * @param {Int} id id of datatype to retrieve prevalues for
          * @returns {Promise} resourcePromise object.
-         *
          */
-    getPreValues(editorAlias: string, dataTypeId: number): ng.IPromise<IResourcePromise>;
+        getPreValues(editorAlias: string, dataTypeId: number): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -727,11 +694,10 @@ interface IDataTypeResource{
          *
          * @param {Int} id id of data type to retrieve
          * @returns {Promise} resourcePromise object.
-         *
          */
-    getById(id: number): ng.IPromise<IResourcePromise>;
+        getById(id: number): ng.IPromise<IResourcePromise>;
 
-        getAll() : any;
+        getAll(): any;
 
         /**
          * @ngdoc method
@@ -758,7 +724,6 @@ interface IDataTypeResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object containing the data type scaffold.
-         *
          */
         getScaffold(): ng.IPromise<IResourcePromise>;
 
@@ -780,7 +745,6 @@ interface IDataTypeResource{
          *
          * @param {Int} id id of content item to delete
          * @returns {Promise} resourcePromise object.
-         *
          */
         deleteById(id: number): ng.IPromise<IResourcePromise>;
 
@@ -796,47 +760,45 @@ interface IDataTypeResource{
          * @param {Array} preValues collection of prevalues on the datatype
          * @param {Bool} isNew set to true if type should be create instead of updated
          * @returns {Promise} resourcePromise object.
-         *
          */
         save(dataType: Object, preValues: any[], isNew: boolean): ng.IPromise<IResourcePromise>;
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.entityResource
-    * @description Loads in basic data for all entities
-    *
-    * ##What is an entity?
-    * An entity is a basic **read-only** representation of an Umbraco node. It contains only the most
-    * basic properties used to display the item in trees, lists and navigation.
-    *
-    * ##What is the difference between entity and content/media/etc...?
-    * the entity only contains the basic node data, name, id and guid, whereas content
-    * nodes fetched through the content service also contains additional all of the content property data, etc..
-    * This is the same principal for all entity types. Any user that is logged in to the back office will have access
-    * to view the basic entity information for all entities since the basic entity information does not contain sensitive information.
-    *
-    * ##Entity object types?
-    * You need to specify the type of object you want returned.
-    *
-    * The core object types are:
-    *
-    * - Document
-    * - Media
-    * - Member
-    * - Template
-    * - DocumentType
-    * - MediaType
-    * - MemberType
-    * - Macro
-    * - User
-    * - Language
-    * - Domain
-    * - DataType
-    **/
-interface IEntityResource{
+    }
 
     /**
+     * @ngdoc service
+     * @name umbraco.resources.entityResource
+     * @description Loads in basic data for all entities
+     *
+     * ##What is an entity?
+     * An entity is a basic **read-only** representation of an Umbraco node. It contains only the most
+     * basic properties used to display the item in trees, lists and navigation.
+     *
+     * ##What is the difference between entity and content/media/etc...?
+     * the entity only contains the basic node data, name, id and guid, whereas content
+     * nodes fetched through the content service also contains additional all of the content property data, etc..
+     * This is the same principal for all entity types. Any user that is logged in to the back office will have access
+     * to view the basic entity information for all entities since the basic entity information does not contain sensitive information.
+     *
+     * ##Entity object types?
+     * You need to specify the type of object you want returned.
+     *
+     * The core object types are:
+     *
+     * - Document
+     * - Media
+     * - Member
+     * - Template
+     * - DocumentType
+     * - MediaType
+     * - MemberType
+     * - Macro
+     * - User
+     * - Language
+     * - Domain
+     * - DataType
+     */
+    interface IEntityResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.entityResource#getPath
          * @methodOf umbraco.resources.entityResource
@@ -855,9 +817,8 @@ interface IEntityResource{
          * @param {Int} id Id of node to return the public url to
          * @param {string} type Object type name
          * @returns {Promise} resourcePromise object containing the url.
-         *
          */
-    getPath(id: number, type: string): ng.IPromise<IResourcePromise>;
+        getPath(id: number, type: string): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -880,13 +841,12 @@ interface IEntityResource{
          * @param {Int} id id of entity to return
          * @param {string} type Object type name
          * @returns {Promise} resourcePromise object containing the entity.
-         *
          */
         getById(id: number, type: string): ng.IPromise<IResourcePromise>;
 
-        getByQuery(query: string, nodeContextId: number|string, type: string): ng.IPromise<IResourcePromise>;
+        getByQuery(query: string, nodeContextId: number | string, type: string): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.entityResource#getByIds
          * @methodOf umbraco.resources.entityResource
@@ -907,11 +867,10 @@ interface IEntityResource{
          * @param {Array} ids ids of entities to return as an array
          * @param {string} type type name
          * @returns {Promise} resourcePromise object containing the entity array.
-         *
          */
         getByIds(ids: number[], type: string): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.entityResource#getEntityById
          * @methodOf umbraco.resources.entityResource
@@ -934,7 +893,6 @@ interface IEntityResource{
          * @param {string} postFilter optional filter expression which will execute a dynamic where clause on the server
          * @param {string} postFilterParams optional parameters for the postFilter expression
          * @returns {Promise} resourcePromise object containing the entity.
-         *
          */
         getAll(type: string, postFilter: string, postFilterParams: string): ng.IPromise<IResourcePromise>;
 
@@ -946,10 +904,8 @@ interface IEntityResource{
          * @description
          * Gets ancestor entities for a given item
          *
-         *
          * @param {string} type Object type name
          * @returns {Promise} resourcePromise object containing the entity.
-         *
          */
         getAncestors(id: number, type: string): ng.IPromise<IResourcePromise>;
 
@@ -961,10 +917,8 @@ interface IEntityResource{
          * @description
          * Gets children entities for a given item
          *
-         *
          * @param {string} type Object type name
          * @returns {Promise} resourcePromise object containing the entity.
-         *
          */
         getChildren(id: number, type: string): ng.IPromise<IResourcePromise>;
 
@@ -988,11 +942,10 @@ interface IEntityResource{
          * @param {String} Query search query
          * @param {String} Type type of conten to search
          * @returns {Promise} resourcePromise object containing the entity array.
-         *
          */
         search(query: string, type: string, searchFrom: any, canceler: any): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.entityResource#searchAll
          * @methodOf umbraco.resources.entityResource
@@ -1011,28 +964,25 @@ interface IEntityResource{
          *
          * @param {String} Query search query
          * @returns {Promise} resourcePromise object containing the entity array.
-         *
          */
         searchAll(query: string, canceler: any): ng.IPromise<IResourcePromise>;
-}
+    }
 
     /**
      * LogType
      */
-    enum LogType{
-    Debug,
-    Info
-}
+    enum LogType {
+        Debug,
+        Info,
+    }
 
-/**
-    * @ngdoc service
-    * @name umbraco.resources.logResource
-    * @description Retrives log history from umbraco
-    *
-    *
-    **/
-interface ILogResource{
     /**
+     * @ngdoc service
+     * @name umbraco.resources.logResource
+     * @description Retrives log history from umbraco
+     */
+    interface ILogResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.logResource#getEntityLog
          * @methodOf umbraco.resources.logResource
@@ -1050,9 +1000,8 @@ interface ILogResource{
          *
          * @param {Int} id id of entity to return log history
          * @returns {Promise} resourcePromise object containing the log.
-         *
          */
-    getEntityLog(id: number): ng.IPromise<IResourcePromise>;
+        getEntityLog(id: number): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1073,9 +1022,8 @@ interface ILogResource{
          * @param {String} type logtype to query for
          * @param {DateTime} since query the log back to this date, by defalt 7 days ago
          * @returns {Promise} resourcePromise object containing the log.
-         *
          */
-    getUserLog(type: LogType, since: Date): ng.IPromise<IResourcePromise>;
+        getUserLog(type: LogType, since: Date): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1096,20 +1044,17 @@ interface ILogResource{
          * @param {String} type logtype to query for
          * @param {DateTime} since query the log back to this date, by defalt 7 days ago
          * @returns {Promise} resourcePromise object containing the log.
-         *
          */
-    getLog(type: LogType, since: Date): ng.IPromise<IResourcePromise>;
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.macroResource
-    * @description Deals with data for macros
-    *
-    **/
-interface IMacroResource{
+        getLog(type: LogType, since: Date): ng.IPromise<IResourcePromise>;
+    }
 
     /**
+     * @ngdoc service
+     * @name umbraco.resources.macroResource
+     * @description Deals with data for macros
+     */
+    interface IMacroResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.macroResource#getMacroParameters
          * @methodOf umbraco.resources.macroResource
@@ -1118,11 +1063,10 @@ interface IMacroResource{
          * Gets the editable macro parameters for the specified macro alias
          *
          * @param {int} macroId The macro id to get parameters for
-         *
          */
         getMacroParameters(macroId: number): any;
 
-           /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.macroResource#getMacroResult
          * @methodOf umbraco.resources.macroResource
@@ -1133,18 +1077,17 @@ interface IMacroResource{
          * @param {int} macroId The macro id to get parameters for
          * @param {int} pageId The current page id
          * @param {Array} macroParamDictionary A dictionary of macro parameters
-         *
          */
         getMacroResultAsHtmlForEditor(macroId: number, pageId: number, macroParamDictionary: any[]): any;
-}
+    }
 
-/**
-    * @ngdoc service
-    * @name umbraco.resources.mediaResource
-    * @description Loads in data for media
-    **/
-interface IMediaResource{
     /**
+     * @ngdoc service
+     * @name umbraco.resources.mediaResource
+     * @description Loads in data for media
+     */
+    interface IMediaResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaResource#sort
          * @methodOf umbraco.resources.mediaResource
@@ -1164,12 +1107,10 @@ interface IMediaResource{
          * @param {Int} args.parentId the ID of the parent node
          * @param {Array} options.sortedIds array of node IDs as they should be sorted
          * @returns {Promise} resourcePromise object.
-         *
          */
-    sort(...args: any[]): ng.IPromise<IResourcePromise>;
+        sort(...args: any[]): ng.IPromise<IResourcePromise>;
 
-
-    /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaResource#move
          * @methodOf umbraco.resources.mediaResource
@@ -1190,9 +1131,8 @@ interface IMediaResource{
          * @param {Int} args.idd the ID of the node to move
          * @param {Int} args.parentId the ID of the parent node to move to
          * @returns {Promise} resourcePromise object.
-         *
          */
-    move(...args: any[]): ng.IPromise<IResourcePromise>;
+        move(...args: any[]): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1213,9 +1153,8 @@ interface IMediaResource{
          *
          * @param {Int} id id of media item to return
          * @returns {Promise} resourcePromise object containing the media item.
-         *
          */
-    getById(id: number): ng.IPromise<IResourcePromise>;
+        getById(id: number): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1235,9 +1174,8 @@ interface IMediaResource{
          *
          * @param {Int} id id of media item to delete
          * @returns {Promise} resourcePromise object.
-         *
          */
-    deleteById(id: number): ng.IPromise<IResourcePromise>;
+        deleteById(id: number): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1258,12 +1196,10 @@ interface IMediaResource{
          *
          * @param {Array} ids ids of media items to return as an array
          * @returns {Promise} resourcePromise object containing the media items array.
-         *
          */
-    getByIds(ids: number[]): ng.IPromise<IResourcePromise>;
+        getByIds(ids: number[]): ng.IPromise<IResourcePromise>;
 
-
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaResource#getScaffold
          * @methodOf umbraco.resources.mediaResource
@@ -1293,13 +1229,12 @@ interface IMediaResource{
          * @param {Int} parentId id of media item to return
          * @param {String} alias mediatype alias to base the scaffold on
          * @returns {Promise} resourcePromise object containing the media scaffold.
-         *
          */
-    getScaffold(parentId: number, alias: string): ng.IPromise<IResourcePromise>;
+        getScaffold(parentId: number, alias: string): ng.IPromise<IResourcePromise>;
 
         rootMedia(): any;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaResource#getChildren
          * @methodOf umbraco.resources.mediaResource
@@ -1324,11 +1259,19 @@ interface IMediaResource{
          * @param {String} options.orderDirection can be `Ascending` or `Descending` - Default: `Ascending`
          * @param {String} options.orderBy property to order items by, default: `SortOrder`
          * @returns {Promise} resourcePromise object containing an array of content items.
-         *
          */
-        getChildren(parentId: number, options?: { pageSize: number; pageNumber: number; filter: string; orderDirection: Direction; orderBy: OrderItemsBy }): ng.IPromise<IResourcePromise>;
+        getChildren(
+            parentId: number,
+            options?: {
+                pageSize: number;
+                pageNumber: number;
+                filter: string;
+                orderDirection: Direction;
+                orderBy: OrderItemsBy;
+            },
+        ): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaResource#save
          * @methodOf umbraco.resources.mediaResource
@@ -1336,7 +1279,6 @@ interface IMediaResource{
          * @description
          * Saves changes made to a media item, if the media item is new, the isNew paramater must be passed to force creation
          * if the media item needs to have files attached, they must be provided as the files param and passed seperately
-         *
          *
          * ##usage
          * <pre>
@@ -1354,7 +1296,6 @@ interface IMediaResource{
          * @param {Bool} isNew set to true to create a new item or to update an existing
          * @param {Array} files collection of files for the media item
          * @returns {Promise} resourcePromise object containing the saved media item.
-         *
          */
         save(media: Object, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
 
@@ -1377,7 +1318,6 @@ interface IMediaResource{
          * @param {string} name Name of the folder to create
          * @param {int} parentId Id of the media item to create the folder underneath
          * @returns {Promise} resourcePromise object.
-         *
          */
         addFolder(name: string, parentId: number): ng.IPromise<IResourcePromise>;
 
@@ -1398,19 +1338,17 @@ interface IMediaResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object.
-         *
          */
         emptyRecycleBin(): ng.IPromise<IResourcePromise>;
+    }
 
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.mediaTypeResource
-    * @description Loads in data for media types
-    **/
-interface IMediaTypeResource{
     /**
+     * @ngdoc service
+     * @name umbraco.resources.mediaTypeResource
+     * @description Loads in data for media types
+     */
+    interface IMediaTypeResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.mediaTypeResource#getAllowedTypes
          * @methodOf umbraco.resources.mediaTypeResource
@@ -1427,23 +1365,21 @@ interface IMediaTypeResource{
          * </pre>
          * @param {Int} mediaId id of the media item to retrive allowed child types for
          * @returns {Promise} resourcePromise object.
-         *
          */
-    getAllowedTypes(mediaId: number): ng.IPromise<IResourcePromise>;
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.memberResource
-    * @description Loads in data for members
-    **/
-interface IMemberResource{
-
-    getPagedResults(memberTypeAlias: string, options: any): any;
-
-    getListNode(listName: string): any;
+        getAllowedTypes(mediaId: number): ng.IPromise<IResourcePromise>;
+    }
 
     /**
+     * @ngdoc service
+     * @name umbraco.resources.memberResource
+     * @description Loads in data for members
+     */
+    interface IMemberResource {
+        getPagedResults(memberTypeAlias: string, options: any): any;
+
+        getListNode(listName: string): any;
+
+        /**
          * @ngdoc method
          * @name umbraco.resources.memberResource#getByKey
          * @methodOf umbraco.resources.memberResource
@@ -1462,11 +1398,10 @@ interface IMemberResource{
          *
          * @param {Guid} key key of member item to return
          * @returns {Promise} resourcePromise object containing the member item.
-         *
          */
-    getByKey(key: string): ng.IPromise<IResourcePromise>;
+        getByKey(key: string): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.memberResource#deleteByKey
          * @methodOf umbraco.resources.memberResource
@@ -1484,9 +1419,8 @@ interface IMemberResource{
          *
          * @param {Guid} key id of member item to delete
          * @returns {Promise} resourcePromise object.
-         *
          */
-    deleteByKey(key: string): ng.IPromise<IResourcePromise>;
+        deleteByKey(key: string): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1516,9 +1450,8 @@ interface IMemberResource{
          *
          * @param {String} alias membertype alias to base the scaffold on
          * @returns {Promise} resourcePromise object containing the member scaffold.
-         *
          */
-    getScaffold(alias: string): ng.IPromise<IResourcePromise>;
+        getScaffold(alias: string): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1528,7 +1461,6 @@ interface IMemberResource{
          * @description
          * Saves changes made to a member, if the member is new, the isNew paramater must be passed to force creation
          * if the member needs to have files attached, they must be provided as the files param and passed seperately
-         *
          *
          * ##usage
          * <pre>
@@ -1546,30 +1478,27 @@ interface IMemberResource{
          * @param {Bool} isNew set to true to create a new item or to update an existing
          * @param {Array} files collection of files for the media item
          * @returns {Promise} resourcePromise object containing the saved media item.
-         *
          */
-    save(member: Object, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
-
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.memberTypeResource
-    * @description Loads in data for member types
-    **/
-interface IMemberTypeResource{
-    //return all member types
-        getTypes(): any;
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.packageInstallResource
-    * @description handles data for package installations
-    **/
-interface IPackageResource{
+        save(member: Object, isNew: boolean, files: any[]): ng.IPromise<IResourcePromise>;
+    }
 
     /**
+     * @ngdoc service
+     * @name umbraco.resources.memberTypeResource
+     * @description Loads in data for member types
+     */
+    interface IMemberTypeResource {
+        // return all member types
+        getTypes(): any;
+    }
+
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.packageInstallResource
+     * @description handles data for package installations
+     */
+    interface IPackageResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.packageInstallResource#fetchPackage
          * @methodOf umbraco.resources.packageInstallResource
@@ -1587,7 +1516,6 @@ interface IPackageResource{
          *
          * @param {String} the unique package ID
          * @returns {String} path to the downloaded zip file.
-         *
          */
         fetch(id: string): string;
 
@@ -1612,7 +1540,6 @@ interface IPackageResource{
          *
          * @param {String} folder the path to the temporary folder containing files
          * @returns {Int} the ID assigned to the saved package manifest
-         *
          */
         import(package: string): number;
 
@@ -1621,28 +1548,25 @@ interface IPackageResource{
         installData(package: string): void;
 
         cleanUp(package: string): void;
+    }
 
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.sectionResource
-    * @description Loads in data for section
-    **/
-interface ISectionResource{
-    /** Loads in the data to display the section list */
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.sectionResource
+     * @description Loads in data for section
+     */
+    interface ISectionResource {
+        /** Loads in the data to display the section list */
         getSections(): void;
-}
+    }
 
-/**
-    * @ngdoc service
-    * @name umbraco.resources.stylesheetResource
-    * @description service to retrieve available stylesheets
-    *
-    *
-    **/
-interface IStylesheetResource{
-     /**
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.stylesheetResource
+     * @description service to retrieve available stylesheets
+     */
+    interface IStylesheetResource {
+        /**
          * @ngdoc method
          * @name umbraco.resources.stylesheetResource#getAll
          * @methodOf umbraco.resources.stylesheetResource
@@ -1659,9 +1583,8 @@ interface IStylesheetResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object containing the stylesheets.
-         *
          */
-    getAll(): ng.IPromise<IResourcePromise>;
+        getAll(): ng.IPromise<IResourcePromise>;
 
         /**
          * @ngdoc method
@@ -1680,11 +1603,10 @@ interface IStylesheetResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object containing the rules.
-         *
          */
-    getRules(id: number): ng.IPromise<IResourcePromise>;
+        getRules(id: number): ng.IPromise<IResourcePromise>;
 
-         /**
+        /**
          * @ngdoc method
          * @name umbraco.resources.stylesheetResource#getRulesByName
          * @methodOf umbraco.resources.stylesheetResource
@@ -1701,39 +1623,31 @@ interface IStylesheetResource{
          * </pre>
          *
          * @returns {Promise} resourcePromise object containing the rules.
-         *
          */
-    getRulesByName(name: string): ng.IPromise<IResourcePromise>;
-
-
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.treeResource
-    * @description Loads in data for trees
-    **/
-interface ITreeResource{
-    /** Loads in the data to display the nodes menu */
-        loadMenu(node: any): void;
-
-         /** Loads in the data to display the nodes for an application */
-        loadApplication(options: any): void;
-
-         /** Loads in the data to display the child nodes for a given node */
-        loadNodes(options: any): void;
-}
-
-/**
-    * @ngdoc service
-    * @name umbraco.resources.userResource
-    **/
-interface IUserResource{
-     disableUser(userId: number): void;
-}
+        getRulesByName(name: string): ng.IPromise<IResourcePromise>;
     }
 
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.treeResource
+     * @description Loads in data for trees
+     */
+    interface ITreeResource {
+        /** Loads in the data to display the nodes menu */
+        loadMenu(node: any): void;
 
+        /** Loads in the data to display the nodes for an application */
+        loadApplication(options: any): void;
 
+        /** Loads in the data to display the child nodes for a given node */
+        loadNodes(options: any): void;
+    }
 
-
+    /**
+     * @ngdoc service
+     * @name umbraco.resources.userResource
+     */
+    interface IUserResource {
+        disableUser(userId: number): void;
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "name": "@types/openpgp",
+    "version": "4.4.9999",
+    "projects": [
+        "https://openpgpjs.org"
+    ],
+    "dependencies": {
+        "@types/bn.js": "*"
+    },
+    "devDependencies": {
+        "@types/openpgp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guillaume Lacasa",
+            "url": "https://blog.lacasa.fr"
+        },
+        {
+            "name": "Errietta Kostala",
+            "githubUsername": "errietta"
+        },
+        {
+            "name": "Daniel Montesinos",
+            "githubUsername": "damonpam"
+        },
+        {
+            "name": "Carlos Villavicencio",
+            "githubUsername": "po5i"
+        },
+        {
+            "name": "Eric Camellini",
+            "githubUsername": "ecamellini"
+        },
+        {
+            "name": "SardineFish",
+            "githubUsername": "SardineFish"
+        },
+        {
+            "name": "Ryo Ota",
+            "githubUsername": "nwtgck"
+        },
+        {
+            "name": "Sergey Bakulin",
+            "githubUsername": "vansergen"
+        },
+        {
+            "name": "Wiktor Kwapisiewicz",
+            "url": "https://metacode.biz/@wiktor"
+        },
+        {
+            "name": "Ugo Sangiorgi",
+            "githubUsername": "ugosan"
+        }
+    ]
+}

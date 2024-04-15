@@ -1,13 +1,6 @@
-// Type definitions for @fnando/sparkline 0.3
-// Project: https://github.com/fnando/sparkline
-// Definitions by: Gábor Balogh <https://github.com/grabofus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 type SparklineNativeEntry = number | { value: number };
 
-type SparklineDatapoint<TEntry> = TEntry extends number
-    ? { x: number; y: number; index: number; value: number }
+type SparklineDatapoint<TEntry> = TEntry extends number ? { x: number; y: number; index: number; value: number }
     : TEntry & { x: number; y: number; index: number };
 
 interface SparklineOptionsFetch<TEntry> {

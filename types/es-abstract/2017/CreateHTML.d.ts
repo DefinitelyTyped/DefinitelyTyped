@@ -1,2 +1,2 @@
-import CreateHTML = require('../2016/CreateHTML');
+import CreateHTML = require("../2016/CreateHTML");
 export = CreateHTML;

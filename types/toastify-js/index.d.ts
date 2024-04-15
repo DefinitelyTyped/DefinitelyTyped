@@ -1,9 +1,3 @@
-// Type definitions for toastify-js 1.11
-// Project: https://github.com/apvarun/toastify-js#readme
-// Definitions by: adblanc <https://github.com/adblanc>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace StartToastifyInstance {
     function reposition(): void;
     interface Offset {
@@ -19,8 +13,13 @@ declare namespace StartToastifyInstance {
         destination?: string | undefined;
         newWindow?: boolean | undefined;
         close?: boolean | undefined;
-        gravity?: 'top' | 'bottom' | undefined;
-        position?: 'left' | 'center' | 'right' | undefined;
+        gravity?: "top" | "bottom" | undefined;
+        position?: "left" | "center" | "right" | undefined;
+        /**
+         * Announce the toast to screen readers
+         * @default 'polite'
+         */
+        ariaLive?: "off" | "polite" | "assertive" | undefined;
         /**
          * @deprecated use style.background option instead
          */

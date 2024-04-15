@@ -1,26 +1,26 @@
-import { Packery, PackeryOptions } from 'packery';
+import { Packery, PackeryOptions } from "packery";
 
 // TODO Add Draggabilly to bind Draggabilly Events
-var container = document.querySelector('#container');
-var item = document.querySelector('.item');
-var items = document.querySelectorAll('.item');
-var $element = $('#single-item');
+var container = document.querySelector("#container");
+var item = document.querySelector(".item");
+var items = document.querySelectorAll(".item");
+var $element = $("#single-item");
 
 var PackeryEvents = {
-    dragItemPositioned: 'dragItemPositioned',
-    layoutComplete: 'layoutComplete',
-    fitComplete: 'fitComplete',
-    removeComplete: 'removeComplete'
+    dragItemPositioned: "dragItemPositioned",
+    layoutComplete: "layoutComplete",
+    fitComplete: "fitComplete",
+    removeComplete: "removeComplete",
 };
 
 var packery = new Packery(container);
 
-var PackeryItems: Array<any> = [
+var PackeryItems: any[] = [
     packery.data(item),
     packery.data(item),
     packery.data(item),
     packery.data(item),
-    packery.data(item)
+    packery.data(item),
 ];
 
 packery.addItems(item);

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-bootstrap-table2-paginator",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/react-bootstrap-table/react-bootstrap-table2#readme"
+    ],
+    "dependencies": {
+        "@types/react-bootstrap-table-next": "*"
+    },
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-bootstrap-table2-paginator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wlad Meixner",
+            "githubUsername": "gosticks"
+        }
+    ]
+}

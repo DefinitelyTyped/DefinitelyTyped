@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/auth0-lock",
+    "version": "11.27.9999",
+    "projects": [
+        "http://auth0.com",
+        "https://github.com/auth0/lock"
+    ],
+    "dependencies": {
+        "@types/auth0-js": "*"
+    },
+    "devDependencies": {
+        "@types/auth0-lock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Caruso",
+            "githubUsername": "carusology"
+        },
+        {
+            "name": "Dan Caddigan",
+            "githubUsername": "goldcaddy77"
+        },
+        {
+            "name": "Larry Faudree",
+            "githubUsername": "lfaudreejr"
+        },
+        {
+            "name": "Will Caulfield",
+            "githubUsername": "willcaul"
+        },
+        {
+            "name": "Thomas Pearson",
+            "githubUsername": "xsv24"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for bootstrap-multiselect 0.9
-// Project: https://github.com/davidstutz/bootstrap-multiselect
-// Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface Templates {
@@ -23,7 +17,7 @@ interface MultiSelectOptionElement {
     selected?: boolean | undefined;
     disabled?: boolean | undefined;
     children?: MultiSelectOptionElement[] | undefined;
-    attributes?: {[name: string]: any} | undefined;
+    attributes?: { [name: string]: any } | undefined;
 }
 
 interface MultiSelectOptions {
@@ -117,7 +111,7 @@ interface MultiSelectOptions {
 
     /**
      * The class of the multiselect button.
-     * @exampl.
+     * @example
      * $('#example-buttonClass').multiselect({
      *      buttonClass: 'btn btn-link'
      *   });
@@ -131,7 +125,7 @@ interface MultiSelectOptions {
 
     /**
      * The container holding both the button as well as the dropdown.
-     * @exampl.
+     * @example
      * $('#example-buttonContainer').multiselect({
      *       buttonContainer: '<div class="btn-group" />'
      *   });
@@ -141,7 +135,7 @@ interface MultiSelectOptions {
     /**
      * The width of the multiselect button may be fixed using this option.
      * Actually, buttonWidth describes the width of the .btn-group container and the width of the button is set to 100%.
-     * @example.
+     * @example
      * $('#example-buttonWidth').multiselect({
      *       buttonWidth: '400px'
      *   });
@@ -279,7 +273,7 @@ interface MultiSelectOptions {
     /**
      * The options are filtered based on their text. This behavior can be changed to use the value of the options or both the text and the value.
      */
-    filterBehavior?: 'text' | 'value' | 'both' | undefined;
+    filterBehavior?: "text" | "value" | "both" | undefined;
 
     /**
      * The placeholder used for the filter input.
@@ -299,15 +293,15 @@ interface MultiSelectOptions {
 interface JQuery {
     multiselect(options?: MultiSelectOptions): JQuery;
 
-    multiselect(method: 'destroy' | 'refresh' | 'rebuild' | 'updateButtonText'| 'disable' | 'enable'): JQuery;
+    multiselect(method: "destroy" | "refresh" | "rebuild" | "updateButtonText" | "disable" | "enable"): JQuery;
 
-    multiselect(method: 'select' | 'deselect', value: string | string[] | number, triggerOnChange?: boolean): JQuery;
+    multiselect(method: "select" | "deselect", value: string | string[] | number, triggerOnChange?: boolean): JQuery;
 
-    multiselect(method: 'selectAll' | 'deselectAll', justVisible?: boolean): JQuery;
+    multiselect(method: "selectAll" | "deselectAll", justVisible?: boolean): JQuery;
 
-    multiselect(method: 'setOptions', options: MultiSelectOptions): JQuery;
+    multiselect(method: "setOptions", options: MultiSelectOptions): JQuery;
 
-    multiselect(method: 'dataprovider', data: MultiSelectOptionElement[]): JQuery;
+    multiselect(method: "dataprovider", data: MultiSelectOptionElement[]): JQuery;
 
-    multiselect(method: 'setAllSelectedText', value: string): JQuery;
+    multiselect(method: "setAllSelectedText", value: string): JQuery;
 }

@@ -1,3 +1,3 @@
-import { RefractorSyntax } from '../core';
+import { RefractorSyntax } from "../core";
 declare const lang: RefractorSyntax;
 export = lang;

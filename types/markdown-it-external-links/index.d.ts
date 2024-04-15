@@ -1,10 +1,4 @@
-// Type definitions for markdown-it-link-attributes 0.0
-// Project: https://github.com/rotorz/markdown-it-external-links
-// Definitions by: Daniil Pronin <https://github.com/grawl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { PluginWithOptions } from 'markdown-it';
-import { RenderRule } from 'markdown-it/lib/renderer';
+import { PluginWithOptions, Renderer } from "markdown-it";
 
 declare namespace markdownItExternalLinks {
     interface Config {
@@ -17,7 +11,11 @@ declare namespace markdownItExternalLinks {
         internalRel?: string | undefined;
     }
 }
-declare const markdownItExternalLinks: PluginWithOptions<markdownItExternalLinks.Config | markdownItExternalLinks.Config[]> & {
-    readonly defaultRender: RenderRule;
-};
+declare const markdownItExternalLinks:
+    & PluginWithOptions<
+        markdownItExternalLinks.Config | markdownItExternalLinks.Config[]
+    >
+    & {
+        readonly defaultRender: Renderer.RenderRule;
+    };
 export = markdownItExternalLinks;

@@ -1,4 +1,4 @@
-import { replaceValueSymbols, replaceSymbols, extractICSS, createICSSRules } from "icss-utils";
+import { createICSSRules, extractICSS, replaceSymbols, replaceValueSymbols } from "icss-utils";
 import postcss = require("postcss");
 
 const root = postcss.parse("a#css.string { color: red }");

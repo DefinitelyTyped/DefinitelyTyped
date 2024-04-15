@@ -1,6 +1,6 @@
-// tslint:disable:space-before-function-paren
-
-import editorClient = require('@node-red/editor-client');
+import editorClient = require("@node-red/editor-client");
+import { TrayResizeOptions } from "@node-red/editor-client/index";
+import { NodeMessage } from "@node-red/registry";
 
 function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
@@ -25,20 +25,20 @@ function redTests(RED: editorClient.RED) {
         // @ts-expect-error
         nodeInstance.wrongKey;
         // $ExpectType string
-        nodeInstance._('myNode.label');
+        nodeInstance._("myNode.label");
         // $ExpectType string
-        nodeInstance._('myNode.status', { num: 10 });
+        nodeInstance._("myNode.status", { num: 10 });
     }
 
     const myNodeDef: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
-        category: 'category',
+        category: "category",
         defaults: {
-            name: { value: '' },
+            name: { value: "" },
             inputs: { value: 1 },
             key: {
-                value: '',
+                value: "",
                 required: true,
-                type: 'my-config-node',
+                type: "my-config-node",
                 validate(val) {
                     // $ExpectType string
                     val;
@@ -54,18 +54,18 @@ function redTests(RED: editorClient.RED) {
             },
             // @ts-expect-error
             instanceProp: {
-                value: '',
+                value: "",
             },
         },
         credentials: {
             username: {
-                type: 'text',
+                type: "text",
             },
             password: {
-                type: 'password',
+                type: "password",
             },
         },
-        align: 'right',
+        align: "right",
         button: {
             onclick() {
                 // $ExpectType string
@@ -94,42 +94,42 @@ function redTests(RED: editorClient.RED) {
                 return true;
             },
         },
-        color: '#3377CC',
-        icon: 'icon.svg',
+        color: "#3377CC",
+        icon: "icon.svg",
         inputLabels: true
-            ? 'label'
-            : function () {
-                  // $ExpectType string
-                  this.key;
-                  // $ExpectType string
-                  this.instanceProp;
-                  // @ts-expect-error
-                  this.wrongKey;
-                  return 'label';
-              },
+            ? "label"
+            : function() {
+                // $ExpectType string
+                this.key;
+                // $ExpectType string
+                this.instanceProp;
+                // @ts-expect-error
+                this.wrongKey;
+                return "label";
+            },
         inputs: 0,
         label: true
-            ? 'label'
-            : function () {
-                  // $ExpectType string
-                  this.key;
-                  // $ExpectType string
-                  this.instanceProp;
-                  // @ts-expect-error
-                  this.wrongKey;
-                  return 'label';
-              },
+            ? "label"
+            : function() {
+                // $ExpectType string
+                this.key;
+                // $ExpectType string
+                this.instanceProp;
+                // @ts-expect-error
+                this.wrongKey;
+                return "label";
+            },
         labelStyle: true
-            ? 'italic'
-            : function () {
-                  // $ExpectType string
-                  this.key;
-                  // $ExpectType string
-                  this.instanceProp;
-                  // @ts-expect-error
-                  this.wrongKey;
-                  return 'italic';
-              },
+            ? "italic"
+            : function() {
+                // $ExpectType string
+                this.key;
+                // $ExpectType string
+                this.instanceProp;
+                // @ts-expect-error
+                this.wrongKey;
+                return "italic";
+            },
         oneditcancel() {
             // $ExpectType string
             this.key;
@@ -190,62 +190,72 @@ function redTests(RED: editorClient.RED) {
             // @ts-expect-error
             this.wrongKey;
         },
+        onadd() {
+            // $ExpectType string
+            this.key;
+            // $ExpectType string
+            this.instanceProp;
+            // @ts-expect-error
+            this.wrongKey;
+        },
         outputLabels: true
             ? true
-                ? 'label'
-                : ['label1', 'label2']
-            : function (idx) {
-                  // $ExpectType number
-                  idx;
-                  // $ExpectType string
-                  this.key;
-                  // $ExpectType string
-                  this.instanceProp;
-                  // @ts-expect-error
-                  this.wrongKey;
-                  return 'label';
-              },
+                ? "label"
+                : ["label1", "label2"]
+            : function(idx) {
+                // $ExpectType number
+                idx;
+                // $ExpectType string
+                this.key;
+                // $ExpectType string
+                this.instanceProp;
+                // @ts-expect-error
+                this.wrongKey;
+                return "label";
+            },
         outputs: 2,
         paletteLabel: true
-            ? 'label'
-            : function () {
-                  // $ExpectType string
-                  this.key;
-                  // $ExpectType string
-                  this.instanceProp;
-                  // @ts-expect-error
-                  this.wrongKey;
-                  return 'label';
-              },
+            ? "label"
+            : function() {
+                // $ExpectType string
+                this.key;
+                // $ExpectType string
+                this.instanceProp;
+                // @ts-expect-error
+                this.wrongKey;
+                return "label";
+            },
     };
 
     const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
-        category: 'category',
+        category: "category",
         defaults: {
             // @ts-expect-error
             x: {},
             key: {
-                value: '',
-            }
-        }
+                value: "",
+            },
+        },
     };
 
-    RED.nodes.registerType('my-node', myNodeDef);
-    RED.nodes.registerType<MyNodeProperties, MyNodeCredentials>('my-node', {
-        category: 'category',
+    RED.nodes.registerType("my-node", myNodeDef);
+    RED.nodes.registerType<MyNodeProperties, MyNodeCredentials>("my-node", {
+        category: "category",
         defaults: {
             // @ts-expect-error
             wrongKey: {
-                value: '',
+                value: "",
             },
         },
         credentials: {
             // @ts-expect-error
             wrongKey: {
-                type: 'text',
+                type: "text",
             },
         },
     });
+
+    RED.actions.invoke("core:generate-node-names", myNodeDef, { generateHistory: false });
 }
 
 function widgetEditableListTests() {
@@ -267,7 +277,7 @@ function widgetEditableListTests() {
             // @ts-expect-error
             data.wrongKey;
         },
-        connectWith: '.cssSelector',
+        connectWith: ".cssSelector",
         filter: data => {
             // $ExpectType string
             data.key;
@@ -275,8 +285,8 @@ function widgetEditableListTests() {
             data.wrongKey;
             return true;
         },
-        header: $('<div/>'),
-        height: true ? 200 : 'auto',
+        header: $("<div/>"),
+        height: true ? 200 : "auto",
         removable: true,
         removeItem: data => {
             data.key;
@@ -306,84 +316,244 @@ function widgetEditableListTests() {
             // $ExpectType JQuery<HTMLElement>
             items[0];
         },
-        sortable: true ? true : '.cssSelector',
+        sortable: true ? true : ".cssSelector",
     };
 }
 
 function widgetTypedInputTests() {
-    const goodType: editorClient.WidgetTypedInputType = 'msg';
+    const goodType: editorClient.WidgetTypedInputType = "msg";
     // @ts-expect-error
-    const wrongType: editorClient.WidgetTypedInputType = 'wrongType';
+    const wrongType: editorClient.WidgetTypedInputType = "wrongType";
     const goodTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
-        value: 'mytype',
+        value: "mytype",
         hasValue: false,
-        icon: 'icon',
-        label: 'label',
-        options: ['opt1', 'opt2'],
+        icon: "icon",
+        label: "label",
+        options: ["opt1", "opt2"],
+    };
+    const goodTypeListOptionsDef: editorClient.WidgetTypedInputTypeDefinition = {
+        value: "mytype",
+        hasValue: false,
+        icon: "icon",
+        label: "label",
+        options: [
+            { value: "val1", label: "label1" },
+            { value: "val2", label: "label2" },
+        ],
     };
     const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
         // @ts-expect-error
-        wrongKey: 'value',
+        wrongKey: "value",
     };
-    $('#inputId').typedInput({
-        types: [goodType, wrongType, goodTypeDef, wrongTypeDef],
+    $("#inputId").typedInput({
+        types: [goodType, wrongType, goodTypeDef, wrongTypeDef, goodTypeListOptionsDef],
     });
-    $('#inputId').typedInput({
-        types: ['msg', 'flow', 'global', 'str', 'num', 'bool', 'json', 'bin', 're', 'date', 'jsonata', 'env'],
+    $("#inputId").typedInput({
+        types: ["msg", "flow", "global", "str", "num", "bool", "json", "bin", "re", "date", "jsonata", "env"],
     });
-    $('#inputId').typedInput({
+    $("#inputId").typedInput({
         types: [
             {
-                value: 'mytype',
+                value: "mytype",
                 validate: (_v: string) => true,
             },
         ],
     });
-    $('#inputId').typedInput({
+    $("#inputId").typedInput({
         types: [
             {
-                value: 'mytype',
+                value: "mytype",
                 validate: /\d/,
             },
         ],
     });
 
-    $('#inputId').typedInput('hide');
-    $('#inputId').typedInput('show');
+    $("#inputId").typedInput("hide");
+    $("#inputId").typedInput("show");
 
-    const type = $('#inputId').typedInput('type');
-    $('#inputId').typedInput('type', type);
+    const type = $("#inputId").typedInput("type");
+    $("#inputId").typedInput("type", type);
 
     // @ts-expect-error
-    $('#inputId').typedInput('types', [{ wrongKey: 'value' }]);
-    $('#inputId').typedInput('types', [
-        'msg',
-        'flow',
-        'global',
-        'str',
-        'num',
-        'bool',
-        'json',
-        'bin',
-        're',
-        'date',
-        'jsonata',
-        'env',
+    $("#inputId").typedInput("types", [{ wrongKey: "value" }]);
+    $("#inputId").typedInput("types", [
+        "msg",
+        "flow",
+        "global",
+        "str",
+        "num",
+        "bool",
+        "json",
+        "bin",
+        "re",
+        "date",
+        "jsonata",
+        "env",
         {
-            value: 'mytype',
+            value: "mytype",
             hasValue: false,
-            icon: 'icon',
-            label: 'label',
-            options: ['opt1', 'opt2'],
+            icon: "icon",
+            label: "label",
+            options: ["opt1", "opt2"],
         },
     ]);
 
     // $ExpectType boolean
-    $('#inputId').typedInput('validate');
+    $("#inputId").typedInput("validate");
 
     // $ExpectType string
-    const val = $('#inputId').typedInput('value');
-    $('#inputId').typedInput('value', val);
+    const val = $("#inputId").typedInput("value");
+    $("#inputId").typedInput("value", val);
 
-    $('#inputId').typedInput('width', 200);
+    $("#inputId").typedInput("width", 200);
+}
+
+function nodeRedPluginTests(RED: editorClient.RED) {
+    const myPluginDef: editorClient.PluginDef = {
+        onadd() {
+            RED.sidebar.addTab({
+                id: "my-plugin",
+                label: "my-plugin",
+                name: "my-plugin",
+                action: "core:show-my-tab",
+            });
+            RED.actions.add("my-plugin:show-my-tab", () => RED.sidebar.show("my-plugin"));
+        },
+    };
+    RED.plugins.registerPlugin("my-plugin", myPluginDef);
+}
+
+function nodeRedUtilsTests(RED: editorClient.RED) {
+    interface SomeNodeMsg extends NodeMessage {
+        key: string;
+    }
+    const msg: SomeNodeMsg = {
+        key: "value",
+    };
+
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression("a[\"b\"].c");
+
+    // $ExpectType (string | number)[]
+    RED.utils.normalisePropertyExpression("a[msg.foo]", msg);
+}
+
+function nodeRedEditorTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.editor.editSubflow({});
+    // $ExpectType void
+    RED.editor.editSubflow({}, {});
+
+    // $ExpectType void
+    RED.editor.editGroup({});
+    // $ExpectType void
+    RED.editor.editGroup({}, {});
+
+    // $ExpectType void
+    RED.editor.editJavaScript({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        value: "any",
+        width: 0,
+        stateId: "string",
+        mode: "string",
+        focus: true,
+        cancel: () => {},
+        complete: (value: any, cursor?: any) => {},
+        extraLibs: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editExpression({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        value: "string",
+        stateId: "string",
+        focus: true,
+        complete: (value: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editJSON({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        value: "string",
+        stateId: "string",
+        focus: true,
+        complete: (value: any) => {},
+        requireValid: true,
+        readOnly: true,
+        toolbarButtons: [],
+    });
+
+    // $ExpectType void
+    RED.editor.editMarkdown({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        value: "string",
+        width: "Infinite",
+        stateId: "string",
+        focus: true,
+        complete: (value: any) => {},
+        header: $("<div/>"),
+    });
+
+    // $ExpectType void
+    RED.editor.editText({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        mode: "string",
+        value: "string",
+        stateId: "string",
+        width: 0,
+        focus: true,
+        complete: (value: string, cursor?: any) => {},
+    });
+
+    // $ExpectType void
+    RED.editor.editBuffer({
+        title: "string",
+        parent: $("<div/>"),
+        onclose: () => {},
+        value: "any",
+        stateId: "string",
+        focus: true,
+        complete: (value: any) => {},
+    });
+}
+
+function nodeRedTrayTests(RED: editorClient.RED) {
+    // $ExpectType void
+    RED.tray.show();
+
+    // $ExpectType void
+    RED.tray.show({
+        buttons: [
+            {
+                class: "string",
+                click: (event: any) => {},
+                id: "string",
+                text: "string",
+            },
+        ],
+
+        close: () => {},
+        open: (tray: any, done?: () => void) => {},
+        resize: (options: TrayResizeOptions) => {},
+        show: () => {},
+
+        title: "string",
+
+        maximized: true,
+        width: 0,
+
+        overlay: true,
+
+        focusElement: $("<div/>"),
+    });
 }

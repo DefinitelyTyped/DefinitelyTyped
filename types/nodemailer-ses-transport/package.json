@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/nodemailer-ses-transport",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/nodemailer/nodemailer-ses-transport"
+    ],
     "dependencies": {
-        "aws-sdk": "^2.814.0"
-    }
+        "@types/aws-sdk2-types": "*",
+        "@types/nodemailer": "^3"
+    },
+    "devDependencies": {
+        "@types/nodemailer-ses-transport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seth Westphal",
+            "githubUsername": "westy92"
+        }
+    ]
 }

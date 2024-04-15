@@ -1,9 +1,3 @@
-// Type definitions for Jasmine DOM 1.0
-// Project: https://github.com/testing-library/jasmine-dom
-// Definitions by: Brian Alexis Michel <https://github.com/brrianalexis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="jasmine" />
 
 declare namespace jasmine {
@@ -289,5 +283,119 @@ declare namespace jasmine {
          * matchearse únicamente usando `toBeChecked` o `toHaveFormValues`.
          */
         toHaveValue(value?: string | string[] | number | null): boolean;
+        /**
+         * @description
+         * 🇬🇧
+         * Assert whether a string representing a HTML element is contained in another element.
+         *
+         * @example
+         * <span data-testid="parent"><span data-testid="child"></span></span>
+         *
+         * expect(getByTestId('parent')).toContainHTML('<span data-testid="child"></span>')
+         * @see
+         * [testing-library/jasmine-dom#tocontainhtml](https://github.com/testing-library/jasmine-dom#tocontainhtml)
+         */
+        toContainHTML(htmlText: string): boolean;
+        /**
+         * @description
+         * 🇬🇧
+         * This allows to assert that an element has the expected [accessible description](https://w3c.github.io/accname/).
+         *
+         * You can pass the exact string of the expected accessible description, or you can make a
+         * partial match passing a regular expression, or by using either
+         * [jasmine.stringContaining](https://jasmine.github.io/api/edge/jasmine#.stringContaining)
+         * or [jasmine.stringMatching](https://jasmine.github.io/api/edge/jasmine#.stringMatching).
+         * @example
+         * <a data-testid="link" href="/" aria-label="Home page" title="A link to start over">Start</a>
+         * <a data-testid="extra-link" href="/about" aria-label="About page">About</a>
+         * <img src="avatar.jpg" data-testid="avatar" alt="User profile pic" />
+         * <img src="logo.jpg" data-testid="logo" alt="Company logo" aria-describedby="t1" />
+         * <span id="t1" role="presentation">The logo of Our Company</span>
+         *
+         * expect(getByTestId('link')).toHaveAccessibleDescription()
+         * expect(getByTestId('link')).toHaveAccessibleDescription('A link to start over')
+         * expect(getByTestId('link')).not.toHaveAccessibleDescription('Home page')
+         * expect(getByTestId('extra-link')).not.toHaveAccessibleDescription()
+         * expect(getByTestId('avatar')).not.toHaveAccessibleDescription()
+         * expect(getByTestId('logo')).not.toHaveAccessibleDescription('Company logo')
+         * expect(getByTestId('logo')).toHaveAccessibleDescription('The logo of Our Company')
+         * @see
+         * [testing-library/jasmine-dom#tohaveaccessibledescription](https://github.com/testing-library/jasmine-dom#tohaveaccessibledescription)
+         */
+        toHaveAccessibleDescription(
+            expectedAccessibleDescription: string | RegExp | AsymmetricMatcher<string>,
+        ): boolean;
+        /**
+         * @description
+         * 🇬🇧
+         * This allows to assert that an element has the expected [accessible name](https://w3c.github.io/accname/).
+         * It is useful, for instance, to assert that form elements and buttons are properly labelled.
+         *
+         * You can pass the exact string of the expected accessible name, or you can make a
+         * partial match passing a regular expression, or by using either
+         * [jasmine.stringContaining](https://jasmine.github.io/api/edge/jasmine#.stringContaining)
+         * or [jasmine.stringMatching](https://jasmine.github.io/api/edge/jasmine#.stringMatching).
+         * @example
+         * <img data-testid="img-alt" src="" alt="Test alt" />
+         * <img data-testid="img-empty-alt" src="" alt="" />
+         * <svg data-testid="svg-title"><title>Test title</title></svg>
+         * <button data-testid="button-img-alt"><img src="" alt="Test" /></button>
+         * <p><img data-testid="img-paragraph" src="" alt="" /> Test content</p>
+         * <button data-testid="svg-button"><svg><title>Test</title></svg></p>
+         * <div><svg data-testid="svg-without-title"></svg></div>
+         * <input data-testid="input-title" title="test" />
+         *
+         * expect(getByTestId('img-alt')).toHaveAccessibleName('Test alt')
+         * expect(getByTestId('img-empty-alt')).not.toHaveAccessibleName()
+         * expect(getByTestId('svg-title')).toHaveAccessibleName('Test title')
+         * expect(getByTestId('button-img-alt')).toHaveAccessibleName()
+         * expect(getByTestId('img-paragraph')).not.toHaveAccessibleName()
+         * expect(getByTestId('svg-button')).toHaveAccessibleName()
+         * expect(getByTestId('svg-without-title')).not.toHaveAccessibleName()
+         * expect(getByTestId('input-title')).toHaveAccessibleName()
+         * @see
+         * [testing-library/jasmine-dom#tohaveaccessiblename](https://github.com/testing-library/jasmine-dom#tohaveaccessiblename)
+         */
+        toHaveAccessibleName(expectedAccessibleName: string | RegExp | AsymmetricMatcher<string>): boolean;
+        /**
+         * @description
+         *
+         * Check whether the given element has an [ARIA error message](https://www.w3.org/TR/wai-aria/#aria-errormessage) or not.
+         *
+         * Use the `aria-errormessage` attribute to reference another element that contains
+         * custom error message text. Multiple ids is **NOT** allowed. Authors MUST use
+         * `aria-invalid` in conjunction with `aria-errormessage`. Learn more from the
+         * [`aria-errormessage` spec](https://www.w3.org/TR/wai-aria/#aria-errormessage).
+         *
+         * Whitespace is normalized.
+         *
+         * When a `string` argument is passed through, it will perform a whole
+         * case-sensitive match to the error message text.
+         *
+         * To perform a case-insensitive match, you can use a `RegExp` with the `/i`
+         * modifier.
+         *
+         * To perform a partial match, you can pass a `RegExp` or use
+         * jasmine.stringContaining("partial string")`.
+         *
+         * @example
+         * <label for="startTime"> Please enter a start time for the meeting: </label>
+         * <input id="startTime" type="text" aria-errormessage="msgID" aria-invalid="true" value="11:30 PM" />
+         * <span id="msgID" aria-live="assertive" style="visibility:visible">
+         *   Invalid time: the time must be between 9:00 AM and 5:00 PM"
+         * </span>
+         *
+         * const timeInput = getByLabel('startTime')
+         *
+         * expect(timeInput).toHaveErrorMessage(
+         *   'Invalid time: the time must be between 9:00 AM and 5:00 PM',
+         * )
+         * expect(timeInput).toHaveErrorMessage(/invalid time/i) // to partially match
+         * expect(timeInput).toHaveErrorMessage(jasmine.stringContaining('Invalid time')) // to partially match
+         * expect(timeInput).not.toHaveErrorMessage('Pikachu!')
+         * @see
+         * [testing-library/jasmine-dom#tohaveerrormessage](https://github.com/testing-library/jasmine-dom#tohaveerrormessage)
+         */
+        toHaveErrorMessage(checkWith: string | RegExp | AsymmetricMatcher<string>): boolean;
     }
 }

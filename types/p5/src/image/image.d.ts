@@ -60,14 +60,25 @@ declare module '../../index' {
          *   default but instead passed as an argument to the
          *   callback function as an array of objects, with the
          *   size of array equal to the total number of frames.
-         *   Note that saveFrames() will only save the first 15
-         *   frames of an animation. To export longer
-         *   animations, you might look into a library like
-         *   ccapture.js.
+         *   The arguments duration and framerate are
+         *   constrained to be less or equal to 15 and 22,
+         *   respectively, which means you can only download a
+         *   maximum of 15 seconds worth of frames at 22 frames
+         *   per second, adding up to 330 frames. This is done
+         *   in order to avoid memory problems since a large
+         *   enough canvas can fill up the memory in your
+         *   computer very easily and crash your program or
+         *   even your browser.
+         *
+         *   To export longer animations, you might look into a
+         *   library like ccapture.js.
          *   @param extension 'jpg' or 'png'
          *   @param duration Duration in seconds to save the
-         *   frames for.
+         *   frames for. This parameter will be constrained to
+         *   be less or equal to 15.
          *   @param framerate Framerate to save the frames in.
+         *   This parameter will be constrained to be less or
+         *   equal to 22.
          *   @param [callback] A callback function that will be
          *   executed to handle the image data. This function
          *   should accept an array as argument. The array will

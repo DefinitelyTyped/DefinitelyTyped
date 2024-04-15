@@ -1,8 +1,8 @@
-import b64 = require('base64-async');
-import * as fs from 'fs';
+import b64 = require("base64-async");
+import * as fs from "fs";
 
-const buffer: Buffer = fs.readFileSync('somehugefile.jpg');
-const b64String = 'aGkgbXVt...';
+const buffer: Buffer = fs.readFileSync("somehugefile.jpg");
+const b64String = "aGkgbXVt...";
 
 b64.encode(buffer).then(b64String => {
     b64String; // $ExpectType string

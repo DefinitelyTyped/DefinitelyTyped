@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -104,10 +99,10 @@ declare namespace BMap {
         getAltitude(): number;
         addEventListener(event: string, handler: Callback): void;
         removeEventListener(event: string, handler: Callback): void;
-        onclick: (event: { type: string, target: any }) => void;
-        onmouseover: (event: { type: string, target: any }) => void;
-        onmouseout: (event: { type: string, target: any }) => void;
-        onremove: (event: { type: string, target: any }) => void;
+        onclick: (event: { type: string; target: any }) => void;
+        onmouseover: (event: { type: string; target: any }) => void;
+        onmouseout: (event: { type: string; target: any }) => void;
+        onremove: (event: { type: string; target: any }) => void;
     }
     interface PanoramaLabelOptions {
         position?: Point | undefined;

@@ -1,4 +1,4 @@
-import { Object3D, LineSegments } from '../../../src/Three';
+import { LineSegments, Object3D } from "three";
 
 export class VertexNormalsHelper extends LineSegments {
     constructor(object: Object3D, size?: number, hex?: number);
@@ -7,4 +7,6 @@ export class VertexNormalsHelper extends LineSegments {
     size: number;
 
     update(): void;
+
+    dispose(): void;
 }

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/lodash.flow",
+    "version": "3.5.9999",
+    "projects": [
+        "https://lodash.com"
+    ],
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "devDependencies": {
+        "@types/lodash.flow": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Zengel",
+            "githubUsername": "bczengel"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        }
+    ]
+}

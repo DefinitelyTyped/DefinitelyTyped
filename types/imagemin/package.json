@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/imagemin",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/imagemin/imagemin#readme"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/imagemin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Romain Faust",
+            "githubUsername": "romain-faust"
+        },
+        {
+            "name": "Jeff Chan",
+            "githubUsername": "hkjeffchan"
+        }
+    ]
+}

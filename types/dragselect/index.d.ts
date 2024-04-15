@@ -1,8 +1,3 @@
-// Type definitions for DragSelect 1.13
-// Project: https://ThibaultJanBeyer.com/
-// Definitions by: IceCreamYou <https://github.com/IceCreamYou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class DragSelect {
     // These properties store the options passed to the constructor, or the
     // defaults if the relevant options aren't passed. See the docs below.
@@ -11,7 +6,7 @@ declare class DragSelect {
     selectorClass: string;
     selectableClass: string;
     selectables: ArrayLike<HTMLElement | SVGElement> | HTMLElement | SVGElement;
-    multiSelectKeys: ReadonlyArray<'ctrlKey' | 'shiftKey' | 'metaKey' | 'altKey'>;
+    multiSelectKeys: ReadonlyArray<"ctrlKey" | "shiftKey" | "metaKey" | "altKey">;
     multiSelectMode: boolean;
     autoScrollSpeed: number;
     selectCallback: (selected: HTMLElement | SVGElement) => void;
@@ -49,26 +44,28 @@ declare class DragSelect {
      *     are keys that are provided via the event object. So far: <kbd>ctrlKey</kbd>, <kbd>shiftKey</kbd>, <kbd>metaKey</kbd> and <kbd>altKey</kbd>. Provide an empty array `[]` if you want to turn
      *     off the functionality.
      */
-    constructor(options?: Partial<{
-        area: HTMLElement | SVGElement | Document;
-        autoScrollSpeed: number;
-        callback: (selected: Array<HTMLElement | SVGElement>, event: MouseEvent | TouchEvent) => void;
-        customStyles: boolean;
-        hoverClass: string;
-        multiSelectKeys: ReadonlyArray<'ctrlKey' | 'shiftKey' | 'metaKey' | 'altKey'>;
-        multiSelectMode: boolean;
-        onDragMove: (event: MouseEvent | TouchEvent) => void;
-        onDragStart: (event: MouseEvent | TouchEvent) => void;
-        onDragStartBegin: (event: MouseEvent | TouchEvent) => void;
-        onElementSelect: (selected: HTMLElement | SVGElement) => void;
-        onElementUnselect: (selected: HTMLElement | SVGElement) => void;
-        selectableClass: string;
-        selectables: ArrayLike<HTMLElement | SVGElement> | HTMLElement | SVGElement;
-        selectedClass: string;
-        selector: HTMLElement;
-        selectorClass: string;
-        zoom: number;
-    }>);
+    constructor(
+        options?: Partial<{
+            area: HTMLElement | SVGElement | Document;
+            autoScrollSpeed: number;
+            callback: (selected: Array<HTMLElement | SVGElement>, event: MouseEvent | TouchEvent) => void;
+            customStyles: boolean;
+            hoverClass: string;
+            multiSelectKeys: ReadonlyArray<"ctrlKey" | "shiftKey" | "metaKey" | "altKey">;
+            multiSelectMode: boolean;
+            onDragMove: (event: MouseEvent | TouchEvent) => void;
+            onDragStart: (event: MouseEvent | TouchEvent) => void;
+            onDragStartBegin: (event: MouseEvent | TouchEvent) => void;
+            onElementSelect: (selected: HTMLElement | SVGElement) => void;
+            onElementUnselect: (selected: HTMLElement | SVGElement) => void;
+            selectableClass: string;
+            selectables: ArrayLike<HTMLElement | SVGElement> | HTMLElement | SVGElement;
+            selectedClass: string;
+            selector: HTMLElement;
+            selectorClass: string;
+            zoom: number;
+        }>,
+    );
     /**
      * Starts the functionality. Automatically triggered when created.
      * Also, reset the functionality after a teardown
@@ -106,7 +103,7 @@ declare class DragSelect {
      */
     isCursorNearEdge(
         event: MouseEvent | TouchEvent | undefined,
-        area: HTMLElement | SVGElement
+        area: HTMLElement | SVGElement,
     ): false | "left" | "right" | "top" | "bottom";
     /**
      * Unbind functions i.e. when mouse click is released
@@ -158,7 +155,7 @@ declare class DragSelect {
     addSelection(
         _nodes: ArrayLike<HTMLElement | SVGElement>,
         triggerCallback?: boolean,
-        dontAddToSelectables?: boolean
+        dontAddToSelectables?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Removes specific nodes from the selection
@@ -171,7 +168,7 @@ declare class DragSelect {
     removeSelection(
         _nodes: ArrayLike<HTMLElement | SVGElement>,
         triggerCallback?: boolean,
-        removeFromSelectables?: boolean
+        removeFromSelectables?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Toggles specific nodes from the selection:
@@ -185,7 +182,7 @@ declare class DragSelect {
     toggleSelection(
         _nodes: ArrayLike<HTMLElement | SVGElement>,
         triggerCallback?: boolean,
-        special?: boolean
+        special?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Sets the current selected nodes and optionally run the callback
@@ -197,7 +194,7 @@ declare class DragSelect {
     setSelection(
         _nodes: ArrayLike<HTMLElement | SVGElement>,
         triggerCallback?: boolean,
-        dontAddToSelectables?: boolean
+        dontAddToSelectables?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Unselect / Deselect all current selected Nodes
@@ -212,7 +209,10 @@ declare class DragSelect {
      * @param [addToSelection] if elements should also be added to current selection
      * @return _nodes the added node(s)
      */
-    addSelectables(_nodes: ArrayLike<HTMLElement | SVGElement>, addToSelection?: boolean): Array<HTMLElement | SVGElement>;
+    addSelectables(
+        _nodes: ArrayLike<HTMLElement | SVGElement>,
+        addToSelection?: boolean,
+    ): Array<HTMLElement | SVGElement>;
     /**
      * Gets all nodes that can be selected
      * @return this.selectables
@@ -230,7 +230,7 @@ declare class DragSelect {
     setSelectables(
         nodes: ArrayLike<HTMLElement | SVGElement>,
         removeFromSelection?: boolean,
-        addToSelection?: boolean
+        addToSelection?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Remove nodes from the nodes that can be selected.
@@ -240,7 +240,7 @@ declare class DragSelect {
      */
     removeSelectables(
         _nodes: ArrayLike<HTMLElement | SVGElement>,
-        removeFromSelection?: boolean
+        removeFromSelection?: boolean,
     ): Array<HTMLElement | SVGElement>;
     /**
      * Returns the starting/initial position of the cursor/selector

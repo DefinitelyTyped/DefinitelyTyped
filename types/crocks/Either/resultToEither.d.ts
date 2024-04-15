@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Result from '../Result';
-import Either from './Either';
+import { UnaryFunction } from "../internal/types";
+import Result from "../Result";
+import Either from "./Either";
 
 /**
  * resultToEither :: Result e a -> Either e a

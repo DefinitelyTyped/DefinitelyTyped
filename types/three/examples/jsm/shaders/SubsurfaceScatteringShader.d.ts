@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const SubsurfaceScatteringShader: {
+    name: string;
     uniforms: {
         alphaMap: IUniform;
         ambientLightColor: IUniform;

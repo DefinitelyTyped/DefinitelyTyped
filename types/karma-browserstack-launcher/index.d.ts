@@ -1,12 +1,6 @@
-// Type definitions for karma-browserstack-launcher 1.6
-// Project: https://github.com/karma-runner/karma-browserstack-launcher#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * {@link https://github.com/karma-runner/karma-browserstack-launcher#global-options}
@@ -44,9 +38,9 @@ declare module 'karma' {
 
     interface BrowserStackOptions {
         /** BS username, you can also use BROWSERSTACK_USERNAME env variable */
-        username: string;
+        username?: string | undefined;
         /**  BS access key, you can also use BROWSERSTACK_ACCESS_KEY env variable */
-        accessKey: string;
+        accessKey?: string | undefined;
         /** do you wanna establish the BrowserStack tunnel */
         startTunnel?: boolean | undefined;
         /**

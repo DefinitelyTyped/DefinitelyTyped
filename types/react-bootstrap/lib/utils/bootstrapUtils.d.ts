@@ -1,8 +1,8 @@
 interface BSProps {
-  bsClass: any;
-  bsSize: any;
-  bsStyle: any;
-  bsRole: any;
+    bsClass: any;
+    bsSize: any;
+    bsStyle: any;
+    bsRole: any;
 }
 
 export function prefix(props: { bsClass?: any }, variant?: string): string;

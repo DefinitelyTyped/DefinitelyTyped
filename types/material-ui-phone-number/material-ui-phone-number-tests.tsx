@@ -1,5 +1,5 @@
-import * as React from "react";
 import MaterialUiPhoneNumber, { MaterialUiPhoneNumberProps } from "material-ui-phone-number";
+import * as React from "react";
 
 const PhoneNumberTest: React.FC<MaterialUiPhoneNumberProps> = props => {
     return (

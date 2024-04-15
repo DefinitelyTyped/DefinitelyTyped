@@ -1,9 +1,4 @@
-// Type definitions for react-detect-offline 2.4
-// Project: https://github.com/cwise89/react-detect-offline#readme
-// Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="react" />
+import { JSX } from "react";
 
 export interface PollingConfig {
     url: string;
@@ -13,6 +8,7 @@ export interface PollingConfig {
 }
 export interface BaseProps {
     children?: React.ReactNode;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onChange?: (online: boolean) => void | undefined;
     wrapperType?: string;
     polling?: boolean | PollingConfig;

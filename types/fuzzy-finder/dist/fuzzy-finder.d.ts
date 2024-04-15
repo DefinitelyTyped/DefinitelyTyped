@@ -1,3 +1,3 @@
-import fuzzyFinder = require('../');
+import fuzzyFinder = require("../");
 
 export = fuzzyFinder;

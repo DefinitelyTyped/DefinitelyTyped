@@ -1,11 +1,3 @@
-// Type definitions for Mixpanel 2.14
-// Project: https://mixpanel.com/, https://github.com/mixpanel/mixpanel-node
-//          https://github.com/mixpanel/mixpanel-js
-// Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
-//                 Manduro <https://github.com/Manduro>
-//                 Noam Golani <https://github.com/noamgolani>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Mixpanel {
     people: Mixpanel.People;
 
@@ -94,8 +86,8 @@ interface Mixpanel {
      * @template EventType The Event type. Use this to set specific properties for an event name
      */
     track<EventType extends Mixpanel.EventBaseType>(
-        eventName: EventType['eventName'],
-        properties: EventType['properties'],
+        eventName: EventType["eventName"],
+        properties: EventType["properties"],
         callback?: () => void,
     ): void;
 
@@ -191,9 +183,9 @@ interface Mixpanel {
      *     });
      *
      * @param properties An associative array of properties to store about the user
-     * @param days How many days since the user's last visit to store the super properties
+     * @param daysOrOptions How many days since the user's last visit to store the super properties or the options object which controls persistence
      */
-    register(properties: { [index: string]: any }, days?: number): void;
+    register(properties: { [index: string]: any }, daysOrOptions?: number | { persistent?: boolean }): void;
 
     /**
      * Register a set of super properties only once. This will not
@@ -213,16 +205,21 @@ interface Mixpanel {
      *
      * @param properties An associative array of properties to store about the user
      * @param defaultValue Value to override if already set in super properties (ex: 'False') Default: 'None'
-     * @param days How many days since the users last visit to store the super properties
+     * @param daysOrOptions How many days since the users last visit to store the super properties or the options object which controls persistence
      */
-    register_once(properties: { [index: string]: any }, defaultValue?: string, days?: number): void;
+    register_once(
+        properties: { [index: string]: any },
+        defaultValue?: string,
+        daysOrOptions?: number | { persistent?: boolean },
+    ): void;
 
     /**
      * Delete a super property stored with the current user.
      *
      * @param propertyName The name of the super property to remove
+     * @param options The options object which controls persistence
      */
-    unregister(propertyName: string): void;
+    unregister(propertyName: string, options?: { persistent?: boolean }): void;
 
     /**
      * Identify a user with a unique ID. All subsequent
@@ -512,7 +509,6 @@ declare namespace Mixpanel {
          *
          *     // remove the all data you have stored about the current user
          *     mixpanel.people.delete_user();
-         *
          */
         delete_user(): void;
     }
@@ -549,7 +545,7 @@ declare namespace Mixpanel {
          *
          * @default 'cookie'
          */
-        persistence?: 'localStorage' | 'cookie' | undefined;
+        persistence?: "localStorage" | "cookie" | undefined;
         /**
          * Name for super properties persistent store
          *

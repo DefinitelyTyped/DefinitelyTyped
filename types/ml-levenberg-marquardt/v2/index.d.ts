@@ -1,8 +1,3 @@
-// Type definitions for ml-levenberg-marquardt 2.1
-// Project: https://github.com/mljs/levenberg-marquardt#readme
-// Definitions by: m93a <https://github.com/m93a>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace LM {
     /**
      * Function that receives an array of parameters and returns
@@ -53,13 +48,13 @@ declare namespace LM {
          * Maximum values for the parameters.
          * Default value: Array(parameters.length).fill(MAX_SAFE_INTEGER)
          */
-         maxValues: number[];
+        maxValues: number[];
 
-         /**
-          * Minimum values for the parameters.
-          * Default value: Array(parameters.length).fill(MIN_SAFE_INTEGER)
-          */
-         minValues: number[];
+        /**
+         * Minimum values for the parameters.
+         * Default value: Array(parameters.length).fill(MIN_SAFE_INTEGER)
+         */
+        minValues: number[];
     }
 
     interface Result {
