@@ -1,4 +1,4 @@
-import LinkifyIt = require("linkify-it");
+import LinkifyIt from "linkify-it";
 
 import * as utils from "./common/utils.mjs";
 import * as helpers from "./helpers/index.mjs";
@@ -146,7 +146,7 @@ interface MarkdownIt {
      * Used by [linkify](https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js)
      * rule.
      */
-    readonly linkify: LinkifyIt.LinkifyIt;
+    readonly linkify: LinkifyIt;
 
     /**
      * Link validation function. CommonMark allows too much in links. By default
