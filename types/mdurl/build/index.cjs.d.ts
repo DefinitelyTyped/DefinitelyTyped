@@ -1,17 +1,23 @@
-declare namespace mdurl {
-    interface Url {
-        protocol: string;
-        slashes: string;
-        auth: string;
-        port: string;
-        hostname: string;
-        hash: string;
-        search: string;
-        pathname: string;
+declare class Url {
+    protocol: string;
+    slashes: string;
+    auth: string;
+    port: string;
+    hostname: string;
+    hash: string;
+    search: string;
+    pathname: string;
 
-        parse(url: string, slashesDenoteHost?: boolean): this;
-        parseHost(host: string): void;
-    }
+    constructor();
+
+    parse(url: string, slashesDenoteHost?: boolean): this;
+    parseHost(host: string): void;
+}
+
+type Url_ = Url;
+
+declare namespace mdurl {
+    type Url = Url_;
 }
 
 declare const mdurl: {

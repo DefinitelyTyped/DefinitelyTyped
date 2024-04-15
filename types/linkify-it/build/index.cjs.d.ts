@@ -1,3 +1,37 @@
+/**
+ * Match result. Single element of array, returned by {@link LinkifyIt#match}.
+ */
+declare class Match {
+    constructor(self: LinkifyIt, shift: number);
+
+    /**
+     * First position of matched string.
+     */
+    index: number;
+    /**
+     * Next position after matched string.
+     */
+    lastIndex: number;
+    /**
+     * Matched string.
+     */
+    raw: string;
+    /**
+     * Prefix (protocol) for matched string.
+     */
+    schema: string;
+    /**
+     * Normalized text of matched string.
+     */
+    text: string;
+    /**
+     * Normalized url of matched string.
+     */
+    url: string;
+}
+
+type Match_ = Match;
+
 declare namespace LinkifyIt {
     type Validate = (text: string, pos: number, self: LinkifyIt) => number | boolean;
 
@@ -42,35 +76,7 @@ declare namespace LinkifyIt {
         fuzzyEmail?: boolean | undefined;
     }
 
-    /**
-     * Match result. Single element of array, returned by {@link LinkifyIt#match}.
-     */
-    interface Match {
-        /**
-         * First position of matched string.
-         */
-        index: number;
-        /**
-         * Next position after matched string.
-         */
-        lastIndex: number;
-        /**
-         * Matched string.
-         */
-        raw: string;
-        /**
-         * Prefix (protocol) for matched string.
-         */
-        schema: string;
-        /**
-         * Normalized text of matched string.
-         */
-        text: string;
-        /**
-         * Normalized url of matched string.
-         */
-        url: string;
-    }
+    type Match = Match_;
 }
 
 declare class LinkifyIt {

@@ -44,7 +44,9 @@ export interface Options {
 /**
  * Match result. Single element of array, returned by {@link LinkifyIt#match}.
  */
-export interface Match {
+declare class Match {
+    constructor(self: LinkifyIt, shift: number);
+
     /**
      * First position of matched string.
      */
@@ -70,6 +72,8 @@ export interface Match {
      */
     url: string;
 }
+
+export type { Match };
 
 declare class LinkifyIt {
     /**
