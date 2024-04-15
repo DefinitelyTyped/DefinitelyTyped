@@ -379,6 +379,7 @@ function formTest() {
 
     const RenderableContext = React.createContext<React.ReactNode>("HAL");
     const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Is supported in Canary release channel
     let node: React.ReactNode = RenderableContext;
     // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
     node = NestedContext;
