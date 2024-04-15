@@ -1,4 +1,4 @@
-import fs = require('fs')
+import fs = require("fs");
 import Sqlite = require("better-sqlite3");
 
 const err = new Sqlite.SqliteError("ok", "ok");
@@ -61,51 +61,52 @@ interface TypedResult {
     id: number;
     name: string;
 }
-const typedStatement: Sqlite.Statement<TypedParameter, TypedResult> = db.prepare<TypedParameter, TypedResult>('select id, name from test where name like :search');
+const typedStatement: Sqlite.Statement<TypedParameter, TypedResult> = db.prepare<TypedParameter, TypedResult>(
+    "select id, name from test where name like :search",
+);
 
-typedStatement.all({ search: '%alice%' }) // $ExpectType TypedResult[]
+typedStatement.all({ search: "%alice%" }); // $ExpectType TypedResult[]
 try {
     // @ts-expect-error
-    typedStatement.all({})
+    typedStatement.all({});
 } catch (error) {
     // expect runtime error
 }
 try {
     // @ts-expect-error
-    typedStatement.all()
-} catch (error) {
-    // expect runtime error
-}
-
-
-typedStatement.get({ search: '%alice%' })?.id
-typedStatement.get({ search: '%alice%' })?.name
-try {
-    // @ts-expect-error
-    typedStatement.get({ search: '%alice%' })?.search
-} catch (error) {
-    // expect runtime error
-}
-try {
-    // @ts-expect-error
-    typedStatement.get({ search: '%alice%' }).name
-} catch (error) {
-    // expect runtime error
-}
-try {
-    // @ts-expect-error
-    typedStatement.get({})
-} catch (error) {
-    // expect runtime error
-}
-try {
-    // @ts-expect-error
-    typedStatement.get()
+    typedStatement.all();
 } catch (error) {
     // expect runtime error
 }
 
-for (let row of typedStatement.iterate({ search: '%alice%' })) {
+typedStatement.get({ search: "%alice%" })?.id;
+typedStatement.get({ search: "%alice%" })?.name;
+try {
+    // @ts-expect-error
+    typedStatement.get({ search: "%alice%" })?.search;
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get({ search: "%alice%" }).name;
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get({});
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get();
+} catch (error) {
+    // expect runtime error
+}
+
+for (let row of typedStatement.iterate({ search: "%alice%" })) {
     row.id;
     row.name;
     // @ts-expect-error
@@ -113,13 +114,13 @@ for (let row of typedStatement.iterate({ search: '%alice%' })) {
 }
 try {
     // @ts-expect-error
-    typedStatement.iterate({})
+    typedStatement.iterate({});
 } catch (error) {
     // expect runtime error
 }
 try {
     // @ts-expect-error
-    typedStatement.iterate()
+    typedStatement.iterate();
 } catch (error) {
     // expect runtime error
 }
@@ -201,7 +202,9 @@ const newDb = new Sqlite(db.serialize());
 setTimeout(() => {
     db.close();
     fs.unlinkSync("backup-today.db");
-}, 50)
+}, 50);
 
-const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>("INSERT INTO test (name, age, id) VALUES (@name, @age, @id)");
+const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>(
+    "INSERT INTO test (name, age, id) VALUES (@name, @age, @id)",
+);
 stmtWithNamedBindForNewDb.run({ name: "bob1", age: 201, id: BigInt(1235) });
