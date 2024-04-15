@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/markdown-it/markdown-it-emoji"
     ],
+    "tsconfigs": ["tsconfig.non-umd.json", "tsconfig.umd.json"],
     "exports": {
         ".": {
             "import": "./index.d.mts",

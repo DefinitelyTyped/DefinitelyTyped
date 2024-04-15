@@ -2,7 +2,10 @@
     "compilerOptions": {
         "module": "node16",
         "target": "es6",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "module": "node16",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -27,7 +29,6 @@
         "lib/full.d.mts",
         "lib/light.d.mts",
         "test/markdown-it-emoji.ts",
-        "test/markdown-it-emoji.mts",
-        "test/markdown-it-emoji-global.ts"
+        "test/markdown-it-emoji.mts"
     ]
 }
