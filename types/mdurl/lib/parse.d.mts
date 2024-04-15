@@ -1,4 +1,4 @@
-export class Url {
+export interface Url {
     protocol: string;
     slashes: string;
     auth: string;
@@ -7,8 +7,6 @@ export class Url {
     hash: string;
     search: string;
     pathname: string;
-
-    constructor();
 
     parse(url: string, slashesDenoteHost?: boolean): this;
     parseHost(host: string): void;
