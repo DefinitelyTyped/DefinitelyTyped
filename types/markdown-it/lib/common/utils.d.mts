@@ -1,9 +1,9 @@
 import * as mdurl from "mdurl";
-import * as ucmicro from "uc.micro";
+// import * as ucmicro from "uc.micro";
 
 export const lib: {
     mdurl: typeof mdurl;
-    ucmicro: typeof ucmicro;
+    ucmicro: any;
 };
 
 /**

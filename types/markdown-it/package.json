@@ -17,8 +17,7 @@
     },
     "dependencies": {
         "@types/linkify-it": "*",
-        "@types/mdurl": "*",
-        "@types/uc.micro": "*"
+        "@types/mdurl": "*"
     },
     "devDependencies": {
         "@types/markdown-it": "workspace:."
