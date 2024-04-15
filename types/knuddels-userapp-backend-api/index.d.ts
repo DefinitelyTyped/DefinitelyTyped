@@ -1534,16 +1534,6 @@ declare global {
         getOpenAppChatCommand(): string;
 
         /**
-         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getAddAsFavoriteChatCommand
-         * @since AppServer 20220502-125000
-         */
-        getAddAsFavoriteChatCommand(): string;
-        /**
-         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getOpenAppChatCommand
-         * @since AppServer 20220502-125000
-         */
-        getOpenAppChatCommand(): string;
-        /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_closeActiveSessions
          */
         closeActiveSessions(): void;
@@ -1564,15 +1554,6 @@ declare global {
          */
         getRemoveAsFavoriteChatCommand(): string;
 
-        /**
-         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_openGlobalApp
-         */
-        openGlobalApp(user: User, forceReplace?: boolean): AppContentSession;
-        /**
-         * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getRemoveAsFavoriteChatCommand
-         * @since AppServer 20220502-125000
-         */
-        getRemoveAsFavoriteChatCommand(): string;
         /**
          * @see https://developer.knuddels.de/docs/classes/GlobalAppInstance.html#method_getActiveSession
          */
