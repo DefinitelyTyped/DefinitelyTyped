@@ -6,10 +6,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true
-    }
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.mts",
+        "build/index.cjs.d.ts",
+        "uc.micro-tests.ts"
+    ]
 }
