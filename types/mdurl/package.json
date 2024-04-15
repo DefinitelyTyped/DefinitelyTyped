@@ -11,8 +11,8 @@
             "require": "./build/index.cjs.d.ts"
         },
         "./*": {
-            "require": "./*",
-            "import": "./*"
+            "import": "./*",
+            "require": "./*"
         }
     },
     "devDependencies": {

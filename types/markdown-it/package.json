@@ -11,8 +11,8 @@
             "require": "./dist/index.cjs.d.ts"
         },
         "./*": {
-            "require": "./*",
-            "import": "./*"
+            "import": "./*",
+            "require": "./*"
         }
     },
     "dependencies": {
