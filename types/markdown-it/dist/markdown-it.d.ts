@@ -149,7 +149,7 @@ declare class Renderer {
 
     /**
      * Default token renderer. Can be overriden by custom function
-     * in [[Renderer#rules]].
+     * in {@link Renderer#rules}.
      *
      * @param tokens list of tokens
      * @param idx token index to render
@@ -158,7 +158,7 @@ declare class Renderer {
     renderToken(tokens: Token[], idx: number, options: MarkdownIt.Options): string;
 
     /**
-     * The same as [[Renderer.render]], but for single token of `inline` type.
+     * The same as {@link Renderer.render}, but for single token of `inline` type.
      *
      * @param tokens list on block tokens to renter
      * @param options params of parser instance
@@ -195,8 +195,8 @@ type Renderer_ = Renderer;
 /**
  * class Ruler
  *
- * Helper class, used by [[MarkdownIt#core]], [[MarkdownIt#block]] and
- * [[MarkdownIt#inline]] to manage sequences of functions (rules):
+ * Helper class, used by {@link MarkdownIt#core}, {@link MarkdownIt#block} and
+ * {@link MarkdownIt#inline} to manage sequences of functions (rules):
  *
  * - keep rules in defined order
  * - assign the name to each rule
@@ -206,8 +206,8 @@ type Renderer_ = Renderer;
  * - cacheing lists of active rules
  *
  * You will not need use this class directly until write plugins. For simple
- * rules control use [[MarkdownIt.disable]], [[MarkdownIt.enable]] and
- * [[MarkdownIt.use]].
+ * rules control use {@link MarkdownIt.disable}, {@link MarkdownIt.enable} and
+ * {@link MarkdownIt.use}.
  */
 declare class Ruler<T> {
     /**
@@ -234,7 +234,7 @@ declare class Ruler<T> {
 
     /**
      * Add new rule to chain before one with given name. See also
-     * [[Ruler.after]], [[Ruler.push]].
+     * {@link Ruler.after}, {@link Ruler.push}.
      *
      * ##### Example
      *
@@ -255,7 +255,7 @@ declare class Ruler<T> {
 
     /**
      * Add new rule to chain after one with given name. See also
-     * [[Ruler.before]], [[Ruler.push]].
+     * {@link Ruler.before}, {@link Ruler.push}.
      *
      * ##### Options:
      *
@@ -280,7 +280,7 @@ declare class Ruler<T> {
 
     /**
      * Push new rule to the end of chain. See also
-     * [[Ruler.before]], [[Ruler.after]].
+     * {@link Ruler.before}, {@link Ruler.after}.
      *
      * ##### Options:
      *
@@ -308,7 +308,7 @@ declare class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * See also [[Ruler.disable]], [[Ruler.enableOnly]].
+     * See also {@link Ruler.disable}, {@link Ruler.enableOnly}.
      *
      * @param list list of rule names to enable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -319,7 +319,7 @@ declare class Ruler<T> {
      * Enable rules with given names, and disable everything else. If any rule name
      * not found - throw Error. Errors can be disabled by second param.
      *
-     * See also [[Ruler.disable]], [[Ruler.enable]].
+     * See also {@link Ruler.disable}, {@link Ruler.enable}.
      *
      * @param list list of rule names to enable (whitelist).
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -332,7 +332,7 @@ declare class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * See also [[Ruler.enable]], [[Ruler.enableOnly]].
+     * See also {@link Ruler.enable}, {@link Ruler.enableOnly}.
      *
      * @param list list of rule names to disable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -576,7 +576,7 @@ type Core_ = Core;
 
 declare class ParserBlock {
     /**
-     * [[Ruler]] instance. Keep configuration of block rules.
+     * {@link Ruler} instance. Keep configuration of block rules.
      */
     ruler: Ruler<MarkdownIt.ParserBlock.RuleBlock>;
 
@@ -599,12 +599,12 @@ type ParserBlock_ = ParserBlock;
 
 declare class ParserInline {
     /**
-     * [[Ruler]] instance. Keep configuration of inline rules.
+     * {@link Ruler} instance. Keep configuration of inline rules.
      */
     ruler: Ruler<MarkdownIt.ParserInline.RuleInline>;
 
     /**
-     * [[Ruler]] instance. Second ruler used for post-processing
+     * {@link Ruler} instance. Second ruler used for post-processing
      * (e.g. in emphasis-like rules).
      */
     ruler2: Ruler<MarkdownIt.ParserInline.RuleInline2>;
@@ -919,28 +919,28 @@ interface MarkdownItConstructor {
 
 interface MarkdownIt {
     /**
-     * Instance of [[ParserInline]]. You may need it to add new rules when
-     * writing plugins. For simple rules control use [[MarkdownIt.disable]] and
-     * [[MarkdownIt.enable]].
+     * Instance of {@link ParserInline}. You may need it to add new rules when
+     * writing plugins. For simple rules control use {@link MarkdownIt.disable} and
+     * {@link MarkdownIt.enable}.
      */
     readonly inline: ParserInline;
 
     /**
-     * Instance of [[ParserBlock]]. You may need it to add new rules when
-     * writing plugins. For simple rules control use [[MarkdownIt.disable]] and
-     * [[MarkdownIt.enable]].
+     * Instance of {@link ParserBlock}. You may need it to add new rules when
+     * writing plugins. For simple rules control use {@link MarkdownIt.disable} and
+     * {@link MarkdownIt.enable}.
      */
     readonly block: ParserBlock;
 
     /**
-     * Instance of [[Core]] chain executor. You may need it to add new rules when
-     * writing plugins. For simple rules control use [[MarkdownIt.disable]] and
-     * [[MarkdownIt.enable]].
+     * Instance of {@link Core} chain executor. You may need it to add new rules when
+     * writing plugins. For simple rules control use {@link MarkdownIt.disable} and
+     * {@link MarkdownIt.enable}.
      */
     readonly core: Core;
 
     /**
-     * Instance of [[Renderer]]. Use it to modify output look. Or to add rendering
+     * Instance of {@link Renderer}. Use it to modify output look. Or to add rendering
      * rules for new token types, generated by plugins.
      *
      * ##### Example
@@ -956,7 +956,7 @@ interface MarkdownIt {
      * md.renderer.rules['my_token'] = myToken
      * ```
      *
-     * See [[Renderer]] docs and [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.js).
+     * See {@link Renderer} docs and [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.js).
      */
     readonly renderer: Renderer;
 
@@ -1063,7 +1063,7 @@ interface MarkdownIt {
     /**
      * *chainable*
      *
-     * The same as [[MarkdownIt.enable]], but turn specified rules off.
+     * The same as {@link MarkdownIt.enable}, but turn specified rules off.
      *
      * @param list rule name or list of rule names to disable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -1113,7 +1113,7 @@ interface MarkdownIt {
      *
      * `env` can be used to inject additional metadata (`{}` by default).
      * But you will not need it with high probability. See also comment
-     * in [[MarkdownIt.parse]].
+     * in {@link MarkdownIt.parse}.
      *
      * @param src source string
      * @param env environment sandbox
@@ -1123,7 +1123,7 @@ interface MarkdownIt {
     /**
      * *internal*
      *
-     * The same as [[MarkdownIt.parse]] but skip all block rules. It returns the
+     * The same as {@link MarkdownIt.parse} but skip all block rules. It returns the
      * block tokens list with the single `inline` element, containing parsed inline
      * tokens in `children` property. Also updates `env` object.
      *
@@ -1133,7 +1133,7 @@ interface MarkdownIt {
     parseInline(src: string, env: any): Token[];
 
     /**
-     * Similar to [[MarkdownIt.render]] but for single paragraph content. Result
+     * Similar to {@link MarkdownIt.render} but for single paragraph content. Result
      * will NOT be wrapped into `<p>` tags.
      *
      * @param src source string

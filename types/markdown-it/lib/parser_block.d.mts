@@ -7,7 +7,7 @@ export type RuleBlock = (state: StateBlock, startLine: number, endLine: number, 
 
 declare class ParserBlock {
     /**
-     * [[Ruler]] instance. Keep configuration of block rules.
+     * {@link Ruler} instance. Keep configuration of block rules.
      */
     ruler: Ruler<RuleBlock>;
 

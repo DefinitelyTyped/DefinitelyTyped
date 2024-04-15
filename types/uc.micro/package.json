@@ -1,9 +1,9 @@
 {
     "private": true,
-    "name": "@types/mdurl",
+    "name": "@types/uc.micro",
     "version": "2.0.9999",
     "projects": [
-        "https://github.com/markdown-it/mdurl#readme"
+        "https://github.com/markdown-it/uc.micro#readme"
     ],
     "exports": {
         ".": {
@@ -16,12 +16,12 @@
         }
     },
     "devDependencies": {
-        "@types/mdurl": "workspace:."
+        "@types/uc.micro": "workspace:."
     },
     "owners": [
         {
-            "name": "Junyoung Choi",
-            "githubUsername": "rokt33r"
+            "name": "Divyansh Singh",
+            "githubUsername": "brc-dd"
         }
     ]
 }

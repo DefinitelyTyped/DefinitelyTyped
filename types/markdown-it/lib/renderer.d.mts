@@ -18,6 +18,11 @@ export interface RenderRuleRecord {
 
 export default class Renderer {
     /**
+     * Creates new {@link Renderer} instance and fill {@link Renderer#rules} with defaults.
+     */
+    constructor();
+
+    /**
      * Contains render rules for tokens. Can be updated and extended.
      *
      * ##### Example
@@ -40,8 +45,7 @@ export default class Renderer {
      * }
      * ```
      *
-     * See [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.js)
-     * for more details and examples.
+     * @see https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.mjs
      */
     rules: RenderRuleRecord;
 
@@ -52,7 +56,7 @@ export default class Renderer {
 
     /**
      * Default token renderer. Can be overriden by custom function
-     * in [[Renderer#rules]].
+     * in {@link Renderer#rules}.
      *
      * @param tokens list of tokens
      * @param idx token index to render
@@ -61,9 +65,9 @@ export default class Renderer {
     renderToken(tokens: Token[], idx: number, options: Options): string;
 
     /**
-     * The same as [[Renderer.render]], but for single token of `inline` type.
+     * The same as {@link Renderer.render}, but for single token of `inline` type.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */
@@ -74,7 +78,7 @@ export default class Renderer {
      * Don't try to use it! Spec requires to show `alt` content with stripped markup,
      * instead of simple escaping.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */
@@ -84,7 +88,7 @@ export default class Renderer {
      * Takes token stream and generates HTML. Probably, you will never need to call
      * this method directly.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */

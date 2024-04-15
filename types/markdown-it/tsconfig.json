@@ -10,22 +10,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "index.d.mts",
-        "test/common/utils.mts",
-        "test/helpers/index.mts",
-        "test/rules_core/state_core.mts",
-        "test/rules_block/state_block.mts",
-        "test/rules_inline/state_inline.mts",
-        "test/index.mts",
-        "test/parser_block.mts",
-        "test/parser_core.mts",
-        "test/parser_inline.mts",
-        "test/renderer.mts",
-        "test/ruler.mts",
-        "test/token.mts",
-        "markdown-it-tests.ts"
-    ]
+    }
 }
