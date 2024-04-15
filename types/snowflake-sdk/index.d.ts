@@ -294,6 +294,36 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
      */
     accessUrl?: string;
+
+    /**
+     * Specifies the proxy host to use for the connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyHost?: string;
+
+    /**
+     * Specifies the proxy port to use for the connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyPort?: number;
+
+    /**
+     * Specifies the protocol to use for the proxy connection. Default value is http.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyProtocol?: string;
+
+    /**
+     * Specifies the username to use for the proxy connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyUser?: string;
+
+    /**
+     * Specifies the password to use for the proxy connection.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-connect#connecting-through-an-authenticated-proxy Connecting through an authenticated proxy}.
+     */
+    proxyPassword?: string;
 }
 
 export interface Column {
