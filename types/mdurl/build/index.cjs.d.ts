@@ -39,5 +39,3 @@ declare const lib: {
     format(url: Omit<Url, "parse" | "parseHost">): string;
     parse(url: string | Url, slashesDenoteHost?: boolean): Url;
 };
-
-export = lib;
