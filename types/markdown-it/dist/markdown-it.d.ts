@@ -324,7 +324,7 @@ declare class Ruler<T> {
      * @param list list of rule names to enable (whitelist).
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
      */
-    enableOnly(list: string | string[], ignoreInvalid?: boolean): string[];
+    enableOnly(list: string | string[], ignoreInvalid?: boolean): void;
 
     /**
      * Disable rules with given names. If any rule name not found - throw Error.
