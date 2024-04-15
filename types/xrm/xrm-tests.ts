@@ -643,15 +643,14 @@ const formContextDataEntityPostSaveMethods = (context: Xrm.Events.EventContext) 
     formContext.data.entity.removeOnPostSave(contextHandler);
 };
 
-//Demonstrate usage of Eventargs of postsave
-function ActionOnPostsave(context:Xrm.Events.PostSaveEventContext){
+// Demonstrate usage of Eventargs of postsave
+function ActionOnPostsave(context: Xrm.Events.PostSaveEventContext) {
     const args = context.getEventArgs();
 
-    if(args.getIsSaveSuccess()){
-         //if success get id 
+    if (args.getIsSaveSuccess()) {
+        // if success get id
         let id = args.getEntityReference().id;
-    }else{
+    } else {
         console.log(args.getSaveErrorInfo());
     }
-   
 }
