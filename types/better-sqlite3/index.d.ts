@@ -14,7 +14,7 @@ declare namespace BetterSqlite3 {
         busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
-        get(...params: BindParameters): Result;
+        get(...params: BindParameters): Result | undefined;
         all(...params: BindParameters): Result[];
         iterate(...params: BindParameters): IterableIterator<Result>;
         pluck(toggleState?: boolean): this;
