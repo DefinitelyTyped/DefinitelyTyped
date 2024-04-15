@@ -19,6 +19,7 @@
         "lib/format.d.mts",
         "lib/parse.d.mts",
         "index.d.mts",
+        "index.d.ts",
         "mdurl-tests.ts",
         "mdurl-tests.mts"
     ]
