@@ -1,13 +1,13 @@
 import LinkifyIt = require("linkify-it");
-import * as mdurl from "mdurl";
-// import ucmicro from 'uc.micro';
+import mdurl = require("mdurl");
+// import ucmicro = require("uc.micro");
 
 // lib/token.mjs
 
-/**
- * Create new token and fill passed properties.
- */
 declare class Token {
+    /**
+     * Create new token and fill passed properties.
+     */
     constructor(type: string, tag: string, nesting: MarkdownIt.Token.Nesting);
 
     /**
@@ -21,26 +21,26 @@ declare class Token {
     tag: string;
 
     /**
-     * HTML attributes. Format: `[[name1, value1], [name2, value2]]`
+     * HTML attributes. Format: `[ [ name1, value1 ], [ name2, value2 ] ]`
      */
     attrs: Array<[string, string]> | null;
 
     /**
-     * Source map info. Format: `[line_begin, line_end]`
+     * Source map info. Format: `[ line_begin, line_end ]`
      */
     map: [number, number] | null;
 
     /**
      * Level change (number in {-1, 0, 1} set), where:
      *
-     * - `1` means the tag is opening
-     * - `0` means the tag is self-closing
+     * -  `1` means the tag is opening
+     * -  `0` means the tag is self-closing
      * - `-1` means the tag is closing
      */
     nesting: MarkdownIt.Token.Nesting;
 
     /**
-     * nesting level, the same as `state.level`
+     * Nesting level, the same as `state.level`
      */
     level: number;
 
@@ -61,7 +61,9 @@ declare class Token {
     markup: string;
 
     /**
-     * Fence info string
+     * - Info string for "fence" tokens
+     * - The value "auto" for autolink "link_open" and "link_close" tokens
+     * - The string value of the item marker for ordered-list "list_item_open" tokens
      */
     info: string;
 
@@ -88,7 +90,7 @@ declare class Token {
     attrIndex(name: string): number;
 
     /**
-     * Add `[name, value]` attribute to list. Init attrs if necessary
+     * Add `[ name, value ]` attribute to list. Init attrs if necessary
      */
     attrPush(attrData: [string, string]): void;
 
@@ -115,6 +117,11 @@ type Token_ = Token;
 
 declare class Renderer {
     /**
+     * Creates new {@link Renderer} instance and fill {@link Renderer#rules} with defaults.
+     */
+    constructor();
+
+    /**
      * Contains render rules for tokens. Can be updated and extended.
      *
      * ##### Example
@@ -137,8 +144,7 @@ declare class Renderer {
      * }
      * ```
      *
-     * See [source code](https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.js)
-     * for more details and examples.
+     * @see https://github.com/markdown-it/markdown-it/blob/master/lib/renderer.mjs
      */
     rules: MarkdownIt.Renderer.RenderRuleRecord;
 
@@ -160,7 +166,7 @@ declare class Renderer {
     /**
      * The same as {@link Renderer.render}, but for single token of `inline` type.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */
@@ -171,7 +177,7 @@ declare class Renderer {
      * Don't try to use it! Spec requires to show `alt` content with stripped markup,
      * instead of simple escaping.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */
@@ -181,7 +187,7 @@ declare class Renderer {
      * Takes token stream and generates HTML. Probably, you will never need to call
      * this method directly.
      *
-     * @param tokens list on block tokens to renter
+     * @param tokens list of block tokens to render
      * @param options params of parser instance
      * @param env additional data from parsed input (references, for example)
      */
@@ -193,8 +199,6 @@ type Renderer_ = Renderer;
 // lib/ruler.mjs
 
 /**
- * class Ruler
- *
  * Helper class, used by {@link MarkdownIt#core}, {@link MarkdownIt#block} and
  * {@link MarkdownIt#inline} to manage sequences of functions (rules):
  *
@@ -203,13 +207,15 @@ type Renderer_ = Renderer;
  * - enable/disable rules
  * - add/replace rules
  * - allow assign rules to additional named chains (in the same)
- * - cacheing lists of active rules
+ * - caching lists of active rules
  *
  * You will not need use this class directly until write plugins. For simple
  * rules control use {@link MarkdownIt.disable}, {@link MarkdownIt.enable} and
  * {@link MarkdownIt.use}.
  */
 declare class Ruler<T> {
+    constructor();
+
     /**
      * Replace rule by name with new function & options. Throws error if name not
      * found.
@@ -233,8 +239,7 @@ declare class Ruler<T> {
     at(name: string, fn: T, options?: MarkdownIt.Ruler.RuleOptions): void;
 
     /**
-     * Add new rule to chain before one with given name. See also
-     * {@link Ruler.after}, {@link Ruler.push}.
+     * Add new rule to chain before one with given name.
      *
      * ##### Example
      *
@@ -246,6 +251,8 @@ declare class Ruler<T> {
      * });
      * ```
      *
+     * @see {@link Ruler.after}, {@link Ruler.push}
+     *
      * @param beforeName new rule will be added before this one.
      * @param ruleName name of added rule.
      * @param fn rule function.
@@ -254,12 +261,7 @@ declare class Ruler<T> {
     before(beforeName: string, ruleName: string, fn: T, options?: MarkdownIt.Ruler.RuleOptions): void;
 
     /**
-     * Add new rule to chain after one with given name. See also
-     * {@link Ruler.before}, {@link Ruler.push}.
-     *
-     * ##### Options:
-     *
-     * - __alt__ - array with names of "alternate" chains.
+     * Add new rule to chain after one with given name.
      *
      * ##### Example
      *
@@ -271,6 +273,8 @@ declare class Ruler<T> {
      * });
      * ```
      *
+     * @see {@link Ruler.before}, {@link Ruler.push}
+     *
      * @param afterName new rule will be added after this one.
      * @param ruleName name of added rule.
      * @param fn rule function.
@@ -279,12 +283,7 @@ declare class Ruler<T> {
     after(afterName: string, ruleName: string, fn: T, options?: MarkdownIt.Ruler.RuleOptions): void;
 
     /**
-     * Push new rule to the end of chain. See also
-     * {@link Ruler.before}, {@link Ruler.after}.
-     *
-     * ##### Options:
-     *
-     * - __alt__ - array with names of "alternate" chains.
+     * Push new rule to the end of chain.
      *
      * ##### Example
      *
@@ -295,6 +294,8 @@ declare class Ruler<T> {
      *   //...
      * });
      * ```
+     *
+     * @see {@link Ruler.before}, {@link Ruler.after}
      *
      * @param ruleName name of added rule.
      * @param fn rule function.
@@ -308,7 +309,7 @@ declare class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * See also {@link Ruler.disable}, {@link Ruler.enableOnly}.
+     * @see {@link Ruler.disable}, {@link Ruler.enableOnly}
      *
      * @param list list of rule names to enable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -319,7 +320,7 @@ declare class Ruler<T> {
      * Enable rules with given names, and disable everything else. If any rule name
      * not found - throw Error. Errors can be disabled by second param.
      *
-     * See also {@link Ruler.disable}, {@link Ruler.enable}.
+     * @see {@link Ruler.disable}, {@link Ruler.enable}
      *
      * @param list list of rule names to enable (whitelist).
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -332,7 +333,7 @@ declare class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * See also {@link Ruler.enable}, {@link Ruler.enableOnly}.
+     * @see {@link Ruler.enable}, {@link Ruler.enableOnly}
      *
      * @param list list of rule names to disable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -450,17 +451,11 @@ declare class StateBlock {
     listIndent: number;
 
     /**
-     * can be 'blockquote', 'list', 'root', 'paragraph' or 'reference'
      * used in lists to determine if they interrupt a paragraph
      */
     parentType: MarkdownIt.StateBlock.ParentType;
 
     level: number;
-
-    /**
-     * renderer
-     */
-    result: string;
 
     /**
      * Push new token to "stream".
@@ -547,7 +542,7 @@ declare class StateInline {
      * Scan a sequence of emphasis-like markers, and determine whether
      * it can start an emphasis sequence or end an emphasis sequence.
      *
-     * @param start position to scan from (it should point at a valid marker);
+     * @param start position to scan from (it should point at a valid marker)
      * @param canSplitWord determine if these markers can be found inside a word
      */
     scanDelims(start: number, canSplitWord: boolean): MarkdownIt.StateInline.Scanned;
@@ -560,6 +555,9 @@ type StateInline_ = StateInline;
 // lib/parser_core.mjs
 
 declare class Core {
+    /**
+     * {@link Ruler} instance. Keep configuration of core rules.
+     */
     ruler: Ruler<MarkdownIt.Core.RuleCore>;
 
     /**
@@ -636,35 +634,31 @@ declare namespace MarkdownIt {
     interface Utils {
         lib: {
             mdurl: typeof mdurl;
-            // ucmicro: typeof ucmicro;
+            ucmicro: any;
         };
 
         /**
          * Merge objects
          */
-        assign(target: any, ...sources: any[]): any;
+        assign(obj: any, ...from: any[]): any;
 
-        /**
-         * Check if the type is string or not
-         */
         isString(obj: any): obj is string;
 
-        /**
-         * has own property
-         */
         has(obj: any, key: keyof any): boolean;
 
         unescapeMd(str: string): string;
+
         unescapeAll(str: string): string;
 
-        isValidEntityCode(code: number): boolean;
-        fromCodePoint(code: number): string;
+        isValidEntityCode(c: number): boolean;
+
+        fromCodePoint(c: number): string;
+
         escapeHtml(str: string): string;
 
         /**
          * Remove element from array and put another array at those position.
-         * Useful for some operations with tokens.
-         * Return a new array.
+         * Useful for some operations with tokens
          */
         arrayReplaceAt<T>(src: T[], pos: number, newElements: T[]): T[];
 
@@ -679,9 +673,10 @@ declare namespace MarkdownIt {
          * Markdown ASCII punctuation characters.
          *
          * !, ", #, $, %, &, ', (, ), *, +, ,, -, ., /, :, ;, <, =, >, ?, @, [, \, ], ^, _, `, {, |, }, or ~
-         * http://spec.commonmark.org/0.15/#ascii-punctuation-character
          *
          * Don't confuse with unicode punctuation !!! It lacks some chars in ascii range.
+         *
+         * @see http://spec.commonmark.org/0.15/#ascii-punctuation-character
          */
         isMdAsciiPunct(code: number): boolean;
 
@@ -693,43 +688,59 @@ declare namespace MarkdownIt {
         escapeRE(str: string): string;
 
         /**
-         * Hepler to unify [reference labels].
+         * Helper to unify [reference labels].
          */
         normalizeReference(str: string): string;
     }
 
     // lib/helpers/index.mjs
 
-    interface ParseResult {
+    interface ParseLinkDestinationResult {
         ok: boolean;
         pos: number;
-        lines: number;
         str: string;
+    }
+
+    interface ParseLinkTitleResult {
+        /**
+         * if `true`, this is a valid link title
+         */
+        ok: boolean;
+        /**
+         * if `true`, this link can be continued on the next line
+         */
+        can_continue: boolean;
+        /**
+         * if `ok`, it's the position of the first character after the closing marker
+         */
+        pos: number;
+        /**
+         * if `ok`, it's the unescaped title
+         */
+        str: string;
+        /**
+         * expected closing marker character code
+         */
+        marker: number;
     }
 
     interface Helpers {
         // lib/helpers/parse_link_label.mjs
-        /**
-         * Parse link label
-         *
-         * This function assumes that first character ("[") already
-         * matches; returns the end of the label
-         */
+
         parseLinkLabel(state: StateInline, start: number, disableNested?: boolean): number;
 
         // lib/helpers/parse_link_destination.mjs
 
-        /**
-         * Parse link destination
-         */
-        parseLinkDestination(str: string, pos: number, max: number): ParseResult;
+        parseLinkDestination(str: string, start: number, max: number): ParseLinkDestinationResult;
 
         // lib/helpers/parse_link_title.mjs
 
-        /**
-         * Parse link title
-         */
-        parseLinkTitle(str: string, pos: number, max: number): ParseResult;
+        parseLinkTitle(
+            str: string,
+            start: number,
+            max: number,
+            prev_state?: ParseLinkTitleResult,
+        ): ParseLinkTitleResult;
     }
 
     /**
@@ -810,21 +821,17 @@ declare namespace MarkdownIt {
     }
 
     // lib/token.mjs
+
     type Token = Token_;
     namespace Token {
         type Nesting = 1 | 0 | -1;
     }
 
     // lib/renderer.mjs
+
     type Renderer = Renderer_;
     namespace Renderer {
-        type RenderRule = (
-            tokens: Token[],
-            idx: number,
-            options: MarkdownIt.Options,
-            env: any,
-            self: Renderer,
-        ) => string;
+        type RenderRule = (tokens: Token[], idx: number, options: Options, env: any, self: Renderer) => string;
 
         interface RenderRuleRecord {
             [type: string]: RenderRule | undefined;
@@ -841,6 +848,7 @@ declare namespace MarkdownIt {
     }
 
     // lib/ruler.mjs
+
     type Ruler<T> = Ruler_<T>;
     namespace Ruler {
         interface RuleOptions {
@@ -852,15 +860,18 @@ declare namespace MarkdownIt {
     }
 
     // lib/rules_core/state_core.mjs
+
     type StateCore = StateCore_;
 
     // lib/rules_block/state_block.mjs
+
     type StateBlock = StateBlock_;
     namespace StateBlock {
         type ParentType = "blockquote" | "list" | "root" | "paragraph" | "reference";
     }
 
     // lib/rules_inline/state_inline.mjs
+
     type StateInline = StateInline_;
     namespace StateInline {
         interface Scanned {
@@ -885,18 +896,21 @@ declare namespace MarkdownIt {
     }
 
     // lib/parser_core.mjs
+
     type Core = Core_;
     namespace Core {
         type RuleCore = (state: StateCore) => void;
     }
 
     // lib/parser_block.mjs
+
     type ParserBlock = ParserBlock_;
     namespace ParserBlock {
         type RuleBlock = (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;
     }
 
     // lib/parser_inline.mjs
+
     type ParserInline = ParserInline_;
     namespace ParserInline {
         type RuleInline = (state: StateInline, silent: boolean) => boolean;
@@ -965,7 +979,7 @@ interface MarkdownIt {
      * Used by [linkify](https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js)
      * rule.
      */
-    readonly linkify: LinkifyIt.LinkifyIt;
+    readonly linkify: LinkifyIt;
 
     /**
      * Link validation function. CommonMark allows too much in links. By default
@@ -993,16 +1007,8 @@ interface MarkdownIt {
      */
     normalizeLinkText(url: string): string;
 
-    /**
-     * Assorted utility functions, useful to write plugins. See details
-     * [here](https://github.com/markdown-it/markdown-it/blob/master/lib/common/utils.mjs).
-     */
     readonly utils: MarkdownIt.Utils;
 
-    /**
-     * Link components parser functions, useful to write plugins. See details
-     * [here](https://github.com/markdown-it/markdown-it/blob/master/lib/helpers).
-     */
     readonly helpers: MarkdownIt.Helpers;
 
     readonly options: MarkdownIt.Options;
@@ -1226,9 +1232,8 @@ interface MarkdownIt {
  * });
  * ```
  */
+declare const MarkdownIt: MarkdownItConstructor;
 
 export as namespace MarkdownIt;
-
-declare const MarkdownIt: MarkdownItConstructor;
 
 export = MarkdownIt;
