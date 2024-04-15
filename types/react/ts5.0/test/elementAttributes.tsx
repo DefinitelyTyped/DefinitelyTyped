@@ -90,6 +90,66 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    <div inert={true} />,
+    <div inert={false} />,
+    <div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+     inert="" />,
+    // New Transition events
+    <div
+        onTransitionStart={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionRun={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionCancel={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+        onTransitionEnd={event => {
+            // $ExpectType TransitionEvent<HTMLDivElement>
+            event;
+        }}
+    />,
+    // Popover API
+    <>
+        <div
+            id="popover-target"
+            popover=""
+            onBeforeToggle={event => {
+                // $ExpectType 'open' | 'closed'
+                event.newState;
+                // $ExpectType 'open' | 'closed'
+                event.oldState;
+            }}
+            onToggle={event => {
+                // $ExpectType 'open' | 'closed'
+                event.newState;
+                // $ExpectType 'open' | 'closed'
+                event.oldState;
+            }}
+        >
+        </div>
+        <div popover="auto" />
+        <div popover="manual" />
+        <div
+            // @ts-expect-error accidental boolean
+            popover
+        />
+        <button popoverTarget="popover-target">Toggle</button>
+        <button popoverTarget="popover-target" popoverTargetAction="toggle">Toggle</button>
+        <button popoverTarget="popover-target" popoverTargetAction="show">Show</button>
+        <button popoverTarget="popover-target" popoverTargetAction="hide">Hide</button>
+        <button
+            popoverTarget="popover-target"
+            // @ts-expect-error
+            popoverTargetAction="bad"
+        >
+            Hide
+        </button>
+    </>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
