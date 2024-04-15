@@ -15,21 +15,6 @@ export interface VinylFileOptions {
     read?: boolean | undefined;
 }
 export interface VinylFile extends File {
-    /** Returns true if the file contents are a Buffer, otherwise false */
-    isStream: () => boolean;
-
-    /** Returns true if the file contents are a Stream, otherwise false */
-    isBuffer: () => boolean;
-
-    /** Returns true if the file contents are null, otherwise false */
-    isNull: () => boolean;
-
-    /** Returns true if the file represents a directory, otherwise false */
-    isDirectory: () => boolean;
-
-    /** Returns true if the file represents a symbolic link, otherwise false */
-    isSymbolic: () => boolean;
-
     /** Returns a new Vinyl object with all attributes cloned. */
     clone(opts?: { contents?: boolean | undefined; deep?: boolean | undefined } | boolean): this;
 
