@@ -139,9 +139,9 @@ declare namespace Database {
     }
 
     type SqliteError = typeof SqliteError;
-    type Statement<BindParameters extends unknown[] | {} = unknown[]> = BindParameters extends unknown[]
-        ? BetterSqlite3.Statement<BindParameters>
-        : BetterSqlite3.Statement<[BindParameters]>;
+    type Statement<BindParameters extends unknown[] | {} = unknown[], Result = unknown> = BindParameters extends unknown[]
+        ? BetterSqlite3.Statement<BindParameters, Result>
+        : BetterSqlite3.Statement<[BindParameters], Result>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;
