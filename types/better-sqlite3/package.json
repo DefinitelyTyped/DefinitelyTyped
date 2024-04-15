@@ -9,7 +9,9 @@
         "@types/node": "*"
     },
     "devDependencies": {
-        "@types/better-sqlite3": "workspace:."
+        "@types/better-sqlite3": "workspace:.",
+        "better-sqlite3": "^9.5.0",
+        "ts-node": "^4.1.0"
     },
     "owners": [
         {
