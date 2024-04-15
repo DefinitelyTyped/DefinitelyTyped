@@ -54,10 +54,10 @@ db.defaultSafeIntegers(true);
 const vtable: Sqlite.Statement = db.prepare("SELECT * FROM vtable");
 vtable.all();
 
-type TypedParameter = {
+interface TypedParameter {
     search: string;
 }
-type TypedResult = {
+interface TypedResult {
     id: number;
     name: string;
 }
