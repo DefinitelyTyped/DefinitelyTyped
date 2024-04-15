@@ -231,7 +231,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_overlayContent
          */
-        static overlayContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
+        static overlayContent(htmlFile: HTMLFile, width: number, /* optional */ height?: number): AppContent;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_isAllowJFXBrowser
@@ -246,7 +246,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_popupContent
          */
-        static popupContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
+        static popupContent(htmlFile: HTMLFile, width: number, /* optional */ height?: number): AppContent;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_isResponsive
@@ -276,7 +276,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_globalContent
          */
-        static globalContent(htmlFile: HTMLFile, width: number /* optional */, height?: number): AppContent;
+        static globalContent(htmlFile: HTMLFile, width: number, /* optional */ height?: number): AppContent;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/AppContent.html#method_getAppViewMode
@@ -976,7 +976,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_Dice
          */
-        constructor(count: number /* optional */, value: number);
+        constructor(count: number, /* optional */ value: number);
 
         /**
          * @see https://developer.knuddels.de/docs/classes/Dice.html#method_getNumberOfSides
@@ -2084,8 +2084,8 @@ declare global {
          * @since AppServer 108571, ChatServer 108571
          */
         startKnuddelPurchase(
-            user: User /* optional */,
-            amount: KnuddelAmount | string /* optional */,
+            user: User, /* optional */
+            amount: KnuddelAmount | string, /* optional */
             parameters?: any,
         ): void;
 
@@ -2301,7 +2301,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_nextInt
          */
-        function nextInt(minValue: number /* optional */, maxValue: number): number;
+        function nextInt(minValue: number, /* optional */ maxValue: number): number;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/RandomOperations.html#method_shuffleObjects
@@ -2321,7 +2321,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_stopApp
          */
-        stopApp(message: string /* optional */, logMessage?: string): void;
+        stopApp(message: string, /* optional */ logMessage?: string): void;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_cancelUpdateApp
@@ -2337,7 +2337,7 @@ declare global {
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_updateApp
          */
-        updateApp(message: string /* optional */, logMessage?: string): number;
+        updateApp(message: string, /* optional */ logMessage?: string): number;
 
         /**
          * @see https://developer.knuddels.de/docs/classes/RootAppInstance.html#method_updateAppFiles
