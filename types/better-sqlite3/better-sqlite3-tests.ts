@@ -53,6 +53,43 @@ db.defaultSafeIntegers(true);
 const vtable: Sqlite.Statement = db.prepare("SELECT * FROM vtable");
 vtable.all();
 
+type TypedParameter = {
+    search: string;
+}
+type TypedResult = {
+    id: number;
+    name: string;
+}
+const typedStatement: Sqlite.Statement<TypedParameter, TypedResult> = db.prepare<TypedParameter, TypedResult>('select id, name from test where name like :search');
+
+typedStatement.all({ search: '%alice%' }) // $ExpectType TypedResult[]
+// @ts-expect-error
+typedStatement.all({})
+// @ts-expect-error
+typedStatement.all()
+
+typedStatement.get({ search: '%alice%' })?.id
+typedStatement.get({ search: '%alice%' })?.name
+// @ts-expect-error
+typedStatement.get({ search: '%alice%' })?.search
+// @ts-expect-error
+typedStatement.get({ search: '%alice%' }).name
+// @ts-expect-error
+typedStatement.get({})
+// @ts-expect-error
+typedStatement.get()
+
+for (let row of typedStatement.iterate({ search: '%alice%' })) {
+    row.id;
+    row.name;
+    // @ts-expect-error
+    row.search;
+}
+// @ts-expect-error
+typedStatement.iterate({})
+// @ts-expect-error
+typedStatement.iterate()
+
 let stmt: Sqlite.Statement = db.prepare("SELECT * FROM test WHERE name == ?;");
 stmt.busy; // $ExpectType boolean
 stmt.readonly; // $ExpectType boolean
