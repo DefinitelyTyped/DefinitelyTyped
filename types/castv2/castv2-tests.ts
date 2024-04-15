@@ -3,6 +3,7 @@ import {
     Client,
     ClientOptions,
     LaunchRequestMessage,
+    MediaStatusMessage,
     ReceiverLaunchErrorMessage,
     ReceiverLaunchStatusMessage,
     ReceiverMessage,
@@ -111,6 +112,11 @@ function handleStatusMessages(channel: Channel): void {
             }
             console.log(`isActiveInput: ${status.isActiveInput}`);
             console.log(`isStandBy: ${status.isStandBy}`);
+        } else if (message.type == "MEDIA_STATUS") {
+            const status = (message as MediaStatusMessage).status[0];
+            console.log(`mediaSessionId: ${status.mediaSessionId}`);
+            console.log(`playerState: ${status.playerState}`);
+            console.log(`currentTime: ${status.currentTime}`);
         }
     });
 }
