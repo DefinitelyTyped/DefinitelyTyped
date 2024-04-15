@@ -1,3 +1,4 @@
+import fs = require('fs')
 import Sqlite = require("better-sqlite3");
 
 const err = new Sqlite.SqliteError("ok", "ok");
@@ -166,6 +167,7 @@ db.backup("backup-today.db", {
 const newDb = new Sqlite(db.serialize());
 setTimeout(() => {
     db.close();
+    fs.unlinkSync("backup-today.db");
 }, 50)
 
 const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>("INSERT INTO test (name, age, id) VALUES (@name, @age, @id)");
