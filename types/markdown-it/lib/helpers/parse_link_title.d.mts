@@ -25,5 +25,5 @@ export default function parseLinkTitle(
     str: string,
     start: number,
     max: number,
-    prev_state: ParseLinkTitleResult,
+    prev_state?: ParseLinkTitleResult,
 ): ParseLinkTitleResult;
