@@ -64,21 +64,46 @@ type TypedResult = {
 const typedStatement: Sqlite.Statement<TypedParameter, TypedResult> = db.prepare<TypedParameter, TypedResult>('select id, name from test where name like :search');
 
 typedStatement.all({ search: '%alice%' }) // $ExpectType TypedResult[]
-// @ts-expect-error
-typedStatement.all({})
-// @ts-expect-error
-typedStatement.all()
+try {
+    // @ts-expect-error
+    typedStatement.all({})
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.all()
+} catch (error) {
+    // expect runtime error
+}
+
 
 typedStatement.get({ search: '%alice%' })?.id
 typedStatement.get({ search: '%alice%' })?.name
-// @ts-expect-error
-typedStatement.get({ search: '%alice%' })?.search
-// @ts-expect-error
-typedStatement.get({ search: '%alice%' }).name
-// @ts-expect-error
-typedStatement.get({})
-// @ts-expect-error
-typedStatement.get()
+try {
+    // @ts-expect-error
+    typedStatement.get({ search: '%alice%' })?.search
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get({ search: '%alice%' }).name
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get({})
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.get()
+} catch (error) {
+    // expect runtime error
+}
 
 for (let row of typedStatement.iterate({ search: '%alice%' })) {
     row.id;
@@ -86,10 +111,18 @@ for (let row of typedStatement.iterate({ search: '%alice%' })) {
     // @ts-expect-error
     row.search;
 }
-// @ts-expect-error
-typedStatement.iterate({})
-// @ts-expect-error
-typedStatement.iterate()
+try {
+    // @ts-expect-error
+    typedStatement.iterate({})
+} catch (error) {
+    // expect runtime error
+}
+try {
+    // @ts-expect-error
+    typedStatement.iterate()
+} catch (error) {
+    // expect runtime error
+}
 
 let stmt: Sqlite.Statement = db.prepare("SELECT * FROM test WHERE name == ?;");
 stmt.busy; // $ExpectType boolean
