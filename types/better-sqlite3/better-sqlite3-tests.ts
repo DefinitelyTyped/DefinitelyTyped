@@ -12,13 +12,13 @@ const registrationOptions: Sqlite.RegistrationOptions = {
 
 let db: Sqlite.Database = Sqlite(":memory:");
 db = new Sqlite(":memory:", { verbose: () => {} });
-db.exec("CREATE TABLE test (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL);");
-db.exec("INSERT INTO test(name) VALUES(\"name\");");
+db.exec("CREATE TABLE test (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, age INTEGER);");
+db.exec("INSERT INTO test(name) VALUES('name');");
 db.pragma("data_version", { simple: true });
 db.table("vtable", {
     columns: ["name"],
     *rows() {
-        yield "testName";
+        yield { name: "testName" };
     },
 });
 db.function("noop", () => {});
@@ -53,12 +53,12 @@ db.defaultSafeIntegers(true);
 const vtable: Sqlite.Statement = db.prepare("SELECT * FROM vtable");
 vtable.all();
 
-const stmt: Sqlite.Statement = db.prepare("SELECT * FROM test WHERE name == ?;");
+let stmt: Sqlite.Statement = db.prepare("SELECT * FROM test WHERE name == ?;");
 stmt.busy; // $ExpectType boolean
 stmt.readonly; // $ExpectType boolean
 
 stmt.get(["name"]);
-stmt.all({ name: "name" });
+stmt.all(["name"]);
 for (const row of stmt.iterate("name")) {
 }
 stmt.pluck();
@@ -90,9 +90,11 @@ interface NamedBindParameters {
     age: number;
     id: bigint;
 }
-const stmtWithNamedBind = db.prepare<NamedBindParameters>("INSERT INTO test VALUES (@name, @age, @id)");
+const stmtWithNamedBind = db.prepare<NamedBindParameters>("INSERT INTO test (name, age, id) VALUES (@name, @age, @id)");
 stmtWithNamedBind.run({ name: "bob", age: 20, id: BigInt(1234) });
 
+// create a new statement to reset the bind state
+stmt = db.prepare("SELECT * FROM test WHERE name == ?;");
 const trans: Sqlite.Transaction = db.transaction(param => stmt.all(param));
 trans("name");
 trans(1);
@@ -125,7 +127,9 @@ db.backup("backup-today.db", {
 });
 
 const newDb = new Sqlite(db.serialize());
-db.close();
+setTimeout(() => {
+    db.close();
+}, 50)
 
-const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>("INSERT INTO test VALUES (@name, @age, @id)");
-stmtWithNamedBindForNewDb.run({ name: "bob1", age: 201, id: BigInt(1234) });
+const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>("INSERT INTO test (name, age, id) VALUES (@name, @age, @id)");
+stmtWithNamedBindForNewDb.run({ name: "bob1", age: 201, id: BigInt(1235) });
