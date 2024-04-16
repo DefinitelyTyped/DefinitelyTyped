@@ -3546,6 +3546,7 @@ fp.now(); // $ExpectType number
         has(key: string) { return true; },
         set(key: string, value: any): _.MapCache { return this; },
         clear() { },
+        size: 1,
     };
 
     const memoizeFn = (a1: string, a2: number): boolean => true;
