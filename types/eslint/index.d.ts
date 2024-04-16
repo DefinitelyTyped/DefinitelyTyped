@@ -841,7 +841,7 @@ export class Linter {
 
     version: string;
 
-    constructor(options?: { cwd?: string | undefined; configType?: "flat" });
+    constructor(options?: { cwd?: string | undefined; configType?: "flat" | "eslintrc" });
 
     verify(
         code: SourceCode | string,
