@@ -170,7 +170,7 @@ declare module "../index" {
         /**
          * @returns the number of keys in the cache.
          */
-        readonly size?: number;
+        readonly size?: number | undefined;
     }
     interface MapCacheConstructor {
         new (): MapCache;
