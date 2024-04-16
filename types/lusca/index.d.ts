@@ -33,6 +33,8 @@ declare namespace lusca {
 
     type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlocklistOrAllowlist;
 
+    type csrfValidateFunction = (req: express.Request, token: unknown) => boolean;
+
     interface csrfOptionsBase {
         /**
          * The name of the CSRF token in the model.
@@ -46,7 +48,10 @@ declare namespace lusca {
         /**
          *  An object with create/validate methods for custom tokens
          */
-        impl?: (() => any) | undefined;
+        impl?: {
+            create?: (req: express.Request, secretKey: string) => { secret: string; token: string; validate: csrfValidateFunction };
+            validate?: csrfValidateFunction;
+        } | undefined;
         /**
          * The name of the response header containing the CSRF token
          * @default 'x-csrf-token'
