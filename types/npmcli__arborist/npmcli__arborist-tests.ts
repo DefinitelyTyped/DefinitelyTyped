@@ -36,7 +36,7 @@ arb.reify({
 arb.loadActual().then(async tree => {
     // query all production dependencies
     const results = await tree.querySelectorAll(".prod");
-    console.log(results);
+    results; // $ExpectType Node[]
 });
 
 // iterative
@@ -45,7 +45,7 @@ arb.loadActual().then(async tree => {
     const results = await tree.querySelectorAll("#react:not(:deduped)");
     // query the deduped react for git deps
     const deps = await results[0].querySelectorAll(":type(git)");
-    console.log(deps);
+    deps; // $ExpectType Node[]
 });
 
 async function why(spec: string) {
@@ -96,4 +96,4 @@ async function why(spec: string) {
     }
     return expls;
 }
-console.log(why("lodash"));
+why("lodash");

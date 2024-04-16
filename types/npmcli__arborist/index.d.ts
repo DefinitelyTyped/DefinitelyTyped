@@ -1,3 +1,5 @@
+/// <reference types="node"/>
+
 import { LockDependency, PackageLock as _PackageLock } from "@npm/types";
 import { PackageJson } from "@npmcli/package-json";
 import { EventEmitter } from "events";
