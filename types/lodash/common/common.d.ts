@@ -167,6 +167,10 @@ declare module "../index" {
          * Removes all key-value entries from the map.
          */
         clear?: (() => void) | undefined;
+        /**
+         * @returns the number of keys in the cache.
+         */
+        readonly size?: number;
     }
     interface MapCacheConstructor {
         new (): MapCache;
