@@ -67,56 +67,6 @@ async function Payments() {
     purchase.signature;
 }
 
-async function Player() {
-    // $ExpectType SDK
-    const ysdk = await YaGames.init();
-
-    // $ExpectType Promise<void>
-    ysdk.auth.openAuthDialog();
-
-    // $ExpectType Promise<Player>
-    ysdk.getPlayer();
-
-    // $ExpectType Signed<Player>
-    const player = await ysdk.getPlayer({ signed: true });
-
-    // $ExpectType string
-    player.signature;
-
-    // $ExpectType string
-    player.getUniqueID();
-
-    // $ExpectType string
-    player.getName();
-
-    // $ExpectType string
-    player.getPhoto("small");
-
-    // $ExpectType string
-    player.getPhoto("medium");
-
-    // $ExpectType string
-    player.getPhoto("large");
-
-    // $ExpectType Promise<{ appID: number; userID: string; }[]>
-    player.getIDsPerGame();
-
-    // $ExpectType Promise<Partial<Record<string, Serializable>>>
-    player.getData();
-
-    // $ExpectType Promise<Partial<Record<"id" | "nigger", Serializable>>>
-    player.getData(["id", "nigger"]);
-
-    // $ExpectType Promise<Partial<Record<string, number>>>
-    player.getStats();
-
-    // $ExpectType Promise<Partial<Record<"test", number>>>
-    player.getStats(["test"]);
-
-    // $ExpectType Promise<IncrementedStats<{ test: number; }>>
-    player.incrementStats({ test: 123 });
-}
-
 async function Leaderboards() {
     // $ExpectType SDK
     const ysdk = await YaGames.init();
@@ -248,6 +198,68 @@ async function Leaderboards() {
     leaderboards.setLeaderboardScore("top", 123, "test");
 }
 
+async function Player() {
+    // $ExpectType SDK
+    const ysdk = await YaGames.init();
+
+    // $ExpectType Promise<void>
+    ysdk.auth.openAuthDialog();
+
+    // $ExpectType Promise<Player>
+    ysdk.getPlayer();
+
+    // $ExpectType Signed<Player>
+    const player = await ysdk.getPlayer({ signed: true });
+
+    // $ExpectType "" | "lite"
+    player.getMode();
+
+    // $ExpectType "paying" | "partially_paying" | "not_paying" | "unknown"
+    player.getPayingStatus();
+
+    // $ExpectType string
+    player.signature;
+
+    // $ExpectType string
+    player.getUniqueID();
+
+    // $ExpectType string
+    player.getName();
+
+    // $ExpectType string
+    player.getPhoto("small");
+
+    // $ExpectType string
+    player.getPhoto("medium");
+
+    // $ExpectType string
+    player.getPhoto("large");
+
+    // $ExpectType Promise<{ appID: number; userID: string; }[]>
+    player.getIDsPerGame();
+
+    // $ExpectType Promise<Partial<Record<string, Serializable>>>
+    player.getData();
+
+    // $ExpectType Promise<Partial<Record<"id" | "name", Serializable>>>
+    player.getData(["id", "name"]);
+
+    // $ExpectType Promise<void>
+    player.setData({ test: "test" });
+
+    // $ExpectType Promise<Partial<Record<string, number>>>
+    player.getStats();
+
+    // $ExpectType Promise<Partial<Record<"test", number>>>
+    player.getStats(["test"]);
+
+    // $ExpectType Promise<IncrementedStats<{ test: number; }>>
+    player.incrementStats({ test: 123 });
+
+    // $ExpectType Promise<void>
+    player.setStats({ test: 123 });
+}
+
 async function Misc() {
     // $ExpectType SDK
     const ysdk = await YaGames.init();
@@ -320,4 +332,24 @@ async function Misc() {
 
     // $ExpectType Promise<void>
     ysdk.screen.fullscreen.exit();
+
+    // $ExpectType Promise<Storage>
+    ysdk.getStorage();
+
+    // $ExpectType Promise<Record<string, string>>
+    ysdk.getFlags({
+        clientFeatures: [{
+            name: "feature-name",
+            value: "feature-value",
+        }],
+        defaultFlags: {
+            "test-flag": "default-value",
+        },
+    });
+
+    // $ExpectType "EXIT"
+    ysdk.EVENTS.EXIT;
+
+    // $ExpectType "HISTORY_BACK"
+    ysdk.EVENTS.HISTORY_BACK;
 }
