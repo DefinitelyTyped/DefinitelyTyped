@@ -701,7 +701,7 @@ declare namespace OracleDB {
      * The default value is 5000 milliseconds.
      * This optional property overrides the oracledb.poolPingTimeout property.
      * See Connection Pool Pinging for more information.
-     * 
+     *
      * @since 6.4
      */
     let poolPingTimeout: number;
@@ -1157,21 +1157,21 @@ declare namespace OracleDB {
         /**
          * This synchronous method decodes an OSON Buffer and returns a Javascript value. This method is useful for fetching BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
          * The parameters of the connection.decodeOSON() are: buf; Buffer; The OSON buffer that is to be decoded.
-         * 
+         *
          * @param buf The OSON buffer that is to be decoded.
-         * 
+         *
          * @since 6.4
-         * 
+         *
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
          */
         decodeOSON(buf: Buffer): any;
         /**
          * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
-         * 
+         *
          * @param value The JavaScript value that is to be encoded into OSON bytes. The JavaScript value can be any value supported by JSON.
-         * 
+         *
          * @since 6.4
-         * 
+         *
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
          */
         encodeOSON(value: any): Buffer;
@@ -1198,7 +1198,7 @@ declare namespace OracleDB {
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
          * Changed in version 6.4: The ability to accept an object (returned from the sql function of the third-party sql-template-tag module) as an input parameter was added to connection.execute().
-         * 
+         *
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
@@ -2259,7 +2259,7 @@ declare namespace OracleDB {
          * For queries returning LOB columns, it can be more efficient to use fetchAsString, fetchAsBuffer, or fetchInfo instead of lob.getData().
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
-         * 
+         *
          * For LOBs of type CLOB and NCLOB, the offset is the position from which the data is to be fetched, in UCS-2 code points. UCS-2 code points are equivalent to characters for all but supplemental characters. If supplemental characters are in the LOB, the offset and amount will have to be chosen carefully to avoid splitting a character.
          * For LOBs of type BLOB and BFILE, the offset is the position of the byte from which the data is to be fetched.
          * The default is 1.
@@ -2445,7 +2445,7 @@ declare namespace OracleDB {
         readonly poolPingInterval: number;
         /**
          * This read-only property is a number which specifies the maximum number of milliseconds that a connection should wait for a response from connection.ping().
-         * 
+         *
          * @since 6.4
          */
         readonly poolPingTimeout: number;
@@ -3157,7 +3157,7 @@ declare namespace OracleDB {
         getValues(): T[];
         /**
          * Returns a map object for the collection types indexed by PLS_INTEGER where the collection’s indexes are the keys and the elements are its values. See Associative Array Indexed By PLS_INTEGER for example.
-         * 
+         *
          * @since 6.4
          */
         toMap<V>(): Map<T, V>;
@@ -3365,16 +3365,15 @@ declare namespace OracleDB {
         rowsAffected?: number | undefined;
         /**
          * This property provides an error object that gives information about any database warnings (such as PL/SQL compilation warnings) that were generated during the last call to connection.executeMany().
-         * 
+         *
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/plsql_execution.html#plsqlcompwarnings
-         * 
+         *
          * @since 6.4
          */
         warning: {
             message: string;
             code: string;
-        }
-        
+        };
     }
 
     /**
