@@ -49,7 +49,10 @@ declare namespace lusca {
          *  An object with create/validate methods for custom tokens
          */
         impl?: {
-            create?: (req: express.Request, secretKey: string) => { secret: string; token: string; validate: csrfValidateFunction };
+            create?: (
+                req: express.Request,
+                secretKey: string,
+            ) => { secret: string; token: string; validate: csrfValidateFunction };
             validate?: csrfValidateFunction;
         } | undefined;
         /**
