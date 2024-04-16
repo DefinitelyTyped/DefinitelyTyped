@@ -3007,6 +3007,18 @@ declare namespace OracleDB {
          * of the binds parameter. It is only present if a DML statement was executed.
          */
         rowsAffected?: number | undefined;
+        /**
+         * This property provides an error object that gives information about any database warnings (such as PL/SQL compilation warnings) that were generated during the last call to connection.executeMany().
+         * 
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/plsql_execution.html#plsqlcompwarnings
+         * 
+         * @since 6.4
+         */
+        warning: {
+            message: string;
+            code: string;
+        }
+        
     }
 
     /**
