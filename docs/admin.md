@@ -119,4 +119,4 @@ The process of deploying changes:
 
 Recommendations we make:
 
-- [dts-gen](https://github.com/Microsoft/dts-gen) — a tool for creating a DT folder automatically
+- [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen) — a tool for creating a DT folder automatically

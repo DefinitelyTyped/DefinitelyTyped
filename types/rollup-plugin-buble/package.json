@@ -7,7 +7,6 @@
     ],
     "dependencies": {
         "@types/buble": "*",
-        "@types/node": "*",
         "rollup": "^0.63.4"
     },
     "devDependencies": {

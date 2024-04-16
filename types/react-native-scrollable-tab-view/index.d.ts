@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Animated, LayoutChangeEvent, ScrollViewProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
-export interface ScrollableTabViewProperties {
+export interface ScrollableTabViewProperties extends React.RefAttributes<ScrollableTabView> {
     children?: React.ReactNode;
-    ref?: React.LegacyRef<ScrollableTabView> | undefined;
     /**
      * accept 1 argument props and should return a component
      * to use as the tab bar. The component has goToPage, tabs, activeTab and ref added to the props,

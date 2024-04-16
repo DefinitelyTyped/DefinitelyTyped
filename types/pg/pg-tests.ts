@@ -23,6 +23,8 @@ const client = new Client({
     application_name: "DefinitelyTyped",
     keepAlive: true,
 });
+client.setTypeParser(20, val => Number(val));
+client.getTypeParser(20);
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
@@ -85,6 +87,7 @@ const query = {
     name: "get-name",
     text: "SELECT $1::text",
     values: ["brianc"],
+    rowMode: ["array"],
 };
 client.query(query, (err, res) => {
     if (err) {
@@ -113,7 +116,7 @@ client
         console.error(e.stack);
     });
 
-const queryArrMode: QueryArrayConfig = {
+const queryArrMode: QueryArrayConfig<[string]> = {
     name: "get-name-array",
     text: "SELECT $1::text",
     values: ["brianc"],
@@ -147,7 +150,7 @@ const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
 };
 
-const queryCustomTypes = {
+const queryCustomTypes: pg.QueryConfig<[string]> = {
     name: "get-name",
     text: "SELECT $1::text",
     values: ["brianc"],
@@ -205,7 +208,7 @@ const customCustomTypeOverrides = new TypeOverrides(customTypes);
 customTypeOverrides.setTypeParser(types.builtins.INT8, BigInt);
 
 // pg.Pool
-// https://node-postgres.com/api/pool
+// https://node-postgres.com/apis/pool
 
 // no params ctor
 const poolParameterlessCtor = new Pool();

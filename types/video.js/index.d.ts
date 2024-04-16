@@ -1926,7 +1926,7 @@ declare namespace videojs {
          * @return The width when getting, zero if there is no width. Can be a string
          *           postpixed with '%' or 'px'.
          */
-        width(num: number, skipListeners?: number): void;
+        width(num: string | number, skipListeners?: number): void;
 
         width(): string | number;
     }

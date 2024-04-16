@@ -3214,6 +3214,45 @@ declare namespace chrome.enterprise.platformKeys {
         softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
+    /** @since Chrome 110 */
+    export interface ChallengeKeyOptions {
+        /**
+         * A challenge as emitted by the Verified Access Web API.
+         */
+        challenge: ArrayBuffer;
+        /**
+         * Which Enterprise Key to challenge.
+         * @since Chrome 110
+         */
+        scope: Scope;
+        /**
+         * If present, registers the challenged key with the specified scope's token.
+         * The key can then be associated with a certificate and used like any other signing key.
+         * Subsequent calls to this function will then generate a new Enterprise Key in the specified scope.
+         */
+        registerKey?: RegisterKeyOptions | undefined;
+    }
+
+    /** @since Chrome 110 */
+    export interface RegisterKeyOptions {
+        /**
+         * Which algorithm the registered key should use.
+         */
+        algorithm: Algorithm;
+    }
+
+    /**
+     * @since Chrome 110
+     * Type of key to generate.
+     */
+    type Algorithm = "RSA" | "ECDSA";
+
+    /**
+     * @since Chrome 110
+     * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+     */
+    type Scope = "USER" | "MACHINE";
+
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
      * @param callback Invoked by getTokens with the list of available Tokens.
@@ -3251,6 +3290,23 @@ declare namespace chrome.enterprise.platformKeys {
      * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
      *
      * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
+     * @param options Object containing the fields defined in ChallengeKeyOptions.
+     * @param callback Called back with the challenge response.
+     * @since Chrome 110
+     */
+    export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+    /**
+     * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+     *
+     * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
+     * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
      * @param challenge A challenge as emitted by the Verified Access Web API.
      * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
      * @param callback Called back with the challenge response.
@@ -3263,6 +3319,8 @@ declare namespace chrome.enterprise.platformKeys {
     ): void;
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
+     * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+     *
      * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
      * * The current device is a legitimate Chrome OS device.
@@ -4893,19 +4951,28 @@ declare namespace chrome.idle {
     /**
      * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
      * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
+     * @since Chrome 116
+     */
+    export function queryState(detectionIntervalInSeconds: number): Promise<IdleState>;
+    /**
+     * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
+     * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
      * @since Chrome 25
      */
     export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
+
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25
      * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
      */
     export function setDetectionInterval(intervalInSeconds: number): void;
+
     /**
      * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
      * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
      */
+    export function getAutoLockDelay(): Promise<number>;
     export function getAutoLockDelay(callback: (delay: number) => void): void;
 
     /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */
@@ -7349,6 +7416,7 @@ declare namespace chrome.runtime {
         | "tts"
         | "ttsEngine"
         | "unlimitedStorage"
+        | "userScripts"
         | "vpnProvider"
         | "wallpaper"
         | "webNavigation"
@@ -7881,6 +7949,20 @@ declare namespace chrome.runtime {
      * Fired when a Chrome update is available, but isn't installed immediately because a browser restart is required.
      */
     export var onBrowserUpdateAvailable: RuntimeEvent;
+
+    /**
+     * @since chrome 115+
+     * @requires MV3+
+     * Listens for connections made from user scripts associated with this extension.
+     */
+    export var onUserScriptConnect: ExtensionConnectEvent;
+
+    /**
+     * @since chrome 115+
+     * @requires MV3+
+     * Listens for messages sent from user scripts associated with this extension.
+     */
+    export var onUserScriptMessage: ExtensionMessageEvent;
 }
 
 ////////////////////
@@ -12947,4 +13029,155 @@ declare namespace chrome.sidePanel {
         /** The new behavior to be set. */
         behavior: PanelBehavior,
     ): Promise<void>;
+}
+
+// Type definitions for chrome.userScripts API
+
+/**
+ * Availability: Chrome 120 beta. Manifest v3.
+ * https://developer.chrome.com/docs/extensions/reference/api/userScripts
+ * Permissions: "userScripts"
+ * Description: "A user script is a bit of code injected into a web page to modify its appearance or behavior. Scripts are either created by users or downloaded from a script repository or a user script extension.""
+ */
+
+declare namespace chrome.userScripts {
+    /**
+     * Execution environment for a user script.
+     */
+    export type ExecutionWorld = "MAIN" | "USER_SCRIPT";
+
+    /**
+     * Properties for configuring the user script world.
+     */
+    export interface WorldProperties {
+        /** Specifies the world csp. The default is the `ISOLATED` world csp. */
+        csp?: string;
+        /** Specifies whether messaging APIs are exposed. The default is false.*/
+        messaging?: boolean;
+    }
+
+    /**
+     * Properties for filtering user scripts.
+     */
+    export interface UserScriptFilter {
+        ids?: string[];
+    }
+
+    /**
+     * Properties for a registered user script.
+     */
+    export interface RegisteredUserScript {
+        /** If true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched. */
+        allFrames?: boolean;
+        /** Specifies wildcard patterns for pages this user script will NOT be injected into. */
+        excludeGlobs?: string[];
+        /**Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
+        excludeMatches?: string[];
+        /** The ID of the user script specified in the API call. This property must not start with a '_' as it's reserved as a prefix for generated script IDs. */
+        id: string;
+        /** Specifies wildcard patterns for pages this user script will be injected into. */
+        includeGlobs?: string[];
+        /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. */
+        js: ScriptSource[];
+        /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for ${ref:register}. */
+        matches?: string[];
+        /** Specifies when JavaScript files are injected into the web page. The preferred and default value is document_idle */
+        runAt?: RunAt;
+        /** The JavaScript execution environment to run the script in. The default is `USER_SCRIPT` */
+        world?: ExecutionWorld;
+    }
+
+    /**
+     * Properties for a script source.
+     */
+    export interface ScriptSource {
+        /** A string containing the JavaScript code to inject. Exactly one of file or code must be specified. */
+        code?: string;
+        /** The path of the JavaScript file to inject relative to the extension's root directory. Exactly one of file or code must be specified. */
+        file?: string;
+    }
+
+    /**
+     * Enum for the run-at property.
+     */
+    export type RunAt = "document_start" | "document_end" | "document_idle";
+
+    /**
+     * Configures the `USER_SCRIPT` execution environment.
+     *
+     * @param properties - Contains the user script world configuration.
+     * @returns A Promise that resolves with the same type that is passed to the callback.
+     */
+    export function configureWorld(properties: WorldProperties): Promise<void>;
+    /**
+     * Configures the `USER_SCRIPT` execution environment.
+     *
+     * @param properties - Contains the user script world configuration.
+     * @param callback - Callback function to be executed after configuring the world.
+     */
+    export function configureWorld(properties: WorldProperties, callback: () => void): void;
+
+    /**
+     * Returns all dynamically-registered user scripts for this extension.
+     *
+     * @param filter - If specified, this method returns only the user scripts that match it.
+     * @returns A Promise that resolves with the same type that is passed to the callback.
+     */
+    export function getScripts(filter?: UserScriptFilter): Promise<RegisteredUserScript[]>;
+    /**
+     * Returns all dynamically-registered user scripts for this extension.
+     *
+     * @param filter - If specified, this method returns only the user scripts that match it.
+     * @param callback - Callback function to be executed after getting user scripts.
+     */
+    export function getScripts(filter: UserScriptFilter, callback: (scripts: RegisteredUserScript[]) => void): void;
+
+    /**
+     * Registers one or more user scripts for this extension.
+     *
+     * @param scripts - Contains a list of user scripts to be registered.
+     * @returns A Promise that resolves with the same type that is passed to the callback.
+     */
+    export function register(scripts: RegisteredUserScript[]): Promise<void>;
+    /**
+     * Registers one or more user scripts for this extension.
+     *
+     * @param scripts - Contains a list of user scripts to be registered.
+     * @param callback - Callback function to be executed after registering user scripts.
+     */
+    export function register(scripts: RegisteredUserScript[], callback: () => void): void;
+
+    /**
+     * Unregisters all dynamically-registered user scripts for this extension.
+     *
+     * @param filter - If specified, this method unregisters only the user scripts that match it.
+     * @returns A Promise that resolves with the same type that is passed to the callback.
+     */
+    export function unregister(filter?: UserScriptFilter): Promise<void>;
+    /**
+     * Unregisters all dynamically-registered user scripts for this extension.
+     *
+     * @param filter - If specified, this method unregisters only the user scripts that match it.
+     * @param callback - Callback function to be executed after unregistering user scripts.
+     */
+    export function unregister(filter: UserScriptFilter, callback: () => void): void;
+
+    /**
+     * Updates one or more user scripts for this extension.
+     *
+     * @param scripts - Contains a list of user scripts to be updated. A property is only updated for the existing script
+     *                  if it is specified in this object. If there are errors during script parsing/file validation, or if
+     *                  the IDs specified do not correspond to a fully registered script, then no scripts are updated.
+     * @returns A Promise that resolves with the same type that is passed to the callback.
+     */
+    export function update(scripts: RegisteredUserScript[]): Promise<void>;
+    /**
+     * Updates one or more user scripts for this extension.
+     *
+     * @param scripts - Contains a list of user scripts to be updated. A property is only updated for the existing script
+     *                  if it is specified in this object. If there are errors during script parsing/file validation, or if
+     *                  the IDs specified do not correspond to a fully registered script, then no scripts are updated.
+     * @param callback - Callback function to be executed after updating user scripts.
+     */
+    export function update(scripts: RegisteredUserScript[], callback: () => void): void;
 }

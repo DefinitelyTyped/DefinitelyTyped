@@ -1,14 +1,4 @@
-import {
-    AnimationClip,
-    AnimationMixer,
-    Audio,
-    Bone,
-    Camera,
-    Mesh,
-    Object3D,
-    Quaternion,
-    SkinnedMesh,
-} from "../../../src/Three.js";
+import { AnimationClip, AnimationMixer, Audio, Bone, Camera, Mesh, Object3D, Quaternion, SkinnedMesh } from "three";
 
 import { CCDIKSolver } from "./CCDIKSolver.js";
 import { MMDPhysics } from "./MMDPhysics.js";

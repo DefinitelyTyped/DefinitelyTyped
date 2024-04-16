@@ -7,5 +7,5 @@ export default class TempNode extends Node {
 
     constructor(type: NodeTypeOption | null);
 
-    hasDependencies(builder: NodeBuilder): void;
+    hasDependencies(builder: NodeBuilder): boolean;
 }

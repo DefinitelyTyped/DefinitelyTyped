@@ -1,4 +1,4 @@
-import { Camera, Material, Object3D, Renderer, Scene } from "../../../../src/Three.js";
+import { Camera, Material, Object3D, Renderer, Scene } from "three";
 
 import Node from "./Node.js";
 

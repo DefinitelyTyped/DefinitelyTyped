@@ -365,11 +365,11 @@ declare namespace ApplePayJS {
          */
         | "immediate"
         /**
-         * A value that specifies that the payment occurs on a regular basis.
+         * A value that specifies that the payment occurs in the future.
          */
         | "deferred"
         /**
-         * A value that specifies that the payment occurs in the future.
+         * A value that specifies that the payment occurs on a regular basis.
          */
         | "recurring"
         /**

@@ -2082,11 +2082,11 @@ export class Rectangle<P = any> extends Polygon<P> {
 export function rectangle(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions): Rectangle;
 
 export interface CircleMarkerOptions extends PathOptions {
-    radius?: number | undefined;
+    radius: number;
 }
 
 export class CircleMarker<P = any> extends Path {
-    constructor(latlng: LatLngExpression, options?: CircleMarkerOptions);
+    constructor(latlng: LatLngExpression, options: CircleMarkerOptions);
     toGeoJSON(precision?: number | false): geojson.Feature<geojson.Point, P>;
     setLatLng(latLng: LatLngExpression): this;
     getLatLng(): LatLng;
@@ -2100,12 +2100,10 @@ export class CircleMarker<P = any> extends Path {
 
 export function circleMarker(latlng: LatLngExpression, options?: CircleMarkerOptions): CircleMarker;
 
-export interface CircleOptions extends PathOptions {
-    radius: number | undefined;
-}
+export type CircleOptions = CircleMarkerOptions;
 
 export class Circle<P = any> extends CircleMarker<P> {
-    constructor(latlng: LatLngExpression, options?: CircleOptions);
+    constructor(latlng: LatLngExpression, options: CircleOptions);
     constructor(latlng: LatLngExpression, radius: number, options?: CircleOptions); // deprecated!
     toGeoJSON(precision?: number | false): any;
     getBounds(): LatLngBounds;
@@ -2114,8 +2112,8 @@ export class Circle<P = any> extends CircleMarker<P> {
     setStyle(style: PathOptions): this;
 }
 
-export function circle(latlng: LatLngExpression, options?: CircleMarkerOptions): Circle;
-export function circle(latlng: LatLngExpression, radius: number, options?: CircleMarkerOptions): Circle; // deprecated!
+export function circle(latlng: LatLngExpression, options: CircleMarkerOptions): Circle;
+export function circle(latlng: LatLngExpression, radius: number, options: CircleMarkerOptions): Circle; // deprecated!
 
 export interface RendererOptions extends LayerOptions {
     padding?: number | undefined;

@@ -6,7 +6,6 @@
         "https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red",
         "https://nodered.org/"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "@types/express": "*",
         "@types/node-red__editor-api": "*",

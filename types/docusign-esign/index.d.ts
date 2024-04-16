@@ -40,7 +40,7 @@ export class ApiClient {
         scopes: string[],
         redirectUri: string,
         responseType: string,
-        state: string,
+        state?: string,
     ): string;
 
     getBasePath(): string;

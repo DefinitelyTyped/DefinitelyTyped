@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import { CompressOptions, minify, OutputQuoteStyle } from "uglify-js";
 
 let code: any;

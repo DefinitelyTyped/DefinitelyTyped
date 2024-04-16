@@ -61,8 +61,22 @@ const docker11 = new Docker({
     },
 });
 
+const docker12 = new Docker({
+    sshOptions: {
+        host: "192.168.1.10",
+        port: 3000,
+        forceIPv4: true,
+        forceIPv6: true,
+    },
+});
+
 async function foo() {
-    const containers = await docker7.listContainers();
+    const containers = await docker7.listContainers({
+        all: false,
+        limit: 5,
+        size: true,
+        filters: undefined,
+    });
     for (const container of containers) {
         const foo = await docker7.getContainer(container.Id);
         const inspect = await foo.inspect();
@@ -76,6 +90,17 @@ async function foo() {
         const inspect = await foo.inspect();
         await foo.remove();
     }
+
+    const volumes = await docker8.listVolumes({
+        abortSignal: new AbortController().signal,
+        digests: false,
+        filters: undefined,
+    });
+
+    const nodes = await docker9.listNodes({
+        abortSignal: undefined,
+        filters: undefined,
+    });
 }
 
 docker.getEvents(
@@ -107,6 +132,9 @@ docker.getEvents().then(stream => {
 });
 
 const container = docker.getContainer("container-id");
+
+container.inspect({ abortSignal: new AbortController().signal });
+
 container.inspect((err, data) => {
     // NOOP
 });
@@ -238,11 +266,29 @@ docker.listContainers((err, containers) => {
     });
 });
 
-docker.listContainers().then(containers => {
+docker.listNetworks({ abortSignal: new AbortController().signal }, (err, response) => {
+    // NOOP
+});
+
+docker.listContainers({ abortSignal: new AbortController().signal }).then(containers => {
     return containers.map(container => docker.getContainer(container.Id));
 });
 
-docker.listImages({ all: true, filters: "{\"dangling\":[\"true\"]}", digests: true }).then(images => {
+docker.listImages({
+    all: true,
+    filters: "{\"dangling\":[\"true\"]}",
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
+docker.listImages({
+    all: true,
+    filters: { "dangling": ["true"] },
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
     return images.map(image => docker.getImage(image.Id));
 });
 
@@ -319,7 +365,7 @@ docker.createNetwork({ Name: "networkName" }, (err, network) => {
 
 docker.createVolume();
 
-docker.createVolume({ Name: "volumeName" });
+docker.createVolume({ Name: "volumeName", abortSignal: new AbortController().signal });
 
 docker.createVolume({
     Name: "volumeName",
@@ -330,6 +376,10 @@ docker.createVolume({
 
 docker.createVolume({ Name: "volumeName" }, (err, volume) => {
     volume.remove((err, data) => {
+        // NOOP
+    });
+
+    volume.remove({ abortSignal: new AbortController().signal }, (err, data) => {
         // NOOP
     });
 });
@@ -355,6 +405,14 @@ docker.pruneNetworks((err, response) => {
 docker.pruneVolumes((err, response) => {
     // NOOP
 });
+
+docker.pruneVolumes({
+    abortSignal: new AbortController().signal,
+}, (err, response) => {
+    // NOOP
+});
+
+docker.listVolumes({});
 
 docker.createService(
     {
@@ -399,13 +457,15 @@ docker.listServices({ filters: { name: ["network-name"] } }).then(services => {
 });
 
 const image = docker.getImage("imageName");
-image.remove({ force: true, noprune: false }, (err, response) => {
+image.remove({ force: true, noprune: false, abortSignal: new AbortController().signal }, (err, response) => {
     // NOOP;
 });
 
 image.distribution({}, (err, response) => {
     // NOOP;
 });
+
+image.tag({ abortSignal: new AbortController().signal, repo: "hello/world", tag: "latest" });
 
 image.distribution((err, response) => {
     // NOOP;

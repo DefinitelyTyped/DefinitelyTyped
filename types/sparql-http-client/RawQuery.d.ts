@@ -1,15 +1,11 @@
-import { Query, QueryInit } from ".";
+import { Query } from "./index.js";
+import SimpleClient from "./SimpleClient.js";
 
-declare namespace RawQuery {
-    type RawQuery = Query<Response, Response, Response, Response>;
+interface RawQuery extends Query<Promise<Response>, Promise<Response>, Promise<Response>, Promise<Response>> {
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface RawQuery extends RawQuery.RawQuery {}
-
-// tslint:disable-next-line no-unnecessary-class
 declare class RawQuery {
-    constructor(options: QueryInit);
+    constructor(options: { client: SimpleClient });
 }
 
-export = RawQuery;
+export default RawQuery;

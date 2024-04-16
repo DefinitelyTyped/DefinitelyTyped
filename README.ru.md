@@ -155,7 +155,7 @@ Definitely Typed работает только благодаря вкладу �
 | [`tsconfig.json`](#tsconfigjson)               | Позволяет вам запускать `tsc` внутри пакета.                                                         |
 
 Создайте их, запустив `npx dts-gen --dt --name <my-package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my-package> --template module` в противном случае.
-Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
+Посмотреть все варианты на [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Члены группы Definitely Typed регулярно следят за новыми PR, но имейте в виду, что количество других PR может замедлить ход событий.
 

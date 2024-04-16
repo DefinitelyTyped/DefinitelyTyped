@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mathjax-node",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/mathjax/MathJax-node"
+    ],
+    "dependencies": {
+        "@types/mathjax": "*"
+    },
+    "devDependencies": {
+        "@types/mathjax-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "N. V. Lang",
+            "githubUsername": "nvlang"
+        }
+    ]
+}

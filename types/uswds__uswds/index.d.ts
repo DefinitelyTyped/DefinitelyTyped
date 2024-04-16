@@ -1,6 +1,7 @@
 import {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -14,6 +15,7 @@ import {
     modal,
     navigation,
     password,
+    range,
     search,
     skipnav,
     table,
@@ -25,6 +27,7 @@ import {
 export {
     accordion,
     banner,
+    button,
     characterCount,
     comboBox,
     datePicker,
@@ -38,6 +41,7 @@ export {
     modal,
     navigation,
     password,
+    range,
     search,
     skipnav,
     table,

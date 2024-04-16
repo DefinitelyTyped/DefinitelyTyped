@@ -8,12 +8,16 @@ import {
     Group,
     Material,
     Object3D,
+    Plane,
     RenderTarget,
     Scene,
+    ShadowMapType,
+    Texture,
     ToneMapping,
     Vector2,
     Vector4,
-} from "../../../../src/Three.js";
+} from "three";
+import Node from "../../nodes/core/Node.js";
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
 import Color4 from "./../common/Color4.js";
@@ -87,11 +91,21 @@ export default class Renderer {
     depth: boolean;
 
     /**
-     * @default true
+     * @default false
      */
     stencil: boolean;
 
+    clippingPlanes: readonly Plane[];
+
     info: Info;
+
+    shadowMap: { enabled: boolean; type: ShadowMapType };
+
+    xr: { enabled: boolean };
+
+    toneMappingNode?: Node;
+
+    localClippingEnabled?: boolean;
 
     constructor(backend: Backend, parameters?: RendererParameters);
 
@@ -102,6 +116,8 @@ export default class Renderer {
     compileAsync(scene: Scene, camera: Camera, targetScene?: Scene | null): Promise<void>;
 
     renderAsync(scene: Scene, camera: Camera): Promise<void>;
+
+    render(scene: Scene, camera: Camera): void;
 
     getMaxAnisotropy(): number;
 
@@ -209,22 +225,28 @@ export default class Renderer {
      * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
      * Arguments default to true
      */
-    clearAsync(color?: boolean, depth?: boolean, stencil?: boolean): Promise<void>;
+    clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
     /**
      * Clear the color buffer. Equivalent to calling .clear( true, false, false ).
      */
-    clearColorAsync(): Promise<void>;
+    clearColor(): void;
 
     /**
      * Clear the depth buffer. Equivalent to calling .clear( false, true, false ).
      */
-    clearDepthAsync(): Promise<void>;
+    clearDepth(): void;
 
     /**
      * Clear the stencil buffer. Equivalent to calling .clear( false, false, true ).
      */
-    clearStencilAsync(): Promise<void>;
+    clearStencil(): void;
+
+    /**
+     * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
+     * Arguments default to true
+     */
+    clearAsync(color?: boolean, depth?: boolean, stencil?: boolean): Promise<void>;
 
     get currentColorSpace(): ColorSpace;
 
@@ -247,6 +269,8 @@ export default class Renderer {
 
     copyFramebufferToTexture(framebufferTexture: FramebufferTexture): void;
 
+    copyTextureToTexture(position: Vector2, srcTexture: Texture, dstTexture: Texture, level?: number): void;
+
     readRenderTargetPixelsAsync(
         renderTarget: RenderTarget,
         x: number,
@@ -268,14 +292,4 @@ export default class Renderer {
     get compute(): (computeNodes: ComputeNode | ComputeNode[]) => Promise<void>;
 
     get compile(): (scene: Scene, camera: Camera, targetScene?: Scene | null) => Promise<void>;
-
-    get render(): (scene: Scene, camera: Camera) => Promise<void>;
-
-    get clear(): (color?: boolean, depth?: boolean, stencil?: boolean) => Promise<void>;
-
-    get clearColor(): () => Promise<void>;
-
-    get clearDepth(): () => Promise<void>;
-
-    get clearStencil(): () => Promise<void>;
 }

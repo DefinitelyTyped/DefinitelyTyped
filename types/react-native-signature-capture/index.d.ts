@@ -57,6 +57,13 @@ export interface SignatureCaptureProps extends ViewProps {
     maxSize?: number | undefined;
 
     /**
+     * Sets the color of the signature. Defaults to black.
+     *
+     * @default "#000000"
+     */
+    strokeColor?: string | undefined;
+
+    /**
      * Triggered when saveImage() is called, which return Base64 Encoded String and image file path.
      *
      * @param params - the file path and encoded png

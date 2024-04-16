@@ -1,4 +1,4 @@
-import { NormalMapTypes } from "../../../../src/Three.js";
+import { NormalMapTypes } from "three";
 import Node from "../core/Node.js";
 import TempNode from "../core/TempNode.js";
 import MathNode from "../math/MathNode.js";
@@ -14,8 +14,6 @@ export default class NormalMapNode extends TempNode {
 }
 
 export const normalMap: (node: Node, scaleNode?: Node) => ShaderNodeObject<NormalMapNode>;
-
-export const TBNViewMatrix: ShaderNodeObject<MathNode>;
 
 declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {

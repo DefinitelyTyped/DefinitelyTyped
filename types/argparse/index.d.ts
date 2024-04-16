@@ -2,11 +2,13 @@ export class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
     add_subparsers(options?: SubparserOptions): SubParser;
     parse_args(args?: string[], ns?: Namespace | object): any;
+    parse_intermixed_args(args?: string[], ns?: Namespace | object): any;
     print_usage(): void;
     print_help(): void;
     format_usage(): string;
     format_help(): string;
     parse_known_args(args?: string[], ns?: Namespace | object): any[];
+    parse_known_intermixed_args(args?: string[], ns?: Namespace | object): any[];
     convert_arg_line_to_args(argLine: string): string[];
     exit(status: number, message: string): void;
     error(err: string | Error): void;
@@ -55,6 +57,7 @@ export interface ArgumentParserOptions {
     argument_default?: any;
     parents?: ArgumentParser[] | undefined;
     prefix_chars?: string | undefined;
+    fromfile_prefix_chars?: string | undefined;
     formatter_class?: {
         new(): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
     } | undefined;

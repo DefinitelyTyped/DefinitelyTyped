@@ -1218,7 +1218,8 @@ declare namespace naver.maps {
     class InfoWindow extends OverlayView {
         constructor(options: InfoWindowOptions);
         close(): void;
-        getContent(): HTMLElement;
+        getContent(): string | HTMLElement;
+        getContentElement(): HTMLElement;
         getOptions(key?: string): any; // if key is undefined, return InfoWindowOptions
         getPosition(): Coord;
         getZIndex(): number;
