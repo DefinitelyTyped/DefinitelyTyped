@@ -1,24 +1,23 @@
-import isPotentialCustomElementName = require('is-potential-custom-element-name')
+import isPotentialCustomElementName = require("is-potential-custom-element-name");
 
 // $ExpectType boolean
-isPotentialCustomElementName('')
+isPotentialCustomElementName("");
 // $ExpectType boolean
-isPotentialCustomElementName('a')
+isPotentialCustomElementName("a");
 // $ExpectType boolean
-isPotentialCustomElementName('a-1')
+isPotentialCustomElementName("a-1");
 // $ExpectType boolean
-isPotentialCustomElementName('a-b')
+isPotentialCustomElementName("a-b");
 // $ExpectType boolean
-isPotentialCustomElementName('a-)')
+isPotentialCustomElementName("a-)");
 
 // @ts-expect-error
-isPotentialCustomElementName()
+isPotentialCustomElementName();
 // @ts-expect-error
-isPotentialCustomElementName(1)
+isPotentialCustomElementName(1);
 // @ts-expect-error
-isPotentialCustomElementName(true)
+isPotentialCustomElementName(true);
 // @ts-expect-error
-isPotentialCustomElementName(Symbol('a-1'))
+isPotentialCustomElementName(Symbol("a-1"));
 // @ts-expect-error
-isPotentialCustomElementName({})
-
+isPotentialCustomElementName({});
