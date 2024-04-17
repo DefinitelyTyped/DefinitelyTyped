@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/dragula",
-    "version": "3.7.9999",
+    "version": "3.8.0",
     "projects": [
         "http://bevacqua.github.io/dragula/"
     ],
