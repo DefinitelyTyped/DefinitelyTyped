@@ -666,3 +666,13 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
 const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
     entityTypes: [],
 };
+
+const entityFormOptionsTest: ComponentFramework.NavigationApi.EntityFormOptions = {
+    entityName: "",
+    entityId: "",
+    createFromEntity: {
+        id: "",
+        name: "",
+        entityType: "",
+    },
+};
