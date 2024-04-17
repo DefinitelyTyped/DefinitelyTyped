@@ -25,8 +25,7 @@ const d2 = dragula({
     mirrorContainer: document.body,
     ignoreInputTextSelection: true,
     slideFactorX: 0,
-    slideFactorY: 0
-
+    slideFactorY: 0,
 });
 
 const d3 = dragula();
