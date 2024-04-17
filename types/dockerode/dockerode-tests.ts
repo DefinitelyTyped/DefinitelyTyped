@@ -456,6 +456,17 @@ docker.listServices({ filters: { name: ["network-name"] } }).then(services => {
     return services.map(service => docker.getService(service.ID));
 });
 
+(async () => {
+    // $ExpectType ReadableStream
+    const pullStream = await docker.pull("hello-world", { authconfig: { username: "username", password: "password" } });
+
+    // $ExpectType Image
+    const pushImage = docker.getImage("hello-world");
+
+    // $ExpectType ReadableStream
+    const pushStream = await pushImage.push({ authconfig: { username: "username", password: "password" } });
+});
+
 const image = docker.getImage("imageName");
 image.remove({ force: true, noprune: false, abortSignal: new AbortController().signal }, (err, response) => {
     // NOOP;
