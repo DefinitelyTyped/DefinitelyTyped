@@ -1,3 +1,5 @@
+import { CoreOptions as RequestOptions } from "request";
+
 export interface Config {
     token: string;
     name?: string | undefined;
@@ -33,6 +35,7 @@ export type EventFormatter = (message: any, severity: string) => any;
 export class Logger {
     error: (error: Error, context: SendContext) => void;
     eventFormatter: EventFormatter;
+    requestOptions: RequestOptions;
     readonly serializedContextQueue: any[];
 
     constructor(config: Config);
