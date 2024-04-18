@@ -1,5 +1,5 @@
 {
-  "rules": {
-      "@definitelytyped/export-just-namespace": "off"
-  }
+    "rules": {
+        "@definitelytyped/export-just-namespace": "off"
+    }
 }

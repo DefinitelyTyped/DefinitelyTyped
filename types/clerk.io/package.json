@@ -1,19 +1,19 @@
 {
-  "private": true,
-  "nonNpm": true,
-  "nonNpmDescription": "Clerk.io API",
-  "name": "@types/clerk.io",
-  "version": "0.0.9999",
-  "projects": [
-    "https://docs.clerk.io/docs"
-  ],
-  "devDependencies": {
-      "@types/clerk.io": "workspace:."
-  },
-  "owners": [
-      {
-          "name": "Tobias Mønster Madsen",
-          "githubUsername": "tmmgrafikr"
-      }
-  ]
+    "private": true,
+    "nonNpm": true,
+    "nonNpmDescription": "Clerk.io API",
+    "name": "@types/clerk.io",
+    "version": "0.0.9999",
+    "projects": [
+        "https://docs.clerk.io/docs"
+    ],
+    "devDependencies": {
+        "@types/clerk.io": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tobias Mønster Madsen",
+            "githubUsername": "tmmgrafikr"
+        }
+    ]
 }
