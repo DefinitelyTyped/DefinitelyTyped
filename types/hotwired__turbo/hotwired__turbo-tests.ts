@@ -1,4 +1,4 @@
-import { FrameElement, StreamElement, visit } from "@hotwired/turbo";
+import { FrameElement, StreamActions, StreamElement, visit } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector<FrameElement>("turbo-frame")!;
 
@@ -65,3 +65,9 @@ Turbo.visit("my-location", { frame: "mine" });
 
 // $ExpectType TurboSession
 Turbo.session;
+
+StreamActions.log = function() {
+    // $ExpectType StreamElement
+    this;
+    console.log(this.getAttribute("message"));
+}

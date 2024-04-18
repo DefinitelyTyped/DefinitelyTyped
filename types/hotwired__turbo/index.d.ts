@@ -71,6 +71,10 @@ export interface TurboSession {
     renderStreamMessage(message: unknown): void;
 }
 
+export const StreamActions: {
+    [action: string]: (this: StreamElement) => void;
+};
+
 export function visit(
     location: string,
     options?: { action?: "advance" | "replace"; frame?: string },
