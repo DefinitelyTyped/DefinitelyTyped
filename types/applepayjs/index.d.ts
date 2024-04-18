@@ -968,20 +968,20 @@ declare namespace ApplePayJS {
     /**
      * Values you use to enable or disable Apple Pay Later for a specific transaction.
      */
-    type ApplePayLaterAvailability = 
-    /**
-     * Apple Pay Later is available.
-     * This is the default.
-     */
-    | "available"
-    /** 
-     * Apple Pay Later is unavailable because one or more ineligible or prohibited items are in the shopping cart, such as gift cards
-     */
-    | "unavailableItemIneligible"
-    /**
-     * Apple Pay Later is unavailable because there’s a recurring payment or subscription in the shopping cart.
-     */
-    | "unavailableRecurringTransaction"
+    type ApplePayLaterAvailability =
+        /**
+         * Apple Pay Later is available.
+         * This is the default.
+         */
+        | "available"
+        /**
+         * Apple Pay Later is unavailable because one or more ineligible or prohibited items are in the shopping cart, such as gift cards
+         */
+        | "unavailableItemIneligible"
+        /**
+         * Apple Pay Later is unavailable because there’s a recurring payment or subscription in the shopping cart.
+         */
+        | "unavailableRecurringTransaction";
 
     /**
      * A value that indicates whether the shipping mode prevents the user from editing the shipping address.
