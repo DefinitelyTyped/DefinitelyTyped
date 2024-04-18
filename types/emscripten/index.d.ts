@@ -119,7 +119,6 @@ declare namespace FS {
     interface FSNode {
         mode: number;
     }
-    interface ErrnoError {}
 
     class ErrnoError extends Error {
         name: "ErronoError";
