@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@types/clerk.io",
+  "version": "0.0.9999",
+  "projects": [],
+  "devDependencies": {
+      "@types/clerk.io": "workspace:."
+  },
+  "owners": [
+      {
+          "name": "Tobias Mønster Madsen",
+          "githubUsername": "tmmgrafikr"
+      }
+  ]
+}
