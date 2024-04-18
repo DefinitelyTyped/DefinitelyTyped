@@ -7,8 +7,8 @@
       ],
       "noImplicitAny": true,
       "noImplicitThis": true,
-      "strictFunctionTypes": true,
       "strictNullChecks": true,
+      "strictFunctionTypes": true,
       "types": [],
       "noEmit": true,
       "forceConsistentCasingInFileNames": true

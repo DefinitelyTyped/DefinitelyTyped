@@ -1,8 +1,12 @@
 {
   "private": true,
+  "nonNpm": true,
+  "nonNpmDescription": "Clerk.io API",
   "name": "@types/clerk.io",
   "version": "0.0.9999",
-  "projects": [],
+  "projects": [
+    "https://docs.clerk.io/docs"
+  ],
   "devDependencies": {
       "@types/clerk.io": "workspace:."
   },

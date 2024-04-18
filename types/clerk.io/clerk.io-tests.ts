@@ -9,7 +9,7 @@ async () => {
     return;
   }
 
-  // $ExpectType Promise
+  // $ExpectType Promise<ClerkResponseSearchPredictive>
   window.Clerk('call', 'search/predictive', {
     query: 'predictive',
     limit: 5,
