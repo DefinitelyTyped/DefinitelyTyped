@@ -10,16 +10,16 @@ declare global {
 }
 
 declare namespace ClerkIO {
+    type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
     interface Clerk {
-        <T extends ClerkIO.ClerkEndpoint>(
+        <T extends ClerkEndpoint>(
             method: "call",
             endpoint: T,
-            config?: ClerkIO.ConfigType<T>,
-        ): Promise<ClerkIO.ClerkResponseType<T>>;
+            config?: ConfigType<T>,
+        ): Promise<ClerkResponseType<T>>;
         (method: "click", attribute: string): void;
     }
-
-    type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
     interface ClerkProductAttributes {
         age: number;
@@ -70,46 +70,57 @@ declare namespace ClerkIO {
         text: string;
     }
 
-    type ClerkArticle = {
+    interface ClerkArticle extends ClerkPage {
         author: string;
         blog: string;
-    } & ClerkPage;
+    }
 
     interface ClerkBaseConfig {
+        /**
+         * Limit amount of results
+         */
         limit: number;
+
+        /**
+         * @description Enables tracking
+         */
         labels?: string[];
+
+        /**
+         * @link {reference filter docs}
+         */
         filter?: string;
     }
 
-    type ClerkConfigProducts = {
+    interface ClerkConfigProducts extends ClerkBaseConfig {
         products: Array<number | string>;
         attributes: Array<keyof ClerkProductAttributes>;
         offset?: number;
         exclude?: string[];
-    } & ClerkBaseConfig;
+    }
 
-    type ClerkConfigSearch = {
+    interface ClerkConfigSearch extends ClerkBaseConfig {
         query: string;
         limit: number;
         language?: string;
-    } & ClerkBaseConfig;
+    }
 
-    type ClerkConfigSearchResults = {
+    interface ClerkConfigSearchResults extends ClerkBaseConfig {
         longtail?: boolean;
         facets?: string[];
         offset?: number;
         order?: "asc" | "desc";
         orderby?: keyof ClerkProductAttributes;
         attributes?: Array<keyof ClerkProductAttributes>;
-    } & ClerkConfigSearch;
+    }
 
-    type ClerkConfigSearchPages = {
+    interface ClerkConfigSearchPages extends ClerkConfigSearch {
         type?: "blog" | "page";
-    } & ClerkConfigSearch;
+    }
 
-    type ClerkConfigSearchProducts = {
+    interface ClerkConfigSearchProducts extends ClerkConfigSearch {
         attributes?: Array<keyof ClerkProductAttributes>;
-    } & ClerkConfigSearch;
+    }
 
     type ClerkEndpointsSearch =
         | "search/search"
@@ -130,7 +141,7 @@ declare namespace ClerkIO {
 
     type ClerkEndpoint = ClerkEndpointsProducts | ClerkEndpointsSearch;
 
-    interface ConfigTypes {
+    type ConfigTypes = {
         "search/search": ClerkConfigSearchResults;
         "search/pages": ClerkConfigSearchPages;
         "search/predictive": ClerkConfigSearchProducts;
@@ -144,7 +155,7 @@ declare namespace ClerkIO {
         "recommendations/keywords": Omit<ClerkConfigProducts, "offset">;
         "recommendations/complementary": ClerkConfigProducts;
         "recommendations/substituting": ClerkConfigProducts;
-    }
+    };
 
     type ConfigType<T extends ClerkEndpoint> = T extends keyof ConfigTypes ? ConfigTypes[T] : never;
 
@@ -153,33 +164,42 @@ declare namespace ClerkIO {
         results: number[];
     }
 
-    type ClerkResponseProducts = {
+    interface ClerkResponseProducts extends ClerkBaseResponse {
         count: number;
         product_data: ClerkProductAttributes[];
-    } & ClerkBaseResponse;
+    }
 
-    type ClerkResponseSearchCategory = {
+    interface ClerkResponseSearchCategory extends ClerkBaseResponse {
         categories: ClerkCategory[];
-    } & ClerkBaseResponse;
+    }
 
-    type ClerkResponseSearchPredictive = {
+    interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
         hits: number;
-    } & ClerkResponseProducts;
+    }
 
-    type ClerkResponseSearchPages = {
+    //   interface ClerkPageTypes {
+    //     page: ClerkPage;
+    //     blog: ClerkArticle;
+    //   };
+
+    //   type PageType<T extends ClerkConfigSearchPages> = T['type'] extends keyof ClerkPageTypes
+    //     ? ClerkPageTypes[T['type']]
+    //     : ClerkPage & Partial<ClerkArticle>;
+
+    interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "results"> {
         pages: ClerkPage[] | ClerkArticle[];
         results: ClerkPage[] | ClerkArticle[];
-    } & ClerkBaseResponse;
+    }
 
-    type ClerkResponseSearchPage = {
+    interface ClerkResponseSearchPage extends ClerkBaseResponse {
         count: number;
         hits: number;
         product_data: ClerkProductAttributes[];
-    } & ClerkBaseResponse;
+    }
 
     interface ClerkResponseTypes {
         "search/search": ClerkResponseSearchPage;
-        "search/pages": ClerkResponseSearchPages;
+        "search/pages": ClerkResponseSearchPages<T>;
         "search/predictive": ClerkResponseSearchPredictive;
         "search/categories": ClerkResponseSearchCategory;
 
@@ -193,7 +213,6 @@ declare namespace ClerkIO {
         "recommendations/substituting": ClerkResponseProducts;
     }
 
-    type ClerkResponseType<T extends ClerkIO.ClerkEndpoint> = T extends keyof ClerkIO.ClerkResponseTypes
-        ? ClerkIO.ClerkResponseTypes[T]
+    type ClerkResponseType<T extends ClerkEndpoint> = T extends keyof ClerkResponseTypes ? ClerkResponseTypes[T]
         : never;
 }
