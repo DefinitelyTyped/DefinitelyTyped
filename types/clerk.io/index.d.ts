@@ -199,7 +199,7 @@ declare namespace ClerkIO {
 
     interface ClerkResponseTypes {
         "search/search": ClerkResponseSearchPage;
-        "search/pages": ClerkResponseSearchPages<T>;
+        "search/pages": ClerkResponseSearchPages;
         "search/predictive": ClerkResponseSearchPredictive;
         "search/categories": ClerkResponseSearchCategory;
 
