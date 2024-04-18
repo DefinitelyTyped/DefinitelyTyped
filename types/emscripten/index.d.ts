@@ -41,7 +41,7 @@ interface EmscriptenModule {
     getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     instantiateWasm(
         imports: WebAssembly.Imports,
-        successCallback: (module: WebAssembly.Instance) => void
+        successCallback: (module: WebAssembly.Instance) => void,
     ): WebAssembly.Exports | undefined;
     locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
@@ -94,7 +94,7 @@ interface EmscriptenModule {
  * @param moduleOverrides Default properties for the initialized module.
  */
 type EmscriptenModuleFactory<T extends EmscriptenModule = EmscriptenModule> = (
-    moduleOverrides?: Partial<T>
+    moduleOverrides?: Partial<T>,
 ) => Promise<T>;
 
 declare namespace FS {
@@ -194,7 +194,7 @@ declare namespace FS {
         offset: number,
         length: number,
         position?: number,
-        canOwn?: boolean
+        canOwn?: boolean,
     ): number;
     function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(
@@ -204,7 +204,7 @@ declare namespace FS {
         length: number,
         position: number,
         prot: number,
-        flags: number
+        flags: number,
     ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
     function readFile(path: string, opts: { encoding: "binary"; flags?: string | undefined }): Uint8Array;
@@ -220,7 +220,7 @@ declare namespace FS {
     function init(
         input: null | (() => number | null),
         output: null | ((c: number) => any),
-        error: null | ((c: number) => any)
+        error: null | ((c: number) => any),
     ): void;
 
     function createLazyFile(
@@ -228,7 +228,7 @@ declare namespace FS {
         name: string,
         url: string,
         canRead: boolean,
-        canWrite: boolean
+        canWrite: boolean,
     ): FSNode;
     function createPreloadedFile(
         parent: string | FSNode,
@@ -239,7 +239,7 @@ declare namespace FS {
         onload?: () => void,
         onerror?: () => void,
         dontCreateFile?: boolean,
-        canOwn?: boolean
+        canOwn?: boolean,
     ): void;
     function createDataFile(
         parent: string | FSNode,
@@ -247,7 +247,7 @@ declare namespace FS {
         data: ArrayBufferView,
         canRead: boolean,
         canWrite: boolean,
-        canOwn: boolean
+        canOwn: boolean,
     ): FSNode;
 }
 
@@ -256,14 +256,13 @@ declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
 // https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html
-type StringToType<R extends any> = R extends Emscripten.JSType
-    ? {
-          number: number;
-          string: string;
-          array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
-          boolean: boolean;
-          null: null;
-      }[R]
+type StringToType<R extends any> = R extends Emscripten.JSType ? {
+        number: number;
+        string: string;
+        array: number[] | string[] | boolean[] | Uint8Array | Int8Array;
+        boolean: boolean;
+        null: null;
+    }[R]
     : never;
 
 type ArgsToType<T extends Array<Emscripten.JSType | null>> = Extract<
@@ -293,7 +292,7 @@ declare function cwrap<I extends Array<Emscripten.JSType | null> | [], R extends
     ident: string,
     returnType: R,
     argTypes: I,
-    opts?: Emscripten.CCallOpts
+    opts?: Emscripten.CCallOpts,
 ): (...arg: ArgsToType<I>) => ReturnToType<R>;
 
 declare function ccall<I extends Array<Emscripten.JSType | null> | [], R extends Emscripten.JSType | null>(
@@ -301,7 +300,7 @@ declare function ccall<I extends Array<Emscripten.JSType | null> | [], R extends
     returnType: R,
     argTypes: I,
     args: ArgsToType<I>,
-    opts?: Emscripten.CCallOpts
+    opts?: Emscripten.CCallOpts,
 ): ReturnToType<R>;
 
 declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
@@ -311,7 +310,7 @@ declare function allocate(
     slab: number[] | ArrayBufferView | number,
     types: Emscripten.CType | Emscripten.CType[],
     allocator: number,
-    ptr?: number
+    ptr?: number,
 ): number;
 
 declare function stackAlloc(size: number): number;

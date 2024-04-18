@@ -27,7 +27,7 @@ function ModuleTest(): void {
     const package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
     const exports: WebAssembly.Exports | undefined = Module.instantiateWasm(
         { a: { n: function __syscall_chmod() {} } },
-        (module: WebAssembly.Instance) => {}
+        (module: WebAssembly.Instance) => {},
     );
     const memFile: string = Module.locateFile("file.mem", "http://www.example.org/");
     Module.onCustomMessage(new MessageEvent("TestType"));
@@ -59,7 +59,7 @@ function FSTest(): void {
     FS.init(
         () => null,
         (_) => null,
-        (_) => null
+        (_) => null,
     );
     FS.init(null, null, null);
 
