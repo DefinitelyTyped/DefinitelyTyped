@@ -9,11 +9,11 @@ declare global {
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export interface Clerk {
-    <T extends ClerkEndpoint>(
+    <T extends ClerkEndpoint, Config extends ConfigType<T>>(
         method: "call",
         endpoint: T,
-        config?: ConfigType<T>,
-    ): Promise<ClerkResponseType<T>>;
+        config?: Config,
+    ): Promise<ClerkResponseType<T, Config>>;
     (method: "click", attribute: string): void;
 }
 
@@ -178,18 +178,16 @@ interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
     hits: number;
 }
 
-//   interface ClerkPageTypes {
-//     page: ClerkPage;
-//     blog: ClerkArticle;
-//   };
+interface ClerkPageTypes {
+    page: ClerkPage;
+    blog: ClerkArticle;
+}
 
-//   type PageType<T extends ClerkConfigSearchPages> = T['type'] extends keyof ClerkPageTypes
-//     ? ClerkPageTypes[T['type']]
-//     : ClerkPage & Partial<ClerkArticle>;
+type PageType<Type> = Type extends keyof ClerkPageTypes ? ClerkPageTypes[Type] : ClerkPage & Partial<ClerkArticle>;
 
-interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "results"> {
-    pages: ClerkPage[] | ClerkArticle[];
-    results: ClerkPage[] | ClerkArticle[];
+interface ClerkResponseSearchPages<Config> extends Omit<ClerkBaseResponse, "results"> {
+    pages: Array<PageType<Config["type"]>>;
+    results: Array<PageType<Config["type"]>>;
 }
 
 interface ClerkResponseSearchPage extends ClerkBaseResponse {
@@ -198,9 +196,9 @@ interface ClerkResponseSearchPage extends ClerkBaseResponse {
     product_data: ClerkProductAttributes[];
 }
 
-interface ClerkResponseTypes {
+interface ClerkResponseTypes<Config = never> {
     "search/search": ClerkResponseSearchPage;
-    "search/pages": ClerkResponseSearchPages;
+    "search/pages": ClerkResponseSearchPages<Config>;
     "search/predictive": ClerkResponseSearchPredictive;
     "search/categories": ClerkResponseSearchCategory;
 
@@ -214,7 +212,8 @@ interface ClerkResponseTypes {
     "recommendations/substituting": ClerkResponseProducts;
 }
 
-type ClerkResponseType<T extends ClerkEndpoint> = T extends keyof ClerkResponseTypes ? ClerkResponseTypes[T]
+type ClerkResponseType<T extends ClerkEndpoint, Config> = T extends keyof ClerkResponseTypes
+    ? ClerkResponseTypes<Config>[T]
     : never;
 
 export {};
