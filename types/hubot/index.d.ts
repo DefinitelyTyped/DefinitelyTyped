@@ -4,7 +4,6 @@ import { Express } from "express";
 import { Server } from "http";
 import { Options as HttpOptions, ScopedClient } from "scoped-http-client";
 
-
 export class Adapter extends EventEmitter {
     robot: Robot;
     constructor(robot: Robot);
@@ -26,7 +25,7 @@ export class Adapter extends EventEmitter {
      * @returns an object containing all the users with property names
      * that are the user id and with the value set as the `User`.
      * You can iterate over them all with `for (const id in users())`
-     **/
+     */
     users(): any;
     userForId(id: string, options?: {}): User;
     userForName(name: string): User | null;
@@ -66,7 +65,7 @@ export class Brain<A extends Adapter> extends EventEmitter {
      * @returns an object containing all the users with property names
      * that are the user id and with the value set as the `User`.
      * You can iterate over them all with `for (const id in users())`
-     **/
+     */
     users(): any;
     userForId(id: string, options?: {}): User;
     userForName(name: string): User | null;
