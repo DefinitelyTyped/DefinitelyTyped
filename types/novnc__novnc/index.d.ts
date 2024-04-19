@@ -305,7 +305,6 @@ declare module "@novnc/novnc/core/rfb" {
          * @param quality A `number` between 0 and 1 indicating the image quality.
          */
         toBlob(callback: (blob: Blob) => void, type?: string, quality?: number): void;
-
     }
 }
 
