@@ -34,7 +34,7 @@ rfb.machineReboot(); // $ExpectType void
 rfb.machineReset(); // $ExpectType void
 rfb.clipboardPasteFrom("test"); // $ExpectType void
 rfb.toDataURL(); // $ExpectType string
-rfb.toBlob(); // $ExpectType void
+rfb.toBlob((blob) => blob); // $ExpectType void
 
 /* @novnc/novnc/core/util/browser */
 
