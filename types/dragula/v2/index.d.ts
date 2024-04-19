@@ -17,8 +17,6 @@ declare namespace dragula {
         delay?: boolean | number | undefined;
         mirrorContainer?: Element | undefined;
         ignoreInputTextSelection?: boolean | undefined;
-        slideFactorX?: number | undefined;
-        slideFactorY?: number | undefined;
     }
 
     interface Drake {
