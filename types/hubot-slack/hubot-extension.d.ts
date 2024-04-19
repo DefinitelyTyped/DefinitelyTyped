@@ -1,5 +1,5 @@
 import { ListenerCallback, Message } from "hubot";
-import { SlackBot } from ".";
+import { SlackBot } from "./index.js";
 
 declare module "hubot" {
     interface Robot {

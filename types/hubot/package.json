@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/hubotio/hubot"
     ],
+    "type":"module",
     "dependencies": {
         "@types/express": "*",
         "@types/scoped-http-client": "*",
