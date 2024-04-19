@@ -130,7 +130,7 @@ declare namespace FS {
             flags: number;
             position: number;
         };
-        node: FSNode;
+        node?: FSNode;
         constructor();
         object: FSNode;
         readonly isRead: boolean;
