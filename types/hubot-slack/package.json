@@ -14,5 +14,6 @@
     "devDependencies": {
         "@types/hubot-slack": "workspace:."
     },
+    "type": "module",
     "owners": []
 }
