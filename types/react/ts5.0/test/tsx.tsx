@@ -170,6 +170,7 @@ React.createContext();
 const UndefinedContext = React.createContext(undefined);
 // @ts-expect-error Forgot value even if it can be undefined
 <UndefinedContext.Provider />;
+<UndefinedContext.Provider value={undefined} />;
 
 // unstable APIs should not be part of the typings
 // @ts-expect-error
