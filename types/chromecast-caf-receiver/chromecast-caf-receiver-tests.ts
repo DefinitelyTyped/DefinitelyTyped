@@ -135,6 +135,7 @@ const supportedCommands: number = cast.framework.messages.Command.ALL_BASIC_MEDI
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.protectionSystem = cast.framework.ContentProtection.WIDEVINE;
+playbackConfig.enableUITextDisplayer = true;
 playbackConfig.shakaConfig = {
     manifest: {
         availabilityWindowOverride: 30,
