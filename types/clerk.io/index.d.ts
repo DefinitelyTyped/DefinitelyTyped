@@ -23,11 +23,11 @@ declare namespace ClerkIO {
 
     interface ClerkProductAttributes {
         age: number;
-        categories: string[];
+        categories: number[];
         created_at: number;
         description: string;
         handle: string;
-        id: number | string;
+        id: number;
         image: string;
         images: string[];
         name: string;
@@ -37,14 +37,19 @@ declare namespace ClerkIO {
         price_max: number;
         published: boolean;
         sku: string[];
+        status: boolean;
         stock: number;
+        tags: string[];
         type: string;
         url: string;
+        variant_inventory_policy: string[];
         variant_list_prices: number[];
         variant_names: string[];
         variant_prices: number[];
+        variant_stocks: number[];
+        variant_weight: number[];
+        variant_weight_unit: string[];
         variants: string[];
-        varient_stocks: number[];
         vendor: string;
     }
 
@@ -87,7 +92,7 @@ declare namespace ClerkIO {
         labels?: string[];
 
         /**
-         * @link {reference filter docs}
+         * @link https://docs.clerk.io/docs/filters
          */
         filter?: string;
     }
@@ -141,7 +146,7 @@ declare namespace ClerkIO {
 
     type ClerkEndpoint = ClerkEndpointsProducts | ClerkEndpointsSearch;
 
-    type ConfigTypes = {
+    interface ConfigTypes {
         "search/search": ClerkConfigSearchResults;
         "search/pages": ClerkConfigSearchPages;
         "search/predictive": ClerkConfigSearchProducts;
