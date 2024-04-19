@@ -44,13 +44,7 @@ export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;
 
-/**
- * @deprecated
- */
 export function unstable_batchedUpdates<A, R>(callback: (a: A) => R, a: A): R;
-/**
- * @deprecated
- */
 export function unstable_batchedUpdates<R>(callback: () => R): R;
 
 /**
