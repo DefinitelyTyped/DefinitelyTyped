@@ -290,6 +290,22 @@ declare module "@novnc/novnc/core/rfb" {
          * @param text A `string` specifying the clipboard data to send.
          */
         clipboardPasteFrom(text: string): void;
+
+        /**
+         * Return the current content of the screen encoded as a base64 data URL.
+         * @param type A `string` indicating the requested MIME type of the image
+         * @param encoderOptions A `number` between 0 and 1 indicating the image quality.
+         */
+        toDataURL(type?: string, encoderOptions?: number): string;
+
+        /**
+         * Used to return the current content of the screen encoded as a `Blob`.
+         * @param callback A callback function which will receive the resulting `Blob` as the single argument
+         * @param type A `string` indicating the requested MIME type of the image
+         * @param quality A `number` between 0 and 1 indicating the image quality.
+         */
+        toBlob(callback: (blob: Blob) => void, type?: string, quality?: number): void;
+
     }
 }
 
