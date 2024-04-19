@@ -21,7 +21,13 @@ declare namespace Hubot {
         receive(message: Message): void;
         http(url: string): ScopedClient;
 
-        users(): User[];
+        /**
+         * @deprecated
+         * @returns an object containing all the users with property names
+         * that are the user id and with the value set as the `User`.
+         * You can iterate over them all with `for (const id in users())`
+         **/
+        users(): any;
         userForId(id: string, options?: {}): User;
         userForName(name: string): User | null;
         usersForRawFuzzyName(fuzzyName: string): User[];
@@ -56,7 +62,12 @@ declare namespace Hubot {
         setAutoSave(enabled: boolean): void;
         resetSaveInterval(seconds: number): void;
         mergeData(data: {}): void;
-        users(): User[];
+        /**
+         * @returns an object containing all the users with property names
+         * that are the user id and with the value set as the `User`.
+         * You can iterate over them all with `for (const id in users())`
+         **/
+        users(): any;
         userForId(id: string, options?: {}): User;
         userForName(name: string): User | null;
         usersForRawFuzzyName(fuzzyName: string): User[];
