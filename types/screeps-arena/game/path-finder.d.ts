@@ -1,7 +1,7 @@
 declare module "game/path-finder" {
     import { Position } from "game/prototypes";
 
-    export type SearchPathOptions = {
+    export interface SearchPathOptions {
         /** Custom navigation cost data */
         costMatrix?: CostMatrix;
 
@@ -28,7 +28,7 @@ declare module "game/path-finder" {
         heuristicWeight?: number;
     }
 
-    export type SearchPathResult = {
+    export interface SearchPathResult {
         /** The path found as an array of objects containing x and y properties */
         path: Position[];
 

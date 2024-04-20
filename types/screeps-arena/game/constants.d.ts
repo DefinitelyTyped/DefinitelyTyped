@@ -84,6 +84,7 @@ declare module "game/constants" {
     export const CREEP_SPAWN_TIME = 3;
 
     export const RESOURCE_ENERGY = "energy";
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     export const RESOURCES_ALL: [typeof RESOURCE_ENERGY];
 
     export const SOURCE_ENERGY_REGEN = 10;

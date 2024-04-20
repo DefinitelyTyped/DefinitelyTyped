@@ -1,15 +1,13 @@
 import { Flag } from "arena/season_alpha/capture_the_flag/advanced";
-import { RESOURCE_ENERGY } from "game/constants";
+import { ATTACK, RESOURCE_ENERGY } from "game/constants";
 import { CostMatrix } from "game/path-finder";
-import { ATTACK } from "game/constants";
 import { Creep, Structure, StructureRampart, StructureTower } from "game/prototypes";
 import {
     createConstructionSite,
     findClosestByPath,
     findInRange,
     findPath,
-    getObjectsByPrototype,
-    getObjectById
+    getObjectsByPrototype
 } from "game/utils";
 import { Visual } from "game/visual";
 
@@ -60,7 +58,7 @@ export function loop(): void {
 
         // testing utils
         const utilsFindInRangeResult = findInRange(myTower, enemyCreeps, 1); // $ExpectType Creep[]
-        const utilsFindPathToResult = findPath(myTower, utilsFindInRangeResult[0]); // $ExpectType PathStep[]
+        const utilsFindPathToResult = findPath(myTower, utilsFindInRangeResult[0]); // $ExpectType Position[]
         // TODO: findPathTo with options
         // $ExpectType Creep
         const utilsFindClosestByPathResult = findClosestByPath(

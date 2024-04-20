@@ -1,5 +1,5 @@
 declare module "game/prototypes" {
-    import { Direction, FindPathOptions } from "game/utils";
+    import { Direction, FindPathOptions, findPath } from "game/utils";
     import {
         OK,
         ERR_NOT_OWNER,
@@ -12,8 +12,6 @@ declare module "game/prototypes" {
         ERR_NO_BODYPART,
         ATTACK, CARRY, HEAL, MOVE, RANGED_ATTACK, TOUGH, WORK
     } from "game/constants";
-
-    import { findPath } from "game/utils"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     type BodyPartType =
         typeof ATTACK |
@@ -121,7 +119,6 @@ declare module "game/prototypes" {
 
     /**
      * Creeps are units that can move, harvest energy, construct structures, attack another creeps, and perform other actions.
-     * @extends GameObject
      */
     export class Creep extends GameObject {
         /** An array describing the creep’s body */

@@ -1,14 +1,21 @@
 declare module "game/utils" {
-  import { SearchPathOptions } from "game/path-finder";
-  import { Position, GameObject, Structure, ConstructionSite } from "game/prototypes";
   import {
-    ERR_INVALID_ARGS, ERR_INVALID_TARGET, ERR_FULL,
-    TOP, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, LEFT, TOP_LEFT,
-    TERRAIN_PLAIN, TERRAIN_WALL, TERRAIN_SWAMP
+    BOTTOM, BOTTOM_LEFT,
+    BOTTOM_RIGHT,
+    ERR_FULL,
+    ERR_INVALID_ARGS, ERR_INVALID_TARGET,
+    LEFT,
+    RIGHT,
+    TERRAIN_PLAIN,
+    TERRAIN_SWAMP,
+    TERRAIN_WALL,
+    TOP,
+    TOP_LEFT,
+    TOP_RIGHT
   } from "game/constants";
-
-  import { searchPath } from "game/path-finder"; // eslint-disable-line @typescript-eslint/no-unused-vars
-
+  import { SearchPathOptions, searchPath } from "game/path-finder";
+  import { ConstructionSite, GameObject, Position, Structure } from "game/prototypes";
+  
   export type Direction =
       typeof TOP |
       typeof TOP_RIGHT |
@@ -56,6 +63,7 @@ declare module "game/utils" {
    * @param structurePrototype A prototype that extends {@link GameObject}
    * @returns a {@link CreateConstructionSiteResult} object with the call result
    */
+  // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
   export function createConstructionSite<T extends Structure>(pos: Position, structurePrototype: { new(): T }): CreateConstructionSiteResult;
 
   /**

@@ -1,10 +1,8 @@
 declare module "game/prototypes" {
-    import { getObjectById, FindPathOptions } from "game/utils";
-
-    import { findPath } from "game/utils"; // eslint-disable-line @typescript-eslint/no-unused-vars
+    import { getObjectById, FindPathOptions, findPath } from "game/utils";
 
     /** Position of object in the room */
-    export type Position = {
+    export interface Position {
         /** The X coordinate in the room */
         x: number;
 
