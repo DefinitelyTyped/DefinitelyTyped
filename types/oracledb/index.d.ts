@@ -886,7 +886,7 @@ declare namespace OracleDB {
         /**
          * The node-oracledb or JavaScript data type to be bound. One of the Node-oracledb Type Constants.
          */
-        type?: number | undefined;
+        type?: DbType | number | undefined;
     }
 
     /**
