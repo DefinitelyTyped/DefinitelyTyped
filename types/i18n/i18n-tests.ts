@@ -293,3 +293,11 @@ const i18nInstanceWithConstructorOptions = new I18n({
     locales: ["en", "de"],
     directory: __dirname + "/locales",
 });
+
+
+// mustache plurals with constructor
+i18nInstanceWithConstructorOptions.__n("example", 1, { me: "marcus" }); // and a catchall rule for marcus
+i18nInstanceWithConstructorOptions.__n("example", 2, { me: "marcus" }); // two to five (included) for marcus
+i18nInstanceWithConstructorOptions.__n("example", 5, { me: "marcus" }); // two to five (included) for marcus
+i18nInstanceWithConstructorOptions.__n("example", 3, { me: "marcus" }); // two to five (included) for marcus
+i18nInstanceWithConstructorOptions.__n("example", 6, { me: "marcus" }); // and a catchall rule for marcus
