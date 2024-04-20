@@ -155,12 +155,12 @@ container.remove({ v: true, force: false, link: true }, (err, data) => {
     // NOOP
 });
 
-container.logs({stdout: true, stderr: false}, (err, logs) => {
+container.logs({ stdout: true, stderr: false }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({stdout: false, stderr: true}, (err, logs) => {
+container.logs({ stdout: false, stderr: true }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
@@ -175,22 +175,22 @@ container.logs({ stdout: true, stderr: false, follow: false }, (err, logs) => {
     logs;
 });
 
-container.logs({stdout: true}, (err, logs) => {
+container.logs({ stdout: true }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({stdout: false}, (err, logs) => {
+container.logs({ stdout: false }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({stderr: true}, (err, logs) => {
+container.logs({ stderr: true }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
 
-container.logs({stderr: false}, (err, logs) => {
+container.logs({ stderr: false }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });

@@ -1900,10 +1900,10 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    type ContainerLogsOptions = 
-    | (ContainerLogsOptionsBase & { stdout: boolean; stderr?: boolean | undefined })
-    | (ContainerLogsOptionsBase & { stderr: boolean; stdout?: boolean | undefined });
-    
+    type ContainerLogsOptions =
+        | (ContainerLogsOptionsBase & { stdout: boolean; stderr?: boolean | undefined })
+        | (ContainerLogsOptionsBase & { stderr: boolean; stdout?: boolean | undefined });
+
     interface ContainerAttachOptions {
         detachKeys?: string | undefined;
         hijack?: boolean | undefined;
