@@ -363,6 +363,11 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
+    var withEmptyArrays = qs.stringify({ foo: [], bar: "baz" }, { allowEmptyArrays: true });
+    assert.deepEqual(withEmptyArrays, "foo[]&bar=baz");
+});
+
+(() => {
     var withDots = qs.parse("name%252Eobj.first=John&name%252Eobj.last=Doe", { decodeDotInKeys: true });
     assert.deepEqual(withDots, { "name.obj": { first: "John", last: "Doe" } });
 });

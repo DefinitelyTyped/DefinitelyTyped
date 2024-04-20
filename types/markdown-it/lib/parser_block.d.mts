@@ -3,15 +3,13 @@ import Ruler from "./ruler.mjs";
 import StateBlock from "./rules_block/state_block.mjs";
 import Token from "./token.mjs";
 
-declare namespace ParserBlock {
-    type RuleBlock = (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;
-}
+export type RuleBlock = (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;
 
 declare class ParserBlock {
     /**
      * [[Ruler]] instance. Keep configuration of block rules.
      */
-    ruler: Ruler<ParserBlock.RuleBlock>;
+    ruler: Ruler<RuleBlock>;
 
     /**
      * Generate tokens for input range

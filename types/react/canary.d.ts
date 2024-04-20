@@ -30,11 +30,6 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-/**
- * @internal
- */
-interface ReactContextAsReactNode extends React.Context<React.ReactNode> {}
-
 declare module "." {
     interface ThenableImpl<T> {
         then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
@@ -162,7 +157,7 @@ declare module "." {
         | null
         | undefined;
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
-        contexts: ReactContextAsReactNode;
         promises: Promise<AwaitedReactNode>;
+        bigints: bigint;
     }
 }

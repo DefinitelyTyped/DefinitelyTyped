@@ -182,8 +182,18 @@ function Optimistic() {
 }
 
 // ref cleanup
+const ref: React.RefCallback<HTMLDivElement> = current => {
+    // Should be non-nullable
+    // $ExpectType HTMLDivElement | null
+    current;
+    return function refCleanup() {
+    };
+};
 <div
     ref={current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
         return function refCleanup() {
         };
     }}
@@ -379,11 +389,14 @@ function formTest() {
 
     const RenderableContext = React.createContext<React.ReactNode>("HAL");
     const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Is supported in Canary release channel
     let node: React.ReactNode = RenderableContext;
     // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
     node = NestedContext;
 
     const NotRenderableContext = React.createContext(() => {});
     // @ts-expect-error
-    node: React.ReactNode = NotRenderableContext;
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }

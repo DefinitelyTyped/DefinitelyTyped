@@ -6,6 +6,7 @@ const config = {
 };
 
 const logger = new Logger(config);
+logger.requestOptions.strictSSL = true;
 logger.eventFormatter = (msg, sev) => ({});
 logger.error = (err, context) => {
     context.message;

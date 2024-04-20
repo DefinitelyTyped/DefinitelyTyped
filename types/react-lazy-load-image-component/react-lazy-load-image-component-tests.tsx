@@ -39,7 +39,7 @@ const ImageWithCallbacks = () => (
         threshold={200}
         beforeLoad={() => {}}
         afterLoad={() => {}} // deprecated
-        onLoad={() => {}}
+        onLoad={e => {}}
         placeholder={<span />}
         wrapperProps={{
             style: {
