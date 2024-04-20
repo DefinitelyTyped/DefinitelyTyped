@@ -1890,9 +1890,7 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    interface ContainerLogsOptions {
-        stdout: boolean;
-        stderr: boolean;
+    interface ContainerLogsOptionsBase {
         follow?: boolean | undefined;
         since?: number | string | undefined;
         until?: number | string | undefined;
@@ -1902,6 +1900,10 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    type ContainerLogsOptions = 
+    | (ContainerLogsOptionsBase & { stdout: boolean; stderr?: boolean | undefined })
+    | (ContainerLogsOptionsBase & { stderr: boolean; stdout?: boolean | undefined });
+    
     interface ContainerAttachOptions {
         detachKeys?: string | undefined;
         hijack?: boolean | undefined;
