@@ -878,6 +878,7 @@ interface XRCompositionLayer extends XRLayer {
     blendTextureSourceAlpha: boolean;
     chromaticAberrationCorrection?: boolean | undefined;
     readonly mipLevels: number;
+    quality: XRLayerQuality;
     readonly needsRedraw: boolean;
     destroy(): void;
 
@@ -915,6 +916,8 @@ declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 type XRTextureType = "texture" | "texture-array";
 
 type XRLayerLayout = "default" | "mono" | "stereo" | "stereo-left-right" | "stereo-top-bottom";
+
+type XRLayerQuality = "default" | "text-optimized" | "graphics-optimized";
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
