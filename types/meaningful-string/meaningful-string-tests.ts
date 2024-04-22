@@ -1,4 +1,4 @@
-import { random, meaningful, shortId, uuidv4, hashCode } = require("meaningful-string");
+import { random, meaningful, shortId, uuidv4, hashCode } from "meaningful-string";
 
 random(); // $ExpectType string
 meaningful(); // $ExpectType string
