@@ -126,11 +126,6 @@ declare namespace FS {
     }
 
     class FSStream {
-        shared?: {
-            flags: number;
-            position: number;
-        };
-        node?: FSNode;
         constructor();
         object: FSNode;
         readonly isRead: boolean;
