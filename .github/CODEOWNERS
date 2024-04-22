@@ -538,7 +538,7 @@
 /types/better-curry/                                      @pocesar
 /types/better-queue/                                      @maozedong
 /types/better-scroll/                                     @stoneChen @cnjack
-/types/better-sqlite3/                                    @Morfent @matrumz @sant123 @loghorn @andykais @mrkstwrt @stamerf
+/types/better-sqlite3/                                    @Morfent @matrumz @sant123 @loghorn @andykais @mrkstwrt @stamerf @beenotung
 /types/beyonk__gdpr-cookie-consent-banner/                @bengry
 /types/bezier-js/                                         @danmarshall @Epskampie
 /types/bgiframe/                                          @sumegizoltan
@@ -949,7 +949,7 @@
 /types/cloud-env/                                         @Morfent
 /types/cloudflare/                                        @Xenfo
 /types/cloudflare-apps/                                   @MartynasZilinskas
-/types/cloudflare-turnstile/                              @jasongerbes
+/types/cloudflare-turnstile/                              @lbarthon @worenga @olipayne @punkeel @migueldemoura @AleksandarHr
 /types/cloudfour__simple-svg-placeholder/                 @devrelm @keimeno
 /types/cloudinary-uploadwidget-browser/                   @mrleebo
 /types/cloudmersive-virus-api-client/                     @JLuboff
@@ -3521,6 +3521,7 @@
 /types/is-object/                                         @wbhob @ljharb @phuctm97
 /types/is-piped/                                          @bendingbender
 /types/is-posix-bracket/                                  @LeoDog896
+/types/is-potential-custom-element-name/                  @1natsu172
 /types/is-pr/                                             @BendingBender
 /types/is-regex/                                          @ljharb @ExE-Boss
 /types/is-relative/                                       @BendingBender
@@ -6646,7 +6647,6 @@
 /types/react-paginate/v6/                                 @deevus @wouterhardeman @pegel03 @archy-bold @yasupeke @sugarshin @SPWizard01 @kevinrambaud
 /types/react-panelgroup/                                  @qgolsteyn
 /types/react-payment-inputs/                              @tyirenkyi
-/types/react-phone-number-input/                          @PeterYangIO @AdrienEtienne @fleck @jlismore @strdr4605 @opii972
 /types/react-photoswipe/                                  @kwzm
 /types/react-pie-menu/                                    @keyserj
 /types/react-pivottable/                                  @jbovone
