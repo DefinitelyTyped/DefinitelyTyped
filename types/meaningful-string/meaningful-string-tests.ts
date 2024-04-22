@@ -1,4 +1,4 @@
-import { random, meaningful, shortId, uuidv4, hashCode } from "meaningful-string";
+import { hashCode, meaningful, random, shortId, uuidv4 } from "meaningful-string";
 
 random(); // $ExpectType string
 meaningful(); // $ExpectType string
