@@ -1207,7 +1207,7 @@ export interface ElementHandle extends JSHandle {
      * or at the specified position.
      * @param options Tap options.
      */
-    tap(options?: MouseMoveOptions): void;
+    tap(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Returns the `node.textContent`.
@@ -1321,7 +1321,7 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
+    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Press the given key for the first element found that matches the selector.
@@ -1893,7 +1893,7 @@ export interface Locator {
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions): void;
+    tap(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -3129,7 +3129,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.textContent([options]) instead.
@@ -3737,7 +3737,7 @@ export interface Touchscreen {
      * @param x The x position.
      * @param y The y position.
      */
-    tap(x: number, y: number): void;
+    tap(x: number, y: number): Promise<void>;
 }
 
 /**
