@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/qrohlf/trianglify"
     ],
-    "dependencies": {
-        "@types/chroma-js": "workspace:../chroma-js/."
-    },
     "devDependencies": {
         "@types/trianglify": "workspace:."
     },
@@ -20,5 +17,8 @@
             "name": "Fernando Daciuk",
             "githubUsername": "fdaciuk"
         }
-    ]
+    ],
+    "dependencies": {
+        "@types/chroma-js": "^2.4.9999"
+    }
 }
