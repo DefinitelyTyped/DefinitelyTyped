@@ -256,7 +256,7 @@ declare namespace Autodesk {
 
         interface LoadModelOptions {
             fileLoader?: FileLoader | undefined;
-            keepCurrentModels?: boolean,
+            keepCurrentModels?: boolean;
             loadOptions?: object | undefined;
             sharedPropertyDbPath?: string | undefined;
             ids?: number[] | undefined;
@@ -1202,7 +1202,11 @@ declare namespace Autodesk {
                 onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void,
             ): any;
             unloadModel(model: Model): void;
-            loadDocumentNode(avDocument: Document, manifestNode: any, /*BubbleNode*/ options?: LoadModelOptions): Promise<Model>;
+            loadDocumentNode(
+                avDocument: Document,
+                manifestNode: any,
+                /*BubbleNode*/ options?: LoadModelOptions,
+            ): Promise<Model>;
             unloadDocumentNode(manifestNode: any /*BubbleNode*/): boolean;
             getDimensions(): Private.Dimensions;
             resize(): void;
@@ -1907,7 +1911,7 @@ declare namespace Autodesk {
                     },
                     successCallback?: (r: PropertyResult[]) => void,
                     errorCallback?: (err: any) => void,
-                    ignoreHidden?: boolean
+                    ignoreHidden?: boolean,
                 ): void;
                 getBulkProperties2(
                     dbIds: number[],
