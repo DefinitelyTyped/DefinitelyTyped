@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/express-session": "*",
-        "mysql2": "3.9.4"
+        "mysql2": "3.9.7"
     },
     "devDependencies": {
         "@types/express-mysql-session": "workspace:."
