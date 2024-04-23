@@ -48,8 +48,8 @@ declare var RTCErrorEvent: {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidatepair
 interface RTCIceCandidatePair {
-    local: RTCIceCandidate;
-    remote: RTCIceCandidate;
+    local?: RTCIceCandidate | undefined;
+    remote?: RTCIceCandidate | undefined;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcofferansweroptions
