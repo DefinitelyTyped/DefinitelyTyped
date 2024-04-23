@@ -1133,7 +1133,7 @@ export interface ElementHandle extends JSHandle {
     contentFrame(): Frame;
 
     /**
-     * Mouse double clicks the element.
+     * Double clicks the element.
      * @param options The options to use.
      */
     dblclick(
