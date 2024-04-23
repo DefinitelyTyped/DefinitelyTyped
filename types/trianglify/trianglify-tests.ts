@@ -12,7 +12,7 @@ const pattern = trianglify({
     strokeWidth: 1.51,
 });
 
-const svgVirtual = document.createElement("svg") as unknown as SVGElement
+const svgVirtual = document.createElement("svg") as unknown as SVGElement;
 const svg = pattern.toSVG(svgVirtual, { includeNamespace: true });
 const result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + svg.outerHTML;
 console.log(result);
