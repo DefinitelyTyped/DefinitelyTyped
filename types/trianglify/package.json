@@ -1,17 +1,25 @@
 {
     "private": true,
     "name": "@types/trianglify",
-    "version": "1.2.9999",
+    "version": "4.1.9999",
     "projects": [
         "https://github.com/qrohlf/trianglify"
     ],
+    "dependencies": {
+        "@types/chroma-js": "workspace:../chroma-js/."
+    },
     "devDependencies": {
-        "@types/trianglify": "workspace:."
+        "@types/trianglify": "workspace:.",
+        "trianglify": "4.1.1"
     },
     "owners": [
         {
             "name": "Daniel Perez Alvarez",
             "githubUsername": "unindented"
+        },
+        {
+            "name": "Fernando Daciuk",
+            "githubUsername": "fdaciuk"
         }
     ]
 }
