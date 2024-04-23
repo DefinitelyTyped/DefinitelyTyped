@@ -644,6 +644,11 @@ export interface Browser {
     ): Page;
 
     /**
+     * Returns the browser application's user agent.
+     */
+    userAgent(): string;
+
+    /**
      * Returns the browser application's version.
      */
     version(): string;
@@ -1046,10 +1051,161 @@ export interface ElementHandle extends JSHandle {
     boundingBox(): Rect;
 
     /**
+     * Checks the checkbox element.
+     * @param options The options to use.
+     */
+    check(options?: ElementClickOptions & StrictnessOptions): void;
+
+    /**
+     * Clicks the element.
+     * @param options The options to use.
+     * @returns A promise that resolves when the element is clicked.
+     */
+    click(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             */
+            button?: MouseButton;
+
+            /**
+             * The number of times the action is performed. Defaults to `1`.
+             */
+            clickCount?: number;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             */
+            trial?: boolean;
+        },
+    ): Promise<void>;
+
+    /**
      * Get the content frame for element handles.
      * @returns The content frame handle of the element handle.
      */
     contentFrame(): Frame;
+
+    /**
+     * Double clicks the element.
+     * @param options The options to use.
+     */
+    dblclick(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             */
+            button?: MouseButton;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             */
+            trial?: boolean;
+        },
+    ): void;
+
+    /**
+     * Dispatches a DOM event to the element.
+     * @param type DOM event type: `"click"` etc.
+     * @param eventInit Optional event-specific initialization properties.
+     * @param options
+     */
+    dispatchEvent(
+        type: string,
+        eventInit?: EvaluationArgument,
+    ): void;
 
     /**
      * Fill the `input` or `textarea` element with the provided `value`.
@@ -1660,7 +1816,7 @@ export interface JSHandle<T = any> {
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
-     * Fethes a map with own property names of of the `JSHandle` with their values as
+     * Fetches a map with own property names of of the `JSHandle` with their values as
      * `JSHandle` instances.
      * @returns A map with property names as keys and `JSHandle` instances for the property values.
      */
