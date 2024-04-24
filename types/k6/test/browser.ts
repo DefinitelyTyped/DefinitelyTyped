@@ -677,21 +677,21 @@ page.setViewportSize({ width: 800, height: 600 });
 
 // @ts-expect-error
 page.tap();
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector);
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { force: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { modifiers: ["Alt", "Control", "Meta", "Shift"] });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { noWaitAfter: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { position: { x: 0, y: 0 } });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { strict: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { timeout: 10000 });
-// $ExpectType void
+// $ExpectType Promise<void>
 page.tap(selector, { trial: true });
 
 // @ts-expect-error
@@ -1109,17 +1109,17 @@ locator.hover({ timeout: 10000 });
 // $ExpectType void
 locator.hover({ trial: true });
 
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap();
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap({ force: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap({ noWaitAfter: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap({ position: { x: 0, y: 0 } });
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap({ timeout: 10000 });
-// $ExpectType void
+// $ExpectType Promise<void>
 locator.tap({ trial: true });
 
 // @ts-expect-error
@@ -1473,19 +1473,19 @@ elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: 
     timeout: 1000,
 });
 
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap();
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ timeout: 10000 });
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ force: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ noWaitAfter: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ position: { x: 0, y: 0 } });
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ modifiers: ["Shift"] });
-// $ExpectType void
+// $ExpectType Promise<void>
 elementHandle.tap({ trial: true });
 
 // $ExpectType string
@@ -1664,21 +1664,21 @@ frame.hover("div", { noWaitAfter: true });
 
 // @ts-expect-error
 frame.tap();
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div");
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { timeout: 10000 });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { force: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { position: { x: 0, y: 0 } });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { modifiers: ["Shift"] });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { strict: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { trial: true });
-// $ExpectType void
+// $ExpectType Promise<void>
 frame.tap("div", { noWaitAfter: true });
 
 // @ts-expect-error
@@ -2018,7 +2018,7 @@ frame.waitForTimeout(10000);
 
 // @ts-expect-error
 page.touchscreen.tap();
-// $ExpectType void
+// $ExpectType Promise<void>
 page.touchscreen.tap(1, 2);
 
 //
