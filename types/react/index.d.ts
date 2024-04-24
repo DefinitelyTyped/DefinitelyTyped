@@ -614,7 +614,7 @@ declare namespace React {
          * Catches exceptions generated in descendant components. Unhandled exceptions will cause
          * the entire component tree to unmount.
          */
-        componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
+        componentDidCatch?(error: unknown, errorInfo: ErrorInfo): void;
     }
 
     // Unfortunately, we have no way of declaring that the component constructor must implement this
