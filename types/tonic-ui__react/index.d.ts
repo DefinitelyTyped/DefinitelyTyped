@@ -29,7 +29,12 @@ export {};
 export const colorStyle: { dark: ThemeColorStyle; light: ThemeColorStyle };
 export function Accordion(props: AccordionProps): JSX.Element;
 export function AccordionBody(props: TonicProps): JSX.Element;
+/**
+ * @deprecated Use AccordionContent instead.
+ * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/accordion#accordioncontent
+ */
 export function AccordionCollapse(props: TonicProps): JSX.Element;
+export function AccordionContent(props: AccordionContentProps): JSX.Element;
 export function AccordionHeader(props: AccordionHeaderProps): JSX.Element;
 export function AccordionItem(props: AccordionItemProps): JSX.Element;
 export function AccordionToggle(props: AccordionToggleProps): JSX.Element;
@@ -135,7 +140,15 @@ export function Table(props: TableProps): JSX.Element;
 export function TableBody(props: TonicProps): JSX.Element;
 export function TableCell(props: TonicProps): JSX.Element;
 export function TableHeader(props: TonicProps): JSX.Element;
+/**
+ * @deprecated Use TableCell instead.
+ * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/table#tablecell
+*/
 export function TableHeaderCell(props: TonicProps): JSX.Element;
+/**
+ * @deprecated Use TableRow instead.
+ * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/table#tablerow
+*/
 export function TableHeaderRow(props: TonicProps): JSX.Element;
 export function TableRow(props: TonicProps): JSX.Element;
 export function TableScrollbar(props: ScrollbarProps): JSX.Element;
@@ -151,6 +164,10 @@ export function Toast(props: ToastProps): JSX.Element;
 export function ToastCloseButton(props: ButtonProps): JSX.Element;
 export function ToastController(props: ToastControllerProps): JSX.Element;
 export function ToastManager(props: ToastManagerProps): JSX.Element;
+/**
+ * @deprecated Use ToastManager instead.
+ * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/toast-manager
+ */
 export function ToastProvider(props: ToastProviderProps): JSX.Element;
 export function ToastTransition(props: ToastTransitionProps): JSX.Element;
 export function TonicProvider(props: PropsWithChildren<TonicProviderProps>): JSX.Element;
@@ -186,6 +203,10 @@ export const useRadioGroup: any;
 export const useSubmenu: any;
 export const useTabs: any;
 export const useTheme: any;
+/**
+ * @deprecated Use useToastManager instead.
+ * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/toast-manager/useToastManager
+ */
 export const useToast: any;
 export function useToastManager(): UseToastManagerHook["notify"] & UseToastManagerHook;
 export const useTree: any;
@@ -205,6 +226,11 @@ export interface AccordionItemContext {
 
 export interface AccordionProps extends Omit<TonicProps, "children"> {
     children: ReactNode | ((context: unknown) => ReactNode);
+}
+
+export interface AccordionContentProps extends TonicProps {
+    TransitionComponent?: ComponentType;
+    TransitionProps?: { appear: boolean };
 }
 
 export interface AccordionHeaderProps extends TonicProps {
@@ -517,7 +543,7 @@ export interface PaginationProps extends Omit<TonicProps, "onChange" | "page"> {
     count?: number;
     defaultPage?: number;
     disabled?: boolean;
-    onChange?: (event: MouseEvent, page: number) => void;
+    onChange?: (page: number) => void;
     page?: number;
     renderItem?: (props: PaginationItemProps) => ReactNode;
     siblingCount?: number;
@@ -530,7 +556,6 @@ export interface PaginationItemProps extends TonicProps {
 }
 
 export interface PopoverProps extends Omit<TonicProps, "children"> {
-    // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
     arrow?: boolean;
     children: ReactNode | ((context: unknown) => ReactNode);
     closeOnBlur?: boolean;
@@ -539,7 +564,6 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
     disabled?: boolean;
     enterDelay?: number;
     followCursor?: boolean;
-    // hideArrow?: boolean; // deprecated
     id?: string;
     initialFocusRef?: RefObject<HTMLElement>;
     isOpen?: boolean;
@@ -568,8 +592,6 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
 export interface PopoverContentProps extends TonicProps {
     PopperComponent?: ComponentType;
     PopperProps?: Record<string, unknown>;
-    // PopperArrowComponent?: ComponentType; // deprecated
-    // PopperArrowProps?: object; // deprecated
     PopoverArrowComponent?: ComponentType;
     PopoverArrowProps?: Record<string, unknown> | PopoverArrowProps; // provides auto-completion for PopoverArrowProps when using default PopoverArrowComponent
     TransitionComponent?: ComponentType;
@@ -774,24 +796,19 @@ export type TonicProviderTheme = Record<string, unknown>;
 export interface TooltipProps extends Omit<TonicProps, "children"> {
     PopperComponent?: ComponentType;
     PopperProps?: Record<string, unknown>;
-    // PopperArrowComponent?: ComponentType; // deprecated
-    // PopperArrowProps?: Record<string, unknown>; // deprecated
     TooltipArrowComponent?: ComponentType;
     TooltipArrowProps?: Record<string, unknown> | TooltipArrowProps; // provides auto-completion for TooltipArrowProps when using default TooltipArrowComponent
     TransitionComponent?: ComponentType;
     TransitionProps?: Record<string, unknown> | Omit<TransitionProps, "children">;
     arrow?: boolean;
-    // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
     children: ReactNode | ((context: unknown) => ReactNode);
     closeOnClick?: boolean;
     closeOnEsc?: boolean;
-    // closeOnMouseDown?: boolean; // deprecated
     closeOnPointerDown?: boolean;
     defaultIsOpen?: boolean;
     disabled?: boolean;
     enterDelay?: number;
     followCursor?: boolean;
-    // hideArrow?: boolean; // deprecated
     isOpen?: boolean;
     label?: ReactNode;
     leaveDelay?: number;
