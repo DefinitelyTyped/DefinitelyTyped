@@ -1982,7 +1982,7 @@ export interface ScaleQuantize<Range, Unknown = never> {
  * @param range Array of range values.
  */
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-export function scaleQuantize<Range = number, Unknown = never>(range?: Iterable<Range>): ScaleQuantize<Range, Unknown>;
+export function scaleQuantize<Range = number | string, Unknown = never>(range?: Iterable<Range>): ScaleQuantize<Range, Unknown>;
 /**
  * Constructs a new quantize scale with the specified domain and range.
  * Thus, the default quantize scale is equivalent to the Math.round function.
