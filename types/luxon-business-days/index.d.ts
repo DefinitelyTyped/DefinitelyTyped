@@ -1,26 +1,28 @@
-// import * as luxon from 'luxon'
-// import { DateTime as BaseDateTime } from 'luxon'
-// export * from 'luxon'
+// luxon-business-days extends the prototype of the luxon DateTime class
+// https://github.com/amaidah/luxon-business-days/blob/master/src/index.js#L86
+//
+// There already exists a @types/luxon package
+// https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/luxon
 
 import { DateTime } from 'luxon'
 
-// declare module 'luxon' {
-    export type BusinessDayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7
-    export type BusinessDays = BusinessDayNumbers[]
+declare module 'luxon' {
+    type BusinessDayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7
+    type BusinessDays = BusinessDayNumbers[]
 
-    export type HolidayMatcherFn = (inst: DateTime) => boolean
-    export type HolidayMatchers = HolidayMatcherFn[]
-    export interface HolidayMatchersDict {
+    type HolidayMatcherFn = (inst: DateTime<boolean>) => boolean
+    type HolidayMatchers = HolidayMatcherFn[]
+    interface HolidayMatchersDict {
         [key: string]: HolidayMatcherFn
     }
 
-    export type HolidayHelperFn = (...args: any[]) => any
-    export type HolidayHelpers = HolidayHelperFn[]
-    export interface HolidayHelpersDict {
+    type HolidayHelperFn = (...args: any[]) => any
+    type HolidayHelpers = HolidayHelperFn[]
+    interface HolidayHelpersDict {
         [key: string]: HolidayHelperFn
     }
 
-    export interface DateTime {
+    interface DateTime<IsValid extends boolean> {
         holidayHelpers: HolidayHelpers | undefined
         holidayMatchers: HolidayMatchers | undefined
         availableHolidayHelpers: HolidayHelpersDict
@@ -37,14 +39,11 @@ import { DateTime } from 'luxon'
 
         isBusinessDay(): boolean
 
-        plusBusiness(opts?: { days?: number }): DateTime
+        plusBusiness(opts?: { days?: number }): this
 
-        minusBusiness(opts?: { days?: number }): DateTime
+        minusBusiness(opts?: { days?: number }): this
     }
-// }
+}
 
+// ERROR: Circular definition of import alias 'DateTime'.ts(2303)
 // export { DateTime }
-
-// export = luxon
-// export * from 'luxon'
-// export { DateTime } from 'luxon'
