@@ -1,8 +1,11 @@
 // luxon-business-days extends the prototype of the luxon DateTime class
 // https://github.com/amaidah/luxon-business-days/blob/master/src/index.js#L86
 //
-// There already exists a @types/luxon package
+// There already exists a @types/luxon package which I added as a dependency
 // https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/luxon
+//
+// The error I am getting in my test is:
+// 'DateTime' only refers to a type, but is being used as a value here.ts(2693)
 
 import { DateTime } from 'luxon'
 
@@ -47,3 +50,4 @@ declare module 'luxon' {
 
 // ERROR: Circular definition of import alias 'DateTime'.ts(2303)
 // export { DateTime }
+// export = DateTime
