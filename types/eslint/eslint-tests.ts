@@ -795,6 +795,82 @@ linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "off" } }], "test.
 
 // #endregion
 
+// # region Linter with eslintrc config
+
+const linterWithEslintrcConfig = new Linter({ configType: "eslintrc" });
+
+linterWithEslintrcConfig.version;
+
+linterWithEslintrcConfig.verify(SOURCE, {});
+linterWithEslintrcConfig.verify(new SourceCode(SOURCE, AST), {});
+
+linterWithEslintrcConfig.verify(SOURCE, {}, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, {}, {});
+linterWithEslintrcConfig.verify(SOURCE, {}, { filename: "test.js" });
+linterWithEslintrcConfig.verify(SOURCE, {}, { allowInlineConfig: false });
+linterWithEslintrcConfig.verify(SOURCE, {}, { reportUnusedDisableDirectives: true });
+linterWithEslintrcConfig.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
+linterWithEslintrcConfig.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
+
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(SOURCE, { env: { node: true } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: true } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "off" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "readonly" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "readable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "writable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "writeable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parser: "custom-parser" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { settings: { info: "foo" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { processor: "a-plugin/a-processor" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { plugins: ["a-plugin"] }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { root: true }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { extends: "eslint-config-bad-guy" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { extends: ["eslint-config-bad-guy", "eslint-config-roblox"] }, "test.js");
+
+linterWithEslintrcConfig.verify(SOURCE, { rules: {} }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { quotes: 2 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { quotes: [2, "double"] } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-unused-vars": [2, { vars: "all" }] } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": 1 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": 0 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "error" } }, "test.js");
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    {
+        rules: { "no-console": "error" },
+        overrides: [
+            {
+                extends: ["eslint-config-bad-guy"],
+                excludedFiles: ["*-test.js", "*.spec.js"],
+                files: ["*-test.js", "*.spec.js"],
+                rules: {
+                    "no-unused-expressions": "off",
+                },
+            },
+        ],
+    },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "warn" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "off" } }, "test.js");
+
+linterWithEslintrcConfig.getRules();
+
 // #endregion
 
 // #region ESLint

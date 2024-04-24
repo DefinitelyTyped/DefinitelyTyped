@@ -111,6 +111,9 @@ browser.newPage({ userAgent: "foo" });
 browser.newPage({ viewport: { width: 1280, height: 720 } });
 
 // $ExpectType string
+browser.userAgent();
+
+// $ExpectType string
 browser.version();
 
 //
@@ -1319,8 +1322,78 @@ elementHandle.$$("div");
 // $ExpectType Rect
 elementHandle.boundingBox();
 
+// $ExpectType void
+elementHandle.check();
+// $ExpectType void
+elementHandle.check({ force: true });
+// $ExpectType void
+elementHandle.check({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.check({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.check({ strict: true });
+// $ExpectType void
+elementHandle.check({ timeout: 10000 });
+// $ExpectType void
+elementHandle.check({ trial: true });
+
+// $ExpectType Promise<void>
+elementHandle.click();
+// $ExpectType Promise<void>
+elementHandle.click({ button: "left" });
+// $ExpectType Promise<void>
+elementHandle.click({ button: "middle" });
+// $ExpectType Promise<void>
+elementHandle.click({ button: "right" });
+// $ExpectType Promise<void>
+elementHandle.click({ clickCount: 3 });
+// $ExpectType Promise<void>
+elementHandle.click({ delay: 1000 });
+// $ExpectType Promise<void>
+elementHandle.click({ force: true });
+// $ExpectType Promise<void>
+elementHandle.click({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
+// $ExpectType Promise<void>
+elementHandle.click({ noWaitAfter: true });
+// $ExpectType Promise<void>
+elementHandle.click({ position: { x: 0, y: 0 } });
+// $ExpectType Promise<void>
+elementHandle.click({ timeout: 10000 });
+// $ExpectType Promise<void>
+elementHandle.click({ trial: true });
+
 // $ExpectType Frame
 elementHandle.contentFrame();
+
+// $ExpectType void
+elementHandle.dblclick();
+// $ExpectType void
+elementHandle.dblclick({ button: "left" });
+// $ExpectType void
+elementHandle.dblclick({ button: "middle" });
+// $ExpectType void
+elementHandle.dblclick({ button: "right" });
+// $ExpectType void
+elementHandle.dblclick({ delay: 1000 });
+// $ExpectType void
+elementHandle.dblclick({ force: true });
+// $ExpectType void
+elementHandle.dblclick({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
+// $ExpectType void
+elementHandle.dblclick({ noWaitAfter: true });
+// $ExpectType void
+elementHandle.dblclick({ position: { x: 0, y: 0 } });
+// $ExpectType void
+elementHandle.dblclick({ timeout: 10000 });
+// $ExpectType void
+elementHandle.dblclick({ trial: true });
+
+// @ts-expect-error
+elementHandle.dispatchEvent();
+// $ExpectType void
+elementHandle.dispatchEvent("click");
+// $ExpectType void
+elementHandle.dispatchEvent("click", { type: "look" });
 
 // @ts-expect-error
 elementHandle.fill();

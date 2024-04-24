@@ -182,8 +182,18 @@ function Optimistic() {
 }
 
 // ref cleanup
+const ref: React.RefCallback<HTMLDivElement> = current => {
+    // Should be non-nullable
+    // $ExpectType HTMLDivElement | null
+    current;
+    return function refCleanup() {
+    };
+};
 <div
     ref={current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
         return function refCleanup() {
         };
     }}

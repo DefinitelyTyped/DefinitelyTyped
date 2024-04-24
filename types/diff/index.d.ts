@@ -394,4 +394,10 @@ export function convertChangesToDMP(changes: Change[]): Array<[1 | 0 | -1, strin
 
 export function merge(mine: string, theirs: string, base: string): ParsedDiff;
 
+/**
+ * Returns a new structured patch which when applied will undo the original `patch`.
+ * `patch` may be either a single structured patch object (as returned by `structuredPatch`) or an array of them (as returned by `parsePatch`).
+ */
+export function reversePatch(patch: ParsedDiff | ParsedDiff[]): ParsedDiff;
+
 export function canonicalize(obj: any, stack: any[], replacementStack: any[]): any;
