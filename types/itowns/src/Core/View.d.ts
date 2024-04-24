@@ -45,6 +45,8 @@ export default class View extends THREE.EventDispatcher<THREE.Event> {
     // controls?: any; // TODO: References in dispose
     // tileLayer: any; // TODO: References in readDepthBuffer
 
+    render: () => void;
+
     get renderer(): THREE.WebGLRenderer;
     get camera3D(): THREE.Camera;
 

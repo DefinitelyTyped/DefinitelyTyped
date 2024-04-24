@@ -3,8 +3,10 @@ import PointCloudLayer, { PointCloudLayerOptions } from "./PointCloudLayer";
 // import PotreeNode from "../Core/PotreeNode";
 import Extent from "../Core/Geographic/Extent";
 
+export interface PotreeLayerOptions extends PointCloudLayerOptions {}
+
 declare class PotreeLayer extends PointCloudLayer {
-    constructor(id: string, config: PointCloudLayerOptions);
+    constructor(id: string, config: PotreeLayerOptions);
 
     readonly isPotreeLayer: boolean;
 
