@@ -54,7 +54,7 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.1/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.0.0/lib/console.js)
  */
 declare module "console" {
     import console = require("node:console");
@@ -410,7 +410,7 @@ declare module "node:console" {
          * myConsole.warn(`Danger ${name}! Danger!`);
          * // Prints: Danger Will Robinson! Danger!, to err
          * ```
-         * @see [source](https://github.com/nodejs/node/blob/v20.11.1/lib/console.js)
+         * @see [source](https://github.com/nodejs/node/blob/v22.0.0/lib/console.js)
          */
         namespace console {
             interface ConsoleConstructorOptions {

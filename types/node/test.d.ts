@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.4.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.0.0/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -1420,7 +1420,7 @@ interface TestDequeue extends TestLocationInfo {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.0.0/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";

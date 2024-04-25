@@ -20,7 +20,7 @@
  * ```js
  * import * as inspector from 'node:inspector';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/inspector.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.0.0/lib/inspector.js)
  */
 declare module 'inspector' {
     import EventEmitter = require('node:events');
