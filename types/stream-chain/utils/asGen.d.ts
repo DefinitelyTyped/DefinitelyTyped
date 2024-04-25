@@ -53,7 +53,6 @@ export = asGen;
 declare function asGen(...fns: asGen.ComposableFunction[]): (value: any) => AsyncGenerator<any, void, any>;
 
 declare namespace asGen {
-
     type ComposableFunction = ((value: any) => any) | Promise<any> | Generator<any> | AsyncGenerator<any>;
 
     /**

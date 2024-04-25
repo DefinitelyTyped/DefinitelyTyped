@@ -177,12 +177,12 @@ async function testAsFun() {
     const input = [1, 2, 3];
     const out: number[] = [];
     const pipeline = asFun(
-        (x:number) => x - 1,
-        (x:number) => x * x,
+        (x: number) => x - 1,
+        (x: number) => x * x,
     );
     for (const value of input) {
         const result = await pipeline(value);
-        if (result === Defs.none) { continue; }
+        if (result === Defs.none) continue;
         out.push(result);
     }
 }
@@ -193,8 +193,8 @@ async function testAsGen() {
     const input = [1, 2, 3];
     const out: number[] = [];
     const pipeline = asGen(
-        (x:number) => x - 1,
-        (x:number) => x * x,
+        (x: number) => x - 1,
+        (x: number) => x * x,
     );
     for (const value of input) {
         for await (const result of pipeline(value)) {
@@ -210,8 +210,8 @@ testAsGen();
     const chain = new Chain([
         streamFromArray([1, 2, 3]),
         comp(
-            (x:number) => x - 1,
-            (x:number) => x * x,
+            (x: number) => x - 1,
+            (x: number) => x * x,
         ),
     ]);
     chain.on("data", value => out.push(value));
@@ -223,7 +223,7 @@ testAsGen();
     const chain = new Chain([
         streamFromArray([1, 2, 3]),
         fold((acc, value) => acc + value, 0), // reducer, initial
-        fold({                                // options object
+        fold({ // options object
             reducer: (acc, value) => acc + value,
             initial: 0,
             allowHalfOpen: false, // from DuplexOptions
@@ -236,25 +236,25 @@ testAsGen();
     // FromIterable
     const out1: number[] = [];
     const stream1 = new FromIterable({
-        iterable: [1, 2, 3]     // iterable
+        iterable: [1, 2, 3], // iterable
     });
     stream1.on("data", value => out1.push(value));
 
     const out2: number[] = [];
     const stream2 = new FromIterable({
-        iterable: {             // async iterable
+        iterable: { // async iterable
             [Symbol.asyncIterator]() {
                 let i = 1;
                 return {
                     next() {
                         if (i < 3) {
-                            return Promise.resolve({ value: i++, done: false});
+                            return Promise.resolve({ value: i++, done: false });
                         }
-                        return Promise.resolve({ value: 0, done: true});
-                    }
+                        return Promise.resolve({ value: 0, done: true });
+                    },
                 };
-            }
-        }
+            },
+        },
     });
     stream2.on("data", value => out2.push(value));
 
@@ -271,8 +271,8 @@ testAsGen();
     const chain = new Chain([
         streamFromArray([1, 2, 3]),
         gen(
-            (x:number) => x - 1,
-            (x:number) => x * x,
+            (x: number) => x - 1,
+            (x: number) => x * x,
         ),
     ]);
     chain.on("data", value => out.push(value));
@@ -281,10 +281,10 @@ testAsGen();
 {
     // Reduce
     let out = 0;
-    const reduce = new Reduce({reducer: (acc, value) => acc + value, initial: 0});
+    const reduce = new Reduce({ reducer: (acc, value) => acc + value, initial: 0 });
     const chain = new Chain([
         streamFromArray([1, 2, 3]),
-        reduce
+        reduce,
     ]);
     chain.on("data", () => {});
     reduce.on("finish", () => out = reduce.accumulator);
@@ -296,7 +296,7 @@ testAsGen();
     const chain = new Chain([
         streamFromArray([1, 2, 3]),
         scan((acc, value) => acc + value, 0), // reducer, initial
-        scan({                                // options object
+        scan({ // options object
             reducer: (acc, value) => acc + value,
             initial: 0,
             allowHalfOpen: false, // from DuplexOptions
@@ -310,8 +310,8 @@ testAsGen();
     const out: number[] = [];
     const chain = new Chain([
         streamFromArray([1, 2, 3, 4, 5]),
-        skip(2),                    // n
-        skip({                      // options object
+        skip(2), // n
+        skip({ // options object
             n: 1,
             allowHalfOpen: false, // from DuplexOptions
         }),
@@ -324,9 +324,9 @@ testAsGen();
     const out: number[] = [];
     const chain = new Chain([
         streamFromArray([1, 2, 3, 4, 5]),
-        skipWhile(item => item < 2),        // function
-        skipWhile(Promise.resolve(false)),  // promise-like
-        skipWhile({                         // options object
+        skipWhile(item => item < 2), // function
+        skipWhile(Promise.resolve(false)), // promise-like
+        skipWhile({ // options object
             condition: item => item < 3,
             allowHalfOpen: false, // from DuplexOptions
         }),
@@ -339,8 +339,8 @@ testAsGen();
     const out: number[] = [];
     const chain = new Chain([
         streamFromArray([1, 2, 3, 4, 5]),
-        take(2),                    // n
-        take({                      // options object
+        take(2), // n
+        take({ // options object
             n: 2,
             skip: 1,
             allowHalfOpen: false, // from DuplexOptions
@@ -354,9 +354,9 @@ testAsGen();
     const out: number[] = [];
     const chain = new Chain([
         streamFromArray([1, 2, 3, 4, 5]),
-        takeWhile(item => item < 4),        // function
-        takeWhile(Promise.resolve(false)),  // promise-like
-        takeWhile({                         // options object
+        takeWhile(item => item < 4), // function
+        takeWhile(Promise.resolve(false)), // promise-like
+        takeWhile({ // options object
             condition: item => item < 3,
             allowHalfOpen: false, // from DuplexOptions
         }),

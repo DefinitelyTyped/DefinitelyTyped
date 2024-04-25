@@ -57,7 +57,6 @@ export = asFun;
 declare function asFun(...fns: asFun.ComposableFunction[]): (() => void) | ((value: any) => Promise<any>);
 
 declare namespace asFun {
-
     type ComposableFunction = ((value: any) => any) | Promise<any> | Generator<any> | AsyncGenerator<any>;
 
     /**
