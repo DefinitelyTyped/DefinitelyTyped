@@ -1,7 +1,23 @@
 import { DateTime } from 'luxon-business-days'
 
-// ERROR: 'DateTime' only refers to a type, but is being used as a value here.ts(2693)
-const now = DateTime.now() // $ExpectType DateTime<true>
+// import type {
+//     HolidayMatcher,
+//     HolidayMatchersDict,
+//     HolidayHelper,
+//     HolidayHelpersDict
+// } from 'luxon-business-days'
 
+const now = DateTime.now() // $ExpectType DateTime<true>
 now.isBusinessDay() // $ExpectType boolean
 now.isHoliday() // $ExpectType boolean
+
+// now.plusBusiness({ days: 1 }) // $ExpectType DateTime<true>
+// now.minusBusiness({ days: 1 }) // $ExpectType DateTime<true>
+
+// now.setupBusiness({ businessDays: [ 1, 2, 3 ] }) // $ExpectType void
+// now.clearBusinessSetup() // $ExpectType void
+
+// now.holidayHelpers // $ExpectType HolidayHelper[] | undefined
+// now.holidayMatchers // $ExpectType HolidayMatcher[] | undefined
+// now.availableHolidayHelpers // $ExpectType HolidayHelpersDict
+// now.availableHolidayMatchers // $ExpectType HolidayMatchersDict
