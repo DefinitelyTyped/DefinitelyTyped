@@ -494,21 +494,27 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     // DOM Elements
+    /** @deprecated */
     function createFactory<T extends HTMLElement>(
         type: keyof ReactHTML,
     ): HTMLFactory<T>;
+    /** @deprecated */
     function createFactory(
         type: keyof ReactSVG,
     ): SVGFactory;
+    /** @deprecated */
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
         type: string,
     ): DOMFactory<P, T>;
 
     // Custom components
+    /** @deprecated */
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
+    /** @deprecated */
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
+    /** @deprecated */
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
