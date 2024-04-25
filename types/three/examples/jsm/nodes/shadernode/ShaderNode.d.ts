@@ -53,8 +53,8 @@ export type Swizzable<T extends Node = Node> =
 export type ShaderNodeObject<T extends Node> =
     & T
     & {
-        [Key in keyof NodeElements]: NodeElements[Key] extends (node: T, ...args: infer Args) => infer R
-            ? (...args: Args) => R
+        [Key in keyof NodeElements]: T extends { [K in Key]: infer M } ? M
+            : NodeElements[Key] extends (node: T, ...args: infer Args) => infer R ? (...args: Args) => R
             : never;
     }
     & Swizzable<T>;
@@ -198,9 +198,12 @@ export function nodeImmutable<T>(
 ): ShaderNodeObject<ConstructedNode<T>>;
 
 export function tslFn<R extends Node = ShaderNodeObject<Node>>(jsFunc: () => R): () => R;
+export function tslFn<T extends any[], R extends Node = ShaderNodeObject<Node>>(
+    jsFunc: (args: T) => R,
+): (...args: ProxiedTuple<T>) => R;
 export function tslFn<T extends AnyObject, R extends Node = ShaderNodeObject<Node>>(
     jsFunc: (args: T) => R,
-): (args: T) => R;
+): (args: ProxiedObject<T>) => R;
 
 export function append(node: Node): Node;
 

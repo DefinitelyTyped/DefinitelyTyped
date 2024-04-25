@@ -97,13 +97,13 @@ export default class Renderer {
 
     clippingPlanes: readonly Plane[];
 
+    toneMappingNode: Node | null;
+
     info: Info;
 
     shadowMap: { enabled: boolean; type: ShadowMapType };
 
     xr: { enabled: boolean };
-
-    toneMappingNode?: Node;
 
     localClippingEnabled?: boolean;
 
@@ -252,9 +252,9 @@ export default class Renderer {
 
     dispose(): void;
 
-    setRenderTarget(renderTarget: RenderTarget, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
 
-    getRenderTarget(): RenderTarget;
+    getRenderTarget(): RenderTarget | null;
 
     setRenderObjectFunction(renderObjectFunction: () => {}): void;
 
@@ -264,6 +264,8 @@ export default class Renderer {
      * Runs a compute pipeline
      */
     computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
+
+    hasFeatureAsync(name: string): Promise<boolean>;
 
     hasFeature(name: string): boolean;
 
@@ -277,6 +279,7 @@ export default class Renderer {
         y: number,
         width: number,
         height: number,
+        index?: number,
     ): Promise<Float32Array | Uint16Array | Uint8Array | Int8Array | Int16Array | Uint32Array | Int32Array>;
 
     renderObject(
