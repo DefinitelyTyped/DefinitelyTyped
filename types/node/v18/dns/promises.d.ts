@@ -45,16 +45,16 @@ declare module "dns/promises" {
      *
      * With the `all` option set to `true`, the `Promise` is resolved with `addresses` being an array of objects with the properties `address` and `family`.
      *
-     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v18.x/api/errors.html#class-error) object, where `err.code` is the error code.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code` is the error code.
      * Keep in mind that `err.code` will be set to `'ENOTFOUND'` not only when
      * the host name does not exist but also when the lookup fails in other ways
      * such as no available file descriptors.
      *
-     * [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v18.x/api/dns.html#dnspromiseslookuphostname-options) does not necessarily have anything to do with the DNS
+     * [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options) does not necessarily have anything to do with the DNS
      * protocol. The implementation uses an operating system facility that can
      * associate names with addresses and vice versa. This implementation can have
      * subtle but important consequences on the behavior of any Node.js program. Please
-     * take some time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v18.x/api/dns.html#implementation-considerations) before
+     * take some time to consult the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations) before
      * using `dnsPromises.lookup()`.
      *
      * Example usage:
@@ -93,7 +93,7 @@ declare module "dns/promises" {
      * If `address` is not a valid IP address, a `TypeError` will be thrown.
      * The `port` will be coerced to a number. If it is not a legal port, a `TypeError` will be thrown.
      *
-     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v18.x/api/errors.html#class-error) object, where `err.code` is the error code.
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code` is the error code.
      *
      * ```js
      * const dnsPromises = require('node:dns').promises;
@@ -119,8 +119,8 @@ declare module "dns/promises" {
      *
      * <omitted>
      *
-     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v18.x/api/errors.html#class-error) object, where `err.code`
-     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v18.x/api/dns.html#error-codes).
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code`
+     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v20.x/api/dns.html#error-codes).
      * @since v10.6.0
      * @param hostname Host name to resolve.
      * @param [rrtype='A'] Resource record type.
@@ -304,13 +304,13 @@ declare module "dns/promises" {
      * Performs a reverse DNS query that resolves an IPv4 or IPv6 address to an
      * array of host names.
      *
-     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v18.x/api/errors.html#class-error) object, where `err.code`
-     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v18.x/api/dns.html#error-codes).
+     * On error, the `Promise` is rejected with an [`Error`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-error) object, where `err.code`
+     * is one of the [DNS error codes](https://nodejs.org/docs/latest-v20.x/api/dns.html#error-codes).
      * @since v10.6.0
      */
     function reverse(ip: string): Promise<string[]>;
     /**
-     * Get the default value for `verbatim` in {@link lookup} and [dnsPromises.lookup()](https://nodejs.org/docs/latest-v18.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Get the default value for `verbatim` in {@link lookup} and [dnsPromises.lookup()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
      * * `ipv4first`: for `verbatim` defaulting to `false`.
@@ -351,9 +351,9 @@ declare module "dns/promises" {
      * * `ipv4first`: sets default `verbatim` `false`.
      * * `verbatim`: sets default `verbatim` `true`.
      *
-     * The default is `verbatim` and [dnsPromises.setDefaultResultOrder()](https://nodejs.org/docs/latest-v18.x/api/dns.html#dnspromisessetdefaultresultorderorder)
-     * have higher priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v18.x/api/cli.html#--dns-result-orderorder).
-     * When using [worker threads](https://nodejs.org/docs/latest-v18.x/api/worker_threads.html), [`dnsPromises.setDefaultResultOrder()`](https://nodejs.org/docs/latest-v18.x/api/dns.html#dnspromisessetdefaultresultorderorder)
+     * The default is `verbatim` and [dnsPromises.setDefaultResultOrder()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
+     * have higher priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
+     * When using [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), [`dnsPromises.setDefaultResultOrder()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
      * from the main thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
      * @param order must be `'ipv4first'` or `'verbatim'`.
@@ -387,7 +387,7 @@ declare module "dns/promises" {
      * An independent resolver for DNS requests.
      *
      * Creating a new resolver uses the default server settings. Setting
-     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v18.x/api/dns.html#dnspromisessetserversservers) does not affect
+     * the servers used for a resolver using [`resolver.setServers()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetserversservers) does not affect
      * other resolvers:
      *
      * ```js
