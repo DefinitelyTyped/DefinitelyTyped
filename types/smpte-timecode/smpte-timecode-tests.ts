@@ -110,5 +110,5 @@ d.getSeconds();
 d.getMilliseconds();
 
 // https://github.com/CrystalComputerCorp/smpte-timecode/blob/617c92e8f8de813e8fec0209725c12e562b83dfc/test/smpte-timecode-test.js#L81
-Timecode('00:02:10;34', [60000, 1001]);
-Timecode('00:02:10;14', [25000, 1001]);
+Timecode("00:02:10;34", [60000, 1001]);
+Timecode("00:02:10;14", [25000, 1001]);
