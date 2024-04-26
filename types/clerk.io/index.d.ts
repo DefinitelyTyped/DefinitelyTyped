@@ -2,22 +2,28 @@ declare global {
     const Clerk: Clerk;
 
     interface Window {
-        Clerk?: Clerk;
+      /**
+       * @link https://docs.clerk.io/docs
+       */
+      Clerk?: Clerk;
     }
-}
+  }
 
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+  /**
+   * Util for making a list of items partials fram a generic
+   */
+  type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
-export interface Clerk {
-    <T extends ClerkEndpoint, Config extends ConfigType<T>>(
-        method: "call",
-        endpoint: T,
-        config?: Config,
-    ): Promise<ClerkResponseType<T, Config>>;
-    (method: "click", attribute: string): void;
-}
+  export interface Clerk {
+    <T extends ClerkEndpoint>(
+      method: 'call',
+      endpoint: T,
+      config?: ConfigType<T>,
+    ): Promise<ClerkResponseType<T>>;
+    (method: 'click', attribute: string): void;
+  }
 
-interface ClerkProductAttributes {
+  interface ClerkProductAttributes {
     age: number;
     categories: number[];
     created_at: number;
@@ -38,7 +44,7 @@ interface ClerkProductAttributes {
     tags: string[];
     type: string;
     url: string;
-    variant_inventory_policy: Array<"deny" | "continue">;
+    variant_inventory_policy: Array<'deny' | 'continue'>;
     variant_list_prices: number[];
     variant_names: string[];
     variant_prices: number[];
@@ -47,9 +53,9 @@ interface ClerkProductAttributes {
     variant_weight_unit: string[];
     variants: string[];
     vendor: string;
-}
+  }
 
-interface ClerkCategory {
+  interface ClerkCategory {
     children: unknown[];
     description: string;
     id: number;
@@ -58,9 +64,9 @@ interface ClerkCategory {
     parent: unknown;
     subcategories: unknown[];
     url: string;
-}
+  }
 
-interface ClerkPage {
+  interface ClerkPage {
     id: number;
     type: string;
     title: string;
@@ -69,14 +75,14 @@ interface ClerkPage {
     image: string;
     tags: string[];
     text: string;
-}
+  }
 
-interface ClerkArticle extends ClerkPage {
+  interface ClerkArticle extends ClerkPage {
     author: string;
     blog: string;
-}
+  }
 
-interface ClerkBaseConfig {
+  interface ClerkBaseConfig {
     /**
      * Limit amount of results
      */
@@ -91,129 +97,120 @@ interface ClerkBaseConfig {
      * @link https://docs.clerk.io/docs/filters
      */
     filter?: string;
-}
+  }
 
-interface ClerkConfigProducts extends ClerkBaseConfig {
+  interface ClerkConfigProducts extends ClerkBaseConfig {
     products: Array<number | string>;
     attributes: Array<keyof ClerkProductAttributes>;
     offset?: number;
     exclude?: string[];
-}
+  }
 
-interface ClerkConfigSearch extends ClerkBaseConfig {
+  interface ClerkConfigSearch extends ClerkBaseConfig {
     query: string;
     limit: number;
     language?: string;
-}
+  }
 
-interface ClerkConfigSearchResults extends ClerkBaseConfig {
+  interface ClerkConfigSearchResults extends ClerkBaseConfig {
     longtail?: boolean;
     facets?: string[];
     offset?: number;
-    order?: "asc" | "desc";
+    order?: 'asc' | 'desc';
     orderby?: keyof ClerkProductAttributes;
     attributes?: Array<keyof ClerkProductAttributes>;
-}
+  }
 
-interface ClerkConfigSearchPages extends ClerkConfigSearch {
-    type?: "blog" | "page";
-}
+  interface ClerkConfigSearchPages extends ClerkConfigSearch {
+    type?: 'blog' | 'page';
+  }
 
-interface ClerkConfigSearchProducts extends ClerkConfigSearch {
+  interface ClerkConfigSearchProducts extends ClerkConfigSearch {
     attributes?: Array<keyof ClerkProductAttributes>;
-}
+  }
 
-type ClerkEndpointsSearch =
-    | "search/search"
-    | "search/popular"
-    | "search/predictive"
-    | "search/categories"
-    | "search/pages";
+  type ClerkEndpointsSearch =
+    | 'search/search'
+    | 'search/popular'
+    | 'search/predictive'
+    | 'search/categories'
+    | 'search/pages';
 
-type ClerkEndpointsProducts =
-    | "recommendations/popular"
-    | "recommendations/trending"
-    | "recommendations/new"
-    | "recommendations/currently_watched"
-    | "recommendations/recently_bought"
-    | "recommendations/keywords"
-    | "recommendations/complementary"
-    | "recommendations/substituting";
+  type ClerkEndpointsProducts =
+    | 'recommendations/popular'
+    | 'recommendations/trending'
+    | 'recommendations/new'
+    | 'recommendations/currently_watched'
+    | 'recommendations/recently_bought'
+    | 'recommendations/keywords'
+    | 'recommendations/complementary'
+    | 'recommendations/substituting';
 
-type ClerkEndpoint = ClerkEndpointsProducts | ClerkEndpointsSearch;
+  type ClerkEndpoint = ClerkEndpointsProducts | ClerkEndpointsSearch;
 
-interface ConfigTypes {
-    "search/search": ClerkConfigSearchResults;
-    "search/pages": ClerkConfigSearchPages;
-    "search/predictive": ClerkConfigSearchProducts;
-    "search/categories": ClerkConfigSearch;
+  interface ConfigTypes {
+    'search/search': ClerkConfigSearchResults;
+    'search/pages': ClerkConfigSearchPages;
+    'search/predictive': ClerkConfigSearchProducts;
+    'search/categories': ClerkConfigSearch;
 
-    "recommendations/popular": ClerkConfigProducts;
-    "recommendations/trending": ClerkConfigProducts;
-    "recommendations/new": Omit<ClerkConfigProducts, "offset" | "filter">;
-    "recommendations/currently_watched": Omit<ClerkConfigProducts, "offset" | "filter">;
-    "recommendations/recently_bought": Omit<Optional<ClerkConfigProducts, "limit">, "offset">;
-    "recommendations/keywords": Omit<ClerkConfigProducts, "offset">;
-    "recommendations/complementary": ClerkConfigProducts;
-    "recommendations/substituting": ClerkConfigProducts;
-}
+    'recommendations/popular': ClerkConfigProducts;
+    'recommendations/trending': ClerkConfigProducts;
+    'recommendations/new': Omit<ClerkConfigProducts, 'offset' | 'filter'>;
+    'recommendations/currently_watched': Omit<ClerkConfigProducts, 'offset' | 'filter'>;
+    'recommendations/recently_bought': Omit<Optional<ClerkConfigProducts, 'limit'>, 'offset'>;
+    'recommendations/keywords': Omit<ClerkConfigProducts, 'offset'>;
+    'recommendations/complementary': ClerkConfigProducts;
+    'recommendations/substituting': ClerkConfigProducts;
+  }
 
-type ConfigType<T extends ClerkEndpoint> = T extends keyof ConfigTypes ? ConfigTypes[T] : never;
+  type ConfigType<T extends ClerkEndpoint> = T extends keyof ConfigTypes ? ConfigTypes[T] : never;
 
-interface ClerkBaseResponse {
-    status: "ok";
+  interface ClerkBaseResponse {
+    status: 'ok';
     results: number[];
-}
+  }
 
-interface ClerkResponseProducts extends ClerkBaseResponse {
+  interface ClerkResponseProducts extends ClerkBaseResponse {
     count: number;
     product_data: ClerkProductAttributes[];
-}
+  }
 
-interface ClerkResponseSearchCategory extends ClerkBaseResponse {
+  interface ClerkResponseSearchCategory extends ClerkBaseResponse {
     categories: ClerkCategory[];
-}
+  }
 
-interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
+  interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
     hits: number;
-}
+  }
 
-interface ClerkPageTypes {
-    page: ClerkPage;
-    blog: ClerkArticle;
-}
+  interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, 'results'> {
+    pages: Array<ClerkPage | ClerkArticle>;
+    results: Array<ClerkPage | ClerkArticle>;
+  }
 
-type PageType<Type> = Type extends keyof ClerkPageTypes ? ClerkPageTypes[Type] : ClerkPage & Partial<ClerkArticle>;
-
-interface ClerkResponseSearchPages<Config> extends Omit<ClerkBaseResponse, "results"> {
-    pages: Array<PageType<Config["type"]>>;
-    results: Array<PageType<Config["type"]>>;
-}
-
-interface ClerkResponseSearchPage extends ClerkBaseResponse {
+  interface ClerkResponseSearchPage extends ClerkBaseResponse {
     count: number;
     hits: number;
     product_data: ClerkProductAttributes[];
-}
+  }
 
-interface ClerkResponseTypes<Config = never> {
-    "search/search": ClerkResponseSearchPage;
-    "search/pages": ClerkResponseSearchPages<Config>;
-    "search/predictive": ClerkResponseSearchPredictive;
-    "search/categories": ClerkResponseSearchCategory;
+  interface ClerkResponseTypes {
+    'search/search': ClerkResponseSearchPage;
+    'search/pages': ClerkResponseSearchPages;
+    'search/predictive': ClerkResponseSearchPredictive;
+    'search/categories': ClerkResponseSearchCategory;
 
-    "recommendations/popular": ClerkResponseProducts;
-    "recommendations/trending": ClerkResponseProducts;
-    "recommendations/new": ClerkResponseProducts;
-    "recommendations/currently_watched": ClerkResponseProducts;
-    "recommendations/recently_bought": ClerkResponseProducts;
-    "recommendations/keywords": ClerkResponseProducts;
-    "recommendations/complementary": ClerkResponseProducts;
-    "recommendations/substituting": ClerkResponseProducts;
-}
+    'recommendations/popular': ClerkResponseProducts;
+    'recommendations/trending': ClerkResponseProducts;
+    'recommendations/new': ClerkResponseProducts;
+    'recommendations/currently_watched': ClerkResponseProducts;
+    'recommendations/recently_bought': ClerkResponseProducts;
+    'recommendations/keywords': ClerkResponseProducts;
+    'recommendations/complementary': ClerkResponseProducts;
+    'recommendations/substituting': ClerkResponseProducts;
+  }
 
-type ClerkResponseType<T extends ClerkEndpoint, Config> = T extends keyof ClerkResponseTypes
-    ? ClerkResponseTypes<Config>[T]
-    : never;
+type ClerkResponseType<T extends ClerkEndpoint> = T extends keyof ClerkResponseTypes ? ClerkResponseTypes[T] : never;
 
 export {};
