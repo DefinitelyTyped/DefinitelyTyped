@@ -2268,3 +2268,16 @@ function testUserScripts() {
     chrome.userScripts.update(scripts); // $ExpectType Promise<void>
     chrome.userScripts.update(scripts, () => void 0); // $ExpectType void
 }
+
+function testPlatformKeys() {
+    chrome.enterprise.platformKeys.challengeKey({ // $ExpectType void
+        scope: "MACHINE",
+        challenge: new ArrayBuffer(0),
+        registerKey: { algorithm: "ECDSA" },
+    }, () => {});
+
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+    chrome.enterprise.platformKeys.challengeMachineKey(new ArrayBuffer(0), () => {}); // $ExpectType void
+
+    chrome.enterprise.platformKeys.challengeUserKey(new ArrayBuffer(0), true, () => {}); // $ExpectType void
+}

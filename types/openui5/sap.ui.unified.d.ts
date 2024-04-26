@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -17880,7 +17880,7 @@ declare module "sap/ui/unified/Menu" {
      * Gets current value of property {@link #getEnabled enabled}.
      *
      * When a menu is disabled none of its items can be selected by the user. The enabled property of an item
-     * (@link sap.ui.unified.MenuItemBase#getEnabled) has no effect when the menu of the item is disabled.
+     * {@link sap.ui.unified.MenuItemBase#getEnabled} has no effect when the menu of the item is disabled.
      *
      * Default value is `true`.
      *
@@ -18080,7 +18080,7 @@ declare module "sap/ui/unified/Menu" {
      * Sets a new value for property {@link #getEnabled enabled}.
      *
      * When a menu is disabled none of its items can be selected by the user. The enabled property of an item
-     * (@link sap.ui.unified.MenuItemBase#getEnabled) has no effect when the menu of the item is disabled.
+     * {@link sap.ui.unified.MenuItemBase#getEnabled} has no effect when the menu of the item is disabled.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -18145,7 +18145,7 @@ declare module "sap/ui/unified/Menu" {
   export interface $MenuSettings extends $ControlSettings {
     /**
      * When a menu is disabled none of its items can be selected by the user. The enabled property of an item
-     * (@link sap.ui.unified.MenuItemBase#getEnabled) has no effect when the menu of the item is disabled.
+     * {@link sap.ui.unified.MenuItemBase#getEnabled} has no effect when the menu of the item is disabled.
      */
     enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 

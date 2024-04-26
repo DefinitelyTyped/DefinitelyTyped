@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1668,25 +1668,69 @@ declare module "sap/ui/mdc/odata/v4/ChartDelegate" {
 declare module "sap/ui/mdc/odata/v4/TableDelegate" {
   import TableDelegate1 from "sap/ui/mdc/TableDelegate";
 
-  import Table from "sap/ui/mdc/Table";
+  import { default as Table, TablePropertyInfo } from "sap/ui/mdc/Table";
 
   import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ListBinding from "sap/ui/model/ListBinding";
 
   /**
-   * Base delegate for {@link sap.ui.mdc.Table} and `ODataV4`.
-   *
-   * Extend this object in your project to use all functionalities of the table. For more information, please
-   * see {@link module:sap/ui/mdc/TableDelegate}.
+   * Base delegate for {@link sap.ui.mdc.Table} and `ODataV4`. Extend this object in your project to use all
+   * functionalities of the table. For more information, please see {@link module:sap/ui/mdc/TableDelegate}.
    *
    * **Note:** This base delegate supports the `p13nMode` `Aggregate` only if the table type is {@link sap.ui.mdc.table.GridTableType GridTable},
    * and the `p13nMode` `Group` is not supported if the table type is {@link sap.ui.mdc.table.TreeTableType TreeTable}.
    * This cannot be changed in your delegate implementation.
+   *  If the table type is {@link sap.ui.mdc.table.GridTableType GridTable}, and `p13nMode` `Group` or `p13nMode`
+   * `Aggregate` is enabled, only groupable or aggregatable properties are loaded from the back end. Also,
+   * the path of a property must not contain a `NavigationProperty`.
    *
    * @since 1.85
    */
   interface TableDelegate extends TableDelegate1 {
+    /**
+     * Retrieves information about the relevant properties.
+     *
+     * By default, this method returns a `Promise` that resolves with an empty array.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns A `Promise` that resolves with the property information
+     */
+    fetchProperties(
+      /**
+       * Instance of the table
+       */
+      oTable: Table
+    ): Promise<TablePropertyInfo[]>;
+    /**
+     * Returns the keys of properties that should always be included in the result of the collection requested
+     * from the back end. This information is applied when updating the table's binding.
+     *
+     * By default, this method returns an empty array.
+     *
+     * **Note:** If properties are provided in the table's {@link sap.ui.mdc.Table propertyInfo} property, the
+     * properties whose keys are returned by this method must be included, otherwise they may not be in included
+     * the result.
+     *  The path of a property must not be empty.
+     *  If a property is complex, the properties it references are taken into account.
+     *  If `autoExpandSelect` of the {@link sap.ui.model.odata.v4.ODataModel} is not enabled, this method must
+     * return an empty array. If the table type is {@link sap.ui.mdc.table.GridTableType GridTable} and `p13nMode`
+     * `Group` or `p13nMode` `Aggregate` is enabled, referenced properties, for example, properties that are
+     * referenced via `text` or `unit`, are also included in the result. Please also see the restrictions in
+     * the description of the {@link module:sap/ui/mdc/odata/v4/TableDelegate TableDelegate}.
+     *  For more information about properties, see {@link sap.ui.mdc.odata.v4.TablePropertyInfo PropertyInfo}.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Property keys
+     */
+    getInResultPropertyKeys(
+      /**
+       * of the table
+       */
+      Instance: Table
+    ): string[];
     /**
      * Updates the binding of the table with the binding info object returned from {@link module:sap/ui/mdc/TableDelegate.updateBindingInfo updateBindingInfo}.
      * If an update is not possible, it rebinds the table.
@@ -6042,6 +6086,13 @@ declare module "sap/ui/mdc/condition/Operator" {
          */
         tokenParse: string;
         /**
+         * The string representation of the regular expression that is used to test if the given text meets the
+         * operator. A placeholder that refers to the translated tokenText can be used. `#tokenText#` refers to
+         * the `oConfiguration.tokenText` property if given.
+         * If not provided, the `tokenParse` regular expression is used.
+         */
+        tokenTest?: string;
+        /**
          * The string representation that is used by the operator to format a value into an output string. For the
          * value placeholder `{0}` and `{1}` are used. A placeholder that refers to the translated tokenText can
          * be used. `#tokenText#` refers to the `oConfiguration.tokenText` property if given.
@@ -6816,7 +6867,7 @@ declare module "sap/ui/mdc/enums/ChartP13nMode" {
 declare module "sap/ui/mdc/enums/ChartToolbarActionType" {
   /**
    * Defines the types of chart actions in the toolbar.
-   *  Can be used to remove some of the default `ToolbarAction`. For more information, see @link sap.ui.mdc.Chart#ignoreToolbarActions}.
+   *  Can be used to remove some of the default `ToolbarAction`. For more information, see {@link sap.ui.mdc.Chart#ignoreToolbarActions}.
    *
    * @since 1.115
    */
@@ -6841,7 +6892,7 @@ declare module "sap/ui/mdc/enums/ConditionValidated" {
   /**
    * Enumeration of the validated state of conditions
    *
-   * If a `Condition` is chosen from a field help or validated against a field help it is set to be validated.
+   * If a `Condition` is chosen from a value help or validated against a value help it is set to be validated.
    * In this case the corresponding item in the value help is shown as selected.
    *
    * If the validated state of the `Condition` is undefined this means it is not defined if it is validated
@@ -7625,7 +7676,7 @@ declare module "sap/ui/mdc/enums/TableGrowingMode" {
    */
   enum TableGrowingMode {
     /**
-     * A More is shown with which the user can request to load more rows
+     * A More button is shown with which the user can request to load more rows
      */
     Basic = "Basic",
     /**
@@ -13510,6 +13561,8 @@ declare module "sap/ui/mdc/link/LinkItem" {
      *
      * Defines the additional text of the item.
      *
+     * Default value is `undefined`.
+     *
      *
      * @returns Value of property `description`
      */
@@ -13517,7 +13570,8 @@ declare module "sap/ui/mdc/link/LinkItem" {
     /**
      * Gets current value of property {@link #getHref href}.
      *
-     * Destination link for a navigation operation in external format (used when opening in new tab).
+     * Destination link for a navigation operation in external format (used when opening in new tab) using the
+     * `hrefForExternal` method of the CrossApplicationNavigation service.
      *
      *
      * @returns Value of property `href`
@@ -13548,7 +13602,7 @@ declare module "sap/ui/mdc/link/LinkItem" {
      * Gets current value of property {@link #getInternalHref internalHref}.
      *
      * Destination link for a navigation operation in internal format provided by the SAP Fiori launchpad (used
-     * when navigation happens programmatically).
+     * when navigation happens programmatically). Only for internal use
      *
      *
      * @returns Value of property `internalHref`
@@ -13559,14 +13613,28 @@ declare module "sap/ui/mdc/link/LinkItem" {
      *
      * Unique key of the `LinkItem` that is used for personalization.
      *
+     * Default value is `undefined`.
+     *
      *
      * @returns Value of property `key`
      */
     getKey(): string;
     /**
+     * Gets current value of property {@link #getPress press}.
+     *
+     * Callback for `press` event.
+     *
+     * @since 1.122.0
+     *
+     * @returns Value of property `press`
+     */
+    getPress(): object;
+    /**
      * Gets current value of property {@link #getTarget target}.
      *
-     * Determines the target of the `Link` and has to be used as the `target` of an html anchor.
+     * Determines the target of the `Link` and has to be used as the `target` of an html anchor. The standard
+     * values for the `target` property are: _self, _top, _blank, _parent, _search. Alternatively, a frame name
+     * can be entered. This property is only used if the `href` property is set.
      *
      * Default value is `"_self"`.
      *
@@ -13590,6 +13658,8 @@ declare module "sap/ui/mdc/link/LinkItem" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * Default value is `undefined`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13597,12 +13667,13 @@ declare module "sap/ui/mdc/link/LinkItem" {
       /**
        * New value for property `description`
        */
-      sDescription: string
+      sDescription?: string
     ): this;
     /**
      * Sets a new value for property {@link #getHref href}.
      *
-     * Destination link for a navigation operation in external format (used when opening in new tab).
+     * Destination link for a navigation operation in external format (used when opening in new tab) using the
+     * `hrefForExternal` method of the CrossApplicationNavigation service.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -13613,7 +13684,7 @@ declare module "sap/ui/mdc/link/LinkItem" {
       /**
        * New value for property `href`
        */
-      sHref: string
+      sHref?: string
     ): this;
     /**
      * Sets a new value for property {@link #getIcon icon}.
@@ -13654,7 +13725,7 @@ declare module "sap/ui/mdc/link/LinkItem" {
      * Sets a new value for property {@link #getInternalHref internalHref}.
      *
      * Destination link for a navigation operation in internal format provided by the SAP Fiori launchpad (used
-     * when navigation happens programmatically).
+     * when navigation happens programmatically). Only for internal use
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -13674,6 +13745,8 @@ declare module "sap/ui/mdc/link/LinkItem" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     * Default value is `undefined`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13681,12 +13754,31 @@ declare module "sap/ui/mdc/link/LinkItem" {
       /**
        * New value for property `key`
        */
-      sKey: string
+      sKey?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getPress press}.
+     *
+     * Callback for `press` event.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.122.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPress(
+      /**
+       * New value for property `press`
+       */
+      oPress?: object
     ): this;
     /**
      * Sets a new value for property {@link #getTarget target}.
      *
-     * Determines the target of the `Link` and has to be used as the `target` of an html anchor.
+     * Determines the target of the `Link` and has to be used as the `target` of an html anchor. The standard
+     * values for the `target` property are: _self, _top, _blank, _parent, _search. Alternatively, a frame name
+     * can be entered. This property is only used if the `href` property is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -13715,7 +13807,7 @@ declare module "sap/ui/mdc/link/LinkItem" {
       /**
        * New value for property `text`
        */
-      sText: string
+      sText?: string
     ): this;
   }
 
@@ -13736,18 +13828,21 @@ declare module "sap/ui/mdc/link/LinkItem" {
     description?: string | PropertyBindingInfo;
 
     /**
-     * Destination link for a navigation operation in external format (used when opening in new tab).
+     * Destination link for a navigation operation in external format (used when opening in new tab) using the
+     * `hrefForExternal` method of the CrossApplicationNavigation service.
      */
     href?: string | PropertyBindingInfo;
 
     /**
      * Destination link for a navigation operation in internal format provided by the SAP Fiori launchpad (used
-     * when navigation happens programmatically).
+     * when navigation happens programmatically). Only for internal use
      */
     internalHref?: string | PropertyBindingInfo;
 
     /**
-     * Determines the target of the `Link` and has to be used as the `target` of an html anchor.
+     * Determines the target of the `Link` and has to be used as the `target` of an html anchor. The standard
+     * values for the `target` property are: _self, _top, _blank, _parent, _search. Alternatively, a frame name
+     * can be entered. This property is only used if the `href` property is set.
      */
     target?: string | PropertyBindingInfo;
 
@@ -13761,6 +13856,13 @@ declare module "sap/ui/mdc/link/LinkItem" {
      * without any personalization.
      */
     initiallyVisible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Callback for `press` event.
+     *
+     * @since 1.122.0
+     */
+    press?: object | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -16545,7 +16647,7 @@ declare module "sap/ui/mdc/Table" {
      *
      * @since 1.111
      */
-    propertyInfo?: object[] | PropertyBindingInfo | `{${string}}`;
+    propertyInfo?: object | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the toolbar is visible.
@@ -17096,7 +17198,14 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
-     * Defines the minimum width of the column.
+     * Defines the minimum width of the column. This property only takes effect if the column has a flexible
+     * `width`, for example, a percentage value. The user can resize the column to a smaller width if {@link sap.ui.mdc.Table#getEnableColumnResize column resizing }
+     * is enabled in the table.
+     *
+     * **Note:** If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the property
+     * is used to influence the pop-in behavior: If the accumulated width of all columns is bigger than the
+     * width of the table, then the least important column is moved into the pop-in area. For more information,
+     * see {@link sap.ui.mdc.table.ResponsiveColumnSettings#getImportance ResponsiveColumnSettings}.
      *
      * Default value is `8`.
      *
@@ -17273,7 +17382,14 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Sets a new value for property {@link #getMinWidth minWidth}.
      *
-     * Defines the minimum width of the column.
+     * Defines the minimum width of the column. This property only takes effect if the column has a flexible
+     * `width`, for example, a percentage value. The user can resize the column to a smaller width if {@link sap.ui.mdc.Table#getEnableColumnResize column resizing }
+     * is enabled in the table.
+     *
+     * **Note:** If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the property
+     * is used to influence the pop-in behavior: If the accumulated width of all columns is bigger than the
+     * width of the table, then the least important column is moved into the pop-in area. For more information,
+     * see {@link sap.ui.mdc.table.ResponsiveColumnSettings#getImportance ResponsiveColumnSettings}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -17383,7 +17499,14 @@ declare module "sap/ui/mdc/table/Column" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the minimum width of the column.
+     * Defines the minimum width of the column. This property only takes effect if the column has a flexible
+     * `width`, for example, a percentage value. The user can resize the column to a smaller width if {@link sap.ui.mdc.Table#getEnableColumnResize column resizing }
+     * is enabled in the table.
+     *
+     * **Note:** If the table type is {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the property
+     * is used to influence the pop-in behavior: If the accumulated width of all columns is bigger than the
+     * width of the table, then the least important column is moved into the pop-in area. For more information,
+     * see {@link sap.ui.mdc.table.ResponsiveColumnSettings#getImportance ResponsiveColumnSettings}.
      *
      * @since 1.80
      */
@@ -18647,12 +18770,6 @@ declare module "sap/ui/mdc/table/ResponsiveColumnSettings" {
     /**
      * Constructor for a new `ResponsiveColumnSettings`.
      *
-     * Provides the following settings that are supported by the {@link sap.m.Column}:
-     *
-     *
-     * 	 - importance
-     * 	 - mergeFunction
-     *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
@@ -18665,12 +18782,6 @@ declare module "sap/ui/mdc/table/ResponsiveColumnSettings" {
     );
     /**
      * Constructor for a new `ResponsiveColumnSettings`.
-     *
-     * Provides the following settings that are supported by the {@link sap.m.Column}:
-     *
-     *
-     * 	 - importance
-     * 	 - mergeFunction
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -20993,6 +21104,10 @@ declare module "sap/ui/mdc/ValueHelp" {
      * If set, the check is done case-sensitively
      */
     caseSensitive?: boolean;
+    /**
+     * If set, only exact matches are requested and no suggestions
+     */
+    exactMatch?: boolean;
     /**
      * Instance of the calling control
      */
@@ -25542,6 +25657,10 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
      * **Note:** Set the right selection mode (multiple selection or single selection) as it cannot be determined
      * automatically for every case. (For type-ahead and also for multi-value {@link sap.ui.mdc.FilterField FilterField }
      * controls, only single selection from the table might be wanted.)
+     *
+     * **Note:** In phone mode, the popover or dialog might be rendered differently than in desktop mode. So
+     * here the configuration for column sizes or table sizes might be different. Please configure sizes depending
+     * on the used device.
      */
     getTable(): Table;
     /**
@@ -25565,6 +25684,10 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
      * **Note:** Set the right selection mode (multiple selection or single selection) as it cannot be determined
      * automatically for every case. (For type-ahead and also for multi-value {@link sap.ui.mdc.FilterField FilterField }
      * controls, only single selection from the table might be wanted.)
+     *
+     * **Note:** In phone mode, the popover or dialog might be rendered differently than in desktop mode. So
+     * here the configuration for column sizes or table sizes might be different. Please configure sizes depending
+     * on the used device.
      */
     table?: Table;
 
@@ -25994,8 +26117,6 @@ declare namespace sap {
     "sap/ui/mdc/odata/TypeUtil": undefined;
 
     "sap/ui/mdc/odata/v4/ChartDelegate": undefined;
-
-    "sap/ui/mdc/odata/v4/FieldBaseDelegate": undefined;
 
     "sap/ui/mdc/odata/v4/TableDelegate": undefined;
 

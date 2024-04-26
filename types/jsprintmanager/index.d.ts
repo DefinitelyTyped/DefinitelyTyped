@@ -112,7 +112,7 @@ export namespace JSPM {
     enum WSStatus {
         Open = 0,
         Closed = 1,
-        BlackListed = 2,
+        Blocked = 2,
         WaitingForUserResponse = 3,
     }
     enum PrintRotation {
@@ -162,6 +162,7 @@ export namespace JSPM {
 
     namespace JSPrintManager {
         let WS: JSPMWebSocket;
+        let license_url: string;
         let auto_reconnect: boolean;
         function start(secure?: boolean, host?: string, port?: number): Promise<void>;
         function getPrinters(): Promise<{}>;

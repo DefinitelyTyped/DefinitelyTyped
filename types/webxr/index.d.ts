@@ -58,7 +58,7 @@ type XRHandedness = "none" | "left" | "right";
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen";
+type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen" | "transient-pointer";
 
 /**
  * Eye types

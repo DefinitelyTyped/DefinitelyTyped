@@ -1512,7 +1512,7 @@ declare namespace ComponentFramework {
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name
              */
-            createFromEntity?: EntityReference | undefined;
+            createFromEntity?: LookupValue | undefined;
 
             /**
              * ID of the entity record to display the form for.

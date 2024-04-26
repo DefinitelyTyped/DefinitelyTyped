@@ -7,7 +7,7 @@ import { NoticeMessage } from "pg-protocol/dist/messages";
 
 import { ConnectionOptions } from "tls";
 
-export type QueryConfigValues<T> = T extends Array<infer U> ? (U extends never ? never : T) : never;
+export type QueryConfigValues<T> = T extends Array<infer U> ? T : never;
 
 export interface ClientConfig {
     user?: string | undefined;

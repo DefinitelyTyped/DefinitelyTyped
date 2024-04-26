@@ -1,6 +1,6 @@
 import { Environment } from "@rdfjs/environment/Environment.js";
 import { BaseQuad, DataFactory, DatasetCoreFactory, Quad } from "@rdfjs/types";
-import { SimpleClient } from "./index.js";
+import { Client, SimpleClient } from "./index.js";
 import StreamQuery from "./StreamQuery.js";
 import StreamStore from "./StreamStore.js";
 
@@ -24,15 +24,18 @@ interface OptionWithUpdateEndpoint<Q extends BaseQuad> extends BaseOptions<Q> {
     updateUrl: string;
 }
 
-export type Options<Q extends BaseQuad> =
+export type Options<Q extends BaseQuad = Quad> =
     | OptionWithQueryEndpoint<Q>
     | OptionWithStoreEndpoint<Q>
     | OptionWithUpdateEndpoint<Q>;
 
-declare class StreamClient<Q extends BaseQuad = Quad>
+export type StreamClient<Q extends BaseQuad = Quad> = Client<StreamQuery<Q>, StreamStore<Q>>;
+
+declare class StreamClientImpl<Q extends BaseQuad = Quad>
     extends SimpleClient<StreamQuery, StreamStore<Q>, Environment<DataFactory<Q> | DatasetCoreFactory>>
+    implements StreamClient<Q>
 {
     constructor(options: Options<Q>);
 }
 
-export default StreamClient;
+export default StreamClientImpl;

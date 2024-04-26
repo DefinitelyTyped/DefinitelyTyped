@@ -61,6 +61,15 @@ const docker11 = new Docker({
     },
 });
 
+const docker12 = new Docker({
+    sshOptions: {
+        host: "192.168.1.10",
+        port: 3000,
+        forceIPv4: true,
+        forceIPv6: true,
+    },
+});
+
 async function foo() {
     const containers = await docker7.listContainers({
         all: false,
@@ -268,6 +277,15 @@ docker.listContainers({ abortSignal: new AbortController().signal }).then(contai
 docker.listImages({
     all: true,
     filters: "{\"dangling\":[\"true\"]}",
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
+    return images.map(image => docker.getImage(image.Id));
+});
+
+docker.listImages({
+    all: true,
+    filters: { "dangling": ["true"] },
     digests: true,
     abortSignal: new AbortController().signal,
 }).then(images => {

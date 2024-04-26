@@ -18,9 +18,9 @@
         "./src/": "./src/",
         "./dist/": "./dist/"
     },
-    "minimumTypeScriptVersion": "5.0",
+    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
-        "types-ramda": "^0.29.9"
+        "types-ramda": "^0.29.10"
     },
     "devDependencies": {
         "@types/ramda": "workspace:."

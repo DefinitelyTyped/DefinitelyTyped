@@ -9,19 +9,19 @@ const compat = new FlatCompat({
 });
 
 const config: Linter.FlatConfig[] = [
-    // $ExpectType FlatConfig
+    // $ExpectType FlatConfig<RulesRecord>
     ...compat.extends("standard", "example"),
 
-    // $ExpectType FlatConfig
+    // $ExpectType FlatConfig<RulesRecord>
     ...compat.env({
         es2020: true,
         node: true,
     }),
 
-    // $ExpectType FlatConfig
+    // $ExpectType FlatConfig<RulesRecord>
     ...compat.plugins("airbnb", "react"),
 
-    // $ExpectType FlatConfig
+    // $ExpectType FlatConfig<RulesRecord>
     ...compat.config({
         plugins: ["airbnb", "react"],
         extends: "standard",

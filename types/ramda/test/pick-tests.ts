@@ -27,9 +27,9 @@ import * as R from "ramda";
 
     // @ts-expect-error
     const a60: { 1: string; 2: string } = R.pick([1, 2])(["a", "b", "c", "d"]); // {1: 'b', 2: 'c'}
-    const a61: { 1: "b"; 2: "c" } = R.pick([1, 2])(abcdTuple); // {1: 'b', 2: 'c'}
+    const a61: { 1: "b"; 2: "c" } = R.pick([1, 2] as const)(abcdTuple); // {1: 'b', 2: 'c'}
     const a62: Pick<["a", "b", "c", "d"], 12 | 0> = R.pick([12, 0])(["a", "b", "c", "d"]); // {0: 'a'}
-    const a63: { 0: "a" } = R.pick([12, 0])(abcdTuple); // {0: 'a'}
+    const a63: { 0: "a" } = R.pick([12, 0] as const)(abcdTuple); // {0: 'a'}
 
     const s = Symbol("s");
     const sObj: { [s]: "a" } = { [s]: "a" };

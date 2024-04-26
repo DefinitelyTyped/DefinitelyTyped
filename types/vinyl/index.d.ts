@@ -335,7 +335,6 @@ declare namespace File {
     interface BufferFile extends File {
         contents: Buffer;
         isStream(): this is never;
-        isBuffer(): true;
         isNull(): this is never;
         isDirectory(): this is never;
         isSymbolic(): this is never;
@@ -343,7 +342,6 @@ declare namespace File {
 
     interface StreamFile extends File {
         contents: NodeJS.ReadableStream;
-        isStream(): true;
         isBuffer(): this is never;
         isNull(): this is never;
         isDirectory(): this is never;
@@ -354,18 +352,15 @@ declare namespace File {
         contents: null;
         isStream(): this is never;
         isBuffer(): this is never;
-        isNull(): true;
         isDirectory(): this is DirectoryFile;
         isSymbolic(): this is SymbolicFile;
     }
 
     interface DirectoryFile extends NullFile {
-        isDirectory(): true;
         isSymbolic(): this is never;
     }
 
     interface SymbolicFile extends NullFile {
         isDirectory(): this is never;
-        isSymbolic(): true;
     }
 }

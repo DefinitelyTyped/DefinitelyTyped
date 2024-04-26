@@ -1,4 +1,4 @@
-import { FrameElement, StreamElement, visit } from "@hotwired/turbo";
+import { FrameElement, StreamActions, StreamElement, visit } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector<FrameElement>("turbo-frame")!;
 
@@ -55,6 +55,8 @@ Turbo.visit("my-location");
 Turbo.visit("my-location", {});
 Turbo.visit("my-location", { action: "advance" });
 Turbo.visit("my-location", { action: "replace" });
+// @ts-expect-error
+Turbo.visit("my-location", { action: "magic" });
 
 Turbo.visit("my-location", {
     // @ts-expect-error
@@ -65,3 +67,27 @@ Turbo.visit("my-location", { frame: "mine" });
 
 // $ExpectType TurboSession
 Turbo.session;
+
+StreamActions.log = function() {
+    // $ExpectType StreamElement
+    this;
+    console.log(this.getAttribute("message"));
+};
+
+document.addEventListener("turbo:before-fetch-response", function(e) {
+    let { fetchResponse } = e.detail;
+    fetchResponse.header("foo");
+});
+
+document.addEventListener("turbo:before-render", function(e) {
+    e.detail.render = (currentElement, newElement) => {
+        // $ExpectType HTMLBodyElement
+        currentElement;
+        // $ExpectType HTMLBodyElement
+        newElement;
+    };
+});
+
+document.addEventListener("turbo:frame-missing", function(event) {
+    event.detail.visit(event.detail.response, {});
+});

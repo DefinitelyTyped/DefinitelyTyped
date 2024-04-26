@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -206,6 +206,13 @@ declare module "sap/ui/table/library" {
     Fixed = "Fixed",
     /**
      * The user can change the `visibleRowCount` by dragging a resizer.
+     *
+     * The following restrictions apply:
+     * 	 - The functionality targets only the mouse interaction (drag and drop). There is no keyboard alternative
+     *     available. An accessible alternative must be provided by applications, for example, by giving the user
+     *     the possibility to enter the number of required rows in an input field.
+     * 	 - The resize interaction is not optimized for touch devices from a design and interaction perspective.
+     *     We do not recommend to use this mode in such scenarios.
      */
     Interactive = "Interactive",
   }
@@ -4904,6 +4911,13 @@ declare module "sap/ui/table/rowmodes/Interactive" {
 
   /**
    * The user can change the number of displayed rows by dragging a resizer.
+   *
+   * The following restrictions apply:
+   * 	 - The functionality targets only the mouse interaction (drag and drop). There is no keyboard alternative
+   *     available. An accessible alternative must be provided by applications, for example, by giving the user
+   *     the possibility to enter the number of required rows in an input field.
+   * 	 - The resize interaction is not optimized for touch devices from a design and interaction perspective.
+   *     We do not recommend to use this mode in such scenarios.
    *
    * @since 1.119
    */

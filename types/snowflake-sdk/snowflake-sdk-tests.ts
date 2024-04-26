@@ -4,6 +4,9 @@ snowflake.configure({
     insecureConnect: true,
     logLevel: "ERROR",
     ocspFailOpen: true,
+    keepAlive: true,
+    jsonColumnVariantParser: undefined,
+    xmlColumnVariantParser: undefined,
 });
 
 const connection = snowflake.createConnection({
@@ -106,6 +109,11 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         sqlText: "",
         // @ts-expect-error
         parameters: "not-a-record",
+    });
+
+    conn.execute({
+        sqlText: "",
+        requestId: "",
     });
 };
 connection.connect(connectCallback);

@@ -571,6 +571,12 @@ export type Connection = NodeJS.EventEmitter & {
         fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
         parameters?: Record<string, unknown>;
+
+        /**
+         * ### Related Docs
+         * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#resubmitting-requests Resubmitting Requests}
+         */
+        requestId?: string;
     }): Statement;
 
     /**
@@ -608,9 +614,15 @@ export interface ConfigureOptions {
 
     /**
      * ### Related Docs
-     * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#choosing-fail-open-or-fail-close-mode Choosing `Fail-Open` or `Fail-Close` Mode}
+     * - {@link https://docs.snowflake.com/user-guide/ocsp#fail-open-or-fail-close-behavior Choosing `Fail-Open` or `Fail-Close` Mode}
      */
     ocspFailOpen?: boolean | undefined;
+    jsonColumnVariantParser?: ((rawColumnValue: string) => any) | undefined;
+    xmlColumnVariantParser?: ((rawColumnValue: string) => any) | undefined;
+    /**
+     * Specifies whether to enable keep-alive functionality on the socket immediately after receiving a new connection request. Default value is true.
+     */
+    keepAlive?: boolean | undefined;
 }
 
 /**

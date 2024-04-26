@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1592,8 +1592,6 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
-
-    "sap/ui/fl/apply/_internal/preprocessors/EventHistory": undefined;
 
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 

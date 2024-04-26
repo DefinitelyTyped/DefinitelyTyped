@@ -6,8 +6,8 @@
         "https://github.com/thibauts/node-castv2#readme"
     ],
     "dependencies": {
+        "@types/chromecast-caf-receiver": "*",
         "@types/events": "*",
-        "@types/mdns": "*",
         "@types/node": "*"
     },
     "devDependencies": {
