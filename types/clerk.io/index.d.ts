@@ -161,7 +161,7 @@ interface ConfigTypes {
     "search/pages": ClerkConfigSearchPages;
     "search/predictive": ClerkConfigSearchPredictive;
     "search/categories": ClerkConfigSearch;
-    "search/suggestions": Omit<ClerkConfigSearch, "labels", "filter">;
+    "search/suggestions": Omit<ClerkConfigSearch, "labels" | "filter">;
 
     "recommendations/popular": Omit<ClerkConfigProducts, "products"> & ClerkFacets;
     "recommendations/trending": ClerkConfigProducts & ClerkFacets;
