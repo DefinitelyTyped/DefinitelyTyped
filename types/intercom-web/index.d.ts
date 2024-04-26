@@ -58,6 +58,7 @@ declare namespace Intercom_ {
         startSurvey: (surveyId: number) => void;
         reattach_activator: () => void;
         showSpace: (space: string) => void;
+        startChecklist: (checklistId: number) => void;
     }
 
     type IntercomCommand = keyof IntercomCommandSignature;
