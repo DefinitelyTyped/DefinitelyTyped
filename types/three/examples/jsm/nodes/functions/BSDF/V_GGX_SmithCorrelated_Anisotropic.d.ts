@@ -1,11 +1,16 @@
 import Node from "../../core/Node.js";
-import OperatorNode from "../../math/OperatorNode.js";
+import MathNode from "../../math/MathNode";
 import { ShaderNodeObject } from "../../shadernode/ShaderNode.js";
 
 declare const V_GGX_SmithCorrelated: (inputs: {
-    alpha: Node;
-    dotNL: Node;
+    alphaT: Node;
+    alphaB: Node;
+    dotTV: Node;
+    dotBV: Node;
+    dotTL: Node;
+    dotBL: Node;
     dotNV: Node;
-}) => ShaderNodeObject<OperatorNode>;
+    dotNL: Node;
+}) => ShaderNodeObject<MathNode>;
 
 export default V_GGX_SmithCorrelated;
