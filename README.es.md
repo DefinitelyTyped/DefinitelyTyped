@@ -170,12 +170,9 @@ Si un non-npm package entra en conflicto con un paquete npm existente, intenta a
 
 #### `<my-package>-tests.ts`
 
-<!-- Español -->
-
 Debería haber un archivo `<my-package>-tests.ts`, el cual es considerado tu archivo de prueba, junto con cualquier archivo `*.ts` que importe.
 Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
 Estos archivos son usados para validar la API exportada desde los archivos `*.d.ts` los cuales son enviados como `@types/<my-package>`.
-
 
 Los cambios a los archivos `*.d.ts` deberían incluir un cambio correspondiente en un archivo `*.ts` el cual muestre la API siendo usada, para que alguien no rompa accidentalmente el código en el que dependes.
 Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
@@ -225,7 +222,6 @@ Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyType
 El archivo de configuración del linter, `tslint.json` debería contener `{ "extends": "@definitelytyped/dtslint/dt.json" }`, y no reglas adicionales.
 
 Si por alguna razón alguna regla necesita ser deshabilitada, [deshabilítala para esa línea específica](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` — no para todo el paquete, para que la deshabilitación pueda ser revisada. (Hay algunas configuraciones de lint heredadas que tienen contenido adicional, pero esto no debería ocurrir en un nuevo trabajo.)
-
 
 #### `tsconfig.json`
 
