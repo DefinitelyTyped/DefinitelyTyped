@@ -189,7 +189,7 @@ interface ClerkResponseSearchCategory extends ClerkBaseResponse {
     categories: ClerkCategory[];
 }
 
-interface ClerkResponseSearchSuggestions extends ClerkBaseResponse {
+interface ClerkResponseSearchSuggestions extends Omit<ClerkBaseResponse, "results"> {
     results: string[];
 }
 
