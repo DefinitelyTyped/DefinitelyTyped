@@ -1022,15 +1022,17 @@ declare module "../index" {
 
     type GetIndexedField<T, K> = K extends keyof T
         ? T[K]
-        : K extends `${number}`
-            ? 'length' extends keyof T
-                ? number extends T['length']
-                    ? number extends keyof T
-                        ? T[number]
-                        : undefined
+        : K extends `${infer U extends number}`
+        ? "length" extends keyof T
+            ? number extends T["length"]
+                ? number extends keyof T
+                    ? T[number]
                     : undefined
                 : undefined
-            : undefined;
+            : U extends keyof T
+            ? T[U]
+            : undefined
+        : undefined;
 
     type FieldWithPossiblyUndefined<T, Key> =
         | GetFieldType<Exclude<T, undefined>, Key>
