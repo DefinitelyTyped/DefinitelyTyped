@@ -2060,6 +2060,9 @@ function testFileSystemProvider() {
             if (options.cloudIdentifier) {
                 entryMetadata.cloudIdentifier = { providerName: "provider-name", id: "id" };
             }
+            if (options.cloudFileInfo) {
+                entryMetadata.cloudFileInfo = { versionTag: "versionA" };
+            }
         },
     );
 
@@ -2090,10 +2093,20 @@ function testFileSystemProvider() {
         ) => {},
     );
 
+    // Checking onCreateDirectoryRequested.
     chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
         (
             options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
             successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
+
+    // Checking onOpenFileRequested.
+    chrome.fileSystemProvider.onOpenFileRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.OpenFileRequestedEventOptions,
+            successCallback: (metadata?: chrome.fileSystemProvider.EntryMetadata) => void,
             errorCallback: (error: string) => void,
         ) => {},
     );

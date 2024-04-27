@@ -3779,6 +3779,11 @@ declare namespace chrome.fileSystemProvider {
         id: string;
     }
 
+    export interface CloudFileInfo {
+        /** A tag that represents the version of the file. */
+        versionTag?: string | undefined;
+    }
+
     export interface EntryMetadata {
         /** True if it is a directory. Must be provided if requested in `options`. */
         isDirectory?: boolean;
@@ -3794,6 +3799,8 @@ declare namespace chrome.fileSystemProvider {
         thumbnail?: string | undefined;
         /** Optional. Cloud storage representation of this entry. Must be provided if requested in `options` and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested. */
         cloudIdentifier?: CloudIdentifier | undefined;
+        /** Optional. Information that identifies a specific file in the underlying cloud file system. Must be provided if requested in `options` and the file is backed by cloud storage. */
+        cloudFileInfo?: CloudFileInfo | undefined;
     }
 
     export interface FileSystemInfo {
@@ -3931,6 +3938,8 @@ declare namespace chrome.fileSystemProvider {
         thumbnail: boolean;
         /** Set to true if `cloudIdentifier` is requested. */
         cloudIdentifier: boolean;
+        /** Set to true if `cloudFileInfo` is requested. */
+        cloudFileInfo: boolean;
     }
 
     export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
@@ -4039,7 +4048,7 @@ declare namespace chrome.fileSystemProvider {
         chrome.events.Event<
             (
                 options: OpenFileRequestedEventOptions,
-                successCallback: Function,
+                successCallback: (metadata?: EntryMetadata) => void,
                 errorCallback: (error: string) => void,
             ) => void
         >
