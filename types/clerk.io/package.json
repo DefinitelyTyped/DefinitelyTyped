@@ -19,5 +19,6 @@
     "projects": [
         "https://docs.clerk.io/docs"
     ],
+    "types": "./index.d.ts",
     "version": "1.0.9999"
 }
