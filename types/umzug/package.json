@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/sequelize/umzug"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/node": "*",
         "@types/sequelize": "*",
