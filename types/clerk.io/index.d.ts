@@ -1,4 +1,4 @@
-import type { Optional } from "./utils/optional";
+import { Optional } from './types/optional';
 
 declare global {
     const Clerk: Clerk;

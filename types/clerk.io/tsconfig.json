@@ -16,6 +16,6 @@
     "files": [
         "index.d.ts",
         "clerk.io-tests.ts",
-        "utils/optional.ts"
+        "types/optional.ts"
     ]
 }
