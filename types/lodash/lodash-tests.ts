@@ -5331,6 +5331,10 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
+    _.get({ a: { b: { c: { 100: "a" } } } }, 'a.b.c.100'); // $ExpectType string
+    _.get({ a: { b: { c: { 100: "a" } } } }, 'a.b.c[100]'); // $ExpectType string
+    _.get({ a: { b: { c: { 100: "a" } } } }, 'a.b.c.0'); // $ExpectType undefined
+    _.get({ a: { b: { c: { 100: "a" } } } }, 'a.b.c[0]'); // $ExpectType undefined
     _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
@@ -5359,6 +5363,10 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
+    _({ a: { b: { c: { 100: "a" } } } }).get('a.b.c.100'); // $ExpectType string
+    _({ a: { b: { c: { 100: "a" } } } }).get('a.b.c[100]'); // $ExpectType string
+    _({ a: { b: { c: { 100: "a" } } } }).get('a.b.c.0'); // $ExpectType undefined
+    _({ a: { b: { c: { 100: "a" } } } }).get('a.b.c[0]'); // $ExpectType undefined
     _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
