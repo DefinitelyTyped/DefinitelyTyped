@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/domasx2/sequelize-fixtures"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/sequelize": "*"
     },
