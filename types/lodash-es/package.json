@@ -7,6 +7,7 @@
         "https://lodash.com/custom-builds"
     ],
     "type": "module",
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/lodash": "*"
     },

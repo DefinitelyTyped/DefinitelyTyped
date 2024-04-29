@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/typicode/json-server"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/connect": "*",
         "@types/express": "*",

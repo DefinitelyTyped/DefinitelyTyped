@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/marklagendijk/lodash-deep"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/lodash": "*"
     },

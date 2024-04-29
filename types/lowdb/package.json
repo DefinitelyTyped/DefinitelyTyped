@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/typicode/lowdb"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/lodash": "*"
     },

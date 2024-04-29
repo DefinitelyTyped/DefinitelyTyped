@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/xiaody/react-lines-ellipsis#readme"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/lodash": "*",
         "@types/react": "*"

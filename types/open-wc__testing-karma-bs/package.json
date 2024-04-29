@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/open-wc/open-wc/tree/master/packages/testing-karma-bs"
     ],
+    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/karma": "*",
         "@types/karma-browserstack-launcher": "*"
