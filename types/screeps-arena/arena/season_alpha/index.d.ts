@@ -2,5 +2,4 @@
 /// <reference path="collect_and_control/index.d.ts" />
 
 declare module "arena/season-alpha" {
-
 }

@@ -15,13 +15,13 @@ declare module "game/constants" {
     export const ERR_NO_BODYPART = -12;
     export const ERR_NOT_ENOUGH_EXTENSIONS = -6;
 
-    export const MOVE = 'move';
-    export const RANGED_ATTACK = 'ranged_attack';
-    export const HEAL = 'heal';
-    export const ATTACK = 'attack';
-    export const CARRY = 'carry';
-    export const TOUGH = 'tough';
-    export const WORK = 'work';
+    export const MOVE = "move";
+    export const RANGED_ATTACK = "ranged_attack";
+    export const HEAL = "heal";
+    export const ATTACK = "attack";
+    export const CARRY = "carry";
+    export const TOUGH = "tough";
+    export const WORK = "work";
 
     export const TOP = 1;
     export const TOP_RIGHT = 2;
@@ -40,10 +40,10 @@ declare module "game/constants" {
 
     export const RANGED_ATTACK_POWER = 10;
     export const RANGED_ATTACK_DISTANCE_RATE: {
-        0: 1,
-        1: 1,
-        2: 0.4,
-        3: 0.1
+        0: 1;
+        1: 1;
+        2: 0.4;
+        3: 0.1;
     };
     export const ATTACK_POWER = 30;
     export const HEAL_POWER = 12;
@@ -56,7 +56,7 @@ declare module "game/constants" {
     export const HARVEST_POWER = 2;
     export const BUILD_POWER = 5;
 
-    export const OBSTACLE_OBJECT_TYPES: ['creep', 'tower', 'constructedWall' ,'spawn' ,'extension' ,'link'];
+    export const OBSTACLE_OBJECT_TYPES: ["creep", "tower", "constructedWall", "spawn", "extension", "link"];
 
     export const TOWER_ENERGY_COST = 10;
     export const TOWER_RANGE = 50;
@@ -71,13 +71,13 @@ declare module "game/constants" {
     export const TOWER_COOLDOWN = 10;
 
     export const BODYPART_COST: {
-        work: 100,
-        move: 50,
-        carry: 50,
-        attack: 80,
-        ranged_attack: 150,
-        heal: 250,
-        tough: 10
+        work: 100;
+        move: 50;
+        carry: 50;
+        attack: 80;
+        ranged_attack: 150;
+        heal: 250;
+        tough: 10;
     };
 
     export const MAX_CREEP_SIZE = 50;

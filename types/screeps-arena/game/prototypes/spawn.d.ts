@@ -1,7 +1,5 @@
 declare module "game/prototypes" {
-    import {
-        OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_ARGS, ERR_NOT_ENOUGH_ENERGY
-    } from "game/constants";
+    import { ERR_BUSY, ERR_INVALID_ARGS, ERR_NOT_ENOUGH_ENERGY, ERR_NOT_OWNER, OK } from "game/constants";
 
     /** {@link createConstructionSite} call result*/
     export interface SpawnCreepResult {
@@ -9,7 +7,12 @@ declare module "game/prototypes" {
         object?: Creep | undefined;
 
         /** the error code */
-        error?: typeof ERR_NOT_OWNER | typeof ERR_INVALID_ARGS | typeof ERR_NOT_ENOUGH_ENERGY | typeof ERR_BUSY | undefined;
+        error?:
+            | typeof ERR_NOT_OWNER
+            | typeof ERR_INVALID_ARGS
+            | typeof ERR_NOT_ENOUGH_ENERGY
+            | typeof ERR_BUSY
+            | undefined;
     }
 
     /** Details of the creep being spawned currently */

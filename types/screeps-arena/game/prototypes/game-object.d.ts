@@ -1,5 +1,5 @@
 declare module "game/prototypes" {
-    import { getObjectById, FindPathOptions, findPath } from "game/utils";
+    import { findPath, FindPathOptions, getObjectById } from "game/utils";
 
     /** Position of object in the room */
     export interface Position {
@@ -19,7 +19,7 @@ declare module "game/prototypes" {
         exists: boolean;
 
         /** The unique ID of this object that you can use in {@link getObjectById} */
-        id: number|string;
+        id: number | string;
 
         /** If defined, then this object will disappear after this number of ticks*/
         ticksToDecay?: number;

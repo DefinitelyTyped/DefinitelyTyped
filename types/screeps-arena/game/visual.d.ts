@@ -1,6 +1,6 @@
 // test
 declare module "game/visual" {
-    import { Position, GameObject } from "game/prototypes"; // eslint-disable-line @typescript-eslint/no-unused-vars
+    import { GameObject, Position } from "game/prototypes"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
     export type Color = string;
     export type LineStyle = undefined | "dashed" | "dotted";
@@ -202,4 +202,3 @@ declare module "game/visual" {
         text(text: string, pos: Position, style?: TextVisualStyle): Visual;
     }
 }
-

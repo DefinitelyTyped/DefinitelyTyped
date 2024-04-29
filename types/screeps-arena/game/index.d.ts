@@ -4,7 +4,5 @@
 /// <reference path="visual.d.ts" />
 /// <reference path="prototypes/index.d.ts" />
 
-
 declare module "game" {
-
 }

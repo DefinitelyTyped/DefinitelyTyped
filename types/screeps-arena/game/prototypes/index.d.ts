@@ -15,5 +15,4 @@
 /// <reference path="wall.d.ts" />
 
 declare module "game/prototypes" {
-
 }

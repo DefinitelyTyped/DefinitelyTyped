@@ -2,13 +2,7 @@ import { Flag } from "arena/season_alpha/capture_the_flag/advanced";
 import { ATTACK, RESOURCE_ENERGY } from "game/constants";
 import { CostMatrix } from "game/path-finder";
 import { Creep, Structure, StructureRampart, StructureTower } from "game/prototypes";
-import {
-    createConstructionSite,
-    findClosestByPath,
-    findInRange,
-    findPath,
-    getObjectsByPrototype
-} from "game/utils";
+import { createConstructionSite, findClosestByPath, findInRange, findPath, getObjectsByPrototype } from "game/utils";
 import { Visual } from "game/visual";
 
 export function loop(): void {
@@ -78,13 +72,13 @@ export function loop(): void {
     }
 
     // build a rampart
-    createConstructionSite({x: 10, y: 10}, StructureRampart);
+    createConstructionSite({ x: 10, y: 10 }, StructureRampart);
     // TODO: verify all buildable structure types
     // TODO: cSites .structure property.
 
     // TODO: test utils findXXX methods, theese methods are used by other metods.
 
     // draw a circle around the rampart
-    const visual = new Visual()
-    visual.circle({x: 10, y: 10}) // $ExpectType Visual
+    const visual = new Visual();
+    visual.circle({ x: 10, y: 10 }); // $ExpectType Visual
 }

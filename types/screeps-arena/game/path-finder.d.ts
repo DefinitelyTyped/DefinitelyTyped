@@ -74,7 +74,7 @@ declare module "game/path-finder" {
         clone(): CostMatrix;
     }
 
-    export type Goal = Position | {pos: Position, range: number};
+    export type Goal = Position | { pos: Position; range: number };
 
     /**
      * Find an optimal path between origin and goal.

@@ -2,7 +2,7 @@
 /// <reference path="../../../../../game/prototypes/store.d.ts" />
 
 declare module "arena/season_alpha/collect_and_control/advanced/prototypes" {
-    import {GameObject, ResourceType} from "game/prototypes";
+    import { GameObject, ResourceType } from "game/prototypes";
 
     /** Key game object for this arena. Transfer the corresponding resource to the collector to win the game */
     export class ScoreCollector extends GameObject {
