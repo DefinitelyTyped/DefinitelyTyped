@@ -1,3 +1,5 @@
+import { Optional } from "./types/optional";
+
 declare global {
     const Clerk: Clerk;
 
@@ -9,11 +11,6 @@ declare global {
     }
 }
 
-/**
- * Util for making a list of items partials fram a generic
- */
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
-
 export interface Clerk {
     <T extends ClerkEndpoints>(
         method: "call",
@@ -23,7 +20,7 @@ export interface Clerk {
     (method: "click", attribute: string): void;
 }
 
-interface ClerkProductAttributes {
+export interface ClerkProductAttributes {
     age: number;
     categories: number[];
     created_at: number;
@@ -55,7 +52,7 @@ interface ClerkProductAttributes {
     vendor: string;
 }
 
-interface ClerkCategory {
+export interface ClerkCategory {
     children: unknown[];
     description: string;
     id: number;
@@ -66,7 +63,7 @@ interface ClerkCategory {
     url: string;
 }
 
-interface ClerkPage {
+export interface ClerkPage {
     id: number;
     type: string;
     title: string;
@@ -77,12 +74,12 @@ interface ClerkPage {
     text: string;
 }
 
-interface ClerkArticle extends ClerkPage {
+export interface ClerkArticle extends ClerkPage {
     author: string;
     blog: string;
 }
 
-interface ClerkBaseConfig {
+export interface ClerkBaseConfig {
     /**
      * Limit amount of results
      */
@@ -99,7 +96,7 @@ interface ClerkBaseConfig {
     filter?: string;
 }
 
-interface ClerkFacets {
+export interface ClerkFacets {
     /**
      * @description Facets are most known in searches to narrow down results to eg a single category, brand or price range but can be used with any API endpoint that takes the facets parameter.
      * @link https://docs.clerk.io/docs/facets
@@ -107,19 +104,19 @@ interface ClerkFacets {
     facets?: string[];
 }
 
-interface ClerkConfigProducts extends ClerkBaseConfig {
+export interface ClerkConfigProducts extends ClerkBaseConfig {
     products: Array<number | string>;
     attributes: Array<keyof ClerkProductAttributes>;
     offset?: number;
     exclude?: string[];
 }
 
-interface ClerkConfigSearch extends ClerkBaseConfig {
+export interface ClerkConfigSearch extends ClerkBaseConfig {
     query: string;
     language?: string;
 }
 
-interface ClerkConfigSearchResults extends ClerkConfigSearch, ClerkFacets {
+export interface ClerkConfigSearchResults extends ClerkConfigSearch, ClerkFacets {
     longtail?: boolean;
     offset?: number;
     order?: "asc" | "desc";
@@ -127,16 +124,16 @@ interface ClerkConfigSearchResults extends ClerkConfigSearch, ClerkFacets {
     attributes?: Array<keyof ClerkProductAttributes>;
 }
 
-interface ClerkConfigSearchPages extends ClerkConfigSearch {
+export interface ClerkConfigSearchPages extends ClerkConfigSearch {
     type?: "blog" | "page";
 }
 
-interface ClerkConfigSearchPredictive extends ClerkConfigSearch, ClerkFacets {
+export interface ClerkConfigSearchPredictive extends ClerkConfigSearch, ClerkFacets {
     exclude?: string[];
     attributes?: Array<keyof ClerkProductAttributes>;
 }
 
-type ClerkEndpointsSearch =
+export type ClerkEndpointsSearch =
     | "search/search"
     | "search/popular"
     | "search/predictive"
@@ -144,7 +141,7 @@ type ClerkEndpointsSearch =
     | "search/pages"
     | "search/suggestions";
 
-type ClerkEndpointsProducts =
+export type ClerkEndpointsProducts =
     | "recommendations/popular"
     | "recommendations/trending"
     | "recommendations/new"
@@ -154,9 +151,9 @@ type ClerkEndpointsProducts =
     | "recommendations/complementary"
     | "recommendations/substituting";
 
-type ClerkEndpoints = ClerkEndpointsProducts | ClerkEndpointsSearch;
+export type ClerkEndpoints = ClerkEndpointsProducts | ClerkEndpointsSearch;
 
-interface ConfigTypes {
+export interface ConfigTypes {
     "search/search": ClerkConfigSearchResults;
     "search/pages": ClerkConfigSearchPages;
     "search/predictive": ClerkConfigSearchPredictive;
@@ -173,42 +170,42 @@ interface ConfigTypes {
     "recommendations/substituting": ClerkConfigProducts;
 }
 
-type ConfigType<T extends ClerkEndpoints> = T extends keyof ConfigTypes ? ConfigTypes[T] : never;
+export type ConfigType<T extends ClerkEndpoints> = T extends keyof ConfigTypes ? ConfigTypes[T] : never;
 
-interface ClerkBaseResponse {
+export interface ClerkBaseResponse {
     status: "ok";
     results: number[];
 }
 
-interface ClerkResponseProducts extends ClerkBaseResponse {
+export interface ClerkResponseProducts extends ClerkBaseResponse {
     count: number;
     product_data: ClerkProductAttributes[];
 }
 
-interface ClerkResponseSearchCategory extends ClerkBaseResponse {
+export interface ClerkResponseSearchCategory extends ClerkBaseResponse {
     categories: ClerkCategory[];
 }
 
-interface ClerkResponseSearchSuggestions extends Omit<ClerkBaseResponse, "results"> {
+export interface ClerkResponseSearchSuggestions extends Omit<ClerkBaseResponse, "results"> {
     results: string[];
 }
 
-interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
+export interface ClerkResponseSearchPredictive extends ClerkResponseProducts {
     hits: number;
 }
 
-interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "results"> {
+export interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "results"> {
     pages: Array<ClerkPage | ClerkArticle>;
     results: Array<ClerkPage | ClerkArticle>;
 }
 
-interface ClerkResponseSearchPage extends ClerkBaseResponse {
+export interface ClerkResponseSearchPage extends ClerkBaseResponse {
     count: number;
     hits: number;
     product_data: ClerkProductAttributes[];
 }
 
-interface ClerkResponseTypes {
+export interface ClerkResponseTypes {
     "search/search": ClerkResponseSearchPage;
     "search/pages": ClerkResponseSearchPages;
     "search/predictive": ClerkResponseSearchPredictive;
@@ -225,7 +222,5 @@ interface ClerkResponseTypes {
     "recommendations/substituting": ClerkResponseProducts;
 }
 
-type ClerkResponseType<T extends ClerkEndpoints> = T extends keyof ClerkResponseTypes ? ClerkResponseTypes[T]
+export type ClerkResponseType<T extends ClerkEndpoints> = T extends keyof ClerkResponseTypes ? ClerkResponseTypes[T]
     : never;
-
-export {};

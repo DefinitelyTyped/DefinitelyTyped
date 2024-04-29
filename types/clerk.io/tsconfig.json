@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "clerk.io-tests.ts"
+        "clerk.io-tests.ts",
+        "types/optional.ts"
     ]
 }
