@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/chromecast-caf-sender",
-    "version": "1.0.10",
+    "version": "1.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "Cast Application Framework Sender API",
     "projects": [
