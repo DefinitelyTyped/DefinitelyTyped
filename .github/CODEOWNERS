@@ -923,6 +923,7 @@
 /types/clearbladejs-server/                               @ClearBlade
 /types/cleasby-vigfusson-dictionary/                      @stscoundrel
 /types/cleave.js/                                         @clentfort @jasongi-at-sportsbet @sashashakun
+/types/clerk.io/                                          @tmmgrafikr @andershagbard
 /types/clevertap/                                         @droyson
 /types/clevertap-web-sdk/                                 @sinhaayush7 @KambleSonam
 /types/cli/                                               @kayahr
@@ -4831,6 +4832,7 @@
 /types/mdv/                                               @peterblazejewicz
 /types/mdx/                                               @ChristianMurphy @remcohaszing @wooorm
 /types/mdx-js__react/                                     @ifiokjr
+/types/meaningful-string/                                 @RDIL
 /types/media-typer/                                       @BendingBender @peterblazejewicz
 /types/media-typer/v0/                                    @BendingBender
 /types/medium-editor/                                     @pascaliske
